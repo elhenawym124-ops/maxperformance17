@@ -30,7 +30,7 @@ export function Attachment3DModal({
       >
         <div className="flex items-center justify-between p-4 border-b dark:border-border">
           <div className="flex items-center gap-2 min-w-0">
-            <Box className="w-5 h-5 text-blue-600 flex-shrink-0" />
+            <Box className="w-5 h-5 text-primary flex-shrink-0" />
             <span className="font-semibold text-foreground truncate">
               {attachment.fileName}
             </span>
@@ -65,7 +65,7 @@ export function Attachment3DModal({
           <a
             href={url}
             download={attachment.fileName}
-            className="text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-blue-600 dark:text-primary hover:underline"
           >
             تحميل الملف
           </a>

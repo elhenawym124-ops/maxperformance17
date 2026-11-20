@@ -44,13 +44,13 @@ const PAIRS = [
 
 const CHROMATIC = [
   [/(?:rose|red)/, "destructive"],
-  [/(?:purple|violet|indigo|pink|fuchsia)/, "primary"],
+  [/(?:purple|violet|indigo|pink|fuchsia|blue)/, "primary"],
   [/(?:cyan|sky)/, "info"],
   [/(?:amber|yellow|orange)/, "warning"],
   [/(?:emerald|green|teal|lime)/, "success"],
 ];
 // bg-<hue>-50 pale tints → bg-<sem>/10 ; any other shade → plain semantic token (keep /opacity)
-const RE_CHROMA = /(?:^|\s)((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|from|to|via|fill|stroke|divide|shadow|accent|caret|outline|decoration)-(rose|red|purple|violet|indigo|pink|fuchsia|cyan|sky|amber|yellow|orange|emerald|green|teal|lime)-(\d{2,3})(\/\d+)?/g;
+const RE_CHROMA = /(?:^|\s)((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|from|to|via|fill|stroke|divide|shadow|accent|caret|outline|decoration)-(rose|red|purple|violet|indigo|pink|fuchsia|cyan|sky|amber|yellow|orange|emerald|green|teal|lime|blue)-(\d{2,3})(\/\d+)?/g;
 
 const RE_GRAY = /(?:^|\s)((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|placeholder|divide)-(?:gray|slate|zinc|stone|neutral)-(\d{2,3})(\/\d+)?/g;
 

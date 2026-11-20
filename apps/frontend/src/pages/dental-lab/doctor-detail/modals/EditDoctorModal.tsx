@@ -72,7 +72,7 @@ export function EditDoctorModal({
       >
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold flex items-center gap-2">
-            <Pencil className="w-5 h-5 text-blue-600" />
+            <Pencil className="w-5 h-5 text-primary" />
             {t("dentalLab.doctors.editTitle")}
           </h3>
           <button
@@ -185,7 +185,7 @@ export function EditDoctorModal({
               id="doc-active"
               checked={isActive}
               onChange={(e) => setIsActive(e.target.checked)}
-              className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-border"
+              className="w-4 h-4 rounded text-primary focus:ring-primary border-border"
             />
             <label
               htmlFor="doc-active"
@@ -207,7 +207,7 @@ export function EditDoctorModal({
           <button
             onClick={save}
             disabled={saving}
-            className="px-5 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2 font-medium transition-colors"
+            className="px-5 py-2 text-sm bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2 font-medium transition-colors"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
             {saving ? t("dentalLab.common.saving") : t("dentalLab.common.save")}

@@ -66,7 +66,7 @@ export const FeedbackReplyDialog: React.FC<FeedbackReplyDialogProps> = ({
               onSubmit();
             }}
             disabled={replyLoading || !replyText.trim()}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 text-lg"
+            className="flex-1 bg-primary hover:bg-primary text-white font-bold h-12 text-lg"
           >
             {replyLoading ? "جاري الإرسال..." : "إرسال الرد"}
           </Button>

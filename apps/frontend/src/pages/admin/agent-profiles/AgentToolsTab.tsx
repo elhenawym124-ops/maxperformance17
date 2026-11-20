@@ -169,12 +169,12 @@ export default function AgentToolsTab({
         </div>
 
         <div className="rounded-xl border border-border/70 bg-card p-2 sm:p-3.5 flex flex-col sm:flex-row items-center sm:items-center text-center sm:text-start gap-1 sm:gap-3">
-          <div className="size-7 sm:size-10 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+          <div className="size-7 sm:size-10 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center shrink-0">
             <ShieldCheck className="size-3.5 sm:size-5" />
           </div>
           <div className="min-w-0">
             <p className="text-[10px] sm:text-xs text-muted-foreground truncate">{t("agentProfiles.tools.readTools", "أدوات قراءة")}</p>
-            <p className="text-base sm:text-xl font-black text-blue-600 dark:text-blue-400">{readToolsCount}</p>
+            <p className="text-base sm:text-xl font-black text-primary dark:text-primary">{readToolsCount}</p>
           </div>
         </div>
 
@@ -219,7 +219,7 @@ export default function AgentToolsTab({
               className={cn(
                 "flex-1 sm:flex-initial px-3 py-1.5 min-h-[34px] sm:min-h-[28px] text-xs rounded-md font-medium transition-all text-center",
                 typeFilter === "read"
-                  ? "bg-card text-blue-600 dark:text-blue-400 shadow-sm font-semibold"
+                  ? "bg-card text-primary dark:text-primary shadow-sm font-semibold"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -285,7 +285,7 @@ export default function AgentToolsTab({
                         {t("agentProfiles.tools.sideEffectWrite", "تنفيذ وتعديل")}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full shrink-0">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary dark:text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full shrink-0">
                         <ShieldCheck className="size-2.5" />
                         {t("agentProfiles.tools.sideEffectRead", "قراءة واستعلام")}
                       </span>

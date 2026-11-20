@@ -55,7 +55,7 @@ export const leaveTypeConfig: Record<string, LeaveTypeOption> = {
     color: "bg-gray-100 text-foreground",
   },
   MATERNITY: { labelKey: "employee.leaves.maternity", icon: Baby, color: "bg-pink-100 text-primary" },
-  PATERNITY: { labelKey: "employee.leaves.paternity", icon: Baby, color: "bg-blue-100 text-blue-800" },
+  PATERNITY: { labelKey: "employee.leaves.paternity", icon: Baby, color: "bg-blue-100 text-primary" },
   BEREAVEMENT: {
     labelKey: "employee.leaves.funeral",
     icon: Heart,

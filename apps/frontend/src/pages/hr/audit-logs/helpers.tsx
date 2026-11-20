@@ -61,7 +61,7 @@ export const getActionIcon = (action: string): React.ReactNode => {
     case "REJECT":
       return <XCircle className="h-4 w-4 text-destructive" />;
     case "UPDATE":
-      return <Edit className="h-4 w-4 text-blue-500" />;
+      return <Edit className="h-4 w-4 text-primary" />;
     case "CREATE":
       return <CheckCircle className="h-4 w-4 text-primary" />;
     case "DELETE":
@@ -84,7 +84,7 @@ export const getActionBadge = (action: string): React.ReactNode => {
     REJECT:
       "bg-red-100 text-destructive border-destructive dark:bg-destructive/30 dark:text-destructive",
     UPDATE:
-      "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400",
+      "bg-blue-100 text-primary border-primary dark:bg-primary/30 dark:text-primary",
     CREATE:
       "bg-purple-100 text-primary border-primary dark:bg-primary/30 dark:text-primary",
     DELETE:

@@ -101,7 +101,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                 setDefaultRole('OTHER');
                 setIsCategoryModalOpen(true);
               }}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+              className="text-blue-600 hover:text-primary text-sm font-medium"
             >
               {t('returns.k_174')}
             </button>
@@ -138,7 +138,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                         setDefaultRole(cat.defaultRole);
                         setIsCategoryModalOpen(true);
                       }}
-                      className="text-gray-400 hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="text-gray-400 hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       <Edit2 size={16} />
                     </button>
@@ -169,7 +169,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                 setSelectedCategoryId(categories[0]?.id || '');
                 setIsReasonModalOpen(true);
               }}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+              className="text-blue-600 hover:text-primary text-sm font-medium"
             >
               {t('returns.k_177')}
             </button>
@@ -223,7 +223,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-xs bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-md border border-blue-100 dark:border-blue-900/30">
+                        <span className="text-xs bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary px-2 py-1 rounded-md border border-primary dark:border-primary/30">
                           {reason.category?.name || t('returns.k_108')}
                         </span>
                       </td>
@@ -248,7 +248,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                               setSelectedCategoryId(reason.categoryId || '');
                               setIsReasonModalOpen(true);
                             }}
-                            className="text-blue-600 hover:text-blue-500 dark:text-blue-400"
+                            className="text-blue-600 hover:text-primary dark:text-primary"
                           >
                             <Edit2 size={16} />
                           </button>

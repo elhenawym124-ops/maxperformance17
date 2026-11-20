@@ -151,7 +151,7 @@ export const CustomerWhatsAppMessageEditor: React.FC<CustomerWhatsAppMessageEdit
         <button
           type="button"
           onClick={() => insertVariable("{customer_link}")}
-          className="rounded border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 text-[10px] font-mono font-medium text-blue-700 hover:bg-blue-500/20 dark:text-blue-300 flex items-center gap-1"
+          className="rounded border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] font-mono font-medium text-primary hover:bg-primary/20 dark:text-primary flex items-center gap-1"
         >
           <Link2 className="h-2.5 w-2.5" />
           {`{customer_link}`}

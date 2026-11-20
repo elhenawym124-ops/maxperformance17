@@ -50,7 +50,7 @@ export const DentalCaseEditFooter: React.FC<DentalCaseEditFooterProps> = ({
           type="button"
           onClick={onSave}
           disabled={saving}
-          className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2 font-semibold shadow-sm transition-colors"
+          className="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2 font-semibold shadow-sm transition-colors"
         >
           {saving && <Loader2 className="w-4 h-4 animate-spin" />}
           {t("dentalLab.common.save")}

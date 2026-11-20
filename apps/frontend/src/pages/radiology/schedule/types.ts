@@ -40,7 +40,7 @@ export interface Appointment {
 export const STATUS_META: Record<string, { label: string; color: string }> = {
   SCHEDULED: {
     label: "radiology.appointmentStatus.SCHEDULED",
-    color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
   },
   CHECKED_IN: {
     label: "radiology.appointmentStatus.CHECKED_IN",

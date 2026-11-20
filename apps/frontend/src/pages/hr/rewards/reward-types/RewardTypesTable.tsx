@@ -62,7 +62,7 @@ export const RewardTypesTable: React.FC<RewardTypesTableProps> = ({
             </TableCell>
             <TableCell className="flex gap-2">
               <Button variant="ghost" size="sm" onClick={() => onEdit(type)}>
-                <Edit className="h-4 w-4 text-blue-500" />
+                <Edit className="h-4 w-4 text-primary" />
               </Button>
               {canUserDeleteReward(userRole) && (
                 <Button

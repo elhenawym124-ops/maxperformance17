@@ -43,7 +43,7 @@ export const FacebookAdsConnectionSources: React.FC<Props> = ({
       </div>
       {loading ? (
         <div className="flex items-center gap-2 px-4 py-4 text-xs font-medium text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
+          <Loader2 className="h-4 w-4 animate-spin text-primary" />
           {t.loadingSources}
         </div>
       ) : sources.length ? (
@@ -65,7 +65,7 @@ export const FacebookAdsConnectionSources: React.FC<Props> = ({
                 className="flex flex-col gap-3 p-4 transition-colors hover:bg-muted sm:flex-row sm:items-center sm:justify-between dark:hover:bg-muted"
               >
                 <div className="flex min-w-0 items-center gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-300">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/60 dark:text-primary">
                     <Users className="h-4 w-4" />
                   </span>
                   <div className="min-w-0">

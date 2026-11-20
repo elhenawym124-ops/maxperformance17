@@ -23,7 +23,7 @@ export const RewardDetailsSidebar: React.FC<RewardDetailsSidebarProps> = ({
       {/* Reward Type Info */}
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-          <Info className="w-5 h-5 text-blue-600" />
+          <Info className="w-5 h-5 text-primary" />
           نوع المكافأة
         </h3>
         <div className="space-y-3">
@@ -69,7 +69,7 @@ export const RewardDetailsSidebar: React.FC<RewardDetailsSidebarProps> = ({
         </h3>
         <div className="space-y-4">
           <div className="flex items-start gap-3">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2" />
+            <div className="w-2 h-2 bg-primary rounded-full mt-2" />
             <div>
               <p className="text-sm font-medium text-foreground">تم الإنشاء</p>
               <p className="text-xs text-foreground font-mono tabular-nums">
@@ -92,7 +92,7 @@ export const RewardDetailsSidebar: React.FC<RewardDetailsSidebarProps> = ({
 
           {reward.appliedAt && (
             <div className="flex items-start gap-3">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2" />
+              <div className="w-2 h-2 bg-primary rounded-full mt-2" />
               <div>
                 <p className="text-sm font-medium text-foreground">تم التطبيق</p>
                 <p className="text-xs text-foreground font-mono tabular-nums">

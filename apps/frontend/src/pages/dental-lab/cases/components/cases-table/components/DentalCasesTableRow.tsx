@@ -50,7 +50,7 @@ export const DentalCasesTableRow: React.FC<DentalCasesTableRowProps> = ({
       onClick={() => onInspectCase(dentalCase)}
       className={`border-b border-border dark:border-border cursor-pointer transition-colors ${
         isSelected
-          ? "bg-blue-50/40 dark:bg-blue-950/20 hover:bg-blue-50/70"
+          ? "bg-blue-50/40 dark:bg-primary/20 hover:bg-primary/70"
           : isOverdue
           ? "bg-rose-50/30 dark:bg-destructive/15 hover:bg-destructive/60"
           : "hover:bg-slate-50/80 dark:hover:bg-muted"
@@ -62,14 +62,14 @@ export const DentalCasesTableRow: React.FC<DentalCasesTableRowProps> = ({
       >
         <input
           type="checkbox"
-          className="rounded border-border dark:border-border text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer align-middle"
+          className="rounded border-border dark:border-border text-primary focus:ring-primary w-3.5 h-3.5 cursor-pointer align-middle"
           checked={isSelected}
           onChange={() => toggleSelect(dentalCase.id)}
           aria-label={`تحديد حالة ${dentalCase.caseNumber || dentalCase.id}`}
         />
       </td>
       <td
-        className="py-2 px-3 font-mono font-bold text-xs whitespace-nowrap text-blue-600 dark:text-blue-400"
+        className="py-2 px-3 font-mono font-bold text-xs whitespace-nowrap text-primary dark:text-primary"
         dir="ltr"
       >
         <Link
@@ -96,7 +96,7 @@ export const DentalCasesTableRow: React.FC<DentalCasesTableRowProps> = ({
       </td>
       <td className="py-2 px-3">
         <div className="text-xs font-medium text-foreground dark:text-muted-foreground truncate max-w-[130px] flex items-center gap-1">
-          <Stethoscope className="w-3 h-3 text-blue-500 shrink-0 opacity-70" />
+          <Stethoscope className="w-3 h-3 text-primary shrink-0 opacity-70" />
           <span>{dentalCase.doctorName ? `د. ${dentalCase.doctorName}` : "—"}</span>
         </div>
       </td>

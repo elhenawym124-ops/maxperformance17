@@ -66,7 +66,7 @@ export function statusBadge(status: string | null): string {
     CONFIRMED: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
     PENDING: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
     CANCELLED: "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
-    DELIVERED: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+    DELIVERED: "bg-blue-500/10 text-primary dark:text-primary border border-primary/20",
     PROCESSING: "bg-indigo-500/10 text-primary border border-primary/20",
     SHIPPED: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
     REFUNDED: "bg-orange-500/10 text-warning dark:text-warning border border-warning/20",

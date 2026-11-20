@@ -168,7 +168,7 @@ export const HubReceivePage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <ScanLine className="w-6 h-6 text-blue-600" />
+            <ScanLine className="w-6 h-6 text-primary" />
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
               {isEn ? 'Hub Inward & Sorting Bench' : 'استلام وفرز في الهاَب (Hub Inward)'}
             </h1>
@@ -191,7 +191,7 @@ export const HubReceivePage: React.FC = () => {
                 {isEn ? 'Barcode / Waybill / Tracking # *' : 'رقم الباركود / رقم البوليصة / التتبع (مسح فوري) *'}
               </label>
               <div className="relative">
-                <ScanLine className="w-5 h-5 absolute top-3 rtl:right-3 ltr:left-3 text-blue-600" />
+                <ScanLine className="w-5 h-5 absolute top-3 rtl:right-3 ltr:left-3 text-primary" />
                 <input
                   ref={barcodeInputRef}
                   type="text"
@@ -200,7 +200,7 @@ export const HubReceivePage: React.FC = () => {
                   onChange={(e) => setBarcodeInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={isEn ? 'Scan barcode or enter tracking # and press Enter...' : 'امسح الباركود بالمسدس أو اكتب واضغط Enter...'}
-                  className="w-full rtl:pe-10 ltr:ps-10 py-2.5 text-base sm:text-lg font-mono font-bold bg-muted dark:bg-muted border-2 border-blue-200 dark:border-blue-900/60 rounded-xl focus:border-blue-600 dark:focus:border-blue-500 outline-none transition"
+                  className="w-full rtl:pe-10 ltr:ps-10 py-2.5 text-base sm:text-lg font-mono font-bold bg-muted dark:bg-muted border-2 border-primary dark:border-primary/60 rounded-xl focus:border-primary dark:focus:border-primary outline-none transition"
                   autoFocus
                 />
               </div>
@@ -221,7 +221,7 @@ export const HubReceivePage: React.FC = () => {
                   onChange={(e) => setActualWeightInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="مثال: 3.2"
-                  className="w-full rtl:pe-9 ltr:ps-9 py-2.5 text-sm font-semibold bg-muted dark:bg-muted border border-border dark:border-border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                  className="w-full rtl:pe-9 ltr:ps-9 py-2.5 text-sm font-semibold bg-muted dark:bg-muted border border-border dark:border-border rounded-xl outline-none focus:ring-2 focus:ring-primary tabular-nums"
                 />
               </div>
             </div>
@@ -247,7 +247,7 @@ export const HubReceivePage: React.FC = () => {
                 </select>
               </div>
               {branchCustodyCount !== null && (
-                <div className="flex items-center gap-1.5 text-[11px] text-blue-600 dark:text-blue-400 font-medium">
+                <div className="flex items-center gap-1.5 text-[11px] text-primary dark:text-primary font-medium">
                   <Package className="w-3.5 h-3.5" />
                   <span>عهدة الفرع الحالية: <strong className="font-mono">{branchCustodyCount}</strong> شحنة</span>
                 </div>
@@ -264,7 +264,7 @@ export const HubReceivePage: React.FC = () => {
             <button
               type="submit"
               disabled={loading || !barcodeInput.trim()}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-md transition active:scale-95 disabled:opacity-40 flex items-center gap-2"
+              className="px-6 py-2.5 bg-primary hover:bg-primary text-white rounded-xl font-bold text-sm shadow-md transition active:scale-95 disabled:opacity-40 flex items-center gap-2"
             >
               {loading ? (
                 <>
@@ -362,7 +362,7 @@ export const HubReceivePage: React.FC = () => {
               ) : (
                 historyLog.map((item, idx) => (
                   <tr key={`${item.id}-${idx}`} className="hover:bg-slate-50 dark:hover:bg-muted">
-                    <td className="px-4 py-3 font-mono font-bold text-blue-600 dark:text-blue-400">
+                    <td className="px-4 py-3 font-mono font-bold text-primary dark:text-primary">
                       {item.trackingNumber}
                     </td>
                     <td className="px-4 py-3">
@@ -387,7 +387,7 @@ export const HubReceivePage: React.FC = () => {
                     <td className="px-4 py-3 text-center">
                       <button
                         onClick={() => printShipmentLabel(item.id, item.trackingNumber)}
-                        className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                        className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                         title="طباعة البوليصة"
                       >
                         <Printer className="w-4 h-4" />

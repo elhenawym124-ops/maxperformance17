@@ -51,7 +51,7 @@ export const statusOptions: StatusOption[] = [
   { value: "PRESENT", label: "حاضر", color: "bg-green-100 text-success" },
   { value: "LATE", label: "متأخر", color: "bg-yellow-100 text-warning" },
   { value: "ABSENT", label: "غائب", color: "bg-red-100 text-destructive" },
-  { value: "HALF_DAY", label: "نصف يوم", color: "bg-blue-100 text-blue-800" },
+  { value: "HALF_DAY", label: "نصف يوم", color: "bg-blue-100 text-primary" },
   { value: "ON_LEAVE", label: "إجازة", color: "bg-purple-100 text-primary" },
   { value: "REMOTE", label: "عن بُعد", color: "bg-indigo-100 text-primary" },
 ];

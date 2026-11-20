@@ -121,7 +121,7 @@ export default function RadiologistsTab() {
           <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
-          <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+          <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm">
             <Plus className="w-4 h-4" />{t("radiology.radiologists.newRadiologist")}
           </button>
         </div>
@@ -152,13 +152,13 @@ export default function RadiologistsTab() {
                       ) : null}
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${r.location === "ON_SITE" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" : "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary"}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${r.location === "ON_SITE" ? "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" : "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary"}`}>
                         {t(locationLabel(r.location))}
                       </span>
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-1.5">
-                        <button onClick={() => openEdit(r)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
+                        <button onClick={() => openEdit(r)} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
                         <button onClick={() => remove(r)} className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>
@@ -195,7 +195,7 @@ export default function RadiologistsTab() {
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.cancel")}</button>
-              <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
+              <button onClick={save} disabled={saving} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>

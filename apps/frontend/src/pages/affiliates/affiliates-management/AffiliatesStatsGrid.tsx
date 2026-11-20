@@ -54,7 +54,7 @@ export const AffiliatesStatsGrid: React.FC<AffiliatesStatsGridProps> = ({
 
       <div className={cardClass}>
         <div className="text-xs sm:text-sm text-muted-foreground mb-1">إجمالي العمولات</div>
-        <div className="text-xl sm:text-3xl font-bold text-blue-500 tabular-nums">
+        <div className="text-xl sm:text-3xl font-bold text-primary tabular-nums">
           {stats.totalEarnings}
         </div>
         <div className="text-[10px] sm:text-xs text-muted-foreground mt-1 sm:mt-2">

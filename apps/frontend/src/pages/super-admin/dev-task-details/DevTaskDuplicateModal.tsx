@@ -135,10 +135,10 @@ export const DevTaskDuplicateModal: React.FC<DevTaskDuplicateModalProps> = ({
             </label>
           </div>
 
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-lg p-4">
+          <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary/30 rounded-lg p-4">
             <div className="flex gap-3">
-              <LightBulbIcon className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-blue-800 dark:text-blue-300">
+              <LightBulbIcon className="h-5 w-5 text-primary dark:text-primary flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-primary dark:text-primary">
                 <p className="font-medium mb-1">ملاحظة:</p>
                 <ul className="list-disc list-inside space-y-1 text-xs">
                   <li>سيتم إنشاء المهمة بحالة &quot;Backlog&quot;</li>

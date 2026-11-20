@@ -101,7 +101,7 @@ export const UpsellPostPurchaseSection: React.FC<UpsellPostPurchaseSectionProps>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-4 dark:border-blue-900/40 dark:bg-blue-950/20">
+              <div className="rounded-xl border border-primary bg-primary/80 p-4 dark:border-primary/40 dark:bg-primary/20">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -146,7 +146,7 @@ export const UpsellPostPurchaseSection: React.FC<UpsellPostPurchaseSectionProps>
           </PlacementPreview>
 
           <div className="rounded-[28px] border border-border bg-muted p-5 dark:border-border dark:bg-muted">
-            <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
               UX Notes
             </div>
             <h3 className="mt-2 text-xl font-black text-foreground">

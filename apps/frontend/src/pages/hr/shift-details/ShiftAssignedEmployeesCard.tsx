@@ -59,8 +59,8 @@ export const ShiftAssignedEmployeesCard: React.FC<
                 className="flex items-center justify-between p-4 border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                    <Users className="h-5 w-5 text-blue-600" />
+                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                    <Users className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     {assignment.user ? (

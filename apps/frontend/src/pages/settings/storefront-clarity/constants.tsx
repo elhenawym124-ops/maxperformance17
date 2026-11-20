@@ -36,13 +36,13 @@ export const FEATURES: ClarityFeature[] = [
     color: 'border-red-100 bg-destructive/10 dark:border-destructive/30 dark:bg-destructive/20',
   },
   {
-    icon: <FunnelIcon className="h-6 w-6 text-blue-500" />,
+    icon: <FunnelIcon className="h-6 w-6 text-primary" />,
     titleKey: 'clarity.feature.funnels',
     title: 'تحليل قمع المبيعات',
     subtitle: 'Funnel Analysis',
     descKey: 'clarity.feature.funnels.desc',
     desc: 'اكتشف فين الناس بتوقف قبل الشراء وحسن معدل التحويل.',
-    color: 'border-blue-100 bg-blue-50 dark:border-blue-800/30 dark:bg-blue-900/20',
+    color: 'border-blue-100 bg-primary/10 dark:border-primary/30 dark:bg-primary/20',
   },
 ];
 

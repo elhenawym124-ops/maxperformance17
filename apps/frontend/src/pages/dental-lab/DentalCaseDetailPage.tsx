@@ -42,7 +42,7 @@ export default function DentalCaseDetailPage() {
         <div className="bg-red-50 dark:bg-destructive/30 text-destructive dark:text-destructive border border-destructive dark:border-destructive rounded-lg px-4 py-2 text-sm mb-4">
           {detailState.error || t("dentalLab.common.noData")}
         </div>
-        <Link to="/dental-lab/cases" className="text-blue-600 dark:text-blue-400 text-sm">
+        <Link to="/dental-lab/cases" className="text-blue-600 dark:text-primary text-sm">
           {t("dentalLab.common.back")}
         </Link>
       </div>

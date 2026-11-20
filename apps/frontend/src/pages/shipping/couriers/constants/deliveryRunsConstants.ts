@@ -10,7 +10,7 @@ export const STATUS_CONFIG: Record<string, StatusConfig> = {
   },
   COMPLETED: {
     label: 'اكتمل التوصيل',
-    color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 border-blue-200 dark:border-blue-800'
+    color: 'bg-blue-50 text-primary dark:bg-primary/40 dark:text-primary border-primary dark:border-primary'
   },
   SETTLED: {
     label: 'تمت التسوية والتوريد',

@@ -209,13 +209,13 @@ export default function EscalationHistory() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-blue-600 dark:text-blue-400">الصفحة الحالية</p>
-            <p className="text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-primary dark:text-primary">الصفحة الحالية</p>
+            <p className="text-xl font-bold tracking-tight text-primary dark:text-primary font-mono tabular-nums mt-0.5">
               {page} / {totalPages}
             </p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">تصفح السجلات</p>
           </div>
-          <div className="size-7 rounded-md bg-blue-500/10 flex items-center justify-center text-blue-600">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary">
             <span className="text-xs font-mono font-bold">PG</span>
           </div>
         </div>

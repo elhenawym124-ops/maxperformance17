@@ -141,7 +141,7 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                   </td>
                   <td className="py-3.5 px-4 tabular-nums font-mono">
                     {c.activeShipmentsCount > 0 ? (
-                      <span className="font-semibold text-blue-600 dark:text-blue-400">
+                      <span className="font-semibold text-primary dark:text-primary">
                         {c.activeShipmentsCount} طرد
                       </span>
                     ) : (
@@ -174,7 +174,7 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                         <button
                           onClick={() => onOpenDocuments(c)}
                           title="إدارة مستندات وتوثيق المندوب"
-                          className="p-1.5 text-blue-600 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                          className="p-1.5 text-primary hover:text-primary dark:hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                         >
                           <DocumentTextIcon className="w-4 h-4" />
                         </button>

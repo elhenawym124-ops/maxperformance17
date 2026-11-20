@@ -45,7 +45,7 @@ export const EditPromotionMovementSection: React.FC<
 
       {/* Arrow */}
       <div className="md:col-span-1 flex justify-center py-4 md:py-0">
-        <div className="bg-blue-100 p-2 rounded-full text-blue-600">
+        <div className="bg-blue-100 p-2 rounded-full text-primary">
           <ArrowLeft className="h-6 w-6" />
         </div>
       </div>
@@ -61,7 +61,7 @@ export const EditPromotionMovementSection: React.FC<
               required: "المنصب الجديد مطلوب",
             })}
             placeholder="اسم المنصب الجديد"
-            className="bg-blue-50/50 border-blue-200 focus-visible:ring-blue-400 font-medium text-blue-900"
+            className="bg-blue-50/50 border-primary focus-visible:ring-blue-400 font-medium text-primary"
           />
           {errors.toPositionName && (
             <p className="text-xs text-destructive">
@@ -74,12 +74,12 @@ export const EditPromotionMovementSection: React.FC<
             الراتب الجديد
           </Label>
           <div className="relative">
-            <DollarSign className="absolute right-3 top-2.5 h-4 w-4 text-blue-500" />
+            <DollarSign className="absolute right-3 top-2.5 h-4 w-4 text-primary" />
             <Input
               type="number"
               {...register("toSalary", { valueAsNumber: true })}
               placeholder="0.00"
-              className="pe-9 bg-blue-50/50 border-blue-200 text-blue-900 font-bold font-mono tabular-nums"
+              className="pe-9 bg-primary/50 border-primary text-primary font-bold font-mono tabular-nums"
             />
           </div>
         </div>

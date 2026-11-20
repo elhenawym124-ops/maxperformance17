@@ -227,7 +227,7 @@ function ResultsEntryModal({ orderId, onClose, onSaved }: { orderId: string; onC
               {incompleteCount > 0 && (
                 <p className="text-sm text-warning dark:text-warning">حدد النتائج لكل الباراميترات ذات الخيارات قبل الحفظ</p>
               )}
-              <button onClick={handleSave} disabled={saving || incompleteCount > 0} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
+              <button onClick={handleSave} disabled={saving || incompleteCount > 0} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}حفظ النتائج
               </button>
             </div>
@@ -440,7 +440,7 @@ export default function OrdersTab() {
                       <td className="py-3 px-4 text-muted-foreground/80 whitespace-nowrap">{fmtDate(o.createdAt)}</td>
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <button onClick={() => setDetailOrderId(o.id)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title="إدخال النتائج"><ClipboardList className="w-4 h-4" /></button>
+                          <button onClick={() => setDetailOrderId(o.id)} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title="إدخال النتائج"><ClipboardList className="w-4 h-4" /></button>
                           <button onClick={() => viewReport(o.id)} className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded" title="عرض التقرير PDF"><FileText className="w-4 h-4" /></button>
                           <button onClick={() => viewLabel(o.id)} className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title="طباعة لاصقة العينة"><Tag className="w-4 h-4" /></button>
                           {o.sampleStatus === "REJECTED" ? (
@@ -495,7 +495,7 @@ export default function OrdersTab() {
               <button
                 onClick={() => runAction(confirmAction.id, confirmAction.kind)}
                 disabled={busyId === confirmAction.id}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2"
               >
                 {busyId === confirmAction.id && <Loader2 className="w-4 h-4 animate-spin" />}تأكيد
               </button>

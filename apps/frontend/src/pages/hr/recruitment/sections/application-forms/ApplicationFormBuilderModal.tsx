@@ -88,7 +88,7 @@ export const ApplicationFormBuilderModal: React.FC<
                         title: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
                     placeholder="مثال: استبيان التقديم لوظيفة مطور"
                   />
                 </div>
@@ -108,7 +108,7 @@ export const ApplicationFormBuilderModal: React.FC<
                           .replace(/[^a-z0-9-]/g, ""),
                       }))
                     }
-                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent font-mono"
                     placeholder="مثال: senior-developer-form"
                   />
                   <p className="text-xs text-muted-foreground mt-1 font-mono">
@@ -127,7 +127,7 @@ export const ApplicationFormBuilderModal: React.FC<
                         jobId: e.target.value,
                       }))
                     }
-                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
                   >
                     <option value="">بدون وظيفة محددة</option>
                     {jobs.map((job) => (
@@ -152,7 +152,7 @@ export const ApplicationFormBuilderModal: React.FC<
                     }))
                   }
                   rows={2}
-                  className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
                   placeholder="وصف مختصر للاستبيان..."
                 />
               </div>
@@ -168,7 +168,7 @@ export const ApplicationFormBuilderModal: React.FC<
                       isActive: e.target.checked,
                     }))
                   }
-                  className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                  className="w-5 h-5 text-primary rounded focus:ring-primary"
                 />
                 <label
                   htmlFor="isActive"
@@ -179,15 +179,15 @@ export const ApplicationFormBuilderModal: React.FC<
               </div>
 
               {showEditModal && selectedForm && (
-                <div className="bg-gradient-to-r from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 rounded-xl p-4 border-2 border-blue-200 dark:border-blue-700">
+                <div className="bg-gradient-to-r from-primary to-primary dark:from-primary/20 dark:to-primary/20 rounded-xl p-4 border-2 border-primary dark:border-primary">
                   <div className="flex items-start gap-3">
-                    <LinkIcon className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" />
+                    <LinkIcon className="w-6 h-6 text-primary dark:text-primary flex-shrink-0 mt-1" />
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm font-bold text-foreground dark:text-white mb-2">
                         رابط الاستبيان للمتقدمين
                       </h4>
                       <div className="bg-card rounded-lg p-3 mb-3">
-                        <p className="text-sm text-blue-600 dark:text-blue-400 font-mono break-all">
+                        <p className="text-sm text-primary dark:text-primary font-mono break-all">
                           {window.location.origin}/apply/
                           {newForm.slug || selectedForm.id}
                         </p>
@@ -197,7 +197,7 @@ export const ApplicationFormBuilderModal: React.FC<
                         onClick={() =>
                           onCopyFormLink(newForm.slug || selectedForm.id)
                         }
-                        className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all flex items-center justify-center gap-2 font-medium"
+                        className="w-full px-4 py-2 bg-primary hover:bg-primary text-white rounded-lg transition-all flex items-center justify-center gap-2 font-medium"
                       >
                         <LinkIcon className="w-5 h-5" />
                         نسخ الرابط
@@ -230,7 +230,7 @@ export const ApplicationFormBuilderModal: React.FC<
               </button>
               <button
                 onClick={onSubmit}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all"
+                className="px-6 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:shadow-lg transition-all"
               >
                 {showEditModal ? "حفظ التعديلات" : "إنشاء الاستبيان"}
               </button>

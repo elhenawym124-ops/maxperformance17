@@ -82,7 +82,7 @@ export default function StudyDetails({ studyId }: { studyId: string }) {
           <div className="flex justify-center gap-3">
             <button
               onClick={() => void load()}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm cursor-pointer"
             >
               <RefreshCw className="w-4 h-4" />
               {t("radiology.reports.retry")}

@@ -39,7 +39,7 @@ export const LeadFormsTable: React.FC<LeadFormsTableProps> = ({
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -117,7 +117,7 @@ export const LeadFormsTable: React.FC<LeadFormsTableProps> = ({
                 <td className="px-4 py-3">
                   <button
                     onClick={() => onViewLeads(form)}
-                    className="inline-flex items-center gap-1 px-3 py-1.5 text-blue-700 bg-blue-50 rounded-lg hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 text-primary bg-primary/10 rounded-lg hover:bg-primary dark:bg-primary/30 dark:text-primary dark:hover:bg-primary/50"
                   >
                     <Eye className="w-4 h-4" />
                     عرض البيانات

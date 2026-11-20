@@ -34,7 +34,7 @@ export const MyCompaniesAttendanceTab: React.FC<
           <select
             value={selectedMonth}
             onChange={(e) => onMonthChange(Number(e.target.value))}
-            className="form-select rounded-md border-border dark:bg-muted dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="form-select rounded-md border-border dark:bg-muted dark:text-white shadow-sm focus:border-primary focus:ring-primary"
           >
             {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
               <option key={m} value={m}>
@@ -49,7 +49,7 @@ export const MyCompaniesAttendanceTab: React.FC<
           <select
             value={selectedYear}
             onChange={(e) => onYearChange(Number(e.target.value))}
-            className="form-select rounded-md border-border dark:bg-muted dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 font-mono tabular-nums"
+            className="form-select rounded-md border-border dark:bg-muted dark:text-white shadow-sm focus:border-primary focus:ring-primary font-mono tabular-nums"
           >
             {[2024, 2025, 2026].map((y) => (
               <option key={y} value={y}>

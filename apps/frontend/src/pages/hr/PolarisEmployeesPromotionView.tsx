@@ -142,9 +142,9 @@ export const PolarisEmployeesPromotionView: React.FC<
           <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">مكتملة التنفيذ</span>
-              <Sparkles className="h-4 w-4 text-blue-500" />
+              <Sparkles className="h-4 w-4 text-primary" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-blue-600">
+            <div className="text-xl font-bold font-mono tabular-nums text-primary">
               {stats.completed}
             </div>
           </Card>

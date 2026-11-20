@@ -70,15 +70,15 @@ export const LeavesReportTab: React.FC<LeavesReportTabProps> = ({
                       <p className="text-gray-500 text-sm font-medium">
                         الأيام المستهلكة
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-blue-600 font-mono tabular-nums">
+                      <h3 className="text-3xl font-bold mt-1 text-primary font-mono tabular-nums">
                         {leaveReport.totalDaysTaken}
                       </h3>
                       <p className="text-xs text-muted-foreground mt-1">
                         يوم إجازة إجمالي
                       </p>
                     </div>
-                    <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
-                      <Calendar className="h-6 w-6 text-blue-500" />
+                    <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-full">
+                      <Calendar className="h-6 w-6 text-primary" />
                     </div>
                   </div>
                 </CardContent>

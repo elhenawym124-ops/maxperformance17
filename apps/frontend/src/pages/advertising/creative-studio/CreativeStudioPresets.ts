@@ -12,7 +12,7 @@ export const CREATIVE_STUDIO_PRESETS: CreativePreset[] = [
       "commercial lifestyle street photography, resting on a clean modern urban asphalt sidewalk, soft morning natural sunlight, subtle pavement texture, shallow depth of field, blurred warm city background, hyper-realistic, 8k commercial quality",
     lightingStyle: "شمس صباحية طبيعية مع ظلال رصيف ناعمة",
     previewGradient: "from-stone-800 via-neutral-900 to-black",
-    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+    badgeColor: "bg-blue-500/20 text-primary border-primary/30",
   },
   {
     id: "lifestyle-scandi",

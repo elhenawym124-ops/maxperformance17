@@ -1299,7 +1299,7 @@ export default function WholesaleCustomerDetail() {
                               ? "bg-red-500/10 text-destructive border-destructive/30"
                               : tx.type === "PAYMENT"
                               ? "bg-emerald-500/10 text-success border-success/30"
-                              : "bg-blue-500/10 text-blue-600 border-blue-500/30"
+                              : "bg-blue-500/10 text-primary border-primary/30"
                           }`}
                         >
                           {tx.type === "INVOICE" ? "فاتورة طلب" : tx.type === "PAYMENT" ? "سداد دفعة" : tx.type}
@@ -1705,7 +1705,7 @@ export default function WholesaleCustomerDetail() {
                                 ? "bg-emerald-500/10 text-success border-success/30"
                                 : log.action === "SUSPEND" || log.action === "REJECT"
                                 ? "bg-red-500/10 text-destructive border-destructive/30"
-                                : "bg-blue-500/10 text-blue-600 border-blue-500/30"
+                                : "bg-blue-500/10 text-primary border-primary/30"
                             }`}
                           >
                             {log.action}

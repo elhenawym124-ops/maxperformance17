@@ -214,7 +214,7 @@ export const ShippingParcelsList: React.FC = () => {
                     <button
             type="button"
             onClick={() => setShowIntlModal(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 dark:text-blue-300 dark:bg-blue-950/40 dark:hover:bg-blue-950/60 border border-blue-200 dark:border-blue-800 rounded-lg shadow-xs transition active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-semibold text-primary bg-primary/10 hover:bg-primary dark:text-primary dark:bg-primary/40 dark:hover:bg-primary/60 border border-primary dark:border-primary rounded-lg shadow-xs transition active:scale-95 cursor-pointer"
             title="مراجعة الإقرارات الجمركية للشحنات الدولية"
           >
             <Globe2 className="w-4 h-4" />
@@ -231,7 +231,7 @@ export const ShippingParcelsList: React.FC = () => {
           </button>
           <Link
             to="/shipping-ops/parcels/new"
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg shadow-sm transition active:scale-95"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary dark:bg-primary dark:hover:bg-primary rounded-lg shadow-sm transition active:scale-95"
           >
             <PackagePlus className="w-4 h-4" />
             <span>{t('shippingOps.newParcel', 'إنشاء طرد جديد')}</span>
@@ -261,7 +261,7 @@ export const ShippingParcelsList: React.FC = () => {
                 }}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer border ${
                   isSelected
-                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                    ? 'bg-blue-600 text-white border-primary shadow-sm'
                     : 'bg-slate-50 dark:bg-muted text-foreground dark:text-muted-foreground border-border dark:border-border hover:bg-muted dark:hover:bg-muted'
                 }`}
               >
@@ -295,7 +295,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setSearch(e.target.value);
                 setPage(1);
               }}
-              className="w-full ps-3 pe-9 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full ps-3 pe-9 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
@@ -307,7 +307,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setStatus(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">{isEn ? 'All Statuses' : 'جميع الحالات'}</option>
               <option value="INCOMPLETE">{isEn ? 'Incomplete (Draft)' : 'غير مكتملة (مسودة)'}</option>
@@ -336,7 +336,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setGovernorate(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">{t('shippingOps.list.filterAllGov', 'جميع المحافظات')}</option>
               {EGYPT_GOVERNORATES.map((g) => (
@@ -355,7 +355,7 @@ export const ShippingParcelsList: React.FC = () => {
                 setMerchantId(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">{t('shippingOps.list.filterAllMerchants', 'جميع العملاء / التجار')}</option>
               {merchants.map((m) => (
@@ -416,11 +416,11 @@ export const ShippingParcelsList: React.FC = () => {
               }}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border transition cursor-pointer ${
                 isInternational
-                  ? 'bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-700'
+                  ? 'bg-blue-100 text-primary border-primary dark:bg-primary dark:text-primary dark:border-primary'
                   : 'bg-slate-50 text-foreground border-border hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:border-border'
               }`}
             >
-              <Globe2 className="w-3.5 h-3.5 text-blue-600" />
+              <Globe2 className="w-3.5 h-3.5 text-primary" />
               <span>{isEn ? 'International Only' : 'شحنات دولية فقط'}</span>
             </button>
 
@@ -439,9 +439,9 @@ export const ShippingParcelsList: React.FC = () => {
 
       {/* Batch Print Floating/Inline Action Bar (SHIP-W17) */}
       {selectedIds.length > 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-blue-50/90 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 rounded-xl shadow-sm text-xs sm:text-sm animate-in fade-in duration-150">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-primary/90 dark:bg-primary/60 border border-primary dark:border-primary rounded-xl shadow-sm text-xs sm:text-sm animate-in fade-in duration-150">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-blue-900 dark:text-blue-200">
+            <span className="font-bold text-primary dark:text-primary">
               {isEn ? `Selected ${selectedIds.length} shipments` : `تم تحديد ${selectedIds.length} شحنة`}
             </span>
             <button
@@ -454,7 +454,7 @@ export const ShippingParcelsList: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
-            <div className="flex items-center gap-1.5 bg-white dark:bg-muted px-2 py-1 rounded-lg border border-blue-200 dark:border-blue-800 text-xs">
+            <div className="flex items-center gap-1.5 bg-white dark:bg-muted px-2 py-1 rounded-lg border border-primary dark:border-primary text-xs">
               <span className="text-slate-500">{isEn ? 'Template:' : 'القالب:'}</span>
               <select
                 value={batchTemplate}
@@ -468,7 +468,7 @@ export const ShippingParcelsList: React.FC = () => {
               </select>
             </div>
 
-            <div className="flex items-center gap-1.5 bg-white dark:bg-muted px-2 py-1 rounded-lg border border-blue-200 dark:border-blue-800 text-xs">
+            <div className="flex items-center gap-1.5 bg-white dark:bg-muted px-2 py-1 rounded-lg border border-primary dark:border-primary text-xs">
               <span className="text-slate-500">{isEn ? 'Copies:' : 'النسخ:'}</span>
               <select
                 value={batchCopies}
@@ -485,7 +485,7 @@ export const ShippingParcelsList: React.FC = () => {
               type="button"
               onClick={handleBatchPrint}
               disabled={batchPrinting}
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary dark:bg-primary dark:hover:bg-primary rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50 cursor-pointer"
             >
               <Printer className="w-4 h-4" />
               <span>
@@ -509,7 +509,7 @@ export const ShippingParcelsList: React.FC = () => {
                     type="checkbox"
                     checked={shipments.length > 0 && selectedIds.length === shipments.length}
                     onChange={handleSelectAll}
-                    className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-border dark:border-border cursor-pointer"
+                    className="w-4 h-4 rounded text-primary focus:ring-primary border-border dark:border-border cursor-pointer"
                     title={isEn ? 'Select all on page' : 'تحديد كل الصفحة'}
                   />
                 </th>
@@ -546,17 +546,17 @@ export const ShippingParcelsList: React.FC = () => {
                   const isCancelable = ['PENDING', 'ASSIGNED', 'INCOMPLETE'].includes(s.status);
 
                   return (
-                    <tr key={s.id} className={`hover:bg-slate-50/70 dark:hover:bg-muted transition ${selectedIds.includes(s.id) ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''}`}>
+                    <tr key={s.id} className={`hover:bg-slate-50/70 dark:hover:bg-muted transition ${selectedIds.includes(s.id) ? 'bg-blue-50/40 dark:bg-primary/20' : ''}`}>
                       <td className="w-10 px-3 py-3 text-center">
                         <input
                           type="checkbox"
                           checked={selectedIds.includes(s.id)}
                           onChange={() => handleSelectOne(s.id)}
-                          className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-border dark:border-border cursor-pointer"
+                          className="w-4 h-4 rounded text-primary focus:ring-primary border-border dark:border-border cursor-pointer"
                         />
                       </td>
                       <td className="px-4 py-3">
-                        <div className="flex items-center gap-1.5 font-mono font-medium text-blue-600 dark:text-blue-400">
+                        <div className="flex items-center gap-1.5 font-mono font-medium text-primary dark:text-primary">
                           <Link to={`/shipping-ops/parcels/${s.id}`} className="hover:underline">
                             {s.trackingNumber}
                           </Link>
@@ -578,7 +578,7 @@ export const ShippingParcelsList: React.FC = () => {
 
                           <button
                             onClick={() => printShipmentLabel(s.id, s.trackingNumber)}
-                            className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                             title={isEn ? 'Print Waybill (A6)' : 'طباعة البوليصة'}
                           >
                             <Printer className="w-4 h-4" />
@@ -649,14 +649,14 @@ export const ShippingParcelsList: React.FC = () => {
                         <div className="inline-flex items-center gap-1">
                           <Link
                             to={`/shipping-ops/parcels/${s.id}`}
-                            className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                             title={String(t('shippingOps.list.viewDetails', 'عرض التفاصيل'))}
                           >
                             <Eye className="w-4 h-4" />
                           </Link>
                           <button
                             onClick={() => printShipmentLabel(s.id, s.trackingNumber)}
-                            className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                             title={isEn ? 'Print Waybill (A6)' : 'طباعة البوليصة'}
                           >
                             <Printer className="w-4 h-4" />

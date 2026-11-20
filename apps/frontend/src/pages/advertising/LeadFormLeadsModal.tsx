@@ -114,7 +114,7 @@ export const LeadFormLeadsModal: React.FC<LeadFormLeadsModalProps> = ({
             <button
               onClick={handleImportToCRM}
               disabled={isImporting}
-              className="flex items-center gap-2 px-3 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-all active:scale-[0.97]"
+              className="flex items-center gap-2 px-3 py-2 text-white bg-primary rounded-lg hover:bg-primary disabled:opacity-50 transition-all active:scale-[0.97]"
             >
               {isImporting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -144,7 +144,7 @@ export const LeadFormLeadsModal: React.FC<LeadFormLeadsModalProps> = ({
         <div className="flex-1 overflow-auto p-6">
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
           ) : leads.length === 0 ? (
             <div className="text-center py-12">

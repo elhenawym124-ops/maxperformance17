@@ -207,7 +207,7 @@ const RegionAnalytics: React.FC = () => {
                       </span>
                     </td>
                     <td className="py-2.5 px-3.5 text-center">
-                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/20 font-bold tabular-nums">
+                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-primary/10 text-primary dark:text-primary border border-primary/20 font-bold tabular-nums">
                         {region.codAcceptanceRate ? region.codAcceptanceRate.toFixed(1) : "0.0"}%
                       </span>
                     </td>

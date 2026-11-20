@@ -30,7 +30,7 @@ export const WorkTypeModalFooter: React.FC<WorkTypeModalFooterProps> = ({
         type="button"
         onClick={onSave}
         disabled={saving || !canSave}
-        className="px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm shadow-xs"
+        className="px-6 py-2 bg-primary text-white font-bold rounded-lg hover:bg-primary disabled:opacity-50 text-sm shadow-xs"
       >
         {saving ? t("dentalLab.common.saving") : t("dentalLab.common.save")}
       </button>

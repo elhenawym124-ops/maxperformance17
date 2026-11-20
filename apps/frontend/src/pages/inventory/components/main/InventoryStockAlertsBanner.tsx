@@ -20,7 +20,7 @@ export const InventoryStockAlertsBanner: React.FC<InventoryStockAlertsBannerProp
       case "medium":
         return "bg-yellow-100 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning/60";
       default:
-        return "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/60";
+        return "bg-blue-100 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary/60";
     }
   };
 

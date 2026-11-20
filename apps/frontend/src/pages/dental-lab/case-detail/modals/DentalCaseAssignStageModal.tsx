@@ -120,8 +120,8 @@ export default function DentalCaseAssignStageModal({
         <div className="flex items-center justify-between mb-4 border-b dark:border-border pb-3">
           <div>
             <h3 className="text-base font-bold flex items-center gap-2 text-foreground">
-              <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              إسناد الفنيين لمرحلة: <span className="text-blue-600 dark:text-blue-400">{stage.name}</span>
+              <Users className="w-5 h-5 text-primary dark:text-primary" />
+              إسناد الفنيين لمرحلة: <span className="text-blue-600 dark:text-primary">{stage.name}</span>
             </h3>
             <p className="text-xs text-muted-foreground mt-0.5">
               يمكنك تعيين أكثر من فني وتحديد دور كل فني (رئيسي، مساعد، فحص جودة، تشطيب)
@@ -141,7 +141,7 @@ export default function DentalCaseAssignStageModal({
           <div className="flex items-center justify-between mb-2">
             <h4 className="text-xs font-bold text-foreground uppercase tracking-wide flex items-center gap-1.5">
               <span>الفنيون المسندون للمرحلة</span>
-              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 font-bold tabular-nums">
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-primary text-primary dark:bg-primary/50 dark:text-primary font-bold tabular-nums">
                 {assignees.length}
               </span>
             </h4>
@@ -202,7 +202,7 @@ export default function DentalCaseAssignStageModal({
         {/* Add new technician to stage section */}
         <div className="bg-gray-50/80 dark:bg-muted p-4 rounded-xl border dark:border-border space-y-3.5">
           <h4 className="text-xs font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
-            <UserPlus className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <UserPlus className="w-4 h-4 text-primary dark:text-primary" />
             إضافة فني جديد إلى المرحلة
           </h4>
 
@@ -262,7 +262,7 @@ export default function DentalCaseAssignStageModal({
             type="button"
             onClick={handleAddAssignee}
             disabled={saving || !technicianId}
-            className="w-full mt-2 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm disabled:opacity-50 transition"
+            className="w-full mt-2 py-2 bg-primary hover:bg-primary text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm disabled:opacity-50 transition"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
             + إضافة الفني للمرحلة

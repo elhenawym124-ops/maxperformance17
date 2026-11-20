@@ -691,14 +691,14 @@ const CustomerEdit: React.FC = () => {
         {/* Section 5: Follow-Up & Quick Interaction Logging */}
         <section className="space-y-3">
           <div className="flex items-center gap-1.5 border-b border-border/60 pb-1.5 text-muted-foreground font-semibold uppercase tracking-wider text-[11px]">
-            <Clock className="h-3.5 w-3.5 text-blue-500" />
+            <Clock className="h-3.5 w-3.5 text-primary" />
             <span>سجل التواصل والمتابعة</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <label className="block mb-1 font-medium text-foreground flex items-center gap-1">
-                <Calendar className="h-3 w-3 text-blue-500" />
+                <Calendar className="h-3 w-3 text-primary" />
                 تاريخ ووقت المتابعة القادمة المجدولة
               </label>
               <input
@@ -706,7 +706,7 @@ const CustomerEdit: React.FC = () => {
                 name="nextFollowUpDate"
                 value={formData.nextFollowUpDate}
                 onChange={handleChange}
-                className="w-full px-3 py-1.5 rounded-md border border-blue-500/40 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono"
+                className="w-full px-3 py-1.5 rounded-md border border-primary/40 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary font-mono"
               />
             </div>
             <div className="flex items-end">

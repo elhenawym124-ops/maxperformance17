@@ -305,7 +305,7 @@ export const PATIENT_STATUS_MAP: Record<string, { label: string; color: string }
 export const BOOKING_STATUS_MAP: Record<string, { label: string; color: string }> = {
   UNCONFIRMED: { label: "غير مؤكد", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
   CONFIRMED: { label: "مؤكد", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
-  CHECKED_IN: { label: "تم الحضور", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
+  CHECKED_IN: { label: "تم الحضور", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   PROCEDURE_STARTED: { label: "بدأ الكشف", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   PROCEDURE_COMPLETED: { label: "اكتمل الكشف", color: "bg-violet-100 text-primary dark:bg-primary/40 dark:text-primary" },
   CHECKED_OUT: { label: "غادر", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
@@ -315,7 +315,7 @@ export const BOOKING_STATUS_MAP: Record<string, { label: string; color: string }
 
 export const REPORT_STATUS_MAP: Record<string, { label: string; color: string }> = {
   PENDING: { label: "بانتظار التقارير", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
-  NOTES_IN_PROGRESS: { label: "كتابة الملاحظات", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
+  NOTES_IN_PROGRESS: { label: "كتابة الملاحظات", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   NOTES_COMPLETED: { label: "اكتملت الملاحظات", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   UNDER_REVIEW: { label: "قيد المراجعة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
   APPROVED: { label: "معتمد", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
@@ -362,7 +362,7 @@ export interface CashierShift {
 export const STATUS_MAP: Record<string, { label: string; color: string }> = {
   pending: { label: "قيد الانتظار", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
   confirmed: { label: "مؤكد", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
-  completed: { label: "مكتمل", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
+  completed: { label: "مكتمل", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   cancelled: { label: "ملغي", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
   no_show: { label: "لم يحضر", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
 };

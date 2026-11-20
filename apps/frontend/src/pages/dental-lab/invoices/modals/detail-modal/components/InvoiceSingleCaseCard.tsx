@@ -7,7 +7,7 @@ interface InvoiceSingleCaseCardProps {
 
 export function InvoiceSingleCaseCard({ invoiceCase }: InvoiceSingleCaseCardProps) {
   return (
-    <div className="p-3 bg-blue-50/40 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/40">
+    <div className="p-3 bg-primary/40 dark:bg-primary/10 rounded-xl border border-primary dark:border-primary/40">
       <span className="font-bold text-foreground dark:text-muted-foreground block mb-2">
         تفاصيل العمل الفني بالحالة:
       </span>

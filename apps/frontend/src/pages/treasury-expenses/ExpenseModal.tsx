@@ -322,7 +322,7 @@ export default function ExpenseModal({
                   <button
                     type="button"
                     onClick={() => setIsCategoryModalOpen(true)}
-                    className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-0.5 font-medium"
+                    className="text-[11px] text-primary dark:text-primary hover:underline flex items-center gap-0.5 font-medium"
                   >
                     <Plus className="w-3 h-3" />
                     <span>تصنيف جديد</span>

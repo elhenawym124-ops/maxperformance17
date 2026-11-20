@@ -33,8 +33,8 @@ const AffiliateSystemSettings: React.FC = () => {
       >
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-6 border-b dark:border-border">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 ms-4">
-              <Cog6ToothIcon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+            <div className="p-3 rounded-full bg-primary dark:bg-primary/30 ms-4">
+              <Cog6ToothIcon className="h-8 w-8 text-primary dark:text-primary" />
             </div>
             <div>
               <h1
@@ -53,7 +53,7 @@ const AffiliateSystemSettings: React.FC = () => {
             type="button"
             onClick={() => handleSubmit()}
             disabled={loading}
-            className="inline-flex items-center justify-center px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-colors text-sm self-start sm:self-auto"
+            className="inline-flex items-center justify-center px-6 py-2.5 bg-primary text-white font-semibold rounded-lg hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-colors text-sm self-start sm:self-auto"
           >
             {loading ? "جاري الحفظ..." : "حفظ التغييرات"}
           </button>
@@ -95,7 +95,7 @@ const AffiliateSystemSettings: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed font-bold transition-colors"
+              className="w-full bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed font-bold transition-colors"
             >
               {loading ? "جاري الحفظ..." : "حفظ التغييرات"}
             </button>

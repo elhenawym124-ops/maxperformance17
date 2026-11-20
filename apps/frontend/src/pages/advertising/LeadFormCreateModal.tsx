@@ -22,7 +22,7 @@ import {
 } from "../../services/facebookAdsService";
 
 const INPUT =
-  "w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted";
+  "w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground placeholder-muted dark:placeholder-muted";
 const LABEL = "block text-sm font-medium text-foreground mb-1";
 
 type QuestionType = LeadFormQuestion["type"];
@@ -291,7 +291,7 @@ export const LeadFormCreateModal: React.FC<LeadFormCreateModalProps> = ({
           <button
             onClick={handleSubmit}
             disabled={saving}
-            className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 text-white bg-primary rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />}
             إنشاء النموذج

@@ -20,7 +20,7 @@ export const FacebookOAuthConnectCard: React.FC<FacebookOAuthConnectCardProps> =
 
   return (
     <div className="flex flex-col items-center justify-center rounded-lg border border-border/80 bg-card p-6 text-center sm:p-8">
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/10 text-blue-600 dark:bg-blue-600/20 dark:text-blue-400 mb-3 shadow-sm">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary mb-3 shadow-sm">
         <FacebookIcon className="h-6 w-6" />
       </div>
 
@@ -38,7 +38,7 @@ export const FacebookOAuthConnectCard: React.FC<FacebookOAuthConnectCardProps> =
         <Button
           onClick={() => onConnect(false)}
           disabled={loading || !hasCompanyId}
-          className="h-8 gap-1.5 bg-blue-600 text-xs font-medium text-white hover:bg-blue-700"
+          className="h-8 gap-1.5 bg-primary text-xs font-medium text-white hover:bg-primary"
         >
           <ExternalLink className="h-3.5 w-3.5" />
           {loading
@@ -61,7 +61,7 @@ export const FacebookOAuthConnectCard: React.FC<FacebookOAuthConnectCardProps> =
       {/* 📦 تقدم استيراد الصفحات في الخلفية (بيقرأ من store مش props) */}
       <FacebookOAuthImportProgress />
 
-      <div className="mt-4 flex max-w-md items-center gap-2 rounded-md border border-blue-500/20 bg-blue-500/5 p-2.5 text-start text-[11px] text-blue-700 dark:text-blue-300">
+      <div className="mt-4 flex max-w-md items-center gap-2 rounded-md border border-primary/20 bg-primary/5 p-2.5 text-start text-[11px] text-primary dark:text-primary">
         <Info className="h-4 w-4 shrink-0" />
         <p className="leading-normal">
           {t(

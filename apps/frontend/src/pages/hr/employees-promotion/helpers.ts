@@ -10,7 +10,7 @@ export const getStatusLabel = (
     },
     APPROVED: { label: "موافق عليها", color: "bg-green-100 text-success" },
     REJECTED: { label: "مرفوضة", color: "bg-red-100 text-destructive" },
-    COMPLETED: { label: "مكتملة", color: "bg-blue-100 text-blue-800" },
+    COMPLETED: { label: "مكتملة", color: "bg-blue-100 text-primary" },
   };
   return (
     statusMap[status] || { label: status, color: "bg-gray-100 text-foreground" }

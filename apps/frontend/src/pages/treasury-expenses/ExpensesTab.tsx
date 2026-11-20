@@ -228,7 +228,7 @@ export default function ExpensesTab({
         <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground mb-1">
             <span className="text-xs font-medium">نفقات تشغيلية (OPEX)</span>
-            <Layers className="w-4 h-4 text-blue-500" />
+            <Layers className="w-4 h-4 text-primary" />
           </div>
           <div className="text-xl sm:text-2xl font-bold font-mono text-foreground dark:text-muted-foreground tabular-nums">
             {formatMoney(stats?.opexTotal || 0)}
@@ -326,7 +326,7 @@ export default function ExpensesTab({
               title="إدارة وإضافة تصنيفات النفقات"
               className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium border border-border dark:border-border hover:bg-muted dark:hover:bg-muted rounded-xl text-foreground dark:text-muted-foreground transition-colors"
             >
-              <Tag className="w-3.5 h-3.5 text-blue-500" />
+              <Tag className="w-3.5 h-3.5 text-primary" />
               <span className="hidden sm:inline">التصنيفات</span>
             </button>
 
@@ -495,7 +495,7 @@ export default function ExpensesTab({
                           setEditingExpense(null);
                           setIsModalOpen(true);
                         }}
-                        className="mt-1 text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                        className="mt-1 text-xs text-primary dark:text-primary hover:underline font-medium"
                       >
                         سجل نفقة جديدة الآن
                       </button>
@@ -512,7 +512,7 @@ export default function ExpensesTab({
                       <div className="flex items-center gap-1.5">
                         <span>{exp.title}</span>
                         {exp.isRecurring && (
-                          <span className="text-[10px] bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 px-1.5 py-0.5 rounded font-medium">
+                          <span className="text-[10px] bg-primary/10 text-primary dark:bg-primary/50 dark:text-primary px-1.5 py-0.5 rounded font-medium">
                             دوري
                           </span>
                         )}
@@ -584,7 +584,7 @@ export default function ExpensesTab({
                           <button
                             onClick={() => setPreviewReceiptUrl(exp.receiptUrl!)}
                             title="معاينة إيصال / فاتورة النفقة"
-                            className="p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition-colors"
+                            className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition-colors"
                           >
                             <Paperclip className="w-3.5 h-3.5" />
                           </button>
@@ -727,7 +727,7 @@ export default function ExpensesTab({
           >
             <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <h4 className="text-sm font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
-                <Paperclip className="w-4 h-4 text-blue-500" />
+                <Paperclip className="w-4 h-4 text-primary" />
                 معاينة إيصال / فاتورة النفقة
               </h4>
               <button
@@ -751,7 +751,7 @@ export default function ExpensesTab({
                 href={previewReceiptUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-600 hover:underline"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-primary hover:underline"
               >
                 <span>فتح في نافذة منفصلة</span>
                 <ExternalLink className="w-3.5 h-3.5" />

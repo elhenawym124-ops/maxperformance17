@@ -25,15 +25,15 @@ export const AssignShiftSummaryCard: React.FC<AssignShiftSummaryCardProps> = ({
   const totalAssignments = selectedCount * daysCount;
 
   return (
-    <Card className="bg-blue-50 dark:bg-blue-900/20 border-blue-200">
+    <Card className="bg-blue-50 dark:bg-primary/20 border-primary">
       <CardContent className="pt-4">
         <div className="flex items-start gap-3">
-          <Check className="h-5 w-5 text-blue-600 mt-0.5" />
+          <Check className="h-5 w-5 text-primary mt-0.5" />
           <div className="flex-1 text-sm">
-            <p className="font-semibold text-blue-900 dark:text-blue-200">
+            <p className="font-semibold text-primary dark:text-primary">
               ملخص التعيين
             </p>
-            <p className="text-blue-700 dark:text-blue-300 mt-1 font-mono tabular-nums">
+            <p className="text-blue-700 dark:text-primary mt-1 font-mono tabular-nums">
               {selectedCount} موظف × {daysCount} يوم = {totalAssignments} تعيين
             </p>
           </div>

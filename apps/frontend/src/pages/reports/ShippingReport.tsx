@@ -220,7 +220,7 @@ const ShippingReport: React.FC = () => {
     if (statusLower === "cancelled" || statusLower === "returned")
       return "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive";
     if (statusLower === "in_transit" || statusLower === "out_for_delivery")
-      return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
+      return "bg-blue-100 text-primary dark:bg-primary/30 dark:text-primary";
     return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
   };
 
@@ -244,7 +244,7 @@ const ShippingReport: React.FC = () => {
         <div className="rounded-lg bg-white p-6 shadow dark:bg-muted dark:shadow-black/20">
           <div className="flex justify-between items-center mb-6">
             <h1 className="flex items-center text-2xl font-bold text-foreground">
-              <ChartBarIcon className="h-6 w-6 text-blue-500 ms-2" />
+              <ChartBarIcon className="h-6 w-6 text-primary ms-2" />
               تقرير الشحن - مقارنة الأسعار
             </h1>
             <div className="flex gap-2 flex-wrap">
@@ -341,11 +341,11 @@ const ShippingReport: React.FC = () => {
           {statistics && (
             <>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                <div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950/30">
+                <div className="rounded-lg border-l-4 border-primary bg-primary/10 p-4 dark:bg-primary/30">
                   <div className="text-sm font-medium text-foreground">
                     إجمالي الطلبات (مع tracking)
                   </div>
-                  <div className="text-2xl font-bold text-blue-600 mt-1">
+                  <div className="text-2xl font-bold text-primary mt-1">
                     {statistics.totalOrders}
                   </div>
                 </div>
@@ -556,7 +556,7 @@ const ShippingReport: React.FC = () => {
                   <button
                     onClick={updateSingleCost}
                     disabled={savingCost || !editModal.newCost}
-                    className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                    className="rounded-lg bg-primary px-4 py-2 text-white hover:bg-primary disabled:opacity-50"
                   >
                     {savingCost ? "جاري الحفظ..." : "حفظ"}
                   </button>
@@ -593,7 +593,7 @@ const ShippingReport: React.FC = () => {
                   <button
                     onClick={updateBulkCost}
                     disabled={bulkModal.saving || !bulkModal.newCost}
-                    className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                    className="rounded-lg bg-primary px-4 py-2 text-white hover:bg-primary disabled:opacity-50"
                   >
                     {bulkModal.saving ? "جاري الحفظ..." : "تطبيق على الكل"}
                   </button>
@@ -605,7 +605,7 @@ const ShippingReport: React.FC = () => {
           {/* Report Table */}
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               <p className="mt-2 text-foreground">جاري تحميل التقرير...</p>
             </div>
           ) : reportData.length === 0 ? (
@@ -654,7 +654,7 @@ const ShippingReport: React.FC = () => {
                           onClick={() =>
                             navigate(`/orders/${row.orderNumber}`)
                           }
-                          className="text-blue-600 hover:text-blue-800 font-medium"
+                          className="text-blue-600 hover:text-primary font-medium"
                         >
                           #{row.orderNumber}
                         </button>
@@ -668,7 +668,7 @@ const ShippingReport: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
                         <div className="flex items-center gap-2">
                           {row.actualCost > 0 ? (
-                            <span className="font-bold text-blue-600">
+                            <span className="font-bold text-primary">
                               {formatPrice(row.actualCost)} EGP
                             </span>
                           ) : (
@@ -686,7 +686,7 @@ const ShippingReport: React.FC = () => {
                                 newCost: row.actualCost > 0 ? String(row.actualCost) : "",
                               })
                             }
-                            className="text-gray-400 hover:text-blue-600 transition-colors"
+                            className="text-gray-400 hover:text-primary transition-colors"
                             title="تعديل التكلفة الفعلية"
                           >
                             <PencilIcon className="w-4 h-4" />

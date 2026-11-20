@@ -196,7 +196,7 @@ export default function AffiliateProducts() {
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">في كتالوجك الخاص</p>
           </div>
-          <div className="size-7 rounded-md bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <Package className="size-3.5" />
           </div>
         </div>

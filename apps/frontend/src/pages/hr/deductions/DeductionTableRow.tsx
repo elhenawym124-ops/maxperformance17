@@ -68,7 +68,7 @@ export const DeductionTableRow: React.FC<DeductionTableRowProps> = ({
         <div className="flex items-center space-x-2 space-x-reverse">
           <button
             onClick={() => onViewDetails(deduction)}
-            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 p-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900/20"
+            className="text-blue-600 hover:text-primary dark:text-primary p-1 rounded hover:bg-primary/10 dark:hover:bg-primary/20"
             title="عرض التفاصيل"
           >
             <Eye className="h-5 w-5" />

@@ -57,7 +57,7 @@ export const TechnicianProductivityTable: React.FC<TechnicianProductivityTablePr
                   {r.assignedCases ?? 0}
                 </td>
                 <td
-                  className={`${tdCls} font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums`}
+                  className={`${tdCls} font-bold text-primary dark:text-primary font-mono tabular-nums`}
                 >
                   {r.completedStages ?? 0}
                 </td>

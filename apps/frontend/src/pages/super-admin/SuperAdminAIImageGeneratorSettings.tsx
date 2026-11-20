@@ -28,7 +28,7 @@ const MODEL_OPTIONS = [
 
 const getTierBadgeClass = (tier: string) => {
   if (tier === "fast") return "bg-emerald-500/10 text-success dark:text-success border-success/20";
-  if (tier === "balanced") return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
+  if (tier === "balanced") return "bg-blue-500/10 text-primary dark:text-primary border-primary/20";
   return "bg-purple-500/10 text-primary dark:text-primary border-primary/20";
 };
 

@@ -178,7 +178,7 @@ export const MetaTemplateMobileCard: React.FC<
                     href="https://business.facebook.com/latest/whatsapp_manager/manage_templates"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-600 hover:underline dark:text-blue-400"
+                    className="inline-flex items-center gap-1 text-[11px] font-medium text-primary hover:underline dark:text-primary"
                   >
                     <ExternalLink className="size-3" /> افتح في Meta Business
                   </a>

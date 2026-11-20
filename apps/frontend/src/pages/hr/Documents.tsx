@@ -246,7 +246,7 @@ const Documents: React.FC = () => {
                 >
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <FileText className="h-8 w-8 text-blue-500" />
+                      <FileText className="h-8 w-8 text-primary" />
                       <div className="flex gap-2">
                         {doc.isVerified ? (
                           <CheckCircle className="h-5 w-5 text-success" />

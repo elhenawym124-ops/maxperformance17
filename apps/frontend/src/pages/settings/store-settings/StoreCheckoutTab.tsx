@@ -144,7 +144,7 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
 
           <div className="flex items-center justify-between p-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-base shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary flex items-center justify-center font-bold text-base shadow-sm">
                 <ArrowsRightLeftIcon className="h-5 w-5" />
               </div>
               <div>

@@ -167,7 +167,7 @@ export const EmployeesPromotionList: React.FC<EmployeesPromotionListProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-4 rounded-lg">
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-sm">
-                    <div className="p-2 bg-blue-100 rounded-full text-blue-600">
+                    <div className="p-2 bg-primary rounded-full text-primary">
                       <Briefcase className="h-4 w-4" />
                     </div>
                     <div>

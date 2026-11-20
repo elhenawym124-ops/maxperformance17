@@ -198,10 +198,10 @@ export const STATUS_META: Record<
   },
   unknown: {
     label: "غير محدد",
-    border: "border-blue-300 dark:border-blue-700",
-    badge: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    border: "border-blue-300 dark:border-primary",
+    badge: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
     dot: "bg-blue-400",
-    iconBg: "bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400",
-    iconFg: "text-blue-600 dark:text-blue-400",
+    iconBg: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
+    iconFg: "text-blue-600 dark:text-primary",
   },
 };

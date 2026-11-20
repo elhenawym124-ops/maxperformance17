@@ -245,7 +245,7 @@ export const ConversionJourneySnapshot: React.FC<ConversionJourneySnapshotProps>
                   <div className="font-semibold text-foreground">
                     {item.label}
                   </div>
-                  <div className="text-lg font-bold tabular-nums font-mono text-blue-600 dark:text-blue-300">
+                  <div className="text-lg font-bold tabular-nums font-mono text-primary dark:text-primary">
                     {item.value}
                   </div>
                 </div>

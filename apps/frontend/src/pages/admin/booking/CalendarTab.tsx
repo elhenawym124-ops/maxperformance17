@@ -62,11 +62,11 @@ const shiftDate = (dateStr: string, days: number): string => {
 const BLOCK_COLORS: Record<string, string> = {
   pending: "bg-amber-500/15 border-warning/30 text-warning dark:text-warning",
   confirmed: "bg-emerald-500/15 border-success/30 text-success dark:text-success",
-  checked_in: "bg-blue-500/15 border-blue-500/30 text-blue-700 dark:text-blue-300",
+  checked_in: "bg-blue-500/15 border-primary/30 text-primary dark:text-primary",
   procedure_started: "bg-indigo-500/15 border-primary/30 text-primary dark:text-primary",
   procedure_completed: "bg-violet-500/15 border-primary/30 text-primary dark:text-primary",
   checked_out: "bg-teal-500/15 border-success/30 text-success dark:text-success",
-  completed: "bg-blue-500/15 border-blue-500/30 text-blue-700 dark:text-blue-300",
+  completed: "bg-blue-500/15 border-primary/30 text-primary dark:text-primary",
   cancelled: "bg-rose-500/15 border-destructive/30 text-destructive dark:text-destructive",
   missed: "bg-orange-500/15 border-warning/30 text-warning dark:text-warning",
   no_show: "bg-muted border-border/70 text-muted-foreground",

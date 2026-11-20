@@ -35,7 +35,7 @@ export const DentalCasesKanbanCardActions: React.FC<DentalCasesKanbanCardActions
       <button
         type="button"
         onClick={() => onPrintPanLabel(dentalCase)}
-        className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg border border-border dark:border-border transition-colors"
+        className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg border border-border dark:border-border transition-colors"
         title="طباعة تيكت الصينية (Pan Label)"
         aria-label="طباعة تيكت الصينية"
       >
@@ -52,7 +52,7 @@ export const DentalCasesKanbanCardActions: React.FC<DentalCasesKanbanCardActions
       </button>
       <Link
         to={`/dental-lab/cases/${dentalCase.id}`}
-        className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg border border-border dark:border-border transition-colors"
+        className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg border border-border dark:border-border transition-colors"
         title="فتح صفحة تفاصيل الحالة"
         aria-label="فتح صفحة الحالة"
       >

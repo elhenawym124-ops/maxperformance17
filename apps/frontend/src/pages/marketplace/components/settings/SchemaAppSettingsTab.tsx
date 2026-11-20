@@ -63,7 +63,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
         return (
           <div
             key={key}
-            className="flex items-center justify-between rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm hover:border-blue-500/50 transition-colors"
+            className="flex items-center justify-between rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm hover:border-primary/50 transition-colors"
           >
             <div className="space-y-1 pe-2">
               <label htmlFor={`field-${key}`} className="text-sm font-semibold text-foreground flex items-center gap-1.5 cursor-pointer">
@@ -82,7 +82,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
               role="switch"
               aria-checked={Boolean(currentValue)}
               onClick={() => onChange(key, !currentValue)}
-              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 ${
+              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
                 currentValue ? 'bg-blue-600' : 'bg-gray-200 dark:bg-muted'
               }`}
             >
@@ -112,7 +112,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
                 id={`field-${key}`}
                 value={currentValue ?? ''}
                 onChange={(e) => onChange(key, e.target.value)}
-                className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               >
                 {prop.enum.map((opt) => (
                   <option key={opt} value={opt}>
@@ -141,7 +141,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
               value={currentValue ?? ''}
               onChange={(e) => onChange(key, e.target.value)}
               placeholder={prop.title || ''}
-              className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
         );
@@ -169,7 +169,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
                 const val = e.target.value === '' ? null : Number(e.target.value);
                 onChange(key, val);
               }}
-              className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
         );
@@ -195,9 +195,9 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
   return (
     <div className="space-y-6">
       {/* Schema Header Card */}
-      <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-5 dark:border-blue-900/40 dark:bg-blue-950/20">
+      <div className="rounded-xl border border-primary bg-primary/60 p-5 dark:border-primary/40 dark:bg-primary/20">
         <div className="flex items-start gap-3">
-          <Sliders className="mt-0.5 text-blue-600 dark:text-blue-400 shrink-0" size={20} />
+          <Sliders className="mt-0.5 text-primary dark:text-primary shrink-0" size={20} />
           <div>
             <h2 className="text-base font-bold text-foreground">
               {schema?.title || `إعدادات ${appName}`}
@@ -220,7 +220,7 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
           type="button"
           onClick={() => onSave()}
           disabled={saving}
-          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-colors"
         >
           {saving ? (
             <>

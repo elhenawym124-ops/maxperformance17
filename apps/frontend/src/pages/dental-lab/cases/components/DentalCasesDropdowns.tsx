@@ -73,7 +73,7 @@ export function DentalCasesDropdowns({
     <div className="flex flex-wrap items-center gap-1.5 border-t border-border dark:border-border pt-2 text-xs">
       {viewMode !== "TRASH" && (
         <select
-          className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
+          className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary hover:bg-white"
           value={status}
           onChange={(e) => {
             applyFilter("status", e.target.value);
@@ -91,7 +91,7 @@ export function DentalCasesDropdowns({
       )}
 
       <select
-        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[150px]"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary hover:bg-white max-w-[150px]"
         value={doctorId}
         onChange={(e) => {
           applyFilter("doctorId", e.target.value);
@@ -110,7 +110,7 @@ export function DentalCasesDropdowns({
       </select>
 
       <select
-        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[140px]"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary hover:bg-white max-w-[140px]"
         value={workTypeId}
         onChange={(e) => {
           applyFilter("workTypeId", e.target.value);
@@ -127,7 +127,7 @@ export function DentalCasesDropdowns({
       </select>
 
       <select
-        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary hover:bg-white"
         value={priority}
         onChange={(e) => {
           applyFilter("priority", e.target.value);
@@ -142,7 +142,7 @@ export function DentalCasesDropdowns({
       </select>
 
       <select
-        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white max-w-[130px]"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary hover:bg-white max-w-[130px]"
         value={technicianId}
         onChange={(e) => {
           applyFilter("technicianId", e.target.value);
@@ -161,7 +161,7 @@ export function DentalCasesDropdowns({
       </select>
 
       <select
-        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 hover:bg-white"
+        className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-lg px-2 py-1 text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary hover:bg-white"
         value={paymentStatus}
         onChange={(e) => {
           applyFilter("paymentStatus", e.target.value);
@@ -224,7 +224,7 @@ export function DentalCasesDropdowns({
           }}
           className={`px-2 py-0.5 rounded transition-colors ${
             agendaDate === yesterdayStr
-              ? "bg-card font-bold shadow-2xs text-blue-600"
+              ? "bg-card font-bold shadow-2xs text-primary"
               : "text-slate-600 dark:text-muted-foreground hover:text-foreground"
           }`}
         >
@@ -238,7 +238,7 @@ export function DentalCasesDropdowns({
           }}
           className={`px-2 py-0.5 rounded transition-colors ${
             agendaDate === todayStr
-              ? "bg-card font-bold shadow-2xs text-blue-600"
+              ? "bg-card font-bold shadow-2xs text-primary"
               : "text-slate-600 dark:text-muted-foreground hover:text-foreground"
           }`}
         >

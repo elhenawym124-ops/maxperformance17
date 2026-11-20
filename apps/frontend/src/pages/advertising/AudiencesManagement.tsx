@@ -144,9 +144,9 @@ const AudiencesManagement: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>جماهير مخصصة</span>
-            <CheckCircle2 className="h-3.5 w-3.5 text-blue-500" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-blue-500">{stats.customCount}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-primary">{stats.customCount}</div>
         </div>
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
@@ -222,7 +222,7 @@ const AudiencesManagement: React.FC = () => {
                         {aud.description && <div className="text-[11px] text-muted-foreground truncate max-w-xs mt-0.5">{aud.description}</div>}
                       </td>
                       <td className="px-4 py-3">
-                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 font-medium bg-blue-500/10 text-blue-500 border-blue-500/20">
+                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 font-medium bg-primary/10 text-primary border-primary/20">
                           {getAudienceTypeLabel(aud.audienceType)}
                         </Badge>
                       </td>

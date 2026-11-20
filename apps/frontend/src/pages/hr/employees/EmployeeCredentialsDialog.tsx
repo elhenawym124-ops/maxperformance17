@@ -131,8 +131,8 @@ export const EmployeeCredentialsDialog: React.FC<EmployeeCredentialsDialogProps>
             </div>
           )}
 
-          <div className="rounded-lg border border-blue-100 bg-blue-50/60 p-3 text-xs text-blue-800 dark:border-blue-900/40 dark:bg-blue-950/20 dark:text-blue-300 flex items-start gap-2">
-            <ShieldCheck className="h-4 w-4 mt-0.5 shrink-0 text-blue-600" />
+          <div className="rounded-lg border border-primary bg-primary/60 p-3 text-xs text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary flex items-start gap-2">
+            <ShieldCheck className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
             <span>
               تم ربط حساب المستخدم بالسجل الوظيفي تلقائياً، وأصبح بإمكانه استخدام تطبيق الحضور والانصراف والصلاحيات الممنوحة له فوراً.
             </span>

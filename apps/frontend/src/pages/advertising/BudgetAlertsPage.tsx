@@ -409,7 +409,7 @@ export const BudgetAlertsPage: React.FC = () => {
           <div className="rounded-xl border border-border bg-white p-3.5 shadow-sm dark:border-border dark:bg-muted sm:p-4">
             <div className="flex items-center justify-between text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               <span>{isEn ? "Remaining Spend Cap" : "المتبقي من حد الإنفاق"}</span>
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary">
                 <ShieldAlert className="h-4 w-4" />
               </div>
             </div>
@@ -698,7 +698,7 @@ export const BudgetAlertsPage: React.FC = () => {
                               >
                                 {rule.isEnabled ? (isEn ? "Active & Enabled" : "نشط ومفعل") : (isEn ? "Disabled" : "معطل")}
                               </span>
-                              <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
+                              <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary dark:bg-primary/60 dark:text-primary">
                                 {isCampaign ? (isEn ? "Campaign" : "حملة") : (isEn ? "Ad Account" : "حساب إعلاني")}
                               </span>
                               <h3 className="truncate text-xs font-black text-foreground dark:text-muted-foreground sm:text-sm">

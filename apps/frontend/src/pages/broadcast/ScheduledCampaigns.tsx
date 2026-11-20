@@ -178,7 +178,7 @@ const ScheduledCampaigns: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "scheduled":
-        return "text-blue-600 bg-blue-100";
+        return "text-blue-600 bg-primary";
       case "paused":
         return "text-yellow-600 bg-warning";
       case "cancelled":

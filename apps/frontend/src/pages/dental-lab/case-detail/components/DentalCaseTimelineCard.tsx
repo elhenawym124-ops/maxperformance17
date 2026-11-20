@@ -38,7 +38,7 @@ export default function DentalCaseTimelineCard({ history }: DentalCaseTimelineCa
           {history.map((h) => (
             <div key={h.id} className="flex gap-3 text-sm">
               <div className="flex flex-col items-center">
-                <span className="w-2 h-2 rounded-full bg-blue-500 mt-1.5" />
+                <span className="w-2 h-2 rounded-full bg-primary mt-1.5" />
               </div>
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-2">

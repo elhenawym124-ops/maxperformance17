@@ -33,8 +33,8 @@ export function QuickOrderSummaryPricingCard({
   const netTotal = Math.max(0, (Number(priceSnapshot) || 0) - (Number(discount) || 0));
 
   return (
-    <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/30 p-3.5 space-y-2 text-xs">
-      <div className="font-bold text-blue-900 dark:text-blue-100 flex items-center justify-between border-b border-blue-200/60 dark:border-blue-800/60 pb-1.5">
+    <div className="rounded-xl border border-primary dark:border-primary bg-primary/50 dark:bg-primary/30 p-3.5 space-y-2 text-xs">
+      <div className="font-bold text-primary dark:text-primary flex items-center justify-between border-b border-primary/60 dark:border-primary/60 pb-1.5">
         <span>ملخص أمر الشغل النهائي</span>
         <span className="font-mono text-success dark:text-success font-bold text-sm tabular-nums">
           صافي الإجمالي: {fmtMoney(netTotal)} ج.م

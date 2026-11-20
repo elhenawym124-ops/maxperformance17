@@ -33,15 +33,15 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
             <>
               <Link
                 to={`/dental-lab/cases?doctorId=${c.doctorId}`}
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline inline-flex items-center gap-1 font-medium transition-colors"
+                className="text-blue-600 dark:text-primary hover:text-primary dark:hover:text-primary hover:underline inline-flex items-center gap-1 font-medium transition-colors"
                 title={`عرض كل حالات د. ${c.doctor?.name || c.doctorName || ""}`}
               >
-                <Stethoscope className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                <Stethoscope className="w-3.5 h-3.5 text-primary shrink-0" />
                 <span>{c.doctor?.name || c.doctorName || "—"}</span>
               </Link>
               <Link
                 to={`/dental-lab/doctors/${c.doctorId}`}
-                className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 p-0.5 rounded hover:bg-muted transition"
+                className="text-gray-400 hover:text-primary dark:hover:text-primary p-0.5 rounded hover:bg-muted transition"
                 title="الملف الشامل والمالي للطبيب"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -95,7 +95,7 @@ export default function DentalCaseInfoCard({ c }: DentalCaseInfoCardProps) {
     {
       label: t("dentalLab.cases.shade"),
       value: c.shade ? (
-        <span className="font-semibold text-blue-600 dark:text-blue-400 font-mono">
+        <span className="font-semibold text-primary dark:text-primary font-mono">
           {c.shade}
         </span>
       ) : (

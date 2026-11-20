@@ -16,7 +16,7 @@ export function TechnicianAccountSection({ modal, setModal }: TechnicianAccountS
     <>
       <div className="sm:col-span-2 border-t dark:border-border pt-4 mt-2">
         <div className="flex items-center gap-2 mb-3">
-          <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          <ShieldCheck className="w-4 h-4 text-primary dark:text-primary" />
           <h4 className="text-xs font-bold text-foreground">
             بيانات تسجيل الدخول لحساب الفني بالمنصة (Portal Login Account)
           </h4>
@@ -67,7 +67,7 @@ export function TechnicianAccountSection({ modal, setModal }: TechnicianAccountS
             id="tech-active"
             checked={modal.isActive}
             onChange={(e) => setModal({ ...modal, isActive: e.target.checked })}
-            className="rounded border-border text-blue-600 focus:ring-blue-500"
+            className="rounded border-border text-primary focus:ring-primary"
           />
           <label htmlFor="tech-active" className="text-sm font-medium text-foreground cursor-pointer">
             عضو نشط (متاح لتعيين مراحل الشغل له)

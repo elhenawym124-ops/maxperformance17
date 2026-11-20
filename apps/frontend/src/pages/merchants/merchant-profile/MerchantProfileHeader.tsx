@@ -61,7 +61,7 @@ export const MerchantProfileHeader: React.FC<MerchantProfileHeaderProps> = ({
           ))}
           <Link
             to={`/merchants/${merchantId}/edit`}
-            className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+            className="inline-flex items-center justify-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary transition"
           >
             <PencilIcon className="h-5 w-5" />
             تعديل

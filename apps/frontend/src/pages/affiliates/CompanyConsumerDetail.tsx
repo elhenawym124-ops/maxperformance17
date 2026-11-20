@@ -219,7 +219,7 @@ const CompanyConsumerDetail: React.FC = () => {
         switch (status) {
             case "CONFIRMED": case "PROCESSED": return "text-green-600 bg-success dark:bg-success/30 dark:text-success";
             case "PENDING": return "text-yellow-600 bg-warning dark:bg-warning/30 dark:text-warning";
-            case "PAID": return "text-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400";
+            case "PAID": return "text-blue-600 bg-primary dark:bg-primary/30 dark:text-primary";
             case "CANCELLED": return "text-red-600 bg-destructive dark:bg-destructive/30 dark:text-destructive";
             default: return "text-gray-600 bg-muted dark:bg-muted dark:text-muted-foreground";
         }
@@ -238,7 +238,7 @@ const CompanyConsumerDetail: React.FC = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <ArrowPathIcon className="w-10 h-10 animate-spin text-blue-600" />
+                <ArrowPathIcon className="w-10 h-10 animate-spin text-primary" />
             </div>
         );
     }
@@ -274,9 +274,9 @@ const CompanyConsumerDetail: React.FC = () => {
                 </div>
                 {affiliate && (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-                        <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
-                            <p className="text-xs text-blue-600 dark:text-blue-400">إجمالي الأرباح</p>
-                            <p className="text-lg font-bold text-blue-600 dark:text-blue-400">{formatPrice(affiliate.totalEarnings)}</p>
+                        <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-lg text-center">
+                            <p className="text-xs text-primary dark:text-primary">إجمالي الأرباح</p>
+                            <p className="text-lg font-bold text-primary dark:text-primary">{formatPrice(affiliate.totalEarnings)}</p>
                         </div>
                         <div className="p-3 bg-success/10 dark:bg-success/20 rounded-lg text-center">
                             <p className="text-xs text-success dark:text-success">تم صرفه</p>
@@ -333,7 +333,7 @@ const CompanyConsumerDetail: React.FC = () => {
                             <span className="text-sm text-muted-foreground">الإجمالي: {ordersTotal} طلب</span>
                         </div>
                         {loadingOrders ? (
-                            <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600 mx-auto" /></div>
+                            <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-primary mx-auto" /></div>
                         ) : orders.length === 0 ? (
                             <div className="py-12 text-center text-muted-foreground">لا توجد طلبات</div>
                         ) : (
@@ -351,7 +351,7 @@ const CompanyConsumerDetail: React.FC = () => {
                                         <tbody>
                                             {orders.map((o) => (
                                                 <tr key={o.id} className="border-b border-border dark:border-border hover:bg-muted/50/30">
-                                                    <td className="p-3 font-mono text-blue-600 dark:text-blue-400">{o.orderNumber}</td>
+                                                    <td className="p-3 font-mono text-primary dark:text-primary">{o.orderNumber}</td>
                                                     <td className="p-3"><span className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(o.status)}`}>{getStatusText(o.status)}</span></td>
                                                     <td className="p-3 font-bold">{formatPrice(o.total)}</td>
                                                     <td className="p-3 text-muted-foreground">{formatDate(o.createdAt)}</td>
@@ -377,9 +377,9 @@ const CompanyConsumerDetail: React.FC = () => {
                     <div className="p-6">
                         {commissionsSummary.totalCommissions > 0 && (
                             <div className="grid grid-cols-3 gap-4 mb-6">
-                                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
-                                    <p className="text-xs text-blue-600 dark:text-blue-400">الإجمالي</p>
-                                    <p className="text-lg font-bold text-blue-600">{formatPrice(commissionsSummary.totalCommissions)}</p>
+                                <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-lg text-center">
+                                    <p className="text-xs text-primary dark:text-primary">الإجمالي</p>
+                                    <p className="text-lg font-bold text-primary">{formatPrice(commissionsSummary.totalCommissions)}</p>
                                 </div>
                                 <div className="p-3 bg-success/10 dark:bg-success/20 rounded-lg text-center">
                                     <p className="text-xs text-success dark:text-success">مدفوع</p>
@@ -392,7 +392,7 @@ const CompanyConsumerDetail: React.FC = () => {
                             </div>
                         )}
                         {loadingCommissions ? (
-                            <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600 mx-auto" /></div>
+                            <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-primary mx-auto" /></div>
                         ) : commissions.length === 0 ? (
                             <div className="py-12 text-center text-muted-foreground">لا توجد عمولات مسجلة</div>
                         ) : (
@@ -411,7 +411,7 @@ const CompanyConsumerDetail: React.FC = () => {
                                         <tbody>
                                             {commissions.map((c) => (
                                                 <tr key={c.id} className="border-b border-border dark:border-border hover:bg-muted/50/30">
-                                                    <td className="p-3 font-mono text-blue-600 dark:text-blue-400">{c.orderNumber || "—"}</td>
+                                                    <td className="p-3 font-mono text-primary dark:text-primary">{c.orderNumber || "—"}</td>
                                                     <td className="p-3">{c.orderTotal ? formatPrice(c.orderTotal) : "—"}</td>
                                                     <td className="p-3 font-bold text-success">+{formatPrice(c.amount)}</td>
                                                     <td className="p-3"><span className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(c.status)}`}>{getStatusText(c.status)}</span></td>
@@ -438,7 +438,7 @@ const CompanyConsumerDetail: React.FC = () => {
                     <div className="p-6">
                         <h3 className="font-bold text-foreground mb-4">سجل طلبات السحب</h3>
                         {loadingPayouts ? (
-                            <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600 mx-auto" /></div>
+                            <div className="py-12 text-center"><ArrowPathIcon className="w-8 h-8 animate-spin text-primary mx-auto" /></div>
                         ) : payouts.length === 0 ? (
                             <div className="py-12 text-center text-muted-foreground">لا توجد عمليات سحب سابقة</div>
                         ) : (
@@ -509,7 +509,7 @@ const CompanyConsumerDetail: React.FC = () => {
                             </div>
                             <div className="flex gap-3">
                                 <button type="button" onClick={() => setShowPayoutModal(false)} className="flex-1 rounded-xl bg-muted px-4 py-2 text-foreground hover:bg-muted dark:bg-muted dark:text-muted-foreground">إلغاء</button>
-                                <button type="submit" disabled={submittingPayout} className="flex-1 rounded-xl bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50">
+                                <button type="submit" disabled={submittingPayout} className="flex-1 rounded-xl bg-primary px-4 py-2 text-white hover:bg-primary disabled:opacity-50">
                                     {submittingPayout ? <ArrowPathIcon className="w-5 h-5 animate-spin mx-auto" /> : "تأكيد الطلب"}
                                 </button>
                             </div>

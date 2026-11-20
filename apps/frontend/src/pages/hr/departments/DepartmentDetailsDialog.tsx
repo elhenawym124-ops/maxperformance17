@@ -90,7 +90,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
           </DialogDescription>
         </DialogHeader>
 
-        <div className="bg-gradient-to-br from-primary via-primary to-blue-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-6">
+        <div className="bg-gradient-to-br from-primary via-primary to-primary dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-6">
           <div className="flex flex-col gap-4">
             {/* Header section */}
             <div className="flex items-center justify-between">
@@ -173,7 +173,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                       {selectedDepartment._count.users}
                     </p>
                   </div>
-                  <Users className="h-8 w-8 text-blue-500" />
+                  <Users className="h-8 w-8 text-primary" />
                 </CardContent>
               </Card>
               <Card className="bg-white/70 dark:bg-muted">
@@ -271,12 +271,12 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
             <Card className="bg-white/80 dark:bg-muted">
               <CardHeader className="pb-2 flex flex-row items-center justify-between">
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <Users className="h-5 w-5 text-blue-500" />
+                  <Users className="h-5 w-5 text-primary" />
                   موظفو القسم
                 </CardTitle>
                 <Badge
                   variant="outline"
-                  className="bg-blue-50 text-blue-700 border-blue-200 font-mono tabular-nums"
+                  className="bg-blue-50 text-primary border-primary font-mono tabular-nums"
                 >
                   {departmentEmployees.length} موظف
                 </Badge>
@@ -292,7 +292,7 @@ export const DepartmentDetailsDialog: React.FC<DepartmentDetailsDialogProps> = (
                         <div className="flex items-center gap-3">
                           <Avatar className="h-9 w-9 border border-border">
                             <AvatarImage src={emp.avatar} />
-                            <AvatarFallback className="bg-blue-50 text-blue-600 font-bold">
+                            <AvatarFallback className="bg-blue-50 text-primary font-bold">
                               {emp.firstName?.[0]}
                               {emp.lastName?.[0]}
                             </AvatarFallback>

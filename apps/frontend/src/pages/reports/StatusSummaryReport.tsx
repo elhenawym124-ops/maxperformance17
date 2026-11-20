@@ -642,7 +642,7 @@ const StatusSummaryReport: React.FC = () => {
                                                             </td>
                                                             <td className="px-3 py-2">
                                                               {item.productSize ? (
-                                                                <span className="inline-flex rounded-md bg-blue-50 px-2 py-0.5 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                                                                <span className="inline-flex rounded-md bg-primary/10 px-2 py-0.5 text-primary dark:bg-primary/30 dark:text-primary">
                                                                   {item.productSize}
                                                                 </span>
                                                               ) : "—"}
@@ -742,7 +742,7 @@ const StatusSummaryReport: React.FC = () => {
                                                           </td>
                                                           <td className="px-3 py-2">
                                                             {v.productSize ? (
-                                                              <span className="inline-flex rounded-md bg-blue-50 px-2 py-0.5 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                                                              <span className="inline-flex rounded-md bg-primary/10 px-2 py-0.5 text-primary dark:bg-primary/30 dark:text-primary">
                                                                 {v.productSize}
                                                               </span>
                                                             ) : "—"}

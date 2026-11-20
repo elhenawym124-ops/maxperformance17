@@ -48,7 +48,7 @@ export const ManualAttendanceTableRow: React.FC<ManualAttendanceTableRowProps> =
     <TableRow
       className={
         editing
-          ? "bg-blue-50/70 dark:bg-blue-900/10"
+          ? "bg-blue-50/70 dark:bg-primary/10"
           : record.isNew
             ? "bg-yellow-50/70 dark:bg-warning/10"
             : ""

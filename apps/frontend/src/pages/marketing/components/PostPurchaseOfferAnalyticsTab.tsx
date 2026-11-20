@@ -192,9 +192,9 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
         <div className="p-4 rounded-xl border border-border/80 bg-card space-y-1.5">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-[11px] font-medium">رفع متوسط السلة (AOV)</span>
-            <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
+            <TrendingUp className="w-3.5 h-3.5 text-primary" />
           </div>
-          <div className="text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400 tabular-nums">
+          <div className="text-xl font-bold tracking-tight text-primary dark:text-primary tabular-nums">
             {kpis ? `+${formatCurrency(kpis.aovLift)}` : "—"}
           </div>
           <p className="text-[10px] text-muted-foreground tabular-nums">
@@ -273,9 +273,9 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl bg-blue-500/5 border border-blue-500/20">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-primary/5 border border-primary/20">
               <div className="flex items-center gap-2.5">
-                <Truck className="w-4 h-4 text-blue-600" />
+                <Truck className="w-4 h-4 text-primary" />
                 <div>
                   <div className="text-xs font-semibold text-foreground">قيد الشحن / في الطريق</div>
                   <div className="text-[10px] text-muted-foreground tabular-nums">
@@ -283,7 +283,7 @@ export const PostPurchaseOfferAnalyticsTab: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="text-xs font-bold text-blue-600 tabular-nums">
+              <div className="text-xs font-bold text-primary tabular-nums">
                 {formatCurrency(delivery?.inTransitOfferRevenue || 0)}
               </div>
             </div>

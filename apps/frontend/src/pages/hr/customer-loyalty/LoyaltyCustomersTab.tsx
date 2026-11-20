@@ -162,7 +162,7 @@ export const LoyaltyCustomersTab: React.FC<LoyaltyCustomersTabProps> = ({
                       <button
                         type="button"
                         aria-label="تعديل العميل"
-                        className="p-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                        className="p-1 text-primary hover:text-primary dark:text-primary dark:hover:text-primary transition-colors"
                       >
                         <Edit className="w-4 h-4" />
                       </button>

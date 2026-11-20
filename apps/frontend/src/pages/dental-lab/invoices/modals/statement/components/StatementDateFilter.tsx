@@ -43,7 +43,7 @@ export const StatementDateFilter: React.FC<StatementDateFilterProps> = ({
         <button
           type="button"
           onClick={onClear}
-          className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+          className="text-xs text-primary dark:text-primary hover:underline"
         >
           عرض الكل
         </button>

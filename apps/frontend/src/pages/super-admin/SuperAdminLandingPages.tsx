@@ -173,7 +173,7 @@ const SuperAdminLandingPages: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">مربوطة بباقات</span>
-              <span className="size-1.5 rounded-full bg-blue-500" />
+              <span className="size-1.5 rounded-full bg-primary" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">{stats.linkedBundles}</div>
             <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">تفعيل آلي للباقة</p>

@@ -187,7 +187,7 @@ export const RateCardsPage: React.FC = () => {
           {activeTab === 'rate_cards' && (
             <button
               onClick={handleOpenCreate}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg shadow-sm transition active:scale-95"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary dark:bg-primary dark:hover:bg-primary rounded-lg shadow-sm transition active:scale-95"
             >
               <Plus className="w-4 h-4" />
               <span>{t('shippingOps.rateCardsPage.addRateCard', 'إضافة بطاقة سعر')}</span>
@@ -203,7 +203,7 @@ export const RateCardsPage: React.FC = () => {
           onClick={() => setActiveTab('rate_cards')}
           className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition ${
             activeTab === 'rate_cards'
-              ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+              ? 'bg-white dark:bg-muted text-primary dark:text-primary shadow-sm'
               : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
           }`}
         >
@@ -215,7 +215,7 @@ export const RateCardsPage: React.FC = () => {
           onClick={() => setActiveTab('packages')}
           className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition ${
             activeTab === 'packages'
-              ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+              ? 'bg-white dark:bg-muted text-primary dark:text-primary shadow-sm'
               : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
           }`}
         >
@@ -241,7 +241,7 @@ export const RateCardsPage: React.FC = () => {
           <select
             value={filterMerchantId}
             onChange={(e) => setFilterMerchantId(e.target.value)}
-            className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="">{isEn ? 'All Merchants' : 'جميع العملاء / التجار'}</option>
             {merchants.map((m) => (
@@ -305,7 +305,7 @@ export const RateCardsPage: React.FC = () => {
                     </td>
                     <td className="px-4 py-3">
                       {rc.governorateCode ? (
-                        <span className="inline-flex items-center gap-1 font-medium text-blue-600 dark:text-blue-400">
+                        <span className="inline-flex items-center gap-1 font-medium text-primary dark:text-primary">
                           <MapPin className="w-3.5 h-3.5" />
                           <span>{rc.governorateCode}</span>
                         </span>
@@ -345,7 +345,7 @@ export const RateCardsPage: React.FC = () => {
                       <div className="inline-flex items-center gap-1">
                         <button
                           onClick={() => handleOpenEdit(rc)}
-                          className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                          className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                           title="تعديل"
                         >
                           <Pencil className="w-4 h-4" />
@@ -376,7 +376,7 @@ export const RateCardsPage: React.FC = () => {
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 max-w-lg w-full space-y-4 shadow-xl">
             <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <div className="flex items-center gap-2 font-bold text-base">
-                <CreditCard className="w-5 h-5 text-blue-600" />
+                <CreditCard className="w-5 h-5 text-primary" />
                 <span>
                   {editingCard
                     ? t('shippingOps.rateCardsPage.editRateCard', 'تعديل بطاقة السعر')
@@ -403,7 +403,7 @@ export const RateCardsPage: React.FC = () => {
                     onChange={(e) => setFormData((p) => ({ ...p, merchantId: e.target.value }))}
                     disabled={Boolean(editingCard)}
                     required
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     <option value="">اختر العميل...</option>
                     {merchants.map((m) => (
@@ -424,7 +424,7 @@ export const RateCardsPage: React.FC = () => {
                     placeholder="مثال: تسعير القاهرة الكبرى، تسعير الصعيد"
                     value={formData.name}
                     onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
@@ -435,7 +435,7 @@ export const RateCardsPage: React.FC = () => {
                   <select
                     value={formData.governorateCode || ''}
                     onChange={(e) => setFormData((p) => ({ ...p, governorateCode: e.target.value || null }))}
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     <option value="">{t('shippingOps.rateCardsPage.allGovernorates', 'عام (كل المحافظات)')}</option>
                     {EGYPT_GOVERNORATES.map((g) => (
@@ -457,7 +457,7 @@ export const RateCardsPage: React.FC = () => {
                     required
                     value={formData.basePrice}
                     onChange={(e) => setFormData((p) => ({ ...p, basePrice: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums font-semibold"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary tabular-nums font-semibold"
                   />
                 </div>
 
@@ -471,7 +471,7 @@ export const RateCardsPage: React.FC = () => {
                     min="0.1"
                     value={formData.baseWeightKg}
                     onChange={(e) => setFormData((p) => ({ ...p, baseWeightKg: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary tabular-nums"
                   />
                 </div>
 
@@ -485,7 +485,7 @@ export const RateCardsPage: React.FC = () => {
                     min="0"
                     value={formData.extraKgPrice}
                     onChange={(e) => setFormData((p) => ({ ...p, extraKgPrice: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary tabular-nums"
                   />
                 </div>
 
@@ -499,7 +499,7 @@ export const RateCardsPage: React.FC = () => {
                     min="0"
                     value={formData.returnFee}
                     onChange={(e) => setFormData((p) => ({ ...p, returnFee: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary tabular-nums"
                   />
                 </div>
 
@@ -513,7 +513,7 @@ export const RateCardsPage: React.FC = () => {
                     min="0"
                     value={formData.codFeeFixed}
                     onChange={(e) => setFormData((p) => ({ ...p, codFeeFixed: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary tabular-nums"
                   />
                 </div>
 
@@ -528,7 +528,7 @@ export const RateCardsPage: React.FC = () => {
                     max="100"
                     value={formData.codFeePercent}
                     onChange={(e) => setFormData((p) => ({ ...p, codFeePercent: Number(e.target.value) }))}
-                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary tabular-nums"
                   />
                 </div>
 
@@ -538,7 +538,7 @@ export const RateCardsPage: React.FC = () => {
                       type="checkbox"
                       checked={formData.isActive}
                       onChange={(e) => setFormData((p) => ({ ...p, isActive: e.target.checked }))}
-                      className="w-4 h-4 text-blue-600 rounded border-border dark:border-border"
+                      className="w-4 h-4 text-primary rounded border-border dark:border-border"
                     />
                     <span className="font-medium text-foreground dark:text-muted-foreground">
                       تفعيل بطاقة السعر للاستخدام الفوري
@@ -559,7 +559,7 @@ export const RateCardsPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition active:scale-95 disabled:opacity-50"
+                  className="px-4 py-2 text-xs font-semibold text-white bg-primary hover:bg-primary rounded-lg transition active:scale-95 disabled:opacity-50"
                 >
                   {saving ? 'جاري الحفظ...' : t('shippingOps.rateCardsPage.saveRateCard', 'حفظ البطاقة')}
                 </button>

@@ -193,8 +193,8 @@ const CourierPayrollPage: React.FC = () => {
         </div>
 
         <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5">
-          <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">إجمالي العمولات</div>
-          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-blue-600 mt-1">
+          <div className="text-xs text-primary dark:text-primary font-medium">إجمالي العمولات</div>
+          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-primary mt-1">
             {formatPrice(totals?.totalCommission || 0)}
           </div>
         </div>
@@ -265,7 +265,7 @@ const CourierPayrollPage: React.FC = () => {
                         {COMPENSATION_MODEL_LABELS[p.compensationModel] || p.compensationModel}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 font-mono tabular-nums font-semibold text-blue-600">
+                    <td className="py-3.5 px-4 font-mono tabular-nums font-semibold text-primary">
                       {p.deliveredOrdersCount} أوردر
                     </td>
                     <td className="py-3.5 px-4 font-mono tabular-nums">
@@ -274,7 +274,7 @@ const CourierPayrollPage: React.FC = () => {
                     <td className="py-3.5 px-4 font-mono tabular-nums text-warning font-medium">
                       {p.bonus > 0 ? `+${formatPrice(p.bonus)}` : '0'}
                     </td>
-                    <td className="py-3.5 px-4 font-mono tabular-nums text-blue-600">
+                    <td className="py-3.5 px-4 font-mono tabular-nums text-primary">
                       {p.commission > 0 ? `+${formatPrice(p.commission)}` : '0'}
                     </td>
                     <td className="py-3.5 px-4 font-mono tabular-nums text-destructive">
@@ -290,7 +290,7 @@ const CourierPayrollPage: React.FC = () => {
                           تم الصرف
                         </span>
                       ) : p.status === 'APPROVED' ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 border border-blue-200">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary border border-primary">
                           معتمد
                         </span>
                       ) : (
@@ -304,7 +304,7 @@ const CourierPayrollPage: React.FC = () => {
                         {p.status === 'DRAFT' && (
                           <button
                             onClick={() => handleApprove(p)}
-                            className="px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400 border border-blue-200 rounded-lg hover:bg-blue-100 transition"
+                            className="px-2.5 py-1 text-xs font-semibold text-primary bg-primary/10 dark:bg-primary/40 dark:text-primary border border-primary rounded-lg hover:bg-primary transition"
                           >
                             اعتماد
                           </button>

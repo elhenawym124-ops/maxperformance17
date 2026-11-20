@@ -141,7 +141,7 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                             : item.color === "yellow"
                               ? "bg-yellow-50 dark:bg-warning/20 border-warning dark:border-warning"
                               : item.color === "blue"
-                                ? "bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800"
+                                ? "bg-blue-50 dark:bg-primary/20 border-primary dark:border-primary"
                                 : "bg-purple-50 dark:bg-primary/20 border-primary dark:border-primary",
                         ].join(" ")}
                       >
@@ -153,7 +153,7 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                               : item.color === "yellow"
                                 ? "text-yellow-600 dark:text-warning"
                                 : item.color === "blue"
-                                  ? "text-blue-600 dark:text-blue-400"
+                                  ? "text-blue-600 dark:text-primary"
                                   : "text-purple-600 dark:text-primary",
                           ].join(" ")}
                         />
@@ -179,7 +179,7 @@ export const MyDashboardActivityTabsAndFooter: React.FC<
                                   ? "bg-yellow-100/50 text-warning border-none"
                                   : item.status === "REJECTED"
                                     ? "bg-red-100/50 text-destructive border-none"
-                                    : "bg-blue-100/50 text-blue-700 border-none"
+                                    : "bg-blue-100/50 text-primary border-none"
                             }
                           >
                             {item.status === "APPROVED" ||

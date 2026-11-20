@@ -61,8 +61,8 @@ export const ShippingReportsSummaryTab: React.FC<Props> = ({ data, loading }) =>
       title: 'نجاح أول محاولة',
       value: `${totals.firstAttemptSuccessRate}%`,
       icon: Target,
-      color: 'text-blue-600 dark:text-blue-400',
-      bg: 'bg-blue-50 dark:bg-blue-950/40',
+      color: 'text-blue-600 dark:text-primary',
+      bg: 'bg-blue-50 dark:bg-primary/40',
       sub: 'تسليم بدون أي فشل سابق',
     },
     {

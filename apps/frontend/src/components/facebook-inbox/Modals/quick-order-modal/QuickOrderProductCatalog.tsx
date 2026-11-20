@@ -86,7 +86,7 @@ export const QuickOrderProductCatalog: React.FC<
             className={`business-chip-button flex items-center gap-1.5 px-2.5 sm:px-3 py-2 text-xs font-semibold shrink-0 transition-all ${
               showHistoryDrawer
                 ? "bg-primary text-white border-primary"
-                : "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border-blue-200 dark:border-blue-800"
+                : "bg-blue-50 text-primary dark:bg-primary/40 dark:text-primary border-primary dark:border-primary"
             }`}
             title="سجل طلبات وبيانات العميل السابقة"
           >
@@ -203,7 +203,7 @@ export const QuickOrderProductCatalog: React.FC<
               <button
                 type="button"
                 onClick={loadMoreProducts}
-                className="mt-4 w-full rounded-xl border-2 border-dashed border-border py-3 text-sm font-semibold text-muted-foreground transition-colors hover:border-blue-400 hover:text-blue-500 dark:border-border dark:text-muted-foreground"
+                className="mt-4 w-full rounded-xl border-2 border-dashed border-border py-3 text-sm font-semibold text-muted-foreground transition-colors hover:border-primary hover:text-primary dark:border-border dark:text-muted-foreground"
               >
                 عرض المزيد من المنتجات
               </button>

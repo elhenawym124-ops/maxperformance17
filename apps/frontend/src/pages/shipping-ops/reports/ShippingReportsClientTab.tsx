@@ -70,7 +70,7 @@ export const ShippingReportsClientTab: React.FC<Props> = ({ data, loading }) => 
                 <th className="py-3 px-4 text-left">COD محصّل</th>
                 <th className="py-3 px-4 text-left">رسوم الشحن</th>
                 <th className="py-3 px-4 text-left">رسوم المرتجع</th>
-                <th className="py-3 px-4 text-left font-bold text-blue-600 dark:text-blue-400">صافي المستحق</th>
+                <th className="py-3 px-4 text-left font-bold text-primary dark:text-primary">صافي المستحق</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border dark:divide-border">
@@ -100,7 +100,7 @@ export const ShippingReportsClientTab: React.FC<Props> = ({ data, loading }) => 
                   <td className="py-2.5 px-4 text-left tabular-nums text-destructive dark:text-destructive">
                     {formatCurrency(row.returnFees)}
                   </td>
-                  <td className="py-2.5 px-4 text-left tabular-nums font-bold text-blue-600 dark:text-blue-400">
+                  <td className="py-2.5 px-4 text-left tabular-nums font-bold text-primary dark:text-primary">
                     {formatCurrency(row.net)}
                   </td>
                 </tr>
@@ -128,7 +128,7 @@ export const ShippingReportsClientTab: React.FC<Props> = ({ data, loading }) => 
                 <td className="py-3 px-4 text-left tabular-nums text-destructive dark:text-destructive">
                   {formatCurrency(totals.returnFees)}
                 </td>
-                <td className="py-3 px-4 text-left tabular-nums text-blue-600 dark:text-blue-400 font-extrabold">
+                <td className="py-3 px-4 text-left tabular-nums text-primary dark:text-primary font-extrabold">
                   {formatCurrency(totals.net)}
                 </td>
               </tr>

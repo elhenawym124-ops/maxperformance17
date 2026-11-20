@@ -14,7 +14,7 @@ export const TRAINING_STATUS_OPTIONS: TrainingStatusOption[] = [
   {
     value: "PLANNED",
     label: "مخطط",
-    color: "bg-blue-100 text-blue-700 border-blue-200",
+    color: "bg-blue-100 text-primary border-primary",
   },
   {
     value: "ONGOING",

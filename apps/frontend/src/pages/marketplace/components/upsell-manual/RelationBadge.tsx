@@ -15,7 +15,7 @@ export function RelationBadge({ label, tone = "blue" }: RelationBadgeProps) {
         ? "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning"
         : tone === "neutral"
           ? "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground"
-          : "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200";
+          : "bg-blue-100 text-primary dark:bg-primary/30 dark:text-primary";
 
   return (
     <span

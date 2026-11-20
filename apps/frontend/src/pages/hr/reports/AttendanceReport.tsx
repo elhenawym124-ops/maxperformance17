@@ -194,7 +194,7 @@ const AttendanceReport: React.FC = () => {
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-blue-600 to-primary text-white border-none shadow-lg transform transition-all hover:scale-[1.02]">
+              <Card className="bg-gradient-to-br from-primary to-primary text-white border-none shadow-lg transform transition-all hover:scale-[1.02]">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>

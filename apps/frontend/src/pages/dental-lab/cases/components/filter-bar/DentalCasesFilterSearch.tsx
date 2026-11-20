@@ -18,7 +18,7 @@ export const DentalCasesFilterSearch: React.FC<DentalCasesFilterSearchProps> = (
     <div className="relative flex-1 min-w-[200px] max-w-sm">
       <Search className="w-3.5 h-3.5 absolute right-3 top-2.5 text-muted-foreground" />
       <input
-        className="w-full bg-muted dark:bg-muted border border-border dark:border-border rounded-xl pe-8 ps-8 py-1.5 text-xs text-foreground dark:text-muted-foreground placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="w-full bg-muted dark:bg-muted border border-border dark:border-border rounded-xl pe-8 ps-8 py-1.5 text-xs text-foreground dark:text-muted-foreground placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary"
         placeholder="بحث سريع (رقم الحالة، المريض، الطبيب)..."
         value={searchInput}
         onChange={(e) => {

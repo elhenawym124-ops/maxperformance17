@@ -21,7 +21,7 @@ export function TechnicianKpiCards({
 
       <div className="bg-card rounded-xl border dark:border-border p-4">
         <p className="text-xs text-muted-foreground">إجمالي مستحقات الإنتاج</p>
-        <p className="text-xl font-bold mt-1 text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+        <p className="text-xl font-bold mt-1 text-primary dark:text-primary font-mono tabular-nums">
           {fmtMoney(totalWages)} {t("dentalLab.common.egp")}
         </p>
       </div>

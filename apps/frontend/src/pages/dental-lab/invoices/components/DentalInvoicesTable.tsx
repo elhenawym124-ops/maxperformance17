@@ -90,9 +90,9 @@ export function DentalInvoicesTable({
                   <tr
                     key={inv.id}
                     onClick={() => onRowClick(inv)}
-                    className="hover:bg-blue-50/40 dark:hover:bg-blue-900/10 cursor-pointer transition-colors"
+                    className="hover:bg-blue-50/40 dark:hover:bg-primary/10 cursor-pointer transition-colors"
                   >
-                    <td className="py-3 px-3.5 font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap font-mono">
+                    <td className="py-3 px-3.5 font-bold text-primary dark:text-primary whitespace-nowrap font-mono">
                       {inv.invoiceNumber || inv.id.slice(0, 8)}
                     </td>
                     <td className="py-3 px-3 text-muted-foreground whitespace-nowrap">
@@ -174,7 +174,7 @@ export function DentalInvoicesTable({
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => onRowClick(inv)}
-                          className="p-1.5 text-foreground hover:text-blue-600 hover:bg-muted dark:hover:bg-muted rounded-lg"
+                          className="p-1.5 text-foreground hover:text-primary hover:bg-muted dark:hover:bg-muted rounded-lg"
                           title="تفاصيل الفاتورة"
                           aria-label="تفاصيل الفاتورة"
                         >
@@ -192,7 +192,7 @@ export function DentalInvoicesTable({
                               );
                             }
                           }}
-                          className="p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg"
+                          className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg"
                           title={t("dentalLab.invoices.pdf")}
                           aria-label={t("dentalLab.invoices.pdf")}
                         >

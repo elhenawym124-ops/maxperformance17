@@ -10,7 +10,7 @@ const severityClasses: Record<string, string> = {
   neutral:
     "border-slate-200 bg-muted text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground",
   blue:
-    "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800/70 dark:bg-blue-950/40 dark:text-blue-300",
+    "border-blue-200 bg-primary/10 text-primary dark:border-primary/70 dark:bg-primary/40 dark:text-primary",
 };
 
 const statusMap: Record<string, Record<string, { label: string; severity: string }>> = {

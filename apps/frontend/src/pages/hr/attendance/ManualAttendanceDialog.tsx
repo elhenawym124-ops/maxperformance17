@@ -76,7 +76,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
               onChange={(e) =>
                 setManualForm({ ...manualForm, employeeId: e.target.value })
               }
-              className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
+              className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             >
               <option value="" disabled>
                 اختر موظف
@@ -106,7 +106,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
                 <label className="flex items-center gap-1.5 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="rounded border-border text-blue-600 shadow-sm w-3 h-3 focus:ring-blue-500"
+                    className="rounded border-border text-primary shadow-sm w-3 h-3 focus:ring-primary"
                     checked={manualOverrides.status}
                     onChange={(e) =>
                       setManualOverrides((prev) => ({
@@ -355,7 +355,7 @@ export const ManualAttendanceDialog: React.FC<ManualAttendanceDialogProps> = ({
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             إلغاء
           </Button>
-          <Button onClick={onSubmit} className="bg-blue-600 hover:bg-blue-700">
+          <Button onClick={onSubmit} className="bg-blue-600 hover:bg-primary">
             {isEditMode ? "حفظ التعديلات" : "تسجيل الحضور"}
           </Button>
         </DialogFooter>

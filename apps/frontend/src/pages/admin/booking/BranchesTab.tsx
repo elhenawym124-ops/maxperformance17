@@ -131,7 +131,7 @@ export default function BranchesTab({
                 )}
 
                 <div className="flex gap-1.5 pt-2 border-t border-border/60">
-                  <button onClick={() => onEdit(b)} className="text-xs px-2.5 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-md hover:bg-blue-500/20 flex items-center gap-1">
+                  <button onClick={() => onEdit(b)} className="text-xs px-2.5 py-1 bg-primary/10 text-primary dark:text-primary rounded-md hover:bg-primary/20 flex items-center gap-1">
                     <Pencil className="w-3 h-3" /><span>تعديل</span>
                   </button>
                   <button onClick={() => onToggleActive(b.id, b.isActive)} className={`text-xs px-2.5 py-1 rounded-md ${b.isActive ? "bg-rose-500/10 text-destructive hover:bg-destructive/20" : "bg-emerald-500/10 text-success hover:bg-success/20"}`}>
@@ -204,7 +204,7 @@ export default function BranchesTab({
                     </td>
                     <td className="py-2.5 px-3 text-left">
                       <div className="flex items-center justify-end gap-1">
-                        <button onClick={() => onEdit(b)} className="p-1 text-blue-600 hover:bg-blue-500/10 rounded transition-colors" title="تعديل"><Pencil className="w-4 h-4" /></button>
+                        <button onClick={() => onEdit(b)} className="p-1 text-primary hover:bg-primary/10 rounded transition-colors" title="تعديل"><Pencil className="w-4 h-4" /></button>
                         <button onClick={() => onToggleActive(b.id, b.isActive)} className={`p-1 rounded transition-colors ${b.isActive ? "text-rose-500 hover:bg-destructive/10" : "text-emerald-500 hover:bg-success/10"}`} title={b.isActive ? "تعطيل" : "تفعيل"}><Plus className="w-4 h-4" /></button>
                         <button onClick={() => onDelete(b.id)} className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors" title="حذف"><Trash2 className="w-4 h-4" /></button>
                       </div>

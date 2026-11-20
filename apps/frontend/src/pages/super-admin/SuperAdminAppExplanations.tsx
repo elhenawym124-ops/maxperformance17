@@ -394,7 +394,7 @@ const SuperAdminAppExplanations: React.FC = () => {
                             <Video className="size-3" /> فيديو
                           </span>
                           {exp.videoUrlMobile && (
-                            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary border border-primary dark:border-primary">
                               <Smartphone className="size-2.5" /> 9:16
                             </span>
                           )}

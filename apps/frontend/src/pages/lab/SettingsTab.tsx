@@ -126,7 +126,7 @@ export default function SettingsTab() {
           <h2 className="text-xl font-bold">الإعدادات</h2>
           <p className="text-sm text-muted-foreground">أنواع العينات وتعليمات تجميعها</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary">
           <Plus className="w-4 h-4" />إضافة نوع عينة
         </button>
       </div>
@@ -198,7 +198,7 @@ export default function SettingsTab() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex gap-1">
-                        <button onClick={() => openEdit(s)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg" title="تعديل">
+                        <button onClick={() => openEdit(s)} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg" title="تعديل">
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button onClick={() => remove(s)} disabled={removingId !== null} className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg disabled:opacity-40" title="حذف">
@@ -214,7 +214,7 @@ export default function SettingsTab() {
         )}
       </div>
 
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 text-sm text-blue-700 dark:text-blue-300">
+      <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary rounded-xl px-4 py-3 text-sm text-primary dark:text-primary">
         سيتم إضافة المزيد من الإعدادات في المراحل القادمة: المزارع، الزيارات المنزلية، الفروع، وقوائم الأسعار.
       </div>
 
@@ -252,7 +252,7 @@ export default function SettingsTab() {
 
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50">إلغاء</button>
-              <button onClick={save} disabled={saving || !modal.name.trim()} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">
+              <button onClick={save} disabled={saving || !modal.name.trim()} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50">
                 {saving ? "جارٍ الحفظ..." : "حفظ"}
               </button>
             </div>

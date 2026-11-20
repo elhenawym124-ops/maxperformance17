@@ -488,7 +488,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
             {products.map((product) => (
               <div
                 key={product.id}
-                className="flex flex-col bg-card border border-border dark:border-border rounded-lg hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all group cursor-pointer overflow-hidden relative"
+                className="flex flex-col bg-card border border-border dark:border-border rounded-lg hover:border-primary dark:hover:border-primary hover:shadow-md transition-all group cursor-pointer overflow-hidden relative"
                 onClick={() => handleProductClick(product)}
               >
                 {/* Image - Now larger and on top */}
@@ -524,7 +524,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
 
                   {/* Variant Badge */}
                   {product.variants.length > 0 && (
-                    <div className="absolute bottom-2 right-2 bg-blue-600 dark:bg-blue-500 text-white text-[10px] px-1.5 py-0.5 rounded shadow-sm">
+                    <div className="absolute bottom-2 right-2 bg-primary dark:bg-primary text-white text-[10px] px-1.5 py-0.5 rounded shadow-sm">
                       {t('manualOrder.k_136')}
                     </div>
                   )}
@@ -553,7 +553,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                       return (
                         <div className="flex flex-col">
                           <div className="flex items-baseline gap-1.5">
-                            <span className={`text-base font-bold ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-blue-400"}`}>
+                            <span className={`text-base font-bold ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-primary"}`}>
                               {wsInfo ? wsInfo.wholesalePrice : product.price} {t('manualOrder.k_75')}
                             </span>
                             {wsInfo && regularPrice > wsInfo.wholesalePrice && (
@@ -575,7 +575,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                     })()}
 
                     <button
-                      className="p-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white transition-colors"
+                      className="p-1.5 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary rounded-full hover:bg-primary dark:hover:bg-primary hover:text-white transition-colors"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleProductClick(product);
@@ -640,7 +640,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                         <label className="block text-sm font-semibold text-foreground">
                           {attr.name}
                           {isSelected && (
-                            <span className="text-blue-600 dark:text-blue-400 me-2">
+                            <span className="text-blue-600 dark:text-primary me-2">
                               : {isSelected}
                             </span>
                           )}
@@ -661,9 +661,9 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all
                                     ${
                                       isActive
-                                        ? "bg-blue-600 dark:bg-blue-500 text-white border-2 border-blue-600 dark:border-blue-500"
+                                        ? "bg-blue-600 dark:bg-primary text-white border-2 border-primary dark:border-primary"
                                         : isAvailable
-                                          ? "bg-card text-foreground border-2 border-border hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                                          ? "bg-card text-foreground border-2 border-border hover:border-primary dark:hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20"
                                           : "bg-gray-100 dark:bg-muted text-muted-foreground/80 border-2 border-border dark:border-border cursor-not-allowed line-through"
                                     }
                                 `}
@@ -679,7 +679,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
 
                   {/* Selected variant info & add button */}
                   {matchedVariant && (
-                    <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+                    <div className="mt-4 p-4 bg-primary/10 dark:bg-primary/20 rounded-lg border border-primary dark:border-primary">
                       <div className="flex justify-between items-center mb-3">
                         <div>
                           {(() => {
@@ -688,7 +688,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                             return (
                               <div className="flex flex-col">
                                 <div className="flex items-baseline gap-2">
-                                  <span className={`text-lg font-bold ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-blue-400"}`}>
+                                  <span className={`text-lg font-bold ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-primary"}`}>
                                     {wsInfo ? wsInfo.wholesalePrice : matchedVariant.price} {t('manualOrder.k_75')}
                                   </span>
                                   {wsInfo && regPrice > wsInfo.wholesalePrice && (
@@ -728,7 +728,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                         className={`w-full py-2.5 rounded-lg font-semibold transition-all flex items-center justify-center gap-2
                                                     ${
                                                       isInStock(matchedVariant)
-                                                        ? "bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600"
+                                                        ? "bg-blue-600 dark:bg-primary text-white hover:bg-primary dark:hover:bg-primary"
                                                         : "bg-gray-300 dark:bg-muted text-muted-foreground cursor-not-allowed"
                                                     }
                                                 `}
@@ -762,7 +762,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                       className={`w-full flex items-center justify-between p-3 rounded-lg border text-right transition-all
                                                 ${
                                                   isInStock(variant)
-                                                    ? "border-gray-200 dark:border-border hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer bg-card"
+                                                    ? "border-gray-200 dark:border-border hover:border-primary dark:hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20 cursor-pointer bg-card"
                                                     : "border-gray-100 dark:border-border bg-muted dark:bg-muted opacity-60 cursor-not-allowed"
                                                 }
                                             `}
@@ -782,7 +782,7 @@ const ProductSearchColumn: React.FC<ProductSearchColumnProps> = ({
                           return (
                             <div className="flex flex-col items-end">
                               <div className="flex items-baseline gap-1.5">
-                                <span className={`font-bold text-sm ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-blue-400"}`}>
+                                <span className={`font-bold text-sm ${wsInfo ? "text-emerald-600 dark:text-success" : "text-blue-600 dark:text-primary"}`}>
                                   {wsInfo ? wsInfo.wholesalePrice : variant.price} {t('manualOrder.k_75')}
                                 </span>
                                 {wsInfo && regPrice > wsInfo.wholesalePrice && (

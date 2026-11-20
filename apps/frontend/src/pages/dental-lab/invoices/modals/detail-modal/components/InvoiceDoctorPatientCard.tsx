@@ -45,7 +45,7 @@ export function InvoiceDoctorPatientCard({
               {invoice.patientName || invoice.case?.patientName || "—"}
             </p>
             {invoice.case?.caseNumber && (
-              <p className="text-blue-600 dark:text-blue-400 font-semibold mt-0.5 font-mono">
+              <p className="text-blue-600 dark:text-primary font-semibold mt-0.5 font-mono">
                 حالة رقم: {invoice.case.caseNumber}
               </p>
             )}

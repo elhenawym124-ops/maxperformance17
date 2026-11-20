@@ -59,13 +59,13 @@ export const JobPostingsFilterAndGrid: React.FC<
               placeholder="ابحث عن وظيفة..."
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pe-10 ps-4 py-3 border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+              className="w-full pe-10 ps-4 py-3 border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
             />
           </div>
           <select
             value={filterStatus}
             onChange={(e) => onFilterStatusChange(e.target.value)}
-            className="px-4 py-3 border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+            className="px-4 py-3 border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
           >
             <option value="all">جميع الحالات</option>
             <option value="ACTIVE">نشط</option>
@@ -75,7 +75,7 @@ export const JobPostingsFilterAndGrid: React.FC<
           </select>
           <button
             onClick={onOpenCreateModal}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:shadow-lg transition-all"
           >
             <PlusIcon className="w-5 h-5" />
             إضافة وظيفة
@@ -101,7 +101,7 @@ export const JobPostingsFilterAndGrid: React.FC<
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <BriefcaseIcon className="w-6 h-6 text-blue-600" />
+                      <BriefcaseIcon className="w-6 h-6 text-primary" />
                       <h3 className="text-xl font-bold text-foreground dark:text-white">
                         {job.title}
                       </h3>
@@ -159,7 +159,7 @@ export const JobPostingsFilterAndGrid: React.FC<
                 <div className="flex gap-2 pt-4 border-t-2 border-border dark:border-border">
                   <button
                     onClick={() => onViewDetails(job)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-lg hover:bg-blue-100 transition-all"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 text-primary rounded-lg hover:bg-primary transition-all"
                   >
                     <EyeIcon className="w-5 h-5" />
                     عرض

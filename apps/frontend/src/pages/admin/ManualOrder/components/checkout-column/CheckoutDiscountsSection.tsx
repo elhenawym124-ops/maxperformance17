@@ -40,13 +40,13 @@ export const CheckoutDiscountsSection: React.FC<CheckoutDiscountsSectionProps> =
             value={couponCode}
             onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
             placeholder={t("manualOrder.k_9")}
-            className="flex-1 border-border rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
+            className="flex-1 border-border rounded-md focus:ring-primary focus:border-primary text-sm dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
             onKeyDown={(e) => e.key === "Enter" && onApplyCoupon()}
           />
           <button
             onClick={onApplyCoupon}
             disabled={loadingCoupon || !couponCode.trim()}
-            className="px-3 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-md text-sm hover:bg-blue-700 dark:hover:bg-blue-600 disabled:bg-muted dark:disabled:bg-muted disabled:cursor-not-allowed"
+            className="px-3 py-2 bg-primary dark:bg-primary text-white rounded-md text-sm hover:bg-primary dark:hover:bg-primary disabled:bg-muted dark:disabled:bg-muted disabled:cursor-not-allowed"
           >
             {loadingCoupon ? (
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -56,13 +56,13 @@ export const CheckoutDiscountsSection: React.FC<CheckoutDiscountsSectionProps> =
           </button>
         </div>
       ) : (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3">
+        <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg p-3">
           <div className="flex justify-between items-center">
             <div>
-              <span className="text-sm font-medium text-blue-700 dark:text-blue-400">
+              <span className="text-sm font-medium text-primary dark:text-primary">
                 {appliedCoupon.code}
               </span>
-              <span className="text-xs text-blue-600 dark:text-blue-400 me-2">
+              <span className="text-xs text-primary dark:text-primary me-2">
                 ({appliedCoupon.name})
               </span>
             </div>
@@ -73,7 +73,7 @@ export const CheckoutDiscountsSection: React.FC<CheckoutDiscountsSectionProps> =
               <XMarkIcon className="w-4 h-4" />
             </button>
           </div>
-          <div className="text-sm text-blue-700 dark:text-blue-400 mt-1">
+          <div className="text-sm text-primary dark:text-primary mt-1">
             {t("manualOrder.k_106")}{appliedCoupon.discountAmount.toLocaleString()} {t("manualOrder.k_75")}
           </div>
         </div>
@@ -88,7 +88,7 @@ export const CheckoutDiscountsSection: React.FC<CheckoutDiscountsSectionProps> =
           type="number"
           value={manualDiscount || ""}
           onChange={(e) => setManualDiscount(parseFloat(e.target.value) || 0)}
-          className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm dark:bg-muted dark:text-muted-foreground"
+          className="w-full border-border rounded-md focus:ring-primary focus:border-primary text-sm dark:bg-muted dark:text-muted-foreground"
           placeholder="0"
           min="0"
         />

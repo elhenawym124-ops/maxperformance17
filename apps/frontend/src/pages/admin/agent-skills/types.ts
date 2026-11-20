@@ -172,7 +172,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "support",
     triggerAr: "إنشاء طلب جديد يتطلب التحقق النهائي مع المشتري.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-blue-300", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
+    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-primary", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
   },
   "order-support": {
     titleAr: "تتبع وحل مشكلات الشحنات",
@@ -180,7 +180,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "support",
     triggerAr: "سؤال العميل 'أوردر بتاعي وصل فين؟' أو الإبلاغ عن تأخير في التسليم.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-blue-300", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
+    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-primary", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
   },
   "exchange-support": {
     titleAr: "إدارة طلبات الاستبدال والاسترجاع",
@@ -188,7 +188,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "support",
     triggerAr: "طلب العميل تبديل مقاس أو إرجاع منتج غير مطابق.",
     isApprovalRequired: true,
-    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-blue-300", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
+    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-primary", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
   },
   "customer-context-summary": {
     titleAr: "ملخص تاريخ وسياق العميل",
@@ -196,7 +196,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "support",
     triggerAr: "بدء أي جلسة محادثة جديدة مع عميل حالي مسجل في قاعدة البيانات.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-blue-300", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
+    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-primary", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
   },
   "post-sale-retention": {
     titleAr: "رعاية وتقييمات ما بعد البيع",
@@ -204,7 +204,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "support",
     triggerAr: "تسليم الطلب بنجاح وتأكيده في نظام التوصيل.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-blue-300", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
+    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-primary", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
   },
   "handoff-to-human": {
     titleAr: "التسليم السلس لموظف بشري",
@@ -212,7 +212,7 @@ export const COMMERCIAL_SKILLS_DICTIONARY: Record<string, SkillMetadataMeta> = {
     vertical: "support",
     triggerAr: "طلب العميل التحدث مع موظف، أو رصد مشكلة شكوى حادة.",
     isApprovalRequired: false,
-    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-blue-300", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
+    badgeColor: { bg: "bg-blue-500/10", text: "text-blue-700 dark:text-primary", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
   },
   "medical-center-booking": {
     titleAr: "حجز مواعيد العيادات والمراكز الطبية",

@@ -166,7 +166,7 @@ export const OwnerAttendanceHeaderAndFilters: React.FC<
             </p>
           </div>
           <div className="bg-card p-4 rounded-xl shadow-sm border border-border dark:border-border">
-            <div className="flex items-center gap-2 text-blue-600 text-xs font-medium">
+            <div className="flex items-center gap-2 text-primary text-xs font-medium">
               <UserMinusIcon className="w-4 h-4" /> إجازة
             </div>
             <p className="text-2xl font-bold font-mono tabular-nums text-foreground dark:text-white mt-1">

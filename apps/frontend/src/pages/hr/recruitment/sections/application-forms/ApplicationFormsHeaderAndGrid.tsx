@@ -51,14 +51,14 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
               placeholder="البحث في الاستبيانات..."
               value={searchTerm}
               onChange={(e) => onSearchTermChange(e.target.value)}
-              className="w-full pe-10 ps-4 py-3 bg-card border-2 border-border dark:border-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              className="w-full pe-10 ps-4 py-3 bg-card border-2 border-border dark:border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
             />
           </div>
         </div>
 
         <button
           onClick={onOpenCreateModal}
-          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all font-medium"
+          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:shadow-lg transition-all font-medium"
         >
           <PlusIcon className="w-5 h-5" />
           إنشاء استبيان جديد
@@ -67,7 +67,7 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
 
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
       ) : filteredForms.length === 0 ? (
         <div className="text-center py-12 bg-card rounded-xl border-2 border-border dark:border-border">
@@ -166,13 +166,13 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
                     <p className="text-xs text-muted-foreground mb-1">
                       رابط الاستبيان:
                     </p>
-                    <p className="text-sm text-blue-600 dark:text-blue-400 truncate font-mono">
+                    <p className="text-sm text-primary dark:text-primary truncate font-mono">
                       {window.location.origin}/apply/{form.slug || form.id}
                     </p>
                   </div>
                   <button
                     onClick={() => onCopyFormLink(form.slug || form.id)}
-                    className="flex-shrink-0 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm flex items-center gap-1"
+                    className="flex-shrink-0 px-3 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-all text-sm flex items-center gap-1"
                   >
                     <LinkIcon className="w-4 h-4" />
                     نسخ
@@ -183,7 +183,7 @@ export const ApplicationFormsHeaderAndGrid: React.FC<
               <div className="flex items-center gap-2 pt-4 border-t border-border dark:border-border">
                 <button
                   onClick={() => onEditForm(form)}
-                  className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all text-sm"
+                  className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-primary/10 dark:bg-primary/20 text-primary rounded-lg hover:bg-primary dark:hover:bg-primary/30 transition-all text-sm"
                 >
                   <PencilIcon className="w-4 h-4" />
                   تعديل

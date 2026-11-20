@@ -164,7 +164,7 @@ export default function AppointmentsTab({
               <span className="bg-muted text-muted-foreground font-mono tabular-nums px-2 py-0.5 rounded-md">{a.startTime}</span>
               {a.serviceName && <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-md font-medium">{a.serviceName}</span>}
               {a.createdByName && (
-                <span className={`px-2 py-0.5 rounded-md text-[11px] ${a.createdByType === 'ai_service' ? 'bg-purple-500/10 text-primary dark:text-primary' : 'bg-blue-500/10 text-blue-600 dark:text-blue-400'}`}>
+                <span className={`px-2 py-0.5 rounded-md text-[11px] ${a.createdByType === 'ai_service' ? 'bg-purple-500/10 text-primary dark:text-primary' : 'bg-blue-500/10 text-primary dark:text-primary'}`}>
                   {a.createdByType === 'ai_service' ? 'وكيل ذكي' : 'موظف'}: {a.createdByName}
                 </span>
               )}
@@ -183,7 +183,7 @@ export default function AppointmentsTab({
                 </>
               )}
               {a.status === "confirmed" && (
-                <button onClick={() => confirmAndUpdate(a.id, "completed", "مكتمل")} disabled={updatingId === a.id} className="text-xs px-2.5 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 rounded-md hover:bg-blue-500/20 disabled:opacity-50 flex items-center gap-1">
+                <button onClick={() => confirmAndUpdate(a.id, "completed", "مكتمل")} disabled={updatingId === a.id} className="text-xs px-2.5 py-1 bg-primary/10 text-primary dark:text-primary border border-primary/20 rounded-md hover:bg-primary/20 disabled:opacity-50 flex items-center gap-1">
                   <Check className="w-3 h-3" />
                   <span>إتمام</span>
                 </button>
@@ -253,7 +253,7 @@ export default function AppointmentsTab({
                 <td className="py-2.5 px-3 font-mono tabular-nums text-muted-foreground">{a.startTime}</td>
                 <td className="py-2.5 px-3">
                   {a.createdByName ? (
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] ${a.createdByType === 'ai_service' ? 'bg-purple-500/10 text-primary dark:text-primary' : 'bg-blue-500/10 text-blue-600 dark:text-blue-400'}`}>
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] ${a.createdByType === 'ai_service' ? 'bg-purple-500/10 text-primary dark:text-primary' : 'bg-blue-500/10 text-primary dark:text-primary'}`}>
                       <span className="text-[9px] opacity-70">{a.createdByType === 'ai_service' ? 'وكيل' : 'موظف'}</span>
                       <span>{a.createdByName}</span>
                     </span>
@@ -273,7 +273,7 @@ export default function AppointmentsTab({
                       </>
                     )}
                     {a.status === "confirmed" && (
-                      <button onClick={() => confirmAndUpdate(a.id, "completed", "مكتمل")} disabled={updatingId === a.id} className="p-1 text-blue-600 hover:bg-blue-500/10 rounded transition-colors disabled:opacity-50" title="إتمام"><Check className="w-4 h-4" /></button>
+                      <button onClick={() => confirmAndUpdate(a.id, "completed", "مكتمل")} disabled={updatingId === a.id} className="p-1 text-primary hover:bg-primary/10 rounded transition-colors disabled:opacity-50" title="إتمام"><Check className="w-4 h-4" /></button>
                     )}
                     <button onClick={() => onEdit(a)} className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors" title="عرض وتعديل"><Eye className="w-4 h-4" /></button>
                     {a.patientId && onViewPatient && (

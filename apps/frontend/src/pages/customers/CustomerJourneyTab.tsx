@@ -55,7 +55,7 @@ const CustomerJourneyTab: React.FC<{ customerId: string }> = ({ customerId }) =>
       );
     if (status === "COMPLETED")
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-primary text-primary dark:bg-primary/40 dark:text-primary">
           <CheckCircle2 className="h-3 w-3" /> اكتملت
         </span>
       );

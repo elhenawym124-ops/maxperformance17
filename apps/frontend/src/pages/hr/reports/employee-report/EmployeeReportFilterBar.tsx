@@ -80,7 +80,7 @@ export const EmployeeReportFilterBar: React.FC<
             <DateInput
               value={startDate}
               onChange={(e) => onStartDateChange(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md dark:bg-muted dark:border-border dark:text-muted-foreground outline-none focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
+              className="w-full px-3 py-2 border rounded-md dark:bg-muted dark:border-border dark:text-muted-foreground outline-none focus:ring-2 focus:ring-primary font-mono tabular-nums"
             />
           </div>
 
@@ -89,7 +89,7 @@ export const EmployeeReportFilterBar: React.FC<
             <DateInput
               value={endDate}
               onChange={(e) => onEndDateChange(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md dark:bg-muted dark:border-border dark:text-muted-foreground outline-none focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
+              className="w-full px-3 py-2 border rounded-md dark:bg-muted dark:border-border dark:text-muted-foreground outline-none focus:ring-2 focus:ring-primary font-mono tabular-nums"
             />
           </div>
 
@@ -98,7 +98,7 @@ export const EmployeeReportFilterBar: React.FC<
             <div className="flex gap-2">
               <Button
                 onClick={onFetchReport}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                className="flex-1 bg-primary hover:bg-primary text-white"
               >
                 <RefreshCw className="h-4 w-4 ms-2" />
                 عرض

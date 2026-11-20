@@ -73,7 +73,7 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>نسبة الإنجاز للتأكيد</span>
-              <BarChart3 className="h-4 w-4 text-blue-500" />
+              <BarChart3 className="h-4 w-4 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
               {actions.total > 0 ? Math.round((actions.confirms / actions.total) * 100) : 0}%
@@ -144,7 +144,7 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
       <Card className="border-border/70 bg-card overflow-hidden">
         <div className="p-4 border-b border-border/70 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ArrowRightLeft className="h-4 w-4 text-blue-500" />
+            <ArrowRightLeft className="h-4 w-4 text-primary" />
             <h3 className="text-sm font-semibold text-foreground">
               سجل التحديثات الحية واللحظية
             </h3>
@@ -193,7 +193,7 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
                       {fmtTime(item.createdAt)}
                     </td>
                     <td className="py-2.5 px-4 text-left">
-                      <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-medium ${item.isOldOrder ? "bg-amber-500/10 text-warning border border-warning/20" : "bg-blue-500/10 text-blue-600 border border-blue-500/20"}`}>
+                      <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-medium ${item.isOldOrder ? "bg-amber-500/10 text-warning border border-warning/20" : "bg-blue-500/10 text-primary border border-primary/20"}`}>
                         {item.isOldOrder ? "قديم" : "جديد"}
                       </span>
                     </td>

@@ -85,7 +85,7 @@ const MyAssetRequests: React.FC = () => {
   const getStatusBadge = (status: string) => {
     const badges = {
       PENDING: "bg-yellow-100 text-warning",
-      APPROVED: "bg-blue-100 text-blue-800",
+      APPROVED: "bg-blue-100 text-primary",
       REJECTED: "bg-red-100 text-destructive",
       FULFILLED: "bg-green-100 text-success",
       CANCELLED: "bg-gray-100 text-foreground",

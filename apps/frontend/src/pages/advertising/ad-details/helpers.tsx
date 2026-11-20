@@ -98,7 +98,7 @@ export const getVerdictClass = (tone?: string) => {
     green: "border-emerald-200 bg-success/10 text-success",
     red: "border-red-200 bg-destructive/10 text-destructive",
     amber: "border-amber-200 bg-warning/10 text-warning",
-    blue: "border-blue-200 bg-blue-50 text-blue-800",
+    blue: "border-blue-200 bg-primary/10 text-primary",
     slate: "border-slate-200 bg-muted text-foreground",
   };
 

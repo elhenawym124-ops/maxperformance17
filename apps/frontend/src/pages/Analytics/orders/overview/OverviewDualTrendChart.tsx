@@ -87,7 +87,7 @@ export const OverviewDualTrendChart: React.FC<OverviewDualTrendChartProps> = ({
             onClick={() => setMetricMode("orders")}
             className={`px-2.5 py-1 rounded-md font-medium transition-all ${
               metricMode === "orders"
-                ? "bg-white dark:bg-[#1e1e24] text-blue-600 dark:text-blue-400 shadow-sm"
+                ? "bg-white dark:bg-[#1e1e24] text-primary dark:text-primary shadow-sm"
                 : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
             }`}
           >

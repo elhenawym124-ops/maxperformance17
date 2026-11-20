@@ -108,7 +108,7 @@ export default function DentalLabManagementPage() {
           <div className="max-w-xl mx-auto">
             <button
               onClick={() => navigate("/dental-lab/cases")}
-              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-blue-600 transition mb-1"
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition mb-1"
             >
               <ArrowLeft className="w-3.5 h-3.5 rtl:rotate-180" />
               <span>{t("dentalLab.common.back")}</span>

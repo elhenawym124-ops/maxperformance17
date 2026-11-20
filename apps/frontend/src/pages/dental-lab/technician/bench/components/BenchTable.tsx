@@ -53,7 +53,7 @@ export const BenchTable: React.FC<BenchTableProps> = ({
                     {c.workTypeName || "—"}
                   </td>
                   <td className="py-2.5 px-3">
-                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300">
+                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-primary dark:bg-primary/40 text-primary dark:text-primary">
                       {c.activeStageName || c.status}
                     </span>
                   </td>
@@ -78,7 +78,7 @@ export const BenchTable: React.FC<BenchTableProps> = ({
                         type="button"
                         onClick={() => onAdvance(c)}
                         disabled={busyId === c.id}
-                        className="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] disabled:opacity-50"
+                        className="px-2.5 py-1 rounded bg-primary hover:bg-primary text-white font-bold text-[11px] disabled:opacity-50"
                       >
                         إنهاء المرحلة
                       </button>

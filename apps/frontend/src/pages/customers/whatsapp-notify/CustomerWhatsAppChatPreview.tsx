@@ -77,7 +77,7 @@ export const CustomerWhatsAppChatPreview: React.FC<CustomerWhatsAppChatPreviewPr
 
           <div className="flex items-center justify-end gap-1 text-[10px] text-muted-foreground font-mono tabular-nums">
             <span>{currentTime}</span>
-            <CheckCheck className="h-3 w-3 text-blue-500" />
+            <CheckCheck className="h-3 w-3 text-primary" />
           </div>
         </div>
       </div>

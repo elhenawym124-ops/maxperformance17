@@ -80,7 +80,7 @@ export function CandidateProductPicker({
                   <button
                     type="button"
                     onClick={() => addProductToRelation(product.id)}
-                    className="rounded-full bg-blue-600 px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-blue-700"
+                    className="rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-primary"
                   >
                     إضافة
                   </button>

@@ -134,7 +134,7 @@ export function DoctorInvoicesTab({
                           )}
                           <button
                             onClick={() => onDownloadPdf(inv.id, inv.invoiceNumber)}
-                            className="p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                            className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg transition-colors"
                             title="تحميل فاتورة PDF"
                             aria-label="تحميل فاتورة PDF"
                           >

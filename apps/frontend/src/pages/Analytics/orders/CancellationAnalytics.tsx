@@ -62,7 +62,7 @@ const categoryBadgeStyle = (category: string) => {
     "طلب العميل": "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
     "طلب مكرر": "bg-sky-500/10 text-info dark:text-info border border-info/20",
     "مشكلة مخزون": "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
-    "مشكلة شحن": "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+    "مشكلة شحن": "bg-blue-500/10 text-primary dark:text-primary border border-primary/20",
     "مشكلة دفع أو سعر": "bg-emerald-500/10 text-success dark:text-success border border-success/20",
   };
   return m[category] || "bg-muted text-muted-foreground border border-border/70";

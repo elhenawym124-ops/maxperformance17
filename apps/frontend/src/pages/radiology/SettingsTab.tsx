@@ -60,7 +60,7 @@ const FLAG_COLOR_OPTIONS: { name: string; value: string }[] = [
   { name: "radiology.settings.colorAmber", value: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
   { name: "radiology.settings.colorPink", value: "bg-pink-100 text-primary dark:bg-primary/40 dark:text-primary" },
   { name: "radiology.settings.colorPurple", value: "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary" },
-  { name: "radiology.settings.colorBlue", value: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  { name: "radiology.settings.colorBlue", value: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   { name: "radiology.settings.colorGreen", value: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
   { name: "radiology.settings.colorGray", value: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
 ];
@@ -356,7 +356,7 @@ export default function SettingsTab() {
           <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
             <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
           </button>
-          <button onClick={() => setModal(emptyForm())} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+          <button onClick={() => setModal(emptyForm())} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm">
             <Plus className="w-4 h-4" />{t("radiology.settings.newTemplate")}
           </button>
         </div>
@@ -405,7 +405,7 @@ export default function SettingsTab() {
                     {idSettings.enabled ? `${idSettings.patientPrefix}-${String(1).padStart(idSettings.digits, "0")}` : "1"}
                   </span>
                 </div>
-                <button onClick={saveIdSettings} disabled={savingIdSettings} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm">
+                <button onClick={saveIdSettings} disabled={savingIdSettings} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 text-sm">
                   {savingIdSettings && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
                 </button>
               </div>
@@ -438,7 +438,7 @@ export default function SettingsTab() {
                 <input type="checkbox" checked={guards.blockCancelAfterDelivery} onChange={e => setGuards(g => ({ ...g, blockCancelAfterDelivery: e.target.checked }))} className="w-4 h-4" />
                 {t("radiology.settings.blockCancelAfterDelivery")}
               </label>
-              <button onClick={saveGuards} disabled={savingGuards} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm">
+              <button onClick={saveGuards} disabled={savingGuards} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 text-sm">
                 {savingGuards && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>
@@ -456,7 +456,7 @@ export default function SettingsTab() {
             <button onClick={() => refreshRiskFlags()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
               <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
             </button>
-            <button onClick={() => setFlagModal({ value: `flag_${riskFlags.length + 1}`, label: "", color: FLAG_COLOR_OPTIONS[0].value })} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+            <button onClick={() => setFlagModal({ value: `flag_${riskFlags.length + 1}`, label: "", color: FLAG_COLOR_OPTIONS[0].value })} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm">
               <Plus className="w-4 h-4" />{t("radiology.settings.newRiskFlag")}
             </button>
           </div>
@@ -476,12 +476,12 @@ export default function SettingsTab() {
                     <span className="text-xs font-mono text-muted-foreground truncate" dir="ltr">{f.value}</span>
                   </div>
                   <div className="flex items-center gap-1.5 shrink-0">
-                    <button onClick={() => setFlagModal({ index: i, value: f.value, label: f.label, color: f.color })} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
+                    <button onClick={() => setFlagModal({ index: i, value: f.value, label: f.label, color: f.color })} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
                     <button onClick={() => removeFlag(f)} className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
                   </div>
                 </div>
               ))}
-              <button onClick={saveRiskFlags} disabled={savingRiskFlags} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm">
+              <button onClick={saveRiskFlags} disabled={savingRiskFlags} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 text-sm">
                 {savingRiskFlags && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>
@@ -513,7 +513,7 @@ export default function SettingsTab() {
                 <input type="checkbox" checked={delivery.notifyReferringDoctor} onChange={e => setDelivery(d => ({ ...d, notifyReferringDoctor: e.target.checked }))} className="w-4 h-4" />
                 {t("radiology.settings.notifyReferringDoctor")}
               </label>
-              <button onClick={saveDelivery} disabled={savingDelivery} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm">
+              <button onClick={saveDelivery} disabled={savingDelivery} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 text-sm">
                 {savingDelivery && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>
@@ -535,7 +535,7 @@ export default function SettingsTab() {
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-bold">{tmpl.name}</h3>
                 <div className="flex items-center gap-1.5">
-                  <button onClick={() => setModal({ id: tmpl.id, name: tmpl.name, body: tmpl.body })} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
+                  <button onClick={() => setModal({ id: tmpl.id, name: tmpl.name, body: tmpl.body })} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
                   <button onClick={() => remove(tmpl)} className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
                 </div>
               </div>
@@ -555,7 +555,7 @@ export default function SettingsTab() {
             <button onClick={() => refreshTags()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
               <RefreshCw className="w-4 h-4" />{t("radiology.refresh")}
             </button>
-            <button onClick={() => setTagModal(emptyTagForm())} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+            <button onClick={() => setTagModal(emptyTagForm())} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm">
               <Plus className="w-4 h-4" />{t("radiology.settings.newTag")}
             </button>
           </div>
@@ -579,7 +579,7 @@ export default function SettingsTab() {
                     {!tag.isActive && <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground dark:text-muted-foreground rounded-full">{t("radiology.settings.inactive")}</span>}
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <button onClick={() => setTagModal({ id: tag.id, name: tag.name })} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
+                    <button onClick={() => setTagModal({ id: tag.id, name: tag.name })} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
                     <button onClick={() => removeTag(tag)} className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
                   </div>
                 </div>
@@ -638,7 +638,7 @@ export default function SettingsTab() {
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.cancel")}</button>
-              <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
+              <button onClick={save} disabled={saving} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>
@@ -659,7 +659,7 @@ export default function SettingsTab() {
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setTagModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.cancel")}</button>
-              <button onClick={saveTag} disabled={savingTag} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
+              <button onClick={saveTag} disabled={savingTag} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2">
                 {savingTag && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>
@@ -688,7 +688,7 @@ export default function SettingsTab() {
                 <label className="block text-xs font-medium text-muted-foreground mb-1">{t("radiology.settings.riskFlagsColor")}</label>
                 <div className="flex flex-wrap gap-2">
                   {FLAG_COLOR_OPTIONS.map(c => (
-                    <button key={c.name} type="button" onClick={() => setFlagModal({ ...flagModal, color: c.value })} className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border ${flagModal.color === c.value ? "ring-2 ring-blue-500 border-blue-500" : "border-border"} ${c.value}`}>
+                    <button key={c.name} type="button" onClick={() => setFlagModal({ ...flagModal, color: c.value })} className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border ${flagModal.color === c.value ? "ring-2 ring-primary border-primary" : "border-border"} ${c.value}`}>
                       {t(c.name)}
                     </button>
                   ))}
@@ -697,7 +697,7 @@ export default function SettingsTab() {
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setFlagModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.cancel")}</button>
-              <button onClick={saveFlag} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">{t("radiology.save")}</button>
+              <button onClick={saveFlag} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary">{t("radiology.save")}</button>
             </div>
           </div>
         </div>

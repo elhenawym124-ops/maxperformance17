@@ -49,7 +49,7 @@ export const CourierCustodyPage: React.FC = () => {
   if (loading && !custody) {
     return (
       <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center p-4">
-        <ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600" />
+        <ArrowPathIcon className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -95,9 +95,9 @@ export const CourierCustodyPage: React.FC = () => {
       {/* Main Content */}
       <main className="w-full max-w-[1800px] mx-auto p-3.5 sm:p-6 space-y-4">
         {/* Total Cash in Custody Hero Card */}
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-xl p-4 shadow-md space-y-3">
+        <div className="bg-gradient-to-br from-primary to-primary text-white rounded-xl p-4 shadow-md space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-blue-100">
+            <span className="text-xs font-semibold text-primary">
               المبلغ الواجب توريده للخزينة الآن
             </span>
             <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
@@ -109,10 +109,10 @@ export const CourierCustodyPage: React.FC = () => {
             <span className="text-3xl font-extrabold font-mono tabular-nums tracking-tight">
               {difference.toLocaleString()}
             </span>
-            <span className="text-sm font-semibold text-blue-200">جنيه مصري</span>
+            <span className="text-sm font-semibold text-primary">جنيه مصري</span>
           </div>
 
-          <div className="pt-2 border-t border-white/15 flex items-center justify-between text-xs text-blue-100">
+          <div className="pt-2 border-t border-white/15 flex items-center justify-between text-xs text-primary">
             <span>مطلوب تحصيله: <strong className="font-mono text-white">{expected.toLocaleString()}</strong> ج.م</span>
             <span>المحصل: <strong className="font-mono text-white">{collected.toLocaleString()}</strong> ج.م</span>
           </div>
@@ -163,7 +163,7 @@ export const CourierCustodyPage: React.FC = () => {
                             تم التوريد للخزينة
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary dark:bg-primary/60 dark:text-primary border border-primary">
                             <DocumentCheckIcon className="w-3.5 h-3.5" />
                             بانتظار التوريد
                           </span>
@@ -176,7 +176,7 @@ export const CourierCustodyPage: React.FC = () => {
 
                     <Link
                       to={`/courier-portal/runs/${r.id}`}
-                      className="text-xs font-bold text-blue-600 hover:text-blue-700"
+                      className="text-xs font-bold text-primary hover:text-primary"
                     >
                       عرض المانيفست
                     </Link>

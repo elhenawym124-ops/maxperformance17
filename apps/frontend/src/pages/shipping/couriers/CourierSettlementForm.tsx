@@ -122,7 +122,7 @@ export const CourierSettlementForm: React.FC<CourierSettlementFormProps> = ({
                 ? 'bg-emerald-500/10 text-success dark:text-success border-success/30'
                 : cashDiscrepancy < 0
                 ? 'bg-rose-500/10 text-destructive dark:text-destructive border-destructive/30'
-                : 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30'
+                : 'bg-blue-500/10 text-primary dark:text-primary border-primary/30'
             }`}
           >
             <div className="flex items-center gap-2">

@@ -31,7 +31,7 @@ export function StagesModalFooter({
           type="button"
           onClick={onSave}
           disabled={saving || loading}
-          className="px-5 py-2 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center gap-1.5 shadow-xs"
+          className="px-5 py-2 bg-primary text-white text-xs font-medium rounded-lg hover:bg-primary disabled:opacity-50 transition-colors flex items-center gap-1.5 shadow-xs"
         >
           {saving ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />

@@ -157,9 +157,9 @@ export const OwnerAttendanceEmployeeViews: React.FC<
                       غائب
                     </div>
                   </div>
-                  <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-900/30">
-                    <UserMinusIcon className="w-5 h-5 text-blue-600 mx-auto mb-1" />
-                    <div className="text-xl font-bold font-mono tabular-nums text-blue-600">
+                  <div className="text-center p-3 bg-primary/10 dark:bg-primary/20 rounded-lg border border-primary dark:border-primary/30">
+                    <UserMinusIcon className="w-5 h-5 text-primary mx-auto mb-1" />
+                    <div className="text-xl font-bold font-mono tabular-nums text-primary">
                       {item.stats.onLeave}
                     </div>
                     <div className="text-[10px] text-foreground dark:text-muted-foreground mt-0.5">
@@ -332,7 +332,7 @@ export const OwnerAttendanceEmployeeViews: React.FC<
                     </span>
                   </td>
                   <td className="px-6 py-4 text-center">
-                    <span className="text-blue-600 font-bold font-mono tabular-nums bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-md text-sm">
+                    <span className="text-blue-600 font-bold font-mono tabular-nums bg-primary/10 dark:bg-primary/20 px-2 py-1 rounded-md text-sm">
                       {item.stats.onLeave}
                     </span>
                   </td>

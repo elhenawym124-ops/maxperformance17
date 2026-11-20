@@ -84,7 +84,7 @@ export function DemoDayEventsList({
       case "SCHEDULED":
         return {
           label: isEn ? "Scheduled" : "مجدول",
-          cls: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+          cls: "bg-blue-500/10 text-primary dark:text-primary border-primary/20",
         };
       case "IN_PROGRESS":
         return {

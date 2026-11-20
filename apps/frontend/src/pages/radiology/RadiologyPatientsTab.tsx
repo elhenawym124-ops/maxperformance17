@@ -219,7 +219,7 @@ export default function RadiologyPatientsTab() {
             <input type="checkbox" checked={includeInactive} onChange={e => { setIncludeInactive(e.target.checked); setPage(1); }} className="rounded" />
             {t("radiology.patients.inactiveOnly")}
           </label>
-          <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+          <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm">
             <Plus className="w-4 h-4" />{t("radiology.patients.newPatient")}
           </button>
           <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm">
@@ -270,13 +270,13 @@ export default function RadiologyPatientsTab() {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <button onClick={() => { setRecordId(p.id); }} className="text-xs px-2 py-1 border rounded-lg hover:bg-blue-50 dark:hover:bg-muted flex items-center gap-1">
+                      <button onClick={() => { setRecordId(p.id); }} className="text-xs px-2 py-1 border rounded-lg hover:bg-primary/10 dark:hover:bg-muted flex items-center gap-1">
                         <FileText className="w-3.5 h-3.5" />{t("radiology.patients.file")}
                       </button>
-                      <button onClick={() => viewRecord(p)} className="text-xs px-2 py-1 border rounded-lg hover:bg-blue-50 dark:hover:bg-muted flex items-center gap-1">
+                      <button onClick={() => viewRecord(p)} className="text-xs px-2 py-1 border rounded-lg hover:bg-primary/10 dark:hover:bg-muted flex items-center gap-1">
                         <FileText className="w-3.5 h-3.5" />{t("radiology.patients.studies")}
                       </button>
-                      <button onClick={() => openEdit(p)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
+                      <button onClick={() => openEdit(p)} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.edit")}><Pencil className="w-4 h-4" /></button>
                       <button onClick={() => { setMergeTargetId(""); setMergeSource(p); }} className="p-1.5 text-warning dark:text-warning hover:bg-warning/10 dark:hover:bg-warning/30 rounded" title={t("radiology.patients.merge")}><GitMerge className="w-4 h-4" /></button>
                       <button onClick={() => toggle(p)} className={`p-1.5 rounded ${p.isActive ? "text-gray-500 hover:bg-muted" : "text-green-500 hover:bg-success/10 dark:hover:bg-success/30"}`} title={p.isActive ? t("radiology.patients.deactivate") : t("radiology.patients.activate")}><Check className="w-4 h-4" /></button>
                       <button onClick={() => remove(p)} disabled={deletingId === p.id} className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded" title={t("radiology.delete")}><Trash2 className="w-4 h-4" /></button>
@@ -301,7 +301,7 @@ export default function RadiologyPatientsTab() {
       )}
 
       <p className="text-sm text-muted-foreground">
-        {t("radiology.patients.subtitle")} <a href="/radiology/schedule" className="text-blue-600 dark:text-blue-400">{t("radiology.patients.scheduleLink")}</a>.
+        {t("radiology.patients.subtitle")} <a href="/radiology/schedule" className="text-blue-600 dark:text-primary">{t("radiology.patients.scheduleLink")}</a>.
       </p>
 
       {modal !== undefined && <PatientModal patient={modal || null} onClose={closeModal} onSave={save} />}
@@ -328,7 +328,7 @@ export default function RadiologyPatientsTab() {
                         <span className="text-sm font-bold text-foreground">
                           {v.appointmentId ? t("radiology.patientTimeline.visitNumber", { n: recordVisits.length - idx }) : t("radiology.patientTimeline.singleVisit")}
                         </span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 whitespace-nowrap">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-primary text-primary dark:bg-primary/40 dark:text-primary whitespace-nowrap">
                           {t("radiology.patientTimeline.studyCount", { count: v.studies.length })}
                         </span>
                         {v.bookingNo ? (
@@ -358,7 +358,7 @@ export default function RadiologyPatientsTab() {
                             <td className="py-2 px-3 max-w-[240px]">
                               {s.report?.reportStatus ? (
                                 <div className="truncate" title={s.report?.reportText || s.report?.reportStatus}>
-                                  <span className="text-blue-600 dark:text-blue-400">{s.report?.reportStatus}</span>
+                                  <span className="text-blue-600 dark:text-primary">{s.report?.reportStatus}</span>
                                   {s.report?.reportText ? <span className="text-muted-foreground"> — {s.report.reportText.slice(0, 60)}{s.report.reportText.length > 60 ? "…" : ""}</span> : null}
                                 </div>
                               ) : <span className="text-gray-400">—</span>}

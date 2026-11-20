@@ -82,7 +82,7 @@ export default function DentalWorkTypeStagesModal({
           <button
             type="button"
             onClick={addStage}
-            className="w-full py-2.5 border-2 border-dashed border-border dark:border-border rounded-lg text-xs font-semibold text-muted-foreground hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5"
+            className="w-full py-2.5 border-2 border-dashed border-border dark:border-border rounded-lg text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary dark:hover:text-primary transition-colors flex items-center justify-center gap-1.5"
           >
             <Plus className="w-4 h-4" />
             إضافة محطة / مرحلة إنتاجية جديدة

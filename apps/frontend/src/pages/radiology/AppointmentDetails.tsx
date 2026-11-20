@@ -31,7 +31,7 @@ interface AppointmentDetailsData {
 }
 
 const APPT_STATUS_META: Record<string, { label: string; color: string }> = {
-  SCHEDULED: { label: "radiology.appointmentStatus.SCHEDULED", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  SCHEDULED: { label: "radiology.appointmentStatus.SCHEDULED", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   CHECKED_IN: { label: "radiology.appointmentStatus.CHECKED_IN", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
   DONE: { label: "radiology.appointmentStatus.DONE", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
   CANCELLED: { label: "radiology.appointmentStatus.CANCELLED", color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
@@ -103,7 +103,7 @@ export default function AppointmentDetails({ appointmentId }: { appointmentId: s
   if (error) {
     return (
       <div className="p-6" dir="rtl">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 mb-4"><ArrowRight className="w-4 h-4" />{t("radiology.details.back")}</button>
+        <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 text-sm text-primary dark:text-primary mb-4"><ArrowRight className="w-4 h-4" />{t("radiology.details.back")}</button>
         <div className="text-red-500">{error}</div>
       </div>
     );
@@ -141,7 +141,7 @@ export default function AppointmentDetails({ appointmentId }: { appointmentId: s
           </button>
           <div className="flex-1 min-w-[220px]">
             <h1 className="text-xl font-bold flex items-center gap-2">
-              <CalendarDays className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <CalendarDays className="w-5 h-5 text-primary dark:text-primary" />
               {t("radiology.appointmentDetails.title")}
               <span className="text-muted-foreground font-normal text-base" dir="ltr">
                 {a.bookingNo ? `#${a.bookingNo}` : `#${a.id.slice(0, 8)}`}
@@ -163,7 +163,7 @@ export default function AppointmentDetails({ appointmentId }: { appointmentId: s
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <div className="lg:col-span-2 space-y-5">
-            <Card title={t("radiology.details.patient")} icon={<User className="w-5 h-5 text-blue-600 dark:text-blue-400" />}>
+            <Card title={t("radiology.details.patient")} icon={<User className="w-5 h-5 text-primary dark:text-primary" />}>
               <div className="flex flex-wrap gap-2 mb-3">
                 {a.emergency ? <span className="px-2 py-0.5 rounded-full text-xs bg-destructive text-destructive dark:bg-destructive/40 dark:text-destructive">{t("radiology.schedule.emergency")}</span> : null}
                 {flags.map(f => {
@@ -179,7 +179,7 @@ export default function AppointmentDetails({ appointmentId }: { appointmentId: s
               <Row label={t("radiology.studies.insuranceNumber")}><span dir="ltr">{a.insuranceNumber || "—"}</span></Row>
             </Card>
 
-            <Card title={t("radiology.details.exam")} icon={<Stethoscope className="w-5 h-5 text-blue-600 dark:text-blue-400" />}>
+            <Card title={t("radiology.details.exam")} icon={<Stethoscope className="w-5 h-5 text-primary dark:text-primary" />}>
               <Row label={t("radiology.appointmentDetails.examType")}>{examNames}</Row>
               <Row label={t("radiology.appointmentDetails.device")}>{a.deviceName || "—"}</Row>
               <Row label={t("radiology.appointmentDetails.appointmentDate")}>{fmtDate(a.appointmentDate)}</Row>
@@ -204,7 +204,7 @@ export default function AppointmentDetails({ appointmentId }: { appointmentId: s
               })()}
             </Card>
 
-            <Card title={t("radiology.appointmentDetails.studies")} icon={<FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />}>
+            <Card title={t("radiology.appointmentDetails.studies")} icon={<FileText className="w-5 h-5 text-primary dark:text-primary" />}>
               {data.studies.length === 0 ? (
                 <p className="text-sm text-muted-foreground/80">{t("radiology.appointmentDetails.noStudies")}</p>
               ) : (
@@ -215,7 +215,7 @@ export default function AppointmentDetails({ appointmentId }: { appointmentId: s
                         <p className="font-medium text-sm" dir="ltr">{s.studyNumber || s.id}</p>
                         <p className="text-xs text-muted-foreground">{s.examTypeName || "—"}</p>
                       </div>
-                      <button onClick={() => navigate(`/radiology/study/${s.id}`)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                      <button onClick={() => navigate(`/radiology/study/${s.id}`)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-primary text-white rounded-lg hover:bg-primary">
                         {t("radiology.appointmentDetails.openStudy")}<ArrowRightLeft className="w-3 h-3" />
                       </button>
                     </div>
@@ -226,13 +226,13 @@ export default function AppointmentDetails({ appointmentId }: { appointmentId: s
           </div>
 
           <div className="space-y-5">
-            <Card title={t("radiology.details.notes")} icon={<ClipboardList className="w-5 h-5 text-blue-600 dark:text-blue-400" />}>
+            <Card title={t("radiology.details.notes")} icon={<ClipboardList className="w-5 h-5 text-primary dark:text-primary" />}>
               <p className="text-sm text-muted-foreground whitespace-pre-line">{a.notes || "—"}</p>
             </Card>
-            <Card title={t("radiology.appointmentDetails.branch")} icon={<Building2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />}>
+            <Card title={t("radiology.appointmentDetails.branch")} icon={<Building2 className="w-5 h-5 text-primary dark:text-primary" />}>
               <p className="text-sm text-muted-foreground">{a.branchId || "—"}</p>
             </Card>
-            <Card title={t("radiology.appointmentDetails.timeline")} icon={<History className="w-5 h-5 text-blue-600 dark:text-blue-400" />}>
+            <Card title={t("radiology.appointmentDetails.timeline")} icon={<History className="w-5 h-5 text-primary dark:text-primary" />}>
               <div className="space-y-2">
                 <div className="flex items-start gap-2">
                   <span className={`w-3 h-3 rounded-full mt-1 shrink-0 ${orderMeta.color.split(" ")[0] || "bg-gray-300"}`} />

@@ -28,7 +28,7 @@ interface MyCompaniesOrdersTabProps {
 
 const ORDER_STATUS_LABELS: Record<string, { label: string; color: string }> = {
   PENDING: { label: "قيد الانتظار", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
-  CONFIRMED: { label: "مؤكد", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
+  CONFIRMED: { label: "مؤكد", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   PROCESSING: { label: "جاري التجهيز", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   PREPARING: { label: "جاري التجهيز", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   READY: { label: "جاهز للشحن", color: "bg-cyan-100 text-info dark:bg-info/40 dark:text-info" },
@@ -274,7 +274,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
       <div className="bg-card p-4 rounded-xl shadow-xs border border-border dark:border-border">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <BuildingOfficeIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <BuildingOfficeIcon className="w-5 h-5 text-primary dark:text-primary" />
             <h2 className="text-base font-bold text-foreground dark:text-white">
               إحصائيات الطلبات عبر شركاتك
             </h2>
@@ -290,7 +290,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
             onClick={() => setSelectedCompanyId("ALL")}
             className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all border flex items-center gap-2 shadow-2xs ${
               selectedCompanyId === "ALL"
-                ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                ? "bg-blue-600 text-white border-primary shadow-sm"
                 : "bg-gray-50 dark:bg-muted text-foreground border-border hover:bg-muted"
             }`}
           >
@@ -315,8 +315,8 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                 onClick={() => setSelectedCompanyId(isSelected ? "ALL" : tc.companyId)}
                 className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border flex items-center gap-2 shadow-2xs ${
                   isSelected
-                    ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                    : "bg-card text-foreground border-border hover:border-blue-400 dark:hover:border-blue-500"
+                    ? "bg-blue-600 text-white border-primary shadow-sm"
+                    : "bg-card text-foreground border-border hover:border-primary dark:hover:border-primary"
                 }`}
               >
                 <span className="truncate max-w-[140px]">{tc.companyName}</span>
@@ -324,7 +324,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                   className={`px-2 py-0.5 rounded-full text-xs font-mono font-bold ${
                     isSelected
                       ? "bg-white/20 text-white"
-                      : "bg-gray-100 dark:bg-muted text-blue-600 dark:text-blue-400"
+                      : "bg-gray-100 dark:bg-muted text-primary dark:text-primary"
                   }`}
                 >
                   {tc.count}
@@ -346,7 +346,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="ابحث برقم الأوردر، اسم العميل، أو رقم الهاتف..."
-              className="w-full pe-10 ps-4 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground placeholder-muted focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+              className="w-full pe-10 ps-4 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground placeholder-muted focus:outline-hidden focus:ring-2 focus:ring-primary"
             />
           </div>
 
@@ -355,7 +355,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
             <select
               value={selectedCompanyId}
               onChange={(e) => setSelectedCompanyId(e.target.value)}
-              className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary"
             >
               <option value="ALL">كل الشركات</option>
               {activeCompanyOptions.map((c) => (
@@ -371,7 +371,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary"
             >
               <option value="ALL">جميع الحالات</option>
               <option value="PENDING">قيد الانتظار</option>
@@ -391,7 +391,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
             <DateInput
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="px-2.5 py-1.5 bg-muted dark:bg-muted border border-border rounded-md text-foreground focus:ring-2 focus:ring-blue-500"
+              className="px-2.5 py-1.5 bg-muted dark:bg-muted border border-border rounded-md text-foreground focus:ring-2 focus:ring-primary"
             />
           </div>
 
@@ -400,7 +400,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
             <DateInput
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="px-2.5 py-1.5 bg-muted dark:bg-muted border border-border rounded-md text-foreground focus:ring-2 focus:ring-blue-500"
+              className="px-2.5 py-1.5 bg-muted dark:bg-muted border border-border rounded-md text-foreground focus:ring-2 focus:ring-primary"
             />
           </div>
 
@@ -433,7 +433,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
       <div className="bg-card rounded-xl shadow-xs border border-border dark:border-border overflow-hidden">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
-            <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mb-3" />
+            <div className="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin mb-3" />
             <p className="text-sm">جاري جلب الطلبات من جميع الشركات...</p>
           </div>
         ) : orders.length === 0 ? (
@@ -487,7 +487,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
 
                       {/* الشركة كشارة */}
                       <td className="py-3 px-3 sm:px-4">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary border border-primary dark:border-primary">
                           <BuildingOfficeIcon className="w-3.5 h-3.5 shrink-0" />
                           <span className="truncate max-w-[130px]">{order.companyName}</span>
                         </span>
@@ -545,7 +545,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                               disabled={!perms.canChangeStatus || order.isGuest}
                               className={`p-1.5 rounded-md transition-colors ${
                                 perms.canChangeStatus && !order.isGuest
-                                  ? "text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30"
+                                  ? "text-blue-600 hover:bg-primary/10 dark:text-primary dark:hover:bg-primary/30"
                                   : "text-gray-300 dark:text-foreground opacity-40 cursor-not-allowed"
                               }`}
                               title={
@@ -654,7 +654,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
               <button
                 onClick={handleLoadMore}
                 disabled={isLoadingMore}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium rounded-lg transition-colors flex items-center gap-2 shadow-xs"
+                className="px-4 py-2 bg-primary hover:bg-primary disabled:opacity-50 text-white font-medium rounded-lg transition-colors flex items-center gap-2 shadow-xs"
               >
                 {isLoadingMore ? (
                   <>
@@ -682,7 +682,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                 تغيير حالة الطلب #{statusModalOrder.orderNumber}
               </h3>
               <p className="text-xs text-muted-foreground mt-1">
-                الشركة: <strong className="text-blue-600 dark:text-blue-400">{statusModalOrder.companyName}</strong>
+                الشركة: <strong className="text-blue-600 dark:text-primary">{statusModalOrder.companyName}</strong>
               </p>
             </div>
 
@@ -694,7 +694,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                 <select
                   value={modalTargetStatus}
                   onChange={(e) => setModalTargetStatus(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary"
                 >
                   <option value="CONFIRMED">مؤكد</option>
                   <option value="PROCESSING">جاري التجهيز</option>
@@ -713,7 +713,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                   onChange={(e) => setModalNotes(e.target.value)}
                   rows={2}
                   placeholder="أدخل أي ملاحظات على تغيير الحالة..."
-                  className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground placeholder-muted focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-sm bg-muted dark:bg-muted border border-border rounded-lg text-foreground placeholder-muted focus:outline-hidden focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
@@ -731,7 +731,7 @@ export const MyCompaniesOrdersTab: React.FC<MyCompaniesOrdersTabProps> = ({ comp
                 type="button"
                 onClick={handleSubmitStatusChange}
                 disabled={isUpdatingStatus}
-                className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg transition-colors font-medium flex items-center gap-1.5"
+                className="px-4 py-2 text-sm bg-primary hover:bg-primary disabled:opacity-50 text-white rounded-lg transition-colors font-medium flex items-center gap-1.5"
               >
                 {isUpdatingStatus ? (
                   <>

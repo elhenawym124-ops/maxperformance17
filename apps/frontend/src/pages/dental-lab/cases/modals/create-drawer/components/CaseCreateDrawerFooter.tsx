@@ -31,7 +31,7 @@ export const CaseCreateDrawerFooter: React.FC<CaseCreateDrawerFooterProps> = ({
         type="button"
         onClick={onSave}
         disabled={saving}
-        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white rounded-xl text-sm font-bold shadow-xs flex items-center gap-2 transition"
+        className="px-6 py-2 bg-primary hover:bg-primary active:scale-[0.98] text-white rounded-xl text-sm font-bold shadow-xs flex items-center gap-2 transition"
       >
         {saving ? (
           <>

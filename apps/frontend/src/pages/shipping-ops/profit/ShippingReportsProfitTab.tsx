@@ -287,7 +287,7 @@ export const ShippingReportsProfitTab: React.FC<Props> = ({ getEffectiveDateRang
                         row.marginPct >= 20
                           ? 'bg-emerald-100 dark:bg-success/60 text-success dark:text-success'
                           : row.marginPct >= 0
-                          ? 'bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300'
+                          ? 'bg-blue-100 dark:bg-primary/60 text-primary dark:text-primary'
                           : 'bg-rose-100 dark:bg-destructive/60 text-destructive dark:text-destructive'
                       }`}>
                         {row.marginPct}%
@@ -310,7 +310,7 @@ export const ShippingReportsProfitTab: React.FC<Props> = ({ getEffectiveDateRang
                       totals.marginPct >= 20
                         ? 'bg-emerald-200 dark:bg-success text-success dark:text-success'
                         : totals.marginPct >= 0
-                        ? 'bg-blue-200 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
+                        ? 'bg-blue-200 dark:bg-primary text-primary dark:text-primary'
                         : 'bg-rose-200 dark:bg-destructive text-destructive dark:text-destructive'
                     }`}>
                       {totals.marginPct}%

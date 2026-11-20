@@ -240,7 +240,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
 
             {s.subject?.name && (
               <div className="flex items-center gap-1.5 text-xs">
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-primary/10 text-primary dark:text-primary border border-primary/20 text-[11px]">
                   <BookOpen className="w-3 h-3" />
                   {s.subject.name}
                 </span>

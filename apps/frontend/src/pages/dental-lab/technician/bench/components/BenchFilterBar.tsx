@@ -99,7 +99,7 @@ export const BenchFilterBar: React.FC<BenchFilterBarProps> = ({
             placeholder="بحث برقم الحالة، الطبيب..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full ps-3 pe-9 py-1.5 text-xs rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500 outline-hidden"
+            className="w-full ps-3 pe-9 py-1.5 text-xs rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary outline-hidden"
           />
         </div>
 
@@ -109,7 +109,7 @@ export const BenchFilterBar: React.FC<BenchFilterBarProps> = ({
             onClick={() => onViewModeChange("CARDS")}
             className={`p-1.5 rounded ${
               viewMode === "CARDS"
-                ? "bg-card text-blue-600 shadow-xs"
+                ? "bg-card text-primary shadow-xs"
                 : "text-gray-400 hover:text-foreground"
             }`}
             title="عرض البطاقات التفاعلية"
@@ -121,7 +121,7 @@ export const BenchFilterBar: React.FC<BenchFilterBarProps> = ({
             onClick={() => onViewModeChange("TABLE")}
             className={`p-1.5 rounded ${
               viewMode === "TABLE"
-                ? "bg-card text-blue-600 shadow-xs"
+                ? "bg-card text-primary shadow-xs"
                 : "text-gray-400 hover:text-foreground"
             }`}
             title="عرض الجدول السريع"

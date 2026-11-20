@@ -44,7 +44,7 @@ const OwnerReports: React.FC = () => {
       >
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-lg font-medium text-foreground dark:text-muted-foreground">
               جاري تحميل البيانات...
             </p>
@@ -66,7 +66,7 @@ const OwnerReports: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold text-foreground dark:text-white flex items-center gap-2">
-              <ChartBarIcon className="w-7 h-7 text-blue-600" />
+              <ChartBarIcon className="w-7 h-7 text-primary" />
               التقارير الموحدة
             </h1>
             <p className="text-sm text-muted-foreground mt-1">

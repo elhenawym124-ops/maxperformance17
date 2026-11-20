@@ -100,7 +100,7 @@ const WorkReportFormsDashboard: React.FC = () => {
         value: totalSubmissions,
         icon: BarChart3,
         tone:
-          "border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-900/60 dark:bg-blue-950/30 dark:text-blue-200",
+          "border-blue-200 bg-primary/10 text-primary dark:border-primary/60 dark:bg-primary/30 dark:text-primary",
       },
       {
         label: "عدد الحقول",

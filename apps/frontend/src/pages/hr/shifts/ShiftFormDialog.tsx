@@ -309,7 +309,7 @@ export const ShiftFormDialog: React.FC<ShiftFormDialogProps> = ({
           <Button
             type="button"
             onClick={onSubmit}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-black px-8 h-11 rounded-xl shadow-lg shadow-blue-200 dark:shadow-none transition-all hover:scale-105 active:scale-95 border-none"
+            className="bg-blue-600 hover:bg-primary text-white font-black px-8 h-11 rounded-xl shadow-lg shadow-primary dark:shadow-none transition-all hover:scale-105 active:scale-95 border-none"
           >
             {isEditing ? "حفظ التحديثات" : "إنشاء المناوبة الآن"}
           </Button>

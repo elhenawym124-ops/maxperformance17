@@ -71,15 +71,15 @@ export function QuickOrderStepWorkType({
                   className={[
                     "p-2.5 rounded-lg border text-right transition flex items-center justify-between text-xs",
                     checked
-                      ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-900 dark:text-blue-100 font-bold shadow-sm"
-                      : "border-gray-200 dark:border-border hover:border-blue-300 bg-card text-foreground",
+                      ? "border-blue-500 bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary font-bold shadow-sm"
+                      : "border-gray-200 dark:border-border hover:border-primary bg-card text-foreground",
                   ].join(" ")}
                 >
                   <div className="truncate">
                     <div className="flex items-center gap-1.5">
                       <span className="truncate">{w.name}</span>
                       {isPrimary && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-600 text-white font-medium shrink-0">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary text-white font-medium shrink-0">
                           الأساسية
                         </span>
                       )}
@@ -94,7 +94,7 @@ export function QuickOrderStepWorkType({
                     </div>
                   </div>
                   {checked && (
-                    <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-primary dark:text-primary shrink-0" />
                   )}
                 </button>
               );
@@ -192,7 +192,7 @@ export function QuickOrderStepWorkType({
                 className={[
                   "p-2 rounded-lg text-start text-xs font-medium border transition flex items-center gap-1.5",
                   impressionType === imp.id
-                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-900 dark:text-blue-100 font-bold"
+                    ? "border-blue-500 bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary font-bold"
                     : "border-gray-200 dark:border-border hover:bg-muted/50 text-foreground",
                 ].join(" ")}
               >

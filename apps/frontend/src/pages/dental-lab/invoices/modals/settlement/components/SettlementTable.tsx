@@ -83,7 +83,7 @@ export const SettlementTable: React.FC<SettlementTableProps> = ({
                     <span className="tabular-nums">{fmtMoney(s.openingBalance)}</span> ج.م
                   </td>
                   <td className="py-2.5 px-3">
-                    <span className="font-bold text-blue-600 dark:text-blue-400 font-mono">
+                    <span className="font-bold text-primary dark:text-primary font-mono">
                       +<span className="tabular-nums">{fmtMoney(s.totalBilled)}</span> ج.م
                     </span>
                     <span className="block text-[10px] text-muted-foreground">

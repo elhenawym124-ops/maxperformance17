@@ -388,7 +388,7 @@ const MediaBuyingReports: React.FC = () => {
 
         <header className="flex flex-col gap-4 border-b border-border pb-5 dark:border-border lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="inline-flex items-center gap-2 text-sm font-black text-blue-700 dark:text-blue-300">
+            <p className="inline-flex items-center gap-2 text-sm font-black text-primary dark:text-primary">
               <BarChart3 className="h-4 w-4" />
               Meta Ads Report Builder
             </p>
@@ -424,7 +424,7 @@ const MediaBuyingReports: React.FC = () => {
         <form onSubmit={handleRun} className="grid gap-5 lg:grid-cols-[420px_1fr]">
           <section className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
             <div className="mb-4 flex items-center gap-2">
-              <SlidersHorizontal className="h-5 w-5 text-blue-600" />
+              <SlidersHorizontal className="h-5 w-5 text-primary" />
               <h2 className="text-base font-black">إعداد التقرير</h2>
             </div>
 
@@ -445,8 +445,8 @@ const MediaBuyingReports: React.FC = () => {
                         className={[
                           "inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-black transition",
                           mode === item.value
-                            ? "border-blue-600 bg-blue-600 text-white"
-                            : "border-slate-200 bg-white text-foreground hover:border-blue-300 dark:border-border dark:bg-muted dark:text-muted-foreground",
+                            ? "border-blue-600 bg-primary text-white"
+                            : "border-slate-200 bg-white text-foreground hover:border-primary dark:border-border dark:bg-muted dark:text-muted-foreground",
                         ].join(" ")}
                       >
                         <Icon className="h-4 w-4" />
@@ -463,7 +463,7 @@ const MediaBuyingReports: React.FC = () => {
                   value={level}
                   onChange={(event) => setLevel(event.target.value as ReportLevel)}
                   disabled={mode === "sync"}
-                  className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-60 dark:border-border dark:bg-muted"
+                  className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:opacity-60 dark:border-border dark:bg-muted"
                 >
                   {reportLevels.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -500,7 +500,7 @@ const MediaBuyingReports: React.FC = () => {
                   <select
                     value={datePreset}
                     onChange={(event) => setDatePreset(event.target.value)}
-                    className="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
+                    className="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted"
                   >
                     {datePresets.map((preset) => (
                       <option key={preset.value} value={preset.value}>
@@ -515,7 +515,7 @@ const MediaBuyingReports: React.FC = () => {
                       <DateInput
                         value={since}
                         onChange={(event) => setSince(event.target.value)}
-                        className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
+                        className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted"
                       />
                     </label>
                     <label className="flex flex-col gap-1">
@@ -523,7 +523,7 @@ const MediaBuyingReports: React.FC = () => {
                       <DateInput
                         value={until}
                         onChange={(event) => setUntil(event.target.value)}
-                        className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
+                        className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted"
                       />
                     </label>
                   </div>
@@ -538,7 +538,7 @@ const MediaBuyingReports: React.FC = () => {
                     onChange={(event) =>
                       setSyncBreakdown(event.target.value as FacebookPerformanceBreakdown)
                     }
-                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
+                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted"
                   >
                     {syncBreakdownOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -552,7 +552,7 @@ const MediaBuyingReports: React.FC = () => {
               <button
                 type="submit"
                 disabled={running || accountContext.requiresAdAccountSelection}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-sm font-black text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-black text-white shadow-sm transition hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {running ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -577,7 +577,7 @@ const MediaBuyingReports: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setFields(defaultFields)}
-                  className="rounded-lg border border-border px-3 py-2 text-xs font-black text-foreground hover:border-blue-300 dark:border-border dark:text-muted-foreground"
+                  className="rounded-lg border border-border px-3 py-2 text-xs font-black text-foreground hover:border-primary dark:border-border dark:text-muted-foreground"
                 >
                   الحقول الافتراضية
                 </button>
@@ -596,7 +596,7 @@ const MediaBuyingReports: React.FC = () => {
                           type="checkbox"
                           checked={fields.includes(field.value)}
                           onChange={() => toggleField(field.value)}
-                          className="h-4 w-4 rounded border-border text-blue-600"
+                          className="h-4 w-4 rounded border-border text-primary"
                         />
                         <span>{field.label}</span>
                       </label>
@@ -616,7 +616,7 @@ const MediaBuyingReports: React.FC = () => {
                           type="checkbox"
                           checked={breakdowns.includes(breakdown.value)}
                           onChange={() => toggleBreakdown(breakdown.value)}
-                          className="h-4 w-4 rounded border-border text-blue-600"
+                          className="h-4 w-4 rounded border-border text-primary"
                         />
                         <span>{breakdown.label}</span>
                       </label>
@@ -690,7 +690,7 @@ const MediaBuyingReports: React.FC = () => {
                         {activeStatus?.status === "Job Completed" ? (
                           <CheckCircle2 className="h-4 w-4 text-success" />
                         ) : polling ? (
-                          <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
+                          <Loader2 className="h-4 w-4 animate-spin text-primary" />
                         ) : (
                           <Clock3 className="h-4 w-4 text-muted-foreground" />
                         )}

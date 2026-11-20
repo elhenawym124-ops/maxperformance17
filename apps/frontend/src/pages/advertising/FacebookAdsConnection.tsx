@@ -202,7 +202,7 @@ const FacebookAdsConnection: React.FC = () => {
         <header className="flex flex-col gap-3.5 rounded-xl border border-border bg-white/95 p-4 shadow-xs backdrop-blur-md sm:p-5 dark:border-border dark:bg-muted">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/70 bg-blue-50/80 px-2.5 py-0.5 text-xs font-semibold text-blue-700 dark:border-blue-900/50 dark:bg-blue-950/40 dark:text-blue-300">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/70 bg-primary/80 px-2.5 py-0.5 text-xs font-semibold text-primary dark:border-primary/50 dark:bg-primary/40 dark:text-primary">
                 <PlugZap className="h-3.5 w-3.5" />
                 {t.badge}
               </div>
@@ -221,7 +221,7 @@ const FacebookAdsConnection: React.FC = () => {
                 className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-border bg-white px-3 text-xs font-semibold text-foreground shadow-xs transition-all hover:border-border hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                 title={isEn ? "تبديل إلى العربية" : "Switch to English"}
               >
-                <Globe className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                <Globe className="h-3.5 w-3.5 text-primary dark:text-primary" />
                 <span>{t.switchLang}</span>
               </button>
               <button
@@ -285,7 +285,7 @@ const FacebookAdsConnection: React.FC = () => {
                   type="button"
                   onClick={handleConnectAds}
                   disabled={connecting}
-                  className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 text-xs font-semibold text-white shadow-sm shadow-blue-500/25 transition-all hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 disabled:opacity-60"
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-primary px-4 text-xs font-semibold text-white shadow-sm shadow-primary/25 transition-all hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 disabled:opacity-60"
                 >
                   {connecting ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -325,7 +325,7 @@ const FacebookAdsConnection: React.FC = () => {
           <aside className="space-y-4">
             <section className="rounded-xl border border-border bg-white p-5 shadow-xs dark:border-border dark:bg-muted">
               <div className="flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary dark:bg-primary/50 dark:text-primary">
                   <PlugZap className="h-4 w-4" />
                 </span>
                 <h2 className="text-sm font-bold text-foreground dark:text-white">

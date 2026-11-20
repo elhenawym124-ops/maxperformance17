@@ -249,9 +249,9 @@ export const FacebookOAuthImportProgress: React.FC<
     <div
       role="status"
       aria-live="polite"
-      className={`mt-4 w-full max-w-md rounded-md border border-blue-500/20 bg-blue-500/5 p-2.5 text-start ${className}`}
+      className={`mt-4 w-full max-w-md rounded-md border border-primary/20 bg-primary/5 p-2.5 text-start ${className}`}
     >
-      <div className="flex items-center justify-between gap-2 text-[11px] font-medium text-blue-700 dark:text-blue-300">
+      <div className="flex items-center justify-between gap-2 text-[11px] font-medium text-primary dark:text-primary">
         <span className="inline-flex items-center gap-1.5">
           <Loader2 className="h-3.5 w-3.5 animate-spin" />
           {t("facebookOAuth.importingPages" as any, {
@@ -260,19 +260,19 @@ export const FacebookOAuthImportProgress: React.FC<
             defaultValue: "جارٍ استيراد الصفحات… {{done}} / {{total}}",
           })}
         </span>
-        <span className="tabular-nums text-blue-600/80 dark:text-blue-300/80">
+        <span className="tabular-nums text-primary/80 dark:text-primary/80">
           {total > 0 ? `${percent}%` : ""}
         </span>
       </div>
       <div
-        className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-blue-500/15"
+        className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-primary/15"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={total > 0 ? total : 100}
         aria-valuenow={total > 0 ? processed : percent}
       >
         <div
-          className="h-full rounded-full bg-blue-600 transition-[width] duration-500 ease-out"
+          className="h-full rounded-full bg-primary transition-[width] duration-500 ease-out"
           style={{ width: `${percent}%` }}
         />
       </div>

@@ -199,7 +199,7 @@ export function DentalCaseReturnFromTryInModal({
             type="button"
             onClick={save}
             disabled={saving}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 bg-primary hover:bg-primary text-white rounded-lg disabled:opacity-50 flex items-center gap-2"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />} استلام ومتابعة
             العمل

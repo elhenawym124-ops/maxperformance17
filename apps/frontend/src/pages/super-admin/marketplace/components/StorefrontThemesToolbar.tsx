@@ -150,7 +150,7 @@ export const StorefrontThemesToolbar: React.FC<StorefrontThemesToolbarProps> = (
 
       <Alert
         variant="default"
-        className="border-blue-500/50 text-blue-700 dark:border-blue-500/40 dark:text-blue-400"
+        className="border-blue-500/50 text-primary dark:border-primary/40 dark:text-primary"
       >
         القالب الافتراضي هو الذي يحصل عليه أي متجر جديد عند إنشاء إعدادات المتجر لأول مرة.{" "}
         {defaultTheme

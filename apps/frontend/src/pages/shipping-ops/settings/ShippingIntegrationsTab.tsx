@@ -139,7 +139,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h2 className="text-sm sm:text-base font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
-            <Globe className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <Globe className="w-5 h-5 text-primary dark:text-primary" />
             <span>{isEn ? 'E-Commerce Integrations' : 'تكاملات المتاجر الخارجية (WooCommerce & Shopify)'}</span>
           </h2>
           <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-0.5">
@@ -159,7 +159,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
           </button>
           <button
             onClick={() => setShowAddModal(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary rounded-lg shadow-sm transition active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>{isEn ? 'Add Store' : 'ربط متجر جديد'}</span>
@@ -253,7 +253,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
                       href={item.storeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                      className="text-blue-600 dark:text-primary hover:underline flex items-center gap-1 font-mono text-[11px]"
                     >
                       <span>{item.storeUrl}</span>
                       <ExternalLink className="w-3 h-3" />
@@ -301,7 +301,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
                   <button
                     onClick={() => handleTest(item.id)}
                     disabled={testingId === item.id}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 rounded-lg hover:bg-blue-100 transition active:scale-95 disabled:opacity-50"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-primary dark:text-primary bg-primary/10 dark:bg-primary/40 border border-primary dark:border-primary rounded-lg hover:bg-primary transition active:scale-95 disabled:opacity-50"
                   >
                     <Radio className={`w-3.5 h-3.5 ${testingId === item.id ? 'animate-pulse' : ''}`} />
                     <span>{testingId === item.id ? (isEn ? 'Testing...' : 'جاري الاختبار...') : (isEn ? 'Test Connection' : 'اختبار الاتصال')}</span>
@@ -319,7 +319,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 w-full max-w-lg shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <h3 className="text-sm sm:text-base font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
-                <Globe className="w-4 h-4 text-blue-600" />
+                <Globe className="w-4 h-4 text-primary" />
                 <span>{isEn ? 'Connect New Store' : 'ربط متجر إلكتروني جديد'}</span>
               </h3>
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-foreground">
@@ -431,7 +431,7 @@ export const ShippingIntegrationsTab: React.FC = () => {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50"
+                  className="px-4 py-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50"
                 >
                   {saving ? (isEn ? 'Saving...' : 'جاري الحفظ...') : (isEn ? 'Connect Store' : 'حفظ وربط المتجر')}
                 </button>

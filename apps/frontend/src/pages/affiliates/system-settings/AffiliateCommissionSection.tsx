@@ -46,7 +46,7 @@ export const AffiliateCommissionSection: React.FC<
                   commissionType: e.target.value,
                 })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white"
                   : "bg-white border-border text-foreground"
@@ -88,7 +88,7 @@ export const AffiliateCommissionSection: React.FC<
                   ),
                 })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -137,7 +137,7 @@ export const AffiliateCommissionSection: React.FC<
                   commissionOnStatus: e.target.value,
                 })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white"
                   : "bg-white border-border text-foreground"
@@ -205,7 +205,7 @@ export const AffiliateCommissionSection: React.FC<
                   platformMarginType: e.target.value,
                 })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white"
                   : "bg-white border-border text-foreground"
@@ -245,7 +245,7 @@ export const AffiliateCommissionSection: React.FC<
                   ),
                 })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -276,7 +276,7 @@ export const AffiliateCommissionSection: React.FC<
                 ),
               })
             }
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
               isDark
                 ? "bg-gray-700 border-border text-white placeholder-muted"
                 : "bg-white border-border text-foreground"

@@ -365,7 +365,7 @@ export default function AgentGuardrailsTab({
                       <span>{t("agentProfiles.guardrails.colSource")}:</span>
                       <div>
                         {rule.source === "template_default" && (
-                          <Badge variant="secondary" className="bg-blue-500/10 text-blue-500 border-none text-[10px]">{t("agentProfiles.guardrails.sourceTemplate")}</Badge>
+                          <Badge variant="secondary" className="bg-blue-500/10 text-primary border-none text-[10px]">{t("agentProfiles.guardrails.sourceTemplate")}</Badge>
                         )}
                         {rule.source === "merchant_manual" && (
                           <Badge variant="secondary" className="bg-green-500/10 text-success border-none text-[10px]">{t("agentProfiles.guardrails.sourceManual")}</Badge>
@@ -400,7 +400,7 @@ export default function AgentGuardrailsTab({
                         <td className="p-3 text-muted-foreground align-top whitespace-pre-wrap">{rule.action}</td>
                         <td className="p-3 text-center align-top whitespace-nowrap">
                           {rule.source === "template_default" && (
-                            <Badge variant="secondary" className="bg-blue-500/10 text-blue-500 border-none">{t("agentProfiles.guardrails.sourceTemplate")}</Badge>
+                            <Badge variant="secondary" className="bg-blue-500/10 text-primary border-none">{t("agentProfiles.guardrails.sourceTemplate")}</Badge>
                           )}
                           {rule.source === "merchant_manual" && (
                             <Badge variant="secondary" className="bg-green-500/10 text-success border-none">{t("agentProfiles.guardrails.sourceManual")}</Badge>

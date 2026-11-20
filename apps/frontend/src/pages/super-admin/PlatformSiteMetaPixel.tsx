@@ -242,7 +242,7 @@ export default function PlatformSiteMetaPixel() {
             </p>
             <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">أحداث تفاعلية</p>
           </div>
-          <div className="size-7 rounded-md bg-blue-500/10 flex items-center justify-center text-blue-600">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary">
             <Activity className="size-3.5" />
           </div>
         </div>
@@ -386,7 +386,7 @@ export default function PlatformSiteMetaPixel() {
                   <span>زيارة اللاندنج ترسل حدث <strong>PageView</strong></span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="size-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="size-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
                   <span>الضغط على زر التسجيل يرسل حدث <strong>Lead</strong></span>
                 </li>
                 <li className="flex items-start gap-2">

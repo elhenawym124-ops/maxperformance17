@@ -90,7 +90,7 @@ export default function WholesaleDashboard() {
       value: (stats?.totalCustomers ?? 0).toLocaleString("en-US"),
       suffix: "تاجر / عميل",
       icon: Users,
-      color: "text-blue-500 bg-blue-500/10 border-blue-500/20",
+      color: "text-blue-500 bg-primary/10 border-primary/20",
       link: "/wholesale/customers",
       hint: "سجل حسابات الموزعين المعتمدين",
     },

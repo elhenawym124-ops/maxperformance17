@@ -82,7 +82,7 @@ export function DentalInvoiceDoctorStatementModal({
             onClick={() => setTab("invoices")}
             className={`pb-2 px-3 text-xs font-bold border-b-2 transition-colors ${
               tab === "invoices"
-                ? "border-blue-600 text-blue-600"
+                ? "border-blue-600 text-primary"
                 : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -93,7 +93,7 @@ export function DentalInvoiceDoctorStatementModal({
             onClick={() => setTab("cases")}
             className={`pb-2 px-3 text-xs font-bold border-b-2 transition-colors ${
               tab === "cases"
-                ? "border-blue-600 text-blue-600"
+                ? "border-blue-600 text-primary"
                 : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >

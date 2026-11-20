@@ -252,7 +252,7 @@ const AffiliateDashboard: React.FC = () => {
       <div
         className={`flex items-center justify-center min-h-screen ${isDark ? "bg-gray-900" : "bg-gray-50"}`}
       >
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -287,7 +287,7 @@ const AffiliateDashboard: React.FC = () => {
           </p>
           <Link
             to="/affiliates/register"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-blue-600 px-6 py-2.5 text-white transition hover:bg-blue-700"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-6 py-2.5 text-white transition hover:bg-primary"
           >
             تسجيل كمسوق
           </Link>
@@ -413,7 +413,7 @@ const AffiliateDashboard: React.FC = () => {
                 type="button"
                 onClick={uploadReplacementDocument}
                 disabled={!replacementDocument || uploadingReplacementDocument}
-                className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               >
                 {uploadingReplacementDocument
                   ? "جارٍ رفع النسخة..."
@@ -489,7 +489,7 @@ const AffiliateDashboard: React.FC = () => {
                   {formatPrice(affiliate.pendingEarnings)}
                 </p>
               </div>
-              <ChartBarIcon className="hidden h-8 w-8 text-blue-600 sm:block" />
+              <ChartBarIcon className="hidden h-8 w-8 text-primary sm:block" />
             </div>
           </div>
 
@@ -564,7 +564,7 @@ const AffiliateDashboard: React.FC = () => {
                 />
                 <button
                   onClick={() => copyToClipboard(generateAffiliateLink())}
-                  className="min-h-11 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+                  className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary"
                 >
                   نسخ
                 </button>
@@ -582,7 +582,7 @@ const AffiliateDashboard: React.FC = () => {
             className={`${isDark ? "border-gray-700 bg-muted" : "border-gray-100 bg-white"} min-h-28 rounded-xl border p-4 shadow-sm transition hover:shadow-md sm:p-6`}
           >
             <div className="flex h-full items-center gap-3 sm:gap-4">
-              <ClipboardDocumentListIcon className="h-7 w-7 shrink-0 text-blue-600 sm:h-8 sm:w-8" />
+              <ClipboardDocumentListIcon className="h-7 w-7 shrink-0 text-primary sm:h-8 sm:w-8" />
               <div>
                 <h3
                   className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}
@@ -750,8 +750,8 @@ const AffiliateDashboard: React.FC = () => {
                                 : "bg-green-100 text-success"
                               : commission.status === "CONFIRMED"
                                 ? isDark
-                                  ? "bg-blue-900/50 text-blue-300"
-                                  : "bg-blue-100 text-blue-800"
+                                  ? "bg-blue-900/50 text-primary"
+                                  : "bg-blue-100 text-primary"
                                 : isDark
                                   ? "bg-yellow-900/50 text-warning"
                                   : "bg-yellow-100 text-warning"

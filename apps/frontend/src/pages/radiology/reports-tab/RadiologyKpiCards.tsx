@@ -30,7 +30,7 @@ export const RadiologyKpiCards: React.FC<RadiologyKpiCardsProps> = ({
             onClick={() => toggleCounter(card.key)}
             className={`bg-card rounded-xl shadow-sm border p-3 sm:p-4 flex items-start gap-3 text-right transition-colors ${
               active
-                ? "border-blue-400 ring-1 ring-blue-400 dark:border-blue-500"
+                ? "border-blue-400 ring-1 ring-primary dark:border-primary"
                 : "border-gray-200 dark:border-border"
             } ${clickable ? "cursor-pointer hover:bg-muted/50/60" : "cursor-default"}`}
           >

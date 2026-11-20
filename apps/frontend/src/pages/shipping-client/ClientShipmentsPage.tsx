@@ -20,7 +20,7 @@ const STATUS_FILTERS = [
 
 const STATUS_STYLES: Record<string, { label: string; className: string }> = {
   PENDING: { label: 'قيد المراجعة', className: 'bg-amber-50 text-warning border-warning' },
-  ACCEPTED: { label: 'تم القبول', className: 'bg-blue-50 text-blue-700 border-blue-200' },
+  ACCEPTED: { label: 'تم القبول', className: 'bg-blue-50 text-primary border-primary' },
   OUT_FOR_DELIVERY: { label: 'خرج للتوصيل', className: 'bg-indigo-50 text-primary border-primary' },
   DELIVERED: { label: 'تم التسليم', className: 'bg-emerald-50 text-success border-success' },
   RETURNED: { label: 'مرتجع', className: 'bg-rose-50 text-destructive border-destructive' },
@@ -85,7 +85,7 @@ export default function ClientShipmentsPage() {
         </div>
         <button
           onClick={() => navigate('/client-portal/shipping/new')}
-          className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded shadow-sm transition-colors self-start sm:self-auto"
+          className="px-3.5 py-2 bg-primary hover:bg-primary text-white text-xs font-semibold rounded shadow-sm transition-colors self-start sm:self-auto"
         >
           + شحنة جديدة
         </button>
@@ -101,7 +101,7 @@ export default function ClientShipmentsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث برقم البوليصة، اسم المستلم، أو الهاتف..."
-              className="w-full text-xs px-3 py-1.5 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              className="w-full text-xs px-3 py-1.5 border border-border rounded focus:border-primary focus:ring-1 focus:ring-primary"
             />
           </div>
 
@@ -186,7 +186,7 @@ export default function ClientShipmentsPage() {
                       onClick={() => navigate(`/client-portal/shipping/shipments/${s.id}`)}
                       className="hover:bg-gray-50 cursor-pointer transition-colors"
                     >
-                      <td className="px-4 py-3 font-mono font-medium text-blue-600">
+                      <td className="px-4 py-3 font-mono font-medium text-primary">
                         {s.trackingNumber}
                       </td>
                       <td className="px-4 py-3 font-medium text-foreground">{s.recipientName}</td>

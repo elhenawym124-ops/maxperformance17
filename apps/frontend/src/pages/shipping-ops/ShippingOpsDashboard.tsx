@@ -117,7 +117,7 @@ export const ShippingOpsDashboard: React.FC = () => {
           </Link>
           <Link
             to="/shipping-ops/parcels/new"
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg shadow-sm transition active:scale-95"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary dark:bg-primary dark:hover:bg-primary rounded-lg shadow-sm transition active:scale-95"
           >
             <PackagePlus className="w-4 h-4" />
             <span>{t('shippingOps.newParcel', 'إنشاء طرد جديد')}</span>
@@ -161,16 +161,16 @@ export const ShippingOpsDashboard: React.FC = () => {
             <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground tracking-wide">
               {isEn ? 'Available for Remittance' : 'القابل للتوريد'}
             </span>
-            <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400">
+            <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/50 text-primary dark:text-primary">
               <Banknote className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-blue-600 dark:text-blue-400 mt-1">
+          <div className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-primary dark:text-primary mt-1">
             {loading ? '—' : formatCurrency(wallet?.availableForRemittance ?? 0, wallet?.currency || 'EGP')}
           </div>
           <div className="mt-3 pt-3 border-t border-border dark:border-border flex items-center justify-between text-xs text-muted-foreground dark:text-muted-foreground">
             <span>{isEn ? 'COD − Fees − Payouts' : 'مجموع COD المحصّل − الرسوم'}</span>
-            <Link to="/shipping-ops/settlements" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+            <Link to="/shipping-ops/settlements" className="text-blue-600 dark:text-primary hover:underline font-medium">
               {isEn ? 'Settlements' : 'كشوف التسوية'}
             </Link>
           </div>
@@ -242,7 +242,7 @@ export const ShippingOpsDashboard: React.FC = () => {
           </div>
           <div className="mt-3 pt-3 border-t border-border dark:border-border flex items-center justify-between text-xs text-muted-foreground dark:text-muted-foreground">
             <span>{isEn ? 'Threshold for stale parcel alert' : 'تنبيه آلي للشحنات المتجاوزة للمهلة'}</span>
-            <Link to="/shipping-ops/parcels" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+            <Link to="/shipping-ops/parcels" className="text-blue-600 dark:text-primary hover:underline font-medium">
               {isEn ? 'View Parcels' : 'سجل الشحنات'}
             </Link>
           </div>
@@ -255,7 +255,7 @@ export const ShippingOpsDashboard: React.FC = () => {
         <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 sm:p-4">
           <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground mb-2">
             <span className="text-xs font-medium">{t('shippingOps.kpi.todayShipments', 'شحنات اليوم')}</span>
-            <Clock className="w-4 h-4 text-blue-500" />
+            <Clock className="w-4 h-4 text-primary" />
           </div>
           <div className="text-xl sm:text-2xl font-bold tabular-nums">
             {loading ? '—' : stats?.todayCount ?? 0}
@@ -322,14 +322,14 @@ export const ShippingOpsDashboard: React.FC = () => {
       <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="p-4 border-b border-border dark:border-border flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Boxes className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <Boxes className="w-4 h-4 text-primary dark:text-primary" />
             <h2 className="text-sm sm:text-base font-semibold">
               {t('shippingOps.recentShipments', 'آخر ١٠ شحنات مسجلة')}
             </h2>
           </div>
           <Link
             to="/shipping-ops/parcels"
-            className="text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 inline-flex items-center gap-1"
+            className="text-xs font-medium text-primary hover:text-primary dark:text-primary inline-flex items-center gap-1"
           >
             <span>{isEn ? 'View all' : 'عرض الكل'}</span>
             <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -370,7 +370,7 @@ export const ShippingOpsDashboard: React.FC = () => {
                   const badge = getStatusBadge(s.status, isEn);
                   return (
                     <tr key={s.id} className="hover:bg-slate-50/70 dark:hover:bg-muted transition">
-                      <td className="px-4 py-3 font-mono font-medium text-blue-600 dark:text-blue-400">
+                      <td className="px-4 py-3 font-mono font-medium text-primary dark:text-primary">
                         <Link to={`/shipping-ops/parcels/${s.id}`} className="hover:underline">
                           {s.trackingNumber}
                         </Link>
@@ -405,7 +405,7 @@ export const ShippingOpsDashboard: React.FC = () => {
                       <td className="px-4 py-3 text-center">
                         <Link
                           to={`/shipping-ops/parcels/${s.id}`}
-                          className="inline-flex items-center justify-center p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                          className="inline-flex items-center justify-center p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                           title={t('shippingOps.list.viewDetails', 'عرض التفاصيل')}
                         >
                           <Eye className="w-4 h-4" />

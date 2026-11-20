@@ -103,7 +103,7 @@ export const CohortOrdersDrawer: React.FC<Props> = ({
               onClick={handleExportCsv}
               className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-2.5 py-1.5 text-xs font-semibold text-foreground shadow-2xs transition hover:bg-muted active:scale-95 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
             >
-              <Download className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+              <Download className="h-3.5 w-3.5 text-primary dark:text-primary" />
               <span>تصدير CSV</span>
             </button>
             <button
@@ -125,7 +125,7 @@ export const CohortOrdersDrawer: React.FC<Props> = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث برقم الطلب، اسم العميل، الهاتف، أو المحافظة..."
-              className="w-full rounded-lg border border-border bg-white py-2 pe-9 ps-3 text-xs outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
+              className="w-full rounded-lg border border-border bg-white py-2 pe-9 ps-3 text-xs outline-none transition focus:border-primary focus:ring-1 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
             />
           </div>
         </div>
@@ -134,7 +134,7 @@ export const CohortOrdersDrawer: React.FC<Props> = ({
         <div className="flex-1 overflow-y-auto p-4">
           {loading ? (
             <div className="flex h-48 items-center justify-center">
-              <div className="h-6 w-6 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+              <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
             </div>
           ) : filteredOrders.length === 0 ? (
             <div className="flex h-48 items-center justify-center text-xs text-muted-foreground">
@@ -157,7 +157,7 @@ export const CohortOrdersDrawer: React.FC<Props> = ({
                           طلب ضيف
                         </span>
                       )}
-                      <span className="rounded bg-blue-50 px-2 py-0.5 text-[10px] font-bold text-blue-700 dark:bg-blue-950/50 dark:text-blue-300">
+                      <span className="rounded bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary dark:bg-primary/50 dark:text-primary">
                         {o.status}
                       </span>
                       {o.handoffStatus && (

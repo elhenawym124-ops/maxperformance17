@@ -33,7 +33,7 @@ const TYPE_CONFIG: Record<
   TRANSFER: {
     label: 'مناقلة فروع',
     icon: ArrowLeftRight,
-    className: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/20',
+    className: 'bg-blue-500/10 text-primary dark:text-primary border-primary/20',
   },
   RETURN: {
     label: 'مرتجع',

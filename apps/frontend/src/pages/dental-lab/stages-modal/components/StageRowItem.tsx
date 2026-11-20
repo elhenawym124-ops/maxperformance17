@@ -125,7 +125,7 @@ export function StageRowItem({
             type="checkbox"
             checked={stage.isRequired !== false}
             onChange={(e) => onUpdate({ isRequired: e.target.checked })}
-            className="rounded border-border text-blue-600"
+            className="rounded border-border text-primary"
           />
           <span className="text-[11px]">إلزامية</span>
         </label>

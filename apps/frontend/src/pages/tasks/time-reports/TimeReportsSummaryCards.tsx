@@ -78,11 +78,11 @@ export const TimeReportsSummaryCards: React.FC<TimeReportsSummaryCardsProps> = (
             <p className="text-xs sm:text-sm text-muted-foreground">
               المشاريع النشطة
             </p>
-            <p className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400 tabular-nums">
+            <p className="text-lg sm:text-2xl font-bold text-primary dark:text-primary tabular-nums">
               {projectCount}
             </p>
           </div>
-          <FolderIcon className="h-8 w-8 text-blue-400" />
+          <FolderIcon className="h-8 w-8 text-primary" />
         </div>
       </div>
 

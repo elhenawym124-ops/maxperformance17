@@ -5,7 +5,7 @@ export type { ServiceMediaFile };
 export const STATUS_MAP: Record<string, { label: string; color: string; badge: string }> = {
   NEW: {
     label: "جديد",
-    color: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800",
+    color: "bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary",
     badge: "bg-blue-500",
   },
   IN_PROGRESS: {

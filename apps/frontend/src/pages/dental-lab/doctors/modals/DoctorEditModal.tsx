@@ -153,7 +153,7 @@ export function DoctorEditModal({
           <button
             onClick={save}
             disabled={saving || !modal.name.trim()}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50"
           >
             {saving ? t("dentalLab.common.saving") : t("dentalLab.common.save")}
           </button>

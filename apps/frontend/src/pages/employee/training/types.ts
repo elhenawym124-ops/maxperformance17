@@ -38,7 +38,7 @@ export const trainingStatusConfig: Record<
 > = {
   PLANNED: {
     labelKey: "employee.training.plannedStatus",
-    color: "bg-blue-100 text-blue-700 border-blue-200",
+    color: "bg-blue-100 text-primary border-primary",
     icon: React.createElement(AlertCircle, { className: "h-3.5 w-3.5" }),
   },
   ONGOING: {

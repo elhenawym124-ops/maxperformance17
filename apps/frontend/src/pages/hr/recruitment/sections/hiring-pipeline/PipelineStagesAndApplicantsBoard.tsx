@@ -47,17 +47,17 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
   return (
     <div className="bg-card rounded-xl p-6 shadow-lg border-2 border-border dark:border-border">
       <h2 className="text-2xl font-bold text-foreground dark:text-white mb-6 flex items-center gap-2">
-        <ClipboardDocumentCheckIcon className="w-8 h-8 text-blue-600" />
+        <ClipboardDocumentCheckIcon className="w-8 h-8 text-primary" />
         مسار التوظيف
       </h2>
 
       {loading ? (
         <div className="flex items-center justify-center py-16">
-          <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin" />
+          <div className="w-12 h-12 rounded-full border-4 border-primary border-t-blue-600 animate-spin" />
         </div>
       ) : totalApplicants === 0 ? (
-        <div className="rounded-xl border-2 border-dashed border-border bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 p-8 text-center">
-          <ClipboardDocumentCheckIcon className="w-16 h-16 mx-auto text-blue-500 mb-4" />
+        <div className="rounded-xl border-2 border-dashed border-border bg-gradient-to-br from-slate-50 to-primary dark:from-gray-800 dark:to-gray-900 p-8 text-center">
+          <ClipboardDocumentCheckIcon className="w-16 h-16 mx-auto text-primary mb-4" />
           <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">
             المسار جاهز لكن لا يوجد متقدمون بعد
           </h3>
@@ -66,8 +66,8 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
             ردود استبيانات التقديم إذا كان الاستبيان مربوطًا بوظيفة.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-right">
-            <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-              <p className="text-sm text-blue-700 dark:text-blue-300 font-semibold">
+            <div className="p-4 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary">
+              <p className="text-sm text-primary dark:text-primary font-semibold">
                 1. أنشئ وظيفة
               </p>
               <p className="text-sm text-foreground dark:text-muted-foreground mt-1">
@@ -108,7 +108,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                       stage.color,
                     )} ${
                       selectedStageId === stage.id
-                        ? "shadow-xl ring-2 ring-blue-500 ring-offset-2 scale-[1.02]"
+                        ? "shadow-xl ring-2 ring-primary ring-offset-2 scale-[1.02]"
                         : "hover:shadow-lg"
                     }`}
                   >
@@ -170,7 +170,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
 
             {stageApplicantsLoading ? (
               <div className="flex items-center justify-center py-10">
-                <div className="w-10 h-10 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin" />
+                <div className="w-10 h-10 rounded-full border-4 border-primary border-t-blue-600 animate-spin" />
               </div>
             ) : stageApplicants.length === 0 ? (
               <div className="rounded-xl bg-card border border-border dark:border-border p-6 text-center">
@@ -206,7 +206,7 @@ export const PipelineStagesAndApplicantsBoard: React.FC<
                             onUpdateStatus(applicant.id, e.target.value)
                           }
                           disabled={deletingApplicantId === applicant.id}
-                          className={`text-xs font-semibold rounded-lg px-2 py-1.5 cursor-pointer outline-none border hover:shadow-md transition-all focus:ring-2 focus:ring-blue-500 disabled:opacity-60 disabled:cursor-not-allowed ${getPipelineStageColorClasses(
+                          className={`text-xs font-semibold rounded-lg px-2 py-1.5 cursor-pointer outline-none border hover:shadow-md transition-all focus:ring-2 focus:ring-primary disabled:opacity-60 disabled:cursor-not-allowed ${getPipelineStageColorClasses(
                             selectedStage?.color || "blue",
                           )}`}
                           title="تغيير المرحلة"

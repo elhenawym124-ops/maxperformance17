@@ -16,7 +16,7 @@ export function InspectorHeader({ caseData, onClose }: InspectorHeaderProps) {
   return (
     <div className="p-3.5 bg-muted dark:bg-muted border-b border-border dark:border-border flex items-center justify-between gap-3">
       <div className="flex items-center gap-2 min-w-0">
-        <span className="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0 animate-pulse" />
+        <span className="w-2.5 h-2.5 rounded-full bg-primary dark:bg-primary shrink-0 animate-pulse" />
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <span
@@ -40,7 +40,7 @@ export function InspectorHeader({ caseData, onClose }: InspectorHeaderProps) {
       <div className="flex items-center gap-1 shrink-0">
         <Link
           to={`/dental-lab/cases/${caseData.id}`}
-          className="p-1.5 text-muted-foreground hover:text-blue-600 dark:text-muted-foreground dark:hover:text-blue-400 hover:bg-muted dark:hover:bg-muted rounded-lg transition-colors"
+          className="p-1.5 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary hover:bg-muted dark:hover:bg-muted rounded-lg transition-colors"
           title="فتح صفحة الحالة الكاملة"
         >
           <ExternalLink className="w-4 h-4" />

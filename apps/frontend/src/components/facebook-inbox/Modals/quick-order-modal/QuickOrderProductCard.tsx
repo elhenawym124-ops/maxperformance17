@@ -67,7 +67,7 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
               {product.price} ج.م
             </span>
             {product.variants.length > 0 && (
-              <span className="text-[10px] text-blue-500 bg-blue-500/10 px-1.5 py-0.5 rounded font-medium font-mono tabular-nums">
+              <span className="text-[10px] text-primary bg-primary/10 px-1.5 py-0.5 rounded font-medium font-mono tabular-nums">
                 {product.variants.length} خيار
               </span>
             )}

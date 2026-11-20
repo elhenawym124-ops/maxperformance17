@@ -116,7 +116,7 @@ export const AovTelemetryHeader: React.FC<AovTelemetryHeaderProps> = ({
               {loading ? "…" : formatPrice(overallKpis.currentAov)}
             </div>
           </div>
-          <div className="p-1.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+          <div className="p-1.5 rounded-md bg-primary/10 text-primary dark:text-primary border border-primary/20">
             <ArrowTrendingUpIcon className="h-4 w-4" />
           </div>
         </div>

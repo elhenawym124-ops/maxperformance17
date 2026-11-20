@@ -45,7 +45,7 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
       {/* Columns Section */}
       <div className="bg-card rounded-lg shadow border border-border dark:border-border p-6">
         <div className="flex items-center gap-3 mb-5">
-          <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+          <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary">
             <Settings2 size={20} />
           </div>
           <div>
@@ -234,7 +234,7 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
                 ordersStartDate: e.target.value || undefined,
               }))
             }
-            className="px-4 py-2 border border-border rounded-lg bg-card text-foreground dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums font-mono"
+            className="px-4 py-2 border border-border rounded-lg bg-card text-foreground dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary tabular-nums font-mono"
           />
           {displayConfig.ordersStartDate && (
             <button
@@ -258,7 +258,7 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
         <button
           onClick={handleSaveDisplayConfig}
           disabled={saving}
-          className="bg-blue-600 text-white px-6 py-2.5 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors disabled:opacity-50 font-medium shadow-xs"
+          className="bg-blue-600 text-white px-6 py-2.5 rounded-lg flex items-center gap-2 hover:bg-primary transition-colors disabled:opacity-50 font-medium shadow-xs"
         >
           <Save size={18} />
           {saving ? t('returns.k_105') : t('returns.k_106')}

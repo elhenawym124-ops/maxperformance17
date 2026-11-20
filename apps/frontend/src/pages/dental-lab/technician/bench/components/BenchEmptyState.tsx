@@ -30,7 +30,7 @@ export const BenchEmptyState: React.FC<BenchEmptyStateProps> = ({
         <button
           type="button"
           onClick={onResetFilter}
-          className="mt-3 px-3 py-1.5 text-xs font-semibold text-blue-600 border border-blue-200 dark:border-blue-800 rounded-lg hover:bg-blue-50"
+          className="mt-3 px-3 py-1.5 text-xs font-semibold text-primary border border-primary dark:border-primary rounded-lg hover:bg-primary/10"
         >
           عرض كافة الحالات
         </button>

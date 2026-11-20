@@ -35,7 +35,7 @@ export const DentalInvoicesDoctorSelector: React.FC<DentalInvoicesDoctorSelector
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="flex items-center gap-2 flex-1 min-w-[240px]">
-        <User className="w-4 h-4 text-blue-600 shrink-0" />
+        <User className="w-4 h-4 text-primary shrink-0" />
         <label
           htmlFor="doctor-account-select"
           className="text-xs font-bold text-foreground whitespace-nowrap"
@@ -44,7 +44,7 @@ export const DentalInvoicesDoctorSelector: React.FC<DentalInvoicesDoctorSelector
         </label>
         <select
           id="doctor-account-select"
-          className="flex-1 border dark:border-border rounded-lg px-3 py-1.5 text-xs sm:text-sm dark:bg-muted dark:text-muted-foreground focus:ring-2 focus:ring-blue-500"
+          className="flex-1 border dark:border-border rounded-lg px-3 py-1.5 text-xs sm:text-sm dark:bg-muted dark:text-muted-foreground focus:ring-2 focus:ring-primary"
           value={selectedDoctorId}
           onChange={(e) => onSelectDoctorId(e.target.value)}
         >
@@ -63,7 +63,7 @@ export const DentalInvoicesDoctorSelector: React.FC<DentalInvoicesDoctorSelector
           <button
             type="button"
             onClick={() => onOpenStatement(activeDoctor)}
-            className="px-3 py-1.5 bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 border border-blue-200 dark:border-blue-800 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-blue-100 transition-colors"
+            className="px-3 py-1.5 bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary border border-primary dark:border-primary rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-primary transition-colors"
           >
             <FileSpreadsheet className="w-3.5 h-3.5" />
             <span>كشف حساب الطبيب</span>

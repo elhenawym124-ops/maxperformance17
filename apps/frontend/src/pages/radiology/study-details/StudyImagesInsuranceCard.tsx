@@ -28,7 +28,7 @@ export const StudyImagesInsuranceCard: React.FC<StudyImagesInsuranceCardProps> =
           images.length > 0 ? (
             <button
               onClick={onOpenViewer}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-xs cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg hover:bg-primary text-xs cursor-pointer"
             >
               <Eye className="w-3.5 h-3.5" />
               {t("radiology.reports.viewImages")}

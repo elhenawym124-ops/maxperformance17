@@ -66,8 +66,8 @@ export const ASSET_REPORT_CARDS: AssetReportCardConfig[] = [
     description: "تقرير شامل بكل الأصول مع تفاصيلها الكاملة",
     icon: DocumentTextIcon,
     borderClass: "border-blue-100 dark:border-border",
-    iconWrapperClass: "bg-blue-100 dark:bg-blue-900/30",
-    iconClass: "text-blue-600 dark:text-blue-400",
+    iconWrapperClass: "bg-blue-100 dark:bg-primary/30",
+    iconClass: "text-blue-600 dark:text-primary",
   },
   {
     reportType: "current-custody",

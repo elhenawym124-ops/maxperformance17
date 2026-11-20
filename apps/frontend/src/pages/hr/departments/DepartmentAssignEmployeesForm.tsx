@@ -53,7 +53,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
                   key={emp.id}
                   className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${
                     assignEmployeesSelection.includes(emp.id)
-                      ? "bg-blue-50 dark:bg-blue-900/30"
+                      ? "bg-blue-50 dark:bg-primary/30"
                       : "hover:bg-gray-50 dark:hover:bg-muted"
                   }`}
                   onClick={() => toggleAssignEmployeeSelection(emp.id)}
@@ -78,7 +78,7 @@ export const DepartmentAssignEmployeesForm: React.FC<DepartmentAssignEmployeesFo
                   <div
                     className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${
                       assignEmployeesSelection.includes(emp.id)
-                        ? "bg-blue-600 border-blue-600 text-white"
+                        ? "bg-blue-600 border-primary text-white"
                         : "border-border"
                     }`}
                   >

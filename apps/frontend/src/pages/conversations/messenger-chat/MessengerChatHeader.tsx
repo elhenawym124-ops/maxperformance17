@@ -55,7 +55,7 @@ export const MessengerChatHeader: React.FC<MessengerChatHeaderProps> = ({
           onClick={onToggleAi}
           className={`p-2 rounded-full transition-colors ${
             conversation.aiEnabled !== false
-              ? "text-blue-600 hover:text-blue-800 bg-blue-50"
+              ? "text-blue-600 hover:text-primary bg-primary/10"
               : "text-gray-400 hover:text-foreground"
           }`}
           title={

@@ -181,7 +181,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                     {session.isDefault ? (
                       <Badge
                         variant="outline"
-                        className="rounded-full border-blue-300/70 bg-blue-500/10 text-[10px] font-medium text-blue-800 dark:border-blue-500/40 dark:text-blue-200 sm:text-xs"
+                        className="rounded-full border-primary/70 bg-primary/10 text-[10px] font-medium text-primary dark:border-primary/40 dark:text-primary sm:text-xs"
                       >
                         {t("whatsappSettings.default")}
                       </Badge>

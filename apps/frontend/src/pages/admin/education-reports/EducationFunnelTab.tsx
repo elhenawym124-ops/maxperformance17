@@ -28,7 +28,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
       count: totalCustomers,
       rate: 100,
       color: "bg-blue-600",
-      textColor: "text-blue-600 dark:text-blue-400",
+      textColor: "text-blue-600 dark:text-primary",
     },
     {
       label: isEn ? "Demo Day Registrations" : "مسجلو اليوم التجريبي (ديمو داي)",

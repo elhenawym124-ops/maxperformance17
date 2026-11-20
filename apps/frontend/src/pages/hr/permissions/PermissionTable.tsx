@@ -43,7 +43,7 @@ export const PermissionTable: React.FC<PermissionTableProps> = ({
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-80 gap-3">
-        <div className="animate-spin rounded-full h-10 w-10 border-[3px] border-blue-600 border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-[3px] border-primary border-t-transparent"></div>
         <p className="text-gray-500 text-sm animate-pulse">
           {t("employee.permissions.loading")}
         </p>

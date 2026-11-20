@@ -94,7 +94,7 @@ export const CheckoutOrderSummary: React.FC<CheckoutOrderSummaryProps> = ({
           <span className="text-foreground">
             {t("manualOrder.k_120")}
           </span>
-          <span className="text-blue-600 dark:text-blue-400 tabular-nums">
+          <span className="text-blue-600 dark:text-primary tabular-nums">
             {grandTotal.toLocaleString()} {t("manualOrder.k_75")}
           </span>
         </div>

@@ -681,7 +681,7 @@ export interface CasesListResult {
 
 export const CASE_STATUSES: { id: DentalCaseStatus; label: string; color: string; barColor: string; dotColor: string }[] = [
   { id: "RECEIVED", label: "وصل", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground", barColor: "#9ca3af", dotColor: "bg-gray-400" },
-  { id: "DESIGN", label: "تصميم", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300", barColor: "#3b82f6", dotColor: "bg-blue-500" },
+  { id: "DESIGN", label: "تصميم", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary", barColor: "#3b82f6", dotColor: "bg-blue-500" },
   { id: "MANUFACTURING", label: "تصنيع", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary", barColor: "#6366f1", dotColor: "bg-indigo-500" },
   { id: "OUTSOURCED", label: "بره المعمل", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning", barColor: "#f59e0b", dotColor: "bg-amber-500" },
   { id: "QC", label: "فحص جودة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning", barColor: "#eab308", dotColor: "bg-yellow-500" },
@@ -736,7 +736,7 @@ export const PRIORITY_CONFIG: Record<DentalCasePriority, { label: string; color:
 };
 
 export const ROLE_CONFIG: Record<string, { label: string; color: string }> = {
-  CAD_DESIGNER: { label: "مصمم CAD/CAM", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
+  CAD_DESIGNER: { label: "مصمم CAD/CAM", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   CERAMIST: { label: "فني خزف وبورسلين", color: "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary" },
   MODEL_WAX: { label: "فني شمع وموديلات", color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
   METAL_CASTING: { label: "فني ميتال وكاستينج", color: "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
@@ -747,7 +747,7 @@ export const ROLE_CONFIG: Record<string, { label: string; color: string }> = {
   GENERAL_TECHNICIAN: { label: "فني أسنان عام", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   // Backward compatibility
   RECEPTION: { label: "استقبال ولوجستيات", color: "bg-sky-100 text-info dark:bg-info/40 dark:text-info" },
-  CAD: { label: "مصمم CAD/CAM", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
+  CAD: { label: "مصمم CAD/CAM", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   TECHNICIAN: { label: "فني أسنان عام", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   QC: { label: "مراقب جودة QC", color: "bg-emerald-100 text-success dark:bg-success/40 dark:text-success" },
 };
@@ -792,7 +792,7 @@ export const CASE_INTENTS = [
 
 export const STAGE_STATUS_MAP: Record<string, { label: string; color: string }> = {
   PENDING: { label: "مستنى", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
-  IN_PROGRESS: { label: "بيشتغل", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  IN_PROGRESS: { label: "بيشتغل", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   COMPLETED: { label: "خلصت", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
   SKIPPED: { label: "تخطيت", color: "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground" },
 };

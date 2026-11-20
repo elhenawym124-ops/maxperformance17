@@ -192,7 +192,7 @@ export const PublishConfirmationModal: React.FC<
       >
         <div className="flex items-start justify-between gap-4 border-b border-border dark:border-border px-6 py-5">
           <div>
-            <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">
+            <p className="text-sm font-semibold text-primary dark:text-primary">
               {isEn ? "Pre-Publish Meta Review" : "مراجعة قبل الإرسال إلى Meta"}
             </p>
             <h3
@@ -271,7 +271,7 @@ export const PublishConfirmationModal: React.FC<
               onChange={(event) =>
                 setPublishAccountConfirmed(event.target.checked)
               }
-              className="mt-1 h-4 w-4 rounded border-border dark:border-border text-blue-600 focus-visible:ring-blue-500"
+              className="mt-1 h-4 w-4 rounded border-border dark:border-border text-primary focus-visible:ring-blue-500"
             />
             <span>
               {isEn

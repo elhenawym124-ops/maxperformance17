@@ -87,7 +87,7 @@ export const EmployeePerformanceScorePage: React.FC = () => {
 
   const getTierBadge = (score: number) => {
     if (score >= 90) return "bg-emerald-500/10 text-success dark:text-success border-success/20";
-    if (score >= 80) return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
+    if (score >= 80) return "bg-blue-500/10 text-primary dark:text-primary border-primary/20";
     if (score >= 70) return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
     if (score >= 60) return "bg-orange-500/10 text-warning dark:text-warning border-warning/20";
     return "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20";
@@ -98,7 +98,7 @@ export const EmployeePerformanceScorePage: React.FC = () => {
       case "delivery":
         return <TrendingUp className="h-5 w-5 text-success" />;
       case "quality":
-        return <CheckCircle2 className="h-5 w-5 text-blue-500" />;
+        return <CheckCircle2 className="h-5 w-5 text-primary" />;
       case "punctuality":
         return <Clock className="h-5 w-5 text-primary" />;
       case "focus":

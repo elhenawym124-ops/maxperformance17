@@ -32,7 +32,7 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
   onCancel,
 }) => {
   const cardClass = isDark ? "bg-gray-800 border-border" : "bg-white border-border";
-  const inputClass = `w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 transition ${
+  const inputClass = `w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary transition ${
     isDark
       ? "bg-gray-700 border-border text-white placeholder-muted"
       : "bg-white border-border text-foreground"
@@ -282,7 +282,7 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
                 setFormData({ ...formData, autoFulfill: e.target.checked })
               }
               disabled={!isEditMode}
-              className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
+              className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
             />
             <span className={isDark ? "text-gray-300" : "text-gray-700"}>
               تفعيل الوفاء التلقائي للطلبات
@@ -297,7 +297,7 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
                 setFormData({ ...formData, isActive: e.target.checked })
               }
               disabled={!isEditMode}
-              className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
+              className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
             />
             <span className={isDark ? "text-gray-300" : "text-gray-700"}>
               التاجر نشط
@@ -310,7 +310,7 @@ export const MerchantProfileForm: React.FC<MerchantProfileFormProps> = ({
             <button
               type="submit"
               disabled={saving}
-              className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition font-medium"
+              className="flex-1 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition font-medium"
             >
               {saving ? "جارٍ الحفظ..." : "حفظ التعديلات"}
             </button>

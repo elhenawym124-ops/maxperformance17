@@ -292,7 +292,7 @@ export const PickupsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <Truck className="w-6 h-6 text-blue-600" />
+            <Truck className="w-6 h-6 text-primary" />
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
               {isEn ? 'Pickup Requests' : 'طلبات الاستلام (Pickup)'}
             </h1>
@@ -307,7 +307,7 @@ export const PickupsPage: React.FC = () => {
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-sm transition active:scale-95 self-start sm:self-auto"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary text-white text-sm font-semibold rounded-xl shadow-sm transition active:scale-95 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>{isEn ? 'New Pickup Request' : 'طلب استلام جديد'}</span>
@@ -326,7 +326,7 @@ export const PickupsPage: React.FC = () => {
               setPage(1);
             }}
             placeholder={isEn ? 'Search by pickup #, name, phone, address...' : 'البحث برقم الطلب، الاسم، الهاتف، العنوان...'}
-            className="w-full rtl:pe-9 ltr:ps-9 py-2 text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full rtl:pe-9 ltr:ps-9 py-2 text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
           />
         </div>
 
@@ -398,7 +398,7 @@ export const PickupsPage: React.FC = () => {
 
                   return (
                     <tr key={p.id} className="hover:bg-slate-50/70 dark:hover:bg-muted transition">
-                      <td className="px-4 py-3 font-mono font-bold text-blue-600 dark:text-blue-400">
+                      <td className="px-4 py-3 font-mono font-bold text-primary dark:text-primary">
                         <button
                           onClick={() => setSelectedPickup(p)}
                           className="hover:underline text-right"
@@ -443,7 +443,7 @@ export const PickupsPage: React.FC = () => {
                         <div className="inline-flex items-center gap-1">
                           <button
                             onClick={() => setSelectedPickup(p)}
-                            className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                             title="عرض التفاصيل"
                           >
                             <Eye className="w-4 h-4" />
@@ -457,7 +457,7 @@ export const PickupsPage: React.FC = () => {
                                   setScheduleDate(p.scheduledDate.slice(0, 10));
                                   setScheduleSlot(p.timeSlot || '10:00 - 14:00');
                                 }}
-                                className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                                className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                                 title="جدولة"
                               >
                                 <Calendar className="w-4 h-4" />
@@ -541,7 +541,7 @@ export const PickupsPage: React.FC = () => {
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <div className="flex items-center gap-2">
-                <Truck className="w-5 h-5 text-blue-600" />
+                <Truck className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-bold">{isEn ? 'New Pickup Request' : 'طلب استلام طرود جديد'}</h2>
               </div>
               <button
@@ -573,7 +573,7 @@ export const PickupsPage: React.FC = () => {
                         contactPhone: sel?.phone || createForm.contactPhone,
                       });
                     }}
-                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-primary font-medium"
                   >
                     <option value="">{isEn ? '-- Select Team Member --' : '-- اختر مسؤول الاستلام من فريق العمل --'}</option>
                     {teamMembers.map((member) => (
@@ -592,7 +592,7 @@ export const PickupsPage: React.FC = () => {
                     required
                     value={createForm.contactPhone}
                     onChange={(e) => setCreateForm({ ...createForm, contactPhone: e.target.value })}
-                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-primary font-mono"
                     placeholder="01012345678"
                   />
                 </div>
@@ -607,7 +607,7 @@ export const PickupsPage: React.FC = () => {
                   required
                   value={createForm.pickupAddress}
                   onChange={(e) => setCreateForm({ ...createForm, pickupAddress: e.target.value })}
-                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-primary"
                   placeholder="الشارع، رقم المبنى، علامة مميزة..."
                 />
               </div>
@@ -745,7 +745,7 @@ export const PickupsPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition active:scale-95 disabled:opacity-50"
+                  className="px-5 py-2 bg-primary hover:bg-primary text-white rounded-xl text-xs font-semibold transition active:scale-95 disabled:opacity-50"
                 >
                   {submitting ? 'جاري الإنشاء...' : 'تأكيد طلب الاستلام'}
                 </button>
@@ -760,7 +760,7 @@ export const PickupsPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-sm w-full p-5 space-y-4 shadow-xl">
             <h3 className="font-bold text-base flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-blue-600" />
+              <Calendar className="w-5 h-5 text-primary" />
               <span>جدولة موعد الاستلام</span>
             </h3>
             <div className="space-y-3 text-sm">
@@ -796,7 +796,7 @@ export const PickupsPage: React.FC = () => {
               <button
                 onClick={handleScheduleSubmit}
                 disabled={submitting}
-                className="px-4 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold"
+                className="px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-semibold"
               >
                 حفظ الجدولة
               </button>
@@ -901,8 +901,8 @@ export const PickupsPage: React.FC = () => {
             <div className="space-y-5">
               <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
                 <div className="flex items-center gap-2">
-                  <Truck className="w-5 h-5 text-blue-600" />
-                  <span className="font-mono font-bold text-lg text-blue-600">
+                  <Truck className="w-5 h-5 text-primary" />
+                  <span className="font-mono font-bold text-lg text-primary">
                     {selectedPickup.pickupNumber}
                   </span>
                 </div>

@@ -138,9 +138,9 @@ const CatalogsManagement: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>موجزات التغذية (Feeds)</span>
-            <FolderSync className="h-3.5 w-3.5 text-blue-500" />
+            <FolderSync className="h-3.5 w-3.5 text-primary" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-blue-500">{stats.totalFeeds}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-primary">{stats.totalFeeds}</div>
         </div>
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">

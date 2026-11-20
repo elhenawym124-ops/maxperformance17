@@ -120,7 +120,7 @@ export const UpsellCenterTab: React.FC<UpsellCenterTabProps> = ({
       <aside className="self-start xl:sticky xl:top-24">
         <div className="rounded-[28px] border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
           <div className="px-2">
-            <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
               Upsell Center
             </div>
             <h2 className="mt-2 text-xl font-black text-foreground">
@@ -142,7 +142,7 @@ export const UpsellCenterTab: React.FC<UpsellCenterTabProps> = ({
                   onClick={() => setUpsellSection(section.id)}
                   className={`flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left transition-colors ${
                     isActive
-                      ? "border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-900/50 dark:bg-blue-900/20 dark:text-blue-100"
+                      ? "border-blue-200 bg-primary/10 text-primary dark:border-primary/50 dark:bg-primary/20 dark:text-primary"
                       : "border-transparent bg-muted text-foreground hover:border-border hover:bg-white dark:bg-muted dark:text-muted-foreground dark:hover:border-border dark:hover:bg-muted"
                   }`}
                   aria-current={isActive ? "page" : undefined}
@@ -150,7 +150,7 @@ export const UpsellCenterTab: React.FC<UpsellCenterTabProps> = ({
                   <div
                     className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
                       isActive
-                        ? "bg-white text-blue-700 dark:bg-blue-950/60 dark:text-blue-200"
+                        ? "bg-white text-primary dark:bg-primary/60 dark:text-primary"
                         : "bg-white text-foreground dark:bg-muted dark:text-muted-foreground"
                     }`}
                   >
@@ -162,7 +162,7 @@ export const UpsellCenterTab: React.FC<UpsellCenterTabProps> = ({
                       <span
                         className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] ${
                           isActive
-                            ? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-200"
+                            ? "bg-blue-100 text-primary dark:bg-primary/50 dark:text-primary"
                             : "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground"
                         }`}
                       >

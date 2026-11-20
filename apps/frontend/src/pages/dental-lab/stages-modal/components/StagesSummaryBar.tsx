@@ -20,7 +20,7 @@ export function StagesSummaryBar({
     <div className="bg-gray-50 dark:bg-muted px-4 py-2.5 border-b dark:border-border flex flex-wrap items-center justify-between gap-3 text-xs">
       <div className="flex items-center gap-4 text-muted-foreground">
         <span className="flex items-center gap-1.5">
-          <Workflow className="w-3.5 h-3.5 text-blue-500" />
+          <Workflow className="w-3.5 h-3.5 text-primary" />
           <span>المراحل:</span>
           <strong
             data-testid="stages-count"
@@ -48,7 +48,7 @@ export function StagesSummaryBar({
       <button
         type="button"
         onClick={onReset}
-        className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+        className="text-xs text-primary dark:text-primary hover:underline flex items-center gap-1"
       >
         <RotateCcw className="w-3.5 h-3.5" />
         استعادة الـ 5 مراحل المعتمدة

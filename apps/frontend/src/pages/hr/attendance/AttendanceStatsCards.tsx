@@ -15,7 +15,7 @@ export const AttendanceStatsCards: React.FC<AttendanceStatsCardsProps> = ({
       label: "إجمالي الموظفين",
       value: todayStats?.totalEmployees,
       icon: UserCheck,
-      color: "text-blue-600 dark:text-blue-400",
+      color: "text-blue-600 dark:text-primary",
       bg: "bg-blue-500/10",
     },
     {

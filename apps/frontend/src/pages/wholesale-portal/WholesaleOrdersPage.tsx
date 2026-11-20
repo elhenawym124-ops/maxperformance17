@@ -71,7 +71,7 @@ export const WholesaleOrdersPage: React.FC = () => {
         );
       case 'CONFIRMED':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary">
             <CheckCircle size={13} />
             تم التأكيد
           </span>

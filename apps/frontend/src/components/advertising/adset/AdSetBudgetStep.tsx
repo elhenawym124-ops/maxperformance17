@@ -430,7 +430,7 @@ export const AdSetBudgetStep: React.FC<AdSetBudgetStepProps> = ({
 
       {/* Dynamic Creative Option */}
       <div className="pt-4 border-t border-border dark:border-border">
-        <div className="p-4 bg-gradient-to-r from-info to-blue-50 dark:from-info/20 dark:to-blue-950/20 rounded-xl border border-info dark:border-info/50 flex items-center justify-between gap-3">
+        <div className="p-4 bg-gradient-to-r from-info to-primary dark:from-info/20 dark:to-primary/20 rounded-xl border border-info dark:border-info/50 flex items-center justify-between gap-3">
           <div className="space-y-0.5">
             <div className="flex items-center gap-2">
               <SparklesIcon className="w-4 h-4 text-info dark:text-info" />

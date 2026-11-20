@@ -199,11 +199,11 @@ const LeaveReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">إجمالي الأيام</p>
-                      <h3 className="text-3xl font-bold mt-1 text-blue-600">
+                      <h3 className="text-3xl font-bold mt-1 text-primary">
                         {report.totalDaysTaken}
                       </h3>
                     </div>
-                    <Calendar className="h-10 w-10 text-blue-500" />
+                    <Calendar className="h-10 w-10 text-primary" />
                   </div>
                 </CardContent>
               </Card>

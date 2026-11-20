@@ -291,7 +291,7 @@ export const AssetListFiltersAndTable: React.FC<
 
                         <button
                           onClick={() => onEditAsset(asset)}
-                          className="text-blue-600 dark:text-blue-400 hover:text-blue-900 bg-blue-50 dark:bg-blue-900/40 p-1.5 rounded-xl hover:bg-blue-100 transition-all"
+                          className="text-blue-600 dark:text-primary hover:text-primary bg-primary/10 dark:bg-primary/40 p-1.5 rounded-xl hover:bg-primary transition-all"
                           title="تعديل"
                         >
                           <PencilSquareIcon className="h-5 w-5" />

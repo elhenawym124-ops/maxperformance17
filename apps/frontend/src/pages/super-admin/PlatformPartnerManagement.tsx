@@ -226,7 +226,7 @@ export default function PlatformPartnerManagement() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-blue-600 dark:text-blue-400">الشركات المسجلة</p>
+            <p className="text-[11px] text-primary dark:text-primary">الشركات المسجلة</p>
             <p className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums mt-0.5">
               {stats?.activeCompaniesCount || 0}
             </p>

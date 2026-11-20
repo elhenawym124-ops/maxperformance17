@@ -35,7 +35,7 @@ export const StatementCasesTable: React.FC<StatementCasesTableProps> = ({
                 key={c.caseNumber || idx}
                 className="hover:bg-gray-50/50 dark:hover:bg-muted font-mono tabular-nums"
               >
-                <td className="py-2.5 px-3 font-semibold text-blue-600 print:text-black">
+                <td className="py-2.5 px-3 font-semibold text-primary print:text-black">
                   {c.caseNumber || "—"}
                 </td>
                 <td className="py-2.5 px-3 font-medium font-sans">

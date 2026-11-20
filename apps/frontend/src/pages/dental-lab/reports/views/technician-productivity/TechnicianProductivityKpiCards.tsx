@@ -20,7 +20,7 @@ export const TechnicianProductivityKpiCards: React.FC<TechnicianProductivityKpiC
         <p className="text-xs text-muted-foreground font-medium">
           إجمالي المراحل المكتملة
         </p>
-        <p className="text-2xl font-bold mt-1 text-blue-600 dark:text-blue-400 tabular-nums font-mono">
+        <p className="text-2xl font-bold mt-1 text-primary dark:text-primary tabular-nums font-mono">
           {totalStages} <span className="text-xs font-normal text-muted-foreground">مرحلة</span>
         </p>
       </div>

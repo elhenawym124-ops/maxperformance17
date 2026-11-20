@@ -20,9 +20,9 @@ export function MaterialsKpiCards({
       <div className="bg-card border border-border dark:border-border rounded-xl p-4 shadow-sm">
         <div className="flex items-center justify-between text-muted-foreground text-xs">
           <span>أقراص وباتشات قيد العمل</span>
-          <Sparkles className="w-4 h-4 text-blue-500" />
+          <Sparkles className="w-4 h-4 text-primary" />
         </div>
-        <p className="text-2xl font-black text-blue-600 dark:text-blue-400 mt-2 font-mono tabular-nums">
+        <p className="text-2xl font-black text-primary dark:text-primary mt-2 font-mono tabular-nums">
           {summary?.totalActiveStocks ?? 0}
         </p>
       </div>

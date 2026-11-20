@@ -100,7 +100,7 @@ export const SETTLEMENT_STATUS_MAP: Record<
   ISSUED: {
     labelAr: 'تم الإصدار',
     labelEn: 'Issued',
-    badgeClass: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300',
+    badgeClass: 'bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary',
   },
   APPROVED: {
     labelAr: 'معتمد',

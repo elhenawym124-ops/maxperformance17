@@ -364,7 +364,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 {
                   id: "in_progress",
                   label: "قيد التنفيذ",
-                  color: "bg-blue-100 text-blue-800",
+                  color: "bg-blue-100 text-primary",
                 },
                 {
                   id: "completed",

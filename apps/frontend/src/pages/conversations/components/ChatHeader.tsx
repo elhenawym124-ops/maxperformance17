@@ -67,7 +67,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
           </button>
           <button
             type="button"
-            className="p-3 text-muted-foreground hover:text-blue-600 rounded-xl hover:bg-blue-50 transition-all duration-200 group"
+            className="p-3 text-muted-foreground hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-200 group"
             aria-label="معلومات المحادثة"
           >
             <InformationCircleIcon className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />

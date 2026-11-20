@@ -65,7 +65,7 @@ export const PaymentSummarySidebar: React.FC<PaymentSummarySidebarProps> = ({
                   <span
                     className={`text-2xl font-black font-mono tabular-nums ${
                       balanceAfterPayment < 0
-                        ? "text-blue-600 dark:text-blue-400"
+                        ? "text-blue-600 dark:text-primary"
                         : balanceAfterPayment === 0
                         ? "text-emerald-600 dark:text-success"
                         : "text-primary"
@@ -74,7 +74,7 @@ export const PaymentSummarySidebar: React.FC<PaymentSummarySidebarProps> = ({
                     {formatCurrency(balanceAfterPayment)}
                   </span>
                   {balanceAfterPayment < 0 && (
-                    <div className="text-[10px] text-blue-500 font-medium mt-0.5">
+                    <div className="text-[10px] text-primary font-medium mt-0.5">
                       رصيد دائن لصالحنا (دفعة مقدمة)
                     </div>
                   )}

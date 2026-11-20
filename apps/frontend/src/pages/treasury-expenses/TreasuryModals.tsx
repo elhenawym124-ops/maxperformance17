@@ -263,7 +263,7 @@ export function TransferModal({ isOpen, onClose, onSuccess, accounts }: Transfer
         <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div>
             <h3 className="text-base font-semibold text-foreground dark:text-muted-foreground flex items-center gap-2">
-              <ArrowRightLeft className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <ArrowRightLeft className="w-4 h-4 text-primary dark:text-primary" />
               تحويل داخلي بين الخزائن
             </h3>
             <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-0.5">تحويل سيولة (مثال: من البنك إلى الكاش) دون تأثير على النفقات</p>
@@ -369,7 +369,7 @@ export function TransferModal({ isOpen, onClose, onSuccess, accounts }: Transfer
             <button
               type="submit"
               disabled={loading || isInsufficient || parsedAmount <= 0}
-              className="flex items-center gap-1.5 px-5 py-2 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-sm transition-all active:scale-[0.98] disabled:opacity-50"
+              className="flex items-center gap-1.5 px-5 py-2 text-xs font-medium text-white bg-primary hover:bg-primary rounded-xl shadow-sm transition-all active:scale-[0.98] disabled:opacity-50"
             >
               <ArrowRightLeft className="w-3.5 h-3.5" />
               <span>{loading ? "جاري التحويل..." : "إتمام التحويل البيني"}</span>
@@ -609,7 +609,7 @@ export function EditAccountModal({ isOpen, onClose, onSuccess, account }: EditAc
         <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div>
             <h3 className="text-base font-semibold text-foreground dark:text-muted-foreground flex items-center gap-2">
-              <Edit3 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <Edit3 className="w-4 h-4 text-primary dark:text-primary" />
               تعديل بيانات الخزينة / الحساب
             </h3>
             <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-0.5">

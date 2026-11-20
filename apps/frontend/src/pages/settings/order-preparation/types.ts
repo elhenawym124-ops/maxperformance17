@@ -127,7 +127,7 @@ export const DEFAULT_SETTINGS: PreparationSettingsState = {
 };
 
 export const PIPELINE_STAGES = [
-  { key: "CONFIRMED", label: "مؤكد", color: "text-blue-600 bg-blue-50 border-blue-200" },
+  { key: "CONFIRMED", label: "مؤكد", color: "text-blue-600 bg-primary/10 border-primary" },
   { key: "PENDING_PREPARATION", label: "في انتظار التجهيز", color: "text-amber-600 bg-warning/10 border-warning" },
   { key: "PREPARING", label: "قيد التجهيز", color: "text-indigo-600 bg-primary/10 border-primary" },
   { key: "QUALITY_CHECK", label: "فحص الجودة", color: "text-cyan-600 bg-info/10 border-info" },

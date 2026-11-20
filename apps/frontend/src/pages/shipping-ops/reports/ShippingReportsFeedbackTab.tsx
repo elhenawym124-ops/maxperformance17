@@ -73,7 +73,7 @@ export const ShippingReportsFeedbackTab: React.FC<Props> = ({ data, loading }) =
             </div>
             <span className="text-xs text-muted-foreground mt-1 block">مشاركة مباشرة من المستلمين</span>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/40 text-primary flex items-center justify-center">
             <MessageSquare className="w-5 h-5" />
           </div>
         </div>
@@ -173,7 +173,7 @@ export const ShippingReportsFeedbackTab: React.FC<Props> = ({ data, loading }) =
                         <Star className="w-3 h-3 fill-current" />
                       </span>
                     </td>
-                    <td className="py-2 px-3 font-mono font-medium text-blue-600 dark:text-blue-400">
+                    <td className="py-2 px-3 font-mono font-medium text-primary dark:text-primary">
                       {w.trackingNumber}
                     </td>
                     <td className="py-2 px-3 text-foreground dark:text-muted-foreground">

@@ -42,7 +42,7 @@ export const RadiologyConfirmActionModal: React.FC<RadiologyConfirmActionModalPr
           <button
             onClick={() => onConfirm(confirmAction.id, confirmAction.kind)}
             disabled={busy}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2 cursor-pointer"
           >
             {busy && <Loader2 className="w-4 h-4 animate-spin" />}
             {t("radiology.confirm")}

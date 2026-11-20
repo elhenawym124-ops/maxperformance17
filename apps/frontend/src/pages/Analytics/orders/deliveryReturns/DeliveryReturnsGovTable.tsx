@@ -46,7 +46,7 @@ export const DeliveryReturnsGovTable: React.FC<Props> = ({ governorates, search 
               <th className="py-3 px-3 font-semibold">{t("deliveryReturnsReport.shipped")}</th>
               <th className="py-3 px-3 font-semibold text-success dark:text-success">{t("deliveryReturnsReport.delivered")}</th>
               <th className="py-3 px-3 font-semibold text-warning dark:text-warning">{t("deliveryReturnsReport.returned")}</th>
-              <th className="py-3 px-3 font-semibold text-blue-600 dark:text-blue-400">{t("deliveryReturnsReport.inTransit")}</th>
+              <th className="py-3 px-3 font-semibold text-primary dark:text-primary">{t("deliveryReturnsReport.inTransit")}</th>
               <th className="py-3 px-3 font-semibold cursor-help" title={t("deliveryReturnsReport.closedRateTooltip")}>
                 {t("deliveryReturnsReport.closedRate")}
               </th>
@@ -82,7 +82,7 @@ export const DeliveryReturnsGovTable: React.FC<Props> = ({ governorates, search 
                   <td className="py-3 px-3 font-mono text-warning dark:text-warning tabular-nums">
                     {gov.returned.toLocaleString()}
                   </td>
-                  <td className="py-3 px-3 font-mono text-blue-600 dark:text-blue-400 tabular-nums">
+                  <td className="py-3 px-3 font-mono text-primary dark:text-primary tabular-nums">
                     {gov.inTransit.toLocaleString()}
                   </td>
                   <td className="py-3 px-3 font-mono font-semibold tabular-nums">

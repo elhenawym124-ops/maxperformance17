@@ -206,7 +206,7 @@ export default function StatisticsTab() {
           <div key={k} className="flex items-center gap-2 text-sm">
             <span className="w-40 truncate text-muted-foreground">{k}</span>
             <div className="flex-1 bg-muted rounded h-4 overflow-hidden">
-              <div className="h-full bg-blue-500 rounded" style={{ width: `${(v / max) * 100}%` }} />
+              <div className="h-full bg-primary rounded" style={{ width: `${(v / max) * 100}%` }} />
             </div>
             <span className="w-10 text-left text-muted-foreground">{v}</span>
           </div>

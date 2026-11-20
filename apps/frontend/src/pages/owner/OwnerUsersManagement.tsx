@@ -173,7 +173,7 @@ const OwnerUsersManagement: React.FC = () => {
       case "OWNER":
         return "bg-purple-500/10 text-primary dark:text-primary border-primary/20";
       case "COMPANY_ADMIN":
-        return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
+        return "bg-blue-500/10 text-primary dark:text-primary border-primary/20";
       case "MANAGER":
         return "bg-emerald-500/10 text-success dark:text-success border-success/20";
       default:

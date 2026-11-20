@@ -511,7 +511,7 @@ const ProductImagePickerModal: React.FC<ProductImagePickerModalProps> = ({
                     <button
                       type="button"
                       onClick={loadMoreProducts}
-                      className="mt-4 w-full rounded-xl border-2 border-dashed border-border py-3 text-sm font-semibold text-muted-foreground transition-colors hover:border-blue-400 hover:text-blue-500 dark:border-border dark:text-muted-foreground"
+                      className="mt-4 w-full rounded-xl border-2 border-dashed border-border py-3 text-sm font-semibold text-muted-foreground transition-colors hover:border-primary hover:text-primary dark:border-border dark:text-muted-foreground"
                     >
                       عرض المزيد من المنتجات
                     </button>

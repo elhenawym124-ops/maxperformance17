@@ -179,9 +179,9 @@ const PaymentMethodAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>نسبة نجاح السداد</span>
-              <CheckCircle2 className="h-4 w-4 text-blue-500" />
+              <CheckCircle2 className="h-4 w-4 text-primary" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">{stats?.successRate || 95}%</div>
+            <div className="text-xl font-bold font-mono tabular-nums text-primary dark:text-primary">{stats?.successRate || 95}%</div>
             <div className="text-[11px] text-muted-foreground mt-0.5">معدل العمليات المكتملة</div>
           </CardContent>
         </Card>

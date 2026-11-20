@@ -24,7 +24,7 @@ import { MediaUploadZone, ServiceMediaFile } from "../../components/services/Med
 const STATUS_MAP: Record<string, { label: string; color: string; badge: string }> = {
   NEW: {
     label: "جديد",
-    color: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800",
+    color: "bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary",
     badge: "bg-blue-500"
   },
   IN_PROGRESS: {
@@ -405,12 +405,12 @@ export default function ServiceOrdersPage() {
           onClick={() => setStatusFilter("NEW")}
           className={`p-3 rounded-xl border cursor-pointer transition-all ${
             statusFilter === "NEW"
-              ? "bg-blue-50/70 border-blue-300 dark:bg-blue-950/40 dark:border-blue-800 shadow-xs"
+              ? "bg-blue-50/70 border-primary dark:bg-primary/40 dark:border-primary shadow-xs"
               : "bg-card border-border dark:border-border hover:border-border"
           }`}
         >
-          <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400 block">طلبات جديدة</span>
-          <span className="text-lg sm:text-xl font-bold text-blue-700 dark:text-blue-300 mt-0.5 block">
+          <span className="text-[11px] font-medium text-primary dark:text-primary block">طلبات جديدة</span>
+          <span className="text-lg sm:text-xl font-bold text-primary dark:text-primary mt-0.5 block">
             {stats.countNew}
           </span>
         </div>
@@ -606,7 +606,7 @@ export default function ServiceOrdersPage() {
                           </span>
                         )}
                         {imageCount > 0 && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 text-blue-700 dark:bg-blue-950/40 rounded-md font-medium">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary dark:bg-primary/40 rounded-md font-medium">
                             {imageCount} صور
                           </span>
                         )}

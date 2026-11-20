@@ -17,7 +17,7 @@ export function StepIndicator({ current }: StepIndicatorProps) {
                 done
                   ? "bg-emerald-500 border-success text-white"
                   : active
-                  ? "bg-blue-600 border-blue-600 text-white shadow-sm"
+                  ? "bg-blue-600 border-primary text-white shadow-sm"
                   : "border-border text-muted-foreground",
               ].join(" ")}
             >
@@ -26,7 +26,7 @@ export function StepIndicator({ current }: StepIndicatorProps) {
             <span
               className={[
                 "text-xs sm:text-sm font-medium",
-                active ? "font-bold text-blue-600 dark:text-blue-400" : "text-muted-foreground",
+                active ? "font-bold text-primary dark:text-primary" : "text-muted-foreground",
               ].join(" ")}
             >
               {stepLabel(s)}

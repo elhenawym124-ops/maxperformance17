@@ -193,7 +193,7 @@ const SavedAudiences: React.FC = () => {
           </button>
           <div>
             <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-              <Users className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              <Users className="w-7 h-7 text-primary dark:text-primary" />
               الجماهير المحفوظة
             </h1>
             <p className="text-gray-600 dark:text-muted-foreground mt-1">
@@ -203,7 +203,7 @@ const SavedAudiences: React.FC = () => {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 dark:bg-blue-500 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600"
+          className="flex items-center gap-2 px-4 py-2 text-white bg-primary dark:bg-primary rounded-lg hover:bg-primary dark:hover:bg-primary"
         >
           <Plus className="w-5 h-5" />
           جمهور جديد
@@ -218,14 +218,14 @@ const SavedAudiences: React.FC = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="البحث في الجماهير..."
-          className="w-full pe-10 ps-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted"
+          className="w-full pe-10 ps-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground placeholder-muted dark:placeholder-muted"
         />
       </div>
 
       {/* Audiences List */}
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+          <Loader2 className="w-8 h-8 text-primary animate-spin" />
         </div>
       ) : filteredAudiences.length === 0 ? (
         <div className="text-center py-12 bg-card rounded-xl border border-border dark:border-border">
@@ -238,7 +238,7 @@ const SavedAudiences: React.FC = () => {
           </p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2 text-white bg-blue-600 dark:bg-blue-500 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600"
+            className="px-4 py-2 text-white bg-primary dark:bg-primary rounded-lg hover:bg-primary dark:hover:bg-primary"
           >
             إنشاء جمهور
           </button>
@@ -253,8 +253,8 @@ const SavedAudiences: React.FC = () => {
               <div className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                      <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <div className="p-2 bg-primary dark:bg-primary/30 rounded-lg">
+                      <Target className="w-5 h-5 text-primary dark:text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground">
@@ -335,7 +335,7 @@ const SavedAudiences: React.FC = () => {
                     }))
                   }
                   placeholder="مثال: عملاء السعودية 25-45"
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground placeholder-muted dark:placeholder-muted"
                 />
               </div>
 
@@ -353,7 +353,7 @@ const SavedAudiences: React.FC = () => {
                   }
                   placeholder="وصف اختياري للجمهور"
                   rows={2}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground placeholder-muted dark:placeholder-muted"
                 />
               </div>
 
@@ -408,7 +408,7 @@ const SavedAudiences: React.FC = () => {
                     onClick={() => toggleGender(1)}
                     className={`flex-1 p-2 rounded-lg border-2 transition-all ${
                       newAudience.genders.includes(1)
-                        ? "border-blue-500 bg-blue-50 text-blue-700"
+                        ? "border-blue-500 bg-primary/10 text-primary"
                         : "border-gray-200"
                     }`}
                   >
@@ -465,7 +465,7 @@ const SavedAudiences: React.FC = () => {
                     }))
                   }
                   placeholder="مثال: تسوق, موضة, تقنية (افصل بفاصلة)"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
@@ -480,7 +480,7 @@ const SavedAudiences: React.FC = () => {
               <button
                 onClick={handleCreate}
                 disabled={creating}
-                className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+                className="px-4 py-2 text-white bg-primary rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2"
               >
                 {creating ? (
                   <>

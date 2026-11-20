@@ -48,7 +48,7 @@ export default function DentalPoliciesSection() {
             onClick={() => setDryRunOpen(true)}
             className="gap-1.5"
           >
-            <Play className="size-3.5 text-blue-500" />
+            <Play className="size-3.5 text-primary" />
             محاكاة حالة (Dry-Run)
           </Button>
           <Button

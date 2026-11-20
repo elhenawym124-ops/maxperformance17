@@ -76,7 +76,7 @@ export default function DentalCaseStagesCard({
                                 key={asg.id || asg.technicianId}
                                 className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs border font-medium ${
                                   roleMeta?.badgeCls ||
-                                  "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800"
+                                  "bg-blue-50 dark:bg-primary/30 text-primary dark:text-primary border-primary dark:border-primary"
                                 }`}
                                 title={asg.notes ? `ملاحظات: ${asg.notes}` : undefined}
                               >
@@ -112,7 +112,7 @@ export default function DentalCaseStagesCard({
                         <button
                           type="button"
                           onClick={() => onAssignStage(s)}
-                          className="px-2.5 py-1 rounded-lg text-xs font-semibold border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors flex items-center gap-1"
+                          className="px-2.5 py-1 rounded-lg text-xs font-semibold border border-primary dark:border-primary bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary hover:bg-primary dark:hover:bg-primary/50 transition-colors flex items-center gap-1"
                           title="إدارة وإسناد الفنيين لهذه المرحلة (يمكن إضافة أكثر من فني)"
                         >
                           <Users className="w-3.5 h-3.5" />

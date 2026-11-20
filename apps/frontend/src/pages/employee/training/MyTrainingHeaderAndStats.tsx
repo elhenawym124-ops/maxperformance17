@@ -155,17 +155,17 @@ export const MyTrainingHeaderAndStats: React.FC<
         </Card>
 
         <Card className="border-none shadow-lg bg-white/60 backdrop-blur-md overflow-hidden group hover:shadow-xl transition-all">
-          <div className="h-1 w-full bg-blue-500 opacity-50" />
+          <div className="h-1 w-full bg-primary opacity-50" />
           <CardContent className="p-4 flex items-center justify-between">
             <div className="space-y-1">
               <p className="text-[10px] font-black text-muted-foreground uppercase tracking-wider">
                 {t("employee.training.totalHours")}
               </p>
-              <p className="text-2xl font-black font-mono tabular-nums text-blue-600">
+              <p className="text-2xl font-black font-mono tabular-nums text-primary">
                 {stats.totalHours}
               </p>
             </div>
-            <div className="p-3 bg-blue-50 rounded-xl text-blue-500 group-hover:scale-110 transition-transform">
+            <div className="p-3 bg-primary/10 rounded-xl text-primary group-hover:scale-110 transition-transform">
               <Clock className="h-5 w-5" />
             </div>
           </CardContent>

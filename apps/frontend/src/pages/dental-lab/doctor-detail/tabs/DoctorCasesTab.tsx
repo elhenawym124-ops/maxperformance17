@@ -91,7 +91,7 @@ export function DoctorCasesTab({
           <p className="text-gray-500 font-medium">لا توجد حالات مسجلة لهذا الطبيب بالمعايير الحالية</p>
           <button
             onClick={onOpenQuickOrder}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
+            className="mt-4 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary transition-colors"
           >
             تسجيل أول حالة الآن
           </button>
@@ -137,7 +137,7 @@ export function DoctorCasesTab({
                       <td className="py-3 px-3.5 font-bold font-mono">
                         <Link
                           to={`/dental-lab/cases/${c.id}`}
-                          className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                          className="text-blue-600 dark:text-primary hover:underline flex items-center gap-1"
                         >
                           <span>{c.caseNumber}</span>
                         </Link>
@@ -177,7 +177,7 @@ export function DoctorCasesTab({
                       <td className="py-3 px-3.5 text-center">
                         <Link
                           to={`/dental-lab/cases/${c.id}`}
-                          className="inline-flex items-center justify-center p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                          className="inline-flex items-center justify-center p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg transition-colors"
                           title="فتح تفاصيل الحالة"
                         >
                           <Eye className="w-4 h-4" />

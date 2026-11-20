@@ -33,7 +33,7 @@ export const PendingPermissionsCard: React.FC<PendingPermissionsCardProps> = ({
     <Card className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between border-b border-border/70 px-5 py-3.5 bg-muted/20">
         <CardTitle className="flex items-center gap-2.5 text-base font-semibold text-foreground">
-          <div className="p-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-lg">
+          <div className="p-1.5 bg-primary/10 text-primary dark:text-primary rounded-lg">
             <Clock className="h-4 w-4" />
           </div>
           {t("hrDashboard.pendingPermissions")}
@@ -69,7 +69,7 @@ export const PendingPermissionsCard: React.FC<PendingPermissionsCardProps> = ({
                   <div className="flex items-center gap-2.5 min-w-0">
                     <Avatar className="h-9 w-9 shrink-0">
                       <AvatarImage src={perm.employee?.avatar} />
-                      <AvatarFallback className="bg-blue-500/10 text-blue-600 text-xs font-bold">
+                      <AvatarFallback className="bg-blue-500/10 text-primary text-xs font-bold">
                         {perm.employee?.firstName?.[0]}
                       </AvatarFallback>
                     </Avatar>

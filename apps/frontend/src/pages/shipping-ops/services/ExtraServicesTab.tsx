@@ -100,7 +100,7 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={isEn ? 'Search service code or name...' : 'ابحث بالاسم أو كود الخدمة...'}
-              className="w-full pe-9 ps-3 py-1.5 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full pe-9 ps-3 py-1.5 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
           <select
@@ -134,7 +134,7 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
             setSelectedService(null);
             setIsModalOpen(true);
           }}
-          className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded-lg flex items-center justify-center gap-1.5 shadow-sm transition-colors"
+          className="px-3 py-1.5 bg-primary hover:bg-primary text-white text-xs font-medium rounded-lg flex items-center justify-center gap-1.5 shadow-sm transition-colors"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>{isEn ? 'Add Extra Service' : 'إضافة خدمة جديدة'}</span>
@@ -194,7 +194,7 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
                       {formatServiceAmount(svc.pricingMode, svc.amount)}
                     </td>
                     <td className="p-2.5">
-                      <span className="px-2 py-0.5 rounded text-[11px] bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
+                      <span className="px-2 py-0.5 rounded text-[11px] bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary border border-primary dark:border-primary">
                         {svc.appliesTo === 'SHIPMENT'
                           ? isEn ? 'Shipment' : 'الشحنة'
                           : isEn ? 'Order' : 'الطلب'}
@@ -228,7 +228,7 @@ export const ExtraServicesTab: React.FC<ExtraServicesTabProps> = ({ authHeaders,
                             setSelectedService(svc);
                             setIsModalOpen(true);
                           }}
-                          className="p-1 text-foreground dark:text-muted-foreground hover:text-blue-600 rounded hover:bg-muted dark:hover:bg-muted transition-colors"
+                          className="p-1 text-foreground dark:text-muted-foreground hover:text-primary rounded hover:bg-muted dark:hover:bg-muted transition-colors"
                           title={isEn ? 'Edit' : 'تعديل'}
                         >
                           <Edit2 className="w-3.5 h-3.5" />

@@ -10,7 +10,7 @@ export const GOAL_TYPE_LABELS: Record<GoalType, string> = {
 
 export const STATUS_STYLES: Record<string, string> = {
   PENDING: "bg-amber-50 text-warning ring-warning",
-  IN_PROGRESS: "bg-blue-50 text-blue-700 ring-blue-200",
+  IN_PROGRESS: "bg-blue-50 text-primary ring-primary",
   COMPLETED: "bg-emerald-50 text-success ring-success",
   CANCELLED: "bg-rose-50 text-destructive ring-destructive",
 };

@@ -114,7 +114,7 @@ export const DocumentsHeaderAndFilters: React.FC<
             >
               <div className="flex justify-center mb-2">
                 {type.value === "image" && (
-                  <PhotoIcon className="h-8 w-8 text-blue-600" />
+                  <PhotoIcon className="h-8 w-8 text-primary" />
                 )}
                 {type.value === "invoice" && (
                   <DocumentTextIcon className="h-8 w-8 text-success" />

@@ -26,9 +26,9 @@ interface Step4PlacementsProps {
 }
 
 const PLATFORMS = [
-  { id: "facebook", label: "Facebook", icon: <Facebook className="w-4 h-4 text-blue-600" /> },
+  { id: "facebook", label: "Facebook", icon: <Facebook className="w-4 h-4 text-primary" /> },
   { id: "instagram", label: "Instagram", icon: <Instagram className="w-4 h-4 text-primary" /> },
-  { id: "messenger", label: "Messenger", icon: <MessageCircle className="w-4 h-4 text-blue-500" /> },
+  { id: "messenger", label: "Messenger", icon: <MessageCircle className="w-4 h-4 text-primary" /> },
   { id: "network", label: "Audience Network", icon: <Globe className="w-4 h-4 text-success" /> },
 ];
 
@@ -94,12 +94,12 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
             onClick={() => handleChange("placementType", "AUTOMATIC")}
             className={`p-4 border-2 rounded-xl text-center transition-all ${
               formData.placementType === "AUTOMATIC"
-                ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 shadow-xs"
+                ? "border-blue-500 bg-primary/10 dark:bg-primary/40 shadow-xs"
                 : "border-gray-200 dark:border-border hover:border-border bg-card"
             }`}
           >
             <Sparkles
-              className={`w-8 h-8 mx-auto mb-2 ${formData.placementType === "AUTOMATIC" ? "text-blue-500 dark:text-blue-400" : "text-gray-400"}`}
+              className={`w-8 h-8 mx-auto mb-2 ${formData.placementType === "AUTOMATIC" ? "text-blue-500 dark:text-primary" : "text-gray-400"}`}
             />
             <div className="font-bold text-foreground text-sm">
               {isEn
@@ -131,12 +131,12 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
             }}
             className={`p-4 border-2 rounded-xl text-center transition-all ${
               formData.placementType === "MANUAL"
-                ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 shadow-xs"
+                ? "border-blue-500 bg-primary/10 dark:bg-primary/40 shadow-xs"
                 : "border-gray-200 dark:border-border hover:border-border bg-card"
             }`}
           >
             <Layout
-              className={`w-8 h-8 mx-auto mb-2 ${formData.placementType === "MANUAL" ? "text-blue-500 dark:text-blue-400" : "text-gray-400"}`}
+              className={`w-8 h-8 mx-auto mb-2 ${formData.placementType === "MANUAL" ? "text-blue-500 dark:text-primary" : "text-gray-400"}`}
             />
             <div className="font-bold text-foreground text-sm">
               {isEn ? "Manual Placements" : "مواضع يدوية مخصصة"}
@@ -163,7 +163,7 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
                 onClick={() => handleDeviceModeChange("all")}
                 className={`py-2.5 px-3 rounded-lg border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                   currentDeviceMode === "all"
-                    ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-xs"
+                    ? "border-blue-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary shadow-xs"
                     : "border-gray-200 dark:border-border bg-card hover:border-border text-muted-foreground"
                 }`}
               >
@@ -175,7 +175,7 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
                 onClick={() => handleDeviceModeChange("mobile")}
                 className={`py-2.5 px-3 rounded-lg border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                   currentDeviceMode === "mobile"
-                    ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-xs"
+                    ? "border-blue-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary shadow-xs"
                     : "border-gray-200 dark:border-border bg-card hover:border-border text-muted-foreground"
                 }`}
               >
@@ -187,7 +187,7 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
                 onClick={() => handleDeviceModeChange("desktop")}
                 className={`py-2.5 px-3 rounded-lg border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                   currentDeviceMode === "desktop"
-                    ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-xs"
+                    ? "border-blue-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary shadow-xs"
                     : "border-gray-200 dark:border-border bg-card hover:border-border text-muted-foreground"
                 }`}
               >
@@ -212,7 +212,7 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
                     onClick={() => handleTogglePlatform(platform.id)}
                     className={`p-2.5 rounded-lg border text-xs font-medium flex items-center justify-between transition-all ${
                       active
-                        ? "border-blue-400 dark:border-blue-600 bg-card shadow-xs text-foreground"
+                        ? "border-blue-400 dark:border-primary bg-card shadow-xs text-foreground"
                         : "border-gray-200 dark:border-border bg-muted dark:bg-muted text-muted-foreground/80 opacity-60"
                     }`}
                   >
@@ -220,7 +220,7 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
                       {platform.icon}
                       <span>{platform.label}</span>
                     </div>
-                    {active && <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />}
+                    {active && <CheckCircle2 className="w-3.5 h-3.5 text-primary dark:text-primary" />}
                   </button>
                 );
               })}
@@ -237,7 +237,7 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleChange("placements", PLACEMENTS.map((p) => p.id))}
-                  className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+                  className="text-xs text-primary dark:text-primary hover:text-primary dark:hover:text-primary font-medium"
                 >
                   {isEn ? "Select All" : "تحديد الكل"}
                 </button>
@@ -262,14 +262,14 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
                     onClick={() => toggleArrayValue("placements", placement.id)}
                     className={`flex items-center justify-between p-3 border rounded-xl transition-all ${isEn ? "text-left" : "text-right"} ${
                       isSelected
-                        ? "border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 shadow-xs"
+                        ? "border-blue-500 bg-primary/70 dark:bg-primary/40 shadow-xs"
                         : "border-gray-200 dark:border-border hover:border-border bg-card"
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       <div
                         className={
-                          isSelected ? "text-blue-600 dark:text-blue-400" : "text-gray-400"
+                          isSelected ? "text-blue-600 dark:text-primary" : "text-gray-400"
                         }
                       >
                         {placement.icon}
@@ -279,7 +279,7 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
                       </span>
                     </div>
                     {isSelected && (
-                      <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-primary dark:text-primary shrink-0" />
                     )}
                   </button>
                 );
@@ -357,7 +357,7 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
               id: "FULL",
               title: isEn ? "Expanded Inventory" : "المخزون الكامل (Expanded)",
               badge: isEn ? "Max Reach" : "أقصى وصول",
-              badgeColor: "bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300",
+              badgeColor: "bg-blue-100 dark:bg-primary/60 text-primary dark:text-primary",
               desc: isEn
                 ? "Maximum reach at the lowest possible cost. Suitable when content sensitivity is not a top concern."
                 : "أعلى نسبة وصول بأقل تكلفة ممكنة، مناسب عندما لا تكون حساسية المحتوى أولوية قصوى.",

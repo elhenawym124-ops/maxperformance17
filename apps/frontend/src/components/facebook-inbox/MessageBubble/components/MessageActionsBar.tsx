@@ -135,7 +135,7 @@ export const MessageActionsBar: React.FC<MessageActionsBarProps> = ({
                 onReply(message);
                 setShowActions(false);
               }}
-              className={`${actionButtonClassName} w-8 h-8 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 border-blue-200/80 dark:border-blue-800/80`}
+              className={`${actionButtonClassName} w-8 h-8 sm:w-7 sm:h-7 text-primary dark:text-primary bg-primary/10 dark:bg-primary/60 hover:bg-primary dark:hover:bg-primary/60 border-primary/80 dark:border-primary/80`}
               title="رد"
             >
               <Reply size={16} strokeWidth={2.4} />

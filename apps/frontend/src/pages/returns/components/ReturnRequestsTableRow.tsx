@@ -28,7 +28,7 @@ const getRatingBadge = (
       );
     case "GOOD":
       return (
-        <span className="me-2 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded-full">
+        <span className="me-2 text-xs bg-primary dark:bg-primary/30 text-primary dark:text-primary px-2 py-0.5 rounded-full">
           {t("returns.k_137")}
         </span>
       );

@@ -66,7 +66,7 @@ const LoyaltyAnalytics: React.FC = () => {
       case "CASHBACK":
         return <DollarSign className="w-4 h-4 text-success" />;
       case "REFERRAL":
-        return <Users className="w-4 h-4 text-blue-500" />;
+        return <Users className="w-4 h-4 text-primary" />;
       default:
         return <Gift className="w-4 h-4 text-primary" />;
     }

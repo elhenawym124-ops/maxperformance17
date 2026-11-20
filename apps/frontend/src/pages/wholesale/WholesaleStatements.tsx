@@ -103,7 +103,7 @@ export default function WholesaleStatements() {
   };
 
   const typeLabels: Record<string, { label: string; color: string }> = {
-    INVOICE: { label: "فاتورة مبيعات", color: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
+    INVOICE: { label: "فاتورة مبيعات", color: "bg-blue-500/10 text-primary border-primary/20" },
     PAYMENT: { label: "سداد دفعة", color: "bg-emerald-500/10 text-success border-success/20" },
     CREDIT_NOTE: { label: "إشعار دائن", color: "bg-purple-500/10 text-primary border-primary/20" },
     DEBIT_NOTE: { label: "إشعار مدين", color: "bg-amber-500/10 text-warning border-warning/20" },

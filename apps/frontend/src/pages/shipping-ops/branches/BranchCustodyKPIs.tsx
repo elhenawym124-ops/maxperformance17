@@ -17,7 +17,7 @@ export const BranchCustodyKPIs: React.FC<BranchCustodyKPIsProps> = ({ summary })
       <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 shadow-sm space-y-1">
         <div className="flex items-center justify-between text-muted-foreground text-xs">
           <span>إجمالي الشحنات بعهدة الفرع</span>
-          <Package className="w-4 h-4 text-blue-600" />
+          <Package className="w-4 h-4 text-primary" />
         </div>
         <div className="text-xl sm:text-2xl font-bold font-mono text-foreground dark:text-muted-foreground">
           {summary.totalShipments}

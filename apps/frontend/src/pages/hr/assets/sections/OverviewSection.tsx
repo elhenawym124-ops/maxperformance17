@@ -62,7 +62,7 @@ const OverviewSection: React.FC = () => {
   ];
 
   const colorClasses: Record<string, string> = {
-    blue: "text-blue-600 bg-blue-50 dark:bg-blue-900/20",
+    blue: "text-blue-600 bg-primary/10 dark:bg-primary/20",
     indigo: "text-indigo-600 bg-primary/10 dark:bg-primary/20",
     amber: "text-amber-600 bg-warning/10 dark:bg-warning/20",
     green: "text-green-600 bg-success/10 dark:bg-success/20",
@@ -143,21 +143,21 @@ const OverviewSection: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <motion.div 
           whileHover={{ y: -5 }}
-          className="bg-gradient-to-br from-blue-50 to-primary dark:from-blue-900/10 dark:to-primary/10 rounded-[2.5rem] p-8 border border-blue-100/50 dark:border-blue-800/50 flex flex-col justify-between group shadow-sm hover:shadow-xl transition-all"
+          className="bg-gradient-to-br from-primary to-primary dark:from-primary/10 dark:to-primary/10 rounded-[2.5rem] p-8 border border-primary/50 dark:border-primary/50 flex flex-col justify-between group shadow-sm hover:shadow-xl transition-all"
         >
           <div>
-            <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-600/20">
+            <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20">
               <ChartPieIcon className="h-6 w-6 text-white" />
             </div>
-            <h3 className="text-2xl font-black text-blue-900 dark:text-blue-100 mb-4">
+            <h3 className="text-2xl font-black text-primary dark:text-primary mb-4">
               إدارة المخزون
             </h3>
-            <p className="text-blue-700/80 dark:text-blue-300 text-lg leading-relaxed mb-8 font-medium">
+            <p className="text-blue-700/80 dark:text-primary text-lg leading-relaxed mb-8 font-medium">
               استكشف الأصول المتاحة، الموزعة، والتي تحتاج لصيانة في نظرة واحدة
               سريعة.
             </p>
           </div>
-          <button className="flex items-center gap-3 text-blue-600 dark:text-blue-400 font-black text-sm group-hover:translate-x-2 transition-all">
+          <button className="flex items-center gap-3 text-primary dark:text-primary font-black text-sm group-hover:translate-x-2 transition-all">
             انتقل لسجل الأصول 
             <div className="bg-card p-2 rounded-xl shadow-sm">
               <ArrowRightIcon className="h-4 w-4 rtl:rotate-180" />

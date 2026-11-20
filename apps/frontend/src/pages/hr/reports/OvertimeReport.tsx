@@ -204,11 +204,11 @@ const OvertimeReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">عدد الموظفين</p>
-                      <h3 className="text-3xl font-bold mt-1 text-blue-600">
+                      <h3 className="text-3xl font-bold mt-1 text-primary">
                         {report.employeesWithOvertime}
                       </h3>
                     </div>
-                    <Users className="h-10 w-10 text-blue-500" />
+                    <Users className="h-10 w-10 text-primary" />
                   </div>
                 </CardContent>
               </Card>

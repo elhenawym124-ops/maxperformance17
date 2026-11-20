@@ -124,7 +124,7 @@ export const FulfillmentVelocityPage: React.FC<FulfillmentVelocityPageProps> = (
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Truck className="h-3.5 w-3.5 text-blue-500" />
+              <Truck className="h-3.5 w-3.5 text-primary" />
               <span>محطة خروج الشحن (استلام الكابتن)</span>
             </button>
           </div>

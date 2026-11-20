@@ -560,7 +560,7 @@ const CalendarView: React.FC = () => {
                           task.status === "completed"
                             ? "bg-green-100 text-success"
                             : task.status === "in_progress"
-                              ? "bg-blue-100 text-blue-800"
+                              ? "bg-blue-100 text-primary"
                               : task.status === "pending"
                                 ? "bg-yellow-100 text-warning"
                                 : "bg-gray-100 text-foreground"
@@ -636,14 +636,14 @@ const CalendarView: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-muted-foreground">قيد التنفيذ</p>
-              <p className="text-2xl font-bold text-blue-600">
+              <p className="text-2xl font-bold text-primary">
                 {
                   tasks.filter((t) => t.status?.toLowerCase() === "in_progress")
                     .length
                 }
               </p>
             </div>
-            <ClockIcon className="h-10 w-10 text-blue-400" />
+            <ClockIcon className="h-10 w-10 text-primary" />
           </div>
         </div>
         <div className="bg-white rounded-lg shadow p-4">

@@ -43,7 +43,7 @@ export interface MetaSessionOption {
 
 export const categoryBadgeClasses: Record<string, string> = {
   ORDERS:
-    "border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:text-blue-200",
+    "border-blue-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary",
   PRODUCTS:
     "border-violet-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary",
   MARKETING:

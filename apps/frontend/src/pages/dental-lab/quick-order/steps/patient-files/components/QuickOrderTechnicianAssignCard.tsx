@@ -25,13 +25,13 @@ export function QuickOrderTechnicianAssignCard({
   const labelCls = "block text-sm font-medium text-foreground mb-1";
 
   return (
-    <div className="rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/50 dark:bg-blue-950/30 p-3.5 space-y-2.5">
+    <div className="rounded-xl border border-primary dark:border-primary/60 bg-primary/50 dark:bg-primary/30 p-3.5 space-y-2.5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5 font-bold text-xs text-blue-900 dark:text-blue-200">
-          <UserCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+        <div className="flex items-center gap-1.5 font-bold text-xs text-primary dark:text-primary">
+          <UserCheck className="w-4 h-4 text-primary dark:text-primary" />
           <span>إسناد أمر الشغل لفني المعمل (اختياري)</span>
         </div>
-        <span className="text-[11px] text-blue-600 dark:text-blue-400 font-medium">
+        <span className="text-[11px] text-primary dark:text-primary font-medium">
           يظهر فوراً في بوابة الفني
         </span>
       </div>

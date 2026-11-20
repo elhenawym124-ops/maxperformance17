@@ -111,7 +111,7 @@ export function DentalCaseAssignModal({
         <div className="mb-5">
           <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 flex items-center justify-between">
             <span>الفنيون المسندون حالياً على الحالة</span>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 font-mono">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary dark:bg-primary/40 text-primary dark:text-primary font-mono">
               {currentAssignments.length} فني
             </span>
           </h4>
@@ -127,7 +127,7 @@ export function DentalCaseAssignModal({
                   className="flex items-center justify-between p-2.5 rounded-lg border border-border dark:border-border bg-muted dark:bg-muted text-sm"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center text-xs">
+                    <span className="w-7 h-7 rounded-full bg-primary dark:bg-primary/50 text-primary dark:text-primary font-bold flex items-center justify-center text-xs">
                       <User className="w-3.5 h-3.5" />
                     </span>
                     <div>
@@ -163,8 +163,8 @@ export function DentalCaseAssignModal({
         </div>
 
         {/* Add New Technician Form */}
-        <div className="p-3.5 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/30 dark:bg-blue-950/20 space-y-3">
-          <h4 className="text-xs font-bold text-blue-900 dark:text-blue-300 flex items-center gap-1.5">
+        <div className="p-3.5 rounded-xl border border-primary dark:border-primary bg-primary/30 dark:bg-primary/20 space-y-3">
+          <h4 className="text-xs font-bold text-primary dark:text-primary flex items-center gap-1.5">
             <UserPlus className="w-3.5 h-3.5" /> إسناد فني جديد للحالة
           </h4>
           <div>
@@ -208,7 +208,7 @@ export function DentalCaseAssignModal({
           <button
             onClick={handleAdd}
             disabled={saving || !technicianId}
-            className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5"
+            className="w-full py-2 bg-primary hover:bg-primary text-white rounded-lg text-xs font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5"
           >
             {saving ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />

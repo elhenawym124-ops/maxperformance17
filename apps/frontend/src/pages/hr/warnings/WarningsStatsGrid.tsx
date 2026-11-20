@@ -23,18 +23,18 @@ export const WarningsStatsGrid: React.FC<WarningsStatsGridProps> = ({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <Card className="bg-gradient-to-br from-blue-50 to-white dark:from-blue-950/20 dark:to-card border-none shadow-sm hover:shadow-md transition-all">
+      <Card className="bg-gradient-to-br from-primary to-white dark:from-primary/20 dark:to-card border-none shadow-sm hover:shadow-md transition-all">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-blue-700 dark:text-blue-400">
+          <CardTitle className="text-sm font-medium text-primary dark:text-primary">
             إجمالي الإنذارات
           </CardTitle>
-          <FileText className="h-4 w-4 text-blue-600" />
+          <FileText className="h-4 w-4 text-primary" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold font-mono tabular-nums text-blue-900 dark:text-blue-100">
+          <div className="text-2xl font-bold font-mono tabular-nums text-primary dark:text-primary">
             {stats.total}
           </div>
-          <p className="text-xs text-blue-600/80 mt-1">سجل كامل للمخالفات</p>
+          <p className="text-xs text-primary/80 mt-1">سجل كامل للمخالفات</p>
         </CardContent>
       </Card>
 

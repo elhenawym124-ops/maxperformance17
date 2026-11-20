@@ -34,12 +34,12 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
       {/* 1. إجمالي الطلبات */}
       <Link
         to="/analytics/orders/orders"
-        className="group relative flex flex-col justify-between rounded-xl border border-border bg-white p-3.5 sm:p-4 shadow-sm hover:border-blue-400/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-blue-500/40 transition-all hover:shadow-md"
+        className="group relative flex flex-col justify-between rounded-xl border border-border bg-white p-3.5 sm:p-4 shadow-sm hover:border-primary/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-primary/40 transition-all hover:shadow-md"
       >
         <div>
           <div className="flex items-center justify-between gap-1 text-muted-foreground">
             <span className="text-xs font-medium">إجمالي الطلبات</span>
-            <div className="rounded-lg bg-blue-50 dark:bg-blue-950/40 p-1.5 text-blue-600 dark:text-blue-400">
+            <div className="rounded-lg bg-primary/10 dark:bg-primary/40 p-1.5 text-primary dark:text-primary">
               <ShoppingCartIcon className="h-4 w-4" />
             </div>
           </div>
@@ -71,7 +71,7 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
           ) : (
             <span className="text-muted-foreground/80">الفترة الحالية</span>
           )}
-          <span className="text-[11px] text-muted-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          <span className="text-[11px] text-muted-foreground group-hover:text-primary dark:group-hover:text-primary transition-colors">
             تفاصيل ↗
           </span>
         </div>

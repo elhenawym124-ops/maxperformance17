@@ -68,7 +68,7 @@ export const OverviewPulseMatrix: React.FC<OverviewPulseMatrixProps> = ({
         <div>
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-              <MapPinIcon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+              <MapPinIcon className="h-4 w-4 text-primary dark:text-primary" />
               أعلى المحافظات طلباً
             </span>
           </div>
@@ -101,7 +101,7 @@ export const OverviewPulseMatrix: React.FC<OverviewPulseMatrixProps> = ({
         <div className="mt-4 pt-2.5 border-t border-border dark:border-white/5">
           <Link
             to="/analytics/orders/regions"
-            className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
+            className="inline-flex items-center gap-1 text-xs font-medium text-primary dark:text-primary hover:underline"
           >
             <span>خريطة وتحليلات المحافظات</span>
             <ArrowUpRightIcon className="h-3 w-3" />

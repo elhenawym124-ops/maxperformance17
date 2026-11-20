@@ -49,7 +49,7 @@ export const RadiologyReportTemplateEditor: React.FC<RadiologyReportTemplateEdit
             ))}
           </select>
           {templateId ? (
-            <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+            <p className="text-xs text-primary dark:text-primary mt-1">
               {t("radiology.reports.templateLoaded")}
             </p>
           ) : null}
@@ -107,7 +107,7 @@ export const RadiologyReportTemplateEditor: React.FC<RadiologyReportTemplateEdit
                     key={p}
                     type="button"
                     onClick={() => appendText(p)}
-                    className="px-2.5 py-1 text-xs border dark:border-border rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/30 text-foreground cursor-pointer"
+                    className="px-2.5 py-1 text-xs border dark:border-border rounded-full hover:bg-primary/10 dark:hover:bg-primary/30 text-foreground cursor-pointer"
                   >
                     {p}
                   </button>
@@ -124,7 +124,7 @@ export const RadiologyReportTemplateEditor: React.FC<RadiologyReportTemplateEdit
                     key={p}
                     type="button"
                     onClick={() => appendText(p)}
-                    className="px-2.5 py-1 text-xs border dark:border-border rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/30 text-foreground cursor-pointer"
+                    className="px-2.5 py-1 text-xs border dark:border-border rounded-full hover:bg-primary/10 dark:hover:bg-primary/30 text-foreground cursor-pointer"
                   >
                     {p}
                   </button>

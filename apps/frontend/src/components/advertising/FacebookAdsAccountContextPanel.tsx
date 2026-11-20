@@ -180,7 +180,7 @@ const FacebookAdsAccountContextPanel: React.FC<
               value={selectedAdAccountId}
               onChange={(event) => setSelectedAdAccountId(event.target.value)}
               disabled={loading || adAccounts.length === 0}
-              className="h-9 min-w-0 rounded-md border border-border bg-white px-3 text-sm text-foreground shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white sm:w-[360px]"
+              className="h-9 min-w-0 rounded-md border border-border bg-white px-3 text-sm text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white sm:w-[360px]"
             >
               <option value="">
                 {loading ? "جاري تحميل الحسابات..." : "اختر حساباً إعلانياً"}
@@ -255,7 +255,7 @@ const FacebookAdsAccountContextPanel: React.FC<
               <span className="rounded-full bg-muted px-3 py-1 text-foreground dark:bg-muted dark:text-muted-foreground">
                 Business: {selectedBusinessName}
               </span>
-              <span className="rounded-full bg-blue-50 px-3 py-1 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200">
+              <span className="rounded-full bg-primary/10 px-3 py-1 text-primary dark:bg-primary/50 dark:text-primary">
                 Ad Account: {selectedAdAccountId}
               </span>
               {selectedBusinessId && (
@@ -282,7 +282,7 @@ const FacebookAdsAccountContextPanel: React.FC<
               <span className="rounded-full bg-success/10 px-2 py-0.5 text-success">
                 محفوظة: {savedAccountsCount}
               </span>
-              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-blue-700">
+              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-primary">
                 قابلة للاستخدام: {usableAccountsCount}
               </span>
             </div>
@@ -291,7 +291,7 @@ const FacebookAdsAccountContextPanel: React.FC<
               value={selectedAdAccountId}
               onChange={(event) => setSelectedAdAccountId(event.target.value)}
               disabled={loading || adAccounts.length === 0}
-              className="min-w-[280px] rounded-xl border border-border bg-white px-4 py-2.5 text-sm text-foreground shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white"
+              className="min-w-[280px] rounded-xl border border-border bg-white px-4 py-2.5 text-sm text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-60 dark:border-border dark:bg-muted dark:text-white"
               aria-describedby="facebook-ad-account-help"
             >
               <option value="">
@@ -390,7 +390,7 @@ const FacebookAdsAccountContextPanel: React.FC<
 
           <div className="rounded-xl bg-muted p-4 dark:bg-muted">
             <div className="flex items-center gap-2">
-              <CreditCardIcon className="h-5 w-5 text-blue-500" />
+              <CreditCardIcon className="h-5 w-5 text-primary" />
               <p className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">
                 الدفع
               </p>
@@ -422,7 +422,7 @@ const FacebookAdsAccountContextPanel: React.FC<
 
       {selectedAdAccount && (
         <div className="mt-3 flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full bg-blue-50 px-3 py-1 font-medium text-blue-700">
+          <span className="rounded-full bg-primary/10 px-3 py-1 font-medium text-primary">
             Pixels: {assetsLoading ? "..." : pixels.length}
           </span>
           <span className="rounded-full bg-success/10 px-3 py-1 font-medium text-success">

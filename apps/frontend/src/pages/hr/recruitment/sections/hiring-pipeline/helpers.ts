@@ -29,7 +29,7 @@ export const normalizeStageApplicant = (applicant: any): StageApplicant => ({
 
 export const getPipelineStageColorClasses = (color: string): string => {
   const colors: Record<string, string> = {
-    blue: "bg-blue-100 border-blue-300 text-blue-700",
+    blue: "bg-blue-100 border-primary text-primary",
     amber: "bg-amber-100 border-warning text-warning",
     purple: "bg-purple-100 border-primary text-primary",
     indigo: "bg-indigo-100 border-primary text-primary",

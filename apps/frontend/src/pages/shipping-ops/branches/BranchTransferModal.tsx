@@ -100,7 +100,7 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-blue-50 dark:bg-blue-950/50 rounded-xl text-blue-600">
+            <div className="p-2 bg-primary/10 dark:bg-primary/50 rounded-xl text-primary">
               <ArrowLeftRight className="w-5 h-5" />
             </div>
             <div>
@@ -196,7 +196,7 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
             </div>
 
             {/* Selected Count */}
-            <div className="p-3 bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-xl flex items-center justify-between text-xs text-blue-900 dark:text-blue-300">
+            <div className="p-3 bg-primary/60 dark:bg-primary/30 border border-primary dark:border-primary rounded-xl flex items-center justify-between text-xs text-primary dark:text-primary">
               <span>عدد الشحنات المحددة للتحويل:</span>
               <span className="font-bold font-mono text-sm">{selectedShipmentIds.length}</span>
             </div>
@@ -227,7 +227,7 @@ export const BranchTransferModal: React.FC<BranchTransferModalProps> = ({
               <button
                 type="submit"
                 disabled={submitting || !toBranchId}
-                className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition active:scale-95 disabled:opacity-50 flex items-center gap-1.5"
+                className="px-5 py-2 bg-primary hover:bg-primary text-white rounded-xl text-xs font-semibold transition active:scale-95 disabled:opacity-50 flex items-center gap-1.5"
               >
                 {submitting ? (
                   <span>جاري التحويل...</span>

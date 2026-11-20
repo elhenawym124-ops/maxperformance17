@@ -2,7 +2,7 @@ export const ASSET_STATUS_STYLES: Record<string, string> = {
   AVAILABLE:
     "bg-green-100 text-success dark:bg-success/40 dark:text-success border border-success dark:border-success/50",
   IN_USE:
-    "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50",
+    "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary border border-primary dark:border-primary/50",
   MAINTENANCE:
     "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning border border-warning dark:border-warning/50",
   RETIRED:

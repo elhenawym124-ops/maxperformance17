@@ -699,8 +699,8 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
           allProducts={allProducts}
         />
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-md p-3 mt-4">
-          <p className="text-xs text-blue-700 dark:text-blue-300">
+        <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary rounded-md p-3 mt-4">
+          <p className="text-xs text-primary dark:text-primary">
             ℹ️ <strong>ملاحظة:</strong> النظام يقترح منتجات تلقائياً بناءً على
             الفئة والطلبات السابقة. المنتجات المحددة هنا ستُضاف للتوصيات
             التلقائية.

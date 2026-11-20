@@ -152,7 +152,7 @@ const ConversationsSimple: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-gray-600">جاري تحميل المحادثات...</p>
         </div>
       </div>
@@ -167,7 +167,7 @@ const ConversationsSimple: React.FC = () => {
           <p className="text-red-600 mb-4">{error}</p>
           <button
             onClick={loadConversations}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 bg-primary text-white rounded hover:bg-primary"
           >
             إعادة المحاولة
           </button>
@@ -196,7 +196,7 @@ const ConversationsSimple: React.FC = () => {
                 onClick={() => setSelectedConversation(conversation)}
                 className={`p-4 border-b border-border cursor-pointer hover:bg-muted ${
                   selectedConversation?.id === conversation.id
-                    ? "bg-blue-50 border-blue-200"
+                    ? "bg-blue-50 border-primary"
                     : ""
                 }`}
               >
@@ -204,7 +204,7 @@ const ConversationsSimple: React.FC = () => {
                   <h3 className="font-medium text-foreground">
                     {conversation.customerName || conversation.customerId}
                     {conversation.pageName && (
-                      <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded me-2">
+                      <span className="text-xs text-primary font-medium bg-primary/10 px-1.5 py-0.5 rounded me-2">
                         {conversation.pageName}
                       </span>
                     )}
@@ -222,7 +222,7 @@ const ConversationsSimple: React.FC = () => {
                       "ar-EG",
                     )}
                   </span>
-                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                  <span className="text-xs bg-primary text-primary px-2 py-1 rounded">
                     {conversation.messageCount} رسالة
                   </span>
                 </div>
@@ -243,7 +243,7 @@ const ConversationsSimple: React.FC = () => {
                 {selectedConversation.customerName ||
                   selectedConversation.customerId}
                 {selectedConversation.pageName && (
-                  <span className="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded me-2">
+                  <span className="text-sm text-primary font-medium bg-primary/10 px-2 py-1 rounded me-2">
                     {selectedConversation.pageName}
                   </span>
                 )}
@@ -313,13 +313,13 @@ const ConversationsSimple: React.FC = () => {
                   onChange={(e) => setNewMessage(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && sendMessage()}
                   placeholder="اكتب رسالتك هنا..."
-                  className="flex-1 border border-border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="flex-1 border border-border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   disabled={loading}
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!newMessage.trim() || loading}
-                  className="bg-blue-500 text-white px-6 py-2 rounded-r-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-blue-500 text-white px-6 py-2 rounded-r-lg hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   إرسال
                 </button>

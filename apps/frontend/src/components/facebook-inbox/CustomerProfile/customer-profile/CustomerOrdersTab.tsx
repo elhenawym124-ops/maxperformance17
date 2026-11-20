@@ -214,7 +214,7 @@ export const CustomerOrdersTab: React.FC<CustomerOrdersTabProps> = ({
                       </span>
                     )}
                     {isFromThisConv && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-md bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary border border-primary dark:border-primary">
                         <MessageSquare className="h-3 w-3" />
                         <span>من هذه المحادثة</span>
                       </span>

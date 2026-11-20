@@ -164,16 +164,16 @@ export const PayrollResultsPanel: React.FC<PayrollResultsPanelProps> = ({
                   )}
 
                   {payrollResult.socialInsuranceDetails && (
-                    <div className="bg-blue-50 dark:bg-blue-950/20 p-2 rounded-lg">
+                    <div className="bg-blue-50 dark:bg-primary/20 p-2 rounded-lg">
                       <div className="flex justify-between items-center">
-                        <div className="text-sm text-blue-700 dark:text-blue-300">
+                        <div className="text-sm text-primary dark:text-primary">
                           التأمينات الاجتماعية
                         </div>
-                        <div className="font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">
+                        <div className="font-bold font-mono tabular-nums text-primary dark:text-primary">
                           {formatCurrency(payrollResult.socialInsurance)}
                         </div>
                       </div>
-                      <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                      <p className="text-xs text-primary dark:text-primary mt-1">
                         {payrollResult.socialInsuranceDetails.reason}
                       </p>
                     </div>

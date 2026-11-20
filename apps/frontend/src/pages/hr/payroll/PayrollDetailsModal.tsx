@@ -258,7 +258,7 @@ export const PayrollDetailsModal: React.FC<PayrollDetailsModalProps> = ({
                         <div className="flex justify-between items-start">
                           <div className="flex items-center gap-1.5 text-wrap max-w-[70%]">
                             <span className="text-gray-700 text-xs font-bold">{name}</span>
-                            <span className={`text-[8px] px-1 rounded-sm uppercase font-black whitespace-nowrap ${isManual ? 'bg-amber-100 text-warning border border-warning' : 'bg-blue-100 text-blue-700 border border-blue-200'}`}>
+                            <span className={`text-[8px] px-1 rounded-sm uppercase font-black whitespace-nowrap ${isManual ? 'bg-amber-100 text-warning border border-warning' : 'bg-blue-100 text-primary border border-primary'}`}>
                               {isManual ? 'يدوي' : 'تلقائي'}
                             </span>
                           </div>

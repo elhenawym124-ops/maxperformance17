@@ -97,7 +97,7 @@ const BroadcastDashboard: React.FC = () => {
       case "draft":
         return "text-muted-foreground border-border/70 bg-muted/40";
       case "scheduled":
-        return "text-blue-600 dark:text-blue-400 border-blue-500/20 bg-blue-500/10";
+        return "text-blue-600 dark:text-primary border-primary/20 bg-primary/10";
       case "sent":
         return "text-emerald-600 dark:text-success border-success/20 bg-success/10";
       case "cancelled":
@@ -223,7 +223,7 @@ const BroadcastDashboard: React.FC = () => {
                 <div className="p-3 sm:p-3.5 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium text-muted-foreground">إجمالي الحملات</span>
-                    <span className="size-1.5 rounded-full bg-blue-500" />
+                    <span className="size-1.5 rounded-full bg-primary" />
                   </div>
                   <div className="mt-2">
                     <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-foreground">

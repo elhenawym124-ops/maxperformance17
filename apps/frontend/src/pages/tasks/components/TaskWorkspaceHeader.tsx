@@ -180,10 +180,10 @@ export const TaskWorkspaceHeader: React.FC<TaskWorkspaceHeaderProps> = ({
           <strong className="font-semibold text-foreground tabular-nums">{visibleTasksCount}</strong>
         </span>
 
-        <span className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/20 bg-blue-500/6 px-2 py-0.5 text-[11px]">
-          <ClockIcon className="size-3 text-blue-500" />
-          <span className="text-blue-700 dark:text-blue-400">مفتوحة</span>
-          <strong className="font-semibold text-blue-700 dark:text-blue-300 tabular-nums">{openTasksCount}</strong>
+        <span className="inline-flex items-center gap-1.5 rounded-lg border border-primary/20 bg-primary/6 px-2 py-0.5 text-[11px]">
+          <ClockIcon className="size-3 text-primary" />
+          <span className="text-blue-700 dark:text-primary">مفتوحة</span>
+          <strong className="font-semibold text-primary dark:text-primary tabular-nums">{openTasksCount}</strong>
         </span>
 
         <span className="inline-flex items-center gap-1.5 rounded-lg border border-warning/20 bg-warning/6 px-2 py-0.5 text-[11px]">

@@ -165,7 +165,7 @@ export default function EducationTeacherSchedulePage() {
       case "SCHEDULED":
         return {
           label: isEn ? "Scheduled" : "مجدولة",
-          color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+          color: "bg-blue-500/10 text-primary dark:text-primary border-primary/20",
         };
       case "CANCELLED":
         return {
@@ -222,7 +222,7 @@ export default function EducationTeacherSchedulePage() {
               {stats.total}
             </div>
           </div>
-          <div className="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20">
+          <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center border border-primary/20">
             <Clock className="w-4 h-4" />
           </div>
         </div>

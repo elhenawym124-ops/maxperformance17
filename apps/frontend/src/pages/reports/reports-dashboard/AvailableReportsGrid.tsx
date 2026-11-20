@@ -28,7 +28,7 @@ export const AvailableReportsGrid: React.FC<AvailableReportsGridProps> = ({
         );
       case "customers":
         return (
-          <DocumentChartBarIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+          <DocumentChartBarIcon className="h-5 w-5 text-primary dark:text-primary" />
         );
       case "conversations":
         return (
@@ -56,7 +56,7 @@ export const AvailableReportsGrid: React.FC<AvailableReportsGridProps> = ({
       case "sales":
         return "bg-green-100 dark:bg-success/30 text-success dark:text-success";
       case "customers":
-        return "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300";
+        return "bg-blue-100 dark:bg-primary/30 text-primary dark:text-primary";
       case "conversations":
         return "bg-purple-100 dark:bg-primary/30 text-primary dark:text-primary";
       case "products":

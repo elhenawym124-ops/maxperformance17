@@ -73,7 +73,7 @@ export interface StudyDetailsData {
 export const HISTORY_DIMENSION_META: Record<string, { label: string; color: string }> = {
   ORDER: {
     label: "radiology.historyDimension.ORDER",
-    color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
   },
   PREP: {
     label: "radiology.historyDimension.PREP",

@@ -108,7 +108,7 @@ export const TeamPerformanceTable: React.FC<TeamPerformanceTableProps> = ({
                     {member.role}
                   </span>
                 </td>
-                <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-blue-600 dark:text-blue-400">
+                <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-primary dark:text-primary">
                   {member.ordersCreated?.toLocaleString() || 0}
                 </td>
                 <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-success dark:text-success">

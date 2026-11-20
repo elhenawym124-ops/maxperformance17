@@ -298,7 +298,7 @@ const LoyaltyPrograms: React.FC = () => {
                         </span>
                       )}
                       {rules.rewards?.freeShipping && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-500 text-xs font-medium">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary text-xs font-medium">
                           <Truck className="w-3 h-3" /> شحن مجاني
                         </span>
                       )}
@@ -523,7 +523,7 @@ const LoyaltyPrograms: React.FC = () => {
                   {/* Free Shipping Reward Toggle */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-card rounded-lg text-blue-500">
+                      <div className="p-2 bg-card rounded-lg text-primary">
                         <Truck className="w-4 h-4" />
                       </div>
                       <div>
@@ -644,7 +644,7 @@ const LoyaltyPrograms: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 p-4 rounded-xl flex items-start gap-3 text-blue-700 dark:text-blue-300 text-sm">
+              <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary/30 p-4 rounded-xl flex items-start gap-3 text-primary dark:text-primary text-sm">
                 <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
                 <p>
                   <strong>إعدادات النقاط عامة:</strong> تُدار قواعد كسب واستبدال

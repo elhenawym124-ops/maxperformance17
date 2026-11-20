@@ -62,7 +62,7 @@ export const UpsellHubEditRelationsModal: React.FC<
         <div className="flex items-center justify-between border-b border-border p-4 sm:p-5 dark:border-border">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-primary dark:bg-primary/50 dark:text-primary">
                 <Link2 className="h-4 w-4" />
               </span>
               <h3 className="text-base font-black text-foreground">
@@ -99,7 +99,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-1.5 border-b-2 px-4 py-3 text-xs font-black transition cursor-pointer ${
                   isActive
-                    ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400"
+                    ? "border-blue-600 text-primary dark:border-primary dark:text-primary"
                     : "border-transparent text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
                 }`}
               >
@@ -107,7 +107,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                 <span
                   className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold tabular-nums ${
                     isActive
-                      ? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-200"
+                      ? "bg-blue-100 text-primary dark:bg-primary/50 dark:text-primary"
                       : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                   }`}
                 >
@@ -121,10 +121,10 @@ export const UpsellHubEditRelationsModal: React.FC<
         {/* Modal Body */}
         <div className="flex-1 space-y-4 overflow-y-auto p-4 sm:p-5">
           {/* Active Tab Explanation Banner */}
-          <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-3 text-xs leading-5 text-blue-900 dark:border-blue-900/30 dark:bg-blue-950/30 dark:text-blue-200">
+          <div className="rounded-xl border border-primary bg-primary/50 p-3 text-xs leading-5 text-primary dark:border-primary/30 dark:bg-primary/30 dark:text-primary">
             <div className="flex items-center justify-between font-bold">
               <span>{currentTabMeta.subtitle}</span>
-              <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-black text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+              <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-black text-primary dark:bg-primary dark:text-primary">
                 {currentTabMeta.placementBadge}
               </span>
             </div>
@@ -225,7 +225,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                 value={relationSearch}
                 onChange={(e) => setRelationSearch(e.target.value)}
                 placeholder="ابحث عن منتج من الكتالوج لإضافته..."
-                className="w-full rounded-xl border border-border bg-white py-2 ps-3 pe-8 text-xs text-foreground focus:border-blue-500 focus:outline-none dark:border-border dark:bg-muted dark:text-white"
+                className="w-full rounded-xl border border-border bg-white py-2 ps-3 pe-8 text-xs text-foreground focus:border-primary focus:outline-none dark:border-border dark:bg-muted dark:text-white"
               />
             </div>
 
@@ -258,7 +258,7 @@ export const UpsellHubEditRelationsModal: React.FC<
                     <button
                       type="button"
                       onClick={() => handleAddRelation(candidate.id)}
-                      className="inline-flex items-center gap-1 rounded-lg bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700 hover:bg-blue-100 dark:bg-blue-900/40 dark:text-blue-300 cursor-pointer"
+                      className="inline-flex items-center gap-1 rounded-lg bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary hover:bg-primary dark:bg-primary/40 dark:text-primary cursor-pointer"
                     >
                       <Plus className="h-3 w-3" />
                       إضافة
@@ -283,7 +283,7 @@ export const UpsellHubEditRelationsModal: React.FC<
             type="button"
             disabled={saving}
             onClick={() => void handleSaveRelations()}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-blue-500/20 transition hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-primary/20 transition hover:bg-primary disabled:opacity-50 cursor-pointer"
           >
             {saving ? (
               <>

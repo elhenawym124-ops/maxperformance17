@@ -7,7 +7,7 @@ export const getStatusColor = (status: string): string => {
     ABSENT: "text-red-600 bg-destructive/10 dark:bg-destructive/20 dark:text-destructive",
     LATE: "text-orange-600 bg-warning/10 dark:bg-warning/20 dark:text-warning",
     ON_LEAVE:
-      "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400",
+      "text-blue-600 bg-primary/10 dark:bg-primary/20 dark:text-primary",
     APPROVED:
       "text-green-600 bg-success/10 dark:bg-success/20 dark:text-success",
     PENDING:
@@ -50,7 +50,7 @@ export const getAttendanceRate = (report: EmployeeReportData | null): string => 
 
 export const getPerformanceColor = (score: number): string => {
   if (score >= 4.5) return "text-green-600 dark:text-success";
-  if (score >= 3.5) return "text-blue-600 dark:text-blue-400";
+  if (score >= 3.5) return "text-blue-600 dark:text-primary";
   if (score >= 2.5) return "text-yellow-600 dark:text-warning";
   return "text-red-600 dark:text-destructive";
 };

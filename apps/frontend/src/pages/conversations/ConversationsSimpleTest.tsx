@@ -92,7 +92,7 @@ const ConversationsSimpleTest: React.FC = () => {
       <div className="p-8">
         <h1 className="text-2xl font-bold mb-4">🧪 اختبار المحادثات المبسط</h1>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
           <p className="mt-2">جاري التحميل...</p>
         </div>
       </div>
@@ -137,14 +137,14 @@ const ConversationsSimpleTest: React.FC = () => {
                   onClick={() => selectConversation(conv)}
                   className={`p-3 border rounded cursor-pointer hover:bg-muted ${
                     selectedConversation?.id === conv.id
-                      ? "bg-blue-50 border-blue-300"
+                      ? "bg-blue-50 border-primary"
                       : ""
                   }`}
                 >
                   <div className="font-medium">
                     {conv.customerName}
                     {conv.pageName && (
-                      <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded me-2">
+                      <span className="text-xs text-primary font-medium bg-primary/10 px-1.5 py-0.5 rounded me-2">
                         {conv.pageName}
                       </span>
                     )}
@@ -184,7 +184,7 @@ const ConversationsSimpleTest: React.FC = () => {
                   className={`p-3 rounded-lg ${
                     message.isFromCustomer
                       ? "bg-gray-100 text-foreground"
-                      : "bg-blue-100 text-blue-800"
+                      : "bg-blue-100 text-primary"
                   }`}
                 >
                   <div className="font-medium text-sm">

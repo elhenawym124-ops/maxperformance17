@@ -33,7 +33,7 @@ export const ShiftDetailsStatsGrid: React.FC<ShiftDetailsStatsGridProps> = ({
                   {shift.startTime}
                 </p>
               </div>
-              <Clock className="h-8 w-8 text-blue-500" />
+              <Clock className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>

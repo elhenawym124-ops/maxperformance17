@@ -84,7 +84,7 @@ export const ClientSettlementDetailModal: React.FC<ClientSettlementDetailModalPr
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-blue-600" />
+            <FileText className="w-5 h-5 text-primary" />
             <div>
               <h3 className="font-bold text-foreground text-base">
                 {data?.settlementNumber || 'تفاصيل كشف التسوية'}

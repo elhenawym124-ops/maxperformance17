@@ -164,7 +164,7 @@ export default function EducationStudentProfilePage() {
       label: t("education.students.statActiveEnrollments", isEn ? "Active Enrollments" : "تسجيلات وباقات نشطة"),
       value: activeEnrollments.filter((e) => e.isActive !== false).length,
       icon: GraduationCap,
-      color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+      color: "bg-blue-500/10 text-primary dark:text-primary border-primary/20",
     },
     {
       label: t("education.students.statTotalSessions", isEn ? "Total Sessions" : "إجمالي الحصص"),
@@ -196,7 +196,7 @@ export default function EducationStudentProfilePage() {
       case "SCHEDULED":
         return {
           label: isEn ? "Scheduled" : "مجدولة",
-          color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+          color: "bg-blue-500/10 text-primary dark:text-primary border-primary/20",
         };
       case "CANCELLED":
         return {

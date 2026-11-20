@@ -100,7 +100,7 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
                 {t("employee.permissions.requestDate")}
               </p>
               <p className="font-bold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
-                <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-blue-500 shrink-0" />
+                <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0" />
                 <span className="truncate font-mono tabular-nums">
                   {new Date(selectedRequest.date).toLocaleDateString("ar-EG", {
                     day: "numeric",
@@ -125,10 +125,10 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
             </div>
           </div>
 
-          <div className="bg-blue-50/50 dark:bg-blue-900/10 p-3.5 sm:p-5 rounded-xl border border-blue-100 dark:border-blue-900/30">
+          <div className="bg-blue-50/50 dark:bg-primary/10 p-3.5 sm:p-5 rounded-xl border border-primary dark:border-primary/30">
             <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <Timer className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-              <p className="font-bold text-xs sm:text-sm text-blue-900 dark:text-blue-100">
+              <Timer className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+              <p className="font-bold text-xs sm:text-sm text-primary dark:text-primary">
                 {t("employee.permissions.permissionPeriod")}
               </p>
             </div>
@@ -137,7 +137,7 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
                 <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">
                   {t("employee.permissions.exitTimeLabel")}
                 </p>
-                <p className="text-xl sm:text-2xl font-black text-blue-600 font-mono tabular-nums">
+                <p className="text-xl sm:text-2xl font-black text-primary font-mono tabular-nums">
                   {selectedRequest.startTime}
                 </p>
               </div>
@@ -146,12 +146,12 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
                 <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">
                   {t("employee.permissions.returnTimeLabel")}
                 </p>
-                <p className="text-xl sm:text-2xl font-black text-blue-600 font-mono tabular-nums">
+                <p className="text-xl sm:text-2xl font-black text-primary font-mono tabular-nums">
                   {selectedRequest.endTime}
                 </p>
               </div>
             </div>
-            <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-blue-100 dark:border-blue-900/30 flex justify-between items-center">
+            <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-primary dark:border-primary/30 flex justify-between items-center">
               <span className="text-xs sm:text-sm text-foreground dark:text-muted-foreground font-medium text-right">
                 {t("employee.permissions.totalHoursLabel")}
               </span>
@@ -180,7 +180,7 @@ export const PermissionDetailsDialog: React.FC<PermissionDetailsDialogProps> = (
                   href={selectedRequest.attachments}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-blue-600 hover:text-blue-700 text-xs sm:text-sm font-bold bg-blue-50 dark:bg-blue-900/20 p-2.5 sm:p-3 rounded-xl border border-blue-100 dark:border-blue-800 transition-colors"
+                  className="flex items-center gap-2 text-primary hover:text-primary text-xs sm:text-sm font-bold bg-primary/10 dark:bg-primary/20 p-2.5 sm:p-3 rounded-xl border border-primary dark:border-primary transition-colors"
                 >
                   <FileText className="h-4 w-4" />
                   {t("employee.permissions.viewFile")}

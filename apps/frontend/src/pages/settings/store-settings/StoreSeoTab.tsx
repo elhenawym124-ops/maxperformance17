@@ -150,7 +150,7 @@ export const StoreSeoTab: React.FC<StoreSeoTabProps> = ({
           <div className="text-xs text-success dark:text-success truncate mb-1" dir="ltr">
             {storeUrl}
           </div>
-          <div className="text-base sm:text-lg font-medium text-blue-700 dark:text-blue-400 hover:underline cursor-pointer truncate">
+          <div className="text-base sm:text-lg font-medium text-primary dark:text-primary hover:underline cursor-pointer truncate">
             {title || t("storeSettings.defaultStoreTitle", "عنوان المتجر في نتائج البحث")}
           </div>
           <div className="text-xs sm:text-sm text-muted-foreground mt-1 line-clamp-2 leading-relaxed">

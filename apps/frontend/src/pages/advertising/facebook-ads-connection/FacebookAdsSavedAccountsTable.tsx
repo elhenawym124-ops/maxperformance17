@@ -34,7 +34,7 @@ export const FacebookAdsSavedAccountsTable: React.FC<Props> = ({
           {loading ? (
             <tr>
               <td colSpan={5} className="px-4 py-6 text-center text-muted-foreground">
-                <Loader2 className="me-2 inline-block h-4 w-4 animate-spin text-blue-600" />
+                <Loader2 className="me-2 inline-block h-4 w-4 animate-spin text-primary" />
                 {t.loadingAccounts}
               </td>
             </tr>
@@ -98,7 +98,7 @@ export const FacebookAdsSavedAccountsTable: React.FC<Props> = ({
                           type="button"
                           onClick={() => onSetActive(account)}
                           disabled={isActivating}
-                          className="inline-flex h-6 items-center gap-1 rounded-md border border-blue-200 bg-blue-50 px-2 text-[10px] font-semibold text-blue-700 transition hover:bg-blue-100 disabled:opacity-50 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-300"
+                          className="inline-flex h-6 items-center gap-1 rounded-md border border-primary bg-primary/10 px-2 text-[10px] font-semibold text-primary transition hover:bg-primary disabled:opacity-50 dark:border-primary/60 dark:bg-primary/40 dark:text-primary"
                         >
                           {isActivating ? (
                             <Loader2 className="h-2.5 w-2.5 animate-spin" />

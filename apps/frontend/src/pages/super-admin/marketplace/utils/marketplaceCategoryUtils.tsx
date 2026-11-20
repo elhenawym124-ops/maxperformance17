@@ -79,7 +79,7 @@ export const getCategoryColor = (category: string): string => {
 
 export const getAppGradient = (category?: string): string => {
   const gradients: { [key: string]: string } = {
-    ECOMMERCE: "bg-gradient-to-br from-blue-500 to-primary",
+    ECOMMERCE: "bg-gradient-to-br from-primary to-primary",
     AI: "bg-gradient-to-br from-primary to-primary",
     CRM: "bg-gradient-to-br from-success to-success",
     COMMUNICATION: "bg-gradient-to-br from-warning to-warning",
@@ -87,7 +87,7 @@ export const getAppGradient = (category?: string): string => {
     MARKETING: "bg-gradient-to-br from-primary to-destructive",
     HR: "bg-gradient-to-br from-info to-info",
     FINANCE: "bg-gradient-to-br from-success to-success",
-    INTEGRATION: "bg-gradient-to-br from-primary to-blue-600",
+    INTEGRATION: "bg-gradient-to-br from-primary to-primary",
     PRODUCTIVITY: "bg-gradient-to-br from-success to-success",
     GAMIFICATION: "bg-gradient-to-br from-warning to-warning",
     ORDER_OPS: "bg-gradient-to-br from-warning to-warning",
@@ -95,7 +95,7 @@ export const getAppGradient = (category?: string): string => {
     WAREHOUSE: "bg-gradient-to-br from-warning to-warning",
     PAYMENTS: "bg-gradient-to-br from-success to-success",
     WHOLESALE: "bg-gradient-to-br from-primary to-primary",
-    PROCUREMENT: "bg-gradient-to-br from-info to-blue-600",
+    PROCUREMENT: "bg-gradient-to-br from-info to-primary",
     ACCOUNTING: "bg-gradient-to-br from-success to-success",
     SHIPPING: "bg-gradient-to-br from-info to-info",
   };

@@ -186,7 +186,7 @@ export default function ExamTypesTab() {
           <h2 className="text-xl font-bold">{t("radiology.examTypes.title")}</h2>
           <p className="text-sm text-muted-foreground">{t("radiology.examTypes.subtitle")}</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary">
           <Plus className="w-4 h-4" />{t("radiology.examTypes.addExamType")}
         </button>
       </div>
@@ -263,7 +263,7 @@ export default function ExamTypesTab() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex gap-1">
-                        <button onClick={() => openEdit(et)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg" title={t("radiology.edit")}>
+                        <button onClick={() => openEdit(et)} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg" title={t("radiology.edit")}>
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button onClick={() => remove(et)} disabled={removingId !== null} className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 rounded-lg disabled:opacity-40" title={t("radiology.delete")}>
@@ -327,7 +327,7 @@ export default function ExamTypesTab() {
                       {quickSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}{t("radiology.examTypes.addCategory")}
                     </button>
                   </div>
-                  <a href="#/radiology/exam-categories" onClick={e => { e.preventDefault(); window.location.hash = "#/radiology/exam-categories"; }} className="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 mt-2 hover:underline">
+                  <a href="#/radiology/exam-categories" onClick={e => { e.preventDefault(); window.location.hash = "#/radiology/exam-categories"; }} className="inline-flex items-center gap-1 text-xs text-primary dark:text-primary mt-2 hover:underline">
                     <FolderTree className="w-3.5 h-3.5" />{t("radiology.examTypes.manageCategories")}
                   </a>
                 </div>
@@ -354,7 +354,7 @@ export default function ExamTypesTab() {
 
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted disabled:opacity-50">{t("radiology.cancel")}</button>
-              <button onClick={save} disabled={saving || !modal.name.trim()} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">
+              <button onClick={save} disabled={saving || !modal.name.trim()} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50">
                 {saving ? t("radiology.saving") : t("radiology.save")}
               </button>
             </div>

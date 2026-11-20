@@ -54,11 +54,11 @@ export const ALL_CHANNELS: ChannelConfig[] = [
     label: "فيسبوك ماسنجر (Messenger)",
     shortLabel: "ماسنجر",
     activeClass:
-      "bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950/70 dark:text-blue-300 dark:border-blue-700 shadow-xs",
+      "bg-blue-100 text-primary border-primary dark:bg-primary/70 dark:text-primary dark:border-primary shadow-xs",
     inactiveClass:
       "bg-gray-100 text-muted-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border hover:bg-muted dark:hover:bg-muted",
     badgeClass:
-      "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200/80 dark:border-blue-800/80",
+      "bg-blue-50 text-primary dark:bg-primary/60 dark:text-primary border-primary/80 dark:border-primary/80",
   },
   {
     id: "INSTAGRAM",

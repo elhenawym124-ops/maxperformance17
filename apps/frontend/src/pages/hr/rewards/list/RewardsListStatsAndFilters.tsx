@@ -43,7 +43,7 @@ export const RewardsListStatsAndFilters: React.FC<
                   {statistics.total}
                 </p>
               </div>
-              <Award className="w-10 h-10 text-blue-500" />
+              <Award className="w-10 h-10 text-primary" />
             </div>
           </div>
 
@@ -108,7 +108,7 @@ export const RewardsListStatsAndFilters: React.FC<
           </button>
           <button
             onClick={onResetFilters}
-            className="text-sm text-blue-600 hover:text-blue-700"
+            className="text-sm text-primary hover:text-primary"
           >
             إعادة تعيين
           </button>
@@ -132,7 +132,7 @@ export const RewardsListStatsAndFilters: React.FC<
                     }))
                   }
                   placeholder="ابحث..."
-                  className="w-full pe-10 ps-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full pe-10 ps-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
@@ -149,7 +149,7 @@ export const RewardsListStatsAndFilters: React.FC<
                     status: e.target.value,
                   }))
                 }
-                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-primary"
               >
                 <option value="">الكل</option>
                 <option value="PENDING">قيد الانتظار</option>
@@ -172,7 +172,7 @@ export const RewardsListStatsAndFilters: React.FC<
                     category: e.target.value,
                   }))
                 }
-                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-primary"
               >
                 <option value="">الكل</option>
                 <option value="ATTENDANCE">حضور</option>
@@ -194,7 +194,7 @@ export const RewardsListStatsAndFilters: React.FC<
                 onChange={(e) =>
                   onUpdateFilters((prev) => ({ ...prev, year: e.target.value }))
                 }
-                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 font-mono tabular-nums"
+                className="w-full px-3 py-2 border border-border dark:bg-muted dark:text-white rounded-lg focus:ring-2 focus:ring-primary font-mono tabular-nums"
               >
                 {[2024, 2025, 2026].map((year) => (
                   <option key={year} value={year}>

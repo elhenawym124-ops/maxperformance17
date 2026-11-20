@@ -33,7 +33,7 @@ export const statusConfig: Record<
   },
   HALF_DAY: {
     label: "نصف يوم",
-    color: "bg-blue-100 text-blue-800",
+    color: "bg-blue-100 text-primary",
     icon: Timer,
   },
   ON_LEAVE: {

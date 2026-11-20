@@ -183,13 +183,13 @@ export default function DevGoalsList() {
 
           <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
             <div>
-              <p className="text-[11px] text-blue-600 dark:text-blue-400">النتائج المكتملة</p>
-              <p className="text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400 font-mono tabular-nums mt-0.5">
+              <p className="text-[11px] text-primary dark:text-primary">النتائج المكتملة</p>
+              <p className="text-xl font-bold tracking-tight text-primary dark:text-primary font-mono tabular-nums mt-0.5">
                 {stats.completedKeyResults} / {stats.totalKeyResults}
               </p>
               <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">نتيجة رئيسية (KR)</p>
             </div>
-            <div className="size-7 rounded-md bg-blue-500/10 flex items-center justify-center text-blue-600">
+            <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary">
               <CheckCircle2 className="size-3.5" />
             </div>
           </div>

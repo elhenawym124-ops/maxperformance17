@@ -57,9 +57,9 @@ export const ApplicationFormResponseDetailModal: React.FC<
               تفاصيل الرد
             </h2>
 
-            <div className="p-4 bg-gradient-to-r from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 rounded-xl mb-6">
+            <div className="p-4 bg-gradient-to-r from-primary to-primary dark:from-primary/20 dark:to-primary/20 rounded-xl mb-6">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-primary rounded-full flex items-center justify-center text-white text-xl font-bold">
+                <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary rounded-full flex items-center justify-center text-white text-xl font-bold">
                   {selectedResponse.respondentName.charAt(0)}
                 </div>
                 <div>

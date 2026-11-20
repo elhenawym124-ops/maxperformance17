@@ -75,7 +75,7 @@ export default function EducationTeacherProfilePage() {
       case "SCHEDULED":
         return {
           label: isEn ? "Scheduled" : "مجدولة",
-          badge: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+          badge: "bg-blue-500/10 text-primary dark:text-primary border-primary/20",
         };
       case "CONFIRMED":
         return {
@@ -283,7 +283,7 @@ export default function EducationTeacherProfilePage() {
           <div className="bg-card border border-border/70 rounded-xl p-3.5 shadow-xs space-y-1">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{t("education.teachers.paidDues", isEn ? "Paid Dues" : "المستحقات المدفوعة")}</span>
-              <Wallet className="w-4 h-4 text-blue-500" />
+              <Wallet className="w-4 h-4 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
               {totalPaid.toLocaleString()} <span className="text-xs font-normal text-muted-foreground">{t("education.common.egp", isEn ? "EGP" : "ج.م")}</span>

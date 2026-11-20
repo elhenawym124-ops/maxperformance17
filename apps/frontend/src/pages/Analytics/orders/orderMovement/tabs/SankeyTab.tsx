@@ -156,7 +156,7 @@ export default function SankeyTab({ startDate, endDate, mode }: MovementFilterPr
       <TruncatedNotice truncated={data?.truncated} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard label="إجمالي الحركات" value={formatNumber(data.totalTransitions)} icon={GitBranch} hint={`من ${formatNumber(data.totalOrders)} طلب`} />
-        <KpiCard label="حركات يدوية" value={formatNumber(data.modes.manual)} icon={MousePointerClick} gradient="from-sky-500 to-blue-600" hint={`${manualShare.toFixed(1)}%`} />
+        <KpiCard label="حركات يدوية" value={formatNumber(data.modes.manual)} icon={MousePointerClick} gradient="from-sky-500 to-primary" hint={`${manualShare.toFixed(1)}%`} />
         <KpiCard label="حركات تلقائية" value={formatNumber(data.modes.auto)} icon={Bot} gradient="from-violet-500 to-primary" hint={`${(100 - manualShare).toFixed(1)}%`} />
         <KpiCard label="عدد الحالات" value={formatNumber(data.nodes.length - 1)} icon={Package} gradient="from-emerald-500 to-success" />
       </div>

@@ -197,11 +197,11 @@ const PerformanceReport: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">جيد</p>
-                      <h3 className="text-3xl font-bold mt-1 text-blue-600">
+                      <h3 className="text-3xl font-bold mt-1 text-primary">
                         {report.goodCount}
                       </h3>
                     </div>
-                    <Users className="h-10 w-10 text-blue-500" />
+                    <Users className="h-10 w-10 text-primary" />
                   </div>
                 </CardContent>
               </Card>
@@ -242,11 +242,11 @@ const PerformanceReport: React.FC = () => {
                       {report.goalsAchievement.completed}
                     </h4>
                   </div>
-                  <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                    <p className="text-sm text-blue-600 dark:text-blue-400">
+                  <div className="text-center p-4 bg-primary/10 dark:bg-primary/20 rounded-lg">
+                    <p className="text-sm text-primary dark:text-primary">
                       قيد التنفيذ
                     </p>
-                    <h4 className="text-2xl font-bold mt-1 text-blue-600">
+                    <h4 className="text-2xl font-bold mt-1 text-primary">
                       {report.goalsAchievement.inProgress}
                     </h4>
                   </div>

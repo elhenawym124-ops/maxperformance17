@@ -22,7 +22,7 @@ export function InvoiceDetailModalFooter({
       <div className="flex items-center gap-2">
         <button
           onClick={onPdf}
-          className="px-3 py-1.5 border border-blue-300 text-blue-700 bg-blue-50 hover:bg-blue-100 dark:border-blue-700 dark:text-blue-300 dark:bg-blue-900/30 rounded-lg text-xs font-semibold flex items-center gap-1.5"
+          className="px-3 py-1.5 border border-primary text-primary bg-primary/10 hover:bg-primary dark:border-primary dark:text-primary dark:bg-primary/30 rounded-lg text-xs font-semibold flex items-center gap-1.5"
         >
           <FileText className="w-3.5 h-3.5" /> فاتورة PDF
         </button>

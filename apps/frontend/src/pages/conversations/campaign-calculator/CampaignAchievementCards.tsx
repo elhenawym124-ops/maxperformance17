@@ -16,7 +16,7 @@ export const CampaignAchievementCards: React.FC<
         <p className="text-sm text-muted-foreground mb-1">
           الوصول الفعلي (ناجح)
         </p>
-        <p className="text-4xl font-black text-blue-600 dark:text-blue-400 tabular-nums">
+        <p className="text-4xl font-black text-primary dark:text-primary tabular-nums">
           {formatNumber(inputs.successfulMessages)}
         </p>
         <div className="flex justify-between items-center mt-3">

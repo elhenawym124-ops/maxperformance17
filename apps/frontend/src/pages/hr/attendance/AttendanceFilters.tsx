@@ -123,7 +123,7 @@ export const AttendanceFilters: React.FC<AttendanceFiltersProps> = ({
               setEmployeeId(v && v !== "all" ? v : "");
               setPagination((p: any) => ({ ...p, page: 1 }));
             }}
-            className="flex h-10 w-[200px] items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
+            className="flex h-10 w-[200px] items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           >
             <option value="all">الكل</option>
             {employees.map((emp) => (

@@ -74,7 +74,7 @@ export const PolarisTrainingView: React.FC<PolarisTrainingViewProps> = ({
     switch (status) {
       case "ONGOING":
         return (
-          <Badge className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-xs">
+          <Badge className="bg-blue-500/10 text-primary dark:text-primary border border-primary/20 text-xs">
             قيد التنفيذ
           </Badge>
         );
@@ -151,7 +151,7 @@ export const PolarisTrainingView: React.FC<PolarisTrainingViewProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 motion-safe:animate-fade-in">
           <div className="p-3 rounded-xl border border-border/70 bg-card shadow-xs">
             <p className="text-xs text-muted-foreground">قيد التنفيذ</p>
-            <p className="text-lg font-bold font-mono tabular-nums text-blue-600 mt-1">{stats.ongoing}</p>
+            <p className="text-lg font-bold font-mono tabular-nums text-primary mt-1">{stats.ongoing}</p>
           </div>
           <div className="p-3 rounded-xl border border-border/70 bg-card shadow-xs">
             <p className="text-xs text-muted-foreground">مكتمل</p>

@@ -206,9 +206,9 @@ export const ShippingWalletPage: React.FC = () => {
         <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 shadow-sm">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">{isEn ? 'Available For Remittance' : 'القابل للتوريد'}</span>
-            <Banknote className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <Banknote className="w-4 h-4 text-primary dark:text-primary" />
           </div>
-          <div className="text-2xl sm:text-3xl font-bold tabular-nums text-blue-600 dark:text-blue-400">
+          <div className="text-2xl sm:text-3xl font-bold tabular-nums text-primary dark:text-primary">
             {loading ? '—' : formatCurrency(wallet?.availableForRemittance ?? 0, wallet?.currency || 'EGP')}
           </div>
           <p className="text-[11px] text-muted-foreground mt-2">{isEn ? 'COD − Fees − Payouts' : 'مجموع COD المحصل − الرسوم − المسحوبات'}</p>
@@ -238,7 +238,7 @@ export const ShippingWalletPage: React.FC = () => {
           <select
             value={typeFilter}
             onChange={(e) => { setTypeFilter(e.target.value); setPage(1); }}
-            className="text-xs border border-border dark:border-border bg-transparent rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-blue-500"
+            className="text-xs border border-border dark:border-border bg-transparent rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-primary"
           >
             <option value="">{isEn ? 'All Types' : 'كافة الأنواع'}</option>
             <option value="DEPOSIT">{isEn ? 'Deposit (+)' : 'إيداع (+)'}</option>
@@ -249,7 +249,7 @@ export const ShippingWalletPage: React.FC = () => {
           <select
             value={reasonFilter}
             onChange={(e) => { setReasonFilter(e.target.value); setPage(1); }}
-            className="text-xs border border-border dark:border-border bg-transparent rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-blue-500"
+            className="text-xs border border-border dark:border-border bg-transparent rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-primary"
           >
             <option value="">{isEn ? 'All Reasons' : 'كافة الأسباب'}</option>
             <option value="COD_COLLECTED">{isEn ? 'COD Collected' : 'تحصيل COD'}</option>
@@ -282,7 +282,7 @@ export const ShippingWalletPage: React.FC = () => {
           {(typeFilter || reasonFilter || fromDate || toDate) && (
             <button
               onClick={() => { setTypeFilter(''); setReasonFilter(''); setFromDate(''); setToDate(''); setPage(1); }}
-              className="text-xs text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+              className="text-xs text-primary dark:text-primary hover:underline inline-flex items-center gap-1"
             >
               <X className="w-3 h-3" />
               <span>{isEn ? 'Reset' : 'إلغاء الفلاتر'}</span>
@@ -351,7 +351,7 @@ export const ShippingWalletPage: React.FC = () => {
                           {tx.reasonLabel || getReasonLabel(tx.reason)}
                         </span>
                       </td>
-                      <td className="px-3 py-2.5 font-mono font-medium text-blue-600 dark:text-blue-400">
+                      <td className="px-3 py-2.5 font-mono font-medium text-primary dark:text-primary">
                         {tx.code || '—'}
                       </td>
                       <td className={`px-3 py-2.5 text-left font-bold tabular-nums ${isDeposit ? 'text-emerald-600 dark:text-success' : 'text-rose-600 dark:text-destructive'}`}>

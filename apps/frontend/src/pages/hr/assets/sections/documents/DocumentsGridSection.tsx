@@ -46,7 +46,7 @@ export const DocumentsGridSection: React.FC<DocumentsGridSectionProps> = ({
   const getDocumentIcon = (type: string) => {
     switch (type) {
       case "image":
-        return <PhotoIcon className="h-10 w-10 text-blue-500" />;
+        return <PhotoIcon className="h-10 w-10 text-primary" />;
       case "invoice":
         return <DocumentTextIcon className="h-10 w-10 text-success" />;
       case "warranty":

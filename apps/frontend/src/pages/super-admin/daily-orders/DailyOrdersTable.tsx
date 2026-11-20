@@ -368,7 +368,7 @@ export const DailyOrdersTable: React.FC<DailyOrdersTableProps> = ({
                             </span>
                           )}
                           {c.statusBreakdown.confirmed > 0 && (
-                            <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded">
+                            <span className="bg-blue-500/10 text-primary dark:text-primary px-1.5 py-0.5 rounded">
                               {c.statusBreakdown.confirmed} مؤكد
                             </span>
                           )}

@@ -171,7 +171,7 @@ const CustomAudienceDetails: React.FC = () => {
         <div className="rounded-xl border border-border/70 bg-card p-4 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>حجم الجمهور التقديري</span>
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-blue-500/20 bg-blue-500/10 text-blue-500">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
               <Users className="h-3.5 w-3.5" />
             </div>
           </div>

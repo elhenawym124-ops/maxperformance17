@@ -16,7 +16,7 @@ const GOVERNORATES = [
 
 const PICKUP_STATUS_STYLES: Record<string, { label: string; className: string }> = {
   REQUESTED: { label: 'قيد الطلب', className: 'bg-amber-50 text-warning border-warning' },
-  SCHEDULED: { label: 'مجدول', className: 'bg-blue-50 text-blue-700 border-blue-200' },
+  SCHEDULED: { label: 'مجدول', className: 'bg-blue-50 text-primary border-primary' },
   ASSIGNED: { label: 'تم إسناد مندوب', className: 'bg-indigo-50 text-primary border-primary' },
   COMPLETED: { label: 'تم الاستلام', className: 'bg-emerald-50 text-success border-success' },
   CANCELLED: { label: 'ملغي', className: 'bg-gray-100 text-foreground border-border' },
@@ -103,7 +103,7 @@ export default function ClientPickupsPage() {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded shadow-sm transition-colors self-start sm:self-auto"
+          className="px-3.5 py-2 bg-primary hover:bg-primary text-white text-xs font-semibold rounded shadow-sm transition-colors self-start sm:self-auto"
         >
           + طلب بيكاب جديد
         </button>
@@ -143,7 +143,7 @@ export default function ClientPickupsPage() {
                   };
                   return (
                     <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-3 font-mono font-medium text-blue-600">
+                      <td className="px-4 py-3 font-mono font-medium text-primary">
                         {p.pickupNumber}
                       </td>
                       <td className="px-4 py-3 text-foreground font-medium tabular-nums">
@@ -317,7 +317,7 @@ export default function ClientPickupsPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 disabled:opacity-50"
+                  className="px-4 py-2 bg-primary text-white rounded font-medium hover:bg-primary disabled:opacity-50"
                 >
                   {submitting ? 'جاري الإرسال...' : 'تأكيد الطلب'}
                 </button>

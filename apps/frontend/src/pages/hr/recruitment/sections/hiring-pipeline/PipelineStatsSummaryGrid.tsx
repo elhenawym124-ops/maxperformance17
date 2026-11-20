@@ -24,11 +24,11 @@ export const PipelineStatsSummaryGrid: React.FC<
         إحصائيات المسار
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
-        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border-2 border-blue-200">
+        <div className="p-4 bg-primary/10 dark:bg-primary/20 rounded-xl border-2 border-primary">
           <p className="text-sm text-foreground dark:text-muted-foreground mb-1">
             إجمالي المتقدمين
           </p>
-          <p className="text-3xl font-bold text-blue-600 font-mono tabular-nums">
+          <p className="text-3xl font-bold text-primary font-mono tabular-nums">
             {totalApplicants}
           </p>
         </div>

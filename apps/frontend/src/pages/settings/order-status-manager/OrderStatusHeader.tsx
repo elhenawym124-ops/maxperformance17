@@ -16,7 +16,7 @@ export function OrderStatusHeader({
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
       <div>
         <h1 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
-          <Tag className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400" />
+          <Tag className="w-6 h-6 sm:w-7 sm:h-7 text-primary dark:text-primary" />
           إدارة حالات الطلبات
         </h1>
         <p className="text-sm sm:text-base text-muted-foreground mt-1">
@@ -41,7 +41,7 @@ export function OrderStatusHeader({
         <button
           type="button"
           onClick={onOpenAddModal}
-          className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow-xs transition"
+          className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-primary hover:bg-primary text-white rounded-xl text-xs font-semibold shadow-xs transition"
         >
           <Plus className="w-4 h-4" />
           إضافة حالة

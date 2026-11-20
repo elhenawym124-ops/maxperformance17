@@ -146,7 +146,7 @@ export const PolarisCustomerLoyaltyView: React.FC<PolarisCustomerLoyaltyViewProp
           <Card className="rounded-xl border border-border/70 bg-card p-3.5 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1.5">
               <span className="text-xs font-medium">العملاء المشتركون</span>
-              <Users className="h-4 w-4 text-blue-500" />
+              <Users className="h-4 w-4 text-primary" />
             </div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl font-bold font-mono tabular-nums text-foreground">

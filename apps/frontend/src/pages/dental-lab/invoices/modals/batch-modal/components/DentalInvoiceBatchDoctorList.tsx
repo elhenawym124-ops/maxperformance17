@@ -32,7 +32,7 @@ export const DentalInvoiceBatchDoctorList: React.FC<DentalInvoiceBatchDoctorList
           <button
             type="button"
             onClick={toggleSelectAll}
-            className="flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors"
+            className="flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary dark:text-primary transition-colors"
           >
             {allSelected ? (
               <CheckSquare className="w-4 h-4" />
@@ -48,7 +48,7 @@ export const DentalInvoiceBatchDoctorList: React.FC<DentalInvoiceBatchDoctorList
             {selectedStats.doctorsCount} طبيب
           </strong>{" "}
           ({selectedStats.cases} حالة) بإجمالي{" "}
-          <strong className="text-blue-600 dark:text-blue-400">
+          <strong className="text-blue-600 dark:text-primary">
             {fmtMoney(selectedStats.amount)} ج.م
           </strong>
         </span>
@@ -66,7 +66,7 @@ export const DentalInvoiceBatchDoctorList: React.FC<DentalInvoiceBatchDoctorList
               onClick={() => toggleDoctor(doc.doctorId)}
               className={`p-3 flex items-center justify-between gap-3 cursor-pointer transition-colors ${
                 isSelected
-                  ? "bg-blue-50/60 dark:bg-blue-900/20"
+                  ? "bg-blue-50/60 dark:bg-primary/20"
                   : "hover:bg-gray-50 dark:hover:bg-muted"
               }`}
             >
@@ -74,7 +74,7 @@ export const DentalInvoiceBatchDoctorList: React.FC<DentalInvoiceBatchDoctorList
                 <div
                   className={`w-5 h-5 rounded flex items-center justify-center border transition-colors ${
                     isSelected
-                      ? "bg-blue-600 border-blue-600 text-white"
+                      ? "bg-blue-600 border-primary text-white"
                       : "border-border"
                   }`}
                 >

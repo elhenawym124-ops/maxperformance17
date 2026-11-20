@@ -50,7 +50,7 @@ export const ManualAttendanceFilters: React.FC<ManualAttendanceFiltersProps> = (
     <Card>
       <CardContent className="p-4 sm:p-6">
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="flex items-center gap-3 p-3 bg-primary/10 dark:bg-primary/20 rounded-lg border border-primary dark:border-primary">
             <input
               type="checkbox"
               id="showAllEmployees"
@@ -65,7 +65,7 @@ export const ManualAttendanceFilters: React.FC<ManualAttendanceFiltersProps> = (
               عرض جميع الموظفين (حتى بدون سجلات حضور)
             </label>
             {showAllEmployees && (
-              <span className="text-xs text-blue-600 dark:text-blue-400 me-auto">
+              <span className="text-xs text-primary dark:text-primary me-auto">
                 يمكنك إنشاء سجلات حضور جديدة للموظفين
               </span>
             )}

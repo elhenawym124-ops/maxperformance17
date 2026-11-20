@@ -96,7 +96,7 @@ export default function FormsBuilderPage() {
                 نماذج جمع البيانات والتسجيل
               </h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/30 px-2 py-0.5 text-[10px] font-mono tabular-nums text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-blue-500" />
+                <span className="size-1.5 rounded-full bg-primary" />
                 {forms.length} نموذج
               </span>
             </div>
@@ -147,9 +147,9 @@ export default function FormsBuilderPage() {
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">متوسط التحويل</span>
-            <TrendingUp className="size-3.5 text-blue-500" />
+            <TrendingUp className="size-3.5 text-primary" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">{avgConv}%</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-primary dark:text-primary">{avgConv}%</div>
           <p className="text-[10px] text-muted-foreground font-mono mt-0.5">نسبة التسجيل للزيارات</p>
         </div>
       </div>
@@ -205,7 +205,7 @@ export default function FormsBuilderPage() {
                     </td>
                     <td className="py-2.5 px-3 text-center font-mono tabular-nums text-foreground">{form.viewCount}</td>
                     <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-foreground">{subs}</td>
-                    <td className="py-2.5 px-3 text-center font-mono tabular-nums text-blue-600 dark:text-blue-400">{conv}%</td>
+                    <td className="py-2.5 px-3 text-center font-mono tabular-nums text-primary dark:text-primary">{conv}%</td>
                     <td className="py-2.5 px-3 text-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${form.isActive ? "bg-emerald-500/10 text-success dark:text-success border-success/20" : "bg-muted text-muted-foreground border-border"}`}>
                         {form.isActive ? "نشط" : "معطل"}

@@ -42,7 +42,7 @@ export function SlipTabContent({
           icon={PackageCheck}
           title={t("orderInvoiceSettings.k_41")}
           description={t("orderInvoiceSettings.k_42")}
-          accentClassName="bg-blue-50 text-blue-700 ring-blue-200/70 dark:bg-blue-950/40 dark:text-blue-300"
+          accentClassName="bg-blue-50 text-primary ring-primary/70 dark:bg-primary/40 dark:text-primary"
           surfaceClassName="bg-white/90 dark:bg-muted"
         >
           <div className="grid gap-4 md:grid-cols-2">

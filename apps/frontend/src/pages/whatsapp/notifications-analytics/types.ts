@@ -43,7 +43,7 @@ export const STATUS_BADGE_CLASSES: Record<string, string> = {
     "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:text-success",
   DELIVERED:
     "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:text-success",
-  READ: "border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:text-blue-200",
+  READ: "border-blue-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary",
   FAILED:
     "border-rose-300/70 bg-destructive/10 text-destructive dark:border-destructive/40 dark:text-destructive",
   CANCELLED:

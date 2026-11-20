@@ -298,7 +298,7 @@ export const ApplicationFormResponsesModal: React.FC<
                           </button>
                           <button
                             onClick={() => onViewResponseDetail(response)}
-                            className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50"
+                            className="p-2 bg-primary dark:bg-primary/30 text-primary rounded-lg hover:bg-primary dark:hover:bg-primary/50"
                             title="عرض التفاصيل"
                           >
                             <EyeIcon className="w-5 h-5" />

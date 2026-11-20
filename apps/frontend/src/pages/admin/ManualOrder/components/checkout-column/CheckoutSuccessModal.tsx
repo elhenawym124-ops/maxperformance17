@@ -38,7 +38,7 @@ export const CheckoutSuccessModal: React.FC<CheckoutSuccessModalProps> = ({
           <div className="flex flex-col gap-3">
             <button
               onClick={onViewOrder}
-              className="w-full py-3 px-4 bg-blue-600 dark:bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 px-4 bg-primary dark:bg-primary text-white rounded-lg font-medium hover:bg-primary dark:hover:bg-primary transition-colors flex items-center justify-center gap-2"
             >
               {t("manualOrder.k_132")}
             </button>

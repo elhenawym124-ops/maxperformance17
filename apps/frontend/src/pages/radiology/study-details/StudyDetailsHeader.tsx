@@ -35,7 +35,7 @@ export const StudyDetailsHeader: React.FC<StudyDetailsHeaderProps> = ({ study, t
         <div>
           <h1 className="text-xl font-bold text-foreground flex items-center gap-2">
             {t("radiology.details.title")}
-            <span className="text-blue-600 dark:text-blue-400" dir="ltr">
+            <span className="text-blue-600 dark:text-primary" dir="ltr">
               {study.studyNumber || study.id.slice(0, 8)}
             </span>
           </h1>

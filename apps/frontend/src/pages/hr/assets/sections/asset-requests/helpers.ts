@@ -21,7 +21,7 @@ export const getAssetRequestStatusColor = (
     case "PENDING":
       return "bg-amber-100 text-warning border-warning";
     case "APPROVED":
-      return "bg-blue-100 text-blue-700 border-blue-200";
+      return "bg-blue-100 text-primary border-primary";
     case "REJECTED":
       return "bg-red-100 text-destructive border-destructive";
     case "FULFILLED":

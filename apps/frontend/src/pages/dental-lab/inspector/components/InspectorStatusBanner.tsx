@@ -25,7 +25,7 @@ export function InspectorStatusBanner({ caseData }: InspectorStatusBannerProps) 
 
   const statusMeta = CASE_STATUS_MAP[caseData.status] ?? {
     label: caseData.status,
-    color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
+    color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
   };
 
   return (
@@ -48,7 +48,7 @@ export function InspectorStatusBanner({ caseData }: InspectorStatusBannerProps) 
         </span>
       ) : caseData.dueDate ? (
         <span className="text-slate-500 dark:text-muted-foreground flex items-center gap-1 font-medium">
-          <Clock className="w-3.5 h-3.5 text-blue-500" />
+          <Clock className="w-3.5 h-3.5 text-primary" />
           <span>تسليم: {fmtDate(caseData.dueDate)}</span>
         </span>
       ) : null}

@@ -69,7 +69,7 @@ export const ROLE_ICONS: Record<string, string> = {
 
 export const ROLE_COLORS: Record<string, string> = {
   EXECUTIVE_ASSISTANT: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
-  CEO: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20",
+  CEO: "bg-blue-500/10 text-primary dark:text-primary border border-primary/20",
   SUPPORT: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
   SALES: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
   SMART_SELLER: "bg-violet-500/10 text-primary dark:text-primary border border-primary/20",
@@ -94,7 +94,7 @@ export const ROLE_COLORS: Record<string, string> = {
   AOV_SPECIALIST: "bg-cyan-500/10 text-info dark:text-info border border-info/20",
   EDUCATION_CENTER: "bg-lime-500/10 text-success dark:text-success border border-success/20",
   ACADEMY_GRADER: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
-  COURSE_COACH: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20",
+  COURSE_COACH: "bg-blue-500/10 text-primary dark:text-primary border border-primary/20",
   DENTAL: "bg-cyan-500/10 text-info dark:text-info border border-info/20",
   MEDICAL_CENTER: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
   MEDICAL_CENTER_MANAGER: "bg-teal-500/10 text-success dark:text-success border border-success/20",
@@ -163,7 +163,7 @@ export const ROLES = [
 export const toneColors: Record<string, string> = {
   empathetic: "text-pink-600 bg-primary/10 dark:bg-primary/40 dark:text-primary",
   persuasive: "text-amber-600 bg-warning/10 dark:bg-warning/40 dark:text-warning",
-  professional: "text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400",
+  professional: "text-blue-600 bg-primary/10 dark:bg-primary/40 dark:text-primary",
   analytical: "text-slate-600 bg-muted dark:bg-muted dark:text-muted-foreground",
   creative: "text-violet-600 bg-primary/10 dark:bg-primary/40 dark:text-primary",
   strategic: "text-indigo-600 bg-primary/10 dark:bg-primary/40 dark:text-primary",

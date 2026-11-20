@@ -31,7 +31,7 @@ export const DentalInvoiceBatchOptions: React.FC<DentalInvoiceBatchOptionsProps>
   return (
     <>
       {/* Include all statuses toggle */}
-      <div className="p-3 bg-blue-50/60 dark:bg-blue-950/30 rounded-xl border border-blue-200 dark:border-blue-900/40 flex items-center justify-between gap-3">
+      <div className="p-3 bg-primary/60 dark:bg-primary/30 rounded-xl border border-primary dark:border-primary/40 flex items-center justify-between gap-3">
         <label
           htmlFor="include-all-statuses-checkbox"
           className="flex items-center gap-2.5 cursor-pointer select-none"
@@ -42,7 +42,7 @@ export const DentalInvoiceBatchOptions: React.FC<DentalInvoiceBatchOptionsProps>
             checked={includeAllStatuses}
             onChange={(e) => onIncludeAllToggle(e.target.checked)}
             disabled={loadingSummary || submitting}
-            className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-border cursor-pointer"
+            className="w-4 h-4 rounded text-primary focus:ring-primary border-border cursor-pointer"
           />
           <span className="text-xs font-bold text-foreground">
             تضمين كافة الحالات المسجلة (حتى تحت التشغيل والتصميم)

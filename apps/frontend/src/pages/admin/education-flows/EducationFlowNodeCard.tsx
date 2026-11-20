@@ -57,7 +57,7 @@ export const EducationFlowNodeCard: React.FC<EducationFlowNodeCardProps> = ({
           label: 'فيسبوك ماسنجر (Messenger)',
           badgeCls: 'bg-blue-600 text-white',
           borderCls: 'border-blue-500',
-          textCls: 'text-blue-700 dark:text-blue-400',
+          textCls: 'text-blue-700 dark:text-primary',
         };
       case 'INSTAGRAM_DIRECT':
         return {
@@ -101,7 +101,7 @@ export const EducationFlowNodeCard: React.FC<EducationFlowNodeCardProps> = ({
       return (
         <span
           title={`قالب معتمد من Meta: ${templateName || 'UTILITY'}`}
-          className="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800 font-medium"
+          className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:bg-primary/60 dark:text-primary border border-primary dark:border-primary font-medium"
         >
           قالب معتمد خارج 24h
         </span>

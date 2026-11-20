@@ -201,13 +201,13 @@ export default function PlatformSignupCoupons() {
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-blue-600 dark:text-blue-400">كوبونات مجدولة</p>
-            <p className="text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-primary dark:text-primary">كوبونات مجدولة</p>
+            <p className="text-xl font-bold tracking-tight text-primary dark:text-primary font-mono tabular-nums mt-0.5">
               {summary.scheduledCoupons}
             </p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono">لحملات قادمة</p>
           </div>
-          <div className="size-7 rounded-md bg-blue-500/10 flex items-center justify-center text-blue-600">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary">
             <CalendarRange className="size-3.5" />
           </div>
         </div>

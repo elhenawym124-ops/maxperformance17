@@ -108,7 +108,7 @@ export const MyDashboardHeaderAndStats: React.FC<
                   <span className="text-2xl sm:text-3xl font-bold font-mono tabular-nums mb-1 text-muted-foreground/60">
                     --:--
                   </span>
-                  <span className="text-xs text-blue-100 font-medium">
+                  <span className="text-xs text-primary font-medium">
                     {t("employee.dashboard.notCheckedIn")}
                   </span>
                 </>

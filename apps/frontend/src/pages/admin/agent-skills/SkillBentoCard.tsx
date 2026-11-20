@@ -115,7 +115,7 @@ export const SkillBentoCard: React.FC<SkillBentoCardProps> = ({
               )}
               title={toolDef?.description || tName}
             >
-              {isWrite ? <Zap className="size-2.5 text-warning" /> : <Eye className="size-2.5 text-blue-500" />}
+              {isWrite ? <Zap className="size-2.5 text-warning" /> : <Eye className="size-2.5 text-primary" />}
               <span className="truncate max-w-[110px]" dir="ltr">{tName}</span>
             </span>
           );

@@ -171,14 +171,14 @@ export interface RadiologyStudy {
 
 export const RadiologyStatusMap: Record<string, { label: string; color: string }> = {
   PENDING_IMAGING: { label: "radiology.studyStatus.PENDING_IMAGING", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
-  IMAGED: { label: "radiology.studyStatus.IMAGED", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  IMAGED: { label: "radiology.studyStatus.IMAGED", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   PENDING_REPORT: { label: "radiology.studyStatus.PENDING_REPORT", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   REPORTED: { label: "radiology.studyStatus.REPORTED", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
   DELIVERED: { label: "radiology.studyStatus.DELIVERED", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const RadiologyReportStatusMap: Record<string, { label: string; color: string }> = {
-  DRAFT: { label: "radiology.reportStatus.DRAFT", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  DRAFT: { label: "radiology.reportStatus.DRAFT", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   REVIEWED: { label: "radiology.reportStatus.REVIEWED", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
   SIGNED: { label: "radiology.reportStatus.SIGNED", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
   DELIVERED: { label: "radiology.reportStatus.DELIVERED", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
@@ -186,13 +186,13 @@ export const RadiologyReportStatusMap: Record<string, { label: string; color: st
 
 export const RadiologySubmissionStatusMap: Record<string, { label: string; color: string }> = {
   NOT_SUBMITTED: { label: "radiology.submissionStatus.NOT_SUBMITTED", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
-  SUBMITTED: { label: "radiology.submissionStatus.SUBMITTED", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  SUBMITTED: { label: "radiology.submissionStatus.SUBMITTED", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   REPORT_READY: { label: "radiology.submissionStatus.REPORT_READY", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
 };
 
 export const RadiologyOrderStatusMap: Record<string, { label: string; color: string }> = {
   PENDING:    { label: "radiology.orderStatus.PENDING",    color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
-  CHECKED_IN: { label: "radiology.orderStatus.CHECKED_IN", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  CHECKED_IN: { label: "radiology.orderStatus.CHECKED_IN", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   IN_PROGRESS:{ label: "radiology.orderStatus.IN_PROGRESS",color: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
   COMPLETED:  { label: "radiology.orderStatus.COMPLETED",  color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
   CANCELLED:  { label: "radiology.orderStatus.CANCELLED",  color: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" },
@@ -372,7 +372,7 @@ export const derivePrimaryStage = (study: { status?: string }): RadiologyStage =
 
 export const RADIOLOGY_STAGE_META: Record<RadiologyStage, { label: string; color: string }> = {
   RECEPTION: { label: "radiology.stage.RECEPTION", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
-  IMAGING: { label: "radiology.stage.IMAGING", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  IMAGING: { label: "radiology.stage.IMAGING", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   REPORT: { label: "radiology.stage.REPORT", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   DELIVERED: { label: "radiology.stage.DELIVERED", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },
 };

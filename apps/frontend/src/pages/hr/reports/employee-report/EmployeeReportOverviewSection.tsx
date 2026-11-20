@@ -35,7 +35,7 @@ export const EmployeeReportOverviewSection: React.FC<
   return (
     <>
       <Card className="border-none shadow-lg overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-primary text-white">
+        <CardHeader className="bg-gradient-to-r from-primary to-primary text-white">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-white/10 rounded-xl backdrop-blur-sm">
               <User className="h-10 w-10" />
@@ -86,7 +86,7 @@ export const EmployeeReportOverviewSection: React.FC<
                 <p className="text-muted-foreground text-sm">
                   طلبات الإجازات
                 </p>
-                <h3 className="text-3xl font-bold mt-1 text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+                <h3 className="text-3xl font-bold mt-1 text-primary dark:text-primary font-mono tabular-nums">
                   {report.leaves?.totalRequests || 0}
                 </h3>
                 <p className="text-xs text-muted-foreground mt-1">
@@ -96,7 +96,7 @@ export const EmployeeReportOverviewSection: React.FC<
                   موافق عليها
                 </p>
               </div>
-              <Calendar className="h-10 w-10 text-blue-500/20 dark:text-blue-400/20" />
+              <Calendar className="h-10 w-10 text-primary/20 dark:text-primary/20" />
             </div>
           </CardContent>
         </Card>
@@ -176,7 +176,7 @@ export const EmployeeReportOverviewSection: React.FC<
                   {report.attendance?.lateDays || 0}
                 </Badge>
               </div>
-              <div className="flex justify-between items-center p-3 bg-blue-50 dark:bg-blue-900/10 rounded-lg">
+              <div className="flex justify-between items-center p-3 bg-primary/10 dark:bg-primary/10 rounded-lg">
                 <span className="text-sm font-medium dark:text-muted-foreground">
                   إجمالي ساعات العمل
                 </span>
@@ -221,11 +221,11 @@ export const EmployeeReportOverviewSection: React.FC<
                   +{formatCurrency(report.payroll?.allowances || 0)}
                 </span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-blue-50 dark:bg-blue-900/10 rounded-lg">
+              <div className="flex justify-between items-center p-3 bg-primary/10 dark:bg-primary/10 rounded-lg">
                 <span className="text-sm font-medium dark:text-muted-foreground">
                   مكافأة الوقت الإضافي
                 </span>
-                <span className="font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+                <span className="font-bold text-primary dark:text-primary font-mono tabular-nums">
                   +{formatCurrency(report.payroll?.overtimePay || 0)}
                 </span>
               </div>
@@ -281,14 +281,14 @@ export const EmployeeReportOverviewSection: React.FC<
                   </p>
                 </div>
               )}
-              <div className="p-4 bg-gradient-to-br from-blue-50 to-primary dark:from-blue-900/10 dark:to-primary/10 rounded-lg border border-blue-200 dark:border-blue-800">
+              <div className="p-4 bg-gradient-to-br from-primary to-primary dark:from-primary/10 dark:to-primary/10 rounded-lg border border-primary dark:border-primary">
                 <div className="flex items-center gap-2 mb-2">
-                  <Target className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  <Target className="h-5 w-5 text-primary dark:text-primary" />
                   <span className="text-sm font-medium dark:text-muted-foreground">
                     أهداف نشطة
                   </span>
                 </div>
-                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+                <p className="text-3xl font-bold text-primary dark:text-primary font-mono tabular-nums">
                   {report.performance?.activeGoals || 0}
                 </p>
               </div>

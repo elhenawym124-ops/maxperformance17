@@ -56,7 +56,7 @@ const statusConfig: Record<
   },
   IN_PROGRESS: {
     label: "قيد العمل",
-    badgeClass: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800",
+    badgeClass: "bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary",
   },
   READY: {
     label: "جاهز للإطلاق",
@@ -235,9 +235,9 @@ const DevReleases: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">قيد التطوير والتجهيز</span>
-            <Clock className="size-3.5 text-blue-500" />
+            <Clock className="size-3.5 text-primary" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-blue-600 dark:text-blue-400 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold tracking-tight font-mono text-primary dark:text-primary tabular-nums">
             {stats.inProgress}
           </div>
         </div>
@@ -447,8 +447,8 @@ const DevReleases: React.FC = () => {
                     <p className="text-[11px] text-muted-foreground">إصلاحات أخطاء</p>
                   </div>
 
-                  <div className="rounded-lg bg-blue-50/40 dark:bg-blue-950/20 border border-blue-200/50 dark:border-blue-800/50 p-2.5 text-center">
-                    <div className="flex items-center justify-center gap-1 text-blue-600 dark:text-blue-400">
+                  <div className="rounded-lg bg-primary/40 dark:bg-primary/20 border border-primary/50 dark:border-primary/50 p-2.5 text-center">
+                    <div className="flex items-center justify-center gap-1 text-primary dark:text-primary">
                       <Wrench className="size-3.5" />
                       <p className="text-base font-bold font-mono tabular-nums">
                         {release.tasksByType?.enhancements ?? 0}

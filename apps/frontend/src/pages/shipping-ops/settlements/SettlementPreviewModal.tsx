@@ -123,7 +123,7 @@ export const SettlementPreviewModal: React.FC<SettlementPreviewModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border">
           <div className="flex items-center gap-2">
-            <Calculator className="w-5 h-5 text-blue-600" />
+            <Calculator className="w-5 h-5 text-primary" />
             <h3 className="font-bold text-foreground dark:text-white text-base">
               معاينة وتوليد كشف COD جديد
             </h3>
@@ -177,7 +177,7 @@ export const SettlementPreviewModal: React.FC<SettlementPreviewModalProps> = ({
           <button
             onClick={handleGeneratePreview}
             disabled={loadingPreview || !selectedMerchantId}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg disabled:opacity-50 transition-colors"
+            className="px-4 py-2 bg-primary hover:bg-primary text-white text-sm font-medium rounded-lg disabled:opacity-50 transition-colors"
           >
             {loadingPreview ? 'جارٍ الاحتساب...' : 'احتساب المعاينة'}
           </button>
@@ -241,7 +241,7 @@ export const SettlementPreviewModal: React.FC<SettlementPreviewModalProps> = ({
                         selectedShipmentIds.length === preview.lines.length && preview.lines.length > 0
                       }
                       onChange={toggleSelectAll}
-                      className="rounded text-blue-600"
+                      className="rounded text-primary"
                     />
                     تحديد الكل ({selectedShipmentIds.length} من {preview.lines.length})
                   </label>
@@ -273,7 +273,7 @@ export const SettlementPreviewModal: React.FC<SettlementPreviewModalProps> = ({
                             key={l.shipmentId}
                             onClick={() => toggleShipment(l.shipmentId)}
                             className={`hover:bg-slate-50 dark:hover:bg-muted cursor-pointer ${
-                              selectedShipmentIds.includes(l.shipmentId) ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''
+                              selectedShipmentIds.includes(l.shipmentId) ? 'bg-blue-50/40 dark:bg-primary/20' : ''
                             }`}
                           >
                             <td className="p-2 text-center" onClick={(e) => e.stopPropagation()}>
@@ -281,7 +281,7 @@ export const SettlementPreviewModal: React.FC<SettlementPreviewModalProps> = ({
                                 type="checkbox"
                                 checked={selectedShipmentIds.includes(l.shipmentId)}
                                 onChange={() => toggleShipment(l.shipmentId)}
-                                className="rounded text-blue-600"
+                                className="rounded text-primary"
                               />
                             </td>
                             <td className="p-2 font-mono text-[11px]">{l.shipmentBarcode}</td>

@@ -2,7 +2,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export const INPUT_CLS = "w-full border rounded-lg px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground";
 export const BTN_CLS = "px-4 py-2 rounded-lg text-sm font-medium transition-colors";
-export const BTN_PRIMARY = `${BTN_CLS} bg-blue-600 text-white hover:bg-blue-700`;
+export const BTN_PRIMARY = `${BTN_CLS} bg-primary text-white hover:bg-primary`;
 export const BTN_GHOST = `${BTN_CLS} text-muted-foreground hover:bg-muted`;
 
 export default function Modal({ title, children, onClose }: { title: string; children: React.ReactNode; onClose: () => void }) {

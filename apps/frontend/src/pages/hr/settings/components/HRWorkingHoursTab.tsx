@@ -106,16 +106,16 @@ export const HRWorkingHoursTab: React.FC<HRWorkingHoursTabProps> = ({
         </div>
 
         <div className="col-span-2">
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <div className="text-blue-600 dark:text-blue-400 mt-0.5">
+              <div className="text-blue-600 dark:text-primary mt-0.5">
                 <Info className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-1">
+                <h4 className="font-medium text-primary dark:text-primary mb-1">
                   أوقات العمل تُدار من خلال المناوبات
                 </h4>
-                <p className="text-sm text-blue-700 dark:text-blue-300">
+                <p className="text-sm text-primary dark:text-primary">
                   يتم تحديد أوقات بداية ونهاية العمل لكل موظف بناءً على المناوبة المعيّنة له. يمكنك إدارة المناوبات من صفحة &ldquo;المناوبات&rdquo;.
                 </p>
               </div>

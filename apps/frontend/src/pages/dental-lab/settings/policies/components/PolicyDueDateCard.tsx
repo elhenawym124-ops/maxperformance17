@@ -15,7 +15,7 @@ export function PolicyDueDateCard({
   return (
     <div className="rounded-xl border border-border/60 bg-card p-4 space-y-4">
       <h3 className="text-sm font-semibold flex items-center gap-2">
-        <Clock className="size-4 text-blue-500" />
+        <Clock className="size-4 text-primary" />
         قواعد حساب موعد التسليم (Lead Time & Due Date)
       </h3>
 

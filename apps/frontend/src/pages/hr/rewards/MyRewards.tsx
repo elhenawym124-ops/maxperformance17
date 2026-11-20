@@ -83,16 +83,16 @@ const MyRewards: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+        <Card className="bg-gradient-to-br from-primary to-primary border-primary">
           <CardContent className="p-6 flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-blue-700">عدد المكافآت</p>
-              <h3 className="text-3xl font-bold text-blue-900 mt-2">
+              <p className="text-sm font-medium text-primary">عدد المكافآت</p>
+              <h3 className="text-3xl font-bold text-primary mt-2">
                 {stats.count}
               </h3>
             </div>
-            <div className="h-12 w-12 bg-blue-200 rounded-full flex items-center justify-center">
-              <Trophy className="h-6 w-6 text-blue-700" />
+            <div className="h-12 w-12 bg-primary rounded-full flex items-center justify-center">
+              <Trophy className="h-6 w-6 text-primary" />
             </div>
           </CardContent>
         </Card>

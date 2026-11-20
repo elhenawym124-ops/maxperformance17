@@ -118,13 +118,13 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
         {/* Header */}
         <div className="p-4 border-b border-border dark:border-border flex items-center justify-between bg-muted dark:bg-muted">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-blue-600 text-white shadow-sm">
+            <div className="p-2 rounded-xl bg-primary text-white shadow-sm">
               <Package className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-sm font-bold text-foreground dark:text-white flex items-center gap-2">
                 اختر منتج الحملة
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-primary dark:bg-primary text-primary dark:text-primary">
                   {products.length} منتج
                 </span>
               </h2>
@@ -139,7 +139,7 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
               className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition"
               title="تحديث البيانات"
             >
-              <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin text-blue-600" : ""}`} />
+              <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin text-primary" : ""}`} />
             </button>
             <button
               type="button"
@@ -161,7 +161,7 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="ابحث بالاسم أو التصنيف..."
-              className="w-full ps-3 pe-9 py-2 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full ps-3 pe-9 py-2 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               autoFocus
             />
           </div>
@@ -185,7 +185,7 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
               className={`px-2.5 py-1 text-xs rounded-lg font-medium whitespace-nowrap flex items-center gap-1 transition ${
                 filterType === "TOP_MARGIN"
                   ? "bg-blue-600 text-white"
-                  : "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300"
+                  : "bg-blue-50 text-primary dark:bg-primary/40 dark:text-primary"
               }`}
             >
               <TrendingUp className="w-3 h-3" /> الأعلى هامش ربح
@@ -221,7 +221,7 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
           {loading ? (
             <div className="p-12 text-center text-xs text-muted-foreground">
-              <RefreshCw className="w-5 h-5 mx-auto mb-2 animate-spin text-blue-600" />
+              <RefreshCw className="w-5 h-5 mx-auto mb-2 animate-spin text-primary" />
               جاري فحص المنتجات ومعدلات الأرباح...
             </div>
           ) : filteredProducts.length === 0 ? (
@@ -259,8 +259,8 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
                   }}
                   className={`w-full text-right p-3 rounded-xl transition-all border flex items-center gap-3 cursor-pointer group ${
                     isSelected
-                      ? "bg-blue-50 dark:bg-blue-950/40 border-blue-400 dark:border-blue-600 shadow-sm ring-1 ring-blue-400"
-                      : "bg-white dark:bg-muted border-border dark:border-border hover:border-blue-300 dark:hover:border-blue-700 hover:bg-muted dark:hover:bg-muted"
+                      ? "bg-blue-50 dark:bg-primary/40 border-primary dark:border-primary shadow-sm ring-1 ring-primary"
+                      : "bg-white dark:bg-muted border-border dark:border-border hover:border-primary dark:hover:border-primary hover:bg-muted dark:hover:bg-muted"
                   }`}
                 >
                   {/* Thumbnail */}
@@ -284,7 +284,7 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
                         {product.name}
                       </h3>
                       {isSelected && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-600 text-white font-bold flex-shrink-0">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary text-white font-bold flex-shrink-0">
                           المحدد
                         </span>
                       )}

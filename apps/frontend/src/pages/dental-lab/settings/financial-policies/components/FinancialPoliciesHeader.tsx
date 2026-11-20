@@ -31,10 +31,10 @@ export function FinancialPoliciesHeader({
       </div>
 
       {isGracePeriodActive && (
-        <div className="p-3.5 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-950/30 flex items-center gap-3">
-          <ShieldCheck className="size-5 text-blue-500 shrink-0" />
+        <div className="p-3.5 rounded-xl border border-primary dark:border-primary bg-primary/50 dark:bg-primary/30 flex items-center gap-3">
+          <ShieldCheck className="size-5 text-primary shrink-0" />
           <div className="text-xs">
-            <span className="font-bold text-blue-700 dark:text-blue-300">
+            <span className="font-bold text-primary dark:text-primary">
               فترة الأمان التجريبية (Grace Period) مفعّلة حالياً
             </span>
             <p className="text-muted-foreground mt-0.5">

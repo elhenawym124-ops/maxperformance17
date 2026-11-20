@@ -175,10 +175,10 @@ export const Step5AdvancedSettings: React.FC<Step5AdvancedSettingsProps> = ({
             </div>
           ))}
         </div>
-        <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+        <div className="mt-3 p-3 bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg">
           <div className="flex gap-2">
-            <InformationCircleIcon className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-blue-800 dark:text-blue-200">
+            <InformationCircleIcon className="w-5 h-5 text-primary dark:text-primary flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-primary dark:text-primary">
               يجب تحديد فئات الإعلانات الخاصة إذا كانت إعلاناتك تتعلق بالإسكان أو
               التوظيف أو الائتمان.
             </p>

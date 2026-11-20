@@ -493,7 +493,7 @@ export const StorefrontThemesTab: React.FC<StorefrontThemesTabProps> = ({
           <div className="col-span-12">
             <Alert
               variant="default"
-              className="border-blue-500/50 text-blue-700 dark:border-blue-500/40 dark:text-blue-400"
+              className="border-blue-500/50 text-primary dark:border-primary/40 dark:text-primary"
             >
               لا توجد قوالب مطابقة للبحث أو الفلاتر الحالية.
             </Alert>

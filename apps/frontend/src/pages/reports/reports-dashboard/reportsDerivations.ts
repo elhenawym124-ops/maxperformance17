@@ -244,7 +244,7 @@ export function calculateDerivedMetrics(
       title: "إجمالي الطلبات",
       value: totalOrders.toLocaleString(),
       icon: ShoppingCartIcon,
-      color: "text-blue-600 bg-blue-50 dark:bg-blue-900/20",
+      color: "text-blue-600 bg-primary/10 dark:bg-primary/20",
     },
     {
       id: "items-sold",

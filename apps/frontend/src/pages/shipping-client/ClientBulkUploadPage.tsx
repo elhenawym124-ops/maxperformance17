@@ -199,7 +199,7 @@ export default function ClientBulkUploadPage() {
         <div className="text-gray-500 text-xs">
           اختر ملف CSV يحتوي على شحناتك وفق النموذج المعتمد
         </div>
-        <label className="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded cursor-pointer transition-colors shadow-sm">
+        <label className="inline-block px-4 py-2 bg-primary hover:bg-primary text-white text-xs font-semibold rounded cursor-pointer transition-colors shadow-sm">
           تحديد ملف CSV
           <input
             type="file"

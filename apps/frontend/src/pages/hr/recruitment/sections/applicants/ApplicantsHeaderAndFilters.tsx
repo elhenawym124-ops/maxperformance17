@@ -34,7 +34,7 @@ export const ApplicantsHeaderAndFilters: React.FC<
         </div>
         <button
           onClick={onOpenAddModal}
-          className="px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all flex items-center gap-2 font-semibold"
+          className="px-6 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:shadow-lg transition-all flex items-center gap-2 font-semibold"
         >
           <PlusIcon className="w-5 h-5" />
           إضافة متقدم
@@ -50,13 +50,13 @@ export const ApplicantsHeaderAndFilters: React.FC<
               placeholder="ابحث عن متقدم..."
               value={searchTerm}
               onChange={(e) => onSearchTermChange(e.target.value)}
-              className="w-full pe-10 ps-4 py-3 border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+              className="w-full pe-10 ps-4 py-3 border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
             />
           </div>
           <select
             value={filterStatus}
             onChange={(e) => onFilterStatusChange(e.target.value)}
-            className="px-4 py-3 border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+            className="px-4 py-3 border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
           >
             <option value="all">جميع الحالات</option>
             <option value="NEW">جديد</option>

@@ -72,7 +72,7 @@ export function AttachmentCardThumbnail({
         <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
       )}
       {is3D && (
-        <div className="absolute top-1 right-1 bg-blue-600 text-white text-[9px] px-1.5 py-0.5 rounded font-bold font-mono">
+        <div className="absolute top-1 right-1 bg-primary text-white text-[9px] px-1.5 py-0.5 rounded font-bold font-mono">
           3D
         </div>
       )}

@@ -124,7 +124,7 @@ export const PolarisRecruitmentView: React.FC<PolarisRecruitmentViewProps> = ({
           <Card className="rounded-xl border border-border/70 bg-card p-3 shadow-xs">
             <div className="flex items-center justify-between text-muted-foreground mb-1">
               <span className="text-[11px] font-medium">إجمالي المتقدمين</span>
-              <Users className="h-3.5 w-3.5 text-blue-500" />
+              <Users className="h-3.5 w-3.5 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">
               {stats.totalApplicants}

@@ -196,7 +196,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
           <select
             value={filterMerchantId}
             onChange={(e) => setFilterMerchantId(e.target.value)}
-            className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="">{isEn ? 'All Merchants' : 'جميع العملاء / التجار'}</option>
             {merchants.map((m) => (
@@ -217,7 +217,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
           </button>
           <button
             onClick={handleOpenCreate}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg shadow-sm transition active:scale-95"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary dark:bg-primary dark:hover:bg-primary rounded-lg shadow-sm transition active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>{isEn ? 'Add Package' : 'إضافة باقة شهرية'}</span>
@@ -262,7 +262,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
                   <tr key={pkg.id} className="hover:bg-slate-50/50 dark:hover:bg-muted transition-colors">
                     <td className="px-4 py-3 font-semibold text-foreground dark:text-white">
                       <div className="flex items-center gap-2">
-                        <Package className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                        <Package className="w-4 h-4 text-primary dark:text-primary shrink-0" />
                         <span>{pkg.name}</span>
                       </div>
                     </td>
@@ -278,7 +278,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
                           {isEn ? 'Monthly Flat' : 'ثابت شهري'}
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-400">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary dark:bg-primary/40 dark:text-primary">
                           {isEn ? 'Per Shipment' : 'لكل شحنة'}
                         </span>
                       )}
@@ -321,7 +321,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
                       <div className="flex items-center justify-center gap-1">
                         <button
                           onClick={() => handleOpenEdit(pkg)}
-                          className="p-1 text-muted-foreground hover:text-blue-600 transition"
+                          className="p-1 text-muted-foreground hover:text-primary transition"
                           title={isEn ? 'Edit' : 'تعديل'}
                         >
                           <Pencil className="w-3.5 h-3.5" />
@@ -350,7 +350,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl w-full max-w-lg p-5 sm:p-6 shadow-xl space-y-4 my-8">
             <div className="flex justify-between items-center border-b border-border dark:border-border pb-3">
               <h3 className="text-base sm:text-lg font-bold text-foreground dark:text-white flex items-center gap-2">
-                <Package className="w-5 h-5 text-blue-600" />
+                <Package className="w-5 h-5 text-primary" />
                 <span>{editingPackage ? (isEn ? 'Edit Package' : 'تعديل باقة شهرية') : (isEn ? 'Add Pricing Package' : 'إضافة باقة شحن شهرية')}</span>
               </h3>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-foreground">
@@ -367,7 +367,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
                   required
                   value={formData.merchantId}
                   onChange={(e) => setFormData({ ...formData, merchantId: e.target.value })}
-                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-transparent dark:bg-muted focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-transparent dark:bg-muted focus:ring-2 focus:ring-primary"
                 >
                   <option value="">{isEn ? 'Select Client' : 'اختر العميل...'}</option>
                   {merchants.map((m) => (
@@ -386,7 +386,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder={isEn ? 'e.g. VIP 500 Nasr City' : 'مثال: باقة 0–500 شحنة (مدينة نصر والتجمع)'}
-                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-transparent focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-transparent focus:ring-2 focus:ring-primary"
                 />
               </div>
 
@@ -504,7 +504,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
                   type="checkbox"
                   checked={formData.isActive}
                   onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                  className="w-4 h-4 text-blue-600 rounded border-border"
+                  className="w-4 h-4 text-primary rounded border-border"
                 />
                 <span className="font-medium text-foreground dark:text-muted-foreground">
                   {isEn ? 'Package is Active' : 'الباقة مفعّلة وجاهزة للتسعير'}
@@ -522,7 +522,7 @@ export const ClientPackagesTab: React.FC<ClientPackagesTabProps> = ({ merchants,
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm disabled:opacity-50"
+                  className="px-5 py-2 bg-primary hover:bg-primary text-white font-medium rounded-lg shadow-sm disabled:opacity-50"
                 >
                   {saving ? (isEn ? 'Saving...' : 'جاري الحفظ...') : (isEn ? 'Save Package' : 'حفظ الباقة')}
                 </button>

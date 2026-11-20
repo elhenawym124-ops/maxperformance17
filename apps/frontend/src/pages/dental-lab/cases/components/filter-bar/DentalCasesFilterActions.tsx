@@ -37,7 +37,7 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
           onClick={() => onLayoutModeChange("TABLE")}
           className={`p-1.5 rounded-lg transition-all ${
             layoutMode === "TABLE"
-              ? "bg-card text-blue-600 dark:text-blue-400 shadow-2xs font-bold"
+              ? "bg-card text-primary dark:text-primary shadow-2xs font-bold"
               : "text-slate-500 hover:text-foreground dark:text-muted-foreground"
           }`}
           title="عرض جدول الحالات"
@@ -50,7 +50,7 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
           onClick={() => onLayoutModeChange("KANBAN")}
           className={`p-1.5 rounded-lg transition-all ${
             layoutMode === "KANBAN"
-              ? "bg-card text-blue-600 dark:text-blue-400 shadow-2xs font-bold"
+              ? "bg-card text-primary dark:text-primary shadow-2xs font-bold"
               : "text-slate-500 hover:text-foreground dark:text-muted-foreground"
           }`}
           title="عرض لوحة مراحل التشغيل (كانبان)"
@@ -67,7 +67,7 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
         className="flex items-center gap-1 px-2.5 py-1.5 border border-border dark:border-border bg-card hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground rounded-xl text-xs font-semibold transition-colors"
         title="فتح محطة المسح السريع بالباركود"
       >
-        <ScanLine className="w-3.5 h-3.5 text-blue-500" />
+        <ScanLine className="w-3.5 h-3.5 text-primary" />
         <span className="hidden md:inline">الكشك</span>
       </button>
 
@@ -97,7 +97,7 @@ export const DentalCasesFilterActions: React.FC<DentalCasesFilterActionsProps> =
       <button
         type="button"
         onClick={onOpenQuickOrder}
-        className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white rounded-xl text-xs font-bold transition-all shadow-xs"
+        className="flex items-center gap-1.5 px-3 py-1.5 bg-primary hover:bg-primary active:scale-[0.98] text-white rounded-xl text-xs font-bold transition-all shadow-xs"
       >
         <Stethoscope className="w-3.5 h-3.5" />
         <span>طلب سريع</span>

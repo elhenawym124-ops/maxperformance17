@@ -46,7 +46,7 @@ export const COLOR_MAP: Record<
   blue: {
     bg: "bg-blue-600",
     text: "text-blue-600",
-    light: "bg-blue-100 dark:bg-blue-900/30",
+    light: "bg-blue-100 dark:bg-primary/30",
   },
   green: {
     bg: "bg-green-600",

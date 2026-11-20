@@ -103,7 +103,7 @@ export const RadiologyReportCriticalSection: React.FC<RadiologyReportCriticalSec
                 type="button"
                 onClick={() => void acknowledgeCritical()}
                 disabled={acknowledging}
-                className="mt-1 flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg border font-medium border-blue-300 text-blue-700 bg-blue-50 hover:bg-blue-100 dark:border-blue-800 dark:text-blue-300 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 disabled:opacity-50 cursor-pointer"
+                className="mt-1 flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg border font-medium border-primary text-primary bg-primary/10 hover:bg-primary dark:border-primary dark:text-primary dark:bg-primary/30 dark:hover:bg-primary/50 disabled:opacity-50 cursor-pointer"
               >
                 {acknowledging ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />

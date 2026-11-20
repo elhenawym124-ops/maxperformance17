@@ -250,7 +250,7 @@ export const WholesaleStatementPage: React.FC = () => {
                           سداد دفعة
                         </span>
                       ) : line.type === 'CREDIT_NOTE' ? (
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full border border-primary">
                           <CheckCircle2 size={12} />
                           إشعار دائن
                         </span>

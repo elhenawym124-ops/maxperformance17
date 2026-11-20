@@ -74,16 +74,16 @@ export const CreateWarningSidebar: React.FC<CreateWarningSidebarProps> = ({
       )}
 
       {/* Guidelines Card */}
-      <Card className="border-none shadow-md bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/20">
+      <Card className="border-none shadow-md bg-primary/50 dark:bg-primary/10 border-primary dark:border-primary/20">
         <CardHeader>
-          <CardTitle className="text-base text-blue-800 dark:text-blue-300 flex items-center gap-2">
+          <CardTitle className="text-base text-primary dark:text-primary flex items-center gap-2">
             <AlertCircle className="h-4 w-4" />
             سياسة التدرج في العقوبات
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3 text-sm text-blue-700/80 dark:text-blue-400/80">
+        <CardContent className="space-y-3 text-sm text-primary/80 dark:text-primary/80">
           <div className="flex gap-2 items-start">
-            <div className="h-5 w-5 rounded-full bg-blue-200 dark:bg-blue-800 flex flex-shrink-0 items-center justify-center text-[10px] font-bold font-mono tabular-nums mt-0.5">
+            <div className="h-5 w-5 rounded-full bg-primary dark:bg-primary flex flex-shrink-0 items-center justify-center text-[10px] font-bold font-mono tabular-nums mt-0.5">
               1
             </div>
             <p>
@@ -92,7 +92,7 @@ export const CreateWarningSidebar: React.FC<CreateWarningSidebarProps> = ({
             </p>
           </div>
           <div className="flex gap-2 items-start">
-            <div className="h-5 w-5 rounded-full bg-blue-200 dark:bg-blue-800 flex flex-shrink-0 items-center justify-center text-[10px] font-bold font-mono tabular-nums mt-0.5">
+            <div className="h-5 w-5 rounded-full bg-primary dark:bg-primary flex flex-shrink-0 items-center justify-center text-[10px] font-bold font-mono tabular-nums mt-0.5">
               2
             </div>
             <p>
@@ -101,7 +101,7 @@ export const CreateWarningSidebar: React.FC<CreateWarningSidebarProps> = ({
             </p>
           </div>
           <div className="flex gap-2 items-start">
-            <div className="h-5 w-5 rounded-full bg-blue-200 dark:bg-blue-800 flex flex-shrink-0 items-center justify-center text-[10px] font-bold font-mono tabular-nums mt-0.5">
+            <div className="h-5 w-5 rounded-full bg-primary dark:bg-primary flex flex-shrink-0 items-center justify-center text-[10px] font-bold font-mono tabular-nums mt-0.5">
               3
             </div>
             <p>

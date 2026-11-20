@@ -53,7 +53,7 @@ export const renderFeedbackStatusBadge = (status: string, t: TFunction) => {
       return (
         <Badge
           variant="secondary"
-          className="bg-blue-100 text-blue-700 hover:bg-blue-100 border-none"
+          className="bg-blue-100 text-primary hover:bg-primary border-none"
         >
           {t("employee.feedback.statusReplied")}
         </Badge>

@@ -46,7 +46,7 @@ export const WizardNavButtons: React.FC<WizardNavButtonsProps> = ({
         <button
           type="button"
           onClick={handleNext}
-          className="flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all font-medium shadow-lg shadow-blue-500/25"
+          className="flex items-center gap-2 px-8 py-3 bg-primary hover:bg-primary text-white rounded-xl transition-all font-medium shadow-lg shadow-primary/25"
         >
           {isEn ? "Next" : "التالي"}
           {isEn ? (

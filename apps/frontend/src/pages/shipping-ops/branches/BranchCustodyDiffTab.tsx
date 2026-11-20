@@ -139,7 +139,7 @@ export const BranchCustodyDiffTab: React.FC = () => {
           </div>
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3 shadow-sm">
             <span className="text-slate-500 text-[11px] block">إجمالي المستلم</span>
-            <span className="text-lg font-bold font-mono text-blue-600">{totals.totalReceived}</span>
+            <span className="text-lg font-bold font-mono text-primary">{totals.totalReceived}</span>
           </div>
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3 shadow-sm">
             <span className="text-slate-500 text-[11px] block">تحويل صادر</span>
@@ -195,7 +195,7 @@ export const BranchCustodyDiffTab: React.FC = () => {
                     <div className="font-bold text-foreground dark:text-muted-foreground">{row.branchName}</div>
                     <div className="text-[11px] text-muted-foreground font-mono">{row.branchCode} • {row.governorate}</div>
                   </td>
-                  <td className="px-3 py-3 text-center font-mono font-bold text-blue-600">
+                  <td className="px-3 py-3 text-center font-mono font-bold text-primary">
                     {row.received}
                   </td>
                   <td className="px-3 py-3 text-center font-mono font-medium text-warning">

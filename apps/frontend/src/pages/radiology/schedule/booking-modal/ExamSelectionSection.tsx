@@ -82,7 +82,7 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
                       type="button"
                       onClick={() => onToggleExam(et.id)}
                       className={`block w-full text-right px-3 py-2 text-sm hover:bg-muted/50 flex items-center justify-between gap-2 ${
-                        selected ? 'bg-blue-50 dark:bg-blue-900/30' : ''
+                        selected ? 'bg-blue-50 dark:bg-primary/30' : ''
                       }`}
                     >
                       <span className="min-w-0">
@@ -95,7 +95,7 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
                         ) : null}
                       </span>
                       {selected ? (
-                        <span className="text-xs text-blue-600 dark:text-blue-400 shrink-0">
+                        <span className="text-xs text-primary dark:text-primary shrink-0">
                           ✓
                         </span>
                       ) : null}
@@ -118,7 +118,7 @@ export const ExamSelectionSection: React.FC<ExamSelectionSectionProps> = ({
                   className={`flex items-center gap-1.5 text-xs border dark:border-border rounded-full px-2.5 py-1 ${
                     cov && !cov.covered
                       ? 'border-amber-500 text-warning dark:text-warning'
-                      : 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                      : 'bg-blue-50 dark:bg-primary/30 text-primary dark:text-primary'
                   }`}
                 >
                   <span className="font-medium">{et?.name || '—'}</span>

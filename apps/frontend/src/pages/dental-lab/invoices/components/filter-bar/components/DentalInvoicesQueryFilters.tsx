@@ -41,7 +41,7 @@ export const DentalInvoicesQueryFilters: React.FC<DentalInvoicesQueryFiltersProp
         <Search className="w-4 h-4 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
         <input
           type="text"
-          className="w-full ps-3 pe-9 py-1.5 border dark:border-border rounded-lg text-xs sm:text-sm dark:bg-muted focus:ring-2 focus:ring-blue-500"
+          className="w-full ps-3 pe-9 py-1.5 border dark:border-border rounded-lg text-xs sm:text-sm dark:bg-muted focus:ring-2 focus:ring-primary"
           placeholder="بحث برقم الفاتورة، اسم الدكتور، المريض..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}

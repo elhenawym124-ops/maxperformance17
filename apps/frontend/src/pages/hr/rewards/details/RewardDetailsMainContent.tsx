@@ -58,8 +58,8 @@ export const RewardDetailsMainContent: React.FC<
             {renderStatusBadge(normalizedStatus)}
           </div>
           {reward.isIncludedInPayroll && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
-              <p className="text-sm text-blue-800 font-medium">
+            <div className="bg-blue-50 border border-primary rounded-lg px-4 py-2">
+              <p className="text-sm text-primary font-medium">
                 مدرجة في كشف الرواتب
               </p>
             </div>
@@ -80,7 +80,7 @@ export const RewardDetailsMainContent: React.FC<
         {/* Employee Info */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <User className="w-5 h-5 text-blue-600" />
+            <User className="w-5 h-5 text-primary" />
             معلومات الموظف
           </h3>
           <div className="grid grid-cols-2 gap-4">
@@ -124,7 +124,7 @@ export const RewardDetailsMainContent: React.FC<
         {/* Reward Info */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Award className="w-5 h-5 text-blue-600" />
+            <Award className="w-5 h-5 text-primary" />
             تفاصيل المكافأة
           </h3>
           <div className="space-y-4">
@@ -169,7 +169,7 @@ export const RewardDetailsMainContent: React.FC<
         {/* Period Info */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-blue-600" />
+            <Calendar className="w-5 h-5 text-primary" />
             الفترة الزمنية
           </h3>
           <div className="grid grid-cols-2 gap-4">

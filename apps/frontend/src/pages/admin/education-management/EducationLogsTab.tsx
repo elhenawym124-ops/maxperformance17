@@ -37,7 +37,7 @@ import { fetchEducationLogsApi, fetchEducationLogsStatsApi, getEducationLogsExpo
 const getSeverityConfig = (isEn: boolean): Record<string, { label: string; color: string }> => ({
   LOW: {
     label: isEn ? "Low" : "عادي",
-    color: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+    color: "bg-blue-500/10 text-primary border-primary/20",
   },
   MEDIUM: {
     label: isEn ? "Medium" : "متوسط",
@@ -63,7 +63,7 @@ const getEntityConfig = (
   STUDENT: {
     label: isEn ? "Students" : "الطلاب",
     icon: User,
-    color: "text-blue-500 bg-blue-500/10 border-blue-500/20",
+    color: "text-blue-500 bg-primary/10 border-primary/20",
   },
   TEACHER: {
     label: isEn ? "Teachers" : "المدرسين",
@@ -347,9 +347,9 @@ export const EducationLogsTab: React.FC = () => {
         <div className="p-3 sm:p-4 rounded-xl bg-card border border-border/80 shadow-xs space-y-1">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>{isEn ? "Session Logs" : "سجلات الحصص"}</span>
-            <Clock className="w-4 h-4 text-blue-500" />
+            <Clock className="w-4 h-4 text-primary" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold text-blue-500 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold text-primary tabular-nums">
             {stats?.targetTypeCounts?.SESSION ?? 0}
           </div>
         </div>

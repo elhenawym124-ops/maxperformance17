@@ -49,7 +49,7 @@ export const ApplicantsGrid: React.FC<ApplicantsGridProps> = ({
               >
                 <div className="flex items-start justify-between mb-5">
                   <div className="flex items-center gap-3 flex-1">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white font-bold text-xl shadow-lg">
                       {applicant.name.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1">
@@ -70,8 +70,8 @@ export const ApplicantsGrid: React.FC<ApplicantsGridProps> = ({
                 </div>
 
                 <div className="grid grid-cols-1 gap-3 mb-5">
-                  <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
-                    <div className="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center">
+                  <div className="flex items-center gap-3 p-3 bg-primary/10 dark:bg-primary/20 rounded-xl border border-primary dark:border-primary">
+                    <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
                       <EnvelopeIcon className="w-4 h-4 text-white" />
                     </div>
                     <span className="text-sm text-foreground font-medium truncate">
@@ -133,14 +133,14 @@ export const ApplicantsGrid: React.FC<ApplicantsGridProps> = ({
 
                 <div className="mb-5">
                   <div className="text-xs font-bold text-foreground dark:text-muted-foreground mb-2 flex items-center gap-1">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full" />
+                    <span className="w-2 h-2 bg-primary rounded-full" />
                     المهارات
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {applicant.skills.slice(0, 4).map((skill, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-primary text-white text-xs font-semibold rounded-lg shadow-sm"
+                        className="px-3 py-1.5 bg-gradient-to-r from-primary to-primary text-white text-xs font-semibold rounded-lg shadow-sm"
                       >
                         {skill}
                       </span>
@@ -161,7 +161,7 @@ export const ApplicantsGrid: React.FC<ApplicantsGridProps> = ({
                 <div className="flex gap-3 pt-5 border-t-2 border-border dark:border-border">
                   <button
                     onClick={() => onViewDetails(applicant)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-semibold"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all font-semibold"
                   >
                     <EyeIcon className="w-5 h-5" />
                     عرض التفاصيل

@@ -123,7 +123,7 @@ export const BranchCustodyTab: React.FC<BranchCustodyTabProps> = ({ branches }) 
         {/* Branch Selector */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <Building2 className="w-5 h-5 text-blue-600" />
+            <Building2 className="w-5 h-5 text-primary" />
             <span className="text-xs font-semibold text-foreground dark:text-muted-foreground">
               {isEn ? 'Select Branch:' : 'فرع العهدة:'}
             </span>
@@ -149,7 +149,7 @@ export const BranchCustodyTab: React.FC<BranchCustodyTabProps> = ({ branches }) 
               onClick={() => setSubView('inventory')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                 subView === 'inventory'
-                  ? 'bg-white dark:bg-muted text-blue-600 shadow-sm'
+                  ? 'bg-white dark:bg-muted text-primary shadow-sm'
                   : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -185,7 +185,7 @@ export const BranchCustodyTab: React.FC<BranchCustodyTabProps> = ({ branches }) 
             <button
               onClick={() => setShowTransferModal(true)}
               disabled={selectedIds.length === 0}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow-sm"
+              className="px-4 py-2 bg-primary hover:bg-primary disabled:opacity-40 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow-sm"
             >
               <ArrowLeftRight className="w-4 h-4" />
               <span>{isEn ? `Transfer (${selectedIds.length})` : `تحويل شحنات (${selectedIds.length})`}</span>

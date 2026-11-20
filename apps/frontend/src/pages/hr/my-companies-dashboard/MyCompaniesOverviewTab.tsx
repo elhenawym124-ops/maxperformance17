@@ -102,7 +102,7 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
           title="الشركات"
           value={overview.totalCompanies}
           icon={<BuildingOffice2Icon className="w-6 h-6" />}
-          color="bg-gradient-to-r from-blue-500 to-blue-600"
+          color="bg-gradient-to-r from-primary to-primary"
           textColor="text-white"
         />
         <StatCard
@@ -155,7 +155,7 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
           </p>
           <button
             onClick={onOpenCreateModal}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
+            className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors inline-flex items-center gap-2"
           >
             <PlusIcon className="w-5 h-5" /> إنشاء أول شركة
           </button>
@@ -197,7 +197,7 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
                 <div className="flex flex-col items-end gap-2">
                   <button
                     onClick={() => onSwitchCompany(item.company.id)}
-                    className="flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium"
+                    className="flex items-center gap-1 text-primary hover:text-primary text-sm font-medium"
                   >
                     إدارة <ArrowRightIcon className="w-4 h-4" />
                   </button>
@@ -206,7 +206,7 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
                       onClick={() =>
                         onSetDefaultCompany(item.company.id, item.company.name)
                       }
-                      className="text-[10px] text-muted-foreground hover:text-blue-500 transition-colors"
+                      className="text-[10px] text-muted-foreground hover:text-primary transition-colors"
                     >
                       تعيين كافتراضية
                     </button>
@@ -216,8 +216,8 @@ export const MyCompaniesOverviewTab: React.FC<MyCompaniesOverviewTabProps> = ({
 
               {/* Stats Grid */}
               <div className="grid grid-cols-3 gap-3 mt-4">
-                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
-                  <ShoppingCartIcon className="w-5 h-5 mx-auto text-blue-600 mb-1" />
+                <div className="p-3 bg-primary/10 dark:bg-primary/20 rounded-lg text-center">
+                  <ShoppingCartIcon className="w-5 h-5 mx-auto text-primary mb-1" />
                   <p className="text-lg font-bold text-foreground dark:text-white font-mono tabular-nums">
                     {item.stats.todayOrders}
                   </p>

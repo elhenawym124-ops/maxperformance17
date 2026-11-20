@@ -29,7 +29,7 @@ export const CustomerWhatsAppCampaignProgress: React.FC<CustomerWhatsAppCampaign
       <div className="flex items-center justify-between border-b border-border/50 pb-3">
         <div className="flex items-center gap-2">
           {isRunning ? (
-            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">
+            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-primary dark:text-primary">
               <Activity className="h-3.5 w-3.5 animate-spin" />
             </div>
           ) : isCompleted ? (

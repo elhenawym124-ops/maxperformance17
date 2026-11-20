@@ -33,7 +33,7 @@ const renderTypeIcon = (type: string) => {
     case "PHONE":
       return <PhoneIcon className="w-5 h-5 text-success" />;
     case "IN_PERSON":
-      return <BuildingOfficeIcon className="w-5 h-5 text-blue-500" />;
+      return <BuildingOfficeIcon className="w-5 h-5 text-primary" />;
     default:
       return <ClockIcon className="w-5 h-5" />;
   }

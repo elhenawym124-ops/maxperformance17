@@ -32,10 +32,10 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
         className={`p-5 rounded-xl border transition-all ${
           isDark
             ? settings.isActive
-              ? "border-blue-700/60 bg-blue-950/20"
+              ? "border-blue-700/60 bg-primary/20"
               : "border-gray-700 bg-muted"
             : settings.isActive
-              ? "border-blue-200 bg-blue-50/50"
+              ? "border-blue-200 bg-primary/50"
               : "border-gray-200 bg-muted"
         }`}
       >
@@ -76,7 +76,7 @@ export const AffiliateStatusCards: React.FC<AffiliateStatusCardsProps> = ({
             <span
               className={`text-sm font-semibold ${
                 settings.isActive
-                  ? "text-blue-600 dark:text-blue-400"
+                  ? "text-blue-600 dark:text-primary"
                   : "text-muted-foreground"
               }`}
             >

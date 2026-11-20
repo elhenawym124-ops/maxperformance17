@@ -12,7 +12,7 @@ export const CampaignHeader: React.FC<CampaignHeaderProps> = ({ defaults }) => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold text-foreground mb-2 flex items-center gap-3">
-            <CalculatorIcon className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+            <CalculatorIcon className="w-10 h-10 text-primary dark:text-primary" />
             حاسبة توقعات نتائج الحملات
           </h1>
           <p className="text-muted-foreground">

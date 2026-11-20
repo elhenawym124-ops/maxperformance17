@@ -100,7 +100,7 @@ export default function DentalCaseFilesCard({
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-700 disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs hover:bg-primary disabled:opacity-50"
           >
             {uploading ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -129,8 +129,8 @@ export default function DentalCaseFilesCard({
         onClick={() => !uploading && fileInputRef.current?.click()}
         className={`flex flex-col items-center justify-center gap-2 px-4 py-6 mb-4 border-2 border-dashed rounded-lg cursor-pointer transition ${
           uploadDragOver
-            ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-            : "border-border hover:border-blue-400 hover:bg-muted dark:hover:bg-muted"
+            ? "border-blue-500 bg-primary/10 dark:bg-primary/20"
+            : "border-border hover:border-primary hover:bg-muted dark:hover:bg-muted"
         }`}
       >
         <UploadCloud
@@ -214,7 +214,7 @@ export default function DentalCaseFilesCard({
                 </div>
                 <div className="flex items-center gap-1.5 flex-shrink-0">
                   {it.status === "uploading" && (
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-500" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
                   )}
                   {it.status === "done" && <CheckCircle2 className="w-3.5 h-3.5 text-success" />}
                   {it.status === "error" && (
@@ -225,7 +225,7 @@ export default function DentalCaseFilesCard({
                           e.stopPropagation();
                           retryUpload(it.id);
                         }}
-                        className="text-[10px] text-blue-600 hover:underline"
+                        className="text-[10px] text-primary hover:underline"
                         title={it.error}
                       >
                         إعادة

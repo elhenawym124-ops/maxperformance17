@@ -19,7 +19,7 @@ import LeadFormLeadsModal from "./LeadFormLeadsModal";
 const BTN_GHOST =
   "flex items-center gap-2 px-4 py-2 text-foreground bg-card border border-border rounded-lg hover:bg-muted/50 disabled:opacity-60";
 const BTN_PRIMARY =
-  "flex items-center gap-2 px-4 py-2 text-white bg-blue-600 dark:bg-blue-500 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 disabled:opacity-60";
+  "flex items-center gap-2 px-4 py-2 text-white bg-primary dark:bg-primary rounded-lg hover:bg-primary dark:hover:bg-primary disabled:opacity-60";
 
 const LeadFormsManagement: React.FC = () => {
   const [pages, setPages] = useState<FacebookPage[]>([]);
@@ -119,7 +119,7 @@ const LeadFormsManagement: React.FC = () => {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <FileText className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+            <FileText className="w-7 h-7 text-primary dark:text-primary" />
             نماذج جمع البيانات
           </h1>
           <p className="text-gray-600 dark:text-muted-foreground mt-1">
@@ -181,7 +181,7 @@ const LeadFormsManagement: React.FC = () => {
           placeholder="البحث في النماذج..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pe-10 ps-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted"
+          className="w-full pe-10 ps-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground placeholder-muted dark:placeholder-muted"
         />
       </div>
 

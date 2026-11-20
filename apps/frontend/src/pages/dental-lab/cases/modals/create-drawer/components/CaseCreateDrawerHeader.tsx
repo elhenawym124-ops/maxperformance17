@@ -22,7 +22,7 @@ export const CaseCreateDrawerHeader: React.FC<CaseCreateDrawerHeaderProps> = ({
       <div className="px-6 py-4 border-b dark:border-border flex items-center justify-between bg-muted dark:bg-muted">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+            <span className="p-1.5 rounded-lg bg-primary dark:bg-primary/40 text-primary dark:text-primary">
               <Pencil className="w-4 h-4" />
             </span>
             <h3 className="text-lg font-bold text-foreground">
@@ -48,13 +48,13 @@ export const CaseCreateDrawerHeader: React.FC<CaseCreateDrawerHeaderProps> = ({
       </div>
 
       {initial && (
-        <div className="px-6 py-2.5 bg-blue-50/90 dark:bg-blue-950/40 border-b border-blue-100 dark:border-blue-900/60 flex items-center justify-between gap-3 text-xs">
-          <span className="text-blue-800 dark:text-blue-200">
+        <div className="px-6 py-2.5 bg-primary/90 dark:bg-primary/40 border-b border-primary dark:border-primary/60 flex items-center justify-between gap-3 text-xs">
+          <span className="text-blue-800 dark:text-primary">
             تريد إدارة فحص الجودة (QC)، الأشعة ثلاثية الأبعاد (STL)، أو الفواتير الموسعة؟
           </span>
           <Link
             to={`/dental-lab/cases/${initial.id}`}
-            className="font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 shrink-0"
+            className="font-bold text-primary dark:text-primary hover:underline flex items-center gap-1 shrink-0"
             onClick={onClose}
           >
             <span>فتح صفحة الأوردر</span>

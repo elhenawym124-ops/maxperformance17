@@ -31,9 +31,9 @@ export const ACTION_CONFIG: Record<
     label: 'إنشاء طلب إرجاع تلقائي',
     icon: Bot,
     badgeClass:
-      'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border-blue-200 dark:border-blue-800/40',
-    borderClass: 'border-blue-500 dark:border-blue-400',
-    dotClass: 'bg-blue-500 dark:bg-blue-400',
+      'bg-blue-50 text-primary dark:bg-primary/40 dark:text-primary border-primary dark:border-primary/40',
+    borderClass: 'border-blue-500 dark:border-primary',
+    dotClass: 'bg-blue-500 dark:bg-primary',
   },
   CONTACT_ATTEMPT: {
     label: 'تسجيل محاولة تواصل',
@@ -89,7 +89,7 @@ export const renderRoleBadge = (role?: string) => {
   }
   if (upper === 'ADMIN') {
     return (
-      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800/40">
+      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary dark:bg-primary/40 dark:text-primary dark:border-primary/40">
         مدير
       </span>
     );

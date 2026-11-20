@@ -172,7 +172,7 @@ export default function TreasuryCapitalTab({
   const getAccountIcon = (type: string) => {
     switch (type) {
       case "BANK":
-        return <Landmark className="w-5 h-5 text-blue-600 dark:text-blue-400" />;
+        return <Landmark className="w-5 h-5 text-primary dark:text-primary" />;
       case "WALLET":
         return <Wallet className="w-5 h-5 text-primary dark:text-primary" />;
       case "CUSTODY":
@@ -222,7 +222,7 @@ export default function TreasuryCapitalTab({
         <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground mb-1">
             <span className="text-xs font-medium">إجمالي رأس المال المودع</span>
-            <TrendingUp className="w-4 h-4 text-blue-600" />
+            <TrendingUp className="w-4 h-4 text-primary" />
           </div>
           <div className="text-xl sm:text-2xl font-bold font-mono text-foreground dark:text-muted-foreground tabular-nums">
             {formatMoney(stats?.totalInjectedCapital || 0)}
@@ -277,7 +277,7 @@ export default function TreasuryCapitalTab({
             <button
               onClick={() => setIsTransferOpen(true)}
               disabled={accounts.length < 2}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-xl transition-colors disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-primary bg-primary/10 dark:bg-primary/40 border border-primary dark:border-primary/60 hover:bg-primary dark:hover:bg-primary/40 rounded-xl transition-colors disabled:opacity-50"
             >
               <ArrowRightLeft className="w-3.5 h-3.5" />
               <span>تحويل بين الخزائن</span>
@@ -602,7 +602,7 @@ export default function TreasuryCapitalTab({
                                 : tx.type === "EXPENSE"
                                 ? "bg-red-100 text-destructive dark:bg-destructive/60 dark:text-destructive"
                                 : tx.type === "TRANSFER_IN"
-                                ? "bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300"
+                                ? "bg-blue-100 text-primary dark:bg-primary/60 dark:text-primary"
                                 : "bg-amber-100 text-warning dark:bg-warning/60 dark:text-warning"
                             }`}
                           >

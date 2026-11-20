@@ -49,7 +49,7 @@ export const AssetRequestsContentPanels: React.FC<
             </p>
           </div>
           <div className="bg-card p-4 rounded-xl border border-border dark:border-border shadow-sm">
-            <div className="flex items-center gap-3 text-blue-600 mb-2">
+            <div className="flex items-center gap-3 text-primary mb-2">
               <CheckBadgeIcon className="h-5 w-5" />
               <span className="text-sm font-bold">تمت الموافقة</span>
             </div>
@@ -219,7 +219,7 @@ export const AssetRequestsContentPanels: React.FC<
               className="rounded-xl border border-border/70 bg-card p-5 shadow-xs"
             >
               <div className="flex justify-between items-center mb-4">
-                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full">
+                <span className="px-3 py-1 bg-primary text-primary text-[10px] font-bold rounded-full">
                   معتمد - بانتظار التسليم
                 </span>
                 <span className="text-[10px] text-muted-foreground font-mono tabular-nums">

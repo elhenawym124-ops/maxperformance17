@@ -67,11 +67,11 @@ export const LeaveStatsCards: React.FC<LeaveStatsCardsProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-muted-foreground text-xs sm:text-sm">{t("employee.leaves.totalDays")}</p>
-              <h3 className="text-xl sm:text-3xl font-bold mt-1 text-blue-600 font-mono tabular-nums">
+              <h3 className="text-xl sm:text-3xl font-bold mt-1 text-primary font-mono tabular-nums">
                 {totalDays}
               </h3>
             </div>
-            <Calendar className="h-6 w-6 sm:h-10 sm:w-10 text-blue-500" />
+            <Calendar className="h-6 w-6 sm:h-10 sm:w-10 text-primary" />
           </div>
         </CardContent>
       </Card>

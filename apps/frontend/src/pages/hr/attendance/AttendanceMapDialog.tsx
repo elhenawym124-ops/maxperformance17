@@ -26,7 +26,7 @@ export const AttendanceMapDialog: React.FC<AttendanceMapDialogProps> = ({
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-blue-500" />
+            <MapPin className="h-5 w-5 text-primary" />
             موقع تسجيل الـ {selectedLocation?.type || "حضور/انصراف"}
           </DialogTitle>
         </DialogHeader>
@@ -45,7 +45,7 @@ export const AttendanceMapDialog: React.FC<AttendanceMapDialogProps> = ({
         <DialogFooter>
           <Button
             onClick={() => onOpenChange(false)}
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="w-full bg-primary hover:bg-primary"
           >
             إغلاق الخريطة
           </Button>

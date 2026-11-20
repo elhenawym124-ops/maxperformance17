@@ -129,7 +129,7 @@ export function DoctorsTable({
                   <td className="py-3 px-3 font-bold">
                     <Link
                       to={`/dental-lab/doctors/${d.id}`}
-                      className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1.5"
+                      className="text-blue-600 dark:text-primary hover:underline flex items-center gap-1.5"
                       title="عرض صفحة تفاصيل الطبيب"
                     >
                       <span>{d.name}</span>
@@ -148,7 +148,7 @@ export function DoctorsTable({
                       </span>
                       {d.doctors && d.doctors.length > 0 && (
                         <div className="flex flex-wrap items-center gap-1 mt-0.5">
-                          <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium border border-blue-200 dark:border-blue-800">
+                          <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary font-medium border border-primary dark:border-primary">
                             <Users className="w-3 h-3" /> {d.doctors.length} أطباء
                             بالعيادة
                           </span>
@@ -221,7 +221,7 @@ export function DoctorsTable({
                         <>
                           <button
                             onClick={() => onEdit(d)}
-                            className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg"
+                            className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg"
                             title={t("dentalLab.common.edit")}
                           >
                             <Pencil className="w-4 h-4" />

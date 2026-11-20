@@ -41,7 +41,7 @@ type ProjectTab = "list" | "kanban" | "calendar" | "next-up";
 
 const KANBAN_COLUMNS: Array<{ id: TaskStatus; title: string; color: string }> = [
   { id: "pending", title: "في الانتظار", color: "bg-amber-500/10 text-warning dark:text-warning border-warning/20" },
-  { id: "in_progress", title: "قيد التنفيذ", color: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20" },
+  { id: "in_progress", title: "قيد التنفيذ", color: "bg-blue-500/10 text-primary dark:text-primary border-primary/20" },
   { id: "in_review", title: "قيد المراجعة", color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20" },
   { id: "completed", title: "مكتمل", color: "bg-emerald-500/10 text-success dark:text-success border-success/20" },
 ];
@@ -204,9 +204,9 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
             </div>
 
             {/* In Progress */}
-            <div className="rounded-xl border border-blue-500/20 bg-blue-500/[0.04] p-2.5 min-w-[90px] text-center">
+            <div className="rounded-xl border border-primary/20 bg-primary/[0.04] p-2.5 min-w-[90px] text-center">
               <span className="text-[10px] text-muted-foreground block font-medium">قيد التنفيذ</span>
-              <span className="text-base font-bold text-blue-600 dark:text-blue-400">{inProgressTasks}</span>
+              <span className="text-base font-bold text-primary dark:text-primary">{inProgressTasks}</span>
             </div>
 
             {/* Completed */}

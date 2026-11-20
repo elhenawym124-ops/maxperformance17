@@ -16,16 +16,16 @@ export function DoctorCard({ doctor, selected, onSelect }: DoctorCardProps) {
       className={[
         "w-full text-right rounded-xl border-2 p-3 transition text-start",
         selected
-          ? "border-blue-500 bg-blue-50/70 dark:bg-blue-900/25 ring-1 ring-blue-400"
-          : "border-gray-200 dark:border-border hover:border-blue-300 dark:hover:border-blue-700 bg-card",
+          ? "border-blue-500 bg-primary/70 dark:bg-primary/25 ring-1 ring-primary"
+          : "border-gray-200 dark:border-border hover:border-primary dark:hover:border-primary bg-card",
       ].join(" ")}
     >
       <div className="flex items-center justify-between gap-2">
         <div className="font-semibold text-foreground flex items-center gap-1.5">
-          <Stethoscope className="w-4 h-4 text-blue-600" />
+          <Stethoscope className="w-4 h-4 text-primary" />
           {doctor.name}
         </div>
-        {selected && <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />}
+        {selected && <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />}
       </div>
       {doctor.clinicName && (
         <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
@@ -39,8 +39,8 @@ export function DoctorCard({ doctor, selected, onSelect }: DoctorCardProps) {
         </div>
       )}
       {Array.isArray(doctor.doctors) && doctor.doctors.length > 0 && (
-        <div className="text-[11px] text-blue-600 dark:text-blue-400 flex items-center gap-1 mt-1 font-medium font-mono tabular-nums">
-          <Users2 className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+        <div className="text-[11px] text-primary dark:text-primary flex items-center gap-1 mt-1 font-medium font-mono tabular-nums">
+          <Users2 className="w-3.5 h-3.5 text-primary shrink-0" />
           <span>يضم {doctor.doctors.length} أطباء بالعيادة</span>
         </div>
       )}
@@ -58,7 +58,7 @@ export function DoctorCard({ doctor, selected, onSelect }: DoctorCardProps) {
         </div>
         <div className="bg-gray-50 dark:bg-muted rounded p-1.5 text-center">
           <div className="text-gray-400">حالات نشطة</div>
-          <div className="font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums" dir="ltr">
+          <div className="font-bold text-primary dark:text-primary font-mono tabular-nums" dir="ltr">
             {doctor.activeCases ?? 0}
           </div>
         </div>

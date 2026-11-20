@@ -284,11 +284,11 @@ const AbsentDaysReport: React.FC = () => {
                       <p className="text-muted-foreground text-sm font-medium">
                         عدد الموظفين
                       </p>
-                      <h3 className="text-3xl font-bold mt-1 text-blue-600 dark:text-blue-400">
+                      <h3 className="text-3xl font-bold mt-1 text-primary dark:text-primary">
                         {report.totalEmployees || 0}
                       </h3>
                     </div>
-                    <Users className="h-10 w-10 text-blue-500/20 dark:text-blue-400/20" />
+                    <Users className="h-10 w-10 text-primary/20 dark:text-primary/20" />
                   </div>
                 </CardContent>
               </Card>

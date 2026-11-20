@@ -26,7 +26,7 @@ export const CaseCreatePricingNotesSection: React.FC<
   return (
     <>
       {/* Pricing & Discount */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-blue-50/50 dark:bg-blue-950/20 p-3 rounded-xl border border-blue-100 dark:border-blue-900/40">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-primary/50 dark:bg-primary/20 p-3 rounded-xl border border-primary dark:border-primary/40">
         <div>
           <label className={labelCls}>السعر المبدئي المحسوب (ج.م)</label>
           <input

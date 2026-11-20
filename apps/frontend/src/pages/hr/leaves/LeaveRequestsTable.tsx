@@ -208,7 +208,7 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                               <Button
                                 size="sm"
                                 variant="outline"
-                                className="border-blue-500 text-blue-600 hover:bg-blue-50"
+                                className="border-blue-500 text-primary hover:bg-primary/10"
                                 onClick={() => onOpenChangeDecision(request)}
                               >
                                 <RotateCcw className="h-4 w-4 ms-1" />

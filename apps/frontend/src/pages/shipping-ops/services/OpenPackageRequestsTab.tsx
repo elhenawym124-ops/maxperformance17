@@ -161,7 +161,7 @@ export const OpenPackageRequestsTab: React.FC<OpenPackageRequestsTabProps> = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={isEn ? 'Search barcode or requester...' : 'ابحث بالباركود أو صاحب الطلب...'}
-              className="w-full pe-9 ps-3 py-1.5 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full pe-9 ps-3 py-1.5 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
           <div className="flex items-center gap-1 bg-muted dark:bg-muted p-0.5 rounded-lg border border-border dark:border-border text-xs">

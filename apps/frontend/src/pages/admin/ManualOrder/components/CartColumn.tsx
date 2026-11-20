@@ -52,7 +52,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                         {items.map((item) => (
                             <div
                                 key={`${item.productId}-${item.variantId || 'default'}`}
-                                className={`flex gap-3 p-3 bg-card border rounded-lg group transition-colors ${item.quantity > item.stock ? 'border-red-300 dark:border-destructive bg-destructive/50 dark:bg-destructive/20' : 'border-gray-100 dark:border-border hover:border-blue-200 dark:hover:border-blue-600'}`}
+                                className={`flex gap-3 p-3 bg-card border rounded-lg group transition-colors ${item.quantity > item.stock ? 'border-red-300 dark:border-destructive bg-destructive/50 dark:bg-destructive/20' : 'border-gray-100 dark:border-border hover:border-primary dark:hover:border-primary'}`}
                             >
                                 {/* Image */}
                                 <div className="w-16 h-16 bg-muted rounded-md overflow-hidden flex-shrink-0">
@@ -78,7 +78,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                             سعر جملة
                                                         </span>
                                                     )}
-                                                    <span className="text-xs font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                                                    <span className="text-xs font-bold text-primary dark:text-primary whitespace-nowrap">
                                                         {item.price.toLocaleString()} {t('manualOrder.k_75')}
                                                     </span>
                                                 </div>
@@ -86,7 +86,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                             {(item.color || item.size) && (
                                                 <div className="flex flex-wrap gap-1.5 mt-1">
                                                     {item.color && (
-                                                        <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/20 dark:text-blue-300">
+                                                        <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary dark:bg-primary/20 dark:text-primary">
                                                             {t('manualOrder.k_85')} {item.color}
                                                         </span>
                                                     )}
@@ -99,7 +99,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                             )}
                                             {item.variantName &&
                                                 item.variantName !== [item.color, item.size].filter(Boolean).join(" / ") && (
-                                                    <div className="text-xs text-blue-600 dark:text-blue-400 font-medium mt-0.5 truncate">
+                                                    <div className="text-xs text-primary dark:text-primary font-medium mt-0.5 truncate">
                                                         {item.variantName}
                                                     </div>
                                                 )}
@@ -165,7 +165,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                             const val = parseFloat(e.target.value) || 0;
                                                             onUpdateItem(item.productId, { price: val }, item.variantId);
                                                         }}
-                                                        className={`w-full text-sm border-border rounded-md focus:ring-blue-500 focus:border-blue-500 pe-2 ps-8 font-bold dark:bg-muted dark:text-muted-foreground ${isAffiliate ? 'bg-gray-50 dark:bg-muted' : (item.price !== item.originalPrice ? 'text-orange-600 dark:text-warning bg-warning/10 dark:bg-warning/20 border-warning dark:border-warning' : 'text-foreground')}`}
+                                                        className={`w-full text-sm border-border rounded-md focus:ring-primary focus:border-primary pe-2 ps-8 font-bold dark:bg-muted dark:text-muted-foreground ${isAffiliate ? 'bg-gray-50 dark:bg-muted' : (item.price !== item.originalPrice ? 'text-orange-600 dark:text-warning bg-warning/10 dark:bg-warning/20 border-warning dark:border-warning' : 'text-foreground')}`}
                                                     />
                                                     <span className="absolute left-2 top-1.5 text-xs text-muted-foreground/80">{t('manualOrder.k_75')}</span>
                                                 </div>
@@ -188,10 +188,10 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                                                     price: item.originalPrice + markup
                                                                 }, item.variantId);
                                                             }}
-                                                            className="w-full text-xs border-blue-200 dark:border-blue-800 rounded-md focus:ring-blue-500 focus:border-blue-500 pe-2 ps-8 font-bold bg-blue-50/50 dark:bg-blue-900/10 text-blue-700 dark:text-blue-300"
+                                                            className="w-full text-xs border-primary dark:border-primary rounded-md focus:ring-primary focus:border-primary pe-2 ps-8 font-bold bg-primary/50 dark:bg-primary/10 text-primary dark:text-primary"
                                                             placeholder="0"
                                                         />
-                                                        <span className="absolute left-2 top-1 text-[10px] text-blue-400 dark:text-blue-500">{t('manualOrder.k_75')}</span>
+                                                        <span className="absolute left-2 top-1 text-[10px] text-primary dark:text-primary">{t('manualOrder.k_75')}</span>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col justify-end items-end pb-1 pe-1">
@@ -225,7 +225,7 @@ const CartColumn: React.FC<CartColumnProps> = ({
                                             <div className="text-[10px] text-muted-foreground/80 mt-0.5 text-right flex justify-end gap-1">
                                                 <span>{t('manualOrder.k_78')}{item.originalPrice}</span>
                                                 <button
-                                                    className="text-blue-500 dark:text-blue-400 hover:underline"
+                                                    className="text-blue-500 dark:text-primary hover:underline"
                                                     onClick={() => onUpdateItem(item.productId, { price: item.originalPrice }, item.variantId)}
                                                 >
                                                     {t('manualOrder.k_88')}
@@ -253,14 +253,14 @@ const CartColumn: React.FC<CartColumnProps> = ({
                     <span className="font-medium text-foreground">{items.reduce((acc, item) => acc + item.quantity, 0)}</span>
                 </div>
                 {isAffiliate && (
-                    <div className="flex justify-between items-center text-sm mb-2 text-blue-600 dark:text-blue-400">
+                    <div className="flex justify-between items-center text-sm mb-2 text-primary dark:text-primary">
                         <span>{t('manualOrder.k_80')}</span>
                         <span className="font-bold">{items.reduce((sum, item) => sum + (item.markup * item.quantity), 0).toLocaleString()}{t('manualOrder.k_75')}</span>
                     </div>
                 )}
                 <div className="flex justify-between items-center text-lg font-bold">
                     <span className="text-gray-800 dark:text-muted-foreground">{t('manualOrder.k_81')}</span>
-                    <span className="text-blue-600 dark:text-blue-400">{totalAmount.toLocaleString()}{t('manualOrder.k_75')}</span>
+                    <span className="text-blue-600 dark:text-primary">{totalAmount.toLocaleString()}{t('manualOrder.k_75')}</span>
                 </div>
             </div>
         </div>

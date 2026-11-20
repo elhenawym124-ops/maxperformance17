@@ -98,7 +98,7 @@ export const MyAppsTelemetryStrip: React.FC<MyAppsTelemetryStripProps> = ({
       <div className="rounded-xl border border-border/40 bg-card/60 p-3.5 sm:p-4 transition-all hover:bg-card">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-muted-foreground">استهلاك الشهر</span>
-          <div className="size-8 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center">
+          <div className="size-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
             <Activity className="size-4" />
           </div>
         </div>

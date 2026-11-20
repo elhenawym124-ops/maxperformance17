@@ -545,7 +545,7 @@ const ManualOrderPage = () => {
             <div className="p-4 border-t bg-muted dark:bg-muted">
               <button
                 onClick={() => setShowShortcuts(false)}
-                className="w-full py-2 bg-blue-600 text-white rounded-lg"
+                className="w-full py-2 bg-primary text-white rounded-lg"
               >
                 {t("manualOrder.ok", isEn ? "OK" : "حسناً")}
               </button>

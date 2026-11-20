@@ -34,7 +34,7 @@ export const CampaignAdvancedSettings: React.FC<CampaignAdvancedSettingsProps> =
                   targetAudienceSize: parseInt(e.target.value) || 0,
                 })
               }
-              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <div>
@@ -51,7 +51,7 @@ export const CampaignAdvancedSettings: React.FC<CampaignAdvancedSettingsProps> =
                   costPerMessage: parseFloat(e.target.value) || 0,
                 })
               }
-              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <div>
@@ -67,7 +67,7 @@ export const CampaignAdvancedSettings: React.FC<CampaignAdvancedSettingsProps> =
                   averageOrderValue: parseFloat(e.target.value) || 0,
                 })
               }
-              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
         </div>
@@ -92,14 +92,14 @@ export const CampaignAdvancedSettings: React.FC<CampaignAdvancedSettingsProps> =
                   expectedConversionRate: parseFloat(e.target.value) || 0,
                 })
               }
-              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary focus:border-primary"
             />
             <p className="text-xs text-muted-foreground mt-1">
               يُستخدم للتوقعات المستقبلية بناءً على الإرسال الناجح
             </p>
           </div>
           {/* Use Historical Data Toggle */}
-          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg">
+          <div className="mt-6 p-4 bg-primary/10 dark:bg-primary rounded-lg">
             <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
@@ -119,7 +119,7 @@ export const CampaignAdvancedSettings: React.FC<CampaignAdvancedSettingsProps> =
                     }));
                   }
                 }}
-                className="w-5 h-5 text-blue-600 dark:text-blue-400 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-5 h-5 text-primary dark:text-primary rounded focus:ring-2 focus:ring-primary focus:border-primary"
               />
               <div>
                 <p className="text-sm font-medium text-foreground">

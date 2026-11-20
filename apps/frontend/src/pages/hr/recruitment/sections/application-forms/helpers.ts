@@ -25,7 +25,7 @@ export const getApplicantStatusLabel = (status?: string): string => {
 
 export const getApplicantStatusBadgeClasses = (status?: string): string => {
   const classes: Record<string, string> = {
-    NEW: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+    NEW: "bg-blue-100 text-primary dark:bg-primary/30 dark:text-primary",
     REVIEWING:
       "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning",
     INTERVIEW_SCHEDULED:

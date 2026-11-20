@@ -23,7 +23,7 @@ export const QuickOrderModalHeader: React.FC<QuickOrderModalHeaderProps> = ({
       <div>
         <div className="flex items-center gap-2 flex-wrap">
           <h3 className="text-lg font-bold flex items-center gap-2">
-            <Stethoscope className="w-5 h-5 text-blue-600" />
+            <Stethoscope className="w-5 h-5 text-primary" />
             <span>الطلب السريع لأمر الشغل</span>
           </h3>
           {draftRestored && (

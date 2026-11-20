@@ -37,7 +37,7 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
     <div className="space-y-4">
       {loadingLogs ? (
         <div className="text-center py-12 text-muted-foreground">
-          <div className="inline-block w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mb-2" />
+          <div className="inline-block w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mb-2" />
           <p className="text-sm">{t('returns.k_144')}</p>
         </div>
       ) : (
@@ -48,7 +48,7 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
               onClick={() => setActivityFilter('')}
               className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
                 activityFilter === ''
-                  ? 'bg-blue-600 dark:bg-blue-500 text-white shadow-xs'
+                  ? 'bg-blue-600 dark:bg-primary text-white shadow-xs'
                   : 'bg-muted text-muted-foreground hover:bg-muted dark:hover:bg-muted'
               }`}
             >
@@ -64,7 +64,7 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                   onClick={() => setActivityFilter(action)}
                   className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                     activityFilter === action
-                      ? 'bg-blue-600 dark:bg-blue-500 text-white shadow-xs'
+                      ? 'bg-blue-600 dark:bg-primary text-white shadow-xs'
                       : 'bg-muted text-muted-foreground hover:bg-muted dark:hover:bg-muted'
                   }`}
                 >
@@ -132,11 +132,11 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                         {/* Who did it */}
                         <div className="flex items-center gap-2.5 pt-0.5">
                           {isSystem ? (
-                            <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-950/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 border border-blue-200 dark:border-blue-800/40">
+                            <div className="w-8 h-8 rounded-full bg-primary dark:bg-primary/60 flex items-center justify-center text-primary dark:text-primary shrink-0 border border-primary dark:border-primary/40">
                               <Bot size={16} />
                             </div>
                           ) : (
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-primary flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-2xs">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-2xs">
                               {initials || <User size={14} />}
                             </div>
                           )}
@@ -146,7 +146,7 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                             </span>
                             {log.user?.role && renderRoleBadge(log.user.role)}
                             {isSystem && (
-                              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/40">
+                              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary dark:bg-primary/40 dark:text-primary dark:border-primary/40">
                                 تلقائي
                               </span>
                             )}

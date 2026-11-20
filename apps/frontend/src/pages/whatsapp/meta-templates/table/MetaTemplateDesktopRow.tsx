@@ -283,7 +283,7 @@ export const MetaTemplateDesktopRow: React.FC<
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="mt-1 inline-flex items-center gap-1 text-[10px] font-medium text-blue-600 hover:underline dark:text-blue-400"
+                    className="mt-1 inline-flex items-center gap-1 text-[10px] font-medium text-primary hover:underline dark:text-primary"
                   >
                     <ExternalLink className="size-3" /> افتح في Meta Business
                   </a>

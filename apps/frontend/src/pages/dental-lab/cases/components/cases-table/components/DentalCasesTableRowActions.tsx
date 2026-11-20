@@ -45,7 +45,7 @@ export const DentalCasesTableRowActions: React.FC<DentalCasesTableRowActionsProp
           type="button"
           onClick={() => onRestoreCase(dentalCase)}
           disabled={isBusy}
-          className="p-1 text-xs font-semibold bg-blue-50 text-blue-700 rounded hover:bg-blue-100 transition-colors disabled:opacity-50"
+          className="p-1 text-xs font-semibold bg-primary/10 text-primary rounded hover:bg-primary transition-colors disabled:opacity-50"
           title="استعادة"
           aria-label="استعادة"
         >
@@ -70,7 +70,7 @@ export const DentalCasesTableRowActions: React.FC<DentalCasesTableRowActionsProp
       <button
         type="button"
         onClick={() => onInspectCase(dentalCase)}
-        className="p-1.5 hover:bg-blue-50 dark:hover:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-lg transition-colors"
+        className="p-1.5 hover:bg-primary/10 dark:hover:bg-primary/40 text-primary dark:text-primary rounded-lg transition-colors"
         title="معاينة سريعة منبثقة (درج فحص)"
         aria-label="معاينة فحص"
       >
@@ -96,7 +96,7 @@ export const DentalCasesTableRowActions: React.FC<DentalCasesTableRowActionsProp
         title="تعديل سريع"
         aria-label="تعديل سريع"
       >
-        <Pencil className="w-3.5 h-3.5 text-blue-500" />
+        <Pencil className="w-3.5 h-3.5 text-primary" />
       </button>
 
       <button

@@ -145,7 +145,7 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -168,7 +168,7 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -192,7 +192,7 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -219,7 +219,7 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -241,7 +241,7 @@ const MerchantRegister: React.FC = () => {
                 setFormData({ ...formData, address: e.target.value })
               }
               rows={3}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -269,7 +269,7 @@ const MerchantRegister: React.FC = () => {
                   commissionRate: parseFloat(e.target.value),
                 })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -318,7 +318,7 @@ const MerchantRegister: React.FC = () => {
                         : "",
                   })
                 }
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                   isDark
                     ? "bg-gray-700 border-border text-white"
                     : "bg-white border-border text-foreground"
@@ -345,7 +345,7 @@ const MerchantRegister: React.FC = () => {
                 disabled={
                   optionsLoading || formData.fulfillmentMode !== "COMPANY_WAREHOUSE"
                 }
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 disabled:opacity-60 ${
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary disabled:opacity-60 ${
                   isDark
                     ? "bg-gray-700 border-border text-white"
                     : "bg-white border-border text-foreground"
@@ -381,7 +381,7 @@ const MerchantRegister: React.FC = () => {
                 })
               }
               disabled={optionsLoading}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 disabled:opacity-60 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary disabled:opacity-60 ${
                 isDark
                   ? "bg-gray-700 border-border text-white"
                   : "bg-white border-border text-foreground"
@@ -414,7 +414,7 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, webhookUrl: e.target.value })
               }
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
                 isDark
                   ? "bg-gray-700 border-border text-white placeholder-muted"
                   : "bg-white border-border text-foreground"
@@ -437,7 +437,7 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, autoFulfill: e.target.checked })
               }
-              className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
+              className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
             />
             <label
               htmlFor="autoFulfill"
@@ -455,7 +455,7 @@ const MerchantRegister: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, isActive: e.target.checked })
               }
-              className="w-4 h-4 text-blue-600 border-border rounded focus:ring-blue-500"
+              className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
             />
             <label
               htmlFor="isActive"
@@ -467,7 +467,7 @@ const MerchantRegister: React.FC = () => {
 
           {/* Terms */}
           <div
-            className={`${isDark ? "bg-blue-900/30 border-blue-700" : "bg-blue-50 border-blue-200"} border rounded-lg p-4`}
+            className={`${isDark ? "bg-blue-900/30 border-primary" : "bg-blue-50 border-primary"} border rounded-lg p-4`}
           >
             <h3
               className={`font-semibold ${isDark ? "text-blue-300" : "text-blue-900"} mb-2`}
@@ -489,7 +489,7 @@ const MerchantRegister: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              className="flex-1 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition"
             >
               {loading ? "جاري التسجيل..." : "تسجيل كتاجر"}
             </button>

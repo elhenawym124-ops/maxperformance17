@@ -66,7 +66,7 @@ export function DoctorPortalTab({
 
       {/* Card 2: Contact & Registration Details */}
       <div className="bg-card rounded-xl border dark:border-border p-5 space-y-4 shadow-xs">
-        <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold">
+        <div className="flex items-center gap-2 text-primary dark:text-primary font-bold">
           <Building2 className="w-5 h-5" />
           <h3>بيانات الاتصال والعيادة</h3>
         </div>
@@ -106,7 +106,7 @@ export function DoctorPortalTab({
 
         <button
           onClick={onOpenEditModal}
-          className="w-full px-4 py-2 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/20 rounded-xl text-sm font-semibold hover:bg-blue-100 transition-colors"
+          className="w-full px-4 py-2 border border-primary dark:border-primary text-primary dark:text-primary bg-primary/50 dark:bg-primary/20 rounded-xl text-sm font-semibold hover:bg-primary transition-colors"
         >
           تعديل كامل الملف
         </button>

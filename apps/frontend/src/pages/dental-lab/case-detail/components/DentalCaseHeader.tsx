@@ -90,7 +90,7 @@ export default function DentalCaseHeader({
       <div className="flex flex-wrap items-center gap-3">
         <Link
           to="/dental-lab/cases"
-          className="text-blue-600 dark:text-blue-400 text-sm flex items-center gap-1 font-medium hover:underline"
+          className="text-blue-600 dark:text-primary text-sm flex items-center gap-1 font-medium hover:underline"
         >
           <ArrowRight className="w-4 h-4" />
           {t("dentalLab.common.back")}
@@ -146,7 +146,7 @@ export default function DentalCaseHeader({
           className="flex items-center gap-2 px-3 sm:px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50 disabled:opacity-50"
           title="طباعة ملصق الباركود لعلبة الشغل (حراري 80x50 مم)"
         >
-          {panLabelLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Box className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+          {panLabelLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Box className="w-4 h-4 text-primary dark:text-primary" />}
           ملصق العلبة
         </button>
 
@@ -192,7 +192,7 @@ export default function DentalCaseHeader({
         {!c.isDeleted && (
           <button
             onClick={onOpenEdit}
-            className="flex items-center gap-2 px-3.5 py-2 border border-blue-200 dark:border-blue-800 bg-blue-50/80 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 rounded-lg text-sm font-semibold hover:bg-blue-100 dark:hover:bg-blue-900/60 shadow-sm transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 border border-primary dark:border-primary bg-primary/80 dark:bg-primary/40 text-primary dark:text-primary rounded-lg text-sm font-semibold hover:bg-primary dark:hover:bg-primary/60 shadow-sm transition-colors"
           >
             <Pencil className="w-4 h-4" />
             تعديل الحالة بالكامل
@@ -227,7 +227,7 @@ export default function DentalCaseHeader({
         {next && !c.isTryIn && !c.isDeleted && (
           <button
             onClick={onOpenAdvance}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-primary"
           >
             <ArrowRightCircle className="w-4 h-4" />
             {t("dentalLab.cases.advance")}
@@ -249,7 +249,7 @@ export default function DentalCaseHeader({
             <button
               onClick={onRestore}
               disabled={caseBusy}
-              className="flex items-center gap-1.5 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-2 bg-primary hover:bg-primary text-white rounded-lg text-sm font-semibold disabled:opacity-50"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               استعادة

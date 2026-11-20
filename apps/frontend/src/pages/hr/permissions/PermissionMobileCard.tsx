@@ -37,7 +37,7 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
           <div className="flex items-center gap-2.5 min-w-0">
             <Avatar className="h-9 w-9 border border-border dark:border-border shrink-0">
               <AvatarImage src={request.employee?.avatar} />
-              <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-xs">
+              <AvatarFallback className="bg-blue-50 text-primary font-bold text-xs">
                 {request.employee?.firstName?.[0]}
                 {request.employee?.lastName?.[0]}
               </AvatarFallback>
@@ -92,13 +92,13 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
       {/* Time & Duration Box */}
       <div className="flex items-center justify-between text-xs bg-muted dark:bg-muted p-2.5 rounded-xl border border-border dark:border-border">
         <div className="flex items-center gap-1.5 text-foreground">
-          <Clock className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+          <Clock className="h-3.5 w-3.5 text-primary shrink-0" />
           <span className="font-bold font-mono tabular-nums">{request.startTime}</span>
           <span className="text-[10px] text-muted-foreground">{t("employee.permissions.timeDelimiter")}</span>
           <span className="font-bold font-mono tabular-nums">{request.endTime}</span>
         </div>
         <div className="flex items-center gap-1">
-          <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded font-bold font-mono tabular-nums">
+          <span className="px-2 py-0.5 bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary rounded font-bold font-mono tabular-nums">
             {request.totalHours}
           </span>
           <span className="text-[11px] text-muted-foreground">{t("employee.permissions.hour")}</span>
@@ -138,7 +138,7 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
         <Button
           size="sm"
           variant="outline"
-          className="h-9 min-h-[38px] px-3 text-xs text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg flex items-center gap-1.5 cursor-pointer"
+          className="h-9 min-h-[38px] px-3 text-xs text-primary hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg flex items-center gap-1.5 cursor-pointer"
           onClick={() => onDetailsClick(request)}
         >
           <Eye className="h-4 w-4" />

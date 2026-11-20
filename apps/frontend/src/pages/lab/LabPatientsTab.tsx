@@ -75,7 +75,7 @@ export default function LabPatientsTab() {
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="بحث بالاسم أو الهاتف"
               className={`${MODAL_INPUT_CLS} pe-9 max-w-xs`} />
           </div>
-          <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+          <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm">
             <Plus className="w-4 h-4" />مريض جديد
           </button>
           <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm">
@@ -135,7 +135,7 @@ export default function LabPatientsTab() {
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setModal(null)} className="px-4 py-2 text-foreground border rounded-lg">إلغاء</button>
-              <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">
+              <button onClick={save} disabled={saving} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50">
                 {saving ? "جاري الحفظ..." : "حفظ"}
               </button>
             </div>

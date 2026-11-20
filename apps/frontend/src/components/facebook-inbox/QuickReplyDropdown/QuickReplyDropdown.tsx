@@ -508,7 +508,7 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
                   <div className="flex items-center gap-1.5 flex-shrink-0 self-center">
                     <span
                       dir="ltr"
-                      className="text-[11px] font-mono font-bold px-2 py-1 rounded-lg bg-muted dark:bg-muted text-primary dark:text-blue-400 border border-border dark:border-border"
+                      className="text-[11px] font-mono font-bold px-2 py-1 rounded-lg bg-muted dark:bg-muted text-primary dark:text-primary border border-border dark:border-border"
                       style={{ unicodeBidi: "isolate" }}
                     >
                       {reply.shortcut}
@@ -521,7 +521,7 @@ const QuickReplyDropdown: React.FC<QuickReplyDropdownProps> = ({
                           e.stopPropagation();
                           handleDirectSendClick(e, reply);
                         }}
-                        className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 hover:bg-primary text-primary hover:text-white dark:bg-primary/25 dark:hover:bg-primary dark:text-blue-300 dark:hover:text-white transition-colors shadow-xs"
+                        className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 hover:bg-primary text-primary hover:text-white dark:bg-primary/25 dark:hover:bg-primary dark:text-primary dark:hover:text-white transition-colors shadow-xs"
                         title="إرسال مباشر للعميل فوراً"
                       >
                         <PaperAirplaneIcon className="w-3.5 h-3.5 rtl:-scale-x-100" />

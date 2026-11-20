@@ -246,7 +246,7 @@ export const AddLeaveDialog: React.FC<AddLeaveDialogProps> = ({
               className={`p-4 rounded-lg flex items-center justify-between ${
                 totalDaysCount === -1
                   ? "bg-red-50 dark:bg-destructive/20 text-destructive dark:text-destructive border border-destructive dark:border-destructive/30"
-                  : "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30"
+                  : "bg-blue-50 dark:bg-primary/20 text-primary dark:text-primary border border-primary dark:border-primary/30"
               }`}
             >
               <div className="flex items-center gap-2">
@@ -363,7 +363,7 @@ export const AddLeaveDialog: React.FC<AddLeaveDialogProps> = ({
               !formData.endDate ||
               (!isMyLeaves && !formData.employeeId)
             }
-            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white w-full sm:w-auto"
+            className="bg-blue-600 hover:bg-primary dark:bg-primary dark:hover:bg-primary text-white w-full sm:w-auto"
           >
             {t("employee.leaves.submitButton")}
           </Button>

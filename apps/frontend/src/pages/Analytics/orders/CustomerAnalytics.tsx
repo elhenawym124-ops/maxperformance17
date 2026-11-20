@@ -165,7 +165,7 @@ const CustomerAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>متوسط السلة (AOV)</span>
-              <ShoppingBag className="h-4 w-4 text-blue-500" />
+              <ShoppingBag className="h-4 w-4 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">{formatPrice(stats?.averageOrderValue || 0)}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5">لكل طلب مسجل</div>

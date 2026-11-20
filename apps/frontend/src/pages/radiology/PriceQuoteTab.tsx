@@ -160,7 +160,7 @@ export default function PriceQuoteTab() {
           </ul>
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-t dark:border-border">
             <div className="text-lg font-bold">
-              {t("radiology.priceQuote.total")} <span className="text-blue-600 dark:text-blue-400">{formatPrice(total, t("radiology.currency"))}</span>
+              {t("radiology.priceQuote.total")} <span className="text-blue-600 dark:text-primary">{formatPrice(total, t("radiology.currency"))}</span>
             </div>
             <button
               onClick={shareWhatsApp}

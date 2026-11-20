@@ -95,7 +95,7 @@ export const SettlementsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border dark:border-border pb-4">
         <div>
           <h1 className="text-xl font-bold text-foreground dark:text-white flex items-center gap-2">
-            <Receipt className="w-5 h-5 text-blue-600" />
+            <Receipt className="w-5 h-5 text-primary" />
             تسويات وكشوف COD لعملاء الشحن
           </h1>
           <p className="text-xs text-muted-foreground mt-0.5">
@@ -113,7 +113,7 @@ export const SettlementsPage: React.FC = () => {
           </button>
           <button
             onClick={() => setShowPreviewModal(true)}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors shadow-sm"
+            className="px-4 py-2 bg-primary hover:bg-primary text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             معاينة وإنشاء كشف جديد
@@ -246,7 +246,7 @@ export const SettlementsPage: React.FC = () => {
                     key={item.id}
                     className="hover:bg-slate-50 dark:hover:bg-muted transition-colors"
                   >
-                    <td className="p-3 font-mono font-medium text-blue-600 dark:text-blue-400">
+                    <td className="p-3 font-mono font-medium text-primary dark:text-primary">
                       {item.settlementNumber}
                     </td>
                     <td className="p-3">
@@ -289,7 +289,7 @@ export const SettlementsPage: React.FC = () => {
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => setSelectedSettlementId(item.id)}
-                          className="p-1.5 text-muted-foreground hover:text-blue-600 rounded hover:bg-muted dark:hover:bg-muted"
+                          className="p-1.5 text-muted-foreground hover:text-primary rounded hover:bg-muted dark:hover:bg-muted"
                           title="عرض تفاصيل الأسطر"
                         >
                           <Eye className="w-4 h-4" />

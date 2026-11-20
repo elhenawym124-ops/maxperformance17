@@ -39,14 +39,14 @@ export const CompanyOrdersListAndExpandedDetails: React.FC<
     <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border overflow-hidden">
       <div className="p-4 border-b border-border dark:border-border">
         <h2 className="text-lg font-bold text-foreground dark:text-white flex items-center gap-2">
-          <ShoppingCartIcon className="w-5 h-5 text-blue-600" />
+          <ShoppingCartIcon className="w-5 h-5 text-primary" />
           الطلبات (<span className="font-mono tabular-nums">{total}</span>)
         </h2>
       </div>
 
       {isLoading ? (
         <div className="p-8 text-center">
-          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
         </div>
       ) : orders.length === 0 ? (
         <div className="p-8 text-center text-muted-foreground">

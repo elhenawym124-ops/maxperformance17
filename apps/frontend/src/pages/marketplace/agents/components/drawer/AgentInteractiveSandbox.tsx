@@ -83,7 +83,7 @@ export const AgentInteractiveSandbox: React.FC<AgentInteractiveSandboxProps> = (
               <span className="size-1.5 rounded-full bg-success" />
               <span className="font-semibold text-foreground">{agentName}</span>
             </div>
-            <span className="font-mono text-[9px] text-blue-500">
+            <span className="font-mono text-[9px] text-primary">
               {sandboxResult.toolUsed ? `الأداة: ${sandboxResult.toolUsed}` : "استجابة استراتيجية"}
             </span>
           </div>

@@ -53,7 +53,7 @@ export const AttendanceGeofencePanel: React.FC<
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <MapPin className="h-5 w-5 text-blue-500" />
+          <MapPin className="h-5 w-5 text-primary" />
           إعدادات تتبع الموقع (Geofencing)
         </CardTitle>
         <CardDescription>
@@ -62,12 +62,12 @@ export const AttendanceGeofencePanel: React.FC<
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="flex items-center justify-between p-4 border border-blue-200 dark:border-blue-800 rounded-xl bg-blue-50/50 dark:bg-blue-950/20">
+        <div className="flex items-center justify-between p-4 border border-primary dark:border-primary rounded-xl bg-primary/50 dark:bg-primary/20">
           <div>
-            <Label className="text-blue-900 dark:text-blue-100 font-bold">
+            <Label className="text-blue-900 dark:text-primary font-bold">
               تفعيل البصمة الجغرافية
             </Label>
-            <p className="text-sm text-blue-700 dark:text-blue-300">
+            <p className="text-sm text-primary dark:text-primary">
               لن يسمح للموظف بالبصمة إلا من داخل النطاق
             </p>
           </div>
@@ -120,7 +120,7 @@ export const AttendanceGeofencePanel: React.FC<
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label>نطاق البصمة المسموح</Label>
-                <span className="text-sm font-bold text-blue-600 dark:text-blue-400 tabular-nums font-mono">
+                <span className="text-sm font-bold text-primary dark:text-primary tabular-nums font-mono">
                   {settings.geofenceRadius} متر
                 </span>
               </div>

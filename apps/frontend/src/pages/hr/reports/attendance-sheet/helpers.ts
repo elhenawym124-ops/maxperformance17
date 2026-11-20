@@ -49,7 +49,7 @@ export const ATTENDANCE_STATUS_CONFIG: Record<string, AttendanceCellStyle> = {
   },
   LEAVE: {
     label: "إجازة",
-    cell: "bg-blue-50 border-blue-200",
+    cell: "bg-blue-50 border-primary",
     dot: "bg-blue-500",
     timeColor: "text-blue-700",
   },

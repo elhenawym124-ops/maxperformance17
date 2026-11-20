@@ -137,7 +137,7 @@ export default function DoctorsTab({
                 </button>
                 <button
                   onClick={() => onEdit(d)}
-                  className="text-xs px-2.5 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-md hover:bg-blue-500/20 flex items-center gap-1 transition-colors"
+                  className="text-xs px-2.5 py-1 bg-primary/10 text-primary dark:text-primary rounded-md hover:bg-primary/20 flex items-center gap-1 transition-colors"
                 >
                   <Pencil className="w-3 h-3" />
                   <span>تعديل</span>

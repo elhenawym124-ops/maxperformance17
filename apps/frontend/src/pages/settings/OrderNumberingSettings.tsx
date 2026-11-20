@@ -166,7 +166,7 @@ export const OrderNumberingSettings: React.FC = () => {
         <div className="bg-card border border-border/70 rounded-lg p-3">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>البادئة النشطة (Prefix)</span>
-            <Barcode className="w-3.5 h-3.5 text-blue-500" />
+            <Barcode className="w-3.5 h-3.5 text-primary" />
           </div>
           <div className="mt-1 flex items-baseline gap-1.5">
             <span className="text-sm font-bold font-mono text-foreground uppercase">

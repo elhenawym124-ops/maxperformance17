@@ -69,8 +69,8 @@ export default function OdontogramChart({
           "relative flex flex-col items-center justify-center transition-all duration-150 rounded-lg select-none",
           "w-8 h-10 sm:w-9 sm:h-11 p-0.5",
           isSelected
-            ? "bg-blue-600 text-white shadow ring-2 ring-blue-400 font-bold scale-105 z-10"
-            : "bg-gray-50 dark:bg-muted text-foreground border border-border dark:border-border hover:border-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20",
+            ? "bg-blue-600 text-white shadow ring-2 ring-primary font-bold scale-105 z-10"
+            : "bg-gray-50 dark:bg-muted text-foreground border border-border dark:border-border hover:border-primary hover:bg-primary/50 dark:hover:bg-primary/20",
           readOnly ? "cursor-default" : "cursor-pointer",
         ].join(" ")}
       >
@@ -95,11 +95,11 @@ export default function OdontogramChart({
       {/* Header & Quick selectors */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b dark:border-border pb-2.5">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-blue-600" />
+          <Sparkles className="w-4 h-4 text-primary" />
           <span className="text-xs font-semibold text-foreground dark:text-muted-foreground">
             خريطة الأسنان التفاعلية (نظام FDI)
           </span>
-          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-primary text-primary dark:bg-primary/40 dark:text-primary">
             {selectedSet.size} سن / وحدة
           </span>
         </div>
@@ -146,16 +146,16 @@ export default function OdontogramChart({
           {/* Upper Arch Label */}
           <div className="flex items-center justify-between text-[10px] font-semibold text-muted-foreground/80 px-2">
             <span>يمين المريض (Q1)</span>
-            <span className="text-blue-600 dark:text-blue-400 font-medium">الفك العلوي (Upper Arch)</span>
+            <span className="text-blue-600 dark:text-primary font-medium">الفك العلوي (Upper Arch)</span>
             <span>يسار المريض (Q2)</span>
           </div>
 
           {/* Upper Arch Teeth */}
-          <div className="flex items-center justify-center gap-1 sm:gap-1.5 p-2 bg-blue-50/40 dark:bg-blue-950/20 rounded-xl border border-blue-100/60 dark:border-blue-900/30">
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5 p-2 bg-primary/40 dark:bg-primary/20 rounded-xl border border-primary/60 dark:border-primary/30">
             <div className="flex items-center gap-1 sm:gap-1.5">
               {UPPER_RIGHT.map(t => renderTooth(t, true))}
             </div>
-            <div className="w-0.5 h-10 bg-blue-300 dark:bg-blue-700 mx-1" />
+            <div className="w-0.5 h-10 bg-primary dark:bg-primary mx-1" />
             <div className="flex items-center gap-1 sm:gap-1.5">
               {UPPER_LEFT.map(t => renderTooth(t, true))}
             </div>
@@ -195,7 +195,7 @@ export default function OdontogramChart({
           {Array.from(selectedSet).map(t => (
             <span
               key={t}
-              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-mono font-bold"
+              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary border border-primary dark:border-primary text-xs font-mono font-bold"
             >
               #{t}
               {!readOnly && (

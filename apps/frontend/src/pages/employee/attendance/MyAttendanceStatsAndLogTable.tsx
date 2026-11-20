@@ -99,7 +99,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
         )}
         {checkOutLoc && (
           <div
-            className="flex items-center gap-1 text-blue-600 hover:text-blue-800 cursor-pointer hover:bg-blue-50 p-1 rounded transition-colors"
+            className="flex items-center gap-1 text-primary hover:text-primary cursor-pointer hover:bg-primary/10 p-1 rounded transition-colors"
             onClick={() =>
               onOpenLocationInMap(
                 checkOutLoc.latitude,
@@ -190,7 +190,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
               <CardTitle className="text-sm font-medium">
                 {t("employee.attendance.workHours")}
               </CardTitle>
-              <Timer className="h-4 w-4 text-blue-600" />
+              <Timer className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold font-mono tabular-nums">
@@ -297,7 +297,7 @@ export const MyAttendanceStatsAndLogTable: React.FC<
                               <span>{t("employee.attendance.home")}</span>
                             </div>
                           ) : (
-                            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-bold w-fit">
+                            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary text-[10px] font-bold w-fit">
                               <Building2 className="h-3 w-3" />
                               <span>{t("employee.attendance.office")}</span>
                             </div>

@@ -172,7 +172,7 @@ export default function PatientsTab({
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>صفحة</span>
                   </button>
-                  <button onClick={() => onEdit(p)} className="text-xs px-2.5 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-md hover:bg-blue-500/20 flex items-center gap-1">
+                  <button onClick={() => onEdit(p)} className="text-xs px-2.5 py-1 bg-primary/10 text-primary dark:text-primary rounded-md hover:bg-primary/20 flex items-center gap-1">
                     <Pencil className="w-3.5 h-3.5" />
                     <span>تعديل</span>
                   </button>
@@ -224,7 +224,7 @@ export default function PatientsTab({
                       <div className="flex items-center justify-end gap-1">
                         <button onClick={() => onView(p.id)} className="p-1 text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors" title="عرض الملف"><Eye className="w-4 h-4" /></button>
                         <button onClick={() => navigate(`/admin/booking/patients/${p.id}`)} className="p-1 text-primary hover:bg-primary/10 rounded transition-colors" title="فتح صفحة مستقلة"><ExternalLink className="w-4 h-4" /></button>
-                        <button onClick={() => onEdit(p)} className="p-1 text-blue-600 hover:bg-blue-500/10 rounded transition-colors" title="تعديل"><Pencil className="w-4 h-4" /></button>
+                        <button onClick={() => onEdit(p)} className="p-1 text-primary hover:bg-primary/10 rounded transition-colors" title="تعديل"><Pencil className="w-4 h-4" /></button>
                         <button onClick={() => { setMergeTargetId(""); setMergeSource(p); }} className="p-1 text-warning hover:bg-warning/10 rounded transition-colors" title="دمج"><GitMerge className="w-4 h-4" /></button>
                         <button onClick={() => onToggleActive(p.id, p.isActive)} className={`p-1 rounded transition-colors ${p.isActive ? "text-rose-500 hover:bg-destructive/10" : "text-emerald-500 hover:bg-success/10"}`} title={p.isActive ? "تعطيل" : "تفعيل"}><Check className="w-4 h-4" /></button>
                         <button onClick={() => onDelete(p.id)} className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors" title="حذف"><Trash2 className="w-4 h-4" /></button>

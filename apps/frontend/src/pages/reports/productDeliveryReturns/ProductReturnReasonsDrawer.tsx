@@ -26,7 +26,7 @@ const getCategoryBadge = (category: BottleneckCategory) => {
       return {
         label: 'عميل وتأكيد',
         icon: PhoneCall,
-        bg: 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
+        bg: 'bg-blue-50 dark:bg-primary/40 text-primary dark:text-primary border-primary dark:border-primary'
       };
     default:
       return {
@@ -109,7 +109,7 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
             </div>
             <div className="bg-zinc-50 dark:bg-muted border border-border dark:border-border rounded-lg p-3 text-center">
               <span className="text-[11px] text-muted-foreground block mb-1">نسبة التحصيل</span>
-              <span className="text-lg font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">
+              <span className="text-lg font-bold font-mono tabular-nums text-primary dark:text-primary">
                 {product.collectionRate}%
               </span>
             </div>

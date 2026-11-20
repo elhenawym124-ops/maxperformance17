@@ -59,7 +59,7 @@ export const PAGE_TYPE_CONFIG: Record<string, PageTypeMeta> = {
     key: 'CONTACT_US',
     labelKey: 'contactUs',
     icon: Mail,
-    colorClass: 'text-blue-500 bg-blue-500/10 border-blue-500/20',
+    colorClass: 'text-blue-500 bg-primary/10 border-primary/20',
   },
   FAQ: {
     key: 'FAQ',

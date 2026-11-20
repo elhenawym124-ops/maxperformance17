@@ -89,7 +89,7 @@ const KanbanBoard: React.FC = () => {
       id: "IN_PROGRESS",
       title: "قيد التنفيذ",
       color: "bg-blue-500",
-      bgColor: "bg-blue-50 dark:bg-blue-900/20",
+      bgColor: "bg-blue-50 dark:bg-primary/20",
     },
     {
       id: "COMPLETED",

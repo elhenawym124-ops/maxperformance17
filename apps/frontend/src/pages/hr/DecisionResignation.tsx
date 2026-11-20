@@ -233,7 +233,7 @@ const DecisionResignation = () => {
                   className="min-h-[120px]"
                 />
                 {isApprove && (
-                  <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1">
+                  <p className="text-xs text-primary dark:text-primary flex items-center gap-1">
                     <AlertCircle className="h-3 w-3" />
                     سيتم تفعيل قائمة إخلاء الطرف تلقائياً بعد الموافقة.
                   </p>

@@ -30,7 +30,7 @@ export const CreativeCallToActionSection: React.FC<CreativeCallToActionSectionPr
               onClick={() => handleChange("callToAction", cta.value)}
               className={`py-2 px-3 text-xs rounded-lg border transition-all ${
                 formData.callToAction === cta.value
-                  ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300"
+                  ? "border-blue-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary"
                   : "border-gray-200 dark:border-border hover:border-border text-foreground bg-card"
               }`}
             >

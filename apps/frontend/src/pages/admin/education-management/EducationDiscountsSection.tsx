@@ -209,7 +209,7 @@ export const EducationDiscountsSection: React.FC<EducationDiscountsSectionProps>
                       <span
                         className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold font-mono ${
                           isPercentage
-                            ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
+                            ? "bg-blue-500/10 text-primary dark:text-primary border border-primary/20"
                             : "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                         }`}
                       >

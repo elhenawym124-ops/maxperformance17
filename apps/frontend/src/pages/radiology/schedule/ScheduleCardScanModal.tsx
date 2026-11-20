@@ -52,7 +52,7 @@ export const ScheduleCardScanModal: React.FC<ScheduleCardScanModalProps> = ({
           className="w-full max-h-64 object-contain rounded-lg border dark:border-border mb-4"
         />
         {cardOcrBusy ? (
-          <p className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 mb-3">
+          <p className="flex items-center gap-2 text-sm text-primary dark:text-primary mb-3">
             <Loader2 className="w-4 h-4 animate-spin" />
             {t("radiology.schedule.cardOcrReading")}
           </p>
@@ -84,7 +84,7 @@ export const ScheduleCardScanModal: React.FC<ScheduleCardScanModalProps> = ({
           <button
             onClick={onConfirm}
             disabled={cardOcrBusy}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50"
           >
             {t("radiology.schedule.cardScanConfirm")}
           </button>

@@ -29,7 +29,7 @@ export const DeductionStatsCards: React.FC<DeductionStatsCardsProps> = ({
               {stats.total}
             </p>
           </div>
-          <TrendingDown className="h-8 w-8 text-blue-600" />
+          <TrendingDown className="h-8 w-8 text-primary" />
         </div>
       </div>
 

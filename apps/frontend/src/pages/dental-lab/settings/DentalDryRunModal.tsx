@@ -114,7 +114,7 @@ export default function DentalDryRunModal({ open, onClose }: DryRunModalProps) {
               {/* 1. Due Date Calculation */}
               <div className="rounded-lg border border-border/60 p-3 bg-muted/20 space-y-1">
                 <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
-                  <Clock className="size-3.5 text-blue-500" /> موعد التسليم المحسوب
+                  <Clock className="size-3.5 text-primary" /> موعد التسليم المحسوب
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-semibold tabular-nums">

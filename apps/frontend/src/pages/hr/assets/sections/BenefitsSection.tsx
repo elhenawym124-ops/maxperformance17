@@ -54,7 +54,7 @@ const BenefitsSection: React.FC = () => {
   ];
 
   const colorClasses: Record<string, string> = {
-    blue: "text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-900/30",
+    blue: "text-blue-600 dark:text-primary border-primary dark:border-primary/30",
     indigo:
       "text-primary border-primary dark:border-primary/30",
     green:

@@ -17,7 +17,7 @@ export const SpecialtyStats: React.FC<SpecialtyStatsProps> = ({ specialties }) =
       <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">إجمالي النشاطات</span>
-          <span className="size-1.5 rounded-full bg-blue-500" />
+          <span className="size-1.5 rounded-full bg-primary" />
         </div>
         <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
           {specialties.length}

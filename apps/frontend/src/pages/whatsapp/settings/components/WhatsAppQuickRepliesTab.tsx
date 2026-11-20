@@ -66,7 +66,7 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
                     ) : null}
                     <Badge
                       variant="outline"
-                      className="rounded-full border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:text-blue-200"
+                      className="rounded-full border-primary/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary"
                     >
                       {String(t(`whatsappSettings.categories.${reply.category}`))}
                     </Badge>

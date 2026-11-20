@@ -11,7 +11,7 @@ export const ShiftsStatsGrid: React.FC<ShiftsStatsGridProps> = ({ stats }) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <Card className="border-none shadow-sm bg-card/80 overflow-hidden group hover:shadow-md transition-all">
-        <div className="h-1 w-full bg-blue-500 opacity-60" />
+        <div className="h-1 w-full bg-primary opacity-60" />
         <CardContent className="p-4 flex items-center justify-between">
           <div className="space-y-1">
             <p className="text-[10px] font-black text-muted-foreground/80 uppercase tracking-wider">
@@ -21,7 +21,7 @@ export const ShiftsStatsGrid: React.FC<ShiftsStatsGridProps> = ({ stats }) => {
               {stats.total}
             </p>
           </div>
-          <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl text-blue-500 group-hover:scale-110 transition-transform">
+          <div className="p-3 bg-primary/10 dark:bg-primary/30 rounded-xl text-primary group-hover:scale-110 transition-transform">
             <Clock className="h-5 w-5" />
           </div>
         </CardContent>

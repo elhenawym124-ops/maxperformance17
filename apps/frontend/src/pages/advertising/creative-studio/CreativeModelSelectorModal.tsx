@@ -110,7 +110,7 @@ export const CreativeModelSelectorModal: React.FC<CreativeModelSelectorModalProp
                     )}
                     {model.resolution && (
                       <span className="flex items-center gap-1 font-mono">
-                        <Layers className="w-3 h-3 text-blue-500" />
+                        <Layers className="w-3 h-3 text-primary" />
                         دقة التوليد: {model.resolution}
                       </span>
                     )}

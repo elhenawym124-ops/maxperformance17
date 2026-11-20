@@ -19,7 +19,7 @@ export const Step2BudgetSchedule: React.FC<Step2BudgetScheduleProps> = ({
       </h2>
 
       {/* Budget Optimization */}
-      <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+      <div className="p-4 bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg">
         <div className="flex items-start gap-3">
           <input
             type="checkbox"

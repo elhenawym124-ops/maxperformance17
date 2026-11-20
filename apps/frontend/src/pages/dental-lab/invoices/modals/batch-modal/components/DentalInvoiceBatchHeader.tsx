@@ -13,7 +13,7 @@ export const DentalInvoiceBatchHeader: React.FC<DentalInvoiceBatchHeaderProps> =
   return (
     <div className="flex items-center justify-between pb-3 border-b dark:border-border mb-4">
       <div className="flex items-center gap-2">
-        <div className="p-1.5 bg-blue-50 dark:bg-blue-900/40 text-blue-600 rounded-lg">
+        <div className="p-1.5 bg-primary/10 dark:bg-primary/40 text-primary rounded-lg">
           <CalendarClock className="w-5 h-5" />
         </div>
         <div>

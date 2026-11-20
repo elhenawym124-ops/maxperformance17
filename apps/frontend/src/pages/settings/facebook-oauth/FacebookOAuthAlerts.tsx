@@ -197,7 +197,7 @@ export const FacebookOAuthAlerts: React.FC<FacebookOAuthAlertsProps> = ({
                   size="sm"
                   onClick={onFullReconsent}
                   disabled={reconsenting}
-                  className="h-8 gap-1.5 bg-blue-600 text-xs font-medium text-white hover:bg-blue-700"
+                  className="h-8 gap-1.5 bg-primary text-xs font-medium text-white hover:bg-primary"
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
                   {reconsenting

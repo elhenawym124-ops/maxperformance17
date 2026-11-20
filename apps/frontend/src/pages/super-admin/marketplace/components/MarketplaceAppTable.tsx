@@ -192,7 +192,7 @@ export const MarketplaceAppTable: React.FC<MarketplaceAppTableProps> = ({
                         <span
                           className={
                             app.isPublic
-                              ? "text-blue-600 dark:text-blue-400 font-medium"
+                              ? "text-blue-600 dark:text-primary font-medium"
                               : "text-muted-foreground"
                           }
                         >

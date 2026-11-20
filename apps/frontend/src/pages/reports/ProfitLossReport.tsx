@@ -162,7 +162,7 @@ const ProfitLossReport: React.FC = () => {
               <span className="text-xs font-medium text-muted-foreground">
                 إجمالي الإيرادات المحققة
               </span>
-              <div className="h-8 w-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center">
+              <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary dark:text-primary border border-primary/20 flex items-center justify-center">
                 <DollarSign className="h-4 w-4" />
               </div>
             </div>
@@ -233,7 +233,7 @@ const ProfitLossReport: React.FC = () => {
               {loading ? "..." : (stats?.netMargin || `${profitPercent}%`)}
             </div>
             <div className="mt-2.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Info className="h-3.5 w-3.5 text-blue-500" />
+              <Info className="h-3.5 w-3.5 text-primary" />
               <span>معدل الربح الصافي على المبيعات</span>
             </div>
           </CardContent>

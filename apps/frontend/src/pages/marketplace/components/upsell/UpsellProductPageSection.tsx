@@ -93,7 +93,7 @@ export const UpsellProductPageSection: React.FC<UpsellProductPageSectionProps> =
                   <div className="h-24 rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900" />
                   <div className="space-y-3">
                     <div className="space-y-2">
-                      <div className="h-3 w-24 rounded-full bg-blue-100 dark:bg-blue-900/40" />
+                      <div className="h-3 w-24 rounded-full bg-primary dark:bg-primary/40" />
                       <div className="h-4 w-3/4 rounded-full bg-muted dark:bg-muted" />
                       <div className="h-3 w-1/2 rounded-full bg-muted dark:bg-muted" />
                     </div>
@@ -105,7 +105,7 @@ export const UpsellProductPageSection: React.FC<UpsellProductPageSectionProps> =
                 </div>
               </div>
 
-              <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-4 dark:border-blue-900/40 dark:bg-blue-950/20">
+              <div className="rounded-xl border border-primary bg-primary/80 p-4 dark:border-primary/40 dark:bg-primary/20">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="text-sm font-bold text-foreground">
@@ -134,7 +134,7 @@ export const UpsellProductPageSection: React.FC<UpsellProductPageSectionProps> =
                       <div className="mt-3 h-3 w-3/4 rounded-full bg-muted dark:bg-muted" />
                       <div className="mt-2 flex items-center justify-between">
                         <div className="h-3 w-12 rounded-full bg-muted dark:bg-muted" />
-                        <div className="rounded-full bg-blue-600 px-2.5 py-1 text-[10px] font-bold text-white">
+                        <div className="rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold text-white">
                           {String(copySettings["quickAddLabel"] || "Quick add")}
                         </div>
                       </div>
@@ -174,7 +174,7 @@ export const UpsellProductPageSection: React.FC<UpsellProductPageSectionProps> =
           </PlacementPreview>
 
           <div className="rounded-[28px] border border-border bg-muted p-5 dark:border-border dark:bg-muted">
-            <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
               User Flow
             </div>
             <h3 className="mt-2 text-xl font-black text-foreground">

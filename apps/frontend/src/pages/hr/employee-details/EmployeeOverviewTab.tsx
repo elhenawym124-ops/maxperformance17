@@ -36,7 +36,7 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-blue-600 font-mono tabular-nums">
+            <div className="text-3xl font-bold text-primary font-mono tabular-nums">
               {employee.annualLeaveBalance || 0} يوم
             </div>
             <Progress
@@ -125,7 +125,7 @@ export const EmployeeOverviewTab: React.FC<EmployeeOverviewTabProps> = ({
                       {att.checkOut && (
                         <>
                           <span className="text-gray-400">-</span>
-                          <span className="text-sm text-blue-600">
+                          <span className="text-sm text-primary">
                             {new Date(att.checkOut).toLocaleTimeString("ar-EG", {
                               hour: "2-digit",
                               minute: "2-digit",

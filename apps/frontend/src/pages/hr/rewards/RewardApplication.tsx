@@ -211,7 +211,7 @@ const RewardApplication: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm text-blue-800 dark:text-blue-300">
+              <div className="p-4 bg-primary/10 dark:bg-primary/20 rounded-lg text-sm text-primary dark:text-primary">
                 <div className="flex gap-2">
                   <CheckCircle className="h-5 w-5" />
                   <p>

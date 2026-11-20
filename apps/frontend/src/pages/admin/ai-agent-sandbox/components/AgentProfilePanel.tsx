@@ -33,7 +33,7 @@ function ToolBadge({ name }: { name: string }) {
       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${
         isWrite
           ? "bg-orange-50 border-warning text-warning dark:bg-warning/30 dark:border-warning dark:text-warning"
-          : "bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-950/30 dark:border-blue-800 dark:text-blue-400"
+          : "bg-blue-50 border-primary text-primary dark:bg-primary/30 dark:border-primary dark:text-primary"
       }`}
     >
       {name}

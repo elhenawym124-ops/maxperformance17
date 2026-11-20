@@ -12,11 +12,11 @@ export const SettlementSummaryStrip: React.FC<SettlementSummaryStripProps> = ({
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-3 text-xs tabular-nums">
-      <div className="p-2.5 bg-blue-50/60 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/40 rounded-xl">
+      <div className="p-2.5 bg-primary/60 dark:bg-primary/20 border border-primary dark:border-primary/40 rounded-xl">
         <span className="text-muted-foreground block text-[11px]">
           إجمالي فواتير الشهر
         </span>
-        <p className="text-sm sm:text-base font-bold text-blue-700 dark:text-blue-300 mt-0.5 font-mono">
+        <p className="text-sm sm:text-base font-bold text-primary dark:text-primary mt-0.5 font-mono">
           <span className="tabular-nums">{fmtMoney(summary.totalBilled)}</span> ج.م
         </p>
       </div>

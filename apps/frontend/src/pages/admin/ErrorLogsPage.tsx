@@ -91,7 +91,7 @@ const ErrorLogsPage: React.FC = () => {
         <div className="flex gap-2">
           <button
             onClick={loadLogs}
-            className="p-2 text-foreground hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            className="p-2 text-foreground hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
             title="تحديث"
           >
             <ArrowPathIcon className="w-6 h-6" />
@@ -139,7 +139,7 @@ const ErrorLogsPage: React.FC = () => {
           </div>
           <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
             <div className="text-gray-500 text-sm mb-1">أخطاء آخر 24 ساعة</div>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-primary">
               {stats.last24Hours}
             </div>
           </div>
@@ -201,7 +201,7 @@ const ErrorLogsPage: React.FC = () => {
                   onClick={() => setSelectedLog(log)}
                   className={`p-3 rounded-lg border cursor-pointer transition-all ${
                     selectedLog === log
-                      ? "bg-blue-50 border-blue-200 shadow-sm"
+                      ? "bg-blue-50 border-primary shadow-sm"
                       : "bg-white border-border hover:bg-muted"
                   }`}
                 >

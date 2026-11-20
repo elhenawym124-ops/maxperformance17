@@ -96,7 +96,7 @@ export function DentalInvoicePaymentModal({
                 <button
                   type="button"
                   onClick={() => setAmount(invoice.remaining)}
-                  className="text-xs text-blue-600 dark:text-blue-400 hover:underline font-mono tabular-nums"
+                  className="text-xs text-primary dark:text-primary hover:underline font-mono tabular-nums"
                 >
                   سداد كامل المتبقي ({fmtMoney(invoice.remaining)})
                 </button>

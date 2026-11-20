@@ -90,7 +90,7 @@ export default function DentalDoctorsTab() {
           </button>
           <button
             onClick={openCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-primary"
           >
             <Plus className="w-4 h-4" />
             {t("dentalLab.doctors.newDoctor")}

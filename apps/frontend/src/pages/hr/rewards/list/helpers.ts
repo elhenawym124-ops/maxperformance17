@@ -15,7 +15,7 @@ export const REWARD_STATUS_BADGE_CONFIG: Record<
   },
   APPLIED: {
     label: "مطبق",
-    className: "bg-blue-100 text-blue-800",
+    className: "bg-blue-100 text-primary",
   },
   REJECTED: {
     label: "مرفوض",
@@ -33,7 +33,7 @@ export const REWARD_CATEGORY_BADGE_CONFIG: Record<
 > = {
   ATTENDANCE: {
     label: "حضور وانضباط",
-    className: "bg-blue-100 text-blue-800",
+    className: "bg-blue-100 text-primary",
   },
   PERFORMANCE: {
     label: "أداء متميز",
@@ -84,7 +84,7 @@ export const REWARD_CATEGORY_BADGE_CONFIG: Record<
     label: "مشروع ناجح",
     className: "bg-lime-100 text-success",
   },
-  SALES: { label: "مبيعات", className: "bg-blue-100 text-blue-800" },
+  SALES: { label: "مبيعات", className: "bg-blue-100 text-primary" },
   ADMINISTRATIVE: {
     label: "مكافأة إدارية",
     className: "bg-slate-100 text-foreground",

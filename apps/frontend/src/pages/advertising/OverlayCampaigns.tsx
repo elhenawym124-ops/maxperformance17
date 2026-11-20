@@ -35,7 +35,7 @@ interface OverlayCampaign {
 
 const statusMap: Record<string, { label: string; class: string }> = {
   ACTIVE: { label: "نشط", class: "bg-emerald-500/10 text-success border-success/20" },
-  SCHEDULED: { label: "مجدول", class: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
+  SCHEDULED: { label: "مجدول", class: "bg-blue-500/10 text-primary border-primary/20" },
   DRAFT: { label: "مسودة", class: "bg-muted text-muted-foreground border-border/60" },
   PAUSED: { label: "موقف", class: "bg-amber-500/10 text-warning border-warning/20" },
   EXPIRED: { label: "منتهي", class: "bg-rose-500/10 text-destructive border-destructive/20" },
@@ -176,9 +176,9 @@ const OverlayCampaigns: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>مجدولة للمستقبل</span>
-            <Clock className="h-3.5 w-3.5 text-blue-500" />
+            <Clock className="h-3.5 w-3.5 text-primary" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-blue-500">{stats.scheduled}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-primary">{stats.scheduled}</div>
         </div>
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">

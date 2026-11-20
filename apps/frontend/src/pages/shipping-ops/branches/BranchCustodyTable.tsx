@@ -42,7 +42,7 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
                   className="text-slate-400 hover:text-foreground dark:hover:text-muted-foreground"
                 >
                   {shipments.length > 0 && selectedIds.length === shipments.length ? (
-                    <CheckSquare className="w-4 h-4 text-blue-600" />
+                    <CheckSquare className="w-4 h-4 text-primary" />
                   ) : (
                     <Square className="w-4 h-4" />
                   )}
@@ -68,7 +68,7 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
                 <tr
                   key={s.id}
                   className={`hover:bg-slate-50/60 dark:hover:bg-muted transition cursor-pointer ${
-                    isSelected ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''
+                    isSelected ? 'bg-blue-50/40 dark:bg-primary/20' : ''
                   }`}
                   onClick={() => onToggleSelect(s.id)}
                 >
@@ -79,7 +79,7 @@ export const BranchCustodyTable: React.FC<BranchCustodyTableProps> = ({
                       className="text-slate-400 hover:text-foreground"
                     >
                       {isSelected ? (
-                        <CheckSquare className="w-4 h-4 text-blue-600" />
+                        <CheckSquare className="w-4 h-4 text-primary" />
                       ) : (
                         <Square className="w-4 h-4" />
                       )}

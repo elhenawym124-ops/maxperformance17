@@ -57,7 +57,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, title: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
                     placeholder="مثال: مطور Full Stack"
                   />
                 </div>
@@ -71,7 +71,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, department: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
                     placeholder="مثال: تطوير البرمجيات"
                   />
                 </div>
@@ -88,7 +88,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, location: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
                     placeholder="مثال: القاهرة - مصر"
                   />
                 </div>
@@ -104,7 +104,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                         type: e.target.value as JobPostingType,
                       })
                     }
-                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
                   >
                     <option value="FULL_TIME">دوام كامل</option>
                     <option value="PART_TIME">دوام جزئي</option>
@@ -127,7 +127,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                         experienceLevel: e.target.value as JobExperienceLevel,
                       })
                     }
-                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
                   >
                     <option value="ENTRY">مبتدئ</option>
                     <option value="JUNIOR">Junior</option>
@@ -146,7 +146,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, salaryMin: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white font-mono tabular-nums"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white font-mono tabular-nums"
                     placeholder="15000"
                   />
                 </div>
@@ -160,7 +160,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChange={(e) =>
                       onChangeJob({ ...newJob, salaryMax: e.target.value })
                     }
-                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white font-mono tabular-nums"
+                    className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white font-mono tabular-nums"
                     placeholder="25000"
                   />
                 </div>
@@ -176,7 +176,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChangeJob({ ...newJob, description: e.target.value })
                   }
                   rows={4}
-                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
                   placeholder="اكتب وصف تفصيلي للوظيفة..."
                 />
               </div>
@@ -191,7 +191,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChangeJob({ ...newJob, requirements: e.target.value })
                   }
                   rows={4}
-                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
                   placeholder="خبرة 3+ سنوات&#10;React & Node.js&#10;TypeScript"
                 />
               </div>
@@ -206,7 +206,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                     onChangeJob({ ...newJob, responsibilities: e.target.value })
                   }
                   rows={4}
-                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
                   placeholder="تطوير الميزات الجديدة&#10;صيانة الكود&#10;مراجعة الكود"
                 />
               </div>
@@ -220,7 +220,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
                   onChange={(e) =>
                     onChangeJob({ ...newJob, closingDate: e.target.value })
                   }
-                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white font-mono tabular-nums"
+                  className="w-full px-4 py-2 border-2 border-border rounded-lg focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white font-mono tabular-nums"
                 />
               </div>
             </div>
@@ -228,7 +228,7 @@ export const CreateJobPostingModal: React.FC<CreateJobPostingModalProps> = ({
             <div className="flex gap-3 mt-6">
               <button
                 onClick={onSubmit}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all"
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:shadow-lg transition-all"
               >
                 إنشاء الوظيفة
               </button>

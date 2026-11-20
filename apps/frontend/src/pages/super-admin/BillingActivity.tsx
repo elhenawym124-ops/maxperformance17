@@ -132,7 +132,7 @@ export const BillingActivity: React.FC = () => {
 
   const getTypeBadge = (type: string) => {
     const t = type?.toUpperCase() || "";
-    if (t === "PLATFORM_FEE") return <Badge variant="outline" className="text-[11px] font-mono border-blue-500/30 text-blue-600 bg-blue-500/10">رسوم المنصة</Badge>;
+    if (t === "PLATFORM_FEE") return <Badge variant="outline" className="text-[11px] font-mono border-primary/30 text-primary bg-primary/10">رسوم المنصة</Badge>;
     if (t === "APP_SUBSCRIPTION") return <Badge variant="outline" className="text-[11px] font-mono border-primary/30 text-primary bg-primary/10">اشتراك تطبيق</Badge>;
     if (t === "APP_USAGE") return <Badge variant="outline" className="text-[11px] font-mono border-warning/30 text-warning bg-warning/10">استهلاك موارد</Badge>;
     if (t === "WALLET_RECHARGE") return <Badge variant="outline" className="text-[11px] font-mono border-success/30 text-success bg-success/10">شحن رصيد</Badge>;
@@ -217,7 +217,7 @@ export const BillingActivity: React.FC = () => {
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">تحصيل هذا الشهر (المعتمد)</span>
-            <span className="size-1.5 rounded-full bg-blue-500" />
+            <span className="size-1.5 rounded-full bg-primary" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
             {summary.thisMonth.amount.toLocaleString()}{" "}

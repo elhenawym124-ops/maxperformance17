@@ -8,8 +8,8 @@ const TONE_STYLES = {
     accent: "text-muted-foreground",
   },
   spend: {
-    iconBg: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
-    accent: "text-blue-600 dark:text-blue-400",
+    iconBg: "bg-blue-500/10 text-primary dark:text-primary border border-primary/20",
+    accent: "text-blue-600 dark:text-primary",
   },
   purchases: {
     iconBg: "bg-emerald-500/10 text-success dark:text-success border border-success/20",

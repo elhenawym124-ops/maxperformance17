@@ -157,7 +157,7 @@ export const AttendanceMobileCard: React.FC<AttendanceMobileCardProps> = ({
           <Button
             size="sm"
             onClick={() => handleCheckOut(record.employeeId)}
-            className="flex-1 h-8 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+            className="flex-1 h-8 text-xs bg-primary hover:bg-primary text-white font-semibold"
           >
             <Clock className="h-3.5 w-3.5 ms-1" />
             تسجيل انصراف

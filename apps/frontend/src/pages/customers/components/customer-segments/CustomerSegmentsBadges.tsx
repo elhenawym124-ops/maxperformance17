@@ -18,7 +18,7 @@ export const RatingBadge: React.FC<{ rating?: string }> = ({ rating }) => {
   if (!rating || rating === "UNKNOWN") return <span className="text-xs text-muted-foreground">-</span>;
   const colors: Record<string, string> = {
     EXCELLENT: "bg-green-100 text-success dark:bg-success/30 dark:text-success",
-    GOOD: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+    GOOD: "bg-blue-100 text-primary dark:bg-primary/30 dark:text-primary",
     AVERAGE: "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning",
     BAD: "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive",
   };

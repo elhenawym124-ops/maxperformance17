@@ -155,7 +155,7 @@ export const BranchesPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <Building2 className="w-6 h-6 text-blue-600" />
+            <Building2 className="w-6 h-6 text-primary" />
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
               {isEn ? 'Shipping Branches & Hubs' : 'فروع ومراكز الشحن (Hubs)'}
             </h1>
@@ -174,7 +174,7 @@ export const BranchesPage: React.FC = () => {
               onClick={() => setActiveTab('custody')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                 activeTab === 'custody'
-                  ? 'bg-white dark:bg-muted text-blue-600 shadow-sm'
+                  ? 'bg-white dark:bg-muted text-primary shadow-sm'
                   : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -184,7 +184,7 @@ export const BranchesPage: React.FC = () => {
               onClick={() => setActiveTab('branches')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                 activeTab === 'branches'
-                  ? 'bg-white dark:bg-muted text-blue-600 shadow-sm'
+                  ? 'bg-white dark:bg-muted text-primary shadow-sm'
                   : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -195,7 +195,7 @@ export const BranchesPage: React.FC = () => {
           {activeTab === 'branches' && (
             <button
               onClick={handleOpenAdd}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl shadow-sm transition active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary text-white text-xs font-semibold rounded-xl shadow-sm transition active:scale-95"
             >
               <Plus className="w-4 h-4" />
               <span>{isEn ? 'Add Branch' : 'إضافة فرع جديد'}</span>
@@ -217,7 +217,7 @@ export const BranchesPage: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={isEn ? 'Search branches by name, code, governorate...' : 'البحث باسم الفرع، الكود، أو المحافظة...'}
-            className="w-full rtl:pe-9 ltr:ps-9 py-2 text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full rtl:pe-9 ltr:ps-9 py-2 text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
           />
         </div>
 
@@ -265,7 +265,7 @@ export const BranchesPage: React.FC = () => {
                     <td className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">
                       {b.name}
                     </td>
-                    <td className="px-4 py-3 font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                    <td className="px-4 py-3 font-mono text-xs font-bold text-primary dark:text-primary">
                       {b.code}
                     </td>
                     <td className="px-4 py-3 text-foreground dark:text-muted-foreground">
@@ -292,7 +292,7 @@ export const BranchesPage: React.FC = () => {
                       <div className="inline-flex items-center gap-1">
                         <button
                           onClick={() => handleOpenEdit(b)}
-                          className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                          className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                           title="تعديل"
                         >
                           <Edit2 className="w-4 h-4" />
@@ -324,7 +324,7 @@ export const BranchesPage: React.FC = () => {
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <div className="flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-blue-600" />
+                <Building2 className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-bold">
                   {editingBranch ? 'تعديل بيانات الفرع' : 'إضافة فرع / هاَب جديد'}
                 </h2>
@@ -347,7 +347,7 @@ export const BranchesPage: React.FC = () => {
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-primary"
                   placeholder="مثال: هاَب القاهرة المركزي"
                 />
               </div>
@@ -415,7 +415,7 @@ export const BranchesPage: React.FC = () => {
                   id="branchIsActive"
                   checked={form.isActive}
                   onChange={(e) => setForm({ ...form, isActive: e.target.checked })}
-                  className="rounded border-border text-blue-600 focus:ring-blue-500 w-4 h-4"
+                  className="rounded border-border text-primary focus:ring-primary w-4 h-4"
                 />
                 <label htmlFor="branchIsActive" className="text-xs font-medium cursor-pointer">
                   الفرع نشط ومتاح لعمليات الاستلام والتوزيع
@@ -433,7 +433,7 @@ export const BranchesPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition active:scale-95 disabled:opacity-50"
+                  className="px-5 py-2 bg-primary hover:bg-primary text-white rounded-xl text-xs font-semibold transition active:scale-95 disabled:opacity-50"
                 >
                   {submitting ? 'جاري الحفظ...' : editingBranch ? 'حفظ التعديلات' : 'إضافة الفرع'}
                 </button>

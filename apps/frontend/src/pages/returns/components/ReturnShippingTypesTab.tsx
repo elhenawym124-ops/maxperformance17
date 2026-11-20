@@ -73,7 +73,7 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
         </div>
         <button
           onClick={() => openTypeModal()}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors shadow-xs"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary transition-colors shadow-xs"
         >
           <Plus size={18} /> {t('returns.k_234')}
         </button>
@@ -96,7 +96,7 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
             >
               <div className="px-6 py-4 bg-muted dark:bg-muted border-b border-border dark:border-border flex justify-between items-center">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                  <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary">
                     <Truck size={18} />
                   </div>
                   <div>
@@ -110,7 +110,7 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
                 </div>
                 <button
                   onClick={() => openTypeModal(undefined, company.id)}
-                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 text-sm font-medium flex items-center gap-1"
+                  className="text-blue-600 hover:text-primary dark:text-primary text-sm font-medium flex items-center gap-1"
                 >
                   <Plus size={14} /> {t('returns.k_234')}
                 </button>
@@ -161,7 +161,7 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
                       <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={() => openTypeModal(type)}
-                          className="text-blue-600 hover:text-blue-500 dark:text-blue-400"
+                          className="text-blue-600 hover:text-primary dark:text-primary"
                           title={t('returns.k_235')}
                         >
                           <Edit2 size={16} />

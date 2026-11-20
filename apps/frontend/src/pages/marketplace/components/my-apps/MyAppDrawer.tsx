@@ -71,7 +71,7 @@ export const MyAppDrawer: React.FC<MyAppDrawerProps> = ({
               </div>
               <div className="rounded-xl border border-border/50 bg-muted/20 p-3 text-right">
                 <span className="text-[11px] font-semibold text-muted-foreground block">استهلاك هذا الشهر</span>
-                <span className="text-sm font-bold text-blue-600 dark:text-blue-400 tabular-nums font-mono">
+                <span className="text-sm font-bold text-primary dark:text-primary tabular-nums font-mono">
                   {Number(selectedApp.monthlyUsage?.totalCost || 0).toFixed(2)} ج.م
                 </span>
               </div>
@@ -112,7 +112,7 @@ export const MyAppDrawer: React.FC<MyAppDrawerProps> = ({
                           {new Date(log.createdAt).toLocaleString("ar-EG")}
                         </span>
                       </div>
-                      <div className="text-left font-bold text-blue-600 dark:text-blue-400 tabular-nums font-mono">
+                      <div className="text-left font-bold text-primary dark:text-primary tabular-nums font-mono">
                         {Number(log.totalCost).toFixed(2)} ج.م
                       </div>
                     </div>

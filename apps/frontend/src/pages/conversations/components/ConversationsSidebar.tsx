@@ -25,7 +25,7 @@ const getPlatformIcon = (platform: Platform) => {
   switch (platform) {
     case "facebook":
       return (
-        <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+        <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center shadow-lg">
           <span className="text-white text-xs font-bold">f</span>
         </div>
       );
@@ -37,7 +37,7 @@ const getPlatformIcon = (platform: Platform) => {
       );
     case "telegram":
       return (
-        <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
+        <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center shadow-lg">
           <span className="text-white text-xs">✈️</span>
         </div>
       );
@@ -216,7 +216,7 @@ export const ConversationsSidebar: React.FC<ConversationsSidebarProps> = ({
                     >
                       {conversation.customerName}
                       {conversation.pageName && (
-                        <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded me-2">
+                        <span className="text-xs text-primary font-medium bg-primary/10 px-1.5 py-0.5 rounded me-2">
                           {conversation.pageName}
                         </span>
                       )}

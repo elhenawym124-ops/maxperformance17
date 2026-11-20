@@ -42,7 +42,7 @@ interface Warning {
 const severityConfig: Record<string, { labelKey: string; color: string; icon: any }> = {
     low: {
         labelKey: "employee.warnings.severityLow",
-        color: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 border-blue-200 dark:border-blue-800",
+        color: "bg-blue-100 text-primary dark:bg-primary/30 dark:text-primary border-primary dark:border-primary",
         icon: Info,
     },
     medium: {
@@ -125,7 +125,7 @@ const MyWarnings: React.FC = () => {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[400px]">
-                <Loader2 className="h-12 w-12 animate-spin text-blue-600 mb-4" />
+                <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
                 <p className="text-gray-500 font-medium animate-pulse">{t("employee.warnings.loading")}</p>
             </div>
         );
@@ -212,7 +212,7 @@ const MyWarnings: React.FC = () => {
                                                             <Button
                                                                 variant="ghost"
                                                                 size="icon"
-                                                                className="h-8 w-8 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full flex-shrink-0"
+                                                                className="h-8 w-8 text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/20 rounded-full flex-shrink-0"
                                                                 onClick={() => setSelectedWarning(warning)}
                                                                 title={t("employee.warnings.viewDetails")}
                                                             >
@@ -328,7 +328,7 @@ const MyWarnings: React.FC = () => {
                                             {selectedWarning.title}
                                         </DialogTitle>
                                         <div className="flex items-center gap-2">
-                                            <Badge variant="outline" className="rounded-full px-3 py-0.5 border-blue-200 bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800 text-[10px] font-black uppercase tracking-widest">
+                                            <Badge variant="outline" className="rounded-full px-3 py-0.5 border-primary bg-primary/10 text-primary dark:bg-primary/20 dark:border-primary text-[10px] font-black uppercase tracking-widest">
                                                 {t(severityConfig[selectedWarning.severity]?.labelKey || "employee.warnings.digitalWarning")}
                                             </Badge>
                                             <span className="text-[10px] text-muted-foreground font-mono">#{selectedWarning.id.slice(-6).toUpperCase()}</span>
@@ -345,7 +345,7 @@ const MyWarnings: React.FC = () => {
                                         {t("employee.warnings.violationDetails")}
                                     </h4>
                                     <div className="relative group">
-                                        <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-transparent rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500" />
+                                        <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-transparent rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500" />
                                         <div
                                             className="relative bg-white dark:bg-muted p-7 rounded-[1.5rem] border border-border dark:border-border shadow-sm leading-relaxed whitespace-pre-wrap text-foreground text-lg font-medium"
                                             style={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
@@ -376,11 +376,11 @@ const MyWarnings: React.FC = () => {
                                 {/* Audit Timeline */}
                                 <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-dashed border-border dark:border-border">
                                     <div className="flex items-center gap-2 px-4 py-2 bg-muted/40 rounded-xl text-xs font-bold text-muted-foreground">
-                                        <Calendar className="h-3.5 w-3.5 text-blue-500" />
+                                        <Calendar className="h-3.5 w-3.5 text-primary" />
                                         <span>{t("employee.warnings.incidentDate", { date: formatDate(selectedWarning.incidentDate) })}</span>
                                     </div>
                                     <div className="flex items-center gap-2 px-4 py-2 bg-muted/40 rounded-xl text-xs font-bold text-muted-foreground">
-                                        <Clock className="h-3.5 w-3.5 text-blue-500" />
+                                        <Clock className="h-3.5 w-3.5 text-primary" />
                                         <span>{t("employee.warnings.time", { time: new Date(selectedWarning.incidentDate).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }) })}</span>
                                     </div>
                                 </div>

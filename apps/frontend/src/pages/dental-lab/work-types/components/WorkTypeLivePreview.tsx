@@ -17,13 +17,13 @@ export function WorkTypeLivePreview({
     <div className="space-y-4">
       <div>
         <label className="text-xs font-bold text-muted-foreground flex items-center gap-1.5 mb-2">
-          <Eye className="w-4 h-4 text-blue-600" />
+          <Eye className="w-4 h-4 text-primary" />
           معاينة حية (كيف تظهر للطبيب في البوابة)
         </label>
-        <div className="rounded-xl border-2 border-blue-200 dark:border-blue-800 bg-gradient-to-b from-blue-50/50 to-white dark:from-blue-950/20 dark:to-gray-850 p-4 shadow-sm space-y-3">
+        <div className="rounded-xl border-2 border-primary dark:border-primary bg-gradient-to-b from-primary/50 to-white dark:from-primary/20 dark:to-gray-850 p-4 shadow-sm space-y-3">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary text-primary dark:bg-primary/40 dark:text-primary">
                 {CATEGORY_LABELS[modal.category] || modal.category}
               </span>
               <h4 className="font-bold text-sm text-foreground mt-1">
@@ -31,7 +31,7 @@ export function WorkTypeLivePreview({
               </h4>
             </div>
             <div className="text-end">
-              <div className="text-lg font-extrabold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+              <div className="text-lg font-extrabold text-primary dark:text-primary font-mono tabular-nums">
                 {fmtMoney(modal.price)} ج.م
               </div>
               <span className="text-[10px] text-muted-foreground">
@@ -52,7 +52,7 @@ export function WorkTypeLivePreview({
             {modal.materialBrand && (
               <div className="flex items-center justify-between">
                 <span className="text-gray-400">الماركة:</span>
-                <span className="font-semibold text-blue-600 dark:text-blue-400">
+                <span className="font-semibold text-primary dark:text-primary">
                   {modal.materialBrand}
                 </span>
               </div>

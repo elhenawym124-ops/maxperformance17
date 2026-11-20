@@ -41,7 +41,7 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border print:hidden">
           <div className="flex items-center gap-2">
-            <DocumentTextIcon className="w-5 h-5 text-blue-600" />
+            <DocumentTextIcon className="w-5 h-5 text-primary" />
             <h3 className="font-bold text-base sm:text-lg">
               مانيفست مأمورية التوصيل: <span className="font-mono">{selectedRun.runNumber}</span>
             </h3>
@@ -72,7 +72,7 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
             </button>
             <button
               onClick={() => onViewWaybill({ run: selectedRun })}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 rounded-lg hover:bg-blue-100 transition"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-primary bg-primary/10 dark:bg-primary/50 border border-primary dark:border-primary rounded-lg hover:bg-primary transition"
             >
               <PrinterIcon className="w-4 h-4" />
               طباعة كل البوالص
@@ -112,7 +112,7 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
             </div>
             <div>
               <div className="text-xs text-muted-foreground">إجمالي المبلغ المطلوب (COD)</div>
-              <div className="font-semibold text-blue-600 dark:text-blue-400 mt-0.5 tabular-nums font-mono">
+              <div className="font-semibold text-primary dark:text-primary mt-0.5 tabular-nums font-mono">
                 {formatPrice(selectedRun.totalCODExpected)}
               </div>
             </div>
@@ -165,7 +165,7 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
                           title="طباعة بوليصة هذا الطرد"
                           className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                         >
-                          <PrinterIcon className="w-3.5 h-3.5 text-blue-600" />
+                          <PrinterIcon className="w-3.5 h-3.5 text-primary" />
                           بوليصة
                         </button>
                         {!['SETTLED', 'CANCELLED'].includes(selectedRun.status) &&

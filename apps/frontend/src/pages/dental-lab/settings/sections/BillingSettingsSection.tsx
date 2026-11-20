@@ -45,7 +45,7 @@ export function BillingSettingsSection({
         </div>
       </div>
 
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg px-4 py-3 text-xs text-blue-800 dark:text-blue-200 leading-relaxed">
+      <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg px-4 py-3 text-xs text-primary dark:text-primary leading-relaxed">
         {t("dentalLab.settings.billingPolicy.whoOwes")}
       </div>
 

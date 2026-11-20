@@ -18,7 +18,7 @@ export const STATUS_CONFIGS: Record<string, StatusConfig> = {
   CONFIRMED: {
     labelAr: 'تم التأكيد',
     labelEn: 'Confirmed',
-    badgeClass: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800',
+    badgeClass: 'bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary',
   },
   ASSIGNED: {
     labelAr: 'مسندة للمندوب / قيد التنفيذ',
@@ -126,7 +126,7 @@ export const PICKUP_STATUS_CONFIGS: Record<string, StatusConfig> = {
   SCHEDULED: {
     labelAr: 'مجدول',
     labelEn: 'Scheduled',
-    badgeClass: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800',
+    badgeClass: 'bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary',
   },
   ASSIGNED: {
     labelAr: 'تم الإسناد للمندوب',

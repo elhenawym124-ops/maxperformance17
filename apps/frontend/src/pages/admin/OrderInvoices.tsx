@@ -495,7 +495,7 @@ const OrderInvoices: React.FC = () => {
             <div className="p-3.5 sm:p-4 space-y-1">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>{t("orders.orderInvoices_totalAmount")}</span>
-                <WalletCards className="size-3.5 text-blue-500" />
+                <WalletCards className="size-3.5 text-primary" />
               </div>
               <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-foreground truncate">
                 {formatCurrency(stats.totalAmount)}

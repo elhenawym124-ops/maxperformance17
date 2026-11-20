@@ -38,7 +38,7 @@ export const DoctorClinicTeamSection: React.FC<DoctorClinicTeamSectionProps> = (
       <div className="flex items-center justify-between mb-2">
         <div>
           <h4 className="text-sm font-bold text-foreground flex items-center gap-1.5">
-            <Users className="w-4 h-4 text-blue-600" />
+            <Users className="w-4 h-4 text-primary" />
             <span>أطباء العيادة / الفريق الطبي التابع للعيادة</span>
           </h4>
           <p className="text-xs text-muted-foreground">
@@ -73,7 +73,7 @@ export const DoctorClinicTeamSection: React.FC<DoctorClinicTeamSectionProps> = (
             type="button"
             disabled={!docNameInput.trim()}
             onClick={handleAdd}
-            className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold disabled:opacity-40 shrink-0"
+            className="px-2.5 py-1.5 bg-primary hover:bg-primary text-white rounded text-xs font-semibold disabled:opacity-40 shrink-0"
           >
             إضافة
           </button>
@@ -93,7 +93,7 @@ export const DoctorClinicTeamSection: React.FC<DoctorClinicTeamSectionProps> = (
                   {doc.name}
                 </span>
                 {doc.specialty && (
-                  <span className="px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-[10px]">
+                  <span className="px-1.5 py-0.5 rounded bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary text-[10px]">
                     {doc.specialty}
                   </span>
                 )}

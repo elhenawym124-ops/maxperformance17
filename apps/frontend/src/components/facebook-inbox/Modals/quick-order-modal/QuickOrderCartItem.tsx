@@ -90,7 +90,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
           {(item.color || item.size || item.variantName) && (
             <div className="flex flex-wrap gap-1 mt-1">
               {item.color && (
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium">
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary font-medium">
                   {item.color}
                 </span>
               )}
@@ -100,7 +100,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
                 </span>
               )}
               {!item.color && !item.size && item.variantName && (
-                <span className="text-[10px] text-blue-500 font-medium truncate">
+                <span className="text-[10px] text-primary font-medium truncate">
                   {item.variantName}
                 </span>
               )}

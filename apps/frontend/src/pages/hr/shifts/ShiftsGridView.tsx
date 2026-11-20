@@ -120,7 +120,7 @@ export const ShiftsGridView: React.FC<ShiftsGridViewProps> = ({
                 </span>
                 <Badge
                   variant="secondary"
-                  className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-none font-black text-xs px-2.5 py-0.5 rounded-lg font-mono tabular-nums"
+                  className="bg-blue-50 dark:bg-primary/30 text-primary dark:text-primary border-none font-black text-xs px-2.5 py-0.5 rounded-lg font-mono tabular-nums"
                 >
                   {calculateWorkHours(
                     shift.startTime,
@@ -179,7 +179,7 @@ export const ShiftsGridView: React.FC<ShiftsGridViewProps> = ({
                         className="rounded-lg gap-2 font-medium py-2 px-3 text-xs"
                         onClick={() => onEdit(shift)}
                       >
-                        <Edit className="h-3.5 w-3.5 text-blue-500" />
+                        <Edit className="h-3.5 w-3.5 text-primary" />
                         <span>تعديل</span>
                       </DropdownMenuItem>
                       <DropdownMenuItem

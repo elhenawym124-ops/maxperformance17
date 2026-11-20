@@ -21,13 +21,13 @@ export function DoctorsViewSwitch({
           onClick={() => onViewModeChange("ACTIVE")}
           className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
             viewMode === "ACTIVE"
-              ? "bg-card text-blue-600 dark:text-blue-400 shadow-sm"
+              ? "bg-card text-primary dark:text-primary shadow-sm"
               : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
           }`}
         >
           <Users className="w-4 h-4" />
           <span>الأطباء النشطين</span>
-          <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-bold font-mono tabular-nums">
+          <span className="text-xs px-2 py-0.5 rounded-full bg-primary dark:bg-primary/40 text-primary dark:text-primary font-bold font-mono tabular-nums">
             {activeCount}
           </span>
         </button>

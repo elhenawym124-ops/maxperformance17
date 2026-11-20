@@ -46,7 +46,7 @@ export const DentalInvoiceBatchFooter: React.FC<DentalInvoiceBatchFooterProps> =
           type="button"
           onClick={onRunBatch}
           disabled={submitting || selectedDoctorIdsCount === 0}
-          className="px-5 py-2 text-sm bg-gradient-to-r from-blue-600 to-primary text-white rounded-lg hover:from-blue-700 hover:to-primary font-semibold disabled:opacity-50 flex items-center gap-2 shadow-sm font-mono tabular-nums transition-all"
+          className="px-5 py-2 text-sm bg-gradient-to-r from-primary to-primary text-white rounded-lg hover:from-primary hover:to-primary font-semibold disabled:opacity-50 flex items-center gap-2 shadow-sm font-mono tabular-nums transition-all"
         >
           {submitting ? (
             <Loader2 className="w-4 h-4 animate-spin" />

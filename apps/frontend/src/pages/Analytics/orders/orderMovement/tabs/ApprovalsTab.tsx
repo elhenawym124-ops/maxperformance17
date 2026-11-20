@@ -129,7 +129,7 @@ export default function ApprovalsTab({ startDate, endDate, mode }: MovementFilte
         <KpiCard label="بانتظار الموافقة" value={formatNumber(summary.pending)} icon={Clock3} gradient="from-amber-500 to-warning" />
         <KpiCard label="موافق عليها" value={formatNumber(summary.approved)} icon={CheckCircle2} gradient="from-emerald-500 to-success" />
         <KpiCard label="مرفوضة" value={formatNumber(summary.rejected)} icon={XCircle} gradient="from-rose-500 to-destructive" />
-        <KpiCard label="معدل الموافقة" value={formatPercent(summary.approvalRate)} icon={Percent} gradient="from-sky-500 to-blue-600" />
+        <KpiCard label="معدل الموافقة" value={formatPercent(summary.approvalRate)} icon={Percent} gradient="from-sky-500 to-primary" />
         <KpiCard label="متوسط زمن المراجعة" value={formatDuration(summary.avgReviewHours)} icon={Timer} gradient="from-fuchsia-500 to-primary" />
         <KpiCard label="تجاوزات" value={formatNumber(summary.totalOverrides)} icon={ShieldAlert} gradient="from-slate-600 to-gray-800" />
       </div>

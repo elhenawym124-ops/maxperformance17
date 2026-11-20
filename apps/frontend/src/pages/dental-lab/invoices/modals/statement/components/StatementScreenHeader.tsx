@@ -34,7 +34,7 @@ export const StatementScreenHeader: React.FC<StatementScreenHeaderProps> = ({
   return (
     <div className="flex flex-wrap items-center justify-between pb-3 border-b dark:border-border mb-4 gap-3 print:hidden">
       <div className="flex items-center gap-2.5">
-        <div className="p-2 bg-blue-50 dark:bg-blue-900/40 text-blue-600 rounded-xl">
+        <div className="p-2 bg-primary/10 dark:bg-primary/40 text-primary rounded-xl">
           <FileSpreadsheet className="w-5 h-5" />
         </div>
         <div>
@@ -70,13 +70,13 @@ export const StatementScreenHeader: React.FC<StatementScreenHeaderProps> = ({
           type="button"
           onClick={onDownloadPdf}
           disabled={downloadingPdf}
-          className="px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-300 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-blue-100 disabled:opacity-50"
+          className="px-3 py-1.5 bg-primary/10 text-primary border border-primary dark:bg-primary/30 dark:text-primary dark:border-primary rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-primary disabled:opacity-50"
           title="تنزيل كشف الحساب كملف PDF رسمي عالي الدقة"
         >
           {downloadingPdf ? (
-            <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+            <Loader2 className="w-4 h-4 animate-spin text-primary" />
           ) : (
-            <Download className="w-4 h-4 text-blue-600" />
+            <Download className="w-4 h-4 text-primary" />
           )}
           <span>PDF رسمي</span>
         </button>
@@ -92,7 +92,7 @@ export const StatementScreenHeader: React.FC<StatementScreenHeaderProps> = ({
         <button
           type="button"
           onClick={onBulkPayment}
-          className="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-blue-700"
+          className="px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:bg-primary"
         >
           <Banknote className="w-4 h-4" />
           <span>تحصيل دفعة</span>

@@ -216,7 +216,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
 
             {message.fromMe && message.metadata?.isBroadcast ? (
               <div className="mb-1 flex items-center gap-1.5">
-                <div className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-info/10 to-blue-600/10 px-1.5 py-0.5 text-[11px] font-medium text-info dark:from-info/20 dark:to-blue-400/20 dark:text-info">
+                <div className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-info/10 to-primary/10 px-1.5 py-0.5 text-[11px] font-medium text-info dark:from-info/20 dark:to-primary/20 dark:text-info">
                   <Radio className="size-3" />
                   <span>Broadcast</span>
                 </div>

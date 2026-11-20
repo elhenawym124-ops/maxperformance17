@@ -127,18 +127,18 @@ export const CampaignAdvancedFinancialAnalysis: React.FC<
       {/* Break-Even Analysis */}
       <div className="bg-white dark:bg-muted rounded-xl shadow-lg p-6">
         <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
-          <InformationCircleIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          <InformationCircleIcon className="w-6 h-6 text-primary dark:text-primary" />
           تحليل نقطة التعادل
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-xl">
-            <p className="text-sm text-blue-600 dark:text-blue-400 mb-2">
+          <div className="p-4 bg-primary/10 dark:bg-primary rounded-xl">
+            <p className="text-sm text-primary dark:text-primary mb-2">
               وحدات التعادل المطلوبة
             </p>
-            <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 tabular-nums">
+            <p className="text-3xl font-bold text-primary dark:text-primary tabular-nums">
               {formatNumber(currentResults.breakEvenUnits)}
             </p>
-            <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+            <p className="text-xs text-primary dark:text-primary mt-1">
               منتج/خدمة
             </p>
           </div>

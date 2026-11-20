@@ -280,7 +280,7 @@ export const CustomerSegmentsOverviewTab: React.FC<CustomerSegmentsOverviewTabPr
                               : c.status === "VIP"
                               ? "bg-purple-50 text-primary border-primary/80 dark:bg-primary/30 dark:border-primary/50 dark:text-primary"
                               : c.status === "LEAD"
-                              ? "bg-blue-50 text-blue-700 border-blue-200/80 dark:bg-blue-950/30 dark:border-blue-900/50 dark:text-blue-300"
+                              ? "bg-blue-50 text-primary border-primary/80 dark:bg-primary/30 dark:border-primary/50 dark:text-primary"
                               : c.status === "BLOCKED"
                               ? "bg-rose-50 text-destructive border-destructive/80 dark:bg-destructive/30 dark:border-destructive/50 dark:text-destructive"
                               : "bg-gray-100 text-foreground border-border dark:bg-muted dark:border-border dark:text-muted-foreground"

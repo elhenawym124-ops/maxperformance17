@@ -40,7 +40,7 @@ interface TrainingItem {
 }
 
 const statusMap: Record<string, { label: string; class: string }> = {
-  ONGOING: { label: "قيد التنفيذ", class: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
+  ONGOING: { label: "قيد التنفيذ", class: "bg-blue-500/10 text-primary border-primary/20" },
   COMPLETED: { label: "مكتمل", class: "bg-emerald-500/10 text-success border-success/20" },
   PLANNED: { label: "مخطط", class: "bg-amber-500/10 text-warning border-warning/20" },
   CANCELLED: { label: "ملغي", class: "bg-rose-500/10 text-destructive border-destructive/20" },
@@ -174,9 +174,9 @@ const Training: React.FC = () => {
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>قيد التنفيذ</span>
-            <Clock className="h-3.5 w-3.5 text-blue-500" />
+            <Clock className="h-3.5 w-3.5 text-primary" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-blue-500">{stats.ongoing}</div>
+          <div className="text-xl font-bold font-mono tabular-nums text-primary">{stats.ongoing}</div>
         </div>
         <div className="p-3 rounded-lg border border-border/70 bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">

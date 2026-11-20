@@ -10,40 +10,40 @@ export const RewardTypeSummaryCard: React.FC<RewardTypeSummaryCardProps> = ({
   selectedRewardType,
 }) => {
   return (
-    <div className="mt-2 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg space-y-2">
+    <div className="mt-2 p-3 bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg space-y-2">
       <div className="flex justify-between items-start">
         <div>
-          <p className="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider">
+          <p className="text-xs text-primary dark:text-primary font-bold uppercase tracking-wider">
             نوع المكافأة المختارة
           </p>
-          <p className="text-sm text-blue-900 dark:text-blue-100 font-bold">
+          <p className="text-sm text-primary dark:text-primary font-bold">
             {selectedRewardType.nameAr || selectedRewardType.name}
           </p>
         </div>
         <div className="text-left">
-          <p className="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider text-left">
+          <p className="text-xs text-primary dark:text-primary font-bold uppercase tracking-wider text-left">
             التصنيف
           </p>
-          <p className="text-sm text-blue-900 dark:text-blue-100">
+          <p className="text-sm text-primary dark:text-primary">
             {getCategoryLabel(selectedRewardType.category)}
           </p>
         </div>
       </div>
 
-      <div className="border-t border-blue-100 dark:border-blue-800 pt-2 grid grid-cols-2 gap-2">
+      <div className="border-t border-primary dark:border-primary pt-2 grid grid-cols-2 gap-2">
         <div>
-          <p className="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider">
+          <p className="text-xs text-primary dark:text-primary font-bold uppercase tracking-wider">
             طريقة الحساب
           </p>
-          <p className="text-sm text-blue-900 dark:text-blue-100">
+          <p className="text-sm text-primary dark:text-primary">
             {getMethodLabel(selectedRewardType.calculationMethod)}
           </p>
         </div>
         <div>
-          <p className="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider">
+          <p className="text-xs text-primary dark:text-primary font-bold uppercase tracking-wider">
             القيمة الافتراضية
           </p>
-          <p className="text-sm text-blue-900 dark:text-blue-100">
+          <p className="text-sm text-primary dark:text-primary">
             <span className="font-mono tabular-nums">
               {selectedRewardType.calculationMethod === "FIXED_AMOUNT"
                 ? selectedRewardType.value.toLocaleString()
@@ -55,11 +55,11 @@ export const RewardTypeSummaryCard: React.FC<RewardTypeSummaryCardProps> = ({
       </div>
 
       {selectedRewardType.eligibilityConditions && (
-        <div className="border-t border-blue-100 dark:border-blue-800 pt-2">
-          <p className="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider mb-1">
+        <div className="border-t border-primary dark:border-primary pt-2">
+          <p className="text-xs text-primary dark:text-primary font-bold uppercase tracking-wider mb-1">
             شروط الاستحقاق الواجب توفرها:
           </p>
-          <ul className="text-xs text-blue-800 dark:text-blue-200 space-y-1 list-disc list-inside">
+          <ul className="text-xs text-primary dark:text-primary space-y-1 list-disc list-inside">
             {(selectedRewardType.eligibilityConditions.minTargetProgress ?? 0) >
               0 && (
               <li>

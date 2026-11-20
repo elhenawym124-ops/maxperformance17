@@ -87,7 +87,7 @@ const ACTION_MAP: Record<string, ActionConfig> = {
   RESHIPPED: {
     labelAr: 'إعادة إرسال الشحنة',
     labelEn: 'Reship Order',
-    btnClass: 'bg-blue-600 hover:bg-blue-700 text-white',
+    btnClass: 'bg-blue-600 hover:bg-primary text-white',
     icon: Send,
   },
   REMITTED: {
@@ -310,7 +310,7 @@ export const ShipmentTransitionsBar: React.FC<ShipmentTransitionsBarProps> = ({ 
                     value={reshipReason}
                     onChange={(e) => setReshipReason(e.target.value)}
                     placeholder={isEn ? 'e.g. Customer re-ordered or updated phone' : 'مثال: العميل طلب إعادة الإرسال / تم تحديث العنوان'}
-                    className="w-full px-3 py-2 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -351,7 +351,7 @@ export const ShipmentTransitionsBar: React.FC<ShipmentTransitionsBarProps> = ({ 
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder={isEn ? 'Optional note for timeline event...' : 'ملاحظة اختيارية تُسجل في الخط الزمني...'}
                 rows={2}
-                className="w-full px-3 py-2 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                className="w-full px-3 py-2 text-xs bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
               />
             </div>
 
@@ -368,7 +368,7 @@ export const ShipmentTransitionsBar: React.FC<ShipmentTransitionsBarProps> = ({ 
                 type="button"
                 onClick={() => handleExecuteTransition(activeModal)}
                 disabled={submitting}
-                className="px-4 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition active:scale-95 disabled:opacity-50 cursor-pointer"
+                className="px-4 py-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary rounded-lg transition active:scale-95 disabled:opacity-50 cursor-pointer"
               >
                 {submitting ? (isEn ? 'Saving...' : 'جاري التنفيذ...') : (isEn ? 'Confirm' : 'تأكيد العملية')}
               </button>

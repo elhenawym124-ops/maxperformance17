@@ -301,7 +301,7 @@ const AffiliateQuickActions: React.FC = () => {
 
                     {/* Platform margin */}
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <div className={`font-semibold ${platformProfit < 0 ? "text-rose-600 dark:text-destructive" : "text-blue-600 dark:text-blue-400"}`}>
+                      <div className={`font-semibold ${platformProfit < 0 ? "text-rose-600 dark:text-destructive" : "text-blue-600 dark:text-primary"}`}>
                         +{platformProfit.toFixed(2)}
                         <span className="me-1 text-[10px] text-muted-foreground font-sans">{displayCurrency}</span>
                       </div>

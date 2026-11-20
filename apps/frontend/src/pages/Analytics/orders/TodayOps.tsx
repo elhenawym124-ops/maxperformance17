@@ -113,7 +113,7 @@ export default function TodayOps() {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Calendar className="h-3.5 w-3.5 inline ms-1.5 text-blue-500" />
+              <Calendar className="h-3.5 w-3.5 inline ms-1.5 text-primary" />
               تقرير يوم
             </button>
           </div>

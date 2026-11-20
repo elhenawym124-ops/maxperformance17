@@ -160,7 +160,7 @@ export default function DentalCaseAlertBanners({
             <button
               onClick={handleRestore}
               disabled={caseBusy}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-primary hover:bg-primary text-white text-xs font-semibold rounded-lg disabled:opacity-50"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               استعادة الحالة

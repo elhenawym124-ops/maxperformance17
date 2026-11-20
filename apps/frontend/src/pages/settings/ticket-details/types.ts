@@ -66,7 +66,7 @@ export const getStatusColor = (status: number): string => {
     case 0:
       return "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning";
     case 1:
-      return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
+      return "bg-blue-100 text-primary dark:bg-primary/30 dark:text-primary";
     case 2:
       return "bg-green-100 text-success dark:bg-success/30 dark:text-success";
     default:

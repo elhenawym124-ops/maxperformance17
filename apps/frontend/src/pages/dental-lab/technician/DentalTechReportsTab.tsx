@@ -56,7 +56,7 @@ export const DentalTechReportsTab: React.FC<DentalTechReportsTabProps> = ({
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-3 border-b border-border dark:border-border">
         <div>
           <h3 className="font-bold text-sm sm:text-base text-foreground flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-blue-600" />
+            <BarChart3 className="w-5 h-5 text-primary" />
             <span>تقرير الإنتاجية والأداء الفني</span>
           </h3>
           <p className="text-xs text-muted-foreground mt-0.5">
@@ -71,7 +71,7 @@ export const DentalTechReportsTab: React.FC<DentalTechReportsTabProps> = ({
               onClick={() => setReportPeriod("TODAY")}
               className={`px-2.5 py-1 rounded-lg transition ${
                 reportPeriod === "TODAY"
-                  ? "bg-card text-blue-600 shadow-xs"
+                  ? "bg-card text-primary shadow-xs"
                   : "text-gray-600 dark:text-muted-foreground"
               }`}
             >
@@ -81,7 +81,7 @@ export const DentalTechReportsTab: React.FC<DentalTechReportsTabProps> = ({
               onClick={() => setReportPeriod("7DAYS")}
               className={`px-2.5 py-1 rounded-lg transition ${
                 reportPeriod === "7DAYS"
-                  ? "bg-card text-blue-600 shadow-xs"
+                  ? "bg-card text-primary shadow-xs"
                   : "text-gray-600 dark:text-muted-foreground"
               }`}
             >
@@ -91,7 +91,7 @@ export const DentalTechReportsTab: React.FC<DentalTechReportsTabProps> = ({
               onClick={() => setReportPeriod("MONTH")}
               className={`px-2.5 py-1 rounded-lg transition ${
                 reportPeriod === "MONTH"
-                  ? "bg-card text-blue-600 shadow-xs"
+                  ? "bg-card text-primary shadow-xs"
                   : "text-gray-600 dark:text-muted-foreground"
               }`}
             >
@@ -101,7 +101,7 @@ export const DentalTechReportsTab: React.FC<DentalTechReportsTabProps> = ({
               onClick={() => setReportPeriod("ALL")}
               className={`px-2.5 py-1 rounded-lg transition ${
                 reportPeriod === "ALL"
-                  ? "bg-card text-blue-600 shadow-xs"
+                  ? "bg-card text-primary shadow-xs"
                   : "text-gray-600 dark:text-muted-foreground"
               }`}
             >

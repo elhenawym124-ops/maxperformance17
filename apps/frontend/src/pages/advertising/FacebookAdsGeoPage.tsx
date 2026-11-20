@@ -79,7 +79,7 @@ const FacebookAdsGeoPage: React.FC = () => {
                 {isEn ? "Geographic Performance & Governorates" : "الأداء الجغرافي وتوزيع المحافظات"}
               </h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/30 px-2 py-0.5 text-[10px] font-mono tabular-nums text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-blue-500" />
+                <span className="size-1.5 rounded-full bg-primary" />
                 {rows.length} {isEn ? "regions" : "منطقة"}
               </span>
             </div>
@@ -221,7 +221,7 @@ const FacebookAdsGeoPage: React.FC = () => {
                   <span className="text-[10px] font-mono text-muted-foreground block">
                     CTR:
                   </span>
-                  <p className="font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400 mt-0.5">
+                  <p className="font-bold font-mono tabular-nums text-primary dark:text-primary mt-0.5">
                     {formatPercentage(row.metrics.ctr)}
                   </p>
                 </div>

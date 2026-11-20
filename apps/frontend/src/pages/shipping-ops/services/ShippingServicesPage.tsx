@@ -47,7 +47,7 @@ export const ShippingServicesPage: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-bold text-foreground dark:text-white tracking-tight">
               {isEn ? 'Extra Services & Change Requests' : 'الخدمات الإضافية والطلبات'}
             </h1>
-            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary border border-primary dark:border-primary">
               SHIP-T3
             </span>
           </div>
@@ -72,11 +72,11 @@ export const ShippingServicesPage: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-2.5 text-xs font-medium border-b-2 transition-all whitespace-nowrap cursor-pointer ${
                   isActive
-                    ? 'border-blue-600 text-blue-600 dark:text-blue-400 bg-white dark:bg-muted rounded-t-lg shadow-2xs font-semibold'
+                    ? 'border-blue-600 text-primary dark:text-primary bg-white dark:bg-muted rounded-t-lg shadow-2xs font-semibold'
                     : 'border-transparent text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-white hover:border-border'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600 dark:text-primary' : 'text-slate-400'}`} />
                 <span>{tab.label}</span>
               </button>
             );

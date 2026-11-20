@@ -145,8 +145,8 @@ export const TierCard: React.FC<TierCardProps> = ({ tier, onEdit, onDelete }) =>
               </div>
             )}
             {tier.freeShipping && (
-              <div className="flex items-center gap-2 text-xs font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1.5 rounded-lg border border-blue-200/80 dark:border-blue-800/40">
-                <Truck className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+              <div className="flex items-center gap-2 text-xs font-semibold text-primary dark:text-primary bg-primary/10 dark:bg-primary/40 px-2.5 py-1.5 rounded-lg border border-primary/80 dark:border-primary/40">
+                <Truck className="w-3.5 h-3.5 text-primary dark:text-primary flex-shrink-0" />
                 <span>شحن مجاني على كافة الطلبات</span>
               </div>
             )}

@@ -86,25 +86,25 @@ export function ConversionToolsStudioHero({
         <div className="shrink-0">
           <Link
             to="/settings/upsell"
-            className="group flex items-center gap-3.5 rounded-xl border border-blue-200/90 bg-gradient-to-r from-blue-50/90 via-primary/70 to-blue-50/90 p-4 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md dark:border-blue-900/50 dark:from-blue-950/40 dark:via-primary/30 dark:to-blue-950/40"
+            className="group flex items-center gap-3.5 rounded-xl border border-primary/90 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/90 p-4 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md dark:border-primary/50 dark:from-primary/40 dark:via-primary/30 dark:to-primary/40"
           >
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-500/25 transition-transform group-hover:scale-105">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-md shadow-primary/25 transition-transform group-hover:scale-105">
               <TrendingUp className="h-5 w-5" />
             </span>
             <div className="space-y-0.5">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-black text-blue-950 dark:text-blue-200 sm:text-sm">
+                <span className="text-xs font-black text-primary dark:text-primary sm:text-sm">
                   عروض الـ Upsell & Cross-sell
                 </span>
-                <span className="rounded-full bg-blue-600 px-2 py-0.5 text-[9px] font-black text-white">
+                <span className="rounded-full bg-primary px-2 py-0.5 text-[9px] font-black text-white">
                   Hub
                 </span>
               </div>
-              <p className="text-[11px] text-blue-700 dark:text-blue-300">
+              <p className="text-[11px] text-primary dark:text-primary">
                 إدارة عروض الترقية والمكملات لرفع قيمة السلة
               </p>
             </div>
-            <ChevronLeft className="h-4 w-4 text-blue-600 transition-transform group-hover:translate-x-[-2px] rtl:group-hover:translate-x-[-2px] dark:text-blue-400" />
+            <ChevronLeft className="h-4 w-4 text-primary transition-transform group-hover:translate-x-[-2px] rtl:group-hover:translate-x-[-2px] dark:text-primary" />
           </Link>
         </div>
       </div>

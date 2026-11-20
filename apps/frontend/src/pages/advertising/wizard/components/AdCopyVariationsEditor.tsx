@@ -132,7 +132,7 @@ export const AdCopyVariationsEditor: React.FC<AdCopyVariationsEditorProps> = ({
           <label className="block text-sm font-semibold text-foreground dark:text-muted-foreground">
             {isEn ? "Primary Text" : "النص الأساسي (Primary Text)"} <span className="text-red-500">*</span>
           </label>
-          <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+          <span className="text-xs text-primary dark:text-primary font-medium">
             {textVariations.length + 1} {isEn ? "of 5 texts" : "من 5 نصوص"}
           </span>
         </div>
@@ -155,7 +155,7 @@ export const AdCopyVariationsEditor: React.FC<AdCopyVariationsEditorProps> = ({
             }
             rows={3}
             maxLength={160}
-            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 transition-colors text-sm bg-card text-foreground placeholder-muted dark:placeholder-muted ${
+            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary transition-colors text-sm bg-card text-foreground placeholder-muted dark:placeholder-muted ${
               primaryTextError ? "border-red-500" : "border-border"
             }`}
           />
@@ -192,10 +192,10 @@ export const AdCopyVariationsEditor: React.FC<AdCopyVariationsEditorProps> = ({
         {textVariations.map((variation, index) => (
           <div
             key={variation.id}
-            className="p-3 bg-blue-50/50 dark:bg-blue-950/30 border border-blue-200/70 dark:border-blue-800/60 rounded-xl space-y-2 relative group"
+            className="p-3 bg-primary/50 dark:bg-primary/30 border border-primary/70 dark:border-primary/60 rounded-xl space-y-2 relative group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-blue-800 dark:text-blue-300">
+              <span className="text-xs font-semibold text-primary dark:text-primary">
                 {isEn
                   ? `Text ${index + 2} (Alternative angle test)`
                   : `النص ${index + 2} (اختبار زاوية بديلة)`}
@@ -226,7 +226,7 @@ export const AdCopyVariationsEditor: React.FC<AdCopyVariationsEditorProps> = ({
               }
               rows={2}
               maxLength={160}
-              className="w-full px-3 py-2 border border-blue-200 dark:border-blue-800 rounded-lg text-sm bg-card text-foreground placeholder-muted dark:placeholder-muted focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-primary dark:border-primary rounded-lg text-sm bg-card text-foreground placeholder-muted dark:placeholder-muted focus:ring-2 focus:ring-primary"
             />
           </div>
         ))}
@@ -235,7 +235,7 @@ export const AdCopyVariationsEditor: React.FC<AdCopyVariationsEditorProps> = ({
           <button
             type="button"
             onClick={() => handleAddTextVariation()}
-            className="w-full py-2.5 border border-dashed border-blue-300 dark:border-blue-700 hover:border-blue-500 bg-blue-50/30 dark:bg-blue-950/20 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-xl text-blue-700 dark:text-blue-300 text-xs font-medium flex items-center justify-center gap-1.5 transition-all"
+            className="w-full py-2.5 border border-dashed border-primary dark:border-primary hover:border-primary bg-primary/30 dark:bg-primary/20 hover:bg-primary/10 dark:hover:bg-primary/40 rounded-xl text-primary dark:text-primary text-xs font-medium flex items-center justify-center gap-1.5 transition-all"
           >
             <Plus className="w-4 h-4" />
             {isEn
@@ -274,7 +274,7 @@ export const AdCopyVariationsEditor: React.FC<AdCopyVariationsEditorProps> = ({
                 : "عنوان جذاب يظهر بجانب زر الإجراء..."
             }
             maxLength={50}
-            className="w-full px-4 py-2.5 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-xl text-sm focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2.5 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-xl text-sm focus:ring-2 focus:ring-primary"
           />
         </div>
 

@@ -84,7 +84,7 @@ export const AiDraftReviewView: React.FC<AiDraftReviewViewProps> = ({
       <div className="mx-auto flex max-w-6xl flex-col gap-3">
         <div className="flex flex-col gap-2 rounded-lg border border-border bg-white p-3 shadow-sm dark:border-border dark:bg-muted lg:flex-row lg:items-center lg:justify-between">
           <div className="min-w-0">
-            <div className="text-xs font-bold text-blue-600">
+            <div className="text-xs font-bold text-primary">
               {isEn ? "Draft Review" : "مراجعة المسودة"}
             </div>
             <h1 className="mt-1 truncate text-lg font-black text-foreground dark:text-white">
@@ -163,7 +163,7 @@ export const AiDraftReviewView: React.FC<AiDraftReviewViewProps> = ({
                 <div className="mt-2 text-sm font-bold text-foreground dark:text-white">
                   {formData.headline || (isEn ? "No headline" : "بدون عنوان")}
                 </div>
-                <div className="mt-1 truncate text-xs font-semibold text-blue-600">
+                <div className="mt-1 truncate text-xs font-semibold text-primary">
                   {formData.linkUrl || (isEn ? "No link" : "بدون رابط")}
                 </div>
               </div>

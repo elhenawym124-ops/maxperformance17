@@ -52,7 +52,7 @@ export const VariationsCharts: React.FC<Props> = ({ sizes, colors, isArabic: pro
         <CardContent className="p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <SwatchBook className="h-4 w-4 text-blue-500" />
+              <SwatchBook className="h-4 w-4 text-primary" />
               <h3 className="text-sm font-semibold text-foreground">
                 {t("variationsAnalytics.topSizes", isArabic ? "المقاسات الأكثر طلباً" : "Top Selling Sizes")}
               </h3>

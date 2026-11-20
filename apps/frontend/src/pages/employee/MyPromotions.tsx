@@ -92,7 +92,7 @@ const MyPromotions: React.FC = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
         );
     }
@@ -116,7 +116,7 @@ const MyPromotions: React.FC = () => {
             <div className="space-y-4">
                 {promotions.length === 0 ? (
                     <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border p-12 text-center">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 mb-4">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary mb-4">
                             <TrendingUp className="h-8 w-8" />
                         </div>
                         <h3 className="text-lg font-medium text-foreground mb-2">
@@ -189,7 +189,7 @@ const MyPromotions: React.FC = () => {
                                                     </span>
                                                 </div>
                                                 <div className="flex items-center text-foreground dark:text-muted-foreground">
-                                                    <Calendar className="h-4 w-4 ms-1 text-blue-500" />
+                                                    <Calendar className="h-4 w-4 ms-1 text-primary" />
                                                     <span>{t("employee.promotions.effectiveDate")}</span>
                                                     <span className="font-medium me-1">{formatDate(promotion.effectiveDate)}</span>
                                                 </div>
@@ -286,8 +286,8 @@ const MyPromotions: React.FC = () => {
                                 </div>
 
                                 {selectedPromotion.notes && (
-                                    <div className="p-4 bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-xl">
-                                        <p className="text-xs text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-2 font-bold">{t("employee.promotions.notes")}</p>
+                                    <div className="p-4 bg-primary/50 dark:bg-primary/10 border border-primary dark:border-primary/30 rounded-xl">
+                                        <p className="text-xs text-primary dark:text-primary uppercase tracking-widest mb-2 font-bold">{t("employee.promotions.notes")}</p>
                                         <p className="text-foreground leading-relaxed italic">
                                             {selectedPromotion.notes}
                                         </p>

@@ -200,7 +200,7 @@ const AdPreview: React.FC = () => {
                       <Instagram className="h-4 w-4 text-primary" />
                     )}
                     {format.platform === "facebook" && (
-                      <Facebook className="h-4 w-4 text-blue-500" />
+                      <Facebook className="h-4 w-4 text-primary" />
                     )}
                     {format.platform === "messenger" && (
                       <MessageCircle className="h-4 w-4 text-primary" />

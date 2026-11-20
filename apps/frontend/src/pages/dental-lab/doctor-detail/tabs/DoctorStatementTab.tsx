@@ -38,7 +38,7 @@ export function DoctorStatementTab({
           <div className="flex items-end">
             <button
               onClick={onRefresh}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 flex items-center gap-1.5 mt-auto transition-colors"
+              className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary flex items-center gap-1.5 mt-auto transition-colors"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>تحديث الكشف</span>
@@ -65,7 +65,7 @@ export function DoctorStatementTab({
           <div className="flex justify-between items-start border-b pb-4 dark:border-border">
             <div>
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <FileSpreadsheet className="w-5 h-5 text-blue-600" />
+                <FileSpreadsheet className="w-5 h-5 text-primary" />
                 <span>كشف حساب معمل الأسنان</span>
               </h2>
               <p className="text-sm text-muted-foreground mt-0.5">

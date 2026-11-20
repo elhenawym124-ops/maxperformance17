@@ -225,16 +225,16 @@ export const QuickOrderPaymentForm: React.FC<QuickOrderPaymentFormProps> = ({
                 </p>
               </div>
             ) : eligiblePreviousOrders.length > 0 ? (
-              <div className="p-3 rounded-lg border border-blue-100 dark:border-blue-900/40 bg-blue-50/50 dark:bg-blue-950/20 space-y-2">
+              <div className="p-3 rounded-lg border border-primary dark:border-primary/40 bg-primary/50 dark:bg-primary/20 space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="block text-xs font-semibold text-blue-900 dark:text-blue-300">
+                  <label className="block text-xs font-semibold text-primary dark:text-primary">
                     الطلب السابق المرتبط بال
                     {requestType === "return" ? "مرتجع" : "استبدال"}
                     {exchangeReturnPolicy?.requireExplicitOrderLink && (
                       <span className="text-red-500 ms-1">*</span>
                     )}
                   </label>
-                  <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+                  <span className="text-[11px] font-medium text-primary dark:text-primary font-mono tabular-nums">
                     {eligiblePreviousOrders.length} طلب سابق مؤهل
                   </span>
                 </div>

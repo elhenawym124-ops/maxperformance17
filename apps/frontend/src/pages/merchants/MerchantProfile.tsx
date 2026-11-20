@@ -43,7 +43,7 @@ export const MerchantProfile: React.FC = () => {
           isDark ? "bg-gray-900" : "bg-gray-50"
         }`}
       >
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }

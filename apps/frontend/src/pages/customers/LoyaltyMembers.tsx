@@ -467,7 +467,7 @@ const LoyaltyMembers: React.FC = () => {
                             setSelectedRecord(record);
                             setIsAdjustModalOpen(true);
                           }}
-                          className="text-gray-400 hover:text-blue-600 transition-colors"
+                          className="text-gray-400 hover:text-primary transition-colors"
                           title="تعديل الرصيد"
                         >
                           <Edit className="w-4 h-4" />

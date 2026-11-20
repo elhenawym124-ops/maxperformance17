@@ -23,7 +23,7 @@ export const EmployeeReportRequestsSection: React.FC<
         <Card className="dark:bg-gray-800 dark:border-border border-none shadow-sm">
           <CardHeader className="border-b dark:border-border bg-muted dark:bg-muted">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <Calendar className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              <Calendar className="h-5 w-5 text-primary dark:text-primary" />
               طلبات الإجازات (
               <span className="font-mono tabular-nums">
                 {report.leaves.totalDaysTaken}

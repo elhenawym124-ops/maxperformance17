@@ -277,7 +277,7 @@ export const PlatformOperationsPulse: React.FC = () => {
             <span className="text-xs font-medium text-muted-foreground">
               نشاط الذكاء الاصطناعي
             </span>
-            <div className="flex size-7 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
+            <div className="flex size-7 items-center justify-center rounded-lg bg-primary/10 text-primary dark:text-primary">
               <Cpu className="size-3.5" />
             </div>
           </div>

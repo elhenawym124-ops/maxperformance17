@@ -75,7 +75,7 @@ export const OAuthPixelSelectorSlideOver: React.FC<OAuthPixelSelectorSlideOverPr
                   disabled={isSelecting}
                   className={`w-full text-right p-3.5 rounded-xl border transition-all active:scale-[0.98] ${
                     isCurrent
-                      ? "border-[#1877F2] bg-blue-50/50 dark:bg-blue-950/20 shadow-xs"
+                      ? "border-[#1877F2] bg-primary/50 dark:bg-primary/20 shadow-xs"
                       : "border-gray-200 dark:border-border hover:border-border dark:hover:border-border bg-white dark:bg-muted"
                   }`}
                 >

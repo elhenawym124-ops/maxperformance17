@@ -235,7 +235,7 @@ export const DeductionCreateModal: React.FC<DeductionCreateModalProps> = ({
                 !createForm.amount ||
                 !createForm.reason
               }
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+              className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary disabled:opacity-50"
             >
               {isEditing ? "تحديث" : "إنشاء"}
             </button>

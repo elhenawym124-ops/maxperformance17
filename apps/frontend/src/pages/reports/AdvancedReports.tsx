@@ -544,7 +544,7 @@ const AdvancedReports: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-card rounded-lg shadow p-6">
               <div className="flex items-center">
-                <EyeIcon className="h-8 w-8 text-blue-500" />
+                <EyeIcon className="h-8 w-8 text-primary" />
                 <div className="me-4">
                   <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                     الزوار الحاليون

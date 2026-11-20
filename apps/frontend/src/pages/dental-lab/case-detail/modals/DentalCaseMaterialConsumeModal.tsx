@@ -30,7 +30,7 @@ export function DentalCaseMaterialConsumeModal({
       >
         <div className="flex items-center justify-between mb-4 border-b dark:border-border pb-3">
           <h3 className="text-base font-bold flex items-center gap-2 text-foreground">
-            <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <Package className="w-5 h-5 text-primary dark:text-primary" />
             تسجيل استهلاك خامات وتتبع التشغيلة (Lot Traceability)
           </h3>
           <button
@@ -148,7 +148,7 @@ export function DentalCaseMaterialConsumeModal({
             type="button"
             onClick={onSubmit}
             disabled={materialBusy || !selectedMatId}
-            className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-sm disabled:opacity-50"
+            className="px-5 py-2 bg-primary hover:bg-primary text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-sm disabled:opacity-50"
           >
             {materialBusy && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
             تسجيل وخصم من المخزن

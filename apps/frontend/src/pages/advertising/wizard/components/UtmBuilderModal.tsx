@@ -78,7 +78,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 rounded-lg">
+            <div className="p-2 bg-primary dark:bg-primary/60 text-primary dark:text-primary rounded-lg">
               <Link2 className="w-4 h-4" />
             </div>
             <div>
@@ -115,10 +115,10 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
                   key={idx}
                   type="button"
                   onClick={() => setParams(preset.value)}
-                  className={`w-full p-2.5 rounded-xl border border-border dark:border-border hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50/40 dark:hover:bg-blue-950/30 ${isEn ? "text-left" : "text-right"} transition-all flex items-start justify-between group`}
+                  className={`w-full p-2.5 rounded-xl border border-border dark:border-border hover:border-primary dark:hover:border-primary hover:bg-primary/40 dark:hover:bg-primary/30 ${isEn ? "text-left" : "text-right"} transition-all flex items-start justify-between group`}
                 >
                   <div>
-                    <div className="text-xs font-semibold text-foreground group-hover:text-blue-700 dark:group-hover:text-blue-400">
+                    <div className="text-xs font-semibold text-foreground group-hover:text-primary dark:group-hover:text-primary">
                       {preset.name}
                     </div>
                     <div className="text-[11px] text-muted-foreground mt-0.5">
@@ -128,7 +128,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
                       {preset.value}
                     </code>
                   </div>
-                  <Sparkles className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Sparkles className="w-3.5 h-3.5 text-primary shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </button>
               ))}
             </div>
@@ -147,7 +147,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
                   key={item.macro}
                   type="button"
                   onClick={() => insertMacro(item.macro)}
-                  className="text-xs px-2.5 py-1.5 rounded-lg border border-border dark:border-border bg-muted dark:bg-muted hover:bg-white dark:hover:bg-muted hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 text-foreground font-mono transition-all"
+                  className="text-xs px-2.5 py-1.5 rounded-lg border border-border dark:border-border bg-muted dark:bg-muted hover:bg-white dark:hover:bg-muted hover:border-primary hover:text-primary dark:hover:text-primary text-foreground font-mono transition-all"
                   title={item.label}
                 >
                   + {item.macro}
@@ -168,7 +168,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
               value={params}
               onChange={(e) => setParams(e.target.value)}
               placeholder="utm_source={{site_source_name}}&utm_campaign={{campaign.name}}"
-              className="w-full px-3.5 py-2.5 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-xl font-mono text-xs focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3.5 py-2.5 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-xl font-mono text-xs focus:ring-2 focus:ring-primary focus:border-primary"
               dir="ltr"
             />
           </div>
@@ -194,7 +194,7 @@ export const UtmBuilderModal: React.FC<UtmBuilderModalProps> = ({
             <button
               type="button"
               onClick={handleApply}
-              className="px-4 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-1.5"
+              className="px-4 py-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary rounded-lg transition-colors flex items-center gap-1.5"
             >
               <Check className="w-3.5 h-3.5" />
               {isEn ? "Apply Parameters" : "تطبيق المعلمات"}

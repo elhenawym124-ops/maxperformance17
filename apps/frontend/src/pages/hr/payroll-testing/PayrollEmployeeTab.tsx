@@ -37,9 +37,9 @@ export const PayrollEmployeeTab: React.FC<PayrollEmployeeTabProps> = ({
 }) => {
   return (
     <div className="mt-0 space-y-6">
-      <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50 p-4 rounded-xl flex items-start gap-4 mb-6">
-        <AlertCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-        <p className="text-sm text-blue-800 dark:text-blue-200">
+      <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary/50 p-4 rounded-xl flex items-start gap-4 mb-6">
+        <AlertCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+        <p className="text-sm text-primary dark:text-primary">
           هنا يمكنك تعديل الراتب الأساسي للموظف وإضافة البدلات المختلفة لاختبار
           تأثيرها على الراتب النهائي.
         </p>

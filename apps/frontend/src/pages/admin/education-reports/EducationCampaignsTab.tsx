@@ -51,7 +51,7 @@ export const EducationCampaignsTab: React.FC<EducationCampaignsTabProps> = ({
           <div className="text-[11px] font-medium text-muted-foreground">
             {isEn ? "Attended Demo Day" : "حضور الديمو داي الفعلي"}
           </div>
-          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums flex items-baseline gap-1.5">
+          <div className="text-2xl font-bold text-primary dark:text-primary font-mono tabular-nums flex items-baseline gap-1.5">
             <span>{summary?.totalAttended ?? 0}</span>
             <span className="text-xs text-muted-foreground font-normal">
               ({summary?.overallAttendanceRate ?? 0}%)
@@ -209,7 +209,7 @@ export const EducationCampaignsTab: React.FC<EducationCampaignsTabProps> = ({
                           camp.channel === "WHATSAPP"
                             ? "bg-emerald-500/10 text-success dark:text-success"
                             : camp.channel === "FACEBOOK" || camp.channel === "MESSENGER"
-                            ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                            ? "bg-blue-500/10 text-primary dark:text-primary"
                             : "bg-muted text-muted-foreground"
                         }`}
                       >
@@ -220,7 +220,7 @@ export const EducationCampaignsTab: React.FC<EducationCampaignsTabProps> = ({
                       {camp.leadsCount}
                     </td>
                     <td className="py-2.5 px-3 text-center font-mono tabular-nums">
-                      <span className="text-blue-600 dark:text-blue-400 font-bold">
+                      <span className="text-blue-600 dark:text-primary font-bold">
                         {camp.attendedCount}
                       </span>
                       <span className="text-[10px] text-muted-foreground me-1">

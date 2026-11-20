@@ -27,7 +27,7 @@ export const RewardValueAndPeriodSection: React.FC<
       {/* Period Details */}
       <div className="bg-card rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-          <Calendar className="w-5 h-5 text-blue-600" />
+          <Calendar className="w-5 h-5 text-primary" />
           الفترة الزمنية
         </h3>
 
@@ -39,7 +39,7 @@ export const RewardValueAndPeriodSection: React.FC<
             <DateInput
               value={formData.periodStart}
               onChange={(e) => onChange("periodStart", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.periodStart
                   ? "border-red-500"
                   : "border-gray-300"
@@ -59,7 +59,7 @@ export const RewardValueAndPeriodSection: React.FC<
             <DateInput
               value={formData.periodEnd}
               onChange={(e) => onChange("periodEnd", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.periodEnd
                   ? "border-red-500"
                   : "border-gray-300"
@@ -79,7 +79,7 @@ export const RewardValueAndPeriodSection: React.FC<
             <select
               value={formData.appliedMonth}
               onChange={(e) => onChange("appliedMonth", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.appliedMonth
                   ? "border-red-500"
                   : "border-gray-300"
@@ -108,7 +108,7 @@ export const RewardValueAndPeriodSection: React.FC<
               max="2030"
               value={formData.appliedYear}
               onChange={(e) => onChange("appliedYear", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.appliedYear
                   ? "border-red-500"
                   : "border-gray-300"
@@ -134,7 +134,7 @@ export const RewardValueAndPeriodSection: React.FC<
         <button
           type="submit"
           disabled={saving}
-          className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="flex items-center gap-2 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {saving ? (
             <>

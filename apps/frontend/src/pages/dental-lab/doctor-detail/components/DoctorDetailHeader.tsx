@@ -42,7 +42,7 @@ export function DoctorDetailHeader({
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Link
             to="/dental-lab/doctors"
-            className="hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 font-medium transition-colors"
+            className="hover:text-blue-600 dark:hover:text-primary flex items-center gap-1 font-medium transition-colors"
           >
             <ArrowRight className="w-4 h-4" />
             <span>{t("dentalLab.doctors.title")}</span>
@@ -66,7 +66,7 @@ export function DoctorDetailHeader({
             onClick={onOpenEditModal}
             className="flex items-center gap-1.5 px-3 py-1.5 border dark:border-border rounded-lg text-sm text-foreground hover:bg-muted dark:hover:bg-muted transition-colors"
           >
-            <Pencil className="w-3.5 h-3.5 text-blue-600" />
+            <Pencil className="w-3.5 h-3.5 text-primary" />
             <span>تعديل البيانات</span>
           </button>
         </div>
@@ -76,7 +76,7 @@ export function DoctorDetailHeader({
       <div className="bg-card rounded-xl border dark:border-border p-4 sm:p-6 shadow-sm">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div className="flex items-start gap-3.5">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-tr from-blue-600 to-primary text-white flex items-center justify-center font-bold text-xl sm:text-2xl shadow-md shrink-0">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-tr from-primary to-primary text-white flex items-center justify-center font-bold text-xl sm:text-2xl shadow-md shrink-0">
               {doctor.name.slice(0, 2)}
             </div>
             <div>
@@ -95,7 +95,7 @@ export function DoctorDetailHeader({
                   {doctor.isActive ? "طبيب نشط" : "مؤرشف / غير نشط"}
                 </button>
                 {doctor.hasPortalPin ? (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 border border-blue-200 dark:border-blue-800 flex items-center gap-1">
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary border border-primary dark:border-primary flex items-center gap-1">
                     <KeyRound className="w-3 h-3" />
                     بوابة الطبيب مفعلة
                   </span>
@@ -122,7 +122,7 @@ export function DoctorDetailHeader({
                 {doctor.phone && (
                   <a
                     href={`tel:${doctor.phone}`}
-                    className="flex items-center gap-1 text-blue-600 dark:text-blue-400 font-medium font-mono"
+                    className="flex items-center gap-1 text-primary dark:text-primary font-medium font-mono"
                     dir="ltr"
                   >
                     <Phone className="w-3.5 h-3.5" />
@@ -157,7 +157,7 @@ export function DoctorDetailHeader({
 
             <button
               onClick={onOpenQuickOrder}
-              className="flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold shadow-sm transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-primary hover:bg-primary text-white rounded-xl text-sm font-semibold shadow-sm transition-all"
             >
               <Plus className="w-4 h-4" />
               <span>تسجيل حالة جديدة</span>

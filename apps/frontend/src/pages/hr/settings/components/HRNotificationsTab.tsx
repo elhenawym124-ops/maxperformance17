@@ -74,7 +74,7 @@ export const HRNotificationsTab: React.FC<HRNotificationsTabProps> = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="rounded-lg border border-blue-200 bg-blue-50/80 p-4 text-sm text-blue-900 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-100">
+          <div className="rounded-lg border border-primary bg-primary/80 p-4 text-sm text-primary dark:border-primary dark:bg-primary/30 dark:text-primary">
             هذه السويتشات تتحكم في تشغيل نوع الإشعار نفسه. إذا كان قسم واتساب مفعّلًا وتم ضبط الأرقام والمستلمين، فسيصل نفس النوع على واتساب أيضًا.
           </div>
           <div className="flex items-center justify-between p-4 border border-border dark:border-border rounded-lg">

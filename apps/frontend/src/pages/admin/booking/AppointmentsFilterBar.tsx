@@ -247,7 +247,7 @@ export const AppointmentsFilterBar: React.FC<AppointmentsFilterBarProps> = ({
           </button>
           <button
             onClick={() => onBulkUpdateStatus("completed")}
-            className="px-2 py-1 rounded font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition-colors"
+            className="px-2 py-1 rounded font-medium bg-primary/10 text-primary dark:text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
           >
             إتمام
           </button>

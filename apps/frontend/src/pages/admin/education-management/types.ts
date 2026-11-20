@@ -210,7 +210,7 @@ export interface EducationLogStats {
 export const SESSION_STATUS: Record<string, { label: string; color: string }> = {
   SCHEDULED: {
     label: "مجدولة",
-    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+    color: "bg-blue-500/10 text-primary dark:text-primary border-primary/20",
   },
   CONFIRMED: {
     label: "مؤكدة",
@@ -228,7 +228,7 @@ export const SESSION_STATUS: Record<string, { label: string; color: string }> = 
 
 export const getSessionStatus = (status: string, isEn = false): { label: string; color: string } => {
   const map: Record<string, { ar: string; en: string; color: string }> = {
-    SCHEDULED: { ar: "مجدولة", en: "Scheduled", color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20" },
+    SCHEDULED: { ar: "مجدولة", en: "Scheduled", color: "bg-blue-500/10 text-primary dark:text-primary border-primary/20" },
     CONFIRMED: { ar: "مؤكدة", en: "Confirmed", color: "bg-emerald-500/10 text-success dark:text-success border-success/20" },
     COMPLETED: { ar: "مكتملة", en: "Completed", color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20" },
     CANCELLED: { ar: "ملغية", en: "Cancelled", color: "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20" },

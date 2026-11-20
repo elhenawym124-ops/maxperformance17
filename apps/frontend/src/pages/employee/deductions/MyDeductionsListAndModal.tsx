@@ -122,8 +122,8 @@ export const MyDeductionsListAndModal: React.FC<
                       )}
 
                       {deduction.appliedToPayroll && (
-                        <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
-                          <p className="text-sm text-blue-800 dark:text-blue-400">
+                        <div className="mt-3 p-3 bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary rounded-md">
+                          <p className="text-sm text-primary dark:text-primary">
                             <CheckCircle className="h-4 w-4 inline ms-1" />
                             {t("employee.deductions.appliedToSalary")}
                           </p>
@@ -133,7 +133,7 @@ export const MyDeductionsListAndModal: React.FC<
 
                     <button
                       onClick={() => onOpenDetails(deduction)}
-                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 text-sm font-medium"
+                      className="text-blue-600 hover:text-primary dark:text-primary text-sm font-medium"
                     >
                       {t("employee.deductions.viewDetails")}
                     </button>
@@ -273,8 +273,8 @@ export const MyDeductionsListAndModal: React.FC<
 
                   {selectedDeduction.appliedToPayroll && (
                     <div className="col-span-2">
-                      <div className="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
-                        <p className="text-sm text-blue-800 dark:text-blue-400">
+                      <div className="p-3 bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary rounded-md">
+                        <p className="text-sm text-primary dark:text-primary">
                           <CheckCircle className="h-4 w-4 inline ms-1" />
                           {t("employee.deductions.appliedToSalary")}
                         </p>

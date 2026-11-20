@@ -83,7 +83,7 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
           </div>
 
           <div className="text-left shrink-0">
-            <span className="inline-block px-2 py-0.5 rounded-md text-[11px] font-bold bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+            <span className="inline-block px-2 py-0.5 rounded-md text-[11px] font-bold bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary border border-primary dark:border-primary">
               {c.activeStageName || c.status}
             </span>
           </div>
@@ -196,7 +196,7 @@ export const BenchCaseCard: React.FC<BenchCaseCardProps> = ({
               type="button"
               onClick={() => onAdvance(c)}
               disabled={isBusy}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-xs disabled:opacity-50"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary text-white text-xs font-bold transition shadow-xs disabled:opacity-50"
             >
               {isBusy ? (
                 <RefreshCw className="w-3.5 h-3.5 animate-spin" />

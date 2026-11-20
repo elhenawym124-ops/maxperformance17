@@ -116,7 +116,7 @@ export const WorkTypeMaterialWarrantyFields: React.FC<
             onChange={(e) =>
               setModal({ ...modal, isActive: e.target.checked })
             }
-            className="rounded border-border text-blue-600"
+            className="rounded border-border text-primary"
           />
           <label
             htmlFor="worktype-active"

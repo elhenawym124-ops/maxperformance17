@@ -327,7 +327,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                   label: isEn ? "Subjects" : "المواد الدراسية",
                   value: stats.totalSubjects,
                   icon: BookOpen,
-                  color: "text-blue-600 dark:text-blue-400 bg-blue-500/10 border-blue-500/20",
+                  color: "text-blue-600 dark:text-primary bg-primary/10 border-primary/20",
                   tab: "subjects" as TabId,
                 },
               ]

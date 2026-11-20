@@ -90,7 +90,7 @@ export const PRESETS: EducationPreset[] = [
     desc: "المهندسين، المتدربين، الورش والمشاريع",
     descEn: "Engineers, trainees, workshops, and technical projects",
     icon: Cpu,
-    iconColor: "text-blue-600 dark:text-blue-400",
+    iconColor: "text-blue-600 dark:text-primary",
     systemTitle: "نظام المركز الهندسي والتقني",
     systemTitleEn: "Engineering Training Center",
     labels: {

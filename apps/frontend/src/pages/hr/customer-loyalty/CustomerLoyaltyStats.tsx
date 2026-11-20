@@ -37,7 +37,7 @@ export const CustomerLoyaltyStats: React.FC<CustomerLoyaltyStatsProps> = ({
         </p>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-xl text-white shadow-sm">
+      <div className="bg-gradient-to-r from-primary to-primary p-4 rounded-xl text-white shadow-sm">
         <div className="flex items-center gap-2 text-sm opacity-80">
           <Users className="w-4 h-4" />
           <span>العملاء المشتركين</span>

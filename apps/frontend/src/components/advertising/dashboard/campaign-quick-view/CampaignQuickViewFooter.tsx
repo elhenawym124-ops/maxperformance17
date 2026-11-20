@@ -21,7 +21,7 @@ export const CampaignQuickViewFooter: React.FC<CampaignQuickViewFooterProps> = (
     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border bg-muted px-4 py-3 sm:px-6 dark:border-border dark:bg-muted">
       <Link
         to={fullDetailsUrl}
-        className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400"
+        className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary dark:text-primary"
       >
         <span>
           {isEn ? "Open Full Campaign Studio Page" : "الانتقال لصفحة استوديو الحملة الكاملة"}
@@ -42,7 +42,7 @@ export const CampaignQuickViewFooter: React.FC<CampaignQuickViewFooterProps> = (
           type="button"
           onClick={onSaveChanges}
           disabled={saving}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-700 active:scale-[0.97] disabled:opacity-50 transition-all"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-primary active:scale-[0.97] disabled:opacity-50 transition-all"
         >
           {saving ? (
             <>

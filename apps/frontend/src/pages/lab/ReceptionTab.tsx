@@ -228,7 +228,7 @@ export default function ReceptionTab() {
                     type="button"
                     onClick={() => toggleFlag(f.value)}
                     className={`px-3 py-1.5 rounded-full border text-sm transition-colors ${active
-                      ? "bg-blue-600 border-blue-600 text-white"
+                      ? "bg-blue-600 border-primary text-white"
                       : "border-border text-muted-foreground hover:bg-muted/50"}`}
                   >
                     {f.label}
@@ -265,11 +265,11 @@ export default function ReceptionTab() {
                     type="button"
                     onClick={() => (added ? removeTest(t.id) : addTest(t))}
                     className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm border-b dark:border-border last:border-b-0 text-right ${added
-                      ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                      ? "bg-blue-50 dark:bg-primary/30 text-primary dark:text-primary"
                       : "hover:bg-muted/50 text-foreground dark:text-muted-foreground"}`}
                   >
                     <span className="flex items-center gap-2 min-w-0">
-                      {added ? <Check className="w-4 h-4 text-blue-600 flex-shrink-0" /> : <Plus className="w-4 h-4 text-muted-foreground flex-shrink-0" />}
+                      {added ? <Check className="w-4 h-4 text-primary flex-shrink-0" /> : <Plus className="w-4 h-4 text-muted-foreground flex-shrink-0" />}
                       <span className="min-w-0">
                         <span className="block font-medium truncate">{t.name}</span>
                         {t.abbreviation ? <span className="block text-xs text-muted-foreground/80 truncate">{t.abbreviation}{t.category ? ` · ${t.category}` : ""}</span> : null}
@@ -317,7 +317,7 @@ export default function ReceptionTab() {
                 <span className="text-muted-foreground">المدفوع</span>
                 <input type="number" min={0} className={`${inputCls} !w-28 text-left`} value={paid} onChange={e => setPaid(e.target.value)} />
               </div>
-              <div className="flex justify-between font-bold text-blue-600 dark:text-blue-400">
+              <div className="flex justify-between font-bold text-primary dark:text-primary">
                 <span>المتبقي</span>
                 <span>{remaining} ج.م</span>
               </div>
@@ -326,7 +326,7 @@ export default function ReceptionTab() {
             <button
               onClick={handleSubmit}
               disabled={submitting}
-              className="w-full mt-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2 font-semibold"
+              className="w-full mt-5 py-2.5 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center justify-center gap-2 font-semibold"
             >
               {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
               إنشاء الطلب

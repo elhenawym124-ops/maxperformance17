@@ -301,7 +301,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
     return (
       <section className="grid gap-3 xl:grid-cols-[0.9fr_1.1fr] opacity-60">
         <div className="rounded-xl border border-border bg-white p-6 text-center dark:border-border dark:bg-muted">
-          <RefreshCw className="mx-auto h-6 w-6 animate-spin text-blue-500" />
+          <RefreshCw className="mx-auto h-6 w-6 animate-spin text-primary" />
           <p className="mt-2 text-xs font-bold text-muted-foreground">
             {isEn ? "Loading alert rules..." : "جاري تحميل قواعد التنبيهات..."}
           </p>
@@ -312,10 +312,10 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
 
   return (
     <section className="grid gap-3 xl:grid-cols-[0.9fr_1.1fr]">
-      <div className="rounded-xl border border-blue-200 bg-white p-3 shadow-sm dark:border-blue-900/50 dark:bg-muted">
+      <div className="rounded-xl border border-primary bg-white p-3 shadow-sm dark:border-primary/50 dark:bg-muted">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2 text-xs font-black text-blue-700 dark:text-blue-300">
+            <div className="flex items-center gap-2 text-xs font-black text-primary dark:text-primary">
               <BellRing className="h-4 w-4" />
               WhatsApp Budget Alerts
             </div>
@@ -332,7 +332,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
             type="button"
             onClick={handleRunBudgetAlertsNow}
             disabled={checkingBudgetAlerts}
-            className="inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-2.5 text-[11px] font-black text-blue-700 hover:bg-blue-100 disabled:opacity-60 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200"
+            className="inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-primary bg-primary/10 px-2.5 text-[11px] font-black text-primary hover:bg-primary disabled:opacity-60 dark:border-primary/60 dark:bg-primary/40 dark:text-primary"
           >
             <RefreshCw
               className={`h-3.5 w-3.5 ${checkingBudgetAlerts ? "animate-spin" : ""}`}
@@ -395,7 +395,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
               onChange={(event) =>
                 updateBudgetAlertForm({ campaignId: event.target.value })
               }
-              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white"
+              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
             >
               <option value="">{isEn ? "Select Campaign" : "اختار حملة"}</option>
               {campaigns.map((campaign) => (
@@ -421,7 +421,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
               onChange={(event) =>
                 updateBudgetAlertForm({ thresholdAmount: event.target.value })
               }
-              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-muted disabled:text-muted-foreground dark:border-border dark:bg-muted dark:text-white dark:disabled:bg-muted"
+              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary disabled:bg-muted disabled:text-muted-foreground dark:border-border dark:bg-muted dark:text-white dark:disabled:bg-muted"
             />
           </label>
           <label className="block">
@@ -436,7 +436,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
               onChange={(event) =>
                 updateBudgetAlertForm({ cooldownMinutes: event.target.value })
               }
-              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white"
+              className="h-9 w-full rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
             />
           </label>
         </div>
@@ -452,7 +452,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
               updateBudgetAlertForm({ recipientPhones: event.target.value })
             }
             placeholder={isEn ? "e.g.: 01000000000\n01200000000" : "مثال: 01000000000\n01200000000"}
-            className="w-full rounded-lg border border-border bg-white px-2.5 py-2 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white"
+            className="w-full rounded-lg border border-border bg-white px-2.5 py-2 text-xs font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
           />
         </label>
 
@@ -460,7 +460,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
           type="button"
           onClick={handleCreateBudgetAlert}
           disabled={savingBudgetAlert || !selectedAdAccountId}
-          className="mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 text-xs font-black text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-primary px-3 text-xs font-black text-white hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60"
         >
           <BellRing className="h-4 w-4" />
           {savingBudgetAlert
@@ -515,7 +515,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
                       >
                         {rule.isEnabled ? (isEn ? "Active" : "مفعل") : (isEn ? "Paused" : "متوقف")}
                       </span>
-                      <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-black text-blue-700 dark:bg-blue-950/40 dark:text-blue-200">
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-black text-primary dark:bg-primary/40 dark:text-primary">
                         {getBudgetAlertMetricLabel(rule.metric, isEn)}
                       </span>
                     </div>
@@ -537,7 +537,7 @@ const BudgetAlertsPanel: React.FC<BudgetAlertsPanelProps> = ({
                       type="button"
                       onClick={() => handleTestBudgetAlert(rule.id)}
                       disabled={testingBudgetAlertId === rule.id}
-                      className="inline-flex h-8 items-center justify-center gap-1 rounded-lg border border-blue-200 px-2 text-[11px] font-black text-blue-700 hover:bg-blue-50 disabled:opacity-60 dark:border-blue-900/60 dark:text-blue-200 dark:hover:bg-blue-950/30"
+                      className="inline-flex h-8 items-center justify-center gap-1 rounded-lg border border-primary px-2 text-[11px] font-black text-primary hover:bg-primary/10 disabled:opacity-60 dark:border-primary/60 dark:text-primary dark:hover:bg-primary/30"
                     >
                       <Send className="h-3.5 w-3.5" />
                       {isEn ? "Test" : "اختبار"}

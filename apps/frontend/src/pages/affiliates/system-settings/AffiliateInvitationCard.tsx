@@ -43,8 +43,8 @@ export const AffiliateInvitationCard: React.FC<AffiliateInvitationCardProps> = (
     <div
       className={`mb-8 p-6 rounded-lg border ${
         isDark
-          ? "bg-blue-900/20 border-blue-800"
-          : "bg-blue-50 border-blue-200"
+          ? "bg-blue-900/20 border-primary"
+          : "bg-blue-50 border-primary"
       }`}
     >
       <h3
@@ -85,7 +85,7 @@ export const AffiliateInvitationCard: React.FC<AffiliateInvitationCardProps> = (
             <button
               type="button"
               onClick={handleCopy}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center font-semibold"
+              className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary transition flex items-center font-semibold"
             >
               <ClipboardDocumentIcon className="h-5 w-5 me-2" />
               نسخ

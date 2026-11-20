@@ -151,7 +151,7 @@ const DeliveryRateAnalytics: React.FC = () => {
           <div>
             <div className="p-3 bg-muted/20 border-b border-border/70 flex items-center justify-between text-xs">
               <span className="font-semibold text-foreground flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-blue-500" /> كفاءة شركات الشحن المعتمدة
+                <Building2 className="h-4 w-4 text-primary" /> كفاءة شركات الشحن المعتمدة
               </span>
               <span className="text-muted-foreground font-mono tabular-nums">{stats?.shippingCompanies?.length || 0} شركات</span>
             </div>

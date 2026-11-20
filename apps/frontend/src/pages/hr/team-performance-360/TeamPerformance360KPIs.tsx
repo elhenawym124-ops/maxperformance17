@@ -88,7 +88,7 @@ export const TeamPerformance360KPIs: React.FC<TeamPerformance360KPIsProps> = ({
         <CardContent className="p-4 sm:p-5">
           <div className="flex items-center justify-between text-muted-foreground mb-2">
             <span className="text-xs font-semibold">القسم الأعلى إنتاجية</span>
-            <TrendingUp className="h-4 w-4 text-blue-500" />
+            <TrendingUp className="h-4 w-4 text-primary" />
           </div>
           <div className="text-base sm:text-lg font-bold text-foreground truncate">
             {bestDepartment}

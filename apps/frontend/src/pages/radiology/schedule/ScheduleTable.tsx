@@ -234,7 +234,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
                     (Array.isArray(a.examTypeIds)
                       ? a.examTypeIds.length
                       : 1) > 1 ? (
-                      <span className="me-1.5 text-xs text-blue-600 dark:text-blue-400">
+                      <span className="me-1.5 text-xs text-primary dark:text-primary">
                         +
                         {Array.isArray(a.examTypeIds)
                           ? a.examTypeIds.length - 1
@@ -311,7 +311,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
                               : `/radiology/appointment/${a.id}`,
                           )
                         }
-                        className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded"
+                        className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded"
                         title={t("radiology.details.viewDetails") as string}
                         aria-label={t("radiology.details.viewDetails") as string}
                       >
@@ -375,7 +375,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
                             notes: a.notes || "",
                           })
                         }
-                        className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded"
+                        className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded"
                         title={t("radiology.schedule.edit") as string}
                         aria-label={t("radiology.schedule.edit") as string}
                       >
@@ -437,7 +437,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
             <button
               onClick={() => onRunBulk("checkin")}
               disabled={!!bulkBusy}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-700 disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs hover:bg-primary disabled:opacity-50"
             >
               {bulkBusy === "checkin" ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

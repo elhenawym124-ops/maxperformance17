@@ -48,14 +48,14 @@ export const CampaignRemainingMetrics: React.FC<
         </p>
       </div>
 
-      <div className="bg-blue-50 dark:bg-blue-950 p-5 rounded-xl border border-blue-200 dark:border-blue-800">
-        <p className="text-xs text-blue-600 dark:text-blue-400 font-bold mb-1">
+      <div className="bg-blue-50 dark:bg-primary p-5 rounded-xl border border-primary dark:border-primary">
+        <p className="text-xs text-primary dark:text-primary font-bold mb-1">
           المتوقع عند اكتمال الإرسال
         </p>
-        <p className="text-3xl font-black text-blue-600 dark:text-blue-400 tabular-nums">
+        <p className="text-3xl font-black text-primary dark:text-primary tabular-nums">
           {formatNumber(currentResults.expectedOrdersFromDaily)}
         </p>
-        <p className="text-[10px] mt-1 text-blue-600 dark:text-blue-400 opacity-70">
+        <p className="text-[10px] mt-1 text-primary dark:text-primary opacity-70">
           أوردر متوقع تحقيقه اليوم
         </p>
       </div>

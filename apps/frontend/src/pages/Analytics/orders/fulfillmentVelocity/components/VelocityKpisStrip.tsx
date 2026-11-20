@@ -27,7 +27,7 @@ export const VelocityKpisStrip: React.FC<Props> = ({ kpis }) => {
               className={`flex h-7 w-7 items-center justify-center rounded-lg ${
                 isPrepMilestone
                   ? "bg-amber-50 text-warning dark:bg-warning/50 dark:text-warning"
-                  : "bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400"
+                  : "bg-blue-50 text-primary dark:bg-primary/50 dark:text-primary"
               }`}
             >
               {isPrepMilestone ? <Package className="h-4 w-4" /> : <Truck className="h-4 w-4" />}

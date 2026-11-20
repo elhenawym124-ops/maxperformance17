@@ -33,7 +33,7 @@ export const InventoryFinancialStrip: React.FC<InventoryFinancialStripProps> = (
         <CardContent className="p-3.5">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>قيمة المخزون (بالتكلفة)</span>
-            <DollarSign className="h-3.5 w-3.5 text-blue-500" />
+            <DollarSign className="h-3.5 w-3.5 text-primary" />
           </div>
           <div className="text-lg font-bold font-mono tabular-nums text-foreground">
             {loading ? '...' : formatPrice(totalValue)}

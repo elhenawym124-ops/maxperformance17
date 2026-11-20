@@ -160,8 +160,8 @@ const AdvantagePlusShopping: React.FC = () => {
             Meta Advantage+ يحسّن الإعلانات تلقائياً
           </p>
         </div>
-        <div className="bg-gradient-to-br from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800">
-          <Target className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-2" />
+        <div className="bg-gradient-to-br from-primary to-primary dark:from-primary/20 dark:to-primary/20 rounded-xl p-4 border border-primary dark:border-primary">
+          <Target className="w-8 h-8 text-primary dark:text-primary mb-2" />
           <h3 className="font-semibold text-foreground">
             استهداف ذكي
           </h3>

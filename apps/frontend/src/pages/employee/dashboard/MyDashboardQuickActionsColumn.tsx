@@ -66,8 +66,8 @@ export const MyDashboardQuickActionsColumn: React.FC<
             className="w-full justify-start h-14 rounded-xl bg-white dark:bg-muted border-border hover:border-primary/50 hover:bg-primary/5 shadow-sm transition-all group"
             onClick={() => onNavigate("/my-attendance")}
           >
-            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-xl ms-3 group-hover:bg-blue-100 group-hover:scale-110 transition-all">
-              <Clock className="h-5 w-5 text-blue-600" />
+            <div className="p-2 bg-primary/10 dark:bg-primary/20 rounded-xl ms-3 group-hover:bg-primary group-hover:scale-110 transition-all">
+              <Clock className="h-5 w-5 text-primary" />
             </div>
             <div className="flex-1 text-right">
               <p className="font-bold text-foreground">

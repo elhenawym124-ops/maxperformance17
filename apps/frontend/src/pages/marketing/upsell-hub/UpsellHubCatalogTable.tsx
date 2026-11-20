@@ -69,7 +69,7 @@ export const UpsellHubCatalogTable: React.FC<UpsellHubCatalogTableProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="ابحث بالاسم، SKU أو الفئة..."
-            className="w-full rounded-xl border border-border bg-muted py-2.5 ps-3 pe-9 text-xs text-foreground placeholder:text-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none dark:border-border dark:bg-muted dark:text-white dark:placeholder:text-gray-500"
+            className="w-full rounded-xl border border-border bg-muted py-2.5 ps-3 pe-9 text-xs text-foreground placeholder:text-gray-400 focus:border-primary focus:bg-white focus:outline-none dark:border-border dark:bg-muted dark:text-white dark:placeholder:text-gray-500"
           />
           {searchQuery && (
             <button
@@ -142,7 +142,7 @@ export const UpsellHubCatalogTable: React.FC<UpsellHubCatalogTableProps> = ({
       {/* Catalog Table */}
       {catalogLoading ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <p className="mt-3 text-xs font-bold text-muted-foreground">
             جاري تحميل كتالوج المنتجات...
           </p>
@@ -225,7 +225,7 @@ export const UpsellHubCatalogTable: React.FC<UpsellHubCatalogTableProps> = ({
                     ) : null}
 
                     {crossSellCount > 0 ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-black text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-black text-primary dark:bg-primary/40 dark:text-primary">
                         <ShoppingCart className="h-3 w-3" />
                         <span className="tabular-nums">{crossSellCount}</span> مكملات
                       </span>
@@ -248,7 +248,7 @@ export const UpsellHubCatalogTable: React.FC<UpsellHubCatalogTableProps> = ({
                   <button
                     type="button"
                     onClick={() => openEditModal(product)}
-                    className="inline-flex shrink-0 items-center gap-1 rounded-xl bg-muted px-3.5 py-2 text-xs font-bold text-foreground transition hover:bg-blue-600 hover:text-white dark:bg-muted dark:text-white dark:hover:bg-blue-600 cursor-pointer"
+                    className="inline-flex shrink-0 items-center gap-1 rounded-xl bg-muted px-3.5 py-2 text-xs font-bold text-foreground transition hover:bg-primary hover:text-white dark:bg-muted dark:text-white dark:hover:bg-primary cursor-pointer"
                   >
                     <Link2 className="h-3.5 w-3.5" />
                     تخصيص العروض

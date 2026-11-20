@@ -78,7 +78,7 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
         </p>
         <button
           onClick={() => onNavigate("/hr/rewards/create")}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
         >
           {t("rewards.form.addReward")}
         </button>
@@ -180,7 +180,7 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => onNavigate(`/hr/rewards/${record.id}`)}
-                        className="text-blue-600 hover:text-blue-700"
+                        className="text-blue-600 hover:text-primary"
                         title="عرض التفاصيل"
                         aria-label="عرض التفاصيل"
                       >
@@ -222,7 +222,7 @@ export const RewardsListTable: React.FC<RewardsListTableProps> = ({
                           onClick={() =>
                             onNavigate(`/hr/rewards/edit/${record.id}`)
                           }
-                          className="text-blue-600 hover:text-blue-700"
+                          className="text-blue-600 hover:text-primary"
                           title="تعديل"
                           aria-label="تعديل"
                         >

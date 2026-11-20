@@ -368,7 +368,7 @@ export const CustomerInfoTab: React.FC<CustomerInfoTabProps> = ({
 
           <div className="space-y-0.5">
             <span className="text-[10px] text-muted-foreground dark:text-muted-foreground block">المتابعة القادمة:</span>
-            <span className="font-semibold text-blue-600 dark:text-blue-400 tabular-nums">
+            <span className="font-semibold text-primary dark:text-primary tabular-nums">
               {customer.nextFollowUpDate
                 ? new Date(customer.nextFollowUpDate).toLocaleString("ar-EG", {
                     dateStyle: "short",

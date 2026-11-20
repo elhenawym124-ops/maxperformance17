@@ -22,7 +22,7 @@ export function DashboardTopDoctors({
         <button
           type="button"
           onClick={() => navigate("/dental-lab/doctors")}
-          className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+          className="text-xs text-primary dark:text-primary hover:underline flex items-center gap-1"
         >
           عرض جميع الأطباء <ArrowLeft className="w-3 h-3" />
         </button>
@@ -63,12 +63,12 @@ export function DashboardTopDoctors({
                       );
                     }
                   }}
-                  className="border-b dark:border-border last:border-b-0 hover:bg-blue-50/60 dark:hover:bg-blue-950/20 cursor-pointer transition-colors group"
+                  className="border-b dark:border-border last:border-b-0 hover:bg-primary/60 dark:hover:bg-primary/20 cursor-pointer transition-colors group"
                   title="اضغط لفتح الملف الكامل للطبيب وحالاته"
                 >
-                  <td className="py-2.5 px-2 font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 flex items-center gap-1.5">
+                  <td className="py-2.5 px-2 font-medium group-hover:text-primary dark:group-hover:text-primary flex items-center gap-1.5">
                     <span>{d.doctorName || "—"}</span>
-                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-opacity text-blue-500" />
+                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-70 transition-opacity text-primary" />
                   </td>
                   <td className="py-2.5 px-2 text-center font-semibold font-mono tabular-nums">
                     {d.count ?? 0}

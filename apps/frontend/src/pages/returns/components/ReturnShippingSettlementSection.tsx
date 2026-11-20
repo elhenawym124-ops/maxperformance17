@@ -85,11 +85,11 @@ export const ReturnShippingSettlementSection: React.FC<ReturnShippingSettlementS
       </div>
 
       {suggestedCost !== null && (
-        <p className="text-xs text-blue-700 dark:text-blue-300 flex items-center gap-1.5 font-medium bg-blue-50/80 dark:bg-blue-900/20 p-2.5 rounded-md border border-blue-200 dark:border-blue-800/40">
-          <Truck size={14} className="shrink-0 text-blue-600 dark:text-blue-400" />
+        <p className="text-xs text-primary dark:text-primary flex items-center gap-1.5 font-medium bg-primary/80 dark:bg-primary/20 p-2.5 rounded-md border border-primary dark:border-primary/40">
+          <Truck size={14} className="shrink-0 text-primary dark:text-primary" />
           <span>
             {t('returns.k_256')}:{' '}
-            <strong className="font-bold text-blue-900 dark:text-blue-100 underline decoration-blue-400 tabular-nums font-mono">
+            <strong className="font-bold text-primary dark:text-primary underline decoration-primary tabular-nums font-mono">
               {suggestedCost} {currency}
             </strong>
           </span>

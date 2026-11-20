@@ -17,13 +17,13 @@ export const FeedbackStatsGrid: React.FC<FeedbackStatsGridProps> = ({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <Card className="border-none bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-slate-900 shadow-md hover:shadow-lg transition-all duration-300 border border-transparent dark:border-blue-900/20">
+      <Card className="border-none bg-gradient-to-br from-primary to-white dark:from-primary/20 dark:to-slate-900 shadow-md hover:shadow-lg transition-all duration-300 border border-transparent dark:border-primary/20">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-500/10 rounded-xl">
-              <MessageSquare className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            <div className="p-2 bg-primary/10 rounded-xl">
+              <MessageSquare className="h-6 w-6 text-primary dark:text-primary" />
             </div>
-            <span className="text-sm font-medium text-blue-600 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-1 rounded-full">
+            <span className="text-sm font-medium text-primary bg-primary/10 dark:bg-primary/30 dark:text-primary px-2 py-1 rounded-full">
               الإجمالي
             </span>
           </div>

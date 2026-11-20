@@ -144,8 +144,8 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
             ))}
           </select>
           {savingSpecialty && (
-            <p className="mt-1.5 text-xs text-blue-600 flex items-center">
-              <span className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 me-1.5"></span>
+            <p className="mt-1.5 text-xs text-primary flex items-center">
+              <span className="animate-spin rounded-full h-3 w-3 border-b-2 border-primary me-1.5"></span>
               جاري حفظ التخصص...
             </p>
           )}
@@ -178,8 +178,8 @@ export const CompanyInboxProfileSection: React.FC<CompanyInboxProfileSectionProp
             ))}
           </select>
           {savingInboxProfile && (
-            <p className="mt-1.5 text-xs text-blue-600 flex items-center">
-              <span className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 me-1.5"></span>
+            <p className="mt-1.5 text-xs text-primary flex items-center">
+              <span className="animate-spin rounded-full h-3 w-3 border-b-2 border-primary me-1.5"></span>
               جاري حفظ إعداد الواجهة...
             </p>
           )}

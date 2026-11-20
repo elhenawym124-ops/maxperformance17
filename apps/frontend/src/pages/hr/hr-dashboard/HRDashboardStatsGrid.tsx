@@ -18,7 +18,7 @@ export const HRDashboardStatsGrid: React.FC<HRDashboardStatsGridProps> = ({
       label: t("hrDashboard.totalEmployees"),
       value: data?.employees.totalEmployees || 0,
       icon: Users,
-      iconColor: "text-blue-600 dark:text-blue-400",
+      iconColor: "text-blue-600 dark:text-primary",
       iconBg: "bg-blue-500/10",
     },
     {

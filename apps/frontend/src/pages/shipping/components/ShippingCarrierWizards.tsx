@@ -18,7 +18,7 @@ export const QpExpressWizard: React.FC<CarrierWizardsProps> = ({
   testedProfile,
 }) => (
   <div className="space-y-3.5">
-    <div className="p-3.5 bg-gradient-to-r from-primary/90 to-blue-50/60 dark:from-primary/40 dark:to-blue-950/20 rounded-xl border border-primary dark:border-primary/60 space-y-2">
+    <div className="p-3.5 bg-gradient-to-r from-primary/90 to-primary/60 dark:from-primary/40 dark:to-primary/20 rounded-xl border border-primary dark:border-primary/60 space-y-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="font-bold text-sm text-primary dark:text-primary">
@@ -152,16 +152,16 @@ export const TurboWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
   setFormData,
 }) => (
   <div className="space-y-3.5">
-    <div className="p-3.5 bg-gradient-to-r from-blue-50/90 to-primary/60 dark:from-blue-950/40 dark:to-primary/20 rounded-xl border border-blue-200 dark:border-blue-800/60 space-y-2">
+    <div className="p-3.5 bg-gradient-to-r from-primary/90 to-primary/60 dark:from-primary/40 dark:to-primary/20 rounded-xl border border-primary dark:border-primary/60 space-y-2">
       <div className="flex items-center justify-between">
-        <span className="font-bold text-sm text-blue-950 dark:text-blue-200">
+        <span className="font-bold text-sm text-primary dark:text-primary">
           تربو (Turbo Courier)
         </span>
         <span className="text-[10px] px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/60 dark:text-success font-bold">
           ربط مباشر حقيقي (LIVE)
         </span>
       </div>
-      <p className="text-xs text-blue-950 dark:text-blue-300/90 leading-relaxed">
+      <p className="text-xs text-primary dark:text-primary/90 leading-relaxed">
         أدخل مفتاح الـ API الخاص بحسابك لدى شركة تربو.
       </p>
     </div>
@@ -176,7 +176,7 @@ export const TurboWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
         value={formData.apiKey}
         onChange={(e) => setFormData((prev) => ({ ...prev, apiKey: e.target.value }))}
         placeholder="مفتاح الـ API الخاص بحساب تربو..."
-        className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono focus:ring-2 focus:ring-blue-500"
+        className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono focus:ring-2 focus:ring-primary"
       />
     </div>
 

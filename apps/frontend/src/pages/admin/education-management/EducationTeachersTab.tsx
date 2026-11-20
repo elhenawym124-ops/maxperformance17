@@ -171,14 +171,14 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
         </div>
 
         <div className="bg-card border border-border/70 rounded-xl p-3 flex items-center gap-3 shadow-2xs">
-          <div className="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
             <GraduationCap className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[11px] text-muted-foreground">
               {isEn ? "With Rates" : "محدد لهم أسعار"}
             </div>
-            <div className="text-base font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+            <div className="text-base font-bold text-primary dark:text-primary font-mono tabular-nums">
               {withRatesCount}
             </div>
           </div>
@@ -407,9 +407,9 @@ export const EducationTeachersTab: React.FC<EducationTeachersTabProps> = ({
                       t.subjectRates!.map((sr) => (
                         <span
                           key={sr.id}
-                          className="inline-flex items-center gap-1 text-[11px] bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/20 px-2 py-0.5 rounded-md font-mono tabular-nums"
+                          className="inline-flex items-center gap-1 text-[11px] bg-primary/10 text-primary dark:text-primary border border-primary/20 px-2 py-0.5 rounded-md font-mono tabular-nums"
                         >
-                          <BookOpen className="w-2.5 h-2.5 text-blue-500 shrink-0" />
+                          <BookOpen className="w-2.5 h-2.5 text-primary shrink-0" />
                           <span className="font-sans font-medium">
                             {sr.subject?.name || (isEn ? "Subject" : "مادة")}:
                           </span>

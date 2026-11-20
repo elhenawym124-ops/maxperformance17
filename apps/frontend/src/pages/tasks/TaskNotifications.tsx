@@ -111,7 +111,7 @@ const TaskNotifications: React.FC = () => {
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case "task_assigned":
-        return <UserPlus className="h-4 w-4 text-blue-500" />;
+        return <UserPlus className="h-4 w-4 text-primary" />;
       case "due_soon":
         return <Clock className="h-4 w-4 text-warning" />;
       case "overdue":

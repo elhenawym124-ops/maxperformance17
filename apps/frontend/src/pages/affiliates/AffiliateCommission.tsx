@@ -208,7 +208,7 @@ const AffiliateCommission: React.FC = () => {
         return "text-yellow-600 bg-warning dark:bg-warning/30 dark:text-warning";
       case "PAID":
       case "PROCESSED":
-        return "text-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400";
+        return "text-blue-600 bg-primary dark:bg-primary/30 dark:text-primary";
       case "CANCELLED":
         return "text-red-600 bg-destructive dark:bg-destructive/30 dark:text-destructive";
       default:
@@ -241,7 +241,7 @@ const AffiliateCommission: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -332,12 +332,12 @@ const AffiliateCommission: React.FC = () => {
               <p className="text-xs font-medium text-muted-foreground sm:text-sm">
                 إجمالي الأرباح
               </p>
-              <h3 className="mt-2 text-2xl font-bold text-blue-600 sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-bold text-primary sm:text-3xl">
                 {formatPrice(toNumber(affiliate?.totalEarnings))}
               </h3>
             </div>
-            <div className="hidden rounded-lg bg-blue-50 p-3 dark:bg-blue-900/20 sm:block">
-              <ArrowTrendingUpIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="hidden rounded-lg bg-primary/10 p-3 dark:bg-primary/20 sm:block">
+              <ArrowTrendingUpIcon className="w-6 h-6 text-primary dark:text-primary" />
             </div>
           </div>
           <p className="text-xs text-muted-foreground mt-4">منذ بداية العمل</p>
@@ -416,7 +416,7 @@ const AffiliateCommission: React.FC = () => {
                               href={payout.proofFileUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                              className="text-xs text-primary hover:text-primary dark:text-primary dark:hover:text-primary"
                             >
                               عرض إثبات التحويل
                             </a>
@@ -483,7 +483,7 @@ const AffiliateCommission: React.FC = () => {
                       key={comm.id}
                       className="block rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted md:table-row md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:hover:bg-muted dark:md:hover:bg-muted"
                     >
-                      <td className="flex items-center justify-between gap-4 pb-3 font-mono text-blue-600 dark:text-blue-400 md:table-cell md:p-3">
+                      <td className="flex items-center justify-between gap-4 pb-3 font-mono text-primary dark:text-primary md:table-cell md:p-3">
                         <span className="font-sans text-xs font-medium text-muted-foreground md:hidden">
                           رقم الطلب
                         </span>
@@ -545,7 +545,7 @@ const AffiliateCommission: React.FC = () => {
                   readOnly
                   max={toNumber(affiliate?.pendingEarnings)}
                   min={toNumber(affiliate?.minPayout || 100)}
-                  className="min-h-11 w-full rounded-xl border border-border bg-muted px-4 py-2 text-foreground focus:ring-2 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
+                  className="min-h-11 w-full rounded-xl border border-border bg-muted px-4 py-2 text-foreground focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
                   placeholder="0.00"
                   required
                 />
@@ -562,7 +562,7 @@ const AffiliateCommission: React.FC = () => {
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="min-h-11 w-full rounded-xl border border-border bg-white px-4 py-2 text-foreground focus:ring-2 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
+                  className="min-h-11 w-full rounded-xl border border-border bg-white px-4 py-2 text-foreground focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
                   required
                 >
                   <option value="">اختر طريقة الدفع</option>
@@ -580,7 +580,7 @@ const AffiliateCommission: React.FC = () => {
                 <textarea
                   value={paymentDetails}
                   onChange={(e) => setPaymentDetails(e.target.value)}
-                  className="w-full rounded-xl border border-border bg-white px-4 py-2 text-foreground focus:ring-2 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
+                  className="w-full rounded-xl border border-border bg-white px-4 py-2 text-foreground focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
                   rows={3}
                   required
                   placeholder="مثال: 010xxxxxx"
@@ -598,7 +598,7 @@ const AffiliateCommission: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submittingPayout}
-                  className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                  className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2 text-white hover:bg-primary disabled:opacity-50"
                 >
                   {submittingPayout ? (
                     <ArrowPathIcon className="w-5 h-5 animate-spin" />

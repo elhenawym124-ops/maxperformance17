@@ -46,7 +46,7 @@ export const FacebookOAuthPageCard: React.FC<FacebookOAuthPageCardProps> = ({
     <div
       className={`group flex items-start justify-between gap-3 rounded-lg border p-3 transition-colors ${
         isSelected
-          ? "border-blue-500/50 bg-blue-500/5 dark:bg-blue-500/10"
+          ? "border-blue-500/50 bg-primary/5 dark:bg-primary/10"
           : "border-border/60 bg-card hover:border-border hover:bg-muted/30"
       }`}
     >
@@ -55,10 +55,10 @@ export const FacebookOAuthPageCard: React.FC<FacebookOAuthPageCardProps> = ({
           type="checkbox"
           checked={isSelected}
           onChange={() => onToggleSelect(page.id)}
-          className="mt-1 h-3.5 w-3.5 shrink-0 rounded border-border text-blue-600 focus:ring-blue-500"
+          className="mt-1 h-3.5 w-3.5 shrink-0 rounded border-border text-primary focus:ring-primary"
         />
 
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600 dark:bg-blue-600/20 dark:text-blue-400">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary">
           <MessageSquare className="h-4 w-4" />
         </div>
 

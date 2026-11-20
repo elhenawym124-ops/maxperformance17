@@ -88,7 +88,7 @@ export default function DentalLabSettingsTab() {
             <button
               onClick={saveActive}
               disabled={saveDisabled}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-primary disabled:opacity-50 transition-colors"
             >
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
               {saving ? t("dentalLab.common.saving") : t("dentalLab.common.save")}

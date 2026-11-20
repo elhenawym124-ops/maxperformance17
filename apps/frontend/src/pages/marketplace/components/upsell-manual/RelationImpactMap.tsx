@@ -60,7 +60,7 @@ export function RelationImpactMap() {
         ))}
       </div>
 
-      <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50/80 p-4 text-sm leading-7 text-blue-900 dark:border-blue-900/40 dark:bg-blue-950/20 dark:text-blue-100">
+      <div className="mt-5 rounded-xl border border-primary bg-primary/80 p-4 text-sm leading-7 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary">
         زر الحفظ هنا مستقل عن زر حفظ إعدادات الـ app. أي تعديل على الربط اليدوي
         يحفظ مباشرة داخل Metadata المنتج نفسه.
       </div>

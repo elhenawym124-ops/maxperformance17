@@ -36,7 +36,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
         {selectedEmployees.length > 0 && (
           <Badge
             variant="default"
-            className="bg-blue-100 text-blue-800 font-mono tabular-nums"
+            className="bg-blue-100 text-primary font-mono tabular-nums"
           >
             {selectedEmployees.length} موظف محدد
           </Badge>
@@ -60,7 +60,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
                 key={emp.id}
                 className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${
                   selectedEmployees.includes(emp.id)
-                    ? "bg-blue-50 dark:bg-blue-900/30"
+                    ? "bg-blue-50 dark:bg-primary/30"
                     : "hover:bg-gray-50 dark:hover:bg-muted"
                 }`}
                 onClick={() => toggleEmployeeSelection(emp.id)}
@@ -85,7 +85,7 @@ export const DepartmentEmployeePicker: React.FC<DepartmentEmployeePickerProps> =
                 <div
                   className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${
                     selectedEmployees.includes(emp.id)
-                      ? "bg-blue-600 border-blue-600 text-white"
+                      ? "bg-blue-600 border-primary text-white"
                       : "border-border"
                   }`}
                 >

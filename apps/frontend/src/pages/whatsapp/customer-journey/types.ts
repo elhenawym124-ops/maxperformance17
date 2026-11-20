@@ -50,7 +50,7 @@ export const journeyStatusClasses: Record<string, string> = {
   ACTIVE:
     "border-emerald-300/70 bg-success/10 text-success dark:border-success/40 dark:text-success",
   COMPLETED:
-    "border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:text-blue-200",
+    "border-blue-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:text-primary",
   CANCELLED:
     "border-slate-300/70 bg-muted text-foreground dark:border-border dark:text-muted-foreground",
   FAILED:

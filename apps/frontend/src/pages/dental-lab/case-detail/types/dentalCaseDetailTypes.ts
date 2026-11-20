@@ -62,7 +62,7 @@ export const STAGE_ASSIGNEE_ROLES: {
     label: "فني رئيسي (Primary)",
     shortLabel: "رئيسي",
     badgeCls:
-      "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border-blue-200 dark:border-blue-800",
+      "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary border-primary dark:border-primary",
   },
   {
     id: "ASSISTANT",

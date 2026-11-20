@@ -132,7 +132,7 @@ const CampaignRunsSection: React.FC<{ campaignId: string }> = ({ campaignId }) =
                   {r.startedAt ? new Date(r.startedAt).toLocaleString('ar-EG') : '—'}
                 </td>
                 <td className="py-1.5 px-2 font-mono tabular-nums">{r.audienceCount ?? 0}</td>
-                <td className="py-1.5 px-2 font-mono tabular-nums text-blue-600 dark:text-blue-400 font-semibold">
+                <td className="py-1.5 px-2 font-mono tabular-nums text-primary dark:text-primary font-semibold">
                   {r.sentCount ?? 0}
                 </td>
                 <td className="py-1.5 px-2 font-mono tabular-nums text-success dark:text-success">

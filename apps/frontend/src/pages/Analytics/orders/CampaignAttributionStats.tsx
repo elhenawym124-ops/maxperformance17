@@ -18,7 +18,7 @@ export const CampaignAttributionStats: React.FC<CampaignAttributionStatsProps> =
         s.storefrontOrders !== undefined && s.inboxOrders !== undefined
           ? `${s.storefrontOrders.toLocaleString()} متجر · ${s.inboxOrders.toLocaleString()} إنبوكس`
           : `${s.deliveryRate.toFixed(1)}% نسبة التسليم`,
-      accent: "text-blue-600 dark:text-blue-400",
+      accent: "text-blue-600 dark:text-primary",
     },
     {
       label: "طلبات متتبعة",

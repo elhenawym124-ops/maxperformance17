@@ -105,7 +105,7 @@ export const EmployeeTableRow: React.FC<EmployeeTableRowProps> = ({
                   : t("employees.accountInactive")}
               </Badge>
               {employee.user.isEmailVerified && (
-                <Badge className="bg-blue-100 text-blue-800 text-xs">
+                <Badge className="bg-blue-100 text-primary text-xs">
                   {t("employees.verified")}
                 </Badge>
               )}

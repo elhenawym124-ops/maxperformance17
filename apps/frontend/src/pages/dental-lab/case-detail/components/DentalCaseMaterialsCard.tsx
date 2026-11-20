@@ -30,7 +30,7 @@ export default function DentalCaseMaterialsCard({
           <button
             type="button"
             onClick={onOpenConsume}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-700 shadow-sm transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs hover:bg-primary shadow-sm transition"
           >
             <Plus className="w-3.5 h-3.5" />
             تسجيل استهلاك خام
@@ -56,7 +56,7 @@ export default function DentalCaseMaterialsCard({
                     {usage.material?.name || "مادة خام"}
                   </span>
                   {usage.material?.category && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 font-semibold">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary border border-primary dark:border-primary font-semibold">
                       {usage.material.category}
                     </span>
                   )}

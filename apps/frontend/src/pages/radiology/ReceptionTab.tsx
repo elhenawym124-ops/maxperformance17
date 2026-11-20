@@ -275,7 +275,7 @@ export default function ReceptionTab() {
             {examTypeId ? (
               <div className="sm:col-span-2 rounded-lg border dark:border-border px-4 py-3 flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">{t("radiology.reception.totalLabel")}</span>
-                <b className="text-lg text-blue-600">{(displayPrice + additionsTotal).toFixed(0)} {t("radiology.currency")}</b>
+                <b className="text-lg text-primary">{(displayPrice + additionsTotal).toFixed(0)} {t("radiology.currency")}</b>
               </div>
             ) : null}
             <div className="sm:col-span-2 relative">
@@ -335,7 +335,7 @@ export default function ReceptionTab() {
           <button
             onClick={handleSubmit}
             disabled={submitting}
-            className="w-full mt-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2 font-semibold"
+            className="w-full mt-5 py-2.5 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center justify-center gap-2 font-semibold"
           >
             {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
             {t("radiology.reception.createStudy")}

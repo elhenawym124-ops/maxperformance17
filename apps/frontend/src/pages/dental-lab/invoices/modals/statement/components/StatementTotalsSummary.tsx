@@ -24,11 +24,11 @@ export const StatementTotalsSummary: React.FC<StatementTotalsSummaryProps> = ({
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-4 print:grid-cols-4 print:border print:border-slate-300 print:p-2">
-      <div className="p-3 bg-blue-50/60 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/50 rounded-xl print:border-none print:p-1 font-mono tabular-nums">
+      <div className="p-3 bg-primary/60 dark:bg-primary/20 border border-primary dark:border-primary/50 rounded-xl print:border-none print:p-1 font-mono tabular-nums">
         <span className="text-[11px] text-muted-foreground font-medium print:text-black font-sans">
           عدد الحالات والوحدات
         </span>
-        <p className="text-base sm:text-lg font-bold text-blue-700 dark:text-blue-300 mt-0.5 print:text-black">
+        <p className="text-base sm:text-lg font-bold text-primary dark:text-primary mt-0.5 print:text-black">
           <span className="tabular-nums">{totalCards}</span> حالة (
           <span className="tabular-nums">{totalUnits}</span> وحدة)
         </p>

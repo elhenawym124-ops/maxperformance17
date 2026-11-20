@@ -16,7 +16,7 @@ import { useAuth } from "../../hooks/useAuthSimple";
 
 const STATUS_CONFIG: Record<string, { label: string; badge: string; icon: React.ElementType }> = {
   open: { label: "مفتوحة", badge: "bg-amber-500/10 text-warning dark:text-warning border-warning/20", icon: Clock },
-  in_progress: { label: "قيد المعالجة", badge: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20", icon: AlertCircle },
+  in_progress: { label: "قيد المعالجة", badge: "bg-blue-500/10 text-primary dark:text-primary border-primary/20", icon: AlertCircle },
   closed: { label: "مغلقة", badge: "bg-emerald-500/10 text-success dark:text-success border-success/20", icon: CheckCircle2 },
 };
 
@@ -108,7 +108,7 @@ export default function SupportAdmin() {
                 إدارة الدعم الفني وتذاكر المساعدة
               </h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/30 px-2 py-0.5 text-[10px] font-mono tabular-nums text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-blue-500" />
+                <span className="size-1.5 rounded-full bg-primary" />
                 {tickets.length} تذكرة
               </span>
             </div>
@@ -165,10 +165,10 @@ export default function SupportAdmin() {
         <div className="p-3 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">قيد المعالجة</span>
-            <AlertCircle className="size-3.5 text-blue-500" />
+            <AlertCircle className="size-3.5 text-primary" />
           </div>
           <div className="mt-1.5">
-            <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-blue-600 dark:text-blue-400">
+            <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-primary dark:text-primary">
               {inProgressCount}
             </span>
           </div>

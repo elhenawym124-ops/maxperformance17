@@ -51,8 +51,8 @@ export const TemplateMessageContent: React.FC<TemplateMessageContentProps> = ({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center gap-1.5">
-        <FileText className="size-3.5 text-blue-600 dark:text-blue-400" />
-        <span className="inline-flex items-center gap-1 rounded-md bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+        <FileText className="size-3.5 text-primary dark:text-primary" />
+        <span className="inline-flex items-center gap-1 rounded-md bg-primary px-2 py-0.5 text-xs font-semibold text-primary dark:bg-primary/40 dark:text-primary">
           {templateName || "Template"}
         </span>
       </div>

@@ -29,7 +29,7 @@ export const BenefitCard: React.FC<BenefitCardProps> = ({
     <div className="group relative" onClick={onClick}>
       <Card className="relative overflow-hidden border-none shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer group bg-white/80 dark:bg-muted backdrop-blur-xl ring-1 ring-border dark:ring-white/5 h-full rounded-xl">
         {/* Visual Gradient Bottom */}
-        <div className="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-l from-primary via-blue-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-l from-primary via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
         <CardHeader className="pb-4">
           <div className="flex items-start justify-between">
@@ -53,7 +53,7 @@ export const BenefitCard: React.FC<BenefitCardProps> = ({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-9 w-9 rounded-xl text-muted-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-500/10"
+                className="h-9 w-9 rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/10"
                 onClick={(e) => {
                   e.stopPropagation();
                   onEdit(benefit);

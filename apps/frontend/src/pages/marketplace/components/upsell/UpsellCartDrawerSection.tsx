@@ -110,7 +110,7 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
                 </div>
               </div>
 
-              <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-4 dark:border-blue-900/40 dark:bg-blue-950/20">
+              <div className="rounded-xl border border-primary bg-primary/80 p-4 dark:border-primary/40 dark:bg-primary/20">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -142,7 +142,7 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
                       <div className="h-3 w-3/4 rounded-full bg-muted dark:bg-muted" />
                       <div className="mt-2 h-3 w-1/3 rounded-full bg-muted dark:bg-muted" />
                     </div>
-                    <div className="rounded-full bg-blue-600 px-3 py-1.5 text-[10px] font-bold text-white">
+                    <div className="rounded-full bg-primary px-3 py-1.5 text-[10px] font-bold text-white">
                       {String(copySettings["quickAddLabel"] || "Quick add")}
                     </div>
                   </div>
@@ -152,7 +152,7 @@ export const UpsellCartDrawerSection: React.FC<UpsellCartDrawerSectionProps> = (
           </PlacementPreview>
 
           <div className="rounded-[28px] border border-border bg-muted p-5 dark:border-border dark:bg-muted">
-            <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
               User Intent
             </div>
             <h3 className="mt-2 text-xl font-black text-foreground">

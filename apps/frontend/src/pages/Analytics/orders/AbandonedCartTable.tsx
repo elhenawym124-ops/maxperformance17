@@ -207,7 +207,7 @@ export const AbandonedCartTable: React.FC<AbandonedCartTableProps> = ({
                           </span>
                         )}
                         {isActive && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary dark:text-primary border border-primary/20">
                             <Clock className="h-3 w-3" /> سلة نشطة
                           </span>
                         )}
@@ -242,7 +242,7 @@ export const AbandonedCartTable: React.FC<AbandonedCartTableProps> = ({
                               <a
                                 href={`tel:${cleanPhone(cart.customerPhone)}`}
                                 title="اتصال هاتفي"
-                                className="p-1 rounded text-blue-600 hover:bg-blue-500/10 transition-colors"
+                                className="p-1 rounded text-primary hover:bg-primary/10 transition-colors"
                               >
                                 <Phone className="h-3.5 w-3.5" />
                               </a>

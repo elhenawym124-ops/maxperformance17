@@ -43,7 +43,7 @@ export function RelationTabSelector({
             onClick={() => setActiveRelation(relationType)}
             className={`rounded-xl border px-4 py-3 text-left transition-colors ${
               isActive
-                ? "border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-900/40 dark:bg-blue-950/20 dark:text-blue-100"
+                ? "border-blue-200 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary"
                 : "border-gray-200 bg-muted text-foreground hover:border-border hover:bg-white dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border dark:hover:bg-muted"
             }`}
           >

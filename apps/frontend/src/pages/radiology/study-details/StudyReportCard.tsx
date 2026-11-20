@@ -102,7 +102,7 @@ export const StudyReportCard: React.FC<StudyReportCardProps> = ({
               <button
                 onClick={() => void saveReport()}
                 disabled={savingReport}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs hover:bg-primary disabled:opacity-50 cursor-pointer"
               >
                 {savingReport ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />

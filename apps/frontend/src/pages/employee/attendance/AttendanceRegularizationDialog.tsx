@@ -115,7 +115,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
       <DialogContent className="max-w-lg text-right" dir="rtl">
         <DialogHeader>
           <div className="flex items-center gap-2 mb-1">
-            <div className="p-2 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+            <div className="p-2 rounded-xl bg-primary dark:bg-primary/30 text-primary dark:text-primary">
               <FileCheck className="h-5 w-5" />
             </div>
             <div>
@@ -148,7 +148,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
                 onClick={() => setAction("CHECK_IN")}
                 className={`py-2 px-3 rounded-lg text-xs font-semibold border transition-all ${
                   action === "CHECK_IN"
-                    ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                    ? "bg-blue-600 text-white border-primary shadow-sm"
                     : "bg-gray-50 dark:bg-muted border-border dark:border-border text-foreground"
                 }`}
               >
@@ -159,7 +159,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
                 onClick={() => setAction("CHECK_OUT")}
                 className={`py-2 px-3 rounded-lg text-xs font-semibold border transition-all ${
                   action === "CHECK_OUT"
-                    ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                    ? "bg-blue-600 text-white border-primary shadow-sm"
                     : "bg-gray-50 dark:bg-muted border-border dark:border-border text-foreground"
                 }`}
               >
@@ -248,7 +248,7 @@ export const AttendanceRegularizationDialog: React.FC<AttendanceRegularizationDi
               type="submit"
               size="sm"
               disabled={submitting}
-              className="text-xs gap-1.5 bg-blue-600 hover:bg-blue-700 text-white"
+              className="text-xs gap-1.5 bg-primary hover:bg-primary text-white"
             >
               {submitting ? (
                 <>جاري الإرسال...</>

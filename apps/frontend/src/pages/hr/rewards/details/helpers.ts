@@ -15,7 +15,7 @@ export const REWARD_DETAILS_STATUS_CONFIG: Record<
   },
   APPLIED: {
     label: "مطبق",
-    className: "bg-blue-100 text-blue-800 border-blue-300",
+    className: "bg-blue-100 text-primary border-primary",
   },
   REJECTED: {
     label: "مرفوض",

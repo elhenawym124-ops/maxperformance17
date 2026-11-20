@@ -37,7 +37,7 @@ export const CreationCohortTable: React.FC<Props> = ({ cohorts, milestone, onSel
               : "توزيع كم أوردر خرج شحن من كل تاريخ ورود على حدة"}
           </p>
         </div>
-        <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+        <span className="text-xs font-semibold text-primary dark:text-primary">
           {cohorts.length} تواريخ ورود مختلفة في هذه الدفعة
         </span>
       </div>
@@ -65,7 +65,7 @@ export const CreationCohortTable: React.FC<Props> = ({ cohorts, milestone, onSel
                 c.diffDays === 0
                   ? "bg-emerald-50 text-success dark:bg-success/50 dark:text-success border-success"
                   : c.diffDays === 1
-                  ? "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-400 border-blue-200"
+                  ? "bg-blue-50 text-primary dark:bg-primary/50 dark:text-primary border-primary"
                   : c.diffDays <= 3
                   ? "bg-amber-50 text-warning dark:bg-warning/50 dark:text-warning border-warning"
                   : "bg-rose-50 text-destructive dark:bg-destructive/50 dark:text-destructive border-destructive";
@@ -99,7 +99,7 @@ export const CreationCohortTable: React.FC<Props> = ({ cohorts, milestone, onSel
                       </span>
                       <div className="h-1.5 w-16 overflow-hidden rounded-full bg-muted dark:bg-muted">
                         <div
-                          className="h-full bg-blue-500"
+                          className="h-full bg-primary"
                           style={{ width: `${Math.min(c.percentOfBatch, 100)}%` }}
                         />
                       </div>
@@ -117,7 +117,7 @@ export const CreationCohortTable: React.FC<Props> = ({ cohorts, milestone, onSel
                     <button
                       type="button"
                       onClick={() => onSelectCohortDate(c.creationDate)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-semibold text-foreground shadow-2xs transition hover:bg-muted hover:text-blue-600 active:scale-95 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
+                      className="inline-flex items-center gap-1 rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-semibold text-foreground shadow-2xs transition hover:bg-muted hover:text-primary active:scale-95 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                     >
                       <span>عرض الطلبات</span>
                       <ArrowRight className="h-3 w-3 rtl:rotate-180" />

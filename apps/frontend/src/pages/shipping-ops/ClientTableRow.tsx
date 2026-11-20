@@ -114,8 +114,8 @@ export const ClientTableRow: React.FC<ClientTableRowProps> = ({
       </td>
       <td className="px-4 py-3 text-center">
         {client.currentPackage ? (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800">
-            <Package className="w-3 h-3 text-blue-500" />
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary dark:bg-primary/40 dark:text-primary dark:border-primary">
+            <Package className="w-3 h-3 text-primary" />
             <span className="truncate max-w-[110px]">{client.currentPackage.name}</span>
           </span>
         ) : (

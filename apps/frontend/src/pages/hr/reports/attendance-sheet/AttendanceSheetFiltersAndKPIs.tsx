@@ -185,11 +185,11 @@ export const AttendanceSheetFiltersAndKPIs: React.FC<
                   <p className="text-muted-foreground text-sm font-medium">
                     إجازات
                   </p>
-                  <h3 className="text-2xl font-bold mt-1 text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+                  <h3 className="text-2xl font-bold mt-1 text-primary dark:text-primary font-mono tabular-nums">
                     {totals.leave}
                   </h3>
                 </div>
-                <CalendarOff className="h-8 w-8 text-blue-500/20 dark:text-blue-400/20" />
+                <CalendarOff className="h-8 w-8 text-primary/20 dark:text-primary/20" />
               </div>
             </CardContent>
           </Card>

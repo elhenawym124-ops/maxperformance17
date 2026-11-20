@@ -95,7 +95,7 @@ export function DemoDayAttendeesTable({
         ? "bg-emerald-500/10 text-success dark:text-success font-bold"
         : att.conversionStatus === "NOT_INTERESTED"
         ? "bg-muted text-muted-foreground"
-        : "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+        : "bg-blue-500/10 text-primary dark:text-primary"
     }`;
 
   const whatsappBtn = (att: DemoDayAttendee, size: string) => (

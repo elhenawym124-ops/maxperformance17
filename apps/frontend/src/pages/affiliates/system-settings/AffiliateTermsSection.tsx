@@ -42,7 +42,7 @@ export const AffiliateTermsSection: React.FC<AffiliateTermsSectionProps> = ({
             })
           }
           placeholder="اكتب هنا الشروط التي يجب أن يوافق عليها المسوق عند التسجيل..."
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary ${
             isDark
               ? "bg-gray-700 border-border text-white placeholder-muted"
               : "bg-white border-border text-foreground"

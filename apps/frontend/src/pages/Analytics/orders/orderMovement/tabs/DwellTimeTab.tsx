@@ -133,7 +133,7 @@ export default function DwellTimeTab({ startDate, endDate, mode }: MovementFilte
           value={formatNumber(totalSamples)}
           hint={cycleTime ? `${formatNumber(cycleTime.sampleSize)} طلب اكتمل` : undefined}
           icon={Layers}
-          gradient="from-cyan-500 to-blue-600"
+          gradient="from-cyan-500 to-primary"
         />
       </div>
 

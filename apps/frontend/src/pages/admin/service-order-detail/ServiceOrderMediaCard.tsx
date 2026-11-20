@@ -190,7 +190,7 @@ export const ServiceOrderMediaCard: React.FC<ServiceOrderMediaCardProps> = ({
           {/* Images */}
           {imageFiles.length > 0 && (
             <div className="space-y-2">
-              <h4 className="text-xs font-bold text-blue-700 dark:text-blue-400 flex items-center gap-1.5">
+              <h4 className="text-xs font-bold text-primary dark:text-primary flex items-center gap-1.5">
                 <ImageIcon className="w-4 h-4" />
                 الصور والتصاميم ({imageFiles.length})
               </h4>
@@ -236,7 +236,7 @@ export const ServiceOrderMediaCard: React.FC<ServiceOrderMediaCardProps> = ({
                     className="flex items-center justify-between p-2.5 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <FileText className="w-4 h-4 text-blue-600 shrink-0" />
+                      <FileText className="w-4 h-4 text-primary shrink-0" />
                       <span className="text-xs font-medium text-foreground dark:text-muted-foreground truncate">
                         {file.originalName}
                       </span>

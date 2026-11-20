@@ -212,7 +212,7 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
               className="inline-flex items-center gap-1 rounded-lg border border-border/50 bg-background/60 px-2 py-0.5 text-[11px]"
               title="المهام المفتوحة (انتظار + قيد التنفيذ)"
             >
-              <Clock className="size-3 text-blue-500" />
+              <Clock className="size-3 text-primary" />
               <span className="text-muted-foreground">مفتوحة:</span>
               <strong className="font-semibold text-foreground font-mono tabular-nums">
                 {openTasksCount}

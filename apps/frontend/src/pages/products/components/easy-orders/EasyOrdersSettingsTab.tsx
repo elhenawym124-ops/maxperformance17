@@ -148,7 +148,7 @@ export const EasyOrdersSettingsTab: React.FC<EasyOrdersSettingsTabProps> = ({
                           log.status === "SUCCESS"
                             ? "bg-emerald-500/10 text-success border border-success/20"
                             : log.status === "RUNNING"
-                            ? "bg-blue-500/10 text-blue-600 border border-blue-500/20"
+                            ? "bg-blue-500/10 text-primary border border-primary/20"
                             : "bg-red-500/10 text-destructive border border-destructive/20"
                         }`}
                       >

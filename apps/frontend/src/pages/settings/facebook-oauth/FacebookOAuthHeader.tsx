@@ -22,7 +22,7 @@ export const FacebookOAuthHeader: React.FC<FacebookOAuthHeaderProps> = ({
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/50 pb-4">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600 dark:bg-blue-600/20 dark:text-blue-400">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary">
           <FacebookIcon className="h-5 w-5" />
         </div>
         <div>
@@ -68,7 +68,7 @@ export const FacebookOAuthHeader: React.FC<FacebookOAuthHeaderProps> = ({
               size="sm"
               onClick={() => onConnect(false)}
               disabled={loading}
-              className="h-8 gap-1.5 bg-blue-600 text-xs font-medium text-white hover:bg-blue-700"
+              className="h-8 gap-1.5 bg-primary text-xs font-medium text-white hover:bg-primary"
             >
               <Plus className="h-3.5 w-3.5" />
               {t("facebookOAuth.addMorePages", "إضافة صفحات")}
@@ -79,7 +79,7 @@ export const FacebookOAuthHeader: React.FC<FacebookOAuthHeaderProps> = ({
             size="sm"
             onClick={() => onConnect(false)}
             disabled={loading}
-            className="h-8 gap-1.5 bg-blue-600 text-xs font-medium text-white hover:bg-blue-700"
+            className="h-8 gap-1.5 bg-primary text-xs font-medium text-white hover:bg-primary"
           >
             <ExternalLink className="h-3.5 w-3.5" />
             {t("facebookOAuth.connectWithFacebook", "ربط مع فيسبوك")}

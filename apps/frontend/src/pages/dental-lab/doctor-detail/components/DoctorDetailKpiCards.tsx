@@ -69,7 +69,7 @@ export function DoctorDetailKpiCards({
             <span className="text-xs text-muted-foreground font-medium">
               إجمالي المسحوبات (الفوترة)
             </span>
-            <Receipt className="w-4 h-4 text-blue-500" />
+            <Receipt className="w-4 h-4 text-primary" />
           </div>
           <p className="text-lg sm:text-2xl font-black mt-1.5 text-foreground font-mono tabular-nums">
             {fmtMoney(doctor.totalBilled ?? 0)}{" "}
@@ -112,7 +112,7 @@ export function DoctorDetailKpiCards({
             <span className="text-lg sm:text-2xl font-black text-foreground font-mono tabular-nums">
               {doctor.activeCases ?? 0}
             </span>
-            <span className="text-xs text-blue-600 font-semibold">حالة شغالة</span>
+            <span className="text-xs text-primary font-semibold">حالة شغالة</span>
             <span className="text-xs text-muted-foreground font-mono tabular-nums">
               / {doctor.casesCount ?? 0} إجمالي
             </span>
@@ -145,7 +145,7 @@ export function DoctorDetailKpiCards({
                 onClick={() => onTabChange(tab.id as DetailTab)}
                 className={`flex items-center gap-2 px-4 py-3 border-b-2 font-medium text-sm whitespace-nowrap transition-all touch-manipulation min-h-[44px] ${
                   active
-                    ? "border-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/20"
+                    ? "border-blue-600 text-primary dark:text-primary bg-primary/50 dark:bg-primary/20"
                     : "border-transparent text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:border-border"
                 }`}
               >
@@ -155,7 +155,7 @@ export function DoctorDetailKpiCards({
                   <span
                     className={`text-xs px-2 py-0.5 rounded-full font-bold font-mono tabular-nums ${
                       active
-                        ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
+                        ? "bg-blue-100 dark:bg-primary text-primary dark:text-primary"
                         : "bg-gray-100 dark:bg-muted text-foreground dark:text-muted-foreground"
                     }`}
                   >

@@ -147,7 +147,7 @@ export const CourierRunPage: React.FC = () => {
   if (loading && !run) {
     return (
       <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center p-4">
-        <ArrowPathIcon className="w-8 h-8 animate-spin text-blue-600" />
+        <ArrowPathIcon className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -158,7 +158,7 @@ export const CourierRunPage: React.FC = () => {
         <p className="text-sm font-semibold text-foreground dark:text-muted-foreground">
           المأمورية غير موجودة أو انتهت صلاحيتها
         </p>
-        <Link to="/courier-portal" className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-bold">
+        <Link to="/courier-portal" className="mt-4 px-4 py-2 bg-primary text-white rounded-xl text-xs font-bold">
           العودة للرئيسية
         </Link>
       </div>
@@ -223,7 +223,7 @@ export const CourierRunPage: React.FC = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="ابحث باسم العميل، الهاتف، أو رقم الطلب..."
-              className="w-full pe-9 ps-3 py-1.5 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pe-9 ps-3 py-1.5 text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
           <button

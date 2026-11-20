@@ -66,7 +66,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
       label: "مكافأة أداء / حافز",
       desc: "إضافة مالية تضاف للمستحقات",
       color:
-        "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800",
+        "bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary",
     },
     DEDUCTION: {
       label: "خصم (تالف / إعادة شغل)",
@@ -120,7 +120,7 @@ export function TechnicianPayoutModal({ tech, onClose, onSaved }: PayoutModalPro
                     onClick={() => setType(tKey)}
                     className={`p-2.5 rounded-lg border text-right transition-all text-xs ${
                       isSelected
-                        ? `${cfg.color} ring-2 ring-blue-500 font-bold shadow-sm`
+                        ? `${cfg.color} ring-2 ring-primary font-bold shadow-sm`
                         : "border-gray-200 dark:border-border hover:bg-muted dark:hover:bg-muted text-muted-foreground"
                     }`}
                   >

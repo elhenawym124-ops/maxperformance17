@@ -86,7 +86,7 @@ const MyAttendance: React.FC = () => {
             {t("employee.attendance.myAttendanceDesc")}
           </p>
           {user && (
-            <p className="text-lg font-semibold text-blue-600 dark:text-blue-400 mt-2">
+            <p className="text-lg font-semibold text-primary dark:text-primary mt-2">
               {t("employee.attendance.employee", {
                 name: `${user.firstName} ${user.lastName}`,
               })}

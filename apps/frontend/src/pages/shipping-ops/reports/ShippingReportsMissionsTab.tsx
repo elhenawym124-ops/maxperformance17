@@ -73,11 +73,11 @@ export const ShippingReportsMissionsTab: React.FC<Props> = ({ data, loading }) =
         </div>
 
         <div className="p-3 rounded-lg border border-border dark:border-border bg-white dark:bg-muted">
-          <span className="text-[11px] text-blue-600 dark:text-blue-400 font-medium flex items-center gap-1">
+          <span className="text-[11px] text-primary dark:text-primary font-medium flex items-center gap-1">
             <Clock className="w-3 h-3" />
             متوسط مدة الرحلة
           </span>
-          <div className="text-xl font-bold tabular-nums text-blue-600 dark:text-blue-400 mt-0.5">
+          <div className="text-xl font-bold tabular-nums text-primary dark:text-primary mt-0.5">
             {Math.round(totals.avgDurationMinutes)} <span className="text-xs font-normal text-muted-foreground">دقيقة</span>
           </div>
         </div>
@@ -120,7 +120,7 @@ export const ShippingReportsMissionsTab: React.FC<Props> = ({ data, loading }) =
             <tbody className="divide-y divide-border dark:divide-border">
               {filteredRows.map((row) => (
                 <tr key={row.runId} className="hover:bg-slate-50/50 dark:hover:bg-muted">
-                  <td className="py-2.5 px-4 font-mono font-bold text-blue-600 dark:text-blue-400">
+                  <td className="py-2.5 px-4 font-mono font-bold text-primary dark:text-primary">
                     {row.runNumber}
                   </td>
                   <td className="py-2.5 px-4">

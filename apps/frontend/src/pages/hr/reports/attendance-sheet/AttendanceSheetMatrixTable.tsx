@@ -216,7 +216,7 @@ export const AttendanceSheetMatrixTable: React.FC<
                             variant="outline"
                             className={`text-[9px] px-1 py-0 ${
                               emp.totals.leave > 0
-                                ? "text-blue-600 border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800"
+                                ? "text-blue-600 border-primary bg-primary/10 dark:bg-primary/20 dark:border-primary"
                                 : "text-gray-300 border-border"
                             }`}
                           >

@@ -129,7 +129,7 @@ export const CreatePerformanceReviewDetailsCard: React.FC<
 
             <div className="space-y-3">
               <Label className="font-bold flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-blue-500" />
+                <TrendingUp className="h-4 w-4 text-primary" />
                 مجالات التطوير
               </Label>
               <Textarea

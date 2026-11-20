@@ -63,7 +63,7 @@ const WhyAssetsSection: React.FC = () => {
   ];
 
   const colorClasses: Record<string, string> = {
-    blue: "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
+    blue: "bg-blue-50 text-primary dark:bg-primary/30 dark:text-primary",
     indigo:
       "bg-indigo-50 text-primary dark:bg-primary/30 dark:text-primary",
     green:

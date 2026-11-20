@@ -11,7 +11,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
     sent: "bg-emerald-100 text-success dark:bg-success/40 dark:text-success",
     failed: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive",
     inactive: "bg-gray-100 text-muted-foreground dark:bg-muted dark:text-muted-foreground",
-    unknown: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    unknown: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
   };
   const icons: Record<string, React.ReactNode> = {
     scheduled: <Clock className="h-3 w-3" />,

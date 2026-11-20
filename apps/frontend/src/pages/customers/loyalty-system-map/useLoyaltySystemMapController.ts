@@ -600,7 +600,7 @@ export function useLoyaltySystemMapController() {
       label: "نسبة الاستبدال",
       value: `${redemptionRate}%`,
       icon: TrendingUp,
-      tone: "bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400",
+      tone: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
     },
     {
       label: "إجمالي الكاش باك",

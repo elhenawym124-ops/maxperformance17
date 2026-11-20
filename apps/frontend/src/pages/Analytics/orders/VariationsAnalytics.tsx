@@ -247,9 +247,9 @@ const VariationsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي المبيعات</span>
-              <Box className="h-4 w-4 text-blue-500" />
+              <Box className="h-4 w-4 text-primary" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">{(stats?.totalSales || 0).toLocaleString()}</div>
+            <div className="text-2xl font-bold font-mono tabular-nums text-primary dark:text-primary">{(stats?.totalSales || 0).toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-1">قطعة منفذة</div>
           </CardContent>
         </Card>

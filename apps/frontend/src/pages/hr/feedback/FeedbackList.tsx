@@ -113,7 +113,7 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({
                     {item.category && (
                       <>
                         <span className="h-1 w-1 rounded-full bg-muted-foreground/30"></span>
-                        <span className="font-medium text-blue-600 dark:text-blue-400 font-sans">
+                        <span className="font-medium text-primary dark:text-primary font-sans">
                           {item.category}
                         </span>
                       </>
@@ -151,7 +151,7 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({
                             className="flex items-center gap-2 cursor-pointer"
                             onClick={() => onEdit(item.id)}
                           >
-                            <Pencil className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                            <Pencil className="h-4 w-4 text-primary dark:text-primary" />
                             <span>تعديل</span>
                           </DropdownMenuItem>
                           <DropdownMenuItem
@@ -168,7 +168,7 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({
                 )}
               </div>
 
-              <div className="bg-muted/50 p-4 rounded-xl border border-border group-hover:border-blue-500/20 group-hover:bg-blue-500/5 transition-all">
+              <div className="bg-muted/50 p-4 rounded-xl border border-border group-hover:border-primary/20 group-hover:bg-primary/5 transition-all">
                 <p className="text-foreground/90 leading-relaxed whitespace-pre-wrap">
                   {item.content}
                 </p>

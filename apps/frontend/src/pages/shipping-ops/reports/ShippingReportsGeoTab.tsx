@@ -74,11 +74,11 @@ export const ShippingReportsGeoTab: React.FC<Props> = ({ data, loading }) => {
         </div>
 
         <div className="p-3 rounded-lg border border-border dark:border-border bg-white dark:bg-muted">
-          <span className="text-[11px] text-blue-600 dark:text-blue-400 font-medium flex items-center gap-1">
+          <span className="text-[11px] text-primary dark:text-primary font-medium flex items-center gap-1">
             <Clock className="w-3 h-3" />
             متوسط زمن التوصيل
           </span>
-          <div className="text-xl font-bold tabular-nums text-blue-600 dark:text-blue-400 mt-0.5">
+          <div className="text-xl font-bold tabular-nums text-primary dark:text-primary mt-0.5">
             {totals.avgDays.toFixed(1)} <span className="text-xs font-normal text-muted-foreground">يوم</span>
           </div>
         </div>
@@ -141,7 +141,7 @@ export const ShippingReportsGeoTab: React.FC<Props> = ({ data, loading }) => {
                         rowRate >= 80
                           ? 'bg-emerald-50 text-success dark:bg-success/40 dark:text-success'
                           : rowRate >= 60
-                          ? 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300'
+                          ? 'bg-blue-50 text-primary dark:bg-primary/40 dark:text-primary'
                           : 'bg-rose-50 text-destructive dark:bg-destructive/40 dark:text-destructive'
                       }`}>
                         {rowRate}%

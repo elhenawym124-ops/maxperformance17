@@ -58,7 +58,7 @@ export default function ClientPortalShell() {
               className={({ isActive }) =>
                 `px-4 py-2.5 text-sm font-medium rounded-none transition-colors ${
                   isActive
-                    ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600'
+                    ? 'bg-blue-50 text-primary border-r-2 border-primary'
                     : 'text-gray-600 hover:bg-muted hover:text-foreground'
                 }`
               }

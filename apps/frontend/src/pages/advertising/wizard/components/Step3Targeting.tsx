@@ -193,7 +193,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
             <select
               value={formData.ageMin}
               onChange={(e) => handleChange("ageMin", parseInt(e.target.value))}
-              className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
             >
               {Array.from({ length: 53 }, (_, i) => i + 13).map((age) => (
                 <option key={age} value={age}>
@@ -210,7 +210,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
             <select
               value={formData.ageMax}
               onChange={(e) => handleChange("ageMax", parseInt(e.target.value))}
-              className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
             >
               {Array.from({ length: 53 }, (_, i) => i + 13).map((age) => (
                 <option key={age} value={age}>
@@ -242,7 +242,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
               className={`flex-1 py-3 px-4 border-2 rounded-xl font-medium transition-all ${
                 (formData.genders.length === 0 && gender.value === "") ||
                 (formData.genders.includes(gender.value) && gender.value !== "")
-                  ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300"
+                  ? "border-blue-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary"
                   : "border-gray-200 dark:border-border hover:border-border bg-card text-foreground"
               }`}
             >
@@ -272,7 +272,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
         <button
           type="button"
           onClick={() => setShowAdvancedTargeting(!showAdvancedTargeting)}
-          className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+          className="flex items-center gap-2 text-primary dark:text-primary hover:text-primary dark:hover:text-primary font-medium"
         >
           <Heart className="w-4 h-4" />
           {showAdvancedTargeting
@@ -288,7 +288,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
       {/* Advanced Targeting Options */}
       {showAdvancedTargeting && (
         <div className="space-y-6 bg-muted dark:bg-muted p-4 rounded-xl border border-border dark:border-border">
-          <p className="rounded-lg border border-blue-100 dark:border-blue-900/40 bg-blue-50 dark:bg-blue-950/30 px-3 py-2 text-xs font-medium leading-5 text-blue-800 dark:text-blue-200">
+          <p className="rounded-lg border border-primary dark:border-primary/40 bg-primary/10 dark:bg-primary/30 px-3 py-2 text-xs font-medium leading-5 text-primary dark:text-primary">
             {isEn
               ? "Interests from Meta search, custom/lookalike audiences, exclusions, languages, devices, and relationship status are sent."
               : "يتم إرسال الاهتمامات من بحث Meta، الجماهير المخصصة/المشابهة، الاستبعادات، اللغات، الأجهزة، والحالة الاجتماعية فقط."}
@@ -316,7 +316,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
                     ? "Search for an interest (e.g. Shopping, Fashion, Tech...)"
                     : "ابحث عن اهتمام (مثال: تسوق، موضة، تقنية...)"
                 }
-                className={`w-full ${isEn ? "ps-10 pe-4 text-left" : "pe-10 ps-4 text-right"} py-3 border border-border rounded-lg bg-card text-foreground placeholder-muted dark:placeholder-muted focus:ring-2 focus:ring-blue-500`}
+                className={`w-full ${isEn ? "ps-10 pe-4 text-left" : "pe-10 ps-4 text-right"} py-3 border border-border rounded-lg bg-card text-foreground placeholder-muted dark:placeholder-muted focus:ring-2 focus:ring-primary`}
               />
               {searchLoading && (
                 <Loader2
@@ -439,7 +439,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
                   onClick={() => toggleRelationshipStatus(status.value)}
                   className={`px-4 py-2 rounded-full border text-sm transition-colors ${
                     relationshipStatuses.includes(status.value)
-                      ? "border-blue-500 bg-blue-500 text-white"
+                      ? "border-blue-500 bg-primary text-white"
                       : "border-gray-200 dark:border-border hover:border-border bg-card text-foreground"
                   }`}
                 >
@@ -452,7 +452,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
           {/* Languages */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2 flex items-center gap-2">
-              <Globe className="w-4 h-4 text-blue-500" />
+              <Globe className="w-4 h-4 text-primary" />
               {isEn ? "Languages" : "اللغات"}
             </label>
             <div className="flex flex-wrap gap-2">
@@ -463,7 +463,7 @@ export const Step3Targeting: React.FC<Step3TargetingProps> = ({
                   onClick={() => toggleLanguage(lang.id)}
                   className={`px-4 py-2 rounded-lg border transition-colors ${
                     selectedLanguages.includes(lang.id)
-                      ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300"
+                      ? "border-blue-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary"
                       : "border-gray-200 dark:border-border hover:border-border bg-card text-foreground"
                   }`}
                 >

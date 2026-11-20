@@ -92,7 +92,7 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
             <div className="flex justify-between items-start mb-2">
               <div className="flex items-center gap-3">
                 <Avatar className="h-10 w-10 border-2 border-white dark:border-border shadow-sm flex-shrink-0">
-                  <AvatarFallback className="bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold">
+                  <AvatarFallback className="bg-gradient-to-br from-primary to-primary text-white font-bold">
                     {warning.employee?.firstName?.[0] || "U"}
                   </AvatarFallback>
                 </Avatar>
@@ -123,7 +123,7 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
                     className="rounded-xl flex items-center gap-3 py-2.5 cursor-pointer"
                     onClick={() => onViewDetails(warning.id)}
                   >
-                    <div className="p-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400">
+                    <div className="p-1.5 bg-primary/10 dark:bg-primary/20 rounded-lg text-primary dark:text-primary">
                       <FileText className="h-4 w-4" />
                     </div>
                     <span className="font-medium text-sm">عرض التفاصيل</span>
@@ -225,7 +225,7 @@ export const WarningsCardGrid: React.FC<WarningsCardGridProps> = ({
                   <span className="text-[10px] font-black text-muted-foreground/80 uppercase tracking-widest">
                     تاريخ الواقعة:
                   </span>
-                  <div className="flex items-center gap-2 text-xs font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-xl w-fit border border-blue-100 dark:border-blue-900/30">
+                  <div className="flex items-center gap-2 text-xs font-bold font-mono tabular-nums text-primary dark:text-primary bg-primary/10 dark:bg-primary/20 px-3 py-1.5 rounded-xl w-fit border border-primary dark:border-primary/30">
                     <Calendar className="h-3.5 w-3.5" />
                     {new Date(warning.incidentDate).toLocaleDateString("ar-EG")}
                   </div>

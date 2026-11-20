@@ -62,7 +62,7 @@ export function AddStatusModal({
                   })
                 }
                 placeholder="مثال: READY_TO_SHIP"
-                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs font-mono focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs font-mono focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
               />
             </div>
             <div>
@@ -77,7 +77,7 @@ export function AddStatusModal({
                     statusType: e.target.value as OrderStatusType,
                   })
                 }
-                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
               >
                 <option value="order">حالة طلب</option>
                 <option value="payment">حالة دفع</option>
@@ -99,7 +99,7 @@ export function AddStatusModal({
                   setNewStatus({ ...newStatus, name: e.target.value })
                 }
                 placeholder="مثال: جاهز للشحن"
-                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
               />
             </div>
             <div>
@@ -113,7 +113,7 @@ export function AddStatusModal({
                   setNewStatus({ ...newStatus, nameEn: e.target.value })
                 }
                 placeholder="Ready to Ship"
-                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
               />
             </div>
           </div>
@@ -128,7 +128,7 @@ export function AddStatusModal({
                 setNewStatus({ ...newStatus, description: e.target.value })
               }
               rows={2}
-              className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+              className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
             />
           </div>
 
@@ -166,7 +166,7 @@ export function AddStatusModal({
                   onClick={() => setNewStatus({ ...newStatus, icon })}
                   className={`p-2 rounded-xl border transition-colors ${
                     newStatus.icon === icon
-                      ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                      ? "border-blue-500 bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary"
                       : "border-border text-muted-foreground hover:bg-muted/50"
                   }`}
                 >
@@ -189,7 +189,7 @@ export function AddStatusModal({
                     mapsToSystem: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
               >
                 <option value="">-- بدون ربط --</option>
                 {SYSTEM_STATUSES.map((s) => (
@@ -219,7 +219,7 @@ export function AddStatusModal({
                   })
                 }
                 placeholder="مثال: processing"
-                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+                className="w-full px-3 py-2 border dark:border-border rounded-xl text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
               />
             </div>
           </div>
@@ -235,7 +235,7 @@ export function AddStatusModal({
                     notifyCustomer: e.target.checked,
                   })
                 }
-                className="w-4 h-4 text-blue-600 rounded"
+                className="w-4 h-4 text-primary rounded"
               />
               <span className="text-xs text-foreground">
                 إشعار العميل
@@ -251,7 +251,7 @@ export function AddStatusModal({
                     notifyAdmin: e.target.checked,
                   })
                 }
-                className="w-4 h-4 text-blue-600 rounded"
+                className="w-4 h-4 text-primary rounded"
               />
               <span className="text-xs text-foreground">
                 إشعار الإدارة
@@ -271,7 +271,7 @@ export function AddStatusModal({
           <button
             type="button"
             onClick={onCreate}
-            className="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 text-xs font-semibold shadow-xs transition"
+            className="flex items-center gap-2 px-5 py-2 bg-primary text-white rounded-xl hover:bg-primary text-xs font-semibold shadow-xs transition"
           >
             <Plus className="w-4 h-4" />
             إضافة

@@ -64,7 +64,7 @@ export const StudyHistoryTimelineCard: React.FC<StudyHistoryTimelineCardProps> =
                 >
                   <span className="flex items-center gap-2 min-w-0">
                     <span
-                      className="font-medium text-blue-600 dark:text-blue-400 truncate"
+                      className="font-medium text-primary dark:text-primary truncate"
                       dir="ltr"
                     >
                       {sib.studyNumber || sib.id.slice(0, 8)}

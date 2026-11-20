@@ -77,8 +77,8 @@ export const CompanyPolicyTable: React.FC<CompanyPolicyTableProps> = ({
                   >
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-3">
-                        <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg group-hover:bg-blue-100 transition-colors">
-                          <FileText className="h-4 w-4 text-blue-600" />
+                        <div className="p-2 bg-primary/10 dark:bg-primary/20 rounded-lg group-hover:bg-primary transition-colors">
+                          <FileText className="h-4 w-4 text-primary" />
                         </div>
                         <span className="line-clamp-1">{policy.title}</span>
                       </div>
@@ -117,7 +117,7 @@ export const CompanyPolicyTable: React.FC<CompanyPolicyTableProps> = ({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-blue-600 hover:bg-blue-50"
+                          className="h-8 w-8 text-primary hover:bg-primary/10"
                           onClick={() => onView(policy)}
                           title="عرض"
                         >

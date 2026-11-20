@@ -80,7 +80,7 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
       <td className="py-3 px-3 font-medium text-foreground">
         <Link
           to={`/dental-lab/cases?technicianId=${x.id}`}
-          className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline cursor-pointer"
+          className="hover:text-blue-600 dark:hover:text-primary hover:underline cursor-pointer"
           title="عرض كل حالات هذا الفني فقط"
         >
           {x.name}
@@ -145,10 +145,10 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
           </span>
         )}
       </td>
-      <td className="py-3 px-3 font-mono font-medium text-blue-600 dark:text-blue-400 tabular-nums">
+      <td className="py-3 px-3 font-mono font-medium text-primary dark:text-primary tabular-nums">
         {x.completedStages ?? 0}
       </td>
-      <td className="py-3 px-3 font-semibold text-blue-600 dark:text-blue-400">
+      <td className="py-3 px-3 font-semibold text-primary dark:text-primary">
         <div className="font-mono tabular-nums">{fmtMoney(x.totalEarnings)} ج.م</div>
         {Number(x.totalBonuses) > 0 || Number(x.totalDeductions) > 0 ? (
           <div className="text-[11px] font-normal flex items-center gap-1 mt-0.5 font-mono tabular-nums">
@@ -181,8 +181,8 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
         {x.userEmail ||
         x.user?.email ||
         (x.userId && teamName(x.userId) !== "—") ? (
-          <div className="inline-flex items-center gap-1.5 font-mono text-xs text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-lg border border-blue-200 dark:border-blue-800">
-            <ShieldCheck className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+          <div className="inline-flex items-center gap-1.5 font-mono text-xs text-primary dark:text-primary bg-primary/10 dark:bg-primary/30 px-2.5 py-1 rounded-lg border border-primary dark:border-primary">
+            <ShieldCheck className="w-3.5 h-3.5 text-primary dark:text-primary shrink-0" />
             <span
               className="truncate max-w-[170px]"
               title={x.userEmail || x.user?.email || teamName(x.userId)}
@@ -224,7 +224,7 @@ export const TechnicianTableRow: React.FC<TechnicianTableRowProps> = ({
           </button>
           <button
             onClick={() => onOpenLedger(x)}
-            className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+            className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg transition-colors"
             title="كشف حساب وسجل السندات"
           >
             <Receipt className="w-4 h-4" />

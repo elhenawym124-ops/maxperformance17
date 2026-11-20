@@ -67,7 +67,7 @@ export default function CategoryModal({ isOpen, onClose, onSuccess }: CategoryMo
         <div className="flex items-center justify-between px-5 py-4 border-b border-border dark:border-border bg-muted dark:bg-muted">
           <div>
             <h3 className="text-base font-semibold text-foreground dark:text-muted-foreground flex items-center gap-2">
-              <Tag className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <Tag className="w-4 h-4 text-primary dark:text-primary" />
               إضافة تصنيف نفقات جديد
             </h3>
             <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-0.5">

@@ -28,7 +28,7 @@ export function TechnicianWorkingDaysSection({ modal, setModal }: TechnicianWork
               }}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${
                 isSelected
-                  ? "bg-blue-600 text-white border-blue-600 shadow-xs"
+                  ? "bg-blue-600 text-white border-primary shadow-xs"
                   : "bg-gray-50 text-foreground dark:bg-muted dark:text-muted-foreground border-border dark:border-border hover:border-border"
               }`}
             >

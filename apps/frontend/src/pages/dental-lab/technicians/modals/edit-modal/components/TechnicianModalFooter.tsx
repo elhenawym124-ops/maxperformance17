@@ -27,7 +27,7 @@ export function TechnicianModalFooter({
       <button
         onClick={onSave}
         disabled={saving || !nameTrimmed}
-        className="px-5 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm shadow-sm"
+        className="px-5 py-2 bg-primary text-white font-medium rounded-lg hover:bg-primary disabled:opacity-50 text-sm shadow-sm"
       >
         {saving ? t("dentalLab.common.saving") : t("dentalLab.common.save")}
       </button>

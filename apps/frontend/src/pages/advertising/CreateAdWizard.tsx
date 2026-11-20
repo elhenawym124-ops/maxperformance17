@@ -44,10 +44,10 @@ const CreateAdWizard: React.FC = () => {
         </div>
 
         {isStorefrontProductLaunch && (
-          <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50/80 p-4 text-sm text-blue-900 shadow-sm dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200">
+          <div className="mb-6 rounded-xl border border-primary bg-primary/80 p-4 text-sm text-primary shadow-sm dark:border-primary/60 dark:bg-primary/40 dark:text-primary">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-700 dark:bg-blue-900/80 dark:text-blue-300">
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary dark:bg-primary/80 dark:text-primary">
                   <Sparkles className="h-3.5 w-3.5" />
                   {isEn ? "Storefront Product Scenario" : "سيناريو منتج المتجر"}
                 </span>
@@ -64,7 +64,7 @@ const CreateAdWizard: React.FC = () => {
                     href={productLaunchUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-semibold text-blue-700 underline hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-100"
+                    className="inline-flex items-center gap-1 font-semibold text-primary underline hover:text-primary dark:text-primary dark:hover:text-primary"
                   >
                     {isEn ? "Open Product URL" : "فتح رابط المنتج"}
                     <ExternalLink className="h-3.5 w-3.5" />
@@ -74,7 +74,7 @@ const CreateAdWizard: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowFullWizard(true)}
-                    className="font-semibold text-blue-700 underline hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-100"
+                    className="font-semibold text-primary underline hover:text-primary dark:text-primary dark:hover:text-primary"
                   >
                     {isEn
                       ? "Advanced Edit in Full Wizard"

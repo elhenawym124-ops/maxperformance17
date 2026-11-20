@@ -31,7 +31,7 @@ const renderBottleneckBadge = (cat: BottleneckCategory) => {
       );
     case 'CUSTOMER_SALES':
       return (
-        <span className="text-[10px] px-2 py-0.5 rounded-full font-medium bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+        <span className="text-[10px] px-2 py-0.5 rounded-full font-medium bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary border border-primary dark:border-primary">
           عميل / تأكيد
         </span>
       );
@@ -211,7 +211,7 @@ export const ProductDeliveryReturnsTable: React.FC<Props> = ({
                     <span className="font-bold text-foreground dark:text-muted-foreground block">
                       {formatPrice(item.collectedRevenue)}
                     </span>
-                    <span className="text-[10px] text-blue-600 dark:text-blue-400 block">
+                    <span className="text-[10px] text-primary dark:text-primary block">
                       نسبة التحصيل: {item.collectionRate}%
                     </span>
                   </td>

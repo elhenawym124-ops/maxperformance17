@@ -181,7 +181,7 @@ export const WorkReportRecordsHeaderAndCharts: React.FC<
           label="عدد الموظفين"
           value={payload.analytics.summary.uniqueEmployees}
           icon={Users}
-          tone="border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-900/60 dark:bg-blue-950/30 dark:text-blue-200"
+          tone="border-blue-200 bg-primary/10 text-primary dark:border-primary/60 dark:bg-primary/30 dark:text-primary"
         />
         {payload.analytics.metricCards.slice(0, 2).map((metric) => (
           <StatCard

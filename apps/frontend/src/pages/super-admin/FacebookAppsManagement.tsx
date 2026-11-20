@@ -161,13 +161,13 @@ export const FacebookAppsManagement: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/60">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 shadow-sm">
+          <div className="size-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-sm">
             <Layers className="size-5" />
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
               بنية تطبيقي Meta (Primary + Growth)
-              <span className="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20">
+              <span className="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
                 T13 Multi-App Registry
               </span>
             </h1>
@@ -223,7 +223,7 @@ export const FacebookAppsManagement: React.FC = () => {
                       <div
                         className={`size-8 rounded-lg flex items-center justify-center ${
                           isPrimary
-                            ? "bg-blue-500/10 text-blue-500 border border-blue-500/20"
+                            ? "bg-blue-500/10 text-primary border border-primary/20"
                             : "bg-purple-500/10 text-primary border border-primary/20"
                         }`}
                       >
@@ -381,7 +381,7 @@ export const FacebookAppsManagement: React.FC = () => {
                   value={formAppId}
                   onChange={(e) => setFormAppId(e.target.value)}
                   required
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-primary outline-none"
                 />
               </div>
 
@@ -395,7 +395,7 @@ export const FacebookAppsManagement: React.FC = () => {
                   onChange={(e) => setFormSecretRef(e.target.value)}
                   required
                   placeholder="مثال: FACEBOOK_APP_SECRET"
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-primary outline-none"
                 />
                 <span className="text-[10px] text-warning mt-1 block">
                   * أدخل اسم متغير البيئة فقط، ممنوع إدخال السر الفعلي هنا.
@@ -409,7 +409,7 @@ export const FacebookAppsManagement: React.FC = () => {
                   value={formConfigId}
                   onChange={(e) => setFormConfigId(e.target.value)}
                   placeholder="اختياري"
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-primary outline-none"
                 />
               </div>
 
@@ -422,7 +422,7 @@ export const FacebookAppsManagement: React.FC = () => {
                   value={formVerifyTokenRef}
                   onChange={(e) => setFormVerifyTokenRef(e.target.value)}
                   placeholder="مثال: FACEBOOK_WEBHOOK_VERIFY_TOKEN"
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background font-mono text-xs focus:ring-1 focus:ring-primary outline-none"
                 />
               </div>
 
@@ -432,7 +432,7 @@ export const FacebookAppsManagement: React.FC = () => {
                   id="app-is-active"
                   checked={formIsActive}
                   onChange={(e) => setFormIsActive(e.target.checked)}
-                  className="rounded border-border text-blue-500 focus:ring-blue-500"
+                  className="rounded border-border text-primary focus:ring-primary"
                 />
                 <label htmlFor="app-is-active" className="cursor-pointer">
                   التطبيق مفعل وجاهز للاستقبال
@@ -450,7 +450,7 @@ export const FacebookAppsManagement: React.FC = () => {
                 <button
                   type="submit"
                   disabled={actionLoading === "save"}
-                  className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition-colors"
+                  className="px-4 py-1.5 rounded-lg bg-primary hover:bg-primary text-white text-xs font-medium transition-colors"
                 >
                   {actionLoading === "save" ? "جاري الحفظ..." : "حفظ التغييرات"}
                 </button>
@@ -515,7 +515,7 @@ export const FacebookAppsManagement: React.FC = () => {
 
               <div className="space-y-2">
                 <h4 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-                  <ShieldCheck className="size-4 text-blue-500" />
+                  <ShieldCheck className="size-4 text-primary" />
                   حالة اعتماد صلاحيات Meta (App Review & Scope Access Levels)
                 </h4>
 
@@ -552,7 +552,7 @@ export const FacebookAppsManagement: React.FC = () => {
                               </span>
                             )}
                             {isPending && (
-                              <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded text-[10px] font-medium">
+                              <span className="bg-blue-500/10 text-primary dark:text-primary border border-primary/20 px-2 py-0.5 rounded text-[10px] font-medium">
                                 قيد المراجعة (Pending Meta)
                               </span>
                             )}

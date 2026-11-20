@@ -44,7 +44,7 @@ export const DentalCaseEditFinancialSection: React.FC<DentalCaseEditFinancialSec
   return (
     <div className="bg-gray-50/70 dark:bg-muted p-4 rounded-xl border dark:border-border">
       <h4 className={sectionTitleCls}>
-        <DollarSign className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+        <DollarSign className="w-4 h-4 text-primary dark:text-primary" />
         <span>الأسعار والجدولة</span>
       </h4>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">

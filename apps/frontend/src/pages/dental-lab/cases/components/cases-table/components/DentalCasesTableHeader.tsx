@@ -15,7 +15,7 @@ export const DentalCasesTableHeader: React.FC<DentalCasesTableHeaderProps> = ({
         <th className="w-8 py-2.5 px-2 text-center">
           <input
             type="checkbox"
-            className="rounded border-border dark:border-border text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer align-middle"
+            className="rounded border-border dark:border-border text-primary focus:ring-primary w-3.5 h-3.5 cursor-pointer align-middle"
             checked={isAllSelected}
             onChange={onToggleSelectAll}
             title="تحديد كل الحالات في هذه الصفحة"

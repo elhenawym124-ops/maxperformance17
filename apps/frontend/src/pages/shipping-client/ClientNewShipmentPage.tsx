@@ -154,7 +154,7 @@ export default function ClientNewShipmentPage() {
         <h2 className="text-lg font-bold text-foreground">تم إنشاء الشحنة بنجاح</h2>
         <div className="bg-gray-50 border border-border rounded p-3 text-sm">
           <span className="text-gray-500">رقم البوليصة: </span>
-          <span className="font-mono font-bold text-blue-600">{createdSuccess.trackingNumber}</span>
+          <span className="font-mono font-bold text-primary">{createdSuccess.trackingNumber}</span>
         </div>
         <div className="flex justify-center gap-3 pt-2">
           <button
@@ -166,7 +166,7 @@ export default function ClientNewShipmentPage() {
               setDestinationAddress('');
               setCodAmount(0);
             }}
-            className="px-4 py-2 bg-blue-600 text-white rounded text-xs font-semibold hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-primary text-white rounded text-xs font-semibold hover:bg-primary transition-colors"
           >
             إنشاء شحنة أخرى
           </button>
@@ -212,7 +212,7 @@ export default function ClientNewShipmentPage() {
                 value={recipientName}
                 onChange={(e) => setRecipientName(e.target.value)}
                 placeholder="أحمد محمد"
-                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-primary focus:ring-1 focus:ring-primary"
               />
             </div>
             <div>
@@ -223,7 +223,7 @@ export default function ClientNewShipmentPage() {
                 value={recipientPhone}
                 onChange={(e) => setRecipientPhone(e.target.value)}
                 placeholder="010XXXXXXXX"
-                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-primary focus:ring-1 focus:ring-primary font-mono"
               />
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function ClientNewShipmentPage() {
                 value={recipientPhone2}
                 onChange={(e) => setRecipientPhone2(e.target.value)}
                 placeholder="011XXXXXXXX"
-                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-primary focus:ring-1 focus:ring-primary font-mono"
               />
             </div>
             <div>
@@ -244,7 +244,7 @@ export default function ClientNewShipmentPage() {
               <select
                 value={destinationGovernorate}
                 onChange={(e) => setDestinationGovernorate(e.target.value)}
-                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-primary focus:ring-1 focus:ring-primary bg-white"
               >
                 {GOVERNORATES.map((gov) => (
                   <option key={gov} value={gov}>
@@ -263,7 +263,7 @@ export default function ClientNewShipmentPage() {
                 value={destinationCity}
                 onChange={(e) => setDestinationCity(e.target.value)}
                 placeholder="مدينة نصر / الدقي"
-                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-primary focus:ring-1 focus:ring-primary"
               />
             </div>
             <div>
@@ -274,7 +274,7 @@ export default function ClientNewShipmentPage() {
                 value={destinationAddress}
                 onChange={(e) => setDestinationAddress(e.target.value)}
                 placeholder="الشارع، رقم العمارة، الشقة"
-                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs px-3 py-2 border border-border rounded focus:border-primary focus:ring-1 focus:ring-primary"
               />
             </div>
           </div>
@@ -334,7 +334,7 @@ export default function ClientNewShipmentPage() {
                 type="checkbox"
                 checked={isFragile}
                 onChange={(e) => setIsFragile(e.target.checked)}
-                className="rounded border-border text-blue-600 focus:ring-blue-500"
+                className="rounded border-border text-primary focus:ring-primary"
               />
               <span>طرد قابل للكسر</span>
             </label>
@@ -343,7 +343,7 @@ export default function ClientNewShipmentPage() {
                 type="checkbox"
                 checked={allowOpenPackage}
                 onChange={(e) => setAllowOpenPackage(e.target.checked)}
-                className="rounded border-border text-blue-600 focus:ring-blue-500"
+                className="rounded border-border text-primary focus:ring-primary"
               />
               <span>السماح بفتح الشحنة للمعاينة</span>
             </label>
@@ -405,7 +405,7 @@ export default function ClientNewShipmentPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full mt-4 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-xs font-semibold rounded shadow-sm transition-colors"
+              className="w-full mt-4 py-2.5 bg-primary hover:bg-primary disabled:opacity-50 text-white text-xs font-semibold rounded shadow-sm transition-colors"
             >
               {submitting ? 'جاري الحفظ...' : 'تأكيد وحفظ الشحنة'}
             </button>

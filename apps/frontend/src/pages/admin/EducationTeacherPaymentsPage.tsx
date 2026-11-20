@@ -299,11 +299,11 @@ export default function EducationTeacherPaymentsPage() {
             <div className="text-xs text-muted-foreground">
               {t("education.payments.totalHoursDisbursed", isEn ? "Total Disbursed Hours" : "إجمالي الساعات المصروفة")}
             </div>
-            <div className="text-xl font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+            <div className="text-xl font-bold text-primary dark:text-primary font-mono tabular-nums">
               {stats.totalHours.toLocaleString()} {t("education.common.hour", isEn ? "hrs" : "ساعة")}
             </div>
           </div>
-          <div className="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20">
+          <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center border border-primary/20">
             <Users className="w-4 h-4" />
           </div>
         </div>

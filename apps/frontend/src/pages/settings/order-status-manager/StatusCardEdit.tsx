@@ -37,7 +37,7 @@ export function StatusCardEdit({
                 name: e.target.value,
               })
             }
-            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
           />
         </div>
         <div>
@@ -53,7 +53,7 @@ export function StatusCardEdit({
                 nameEn: e.target.value,
               })
             }
-            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
           />
         </div>
       </div>
@@ -92,7 +92,7 @@ export function StatusCardEdit({
                 mapsToSystem: e.target.value,
               })
             }
-            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-blue-500 dark:bg-muted dark:text-white"
+            className="w-full px-3 py-2 border dark:border-border rounded-lg text-xs focus:ring-2 focus:ring-primary dark:bg-muted dark:text-white"
           >
             <option value="">-- بدون ربط --</option>
             {SYSTEM_STATUSES.map((s) => (
@@ -121,7 +121,7 @@ export function StatusCardEdit({
                 notifyCustomer: e.target.checked,
               })
             }
-            className="w-4 h-4 text-blue-600 rounded"
+            className="w-4 h-4 text-primary rounded"
           />
           <span className="text-xs text-foreground">
             إشعار العميل
@@ -137,7 +137,7 @@ export function StatusCardEdit({
                 notifyAdmin: e.target.checked,
               })
             }
-            className="w-4 h-4 text-blue-600 rounded"
+            className="w-4 h-4 text-primary rounded"
           />
           <span className="text-xs text-foreground">
             إشعار الإدارة
@@ -156,7 +156,7 @@ export function StatusCardEdit({
         <button
           type="button"
           onClick={() => onSave(editingStatus)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-xs font-semibold shadow-xs transition"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-xs font-semibold shadow-xs transition"
         >
           <Save className="w-4 h-4" />
           حفظ

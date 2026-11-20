@@ -105,7 +105,7 @@ export function DentalInvoiceCreateModal({
       <div className={`${MODAL_CONTENT_CLS} max-w-lg my-8`} onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between pb-3 border-b dark:border-border mb-4">
           <div className="flex items-center gap-2">
-            <CreditCard className="w-5 h-5 text-blue-600" />
+            <CreditCard className="w-5 h-5 text-primary" />
             <h3 className="text-base sm:text-lg font-bold">{t("dentalLab.invoices.createTitle")}</h3>
           </div>
           <button
@@ -248,7 +248,7 @@ export function DentalInvoiceCreateModal({
           <button
             onClick={save}
             disabled={saving || (!doctorName.trim() && !doctorId && !caseId)}
-            className="px-5 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2 font-medium"
+            className="px-5 py-2 text-sm bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2 font-medium"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />}
             {saving ? t("dentalLab.common.saving") : t("dentalLab.common.save")}

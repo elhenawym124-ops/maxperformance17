@@ -226,7 +226,7 @@ const ProjectMap: React.FC = () => {
             <span>تجريبي</span>
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="size-2 rounded-full bg-blue-500" />
+            <span className="size-2 rounded-full bg-primary" />
             <span>جديد</span>
           </span>
         </div>
@@ -249,7 +249,7 @@ const ProjectMap: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">الوحدات البرمجية</span>
-              <Server className="size-3.5 text-blue-500" />
+              <Server className="size-3.5 text-primary" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground tabular-nums">
               {totalSubNodes}

@@ -10,7 +10,7 @@ import { shippingClientApi } from './useShippingClientApi';
 
 const STATUS_LABELS: Record<string, { label: string; className: string }> = {
   PENDING: { label: 'قيد المراجعة', className: 'bg-amber-50 text-warning border-warning' },
-  ACCEPTED: { label: 'تم القبول', className: 'bg-blue-50 text-blue-700 border-blue-200' },
+  ACCEPTED: { label: 'تم القبول', className: 'bg-blue-50 text-primary border-primary' },
   OUT_FOR_DELIVERY: { label: 'خرج للتوصيل', className: 'bg-indigo-50 text-primary border-primary' },
   DELIVERED: { label: 'تم التسليم', className: 'bg-emerald-50 text-success border-success' },
   RETURNED: { label: 'مرتجع', className: 'bg-rose-50 text-destructive border-destructive' },
@@ -55,7 +55,7 @@ export default function ClientShipmentDetailsPage() {
         </div>
         <button
           onClick={() => navigate('/client-portal/shipping/shipments')}
-          className="text-xs text-blue-600 font-semibold hover:underline"
+          className="text-xs text-primary font-semibold hover:underline"
         >
           &rarr; العودة لسجل الشحنات
         </button>
@@ -176,7 +176,7 @@ export default function ClientShipmentDetailsPage() {
               <div className="relative border-r-2 border-border me-2 space-y-4 py-2">
                 {shipment.events.map((ev: any, idx: number) => (
                   <div key={ev.id || idx} className="relative pe-4">
-                    <div className="absolute -right-[7px] top-1 w-2.5 h-2.5 rounded-full bg-blue-500 ring-4 ring-white" />
+                    <div className="absolute -right-[7px] top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-white" />
                     <div className="text-xs font-semibold text-foreground">
                       {STATUS_LABELS[ev.toStatus]?.label || ev.toStatus || 'تحديث'}
                     </div>

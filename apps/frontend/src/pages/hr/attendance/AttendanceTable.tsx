@@ -52,7 +52,7 @@ export const AttendanceTable: React.FC<AttendanceTableProps> = ({
       <CardContent className="p-0">
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : records.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">

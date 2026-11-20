@@ -195,7 +195,7 @@ const ReturnsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>متوسط قيمة المرتجع</span>
-              <Package className="h-4 w-4 text-blue-500" />
+              <Package className="h-4 w-4 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
               {formatPrice(summary.avgReturnValue)}

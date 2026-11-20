@@ -339,7 +339,7 @@ export const RoutePlansPage: React.FC = () => {
       case 'DRAFT':
         return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">مسودة</span>;
       case 'READY':
-        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">جاهز للإسناد</span>;
+        return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary">جاهز للإسناد</span>;
       case 'ASSIGNED':
         return <span className="px-2 py-0.5 rounded text-xs font-semibold bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning">مسند لمندوب</span>;
       case 'DISPATCHED':
@@ -359,7 +359,7 @@ export const RoutePlansPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 shadow-sm">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
               <MapPin className="w-4 h-4" />
             </div>
             <div>
@@ -380,7 +380,7 @@ export const RoutePlansPage: React.FC = () => {
           </button>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold transition shadow-sm"
+            className="flex items-center gap-1.5 px-4 py-2 bg-primary hover:bg-primary text-white rounded-lg text-sm font-semibold transition shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isEn ? 'New Route Plan' : 'خطة سير جديدة'}</span>
@@ -446,7 +446,7 @@ export const RoutePlansPage: React.FC = () => {
               {loading && plans.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
-                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-blue-500" />
+                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-primary" />
                     جاري تحميل خطط السير...
                   </td>
                 </tr>
@@ -461,7 +461,7 @@ export const RoutePlansPage: React.FC = () => {
                   .filter((p) => !search || p.planNumber.includes(search) || p.name.includes(search))
                   .map((plan) => (
                     <tr key={plan.id} className="hover:bg-slate-50/60 dark:hover:bg-muted transition">
-                      <td className="px-4 py-3 font-mono font-medium text-blue-600 dark:text-blue-400">
+                      <td className="px-4 py-3 font-mono font-medium text-primary dark:text-primary">
                         {plan.planNumber}
                       </td>
                       <td className="px-4 py-3">
@@ -492,7 +492,7 @@ export const RoutePlansPage: React.FC = () => {
                         <div className="flex items-center justify-center gap-1.5">
                           <button
                             onClick={() => loadPlanDetail(plan.id)}
-                            className="p-1.5 text-foreground hover:text-blue-600 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
+                            className="p-1.5 text-foreground hover:text-primary border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                             title="عرض الوقفات والترتيب"
                           >
                             <Eye className="w-4 h-4" />
@@ -549,7 +549,7 @@ export const RoutePlansPage: React.FC = () => {
             <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">{selectedPlan.planNumber}</span>
+                  <span className="font-mono text-xs font-bold text-primary dark:text-primary">{selectedPlan.planNumber}</span>
                   {getStatusBadge(selectedPlan.status)}
                 </div>
                 <h2 className="text-base font-bold mt-1 text-foreground dark:text-muted-foreground">{selectedPlan.name}</h2>
@@ -576,7 +576,7 @@ export const RoutePlansPage: React.FC = () => {
                   <>
                     <button
                       onClick={handleAutoReorder}
-                      className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/40 dark:text-blue-300 rounded-lg transition"
+                      className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold bg-primary/10 text-primary hover:bg-primary dark:bg-primary/40 dark:text-primary rounded-lg transition"
                       title="ترتيب تلقائي حسب المحافظة والمدينة"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
@@ -621,7 +621,7 @@ export const RoutePlansPage: React.FC = () => {
                           {stop.address} {stop.city ? `· ${stop.city}` : ''} ({stop.governorate})
                         </div>
                         {stop.shipmentId && (
-                          <div className="flex items-center gap-1 text-[11px] text-blue-600 dark:text-blue-400 font-mono mt-0.5">
+                          <div className="flex items-center gap-1 text-[11px] text-primary dark:text-primary font-mono mt-0.5">
                             <Package className="w-3 h-3" />
                             <span>شحنة مرتبطة</span>
                           </div>
@@ -724,7 +724,7 @@ export const RoutePlansPage: React.FC = () => {
                   placeholder="مثال: خط وسط البلد والمعادي - صباحي"
                   value={createForm.name}
                   onChange={(e) => setCreateForm({ ...createForm, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
 
@@ -734,7 +734,7 @@ export const RoutePlansPage: React.FC = () => {
                   <select
                     value={createForm.governorate}
                     onChange={(e) => setCreateForm({ ...createForm, governorate: e.target.value })}
-                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm"
+                    className="w-full px-3 py-2 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted outline-none focus:ring-2 focus:ring-primary text-xs sm:text-sm"
                   >
                     {EGYPT_GOVERNORATES.map((gov) => (
                       <option key={gov} value={gov}>{gov}</option>
@@ -774,7 +774,7 @@ export const RoutePlansPage: React.FC = () => {
                     type="checkbox"
                     checked={createForm.suggestShipments}
                     onChange={(e) => setCreateForm({ ...createForm, suggestShipments: e.target.checked })}
-                    className="w-4 h-4 text-blue-600 rounded"
+                    className="w-4 h-4 text-primary rounded"
                   />
                   <span>اقتراح وإضافة الشحنات المعلقة الجاهزة في هذه المحافظة تلقائياً كوقفات</span>
                 </label>
@@ -791,7 +791,7 @@ export const RoutePlansPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition shadow-sm"
+                  className="px-5 py-2 bg-primary hover:bg-primary text-white rounded-lg text-xs font-bold transition shadow-sm"
                 >
                   {submitting ? 'جاري الإنشاء...' : 'إنشاء خط السير'}
                 </button>

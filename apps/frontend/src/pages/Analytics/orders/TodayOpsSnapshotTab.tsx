@@ -250,7 +250,7 @@ export const TodayOpsSnapshotTab: React.FC<Props> = ({
                       {o.customerPhone ? (
                         <a
                           href={`tel:${o.customerPhone}`}
-                          className="inline-flex items-center gap-1 px-2 py-1 rounded bg-blue-500/10 text-blue-600 hover:bg-blue-500/20 transition-colors text-[11px]"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-[11px]"
                         >
                           <Phone className="h-3 w-3" />
                           اتصال
@@ -283,7 +283,7 @@ export const TodayOpsSnapshotTab: React.FC<Props> = ({
                       {o.customerPhone ? (
                         <a
                           href={`tel:${o.customerPhone}`}
-                          className="inline-flex items-center gap-1 px-2 py-1 rounded bg-blue-500/10 text-blue-600 hover:bg-blue-500/20 transition-colors text-[11px]"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-[11px]"
                         >
                           <Phone className="h-3 w-3" />
                           اتصال

@@ -62,7 +62,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
         <button
           type="button"
           onClick={onOpenProductPicker}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors border border-blue-200 dark:border-blue-800"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg text-primary dark:text-primary bg-primary/10 dark:bg-primary/40 hover:bg-primary dark:hover:bg-primary/50 transition-colors border border-primary dark:border-primary"
         >
           <ShoppingBag className="w-3.5 h-3.5" />
           {isEn ? "Select from Store Products" : "اختيار من منتجات المتجر"}
@@ -111,7 +111,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
 
           <div className="p-3 bg-card border-t border-border dark:border-border flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5 min-w-0 flex-1">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center flex-shrink-0 text-blue-600 dark:text-blue-400">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 dark:bg-primary/50 flex items-center justify-center flex-shrink-0 text-primary dark:text-primary">
                 {isVideo ? (
                   <Video className="w-4 h-4" />
                 ) : (
@@ -165,13 +165,13 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
           onClick={() => !uploading && fileInputRef.current?.click()}
           className={`border-2 border-dashed rounded-xl p-6 text-center transition-all cursor-pointer ${
             isDragging
-              ? "border-blue-500 bg-blue-50/70 dark:bg-blue-950/40"
-              : "border-gray-300 dark:border-border hover:border-blue-400 bg-muted dark:bg-muted"
+              ? "border-blue-500 bg-primary/70 dark:bg-primary/40"
+              : "border-gray-300 dark:border-border hover:border-primary bg-muted dark:bg-muted"
           }`}
         >
           {uploading ? (
             <div className="py-2 space-y-3">
-              <Loader2 className="w-10 h-10 mx-auto text-blue-500 animate-spin" />
+              <Loader2 className="w-10 h-10 mx-auto text-primary animate-spin" />
               <div>
                 <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                   {isEn ? `Uploading... ${uploadProgress}%` : `جاري الرفع... ${uploadProgress}%`}
@@ -189,7 +189,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
             </div>
           ) : (
             <div>
-              <div className="w-12 h-12 mx-auto rounded-full bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 dark:bg-primary/50 flex items-center justify-center text-primary dark:text-primary mb-3">
                 <UploadCloud className="w-6 h-6" />
               </div>
               <p className="text-sm font-medium text-foreground dark:text-muted-foreground mb-1">
@@ -235,7 +235,7 @@ export const CreativeMediaUploadSection: React.FC<CreativeMediaUploadSectionProp
             handleChange(isImage ? "imageUrl" : "videoUrl", e.target.value)
           }
           placeholder="https://..."
-          className="w-full px-3.5 py-2 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+          className="w-full px-3.5 py-2 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-primary text-sm"
         />
         {isImage && getError("imageUrl") && (
           <p className="mt-1 text-xs text-destructive">

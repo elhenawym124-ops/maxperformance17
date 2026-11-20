@@ -19,7 +19,7 @@ export const ToggleField = ({
     </div>
     <input
       type="checkbox"
-      className="mt-1 h-5 w-5 rounded border-border text-blue-600 focus:ring-blue-500"
+      className="mt-1 h-5 w-5 rounded border-border text-primary focus:ring-primary"
       checked={checked}
       onChange={(event) => onChange(event.target.checked)}
     />
@@ -93,7 +93,7 @@ export const InsightCard = ({
   <div className="rounded-xl border border-border dark:border-border bg-card p-5">
     <div className="mb-3 flex items-center justify-between gap-3">
       <div className="text-sm font-semibold text-muted-foreground">{label}</div>
-      <div className="rounded-xl bg-blue-50 p-2 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300">
+      <div className="rounded-xl bg-primary/10 p-2 text-primary dark:bg-primary/30 dark:text-primary">
         {icon}
       </div>
     </div>
@@ -116,7 +116,7 @@ export const QuickLinkCard = ({
   onClick: () => void;
 }) => (
   <div className="rounded-xl border border-border bg-white p-5 dark:border-border dark:bg-muted">
-    <div className="mb-4 inline-flex rounded-xl bg-blue-50 p-3 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300">
+    <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 text-primary dark:bg-primary/30 dark:text-primary">
       {icon}
     </div>
     <h3 className="text-lg font-bold text-foreground">{title}</h3>
@@ -124,7 +124,7 @@ export const QuickLinkCard = ({
     <button
       type="button"
       onClick={onClick}
-      className="mt-4 inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-blue-200 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 dark:border-border dark:text-white dark:hover:border-blue-900/50 dark:hover:text-blue-300 dark:focus-visible:ring-blue-900/40"
+      className="mt-4 inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 dark:border-border dark:text-white dark:hover:border-primary/50 dark:hover:text-primary dark:focus-visible:ring-blue-900/40"
     >
       {ctaLabel}
       <ExternalLink size={16} />
@@ -188,11 +188,11 @@ export const PlacementCard = ({
   <section className="rounded-[28px] border border-border bg-white p-6 shadow-sm dark:border-border dark:bg-muted">
     <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
       <div className="flex items-start gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary">
           {icon}
         </div>
         <div className="space-y-2">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
             {eyebrow}
           </div>
           <h2 className="text-2xl font-black text-foreground">{title}</h2>
@@ -216,7 +216,7 @@ export const PreviewPill = ({
   tone?: "blue" | "green" | "amber" | "neutral";
 }) => {
   const toneClassMap = {
-    blue: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-200",
+    blue: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
     green: "bg-emerald-100 text-success dark:bg-success/30 dark:text-success",
     amber: "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning",
     neutral: "bg-gray-200 text-foreground dark:bg-muted dark:text-muted-foreground",
@@ -244,10 +244,10 @@ export const PlacementPreview = ({
   badge?: ReactNode;
   children: ReactNode;
 }) => (
-  <div className="rounded-[28px] border border-border bg-gradient-to-br from-slate-50 via-white to-blue-50/70 p-5 shadow-sm dark:border-border dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-blue-950/20">
+  <div className="rounded-[28px] border border-border bg-gradient-to-br from-slate-50 via-white to-primary/70 p-5 shadow-sm dark:border-border dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-primary/20">
     <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
       <div>
-        <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">
+        <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
           Preview Snapshot
         </div>
         <h3 className="mt-2 text-xl font-black text-foreground">{title}</h3>

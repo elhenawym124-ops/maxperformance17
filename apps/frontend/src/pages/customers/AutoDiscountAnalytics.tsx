@@ -67,7 +67,7 @@ const AutoDiscountAnalytics: React.FC = () => {
       label: "كوبونات مستخدمة",
       value: data?.usedVouchers ?? 0,
       icon: CheckCircle2,
-      color: "text-blue-600 bg-blue-100 dark:text-blue-400 dark:bg-blue-900/40",
+      color: "text-blue-600 bg-primary dark:text-primary dark:bg-primary/40",
     },
     {
       label: "اتحولت كاش باك",

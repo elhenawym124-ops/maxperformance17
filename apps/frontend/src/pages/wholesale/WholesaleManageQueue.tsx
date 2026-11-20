@@ -946,7 +946,7 @@ export default function WholesaleManageQueue() {
                   {filteredFulfillment.map((order) => {
                     const statusBadgeColors: Record<string, string> = {
                       CONFIRMED: "bg-emerald-500/10 text-success border-success/30",
-                      PROCESSING: "bg-blue-500/10 text-blue-500 border-blue-500/30",
+                      PROCESSING: "bg-blue-500/10 text-primary border-primary/30",
                       SHIPPED: "bg-purple-500/10 text-primary border-primary/30",
                     };
                     const statusLabels: Record<string, string> = {

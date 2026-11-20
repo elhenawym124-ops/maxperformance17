@@ -49,7 +49,7 @@ export const ShippingReportsBestSellersTab: React.FC<Props> = ({ data, loading }
               {formatNumber(totals.totalQuantity)} <span className="text-xs font-normal text-muted-foreground">قطعة</span>
             </div>
           </div>
-          <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 flex items-center justify-center">
+          <div className="w-9 h-9 rounded-lg bg-primary/10 dark:bg-primary/40 text-primary flex items-center justify-center">
             <Package className="w-4 h-4" />
           </div>
         </div>
@@ -118,7 +118,7 @@ export const ShippingReportsBestSellersTab: React.FC<Props> = ({ data, loading }
                   <td className="py-2.5 px-4 font-semibold text-foreground dark:text-muted-foreground">
                     {row.productName}
                   </td>
-                  <td className="py-2.5 px-4 text-center tabular-nums font-bold text-blue-600 dark:text-blue-400">
+                  <td className="py-2.5 px-4 text-center tabular-nums font-bold text-primary dark:text-primary">
                     {formatNumber(row.quantity)}
                   </td>
                   <td className="py-2.5 px-4 text-center tabular-nums font-semibold text-success dark:text-success">
@@ -135,7 +135,7 @@ export const ShippingReportsBestSellersTab: React.FC<Props> = ({ data, loading }
                 <td colSpan={2} className="py-3 px-4 text-foreground dark:text-muted-foreground">
                   الإجمالي العام
                 </td>
-                <td className="py-3 px-4 text-center tabular-nums text-blue-600 dark:text-blue-400">
+                <td className="py-3 px-4 text-center tabular-nums text-primary dark:text-primary">
                   {formatNumber(totals.totalQuantity)}
                 </td>
                 <td className="py-3 px-4 text-center tabular-nums text-success dark:text-success">

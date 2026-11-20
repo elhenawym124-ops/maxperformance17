@@ -84,15 +84,15 @@ export const MyAttendanceClockAndActionsCard: React.FC<
 }) => {
   return (
     <>
-      <Card className="bg-gradient-to-r from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 border-blue-200 dark:border-blue-800">
+      <Card className="bg-gradient-to-r from-primary to-primary dark:from-primary/20 dark:to-primary/20 border-primary dark:border-primary">
         <CardContent className="p-3.5 sm:p-6 md:p-8">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center">
-              <Clock className="h-10 w-10 sm:h-14 sm:w-14 text-blue-600 animate-pulse" />
+              <Clock className="h-10 w-10 sm:h-14 sm:w-14 text-primary animate-pulse" />
             </div>
 
             <div>
-              <div className="text-3xl sm:text-5xl md:text-6xl font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">
+              <div className="text-3xl sm:text-5xl md:text-6xl font-bold font-mono tabular-nums text-primary dark:text-primary">
                 {formatTime(currentTime, timezone)}
               </div>
               <p className="text-muted-foreground text-sm">
@@ -160,7 +160,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                 {(todayAttendance.checkIn || todayAttendance.checkOut) && (
                   <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
                     {!todayAttendance.checkOut && todayAttendance.checkIn && (
-                      <Badge className="bg-blue-100 text-blue-800 font-mono tabular-nums">
+                      <Badge className="bg-blue-100 text-primary font-mono tabular-nums">
                         <Clock className="h-3.5 w-3.5 ms-1 inline" />
                         {t("employee.attendance.shiftDuration", { duration })}
                       </Badge>
@@ -185,8 +185,8 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                 )}
 
                 {!todayAttendance.checkOut && todayAttendance.checkIn && (
-                  <div className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/70 dark:border-blue-800/75 px-3 py-2 text-xs text-blue-800 dark:text-blue-300 font-medium">
-                    <Laptop className="h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
+                  <div className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-primary/80 dark:bg-primary/40 border border-primary/70 dark:border-primary/75 px-3 py-2 text-xs text-primary dark:text-primary font-medium">
+                    <Laptop className="h-4 w-4 shrink-0 text-primary dark:text-primary" />
                     <span>
                       {t(
                         "employee.attendance.desktopPrompt",
@@ -281,7 +281,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                         size="sm"
                         variant="ghost"
                         onClick={() => onOpenRegularize?.(item.originalTimestamp)}
-                        className="text-xs h-8 text-blue-600 hover:text-blue-700"
+                        className="text-xs h-8 text-primary hover:text-primary"
                       >
                         طلب اعتماد
                       </Button>
@@ -298,7 +298,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                     onClick={() => onWorkModeChange("OFFICE")}
                     className={`flex items-center gap-2 px-6 py-2.5 rounded-lg transition-all duration-300 ${
                       workMode === "OFFICE"
-                        ? "bg-card text-blue-600 shadow-md scale-105"
+                        ? "bg-card text-primary shadow-md scale-105"
                         : "text-gray-500 hover:text-foreground dark:hover:text-muted-foreground"
                     }`}
                   >
@@ -359,7 +359,7 @@ export const MyAttendanceClockAndActionsCard: React.FC<
                 <Button
                   data-testid="attendance-checkout-button"
                   size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-6 text-lg w-full sm:w-auto"
+                  className="bg-blue-600 hover:bg-primary text-white px-6 py-6 text-lg w-full sm:w-auto"
                   onClick={onCheckOut}
                   disabled={checkingOut}
                 >

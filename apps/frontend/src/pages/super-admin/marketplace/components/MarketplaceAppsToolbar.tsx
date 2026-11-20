@@ -92,12 +92,12 @@ export const MarketplaceAppsToolbar: React.FC<MarketplaceAppsToolbarProps> = ({
     <>
       {/* Statistics Dashboard */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 via-blue-700 to-primary p-5 text-white shadow-lg shadow-blue-900/20 transition-all duration-300 hover:scale-[1.02]">
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary via-primary to-primary p-5 text-white shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute -right-6 -top-8 h-28 w-28 rounded-full bg-white opacity-10 blur-2xl" />
           <div className="relative z-10 mb-3 inline-flex rounded-xl bg-white/20 p-2.5 backdrop-blur-md">
             <ShoppingBag className="h-5 w-5" />
           </div>
-          <p className="relative z-10 text-sm font-medium text-blue-100">إجمالي التطبيقات</p>
+          <p className="relative z-10 text-sm font-medium text-primary">إجمالي التطبيقات</p>
           <p className="relative z-10 mt-0.5 text-2xl font-extrabold tabular-nums font-mono">
             {totalApps}
           </p>

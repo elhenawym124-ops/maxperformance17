@@ -186,7 +186,7 @@ const FunnelAnalytics: React.FC = () => {
 
             <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                <div className="p-2.5 rounded-xl bg-primary/10 text-primary dark:text-primary">
                   <UserGroupIcon className="size-5 sm:size-6" />
                 </div>
                 <div>

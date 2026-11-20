@@ -126,8 +126,8 @@ export const CourierModal: React.FC<CourierModalProps> = ({
           {activeTab === 'info' ? (
             <>
               {/* Login Notice Banner */}
-              <div className="p-3 bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 rounded-xl text-xs text-blue-900 dark:text-blue-200 flex items-start gap-2.5">
-                <KeyIcon className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+              <div className="p-3 bg-primary/80 dark:bg-primary/40 border border-primary dark:border-primary/60 rounded-xl text-xs text-primary dark:text-primary flex items-start gap-2.5">
+                <KeyIcon className="w-4 h-4 text-primary dark:text-primary shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
                   <p className="font-semibold">بيانات دخول المندوب على التطبيق:</p>
                   <p className="text-slate-600 dark:text-muted-foreground">
@@ -363,20 +363,20 @@ export const CourierModal: React.FC<CourierModalProps> = ({
               )}
 
               {/* Real-time Math Simulator */}
-              <div className="p-3.5 bg-blue-50/70 dark:bg-blue-950/30 rounded-xl border border-blue-200 dark:border-blue-900 space-y-2">
+              <div className="p-3.5 bg-primary/70 dark:bg-primary/30 rounded-xl border border-primary dark:border-primary space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="font-semibold text-blue-900 dark:text-blue-200 flex items-center gap-1.5">
-                    <CalculatorIcon className="w-4 h-4 text-blue-600" />
+                  <div className="font-semibold text-primary dark:text-primary flex items-center gap-1.5">
+                    <CalculatorIcon className="w-4 h-4 text-primary" />
                     معاينة حية لاحتساب مستحقات الشهر
                   </div>
                   <div className="flex items-center gap-1.5 text-xs">
-                    <span className="text-blue-800 dark:text-blue-300">أوردرات الشهر التجريبية:</span>
+                    <span className="text-blue-800 dark:text-primary">أوردرات الشهر التجريبية:</span>
                     <input
                       type="number"
                       min="0"
                       value={testOrders}
                       onChange={(e) => setTestOrders(Math.max(0, parseInt(e.target.value, 10) || 0))}
-                      className="w-16 px-2 py-0.5 bg-white dark:bg-muted border border-blue-300 rounded font-mono text-center font-bold text-xs"
+                      className="w-16 px-2 py-0.5 bg-white dark:bg-muted border border-primary rounded font-mono text-center font-bold text-xs"
                     />
                   </div>
                 </div>
@@ -392,7 +392,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                   </div>
                   <div className="bg-white/80 dark:bg-muted p-2 rounded-lg">
                     <div className="text-[10px] text-muted-foreground">العمولة</div>
-                    <div className="font-bold text-blue-600">{preview.commission} ج</div>
+                    <div className="font-bold text-primary">{preview.commission} ج</div>
                   </div>
                   <div className="bg-blue-600 text-white p-2 rounded-lg shadow-xs">
                     <div className="text-[10px] opacity-80">الصافي المتوقع</div>

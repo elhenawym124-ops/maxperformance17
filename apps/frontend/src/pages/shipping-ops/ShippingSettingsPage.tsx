@@ -125,7 +125,7 @@ export const ShippingSettingsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
-            <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <Settings className="w-6 h-6 text-primary dark:text-primary" />
             <span>{isEn ? 'Shipping Operations Settings' : 'إعدادات وتشغيل الشحن'}</span>
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground mt-1">
@@ -141,7 +141,7 @@ export const ShippingSettingsPage: React.FC = () => {
             onClick={() => setActiveTab('policy')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition ${
               activeTab === 'policy'
-                ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+                ? 'bg-white dark:bg-muted text-primary dark:text-primary shadow-sm'
                 : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -151,7 +151,7 @@ export const ShippingSettingsPage: React.FC = () => {
             onClick={() => setActiveTab('employees')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition ${
               activeTab === 'employees'
-                ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+                ? 'bg-white dark:bg-muted text-primary dark:text-primary shadow-sm'
                 : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -162,7 +162,7 @@ export const ShippingSettingsPage: React.FC = () => {
             onClick={() => setActiveTab('integrations')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition ${
               activeTab === 'integrations'
-                ? 'bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm'
+                ? 'bg-white dark:bg-muted text-primary dark:text-primary shadow-sm'
                 : 'text-slate-600 dark:text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -260,7 +260,7 @@ export const ShippingSettingsPage: React.FC = () => {
             {/* Section 2: Print Fee */}
             <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 sm:p-5 shadow-sm space-y-4">
               <div className="flex items-center gap-2 border-b border-border dark:border-border pb-3">
-                <Printer className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <Printer className="w-5 h-5 text-primary dark:text-primary" />
                 <h2 className="text-sm sm:text-base font-bold">
                   {isEn ? 'Waybill Printing Fee Policy' : 'رسوم طباعة البوالص للعميل (Print Fee)'}
                 </h2>
@@ -277,7 +277,7 @@ export const ShippingSettingsPage: React.FC = () => {
                     min="0"
                     value={printFee}
                     onChange={(e) => setPrintFee(e.target.value)}
-                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-sm font-bold tabular-nums focus:ring-1 focus:ring-blue-500"
+                    className="w-full border border-border dark:border-border bg-transparent rounded-lg px-3 py-2 text-sm font-bold tabular-nums focus:ring-1 focus:ring-primary"
                     placeholder="1.50"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-muted-foreground font-medium">ج.م</span>
@@ -302,7 +302,7 @@ export const ShippingSettingsPage: React.FC = () => {
                   <label
                     className={`p-3.5 border rounded-xl cursor-pointer flex flex-col justify-between transition ${
                       openMode === 'ALWAYS_ALLOW'
-                        ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 ring-1 ring-blue-500'
+                        ? 'border-blue-500 bg-primary/50 dark:bg-primary/30 ring-1 ring-primary'
                         : 'border-slate-200 dark:border-border hover:bg-muted dark:hover:bg-muted'
                     }`}
                   >
@@ -329,7 +329,7 @@ export const ShippingSettingsPage: React.FC = () => {
                   <label
                     className={`p-3.5 border rounded-xl cursor-pointer flex flex-col justify-between transition ${
                       openMode === 'ASK_EACH'
-                        ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 ring-1 ring-blue-500'
+                        ? 'border-blue-500 bg-primary/50 dark:bg-primary/30 ring-1 ring-primary'
                         : 'border-slate-200 dark:border-border hover:bg-muted dark:hover:bg-muted'
                     }`}
                   >
@@ -356,7 +356,7 @@ export const ShippingSettingsPage: React.FC = () => {
                   <label
                     className={`p-3.5 border rounded-xl cursor-pointer flex flex-col justify-between transition ${
                       openMode === 'ALWAYS_DENY'
-                        ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 ring-1 ring-blue-500'
+                        ? 'border-blue-500 bg-primary/50 dark:bg-primary/30 ring-1 ring-primary'
                         : 'border-slate-200 dark:border-border hover:bg-muted dark:hover:bg-muted'
                     }`}
                   >
@@ -434,7 +434,7 @@ export const ShippingSettingsPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={saving || loading}
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50"
               >
                 <Save className="w-4 h-4" />
                 <span>{saving ? (isEn ? 'Saving...' : 'جاري الحفظ...') : (isEn ? 'Save Policy Settings' : 'حفظ إعدادات السياسة والتوريد')}</span>

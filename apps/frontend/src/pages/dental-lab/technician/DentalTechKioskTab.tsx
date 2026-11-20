@@ -49,7 +49,7 @@ export const DentalTechKioskTab: React.FC<DentalTechKioskTabProps> = ({
       {onBackToBench && (
         <button
           onClick={onBackToBench}
-          className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-blue-600 transition mb-1"
+          className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition mb-1"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>العودة لطاولة الحالات</span>
@@ -57,7 +57,7 @@ export const DentalTechKioskTab: React.FC<DentalTechKioskTabProps> = ({
       )}
 
       <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-6 shadow-xs text-center space-y-4">
-        <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-xl mx-auto flex items-center justify-center">
+        <div className="w-16 h-16 bg-primary/10 dark:bg-primary/30 text-primary rounded-xl mx-auto flex items-center justify-center">
           <ScanLine className="w-8 h-8 animate-pulse" />
         </div>
         <div>
@@ -77,7 +77,7 @@ export const DentalTechKioskTab: React.FC<DentalTechKioskTabProps> = ({
               value={kioskInput}
               onChange={(e) => setKioskInput(e.target.value)}
               placeholder="امسح الباركود أو اكتب رقم الحالة..."
-              className="w-full text-center text-sm sm:text-base font-mono py-3 px-4 rounded-xl border-2 border-blue-500 bg-blue-50/20 dark:bg-blue-950/20 text-foreground focus:ring-4 focus:ring-blue-500/20 outline-hidden"
+              className="w-full text-center text-sm sm:text-base font-mono py-3 px-4 rounded-xl border-2 border-primary bg-primary/20 dark:bg-primary/20 text-foreground focus:ring-4 focus:ring-primary/20 outline-hidden"
               disabled={kioskLoading}
               autoFocus
             />
@@ -86,7 +86,7 @@ export const DentalTechKioskTab: React.FC<DentalTechKioskTabProps> = ({
           <button
             type="submit"
             disabled={!kioskInput.trim() || kioskLoading}
-            className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-xs disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full py-2.5 px-4 bg-primary hover:bg-primary text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-xs disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {kioskLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <ScanLine className="w-4 h-4" />}
             <span>تسجيل واستلام الحالة</span>
@@ -116,7 +116,7 @@ export const DentalTechKioskTab: React.FC<DentalTechKioskTabProps> = ({
               <div className="pt-2">
                 <Link
                   to={`/dental-lab/cases/${kioskResult.case.id}`}
-                  className="text-blue-600 dark:text-blue-400 font-bold hover:underline"
+                  className="text-blue-600 dark:text-primary font-bold hover:underline"
                 >
                   فتح تفاصيل الحالة كاملة ←
                 </Link>

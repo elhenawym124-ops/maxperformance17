@@ -392,7 +392,7 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
             </div>
             <div className="border-x border-border dark:border-border px-1">
               <span className="block text-[10px] text-muted-foreground">سقف الـ CPA</span>
-              <span className="text-xs font-black text-blue-600 dark:text-blue-400">
+              <span className="text-xs font-black text-primary dark:text-primary">
                 ~{targetCpa} ج.م
               </span>
             </div>
@@ -558,7 +558,7 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
                   className="px-1.5 py-0.5 rounded bg-muted dark:bg-muted hover:bg-muted dark:hover:bg-muted text-[10px] font-semibold text-foreground dark:text-muted-foreground flex items-center gap-0.5 cursor-pointer"
                   title="تقوية الدعوة للشراء وضمان المعاينة"
                 >
-                  <Target className="w-2.5 h-2.5 text-blue-500" />
+                  <Target className="w-2.5 h-2.5 text-primary" />
                   تقوية الـ CTA
                 </button>
                 <button
@@ -697,7 +697,7 @@ export const CampaignDraftLaunchCard: React.FC<CampaignDraftLaunchCardProps> = (
           type="button"
           onClick={handleLaunch}
           disabled={publishing}
-          className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-primary hover:from-blue-700 hover:to-primary text-white font-bold text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer active:scale-[0.99]"
+          className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-gradient-to-r from-primary to-primary hover:from-primary hover:to-primary text-white font-bold text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer active:scale-[0.99]"
         >
           {publishing ? (
             <>

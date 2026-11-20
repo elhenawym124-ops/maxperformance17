@@ -60,7 +60,7 @@ export default function DentalCaseTeamQualityCards({
                   <p className="font-medium text-sm">
                     <Link
                       to={`/dental-lab/cases?technicianId=${a.technicianId}`}
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline"
+                      className="text-blue-600 dark:text-primary hover:text-primary dark:hover:text-primary hover:underline"
                       title={`عرض كل حالات الفني ${a.technician?.name || a.technicianId}`}
                     >
                       {a.technician?.name || a.technicianId}
@@ -86,7 +86,7 @@ export default function DentalCaseTeamQualityCards({
         action={
           <button
             onClick={onOpenQuality}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-700 shadow-sm transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs hover:bg-primary shadow-sm transition"
           >
             <Plus className="w-3.5 h-3.5" />
             {t("dentalLab.detail.qualityAdd")}

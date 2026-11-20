@@ -110,7 +110,7 @@ export function DentalCaseKioskScannerModal({
       >
         <div className="flex items-center justify-between mb-4 pb-3 border-b dark:border-border">
           <div className="flex items-center gap-2">
-            <span className="p-2 rounded-lg bg-blue-600 text-white">
+            <span className="p-2 rounded-lg bg-primary text-white">
               <ScanLine className="w-5 h-5" />
             </span>
             <div>
@@ -165,14 +165,14 @@ export function DentalCaseKioskScannerModal({
               value={barcode}
               onChange={(e) => setBarcode(e.target.value)}
               placeholder="امسح الباركود أو اكتب رقم الحالة ثم اضغط Enter..."
-              className="w-full text-lg font-mono px-4 py-3 border-2 border-blue-500 rounded-xl focus:ring-4 focus:ring-blue-100 dark:bg-muted dark:border-blue-400 dark:text-muted-foreground placeholder:text-sm placeholder:font-sans"
+              className="w-full text-lg font-mono px-4 py-3 border-2 border-primary rounded-xl focus:ring-4 focus:ring-primary dark:bg-muted dark:border-primary dark:text-muted-foreground placeholder:text-sm placeholder:font-sans"
               autoFocus
               disabled={scanning}
             />
             <button
               type="submit"
               disabled={scanning || !barcode.trim()}
-              className="absolute left-2 top-2 bottom-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold disabled:opacity-50 flex items-center gap-1.5"
+              className="absolute left-2 top-2 bottom-2 px-4 bg-primary hover:bg-primary text-white rounded-lg text-sm font-semibold disabled:opacity-50 flex items-center gap-1.5"
             >
               {scanning ? <Loader2 className="w-4 h-4 animate-spin" /> : <ScanLine className="w-4 h-4" />}{" "}
               مسح
@@ -244,7 +244,7 @@ export function DentalCaseKioskScannerModal({
                     <span
                       className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                         sh.success
-                          ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                          ? "bg-blue-100 text-primary dark:bg-primary dark:text-primary"
                           : "bg-red-100 text-destructive"
                       }`}
                     >

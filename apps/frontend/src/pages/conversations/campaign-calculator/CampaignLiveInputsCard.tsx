@@ -22,7 +22,7 @@ export const CampaignLiveInputsCard: React.FC<CampaignLiveInputsCardProps> = ({
   return (
     <div className="bg-white dark:bg-muted rounded-xl shadow-lg p-6">
       <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-        <InformationCircleIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+        <InformationCircleIcon className="w-5 h-5 text-primary dark:text-primary" />
         بيانات الحملة المباشرة
       </h3>
       <div className="space-y-4">
@@ -36,7 +36,7 @@ export const CampaignLiveInputsCard: React.FC<CampaignLiveInputsCardProps> = ({
             onChange={(e) =>
               setInputs({ ...inputs, productName: e.target.value })
             }
-            className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary focus:border-primary"
             placeholder="مثال: عرض سماعات بلوتوث"
           />
         </div>
@@ -54,7 +54,7 @@ export const CampaignLiveInputsCard: React.FC<CampaignLiveInputsCardProps> = ({
                   dailyTarget: parseInt(e.target.value) || 0,
                 })
               }
-              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <div>
@@ -70,7 +70,7 @@ export const CampaignLiveInputsCard: React.FC<CampaignLiveInputsCardProps> = ({
                   orderTarget: parseInt(e.target.value) || 0,
                 })
               }
-              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 border business-control-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
         </div>
@@ -137,12 +137,12 @@ export const CampaignLiveInputsCard: React.FC<CampaignLiveInputsCardProps> = ({
                 currentOrders: parseInt(e.target.value) || 0,
               })
             }
-            className="w-full px-4 py-2 border business-control-border rounded-lg bg-blue-50 dark:bg-blue-950 text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-bold text-xl"
+            className="w-full px-4 py-2 border business-control-border rounded-lg bg-primary/10 dark:bg-primary text-foreground focus:ring-2 focus:ring-primary focus:border-primary font-bold text-xl"
           />
         </div>
         <button
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className="w-full mt-4 text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center justify-center gap-1"
+          className="w-full mt-4 text-sm text-primary dark:text-primary hover:underline flex items-center justify-center gap-1"
         >
           {showAdvanced
             ? "إخفاء الإعدادات المتقدمة"

@@ -75,7 +75,7 @@ const AffiliateOrders: React.FC = () => {
       },
       CONFIRMED: {
         label: "مؤكد",
-        badgeClass: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+        badgeClass: "bg-blue-500/10 text-primary dark:text-primary border-primary/20",
       },
       DELIVERED: {
         label: "تم التسليم",

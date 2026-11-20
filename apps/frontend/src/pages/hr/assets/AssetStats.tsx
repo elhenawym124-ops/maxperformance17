@@ -66,7 +66,7 @@ const AssetStats: React.FC<{ refreshTrigger: number }> = ({
       name: "أصول في الاستخدام",
       value: stats.inUseCount,
       icon: ClipboardDocumentCheckIcon,
-      color: "bg-blue-50 text-blue-700",
+      color: "bg-blue-50 text-primary",
     },
     {
       name: "في الصيانة",

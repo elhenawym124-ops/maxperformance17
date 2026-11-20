@@ -356,7 +356,7 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
 
       {/* Analytics Panel */}
       {showAnalytics && (
-        <div className="mb-6 p-6 bg-gradient-to-br from-primary to-blue-50 dark:from-primary/20 dark:to-blue-900/20 border border-primary dark:border-primary rounded-lg">
+        <div className="mb-6 p-6 bg-gradient-to-br from-primary to-primary dark:from-primary/20 dark:to-primary/20 border border-primary dark:border-primary rounded-lg">
           <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <ChartBarIcon className="h-5 w-5 text-primary" />
             {t("storeShipping.coverageAnalysis")}
@@ -380,7 +380,7 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
               </div>
             </div>
             <div className="bg-card p-4 rounded-lg border border-border dark:border-border">
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+              <div className="text-2xl font-bold text-primary dark:text-primary">
                 {analytics.coveragePercent}%
               </div>
               <div className="text-sm text-foreground dark:text-muted-foreground">
@@ -499,8 +499,8 @@ export const ShippingSectionV2: React.FC<ShippingSectionV2Props> = ({
       </div>
 
       {/* Info Note */}
-      <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-        <p className="text-sm text-blue-800 dark:text-blue-300">
+      <div className="mb-4 p-4 bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg">
+        <p className="text-sm text-primary dark:text-primary">
           <strong>ملاحظة:</strong> سيتم استخدام هذه المناطق بواسطة الذكاء
           الصناعي لحساب تكلفة الشحن تلقائياً بناءً على محافظة العميل.
         </p>

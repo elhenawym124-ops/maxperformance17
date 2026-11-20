@@ -115,8 +115,8 @@ export const AdSetSpendLimitsEditor: React.FC<AdSetSpendLimitsEditorProps> = ({
             </div>
           </div>
 
-          <div className="p-2.5 bg-blue-50 dark:bg-blue-950/30 border border-blue-200/60 dark:border-blue-900/50 rounded-lg flex items-start gap-2 text-[11px] text-blue-800 dark:text-blue-200">
-            <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-blue-600 dark:text-blue-400" />
+          <div className="p-2.5 bg-primary/10 dark:bg-primary/30 border border-primary/60 dark:border-primary/50 rounded-lg flex items-start gap-2 text-[11px] text-primary dark:text-primary">
+            <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-primary dark:text-primary" />
             <span>
               {isEn
                 ? "Note: Meta recommends leaving campaign budgets flexible without limits unless you specifically want to ensure fair testing for a new audience or prevent a single product from consuming the budget."

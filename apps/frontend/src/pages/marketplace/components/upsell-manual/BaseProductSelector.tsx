@@ -91,7 +91,7 @@ export function BaseProductSelector({
                 key={product.id}
                 type="button"
                 onClick={() => void loadProductRelations(product.id)}
-                className="flex items-center justify-between gap-3 rounded-xl border border-border bg-white px-4 py-3 text-left transition-colors hover:border-blue-200 hover:bg-blue-50/50 dark:border-border dark:bg-muted dark:hover:border-blue-900/50 dark:hover:bg-blue-950/20"
+                className="flex items-center justify-between gap-3 rounded-xl border border-border bg-white px-4 py-3 text-left transition-colors hover:border-primary hover:bg-primary/50 dark:border-border dark:bg-muted dark:hover:border-primary/50 dark:hover:bg-primary/20"
               >
                 <div className="min-w-0">
                   <div className="truncate font-bold text-foreground">
@@ -111,7 +111,7 @@ export function BaseProductSelector({
           </div>
         </div>
       ) : (
-        <div className="mt-5 rounded-[24px] border border-blue-200 bg-blue-50/80 p-5 dark:border-blue-900/40 dark:bg-blue-950/20">
+        <div className="mt-5 rounded-[24px] border border-primary bg-primary/80 p-5 dark:border-primary/40 dark:bg-primary/20">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
@@ -147,7 +147,7 @@ export function BaseProductSelector({
               <button
                 type="button"
                 onClick={resetSelectedProduct}
-                className="inline-flex items-center gap-2 rounded-full border border-transparent bg-white/70 px-4 py-2 text-sm font-semibold text-blue-700 transition-colors hover:bg-white dark:bg-blue-950/40 dark:text-blue-200 dark:hover:bg-blue-950/60"
+                className="inline-flex items-center gap-2 rounded-full border border-transparent bg-white/70 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-white dark:bg-primary/40 dark:text-primary dark:hover:bg-primary/60"
               >
                 <X size={16} />
                 تغيير المنتج

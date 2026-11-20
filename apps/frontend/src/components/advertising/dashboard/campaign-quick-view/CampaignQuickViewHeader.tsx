@@ -62,7 +62,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
               ? "Activate Campaign"
               : "تنشيط الحملة"
           }
-          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500/20 active:scale-[0.97] ${
+          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary/20 active:scale-[0.97] ${
             campaignStatus === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300 dark:bg-muted"
           }`}
         >
@@ -91,7 +91,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
               value={campaignName}
               onChange={(e) => setCampaignName(e.target.value)}
               placeholder={isEn ? "Campaign Name" : "اسم الحملة الإعلانية"}
-              className="w-full max-w-md truncate rounded-lg border border-transparent bg-transparent px-1 py-0.5 text-sm font-extrabold text-foreground outline-none transition-colors hover:border-border focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 dark:text-white dark:hover:border-border dark:focus:bg-muted"
+              className="w-full max-w-md truncate rounded-lg border border-transparent bg-transparent px-1 py-0.5 text-sm font-extrabold text-foreground outline-none transition-colors hover:border-border focus:border-primary focus:bg-white focus:ring-1 focus:ring-primary dark:text-white dark:hover:border-border dark:focus:bg-muted"
             />
             <span
               className={`shrink-0 rounded-md px-2 py-0.5 text-xs font-bold ${deliveryBadgeClass}`}
@@ -132,10 +132,10 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
               ? "Refresh live telemetry from Meta"
               : "تحديث الإحصائيات اللحظية من Meta"
           }
-          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground hover:text-blue-600 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:text-blue-400 disabled:opacity-50 transition-all active:scale-[0.97]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground hover:text-primary dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:text-primary disabled:opacity-50 transition-all active:scale-[0.97]"
         >
           <RotateCw
-            className={`h-4 w-4 ${loadingDetails ? "animate-spin text-blue-600" : ""}`}
+            className={`h-4 w-4 ${loadingDetails ? "animate-spin text-primary" : ""}`}
           />
         </button>
         {facebookCampaignId && (
@@ -144,7 +144,7 @@ export const CampaignQuickViewHeader: React.FC<CampaignQuickViewHeaderProps> = (
             target="_blank"
             rel="noreferrer"
             title={isEn ? "Open in Meta Ads Manager" : "فتح في مدير إعلانات Meta"}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground hover:text-blue-600 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:text-blue-400"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground hover:text-primary dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:text-primary"
           >
             <ExternalLink className="h-4 w-4" />
           </a>

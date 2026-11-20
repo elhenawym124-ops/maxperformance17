@@ -126,7 +126,7 @@ export function DentalCaseInvoiceModal({
           <button
             onClick={save}
             disabled={saving}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2 text-xs font-bold"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2 text-xs font-bold"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />}
             {t("dentalLab.common.save")}

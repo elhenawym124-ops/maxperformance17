@@ -25,7 +25,7 @@ export const StockMovementsTelemetryStrip: React.FC<StockMovementsTelemetryStrip
         <CardContent className="p-3.5">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>إجمالي الحركات</span>
-            <Layers className="h-3.5 w-3.5 text-blue-500" />
+            <Layers className="h-3.5 w-3.5 text-primary" />
           </div>
           <div className="text-lg font-bold font-mono tabular-nums text-foreground">
             {loading ? '...' : totalCount}

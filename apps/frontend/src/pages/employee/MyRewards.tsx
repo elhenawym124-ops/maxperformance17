@@ -48,7 +48,7 @@ const REWARD_STATUS: Record<string, { labelKey: string; color: string; icon: Rea
     },
     APPROVED: {
         labelKey: "employee.rewards.approvedStatus",
-        color: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+        color: "bg-blue-100 text-primary dark:bg-primary/30 dark:text-primary",
         icon: CheckCircle,
     },
     APPLIED: {

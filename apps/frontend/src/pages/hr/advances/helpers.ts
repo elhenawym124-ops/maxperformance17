@@ -7,7 +7,7 @@ export const statusConfig: Record<string, { label: string; color: string }> = {
   },
   APPROVED: {
     label: "معتمد",
-    color: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+    color: "bg-blue-100 text-primary dark:bg-primary/30 dark:text-primary",
   },
   REJECTED: {
     label: "مرفوض",

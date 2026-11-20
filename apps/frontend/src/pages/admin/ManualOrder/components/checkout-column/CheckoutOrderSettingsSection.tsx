@@ -68,7 +68,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
           <select
             value={paymentMethod}
             onChange={(e) => setPaymentMethod(e.target.value)}
-            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
+            className="w-full border-border rounded-md focus:ring-primary focus:border-primary dark:bg-muted dark:text-muted-foreground"
           >
             <option value="CASH">{t("manualOrder.k_12")}</option>
             <option value="WALLET">{t("manualOrder.k_13")}</option>
@@ -82,7 +82,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
+            className="w-full border-border rounded-md focus:ring-primary focus:border-primary dark:bg-muted dark:text-muted-foreground"
           >
             <option value="PENDING">{t("manualOrder.k_14")}</option>
             <option value="CONFIRMED">{t("manualOrder.k_15")}</option>
@@ -108,7 +108,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
                 setStatus("CONFIRMED");
               }
             }}
-            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
+            className="w-full border-border rounded-md focus:ring-primary focus:border-primary dark:bg-muted dark:text-muted-foreground"
           >
             <option value="delivery">{t("manualOrder.k_19")}</option>
             <option value="partial_delivery">
@@ -146,23 +146,23 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
                 </p>
               </div>
             ) : eligiblePreviousOrders.length > 0 ? (
-              <div className="p-3 rounded-lg border border-blue-100 dark:border-blue-900/40 bg-blue-50/50 dark:bg-blue-950/20 space-y-2">
+              <div className="p-3 rounded-lg border border-primary dark:border-primary/40 bg-primary/50 dark:bg-primary/20 space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="block text-xs font-semibold text-blue-900 dark:text-blue-300">
+                  <label className="block text-xs font-semibold text-primary dark:text-primary">
                     الطلب السابق المرتبط بال
                     {requestType === "return" ? "مرتجع" : "استبدال"}
                     {exchangeReturnPolicy?.requireExplicitOrderLink && (
                       <span className="text-red-500 ms-1">*</span>
                     )}
                   </label>
-                  <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">
+                  <span className="text-[11px] font-medium text-primary dark:text-primary">
                     {eligiblePreviousOrders.length} طلب سابق مؤهل
                   </span>
                 </div>
                 <select
                   value={selectedPreviousOrder}
                   onChange={(e) => setSelectedPreviousOrder(e.target.value)}
-                  className="w-full text-xs border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground py-2"
+                  className="w-full text-xs border-border rounded-md focus:ring-primary focus:border-primary dark:bg-muted dark:text-muted-foreground py-2"
                 >
                   <option value="">
                     {exchangeReturnPolicy?.requireExplicitOrderLink
@@ -223,7 +223,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
                 ? "Shipping cost will be used automatically"
                 : "سيتم استخدام مصاريف الشحن تلقائياً"
             }
-            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm dark:bg-muted dark:text-muted-foreground dark:placeholder-muted pe-16"
+            className="w-full border-border rounded-md focus:ring-primary focus:border-primary text-sm dark:bg-muted dark:text-muted-foreground dark:placeholder-muted pe-16"
             min="0"
             step="1"
           />
@@ -249,7 +249,7 @@ export const CheckoutOrderSettingsSection: React.FC<CheckoutOrderSettingsSection
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 h-16 resize-none text-sm dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
+          className="w-full border-border rounded-md focus:ring-primary focus:border-primary h-16 resize-none text-sm dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
           placeholder={t("manualOrder.k_10")}
         />
       </div>

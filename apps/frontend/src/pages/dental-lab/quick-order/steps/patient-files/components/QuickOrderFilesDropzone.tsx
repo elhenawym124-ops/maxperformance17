@@ -58,8 +58,8 @@ export function QuickOrderFilesDropzone({
         className={[
           "rounded-xl border-2 border-dashed p-4 text-center cursor-pointer transition",
           dragOver
-            ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-            : "border-border hover:border-blue-400 bg-card",
+            ? "border-blue-500 bg-primary/10 dark:bg-primary/20"
+            : "border-border hover:border-primary bg-card",
         ].join(" ")}
       >
         <input
@@ -72,7 +72,7 @@ export function QuickOrderFilesDropzone({
             e.target.value = "";
           }}
         />
-        <Upload className="w-6 h-6 mx-auto text-blue-600 dark:text-blue-400 mb-1" />
+        <Upload className="w-6 h-6 mx-auto text-primary dark:text-primary mb-1" />
         <p className="text-xs text-muted-foreground font-medium">
           انقر لاختيار ملفات الـ STL، صور الكاميرا الفموية، أو الـ PDF
         </p>
@@ -102,7 +102,7 @@ export function QuickOrderFilesDropzone({
                     <CheckCircle2 className="w-3.5 h-3.5 text-success" />
                   )}
                   {st === "uploading" && (
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-500" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
                   )}
                   <button
                     type="button"

@@ -386,7 +386,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                 {/* Avatar */}
                 <div
                   className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 text-white text-[11px] font-bold ${
-                    isUser ? "bg-slate-800" : "bg-gradient-to-tr from-blue-600 to-primary shadow-sm"
+                    isUser ? "bg-slate-800" : "bg-gradient-to-tr from-primary to-primary shadow-sm"
                   }`}
                 >
                   {isUser ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
@@ -396,7 +396,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                 <div
                   className={`rounded-xl p-3.5 space-y-2 leading-relaxed ${bubbleCornerClass} ${
                     isUser
-                      ? "max-w-[85%] bg-blue-600 text-white shadow-sm"
+                      ? "max-w-[85%] bg-primary text-white shadow-sm"
                       : "max-w-[95%] sm:max-w-[90%] bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border shadow-sm"
                   }`}
                 >
@@ -406,7 +406,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                       {msg.toolCalls.map((tc, tcIdx) => (
                         <span
                           key={tcIdx}
-                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-200 text-[10px] font-mono font-medium"
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary dark:bg-primary/60 text-primary dark:text-primary text-[10px] font-mono font-medium"
                         >
                           <Wrench className="w-2.5 h-2.5" />
                           {tc.name || "أداة فحص المتجر"}
@@ -450,7 +450,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
                               key={attIdx}
                               className={`p-2.5 rounded-xl border flex flex-col gap-1.5 w-full max-w-xs ${
                                 isUser
-                                  ? "bg-blue-700/70 border-blue-400/40 text-white"
+                                  ? "bg-blue-700/70 border-primary/40 text-white"
                                   : "bg-slate-200/80 dark:bg-muted border-border dark:border-border text-foreground dark:text-muted-foreground"
                               }`}
                             >
@@ -524,7 +524,7 @@ export const MarketingSquadChatFeed: React.FC<MarketingSquadChatFeedProps> = ({
               <Bot className="w-4 h-4" />
             </div>
             <div className="p-3 rounded-xl bg-muted dark:bg-muted flex items-center gap-2 text-foreground dark:text-muted-foreground">
-              <div className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
+              <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
               {activeAgent?.name ? `${activeAgent.name} يحلل بيانات المتجر واقتصاديات المنتج...` : "فريق التسويق يحلل بيانات المتجر واقتصاديات المنتج..."}
             </div>
           </div>

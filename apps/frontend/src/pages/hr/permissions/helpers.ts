@@ -22,7 +22,7 @@ export const permissionTypeConfig: Record<
   NON_DEDUCTIBLE: {
     labelKey: "emergencyNonDeductible",
     icon: Zap,
-    color: "bg-blue-100 text-blue-800 border-blue-200",
+    color: "bg-blue-100 text-primary border-primary",
     descKey: "emergencyNonDeductibleDesc",
   },
   FIXED_HOURS: {

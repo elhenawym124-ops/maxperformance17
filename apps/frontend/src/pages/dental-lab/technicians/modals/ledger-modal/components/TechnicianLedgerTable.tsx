@@ -30,7 +30,7 @@ export function TechnicianLedgerTable({
         );
       case "BONUS":
         return (
-          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
+          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-primary text-primary dark:bg-primary/60 dark:text-primary">
             مكافأة أداء
           </span>
         );

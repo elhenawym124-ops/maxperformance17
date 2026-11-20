@@ -22,7 +22,7 @@ export const MetricTile: React.FC<{
 }> = ({ icon: Icon, label, value }) => (
   <div className="rounded-xl border border-border bg-white/90 p-4 shadow-xs transition-all hover:border-border hover:shadow-sm dark:border-border dark:bg-muted dark:hover:border-border">
     <div className="flex items-center gap-3.5">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/50 dark:text-primary">
         <Icon className="h-5 w-5" />
       </span>
       <div className="min-w-0">

@@ -83,7 +83,7 @@ export const AffiliateTableRow: React.FC<AffiliateTableRowProps> = ({
                 href={affiliate.identityDocumentUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-blue-600 hover:text-blue-800 underline"
+                className="text-xs text-primary hover:text-primary underline"
               >
                 مستند الاعتماد
               </a>

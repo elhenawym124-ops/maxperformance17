@@ -98,9 +98,9 @@ export const LoyaltyTiersHeader: React.FC<LoyaltyTiersHeaderProps> = ({
         )}
       </div>
 
-      <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg flex items-start gap-3 border border-blue-100 dark:border-blue-900/40">
-        <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0" />
-        <p className="text-sm text-blue-800 dark:text-blue-200">
+      <div className="bg-blue-50 dark:bg-primary/20 p-4 rounded-lg flex items-start gap-3 border border-primary dark:border-primary/40">
+        <Info className="w-5 h-5 text-primary dark:text-primary mt-0.5 shrink-0" />
+        <p className="text-sm text-primary dark:text-primary">
           تستخدم هذه المستويات أيضاً في <strong>نظام الكاش باك</strong> لتحديد
           نسب مختلفة لكل شريحة عملاء. يمكنك تعديل نسب الكاش باك من صفحة "إعدادات
           الكاش باك".

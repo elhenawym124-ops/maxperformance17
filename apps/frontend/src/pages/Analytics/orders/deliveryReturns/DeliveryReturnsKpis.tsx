@@ -167,16 +167,16 @@ export const DeliveryReturnsKpis: React.FC<Props> = ({ summary }) => {
             <span className="text-xs font-medium text-muted-foreground">
               {t("deliveryReturnsReport.inTransitOrders")}
             </span>
-            <div className="p-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shrink-0">
+            <div className="p-1.5 rounded-lg bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary shrink-0">
               <Truck className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2.5">
             <div className="flex items-baseline gap-2 flex-wrap">
-              <span className="text-2xl font-bold font-mono tracking-tight text-blue-600 dark:text-blue-400 tabular-nums">
+              <span className="text-2xl font-bold font-mono tracking-tight text-primary dark:text-primary tabular-nums">
                 {inTransitCount.toLocaleString()}
               </span>
-              <span className="text-xs font-mono font-semibold text-blue-600 dark:text-blue-400 tabular-nums">
+              <span className="text-xs font-mono font-semibold text-primary dark:text-primary tabular-nums">
                 ({summary?.inTransitRate ?? 0}% {t("deliveryReturnsReport.inTransitFromShipped")})
               </span>
             </div>
@@ -184,7 +184,7 @@ export const DeliveryReturnsKpis: React.FC<Props> = ({ summary }) => {
               <span className="text-muted-foreground/80">
                 {t("deliveryReturnsReport.inTransitHint")}:
               </span>
-              <span className="font-mono font-medium text-blue-600 dark:text-blue-400 text-[10px] bg-blue-50 dark:bg-blue-950/40 px-1.5 py-0.5 rounded border border-blue-200/50 dark:border-blue-800/40">
+              <span className="font-mono font-medium text-primary dark:text-primary text-[10px] bg-primary/10 dark:bg-primary/40 px-1.5 py-0.5 rounded border border-primary/50 dark:border-primary/40">
                 {t("deliveryReturnsReport.activeInTransitBadge")}
               </span>
             </div>

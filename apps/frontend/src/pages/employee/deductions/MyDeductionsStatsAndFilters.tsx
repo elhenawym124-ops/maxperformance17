@@ -35,7 +35,7 @@ export const MyDeductionsStatsAndFilters: React.FC<
     <>
       <div>
         <h1 className="text-2xl font-bold text-foreground flex items-center">
-          <DollarSign className="h-8 w-8 text-blue-600 dark:text-blue-400 ms-3" />
+          <DollarSign className="h-8 w-8 text-primary dark:text-primary ms-3" />
           {t("employee.deductions.title")}
         </h1>
         <p className="text-gray-600 dark:text-muted-foreground mt-1">
@@ -55,7 +55,7 @@ export const MyDeductionsStatsAndFilters: React.FC<
                   {stats.total}
                 </p>
               </div>
-              <TrendingDown className="h-8 w-8 text-blue-600" />
+              <TrendingDown className="h-8 w-8 text-primary" />
             </div>
           </div>
 

@@ -58,10 +58,10 @@ export const QuickOrderCartSidebar: React.FC<QuickOrderCartSidebarProps> = ({
             className="flex items-center gap-2 text-right min-w-0 flex-1 hover:opacity-85 transition-opacity"
           >
             <div className="relative flex-shrink-0">
-              <div className="p-2 rounded-xl bg-blue-500/15 text-blue-500 dark:bg-blue-500/25">
+              <div className="p-2 rounded-xl bg-primary/15 text-primary dark:bg-primary/25">
                 <ShoppingCartIcon className="h-5 w-5" />
               </div>
-              <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold font-mono tabular-nums rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+              <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] font-bold font-mono tabular-nums rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
                 {totalItemCount}
               </span>
             </div>
@@ -69,7 +69,7 @@ export const QuickOrderCartSidebar: React.FC<QuickOrderCartSidebarProps> = ({
               <div className="text-xs sm:text-sm font-bold font-mono tabular-nums truncate" style={headingStyle}>
                 {subtotal.toLocaleString()} ج.م
               </div>
-              <div className="text-[10px] sm:text-xs text-blue-500 font-medium flex items-center gap-0.5">
+              <div className="text-[10px] sm:text-xs text-primary font-medium flex items-center gap-0.5">
                 <span>عرض وتعديل السلة</span>
                 <ChevronUpIcon className="h-3 w-3" />
               </div>

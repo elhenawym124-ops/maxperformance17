@@ -36,7 +36,7 @@ export const HRProbationTab: React.FC<HRProbationTabProps> = ({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Briefcase className="h-5 w-5 text-blue-500" />
+          <Briefcase className="h-5 w-5 text-primary" />
           فترة الاختبار
         </CardTitle>
         <CardDescription>

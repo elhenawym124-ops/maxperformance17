@@ -18,7 +18,7 @@ const goalTypeBadgeMap: Record<string, { label: string; className: string }> = {
   MONTHLY: { label: "شهري", className: "border-purple-500/30 bg-primary/10 text-primary dark:text-primary" },
   STRATEGIC: { label: "استراتيجي", className: "border-amber-500/30 bg-warning/10 text-warning dark:text-warning" },
   COMPANY: { label: "شركة", className: "border-emerald-500/30 bg-success/10 text-success dark:text-success" },
-  DEPARTMENT: { label: "قسم", className: "border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300" },
+  DEPARTMENT: { label: "قسم", className: "border-blue-500/30 bg-primary/10 text-primary dark:text-primary" },
   PROJECT: { label: "مشروع", className: "border-teal-500/30 bg-success/10 text-success dark:text-success" },
   EMPLOYEE: { label: "موظف", className: "border-rose-500/30 bg-destructive/10 text-destructive dark:text-destructive" },
 };

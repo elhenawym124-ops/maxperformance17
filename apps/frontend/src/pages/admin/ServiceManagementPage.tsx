@@ -141,7 +141,7 @@ export default function ServiceManagementPage() {
             <div className="flex items-center gap-2">
               <h1 className="text-sm sm:text-base font-bold tracking-tight text-foreground">كتالوج الخدمات ونماذج الأعمال</h1>
               <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/30 px-2 py-0.5 text-[10px] font-mono tabular-nums text-muted-foreground">
-                <span className="size-1.5 rounded-full bg-blue-500" />{services.length} خدمة
+                <span className="size-1.5 rounded-full bg-primary" />{services.length} خدمة
               </span>
             </div>
             <p className="text-[11px] text-muted-foreground">التحكم في خدمات الصوت والتصميم والمونتاج وعيناتها التسويقية المعروضة للعملاء</p>

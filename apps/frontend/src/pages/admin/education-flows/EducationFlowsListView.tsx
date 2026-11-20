@@ -75,9 +75,9 @@ export const EducationFlowsListView: React.FC<EducationFlowsListViewProps> = ({
               <span
                 key={ch}
                 title="فيسبوك ماسنجر مع أزرار سريعة"
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-300/50 dark:border-blue-700/50"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary text-primary dark:bg-primary/60 dark:text-primary border border-primary/50 dark:border-primary/50"
               >
-                <MessageSquare className="w-2.5 h-2.5 text-blue-600 dark:text-blue-400" />
+                <MessageSquare className="w-2.5 h-2.5 text-primary dark:text-primary" />
                 ماسنجر
               </span>
             );

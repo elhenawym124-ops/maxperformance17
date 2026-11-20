@@ -42,7 +42,7 @@ export const ClaritySetupStepsDetails: React.FC<ClaritySetupStepsDetailsProps> =
                   href={step.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-1 text-xs text-blue-600 hover:underline dark:text-blue-400"
+                  className="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline dark:text-primary"
                 >
                   {t(step.linkTextKey!, step.linkText!)}
                   <ArrowTopRightOnSquareIcon className="h-3 w-3 rtl:scale-x-[-1]" aria-hidden="true" />
@@ -63,7 +63,7 @@ export const ClaritySetupStepsDetails: React.FC<ClaritySetupStepsDetailsProps> =
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+                className="flex items-center gap-2 text-xs text-primary hover:text-primary hover:underline dark:text-primary dark:hover:text-primary"
               >
                 <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 flex-shrink-0 rtl:scale-x-[-1]" aria-hidden="true" />
                 {t(link.labelKey, link.label)}

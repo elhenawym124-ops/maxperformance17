@@ -197,7 +197,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
           </div>
 
           <div>
-            <label className="flex items-center cursor-pointer bg-blue-50 dark:bg-blue-900/30 p-2.5 rounded-lg border border-blue-200 dark:border-blue-800">
+            <label className="flex items-center cursor-pointer bg-primary/10 dark:bg-primary/30 p-2.5 rounded-lg border border-primary dark:border-primary">
               <input
                 type="checkbox"
                 checked={!stockUpdate.isApproved}
@@ -209,7 +209,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                 }
                 className="rounded border-border text-primary focus:ring-primary dark:bg-muted"
               />
-              <span className="me-2 text-xs font-semibold text-blue-800 dark:text-blue-300">
+              <span className="me-2 text-xs font-semibold text-primary dark:text-primary">
                 يتطلب موافقة المدير (حفظ كمسودة)
               </span>
             </label>

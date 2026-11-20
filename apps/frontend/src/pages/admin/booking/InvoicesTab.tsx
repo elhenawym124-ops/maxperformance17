@@ -25,7 +25,7 @@ interface Props {
 }
 
 const EXPENSE_SPLIT_LABEL: Record<string, { label: string; color: string }> = {
-  PATIENT: { label: "المريض", color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20" },
+  PATIENT: { label: "المريض", color: "bg-blue-500/10 text-primary dark:text-primary border border-primary/20" },
   INSURANCE: { label: "التأمين", color: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20" },
   BOTH: { label: "مشترك", color: "bg-teal-500/10 text-success dark:text-success border border-success/20" },
 };

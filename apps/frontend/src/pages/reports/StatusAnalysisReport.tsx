@@ -332,7 +332,7 @@ const StatusAnalysisReport: React.FC = () => {
               <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-medium text-muted-foreground">متوسط قيمة الطلب</span>
-                  <div className="h-8 w-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary dark:text-primary border border-primary/20 flex items-center justify-center">
                     <TrendingUp className="h-4 w-4" />
                   </div>
                 </div>

@@ -26,7 +26,7 @@ export function fmtBytes(n?: number): string {
 export function fileIcon(name: string): React.ReactNode {
   const ext = (name.split(".").pop() || "").toLowerCase();
   if (["jpg", "jpeg", "png", "webp", "gif", "bmp"].includes(ext)) {
-    return <ImageIcon className="w-4 h-4 text-blue-500" />;
+    return <ImageIcon className="w-4 h-4 text-primary" />;
   }
   if (ext === "pdf") {
     return <FileText className="w-4 h-4 text-destructive" />;

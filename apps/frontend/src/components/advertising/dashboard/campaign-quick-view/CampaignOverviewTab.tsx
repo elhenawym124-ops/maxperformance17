@@ -53,7 +53,7 @@ export const CampaignOverviewTab: React.FC<CampaignOverviewTabProps> = ({
             <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
               {isEn ? "Budget Configuration:" : "إعداد الميزانية الحالية:"}
             </span>
-            <span className="rounded-md bg-blue-100 px-1.5 py-0.5 text-[10px] font-black text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
+            <span className="rounded-md bg-primary px-1.5 py-0.5 text-[10px] font-black text-primary dark:bg-primary/60 dark:text-primary">
               {isCboCampaign
                 ? isEn
                   ? "Advantage Campaign Budget (CBO)"

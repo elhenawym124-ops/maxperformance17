@@ -102,7 +102,7 @@ export default function DashboardTab({ branches, doctors, appointments, selected
       {/* Appointment KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { label: "مواعيد اليوم", value: stats.todayAppointments.length, icon: CalendarDays, color: "text-blue-500 bg-blue-500/10 border-blue-500/20" },
+          { label: "مواعيد اليوم", value: stats.todayAppointments.length, icon: CalendarDays, color: "text-blue-500 bg-primary/10 border-primary/20" },
           { label: "بانتظار التأكيد", value: stats.pendingCount, icon: Clock, color: "text-amber-500 bg-warning/10 border-warning/20" },
           { label: "مؤكدة", value: stats.confirmedCount, icon: Check, color: "text-emerald-500 bg-success/10 border-success/20" },
           { label: "الأطباء النشطون", value: stats.totalDoctors, icon: Users, color: "text-purple-500 bg-primary/10 border-primary/20" },
@@ -150,7 +150,7 @@ export default function DashboardTab({ branches, doctors, appointments, selected
           <p className="text-xs font-medium text-muted-foreground mb-2">توزيع مواعيد اليوم حسب الجنس</p>
           <div className="flex gap-4 mt-3">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-primary shrink-0"></span>
               <span className="text-xs text-foreground">ذكور: <strong className="font-mono tabular-nums">{stats.maleCount}</strong></span>
             </div>
             <div className="flex items-center gap-2">
@@ -186,7 +186,7 @@ export default function DashboardTab({ branches, doctors, appointments, selected
                   <p className="text-muted-foreground mt-0.5">مرضى جدد</p>
                 </div>
                 <div>
-                  <p className="text-xl font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">{patientStats.returningPatients}</p>
+                  <p className="text-xl font-bold font-mono tabular-nums text-primary dark:text-primary">{patientStats.returningPatients}</p>
                   <p className="text-muted-foreground mt-0.5">مرضى مترددون</p>
                 </div>
               </div>

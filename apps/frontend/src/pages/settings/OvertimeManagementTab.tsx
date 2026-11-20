@@ -264,7 +264,7 @@ export const OvertimeManagementTab: React.FC = () => {
                         </Badge>
                       )}
                       {session.status === "ACTIVE" && (
-                        <Badge variant="outline" className="border-blue-500/40 text-blue-500 bg-blue-500/10 text-[10px] animate-pulse">
+                        <Badge variant="outline" className="border-blue-500/40 text-primary bg-primary/10 text-[10px] animate-pulse">
                           نشطة حالياً
                         </Badge>
                       )}

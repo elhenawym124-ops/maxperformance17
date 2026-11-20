@@ -74,7 +74,7 @@ export function DentalCasesBulkBar({
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-muted dark:bg-muted backdrop-blur-md text-white px-4 py-3 rounded-xl shadow-2xl border border-border flex items-center gap-3 flex-wrap max-w-[95vw] animate-in fade-in slide-in-from-bottom-5">
       <div className="flex items-center gap-2 pe-2 border-l border-border">
-        <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping" />
+        <span className="w-2.5 h-2.5 rounded-full bg-primary animate-ping" />
         <span className="text-xs font-bold whitespace-nowrap font-mono">
           تم تحديد {selectedCaseIds.size} حالة
         </span>
@@ -91,7 +91,7 @@ export function DentalCasesBulkBar({
           {/* Bulk Advance Status */}
           <div className="flex items-center gap-1.5">
             <select
-              className="bg-gray-800 border border-border text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="bg-gray-800 border border-border text-xs rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:ring-1 focus:ring-primary"
               value={bulkStatusTarget}
               onChange={(e) => onBulkStatusTargetChange(e.target.value)}
               disabled={bulkBusy}
@@ -107,7 +107,7 @@ export function DentalCasesBulkBar({
               type="button"
               onClick={onBulkAdvance}
               disabled={bulkBusy || !bulkStatusTarget}
-              className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition"
+              className="px-3 py-1.5 bg-primary hover:bg-primary text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition"
             >
               {bulkBusy ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -230,7 +230,7 @@ export function DentalCasesBulkBar({
           type="button"
           onClick={onBulkRestore}
           disabled={bulkBusy}
-          className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition font-mono"
+          className="px-3 py-1.5 bg-primary hover:bg-primary text-white rounded-lg text-xs font-semibold disabled:opacity-50 flex items-center gap-1 shadow-sm transition font-mono"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           استعادة الحالات المحددة ({selectedCaseIds.size})

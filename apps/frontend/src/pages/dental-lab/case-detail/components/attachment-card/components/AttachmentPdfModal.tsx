@@ -50,7 +50,7 @@ export function AttachmentPdfModal({
           <a
             href={url}
             download={attachment.fileName}
-            className="text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-blue-600 dark:text-primary hover:underline"
           >
             تحميل الملف
           </a>

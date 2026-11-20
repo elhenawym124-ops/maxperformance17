@@ -50,7 +50,7 @@ export const DailyOrdersStats: React.FC<DailyOrdersStatsProps> = ({
           <span className="text-[11px] font-medium text-muted-foreground">
             إجمالي طلبات المنصة
           </span>
-          <span className="size-1.5 rounded-full bg-blue-500" />
+          <span className="size-1.5 rounded-full bg-primary" />
         </div>
         <div className="mt-2 flex items-baseline justify-between">
           <span className="text-xl sm:text-2xl font-bold font-mono tracking-tight text-foreground tabular-nums">

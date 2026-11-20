@@ -174,7 +174,7 @@ const StockAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>فائض / راكد</span>
-              <Archive className="h-4 w-4 text-blue-500" />
+              <Archive className="h-4 w-4 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">
               {loading ? "..." : (stats?.overstockedProducts?.length || 0).toLocaleString()}
@@ -293,7 +293,7 @@ const StockAnalytics: React.FC = () => {
         <Card className="border-border/70 bg-card overflow-hidden shadow-sm">
           <div className="p-3 bg-muted/20 border-b border-border/70 flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
-              <Archive className="h-4 w-4 text-blue-500" />
+              <Archive className="h-4 w-4 text-primary" />
               <h3 className="font-semibold text-foreground">
                 المخزون الفائض والراكد وتغطية الأشهر
               </h3>

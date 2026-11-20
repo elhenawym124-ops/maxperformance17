@@ -78,7 +78,7 @@ export function QueueJobDetailModal({ job, onClose }: QueueJobDetailModalProps) 
                       job.status === "completed"
                         ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                         : job.status === "active"
-                          ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20"
+                          ? "bg-blue-500/10 text-primary dark:text-primary border-primary/20"
                           : job.status === "waiting"
                             ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                             : "bg-destructive/10 text-destructive border-destructive/20"

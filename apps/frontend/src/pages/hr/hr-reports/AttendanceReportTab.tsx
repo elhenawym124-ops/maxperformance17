@@ -36,7 +36,7 @@ export const AttendanceReportTab: React.FC<AttendanceReportTabProps> = ({
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-blue-600 to-primary text-white shadow-md">
+              <Card className="bg-gradient-to-br from-primary to-primary text-white shadow-md">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>

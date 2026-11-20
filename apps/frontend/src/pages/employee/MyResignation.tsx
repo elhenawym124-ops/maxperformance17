@@ -154,7 +154,7 @@ const MyResignation = () => {
             case "REJECTED":
                 return <Badge className="bg-red-100 text-destructive hover:bg-destructive border-none px-3 py-1 flex items-center gap-1.5"><XCircle className="w-3.5 h-3.5" /> {t("employee.resignation.rejectedStatus")}</Badge>;
             case "SETTLED":
-                return <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200 border-none px-3 py-1 flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5" /> {t("employee.resignation.settledStatus")}</Badge>;
+                return <Badge className="bg-blue-100 text-primary hover:bg-primary border-none px-3 py-1 flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5" /> {t("employee.resignation.settledStatus")}</Badge>;
             default:
                 return <Badge variant="outline">{status}</Badge>;
         }
@@ -163,7 +163,7 @@ const MyResignation = () => {
     if (fetching) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-                <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+                <Loader2 className="w-12 h-12 text-primary animate-spin" />
                 <p className="text-gray-500 animate-pulse font-medium">{t("employee.resignation.loading")}</p>
             </div>
         );
@@ -250,12 +250,12 @@ const MyResignation = () => {
                                         {/* Last Working Day */}
                                         <div className="space-y-3">
                                             <Label className="text-base font-semibold text-foreground flex items-center gap-2">
-                                                <Calendar className="w-4 h-4 text-blue-500" />
+                                                <Calendar className="w-4 h-4 text-primary" />
                                                 {t("employee.resignation.lastWorkingDay")}
                                             </Label>
                                             <DateInput
                                                 
-                                                className="h-12 text-lg border-border focus:border-blue-500 focus:ring-blue-200 transition-all bg-white"
+                                                className="h-12 text-lg border-border focus:border-primary focus:ring-primary transition-all bg-white"
                                                 {...register("lastWorkingDay", { required: t("employee.resignation.lastWorkingDayRequired") })}
                                             />
                                             {errors.lastWorkingDay && <p className="text-sm text-destructive font-medium">{errors.lastWorkingDay.message}</p>}
@@ -263,12 +263,12 @@ const MyResignation = () => {
                                     </div>
 
                                     {/* Policy Info */}
-                                    <div className="bg-gradient-to-br from-blue-50 to-primary border border-blue-100 rounded-xl p-6 flex items-start gap-4 shadow-sm">
-                                        <div className="bg-white p-2.5 rounded-xl shadow-sm border border-blue-100">
-                                            <Info className="h-6 w-6 text-blue-600" />
+                                    <div className="bg-gradient-to-br from-primary to-primary border border-primary rounded-xl p-6 flex items-start gap-4 shadow-sm">
+                                        <div className="bg-white p-2.5 rounded-xl shadow-sm border border-primary">
+                                            <Info className="h-6 w-6 text-primary" />
                                         </div>
                                         <div>
-                                            <h4 className="text-lg font-bold text-blue-900 mb-1">
+                                            <h4 className="text-lg font-bold text-primary mb-1">
                                                 {t("employee.resignation.noticePolicy")}
                                             </h4>
                                             <p className="text-blue-800/80 leading-relaxed font-medium">
@@ -387,7 +387,7 @@ const MyResignation = () => {
                                                 </CardHeader>
                                                 <CardContent className="space-y-4 text-sm text-foreground pb-6 pt-0">
                                                     <div className="flex items-center gap-2 bg-muted p-2.5 rounded-xl border border-border">
-                                                        <Clock className="w-4 h-4 text-blue-500" />
+                                                        <Clock className="w-4 h-4 text-primary" />
                                                         <span className="font-semibold">{t("employee.resignation.lastDay")}</span>
                                                         <span className="text-blue-700">{new Date(req.lastWorkingDay).toLocaleDateString('ar-EG')}</span>
                                                     </div>

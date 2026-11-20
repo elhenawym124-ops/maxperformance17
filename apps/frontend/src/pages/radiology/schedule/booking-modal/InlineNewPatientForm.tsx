@@ -133,7 +133,7 @@ export const InlineNewPatientForm: React.FC<InlineNewPatientFormProps> = ({
           type="button"
           onClick={onSaveNewPatient}
           disabled={savingNewPatient}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50"
         >
           {savingNewPatient ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />

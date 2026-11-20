@@ -197,7 +197,7 @@ export const ShippingEmployeesTab: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={isEn ? 'Search employees by name, code, phone...' : 'بحث بالاسم، الكود، الهاتف، أو المسمى...'}
-            className="w-full pe-9 ps-3 py-2 text-xs sm:text-sm border border-border dark:border-border rounded-lg bg-transparent focus:ring-1 focus:ring-blue-500"
+            className="w-full pe-9 ps-3 py-2 text-xs sm:text-sm border border-border dark:border-border rounded-lg bg-transparent focus:ring-1 focus:ring-primary"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -211,7 +211,7 @@ export const ShippingEmployeesTab: React.FC = () => {
           </button>
           <button
             onClick={openAdd}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary rounded-lg shadow-sm transition active:scale-95"
           >
             <UserPlus className="w-4 h-4" />
             <span>{isEn ? 'Add Employee' : 'إضافة موظف جديد'}</span>
@@ -267,7 +267,7 @@ export const ShippingEmployeesTab: React.FC = () => {
                           {emp.photoUrl ? (
                             <img src={emp.photoUrl} alt={emp.fullName} className="w-8 h-8 rounded-full object-cover border border-border" />
                           ) : (
-                            <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">
+                            <div className="w-8 h-8 rounded-full bg-primary dark:bg-primary text-primary dark:text-primary flex items-center justify-center font-bold text-xs">
                               {emp.fullName.slice(0, 2)}
                             </div>
                           )}
@@ -302,7 +302,7 @@ export const ShippingEmployeesTab: React.FC = () => {
                               setLinkingEmployee(emp);
                               setSelectedUserId('');
                             }}
-                            className="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                            className="inline-flex items-center gap-1 text-xs text-primary dark:text-primary hover:underline"
                           >
                             <Link2 className="w-3 h-3" />
                             <span>{isEn ? 'Link User' : 'ربط بحساب'}</span>
@@ -325,7 +325,7 @@ export const ShippingEmployeesTab: React.FC = () => {
                         <div className="inline-flex items-center gap-2">
                           <button
                             onClick={() => openEdit(emp)}
-                            className="p-1 text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition"
+                            className="p-1 text-muted-foreground hover:text-primary dark:hover:text-primary transition"
                             title="تعديل"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
@@ -354,7 +354,7 @@ export const ShippingEmployeesTab: React.FC = () => {
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 w-full max-w-lg shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <h3 className="text-sm sm:text-base font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
-                <Users className="w-4 h-4 text-blue-600" />
+                <Users className="w-4 h-4 text-primary" />
                 <span>{editingEmployee ? (isEn ? 'Edit Employee' : 'تعديل بيانات الموظف') : (isEn ? 'New Employee' : 'إضافة موظف جديد')}</span>
               </h3>
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-foreground">
@@ -465,7 +465,7 @@ export const ShippingEmployeesTab: React.FC = () => {
                     type="checkbox"
                     checked={formData.isActive}
                     onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                    className="rounded text-blue-600"
+                    className="rounded text-primary"
                   />
                   <span className="text-xs font-semibold text-foreground dark:text-muted-foreground">
                     {isEn ? 'Active Employee' : 'حساب الموظف نشط'}
@@ -484,7 +484,7 @@ export const ShippingEmployeesTab: React.FC = () => {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50"
+                  className="px-4 py-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50"
                 >
                   {saving ? (isEn ? 'Saving...' : 'جاري الحفظ...') : (isEn ? 'Save Employee' : 'حفظ الموظف')}
                 </button>
@@ -500,7 +500,7 @@ export const ShippingEmployeesTab: React.FC = () => {
           <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-5 w-full max-w-md shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <h3 className="text-sm font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
-                <Link2 className="w-4 h-4 text-blue-600" />
+                <Link2 className="w-4 h-4 text-primary" />
                 <span>{isEn ? 'Link User Account' : `ربط الموظف: ${linkingEmployee.fullName}`}</span>
               </h3>
               <button onClick={() => setLinkingEmployee(null)} className="text-slate-400 hover:text-foreground">
@@ -536,7 +536,7 @@ export const ShippingEmployeesTab: React.FC = () => {
               <button
                 onClick={handleLinkUser}
                 disabled={saving || !selectedUserId}
-                className="px-4 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50"
+                className="px-4 py-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50"
               >
                 {saving ? (isEn ? 'Linking...' : 'جاري الربط...') : (isEn ? 'Confirm Link' : 'تأكيد الربط')}
               </button>

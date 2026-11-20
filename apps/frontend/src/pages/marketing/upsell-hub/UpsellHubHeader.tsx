@@ -16,7 +16,7 @@ export const UpsellHubHeader: React.FC = () => {
     <div className="flex flex-col justify-between gap-4 rounded-xl border border-border bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:p-6 dark:border-border dark:bg-muted">
       <div className="space-y-1.5">
         <div className="flex items-center gap-2">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-primary text-white shadow-md shadow-blue-500/20">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-primary text-white shadow-md shadow-primary/20">
             <TrendingUp className="h-5 w-5" />
           </span>
           <div>
@@ -59,7 +59,7 @@ export const UpsellHubHeader: React.FC = () => {
           href="/shop"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-blue-700"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-primary"
         >
           <Store className="h-4 w-4" />
           معاينة المتجر

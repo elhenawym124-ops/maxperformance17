@@ -85,7 +85,7 @@ export const MessengerMessageList: React.FC<MessengerMessageListProps> = ({
                 {message.content && message.content.length > 500 && (
                   <button
                     onClick={() => onToggleMessageExpansion(message.id)}
-                    className="text-xs text-blue-400 hover:text-blue-600 mt-1 block font-medium"
+                    className="text-xs text-primary hover:text-primary mt-1 block font-medium"
                   >
                     {expandedMessages.has(message.id) ? "إخفاء" : "عرض المزيد"}
                   </button>

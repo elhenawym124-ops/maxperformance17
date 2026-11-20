@@ -190,7 +190,7 @@ export default function AbandonedCartAnalytics() {
           className="flex items-center justify-between p-2.5 rounded-lg border border-border/70 bg-card hover:bg-muted transition-colors"
         >
           <div className="flex items-center gap-2 min-w-0">
-            <span className="p-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400">
+            <span className="p-1 rounded bg-primary/10 text-primary dark:text-primary">
               <ShoppingCart className="h-3.5 w-3.5" />
             </span>
             <span className="text-xs font-medium text-foreground truncate">ورشة الطلبات غير المكتملة</span>

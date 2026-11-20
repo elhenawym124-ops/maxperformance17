@@ -172,7 +172,7 @@ const CustomerMessageTimeline: React.FC<Props> = ({ open, onClose, customerId: p
         {!loading && journeys.length > 0 && customer && (
           <div className="flex flex-wrap gap-2">
             {journeys.filter((j) => j.status === 'ACTIVE').map((j) => (
-              <Badge key={j.journeyId} variant="outline" className="gap-1 rounded-full border-blue-300 text-blue-700 dark:border-blue-700 dark:text-blue-400">
+              <Badge key={j.journeyId} variant="outline" className="gap-1 rounded-full border-primary text-primary dark:border-primary dark:text-primary">
                 <Workflow className="h-3 w-3" />
                 {j.flowName} · خطوة {j.currentStep}
               </Badge>
@@ -225,7 +225,7 @@ const TimelineItem: React.FC<{ event: TimelineEvent; last: boolean }> = ({ event
             : read
               ? 'border-emerald-500 bg-success/20'
               : delivered
-                ? 'border-blue-500 bg-blue-500/15'
+                ? 'border-blue-500 bg-primary/15'
                 : 'border-[color:var(--color-border)] bg-[color:var(--color-muted)]'
         }`}
       >
@@ -253,7 +253,7 @@ const TimelineItem: React.FC<{ event: TimelineEvent; last: boolean }> = ({ event
 
 const StatusChip: React.FC<{ status: string }> = ({ status }) => {
   const map: Record<string, { label: string; cls: string }> = {
-    SENT: { label: 'مرسلة', cls: 'border-blue-300 text-blue-700 dark:border-blue-700 dark:text-blue-400' },
+    SENT: { label: 'مرسلة', cls: 'border-blue-300 text-primary dark:border-primary dark:text-primary' },
     DELIVERED: { label: 'وصلت', cls: 'border-emerald-300 text-success dark:border-success dark:text-success' },
     READ: { label: 'اتقرت', cls: 'border-emerald-400 text-success dark:border-success dark:text-success' },
     FAILED: { label: 'فشلت', cls: 'border-destructive/40 text-destructive' },

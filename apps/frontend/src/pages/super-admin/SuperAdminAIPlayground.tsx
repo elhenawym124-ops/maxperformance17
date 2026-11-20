@@ -217,7 +217,7 @@ const SuperAdminAIPlayground: React.FC = () => {
           <div className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">التوكنز المستخدمة</span>
-              <BarChart3 className="size-3.5 text-blue-500" />
+              <BarChart3 className="size-3.5 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{displayMeta.totalTokens != null ? displayMeta.totalTokens : "0"}</div>
             <p className="text-[10px] text-muted-foreground font-mono">حجم المدخلات والمخرجات</p>

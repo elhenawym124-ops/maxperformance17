@@ -44,7 +44,7 @@ export const ReturnCategoryModal: React.FC<ReturnCategoryModalProps> = ({
                 required
                 value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
-                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-primary focus:ring-primary"
               />
             </div>
             <div>
@@ -54,7 +54,7 @@ export const ReturnCategoryModal: React.FC<ReturnCategoryModalProps> = ({
               <select
                 value={defaultRole}
                 onChange={(e) => setDefaultRole(e.target.value as any)}
-                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-primary focus:ring-primary"
               >
                 <option value="CUSTOMER">{t('returns.k_184')}</option>
                 <option value="STORE">{t('returns.k_111')}</option>
@@ -73,7 +73,7 @@ export const ReturnCategoryModal: React.FC<ReturnCategoryModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors"
             >
               {t('returns.k_186')}
             </button>

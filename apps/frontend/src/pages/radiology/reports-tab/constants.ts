@@ -58,7 +58,7 @@ export const IMPRESSION_PHRASES = [
 ];
 
 export const KPI_CARDS: Array<{ key: CounterKey; labelKey: string; icon: typeof FileText; iconCls: string }> = [
-  { key: "total", labelKey: "radiology.reports.total", icon: FileText, iconCls: "bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400" },
+  { key: "total", labelKey: "radiology.reports.total", icon: FileText, iconCls: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   { key: "awaitingReview", labelKey: "radiology.reports.awaitingReview", icon: Clock, iconCls: "bg-amber-100 text-warning dark:bg-warning/40 dark:text-warning" },
   { key: "awaitingSign", labelKey: "radiology.reports.awaitingSign", icon: FileCheck, iconCls: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
   { key: "deliveredToday", labelKey: "radiology.reports.deliveredToday", icon: CalendarCheck, iconCls: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },

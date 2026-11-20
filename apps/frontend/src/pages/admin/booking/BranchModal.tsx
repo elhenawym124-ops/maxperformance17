@@ -279,7 +279,7 @@ export default function BranchModal({ branch, onClose, onSave }: Props) {
               <p className="text-[11px] text-muted-foreground mb-2">اترك الحقول بدون اختيار إذا كان الفرع يستقبل الجميع في كافة الأوقات.</p>
             </div>
             <div>
-              <span className="text-xs font-medium text-blue-600 dark:text-blue-400 mb-1.5 block">أيام الرجال</span>
+              <span className="text-xs font-medium text-primary dark:text-primary mb-1.5 block">أيام الرجال</span>
               <div className="flex flex-wrap gap-1.5">
                 {DAYS.map(d => {
                   const isWorkingDay = (form.workingDays || "").split(",").includes(d.value);
@@ -289,7 +289,7 @@ export default function BranchModal({ branch, onClose, onSave }: Props) {
                       title={!isWorkingDay ? "يجب اختيار هذا اليوم كأحد أيام العمل أولاً" : ""}
                       className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
                         isSelected
-                          ? "bg-blue-600 text-white border-blue-600 shadow-xs"
+                          ? "bg-blue-600 text-white border-primary shadow-xs"
                           : "bg-background border-border/70 text-muted-foreground hover:text-foreground hover:bg-muted/40"
                       }`}>{d.label}</button>
                   );

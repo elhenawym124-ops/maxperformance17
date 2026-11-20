@@ -69,7 +69,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                           name: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white"
+                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white"
                       placeholder="أدخل الاسم الكامل"
                     />
                   </div>
@@ -87,7 +87,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                           email: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white"
+                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white"
                       placeholder="example@email.com"
                     />
                   </div>
@@ -105,7 +105,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                           phone: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white font-mono tabular-nums"
+                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white font-mono tabular-nums"
                       placeholder="01xxxxxxxxx"
                     />
                   </div>
@@ -123,7 +123,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                           jobId: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white"
+                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white"
                     >
                       <option value="">اختر الوظيفة...</option>
                       {jobs.map((job) => (
@@ -147,7 +147,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                           experience: parseInt(e.target.value) || 0,
                         })
                       }
-                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white font-mono tabular-nums"
+                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white font-mono tabular-nums"
                       min="0"
                     />
                   </div>
@@ -165,7 +165,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                           education: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white"
+                      className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white"
                       placeholder="بكالوريوس، ماجستير..."
                     />
                   </div>
@@ -184,7 +184,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                         skills: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white"
                     placeholder="JavaScript, React, Node.js"
                   />
                 </div>
@@ -202,7 +202,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                       })
                     }
                     rows={4}
-                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white"
                     placeholder="اكتب رسالة التقديم..."
                   />
                 </div>
@@ -220,7 +220,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
                         resumeUrl: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-blue-500 dark:text-white"
+                    className="w-full px-4 py-3 bg-muted dark:bg-muted border-2 border-border rounded-xl focus:ring-2 focus:ring-primary dark:text-white"
                     placeholder="https://..."
                   />
                 </div>
@@ -229,7 +229,7 @@ export const ApplicantModals: React.FC<ApplicantModalsProps> = ({
               <div className="flex gap-3 mt-8">
                 <button
                   onClick={onAddApplicant}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all font-semibold"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:shadow-lg transition-all font-semibold"
                 >
                   إضافة المتقدم
                 </button>

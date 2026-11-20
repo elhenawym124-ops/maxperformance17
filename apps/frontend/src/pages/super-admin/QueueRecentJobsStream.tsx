@@ -83,7 +83,7 @@ export function QueueRecentJobsStream({
                   <div className="flex items-center gap-2 overflow-hidden">
                     <div className="shrink-0 p-1.5 rounded bg-muted/60 border border-border/40 text-muted-foreground group-hover:text-foreground transition-colors">
                       {job.name === "facebook-message" && (
-                        <MessageSquare className="size-3.5 text-blue-500" />
+                        <MessageSquare className="size-3.5 text-primary" />
                       )}
                       {job.name === "facebook-read-receipt" && (
                         <CheckCheck className="size-3.5 text-success" />

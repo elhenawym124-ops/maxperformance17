@@ -522,7 +522,7 @@ export default function SupplierDetails() {
                           </Badge>
                         )}
                         {entry.type === 'OPENING_BALANCE' && (
-                          <Badge variant="outline" className="bg-blue-500/10 text-blue-500 border-blue-500/20 text-xs">
+                          <Badge variant="outline" className="bg-blue-500/10 text-primary border-primary/20 text-xs">
                             رصيد افتتاحي
                           </Badge>
                         )}

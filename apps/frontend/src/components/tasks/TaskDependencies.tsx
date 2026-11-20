@@ -151,7 +151,7 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
       case "completed":
         return <CheckCircleIcon className="h-4 w-4 text-success" />;
       case "in_progress":
-        return <ClockIcon className="h-4 w-4 text-blue-500" />;
+        return <ClockIcon className="h-4 w-4 text-primary" />;
       case "pending":
         return <ClockIcon className="h-4 w-4 text-warning" />;
       default:
@@ -257,14 +257,14 @@ const TaskDependencies: React.FC<TaskDependenciesProps> = ({
       {taskDependencies.length > 0 && (
         <div className="mb-4">
           <h4 className="text-sm font-medium text-foreground mb-2 flex items-center">
-            <ArrowRightIcon className="h-4 w-4 ms-1 text-blue-500" />
+            <ArrowRightIcon className="h-4 w-4 ms-1 text-primary" />
             تحظر (تنتظر إكمال هذه المهمة)
           </h4>
           <div className="space-y-2">
             {taskDependencies.map((dep) => (
               <div
                 key={dep.id}
-                className="flex items-center justify-between p-3 rounded-lg border bg-blue-50 border-blue-200"
+                className="flex items-center justify-between p-3 rounded-lg border bg-primary/10 border-primary"
               >
                 <div className="flex items-center">
                   {getStatusIcon(dep.dependsOnTask?.status)}

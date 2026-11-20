@@ -45,7 +45,7 @@ export const MessengerConversationsSidebar: React.FC<
             placeholder="ابحث عن محادثة..."
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
-            className="w-full ps-10 pe-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            className="w-full ps-10 pe-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
           />
         </div>
 
@@ -111,7 +111,7 @@ export const MessengerConversationsSidebar: React.FC<
                     <h3 className="text-sm font-medium text-foreground truncate">
                       {conversation.customerName}
                       {conversation.pageName && (
-                        <span className="text-xs text-blue-600 font-medium bg-blue-50 px-1.5 py-0.5 rounded me-2">
+                        <span className="text-xs text-primary font-medium bg-primary/10 px-1.5 py-0.5 rounded me-2">
                           {conversation.pageName}
                         </span>
                       )}
@@ -136,7 +136,7 @@ export const MessengerConversationsSidebar: React.FC<
                         conversation.status === "new"
                           ? "bg-green-100 text-success"
                           : conversation.status === "active"
-                            ? "bg-blue-100 text-blue-800"
+                            ? "bg-blue-100 text-primary"
                             : conversation.status === "archived"
                               ? "bg-gray-100 text-foreground"
                               : "bg-yellow-100 text-warning"

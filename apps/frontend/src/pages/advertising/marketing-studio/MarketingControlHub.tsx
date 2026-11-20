@@ -107,7 +107,7 @@ export const MarketingControlHub: React.FC<MarketingControlHubProps> = ({
               onNewSession();
               onClose();
             }}
-            className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-primary to-blue-600 hover:from-primary hover:to-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition"
+            className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-primary to-primary hover:from-primary hover:to-primary text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition"
           >
             <Plus className="w-4 h-4" />
             <span>بدء جلسة تسويق جديدة</span>

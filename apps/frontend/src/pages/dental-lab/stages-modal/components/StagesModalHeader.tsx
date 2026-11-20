@@ -15,8 +15,8 @@ export function StagesModalHeader({
   return (
     <div className="flex items-center justify-between p-4 sm:p-5 border-b dark:border-border shrink-0">
       <div className="flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-lg bg-blue-500/10 dark:bg-blue-400/10 flex items-center justify-center border border-blue-500/20">
-          <Workflow className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+        <div className="w-8 h-8 rounded-lg bg-primary/10 dark:bg-primary/10 flex items-center justify-center border border-primary/20">
+          <Workflow className="w-4 h-4 text-primary dark:text-primary" />
         </div>
         <div>
           <h3 className="text-base font-semibold text-foreground flex items-center gap-2">

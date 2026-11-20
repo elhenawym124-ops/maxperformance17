@@ -25,7 +25,7 @@ interface ClientSettlement {
 
 const STATUS_MAP: Record<string, { label: string; badge: string }> = {
   DRAFT: { label: 'مسودة', badge: 'bg-gray-100 text-foreground border-border' },
-  ISSUED: { label: 'تم الإصدار', badge: 'bg-blue-50 text-blue-700 border-blue-200' },
+  ISSUED: { label: 'تم الإصدار', badge: 'bg-blue-50 text-primary border-primary' },
   APPROVED: { label: 'معتمد', badge: 'bg-emerald-50 text-success border-success' },
   PAID: { label: 'تم التوريد والصرف', badge: 'bg-teal-50 text-success border-success' },
   REJECTED: { label: 'مرفوض', badge: 'bg-rose-50 text-destructive border-destructive' },
@@ -84,7 +84,7 @@ export const ClientSettlementsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border pb-3">
         <div>
           <h1 className="text-lg font-bold text-foreground flex items-center gap-2">
-            <Receipt className="w-5 h-5 text-blue-600" />
+            <Receipt className="w-5 h-5 text-primary" />
             كشوف COD والتسويات الدورية
           </h1>
           <p className="text-xs text-muted-foreground">
@@ -181,7 +181,7 @@ export const ClientSettlementsPage: React.FC = () => {
 
                 return (
                   <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="p-3 font-mono font-medium text-blue-600">
+                    <td className="p-3 font-mono font-medium text-primary">
                       {item.settlementNumber}
                     </td>
                     <td className="p-3 text-[11px] text-foreground">
@@ -216,7 +216,7 @@ export const ClientSettlementsPage: React.FC = () => {
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => setSelectedSettlementId(item.id)}
-                          className="p-1.5 text-muted-foreground hover:text-blue-600 rounded hover:bg-muted"
+                          className="p-1.5 text-muted-foreground hover:text-primary rounded hover:bg-muted"
                           title="عرض الأسطر والتفاصيل"
                         >
                           <Eye className="w-4 h-4" />

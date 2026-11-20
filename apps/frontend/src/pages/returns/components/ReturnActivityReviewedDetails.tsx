@@ -85,7 +85,7 @@ export const ReturnActivityReviewedDetails: React.FC<ReturnActivityReviewedDetai
         {resParty && (
           <div className="flex items-center justify-between p-2 rounded bg-muted dark:bg-muted border border-border dark:border-border">
             <span className="text-muted-foreground">الجهة المسؤولة:</span>
-            <span className="font-bold text-foreground px-2 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300">
+            <span className="font-bold text-foreground px-2 py-0.5 rounded bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary">
               {resParty}
             </span>
           </div>

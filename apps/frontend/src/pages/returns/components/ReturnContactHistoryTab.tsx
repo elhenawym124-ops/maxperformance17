@@ -46,7 +46,7 @@ export const ReturnContactHistoryTab: React.FC<ReturnContactHistoryTabProps> = (
             <select
               value={contactMethod}
               onChange={(e) => setContactMethod(e.target.value)}
-              className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md shadow-xs focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500"
+              className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md shadow-xs focus:border-primary dark:focus:border-primary focus:ring-primary"
             >
               <option value="PHONE">{t('returns.k_126')}</option>
               <option value="WHATSAPP">{t('returns.k_127')}</option>
@@ -59,7 +59,7 @@ export const ReturnContactHistoryTab: React.FC<ReturnContactHistoryTabProps> = (
             <select
               value={contactResult}
               onChange={(e) => setContactResult(e.target.value)}
-              className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md shadow-xs focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500"
+              className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md shadow-xs focus:border-primary dark:focus:border-primary focus:ring-primary"
             >
               <option value="NO_ANSWER">{t('returns.k_128')}</option>
               <option value="ANSWERED">{t('returns.k_129')}</option>
@@ -76,14 +76,14 @@ export const ReturnContactHistoryTab: React.FC<ReturnContactHistoryTabProps> = (
           <textarea
             value={contactNotes}
             onChange={(e) => setContactNotes(e.target.value)}
-            className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md shadow-xs focus:border-blue-500 dark:focus:border-blue-400 focus:ring-blue-500"
+            className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md shadow-xs focus:border-primary dark:focus:border-primary focus:ring-primary"
             rows={2}
             placeholder={t('returns.k_132')}
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 dark:bg-blue-500 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+          className="w-full bg-primary dark:bg-primary text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-primary dark:hover:bg-primary transition-colors"
         >
           {t('returns.k_214')}
         </button>
@@ -108,7 +108,7 @@ export const ReturnContactHistoryTab: React.FC<ReturnContactHistoryTabProps> = (
                 className={`p-2 rounded-full ${
                   attempt.method === 'WHATSAPP'
                     ? 'bg-green-100 dark:bg-success/30 text-success dark:text-success'
-                    : 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
+                    : 'bg-blue-100 dark:bg-primary/30 text-primary dark:text-primary'
                 }`}
               >
                 {attempt.method === 'WHATSAPP' ? (

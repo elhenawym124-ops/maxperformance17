@@ -35,7 +35,7 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
             onClick={() => onTabChange("overview")}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all ${
               activeTab === "overview"
-                ? "bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm"
+                ? "bg-white dark:bg-muted text-primary dark:text-primary shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -45,7 +45,7 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
             onClick={() => onTabChange("attendance")}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all ${
               activeTab === "attendance"
-                ? "bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm"
+                ? "bg-white dark:bg-muted text-primary dark:text-primary shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -55,7 +55,7 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
             onClick={() => onTabChange("reports")}
             className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all ${
               activeTab === "reports"
-                ? "bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm"
+                ? "bg-white dark:bg-muted text-primary dark:text-primary shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -66,7 +66,7 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
               onClick={() => onTabChange("orders")}
               className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 activeTab === "orders"
-                  ? "bg-white dark:bg-muted text-blue-600 dark:text-blue-400 shadow-sm"
+                  ? "bg-white dark:bg-muted text-primary dark:text-primary shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -76,7 +76,7 @@ export const MyCompaniesHeader: React.FC<MyCompaniesHeaderProps> = ({
         </div>
         <button
           onClick={onOpenCreateModal}
-          className="flex items-center gap-1 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-xs sm:text-sm"
+          className="flex items-center gap-1 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-primary hover:bg-primary text-white rounded-lg transition-colors text-xs sm:text-sm"
         >
           <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" />
           <span className="hidden sm:inline">إضافة شركة</span>

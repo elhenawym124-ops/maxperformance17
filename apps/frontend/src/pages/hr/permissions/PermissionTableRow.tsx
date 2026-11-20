@@ -40,7 +40,7 @@ export const PermissionTableRow: React.FC<PermissionTableRowProps> = ({
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10 border-2 border-white dark:border-border ring-1 ring-border dark:ring-border shadow-sm">
               <AvatarImage src={request.employee?.avatar} />
-              <AvatarFallback className="bg-blue-50 text-blue-600 font-bold">
+              <AvatarFallback className="bg-blue-50 text-primary font-bold">
                 {request.employee?.firstName?.[0]}
                 {request.employee?.lastName?.[0]}
               </AvatarFallback>
@@ -126,7 +126,7 @@ export const PermissionTableRow: React.FC<PermissionTableRowProps> = ({
           <Button
             size="sm"
             variant="ghost"
-            className="h-8 w-8 p-0 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 rounded-lg"
+            className="h-8 w-8 p-0 hover:bg-primary/10 dark:hover:bg-primary/20 text-primary rounded-lg"
             onClick={() => onDetailsClick(request)}
             title={t("employee.permissions.detailsButton", "تفاصيل")}
           >

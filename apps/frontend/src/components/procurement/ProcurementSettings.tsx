@@ -67,7 +67,7 @@ const templateIcons: Record<ProcurementTemplateId, React.ReactNode> = {
   commercial_factory: <Factory className="size-4 text-destructive" />,
   compact_eco: <Leaf className="size-4 text-success" />,
   official_tax: <ShieldCheck className="size-4 text-foreground" />,
-  modern_minimal: <Sparkles className="size-4 text-blue-600" />,
+  modern_minimal: <Sparkles className="size-4 text-primary" />,
   goods_receipt: <Boxes className="size-4 text-warning" />,
 };
 

@@ -26,10 +26,10 @@ import { extractCompanyIdFromToken } from '../../utils/portalSessionManager';
 import { PortalInstallBanner } from '../../components/common/PortalInstallBanner';
 import { PortalPushToggle } from '../../components/common/PortalPushToggle';
 
-const DEFAULT_STATUS_LABEL = { label: 'في الميدان', color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200' };
+const DEFAULT_STATUS_LABEL = { label: 'في الميدان', color: 'bg-blue-50 text-primary dark:bg-primary/60 dark:text-primary border-primary' };
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   DRAFT: { label: 'مسودة', color: 'bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground' },
-  DISPATCHED: { label: 'في الميدان', color: 'bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200' },
+  DISPATCHED: { label: 'في الميدان', color: 'bg-blue-50 text-primary dark:bg-primary/60 dark:text-primary border-primary' },
   COMPLETED: { label: 'مكتملة', color: 'bg-emerald-50 text-success dark:bg-success/60 dark:text-success border-success' },
   SETTLED: { label: 'تم التوريد', color: 'bg-purple-50 text-primary dark:bg-primary/60 dark:text-primary border-primary' },
   CANCELLED: { label: 'ملغاة', color: 'bg-rose-50 text-destructive dark:bg-destructive/60 dark:text-destructive border-destructive' },
@@ -206,7 +206,7 @@ export const CourierHomePage: React.FC = () => {
 
         <Link
           to="/courier-portal/custody"
-          className="flex min-h-[44px] items-center justify-between bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3 shadow-xs hover:border-blue-400 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="flex min-h-[44px] items-center justify-between bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3 shadow-xs hover:border-primary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         >
           <div className="flex min-w-0 items-center gap-2.5">
             <div className="w-8 h-8 shrink-0 rounded-lg bg-success/10 dark:bg-success/50 text-success flex items-center justify-center">
@@ -230,10 +230,10 @@ export const CourierHomePage: React.FC = () => {
               <div className="text-lg font-bold font-mono text-success dark:text-success tabular-nums">{kpis.deliveredCount}</div>
               <div className="text-[11px] text-success/80 dark:text-success font-medium">تم التسليم</div>
             </div>
-            <div className="bg-blue-50/60 dark:bg-blue-950/30 rounded-lg p-2.5 text-center">
-              <div className="flex items-center justify-center text-blue-600 mb-1"><ClockIcon className="w-4 h-4" /></div>
-              <div className="text-lg font-bold font-mono text-blue-700 dark:text-blue-300 tabular-nums">{kpis.pendingCount}</div>
-              <div className="text-[11px] text-blue-700/80 dark:text-blue-400 font-medium">متبقي / قيد التوصيل</div>
+            <div className="bg-blue-50/60 dark:bg-primary/30 rounded-lg p-2.5 text-center">
+              <div className="flex items-center justify-center text-primary mb-1"><ClockIcon className="w-4 h-4" /></div>
+              <div className="text-lg font-bold font-mono text-primary dark:text-primary tabular-nums">{kpis.pendingCount}</div>
+              <div className="text-[11px] text-primary/80 dark:text-primary font-medium">متبقي / قيد التوصيل</div>
             </div>
             <div className="bg-rose-50/60 dark:bg-destructive/30 rounded-lg p-2.5 text-center">
               <div className="flex items-center justify-center text-destructive mb-1"><XCircleIcon className="w-4 h-4" /></div>

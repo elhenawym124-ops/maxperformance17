@@ -39,8 +39,8 @@ export const AovEngineCard: React.FC<AovEngineCardProps> = ({
           </h3>
           <div className="flex items-center gap-1.5 shrink-0">
             {isToggling ? (
-              <span className="inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse motion-reduce:animate-none" />
+              <span className="inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded bg-primary/10 text-primary dark:text-primary border border-primary/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse motion-reduce:animate-none" />
                 جارٍ الحفظ…
               </span>
             ) : isActive ? (
@@ -109,7 +109,7 @@ export const AovEngineCard: React.FC<AovEngineCardProps> = ({
 
           <Link
             to={tool.settingsPath}
-            className="inline-flex items-center gap-1 me-auto text-[11px] font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+            className="inline-flex items-center gap-1 me-auto text-[11px] font-medium text-primary dark:text-primary hover:text-primary dark:hover:text-primary transition-colors"
           >
             <span>الإعدادات</span>
             <ArrowTopRightOnSquareIcon className="h-3 w-3" />

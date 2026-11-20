@@ -55,7 +55,7 @@ const statusBadges: Record<string, { label: string; className: string }> = {
   },
   in_progress: {
     label: "قيد التنفيذ",
-    className: "border-blue-500/20 bg-blue-500/10 text-blue-700 dark:text-blue-300",
+    className: "border-blue-500/20 bg-primary/10 text-primary dark:text-primary",
   },
   in_review: {
     label: "قيد المراجعة",

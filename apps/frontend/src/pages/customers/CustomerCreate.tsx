@@ -697,14 +697,14 @@ const CustomerCreate: React.FC = () => {
         {/* Section 5: Follow-Up & Next Action */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 border-b border-border/60 pb-3">
-            <Clock className="h-4 w-4 text-blue-500" />
+            <Clock className="h-4 w-4 text-primary" />
             <h3 className="text-xs font-semibold text-foreground">سجل التواصل وموعد المتابعة القادمة</h3>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1.5 block text-xs text-muted-foreground font-medium flex items-center gap-1">
-                <Calendar className="h-3.5 w-3.5 text-blue-500" />
+                <Calendar className="h-3.5 w-3.5 text-primary" />
                 تاريخ ووقت المتابعة القادمة المجدولة
               </label>
               <input
@@ -712,7 +712,7 @@ const CustomerCreate: React.FC = () => {
                 name="nextFollowUpDate"
                 value={formData.nextFollowUpDate}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-blue-500/40 bg-background px-3.5 py-2 text-xs text-foreground focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono"
+                className="w-full rounded-lg border border-primary/40 bg-background px-3.5 py-2 text-xs text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary font-mono"
               />
             </div>
 

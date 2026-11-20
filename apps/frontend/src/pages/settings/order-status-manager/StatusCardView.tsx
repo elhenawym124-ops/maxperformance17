@@ -95,7 +95,7 @@ export function StatusCardView({
             <span
               className={`px-2 py-0.5 rounded-md text-[11px] font-medium ${
                 status.source === "system"
-                  ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                  ? "bg-blue-100 dark:bg-primary/30 text-primary dark:text-primary"
                   : status.source === "woocommerce"
                   ? "bg-purple-100 dark:bg-primary/30 text-primary dark:text-primary"
                   : "bg-emerald-100 dark:bg-success/30 text-success dark:text-success"
@@ -142,7 +142,7 @@ export function StatusCardView({
           <button
             type="button"
             onClick={() => onEdit(status)}
-            className="p-2 text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition"
+            className="p-2 text-muted-foreground hover:text-primary dark:hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg transition"
             title="تعديل"
             aria-label="تعديل الحالة"
           >

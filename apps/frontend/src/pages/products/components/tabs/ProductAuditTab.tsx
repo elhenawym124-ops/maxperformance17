@@ -38,7 +38,7 @@ const ACTION_MAP: Record<string, { label: string; badgeClass: string }> = {
   },
   UPDATE: {
     label: "تعديل بيانات",
-    badgeClass: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800",
+    badgeClass: "bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary",
   },
   BULK_UPDATE: {
     label: "تعديل جماعي",

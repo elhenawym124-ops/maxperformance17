@@ -69,7 +69,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
         <div className="flex items-center gap-3 font-arabic">
           <Avatar className="h-9 w-9 border border-border">
             <AvatarImage src={record.employee?.avatar} />
-            <AvatarFallback className="bg-blue-50 text-blue-700">
+            <AvatarFallback className="bg-blue-50 text-primary">
               {record.employee?.firstName?.[0]}
             </AvatarFallback>
           </Avatar>
@@ -146,7 +146,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
                 <span>من المنزل</span>
               </div>
             ) : (
-              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-100 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800/30 text-[10px] font-bold">
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary dark:bg-primary/20 dark:text-primary dark:border-primary/30 text-[10px] font-bold">
                 <Building2 className="h-3 w-3" />
                 <span>من المكتب</span>
               </div>
@@ -326,7 +326,7 @@ export const AttendanceTableRow: React.FC<AttendanceTableRowProps> = ({
             )}
           <button
             type="button"
-            className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all border border-blue-100"
+            className="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all border border-primary"
             onClick={() => handleEditClick(record)}
             title="تعديل"
           >

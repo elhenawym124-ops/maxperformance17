@@ -138,7 +138,7 @@ export const PolarisDocumentsView: React.FC<PolarisDocumentsViewProps> = ({
   const getDocTypeBadge = (type: string) => {
     switch (type) {
       case "contract":
-        return <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 text-xs">عقد عمل</Badge>;
+        return <Badge variant="outline" className="bg-blue-500/10 text-primary border-primary/20 text-xs">عقد عمل</Badge>;
       case "id":
         return <Badge variant="outline" className="bg-purple-500/10 text-primary border-primary/20 text-xs">هوية/جواز</Badge>;
       case "certificate":

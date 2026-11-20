@@ -87,7 +87,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
 
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { label: string; class: string }> = {
-      LEAD: { label: 'عميل محتمل', class: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' },
+      LEAD: { label: 'عميل محتمل', class: 'bg-blue-500/10 text-primary dark:text-primary border-primary/20' },
       ACTIVE: { label: 'عميل', class: 'bg-emerald-500/10 text-success dark:text-success border-success/20' },
       INACTIVE: { label: 'غير نشط', class: 'bg-slate-500/10 text-foreground dark:text-muted-foreground border-border' },
       BLOCKED: { label: 'محجوب', class: 'bg-red-500/10 text-destructive dark:text-destructive border-destructive/20' },

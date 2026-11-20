@@ -173,7 +173,7 @@ export default function QueueMonitor() {
       {stats && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
           {[
-            { label: "قيد المعالجة", value: stats.active, color: "text-blue-600 dark:text-blue-400", dot: "bg-blue-500 animate-pulse" },
+            { label: "قيد المعالجة", value: stats.active, color: "text-blue-600 dark:text-primary", dot: "bg-blue-500 animate-pulse" },
             { label: "في الانتظار", value: stats.waiting, color: "text-amber-600 dark:text-warning", dot: "bg-amber-500" },
             { label: "مكتملة بنجاح", value: stats.completed, color: "text-emerald-600 dark:text-success", dot: "bg-emerald-500" },
             { label: "فاشلة", value: stats.failed, color: "text-rose-600 dark:text-destructive", dot: "bg-rose-500" },

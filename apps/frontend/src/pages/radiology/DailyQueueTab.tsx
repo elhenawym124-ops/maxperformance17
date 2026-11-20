@@ -116,7 +116,7 @@ export default function DailyQueueTab() {
   const fmtDate = (d?: string) => (d ? new Date(d).toLocaleDateString("ar-EG") : "—");
 
   const kpiCards = [
-    { key: "awaitingCheckin", label: t("radiology.queue.awaitingCheckin"), value: counts.pendingCheckIn, color: "text-blue-600 dark:text-blue-400" },
+    { key: "awaitingCheckin", label: t("radiology.queue.awaitingCheckin"), value: counts.pendingCheckIn, color: "text-blue-600 dark:text-primary" },
     { key: "imagingQueue", label: t("radiology.queue.imagingQueue"), value: counts.imagingQueue, color: "text-primary" },
     { key: "readyForReport", label: t("radiology.queue.readyForReport"), value: counts.readyForReport, color: "text-amber-600 dark:text-warning" },
     { key: "readyForDelivery", label: t("radiology.queue.readyForDelivery"), value: counts.readyForDelivery, color: "text-teal-600 dark:text-success" },
@@ -222,7 +222,7 @@ export default function DailyQueueTab() {
                 <div key={a.id} className="bg-card rounded-lg border dark:border-border p-3 space-y-2 shadow-sm">
                   <div className="flex items-start justify-between gap-2">
                     <p className="font-medium text-sm truncate">{a.patientName}</p>
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" dir="ltr">{a.appointmentTime || "—"}</span>
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-primary text-primary dark:bg-primary/40 dark:text-primary" dir="ltr">{a.appointmentTime || "—"}</span>
                   </div>
                   {a.emergency ? <span className="text-[11px] font-semibold text-destructive dark:text-destructive">{t("radiology.queue.emergency")}</span> : null}
                   <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
@@ -234,7 +234,7 @@ export default function DailyQueueTab() {
                     <button
                       onClick={() => checkIn(a)}
                       disabled={busyId !== null}
-                      className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50"
                     >
                       {busyId === a.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserCheck className="w-3.5 h-3.5" />}{t("radiology.queue.checkIn")}
                     </button>

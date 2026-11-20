@@ -186,7 +186,7 @@ export default function MetaAppsManagement() {
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
               إدارة تطبيقات Meta (Primary & Growth)
             </h1>
-            <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
+            <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary">
               T13 Architecture
             </Badge>
           </div>
@@ -234,7 +234,7 @@ export default function MetaAppsManagement() {
               className={`border-2 transition-shadow hover:shadow-md ${
                 isGrowth
                   ? "border-purple-200 dark:border-primary bg-gradient-to-b from-white to-primary/20 dark:from-gray-900 dark:to-primary/10"
-                  : "border-blue-200 dark:border-blue-900 bg-gradient-to-b from-white to-blue-50/20 dark:from-gray-900 dark:to-blue-950/10"
+                  : "border-blue-200 dark:border-primary bg-gradient-to-b from-white to-primary/20 dark:from-gray-900 dark:to-primary/10"
               }`}
             >
               <CardHeader className="pb-3">
@@ -249,7 +249,7 @@ export default function MetaAppsManagement() {
                         className={
                           isGrowth
                             ? "bg-purple-100 text-primary border-primary"
-                            : "bg-blue-100 text-blue-800 border-blue-200"
+                            : "bg-blue-100 text-primary border-primary"
                         }
                       >
                         {app.key}
@@ -412,7 +412,7 @@ export default function MetaAppsManagement() {
           <form onSubmit={handleSave}>
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
-                <Edit2 className="h-4 w-4 text-blue-600" />
+                <Edit2 className="h-4 w-4 text-primary" />
                 تعديل إعدادات تطبيق Meta ({formData.key})
               </DialogTitle>
               <DialogDescription className="text-xs">
@@ -538,7 +538,7 @@ export default function MetaAppsManagement() {
 
             <div className="space-y-2">
               <h4 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-                <ShieldCheck className="h-4 w-4 text-blue-500" />
+                <ShieldCheck className="h-4 w-4 text-primary" />
                 حالة اعتماد صلاحيات Meta (App Review & Scope Access Levels)
               </h4>
 
@@ -575,7 +575,7 @@ export default function MetaAppsManagement() {
                             </Badge>
                           )}
                           {isPending && (
-                            <Badge className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 text-[10px]">
+                            <Badge className="bg-blue-500/10 text-primary dark:text-primary border-primary/20 text-[10px]">
                               قيد المراجعة (Pending Meta)
                             </Badge>
                           )}

@@ -12,7 +12,7 @@ export function TechnicianLedgerSummaryStrip({ summary }: TechnicianLedgerSummar
           <span className="text-[11px] text-muted-foreground block">
             أجر الإنتاج المكتسب
           </span>
-          <span className="text-base font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+          <span className="text-base font-bold text-primary dark:text-primary font-mono tabular-nums">
             {fmtMoney(summary?.totalEarned ?? 0)} ج.م
           </span>
           <span className="text-[10px] text-muted-foreground block mt-0.5 font-mono tabular-nums">

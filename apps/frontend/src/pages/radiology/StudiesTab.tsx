@@ -409,7 +409,7 @@ export default function StudiesTab() {
               <span className="px-2 py-0.5 rounded-full text-xs whitespace-nowrap bg-success text-success dark:bg-success/40 dark:text-success">{s.assignedRadiologistName}</span>
             ) : null}
             {s.radiologistLocation ? (
-              <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${s.radiologistLocation === "ON_SITE" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" : "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary"}`}>
+              <span className={`px-2 py-0.5 rounded-full text-xs whitespace-nowrap ${s.radiologistLocation === "ON_SITE" ? "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" : "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary"}`}>
                 {s.radiologistLocation === "ON_SITE" ? t("radiology.studies.onSite") : t("radiology.studies.offSite")}
               </span>
             ) : null}
@@ -426,7 +426,7 @@ export default function StudiesTab() {
         <td className="py-3 px-4 text-muted-foreground/80 whitespace-nowrap">{fmtDate(s.createdAt)}</td>
         <td className="py-3 px-4">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <button onClick={() => navigate(`/radiology/study/${s.id}`)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.details.viewDetails") as string}><Info className="w-4 h-4" /></button>
+            <button onClick={() => navigate(`/radiology/study/${s.id}`)} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.details.viewDetails") as string}><Info className="w-4 h-4" /></button>
             <button onClick={() => navigate(`/radiology/study/${s.id}`)} className="p-1.5 text-info dark:text-info hover:bg-info/10 dark:hover:bg-info/30 rounded" title={t("radiology.studies.openReport") as string}><FileText className="w-4 h-4" /></button>
             <input
               ref={el => { fileInputs.current[s.id] = el; }}
@@ -437,7 +437,7 @@ export default function StudiesTab() {
               onChange={e => { uploadImages(s.id, e.target.files); e.target.value = ""; }}
             />
             <button onClick={() => fileInputs.current[s.id]?.click()} disabled={uploadingId === s.id} className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded disabled:opacity-40" title={t("radiology.studies.uploadImages") as string}>{uploadingId === s.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}</button>
-            <button onClick={() => setViewerStudyId(s.id)} className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded" title={t("radiology.studies.viewImages") as string}><FolderOpen className="w-4 h-4" /></button>
+            <button onClick={() => setViewerStudyId(s.id)} className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded" title={t("radiology.studies.viewImages") as string}><FolderOpen className="w-4 h-4" /></button>
             <button onClick={() => setReportStudyId(s.id)} className="p-1.5 text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 rounded" title={t("radiology.studies.enterReport") as string}><FileText className="w-4 h-4" /></button>
             <button onClick={() => printLabel(s.id)} className="p-1.5 text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded" title={t("radiology.studies.printLabel") as string}><Printer className="w-4 h-4" /></button>
             <button onClick={() => openPayment(s.id)} className="p-1.5 text-warning dark:text-warning hover:bg-warning/10 dark:hover:bg-warning/30 rounded" title={t("radiology.studies.payment") as string}><Banknote className="w-4 h-4" /></button>
@@ -474,7 +474,7 @@ export default function StudiesTab() {
               </div>
             </div>
             <div className="flex justify-end mt-4">
-              <button onClick={() => saveRology(s.id)} disabled={savingId === s.id} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm">
+              <button onClick={() => saveRology(s.id)} disabled={savingId === s.id} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 text-sm">
                 {savingId === s.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}{t("radiology.save")}
               </button>
             </div>
@@ -492,7 +492,7 @@ export default function StudiesTab() {
           <p className="text-sm text-muted-foreground">{t("radiology.studies.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
-          <a href="/radiology/schedule" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+          <a href="/radiology/schedule" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm">
             <Plus className="w-4 h-4" />{t("radiology.studies.newStudy")}
           </a>
           <button onClick={() => refresh()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm hover:bg-muted/50">
@@ -588,12 +588,12 @@ export default function StudiesTab() {
                               </td>
                               <td colSpan={9} className="py-3 px-4">
                                 <div className="flex items-center gap-3 flex-wrap">
-                                  <button onClick={() => toggleGroupExpand(key)} className="flex items-center gap-1.5 font-medium text-blue-600 dark:text-blue-400 hover:underline">
+                                  <button onClick={() => toggleGroupExpand(key)} className="flex items-center gap-1.5 font-medium text-primary dark:text-primary hover:underline">
                                     <ChevronDown className={`w-4 h-4 transition-transform ${groupExpanded ? "rotate-180" : ""}`} />
                                     <span dir="ltr">{parent.bookingNo ? String(parent.bookingNo).padStart(4, "0") : parent.studyNumber || parent.id.slice(0, 8)}</span>
                                   </button>
                                   <span className="font-medium">{parent.patientName}</span>
-                                  <span className="px-2 py-0.5 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 whitespace-nowrap">
+                                  <span className="px-2 py-0.5 rounded-full text-xs bg-primary text-primary dark:bg-primary/40 dark:text-primary whitespace-nowrap">
                                     {t("radiology.order.examProgress", { done: items.filter(i => i.status === "DELIVERED").length, total: items.length })}
                                   </span>
                                   <span className="text-xs text-muted-foreground/80">
@@ -623,7 +623,7 @@ export default function StudiesTab() {
             <button
               onClick={() => void runBulk("advance")}
               disabled={bulkBusy !== null}
-              className="flex items-center gap-1.5 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm"
+              className="flex items-center gap-1.5 px-3 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 text-sm"
             >
               {bulkBusy === "advance" ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowUpCircle className="w-4 h-4" />}
               {t("radiology.order.bulkAdvance")}

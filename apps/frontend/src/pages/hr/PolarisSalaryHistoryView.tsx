@@ -60,7 +60,7 @@ export const PolarisSalaryHistoryView: React.FC<PolarisSalaryHistoryViewProps> =
       case "annual_increase":
         return <Badge variant="outline" className="bg-emerald-500/10 text-success border-success/20 text-xs">زيادة سنوية</Badge>;
       case "adjustment":
-        return <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 text-xs">تعديل إداري</Badge>;
+        return <Badge variant="outline" className="bg-blue-500/10 text-primary border-primary/20 text-xs">تعديل إداري</Badge>;
       case "demotion":
         return <Badge variant="outline" className="bg-rose-500/10 text-destructive border-destructive/20 text-xs">تخفيض درجة</Badge>;
       default:

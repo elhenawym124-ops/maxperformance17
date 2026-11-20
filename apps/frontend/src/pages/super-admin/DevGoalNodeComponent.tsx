@@ -21,7 +21,7 @@ export interface GoalNode {
 
 export const statusColors: Record<string, string> = {
   ACTIVE: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
-  COMPLETED: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+  COMPLETED: "bg-blue-500/10 text-primary dark:text-primary border border-primary/20",
   ON_HOLD: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
   CANCELLED: "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
 };

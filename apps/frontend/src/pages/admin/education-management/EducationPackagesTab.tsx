@@ -136,7 +136,7 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
                         <span>Private</span>
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-primary/10 text-primary dark:text-primary border border-primary/20">
                         <Users className="w-2.5 h-2.5" />
                         <span>Group</span>
                       </span>
@@ -162,7 +162,7 @@ export const EducationPackagesTab: React.FC<EducationPackagesTabProps> = ({
               </div>
 
               <div className="flex flex-wrap gap-1.5 text-xs">
-                <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md tabular-nums font-medium">
+                <span className="bg-blue-500/10 text-primary dark:text-primary border border-primary/20 px-2 py-0.5 rounded-md tabular-nums font-medium">
                   {t("education.packages.hours", { count: p.hoursCount, defaultValue: isEn ? `${p.hoursCount} hours` : `${p.hoursCount} ساعة` })}
                 </span>
                 <span className="bg-muted/60 text-muted-foreground px-2 py-0.5 rounded-md tabular-nums">

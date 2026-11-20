@@ -30,7 +30,7 @@ interface DashboardData {
 
 const STATUS_LABELS: Record<string, { label: string; className: string }> = {
   PENDING: { label: 'قيد المراجعة', className: 'bg-amber-50 text-warning border-warning' },
-  ACCEPTED: { label: 'تم القبول', className: 'bg-blue-50 text-blue-700 border-blue-200' },
+  ACCEPTED: { label: 'تم القبول', className: 'bg-blue-50 text-primary border-primary' },
   OUT_FOR_DELIVERY: { label: 'خرج للتوصيل', className: 'bg-indigo-50 text-primary border-primary' },
   DELIVERED: { label: 'تم التسليم', className: 'bg-emerald-50 text-success border-success' },
   RETURNED: { label: 'مرتجع', className: 'bg-rose-50 text-destructive border-destructive' },
@@ -83,7 +83,7 @@ export default function ClientDashboardPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate('/client-portal/shipping/new')}
-            className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-md shadow-sm transition-colors"
+            className="px-3.5 py-2 bg-primary hover:bg-primary text-white text-xs font-semibold rounded-md shadow-sm transition-colors"
           >
             + شحنة جديدة
           </button>
@@ -141,7 +141,7 @@ export default function ClientDashboardPage() {
         <div className="bg-white rounded-lg border border-border p-4">
           <span className="text-xs font-medium text-muted-foreground">رصيد COD التقديري</span>
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-blue-600 tabular-nums">
+            <span className="text-2xl font-bold text-primary tabular-nums">
               {(data?.estimatedPendingCod ?? 0).toLocaleString('en-US')}
             </span>
             <span className="text-xs text-muted-foreground">ج.م</span>
@@ -155,7 +155,7 @@ export default function ClientDashboardPage() {
           <h2 className="text-sm font-semibold text-foreground">آخر ٥ شحنات</h2>
           <button
             onClick={() => navigate('/client-portal/shipping/shipments')}
-            className="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
+            className="text-xs font-medium text-primary hover:text-primary transition-colors"
           >
             عرض الكل &larr;
           </button>
@@ -188,7 +188,7 @@ export default function ClientDashboardPage() {
                       onClick={() => navigate(`/client-portal/shipping/shipments/${s.id}`)}
                       className="hover:bg-gray-50 cursor-pointer transition-colors"
                     >
-                      <td className="px-4 py-3 font-mono font-medium text-blue-600">
+                      <td className="px-4 py-3 font-mono font-medium text-primary">
                         {s.trackingNumber}
                       </td>
                       <td className="px-4 py-3 text-foreground font-medium">{s.recipientName}</td>

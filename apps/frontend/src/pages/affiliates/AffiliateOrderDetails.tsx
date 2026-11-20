@@ -309,7 +309,7 @@ const AffiliateOrderDetails: React.FC = () => {
       <div
         className={`flex min-h-screen items-center justify-center ${isDark ? "bg-gray-900" : "bg-gray-50"}`}
       >
-        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600" />
+        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-primary" />
       </div>
     );
   }
@@ -319,7 +319,7 @@ const AffiliateOrderDetails: React.FC = () => {
       <div className={`min-h-screen px-3 pb-24 pt-4 sm:p-6 ${isDark ? "bg-gray-900" : "bg-gray-50"}`}>
         <Link
           to="/affiliates/orders"
-          className="inline-flex min-h-11 items-center gap-2 rounded-xl px-1 text-blue-600 hover:text-blue-800"
+          className="inline-flex min-h-11 items-center gap-2 rounded-xl px-1 text-primary hover:text-primary"
         >
           <ArrowLeftIcon className="h-4 w-4" />
           الرجوع للطلبات
@@ -341,7 +341,7 @@ const AffiliateOrderDetails: React.FC = () => {
       <div className="mx-auto max-w-6xl">
         <Link
           to="/affiliates/orders"
-          className="mb-5 inline-flex min-h-11 items-center gap-2 rounded-xl px-1 text-blue-600 transition hover:text-blue-800"
+          className="mb-5 inline-flex min-h-11 items-center gap-2 rounded-xl px-1 text-primary transition hover:text-primary"
         >
           <ArrowLeftIcon className="h-4 w-4" />
           الرجوع للطلبات
@@ -358,7 +358,7 @@ const AffiliateOrderDetails: React.FC = () => {
             </p>
           </div>
           <div className="flex flex-wrap gap-2 sm:justify-end">
-            <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900/50 dark:text-blue-200">
+            <span className="rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary dark:bg-primary/50 dark:text-primary">
               {statusLabel(order.status)}
             </span>
             <span className="rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary dark:bg-primary/50 dark:text-primary">
@@ -398,7 +398,7 @@ const AffiliateOrderDetails: React.FC = () => {
           <div className="space-y-6 lg:col-span-2">
             <Section
               title="المنتجات"
-              icon={<ShoppingBagIcon className="h-5 w-5 text-blue-600" />}
+              icon={<ShoppingBagIcon className="h-5 w-5 text-primary" />}
               className={panelClass}
             >
               <div className="md:p-0">
@@ -475,7 +475,7 @@ const AffiliateOrderDetails: React.FC = () => {
 
             <Section
               title="التنفيذ والمتابعة"
-              icon={<TruckIcon className="h-5 w-5 text-blue-600" />}
+              icon={<TruckIcon className="h-5 w-5 text-primary" />}
               className={panelClass}
             >
               {order.shipments?.length ? (
@@ -541,7 +541,7 @@ const AffiliateOrderDetails: React.FC = () => {
           <div className="space-y-6">
             <Section
               title="العميل"
-              icon={<UserIcon className="h-5 w-5 text-blue-600" />}
+              icon={<UserIcon className="h-5 w-5 text-primary" />}
               className={panelClass}
             >
               <InfoRow label="الاسم" value={customerName} />
@@ -556,7 +556,7 @@ const AffiliateOrderDetails: React.FC = () => {
 
             <Section
               title="تيكتات الطلب"
-              icon={<ChatBubbleLeftRightIcon className="h-5 w-5 text-blue-600" />}
+              icon={<ChatBubbleLeftRightIcon className="h-5 w-5 text-primary" />}
               className={panelClass}
             >
               <div className="space-y-3">
@@ -618,7 +618,7 @@ const AffiliateOrderDetails: React.FC = () => {
                   <button
                     type="submit"
                     disabled={submittingTicket}
-                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <PaperAirplaneIcon className="h-4 w-4" />
                     {submittingTicket ? "جاري فتح التيكت..." : "فتح تيكت على الطلب"}
@@ -629,7 +629,7 @@ const AffiliateOrderDetails: React.FC = () => {
 
             <Section
               title="الملخص المالي"
-              icon={<BanknotesIcon className="h-5 w-5 text-blue-600" />}
+              icon={<BanknotesIcon className="h-5 w-5 text-primary" />}
               className={panelClass}
             >
               <InfoRow label="المنتجات" value={formatPrice(toNumber(order.subtotal))} />
@@ -652,7 +652,7 @@ const AffiliateOrderDetails: React.FC = () => {
 
             <Section
               title="بيانات الطلب"
-              icon={<CubeIcon className="h-5 w-5 text-blue-600" />}
+              icon={<CubeIcon className="h-5 w-5 text-primary" />}
               className={panelClass}
             >
               <InfoRow label="المصدر" value={sourceLabel(order.orderSource)} />

@@ -62,7 +62,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
               {t("employee.permissions.dialogDesc")}
             </DialogDescription>
           </div>
-          <Clock className="absolute -left-10 -bottom-10 h-32 w-32 sm:h-40 sm:w-40 text-blue-500 opacity-20 rotate-12" />
+          <Clock className="absolute -left-10 -bottom-10 h-32 w-32 sm:h-40 sm:w-40 text-primary opacity-20 rotate-12" />
         </div>
 
         <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 overflow-y-auto flex-1">
@@ -85,7 +85,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                     <SelectItem
                       key={e.id}
                       value={e.id}
-                      className="rounded-lg mb-1 focus:bg-blue-50 dark:focus:bg-blue-900/20"
+                      className="rounded-lg mb-1 focus:bg-primary/10 dark:focus:bg-primary/20"
                     >
                       <div className="flex items-center gap-3 flex-row-reverse px-2">
                         <Avatar className="h-8 w-8">
@@ -122,13 +122,13 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                     }
                     className={`p-2.5 sm:p-3 rounded-xl border-2 cursor-pointer transition-all flex flex-col gap-1 text-right ${
                       formData.type === key
-                        ? "border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 ring-4 ring-blue-500/5"
+                        ? "border-blue-500 bg-primary/50 dark:bg-primary/20 ring-4 ring-primary/5"
                         : "border-gray-100 dark:border-border hover:border-border dark:hover:border-border"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       {formData.type === key ? (
-                        <Check className="h-4 w-4 text-blue-600" />
+                        <Check className="h-4 w-4 text-primary" />
                       ) : (
                         <div className="h-4 w-4" />
                       )}
@@ -141,7 +141,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
                     <p
                       className={`font-bold text-xs sm:text-sm mt-0.5 sm:mt-1 ${
                         formData.type === key
-                          ? "text-blue-700 dark:text-blue-400"
+                          ? "text-blue-700 dark:text-primary"
                           : "text-foreground"
                       }`}
                     >
@@ -221,7 +221,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
 
             <div className="col-span-1 sm:col-span-2 p-3 sm:p-4 bg-muted dark:bg-muted rounded-xl flex items-center justify-between border border-border dark:border-border">
               <div className="flex items-center gap-3">
-                <p className="text-2xl sm:text-3xl font-black text-blue-600 font-mono tabular-nums">
+                <p className="text-2xl sm:text-3xl font-black text-primary font-mono tabular-nums">
                   {calculateHours(formData.startTime, formData.endTime)}
                 </p>
                 <p className="text-[11px] sm:text-xs text-muted-foreground font-bold uppercase tracking-widest">
@@ -277,7 +277,7 @@ export const AddPermissionDialog: React.FC<AddPermissionDialogProps> = ({
             className={`flex-1 h-10 sm:h-12 rounded-xl shadow-xl transition-all text-xs sm:text-sm ${
               submitting
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700 shadow-blue-200 dark:shadow-none font-bold"
+                : "bg-blue-600 hover:bg-primary shadow-primary dark:shadow-none font-bold"
             }`}
             onClick={onSubmit}
             disabled={submitting}

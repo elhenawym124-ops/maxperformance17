@@ -84,12 +84,12 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
             type="text"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 text-right dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
+            className="w-full border-border rounded-md focus:ring-primary focus:border-primary text-right dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
             placeholder="01xxxxxxxxx"
             dir="ltr"
           />
           {searching && (
-            <MagnifyingGlassIcon className="w-4 h-4 text-blue-500 dark:text-blue-400 absolute left-3 top-3 animate-bounce" />
+            <MagnifyingGlassIcon className="w-4 h-4 text-primary dark:text-primary absolute left-3 top-3 animate-bounce" />
           )}
         </div>
       </div>
@@ -143,7 +143,7 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
+            className="w-full border-border rounded-md focus:ring-primary focus:border-primary dark:bg-muted dark:text-muted-foreground"
           />
         </div>
         <div>
@@ -154,7 +154,7 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground"
+            className="w-full border-border rounded-md focus:ring-primary focus:border-primary dark:bg-muted dark:text-muted-foreground"
           />
         </div>
       </div>
@@ -223,7 +223,7 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
             type="text"
             value={area}
             onChange={(e) => setArea(e.target.value)}
-            className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
+            className="w-full border-border rounded-md focus:ring-primary focus:border-primary dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
             placeholder={
               governorate ? t("manualOrder.k_69") : t("manualOrder.k_70")
             }
@@ -241,7 +241,7 @@ export const CheckoutCustomerSection: React.FC<CheckoutCustomerSectionProps> = (
         <textarea
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          className="w-full border-border rounded-md focus:ring-blue-500 focus:border-blue-500 h-20 resize-none dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
+          className="w-full border-border rounded-md focus:ring-primary focus:border-primary h-20 resize-none dark:bg-muted dark:text-muted-foreground dark:placeholder-muted"
           placeholder={t("manualOrder.k_8")}
         />
         <MapPinIcon className="w-5 h-5 text-muted-foreground/80 absolute left-3 top-8" />

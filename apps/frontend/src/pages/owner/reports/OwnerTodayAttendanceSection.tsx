@@ -42,7 +42,7 @@ export const OwnerTodayAttendanceSection: React.FC<
     <>
       <div className="bg-card p-5 rounded-xl shadow-sm border border-border dark:border-border space-y-4">
         <div className="flex items-center gap-2 mb-3">
-          <CalendarDaysIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          <CalendarDaysIcon className="w-5 h-5 text-primary dark:text-primary" />
           <h3 className="text-sm font-bold text-foreground">
             اختر الفترة الزمنية
           </h3>
@@ -53,7 +53,7 @@ export const OwnerTodayAttendanceSection: React.FC<
             onClick={() => onPresetChange("today")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
               attendancePreset === "today"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200 dark:shadow-none"
+                ? "bg-blue-600 text-white shadow-md shadow-primary dark:shadow-none"
                 : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             }`}
           >
@@ -65,7 +65,7 @@ export const OwnerTodayAttendanceSection: React.FC<
             onClick={() => onPresetChange("yesterday")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
               attendancePreset === "yesterday"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200 dark:shadow-none"
+                ? "bg-blue-600 text-white shadow-md shadow-primary dark:shadow-none"
                 : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             }`}
           >
@@ -77,7 +77,7 @@ export const OwnerTodayAttendanceSection: React.FC<
             onClick={() => onPresetChange("lastWeek")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
               attendancePreset === "lastWeek"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200 dark:shadow-none"
+                ? "bg-blue-600 text-white shadow-md shadow-primary dark:shadow-none"
                 : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             }`}
           >
@@ -89,7 +89,7 @@ export const OwnerTodayAttendanceSection: React.FC<
             onClick={() => onPresetChange("thisMonth")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
               attendancePreset === "thisMonth"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200 dark:shadow-none"
+                ? "bg-blue-600 text-white shadow-md shadow-primary dark:shadow-none"
                 : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             }`}
           >
@@ -101,7 +101,7 @@ export const OwnerTodayAttendanceSection: React.FC<
             onClick={() => onPresetChange("lastMonth")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
               attendancePreset === "lastMonth"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-200 dark:shadow-none"
+                ? "bg-blue-600 text-white shadow-md shadow-primary dark:shadow-none"
                 : "bg-muted text-foreground hover:bg-muted dark:hover:bg-muted"
             }`}
           >
@@ -121,7 +121,7 @@ export const OwnerTodayAttendanceSection: React.FC<
                   onSetCustomPreset();
                 }
               }}
-              className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+              className="w-4 h-4 text-primary rounded focus:ring-primary"
             />
             <label
               htmlFor="customRange"
@@ -132,7 +132,7 @@ export const OwnerTodayAttendanceSection: React.FC<
           </div>
 
           {attendancePreset === "custom" && (
-            <div className="flex flex-wrap items-center gap-3 mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-900/30 animate-fadeIn">
+            <div className="flex flex-wrap items-center gap-3 mt-3 p-3 bg-primary/10 dark:bg-primary/20 rounded-lg border border-primary dark:border-primary/30 animate-fadeIn">
               <div className="flex items-center gap-2">
                 <label className="text-sm font-medium text-foreground">
                   من:
@@ -140,7 +140,7 @@ export const OwnerTodayAttendanceSection: React.FC<
                 <DateInput
                   value={attendanceStartDate}
                   onChange={(e) => onStartDateChange(e.target.value)}
-                  className="px-3 py-2 border border-border rounded-lg text-sm font-mono tabular-nums dark:bg-muted dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="px-3 py-2 border border-border rounded-lg text-sm font-mono tabular-nums dark:bg-muted dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
               </div>
               <span className="text-gray-400 font-bold">→</span>
@@ -151,7 +151,7 @@ export const OwnerTodayAttendanceSection: React.FC<
                 <DateInput
                   value={attendanceEndDate}
                   onChange={(e) => onEndDateChange(e.target.value)}
-                  className="px-3 py-2 border border-border rounded-lg text-sm font-mono tabular-nums dark:bg-muted dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="px-3 py-2 border border-border rounded-lg text-sm font-mono tabular-nums dark:bg-muted dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
               </div>
             </div>
@@ -160,7 +160,7 @@ export const OwnerTodayAttendanceSection: React.FC<
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-gradient-to-br from-blue-500 via-blue-600 to-primary p-5 rounded-xl text-white shadow-lg">
+        <div className="bg-gradient-to-br from-primary via-primary to-primary p-5 rounded-xl text-white shadow-lg">
           <div className="flex items-center gap-2 text-sm opacity-90 mb-2">
             <CalendarDaysIcon className="w-5 h-5" />
             <span className="font-medium">الفترة المختارة</span>
@@ -206,7 +206,7 @@ export const OwnerTodayAttendanceSection: React.FC<
       <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border overflow-hidden">
         <div className="p-4 border-b border-border dark:border-border">
           <h2 className="text-lg font-bold text-foreground dark:text-white flex items-center gap-2">
-            <ClockIcon className="w-5 h-5 text-blue-600" />
+            <ClockIcon className="w-5 h-5 text-primary" />
             سجل حضور اليوم
           </h2>
           <p className="text-sm text-muted-foreground">
@@ -311,7 +311,7 @@ export const OwnerTodayAttendanceSection: React.FC<
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap font-mono tabular-nums">
                       {record.checkOut ? (
-                        <span className="text-blue-600 dark:text-blue-400 font-medium">
+                        <span className="text-blue-600 dark:text-primary font-medium">
                           {formatReportTime(record.checkOut)}
                         </span>
                       ) : (

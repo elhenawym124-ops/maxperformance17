@@ -99,7 +99,7 @@ function MetricCard({ label, value, sub, positive, accent = "emerald" }: {
   const colorMap: Record<string, string> = {
     emerald: "text-emerald-600 dark:text-success",
     red: "text-red-600 dark:text-destructive",
-    blue: "text-blue-600 dark:text-blue-400",
+    blue: "text-blue-600 dark:text-primary",
     purple: "text-purple-600 dark:text-primary",
     yellow: "text-yellow-600 dark:text-warning",
     gray: "text-foreground",
@@ -116,7 +116,7 @@ function MetricCard({ label, value, sub, positive, accent = "emerald" }: {
 function WhatIfButton({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
     <button onClick={onClick}
-      className={`px-3 py-2 rounded-lg text-xs font-medium border transition-all text-center w-full ${active ? "bg-blue-50 dark:bg-blue-900/20 border-blue-400 dark:border-blue-600 ring-1 ring-blue-400 text-blue-700 dark:text-blue-300" : "bg-card border-border dark:border-border text-foreground dark:text-muted-foreground hover:border-blue-300"}`}>
+      className={`px-3 py-2 rounded-lg text-xs font-medium border transition-all text-center w-full ${active ? "bg-blue-50 dark:bg-primary/20 border-primary dark:border-primary ring-1 ring-primary text-primary dark:text-primary" : "bg-card border-border dark:border-border text-foreground dark:text-muted-foreground hover:border-primary"}`}>
       {label}
     </button>
   );

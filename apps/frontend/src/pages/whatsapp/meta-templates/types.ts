@@ -45,7 +45,7 @@ export const statusBadge: Record<string, string> = {
   DISABLED:
     "border-slate-300/70 bg-muted text-foreground dark:border-border dark:bg-muted/[0.08] dark:text-muted-foreground",
   PAUSED:
-    "border-blue-300/70 bg-blue-500/10 text-blue-800 dark:border-blue-500/40 dark:bg-blue-500/[0.08] dark:text-blue-200",
+    "border-blue-300/70 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/[0.08] dark:text-primary",
 };
 
 export const statusIcon: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -85,11 +85,11 @@ export const CATEGORY_STYLE: Record<
   },
   UTILITY: {
     icon: Wrench,
-    gradient: "from-blue-600 to-info dark:from-blue-400 dark:to-info",
+    gradient: "from-blue-600 to-info dark:from-primary dark:to-info",
     badge:
-      "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-300",
+      "border-blue-200 bg-primary/10 text-primary dark:border-primary dark:bg-primary/30 dark:text-primary",
     sectionBg:
-      "bg-gradient-to-b from-blue-50/50 to-transparent dark:from-blue-950/20",
+      "bg-gradient-to-b from-primary/50 to-transparent dark:from-primary/20",
   },
 };
 

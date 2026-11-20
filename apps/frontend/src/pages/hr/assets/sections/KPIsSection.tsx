@@ -53,7 +53,7 @@ const KPIsSection: React.FC = () => {
     red: "bg-red-50 text-destructive dark:bg-destructive/30 dark:text-destructive",
     orange:
       "bg-orange-50 text-warning dark:bg-warning/30 dark:text-warning",
-    blue: "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
+    blue: "bg-blue-50 text-primary dark:bg-primary/30 dark:text-primary",
     purple:
       "bg-purple-50 text-primary dark:bg-primary/30 dark:text-primary",
     green:

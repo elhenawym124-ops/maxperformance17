@@ -24,7 +24,7 @@ export const CompanyPolicyStatsGrid: React.FC<CompanyPolicyStatsGridProps> = ({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-none shadow-md">
+      <Card className="bg-gradient-to-br from-primary to-primary text-white border-none shadow-md">
         <CardContent className="p-4 flex items-center justify-between">
           <div>
             <p className="text-blue-100 text-sm mb-1">إجمالي السياسات</p>

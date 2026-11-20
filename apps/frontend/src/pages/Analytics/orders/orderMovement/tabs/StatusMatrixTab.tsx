@@ -73,7 +73,7 @@ const KIND_META: { [K in MatrixKind]: { label: string; cell: string; dot: string
   },
   start: {
     label: "بداية",
-    cell: "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/60 dark:hover:bg-blue-900/30",
+    cell: "bg-blue-50 text-primary border-primary hover:bg-primary dark:bg-primary/40 dark:text-primary dark:border-primary/60 dark:hover:bg-primary/30",
     dot: "bg-blue-500",
     color: "#3B82F6",
   },
@@ -108,7 +108,7 @@ const chartDataFor = (data: MatrixData) =>
 
 function StartBadge() {
   return (
-    <span className="inline-flex items-center whitespace-nowrap rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+    <span className="inline-flex items-center whitespace-nowrap rounded-full bg-primary px-2.5 py-1 text-xs font-medium text-primary dark:bg-primary/40 dark:text-primary">
       بداية
     </span>
   );
@@ -214,16 +214,16 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
         </span>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-blue-200/80 dark:border-blue-900/60 bg-gradient-to-r from-blue-50/90 via-primary/60 to-white dark:from-blue-950/40 dark:via-primary/30 dark:to-slate-900 p-3.5 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-primary/80 dark:border-primary/60 bg-gradient-to-r from-primary/90 via-primary/60 to-white dark:from-primary/40 dark:via-primary/30 dark:to-slate-900 p-3.5 shadow-xs">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-xs">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-xs">
             <Zap className="h-4 w-4" />
           </div>
           <div>
-            <div className="text-xs font-bold text-blue-950 dark:text-blue-100">
+            <div className="text-xs font-bold text-primary dark:text-primary">
               تريد معرفة عدد الأوردرات التي تم شحنها وتوزيعها بحسب تاريخ ورود كل طلب (Order Vintage)؟
             </div>
-            <div className="text-[11px] text-blue-700/80 dark:text-blue-300/80">
+            <div className="text-[11px] text-primary/80 dark:text-primary/80">
               شاهد كم أوردر خرج شحن اليوم، وكم منها من نفس اليوم، أمس، قبل يومين، أو متأخر، مع إمكانية تصدير وفحص الطلبات.
             </div>
           </div>
@@ -231,7 +231,7 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
         <button
           type="button"
           onClick={() => onSwitchToVelocity?.()}
-          className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-blue-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition hover:bg-blue-700 active:scale-95"
+          className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-primary px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition hover:bg-primary active:scale-95"
         >
           <span>عرض سرعة الإنجاز وشحن اليوم</span>
           <span aria-hidden="true">←</span>

@@ -95,7 +95,7 @@ export const OwnerSalesReportSection: React.FC<
 
       {overview && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-xl text-white">
+          <div className="bg-gradient-to-r from-primary to-primary p-4 rounded-xl text-white">
             <p className="text-sm opacity-80">عدد الشركات</p>
             <p className="text-2xl font-bold font-mono tabular-nums mt-1">
               {overview.totalCompanies}
@@ -193,7 +193,7 @@ export const OwnerSalesReportSection: React.FC<
                             e.stopPropagation();
                             onNavigateCompanyOrders(item.company.id);
                           }}
-                          className="font-semibold text-blue-600 dark:text-blue-400 hover:underline text-right cursor-pointer"
+                          className="font-semibold text-primary dark:text-primary hover:underline text-right cursor-pointer"
                         >
                           {item.company.name}
                         </button>

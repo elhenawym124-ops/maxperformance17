@@ -242,7 +242,7 @@ export const ShippingReportsPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400">
+            <span className="p-1.5 rounded-lg bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary">
               <BarChart3 className="w-5 h-5" />
             </span>
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight">

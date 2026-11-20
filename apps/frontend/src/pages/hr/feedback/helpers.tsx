@@ -16,7 +16,7 @@ export const getTypeLabel = (type: string): string => {
 
 export const getTypeColor = (type: string): string => {
   const colorMap: Record<string, string> = {
-    PEER: "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800",
+    PEER: "bg-blue-100 text-primary border-primary dark:bg-primary/30 dark:text-primary dark:border-primary",
     MANAGER:
       "bg-purple-100 text-primary border-primary dark:bg-primary/30 dark:text-primary dark:border-primary",
     SUBORDINATE:

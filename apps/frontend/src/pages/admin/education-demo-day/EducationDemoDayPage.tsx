@@ -281,7 +281,7 @@ export default function EducationDemoDayPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         <div className="p-3 sm:p-3.5 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
           <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
-            <Calendar className="w-3.5 h-3.5 text-blue-500" />
+            <Calendar className="w-3.5 h-3.5 text-primary" />
             {isEn ? "Total Events" : "إجمالي الفعاليات"}
           </span>
           <div className="text-lg sm:text-xl font-bold text-foreground font-mono tabular-nums">

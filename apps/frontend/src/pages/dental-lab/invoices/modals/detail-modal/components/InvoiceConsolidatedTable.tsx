@@ -46,10 +46,10 @@ export function InvoiceConsolidatedTable({
             {items.map((item, idx) => (
               <tr
                 key={item.caseId || idx}
-                className="hover:bg-blue-50/40 dark:hover:bg-blue-900/10 transition-colors"
+                className="hover:bg-blue-50/40 dark:hover:bg-primary/10 transition-colors"
               >
                 <td className="py-2 px-2.5 text-center text-muted-foreground font-mono text-[11px]">{idx + 1}</td>
-                <td className="py-2 px-2.5 font-bold text-blue-600 dark:text-blue-400 font-mono whitespace-nowrap">
+                <td className="py-2 px-2.5 font-bold text-primary dark:text-primary font-mono whitespace-nowrap">
                   {item.caseNumber || "—"}
                 </td>
                 <td className="py-2 px-2.5 font-semibold text-foreground whitespace-nowrap">

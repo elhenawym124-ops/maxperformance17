@@ -67,14 +67,14 @@ export const CampaignPredictionCalculator: React.FC = () => {
         {/* Results Tab / Live Dashboard */}
         {(activeTab === "results" || !showAdvanced) && currentResults && (
           <div className="space-y-6 mt-6">
-            <div className="bg-white dark:bg-muted rounded-xl shadow-lg p-6 border-t-4 border-blue-500">
+            <div className="bg-white dark:bg-muted rounded-xl shadow-lg p-6 border-t-4 border-primary">
               <div className="flex items-center justify-between mb-8">
                 <h3 className="text-2xl font-bold text-foreground flex items-center gap-3">
                   <SparklesIcon className="w-8 h-8 text-warning dark:text-warning" />
                   تحليل الأداء المباشر ({inputs.productName || "المنتج"})
                 </h3>
                 <div className="flex gap-2">
-                  <span className="px-4 py-1.5 bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 rounded-full text-sm font-bold tabular-nums">
+                  <span className="px-4 py-1.5 bg-primary/10 dark:bg-primary text-primary dark:text-primary rounded-full text-sm font-bold tabular-nums">
                     تارجت رسايل: {formatNumber(inputs.dailyTarget)}
                   </span>
                   <span className="px-4 py-1.5 bg-success/10 dark:bg-success text-success dark:text-success rounded-full text-sm font-bold tabular-nums">

@@ -59,7 +59,7 @@ export const CreativePageSelector: React.FC<CreativePageSelectorProps> = ({
         <select
           value={formData.pageId}
           onChange={(e) => handleChange("pageId", e.target.value)}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground ${
             getError("pageId") ? "border-red-500" : "border-border"
           }`}
         >

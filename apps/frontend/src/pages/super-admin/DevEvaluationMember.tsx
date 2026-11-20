@@ -318,7 +318,7 @@ const DevEvaluationMember: React.FC = () => {
           {/* Telemetry Metrics Ribbon */}
           <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card shadow-xs divide-y sm:divide-y-0 sm:divide-x divide-border/60 overflow-hidden">
             <div className="p-3.5 flex items-center gap-3 hover:bg-muted/10 transition-colors">
-              <div className="size-8 rounded-lg border border-border/80 bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
+              <div className="size-8 rounded-lg border border-border/80 bg-primary/10 text-primary flex items-center justify-center shrink-0">
                 <CheckCircle2 className="size-4" />
               </div>
               <div>

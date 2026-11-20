@@ -43,7 +43,7 @@ export default function UpsellManualManager({ active }: UpsellManualManagerProps
       <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm dark:border-border dark:bg-muted">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-blue-700 dark:bg-blue-900/30 dark:text-blue-200">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-primary dark:bg-primary/30 dark:text-primary">
               <Link2 size={14} />
               Manual Links
             </div>
@@ -83,7 +83,7 @@ export default function UpsellManualManager({ active }: UpsellManualManagerProps
       <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm dark:border-border dark:bg-muted">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <div className="text-xs font-bold uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">
+            <div className="text-xs font-bold uppercase tracking-[0.16em] text-primary dark:text-primary">
               Link Builder
             </div>
             <h3 className="mt-2 text-2xl font-black text-foreground">
@@ -127,8 +127,8 @@ export default function UpsellManualManager({ active }: UpsellManualManagerProps
           />
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-[24px] border border-blue-200 bg-blue-50/80 px-5 py-4 dark:border-blue-900/40 dark:bg-blue-950/20">
-          <div className="text-sm leading-7 text-blue-900 dark:text-blue-100">
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-[24px] border border-primary bg-primary/80 px-5 py-4 dark:border-primary/40 dark:bg-primary/20">
+          <div className="text-sm leading-7 text-primary dark:text-primary">
             <span className="font-bold">مهم:</span> الحفظ هنا يحدّث
             {" `relatedProducts` و`crossSellProducts` و`upsellProducts` "}
             داخل Metadata المنتج المحدد فقط.
@@ -138,7 +138,7 @@ export default function UpsellManualManager({ active }: UpsellManualManagerProps
             type="button"
             onClick={saveRelations}
             disabled={!selectedProduct || saving || productLoading}
-            className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60"
           >
             {saving ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
             {saving ? "جارٍ الحفظ..." : "حفظ روابط المنتج"}

@@ -182,7 +182,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="group relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 via-primary to-primary p-3 sm:px-4 sm:py-2.5 text-white shadow-xl transition-all duration-200 hover:scale-105 hover:shadow-blue-500/25 active:scale-95"
+            className="group relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-primary via-primary to-primary p-3 sm:px-4 sm:py-2.5 text-white shadow-xl transition-all duration-200 hover:scale-105 hover:shadow-primary/25 active:scale-95"
             aria-label="مساعد الميديا باير بالذكاء الاصطناعي"
           >
             <span className="relative flex h-2.5 w-2.5">
@@ -194,7 +194,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
               <span className="block text-xs font-black tracking-tight">
                 الميديا باير الذكي
               </span>
-              <span className="block text-[9px] font-medium text-blue-100/90">
+              <span className="block text-[9px] font-medium text-primary/90">
                 DeepSeek Copilot
               </span>
             </div>
@@ -210,9 +210,9 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
           className="fixed bottom-6 left-6 z-50 flex h-[640px] max-h-[85vh] w-[94vw] sm:w-[450px] flex-col overflow-hidden rounded-xl border border-border bg-white shadow-2xl backdrop-blur-xl transition-all duration-300 dark:border-border dark:bg-muted"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-border bg-gradient-to-r from-blue-50/80 via-primary/40 to-primary/80 p-3.5 dark:border-border dark:from-slate-800/80 dark:to-slate-900/80">
+          <div className="flex items-center justify-between border-b border-border bg-gradient-to-r from-primary/80 via-primary/40 to-primary/80 p-3.5 dark:border-border dark:from-slate-800/80 dark:to-slate-900/80">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-primary text-white shadow-md">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-primary text-white shadow-md">
                 <Bot className="h-5 w-5" />
               </div>
               <div className="overflow-hidden">
@@ -230,7 +230,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                     type="button"
                     onClick={() => setShowSessionsList((prev) => !prev)}
                     title="عرض الجلسات السابقة أو التبديل بينها"
-                    className="flex max-w-[170px] items-center gap-1 truncate text-right text-[11px] font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                    className="flex max-w-[170px] items-center gap-1 truncate text-right text-[11px] font-semibold text-primary hover:text-primary dark:text-primary dark:hover:text-primary"
                   >
                     <MessageSquare className="h-3 w-3 shrink-0" />
                     <span className="truncate">{activeSession.title || "جلسة المحادثة"}</span>
@@ -239,7 +239,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                     type="button"
                     onClick={handleCopySessionId}
                     title={copiedSessionId ? "تم نسخ المعرف!" : "نسخ معرف الجلسة للمراجعة والدعم"}
-                    className="p-1 rounded-md text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-muted transition-colors cursor-pointer"
+                    className="p-1 rounded-md text-muted-foreground hover:text-primary dark:hover:text-primary hover:bg-primary/10 dark:hover:bg-muted transition-colors cursor-pointer"
                     aria-label="نسخ معرف الجلسة"
                   >
                     {copiedSessionId ? (
@@ -261,7 +261,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                   setShowSessionsList(false);
                 }}
                 title="بدء جلسة جديدة (+ New Chat)"
-                className="flex items-center gap-1 rounded-xl bg-blue-50 px-2 py-1.5 text-[11px] font-bold text-blue-600 hover:bg-blue-100 dark:bg-blue-950/50 dark:text-blue-300 dark:hover:bg-blue-900/50"
+                className="flex items-center gap-1 rounded-xl bg-primary/10 px-2 py-1.5 text-[11px] font-bold text-primary hover:bg-primary dark:bg-primary/50 dark:text-primary dark:hover:bg-primary/50"
               >
                 <Plus className="h-3.5 w-3.5" />
                 <span className="hidden xs:inline">جديدة</span>
@@ -279,7 +279,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
               >
                 <History className="h-4 w-4" />
                 {sessions.length > 1 && !showSessionsList && (
-                  <span className="absolute -top-1 -left-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-[9px] font-black text-white">
+                  <span className="absolute -top-1 -left-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-black text-white">
                     {sessions.length}
                   </span>
                 )}
@@ -323,7 +323,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                       key={idx}
                       type="button"
                       onClick={() => handleSendMessage(item.prompt)}
-                      className="whitespace-nowrap rounded-xl border border-blue-100 bg-blue-50/60 px-2.5 py-1 text-[11px] font-bold text-blue-700 hover:bg-blue-100/80 dark:border-blue-900/40 dark:bg-blue-950/30 dark:text-blue-300"
+                      className="whitespace-nowrap rounded-xl border border-primary bg-primary/60 px-2.5 py-1 text-[11px] font-bold text-primary hover:bg-primary/80 dark:border-primary/40 dark:bg-primary/30 dark:text-primary"
                     >
                       {item.label}
                     </button>
@@ -346,7 +346,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                       <div
                         className={`max-w-[88%] rounded-xl p-3.5 text-xs leading-relaxed ${
                           msg.sender === "user"
-                            ? "rounded-tr-none bg-blue-600 text-white shadow-sm"
+                            ? "rounded-tr-none bg-primary text-white shadow-sm"
                             : "rounded-tl-none border border-border bg-muted text-foreground shadow-sm dark:border-border dark:bg-muted dark:text-muted-foreground"
                         }`}
                       >
@@ -382,7 +382,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                           <div className="mt-3 space-y-2 border-t border-border pt-2.5 dark:border-border">
                             <div className="flex items-center justify-between text-[11px] font-black text-foreground dark:text-muted-foreground">
                               <span className="flex items-center gap-1">
-                                <Layers className="h-3.5 w-3.5 text-blue-500" />
+                                <Layers className="h-3.5 w-3.5 text-primary" />
                                 المسودات المنشأة ({drafts.length} زوايا تسويقية):
                               </span>
                               <span className="rounded bg-warning px-1.5 py-0.5 text-[9px] font-bold text-warning dark:bg-warning dark:text-warning">
@@ -399,7 +399,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                                   <span className="text-[11px] font-black text-foreground dark:text-white">
                                     {draft.headline}
                                   </span>
-                                  <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[9px] font-bold text-blue-600 dark:bg-blue-950 dark:text-blue-300">
+                                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-bold text-primary dark:bg-primary dark:text-primary">
                                     {draft.angle === "pain_point"
                                       ? "زاوية الألم والراحة"
                                       : draft.angle === "direct_offer"
@@ -458,7 +458,7 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
 
                 {loading && (
                   <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-300">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-primary text-primary dark:bg-primary dark:text-primary">
                       <Loader2 className="h-4 w-4 animate-spin" />
                     </div>
                     <span>الإيجنت يحلل المنتج وينفذ طلبك...</span>
@@ -490,12 +490,12 @@ export const MediaBuyerCopilotWidget: React.FC = () => {
                     onChange={(e) => setInputMessage(e.target.value)}
                     placeholder="اطلب إعلاناً لمنتج، ميزانية، أو خطة تسويقية..."
                     disabled={loading}
-                    className="flex-1 rounded-xl border border-border bg-white px-3.5 py-2.5 text-xs text-foreground placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white dark:focus:ring-blue-950"
+                    className="flex-1 rounded-xl border border-border bg-white px-3.5 py-2.5 text-xs text-foreground placeholder:text-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white dark:focus:ring-primary"
                   />
                   <button
                     type="submit"
                     disabled={loading || !inputMessage.trim()}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md hover:bg-blue-700 disabled:opacity-50 active:scale-95"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-md hover:bg-primary disabled:opacity-50 active:scale-95"
                   >
                     <Send className="h-4 w-4 rotate-180" />
                   </button>

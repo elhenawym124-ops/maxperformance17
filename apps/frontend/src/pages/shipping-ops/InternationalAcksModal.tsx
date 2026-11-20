@@ -61,7 +61,7 @@ export const InternationalAcksModal: React.FC<Props> = ({ isOpen, onClose, onAck
         {/* Header */}
         <div className="p-4 border-b border-border dark:border-border flex items-center justify-between bg-muted dark:bg-muted">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+            <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/60 text-primary dark:text-primary">
               <Globe2 className="w-5 h-5" />
             </div>
             <div>
@@ -118,7 +118,7 @@ export const InternationalAcksModal: React.FC<Props> = ({ isOpen, onClose, onAck
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border dark:border-border pb-2.5">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                      <span className="font-mono text-xs font-bold text-primary dark:text-primary">
                         {ack.shipment?.trackingNumber || ack.shipmentId}
                       </span>
                       <span className="text-[11px] font-semibold text-foreground dark:text-muted-foreground">
@@ -126,7 +126,7 @@ export const InternationalAcksModal: React.FC<Props> = ({ isOpen, onClose, onAck
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-xs">
-                      <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
+                      <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-primary text-primary dark:bg-primary/60 dark:text-primary">
                         {ack.shipment?.destinationCountry || 'دولي'}
                       </span>
                       <span className="tabular-nums font-bold text-success dark:text-success">

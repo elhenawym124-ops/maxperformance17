@@ -90,7 +90,7 @@ const ReturnDetailsModal: React.FC<ReturnDetailsModalProps> = ({
             onClick={() => setActiveTab('details')}
             className={`flex-1 py-3 text-sm font-medium transition-colors border-b-2 ${
               activeTab === 'details'
-                ? 'border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400'
+                ? 'border-blue-600 dark:border-primary text-primary dark:text-primary'
                 : 'border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground'
             }`}
           >
@@ -100,7 +100,7 @@ const ReturnDetailsModal: React.FC<ReturnDetailsModalProps> = ({
             onClick={() => setActiveTab('contact')}
             className={`flex-1 py-3 text-sm font-medium transition-colors border-b-2 ${
               activeTab === 'contact'
-                ? 'border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400'
+                ? 'border-blue-600 dark:border-primary text-primary dark:text-primary'
                 : 'border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground'
             }`}
           >
@@ -110,7 +110,7 @@ const ReturnDetailsModal: React.FC<ReturnDetailsModalProps> = ({
             onClick={() => setActiveTab('activity')}
             className={`flex-1 py-3 text-sm font-medium transition-colors border-b-2 ${
               activeTab === 'activity'
-                ? 'border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400'
+                ? 'border-blue-600 dark:border-primary text-primary dark:text-primary'
                 : 'border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground'
             }`}
           >
@@ -188,7 +188,7 @@ const ReturnDetailsModal: React.FC<ReturnDetailsModalProps> = ({
             <button
               onClick={handleSaveReview}
               disabled={submittingReview}
-              className="px-6 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-md text-sm font-bold hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors disabled:opacity-50"
+              className="px-6 py-2 bg-primary dark:bg-primary text-white rounded-md text-sm font-bold hover:bg-primary dark:hover:bg-primary transition-colors disabled:opacity-50"
             >
               {submittingReview ? t('returns.k_105') : t('returns.k_134')}
             </button>

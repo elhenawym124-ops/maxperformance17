@@ -377,7 +377,7 @@ const AffiliateProductsVisibility: React.FC = () => {
               </button>
               <button
                 onClick={() => handleBulkUpdate({ affiliateVisibility: "ALL" })}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold hover:bg-blue-700"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary"
               >
                 <EyeIcon className="h-4 w-4" /> إظهار للكل
               </button>

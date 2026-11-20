@@ -32,7 +32,7 @@ interface WarehouseItem {
 }
 
 const TYPE_CONFIG: Record<string, { label: string; icon: any; color: string }> = {
-  main: { label: "مستودع رئيسي", icon: Building2, color: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/20" },
+  main: { label: "مستودع رئيسي", icon: Building2, color: "bg-blue-500/10 text-primary dark:text-primary border-primary/20" },
   cold: { label: "تبريد وتجميد", icon: Snowflake, color: "bg-cyan-500/10 text-info dark:text-info border-info/20" },
   secondary: { label: "مستودع فرعي", icon: Boxes, color: "bg-indigo-500/10 text-primary dark:text-primary border-primary/20" },
   fulfillment: { label: "مركز شحن وتجهيز", icon: Truck, color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20" },

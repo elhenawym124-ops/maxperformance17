@@ -119,7 +119,7 @@ export function WorkTypesTable({
                     <td className="py-3 px-4 font-semibold text-foreground">
                       <Link
                         to={`/dental-lab/cases?workTypeId=${w.id}`}
-                        className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline cursor-pointer"
+                        className="hover:text-blue-600 dark:hover:text-primary hover:underline cursor-pointer"
                         title="عرض كل حالات هذا النوع فقط"
                       >
                         {w.name}
@@ -143,7 +143,7 @@ export function WorkTypesTable({
                       <span
                         className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                           w.pricingMode === "PER_UNIT"
-                            ? "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300"
+                            ? "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary"
                             : "bg-purple-100 text-primary dark:bg-primary/40 dark:text-primary"
                         }`}
                       >
@@ -177,7 +177,7 @@ export function WorkTypesTable({
                         {w.defaultMaterial || "—"}
                       </div>
                       {w.materialBrand && (
-                        <div className="text-[11px] text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-1 mt-0.5">
+                        <div className="text-[11px] text-primary dark:text-primary font-semibold flex items-center gap-1 mt-0.5">
                           <Building2 className="w-3 h-3" />
                           <span>{w.materialBrand}</span>
                         </div>
@@ -226,7 +226,7 @@ export function WorkTypesTable({
                         </button>
                         <button
                           onClick={() => onEdit(w)}
-                          className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg"
+                          className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg"
                           title={t("dentalLab.common.edit")}
                         >
                           <Pencil className="w-4 h-4" />

@@ -124,7 +124,7 @@ export const CULTURE_STATUS = { SCHEDULED: "مجدولة", DONE: "تمت", CANCE
 
 export const LAB_STATUS_MAP: Record<string, { label: string; color: string }> = {
   PENDING: { label: "بانتظار أخذ العينة", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
-  COLLECTED: { label: "تم أخذ العينة", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  COLLECTED: { label: "تم أخذ العينة", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   IN_PROGRESS: { label: "جارٍ التحليل", color: "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" },
   REVIEWED: { label: "تمت المراجعة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
   SIGNED: { label: "تم التوقيع", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
@@ -133,7 +133,7 @@ export const LAB_STATUS_MAP: Record<string, { label: string; color: string }> = 
 
 export const LAB_REPORT_STATUS_MAP: Record<string, { label: string; color: string }> = {
   PENDING: { label: "بانتظار النتائج", color: "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground" },
-  RESULTS_ENTERED: { label: "تم إدخال النتائج", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300" },
+  RESULTS_ENTERED: { label: "تم إدخال النتائج", color: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary" },
   REVIEWED: { label: "تمت المراجعة", color: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning" },
   SIGNED: { label: "تم التوقيع", color: "bg-green-100 text-success dark:bg-success/40 dark:text-success" },
   DELIVERED: { label: "تم التسليم", color: "bg-teal-100 text-success dark:bg-success/40 dark:text-success" },

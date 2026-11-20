@@ -16,10 +16,10 @@ export const ShiftsBulkActionBar: React.FC<ShiftsBulkActionBarProps> = ({
   if (selectedCount === 0) return null;
 
   return (
-    <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-in slide-in-from-top-2">
+    <div className="bg-blue-50 dark:bg-primary border border-primary dark:border-primary rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-in slide-in-from-top-2">
       <div className="flex items-center gap-2">
-        <CheckSquare className="h-5 w-5 text-blue-600 dark:text-blue-400 shrink-0" />
-        <span className="font-semibold text-blue-800 dark:text-blue-200 text-sm">
+        <CheckSquare className="h-5 w-5 text-primary dark:text-primary shrink-0" />
+        <span className="font-semibold text-primary dark:text-primary text-sm">
           تم تحديد {selectedCount} مناوبة
         </span>
       </div>

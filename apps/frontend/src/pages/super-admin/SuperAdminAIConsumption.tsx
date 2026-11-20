@@ -195,7 +195,7 @@ const SuperAdminAIConsumption: React.FC = () => {
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">الشركات النشطة</span>
-              <Building2 className="size-3.5 text-blue-500" />
+              <Building2 className="size-3.5 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{summary.activeCompanies}</div>
             <p className="text-[10px] text-muted-foreground font-mono">مؤسسة مستهلكة للخدمة</p>

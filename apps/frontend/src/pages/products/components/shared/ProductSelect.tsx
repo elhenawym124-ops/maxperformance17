@@ -45,7 +45,7 @@ export const ProductSelect: React.FC<ProductSelectProps> = ({
   allProducts,
   isLoading,
   placeholder = "ابحث وأضف منتجاً...",
-  badgeColorClass = "bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300",
+  badgeColorClass = "bg-blue-100 dark:bg-primary/40 text-primary dark:text-primary",
 }) => {
   const [search, setSearch] = useState("");
 

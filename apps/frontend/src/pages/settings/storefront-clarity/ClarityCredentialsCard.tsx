@@ -237,7 +237,7 @@ export const ClarityCredentialsCard: React.FC<ClarityCredentialsCardProps> = ({
           href="https://clarity.microsoft.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 text-xs text-blue-600 hover:underline dark:text-blue-400"
+          className="flex items-center gap-1 text-xs text-primary hover:underline dark:text-primary"
         >
           {t('clarity.freeService', 'الخدمة مجانية تمامًا من Microsoft')}
           <ExternalLinkIcon />

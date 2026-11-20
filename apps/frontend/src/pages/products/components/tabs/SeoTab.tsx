@@ -31,7 +31,7 @@ export const SeoTab: React.FC<SeoTabProps> = ({
           <p className="text-xs text-success dark:text-success mb-1 truncate">
             {window.location.origin}/product/{formData.slug || "product-url"}
           </p>
-          <p className="text-blue-700 dark:text-blue-400 text-lg font-medium truncate hover:underline cursor-pointer">
+          <p className="text-blue-700 dark:text-primary text-lg font-medium truncate hover:underline cursor-pointer">
             {formData.metaTitle || formData.name || "عنوان المنتج"}
           </p>
           <p className="text-sm text-foreground dark:text-muted-foreground mt-1 line-clamp-2">

@@ -205,7 +205,7 @@ const CategoriesAnalytics: React.FC = () => {
                         {formatPrice(cat.revenue)}
                       </td>
                       <td className="py-2.5 px-3.5 text-center">
-                        <span className="font-mono text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-semibold">
+                        <span className="font-mono text-xs px-2 py-0.5 rounded bg-primary/10 text-primary dark:text-primary border border-primary/20 font-semibold">
                           {pct}%
                         </span>
                       </td>

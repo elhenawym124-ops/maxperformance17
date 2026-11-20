@@ -13,7 +13,7 @@ export function InspectorDoctorPatientCards({
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
       {/* Doctor Card */}
       <div className="p-2.5 bg-white dark:bg-muted border border-border dark:border-border rounded-xl">
-        <div className="flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 mb-1">
+        <div className="flex items-center gap-1 text-[11px] font-semibold text-primary dark:text-primary mb-1">
           <Stethoscope className="w-3.5 h-3.5" />
           <span>الطبيب والعيادة</span>
         </div>
@@ -28,7 +28,7 @@ export function InspectorDoctorPatientCards({
         {caseData.doctorId && (
           <Link
             to={`/dental-lab/doctors/${caseData.doctorId}`}
-            className="mt-1 inline-flex items-center gap-1 text-[10px] text-blue-500 hover:underline"
+            className="mt-1 inline-flex items-center gap-1 text-[10px] text-primary hover:underline"
           >
             <span>كشف حساب الطبيب</span>
             <ExternalLink className="w-2.5 h-2.5" />
@@ -48,7 +48,7 @@ export function InspectorDoctorPatientCards({
         {caseData.patientPhone ? (
           <a
             href={`tel:${caseData.patientPhone}`}
-            className="inline-flex items-center gap-1 text-[11px] text-foreground dark:text-muted-foreground hover:text-blue-600 mt-0.5 font-mono tabular-nums"
+            className="inline-flex items-center gap-1 text-[11px] text-foreground dark:text-muted-foreground hover:text-primary mt-0.5 font-mono tabular-nums"
             dir="ltr"
           >
             <Phone className="w-3 h-3 text-muted-foreground" />

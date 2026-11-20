@@ -368,7 +368,7 @@ export const CourierDeliverySheet: React.FC<CourierDeliverySheetProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="أي تفاصيل تخص العميل، التوقيت، أو العنوان..."
-              className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground focus:ring-2 focus:ring-primary"
             />
           </div>
 

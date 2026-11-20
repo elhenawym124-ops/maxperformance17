@@ -115,7 +115,7 @@ export const CompanyPolicyFormDialog: React.FC<CompanyPolicyFormDialogProps> = (
               id="policy-active-toggle"
               checked={isActive}
               onChange={(e) => onIsActiveChange(e.target.checked)}
-              className="h-4 w-4 text-blue-600 rounded"
+              className="h-4 w-4 text-primary rounded"
             />
             <Label htmlFor="policy-active-toggle">
               {isEditing ? "تفعيل السياسة" : "تفعيل السياسة (نشر مباشر)"}

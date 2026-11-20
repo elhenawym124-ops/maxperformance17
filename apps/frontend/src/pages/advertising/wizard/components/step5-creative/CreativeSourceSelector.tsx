@@ -34,7 +34,7 @@ export const CreativeSourceSelector: React.FC<CreativeSourceSelectorProps> = ({
           }}
           className={`p-3 border-2 rounded-xl flex items-center justify-center gap-2 transition-all font-medium text-sm ${
             creativeSource === "NEW_AD"
-              ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-sm"
+              ? "border-blue-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary shadow-sm"
               : "border-gray-200 dark:border-border hover:border-border text-muted-foreground bg-card"
           }`}
         >
@@ -49,7 +49,7 @@ export const CreativeSourceSelector: React.FC<CreativeSourceSelectorProps> = ({
           }}
           className={`p-3 border-2 rounded-xl flex items-center justify-center gap-2 transition-all font-medium text-sm ${
             creativeSource === "EXISTING_POST"
-              ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-sm"
+              ? "border-blue-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary shadow-sm"
               : "border-gray-200 dark:border-border hover:border-border text-muted-foreground bg-card"
           }`}
         >

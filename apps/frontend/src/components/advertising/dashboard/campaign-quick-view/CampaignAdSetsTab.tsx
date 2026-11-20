@@ -81,7 +81,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
   if (loadingDetails) {
     return (
       <div className="flex flex-col items-center justify-center p-8 text-muted-foreground">
-        <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
         <span className="mt-2 text-xs">
           {isEn ? "Loading ad sets structure..." : "جاري تحميل تفاصيل المجموعات الإعلانية..."}
         </span>
@@ -105,7 +105,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
           to={`/advertising/facebook-ads/campaigns/${activeCampaign.id}/adsets/create${
             selectedAdAccountId ? `?adAccountId=${encodeURIComponent(selectedAdAccountId)}` : ""
           }`}
-          className="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-3 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-700"
+          className="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-primary"
         >
           <span>{isEn ? "Create First Ad Set" : "إنشاء أول مجموعة إعلانية"}</span>
           <ArrowUpRight className="h-3.5 w-3.5" />
@@ -126,7 +126,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
             key={adSet.id || idx}
             className={`rounded-xl border transition-all ${
               isEditingThisAdSet
-                ? "border-blue-500 bg-blue-50/20 shadow-md ring-1 ring-blue-500/20 dark:border-blue-500 dark:bg-blue-950/20"
+                ? "border-blue-500 bg-primary/20 shadow-md ring-1 ring-primary/20 dark:border-primary dark:bg-primary/20"
                 : "border-slate-200/90 bg-white p-3.5 shadow-2xs dark:border-border dark:bg-muted"
             }`}
           >
@@ -145,7 +145,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                             ? isEn ? "Pause ad set" : "إيقاف المجموعة الإعلانية"
                             : isEn ? "Activate ad set" : "تفعيل المجموعة الإعلانية"
                         }
-                        className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-blue-500/20 active:scale-[0.97] disabled:opacity-50 ${
+                        className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-primary/20 active:scale-[0.97] disabled:opacity-50 ${
                           adSet.status === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300 dark:bg-muted"
                         }`}
                       >
@@ -200,9 +200,9 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                   <button
                     type="button"
                     onClick={() => onStartEditAdSet(adSet)}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2.5 py-1.5 text-xs font-bold text-foreground hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-blue-800 dark:hover:bg-blue-950/40 dark:hover:text-blue-300 transition-all active:scale-[0.97]"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2.5 py-1.5 text-xs font-bold text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-primary dark:hover:bg-primary/40 dark:hover:text-primary transition-all active:scale-[0.97]"
                   >
-                    <SlidersHorizontal className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                    <SlidersHorizontal className="h-3 w-3 text-primary dark:text-primary" />
                     <span>{isEn ? "Edit Targeting & Data" : "تعديل الاستهداف والمجموعة"}</span>
                   </button>
                 </div>
@@ -241,7 +241,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                         {parsedLocations.slice(0, 4).map((locKey, lIdx) => (
                           <span
                             key={lIdx}
-                            className="rounded-md bg-blue-100/70 px-1.5 py-0.5 text-[10px] font-bold text-blue-800 dark:bg-blue-950/50 dark:text-blue-300"
+                            className="rounded-md bg-primary/70 px-1.5 py-0.5 text-[10px] font-bold text-primary dark:bg-primary/50 dark:text-primary"
                           >
                             {EGYPT_GOVERNORATES.find((g) => g.key === locKey)?.name || locKey}
                           </span>
@@ -322,9 +322,9 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
             {isEditingThisAdSet && (
               <div className="p-3.5 sm:p-4 space-y-4">
                 {/* Editor Header */}
-                <div className="flex items-center justify-between border-b border-blue-200/85 pb-2.5 dark:border-blue-900/50">
+                <div className="flex items-center justify-between border-b border-primary/85 pb-2.5 dark:border-primary/50">
                   <div className="flex items-center gap-2">
-                    <SlidersHorizontal className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                    <SlidersHorizontal className="h-4 w-4 text-primary dark:text-primary" />
                     <h4 className="text-xs font-black text-foreground dark:text-white">
                       {isEn ? "Edit Ad Set & Audience Targeting" : "تعديل إعدادات واستهداف المجموعة"}
                     </h4>
@@ -348,7 +348,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                       type="text"
                       value={adSetName}
                       onChange={(e) => setAdSetName(e.target.value)}
-                      className="w-full rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-foreground shadow-2xs outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
+                      className="w-full rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-foreground shadow-2xs outline-none focus:border-primary focus:ring-1 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
                     />
                   </div>
 
@@ -357,7 +357,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                       {isEn ? `Ad Set Budget (${selectedCurrency})` : `ميزانية المجموعة (${selectedCurrency})`}
                     </label>
                     {isCboCampaign ? (
-                      <div className="rounded-lg border border-blue-200/80 bg-blue-50/50 px-3 py-1.5 text-xs font-semibold text-blue-800 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-300">
+                      <div className="rounded-lg border border-primary/80 bg-primary/50 px-3 py-1.5 text-xs font-semibold text-primary dark:border-primary/60 dark:bg-primary/40 dark:text-primary">
                         {isEn ? "Managed dynamically by Campaign CBO" : "تدار تلقائياً من ميزانية الحملة (CBO)"}
                       </div>
                     ) : (
@@ -367,7 +367,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                         step="10"
                         value={adSetBudget}
                         onChange={(e) => setAdSetBudget(Number(e.target.value) || 0)}
-                        className="w-full rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold tabular-nums text-foreground shadow-2xs outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-border dark:bg-muted dark:text-white"
+                        className="w-full rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold tabular-nums text-foreground shadow-2xs outline-none focus:border-primary focus:ring-1 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
                         placeholder={isEn ? "Set budget" : "تحديد الميزانية"}
                       />
                     )}
@@ -380,7 +380,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                   <div>
                     <label className="mb-1.5 flex items-center justify-between text-[11px] font-bold text-foreground dark:text-muted-foreground">
                       <span>{isEn ? "Target Age Range" : "الفئة العمرية المستهدفة"}</span>
-                      <span className="tabular-nums font-black text-blue-600 dark:text-blue-400">
+                      <span className="tabular-nums font-black text-primary dark:text-primary">
                         {adSetAgeMin} - {adSetAgeMax} {isEn ? "years" : "سنة"}
                       </span>
                     </label>
@@ -393,7 +393,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                           max="65"
                           value={adSetAgeMin}
                           onChange={(e) => setAdSetAgeMin(Number(e.target.value) || 18)}
-                          className="w-full rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-bold tabular-nums text-foreground outline-none focus:border-blue-500 dark:border-border dark:bg-muted dark:text-white"
+                          className="w-full rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-bold tabular-nums text-foreground outline-none focus:border-primary dark:border-border dark:bg-muted dark:text-white"
                         />
                       </div>
                       <span className="mt-4 text-muted-foreground">-</span>
@@ -405,7 +405,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                           max="65"
                           value={adSetAgeMax}
                           onChange={(e) => setAdSetAgeMax(Number(e.target.value) || 65)}
-                          className="w-full rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-bold tabular-nums text-foreground outline-none focus:border-blue-500 dark:border-border dark:bg-muted dark:text-white"
+                          className="w-full rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-bold tabular-nums text-foreground outline-none focus:border-primary dark:border-border dark:bg-muted dark:text-white"
                         />
                       </div>
                     </div>
@@ -458,11 +458,11 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                 <div className="space-y-2 rounded-xl border border-border bg-white p-3 dark:border-border dark:bg-muted">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                      <MapPin className="h-3.5 w-3.5 text-primary dark:text-primary" />
                       <span className="text-[11px] font-bold text-foreground dark:text-muted-foreground">
                         {isEn ? "Target Locations (Governorates)" : "المحافظات المستهدفة (مصر)"}
                       </span>
-                      <span className="rounded-md bg-blue-100 px-1.5 py-0.2 text-[10px] font-black text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
+                      <span className="rounded-md bg-primary px-1.5 py-0.2 text-[10px] font-black text-primary dark:bg-primary/60 dark:text-primary">
                         {adSetLocations.length === 0
                           ? isEn ? "All Egypt" : "كافة مصر"
                           : `${adSetLocations.length} ${isEn ? "selected" : "محددة"}`}
@@ -514,7 +514,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                           onClick={() => onToggleLocation(gov.key)}
                           className={`rounded-md px-2 py-1 text-[11px] font-semibold transition-all active:scale-[0.96] ${
                             isSelected
-                              ? "bg-blue-600 text-white shadow-2xs font-bold ring-1 ring-blue-600"
+                              ? "bg-blue-600 text-white shadow-2xs font-bold ring-1 ring-primary"
                               : "border border-border bg-white text-foreground hover:border-border dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:border-border"
                           }`}
                         >
@@ -540,7 +540,7 @@ export const CampaignAdSetsTab: React.FC<CampaignAdSetsTabProps> = ({
                     type="button"
                     onClick={() => onSaveAdSetTargeting(adSet.id)}
                     disabled={savingAdSet}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-700 active:scale-[0.97] disabled:opacity-50 transition-all"
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-primary active:scale-[0.97] disabled:opacity-50 transition-all"
                   >
                     {savingAdSet ? (
                       <>

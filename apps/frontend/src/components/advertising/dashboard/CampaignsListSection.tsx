@@ -341,7 +341,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                     onClick={() => updateFilters({ statusFilter: chip.value })}
                     className={`inline-flex items-center rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
                       isSelected
-                        ? "bg-blue-600 text-white shadow-xs shadow-blue-500/25"
+                        ? "bg-blue-600 text-white shadow-xs shadow-primary/25"
                         : "border border-border bg-white text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                     }`}
                   >
@@ -373,7 +373,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                     ? "Search campaigns by name, objective, or Meta ID..."
                     : "ابحث باسم الحملة، الهدف الإعلاني، أو Meta ID..."
                 }
-                className="h-9 w-full rounded-xl border border-border bg-white px-3 pe-9 text-xs font-semibold text-foreground shadow-2xs outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-muted-foreground"
+                className="h-9 w-full rounded-xl border border-border bg-white px-3 pe-9 text-xs font-semibold text-foreground shadow-2xs outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-muted-foreground"
               />
             </div>
 
@@ -392,7 +392,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
               onClick={() => setShowExtraFilters((prev) => !prev)}
               className={`inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border px-3 text-xs font-bold shadow-2xs transition-all ${
                 showExtraFilters
-                  ? "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200"
+                  ? "border-blue-300 bg-primary/10 text-primary dark:border-primary/60 dark:bg-primary/40 dark:text-primary"
                   : "border-slate-200/90 bg-white text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
               }`}
             >
@@ -438,7 +438,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
       {/* Campaigns Listing */}
       {campaigns.length === 0 ? (
         <div className="flex flex-col items-center gap-3 p-6 sm:p-12 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300 shadow-xs">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary shadow-xs">
             <Megaphone className="h-6 w-6" />
           </div>
           <h3 className="text-base font-bold text-foreground dark:text-white">
@@ -452,7 +452,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-2 mt-2">
             <Link
               to="/advertising/facebook-ads/create-ad"
-              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-4 text-xs font-bold text-white shadow-xs hover:bg-blue-700 transition"
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-primary px-4 text-xs font-bold text-white shadow-xs hover:bg-primary transition"
             >
               <Sparkles className="h-4 w-4" />
               <span>{isEn ? "Create First Ad" : "إنشاء أول إعلان للمنتج"}</span>
@@ -527,7 +527,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
               return (
                 <article
                   key={campaign.id}
-                  className="p-3 sm:px-4 sm:py-3 transition-colors hover:bg-blue-50/20 dark:hover:bg-muted"
+                  className="p-3 sm:px-4 sm:py-3 transition-colors hover:bg-primary/20 dark:hover:bg-muted"
                 >
                   {/* Desktop Grid Layout (lg+) */}
                   <div className="hidden lg:grid grid-cols-12 items-center gap-2.5">
@@ -538,7 +538,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                         onClick={() => handleToggleStatus(campaign)}
                         disabled={isToggling}
                         title={isActive ? (isEn ? "Pause Campaign" : "إيقاف الحملة") : (isEn ? "Resume Campaign" : "تنشيط الحملة")}
-                        className={`relative mt-0.5 inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
+                        className={`relative mt-0.5 inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary/20 ${
                           isActive ? "bg-emerald-500" : "bg-slate-300 dark:bg-muted"
                         }`}
                       >
@@ -560,7 +560,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                           <button
                             type="button"
                             onClick={() => handleOpenQuickView(campaign)}
-                            className="truncate text-start text-xs font-bold text-foreground hover:text-blue-600 dark:text-white dark:hover:text-blue-400 transition-colors"
+                            className="truncate text-start text-xs font-bold text-foreground hover:text-primary dark:text-white dark:hover:text-primary transition-colors"
                             title={isEn ? `Quick View: ${campaign.name}` : `ملخص وتشخيص: ${campaign.name}`}
                           >
                             {campaign.name}
@@ -619,7 +619,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                             type="number"
                             value={editBudgetValue}
                             onChange={(e) => setEditBudgetValue(e.target.value)}
-                            className="h-6 w-20 rounded-md border border-blue-400 bg-white px-1 text-xs font-semibold tabular-nums text-foreground outline-none dark:bg-muted dark:text-white"
+                            className="h-6 w-20 rounded-md border border-primary bg-white px-1 text-xs font-semibold tabular-nums text-foreground outline-none dark:bg-muted dark:text-white"
                             autoFocus
                             onKeyDown={(e) => {
                               if (e.key === "Enter") handleSaveBudget(campaign);
@@ -651,7 +651,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                             type="button"
                             onClick={() => startEditBudget(campaign.id, currentBudget)}
                             title={isEn ? "Edit Budget" : "تعديل الميزانية"}
-                            className="rounded p-0.5 text-muted-foreground opacity-0 group-hover/b:opacity-100 hover:text-blue-600 transition-all"
+                            className="rounded p-0.5 text-muted-foreground opacity-0 group-hover/b:opacity-100 hover:text-primary transition-all"
                           >
                             <Edit2 className="h-3 w-3" />
                           </button>
@@ -706,7 +706,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                         type="button"
                         onClick={() => handleOpenQuickView(campaign)}
                         title={isEn ? "Quick View, Edit & Diagnostics" : "عرض ملخص وتشخيص وتعديل الحملة"}
-                        className="inline-flex h-7 items-center justify-center gap-1 rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground shadow-2xs hover:border-blue-500 hover:text-blue-600 dark:border-border dark:bg-muted dark:text-muted-foreground transition-all active:scale-[0.97]"
+                        className="inline-flex h-7 items-center justify-center gap-1 rounded-lg border border-border bg-white px-2.5 text-xs font-bold text-foreground shadow-2xs hover:border-primary hover:text-primary dark:border-border dark:bg-muted dark:text-muted-foreground transition-all active:scale-[0.97]"
                       >
                         <span>{isEn ? "Details" : "تفاصيل"}</span>
                         <ArrowUpRight className="h-3 w-3" />
@@ -744,7 +744,7 @@ const CampaignsListSection: React.FC<CampaignsListSectionProps> = ({
                           <button
                             type="button"
                             onClick={() => handleOpenQuickView(campaign)}
-                            className="text-start text-xs font-bold text-foreground hover:text-blue-600 dark:text-white dark:hover:text-blue-400 transition-colors"
+                            className="text-start text-xs font-bold text-foreground hover:text-primary dark:text-white dark:hover:text-primary transition-colors"
                           >
                             {campaign.name}
                           </button>

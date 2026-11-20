@@ -189,7 +189,7 @@ const ProfitAnalytics: React.FC = () => {
                       <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded ${
                         cat.margin >= 40
                           ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
-                          : "bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/20"
+                          : "bg-blue-500/10 text-primary dark:text-primary border border-primary/20"
                       }`}>
                         {cat.margin >= 40 ? "عائد مرتفع" : "عائد مستقر"}
                       </span>

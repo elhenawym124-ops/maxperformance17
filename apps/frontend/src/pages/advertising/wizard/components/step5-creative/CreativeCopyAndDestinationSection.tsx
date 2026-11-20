@@ -48,7 +48,7 @@ export const CreativeCopyAndDestinationSection: React.FC<CreativeCopyAndDestinat
           onChange={(e) => handleChange("description", e.target.value)}
           placeholder={isEn ? "Short description appearing below headline" : "وصف مختصر يظهر أسفل العنوان"}
           maxLength={30}
-          className="w-full px-4 py-3 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-3 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-primary"
         />
         <p className={`text-xs text-muted-foreground/80 mt-1 tabular-nums ${isEn ? "text-right" : "text-left"}`}>
           {formData.description.length}/30
@@ -65,7 +65,7 @@ export const CreativeCopyAndDestinationSection: React.FC<CreativeCopyAndDestinat
           value={formData.linkUrl}
           onChange={(e) => handleChange("linkUrl", e.target.value)}
           placeholder="https://yourwebsite.com"
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground placeholder-muted dark:placeholder-muted ${
             getError("linkUrl") ? "border-red-500" : "border-border"
           }`}
         />
@@ -86,7 +86,7 @@ export const CreativeCopyAndDestinationSection: React.FC<CreativeCopyAndDestinat
             value={formData.displayLink}
             onChange={(e) => handleChange("displayLink", e.target.value)}
             placeholder={isEn ? "e.g. yoursite.com/sale" : "مثال: yoursite.com/sale"}
-            className="w-full px-4 py-3 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-primary"
           />
           <p className="mt-1 text-xs text-muted-foreground">
             {isEn ? "Text shown instead of the full URL" : "النص الذي يظهر بدلاً من الرابط الكامل"}
@@ -102,7 +102,7 @@ export const CreativeCopyAndDestinationSection: React.FC<CreativeCopyAndDestinat
             <button
               type="button"
               onClick={onOpenUtmModal}
-              className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold flex items-center gap-1 transition-colors"
+              className="text-xs text-primary dark:text-primary hover:text-primary dark:hover:text-primary font-semibold flex items-center gap-1 transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5" />
               {isEn ? "Dynamic UTM Builder" : "مُنشئ الرموز الديناميكية (UTM Builder)"}
@@ -113,7 +113,7 @@ export const CreativeCopyAndDestinationSection: React.FC<CreativeCopyAndDestinat
             value={formData.urlParameters}
             onChange={(e) => handleChange("urlParameters", e.target.value)}
             placeholder="مثال: utm_source={{site_source_name}}&utm_campaign={{campaign.name}}"
-            className="w-full px-4 py-3 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500 font-mono text-xs"
+            className="w-full px-4 py-3 border border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-primary font-mono text-xs"
             dir="ltr"
           />
           <p className="mt-1 text-xs text-muted-foreground">

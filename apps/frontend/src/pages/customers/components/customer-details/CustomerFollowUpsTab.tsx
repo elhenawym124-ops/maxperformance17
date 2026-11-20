@@ -75,7 +75,7 @@ export const CustomerFollowUpsTab: React.FC<CustomerFollowUpsTabProps> = ({
   const getTypeIcon = (tName: string) => {
     switch (tName) {
       case "CALL":
-        return <PhoneIcon className="h-4 w-4 text-blue-500" />;
+        return <PhoneIcon className="h-4 w-4 text-primary" />;
       case "WHATSAPP":
         return <ChatBubbleLeftRightIcon className="h-4 w-4 text-success" />;
       case "VISIT":
@@ -116,7 +116,7 @@ export const CustomerFollowUpsTab: React.FC<CustomerFollowUpsTabProps> = ({
         );
       case "FOLLOW_UP":
         return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20">
             طلب متابعة لاحقة
           </span>
         );
@@ -155,7 +155,7 @@ export const CustomerFollowUpsTab: React.FC<CustomerFollowUpsTabProps> = ({
         <div className="p-4 rounded-xl border border-border dark:border-border bg-white dark:bg-muted shadow-2xs space-y-1">
           <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground text-xs">
             <span>المتابعة القادمة المجدولة</span>
-            <CalendarIcon className="h-4 w-4 text-blue-500" />
+            <CalendarIcon className="h-4 w-4 text-primary" />
           </div>
           <div className="text-sm font-bold text-foreground dark:text-muted-foreground font-mono">
             {customer.nextFollowUpDate
@@ -196,7 +196,7 @@ export const CustomerFollowUpsTab: React.FC<CustomerFollowUpsTabProps> = ({
             {customer.phone && (
               <a
                 href={`tel:${customer.phone}`}
-                className="text-[10px] text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                className="text-[10px] text-primary dark:text-primary hover:underline font-medium"
               >
                 اتصال الآن
               </a>
@@ -294,7 +294,7 @@ export const CustomerFollowUpsTab: React.FC<CustomerFollowUpsTabProps> = ({
                 type="datetime-local"
                 value={nextDate}
                 onChange={(e) => setNextDate(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg border border-blue-500/40 bg-white dark:bg-muted text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono"
+                className="w-full px-3 py-1.5 rounded-lg border border-primary/40 bg-white dark:bg-muted text-xs text-foreground dark:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary font-mono"
               />
             </div>
           </div>
@@ -372,7 +372,7 @@ export const CustomerFollowUpsTab: React.FC<CustomerFollowUpsTabProps> = ({
               </p>
 
               {item.nextFollowUpDate && (
-                <div className="flex items-center gap-1.5 text-[11px] text-blue-600 dark:text-blue-400 font-medium pt-1">
+                <div className="flex items-center gap-1.5 text-[11px] text-primary dark:text-primary font-medium pt-1">
                   <CalendarIcon className="h-3.5 w-3.5" />
                   <span>
                     موعد المتابعة التالية:{" "}

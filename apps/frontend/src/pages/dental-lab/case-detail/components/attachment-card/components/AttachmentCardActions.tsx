@@ -39,7 +39,7 @@ export function AttachmentCardActions({
         {is3D && url && (
           <button
             onClick={onOpen3d}
-            className="p-1 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded"
+            className="p-1 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded"
             title="معاينة 3D"
             aria-label="3D Preview"
           >
@@ -68,7 +68,7 @@ export function AttachmentCardActions({
         )}
         <button
           onClick={onOpen}
-          className="p-1 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded"
+          className="p-1 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded"
           title={t("dentalLab.detail.download")}
           aria-label="Download"
         >

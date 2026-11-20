@@ -68,7 +68,7 @@ const getEventLabels = (isEn: boolean): Record<string, string> => ({
 });
 
 const EVENT_COLORS: Record<string, string> = {
-  education_enrollment_created: "text-blue-600 dark:text-blue-400",
+  education_enrollment_created: "text-blue-600 dark:text-primary",
   education_session_scheduled: "text-amber-600 dark:text-warning",
   education_session_confirmed: "text-emerald-600 dark:text-success",
   education_session_cancelled: "text-red-600 dark:text-destructive",
@@ -80,7 +80,7 @@ const EVENT_COLORS: Record<string, string> = {
   education_session_reminder_teacher: "text-violet-600 dark:text-primary",
   education_enrollment_created_staff: "text-teal-600 dark:text-success",
   education_demo_day_registered: "text-purple-600 dark:text-primary",
-  education_demo_day_reminder_24h: "text-blue-600 dark:text-blue-400",
+  education_demo_day_reminder_24h: "text-blue-600 dark:text-primary",
   education_demo_day_reminder_2h: "text-amber-600 dark:text-warning",
   education_demo_day_attended_feedback: "text-emerald-600 dark:text-success",
   education_demo_day_no_show: "text-rose-600 dark:text-destructive",
@@ -531,7 +531,7 @@ export default function EducationFunnelPage() {
                         {activeFunnel?.funnel?.totalCustomers ?? 0}
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20">
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center border border-primary/20">
                       <Users className="w-4 h-4" />
                     </div>
                   </div>
@@ -599,15 +599,15 @@ export default function EducationFunnelPage() {
                     </div>
                   </div>
 
-                  <div className="bg-card border border-blue-500/30 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
+                  <div className="bg-card border border-primary/30 rounded-xl p-3.5 flex items-center justify-between shadow-xs">
                     <div className="space-y-1">
                       <div className="text-xs text-muted-foreground">{isEn ? "Demo Day Attendees (Show-up)" : "حضور الديمو داي الفعلي"}</div>
-                      <div className="text-xl font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums flex items-baseline gap-1">
+                      <div className="text-xl font-bold text-primary dark:text-primary font-mono tabular-nums flex items-baseline gap-1">
                         <span>{activeFunnel?.funnel?.attendedDemoAttendees ?? 0}</span>
                         <span className="text-xs text-muted-foreground font-normal">({activeFunnel?.conversion?.demoAttendanceRate ?? "0.0"}%)</span>
                       </div>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20">
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center border border-primary/20">
                       <CheckCircle2 className="w-4 h-4" />
                     </div>
                   </div>
@@ -636,7 +636,7 @@ export default function EducationFunnelPage() {
                     </div>
                     <div className="grid grid-cols-3 gap-2 pt-1">
                       <div className="bg-muted/30 border border-border/60 rounded-lg p-3 text-center">
-                        <div className="text-xl font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+                        <div className="text-xl font-bold text-primary dark:text-primary font-mono tabular-nums">
                           {asPercent(activeFunnel?.conversion?.customersToStudents)}
                         </div>
                         <div className="text-[11px] text-muted-foreground mt-1">
@@ -794,7 +794,7 @@ export default function EducationFunnelPage() {
                     </div>
                     <div className="p-3 rounded-xl bg-muted/30 border border-border/60">
                       <div className="text-[11px] text-muted-foreground">{isEn ? "Demo Attendees (Show-up)" : "حضور الديمو داي"}</div>
-                      <div className="text-lg font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums mt-0.5 flex items-baseline gap-1">
+                      <div className="text-lg font-bold text-primary dark:text-primary font-mono tabular-nums mt-0.5 flex items-baseline gap-1">
                         <span>{attribution?.summary?.totalAttended ?? 0}</span>
                         <span className="text-[10px] text-muted-foreground font-normal">({attribution?.summary?.overallAttendanceRate ?? 0}%)</span>
                       </div>
@@ -847,7 +847,7 @@ export default function EducationFunnelPage() {
                                     camp.channel === "WHATSAPP"
                                       ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                                       : camp.channel === "FACEBOOK" || camp.channel === "MESSENGER"
-                                      ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
+                                      ? "bg-blue-500/10 text-primary dark:text-primary border border-primary/20"
                                       : "bg-muted text-muted-foreground border border-border"
                                   }`}>
                                     {camp.channelLabel}
@@ -855,7 +855,7 @@ export default function EducationFunnelPage() {
                                 </td>
                                 <td className="py-2.5 px-3 text-center font-mono font-bold">{camp.leadsCount}</td>
                                 <td className="py-2.5 px-3 text-center font-mono tabular-nums">
-                                  <span className="text-blue-600 dark:text-blue-400 font-bold">{camp.attendedCount}</span>
+                                  <span className="text-blue-600 dark:text-primary font-bold">{camp.attendedCount}</span>
                                   <span className="text-[10px] text-muted-foreground me-1">({camp.attendanceRate}%)</span>
                                 </td>
                                 <td className="py-2.5 px-3 text-center font-mono tabular-nums text-success dark:text-success font-bold">
@@ -969,7 +969,7 @@ export default function EducationFunnelPage() {
 
               <div className="p-4 rounded-xl bg-card border border-border/80 shadow-2xs space-y-1">
                 <div className="text-[11px] text-muted-foreground font-medium">{isEn ? "Attended Demo Day" : "حضروا اليوم التجريبي (ديمو داي)"}</div>
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums flex items-baseline gap-1.5">
+                <div className="text-2xl font-bold text-primary dark:text-primary font-mono tabular-nums flex items-baseline gap-1.5">
                   <span>{attribution?.summary?.totalAttended ?? 0}</span>
                   <span className="text-xs text-muted-foreground font-normal">({attribution?.summary?.overallAttendanceRate ?? 0}%)</span>
                 </div>
@@ -1048,7 +1048,7 @@ export default function EducationFunnelPage() {
                                 camp.channel === "WHATSAPP"
                                   ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                                   : camp.channel === "FACEBOOK" || camp.channel === "MESSENGER"
-                                  ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
+                                  ? "bg-blue-500/10 text-primary dark:text-primary border border-primary/20"
                                   : "bg-muted text-muted-foreground border border-border"
                               }`}>
                                 {camp.channelLabel}
@@ -1056,7 +1056,7 @@ export default function EducationFunnelPage() {
                             </td>
                             <td className="py-2.5 px-3 text-center font-mono font-bold">{camp.leadsCount}</td>
                             <td className="py-2.5 px-3 text-center font-mono tabular-nums">
-                              <span className="text-blue-600 dark:text-blue-400 font-bold">{camp.attendedCount}</span>
+                              <span className="text-blue-600 dark:text-primary font-bold">{camp.attendedCount}</span>
                               <span className="text-[10px] text-muted-foreground me-1">({camp.attendanceRate}%)</span>
                             </td>
                             <td className="py-2.5 px-3 text-center font-mono tabular-nums text-success dark:text-success font-bold">

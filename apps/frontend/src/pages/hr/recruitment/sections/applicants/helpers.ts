@@ -53,7 +53,7 @@ export const getStatusBadge = (
   status: Applicant["status"]
 ): { bg: string; text: string } => {
   const badges: Record<ApplicantStatus, { bg: string; text: string }> = {
-    NEW: { bg: "bg-blue-100 text-blue-700 border-blue-300", text: "جديد" },
+    NEW: { bg: "bg-blue-100 text-primary border-primary", text: "جديد" },
     REVIEWING: {
       bg: "bg-amber-100 text-warning border-warning",
       text: "قيد المراجعة",

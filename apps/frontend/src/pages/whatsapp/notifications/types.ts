@@ -144,7 +144,7 @@ export const noticeStyles: Record<NoticeTone, string> = {
     "border-destructive/20 bg-destructive/10 text-destructive",
   warning:
     "border-amber-500/20 bg-warning/10 text-warning dark:text-warning",
-  info: "border-blue-500/20 bg-blue-500/10 text-blue-800 dark:text-blue-300",
+  info: "border-blue-500/20 bg-primary/10 text-primary dark:text-primary",
 };
 
 export const createEmptyTemplateForm = (

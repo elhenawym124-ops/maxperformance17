@@ -123,7 +123,7 @@ export const CustomerVerticalActionsTab: React.FC<CustomerVerticalActionsTabProp
         <div className="rounded-xl border border-border/60 bg-card p-3 shadow-2xs">
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-1.5">
-              <Megaphone className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+              <Megaphone className="w-3.5 h-3.5 text-primary dark:text-primary" />
               <span className="text-xs font-semibold text-foreground">
                 مصدر الإعلان / المنشور
               </span>
@@ -133,7 +133,7 @@ export const CustomerVerticalActionsTab: React.FC<CustomerVerticalActionsTabProp
                 href={conversation.postPermalink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-0.5 text-[10px] text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center gap-0.5 text-[10px] text-primary dark:text-primary hover:underline"
               >
                 <span>عرض على فيسبوك</span>
                 <ExternalLink className="w-2.5 h-2.5" />

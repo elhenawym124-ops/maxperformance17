@@ -18,7 +18,7 @@ export const UpsellHubKpiCards: React.FC<UpsellHubKpiCardsProps> = ({ stats }) =
       <div className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
         <div className="flex items-center justify-between text-xs font-bold text-muted-foreground">
           <span>مواضع الظهور</span>
-          <Layers className="h-4 w-4 text-blue-500" />
+          <Layers className="h-4 w-4 text-primary" />
         </div>
         <div className="mt-2 text-2xl font-black text-foreground tabular-nums">
           {stats.activePlacements} / 3

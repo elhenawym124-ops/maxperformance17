@@ -25,7 +25,7 @@ export const AttendanceNotesDialog: React.FC<AttendanceNotesDialogProps> = ({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Eye className="h-5 w-5 text-blue-500" />
+            <Eye className="h-5 w-5 text-primary" />
             ملاحظات الحضور
           </DialogTitle>
         </DialogHeader>
@@ -37,7 +37,7 @@ export const AttendanceNotesDialog: React.FC<AttendanceNotesDialogProps> = ({
         <DialogFooter>
           <Button
             onClick={() => onOpenChange(false)}
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="w-full bg-primary hover:bg-primary"
           >
             إغلاق
           </Button>

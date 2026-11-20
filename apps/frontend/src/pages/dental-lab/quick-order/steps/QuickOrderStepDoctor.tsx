@@ -33,7 +33,7 @@ export function QuickOrderStepDoctor({
           <button
             type="button"
             onClick={() => onShowNewDoctorChange(true)}
-            className="flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline transition-colors"
+            className="flex items-center gap-1 text-xs font-semibold text-primary dark:text-primary hover:underline transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             طبيب / عيادة جديدة
@@ -60,17 +60,17 @@ export function QuickOrderStepDoctor({
       </div>
 
       {selectedDoctor && (
-        <div className="p-3.5 rounded-xl border-2 border-blue-500 bg-blue-50/40 dark:bg-blue-900/20">
+        <div className="p-3.5 rounded-xl border-2 border-primary bg-primary/40 dark:bg-primary/20">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
+              <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">
                 د
               </div>
               <div>
-                <div className="font-bold text-sm text-blue-900 dark:text-blue-100">
+                <div className="font-bold text-sm text-primary dark:text-primary">
                   {selectedDoctor.name}
                 </div>
-                <div className="text-xs text-blue-700 dark:text-blue-300">
+                <div className="text-xs text-primary dark:text-primary">
                   {selectedDoctor.clinicName || "عيادة خاصة"}
                 </div>
               </div>
@@ -104,10 +104,10 @@ export function QuickOrderStepDoctor({
           )}
 
           {/* تحديد الطبيب المعالج داخل العيادة / المركز */}
-          <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-800/60">
+          <div className="mt-3 pt-3 border-t border-primary dark:border-primary/60">
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-xs font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
-                <Stethoscope className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                <Stethoscope className="w-3.5 h-3.5 text-primary dark:text-primary" />
                 <span>الطبيب المعالج داخل العيادة / المركز:</span>
               </label>
               <span className="text-[10px] text-muted-foreground">يظهر في كارتة الحالة وتفاصيل الفاتورة</span>
@@ -152,7 +152,7 @@ export function QuickOrderStepDoctor({
                   <button
                     type="button"
                     onClick={() => onCustomDoctorInputChange(false)}
-                    className="px-2 py-1 text-[11px] text-blue-600 dark:text-blue-400 hover:underline shrink-0 font-medium"
+                    className="px-2 py-1 text-[11px] text-primary dark:text-primary hover:underline shrink-0 font-medium"
                   >
                     اختر من أطباء العيادة
                   </button>

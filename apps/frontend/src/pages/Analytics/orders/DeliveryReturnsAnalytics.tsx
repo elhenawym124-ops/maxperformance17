@@ -166,7 +166,7 @@ const DeliveryReturnsAnalytics: React.FC = () => {
               نظرة عامة
             </button>
             <button onClick={() => setActiveTab("branches")} className={`px-2.5 py-1 rounded-md font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${activeTab === "branches" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-              <Building2 className="h-3.5 w-3.5 text-blue-500" />
+              <Building2 className="h-3.5 w-3.5 text-primary" />
               شركات الشحن ({branches.length})
             </button>
             <button onClick={() => setActiveTab("governorates")} className={`px-2.5 py-1 rounded-md font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${activeTab === "governorates" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>

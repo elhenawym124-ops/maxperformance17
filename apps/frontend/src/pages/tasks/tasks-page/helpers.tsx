@@ -14,7 +14,7 @@ export const getStatusIcon = (status: string) => {
     case "pending":
       return <ClockIcon className="h-5 w-5 text-warning" />;
     case "in_progress":
-      return <ExclamationTriangleIcon className="h-5 w-5 text-blue-500" />;
+      return <ExclamationTriangleIcon className="h-5 w-5 text-primary" />;
     case "in_review":
       return <ClipboardDocumentCheckIcon className="h-5 w-5 text-primary" />;
     case "on_hold":
@@ -33,7 +33,7 @@ export const getStatusColor = (status: string) => {
     case "pending":
       return "bg-yellow-100 dark:bg-warning/30 text-warning dark:text-warning";
     case "in_progress":
-      return "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300";
+      return "bg-blue-100 dark:bg-primary/30 text-primary dark:text-primary";
     case "in_review":
       return "bg-purple-100 dark:bg-primary/30 text-primary dark:text-primary";
     case "on_hold":

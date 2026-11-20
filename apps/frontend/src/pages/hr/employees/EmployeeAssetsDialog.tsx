@@ -52,7 +52,7 @@ export const EmployeeAssetsDialog: React.FC<EmployeeAssetsDialogProps> = ({
                     الحالة: {asset.status}
                   </div>
                 </div>
-                <Badge className="bg-blue-100 text-blue-700">
+                <Badge className="bg-blue-100 text-primary">
                   {asset.status === "IN_USE"
                     ? "مسلّمة"
                     : asset.status || "متاحة"}

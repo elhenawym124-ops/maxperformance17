@@ -49,8 +49,8 @@ export const AuditLogsStats: React.FC<AuditLogsStatsProps> = ({ stats }) => {
 
       <Card>
         <CardContent className="p-4 flex items-center gap-4">
-          <div className="bg-blue-100 dark:bg-blue-900/20 p-3 rounded-full">
-            <Edit className="h-6 w-6 text-blue-600" />
+          <div className="bg-blue-100 dark:bg-primary/20 p-3 rounded-full">
+            <Edit className="h-6 w-6 text-primary" />
           </div>
           <div>
             <p className="text-sm text-muted-foreground">عمليات التحديث</p>

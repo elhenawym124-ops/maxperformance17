@@ -28,9 +28,9 @@ export const ScheduledOrderStatsStrip: React.FC<ScheduledOrderStatsStripProps> =
       <div className="p-3 rounded-md border border-border/60 bg-card">
         <div className="flex items-center justify-between text-muted-foreground">
           <span className="text-[11px] font-medium">قيد الانتظار</span>
-          <Clock className="h-4 w-4 text-blue-500" />
+          <Clock className="h-4 w-4 text-primary" />
         </div>
-        <div className="mt-1 text-base sm:text-lg font-bold font-mono text-blue-600 dark:text-blue-400 tabular-nums">
+        <div className="mt-1 text-base sm:text-lg font-bold font-mono text-primary dark:text-primary tabular-nums">
           {(stats?.pending ?? 0).toLocaleString()}
         </div>
       </div>

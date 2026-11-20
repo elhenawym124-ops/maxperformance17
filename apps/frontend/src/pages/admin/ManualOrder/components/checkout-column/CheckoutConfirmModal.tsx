@@ -32,8 +32,8 @@ export const CheckoutConfirmModal: React.FC<CheckoutConfirmModalProps> = ({
     <div className="fixed inset-0 z-50 bg-black/50 dark:bg-muted backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-card rounded-xl shadow-2xl max-w-md w-full overflow-hidden animate-in zoom-in-95 duration-200">
         <div className="p-6">
-          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900/20 rounded-full">
-            <ShoppingCartIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-primary dark:bg-primary/20 rounded-full">
+            <ShoppingCartIcon className="w-8 h-8 text-primary dark:text-primary" />
           </div>
           <h3 className="text-xl font-bold text-center text-foreground mb-2">
             {t("manualOrder.k_121")}
@@ -93,7 +93,7 @@ export const CheckoutConfirmModal: React.FC<CheckoutConfirmModalProps> = ({
                           </div>
                           <div className="mt-1 flex flex-wrap gap-1.5">
                             {item.color && (
-                              <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/20 dark:text-blue-300">
+                              <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary dark:bg-primary/20 dark:text-primary">
                                 {t("manualOrder.k_85")} {item.color}
                               </span>
                             )}
@@ -110,7 +110,7 @@ export const CheckoutConfirmModal: React.FC<CheckoutConfirmModalProps> = ({
                           </div>
                         </div>
                         <div className="text-left shrink-0">
-                          <div className="font-semibold text-blue-600 dark:text-blue-400 tabular-nums">
+                          <div className="font-semibold text-primary dark:text-primary tabular-nums">
                             {item.price.toLocaleString()} {t("manualOrder.k_75")}
                           </div>
                           <div className="text-[11px] text-muted-foreground">
@@ -127,7 +127,7 @@ export const CheckoutConfirmModal: React.FC<CheckoutConfirmModalProps> = ({
               <span className="text-foreground">
                 {t("manualOrder.k_77")}
               </span>
-              <span className="text-blue-600 dark:text-blue-400 tabular-nums">
+              <span className="text-blue-600 dark:text-primary tabular-nums">
                 {grandTotal.toLocaleString()} {t("manualOrder.k_75")}
               </span>
             </div>

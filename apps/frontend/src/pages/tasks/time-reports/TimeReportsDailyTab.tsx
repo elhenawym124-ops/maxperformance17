@@ -34,7 +34,7 @@ export const TimeReportsDailyTab: React.FC<TimeReportsDailyTabProps> = ({
               </span>
             </div>
             <div className="text-left tabular-nums">
-              <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+              <span className="text-lg font-bold text-primary dark:text-primary">
                 {formatDuration(stat.totalMinutes)}
               </span>
               <span className="text-sm text-muted-foreground me-2">
@@ -44,7 +44,7 @@ export const TimeReportsDailyTab: React.FC<TimeReportsDailyTabProps> = ({
           </div>
           <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
             <div
-              className="bg-blue-600 dark:bg-blue-500 h-2 rounded-full transition-all duration-300"
+              className="bg-blue-600 dark:bg-primary h-2 rounded-full transition-all duration-300"
               style={{
                 width: `${Math.min((stat.totalMinutes / 480) * 100, 100)}%`,
               }}

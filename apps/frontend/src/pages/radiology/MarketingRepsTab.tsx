@@ -96,7 +96,7 @@ export default function MarketingRepsTab() {
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm"><RefreshCw className="w-4 h-4" />{t("radiology.refresh")}</button>
-          <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"><Plus className="w-4 h-4" />{t("radiology.marketingReps.newRep")}</button>
+          <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm"><Plus className="w-4 h-4" />{t("radiology.marketingReps.newRep")}</button>
         </div>
       </div>
 
@@ -156,14 +156,14 @@ export default function MarketingRepsTab() {
                     <td className="py-3 px-4 font-medium"><span className="flex items-center gap-2"><UserRound className="w-4 h-4 text-muted-foreground" />{c.name}</span></td>
                     <td className="py-3 px-4" dir="ltr">{c.phone || "—"}</td>
                     <td className="py-3 px-4">
-                      {port ? <span className="px-2 py-0.5 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">{t("radiology.marketingReps.withPortfolio", { count: port.count })}</span> : null}
+                      {port ? <span className="px-2 py-0.5 rounded-full text-xs bg-primary text-primary dark:bg-primary/40 dark:text-primary">{t("radiology.marketingReps.withPortfolio", { count: port.count })}</span> : null}
                       <span className={`px-2 py-0.5 rounded-full text-xs me-1 ${c.isActive === false ? "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive" : "bg-green-100 text-success dark:bg-success/40 dark:text-success"}`}>
                         {c.isActive === false ? t("radiology.marketingReps.inactive") : t("radiology.marketingReps.active")}
                       </span>
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
-                        <button onClick={() => { setModal(c); setName(c.name); setPhone(c.phone || ""); }} className="px-2 py-1 text-xs bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 rounded-lg">{t("radiology.marketingReps.edit")}</button>
+                        <button onClick={() => { setModal(c); setName(c.name); setPhone(c.phone || ""); }} className="px-2 py-1 text-xs bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary rounded-lg">{t("radiology.marketingReps.edit")}</button>
                         <button onClick={() => toggle(c)} className="px-2 py-1 text-xs bg-muted text-foreground dark:bg-muted dark:text-muted-foreground rounded-lg">{c.isActive === false ? t("radiology.marketingReps.activate") : t("radiology.marketingReps.deactivate")}</button>
                       </div>
                     </td>
@@ -194,7 +194,7 @@ export default function MarketingRepsTab() {
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-foreground border rounded-lg disabled:opacity-50">{t("radiology.cancel")}</button>
-              <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50 flex items-center gap-2">
+              <button onClick={save} disabled={saving} className="px-4 py-2 bg-primary text-white rounded-lg disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>

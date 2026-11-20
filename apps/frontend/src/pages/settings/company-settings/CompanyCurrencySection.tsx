@@ -47,8 +47,8 @@ export const CompanyCurrencySection: React.FC<CompanyCurrencySectionProps> = ({
             ))}
           </select>
           {savingCurrency && (
-            <div className="mt-2 text-sm text-blue-600 flex items-center">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 me-2"></div>
+            <div className="mt-2 text-sm text-primary flex items-center">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary me-2"></div>
               جاري حفظ التغييرات...
             </div>
           )}

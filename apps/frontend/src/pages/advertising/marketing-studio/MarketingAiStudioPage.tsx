@@ -147,10 +147,10 @@ const MarketingAiStudioPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsDraftDrawerOpen(true)}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-xs font-bold text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition cursor-pointer shadow-xs active:scale-95"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-primary/10 dark:bg-primary/50 border border-primary dark:border-primary text-xs font-bold text-primary dark:text-primary hover:bg-primary dark:hover:bg-primary/60 transition cursor-pointer shadow-xs active:scale-95"
             title="عرض ومراجعة مسودة الإعلان"
           >
-            <Rocket className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
+            <Rocket className="w-3.5 h-3.5 text-primary dark:text-primary animate-pulse" />
             <span>مسودة الإعلان جاهزة (مراجعة)</span>
           </button>
         ) : (
@@ -211,13 +211,13 @@ const MarketingAiStudioPage: React.FC = () => {
               >
                 <div className="p-3.5 sm:p-4 border-b border-border dark:border-border flex items-center justify-between bg-muted dark:bg-muted flex-shrink-0">
                   <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-xl bg-blue-600 text-white shadow-sm">
+                    <div className="p-2 rounded-xl bg-primary text-white shadow-sm">
                       <Rocket className="w-4 h-4" />
                     </div>
                     <div>
                       <h2 className="text-xs sm:text-sm font-bold text-foreground dark:text-white flex items-center gap-2">
                         مسودة الحملة الإعلانية
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary dark:bg-primary text-primary dark:text-primary">
                           جاهزة للإطلاق
                         </span>
                       </h2>

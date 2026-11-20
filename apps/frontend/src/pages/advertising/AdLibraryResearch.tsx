@@ -167,7 +167,7 @@ const AdLibraryResearch: React.FC = () => {
         <FacebookAdsModuleNav />
         <header className="flex flex-col gap-3 border-b border-border pb-5 dark:border-border lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm font-bold text-blue-700 dark:text-blue-300">
+            <p className="text-sm font-bold text-primary dark:text-primary">
               Meta Ad Library
             </p>
             <h1 className="mt-1 text-2xl font-black tracking-normal sm:text-3xl">
@@ -175,7 +175,7 @@ const AdLibraryResearch: React.FC = () => {
             </h1>
           </div>
           <div className="flex items-center gap-2 rounded-lg border border-border bg-white px-3 py-2 text-sm font-bold text-foreground shadow-sm dark:border-border dark:bg-muted dark:text-muted-foreground">
-            <Megaphone className="h-4 w-4 text-blue-600" />
+            <Megaphone className="h-4 w-4 text-primary" />
             <span>{apiVersion || "v25.0"}</span>
           </div>
         </header>
@@ -216,7 +216,7 @@ const AdLibraryResearch: React.FC = () => {
                   <input
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
-                    className="w-full rounded-lg border border-border bg-white py-3 ps-3 pe-10 text-sm font-semibold outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
+                    className="w-full rounded-lg border border-border bg-white py-3 ps-3 pe-10 text-sm font-semibold outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted"
                     placeholder={
                       searchMode === "terms"
                         ? "مثال: boots أو skincare"
@@ -232,7 +232,7 @@ const AdLibraryResearch: React.FC = () => {
                   <input
                     value={countries}
                     onChange={(event) => setCountries(event.target.value)}
-                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
+                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted"
                     placeholder="EG,SA,US"
                   />
                 </label>
@@ -244,7 +244,7 @@ const AdLibraryResearch: React.FC = () => {
                     onChange={(event) =>
                       setAdActiveStatus(event.target.value as typeof adActiveStatus)
                     }
-                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
+                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-bold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted"
                   >
                     {activeStatusOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -262,7 +262,7 @@ const AdLibraryResearch: React.FC = () => {
                     max={100}
                     value={limit}
                     onChange={(event) => setLimit(Number(event.target.value))}
-                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-border dark:bg-muted"
+                    className="rounded-lg border border-border bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted"
                   />
                 </label>
               </div>
@@ -270,7 +270,7 @@ const AdLibraryResearch: React.FC = () => {
 
             <div className="rounded-lg border border-border bg-muted p-3 dark:border-border dark:bg-muted">
               <div className="mb-3 flex items-center gap-2 text-sm font-black">
-                <Filter className="h-4 w-4 text-blue-600" />
+                <Filter className="h-4 w-4 text-primary" />
                 <span>الفلاتر</span>
               </div>
 
@@ -343,8 +343,8 @@ const AdLibraryResearch: React.FC = () => {
                     className={[
                       "rounded-md border px-3 py-1.5 text-xs font-black transition-colors",
                       publisherPlatforms.includes(platform.value)
-                        ? "border-blue-600 bg-blue-600 text-white"
-                        : "border-slate-200 bg-white text-foreground hover:border-blue-300 dark:border-border dark:bg-muted dark:text-muted-foreground",
+                        ? "border-blue-600 bg-primary text-white"
+                        : "border-slate-200 bg-white text-foreground hover:border-primary dark:border-border dark:bg-muted dark:text-muted-foreground",
                     ].join(" ")}
                   >
                     {platform.label}
@@ -358,7 +358,7 @@ const AdLibraryResearch: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-black text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-black text-white shadow-sm transition hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -423,7 +423,7 @@ const AdLibraryResearch: React.FC = () => {
                           href={ad.ad_snapshot_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-black text-foreground transition hover:border-blue-500 hover:text-blue-700 dark:border-border dark:text-muted-foreground dark:hover:border-blue-400 dark:hover:text-blue-300"
+                          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-black text-foreground transition hover:border-primary hover:text-primary dark:border-border dark:text-muted-foreground dark:hover:border-primary dark:hover:text-primary"
                         >
                           <ExternalLink className="h-4 w-4" />
                           <span>Snapshot</span>
@@ -466,7 +466,7 @@ const AdLibraryResearch: React.FC = () => {
                         {ad.publisher_platforms.map((platform) => (
                           <span
                             key={`${ad.id}-${platform}`}
-                            className="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-black text-blue-700 dark:bg-blue-950 dark:text-blue-200"
+                            className="rounded-md bg-primary/10 px-2.5 py-1 text-xs font-black text-primary dark:bg-primary dark:text-primary"
                           >
                             {platform}
                           </span>

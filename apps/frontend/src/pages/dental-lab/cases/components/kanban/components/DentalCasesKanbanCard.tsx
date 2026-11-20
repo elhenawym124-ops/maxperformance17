@@ -45,7 +45,7 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
     <div
       className={`p-3.5 rounded-xl bg-white dark:bg-muted border shadow-xs hover:shadow-md transition-all flex flex-col gap-2.5 ${
         isSelected
-          ? "ring-2 ring-blue-500 border-blue-400 dark:border-blue-500"
+          ? "ring-2 ring-primary border-primary dark:border-primary"
           : isOverdue
           ? "border-rose-300 dark:border-destructive/80 bg-destructive/20"
           : "border-gray-200 dark:border-border"
@@ -55,14 +55,14 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
         <div className="flex items-center gap-2">
           <input
             type="checkbox"
-            className="rounded border-border text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer"
+            className="rounded border-border text-primary focus:ring-primary w-3.5 h-3.5 cursor-pointer"
             checked={isSelected}
             onChange={() => toggleSelect(dentalCase.id)}
             aria-label={`تحديد حالة ${dentalCase.caseNumber || dentalCase.id}`}
           />
           <Link
             to={`/dental-lab/cases/${dentalCase.id}`}
-            className="font-mono font-bold text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            className="font-mono font-bold text-xs text-primary dark:text-primary hover:underline flex items-center gap-1"
             title="فتح تفاصيل الأوردر"
           >
             <span>{dentalCase.caseNumber || dentalCase.id.slice(0, 8)}</span>
@@ -102,16 +102,16 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
                 if (dentalCase.doctorId) applyFilter("doctorId", dentalCase.doctorId, true);
                 else applyFilter("search", dentalCase.doctorName || "", true);
               }}
-              className="text-[11px] text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 hover:underline truncate flex items-center gap-1"
+              className="text-[11px] text-muted-foreground hover:text-primary dark:hover:text-primary hover:underline truncate flex items-center gap-1"
               title={`عرض كل حالات د. ${dentalCase.doctorName} فقط`}
             >
-              <Stethoscope className="w-3 h-3 text-blue-500 shrink-0 opacity-70 group-hover/doc:opacity-100" />
+              <Stethoscope className="w-3 h-3 text-primary shrink-0 opacity-70 group-hover/doc:opacity-100" />
               <span>د. {dentalCase.doctorName}</span>
             </Link>
             {dentalCase.doctorId && (
               <Link
                 to={`/dental-lab/doctors/${dentalCase.doctorId}`}
-                className="opacity-0 group-hover/doc:opacity-100 text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-opacity p-0.5"
+                className="opacity-0 group-hover/doc:opacity-100 text-muted-foreground hover:text-primary dark:hover:text-primary transition-opacity p-0.5"
                 title="الملف الشامل للطبيب"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -153,7 +153,7 @@ export const DentalCasesKanbanCard: React.FC<DentalCasesKanbanCardProps> = ({
           </span>
         )}
         {dentalCase.teeth && (
-          <span className="shrink-0 px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-[10px] font-bold font-mono">
+          <span className="shrink-0 px-1.5 py-0.5 rounded bg-primary dark:bg-primary/50 text-primary dark:text-primary text-[10px] font-bold font-mono">
             {dentalCase.teeth}
           </span>
         )}

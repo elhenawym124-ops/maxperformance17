@@ -128,7 +128,7 @@ export const AffiliateReviewHistoryModal: React.FC<
                             href={affiliate.identityDocumentUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs text-white hover:bg-blue-700 transition"
+                            className="rounded-lg bg-primary px-3 py-1.5 text-xs text-white hover:bg-primary transition"
                           >
                             فتح المستند الحالي
                           </a>
@@ -178,7 +178,7 @@ export const AffiliateReviewHistoryModal: React.FC<
                                 href={version.fileUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="rounded-lg border border-blue-200 px-3 py-1.5 text-xs text-blue-600 hover:bg-blue-50 transition"
+                                className="rounded-lg border border-primary px-3 py-1.5 text-xs text-primary hover:bg-primary/10 transition"
                               >
                                 فتح النسخة
                               </a>

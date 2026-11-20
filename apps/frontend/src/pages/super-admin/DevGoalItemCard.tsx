@@ -42,7 +42,7 @@ export const goalTypeLabels: Record<string, string> = {
 
 export const goalTypeColors: Record<string, string> = {
   COMPANY: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
-  TEAM: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+  TEAM: "bg-blue-500/10 text-primary dark:text-primary border border-primary/20",
   INDIVIDUAL: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
 };
 
@@ -54,7 +54,7 @@ export const statusConfig: Record<string, { label: string; color: string; icon: 
   },
   COMPLETED: {
     label: "مكتمل",
-    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+    color: "bg-blue-500/10 text-primary dark:text-primary border border-primary/20",
     icon: <Flag className="size-3.5" />,
   },
   ON_HOLD: {

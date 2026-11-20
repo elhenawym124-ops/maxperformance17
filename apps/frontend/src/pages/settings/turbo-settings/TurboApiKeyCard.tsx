@@ -36,18 +36,18 @@ export const TurboApiKeyCard: React.FC<TurboApiKeyCardProps> = ({
 
       <div className="space-y-4">
         {hasApiKey && maskedApiKey && (
-          <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="bg-blue-50 dark:bg-primary/20 p-4 rounded-lg border border-primary dark:border-primary">
             <p className="text-sm text-foreground mb-2">
               {t("turbo.k_27")}
             </p>
             <div className="flex items-center justify-between">
-              <code className="text-sm font-mono text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/30 px-3 py-1 rounded tabular-nums">
+              <code className="text-sm font-mono text-primary dark:text-primary bg-primary dark:bg-primary/30 px-3 py-1 rounded tabular-nums">
                 {maskedApiKey}
               </code>
               <button
                 type="button"
                 onClick={onToggleShowApiKey}
-                className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+                className="text-sm text-primary dark:text-primary hover:text-primary dark:hover:text-primary font-medium"
               >
                 {showApiKey ? t("turbo.k_14") : t("turbo.k_15")}
               </button>

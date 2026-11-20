@@ -18,8 +18,8 @@ export const ReturnActivityEventBadges: React.FC<ReturnActivityEventBadgesProps>
 
   if (action === 'AUTO_CREATED') {
     return (
-      <div className="text-xs text-blue-900 dark:text-blue-200 bg-blue-50/70 dark:bg-blue-950/30 p-2.5 rounded-lg border border-blue-100 dark:border-blue-900/30 flex items-center gap-2">
-        <Bot size={16} className="text-blue-600 dark:text-blue-400 shrink-0" />
+      <div className="text-xs text-primary dark:text-primary bg-primary/70 dark:bg-primary/30 p-2.5 rounded-lg border border-primary dark:border-primary/30 flex items-center gap-2">
+        <Bot size={16} className="text-blue-600 dark:text-primary shrink-0" />
         <span>
           {typeof details === 'string' && details.length > 0
             ? details

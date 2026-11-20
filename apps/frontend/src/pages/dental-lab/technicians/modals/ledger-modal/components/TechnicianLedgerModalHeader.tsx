@@ -18,7 +18,7 @@ export function TechnicianLedgerModalHeader({
     <>
       <div className="flex items-center justify-between pb-3 border-b dark:border-border print:hidden">
         <div className="flex items-center gap-2">
-          <Receipt className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          <Receipt className="w-5 h-5 text-primary dark:text-primary" />
           <div>
             <h3 className="text-lg font-bold">كشف حساب وسجل مستحقات الفني</h3>
             <p className="text-xs text-muted-foreground">

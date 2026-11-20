@@ -39,7 +39,7 @@ const RewardDetails: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <RefreshCw className="w-8 h-8 animate-spin text-blue-500 mx-auto mb-2" />
+          <RefreshCw className="w-8 h-8 animate-spin text-primary mx-auto mb-2" />
           <p className="text-gray-600">جاري تحميل التفاصيل...</p>
         </div>
       </div>
@@ -55,7 +55,7 @@ const RewardDetails: React.FC = () => {
           <p className="text-gray-600 mb-4">{error || "المكافأة غير موجودة"}</p>
           <button
             onClick={() => navigate("/hr/rewards")}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
           >
             العودة للقائمة
           </button>
@@ -78,7 +78,7 @@ const RewardDetails: React.FC = () => {
           </button>
           <div>
             <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-              <Award className="w-8 h-8 text-blue-600" />
+              <Award className="w-8 h-8 text-primary" />
               تفاصيل المكافأة
             </h1>
             <p className="text-gray-600 mt-1">عرض كامل تفاصيل المكافأة</p>
@@ -112,7 +112,7 @@ const RewardDetails: React.FC = () => {
           {canEditThisReward && (
             <button
               onClick={() => navigate(`/hr/rewards/edit/${id}`)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
             >
               <Edit className="w-5 h-5" />
               تعديل

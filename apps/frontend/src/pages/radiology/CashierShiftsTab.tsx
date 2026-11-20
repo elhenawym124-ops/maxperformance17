@@ -171,7 +171,7 @@ export default function CashierShiftsTab() {
                     <td className="py-3 px-4 whitespace-nowrap">{fmtDate(s.openedAt)}</td>
                     <td className="py-3 px-4 whitespace-nowrap">{s.closedAt ? fmtDate(s.closedAt) : "—"}</td>
                     <td className="py-3 px-4 text-success font-medium">{fmtMoney(s.summary?.patientCollected, t("radiology.currency"))}</td>
-                    <td className="py-3 px-4 text-blue-600 font-medium">{fmtMoney(s.summary?.insuranceCollected, t("radiology.currency"))}</td>
+                    <td className="py-3 px-4 text-primary font-medium">{fmtMoney(s.summary?.insuranceCollected, t("radiology.currency"))}</td>
                     <td className="py-3 px-4 text-destructive">{fmtMoney(s.summary?.refunded, t("radiology.currency"))}</td>
                     <td className="py-3 px-4 font-bold">{fmtMoney(s.summary?.net, t("radiology.currency"))}</td>
                   </tr>

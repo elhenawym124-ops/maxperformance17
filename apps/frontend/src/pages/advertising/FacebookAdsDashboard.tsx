@@ -351,7 +351,7 @@ const FacebookAdsDashboard: React.FC = () => {
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="flex items-center gap-1.5 rounded-full bg-blue-500/10 px-2.5 py-1 text-xs font-black text-blue-600 dark:bg-blue-400/15 dark:text-blue-300">
+                <span className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-black text-primary dark:bg-primary/15 dark:text-primary">
                   <Megaphone className="h-3.5 w-3.5" />
                   Meta Marketing Suite
                 </span>
@@ -369,7 +369,7 @@ const FacebookAdsDashboard: React.FC = () => {
                 <select
                   value={selectedAdAccountId}
                   onChange={(e) => setSelectedAdAccountId(e.target.value)}
-                  className="h-9 w-full rounded-xl border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-border dark:bg-muted dark:text-white"
+                  className="h-9 w-full rounded-xl border border-border bg-white px-2.5 text-xs font-bold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-border dark:bg-muted dark:text-white"
                 >
                   <option value="">{isEn ? "-- Select Ad Account --" : "-- اختار حساب إعلاني --"}</option>
                   {businessGroups.map(([key, group]) => (
@@ -408,7 +408,7 @@ const FacebookAdsDashboard: React.FC = () => {
                 type="button"
                 onClick={handleSyncWithMeta}
                 disabled={syncing || !selectedAdAccountId}
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-blue-200 bg-blue-50 px-3 text-xs font-bold text-blue-700 shadow-xs hover:bg-blue-100 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200 disabled:opacity-50"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-primary bg-primary/10 px-3 text-xs font-bold text-primary shadow-xs hover:bg-primary dark:border-primary/60 dark:bg-primary/40 dark:text-primary disabled:opacity-50"
               >
                 <Zap className={`h-3.5 w-3.5 ${syncing ? "animate-spin" : ""}`} />
                 <span className="hidden sm:inline">{isEn ? "Sync Meta" : "مزامنة Meta"}</span>
@@ -448,7 +448,7 @@ const FacebookAdsDashboard: React.FC = () => {
                     }`,
                   )
                 }
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-3.5 text-xs font-black text-white shadow-xs hover:bg-blue-700 transition-all"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-primary px-3.5 text-xs font-black text-white shadow-xs hover:bg-primary transition-all"
                 title={isEn ? "Full Ad Creation Wizard (Campaign + AdSet + Creative)" : "معالج إنشاء إعلان كامل (حملة + استهداف + إعلان)"}
               >
                 <Plus className="h-4 w-4" />
@@ -518,7 +518,7 @@ const FacebookAdsDashboard: React.FC = () => {
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
               <Link
                 to="/advertising/facebook-ads/connection"
-                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-4 text-xs font-black text-white shadow-xs hover:bg-blue-700 transition-all"
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-primary px-4 text-xs font-black text-white shadow-xs hover:bg-primary transition-all"
               >
                 <ArrowUpRight className="h-4 w-4" />
                 {isEn ? "Connect / Manage Ad Accounts" : "إدارة وربط الحسابات الإعلانية"}
@@ -530,7 +530,7 @@ const FacebookAdsDashboard: React.FC = () => {
             {/* Specialized Tools Quick Access Hub */}
             <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border bg-white p-2 sm:px-3 shadow-xs dark:border-border dark:bg-muted">
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-                <div className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-bold text-white shadow-xs">
+                <div className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-white shadow-xs">
                   <Layers className="h-3.5 w-3.5" />
                   <span>{isEn ? "Live Campaigns" : "الحملات المباشرة"}</span>
                   <span className="rounded-full bg-white/20 px-1.5 py-0.2 text-[11px] font-black text-white">
@@ -555,7 +555,7 @@ const FacebookAdsDashboard: React.FC = () => {
                   to={`/advertising/facebook-ads/decision-reports${selectedAdAccountId ? `?adAccountId=${selectedAdAccountId}` : ""}`}
                   className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground"
                 >
-                  <Gauge className="h-3.5 w-3.5 text-blue-600" />
+                  <Gauge className="h-3.5 w-3.5 text-primary" />
                   <span>{isEn ? "Decisions & Reports" : "القرارات والتقارير الذكية"}</span>
                   {decisionCounts.warnings > 0 && (
                     <span className="rounded-full bg-destructive px-1.5 py-0.2 text-[11px] font-black text-destructive dark:bg-destructive/60 dark:text-destructive">

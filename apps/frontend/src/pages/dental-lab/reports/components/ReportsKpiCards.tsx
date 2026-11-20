@@ -25,8 +25,8 @@ export function ReportsKpiCards({ kpi }: { kpi: ReportsKpi | null }) {
       label: t("dentalLab.dashboard.todayReceived"),
       value: String(kpi?.todayReceived ?? "—"),
       icon: <Inbox className="w-4 h-4" />,
-      tone: "text-blue-600 dark:text-blue-400",
-      bg: "bg-blue-50 dark:bg-blue-900/20",
+      tone: "text-blue-600 dark:text-primary",
+      bg: "bg-blue-50 dark:bg-primary/20",
     },
     {
       label: t("dentalLab.dashboard.overdueCount"),

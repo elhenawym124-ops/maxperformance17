@@ -51,7 +51,7 @@ export const PatientSelectionSection: React.FC<PatientSelectionSectionProps> = (
           <button
             type="button"
             onClick={onOpenNewPatient}
-            className="flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline mb-1"
+            className="flex items-center gap-1 text-xs font-medium text-primary dark:text-primary hover:underline mb-1"
           >
             <UserPlus className="w-3.5 h-3.5" />
             {t('radiology.schedule.addNewPatient')}

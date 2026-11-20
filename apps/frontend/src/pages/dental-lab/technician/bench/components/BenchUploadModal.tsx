@@ -33,7 +33,7 @@ export const BenchUploadModal: React.FC<BenchUploadModalProps> = ({
             id="bench-upload-modal-title"
             className="font-bold text-sm text-foreground flex items-center gap-2"
           >
-            <Upload className="w-4 h-4 text-blue-600" />
+            <Upload className="w-4 h-4 text-primary" />
             <span>رفع مخرجات المرحلة أو صور توثيق</span>
           </h4>
           <button
@@ -74,7 +74,7 @@ export const BenchUploadModal: React.FC<BenchUploadModalProps> = ({
             <button
               type="submit"
               disabled={!uploadFile || uploading}
-              className="px-4 py-1.5 text-xs font-bold rounded-lg bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50 flex items-center gap-1.5 shadow-xs"
+              className="px-4 py-1.5 text-xs font-bold rounded-lg bg-primary hover:bg-primary text-white disabled:opacity-50 flex items-center gap-1.5 shadow-xs"
             >
               {uploading && <RefreshCw className="w-3 h-3 animate-spin" />}
               <span>رفع وتأكيد</span>

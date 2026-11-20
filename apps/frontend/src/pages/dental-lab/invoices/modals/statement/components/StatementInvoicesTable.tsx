@@ -59,7 +59,7 @@ export const StatementInvoicesTable: React.FC<StatementInvoicesTableProps> = ({
                 key={inv.id}
                 className="hover:bg-gray-50/50 dark:hover:bg-muted font-mono tabular-nums"
               >
-                <td className="py-2.5 px-3 font-semibold text-blue-600 print:text-black">
+                <td className="py-2.5 px-3 font-semibold text-primary print:text-black">
                   {inv.invoiceNumber || inv.id?.slice(0, 8)}
                 </td>
                 <td className="py-2.5 px-3 text-foreground">

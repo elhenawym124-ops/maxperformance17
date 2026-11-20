@@ -214,7 +214,7 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
               id="isActiveToggle"
               checked={isActive}
               onChange={(e) => setIsActive(e.target.checked)}
-              className="rounded text-blue-600 w-4 h-4"
+              className="rounded text-primary w-4 h-4"
             />
             <label htmlFor="isActiveToggle" className="text-xs text-foreground dark:text-muted-foreground cursor-pointer">
               {isEn ? 'Active & available for billing' : 'الخدمة مفعلة ومتاحة لاحتساب الرسوم'}
@@ -232,7 +232,7 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
             <button
               type="submit"
               disabled={submitting}
-              className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium disabled:opacity-50 transition-colors"
+              className="px-4 py-1.5 bg-primary hover:bg-primary text-white rounded-lg text-xs font-medium disabled:opacity-50 transition-colors"
             >
               {submitting ? (isEn ? 'Saving...' : 'جارٍ الحفظ...') : (isEn ? 'Save Service' : 'حفظ الخدمة')}
             </button>

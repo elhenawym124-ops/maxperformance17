@@ -29,7 +29,7 @@ export const DentalCaseEditDoctorPatientSection: React.FC<DentalCaseEditDoctorPa
   return (
     <div className="bg-gray-50/70 dark:bg-muted p-4 rounded-xl border dark:border-border">
       <h4 className={sectionTitleCls}>
-        <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+        <User className="w-4 h-4 text-primary dark:text-primary" />
         <span>بيانات الطبيب والمريض</span>
       </h4>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">

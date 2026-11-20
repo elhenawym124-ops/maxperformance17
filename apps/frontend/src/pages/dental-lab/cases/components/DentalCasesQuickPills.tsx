@@ -97,10 +97,10 @@ export function DentalCasesQuickPills({
         className={`px-2.5 py-0.5 rounded-full font-medium transition-all shrink-0 flex items-center gap-1 text-xs ${
           dateRangePreset === "received_today"
             ? "bg-blue-600 text-white shadow-2xs"
-            : "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100 border border-blue-200/80 dark:border-blue-900"
+            : "bg-blue-50 dark:bg-primary/40 text-primary dark:text-primary hover:bg-primary border border-primary/80 dark:border-primary"
         }`}
       >
-        <PackageCheck className="w-3 h-3 text-blue-500" />
+        <PackageCheck className="w-3 h-3 text-primary" />
         <span>وارد اليوم</span>
       </button>
       <button

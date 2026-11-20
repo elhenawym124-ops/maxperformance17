@@ -46,7 +46,7 @@ export const EmployeeDocumentsTab: React.FC<EmployeeDocumentsTabProps> = ({
                 key={doc.id}
                 className="flex items-center gap-3 p-4 border rounded-lg bg-muted dark:bg-muted"
               >
-                <FileText className="h-8 w-8 text-blue-500 shrink-0" />
+                <FileText className="h-8 w-8 text-primary shrink-0" />
                 <div>
                   <p className="font-medium text-sm">{doc.title}</p>
                   <p className="text-xs text-muted-foreground">{doc.type}</p>

@@ -126,7 +126,7 @@ export function CustomFieldsSettingsSection({
         <button
           onClick={addField}
           disabled={!newFieldName.trim()}
-          className="flex items-center gap-1.5 px-3 py-2 bg-blue-600 text-white rounded-lg text-xs hover:bg-blue-700 disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-2 bg-primary text-white rounded-lg text-xs hover:bg-primary disabled:opacity-50"
         >
           <Plus className="w-3.5 h-3.5" />
           {t("dentalLab.settings.addField")}

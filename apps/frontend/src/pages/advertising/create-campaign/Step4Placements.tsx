@@ -106,14 +106,14 @@ export const Step4Placements: React.FC<Step4PlacementsProps> = ({
       )}
 
       {formData.placementType === "AUTOMATIC" && (
-        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+        <div className="p-4 bg-primary/10 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg">
           <div className="flex gap-2">
-            <InformationCircleIcon className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+            <InformationCircleIcon className="w-5 h-5 text-primary dark:text-primary flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-blue-800 dark:text-blue-200 font-medium">
+              <p className="text-sm text-primary dark:text-primary font-medium">
                 Advantage+ Placements
               </p>
-              <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
+              <p className="text-sm text-primary dark:text-primary mt-1">
                 سيتم عرض إعلاناتك على جميع المنصات المتاحة (Facebook, Instagram,
                 Messenger, Audience Network) وسيقوم Facebook بتحسين التوزيع
                 تلقائياً لتحقيق أفضل النتائج.

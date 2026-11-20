@@ -381,7 +381,7 @@ export const Step6Review: React.FC<Step6ReviewProps> = ({
           {formData.linkUrl && (
             <div className="flex justify-between py-2">
               <span className="text-gray-600 dark:text-muted-foreground">{isEn ? "Destination URL" : "رابط الوجهة"}</span>
-              <span className="font-medium text-blue-600 dark:text-blue-400 truncate max-w-xs">
+              <span className="font-medium text-primary dark:text-primary truncate max-w-xs">
                 {formData.linkUrl}
               </span>
             </div>

@@ -46,7 +46,7 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
         <div className="flex items-center gap-2 flex-wrap">
           <Link
             to="/analytics/orders/fulfillment-velocity"
-            className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline bg-blue-50 dark:bg-blue-950/40 px-2 py-1 rounded-md"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-primary dark:text-primary hover:underline bg-primary/10 dark:bg-primary/40 px-2 py-1 rounded-md"
           >
             <span>سرعة الإنجاز وشحن اليوم</span>
             <ArrowRightIcon className="h-3 w-3 rotate-180" />
@@ -113,20 +113,20 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
         </div>
 
         {/* Stage 2: مع الشحن / قيد التوصيل */}
-        <div className="rounded-lg bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 p-2.5 sm:p-3">
-          <div className="flex items-center justify-between text-blue-800 dark:text-blue-300">
+        <div className="rounded-lg bg-primary/50 dark:bg-primary/20 border border-primary dark:border-primary/30 p-2.5 sm:p-3">
+          <div className="flex items-center justify-between text-primary dark:text-primary">
             <span className="text-xs font-semibold">مع شركة الشحن</span>
             <TruckIcon className="h-4 w-4" />
           </div>
           <div className="mt-1 flex items-baseline gap-1">
-            <span className="text-lg sm:text-xl font-bold text-blue-900 dark:text-blue-100 tabular-nums">
+            <span className="text-lg sm:text-xl font-bold text-primary dark:text-primary tabular-nums">
               {inTransit.toLocaleString()}
             </span>
-            <span className="text-xs text-blue-700 dark:text-blue-400 tabular-nums">
+            <span className="text-xs text-primary dark:text-primary tabular-nums">
               ({inTransitPct}%)
             </span>
           </div>
-          <p className="text-[11px] text-blue-600/80 dark:text-blue-400/80 mt-1">
+          <p className="text-[11px] text-primary/80 dark:text-primary/80 mt-1">
             شحنات جارية مع المناديب
           </p>
         </div>

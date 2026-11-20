@@ -166,7 +166,7 @@ export const CarrierInboxPage: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "OPEN":
-        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">مفتوحة</span>;
+        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-primary text-primary dark:bg-primary/40 dark:text-primary">مفتوحة</span>;
       case "PENDING_MERCHANT":
         return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-warning text-warning dark:bg-warning/40 dark:text-warning">في انتظار الرد</span>;
       case "RESOLVED":

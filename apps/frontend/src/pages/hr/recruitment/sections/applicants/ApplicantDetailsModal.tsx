@@ -96,7 +96,7 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
                     selectedApplicant.skills.map((skill, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 text-sm rounded-full border border-blue-200"
+                        className="px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary text-sm rounded-full border border-primary"
                       >
                         {skill}
                       </span>
@@ -138,7 +138,7 @@ export const ApplicantDetailsModal: React.FC<ApplicantDetailsModalProps> = ({
                   href={selectedApplicant.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:shadow-lg transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:shadow-lg transition-all"
                 >
                   <DocumentTextIcon className="w-5 h-5" />
                   عرض السيرة الذاتية

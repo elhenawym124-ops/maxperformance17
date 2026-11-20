@@ -251,12 +251,12 @@ export const VariantsTab: React.FC<VariantsTabProps> = ({
             </button>
 
             {variants.length === 0 && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4 text-center">
-                <CubeIcon className="h-12 w-12 text-blue-400 dark:text-blue-500 mx-auto mb-2" />
-                <p className="text-blue-700 dark:text-blue-300 font-medium">
+              <div className="bg-blue-50 dark:bg-primary/20 border border-primary dark:border-primary rounded-lg p-4 text-center">
+                <CubeIcon className="h-12 w-12 text-primary dark:text-primary mx-auto mb-2" />
+                <p className="text-blue-700 dark:text-primary font-medium">
                   {t("products.variants.noVariants")}
                 </p>
-                <p className="text-blue-600 dark:text-blue-400 text-sm">
+                <p className="text-blue-600 dark:text-primary text-sm">
                   {t("products.variants.noVariantsDesc")}
                 </p>
               </div>

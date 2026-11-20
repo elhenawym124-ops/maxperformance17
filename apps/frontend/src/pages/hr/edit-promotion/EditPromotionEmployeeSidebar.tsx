@@ -67,7 +67,7 @@ export const EditPromotionEmployeeSidebar: React.FC<
               <div className="bg-gray-50 p-4 rounded-xl flex items-center gap-4 mt-4 border border-border">
                 <Avatar className="h-16 w-16 border-2 border-white shadow-sm">
                   <AvatarImage src={selectedEmployee.avatar} />
-                  <AvatarFallback className="bg-blue-100 text-blue-600 text-xl font-bold">
+                  <AvatarFallback className="bg-blue-100 text-primary text-xl font-bold">
                     {selectedEmployee.firstName?.[0]}
                     {selectedEmployee.lastName?.[0]}
                   </AvatarFallback>

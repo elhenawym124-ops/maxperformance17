@@ -158,8 +158,8 @@ export const MyDashboardFinancialTabContent: React.FC<
                 className="flex items-center justify-between p-4 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border"
               >
                 <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 bg-blue-100 dark:bg-blue-900/20 rounded-xl flex items-center justify-center">
-                    <DollarSign className="h-5 w-5 text-blue-600" />
+                  <div className="h-10 w-10 bg-primary dark:bg-primary/20 rounded-xl flex items-center justify-center">
+                    <DollarSign className="h-5 w-5 text-primary" />
                   </div>
                   <div>
                     <p className="font-bold font-mono tabular-nums text-foreground">
@@ -214,9 +214,9 @@ export const MyDashboardGoalsAndFooterSection: React.FC<{ t: TFunction }> = ({
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-xl border border-blue-100/50 dark:border-blue-900/20">
+            <div className="p-4 bg-primary/50 dark:bg-primary/10 rounded-xl border border-primary/50 dark:border-primary/20">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-blue-600">
+                <div className="p-2 bg-primary dark:bg-primary/30 rounded-lg text-primary">
                   <Target className="h-5 w-5" />
                 </div>
                 <h5 className="font-bold text-foreground">
@@ -226,13 +226,13 @@ export const MyDashboardGoalsAndFooterSection: React.FC<{ t: TFunction }> = ({
               <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
                 {t("employee.dashboard.improvePerformanceDesc")}
               </p>
-              <div className="flex items-center justify-between text-[10px] font-bold font-mono tabular-nums text-blue-600 mb-1">
+              <div className="flex items-center justify-between text-[10px] font-bold font-mono tabular-nums text-primary mb-1">
                 <span>{t("employee.dashboard.completionRate")}</span>
                 <span>75%</span>
               </div>
               <Progress
                 value={75}
-                className="h-1.5 bg-blue-100 dark:bg-blue-900/30"
+                className="h-1.5 bg-primary dark:bg-primary/30"
               />
             </div>
 

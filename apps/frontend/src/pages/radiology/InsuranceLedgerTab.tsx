@@ -194,7 +194,7 @@ export default function InsuranceLedgerTab() {
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setModal(null)} className="px-4 py-2 text-foreground border rounded-lg hover:bg-muted dark:hover:bg-muted">{t("radiology.cancel")}</button>
-              <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2">
+              <button onClick={save} disabled={saving} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>

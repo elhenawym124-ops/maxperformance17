@@ -83,7 +83,7 @@ export default function InsuranceCompaniesTab() {
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => load()} className="flex items-center gap-2 px-4 py-2 border dark:border-border rounded-lg text-sm"><RefreshCw className="w-4 h-4" />{t("radiology.refresh")}</button>
-          <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"><Plus className="w-4 h-4" />{t("radiology.insuranceCompanies.newEntity")}</button>
+          <button onClick={openNew} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary text-sm"><Plus className="w-4 h-4" />{t("radiology.insuranceCompanies.newEntity")}</button>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ export default function InsuranceCompaniesTab() {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
-                      <button onClick={() => { setModal(c); setName(c.name); setPhone(c.phone1 || ""); }} className="px-2 py-1 text-xs bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 rounded-lg">{t("radiology.insuranceCompanies.edit")}</button>
+                      <button onClick={() => { setModal(c); setName(c.name); setPhone(c.phone1 || ""); }} className="px-2 py-1 text-xs bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary rounded-lg">{t("radiology.insuranceCompanies.edit")}</button>
                       <button onClick={() => toggle(c)} className="px-2 py-1 text-xs bg-muted text-foreground dark:bg-muted dark:text-muted-foreground rounded-lg">{c.isActive === false ? t("radiology.insuranceCompanies.activate") : t("radiology.insuranceCompanies.deactivate")}</button>
                     </div>
                   </td>
@@ -146,7 +146,7 @@ export default function InsuranceCompaniesTab() {
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setModal(null)} disabled={saving} className="px-4 py-2 text-foreground border rounded-lg disabled:opacity-50">{t("radiology.cancel")}</button>
-              <button onClick={save} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50 flex items-center gap-2">
+              <button onClick={save} disabled={saving} className="px-4 py-2 bg-primary text-white rounded-lg disabled:opacity-50 flex items-center gap-2">
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}{t("radiology.save")}
               </button>
             </div>

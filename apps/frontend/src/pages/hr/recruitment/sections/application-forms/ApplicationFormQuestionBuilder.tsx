@@ -91,8 +91,8 @@ export const ApplicationFormQuestionBuilder: React.FC<
         </div>
       )}
 
-      <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border-2 border-blue-200 dark:border-blue-800">
-        <h4 className="font-medium text-blue-800 dark:text-blue-300 mb-3">
+      <div className="p-4 bg-primary/10 dark:bg-primary/20 rounded-xl border-2 border-primary dark:border-primary">
+        <h4 className="font-medium text-primary dark:text-primary mb-3">
           إضافة سؤال جديد
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
@@ -140,7 +140,7 @@ export const ApplicationFormQuestionBuilder: React.FC<
               />
               <button
                 onClick={onAddOption}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
               >
                 إضافة
               </button>
@@ -177,7 +177,7 @@ export const ApplicationFormQuestionBuilder: React.FC<
                   isRequired: e.target.checked,
                 }))
               }
-              className="w-4 h-4 text-blue-600 rounded"
+              className="w-4 h-4 text-primary rounded"
             />
             <span className="text-sm text-foreground">
               سؤال إجباري
@@ -185,7 +185,7 @@ export const ApplicationFormQuestionBuilder: React.FC<
           </label>
           <button
             onClick={onAddQuestion}
-            className="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
           >
             <PlusIcon className="w-4 h-4" />
             إضافة السؤال

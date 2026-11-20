@@ -65,7 +65,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
                 required
                 value={typeName}
                 onChange={(e) => setTypeName(e.target.value)}
-                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-primary focus:ring-primary"
               />
             </div>
             <div>
@@ -76,7 +76,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
                 required
                 value={typeShippingCompanyId}
                 onChange={(e) => setTypeShippingCompanyId(e.target.value)}
-                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-primary focus:ring-primary"
               >
                 <option value="">{t('returns.k_115')}</option>
                 {shippingCompanies.map((c) => (
@@ -94,7 +94,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
                 required
                 value={typeCode}
                 onChange={(e) => setTypeCode(e.target.value as ReturnTypeCode)}
-                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-primary focus:ring-primary"
               >
                 <option value="SENDER_PAYS">{t('returns.k_241')}</option>
                 <option value="RECIPIENT_PAYS">{t('returns.k_242')}</option>
@@ -110,7 +110,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
                 required
                 value={typeCostModel}
                 onChange={(e) => setTypeCostModel(e.target.value as ReturnTypeCostModel)}
-                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-primary focus:ring-primary"
               >
                 <option value="FULL">{t('returns.k_245')}</option>
                 <option value="NONE">{t('returns.k_246')}</option>
@@ -130,7 +130,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
                   value={typeFixedAmount}
                   onChange={(e) => setTypeFixedAmount(e.target.value)}
                   placeholder="0.00"
-                  className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500 tabular-nums font-mono"
+                  className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-primary focus:ring-primary tabular-nums font-mono"
                 />
               </div>
             )}
@@ -146,7 +146,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
             <button
               type="submit"
               disabled={savingType}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors disabled:opacity-50"
             >
               {savingType ? t('returns.k_105') : t('returns.k_186')}
             </button>

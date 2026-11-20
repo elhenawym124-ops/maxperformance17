@@ -47,7 +47,7 @@ const CourierMobileRunPage: React.FC = () => {
       <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center p-4 text-foreground dark:text-muted-foreground" dir="rtl">
         <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-sm w-full p-6 shadow-xl space-y-4">
           <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/60 text-primary flex items-center justify-center">
               <KeyIcon className="w-6 h-6" />
             </div>
             <h3 className="font-bold text-base text-foreground dark:text-muted-foreground">
@@ -76,14 +76,14 @@ const CourierMobileRunPage: React.FC = () => {
                 onChange={(e) => setLinkPinInput(e.target.value.replace(/[^0-9]/g, ''))}
                 placeholder="••••"
                 autoFocus
-                className="w-full text-center tracking-widest text-xl font-mono font-bold py-3 px-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full text-center tracking-widest text-xl font-mono font-bold py-3 px-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
 
             <button
               type="submit"
               disabled={verifyingPin || linkPinInput.length < 4}
-              className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-xs disabled:opacity-40 flex items-center justify-center gap-2"
+              className="w-full py-2.5 px-4 bg-primary hover:bg-primary text-white rounded-xl text-xs font-bold transition shadow-xs disabled:opacity-40 flex items-center justify-center gap-2"
             >
               {verifyingPin ? (
                 <>

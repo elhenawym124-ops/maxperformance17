@@ -30,7 +30,7 @@ export const CampaignTabsNav: React.FC<CampaignTabsNavProps> = ({
               onClick={() => onTabChange(tab.id)}
               className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${
                 activeTab === tab.id
-                  ? "border-blue-500 text-blue-600 dark:text-blue-400"
+                  ? "border-blue-500 text-primary dark:text-primary"
                   : "business-border-clear text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground business-control-border"
               }`}
             >

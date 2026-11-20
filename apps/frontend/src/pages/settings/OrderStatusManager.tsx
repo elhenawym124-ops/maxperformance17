@@ -50,7 +50,7 @@ const OrderStatusManager: React.FC = () => {
 
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
       ) : (
         <div className="space-y-3">
@@ -79,7 +79,7 @@ const OrderStatusManager: React.FC = () => {
           <button
             type="button"
             onClick={() => setShowAddModal(true)}
-            className="mt-3 text-xs font-semibold text-blue-600 hover:underline"
+            className="mt-3 text-xs font-semibold text-primary hover:underline"
           >
             إضافة حالة جديدة
           </button>

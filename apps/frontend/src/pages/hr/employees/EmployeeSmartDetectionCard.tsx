@@ -73,9 +73,9 @@ export const EmployeeSmartDetectionCard: React.FC<
 
       {lookupResult.status === "COMPANY_USER_NOT_EMPLOYEE" && (
         <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10 border border-blue-200 dark:border-blue-800">
+          <Avatar className="h-10 w-10 border border-primary dark:border-primary">
             <AvatarImage src={user.avatar} />
-            <AvatarFallback className="bg-blue-100 text-blue-800 text-xs font-semibold">
+            <AvatarFallback className="bg-blue-100 text-primary text-xs font-semibold">
               {user.firstName?.[0] || "U"}
             </AvatarFallback>
           </Avatar>
@@ -86,7 +86,7 @@ export const EmployeeSmartDetectionCard: React.FC<
               </span>
               <Badge
                 variant="outline"
-                className="bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800 text-[11px] py-0 px-1.5 shrink-0"
+                className="bg-blue-50 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary text-[11px] py-0 px-1.5 shrink-0"
               >
                 {t("employees.accountCompanyMember")}
               </Badge>

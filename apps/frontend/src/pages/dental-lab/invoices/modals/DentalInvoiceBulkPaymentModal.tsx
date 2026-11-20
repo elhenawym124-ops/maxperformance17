@@ -98,7 +98,7 @@ export function DentalInvoiceBulkPaymentModal({
                 <button
                   type="button"
                   onClick={() => setAmount(String(doctor.outstanding))}
-                  className="text-xs text-blue-600 hover:underline font-mono tabular-nums"
+                  className="text-xs text-primary hover:underline font-mono tabular-nums"
                 >
                   سداد كامل المديونية
                 </button>

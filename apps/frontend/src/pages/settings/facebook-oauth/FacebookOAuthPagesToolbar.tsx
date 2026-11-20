@@ -37,7 +37,7 @@ export const FacebookOAuthPagesToolbar: React.FC<FacebookOAuthPagesToolbarProps>
           type="checkbox"
           checked={allPagesSelected}
           onChange={onToggleSelectAll}
-          className="h-3.5 w-3.5 rounded border-border text-blue-600 focus:ring-blue-500"
+          className="h-3.5 w-3.5 rounded border-border text-primary focus:ring-primary"
         />
         <span>{t("facebookOAuth.selectAll", "تحديد الكل")}</span>
         <span className="font-mono text-[11px] tabular-nums text-muted-foreground">

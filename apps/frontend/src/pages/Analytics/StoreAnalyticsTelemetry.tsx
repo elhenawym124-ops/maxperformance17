@@ -93,7 +93,7 @@ export const StoreAnalyticsTelemetry: React.FC<StoreAnalyticsTelemetryProps> = (
         <div className="rounded-lg border border-border/70 bg-card p-3 shadow-none">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>طلبات المتجر الناجحة</span>
-            <ShoppingBag className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+            <ShoppingBag className="h-3.5 w-3.5 text-primary dark:text-primary" />
           </div>
           <div className="mt-1.5 flex items-baseline justify-between gap-1">
             <span className="font-mono text-xl font-bold tabular-nums text-foreground">

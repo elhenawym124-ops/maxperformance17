@@ -154,7 +154,7 @@ export const ShiftEditAndDeleteDialogs: React.FC<
               </div>
             </div>
 
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-md text-sm text-blue-800 dark:text-blue-200 flex justify-between items-center">
+            <div className="bg-blue-50 dark:bg-primary/20 p-3 rounded-md text-sm text-primary dark:text-primary flex justify-between items-center">
               <span>ساعات العمل الصافية:</span>
               <span className="font-bold text-lg">
                 <span className="font-mono tabular-nums">

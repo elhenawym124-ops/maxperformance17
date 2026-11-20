@@ -30,9 +30,9 @@ export const DentalTechWageTab: React.FC<DentalTechWageTabProps> = ({ wage }) =>
           </p>
         </div>
 
-        <div className="p-4 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-950/20 shadow-xs">
-          <span className="text-xs text-blue-700 dark:text-blue-300 font-semibold block">صافي الرصيد المستحق</span>
-          <p className="text-xl font-black text-blue-700 dark:text-blue-300 mt-1">
+        <div className="p-4 rounded-xl border border-primary dark:border-primary bg-primary/50 dark:bg-primary/20 shadow-xs">
+          <span className="text-xs text-primary dark:text-primary font-semibold block">صافي الرصيد المستحق</span>
+          <p className="text-xl font-black text-primary dark:text-primary mt-1">
             {fmtMoney(wage?.balance ?? 0)} <span className="text-xs">ج.م</span>
           </p>
         </div>

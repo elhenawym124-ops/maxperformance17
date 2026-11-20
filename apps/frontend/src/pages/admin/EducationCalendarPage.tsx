@@ -46,7 +46,7 @@ const getDays = (isEn: boolean) => isEn
 const getStatusConfig = (isEn: boolean): Record<string, { label: string; badge: string; dot: string }> => ({
   SCHEDULED: {
     label: isEn ? "Scheduled" : "مجدولة",
-    badge: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+    badge: "bg-blue-500/10 text-primary dark:text-primary border-primary/20",
     dot: "bg-blue-500",
   },
   CONFIRMED: {
@@ -654,11 +654,11 @@ const EducationCalendarPage: React.FC = () => {
         <div className="bg-card border border-border/80 rounded-xl p-3 flex items-center justify-between shadow-xs">
           <div className="space-y-0.5">
             <div className="text-[11px] text-muted-foreground">{t("education.calendar.scheduledSessions", isEn ? "Scheduled Sessions" : "حصص مجدولة")}</div>
-            <div className="text-lg font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+            <div className="text-lg font-bold text-primary dark:text-primary font-mono tabular-nums">
               {stats.scheduled}
             </div>
           </div>
-          <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20">
+          <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary dark:text-primary flex items-center justify-center border border-primary/20">
             <Clock className="w-4 h-4" />
           </div>
         </div>

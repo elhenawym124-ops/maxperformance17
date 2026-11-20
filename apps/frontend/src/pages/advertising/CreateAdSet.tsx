@@ -589,7 +589,7 @@ const CreateAdSet: React.FC = () => {
               type="button"
               onClick={handleSubmit}
               disabled={loading}
-              className="px-8 py-2.5 rounded-xl bg-gradient-to-r from-info to-blue-600 hover:from-info hover:to-blue-700 text-white text-xs sm:text-sm font-bold shadow-md disabled:opacity-50 transition-all active:scale-95 cursor-pointer flex items-center gap-2"
+              className="px-8 py-2.5 rounded-xl bg-gradient-to-r from-info to-primary hover:from-info hover:to-primary text-white text-xs sm:text-sm font-bold shadow-md disabled:opacity-50 transition-all active:scale-95 cursor-pointer flex items-center gap-2"
             >
               {loading ? (
                 <>

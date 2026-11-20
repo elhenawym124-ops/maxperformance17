@@ -81,7 +81,7 @@ export const DentalTechNotificationsTab: React.FC<DentalTechNotificationsTabProp
         {/* 2. New Assignments */}
         <div className="space-y-2 pt-2">
           <h4 className="text-xs font-bold text-foreground flex items-center gap-1.5">
-            <ListChecks className="w-4 h-4 text-blue-600" />
+            <ListChecks className="w-4 h-4 text-primary" />
             <span>الحالات قيد التنفيذ بمحطتك ({safeCases.length})</span>
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">

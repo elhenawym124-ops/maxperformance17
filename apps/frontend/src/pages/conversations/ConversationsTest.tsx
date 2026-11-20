@@ -17,11 +17,11 @@ const ConversationsTest: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <h3 className="text-lg font-semibold text-blue-800 mb-2">
+          <div className="p-4 bg-primary/10 border border-primary rounded-lg">
+            <h3 className="text-lg font-semibold text-primary mb-2">
               📋 الخطوات التالية:
             </h3>
-            <ul className="list-disc list-inside text-blue-700 space-y-1">
+            <ul className="list-disc list-inside text-primary space-y-1">
               <li>التأكد من تحميل المحادثات من الـ API</li>
               <li>إضافة الميزات المتقدمة تدريجياً</li>
               <li>اختبار Socket.IO والرسائل الفورية</li>

@@ -43,7 +43,7 @@ export const ProductDeliveryReturnsKpis: React.FC<Props> = ({ summary, onFilterC
           <span className="text-xs font-medium text-muted-foreground dark:text-muted-foreground">
             معدل ومبالغ التحصيل (COD)
           </span>
-          <div className="h-8 w-8 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+          <div className="h-8 w-8 rounded-lg bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary flex items-center justify-center">
             <DollarSign className="h-4 w-4" />
           </div>
         </div>
@@ -108,7 +108,7 @@ export const ProductDeliveryReturnsKpis: React.FC<Props> = ({ summary, onFilterC
         </div>
         <div className="mt-2.5 pt-2.5 border-t border-border dark:border-border flex items-center justify-between text-xs text-muted-foreground">
           <span>نسبة المرتجع العام: <strong className="font-mono text-foreground dark:text-muted-foreground">{summary.overallReturnRate}%</strong></span>
-          <span className="text-blue-600 dark:text-blue-400 hover:underline">فلترة الحرجة ←</span>
+          <span className="text-blue-600 dark:text-primary hover:underline">فلترة الحرجة ←</span>
         </div>
       </div>
     </div>

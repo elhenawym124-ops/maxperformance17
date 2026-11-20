@@ -121,13 +121,13 @@ export function DentalInvoiceSettlementVoucherModal({
                   <td className="py-2.5 px-3 font-semibold text-left font-mono">{fmtMoney(settlement.openingBalance)}</td>
                 </tr>
                 <tr>
-                  <td className="py-2.5 px-3 font-medium text-blue-700 dark:text-blue-400">
+                  <td className="py-2.5 px-3 font-medium text-primary dark:text-primary">
                     (+) قيمة الأعمال والفواتير الصادرة بالشهر
                   </td>
                   <td className="py-2.5 px-3 text-muted-foreground">
                     {settlement.invoicesCount} فاتورة / {settlement.casesCount} حالة
                   </td>
-                  <td className="py-2.5 px-3 font-semibold text-blue-700 dark:text-blue-400 text-left font-mono">
+                  <td className="py-2.5 px-3 font-semibold text-primary dark:text-primary text-left font-mono">
                     + {fmtMoney(settlement.totalBilled)}
                   </td>
                 </tr>

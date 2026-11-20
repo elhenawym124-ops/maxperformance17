@@ -51,7 +51,7 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
               </span>
             )}
             {!isDelivered && !isReturned && (
-              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200">
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary dark:bg-primary/60 dark:text-primary border border-primary">
                 <ClockIcon className="w-3 h-3" />
                 قيد التوصيل
               </span>
@@ -94,7 +94,7 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
           {customerPhone && (
             <a
               href={`tel:${customerPhone}`}
-              className="p-2 rounded-xl border border-border dark:border-border text-blue-600 hover:bg-blue-50 dark:hover:bg-muted transition flex items-center justify-center"
+              className="p-2 rounded-xl border border-border dark:border-border text-primary hover:bg-primary/10 dark:hover:bg-muted transition flex items-center justify-center"
               title="اتصال هاتفي بالعميل"
             >
               <PhoneIcon className="w-4 h-4" />
@@ -132,7 +132,7 @@ export const CourierShipmentCard: React.FC<CourierShipmentCardProps> = ({
         {/* Primary Status Action Button */}
         <button
           onClick={() => onOpenSheet(shipment)}
-          className="flex-1 max-w-[140px] py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-xs flex items-center justify-center gap-1 active:scale-[0.98]"
+          className="flex-1 max-w-[140px] py-2 px-3 bg-primary hover:bg-primary text-white rounded-xl text-xs font-bold transition shadow-xs flex items-center justify-center gap-1 active:scale-[0.98]"
         >
           <span>تحديث الحالة</span>
         </button>

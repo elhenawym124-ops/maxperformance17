@@ -291,7 +291,7 @@ const TeamPerformanceAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>{t("teamPerformance.totalMembers", "إجمالي أعضاء الفريق")}</span>
-              <Users className="h-4 w-4 text-blue-500" />
+              <Users className="h-4 w-4 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">
               {loading ? "..." : (stats?.totalTeamMembers || 0)}

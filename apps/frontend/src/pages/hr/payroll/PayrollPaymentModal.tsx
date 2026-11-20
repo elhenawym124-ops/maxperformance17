@@ -35,7 +35,7 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
           {/* Header */}
           <div className="p-6 pb-2">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-50 dark:bg-blue-500/10 rounded-lg text-blue-600 dark:text-blue-400">
+              <div className="p-2 bg-primary/10 dark:bg-primary/10 rounded-lg text-primary dark:text-primary">
                 <CreditCard className="h-6 w-6" />
               </div>
               <DialogTitle className="text-xl font-bold dark:text-white">بيانات الدفع</DialogTitle>
@@ -54,7 +54,7 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
                   key={method.id}
                   onClick={() => setPaymentMethod(method.id as PaymentMethod)}
                   className={`flex-1 flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all ${paymentMethod === method.id
-                    ? 'bg-white dark:bg-muted shadow text-blue-600 dark:text-blue-400'
+                    ? 'bg-white dark:bg-muted shadow text-primary dark:text-primary'
                     : 'text-slate-500 hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground'
                     }`}
                 >
@@ -71,18 +71,18 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-4"
               >
-                <div className="border border-border hover:border-blue-200 transition-colors dark:border-border flex justify-between items-center rounded-xl p-5 bg-white dark:bg-muted shadow-sm">
+                <div className="border border-border hover:border-primary transition-colors dark:border-border flex justify-between items-center rounded-xl p-5 bg-white dark:bg-muted shadow-sm">
                   <div className="space-y-1 text-right">
                     <p className="text-slate-400 text-xs font-semibold mb-2">المسار البنكي</p>
                     <p className="text-slate-900 dark:text-white font-bold text-lg">البنك الوطني</p>
                     <p className="text-slate-500 text-sm">حساب نشط - جاري</p>
                   </div>
-                  <div className="h-16 w-16 rounded-xl bg-blue-100 dark:bg-blue-500/20 flex justify-center items-center shadow-sm">
-                    <span className="text-blue-600 dark:text-blue-400 font-bold tracking-tight text-4xl italic">B</span>
+                  <div className="h-16 w-16 rounded-xl bg-primary dark:bg-primary/20 flex justify-center items-center shadow-sm">
+                    <span className="text-blue-600 dark:text-primary font-bold tracking-tight text-4xl italic">B</span>
                   </div>
                 </div>
 
-                <div className="border border-border hover:border-blue-200 transition-colors dark:border-border rounded-xl p-5 bg-white dark:bg-muted shadow-sm text-right">
+                <div className="border border-border hover:border-primary transition-colors dark:border-border rounded-xl p-5 bg-white dark:bg-muted shadow-sm text-right">
                   <p className="text-slate-400 text-xs font-semibold mb-3">رقم الحساب الدولي</p>
                   <p className="text-slate-900 dark:text-white font-bold tracking-widest text-lg md:text-xl text-center font-mono tabular-nums" dir="ltr">
                     ...0003 4827 1019 3828
@@ -139,7 +139,7 @@ export const PayrollPaymentModal: React.FC<PayrollPaymentModalProps> = ({
             <Button
               onClick={onConfirmPayment}
               disabled={paying}
-              className="bg-blue-600 hover:bg-blue-700 text-white min-w-[140px] shadow-md shadow-blue-500/20"
+              className="bg-blue-600 hover:bg-primary text-white min-w-[140px] shadow-md shadow-primary/20"
             >
               {paying ? (
                 <>

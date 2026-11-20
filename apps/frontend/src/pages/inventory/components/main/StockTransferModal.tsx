@@ -52,7 +52,7 @@ export const StockTransferModal: React.FC<StockTransferModalProps> = ({
         </div>
 
         <div className="space-y-3.5">
-          <div className="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-xl text-xs text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+          <div className="bg-blue-50 dark:bg-primary/30 p-3 rounded-xl text-xs text-primary dark:text-primary border border-primary dark:border-primary">
             سيتم نقل الكمية المحددة من مستودع المصدر إلى مستودع الوجهة بشكل مباشر.
           </div>
 

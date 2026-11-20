@@ -262,7 +262,7 @@ const CampaignResultsPredictor: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-4xl font-bold text-foreground mb-2 flex items-center gap-3">
-                <CalculatorIcon className="w-10 h-10 text-blue-600" />
+                <CalculatorIcon className="w-10 h-10 text-primary" />
                 حاسبة توقعات نتائج حملات الرسائل
               </h1>
               <p className="text-gray-600 dark:text-muted-foreground">
@@ -294,7 +294,7 @@ const CampaignResultsPredictor: React.FC = () => {
         {/* Loading State */}
         {loading && (
           <div className="bg-card rounded-xl shadow-lg p-12 text-center">
-            <RefreshCwIcon className="h-12 w-12 animate-spin text-blue-600 mx-auto mb-4" />
+            <RefreshCwIcon className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
             <p className="text-gray-600 dark:text-muted-foreground text-lg">جاري تحميل البيانات التاريخية...</p>
           </div>
         )}
@@ -321,7 +321,7 @@ const CampaignResultsPredictor: React.FC = () => {
             {/* Parameters Section */}
             <div className="bg-card rounded-xl shadow-lg p-6">
               <h2 className="text-2xl font-semibold text-foreground mb-6 flex items-center gap-2">
-                <TargetIcon className="w-6 h-6 text-blue-600" />
+                <TargetIcon className="w-6 h-6 text-primary" />
                 المتغيرات الأساسية
               </h2>
 
@@ -336,7 +336,7 @@ const CampaignResultsPredictor: React.FC = () => {
                       type="number"
                       value={params.messagesCount}
                       onChange={(e) => handleParamChange('messagesCount', parseInt(e.target.value) || 0)}
-                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                       min="0"
                       step="100"
                     />
@@ -350,7 +350,7 @@ const CampaignResultsPredictor: React.FC = () => {
                       type="number"
                       value={params.campaignCost}
                       onChange={(e) => handleParamChange('campaignCost', parseInt(e.target.value) || 0)}
-                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                       min="0"
                       step="100"
                     />
@@ -364,7 +364,7 @@ const CampaignResultsPredictor: React.FC = () => {
                       type="number"
                       value={params.avgRevenuePerConversation}
                       onChange={(e) => handleParamChange('avgRevenuePerConversation', parseFloat(e.target.value) || 0)}
-                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                       min="0"
                       step="10"
                     />
@@ -414,16 +414,16 @@ const CampaignResultsPredictor: React.FC = () => {
                   </div>
 
                   {/* Optimal Timing */}
-                  <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
-                    <h3 className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-3">الوقت الأمثل للإرسال</h3>
+                  <div className="bg-blue-50 dark:bg-primary/20 rounded-lg p-4 border border-primary dark:border-primary">
+                    <h3 className="text-sm font-medium text-primary dark:text-primary mb-3">الوقت الأمثل للإرسال</h3>
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <span className="text-sm text-foreground">أفضل ساعة:</span>
-                        <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{params.peakHour}:00</span>
+                        <span className="text-sm font-semibold text-primary dark:text-primary">{params.peakHour}:00</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-sm text-foreground">أفضل يوم:</span>
-                        <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{days[params.bestDay]}</span>
+                        <span className="text-sm font-semibold text-primary dark:text-primary">{days[params.bestDay]}</span>
                       </div>
                     </div>
                   </div>
@@ -436,7 +436,7 @@ const CampaignResultsPredictor: React.FC = () => {
               <>
                 {/* Key Metrics */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
+                  <div className="bg-gradient-to-br from-primary to-primary rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
                     <div className="flex items-center justify-between mb-4">
                       <UsersIcon className="h-12 w-12 opacity-80" />
                       <div className="bg-white/20 rounded-full p-2">
@@ -529,7 +529,7 @@ const CampaignResultsPredictor: React.FC = () => {
                         <div
                           key={index}
                           className={`p-4 rounded-lg border-l-4 ${index === 0 ? 'bg-red-50 dark:bg-destructive/20 border-destructive' :
-                            index === 1 ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500' :
+                            index === 1 ? 'bg-blue-50 dark:bg-primary/20 border-primary' :
                               'bg-green-50 dark:bg-success/20 border-success'
                             }`}
                         >
@@ -680,7 +680,7 @@ const CampaignResultsPredictor: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                         <div>
                           <p className="text-sm font-medium text-foreground">نصيحة الحفظ:</p>
                           <p className="text-xs text-muted-foreground">

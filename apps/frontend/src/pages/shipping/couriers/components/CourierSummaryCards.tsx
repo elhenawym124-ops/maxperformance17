@@ -29,7 +29,7 @@ export const CourierSummaryCards: React.FC<CourierSummaryCardsProps> = ({ summar
       </div>
       <div className="p-3.5 rounded-xl border border-border dark:border-border bg-white dark:bg-muted">
         <div className="text-xs text-muted-foreground dark:text-muted-foreground">طرود في الطريق</div>
-        <div className="text-xl font-bold mt-1 text-blue-600 dark:text-blue-400 tabular-nums font-mono">
+        <div className="text-xl font-bold mt-1 text-primary dark:text-primary tabular-nums font-mono">
           {summary.totalParcelsInField}
         </div>
       </div>

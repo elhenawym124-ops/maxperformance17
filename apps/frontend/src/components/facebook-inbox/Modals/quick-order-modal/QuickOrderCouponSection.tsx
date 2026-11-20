@@ -66,10 +66,10 @@ export const QuickOrderCouponSection: React.FC<
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between p-2.5 rounded-xl border border-blue-200 bg-blue-50/50 dark:border-blue-800 dark:bg-blue-900/20 text-xs sm:text-sm">
+          <div className="flex items-center justify-between p-2.5 rounded-xl border border-primary bg-primary/50 dark:border-primary dark:bg-primary/20 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
-              <TicketIcon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-              <span className="font-bold text-blue-700 dark:text-blue-300 font-mono">
+              <TicketIcon className="h-4 w-4 text-primary dark:text-primary" />
+              <span className="font-bold text-primary dark:text-primary font-mono">
                 {appliedCoupon.code}
               </span>
               <span className="text-muted-foreground font-mono tabular-nums">

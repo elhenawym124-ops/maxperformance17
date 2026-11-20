@@ -40,7 +40,7 @@ function ToolChip({ name }: { name: string }) {
         "inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono border",
         isWrite
           ? "bg-amber-500/10 border-warning/20 text-warning dark:text-warning"
-          : "bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400"
+          : "bg-blue-500/10 border-primary/20 text-primary dark:text-primary"
       )}
     >
       {name}

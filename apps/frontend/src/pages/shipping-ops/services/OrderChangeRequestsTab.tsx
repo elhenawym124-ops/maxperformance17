@@ -216,7 +216,7 @@ export const OrderChangeRequestsTab: React.FC<OrderChangeRequestsTabProps> = ({
                       )}
                     </td>
                     <td className="p-2.5">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary border border-primary dark:border-primary">
                         {req.type === 'ADDRESS' ? (isEn ? 'Address' : 'عنوان') : req.type === 'AMOUNT' ? (isEn ? 'COD Amount' : 'مبلغ COD') : (isEn ? 'Recipient' : 'مستلم')}
                       </span>
                     </td>

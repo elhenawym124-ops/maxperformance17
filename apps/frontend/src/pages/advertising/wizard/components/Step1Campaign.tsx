@@ -41,7 +41,7 @@ export const Step1Campaign: React.FC<Step1CampaignProps> = ({
           value={formData.campaignName}
           onChange={(e) => handleChange("campaignName", e.target.value)}
           placeholder={isEn ? "e.g. Ramadan Campaign 2024" : "مثال: حملة رمضان 2024"}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-card text-foreground ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground ${
             getError("campaignName")
               ? "border-red-500"
               : "border-border"
@@ -65,7 +65,7 @@ export const Step1Campaign: React.FC<Step1CampaignProps> = ({
             value={formData.adSetName}
             onChange={(e) => handleChange("adSetName", e.target.value)}
             placeholder={isEn ? "e.g. Women Egypt - Broad" : "مثال: Women Egypt - Broad"}
-            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-card text-foreground border-border"
+            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground border-border"
           />
         </div>
         <div>
@@ -77,7 +77,7 @@ export const Step1Campaign: React.FC<Step1CampaignProps> = ({
             value={formData.adName}
             onChange={(e) => handleChange("adName", e.target.value)}
             placeholder={isEn ? "e.g. Product Hook V1" : "مثال: Product Hook V1"}
-            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-card text-foreground border-border"
+            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground border-border"
           />
         </div>
       </div>
@@ -95,7 +95,7 @@ export const Step1Campaign: React.FC<Step1CampaignProps> = ({
               onClick={() => handleChange("objective", obj.value)}
               className={`p-4 border-2 rounded-xl text-center transition-all ${
                 formData.objective === obj.value
-                  ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300"
+                  ? "border-blue-500 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary"
                   : "border-border hover:border-border dark:hover:border-border bg-card text-foreground"
               }`}
             >
@@ -132,7 +132,7 @@ export const Step1Campaign: React.FC<Step1CampaignProps> = ({
               e.target.value === "NONE" ? [] : [e.target.value],
             )
           }
-          className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground"
+          className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground"
         >
           {specialAdCategories.map((cat) => (
             <option key={cat.value} value={cat.value}>
@@ -151,7 +151,7 @@ export const Step1Campaign: React.FC<Step1CampaignProps> = ({
       <div className="p-4 bg-muted dark:bg-muted border border-border dark:border-border rounded-xl space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <Sparkles className="w-4 h-4 text-primary dark:text-primary" />
             <div>
               <h4 className="text-sm font-bold text-foreground">
                 {isEn ? "Create A/B Split Test" : "إنشاء اختبار تجزئة (A/B Test)"}
@@ -191,7 +191,7 @@ export const Step1Campaign: React.FC<Step1CampaignProps> = ({
                   onClick={() => handleChange("splitTestVariable", v.value)}
                   className={`p-2 rounded-lg border text-xs font-medium text-center transition-all ${
                     (formData.splitTestVariable || "CREATIVE") === v.value
-                      ? "border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-bold"
+                      ? "border-blue-500 bg-primary/10 text-primary dark:bg-primary/50 dark:text-primary font-bold"
                       : "border-gray-200 bg-white hover:border-border text-foreground dark:border-border dark:bg-muted dark:hover:border-border dark:text-muted-foreground"
                   }`}
                 >

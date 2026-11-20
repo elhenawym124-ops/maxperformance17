@@ -413,7 +413,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
                         <div className="flex items-center gap-2">
                           <div className={cn(
                             "flex size-6 items-center justify-center rounded-lg text-xs",
-                            isWrite ? "bg-amber-500/10 text-warning" : "bg-blue-500/10 text-blue-600"
+                            isWrite ? "bg-amber-500/10 text-warning" : "bg-blue-500/10 text-primary"
                           )}>
                             {isWrite ? <Zap className="size-3" /> : <Eye className="size-3" />}
                           </div>
@@ -428,7 +428,7 @@ export const SkillInspectorDrawer: React.FC<SkillInspectorDrawerProps> = ({
                               إجراء وتنفيذ
                             </Badge>
                           ) : (
-                            <Badge variant="outline" className="h-5 text-[0.65rem] border-blue-500/30 text-blue-600">
+                            <Badge variant="outline" className="h-5 text-[0.65rem] border-primary/30 text-primary">
                               قراءة واستعلام
                             </Badge>
                           )}

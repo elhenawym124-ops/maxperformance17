@@ -24,7 +24,7 @@ export const addDays = (d: Date, n: number) => { const x = new Date(d); x.setDat
 export const egyptWeekStart = (d: Date) => { const x = new Date(d); const ed = (x.getDay() + 1) % 7; return addDays(x, -ed); };
 
 const STATUS_COLOR: Record<string, string> = {
-  SCHEDULED: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+  SCHEDULED: "bg-blue-100 text-primary dark:bg-primary/40 dark:text-primary",
   CHECKED_IN: "bg-yellow-100 text-warning dark:bg-warning/40 dark:text-warning",
   DONE: "bg-green-100 text-success dark:bg-success/40 dark:text-success",
   CANCELLED: "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive",
@@ -61,8 +61,8 @@ export default function ScheduleCalendar(props: {
     const list = byDay.get(key) || [];
     const isToday = key === dayKey(new Date());
     return (
-      <div key={key} className={`rounded-lg border dark:border-border p-2 ${isToday ? "ring-2 ring-blue-500" : ""}`}>
-        <button onClick={() => onSelectDay(key)} className="text-sm font-semibold hover:text-blue-600 dark:hover:text-blue-400">
+      <div key={key} className={`rounded-lg border dark:border-border p-2 ${isToday ? "ring-2 ring-primary" : ""}`}>
+        <button onClick={() => onSelectDay(key)} className="text-sm font-semibold hover:text-primary dark:hover:text-primary">
           {compact ? `${d.getDate()}/${d.getMonth() + 1}` : d.getDate()}
         </button>
         {compact ? (
@@ -98,7 +98,7 @@ export default function ScheduleCalendar(props: {
             <button className={navBtn} onClick={() => onShift(-1)} aria-label={t("radiology.patients.previous") as string}><ChevronRight className="w-4 h-4" /></button>
             <button className={navBtn} onClick={() => onShift(1)} aria-label={t("radiology.patients.next") as string}><ChevronLeft className="w-4 h-4" /></button>
             <span className="font-bold text-sm">{fmtLabel(anchor)}</span>
-            <button className={`${navBtn} text-blue-600 dark:text-blue-400`} onClick={onToday} aria-label={t("radiology.scheduleCalendar.today") as string}>{t("radiology.scheduleCalendar.today")}</button>
+            <button className={`${navBtn} text-primary dark:text-primary`} onClick={onToday} aria-label={t("radiology.scheduleCalendar.today") as string}>{t("radiology.scheduleCalendar.today")}</button>
           </div>
           <span className="text-sm text-muted-foreground">{list.length} {t("radiology.scheduleCalendar.bookings")}</span>
         </div>
@@ -136,7 +136,7 @@ export default function ScheduleCalendar(props: {
             <button className={navBtn} onClick={() => onShift(-1)} aria-label={t("radiology.patients.previous") as string}><ChevronRight className="w-4 h-4" /></button>
             <button className={navBtn} onClick={() => onShift(1)} aria-label={t("radiology.patients.next") as string}><ChevronLeft className="w-4 h-4" /></button>
             <span className="font-bold text-sm">{weekLabel}</span>
-            <button className={`${navBtn} text-blue-600 dark:text-blue-400`} onClick={onToday} aria-label={t("radiology.scheduleCalendar.thisWeek") as string}>{t("radiology.scheduleCalendar.thisWeek")}</button>
+            <button className={`${navBtn} text-primary dark:text-primary`} onClick={onToday} aria-label={t("radiology.scheduleCalendar.thisWeek") as string}>{t("radiology.scheduleCalendar.thisWeek")}</button>
           </div>
         </div>
         <div className="grid grid-cols-7 gap-2">
@@ -164,7 +164,7 @@ export default function ScheduleCalendar(props: {
             <button className={navBtn} onClick={() => onShift(-1)} aria-label={t("radiology.patients.previous") as string}><ChevronRight className="w-4 h-4" /></button>
             <button className={navBtn} onClick={() => onShift(1)} aria-label={t("radiology.patients.next") as string}><ChevronLeft className="w-4 h-4" /></button>
             <span className="font-bold text-sm">{monthLabel}</span>
-            <button className={`${navBtn} text-blue-600 dark:text-blue-400`} onClick={onToday} aria-label={t("radiology.scheduleCalendar.thisMonth") as string}>{t("radiology.scheduleCalendar.thisMonth")}</button>
+            <button className={`${navBtn} text-primary dark:text-primary`} onClick={onToday} aria-label={t("radiology.scheduleCalendar.thisMonth") as string}>{t("radiology.scheduleCalendar.thisMonth")}</button>
           </div>
         <span className="flex items-center gap-1 text-xs text-muted-foreground"><CalendarDays className="w-4 h-4" />{t("radiology.scheduleCalendar.clickDayForBookings")}</span>
       </div>

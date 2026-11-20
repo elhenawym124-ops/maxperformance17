@@ -46,7 +46,7 @@ export const LoyaltyAnalyticsTab: React.FC<LoyaltyAnalyticsTabProps> = ({
 
         <div className="bg-gray-50 dark:bg-muted rounded-xl p-5 border border-border shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <Target className="w-5 h-5 text-blue-600" />
+            <Target className="w-5 h-5 text-primary" />
             <span className="text-xs font-medium text-muted-foreground">
               معدل الاستبدال
             </span>

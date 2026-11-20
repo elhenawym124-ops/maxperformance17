@@ -628,7 +628,7 @@ export const CampaignQuickViewModal: React.FC<CampaignQuickViewModalProps> = ({
             onClick={() => setActiveTab("summary")}
             className={`inline-flex items-center gap-2 border-b-2 px-3 py-2 text-xs font-bold transition-all ${
               activeTab === "summary"
-                ? "border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-400"
+                ? "border-blue-600 text-primary dark:border-primary dark:text-primary"
                 : "border-transparent text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
             }`}
           >
@@ -663,7 +663,7 @@ export const CampaignQuickViewModal: React.FC<CampaignQuickViewModalProps> = ({
             onClick={() => setActiveTab("structure")}
             className={`inline-flex items-center gap-2 border-b-2 px-3 py-2 text-xs font-bold transition-all ${
               activeTab === "structure"
-                ? "border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-400"
+                ? "border-blue-600 text-primary dark:border-primary dark:text-primary"
                 : "border-transparent text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground"
             }`}
           >

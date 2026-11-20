@@ -51,7 +51,7 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
       <DialogContent className="sm:max-w-[500px] bg-white dark:bg-muted border-border dark:border-border">
         <DialogHeader className="text-right">
           <DialogTitle className="text-2xl font-bold flex items-center justify-end gap-2">
-            <RotateCcw className="h-6 w-6 text-blue-600" />
+            <RotateCcw className="h-6 w-6 text-primary" />
             {t("employee.leaves.changeDecisionTitle")}
           </DialogTitle>
           <DialogDescription className="text-right text-muted-foreground">
@@ -61,7 +61,7 @@ export const LeaveChangeDecisionDialog: React.FC<LeaveChangeDecisionDialogProps>
 
         {selectedRequest && (
           <div className="space-y-4 py-4">
-            <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-900/30">
+            <div className="p-4 bg-primary/10 dark:bg-primary/20 rounded-lg border border-primary dark:border-primary/30">
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-500">{t("employee.leaves.employee")}:</span>

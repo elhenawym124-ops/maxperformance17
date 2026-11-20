@@ -43,7 +43,7 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
             <button
               onClick={() => onViewWaybill(s)}
               title="عرض تفاصيل البوليصة"
-              className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 rounded border border-blue-200 dark:border-blue-800 hover:bg-blue-100 transition"
+              className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] text-primary dark:text-primary bg-primary/10 dark:bg-primary/40 rounded border border-primary dark:border-primary hover:bg-primary transition"
             >
               <DocumentTextIcon className="w-3 h-3" />
               بوليصة
@@ -55,7 +55,7 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
         </div>
         <div className="text-left">
           <div className="text-[10px] text-muted-foreground">المبلغ المطلوب (COD)</div>
-          <div className="text-base font-bold text-blue-600 dark:text-blue-400 tabular-nums font-mono">
+          <div className="text-base font-bold text-primary dark:text-primary tabular-nums font-mono">
             {formatPrice(
               s.collectedAmount !== null && s.collectedAmount !== undefined
                 ? s.collectedAmount
@@ -115,7 +115,7 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
             href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-semibold text-blue-700 dark:text-blue-400 active:scale-95"
+            className="flex items-center justify-center gap-1 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-semibold text-primary dark:text-primary active:scale-95"
           >
             <MapPinIcon className="w-3.5 h-3.5" />
             الخريطة

@@ -23,7 +23,7 @@ export const DentalCasesKanbanColumnHeader: React.FC<DentalCasesKanbanColumnHead
             e.stopPropagation();
             applyFilter("status", stage.id, true);
           }}
-          className="font-bold text-sm text-foreground hover:text-blue-600 dark:hover:text-blue-400 hover:underline cursor-pointer transition-colors"
+          className="font-bold text-sm text-foreground hover:text-primary dark:hover:text-primary hover:underline cursor-pointer transition-colors"
           title={`عرض كل حالات مرحلة "${stage.label}" فقط`}
         >
           {stage.label}

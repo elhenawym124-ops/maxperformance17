@@ -182,7 +182,7 @@ export const MaintenanceAlertsAndHistoryTable: React.FC<
                         rec.status === "COMPLETED"
                           ? "bg-green-100 text-success border-success"
                           : rec.status === "SCHEDULED"
-                            ? "bg-blue-100 text-blue-700 border-blue-200"
+                            ? "bg-blue-100 text-primary border-primary"
                             : "bg-gray-100 text-foreground border-border"
                       }`}
                     >

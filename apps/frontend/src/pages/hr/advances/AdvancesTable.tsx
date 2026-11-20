@@ -224,7 +224,7 @@ export const AdvancesTable: React.FC<AdvancesTableProps> = ({
                             title="التفاصيل"
                             className="h-8 w-8 p-0"
                           >
-                            <Eye className="h-4 w-4 text-blue-600" />
+                            <Eye className="h-4 w-4 text-primary" />
                           </Button>
 
                           {isPending ? (

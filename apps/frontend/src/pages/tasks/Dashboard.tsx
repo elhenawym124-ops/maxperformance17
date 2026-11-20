@@ -76,7 +76,7 @@ const formatPrice = (price: number) => {
 const getStatusColor = (status: string) => {
   switch (status.toUpperCase()) {
     case 'PENDING': return 'bg-yellow-100 dark:bg-warning/30 text-warning dark:text-warning';
-    case 'IN_PROGRESS': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+    case 'IN_PROGRESS': return 'bg-blue-100 dark:bg-primary/30 text-primary dark:text-primary';
     case 'COMPLETED': return 'bg-green-100 dark:bg-success/30 text-success dark:text-success';
     case 'CANCELLED': return 'bg-red-100 dark:bg-destructive/30 text-destructive dark:text-destructive';
     default: return 'bg-muted text-foreground dark:text-muted-foreground';
@@ -425,9 +425,9 @@ const Dashboard: React.FC = () => {
               <p className="text-sm text-foreground dark:text-muted-foreground">نشط</p>
               <p className="text-2xl font-bold text-success dark:text-success">{stats.projects.activeProjects}</p>
             </div>
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-primary/20 p-4 rounded-lg">
               <p className="text-sm text-foreground dark:text-muted-foreground">مكتمل</p>
-              <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.projects.completedProjects}</p>
+              <p className="text-2xl font-bold text-primary dark:text-primary">{stats.projects.completedProjects}</p>
             </div>
             <div className="bg-yellow-50 dark:bg-warning/20 p-4 rounded-lg">
               <p className="text-sm text-foreground dark:text-muted-foreground">تخطيط</p>
@@ -453,9 +453,9 @@ const Dashboard: React.FC = () => {
             نظرة عامة على الميزانية
           </h3>
           <div className="space-y-4">
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-primary/20 p-4 rounded-lg">
               <p className="text-sm text-foreground dark:text-muted-foreground">إجمالي الميزانية</p>
-              <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{formatPrice(stats.projects.totalBudget)}</p>
+              <p className="text-2xl font-bold text-primary dark:text-primary">{formatPrice(stats.projects.totalBudget)}</p>
             </div>
             <div className="bg-orange-50 dark:bg-warning/20 p-4 rounded-lg">
               <p className="text-sm text-foreground dark:text-muted-foreground">المنفق</p>

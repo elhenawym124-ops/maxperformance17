@@ -139,7 +139,7 @@ export const AgentDataConflictsBanner: React.FC<ConflictsBannerProps> = ({
                   onClick={() => handleResolve(c.id, "CORRECT_WRITTEN")}
                   className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-muted px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted disabled:opacity-50 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                 >
-                  <Edit3 className="h-3.5 w-3.5 text-blue-500" />
+                  <Edit3 className="h-3.5 w-3.5 text-primary" />
                   صحّح المكتوب ({c.liveValue})
                 </button>
                 <button

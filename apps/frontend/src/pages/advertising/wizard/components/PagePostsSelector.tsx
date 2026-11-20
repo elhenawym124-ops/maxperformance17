@@ -91,12 +91,12 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
       {/* Header & Controls */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border dark:border-border pb-3">
         <div className="flex items-center gap-2">
-          <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          <FileText className="w-5 h-5 text-primary dark:text-primary" />
           <span className="text-sm font-semibold text-foreground dark:text-muted-foreground">
             {isEn ? "Available Page Posts for Promotion" : "منشورات الصفحة المتاحة للترويج"}
           </span>
           {posts.length > 0 && (
-            <span className="text-xs bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded-full font-medium">
+            <span className="text-xs bg-primary dark:bg-primary/60 text-primary dark:text-primary px-2 py-0.5 rounded-full font-medium">
               {posts.length} {isEn ? (posts.length === 1 ? "post" : "posts") : "منشور"}
             </span>
           )}
@@ -110,13 +110,13 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs border border-border dark:border-border rounded-lg hover:bg-muted/50 text-muted-foreground transition-colors disabled:opacity-50"
             title={isEn ? "Refresh posts list" : "تحديث قائمة المنشورات"}
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-blue-600" : ""}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-primary" : ""}`} />
             {isEn ? "Refresh" : "تحديث"}
           </button>
           <button
             type="button"
             onClick={() => setShowManualInput(!showManualInput)}
-            className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline font-medium"
+            className="text-xs text-primary dark:text-primary hover:text-primary dark:hover:text-primary underline font-medium"
           >
             {showManualInput
               ? (isEn ? "Hide manual input" : "إخفاء الإدخال اليدوي")
@@ -127,8 +127,8 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
 
       {/* Manual Post ID input */}
       {showManualInput && (
-        <div className="p-3 bg-blue-50/50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/60 rounded-xl space-y-2">
-          <label className="block text-xs font-medium text-blue-900 dark:text-blue-300">
+        <div className="p-3 bg-primary/50 dark:bg-primary/30 border border-primary dark:border-primary/60 rounded-xl space-y-2">
+          <label className="block text-xs font-medium text-primary dark:text-primary">
             {isEn ? "Page Post ID manually" : "معرّف المنشور (Post ID) يدويًا"}
           </label>
           <div className="flex gap-2">
@@ -139,7 +139,7 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
                 value={manualId}
                 onChange={(e) => setManualId(e.target.value)}
                 placeholder={isEn ? "e.g. 123456789012345" : "مثال: 123456789012345"}
-                className={`w-full py-2 text-xs border border-border rounded-lg focus:ring-2 focus:ring-blue-500 bg-card text-foreground placeholder-muted dark:placeholder-muted ${
+                className={`w-full py-2 text-xs border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground placeholder-muted dark:placeholder-muted ${
                   isEn ? "ps-9 pe-3" : "pe-9 ps-3"
                 }`}
               />
@@ -148,7 +148,7 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
               type="button"
               onClick={() => onManualPostIdChange(manualId.trim())}
               disabled={!manualId.trim()}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded-lg disabled:opacity-50 transition-colors"
+              className="px-4 py-2 bg-primary hover:bg-primary text-white text-xs font-medium rounded-lg disabled:opacity-50 transition-colors"
             >
               {isEn ? "Confirm" : "تأكيد"}
             </button>
@@ -170,7 +170,7 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder={isEn ? "Search in post text or ID..." : "بحث في نصوص المنشورات أو المعرف..."}
-            className={`w-full py-2 text-xs border border-border dark:border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500 ${
+            className={`w-full py-2 text-xs border border-border dark:border-border bg-card text-foreground placeholder-muted dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-primary ${
               isEn ? "ps-9 pe-3" : "pe-9 ps-3"
             }`}
           />
@@ -188,7 +188,7 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
       {/* Loading State */}
       {loading ? (
         <div className="py-12 flex flex-col items-center justify-center gap-2 text-muted-foreground">
-          <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
           <span className="text-xs">{isEn ? "Fetching posts from Facebook Page..." : "جاري جلب المنشورات من صفحة فيسبوك..."}</span>
         </div>
       ) : filteredPosts.length === 0 ? (
@@ -212,7 +212,7 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
                 onClick={() => onSelectPost(post)}
                 className={`p-3 rounded-xl border-2 cursor-pointer transition-all flex gap-3 items-start ${
                   isSelected
-                    ? "border-blue-500 bg-blue-50/60 dark:bg-blue-950/40 shadow-sm"
+                    ? "border-blue-500 bg-primary/60 dark:bg-primary/40 shadow-sm"
                     : "border-gray-200 dark:border-border hover:border-border bg-card"
                 }`}
               >
@@ -236,7 +236,7 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
                       {post.message || (isEn ? "Post without text (image or media)" : "منشور بدون نص (صورة أو وسائط)")}
                     </p>
                     {isSelected ? (
-                      <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                     ) : (
                       <div className="w-4 h-4 rounded-full border border-border flex-shrink-0 mt-0.5" />
                     )}
@@ -266,7 +266,7 @@ export const PagePostsSelector: React.FC<PagePostsSelectorProps> = ({
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className={`inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 ${
+                        className={`inline-flex items-center gap-1 text-primary dark:text-primary hover:text-primary dark:hover:text-primary ${
                           isEn ? "ms-auto" : "me-auto"
                         }`}
                       >

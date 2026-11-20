@@ -725,7 +725,7 @@ export default function EducationGroupsPage({
         <div className="bg-card border border-border/70 p-4 rounded-xl shadow-sm space-y-1">
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{t("education.groups.totalGroups", isEn ? "Total Groups" : "إجمالي المجموعات")}</span>
-            <Layers className="w-4 h-4 text-blue-500" />
+            <Layers className="w-4 h-4 text-primary" />
           </div>
           <div className="text-2xl font-bold text-foreground">{stats.totalGroups}</div>
           <div className="text-[11px] text-muted-foreground">
@@ -908,7 +908,7 @@ export default function EducationGroupsPage({
                               ? "bg-emerald-500/10 text-success border border-success/20"
                               : group.status === "FULL"
                               ? "bg-amber-500/10 text-warning border border-warning/20"
-                              : "bg-blue-500/10 text-blue-600 border border-blue-500/20"
+                              : "bg-blue-500/10 text-primary border border-primary/20"
                           }`}
                         >
                           {group.status === "OPEN"
@@ -1057,7 +1057,7 @@ export default function EducationGroupsPage({
                     onClick={() => handleOpenGroupDetails(group, "members")}
                     className="flex flex-col items-center justify-center p-2 rounded-xl bg-muted/60 hover:bg-muted text-foreground text-xs font-semibold gap-1 transition-colors"
                   >
-                    <Users className="w-4 h-4 text-blue-500" />
+                    <Users className="w-4 h-4 text-primary" />
                     <span>{t("education.groups.studentsBtn", isEn ? "Students" : "الطلاب")} ({group.activeMembers || 0})</span>
                   </button>
 
@@ -1147,7 +1147,7 @@ export default function EducationGroupsPage({
                             ? "bg-emerald-500/10 text-success"
                             : g.status === "FULL"
                             ? "bg-amber-500/10 text-warning"
-                            : "bg-blue-500/10 text-blue-600"
+                            : "bg-blue-500/10 text-primary"
                         }`}
                       >
                         {g.status === "OPEN"
@@ -1390,7 +1390,7 @@ export default function EducationGroupsPage({
                                 setTransferStudent(member);
                                 setTransferModalOpen(true);
                               }}
-                              className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-500/10 rounded-lg transition-colors"
+                              className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
                               aria-label={t("education.groups.transferBtn", isEn ? "Transfer to another group" : "نقل لمجموعة أخرى")} title={t("education.groups.transferBtn", isEn ? "Transfer to another group" : "نقل لمجموعة أخرى")}
                             >
                               <ArrowRightLeft className="w-3.5 h-3.5" />
@@ -1472,7 +1472,7 @@ export default function EducationGroupsPage({
                             key={session.id}
                             className={`rounded-xl p-3 space-y-2 text-xs shadow-xs border ${
                               isScheduled
-                                ? "bg-blue-500/5 border-blue-500/20"
+                                ? "bg-blue-500/5 border-primary/20"
                                 : "bg-muted/40 border-border/60"
                             }`}
                           >
@@ -1482,11 +1482,11 @@ export default function EducationGroupsPage({
                                   {session.topic || (isEn ? "Regular Group Session" : "محاضرة دورية للمجموعة")}
                                 </span>
                                 {isScheduled ? (
-                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-600 border border-blue-500/20">
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20">
                                     {isEn ? "Scheduled" : "مجدولة"}
                                   </span>
                                 ) : (
-                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success border border-success/20">
                                     {isEn ? "Completed" : "مكتملة"}
                                   </span>
                                 )}
@@ -1580,10 +1580,10 @@ export default function EducationGroupsPage({
                         </div>
 
                         <div className="bg-blue-500/10 p-3 rounded-xl space-y-1">
-                          <span className="text-blue-700 dark:text-blue-300 font-semibold">
+                          <span className="text-blue-700 dark:text-primary font-semibold">
                             {t("education.groups.teacherShareCalculated", isEn ? "Instructor Share Calculated" : "مستحقات المعلم المحسوبة")}
                           </span>
-                          <div className="text-xl font-bold text-blue-700 dark:text-blue-300 ">
+                          <div className="text-xl font-bold text-primary dark:text-primary ">
                             {financialsData.teacherShare} {t("education.common.egp", isEn ? "EGP" : "ج")}
                           </div>
                           <span className="text-[10px] text-muted-foreground">
@@ -2205,7 +2205,7 @@ export default function EducationGroupsPage({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-blue-700"
+                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary"
                 >
                   {t("education.groups.confirmTransferBtn", isEn ? "Confirm Instant Transfer" : "تأكيد النقل الفوري")}
                 </button>

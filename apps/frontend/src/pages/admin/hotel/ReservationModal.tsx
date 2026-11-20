@@ -165,7 +165,7 @@ export default function ReservationModal({
               <input type="number" className={INPUT_CLS} placeholder="السعر" value={r.nightlyRate} onChange={e => updateRoom(i, "nightlyRate", +e.target.value)} />
             </div>
           ))}
-          <button className={`${BTN_GHOST} text-blue-600 text-sm`} onClick={addRoomLine}>+ إضافة غرفة</button>
+          <button className={`${BTN_GHOST} text-primary text-sm`} onClick={addRoomLine}>+ إضافة غرفة</button>
         </div>
 
         <div className="border-t pt-3">

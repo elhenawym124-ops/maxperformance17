@@ -49,7 +49,7 @@ export const SkillTelemetryBar: React.FC<SkillTelemetryBarProps> = ({
       <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">الوكلاء المزودون</span>
-          <Cpu className="size-3.5 text-blue-500" />
+          <Cpu className="size-3.5 text-primary" />
         </div>
         <div className="flex items-baseline gap-1.5 mt-0.5">
           <span className="text-xl font-bold font-mono tabular-nums text-foreground">{equippedAgentIds.size}</span>

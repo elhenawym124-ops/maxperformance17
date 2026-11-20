@@ -32,7 +32,7 @@ const getStatusColor = (status: string) => {
     case "PENDING":
       return "text-amber-600 bg-warning/10 border border-warning/20";
     case "PAID":
-      return "text-blue-600 bg-blue-500/10 border border-blue-500/20";
+      return "text-blue-600 bg-primary/10 border border-primary/20";
     case "CANCELLED":
       return "text-destructive bg-destructive/10 border border-destructive/20";
     default:

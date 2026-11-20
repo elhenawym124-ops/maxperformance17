@@ -23,14 +23,14 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("bench")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "bench"
-            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            ? "bg-card text-primary dark:text-primary shadow-xs font-bold"
             : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
         <ListChecks className="w-4 h-4" />
         <span>طاولتي وحالاتي</span>
         {activeCasesCount > 0 && (
-          <span className="px-1.5 py-0.2 rounded-full text-[11px] bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">
+          <span className="px-1.5 py-0.2 rounded-full text-[11px] bg-primary dark:bg-primary/50 text-primary dark:text-primary">
             {activeCasesCount}
           </span>
         )}
@@ -41,7 +41,7 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("kiosk")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "kiosk"
-            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            ? "bg-card text-primary dark:text-primary shadow-xs font-bold"
             : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
@@ -54,7 +54,7 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("wage")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "wage"
-            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            ? "bg-card text-primary dark:text-primary shadow-xs font-bold"
             : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
@@ -67,7 +67,7 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("notifications")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "notifications"
-            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            ? "bg-card text-primary dark:text-primary shadow-xs font-bold"
             : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >
@@ -86,7 +86,7 @@ export const DentalTechNav: React.FC<DentalTechNavProps> = ({
         onClick={() => onSelectSection("reports")}
         className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition whitespace-nowrap ${
           currentSection === "reports"
-            ? "bg-card text-blue-600 dark:text-blue-400 shadow-xs font-bold"
+            ? "bg-card text-primary dark:text-primary shadow-xs font-bold"
             : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
         }`}
       >

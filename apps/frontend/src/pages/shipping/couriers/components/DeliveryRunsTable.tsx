@@ -167,7 +167,7 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
                           <button
                             onClick={() => handleOpenDetail(r.id)}
                             title="عرض تفاصيل المانيفست وطباعة البوالص"
-                            className="p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition"
+                            className="p-1.5 text-primary hover:bg-primary/10 dark:hover:bg-primary/40 rounded-lg transition"
                           >
                             <EyeIcon className="w-4 h-4" />
                           </button>

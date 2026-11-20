@@ -71,7 +71,7 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
                 {canManage ? (
                   <input
                     type="checkbox"
-                    className="w-4 h-4 accent-blue-600"
+                    className="w-4 h-4 accent-primary"
                     checked={allVisibleSelected}
                     onChange={toggleSelectAll}
                     title={t("radiology.bulk.selectAll") as string}
@@ -110,7 +110,7 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
                     {canManage ? (
                       <input
                         type="checkbox"
-                        className="w-4 h-4 accent-blue-600"
+                        className="w-4 h-4 accent-primary"
                         checked={selected.has(s.id)}
                         onChange={() => toggleSelect(s.id)}
                         aria-label={t("radiology.bulk.selectAll") as string}
@@ -167,7 +167,7 @@ export const RadiologyReportsTable: React.FC<RadiologyReportsTableProps> = ({
                       </button>
                       <button
                         onClick={() => onEdit(s.id)}
-                        className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded cursor-pointer"
+                        className="p-1.5 text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded cursor-pointer"
                         title={t("radiology.reports.editReport") as string}
                       >
                         <Pencil className="w-4 h-4" />

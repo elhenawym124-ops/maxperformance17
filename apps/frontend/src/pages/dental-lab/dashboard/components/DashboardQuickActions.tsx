@@ -16,7 +16,7 @@ export function DashboardQuickActions() {
           <button
             type="button"
             onClick={() => navigate("/dental-lab/cases?new=1")}
-            className="p-3 text-right rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-950/30 hover:bg-blue-100/60 dark:hover:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold transition-colors"
+            className="p-3 text-right rounded-xl border border-primary dark:border-primary bg-primary/50 dark:bg-primary/30 hover:bg-primary/60 dark:hover:bg-primary/50 text-primary dark:text-primary text-xs font-semibold transition-colors"
           >
             إنشاء أمر شغل جديد
           </button>

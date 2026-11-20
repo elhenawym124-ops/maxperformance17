@@ -135,7 +135,7 @@ const WarningDetails: React.FC = () => {
     <div className="space-y-6 w-full pb-8 max-w-6xl mx-auto" dir="rtl">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-border/70 bg-card p-6 shadow-xs">
         <div className="flex items-center gap-5 min-w-0 flex-1">
-          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl text-blue-600 dark:text-blue-400 flex-shrink-0">
+          <div className="p-4 bg-primary/10 dark:bg-primary/20 rounded-xl text-primary dark:text-primary flex-shrink-0">
             <AlertTriangle className="h-8 w-8" />
           </div>
           <div className="flex-1 min-w-0 overflow-hidden">
@@ -150,7 +150,7 @@ const WarningDetails: React.FC = () => {
                 <Badge className={`${getSeverityColor(warning.severity)} border-none py-1 px-4 rounded-full text-[10px] font-bold`}>
                   {warning.severity === 'minor' ? 'بسيط' : warning.severity === 'moderate' ? 'متوسط' : 'جسيم'}
                 </Badge>
-                <Badge variant="outline" className="border-blue-200 text-blue-700 bg-blue-50/50 py-1 px-4 rounded-full text-[10px] font-bold">
+                <Badge variant="outline" className="border-blue-200 text-primary bg-primary/50 py-1 px-4 rounded-full text-[10px] font-bold">
                   {getTypeLabel(warning.type)}
                 </Badge>
               </div>
@@ -187,7 +187,7 @@ const WarningDetails: React.FC = () => {
           <Card className="border-none shadow-sm overflow-hidden rounded-xl">
             <CardHeader className="bg-gray-50 dark:bg-white/5 border-b border-border dark:border-white/5 p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-500 rounded-lg">
+                <div className="p-2 bg-primary rounded-lg">
                   <FileText className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -197,7 +197,7 @@ const WarningDetails: React.FC = () => {
               </div>
             </CardHeader>
             <CardContent className="p-8">
-              <div className="bg-blue-50/30 dark:bg-blue-900/5 p-6 rounded-xl border border-blue-100/50 dark:border-blue-900/20 overflow-hidden">
+              <div className="bg-blue-50/30 dark:bg-primary/5 p-6 rounded-xl border border-primary/50 dark:border-primary/20 overflow-hidden">
                 <p
                   className="text-foreground leading-relaxed whitespace-pre-wrap text-lg"
                   style={{ wordBreak: 'break-all', overflowWrap: 'anywhere' }}
@@ -270,11 +270,11 @@ const WarningDetails: React.FC = () => {
                   {warning.attachments.map((attachment, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-4 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border hover:border-blue-200 transition-colors cursor-pointer group"
+                      className="flex items-center justify-between p-4 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border hover:border-primary transition-colors cursor-pointer group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="p-2 bg-card rounded-lg shadow-sm group-hover:bg-blue-50 transition-colors">
-                          <FileText className="h-5 w-5 text-blue-500" />
+                        <div className="p-2 bg-card rounded-lg shadow-sm group-hover:bg-primary/10 transition-colors">
+                          <FileText className="h-5 w-5 text-primary" />
                         </div>
                         <span className="text-sm font-medium truncate max-w-[150px]">{attachment}</span>
                       </div>
@@ -297,8 +297,8 @@ const WarningDetails: React.FC = () => {
             </CardHeader>
             <CardContent className="p-6 space-y-4">
               <div className="flex items-start gap-3">
-                <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                  <Clock className="h-4 w-4 text-blue-500" />
+                <div className="p-2 bg-primary/10 dark:bg-primary/20 rounded-lg">
+                  <Clock className="h-4 w-4 text-primary" />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">تاريخ الواقعة</p>
@@ -351,14 +351,14 @@ const WarningDetails: React.FC = () => {
             </CardHeader>
             <CardContent className="p-6">
               <div className="flex items-center gap-4 mb-6">
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-blue-500/20">
+                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-primary/20">
                   {warning.employee.firstName[0]}
                 </div>
                 <div>
                   <p className="font-bold text-foreground">
                     {warning.employee.firstName} {warning.employee.lastName}
                   </p>
-                  <p className="text-xs text-blue-600 font-bold">#{warning.employee.employeeNumber}</p>
+                  <p className="text-xs text-primary font-bold">#{warning.employee.employeeNumber}</p>
                 </div>
               </div>
 
@@ -379,7 +379,7 @@ const WarningDetails: React.FC = () => {
 
               <Button
                 variant="secondary"
-                className="w-full rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-all border-none"
+                className="w-full rounded-xl hover:bg-primary/10 hover:text-primary transition-all border-none"
                 onClick={() => navigate(`/hr/employees/${warning.employee.id}`)}
               >
                 عرض الملف الكامل

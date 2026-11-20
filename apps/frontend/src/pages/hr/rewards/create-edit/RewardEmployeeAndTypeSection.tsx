@@ -44,7 +44,7 @@ const PREVIEW_TEMPLATES = [
   {
     name: "المبادرة والابتكار",
     Icon: Lightbulb,
-    color: "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400",
+    color: "bg-blue-50 text-primary dark:bg-primary/20 dark:text-primary",
   },
 ];
 
@@ -66,7 +66,7 @@ export const RewardEmployeeAndTypeSection: React.FC<
       {/* Employee Selection */}
       <div className="bg-card rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-          <User className="w-5 h-5 text-blue-600" />
+          <User className="w-5 h-5 text-primary" />
           معلومات الموظف
         </h3>
 
@@ -79,7 +79,7 @@ export const RewardEmployeeAndTypeSection: React.FC<
               value={formData.userId}
               onChange={(e) => onChange("userId", e.target.value)}
               disabled={isEdit}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted ${
                 validationErrors.userId ? "border-red-500" : "border-gray-300"
               } ${isEdit ? "bg-gray-100 dark:bg-muted cursor-not-allowed opacity-75" : ""}`}
             >
@@ -104,7 +104,7 @@ export const RewardEmployeeAndTypeSection: React.FC<
       {/* Reward Type & Value Details */}
       <div className="bg-card rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-          <Award className="w-5 h-5 text-blue-600" />
+          <Award className="w-5 h-5 text-primary" />
           تفاصيل المكافأة
         </h3>
 
@@ -116,7 +116,7 @@ export const RewardEmployeeAndTypeSection: React.FC<
             <select
               value={formData.rewardTypeId}
               onChange={(e) => onChange("rewardTypeId", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted ${
                 validationErrors.rewardTypeId
                   ? "border-red-500"
                   : "border-gray-300"
@@ -216,7 +216,7 @@ export const RewardEmployeeAndTypeSection: React.FC<
                     type="text"
                     value={formData.rewardName}
                     onChange={(e) => onChange("rewardName", e.target.value)}
-                    className="w-full px-4 py-2 border border-border dark:border-border bg-white dark:bg-muted dark:text-white dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-border dark:border-border bg-white dark:bg-muted dark:text-white dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-primary"
                     placeholder="مثلاً: مكافأة الأداء الاستثنائي"
                   />
                   {validationErrors.rewardName && (
@@ -232,7 +232,7 @@ export const RewardEmployeeAndTypeSection: React.FC<
                   <select
                     value={formData.rewardCategory}
                     onChange={(e) => onChange("rewardCategory", e.target.value)}
-                    className="w-full px-4 py-2 border border-border dark:border-border bg-white dark:bg-muted dark:text-white dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-border dark:border-border bg-white dark:bg-muted dark:text-white dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-primary"
                   >
                     {Object.entries(REWARD_CATEGORIES).map(([key, label]) => (
                       <option key={key} value={key}>
@@ -259,7 +259,7 @@ export const RewardEmployeeAndTypeSection: React.FC<
               min="0"
               value={formData.calculatedValue}
               onChange={(e) => onChange("calculatedValue", e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-muted dark:border-border dark:text-white dark:placeholder-muted font-mono tabular-nums ${
                 validationErrors.calculatedValue
                   ? "border-red-500"
                   : "border-gray-300"
@@ -281,7 +281,7 @@ export const RewardEmployeeAndTypeSection: React.FC<
               value={formData.reason}
               onChange={(e) => onChange("reason", e.target.value)}
               rows={3}
-              className="w-full px-4 py-2 border border-border dark:border-border bg-white dark:bg-muted dark:text-white dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-border dark:border-border bg-white dark:bg-muted dark:text-white dark:placeholder-muted rounded-lg focus:ring-2 focus:ring-primary"
               placeholder="اكتب سبب منح المكافأة..."
             />
           </div>

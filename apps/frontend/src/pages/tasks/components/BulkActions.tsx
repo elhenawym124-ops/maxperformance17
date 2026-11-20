@@ -24,7 +24,7 @@ export const BulkActions: React.FC<BulkActionsProps> = ({
         <div className="flex space-x-2 space-x-reverse">
           <button
             onClick={() => handleBulkStatusChange("in_progress")}
-            className="px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+            className="px-3 py-1 bg-primary text-white text-sm rounded-md hover:bg-primary"
           >
             بدء التنفيذ
           </button>

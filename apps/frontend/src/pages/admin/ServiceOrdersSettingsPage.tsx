@@ -168,7 +168,7 @@ export default function ServiceOrdersSettingsPage() {
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">أعضاء الفريق</span>
-            <Users className="size-3.5 text-blue-500" />
+            <Users className="size-3.5 text-primary" />
           </div>
           <div className="text-xl font-bold font-mono tabular-nums text-foreground">{teamMembers.length}</div>
           <p className="text-[10px] text-muted-foreground font-mono mt-0.5">عضو مسجل بالمنظومة</p>
