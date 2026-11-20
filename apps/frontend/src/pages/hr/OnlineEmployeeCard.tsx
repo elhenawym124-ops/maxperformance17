@@ -26,18 +26,44 @@ export interface OnlineEmployee {
   onlineSince: string | null;
 }
 
+const AVATAR_BASE = "https://mokhtarelhenawy.online";
+
+const defaultGetAvatarSrc = (emp: OnlineEmployee): string => {
+  if (emp.avatar) {
+    return emp.avatar.startsWith("http") || emp.avatar.startsWith("data:")
+      ? emp.avatar
+      : `${AVATAR_BASE}${emp.avatar}`;
+  }
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    `${emp.firstName || ""} ${emp.lastName || ""}`,
+  )}&background=random`;
+};
+
+const defaultFormatSince = (iso: string | null): string => {
+  if (!iso) return "";
+  const then = new Date(iso);
+  const diffMs = Date.now() - then.getTime();
+  const minutes = Math.floor(diffMs / 60000);
+  if (minutes < 1) return "الآن";
+  if (minutes < 60) return `منذ ${minutes} دقيقة`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `منذ ${hours} ساعة`;
+  const days = Math.floor(hours / 24);
+  return `منذ ${days} يوم`;
+};
+
 interface OnlineEmployeeCardProps {
   emp: OnlineEmployee;
   isCurrentUser: boolean;
-  getAvatarSrc: (emp: OnlineEmployee) => string;
-  formatSince: (iso: string | null) => string;
+  getAvatarSrc?: (emp: OnlineEmployee) => string;
+  formatSince?: (iso: string | null) => string;
 }
 
 export const OnlineEmployeeCard: React.FC<OnlineEmployeeCardProps> = ({
   emp,
   isCurrentUser,
-  getAvatarSrc,
-  formatSince,
+  getAvatarSrc = defaultGetAvatarSrc,
+  formatSince = defaultFormatSince,
 }) => {
   const { t } = useTranslation();
   const isOnline = emp.isOnline;

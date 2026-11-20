@@ -430,16 +430,16 @@ router.get('/payroll/my-history', (req, res, next) => {
 router.get('/payroll/my-projection', hrController.getMyPayrollProjection);
 router.get('/my-payroll', hrController.getMyPayroll);
 
-// Admin Payroll routes
+// Admin Payroll routes (static paths must come BEFORE /payroll/:id to avoid conflicts)
 router.get('/payroll/summary', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.getPayrollSummary);
 router.get('/payroll/annual-report', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.getAnnualPayrollReport);
+router.get('/payroll/auto-status', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.getPayrollAutomationStatus);
 router.get('/payroll', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.getPayrolls);
 router.post('/payroll/preview', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.previewPayroll);
 router.get('/payroll/:id', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.getPayrollById);
 router.post('/payroll', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.createPayroll);
 router.post('/payroll/generate', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.generateMonthlyPayroll);
 router.post('/payroll/auto-calculate', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.autoCalculateAndDeductPayrolls);
-router.get('/payroll/auto-status', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), hrController.getPayrollAutomationStatus);
 // 🔐 TICKET-2026-11-06-RBAC-01 · F-02: الاعتماد/الصرف/الحذف لمالك أو أدمن الشركة فقط
 router.post('/payroll/bulk-pay', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER']), hrController.bulkMarkPayrollAsPaid);
 router.post('/payroll/bulk-approve', verifyToken.authenticateToken, verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER']), hrController.bulkApprovePayroll);
