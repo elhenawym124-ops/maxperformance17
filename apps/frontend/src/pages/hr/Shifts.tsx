@@ -1,8 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ShiftsSkeleton from "../../components/hr/ShiftsSkeleton";
 import ShiftsTableView from "../../components/hr/ShiftsTableView";
 import AssignShiftDialog from "../../components/hr/AssignShiftDialog";
+import { PolarisShiftsView } from "./PolarisShiftsView";
 import {
   useShiftsController,
   ShiftsHeader,
@@ -17,6 +18,14 @@ import {
 
 export const Shifts: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     loading,
     viewMode,
@@ -60,81 +69,117 @@ export const Shifts: React.FC = () => {
   } = useShiftsController();
 
   return (
-    <div className="space-y-6 w-full pb-8" dir="rtl">
-      {/* Header */}
-      <ShiftsHeader
-        viewMode={viewMode}
-        onViewModeChange={setViewMode}
-        onCreateNew={openCreateDialog}
-      />
-
-      {/* Stats Cards */}
-      <ShiftsStatsGrid stats={stats} />
-
-      {/* Bulk Actions Bar */}
-      <ShiftsBulkActionBar
-        selectedCount={selectedShifts.length}
-        onDeleteSelected={() => {
-          setShiftToDelete("bulk");
-          setDeleteDialogOpen(true);
-        }}
-        onClearSelection={() => setSelectedShifts([])}
-      />
-
-      {/* Filters and Search */}
-      <ShiftsFilterControls
-        searchInputRef={searchInputRef}
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        statusFilter={statusFilter}
-        onStatusFilterChange={setStatusFilter}
-        sortBy={sortBy}
-        onSortByChange={setSortBy}
-      />
-
-      {/* Main Content Area */}
-      {loading ? (
-        <ShiftsSkeleton viewMode={viewMode} />
-      ) : filteredAndSortedShifts.length === 0 ? (
-        <ShiftsEmptyState
-          searchTerm={searchTerm}
-          onClearSearch={() => setSearchTerm("")}
-          onCreateNew={openCreateDialog}
-        />
-      ) : viewMode === "table" ? (
-        <ShiftsTableView
-          shifts={filteredAndSortedShifts}
+    <div className="w-full pb-8" dir="rtl">
+      {isPolaris ? (
+        <PolarisShiftsView
+          loading={loading}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
           selectedShifts={selectedShifts}
-          onToggleSelect={toggleSelectShift}
-          onToggleSelectAll={() =>
-            toggleSelectAll(filteredAndSortedShifts.map((s) => s.id))
-          }
-          onEdit={openEditDialog}
-          onDelete={(id) => {
+          setSelectedShifts={setSelectedShifts}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          searchInputRef={searchInputRef}
+          filteredAndSortedShifts={filteredAndSortedShifts}
+          stats={stats}
+          openCreateDialog={openCreateDialog}
+          openEditDialog={openEditDialog}
+          handleDuplicate={handleDuplicate}
+          handleToggleStatus={handleToggleStatus}
+          toggleSelectShift={toggleSelectShift}
+          toggleSelectAll={toggleSelectAll}
+          onOpenDelete={(id) => {
             setShiftToDelete(id);
             setDeleteDialogOpen(true);
           }}
-          onDuplicate={handleDuplicate}
-          onToggleStatus={handleToggleStatus}
-        />
-      ) : (
-        <ShiftsGridView
-          shifts={filteredAndSortedShifts}
-          selectedShifts={selectedShifts}
-          onToggleSelect={toggleSelectShift}
-          onToggleStatus={handleToggleStatus}
-          onEdit={openEditDialog}
-          onDuplicate={handleDuplicate}
-          onAssign={(shift) => {
+          onOpenAssign={(shift) => {
             setShiftToAssign({ id: shift.id, name: shift.name });
             setAssignDialogOpen(true);
           }}
-          onDelete={(id) => {
-            setShiftToDelete(id);
-            setDeleteDialogOpen(true);
-          }}
           onNavigateDetails={(id) => navigate(`/hr/shifts/${id}`)}
         />
+      ) : (
+        <div className="space-y-6">
+          {/* Header */}
+          <ShiftsHeader
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
+            onCreateNew={openCreateDialog}
+          />
+
+          {/* Stats Cards */}
+          <ShiftsStatsGrid stats={stats} />
+
+          {/* Bulk Actions Bar */}
+          <ShiftsBulkActionBar
+            selectedCount={selectedShifts.length}
+            onDeleteSelected={() => {
+              setShiftToDelete("bulk");
+              setDeleteDialogOpen(true);
+            }}
+            onClearSelection={() => setSelectedShifts([])}
+          />
+
+          {/* Filters and Search */}
+          <ShiftsFilterControls
+            searchInputRef={searchInputRef}
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            sortBy={sortBy}
+            onSortByChange={setSortBy}
+          />
+
+          {/* Main Content Area */}
+          {loading ? (
+            <ShiftsSkeleton viewMode={viewMode} />
+          ) : filteredAndSortedShifts.length === 0 ? (
+            <ShiftsEmptyState
+              searchTerm={searchTerm}
+              onClearSearch={() => setSearchTerm("")}
+              onCreateNew={openCreateDialog}
+            />
+          ) : viewMode === "table" ? (
+            <ShiftsTableView
+              shifts={filteredAndSortedShifts}
+              selectedShifts={selectedShifts}
+              onToggleSelect={toggleSelectShift}
+              onToggleSelectAll={() =>
+                toggleSelectAll(filteredAndSortedShifts.map((s) => s.id))
+              }
+              onEdit={openEditDialog}
+              onDelete={(id) => {
+                setShiftToDelete(id);
+                setDeleteDialogOpen(true);
+              }}
+              onDuplicate={handleDuplicate}
+              onToggleStatus={handleToggleStatus}
+            />
+          ) : (
+            <ShiftsGridView
+              shifts={filteredAndSortedShifts}
+              selectedShifts={selectedShifts}
+              onToggleSelect={toggleSelectShift}
+              onToggleStatus={handleToggleStatus}
+              onEdit={openEditDialog}
+              onDuplicate={handleDuplicate}
+              onAssign={(shift) => {
+                setShiftToAssign({ id: shift.id, name: shift.name });
+                setAssignDialogOpen(true);
+              }}
+              onDelete={(id) => {
+                setShiftToDelete(id);
+                setDeleteDialogOpen(true);
+              }}
+              onNavigateDetails={(id) => navigate(`/hr/shifts/${id}`)}
+            />
+          )}
+        </div>
       )}
 
       {/* Create / Edit Dialog */}

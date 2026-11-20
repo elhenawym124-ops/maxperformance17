@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { PolarisAdvancesView } from "./PolarisAdvancesView";
 import {
   useAdvancesController,
   AdvancesHeader,
@@ -13,6 +14,14 @@ import {
 
 export const Advances: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     loading,
     requests,
@@ -46,40 +55,63 @@ export const Advances: React.FC = () => {
   } = useAdvancesController();
 
   return (
-    <div
-      className="space-y-6 w-full pb-8"
-      dir="rtl"
-    >
-      {/* Header */}
-      <AdvancesHeader onCreateNew={() => navigate("/hr/advances/new")} />
+    <div className="w-full pb-8" dir="rtl">
+      {isPolaris ? (
+        <PolarisAdvancesView
+          loading={loading}
+          requests={requests}
+          rawTotalCount={rawTotalCount}
+          pagination={pagination}
+          handlePageChange={handlePageChange}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          payStatusFilter={payStatusFilter}
+          setPayStatusFilter={setPayStatusFilter}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          stats={stats}
+          onCreateNew={() => navigate("/hr/advances/new")}
+          handleApprove={handleApprove}
+          openRejectDialog={openRejectDialog}
+          openDetailsDialog={openDetailsDialog}
+          openUpdateStatusDialog={openUpdateStatusDialog}
+          handleDelete={handleDelete}
+          markAsPaid={markAsPaid}
+        />
+      ) : (
+        <div className="space-y-6">
+          {/* Header */}
+          <AdvancesHeader onCreateNew={() => navigate("/hr/advances/new")} />
 
-      {/* Summary Stats Cards */}
-      <AdvancesStatsGrid stats={stats} />
+          {/* Summary Stats Cards */}
+          <AdvancesStatsGrid stats={stats} />
 
-      {/* Filters & Search Card */}
-      <AdvancesFiltersCard
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        statusFilter={statusFilter}
-        onStatusFilterChange={setStatusFilter}
-        payStatusFilter={payStatusFilter}
-        onPayStatusFilterChange={setPayStatusFilter}
-      />
+          {/* Filters & Search Card */}
+          <AdvancesFiltersCard
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            payStatusFilter={payStatusFilter}
+            onPayStatusFilterChange={setPayStatusFilter}
+          />
 
-      {/* Main Advances Table */}
-      <AdvancesTable
-        loading={loading}
-        requests={requests}
-        rawTotalCount={rawTotalCount}
-        pagination={pagination}
-        onPageChange={handlePageChange}
-        onApprove={handleApprove}
-        onOpenReject={openRejectDialog}
-        onOpenDetails={openDetailsDialog}
-        onOpenUpdateStatus={openUpdateStatusDialog}
-        onDelete={handleDelete}
-        onMarkAsPaid={markAsPaid}
-      />
+          {/* Main Advances Table */}
+          <AdvancesTable
+            loading={loading}
+            requests={requests}
+            rawTotalCount={rawTotalCount}
+            pagination={pagination}
+            onPageChange={handlePageChange}
+            onApprove={handleApprove}
+            onOpenReject={openRejectDialog}
+            onOpenDetails={openDetailsDialog}
+            onOpenUpdateStatus={openUpdateStatusDialog}
+            onDelete={handleDelete}
+            onMarkAsPaid={markAsPaid}
+          />
+        </div>
+      )}
 
       {/* Reject Reason Dialog */}
       <AdvanceRejectDialog

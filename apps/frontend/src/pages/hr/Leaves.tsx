@@ -1,6 +1,8 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { Download, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PolarisLeavesView } from "./PolarisLeavesView";
 import {
   useLeavesController,
   LeaveStatsCards,
@@ -15,6 +17,14 @@ import {
 } from "./leaves/index";
 
 const Leaves: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     t,
     isMyLeaves,
@@ -66,83 +76,121 @@ const Leaves: React.FC = () => {
   } = useLeavesController();
 
   return (
-    <div className="space-y-6 w-full pb-8" dir="rtl">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-border/70">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
-            {isMyLeaves ? t("employee.leaves.myLeaves") : t("employee.leaves.manageLeaves")}
-          </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 font-mono tabular-nums">
-            {t("employee.leaves.totalRequests", { count: pagination.total })}
-          </p>
+    <div className="w-full pb-8" dir="rtl">
+      {isPolaris ? (
+        <PolarisLeavesView
+          loading={loading}
+          requests={requests}
+          pagination={pagination}
+          setPagination={setPagination}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          typeFilter={typeFilter}
+          setTypeFilter={setTypeFilter}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          pendingCount={pendingCount}
+          isMyLeaves={isMyLeaves}
+          onOpenAddDialog={() => setShowAddDialog(true)}
+          handleApprove={handleApprove}
+          onOpenReject={(req) => {
+            setSelectedRequest(req);
+            setShowRejectDialog(true);
+          }}
+          handleCancel={handleCancel}
+          onOpenChangeDecision={(req) => {
+            setSelectedRequest(req);
+            setShowChangeDecisionDialog(true);
+          }}
+          onOpenEdit={(req) => {
+            handleEditRequest(req);
+          }}
+          handleDelete={handleDelete}
+          onOpenDetails={(req) => {
+            setSelectedRequest(req);
+            setShowDetailsDialog(true);
+          }}
+        />
+      ) : (
+        <div className="space-y-6">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-border/70">
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+                {isMyLeaves ? t("employee.leaves.myLeaves") : t("employee.leaves.manageLeaves")}
+              </h1>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 font-mono tabular-nums">
+                {t("employee.leaves.totalRequests", { count: pagination.total })}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm"
+                onClick={() => setShowAddDialog(true)}
+                className="gap-1.5 text-xs font-semibold shadow-xs"
+              >
+                <Plus className="h-4 w-4" />
+                {t("employee.leaves.newLeaveRequest")}
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                className="gap-1.5 text-xs font-semibold"
+              >
+                <Download className="h-4 w-4" />
+                {t("employee.leaves.export")}
+              </Button>
+            </div>
+          </div>
+
+          {/* Stats Cards */}
+          <LeaveStatsCards
+            t={t}
+            requests={requests}
+            pendingCount={pendingCount}
+          />
+
+          {/* Filters */}
+          <LeaveFilters
+            t={t}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            pendingCount={pendingCount}
+            typeFilter={typeFilter}
+            setTypeFilter={setTypeFilter}
+            statusFilter={statusFilter}
+            setStatusFilter={setStatusFilter}
+          />
+
+          {/* Requests Table */}
+          <LeaveRequestsTable
+            t={t}
+            loading={loading}
+            requests={requests}
+            isMyLeaves={isMyLeaves}
+            pagination={pagination}
+            setPagination={setPagination}
+            onApprove={handleApprove}
+            onOpenReject={(req) => {
+              setSelectedRequest(req);
+              setShowRejectDialog(true);
+            }}
+            onCancel={handleCancel}
+            onOpenChangeDecision={(req) => {
+              setSelectedRequest(req);
+              setShowChangeDecisionDialog(true);
+            }}
+            onOpenEdit={(req) => {
+              handleEditRequest(req);
+            }}
+            onDelete={handleDelete}
+            onOpenDetails={(req) => {
+              setSelectedRequest(req);
+              setShowDetailsDialog(true);
+            }}
+          />
         </div>
-        <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            onClick={() => setShowAddDialog(true)}
-            className="gap-1.5 text-xs font-semibold shadow-xs"
-          >
-            <Plus className="h-4 w-4" />
-            {t("employee.leaves.newLeaveRequest")}
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="gap-1.5 text-xs font-semibold"
-          >
-            <Download className="h-4 w-4" />
-            {t("employee.leaves.export")}
-          </Button>
-        </div>
-      </div>
-
-      {/* Stats Cards */}
-      <LeaveStatsCards
-        t={t}
-        requests={requests}
-        pendingCount={pendingCount}
-      />
-
-      {/* Filters */}
-      <LeaveFilters
-        t={t}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        pendingCount={pendingCount}
-        typeFilter={typeFilter}
-        setTypeFilter={setTypeFilter}
-        statusFilter={statusFilter}
-        setStatusFilter={setStatusFilter}
-      />
-
-      {/* Requests Table */}
-      <LeaveRequestsTable
-        t={t}
-        loading={loading}
-        requests={requests}
-        isMyLeaves={isMyLeaves}
-        pagination={pagination}
-        setPagination={setPagination}
-        onApprove={handleApprove}
-        onOpenReject={(req) => {
-          setSelectedRequest(req);
-          setShowRejectDialog(true);
-        }}
-        onCancel={handleCancel}
-        onOpenChangeDecision={(req) => {
-          setSelectedRequest(req);
-          setShowChangeDecisionDialog(true);
-        }}
-        onOpenEdit={(req) => {
-          handleEditRequest(req);
-        }}
-        onDelete={handleDelete}
-        onOpenDetails={(req) => {
-          setSelectedRequest(req);
-          setShowDetailsDialog(true);
-        }}
-      />
+      )}
 
       {/* Add Leave Dialog */}
       <AddLeaveDialog
