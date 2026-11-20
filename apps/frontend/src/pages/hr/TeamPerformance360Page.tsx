@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import {
   useTeamPerformance360Controller,
@@ -9,8 +10,14 @@ import {
   PerformanceDrilldownDialog,
   PerformancePIPModal,
 } from "./team-performance-360/index";
+import { PolarisTeamPerformance360View } from "./PolarisTeamPerformance360View";
 
 export const TeamPerformance360Page: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
+
   const {
     loading,
     data,
@@ -33,36 +40,58 @@ export const TeamPerformance360Page: React.FC = () => {
 
   return (
     <div className="space-y-6 w-full pb-8" dir="rtl">
-      {/* Top Header */}
-      <TeamPerformance360Header
-        selectedPeriodMode={selectedPeriodMode}
-        onPeriodModeChange={setSelectedPeriodMode}
-        activePeriodLabel={data?.period || "الفترة النشطة"}
-        loading={loading}
-        onRefresh={fetchLeaderboard}
-      />
+      {isPolaris ? (
+        <PolarisTeamPerformance360View
+          loading={loading}
+          data={data}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedTier={selectedTier}
+          setSelectedTier={setSelectedTier}
+          selectedDepartment={selectedDepartment}
+          setSelectedDepartment={setSelectedDepartment}
+          selectedPeriodMode={selectedPeriodMode}
+          setSelectedPeriodMode={setSelectedPeriodMode}
+          departments={departments}
+          filteredEmployees={filteredEmployees}
+          onSelectForDrilldown={setSelectedEmployeeForDrilldown}
+          onSelectForPIP={setSelectedEmployeeForPIP}
+          onRefresh={fetchLeaderboard}
+        />
+      ) : (
+        <>
+          {/* Top Header */}
+          <TeamPerformance360Header
+            selectedPeriodMode={selectedPeriodMode}
+            onPeriodModeChange={setSelectedPeriodMode}
+            activePeriodLabel={data?.period || "الفترة النشطة"}
+            loading={loading}
+            onRefresh={fetchLeaderboard}
+          />
 
-      {/* KPI Overview Cards */}
-      <TeamPerformance360KPIs summary={data?.summary} />
+          {/* KPI Overview Cards */}
+          <TeamPerformance360KPIs summary={data?.summary} />
 
-      {/* Filter and Search Bar */}
-      <TeamPerformance360Filters
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        selectedTier={selectedTier}
-        onTierChange={setSelectedTier}
-        selectedDepartment={selectedDepartment}
-        onDepartmentChange={setSelectedDepartment}
-        departments={departments}
-      />
+          {/* Filter and Search Bar */}
+          <TeamPerformance360Filters
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            selectedTier={selectedTier}
+            onTierChange={setSelectedTier}
+            selectedDepartment={selectedDepartment}
+            onDepartmentChange={setSelectedDepartment}
+            departments={departments}
+          />
 
-      {/* Leaderboard Table Card */}
-      <TeamPerformance360Table
-        employees={filteredEmployees}
-        totalCount={data?.leaderboard.length ?? 0}
-        onSelectForDrilldown={setSelectedEmployeeForDrilldown}
-        onSelectForPIP={setSelectedEmployeeForPIP}
-      />
+          {/* Leaderboard Table Card */}
+          <TeamPerformance360Table
+            employees={filteredEmployees}
+            totalCount={data?.leaderboard.length ?? 0}
+            onSelectForDrilldown={setSelectedEmployeeForDrilldown}
+            onSelectForPIP={setSelectedEmployeeForPIP}
+          />
+        </>
+      )}
 
       {/* Drill-down Audit Dialog */}
       <PerformanceDrilldownDialog

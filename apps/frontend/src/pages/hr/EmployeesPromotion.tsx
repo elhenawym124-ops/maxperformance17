@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   useEmployeesPromotionController,
   EmployeesPromotionHeader,
@@ -7,8 +8,14 @@ import {
   EmployeesPromotionEmptyState,
   EmployeesPromotionList,
 } from "./employees-promotion/index";
+import { PolarisEmployeesPromotionView } from "./PolarisEmployeesPromotionView";
 
 const EmployeesPromotion: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
+
   const {
     promotions,
     filteredPromotions,
@@ -31,6 +38,26 @@ const EmployeesPromotion: React.FC = () => {
       <div className="flex items-center justify-center h-96">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisEmployeesPromotionView
+        promotions={promotions}
+        filteredPromotions={filteredPromotions}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        statusFilter={statusFilter}
+        onStatusFilterChange={setStatusFilter}
+        sortBy={sortBy}
+        onSortByChange={setSortBy}
+        stats={stats}
+        onUpdateStatus={handleUpdateStatus}
+        onDeletePromotion={handleDeletePromotion}
+        onNewPromotion={goToNewPromotion}
+        onEditPromotion={goToEditPromotion}
+      />
     );
   }
 

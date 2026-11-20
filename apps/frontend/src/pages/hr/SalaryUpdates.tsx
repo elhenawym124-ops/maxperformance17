@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   ArrowRight,
   Save,
@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { tToast } from "../../utils/i18n-toast";
 import api from "../../services/api";
 import { SalaryHistoryTable } from "./SalaryHistoryTable";
+import { PolarisSalaryUpdatesView } from "./PolarisSalaryUpdatesView";
 
 interface Employee {
   id: string;
@@ -28,6 +29,10 @@ interface Employee {
 
 export const SalaryUpdates: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -205,6 +210,25 @@ export const SalaryUpdates: React.FC = () => {
         <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
         <p className="mt-2 text-xs text-muted-foreground">جاري تحميل بيانات الرواتب...</p>
       </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisSalaryUpdatesView
+        employees={employees}
+        departments={departments}
+        updates={updates}
+        reasons={reasons}
+        saving={saving}
+        historyLoading={historyLoading}
+        salaryHistory={salaryHistory}
+        onSalaryChange={handleSalaryChange}
+        onReasonChange={handleReasonChange}
+        onSave={handleSave}
+        onBackToPayroll={() => navigate("/hr/payroll")}
+        isSameSalary={isSameSalary}
+      />
     );
   }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import {
   TrendingUp,
   ArrowUpRight,
@@ -18,6 +18,7 @@ import { Badge } from "../../components/ui/badge";
 import { Button } from "../../components/ui/button";
 import api from "../../services/api";
 import { tToast } from "../../utils/i18n-toast";
+import { PolarisSalaryHistoryView } from "./PolarisSalaryHistoryView";
 
 interface SalaryHistoryItem {
   id: string;
@@ -39,6 +40,10 @@ interface SalaryHistoryItem {
 const SalaryHistory: React.FC = () => {
   const { employeeId } = useParams<{ employeeId: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isPolaris =
+    searchParams.get("layout") === "polaris" ||
+    sessionStorage.getItem("maxp_session_layout") === "polaris";
   const [history, setHistory] = useState<SalaryHistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedType, setSelectedType] = useState<string>("ALL");
@@ -104,6 +109,18 @@ const SalaryHistory: React.FC = () => {
           </p>
         </div>
       </div>
+    );
+  }
+
+  if (isPolaris) {
+    return (
+      <PolarisSalaryHistoryView
+        history={history}
+        employeeId={employeeId}
+        loading={loading}
+        onRefresh={fetchHistory}
+        onBack={() => navigate(-1)}
+      />
     );
   }
 
