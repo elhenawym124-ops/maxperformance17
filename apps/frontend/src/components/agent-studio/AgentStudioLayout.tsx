@@ -338,7 +338,7 @@ export const AgentStudioLayout: React.FC<AgentStudioLayoutProps> = ({
       <main
         className={`flex-1 grid grid-cols-1 ${
           canvasPanel
-            ? "lg:grid-cols-12 min-h-0 overflow-hidden divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-border/60"
+            ? "lg:grid-cols-12 min-h-0 overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-border/60"
             : "min-h-0 overflow-hidden"
         }`}
       >

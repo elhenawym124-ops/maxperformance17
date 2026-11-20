@@ -148,7 +148,7 @@ export default function SupportAdmin() {
       </div>
 
       {/* Unified Telemetry Ribbon */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/70 bg-card divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 overflow-hidden shadow-xs">
+      <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/70 bg-card divide-y sm:divide-y-0 sm:divide-x divide-border/60 overflow-hidden shadow-xs">
         <div className="p-3 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">تذاكر مفتوحة</span>

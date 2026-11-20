@@ -261,7 +261,7 @@ const SuperAdminAITemplates: React.FC = () => {
 
       {/* Telemetry Strip */}
       <div className="rounded-xl border border-border/80 dark:border-border/60 bg-card shadow-2xs overflow-hidden">
-        <div className="grid grid-cols-2 sm:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x sm:rtl:divide-x-reverse divide-border/60 font-mono">
+        <div className="grid grid-cols-2 sm:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x sm: divide-border/60 font-mono">
           <div className="p-3 flex flex-col justify-between">
             <span className="text-[11px] font-medium text-muted-foreground">إجمالي القوالب</span>
             <div className="text-2xl font-bold tracking-tight text-foreground tabular-nums mt-1">{stats.total}</div>

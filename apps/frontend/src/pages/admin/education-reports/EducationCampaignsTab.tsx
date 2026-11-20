@@ -34,7 +34,7 @@ export const EducationCampaignsTab: React.FC<EducationCampaignsTabProps> = ({
   return (
     <div className="space-y-4">
       {/* Attribution KPI Telemetry Ribbon (Single Continuous Surface with Hairline Dividers) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 border-y border-border/70 py-3 bg-muted/10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border/60 border-y border-border/70 py-3 bg-muted/10">
         <div className="px-3 sm:px-4 py-2 space-y-0.5">
           <div className="text-[11px] font-medium text-muted-foreground">
             {isEn ? "Total Leads Registered" : "إجمالي الليدات المسجلة"}

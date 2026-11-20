@@ -52,7 +52,7 @@ export const IncompleteReportsKpis: React.FC<IncompleteReportsKpisProps> = ({
       </div>
 
       <div className="rounded-xl border border-border/70 bg-card shadow-2xs overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y divide-border/50 lg:divide-y-0 lg:divide-x lg:divide-x-reverse rtl:lg:divide-x-reverse">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y divide-border/50 lg:divide-y-0 lg:divide-x rtl:">
           {/* 1. حولها الفريق لأوردرات */}
           <div className="p-3.5 sm:p-4 flex flex-col justify-between">
             <div>

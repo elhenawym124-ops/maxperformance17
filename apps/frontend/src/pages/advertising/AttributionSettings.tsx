@@ -158,7 +158,7 @@ const AttributionSettings: React.FC = () => {
       {/* Single Surface Chassis */}
       <div className="bg-card border border-border/70 rounded-xl overflow-hidden shadow-xs">
         {/* Telemetry Status Ribbon */}
-        <div className="grid grid-cols-2 md:grid-cols-4 border-b border-border/70 bg-muted/20 divide-x divide-x-reverse divide-border/60">
+        <div className="grid grid-cols-2 md:grid-cols-4 border-b border-border/70 bg-muted/20 divide-x divide-border/60">
           <div className="p-3.5 px-4">
             <span className="text-[11px] font-medium text-muted-foreground block">
               مجموعة الإعلانات (Ad Set)

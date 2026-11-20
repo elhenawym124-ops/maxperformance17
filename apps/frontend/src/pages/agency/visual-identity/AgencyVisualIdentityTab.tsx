@@ -117,7 +117,7 @@ export const AgencyVisualIdentityTab: React.FC = () => {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:divide-x md:divide-x-reverse divide-border/60">
+      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:divide-x divide-border/60">
         <div className="p-4 sm:p-6">
           <SectionTitle
             action={

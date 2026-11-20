@@ -159,7 +159,7 @@ const ProductsHeader: React.FC<ProductsHeaderProps> = ({
           <button
             type="button"
             onClick={onQuickAddClick}
-            className="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 dark:bg-emerald-950/40 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-semibold text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 shadow-2xs transition-all active:scale-[0.98]"
+            className="inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-lg border border-success/30 bg-success/10 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-semibold text-success hover:bg-success/20 shadow-2xs transition-all active:scale-[0.98]"
             title={isEn ? "Create Quick Order" : "إنشاء طلب سريع"}
           >
             <Plus className="h-3.5 w-3.5" />
@@ -219,7 +219,7 @@ const ProductsHeader: React.FC<ProductsHeaderProps> = ({
                       setShowMenu(false);
                       onQuickAddClick();
                     }}
-                    className="flex w-full items-center gap-2 px-3 py-2 text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 transition-colors"
+                    className="flex w-full items-center gap-2 px-3 py-2 text-xs font-medium text-success hover:bg-success/10 transition-colors"
                   >
                     <Plus className="h-4 w-4" />
                     <span>{isEn ? "Create Quick Order" : "إنشاء طلب سريع"}</span>

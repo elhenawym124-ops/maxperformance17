@@ -127,7 +127,7 @@ export const AutomotiveFooter: React.FC<AutomotiveFooterProps> = ({
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Pre-Footer Trust Bar - Harmonious Light Wireframe */}
-        <div className="grid grid-cols-1 divide-y divide-slate-200/80 border-b border-slate-200/80 py-8 sm:grid-cols-2 sm:divide-y-0 sm:gap-6 lg:grid-cols-4 lg:divide-x lg:divide-y-0 lg:divide-slate-200/80 rtl:lg:divide-x-reverse">
+        <div className="grid grid-cols-1 divide-y divide-slate-200/80 border-b border-slate-200/80 py-8 sm:grid-cols-2 sm:divide-y-0 sm:gap-6 lg:grid-cols-4 lg:divide-x lg:divide-y-0 lg:divide-slate-200/80 rtl:">
           {trustBadges.map((badge, idx) => (
             <div
               key={badge.title}

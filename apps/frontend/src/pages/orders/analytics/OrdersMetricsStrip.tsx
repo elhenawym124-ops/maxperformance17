@@ -57,7 +57,7 @@ export const OrdersMetricsStrip: React.FC<OrdersMetricsStripProps> = ({
 }) => {
   return (
     <div className="border-b border-zinc-200/80 dark:border-white/[0.08] bg-white dark:bg-[#070709]">
-      <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-zinc-200/80 dark:divide-white/[0.08]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-zinc-200/80 dark:divide-white/[0.08]">
         {/* 1. HERO NORTH STAR: TOTAL ORDERS (4 Columns) */}
         <OrdersMetricsNorthStar
           loading={loading}

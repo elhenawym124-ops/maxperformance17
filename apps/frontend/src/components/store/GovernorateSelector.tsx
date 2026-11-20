@@ -261,7 +261,7 @@ export const GovernoratesSelector: React.FC<GovernoratesSelectorProps> = ({
                 </div>
 
                 {/* Governorates in Region */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/40">
+                <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-border/40">
                   {govs.map((gov) => {
                     const isSelected = selectedIds.includes(gov.id);
                     return (

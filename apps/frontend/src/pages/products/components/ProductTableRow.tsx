@@ -168,7 +168,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           <button
             onClick={() => onWorkflowAction(product, "reject")}
             disabled={isWorkflowBusy}
-            className={`${actionBtn} text-rose-600 hover:text-rose-700 disabled:cursor-wait disabled:opacity-50`}
+            className={`${actionBtn} text-destructive hover:text-destructive disabled:cursor-wait disabled:opacity-50`}
             aria-label={isEn ? "Reject" : "رفض"}
             title={isEn ? "Reject" : "رفض"}
           >
@@ -267,7 +267,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
                     )
                   }
                   title={quantityOffersTooltip}
-                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors shadow-2xs"
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-success/10 text-success border border-success/20 hover:bg-success/20 transition-colors shadow-2xs"
                 >
                   <SparklesIcon className="h-2.5 w-2.5 text-emerald-600 dark:text-emerald-400" />
                   <span>{isEn ? "Volume" : "عروض كميات"}</span>
@@ -372,7 +372,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
             </span>
           )}
           {product.workflow.rejectionReason && (
-            <span className="max-w-[180px] truncate text-[10px] text-rose-600 dark:text-rose-400 font-mono">
+            <span className="max-w-[180px] truncate text-[10px] text-destructive font-mono">
               {isEn ? "Reason: " : "السبب: "}{product.workflow.rejectionReason}
             </span>
           )}
@@ -402,7 +402,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
               </button>
               <button
                 onClick={onCancelQuickEdit}
-                className={`${actionBtn} text-rose-600 hover:text-rose-700`}
+                className={`${actionBtn} text-destructive hover:text-destructive`}
                 aria-label={isEn ? "Cancel" : "إلغاء"}
                 title={isEn ? "Cancel" : "إلغاء"}
               >
@@ -448,7 +448,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
               {canDelete && (
                 <button
                   onClick={() => onDelete(product.id)}
-                  className={`${actionBtn} hover:text-rose-600`}
+                  className={`${actionBtn} hover:text-destructive`}
                   aria-label={isEn ? "Delete" : "حذف"}
                   title={isEn ? "Delete" : "حذف"}
                 >

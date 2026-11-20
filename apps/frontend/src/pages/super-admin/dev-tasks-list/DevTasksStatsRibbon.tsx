@@ -17,7 +17,7 @@ export const DevTasksStatsRibbon: React.FC<DevTasksStatsRibbonProps> = ({
   if (!stats) return null;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-5 rounded-xl border border-border/80 bg-card shadow-2xs divide-y sm:divide-y-0 sm:divide-x sm:rtl:divide-x-reverse divide-border/60 overflow-hidden">
+    <div className="grid grid-cols-2 sm:grid-cols-5 rounded-xl border border-border/80 bg-card shadow-2xs divide-y sm:divide-y-0 sm:divide-x sm: divide-border/60 overflow-hidden">
       <div className="p-3.5 flex flex-col justify-between">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span className="font-medium text-[11px]">المهام النشطة</span>

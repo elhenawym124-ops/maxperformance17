@@ -132,7 +132,7 @@ export const GapAnalysis: React.FC = () => {
       {/* Telemetry Stats Ribbon */}
       {analysis && (
         <div className="bg-card border border-border/70 rounded-xl overflow-hidden shadow-xs">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 bg-muted/20">
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border/60 bg-muted/20">
             <div className="p-3.5 px-4">
               <div className="text-[11px] font-medium text-muted-foreground">
                 {t('competitors.opportunities')}

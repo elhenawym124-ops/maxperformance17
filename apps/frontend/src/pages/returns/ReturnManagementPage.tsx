@@ -73,7 +73,7 @@ const ReturnManagementPage: React.FC = () => {
       </div>
 
       {/* Single-Surface Telemetry Bar */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 dark:border-border/60 bg-card/60 backdrop-blur-xs divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-border/60 overflow-hidden shadow-2xs">
+      <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 dark:border-border/60 bg-card/60 backdrop-blur-xs divide-y lg:divide-y-0 lg:divide-x divide-border/60 overflow-hidden shadow-2xs">
         <div className="p-3.5 sm:p-4 space-y-1">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>إجمالي المرتجعات</span>

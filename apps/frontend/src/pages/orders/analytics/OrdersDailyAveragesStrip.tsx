@@ -64,7 +64,7 @@ export const OrdersDailyAveragesStrip: React.FC<OrdersDailyAveragesStripProps> =
 
   return (
     <div className="border-b border-zinc-200/80 dark:border-white/[0.08] bg-zinc-50/40 dark:bg-zinc-950/40">
-      <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-zinc-200/80 dark:divide-white/[0.08]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-zinc-200/80 dark:divide-white/[0.08]">
         
         {/* 1. DAILY RUN-RATE AVERAGES (6 Columns = 50% width) */}
         <div className="col-span-12 lg:col-span-6 p-3.5 sm:p-4 flex flex-col justify-between min-w-0">

@@ -223,7 +223,7 @@ export default function MonthlyPnLDashboard() {
           ]}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-border/70">
+        <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border/70">
           {/* Inputs Column */}
           <div className="lg:col-span-5 p-5 space-y-4">
             <span className="text-xs font-bold text-foreground flex items-center gap-1.5 pb-2 border-b border-border/70">

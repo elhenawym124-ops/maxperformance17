@@ -135,7 +135,7 @@ const SuperAdminServerUsage: React.FC = () => {
       )}
 
       {/* Telemetry Ribbon */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 overflow-hidden shadow-xs">
+      <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card divide-y sm:divide-y-0 sm:divide-x divide-border/60 overflow-hidden shadow-xs">
         <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">إجمالي سعة التخزين</span>
@@ -292,7 +292,7 @@ const SuperAdminServerUsage: React.FC = () => {
       </div>
 
       {/* Host Specs Chassis */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 rounded-xl border border-border/80 bg-card divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 overflow-hidden shadow-xs">
+      <div className="grid grid-cols-1 sm:grid-cols-3 rounded-xl border border-border/80 bg-card divide-y sm:divide-y-0 sm:divide-x divide-border/60 overflow-hidden shadow-xs">
         <div className="p-3.5 flex items-center gap-3 hover:bg-muted/10 transition-colors">
           <div className="size-8 rounded-lg border border-border/80 bg-muted/20 flex items-center justify-center text-primary shrink-0">
             <Cpu className="size-4" />

@@ -31,7 +31,7 @@ export const UsersMetricsCards: React.FC<UsersMetricsCardsProps> = ({
 }) => {
   return (
     <div className="rounded-xl border border-border/80 dark:border-border/60 bg-card shadow-2xs overflow-hidden">
-      <div className="grid grid-cols-2 sm:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x sm:rtl:divide-x-reverse divide-border/60">
+      <div className="grid grid-cols-2 sm:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x sm: divide-border/60">
         {metrics.map((m) => {
           const isCurrent = activeTab === m.id;
           return (

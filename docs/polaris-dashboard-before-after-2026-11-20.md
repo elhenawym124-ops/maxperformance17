@@ -76,10 +76,22 @@
 - **باج تاريخي اتصلح:** `RevenueTrendChart.tsx:34` كان ينهار `data.some` على null والاختبار يتوقع empty state — `(data ?? []).some` → **jest 30/30**.
 - **النتيجة:** صفر مخالفات palette خام في مجلدات الداشبورد كاملة (مسح grep آلي).
 
-### 4.5 ما بقي فعلاً (خارج نطاق الداشبورد)
+### 4.5 الموجة 3 — i18n + المسح المنصوي (نفس اليوم)
 
-- نصوص عربية hardcoded في السويتشر (`لوحة التخصص والأعمال`): i18n موجة مستقلة.
-- `divide-x-reverse` المنتشرة في وحدات أخرى (admin/hr/store): برا نطاق الداشبورد.
+- **السويتشر i18n:** مفاتيح `companyDashboard.tabs.specialty/installedApps` في section AR+EN، واستبدال النصوص الـhardcoded في `MainDashboardPage.tsx` (types مولدة: 18,865 مفتاح).
+- **`divide-x-reverse` منصة كاملة:** إثبات بالكومبايل الفعلي (Tailwind v4.2.1) أن divide-x يستخدم `border-inline-start/end` وreverse يقلب بينهما — وكلتاهما في نفس الفجوة → **no-op بصري** (بقايا v3). حذف 99/99 موضعًا من 88 ملفًا بنود يحافظ على EOLs — صفر تغيير بصري، امتثال كامل لقانون RTL-first.
+- ملاحظة تحقق: tsc full الموجة 2 سقط OOM (exit 134) بلا أي خطأ نوع — flake معروف؛ esbuild/jest/vite غطت التحقق.
+
+### 4.6 الموجة 4 — انتشار Polaris: صفحة المنتجات (Recipe B الأولى)
+
+- **Wrap:** جذر `Products.tsx` ← `polaris-track` (كانفاس + radius 12/8 + bevel يعمم على الشجرة كلها).
+- **تنظيف 74+ مخالفة** في 12 ملفًا بثلاث جولات خريطة توكنز: gray→semantic (border/text/card/muted)، indigo→primary، rose/red→destructive، amber/purple→warning/primary، emerald chips→success، `ml-auto/mr-auto`→`ms-auto` موحد.
+- **النتيجة:** صفر مخالفات palette خام في صفحة المنتجات كاملة (مسح grep آلي)، jest 10/10 (ProductMobileCard + ProductsFilters المعدلان)، esbuild 13/13.
+
+### 4.7 ما بقي فعلاً
+
+- صفحات التاجر الأخرى (customers/settings/orders — orders تحت قفل موازٍ): نفس نمط الموجة 4، تركيبة جاهزة.
+- **تحقق بصري لايف** على الإنتاج بعد الديبلوي.
 
 ## 5. المتوقع (ما سيراه التاجر)
 

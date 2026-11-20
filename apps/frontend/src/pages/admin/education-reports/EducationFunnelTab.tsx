@@ -66,7 +66,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
   return (
     <div className="space-y-6 pt-2">
       {/* Unified Pipeline + Telemetry Grid (Single Surface - No Cards inside Cards) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:divide-x lg:divide-x-reverse lg:divide-border/60">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:divide-x lg:divide-border/60">
         {/* Left 7 cols: Pipeline Flow (Clean Single Surface) */}
         <div className="lg:col-span-7 space-y-4 lg:pl-6">
           <div className="flex items-center justify-between pb-2 border-b border-border/60">

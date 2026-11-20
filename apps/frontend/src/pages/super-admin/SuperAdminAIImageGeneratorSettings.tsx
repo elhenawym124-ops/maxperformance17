@@ -157,7 +157,7 @@ export default function SuperAdminAIImageGeneratorSettings() {
       </div>
 
       {/* Telemetry Strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 rounded-xl border border-border bg-card overflow-hidden divide-y md:divide-y-0 divide-x md:divide-x-reverse divide-border shadow-xs">
+      <div className="grid grid-cols-2 md:grid-cols-4 rounded-xl border border-border bg-card overflow-hidden divide-y md:divide-y-0 divide-x divide-border shadow-xs">
         <div className="p-4 space-y-1">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>الشركات المسجلة</span>

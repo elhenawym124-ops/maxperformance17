@@ -581,7 +581,7 @@ export const CinematicPlinthHero: React.FC<HeroVariantProps> = (props) => {
       {leadHighlights.length > 0 ? (
         <div className="relative z-10 border-t border-white/10 bg-black/50 backdrop-blur-md py-4">
           <div className="container mx-auto px-4 md:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-start divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-white/10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-start divide-y sm:divide-y-0 sm:divide-x divide-white/10">
               {leadHighlights.map((item, idx) => (
                 <div
                   key={`${item.label}-${item.value}`}

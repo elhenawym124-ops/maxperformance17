@@ -226,7 +226,7 @@ export function SuperAdminCompanyActivity() {
       ) : (
         <>
           {/* Telemetry Ribbon (6 stats) */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 rounded-xl border border-border bg-card divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border overflow-hidden shadow-xs">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 rounded-xl border border-border bg-card divide-y sm:divide-y-0 sm:divide-x divide-border overflow-hidden shadow-xs">
             <div className="p-3 sm:p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                 <span className="font-medium text-[11px]">إجمالي الشركات</span>

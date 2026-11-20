@@ -178,7 +178,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
           className={`md:hidden inline-flex items-center gap-1.5 px-3 py-2 border rounded-lg text-xs font-medium transition-all duration-150 active:scale-[0.97] shrink-0 shadow-2xs ${
             showMobileFilters || activeCount > 0
               ? "border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800"
-              : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700"
+              : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 bg-card dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700"
           }`}
         >
           <AdjustmentsHorizontalIcon className="h-4 w-4" />
@@ -197,7 +197,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
           className={`hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 border rounded-lg text-xs font-medium transition-all duration-150 active:scale-[0.97] shrink-0 shadow-2xs ${
             showAdvancedFilters
               ? "border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 font-semibold"
-              : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700/60"
+              : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 bg-card dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700/60"
           }`}
         >
           <FunnelIcon className="h-3.5 w-3.5 text-zinc-500" />
@@ -262,7 +262,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
                     ? "bg-emerald-600 text-white shadow-xs font-semibold"
                     : "bg-white dark:bg-zinc-900 text-zinc-950 dark:text-zinc-50 shadow-xs font-semibold"
                   : chip.isSpecial
-                    ? "text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10 font-medium"
+                    ? "text-success hover:bg-success/10 font-medium"
                     : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-200/60 dark:hover:bg-zinc-700/60 font-medium"
               }`}
             >
@@ -276,7 +276,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
           <button
             type="button"
             onClick={onResetAdvancedFilters}
-            className={`whitespace-nowrap px-2 py-1 text-xs text-rose-600 dark:text-rose-400 hover:underline font-medium shrink-0 ${isEn ? "ml-auto" : "mr-auto"}`}
+            className={`whitespace-nowrap px-2 py-1 text-xs text-destructive hover:underline font-medium shrink-0 ms-auto`}
           >
             {isEn ? `Reset (${activeCount})` : `إعادة تعيين (${activeCount})`}
           </button>
@@ -285,15 +285,15 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
 
       {/* Mobile Collapsible Filter Drawer */}
       {showMobileFilters && (
-        <div className="md:hidden pt-3 border-t border-gray-100 dark:border-gray-700/60 space-y-3 animate-in fade-in duration-150">
+        <div className="md:hidden pt-3 border-t border-border/70 space-y-3 animate-in fade-in duration-150">
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] font-medium text-gray-500 dark:text-gray-400 mb-1">{isEn ? "Status" : "الحالة"}</label>
+              <label className="block text-[10px] font-medium text-muted-foreground mb-1">{isEn ? "Status" : "الحالة"}</label>
               <select
                 value={filters.statusFilter}
                 onChange={(e) => onFilterChange("statusFilter", e.target.value)}
                 aria-label={isEn ? "Filter by status" : "تصفية حسب الحالة"}
-                className="w-full px-2.5 py-1.5 text-xs border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               >
                 <option value="all">{isEn ? "All Statuses" : "جميع الحالات"}</option>
                 <option value="published">{isEn ? "Published" : "منشور"}</option>
@@ -305,12 +305,12 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-[10px] font-medium text-gray-500 dark:text-gray-400 mb-1">{isEn ? "Stock" : "المخزون"}</label>
+              <label className="block text-[10px] font-medium text-muted-foreground mb-1">{isEn ? "Stock" : "المخزون"}</label>
               <select
                 value={filters.stockFilter}
                 onChange={(e) => onFilterChange("stockFilter", e.target.value)}
                 aria-label={isEn ? "Filter by stock" : "تصفية حسب المخزون"}
-                className="w-full px-2.5 py-1.5 text-xs border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               >
                 <option value="all">{isEn ? "All Stock" : "جميع المخزون"}</option>
                 <option value="in-stock">{isEn ? "In Stock" : "متوفر"}</option>
@@ -322,36 +322,36 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
 
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label htmlFor="filter-mobile-price-min" className="block text-[10px] font-medium text-gray-500 dark:text-gray-400 mb-1">{isEn ? "Price From" : "السعر من"}</label>
+              <label htmlFor="filter-mobile-price-min" className="block text-[10px] font-medium text-muted-foreground mb-1">{isEn ? "Price From" : "السعر من"}</label>
               <input
                 id="filter-mobile-price-min"
                 type="number"
                 value={filters.priceMin}
                 onChange={(e) => onFilterChange("priceMin", e.target.value)}
                 placeholder="0"
-                className="w-full px-2.5 py-1.5 text-xs border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               />
             </div>
             <div>
-              <label htmlFor="filter-mobile-price-max" className="block text-[10px] font-medium text-gray-500 dark:text-gray-400 mb-1">{isEn ? "Price To" : "السعر إلى"}</label>
+              <label htmlFor="filter-mobile-price-max" className="block text-[10px] font-medium text-muted-foreground mb-1">{isEn ? "Price To" : "السعر إلى"}</label>
               <input
                 id="filter-mobile-price-max"
                 type="number"
                 value={filters.priceMax}
                 onChange={(e) => onFilterChange("priceMax", e.target.value)}
                 placeholder="999999"
-                className="w-full px-2.5 py-1.5 text-xs border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[10px] font-medium text-gray-500 dark:text-gray-400 mb-1">{isEn ? "Tags" : "الوسوم (Tags)"}</label>
+            <label className="block text-[10px] font-medium text-muted-foreground mb-1">{isEn ? "Tags" : "الوسوم (Tags)"}</label>
             <select
               value={filters.tagsFilter}
               onChange={(e) => onFilterChange("tagsFilter", e.target.value)}
               aria-label={isEn ? "Filter by tags" : "تصفية حسب الوسوم"}
-              className="w-full px-2.5 py-1.5 text-xs border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+              className="w-full px-2.5 py-1.5 text-xs border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
             >
               <option value="">{isEn ? "All Tags" : "جميع الـ Tags"}</option>
               {allTags.map((tag) => (
@@ -364,14 +364,14 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
             <button
               type="button"
               onClick={onResetAdvancedFilters}
-              className="text-xs text-red-600 dark:text-red-400 font-medium"
+              className="text-xs text-destructive font-medium"
             >
               {isEn ? "Clear All" : "مسح الكل"}
             </button>
             <button
               type="button"
               onClick={() => setShowMobileFilters(false)}
-              className="text-xs bg-indigo-600 text-white font-bold px-3 py-1.5 rounded-lg shadow-xs"
+              className="text-xs bg-primary text-primary-foreground font-bold px-3 py-1.5 rounded-lg shadow-xs"
             >
               {isEn ? "Done" : "تم"}
             </button>
@@ -381,10 +381,10 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
 
       {/* Advanced Filters Panel */}
       {showAdvancedFilters && (
-        <div className="mt-2 pt-3 border-t border-gray-100 dark:border-gray-700/60 animate-in fade-in duration-150">
+        <div className="mt-2 pt-3 border-t border-border/70 animate-in fade-in duration-150">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-2 sm:gap-3">
             <div>
-              <label htmlFor="filter-status-adv" className="block text-[11px] font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="filter-status-adv" className="block text-[11px] font-medium text-foreground mb-1">
                 {isEn ? "Status" : "الحالة"}
               </label>
               <select
@@ -392,7 +392,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
                 value={filters.statusFilter}
                 onChange={(e) => onFilterChange("statusFilter", e.target.value)}
                 aria-label={isEn ? "Filter by status" : "تصفية حسب الحالة"}
-                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               >
                 <option value="all">{isEn ? "All Statuses" : "جميع الحالات"}</option>
                 <option value="published">{isEn ? "Published" : "منشور"}</option>
@@ -404,7 +404,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
               </select>
             </div>
             <div>
-              <label htmlFor="filter-price-min" className="block text-[11px] font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="filter-price-min" className="block text-[11px] font-medium text-foreground mb-1">
                 {isEn ? "Price From" : "السعر من"}
               </label>
               <input
@@ -413,11 +413,11 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
                 value={filters.priceMin}
                 onChange={(e) => onFilterChange("priceMin", e.target.value)}
                 placeholder="0"
-                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               />
             </div>
             <div>
-              <label htmlFor="filter-price-max" className="block text-[11px] font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="filter-price-max" className="block text-[11px] font-medium text-foreground mb-1">
                 {isEn ? "Price To" : "السعر إلى"}
               </label>
               <input
@@ -426,38 +426,38 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
                 value={filters.priceMax}
                 onChange={(e) => onFilterChange("priceMax", e.target.value)}
                 placeholder="999999"
-                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               />
             </div>
             <div>
-              <label htmlFor="filter-date-from" className="block text-[11px] font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="filter-date-from" className="block text-[11px] font-medium text-foreground mb-1">
                 {isEn ? "From Date" : "من تاريخ"}
               </label>
               <DateInput
                 value={filters.dateFrom}
                 onChange={(e) => onFilterChange("dateFrom", e.target.value)}
-                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               />
             </div>
             <div>
-              <label htmlFor="filter-date-to" className="block text-[11px] font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="filter-date-to" className="block text-[11px] font-medium text-foreground mb-1">
                 {isEn ? "To Date" : "إلى تاريخ"}
               </label>
               <DateInput
                 value={filters.dateTo}
                 onChange={(e) => onFilterChange("dateTo", e.target.value)}
-                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               />
             </div>
             <div className="col-span-2 md:col-span-1">
-              <label className="block text-[11px] font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-[11px] font-medium text-foreground mb-1">
                 {isEn ? "Tags" : "الوسوم"}
               </label>
               <select
                 value={filters.tagsFilter}
                 onChange={(e) => onFilterChange("tagsFilter", e.target.value)}
                 aria-label={isEn ? "Filter by tags" : "تصفية حسب الوسوم"}
-                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700/80 dark:text-gray-100 shadow-xs"
+                className="w-full px-2.5 py-1.5 text-xs sm:text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground shadow-xs"
               >
                 <option value="">{isEn ? "All Tags" : "جميع الـ Tags"}</option>
                 {allTags.map((tag) => (
@@ -470,7 +470,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
             <button
               type="button"
               onClick={onResetAdvancedFilters}
-              className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
+              className="text-xs text-primary hover:text-primary font-medium"
             >
               {isEn ? "Reset Filters" : "إعادة تعيين الفلاتر"}
             </button>

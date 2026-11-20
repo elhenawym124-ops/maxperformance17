@@ -226,7 +226,7 @@ export default function PatientDetailPage({ patientId }: { patientId?: string })
               </div>
 
               {/* Financial Telemetry Ribbon */}
-              <div className="grid grid-cols-2 sm:grid-cols-5 rounded-xl border border-border/70 bg-card overflow-hidden divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 shadow-sm">
+              <div className="grid grid-cols-2 sm:grid-cols-5 rounded-xl border border-border/70 bg-card overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-border/60 shadow-sm">
                 <div className="p-3.5 space-y-1">
                   <span className="text-xs text-muted-foreground">الزيارات</span>
                   <div className="text-lg font-bold font-mono tabular-nums text-foreground">{patient.appointments?.length || 0}</div>

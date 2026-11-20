@@ -84,7 +84,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
   const SortIcon = ({ field }: { field: SortField }) => {
     const active = sortField === field;
     return (
-      <span className={`text-xs ${active ? "text-indigo-600" : "text-gray-400"}`}>
+      <span className={`text-xs ${active ? "text-primary" : "text-muted-foreground"}`}>
         {active ? (sortDirection === "asc" ? "↑" : "↓") : "↕"}
       </span>
     );

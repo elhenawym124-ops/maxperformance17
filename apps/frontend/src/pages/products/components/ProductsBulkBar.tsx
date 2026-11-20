@@ -72,7 +72,7 @@ const ProductsBulkBar: React.FC<ProductsBulkBarProps> = ({
         <button
           type="button"
           onClick={onConvertToPresentations}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-[0.98]"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-[0.98]"
         >
           <Layers className="h-3.5 w-3.5" />
           <span>{isEn ? "Presentations" : "حوّل لعروض"}</span>

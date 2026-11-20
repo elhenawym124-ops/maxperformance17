@@ -212,7 +212,7 @@ export const BulkConvertModal: React.FC<BulkConvertModalProps> = ({
             {EXPLAINER_TEXT}
           </p>
 
-          <div className="flex items-start gap-2.5 bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
+          <div className="flex items-start gap-2.5 bg-warning/10 border border-warning/20 rounded-lg p-3">
             <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
             <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
               {WARNING_TEXT}

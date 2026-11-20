@@ -24,7 +24,7 @@ export const CompaniesLifecycleRibbon: React.FC<CompaniesLifecycleRibbonProps> =
   onOpenView,
 }) => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-x-reverse divide-y sm:divide-y-0 divide-border/60 rounded-xl border border-border/60 bg-muted/20 overflow-hidden">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-y sm:divide-y-0 divide-border/60 rounded-xl border border-border/60 bg-muted/20 overflow-hidden">
       <button
         type="button"
         onClick={onClearFilters}

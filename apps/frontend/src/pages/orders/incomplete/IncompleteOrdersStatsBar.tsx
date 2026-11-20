@@ -63,7 +63,7 @@ export const IncompleteOrdersStatsBar: React.FC<IncompleteOrdersStatsBarProps> =
 
   return (
     <div className="rounded-xl border border-border/70 bg-card shadow-2xs overflow-hidden">
-      <div className="grid grid-cols-2 divide-y divide-border/50 sm:grid-cols-4 sm:divide-y-0 sm:divide-x sm:divide-x-reverse rtl:sm:divide-x-reverse">
+      <div className="grid grid-cols-2 divide-y divide-border/50 sm:grid-cols-4 sm:divide-y-0 sm:divide-x rtl:">
         {statCards.map((card, idx) => {
           const Icon = card.icon;
           return (

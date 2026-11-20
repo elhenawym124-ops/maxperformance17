@@ -110,7 +110,7 @@ export default function SuperAdminSupportSettings() {
 
       {/* Linear Telemetry Strip */}
       <div className="rounded-xl border border-border/80 bg-card shadow-xs overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60">
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border/60">
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">حالة القناة</span>

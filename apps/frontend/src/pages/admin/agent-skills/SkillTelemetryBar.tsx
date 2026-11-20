@@ -27,7 +27,7 @@ export const SkillTelemetryBar: React.FC<SkillTelemetryBarProps> = ({
   const uniqueToolsCount = tools.length || new Set(skills.flatMap((s) => s.allowedTools || [])).size;
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card/40 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 overflow-hidden shadow-xs">
+    <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card/40 divide-y sm:divide-y-0 sm:divide-x divide-border/60 overflow-hidden shadow-xs">
       {/* 1. Total Skills */}
       <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">

@@ -52,7 +52,7 @@ const ProductsStats: React.FC<ProductsStatsProps> = ({
       label: isEn ? "Published" : "منتجات منشورة",
       value: publishedCount,
       meta: `${publishedRatio}% ${isEn ? "active" : "نشط"}`,
-      dotClass: "bg-emerald-500 ring-emerald-500/20",
+      dotClass: "bg-success ring-success/20",
       isActive: activeStatusFilter === "published",
     },
     {
@@ -60,7 +60,7 @@ const ProductsStats: React.FC<ProductsStatsProps> = ({
       label: isEn ? "Low Stock" : "مخزون منخفض",
       value: lowStockCount,
       meta: isEn ? "Requires attention" : "يتطلب انتباه",
-      dotClass: lowStockCount > 0 ? "bg-amber-500 ring-amber-500/20 animate-pulse" : "bg-amber-500/60 ring-amber-500/10",
+      dotClass: lowStockCount > 0 ? "bg-warning ring-warning/20 animate-pulse" : "bg-warning/60 ring-warning/10",
       isActive: activeStockFilter === "low-stock",
     },
     {
@@ -68,13 +68,13 @@ const ProductsStats: React.FC<ProductsStatsProps> = ({
       label: isEn ? "Out of Stock" : "نفد المخزون",
       value: outOfStockCount,
       meta: isEn ? "Depleted inventory" : "مخزون منتهي",
-      dotClass: outOfStockCount > 0 ? "bg-rose-500 ring-rose-500/20 animate-pulse" : "bg-rose-500/60 ring-rose-500/10",
+      dotClass: outOfStockCount > 0 ? "bg-destructive ring-destructive/20 animate-pulse" : "bg-destructive/60 ring-destructive/10",
       isActive: activeStockFilter === "out-of-stock",
     },
   ];
 
   return (
-    <div className="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl overflow-hidden shadow-2xs divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-zinc-200/60 dark:divide-zinc-800/60 grid grid-cols-2 lg:grid-cols-4">
+    <div className="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl overflow-hidden shadow-2xs divide-y sm:divide-y-0 sm:divide-x divide-zinc-200/60 dark:divide-zinc-800/60 grid grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (
         <button
           key={stat.type}

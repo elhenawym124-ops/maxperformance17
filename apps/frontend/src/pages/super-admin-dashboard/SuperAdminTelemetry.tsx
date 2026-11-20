@@ -94,7 +94,7 @@ export const SuperAdminTelemetry: React.FC<SuperAdminTelemetryProps> = ({
   comparison,
 }) => {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card/40 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 overflow-hidden shadow-xs">
+    <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card/40 divide-y sm:divide-y-0 sm:divide-x divide-border/60 overflow-hidden shadow-xs">
       <MetricCard
         title="إجمالي الشركات"
         value={overview?.totalCompanies || 0}

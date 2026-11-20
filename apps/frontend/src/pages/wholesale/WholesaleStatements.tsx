@@ -243,7 +243,7 @@ export default function WholesaleStatements() {
           </div>
 
           {/* KPI 4-Card Ribbon */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-border/60 border-b border-border/70 rtl:divide-x-reverse font-mono">
+          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-border/60 border-b border-border/70 font-mono">
             <div className="p-3 bg-card">
               <span className="text-[10px] text-muted-foreground block">الرصيد الافتتاحي</span>
               <span className="text-sm font-semibold tabular-nums text-foreground mt-0.5 block">

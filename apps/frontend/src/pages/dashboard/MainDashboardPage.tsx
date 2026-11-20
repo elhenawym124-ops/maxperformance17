@@ -205,7 +205,7 @@ export default function MainDashboardPage() {
             }`}
           >
             <BarChart3 className="w-3.5 h-3.5" />
-            <span>لوحة التخصص والأعمال</span>
+            <span>{t("companyDashboard.tabs.specialty")}</span>
           </button>
 
           <button
@@ -218,7 +218,7 @@ export default function MainDashboardPage() {
             }`}
           >
             <Box className="w-3.5 h-3.5" />
-            <span>التطبيقات المثبتة <span className="tabular-nums font-mono">({installedApps.length})</span></span>
+            <span>{t("companyDashboard.tabs.installedApps")} <span className="tabular-nums font-mono">({installedApps.length})</span></span>
           </button>
         </div>
       </div>

@@ -116,7 +116,7 @@ export default function FormsBuilderPage() {
       </div>
 
       {/* KPI Telemetry Ribbon */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 rounded-xl border border-border/80 bg-card/40 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 overflow-hidden shadow-xs">
+      <div className="grid grid-cols-2 sm:grid-cols-4 rounded-xl border border-border/80 bg-card/40 divide-y sm:divide-y-0 sm:divide-x divide-border/60 overflow-hidden shadow-xs">
         <div className="p-3 flex flex-col justify-between hover:bg-muted/10 transition-colors">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span className="font-medium text-[11px]">إجمالي النماذج</span>

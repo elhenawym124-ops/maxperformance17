@@ -311,7 +311,7 @@ export default function EducationTeacherSchedulePage() {
 
       {/* Week Calendar Grid */}
       <div className="bg-card border border-border/80 rounded-2xl overflow-hidden shadow-xs">
-        <div className="grid grid-cols-1 md:grid-cols-7 divide-y md:divide-y-0 md:divide-x md:divide-x-reverse divide-border/60">
+        <div className="grid grid-cols-1 md:grid-cols-7 divide-y md:divide-y-0 md:divide-x divide-border/60">
           {weekDays.map((day, i) => {
             const daySessions = getSessionsForDay(day);
             const isToday = day.toDateString() === new Date().toDateString();

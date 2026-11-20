@@ -18,7 +18,7 @@ export const InventoryTelemetryCards: React.FC<InventoryTelemetryCardsProps> = (
 
   return (
     <div className="rounded-xl border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-2xs overflow-hidden">
-      <div className="grid grid-cols-2 divide-y divide-gray-100 dark:divide-gray-800 sm:grid-cols-4 sm:divide-y-0 sm:divide-x sm:divide-x-reverse rtl:sm:divide-x-reverse">
+      <div className="grid grid-cols-2 divide-y divide-gray-100 dark:divide-gray-800 sm:grid-cols-4 sm:divide-y-0 sm:divide-x rtl:">
         <div className="p-3 sm:p-4 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 font-medium mb-1">
             <span>إجمالي المنتجات</span>

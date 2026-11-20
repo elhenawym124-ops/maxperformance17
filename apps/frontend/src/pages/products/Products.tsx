@@ -105,7 +105,7 @@ export const Products: React.FC = () => {
   const { formatDate } = useDateFormat();
 
   return (
-    <div className="space-y-3 sm:space-y-5 font-sans" dir="rtl">
+    <div className="polaris-track space-y-3 sm:space-y-5 font-sans" dir="rtl">
       <ProductsHeader
         viewMode={viewMode}
         setViewMode={setViewMode}
@@ -162,7 +162,7 @@ export const Products: React.FC = () => {
       )}
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-xs text-red-600">
+        <div className="bg-destructive/10 border border-destructive/20 rounded-xl p-4 text-xs text-destructive">
           <p>{error}</p>
         </div>
       )}

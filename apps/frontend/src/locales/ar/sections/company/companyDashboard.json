@@ -1,6 +1,10 @@
 {
   "title": "لوحة تحكم",
   "welcome": "أهلًا {{name}}",
+  "tabs": {
+    "specialty": "لوحة التخصص والأعمال",
+    "installedApps": "التطبيقات المثبتة"
+  },
   "status": {
     "active": "نشط",
     "inactive": "غير نشط"

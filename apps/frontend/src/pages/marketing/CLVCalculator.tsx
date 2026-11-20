@@ -200,7 +200,7 @@ export default function CLVCalculator() {
           ]}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-border/70">
+        <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border/70">
           {/* Inputs Column */}
           <div className="lg:col-span-5 p-5 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-border/70">

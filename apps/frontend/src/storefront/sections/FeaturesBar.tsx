@@ -306,7 +306,7 @@ const FeaturesBar: React.FC<FeaturesBarProps> = ({ section, settings }) => {
               </div>
             ) : null}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-slate-100 dark:divide-slate-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-slate-800">
               {items.slice(0, 5).map((item, index) => {
                 const IconComponent = resolveFeatureIcon(item, index);
                 return (

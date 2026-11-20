@@ -219,7 +219,7 @@ const BroadcastDashboard: React.FC = () => {
           <div className="space-y-4">
             {/* Unified Telemetry Strip */}
             {stats && (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-x-reverse divide-y sm:divide-y-0 divide-border/60 rounded-xl border border-border/60 bg-card overflow-hidden">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y sm:divide-y-0 divide-border/60 rounded-xl border border-border/60 bg-card overflow-hidden">
                 <div className="p-3 sm:p-3.5 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium text-muted-foreground">إجمالي الحملات</span>

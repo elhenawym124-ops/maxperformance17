@@ -139,7 +139,7 @@ const PayoutRequestsPage: React.FC = () => {
 
       {/* Telemetry Strip */}
       <div className="rounded-xl border border-border/80 dark:border-border/60 bg-card shadow-2xs overflow-hidden">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x sm:rtl:divide-x-reverse divide-border/60 font-mono">
+        <div className="grid grid-cols-2 md:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x sm: divide-border/60 font-mono">
           <div className="p-3.5 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="text-[11px]">إجمالي الطلبات</span>

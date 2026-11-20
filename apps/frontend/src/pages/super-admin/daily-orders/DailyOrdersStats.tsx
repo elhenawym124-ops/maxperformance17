@@ -43,7 +43,7 @@ export const DailyOrdersStats: React.FC<DailyOrdersStatsProps> = ({
   const periodComparisonLabel = getPeriodLabel();
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card/40 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 overflow-hidden shadow-xs">
+    <div className="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-border/80 bg-card/40 divide-y sm:divide-y-0 sm:divide-x divide-border/60 overflow-hidden shadow-xs">
       {/* 1. إجمالي الطلبات */}
       <div className="p-3 sm:p-3.5 flex flex-col justify-between">
         <div className="flex items-center justify-between">

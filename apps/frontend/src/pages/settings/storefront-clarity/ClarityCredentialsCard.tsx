@@ -64,7 +64,7 @@ export const ClarityCredentialsCard: React.FC<ClarityCredentialsCardProps> = ({
           >
             Clarity Project ID
           </label>
-          <div className="flex overflow-hidden rounded-lg border border-gray-300 shadow-sm transition-all focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 dark:border-slate-600 divide-x rtl:divide-x-reverse">
+          <div className="flex overflow-hidden rounded-lg border border-gray-300 shadow-sm transition-all focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 dark:border-slate-600 divide-x">
             <span className="inline-flex items-center bg-gray-50 px-3 text-sm text-gray-500 dark:border-slate-600 dark:bg-slate-700 dark:text-gray-400">
               ID
             </span>
@@ -113,7 +113,7 @@ export const ClarityCredentialsCard: React.FC<ClarityCredentialsCardProps> = ({
           >
             Clarity API Token
           </label>
-          <div className="flex overflow-hidden rounded-lg border border-gray-300 shadow-sm transition-all focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 dark:border-slate-600 divide-x rtl:divide-x-reverse">
+          <div className="flex overflow-hidden rounded-lg border border-gray-300 shadow-sm transition-all focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 dark:border-slate-600 divide-x">
             <span className="inline-flex items-center bg-gray-50 px-3 text-sm text-gray-500 dark:border-slate-600 dark:bg-slate-700 dark:text-gray-400">
               <KeyIcon className="h-4 w-4" aria-hidden="true" />
             </span>

@@ -111,7 +111,7 @@ export const AutoDiscoverPage: React.FC = () => {
 
       {/* Telemetry Ribbon */}
       <div className="bg-card border border-border/70 rounded-xl overflow-hidden shadow-xs">
-        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-border/60 bg-muted/20">
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border/60 bg-muted/20">
           <div className="p-3.5 px-4">
             <div className="flex items-center justify-between text-muted-foreground text-xs">
               <span className="font-medium text-[11px]">محرك الاستكشاف</span>

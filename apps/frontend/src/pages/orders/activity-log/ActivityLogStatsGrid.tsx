@@ -15,7 +15,7 @@ export const ActivityLogStatsGrid: React.FC<ActivityLogStatsGridProps> = ({
   displayedCount,
 }) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 border-b border-border/70 bg-card/40 divide-x divide-x-reverse divide-border/60">
+    <div className="grid grid-cols-2 md:grid-cols-4 border-b border-border/70 bg-card/40 divide-x divide-border/60">
       <div className="px-4 py-3 flex items-center justify-between">
         <div>
           <div className="text-[11px] text-muted-foreground font-medium">إجمالي الحركات</div>

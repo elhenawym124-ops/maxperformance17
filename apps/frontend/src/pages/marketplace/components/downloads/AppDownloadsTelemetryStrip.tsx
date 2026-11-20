@@ -21,7 +21,7 @@ export function AppDownloadsTelemetryStrip({
   onCopyTokenOnly,
 }: AppDownloadsTelemetryStripProps) {
   return (
-    <div className="rounded-2xl border border-border/40 bg-card overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-x divide-x-reverse divide-border/40 shadow-sm">
+    <div className="rounded-2xl border border-border/40 bg-card overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-x divide-border/40 shadow-sm">
       {/* Telemetry 1: Auto-Detected Device */}
       <div
         role="button"

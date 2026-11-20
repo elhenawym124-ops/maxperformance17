@@ -137,7 +137,7 @@ const ActiveTimers: React.FC = () => {
 
       {/* Telemetry Strip */}
       <div className="rounded-xl border border-border/80 bg-card shadow-xs overflow-hidden">
-        <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x sm:rtl:divide-x-reverse divide-border/60">
+        <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x sm: divide-border/60">
           <div className="p-3.5 flex flex-col justify-between hover:bg-muted/10 transition-colors">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span className="font-medium text-[11px]">قيد التشغيل</span>
@@ -213,7 +213,7 @@ const ActiveTimers: React.FC = () => {
             <p>لا توجد مؤقتات نشطة تطابق معايير البحث والفلترة</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x md:rtl:divide-x-reverse divide-border/60">
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x md: divide-border/60">
             {filteredTimers.map((timer) => (
               <div key={timer.id} className="p-4 flex flex-col justify-between hover:bg-muted/15 transition-colors">
                 <div>
