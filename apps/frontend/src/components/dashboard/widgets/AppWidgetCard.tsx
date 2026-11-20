@@ -18,7 +18,7 @@ export function AppWidgetCard({ widget, data }: Props) {
       type="button"
       onClick={() => navigate(widget.href)}
       className={cn(
-        "relative flex flex-col p-4 sm:p-5 rounded-2xl text-start h-full w-full",
+        "relative flex flex-col p-4 sm:p-5 rounded-xl text-start h-full w-full",
         "bg-card text-card-foreground",
         "border border-border/70 shadow-[0_1px_3px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]",
         "transition-all duration-150 ease-out hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-md",
@@ -31,8 +31,8 @@ export function AppWidgetCard({ widget, data }: Props) {
         <span
           className={cn(
             "absolute top-3 end-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium border",
-            data.status === "active" && "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-            data.status === "warning" && "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+            data.status === "active" && "bg-emerald-500/10 text-success dark:text-success border-success/20",
+            data.status === "warning" && "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
             data.status === "error" && "bg-destructive/10 text-destructive border-destructive/20",
             data.status === "inactive" && "bg-muted text-muted-foreground border-border/50",
           )}
@@ -73,7 +73,7 @@ export function AppWidgetCard({ widget, data }: Props) {
                   <span
                     className={cn(
                       "text-[10px] font-bold tabular-nums",
-                      m.trend.positive ? "text-emerald-600 dark:text-emerald-400" : "text-destructive",
+                      m.trend.positive ? "text-emerald-600 dark:text-success" : "text-destructive",
                     )}
                   >
                     {m.trend.value}

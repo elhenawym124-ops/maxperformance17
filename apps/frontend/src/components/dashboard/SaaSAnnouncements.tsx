@@ -45,17 +45,17 @@ const SaaSAnnouncements: React.FC<SaaSAnnouncementsProps> = ({
         return {
           icon: AlertTriangle,
           label: "تنبيه",
-          badgeClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-          iconColor: "text-amber-600 dark:text-amber-400",
-          cardBorder: "border-amber-500/20 hover:border-amber-500/40",
+          badgeClass: "bg-amber-500/10 text-warning dark:text-warning border-warning/20",
+          iconColor: "text-amber-600 dark:text-warning",
+          cardBorder: "border-amber-500/20 hover:border-warning/40",
         };
       case "promotion":
         return {
           icon: Rocket,
           label: "عرض خاص",
-          badgeClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-          iconColor: "text-emerald-600 dark:text-emerald-400",
-          cardBorder: "border-emerald-500/20 hover:border-emerald-500/40",
+          badgeClass: "bg-emerald-500/10 text-success dark:text-success border-success/20",
+          iconColor: "text-emerald-600 dark:text-success",
+          cardBorder: "border-emerald-500/20 hover:border-success/40",
         };
       case "update":
       default:
@@ -85,7 +85,7 @@ const SaaSAnnouncements: React.FC<SaaSAnnouncementsProps> = ({
                 <Icon className={`w-4 h-4 ${config.iconColor}`} />
               </div>
 
-              <div className="flex-1 min-w-0 pr-6 sm:pr-0">
+              <div className="flex-1 min-w-0 pe-6 sm:pe-0">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <span
                     className={`inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-full border ${config.badgeClass}`}

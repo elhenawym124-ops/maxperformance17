@@ -156,7 +156,7 @@ export default function MainDashboardPage() {
   if (isError) {
     return (
       <div className="polaris-track flex flex-col items-center justify-center py-20 text-center">
-        <div className="p-4 rounded-2xl bg-destructive/10 mb-4">
+        <div className="p-4 rounded-xl bg-destructive/10 mb-4">
           <Eye className="w-8 h-8 text-destructive" />
         </div>
         <h2 className="text-lg font-bold text-foreground mb-2">
@@ -235,7 +235,7 @@ export default function MainDashboardPage() {
           {dashboard && <SpecialtyDashboardHeader dashboard={dashboard} />}
 
           {/* Date range toolbar & actions bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-2xl bg-card border border-border/70 shadow-2xs">
+          <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-xl bg-card border border-border/70 shadow-2xs">
             <DateRangeToolbar
               start={customStart}
               end={customEnd}

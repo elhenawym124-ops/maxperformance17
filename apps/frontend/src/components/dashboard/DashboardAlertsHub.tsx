@@ -79,7 +79,7 @@ export function DashboardAlertsHub({ dashboard, escalationAttention }: Props) {
     alerts.push({
       id: "low-stock",
       icon: AlertTriangle,
-      className: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 hover:bg-amber-500/20",
+      className: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20 hover:bg-warning/20",
       text: t("companyDashboard.inventory.lowStockCount", { count: inventory.lowStockCount }),
       onClick: () => navigate("/products?filter=low-stock"),
     });

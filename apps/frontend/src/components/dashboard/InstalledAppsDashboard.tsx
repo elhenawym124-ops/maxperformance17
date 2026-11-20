@@ -136,12 +136,12 @@ export const InstalledAppsDashboard: React.FC<InstalledAppsDashboardProps> = ({
             <span className="text-xs font-semibold text-muted-foreground">
               اشتراكات نشطة
             </span>
-            <div className="size-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <div className="size-8 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center">
               <CheckCircle2 className="size-4" />
             </div>
           </div>
           <div className="mt-2.5 flex items-baseline gap-2">
-            <span className="text-2xl font-mono tabular-nums font-bold tracking-tight text-emerald-600 dark:text-emerald-400">{stats.active}</span>
+            <span className="text-2xl font-mono tabular-nums font-bold tracking-tight text-success dark:text-success">{stats.active}</span>
             <span className="text-xs text-muted-foreground font-medium">اشتراك فعال</span>
           </div>
         </div>
@@ -151,12 +151,12 @@ export const InstalledAppsDashboard: React.FC<InstalledAppsDashboardProps> = ({
             <span className="text-xs font-semibold text-muted-foreground">
               فترات تجريبية
             </span>
-            <div className="size-8 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+            <div className="size-8 rounded-lg bg-warning/10 text-warning dark:text-warning flex items-center justify-center">
               <Clock className="size-4" />
             </div>
           </div>
           <div className="mt-2.5 flex items-baseline gap-2">
-            <span className="text-2xl font-mono tabular-nums font-bold tracking-tight text-amber-600 dark:text-amber-400">{stats.trial}</span>
+            <span className="text-2xl font-mono tabular-nums font-bold tracking-tight text-warning dark:text-warning">{stats.trial}</span>
             <span className="text-xs text-muted-foreground font-medium">تجربة مجانية</span>
           </div>
         </div>
@@ -201,7 +201,7 @@ export const InstalledAppsDashboard: React.FC<InstalledAppsDashboardProps> = ({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="بحث بين التطبيقات..."
-            className="w-full pl-3 pr-9 py-1.5 text-xs rounded-lg bg-background border border-border/70 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors placeholder:text-muted-foreground text-foreground"
+            className="w-full ps-3 pe-9 py-1.5 text-xs rounded-lg bg-background border border-border/70 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors placeholder:text-muted-foreground text-foreground"
           />
         </div>
 
@@ -290,14 +290,14 @@ export const InstalledAppsDashboard: React.FC<InstalledAppsDashboardProps> = ({
                     </div>
 
                     {isTrial ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono tabular-nums font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono tabular-nums font-semibold bg-warning/10 text-warning dark:text-warning border border-warning/20 whitespace-nowrap">
                         <Clock className="size-2.5" />
                         {app.daysRemainingInTrial != null
                           ? `${app.daysRemainingInTrial} يوم تجريبي`
                           : 'فترة تجريبية'}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20 whitespace-nowrap">
                         <CheckCircle2 className="size-2.5" />
                         نشط
                       </span>

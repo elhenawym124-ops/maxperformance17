@@ -53,10 +53,10 @@ export function DashboardActivityFeed({ dashboard, liveActivities, liveCount = 0
           {t("companyDashboard.activity.title")}
         </h3>
         {liveCount > 0 && (
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-success dark:text-success">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-500" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-success" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
             </span>
             <span className="font-mono tabular-nums">{liveCount}</span> {t("companyDashboard.live.label")}
           </span>
@@ -118,7 +118,7 @@ function ActivityRow({
       </div>
       <span className="text-xs text-foreground truncate flex-1 text-right font-medium">{text}</span>
       {time != null && (
-        <span className="text-[10px] text-muted-foreground/60 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity ltr:ml-auto rtl:mr-auto font-mono tabular-nums">
+        <span className="text-[10px] text-muted-foreground/60 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity ltr:ms-auto rtl:me-auto font-mono tabular-nums">
           {formatTime(time)}
         </span>
       )}

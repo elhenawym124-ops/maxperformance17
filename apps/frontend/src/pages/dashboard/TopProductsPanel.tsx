@@ -8,7 +8,7 @@ export default function TopProductsPanel({
   title,
 }: TopProductsPanelProps) {
   return (
-    <div className="p-5 rounded-2xl bg-card border border-border/50 shadow-sm" style={{ boxShadow: "0 28px 72px -48px rgba(7, 17, 32, 0.42)" }}>
+    <div className="p-5 rounded-xl bg-card border border-border/50 shadow-sm" style={{ boxShadow: "0 28px 72px -48px rgba(7, 17, 32, 0.42)" }}>
       <h4 className="mb-3 text-sm font-semibold text-foreground">{title}</h4>
       {items.length === 0 ? (
         <p className="text-xs text-muted-foreground">{emptyLabel}</p>

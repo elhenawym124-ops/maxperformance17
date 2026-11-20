@@ -82,10 +82,10 @@ export default function RevenueTrendChart({
       <div className="h-[280px]">
         <DeferredResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
-            <XAxis dataKey="date" className="text-xs text-gray-500 dark:text-gray-400" tickMargin={8} />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-border/70" />
+            <XAxis dataKey="date" className="text-xs text-muted-foreground" tickMargin={8} />
             <YAxis
-              className="text-xs text-gray-500 dark:text-gray-400"
+              className="text-xs text-muted-foreground"
               tickFormatter={(v: number) => (view === "revenue" ? formatRevenue(v) : v.toLocaleString())}
               tickMargin={8}
             />

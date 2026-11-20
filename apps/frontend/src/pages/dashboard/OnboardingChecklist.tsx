@@ -94,7 +94,7 @@ export function OnboardingChecklist({
 
         <div className="h-2 rounded-full overflow-hidden mb-5 bg-muted border border-border/40">
           <div
-            className="h-full rounded-full transition-all duration-500 ease-out bg-emerald-500 dark:bg-emerald-400"
+            className="h-full rounded-full transition-all duration-500 ease-out bg-success"
             style={{ width: `${progressPct}%` }}
           />
         </div>
@@ -107,14 +107,14 @@ export function OnboardingChecklist({
                 <div
                   className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${
                     step.completed
-                      ? "border-emerald-500/20 bg-emerald-500/5"
+                      ? "border-success/20 bg-success/5"
                       : "border-border/60 bg-background/50 hover:bg-muted/40"
                   }`}
                 >
                   <div
                     className={`p-2 rounded-md shrink-0 border ${
                       step.completed
-                        ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                        ? "border-success/30 bg-success/10 text-success"
                         : "border-primary/20 bg-primary/10 text-primary"
                     }`}
                   >
