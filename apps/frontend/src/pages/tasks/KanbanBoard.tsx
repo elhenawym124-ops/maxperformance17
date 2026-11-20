@@ -345,7 +345,7 @@ const KanbanBoard: React.FC = () => {
   }
 
   return (
-    <div className="polaris-track h-full flex flex-col">
+    <div className="h-full flex flex-col">
       {/* Header */}
       <div className="bg-card border-b border-border dark:border-border px-6 py-4">
         <div className="flex items-center justify-between">

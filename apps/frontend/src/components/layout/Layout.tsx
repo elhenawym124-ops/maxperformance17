@@ -1154,7 +1154,9 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
 
              <main
                   className={`business-shell-main ${showMobileDock ? "business-shell-with-mobile-dock" : ""} flex-1 flex flex-col ${
-                    shouldRemovePadding ? "p-0 overflow-hidden min-h-0 h-full max-h-full" : "p-4 md:p-6 overflow-y-auto min-h-0 h-full max-h-full"
+                    shouldRemovePadding
+                      ? "p-0 overflow-hidden min-h-0 h-full max-h-full"
+                      : "polaris-track p-4 md:p-6 overflow-y-auto min-h-0 h-full max-h-full"
                   }`}
                   style={{ height: '100%', minHeight: 0, flex: '1 1 0%' }}
                 >
@@ -1275,7 +1277,9 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
 
                <main
                   className={`business-shell-main ${showMobileDock ? "business-shell-with-mobile-dock" : ""} flex-1 flex flex-col ${
-                    shouldRemovePadding ? "p-0 overflow-hidden min-h-0 h-full max-h-full" : "p-4 md:p-6 overflow-y-auto min-h-0 h-full max-h-full"
+                    shouldRemovePadding
+                      ? "p-0 overflow-hidden min-h-0 h-full max-h-full"
+                      : "polaris-track p-4 md:p-6 overflow-y-auto min-h-0 h-full max-h-full"
                   }`}
                   style={{ height: '100%', minHeight: 0, flex: '1 1 0%' }}
               >

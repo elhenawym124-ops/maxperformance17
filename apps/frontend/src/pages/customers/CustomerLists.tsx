@@ -67,7 +67,7 @@ export const CustomerLists: React.FC = () => {
   } = useCustomerListsController();
 
   return (
-    <div className="polaris-track min-h-full space-y-4 px-1 py-2 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:space-y-6 sm:px-6 sm:py-4 lg:px-8">
+    <div className="min-h-full space-y-4 px-1 py-2 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:space-y-6 sm:px-6 sm:py-4 lg:px-8">
       {/* Hero Header */}
       <CustomerListsHeader
         onRefresh={() => void loadLists()}

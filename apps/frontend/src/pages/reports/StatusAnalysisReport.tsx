@@ -173,7 +173,7 @@ const StatusAnalysisReport: React.FC = () => {
   const currentStatusName = statuses.find((s) => s.id === selectedStatus)?.name || "الحالة المختارة";
 
   return (
-    <div className="polaris-track text-foreground p-4 sm:p-6 space-y-6" dir="rtl">
+    <div className="text-foreground p-4 sm:p-6 space-y-6" dir="rtl">
       {/* Top Header & Actions */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/70 pb-5">
         <div>

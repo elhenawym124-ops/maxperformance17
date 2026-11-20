@@ -44,7 +44,7 @@ const CustomerDetails: React.FC = () => {
   }
 
   return (
-    <div className="polaris-track space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <CustomerDetailsHeader
         customer={ctrl.customer}

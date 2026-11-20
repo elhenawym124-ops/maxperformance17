@@ -34,7 +34,7 @@ model Company {
   bostaApiKey                     String?
   bostaEnabled                    Boolean                          @default(false)
   bostaWebhookToken               String?
-  sidebarLayout                   String                           @default("three-tier")
+  sidebarLayout                   String                           @default("polaris")
   sidebarPreferences              Json?
   customDomain                    String?                          @unique
   timezone                        String                           @default("Africa/Cairo")

@@ -105,7 +105,7 @@ export const Products: React.FC = () => {
   const { formatDate } = useDateFormat();
 
   return (
-    <div className="polaris-track space-y-3 sm:space-y-5 font-sans" dir="rtl">
+    <div className="space-y-3 sm:space-y-5 font-sans" dir="rtl">
       <ProductsHeader
         viewMode={viewMode}
         setViewMode={setViewMode}

@@ -256,7 +256,7 @@ const OverviewDashboard: React.FC = () => {
   if (!stats) return null;
 
   return (
-    <div className="polaris-track space-y-5" dir="rtl">
+    <div className="space-y-5" dir="rtl">
       {/* 1. Header Control Bar Chassis */}
       <div className="flex flex-col gap-4 rounded-xl border border-border/70 bg-card p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1 text-right">

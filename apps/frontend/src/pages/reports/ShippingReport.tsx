@@ -239,7 +239,7 @@ const ShippingReport: React.FC = () => {
   };
 
   return (
-    <div className="polaris-track p-6 text-foreground dark:text-muted-foreground">
+    <div className="p-6 text-foreground dark:text-muted-foreground">
       <div className="w-full">
         <div className="rounded-lg bg-white p-6 shadow dark:bg-muted dark:shadow-black/20">
           <div className="flex justify-between items-center mb-6">

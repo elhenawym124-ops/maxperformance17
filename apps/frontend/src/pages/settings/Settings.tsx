@@ -51,7 +51,7 @@ const Settings: React.FC = () => {
   const ActiveComponent = activeTabConfig.component;
 
   return (
-    <div className="polaris-track w-full px-4 py-8 sm:px-6 lg:px-8">
+    <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h1 className="flex items-center text-3xl font-bold text-foreground">

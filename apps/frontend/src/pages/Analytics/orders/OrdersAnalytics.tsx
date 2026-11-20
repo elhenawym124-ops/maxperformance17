@@ -196,7 +196,7 @@ const OrdersAnalytics: React.FC = () => {
   ];
 
   return (
-    <div className="polaris-track space-y-4" dir="rtl">
+    <div className="space-y-4" dir="rtl">
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-3.5 shadow-sm">
         <div className="flex items-center gap-3">

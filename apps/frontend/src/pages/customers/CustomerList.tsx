@@ -22,7 +22,7 @@ const CustomerList: React.FC = () => {
 
   return (
     <>
-      <div className="polaris-track space-y-4 sm:space-y-5">
+      <div className="space-y-4 sm:space-y-5">
         {/* Header */}
         <CustomerListHeader
           totalCount={ctrl.pagination.total}

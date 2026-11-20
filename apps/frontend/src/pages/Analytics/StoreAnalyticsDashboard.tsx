@@ -261,7 +261,7 @@ export const StoreAnalyticsDashboard: React.FC = () => {
   }
 
   return (
-    <div className="polaris-track space-y-4 max-w-7xl mx-auto pb-12" dir="rtl">
+    <div className="space-y-4 max-w-7xl mx-auto pb-12" dir="rtl">
       {/* 1. Header Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-border/70">
         <div>
