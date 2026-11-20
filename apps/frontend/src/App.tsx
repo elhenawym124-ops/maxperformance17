@@ -2737,7 +2737,20 @@ const AppContent = () => {
             {/* Public Application Form - For job applicants */}
             <Route path="/apply/:formId" element={<PublicApplicationForm />} />
             
-            <Route path="/app-explanations" element={<AppExplanationsPage />} />
+            {/* شرح المنصة: جوه شل المنصة (سايدبار + هيدر) لو مسجّل دخول،
+                وبرّه كصفحة عامة لو لأ — عشان المشاركة والـSEO والـprerender */}
+            <Route
+              path="/app-explanations"
+              element={
+                isAuthenticated ? (
+                  <Layout>
+                    <AppExplanationsPage embedded />
+                  </Layout>
+                ) : (
+                  <AppExplanationsPage />
+                )
+              }
+            />
             <Route path="/book/:slug" element={<BookAppointmentPage />} />
             <Route path="/forms/:slug" element={<PublicFormPage />} />
             <Route path="/request-service" element={<ServiceRequestForm />} />

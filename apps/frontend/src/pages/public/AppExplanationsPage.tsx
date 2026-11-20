@@ -27,7 +27,7 @@ import "./app-explanations/explanations.css";
 
 export { CardVideoBlock } from "./app-explanations/ExplanationVideo";
 
-const AppExplanationsPage: React.FC = () => {
+const AppExplanationsPage: React.FC<{ embedded?: boolean }> = ({ embedded = false }) => {
   const { i18n } = useTranslation();
   const [explanations, setExplanations] = useState<AppExplanation[]>([]);
   const [loading, setLoading] = useState(true);
@@ -169,18 +169,27 @@ const AppExplanationsPage: React.FC = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* التمرير لأول الصفحة: جوه شل المنصة السكرول في لوحة المحتوى مش في الـwindow */
+  const scrollPageToTop = useCallback(() => {
+    const pane = embedded
+      ? (document.querySelector("main.business-shell-main") as HTMLElement | null)
+      : null;
+    if (pane) pane.scrollTo({ top: 0, behavior: "smooth" });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [embedded]);
+
   /* اختيار تاب: بيلغي أي بحث جاري + يرجّع القارئة لأول القائمة */
   const handleTabSelect = useCallback(
     (key: string) => {
       setActiveTab(key);
       if (isSearching) setQuery("");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollPageToTop();
     },
-    [isSearching],
+    [isSearching, scrollPageToTop],
   );
 
   const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollPageToTop();
   };
 
   const toggleSlug = useCallback((slug: string, open: boolean) => {
@@ -292,9 +301,13 @@ const AppExplanationsPage: React.FC = () => {
   const cursorSlug = isSearching ? flatResults[resultCursor]?.slug : undefined;
 
   return (
-    <div className="rtl min-h-screen bg-background text-foreground" dir="rtl">
+    <div
+      className={`rtl bg-background text-foreground ${embedded ? "min-h-full" : "min-h-screen"}`}
+      dir="rtl"
+    >
       {/* شريط التطبيق العلوي الثابت */}
       <ExplanationsHeader
+        embedded={embedded}
         title={ar("explanations.pageTitle", "شرح المنصة")}
         homeLabel={ar("explanations.breadcrumbHome", "الرئيسية")}
         total={filteredTotal}
@@ -327,7 +340,7 @@ const AppExplanationsPage: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="mx-auto grid min-w-0 max-w-[1180px] grid-cols-1 gap-4 px-3 py-2 sm:px-4 md:grid-cols-[268px_minmax(0,1fr)] md:gap-6 md:py-5 pb-24 md:pb-12">
+        <div className="mx-auto grid min-w-0 max-w-[1180px] grid-cols-1 gap-4 px-3 py-2 sm:px-4 md:grid-cols-[268px_minmax(0,1fr)] md:gap-6 md:py-5 md:pb-12 pb-6">
           {/* شريط التابات:
               على الموبايل: يلتصق أسفل شريط التطبيق العلوي مباشرة (Sticky Sub-Header) مع تمويه خلفية.
               على الديسكتوب: قائمة تابات عمودية ثابتة في الشريط الجانبي — التاب بيفلتر، مش بسيسكرول. */}
@@ -485,8 +498,9 @@ const AppExplanationsPage: React.FC = () => {
         </div>
       )}
 
-      {/* شريط التحكم السفلي العائم (Floating Mobile App Dock) */}
-      {!loading && !error && explanations.length > 0 && (
+      {/* شريط التحكم السفلي العائم (Floating Mobile App Dock) — بيختفي جوه شل المنصة
+          عشان مايتعارضش مع شريط التنقل السفلي بتاع التطبيق */}
+      {!embedded && !loading && !error && explanations.length > 0 && (
         <MobileBottomBar
           groups={tabGroups}
           activeGroup={activeTab}

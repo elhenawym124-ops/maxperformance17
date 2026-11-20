@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, LayoutGrid, Search, X } from "lucide-react";
 
 interface ExplanationsHeaderProps {
+  /** جوه شل المنصة: الشل بيوفّر الهيدر والرجوع، فالشريط ده يبقى شريط بحث فرعي بس */
+  embedded?: boolean;
   title: string;
   homeLabel: string;
   total: number;
@@ -23,6 +25,7 @@ interface ExplanationsHeaderProps {
  * على الديسكتوب: مسار التنقل الكامل + عنوان الصفحة + إجمالي الشروحات + حقل البحث.
  */
 export const ExplanationsHeader: React.FC<ExplanationsHeaderProps> = ({
+  embedded = false,
   title,
   homeLabel,
   total,
@@ -45,13 +48,15 @@ export const ExplanationsHeader: React.FC<ExplanationsHeaderProps> = ({
     <div className="mx-auto max-w-[1180px] px-3 sm:px-4">
       {/* عرض الموبايل المدمج على صف واحد (< sm) */}
       <div className="flex h-14 items-center gap-2 sm:hidden">
-        <Link
-          to="/"
-          className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border/60 bg-muted/40 text-foreground transition-transform hover:bg-muted active:scale-95"
-          aria-label={homeLabel}
-        >
-          <ArrowRight className="size-4.5 rtl:rotate-0 ltr:rotate-180" />
-        </Link>
+        {!embedded && (
+          <Link
+            to="/"
+            className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border/60 bg-muted/40 text-foreground transition-transform hover:bg-muted active:scale-95"
+            aria-label={homeLabel}
+          >
+            <ArrowRight className="size-4.5 rtl:rotate-0 ltr:rotate-180" />
+          </Link>
+        )}
 
         <div className="relative min-w-0 flex-1">
           <Search
@@ -105,15 +110,19 @@ export const ExplanationsHeader: React.FC<ExplanationsHeaderProps> = ({
       {/* عرض الديسكتوب والتابلت (>= sm) */}
       <div className="hidden h-[60px] items-center justify-between gap-4 sm:flex">
         <div className="flex min-w-0 flex-1 items-center gap-2">
-          <Link
-            to="/"
-            className="shrink-0 rounded text-[12.5px] font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
-          >
-            {homeLabel}
-          </Link>
-          <span aria-hidden="true" className="text-muted-foreground/50">
-            ⁄
-          </span>
+          {!embedded && (
+            <>
+              <Link
+                to="/"
+                className="shrink-0 rounded text-[12.5px] font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+              >
+                {homeLabel}
+              </Link>
+              <span aria-hidden="true" className="text-muted-foreground/50">
+                ⁄
+              </span>
+            </>
+          )}
           <h1 className="min-w-0 truncate font-heading text-[15px] font-extrabold tracking-tight text-foreground">
             {title}
           </h1>
