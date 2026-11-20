@@ -16,9 +16,9 @@ export const BulkActions: React.FC<BulkActionsProps> = ({
   if (selectedTasksCount === 0) return null;
 
   return (
-    <div className="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded-lg p-4 mb-4">
+    <div className="bg-indigo-50 dark:bg-primary/30 border border-primary dark:border-primary rounded-lg p-4 mb-4">
       <div className="flex items-center justify-between">
-        <span className="text-sm text-indigo-700 dark:text-indigo-300">
+        <span className="text-sm text-primary dark:text-primary">
           تم تحديد {selectedTasksCount} مهمة
         </span>
         <div className="flex space-x-2 space-x-reverse">
@@ -30,19 +30,19 @@ export const BulkActions: React.FC<BulkActionsProps> = ({
           </button>
           <button
             onClick={() => handleBulkStatusChange("completed")}
-            className="px-3 py-1 bg-green-600 text-white text-sm rounded-md hover:bg-green-700"
+            className="px-3 py-1 bg-success text-white text-sm rounded-md hover:bg-success"
           >
             إكمال
           </button>
           <button
             onClick={handleBulkDelete}
-            className="px-3 py-1 bg-red-600 text-white text-sm rounded-md hover:bg-red-700"
+            className="px-3 py-1 bg-destructive text-white text-sm rounded-md hover:bg-destructive"
           >
             حذف
           </button>
           <button
             onClick={onClearSelection}
-            className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-md hover:bg-gray-300 dark:hover:bg-gray-600"
+            className="px-3 py-1 bg-muted dark:bg-muted text-foreground text-sm rounded-md hover:bg-muted dark:hover:bg-muted"
           >
             إلغاء التحديد
           </button>

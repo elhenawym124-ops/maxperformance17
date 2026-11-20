@@ -87,7 +87,7 @@ export const TaskTableRow: React.FC<TaskTableRowProps> = ({
                   {task.title}
                 </Link>
                 {task.isRecurring ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-indigo-500/10 px-2 py-0.5 text-[10px] font-medium text-indigo-600 dark:text-indigo-400 border border-indigo-500/20" title="مهمة متكررة دورياً">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary border border-primary/20" title="مهمة متكررة دورياً">
                     <ArrowPathIcon className="size-3" />
                     متكررة
                   </span>
@@ -111,7 +111,7 @@ export const TaskTableRow: React.FC<TaskTableRowProps> = ({
             </span>
             {task.goalTitle ? (
               <span
-                className="flex items-center gap-1 text-sky-600 dark:text-sky-400"
+                className="flex items-center gap-1 text-info dark:text-info"
                 title={`مرتبطة بهدف: ${task.goalTitle}`}
               >
                 <Target className="size-3.5 shrink-0" />
@@ -156,7 +156,7 @@ export const TaskTableRow: React.FC<TaskTableRowProps> = ({
         <div
           className={`space-y-0.5 text-xs ${
             isOverdue(task.dueDate, task.status)
-              ? "text-rose-600 dark:text-rose-300"
+              ? "text-rose-600 dark:text-destructive"
               : "text-foreground"
           }`}
         >
@@ -223,7 +223,7 @@ export const TaskTableRow: React.FC<TaskTableRowProps> = ({
                 <Button
                   type="button"
                   size="sm"
-                  className="h-8 rounded-full px-2.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
+                  className="h-8 rounded-full px-2.5 text-xs bg-success hover:bg-success text-white"
                   onClick={() => onDirectApprove(task)}
                   title="اعتماد وإنجاز المهمة مباشرة"
                 >
@@ -233,7 +233,7 @@ export const TaskTableRow: React.FC<TaskTableRowProps> = ({
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="h-8 rounded-full px-2.5 text-xs text-amber-600 border-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                  className="h-8 rounded-full px-2.5 text-xs text-warning border-warning hover:bg-warning/10 dark:hover:bg-warning/30"
                   onClick={() => onOpenApprovalGate(task)}
                   title="طلب تعديلات على المهمة"
                 >
@@ -243,7 +243,7 @@ export const TaskTableRow: React.FC<TaskTableRowProps> = ({
             ) : (
               <Badge
                 variant="outline"
-                className="h-8 rounded-full px-2.5 text-xs border-purple-300 bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300"
+                className="h-8 rounded-full px-2.5 text-xs border-primary bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary"
               >
                 بانتظار الاعتماد
               </Badge>
@@ -287,7 +287,7 @@ export const TaskTableRow: React.FC<TaskTableRowProps> = ({
             type="button"
             variant="ghost"
             size="icon"
-            className="size-8 rounded-full text-rose-600 hover:text-rose-700"
+            className="size-8 rounded-full text-destructive hover:text-destructive"
             onClick={() => onDeleteTask(task.id)}
             title="حذف المهمة"
           >

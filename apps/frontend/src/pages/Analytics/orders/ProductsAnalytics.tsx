@@ -173,7 +173,7 @@ const ProductsAnalytics: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-4">
         <div>
           <div className="flex items-center gap-2">
-            <ShoppingBag className="h-5 w-5 text-indigo-500" />
+            <ShoppingBag className="h-5 w-5 text-primary" />
             <h1 className="text-xl font-bold tracking-tight text-foreground">
               {t("productAnalytics.title", "تحليل مبيعات وأداء المنتجات")}
             </h1>
@@ -190,7 +190,7 @@ const ProductsAnalytics: React.FC = () => {
               setPeriod(e.target.value);
               if (e.target.value !== "custom") { setStartDate(""); setEndDate(""); }
             }}
-            className="rounded-md border border-border/70 bg-background px-3 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            className="rounded-md border border-border/70 bg-background px-3 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           >
             {PERIOD_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -226,7 +226,7 @@ const ProductsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي المنتجات المباعة</span>
-              <ShoppingBag className="h-4 w-4 text-purple-500" />
+              <ShoppingBag className="h-4 w-4 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{(summary?.totalProducts || 0).toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-1">صنف نشط في المبيعات</div>
@@ -246,7 +246,7 @@ const ProductsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي طلبات المنتجات</span>
-              <FileText className="h-4 w-4 text-cyan-500" />
+              <FileText className="h-4 w-4 text-info" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{(summary?.totalOrders || 0).toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-1">طلب شراء مكتمل</div>
@@ -256,9 +256,9 @@ const ProductsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي الإيراد</span>
-              <DollarSign className="h-4 w-4 text-emerald-500" />
+              <DollarSign className="h-4 w-4 text-success" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{formatPrice(summary?.totalRevenue || 0)}</div>
+            <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success">{formatPrice(summary?.totalRevenue || 0)}</div>
             <div className="text-[11px] text-muted-foreground mt-1">قيمة المبيعات المحققة</div>
           </CardContent>
         </Card>
@@ -271,7 +271,7 @@ const ProductsAnalytics: React.FC = () => {
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <Star className="h-4 w-4 text-amber-500" />
+                <Star className="h-4 w-4 text-warning" />
                 <h3 className="text-sm font-semibold text-foreground">الأكثر مبيعاً بالكمية (أعلى 10)</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono">حجم السحب</span>
@@ -295,7 +295,7 @@ const ProductsAnalytics: React.FC = () => {
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <BarChart3 className="h-4 w-4 text-indigo-500" />
+                <BarChart3 className="h-4 w-4 text-primary" />
                 <h3 className="text-sm font-semibold text-foreground">توزيع الإيراد على الأصناف الكبرى</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono">حصة الإيراد</span>
@@ -324,7 +324,7 @@ const ProductsAnalytics: React.FC = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث باسم المنتج أو الباركود…"
-              className="w-full pr-8 pl-3 py-1.5 text-xs bg-background border border-border/70 rounded-md outline-none focus:ring-1 focus:ring-indigo-500 text-foreground"
+              className="w-full pe-8 ps-3 py-1.5 text-xs bg-background border border-border/70 rounded-md outline-none focus:ring-1 focus:ring-primary text-foreground"
             />
           </div>
           <span className="text-xs text-muted-foreground font-mono">{filteredProducts.length} صنف</span>
@@ -358,24 +358,24 @@ const ProductsAnalytics: React.FC = () => {
                     <Link to={`/products/${p.productId}`} className="flex items-center gap-2 max-w-[260px] group">
                       {p.productImage && <img src={p.productImage} alt={p.productName} className="h-7 w-7 rounded-md object-cover shrink-0" />}
                       <div className="min-w-0">
-                        <p className="font-medium text-foreground truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">{p.productName}</p>
+                        <p className="font-medium text-foreground truncate group-hover:text-primary dark:group-hover:text-primary">{p.productName}</p>
                         {p.productSku && <p className="text-[10px] text-muted-foreground font-mono truncate">{p.productSku}</p>}
                       </div>
                     </Link>
                   </td>
                   <td className="py-2.5 px-3 text-center">
                     {p.topVariation ? (
-                      <span className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-medium bg-indigo-500/10 text-indigo-600 border border-indigo-500/20">{p.topVariation}</span>
+                      <span className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary border border-primary/20">{p.topVariation}</span>
                     ) : "-"}
                   </td>
                   <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-foreground">{p.quantitySold.toLocaleString()}</td>
                   <td className="py-2.5 px-3 text-center font-mono tabular-nums text-muted-foreground">{p.orderCount.toLocaleString()}</td>
                   <td className="py-2.5 px-3 text-center font-mono tabular-nums text-muted-foreground">{formatPrice(p.averagePrice)}</td>
-                  <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-emerald-600 dark:text-emerald-400">{formatPrice(p.revenue)}</td>
+                  <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-success dark:text-success">{formatPrice(p.revenue)}</td>
                   <td className="py-2.5 px-3 text-left">
                     <Link
                       to={`/analytics/orders/variations?productId=${p.productId}&period=${period}`}
-                      className="inline-flex items-center gap-1 text-[11px] text-indigo-600 hover:text-indigo-500 font-medium"
+                      className="inline-flex items-center gap-1 text-[11px] text-primary hover:text-primary font-medium"
                     >
                       المتغيرات <ExternalLink className="h-3 w-3" />
                     </Link>

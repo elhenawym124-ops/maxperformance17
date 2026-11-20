@@ -62,7 +62,7 @@ export const TaskSubtasksTab: React.FC<TaskSubtasksTabProps> = ({
                 }))
               }
               placeholder="عنوان المهمة الفرعية"
-              className="h-11 rounded-2xl"
+              className="h-11 rounded-xl"
             />
             <Textarea
               value={newSubtask.description}
@@ -73,7 +73,7 @@ export const TaskSubtasksTab: React.FC<TaskSubtasksTabProps> = ({
                 }))
               }
               placeholder="وصف مختصر يساعد المنفذ على البدء"
-              className="min-h-28 rounded-2xl"
+              className="min-h-28 rounded-xl"
             />
             <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
               <Button
@@ -112,7 +112,7 @@ export const TaskSubtasksTab: React.FC<TaskSubtasksTabProps> = ({
                   className={cn(
                     "mt-0.5 inline-flex size-6 items-center justify-center rounded-full border transition-colors",
                     subtask.status === "COMPLETED"
-                      ? "border-emerald-500 bg-emerald-500 text-white"
+                      ? "border-emerald-500 bg-success text-white"
                       : "border-border/80 bg-background text-muted-foreground hover:border-primary hover:text-primary",
                   )}
                 >

@@ -24,7 +24,7 @@ export const AvailableReportsGrid: React.FC<AvailableReportsGridProps> = ({
     switch (type) {
       case "sales":
         return (
-          <ChartBarIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+          <ChartBarIcon className="h-5 w-5 text-success dark:text-success" />
         );
       case "customers":
         return (
@@ -32,21 +32,21 @@ export const AvailableReportsGrid: React.FC<AvailableReportsGridProps> = ({
         );
       case "conversations":
         return (
-          <ChartBarIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+          <ChartBarIcon className="h-5 w-5 text-primary dark:text-primary" />
         );
       case "products":
         return (
-          <DocumentChartBarIcon className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+          <DocumentChartBarIcon className="h-5 w-5 text-warning dark:text-warning" />
         );
       case "performance":
         return (
-          <ChartBarIcon className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+          <ChartBarIcon className="h-5 w-5 text-primary" />
         );
       case "moderators":
-        return <EyeIcon className="h-5 w-5 text-pink-600 dark:text-pink-400" />;
+        return <EyeIcon className="h-5 w-5 text-primary dark:text-primary" />;
       default:
         return (
-          <DocumentChartBarIcon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+          <DocumentChartBarIcon className="h-5 w-5 text-foreground dark:text-muted-foreground" />
         );
     }
   };
@@ -54,19 +54,19 @@ export const AvailableReportsGrid: React.FC<AvailableReportsGridProps> = ({
   const getReportTypeColor = (type: string) => {
     switch (type) {
       case "sales":
-        return "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300";
+        return "bg-green-100 dark:bg-success/30 text-success dark:text-success";
       case "customers":
         return "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300";
       case "conversations":
-        return "bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300";
+        return "bg-purple-100 dark:bg-primary/30 text-primary dark:text-primary";
       case "products":
-        return "bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300";
+        return "bg-orange-100 dark:bg-warning/30 text-warning dark:text-warning";
       case "performance":
-        return "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300";
+        return "bg-indigo-100 dark:bg-primary/30 text-primary dark:text-primary";
       case "moderators":
-        return "bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-300";
+        return "bg-pink-100 dark:bg-primary/30 text-primary dark:text-primary";
       default:
-        return "bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300";
+        return "bg-gray-100 dark:bg-muted text-foreground dark:text-muted-foreground";
     }
   };
 
@@ -84,12 +84,12 @@ export const AvailableReportsGrid: React.FC<AvailableReportsGridProps> = ({
   };
 
   return (
-    <div className="bg-white shadow rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700/60 overflow-hidden">
-      <div className="border-b border-gray-200 px-4 py-5 dark:border-gray-700">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+    <div className="bg-white shadow rounded-lg dark:bg-muted border border-border dark:border-border overflow-hidden">
+      <div className="border-b border-border px-4 py-5 dark:border-border">
+        <h3 className="text-lg font-medium text-foreground">
           {t("reports.availableReports", "التقارير المتاحة")}
         </h3>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-1 text-sm text-muted-foreground">
           {t("reports.availableReportsHint", "اختر تقريراً لعرض تفاصيله وإحصائياته الكاملة")}
         </p>
       </div>
@@ -102,19 +102,19 @@ export const AvailableReportsGrid: React.FC<AvailableReportsGridProps> = ({
               key={report.id}
               type="button"
               onClick={() => onSelectReport(report)}
-              className={`rounded-2xl border p-4 text-right transition-all active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none ${
+              className={`rounded-xl border p-4 text-right transition-all active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none ${
                 isSelected
-                  ? "border-indigo-500 bg-indigo-50 shadow-sm ring-2 ring-indigo-100 dark:border-indigo-400 dark:bg-indigo-900/20 dark:ring-indigo-900/40"
-                  : "border-gray-200 bg-white hover:border-indigo-200 hover:bg-indigo-50/60 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-indigo-500/50 dark:hover:bg-gray-700/70"
+                  ? "border-indigo-500 bg-primary/10 shadow-sm ring-2 ring-primary dark:border-primary dark:bg-primary/20 dark:ring-primary/40"
+                  : "border-gray-200 bg-white hover:border-primary hover:bg-primary/60 dark:border-border dark:bg-muted dark:hover:border-primary/50 dark:hover:bg-muted"
               }`}
             >
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 flex-shrink-0 rounded-xl bg-gray-50 p-2 dark:bg-gray-700/70">
+                <div className="mt-0.5 flex-shrink-0 rounded-xl bg-muted p-2 dark:bg-muted">
                   {getReportTypeIcon(report.type)}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                    <p className="text-sm font-semibold text-foreground">
                       {report.name}
                     </p>
                     <span
@@ -123,7 +123,7 @@ export const AvailableReportsGrid: React.FC<AvailableReportsGridProps> = ({
                       {getPeriodLabel(report.period)}
                     </span>
                   </div>
-                  <p className="mt-2 text-xs leading-6 text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-xs leading-6 text-muted-foreground">
                     {report.description}
                   </p>
                 </div>

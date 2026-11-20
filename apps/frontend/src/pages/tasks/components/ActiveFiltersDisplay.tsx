@@ -20,38 +20,38 @@ export const ActiveFiltersDisplay: React.FC<ActiveFiltersDisplayProps> = ({
   if (!Object.values(filters).some((v) => v)) return null;
 
   return (
-    <div className="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded-lg p-3 mb-4">
+    <div className="bg-indigo-50 dark:bg-primary/30 border border-primary dark:border-primary rounded-lg p-3 mb-4">
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-sm text-indigo-700 dark:text-indigo-300 font-medium">
+          <span className="text-sm text-primary dark:text-primary font-medium">
             الفلاتر النشطة:
           </span>
           {filters.projectId && (
-            <span className="inline-flex items-center px-2 py-1 bg-white dark:bg-gray-800 border border-indigo-300 dark:border-indigo-700 rounded-full text-xs text-indigo-700 dark:text-indigo-300">
+            <span className="inline-flex items-center px-2 py-1 bg-card border border-primary dark:border-primary rounded-full text-xs text-primary dark:text-primary">
               المشروع:{" "}
               {projects.find((p) => p.id === filters.projectId)?.name}
               <button
                 onClick={() => setFilters({ ...filters, projectId: "" })}
-                className="mr-1 hover:text-indigo-900 dark:hover:text-indigo-200"
+                className="me-1 hover:text-primary dark:hover:text-primary"
               >
                 ×
               </button>
             </span>
           )}
           {filters.categoryId && (
-            <span className="inline-flex items-center px-2 py-1 bg-white dark:bg-gray-800 border border-indigo-300 dark:border-indigo-700 rounded-full text-xs text-indigo-700 dark:text-indigo-300">
+            <span className="inline-flex items-center px-2 py-1 bg-card border border-primary dark:border-primary rounded-full text-xs text-primary dark:text-primary">
               القسم:{" "}
               {categories.find((c) => c.id === filters.categoryId)?.name}
               <button
                 onClick={() => setFilters({ ...filters, categoryId: "" })}
-                className="mr-1 hover:text-indigo-900"
+                className="me-1 hover:text-primary"
               >
                 ×
               </button>
             </span>
           )}
           {filters.status && (
-            <span className="inline-flex items-center px-2 py-1 bg-white dark:bg-gray-800 border border-indigo-300 dark:border-indigo-700 rounded-full text-xs text-indigo-700 dark:text-indigo-300">
+            <span className="inline-flex items-center px-2 py-1 bg-card border border-primary dark:border-primary rounded-full text-xs text-primary dark:text-primary">
               الحالة:{" "}
               {filters.status === "pending"
                 ? "في الانتظار"
@@ -62,14 +62,14 @@ export const ActiveFiltersDisplay: React.FC<ActiveFiltersDisplayProps> = ({
                     : "ملغي"}
               <button
                 onClick={() => setFilters({ ...filters, status: "" })}
-                className="mr-1 hover:text-indigo-900"
+                className="me-1 hover:text-primary"
               >
                 ×
               </button>
             </span>
           )}
           {filters.priority && (
-            <span className="inline-flex items-center px-2 py-1 bg-white dark:bg-gray-800 border border-indigo-300 dark:border-indigo-700 rounded-full text-xs text-indigo-700 dark:text-indigo-300">
+            <span className="inline-flex items-center px-2 py-1 bg-card border border-primary dark:border-primary rounded-full text-xs text-primary dark:text-primary">
               الأولوية:{" "}
               {filters.priority === "urgent"
                 ? "عاجل"
@@ -80,26 +80,26 @@ export const ActiveFiltersDisplay: React.FC<ActiveFiltersDisplayProps> = ({
                     : "منخفض"}
               <button
                 onClick={() => setFilters({ ...filters, priority: "" })}
-                className="mr-1 hover:text-indigo-900"
+                className="me-1 hover:text-primary"
               >
                 ×
               </button>
             </span>
           )}
           {filters.assignedTo && (
-            <span className="inline-flex items-center px-2 py-1 bg-white dark:bg-gray-800 border border-indigo-300 dark:border-indigo-700 rounded-full text-xs text-indigo-700 dark:text-indigo-300">
+            <span className="inline-flex items-center px-2 py-1 bg-card border border-primary dark:border-primary rounded-full text-xs text-primary dark:text-primary">
               المسؤول:{" "}
               {users.find((u) => u.id === filters.assignedTo)?.firstName}
               <button
                 onClick={() => setFilters({ ...filters, assignedTo: "" })}
-                className="mr-1 hover:text-indigo-900"
+                className="me-1 hover:text-primary"
               >
                 ×
               </button>
             </span>
           )}
           {(filters.dueDateFrom || filters.dueDateTo) && (
-            <span className="inline-flex items-center px-2 py-1 bg-white dark:bg-gray-800 border border-indigo-300 dark:border-indigo-700 rounded-full text-xs text-indigo-700 dark:text-indigo-300">
+            <span className="inline-flex items-center px-2 py-1 bg-card border border-primary dark:border-primary rounded-full text-xs text-primary dark:text-primary">
               التاريخ: {filters.dueDateFrom || "..."} -{" "}
               {filters.dueDateTo || "..."}
               <button
@@ -110,7 +110,7 @@ export const ActiveFiltersDisplay: React.FC<ActiveFiltersDisplayProps> = ({
                     dueDateTo: "",
                   })
                 }
-                className="mr-1 hover:text-indigo-900"
+                className="me-1 hover:text-primary"
               >
                 ×
               </button>
@@ -129,7 +129,7 @@ export const ActiveFiltersDisplay: React.FC<ActiveFiltersDisplayProps> = ({
               dueDateTo: "",
             });
           }}
-          className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
+          className="text-xs text-primary hover:text-primary dark:hover:text-primary font-medium"
         >
           مسح الكل
         </button>

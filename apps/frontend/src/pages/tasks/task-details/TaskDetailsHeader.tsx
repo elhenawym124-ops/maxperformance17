@@ -146,7 +146,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
               {isOverdue ? (
                 <Badge
                   variant="outline"
-                  className="h-7 rounded-full border-rose-500/25 bg-rose-500/10 px-3 text-[11px] text-rose-700 dark:text-rose-300"
+                  className="h-7 rounded-full border-destructive/25 bg-destructive/10 px-3 text-[11px] text-destructive dark:text-destructive"
                 >
                   متأخرة
                 </Badge>
@@ -193,7 +193,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
               <Button
                 type="button"
                 className={cn(
-                  "col-span-2 h-11 justify-center rounded-2xl text-sm sm:col-span-1 sm:h-10",
+                  "col-span-2 h-11 justify-center rounded-xl text-sm sm:col-span-1 sm:h-10",
                   timerOnThisTask
                     ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
                     : undefined,
@@ -220,7 +220,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
                 <>
                   <Button
                     type="button"
-                    className="h-11 justify-center rounded-2xl text-sm sm:h-10 bg-emerald-600 hover:bg-emerald-700 text-white"
+                    className="h-11 justify-center rounded-xl text-sm sm:h-10 bg-success hover:bg-success text-white"
                     onClick={() => void onUpdateTask({ status: "COMPLETED" })}
                     title="اعتماد وإنجاز المهمة"
                   >
@@ -230,7 +230,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
                   <Button
                     type="button"
                     variant="outline"
-                    className="h-11 justify-center rounded-2xl text-sm sm:h-10 text-amber-600 border-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                    className="h-11 justify-center rounded-xl text-sm sm:h-10 text-warning border-warning hover:bg-warning/10 dark:hover:bg-warning/30"
                     onClick={() => void onUpdateTask({ status: "IN_PROGRESS" })}
                     title="طلب تعديلات على المهمة"
                   >
@@ -239,7 +239,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
                   </Button>
                 </>
               ) : (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-warning text-warning dark:bg-warning/30 dark:text-warning">
                   بانتظار الاعتماد
                 </span>
               )
@@ -248,7 +248,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
             <Button
               type="button"
               variant={isWatching ? "secondary" : "outline"}
-              className="h-11 justify-center rounded-2xl text-sm sm:h-10"
+              className="h-11 justify-center rounded-xl text-sm sm:h-10"
               onClick={onToggleWatcher}
             >
               <EyeIcon className="size-4" />
@@ -258,7 +258,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
             <Button
               type="button"
               variant="outline"
-              className="h-11 justify-center rounded-2xl text-sm sm:h-10"
+              className="h-11 justify-center rounded-xl text-sm sm:h-10"
               onClick={() => navigate(`/tasks?edit=${task.id}`)}
             >
               <PencilIcon className="size-4" />
@@ -268,7 +268,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
             <Button
               type="button"
               variant="destructive"
-              className="hidden h-10 rounded-2xl md:inline-flex"
+              className="hidden h-10 rounded-xl md:inline-flex"
               onClick={() => {
                 if (window.confirm("هل أنت متأكد من حذف هذه المهمة؟")) {
                   onDeleteTask();
@@ -282,7 +282,7 @@ export const TaskDetailsHeader: React.FC<TaskDetailsHeaderProps> = ({
         </div>
 
         {hasOtherRunningTimer ? (
-          <div className="mt-4 rounded-[22px] border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-800 dark:text-amber-200">
+          <div className="mt-4 rounded-[22px] border border-warning/20 bg-warning/10 px-4 py-3 text-sm text-warning dark:text-warning">
             يوجد مؤقت يعمل على مهمة أخرى الآن. أوقفه أولًا إذا أردت تسجيل
             الوقت على هذه المهمة.
           </div>

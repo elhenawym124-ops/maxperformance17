@@ -124,7 +124,7 @@ const ProfitAnalytics: React.FC = () => {
       {stats?.dailyProfit && stats.dailyProfit.length > 0 && (
         <div className="border border-border/70 rounded-xl bg-card p-4 shadow-sm">
           <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <BarChart3 className="h-4 w-4 text-emerald-500" /> مسار الأرباح اليومية والإيرادات
+            <BarChart3 className="h-4 w-4 text-success" /> مسار الأرباح اليومية والإيرادات
           </h3>
           <div className="h-[250px]">
             <ResponsiveContainer width="100%" height="100%" minWidth={0}>
@@ -177,18 +177,18 @@ const ProfitAnalytics: React.FC = () => {
                       <span className="h-2 w-2 rounded-full" style={{ backgroundColor: COLORS[idx % COLORS.length] }}></span>
                       {cat.name}
                     </td>
-                    <td className="py-2.5 px-3.5 text-center font-mono font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                    <td className="py-2.5 px-3.5 text-center font-mono font-bold text-success dark:text-success tabular-nums">
                       {formatPrice(cat.profit)}
                     </td>
                     <td className="py-2.5 px-3.5 text-center">
-                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-bold tabular-nums">
+                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-success/10 text-success dark:text-success border border-success/20 font-bold tabular-nums">
                         {cat.margin.toFixed(1)}%
                       </span>
                     </td>
                     <td className="py-2.5 px-3.5 text-center">
                       <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded ${
                         cat.margin >= 40
-                          ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20"
+                          ? "bg-emerald-500/10 text-success dark:text-success border border-success/20"
                           : "bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/20"
                       }`}>
                         {cat.margin >= 40 ? "عائد مرتفع" : "عائد مستقر"}

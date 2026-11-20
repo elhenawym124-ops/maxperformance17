@@ -160,7 +160,7 @@ export const StoreAnalyticsCharts: React.FC<StoreAnalyticsChartsProps> = ({
         <div>
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-1.5">
-              <Star className="h-4 w-4 text-amber-500 fill-amber-500" /> المنتجات الأكثر تحويلاً ومبيعاً
+              <Star className="h-4 w-4 text-warning fill-warning" /> المنتجات الأكثر تحويلاً ومبيعاً
             </h3>
             <span className="font-mono text-xs text-muted-foreground tabular-nums">
               أفضل {topProducts.length} منتجات
@@ -175,21 +175,21 @@ export const StoreAnalyticsCharts: React.FC<StoreAnalyticsChartsProps> = ({
             <div className="space-y-2">
               {/* Star Product Card */}
               {starProduct && (
-                <div className="rounded-md border border-amber-500/30 bg-amber-500/5 p-2.5 flex items-center justify-between gap-2.5">
+                <div className="rounded-md border border-warning/30 bg-warning/5 p-2.5 flex items-center justify-between gap-2.5">
                   <div className="flex items-center gap-2 min-w-0">
                     {getTopProductImage(starProduct) ? (
                       <img
                         src={getTopProductImage(starProduct)!}
                         alt={starProduct.name}
-                        className="h-9 w-9 rounded object-cover border border-amber-500/20 shrink-0"
+                        className="h-9 w-9 rounded object-cover border border-warning/20 shrink-0"
                       />
                     ) : (
-                      <div className="h-9 w-9 rounded bg-amber-500/10 flex items-center justify-center shrink-0">
-                        <Package className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                      <div className="h-9 w-9 rounded bg-warning/10 flex items-center justify-center shrink-0">
+                        <Package className="h-4 w-4 text-warning dark:text-warning" />
                       </div>
                     )}
                     <div className="min-w-0">
-                      <span className="text-[10px] font-semibold text-amber-600 dark:text-amber-400 block mb-0.5">
+                      <span className="text-[10px] font-semibold text-warning dark:text-warning block mb-0.5">
                         المنتج النجم الأقوى
                       </span>
                       <p className="text-xs font-semibold text-foreground truncate max-w-[170px]">

@@ -60,8 +60,8 @@ export const StoreAnalyticsTelemetry: React.FC<StoreAnalyticsTelemetryProps> = (
       <span
         className={`inline-flex items-center gap-0.5 font-mono text-[10px] font-semibold tabular-nums px-1.5 py-0.5 rounded ${
           isUp
-            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-            : "bg-rose-500/10 text-rose-600 dark:text-rose-400"
+            ? "bg-emerald-500/10 text-success dark:text-success"
+            : "bg-rose-500/10 text-destructive dark:text-destructive"
         }`}
       >
         {isUp ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
@@ -77,7 +77,7 @@ export const StoreAnalyticsTelemetry: React.FC<StoreAnalyticsTelemetryProps> = (
         <div className="rounded-lg border border-border/70 bg-card p-3 shadow-none">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>إجمالي الإيرادات</span>
-            <DollarSign className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+            <DollarSign className="h-3.5 w-3.5 text-success dark:text-success" />
           </div>
           <div className="mt-1.5 flex items-baseline justify-between gap-1">
             <span className="font-mono text-xl font-bold tabular-nums text-foreground">
@@ -109,7 +109,7 @@ export const StoreAnalyticsTelemetry: React.FC<StoreAnalyticsTelemetryProps> = (
         <div className="rounded-lg border border-border/70 bg-card p-3 shadow-none">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>إجمالي الزيارات</span>
-            <Eye className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" />
+            <Eye className="h-3.5 w-3.5 text-primary dark:text-primary" />
           </div>
           <div className="mt-1.5 flex items-baseline justify-between gap-1">
             <span className="font-mono text-xl font-bold tabular-nums text-foreground">
@@ -125,7 +125,7 @@ export const StoreAnalyticsTelemetry: React.FC<StoreAnalyticsTelemetryProps> = (
         <div className="rounded-lg border border-border/70 bg-card p-3 shadow-none">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>صافي الربح التقديري</span>
-            <ShieldCheck className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+            <ShieldCheck className="h-3.5 w-3.5 text-warning dark:text-warning" />
           </div>
           <div className="mt-1.5 flex items-baseline justify-between gap-1">
             <span className="font-mono text-xl font-bold tabular-nums text-foreground">
@@ -151,7 +151,7 @@ export const StoreAnalyticsTelemetry: React.FC<StoreAnalyticsTelemetryProps> = (
             </span>
           </div>
           {conversionLift > 0 && (
-            <span className="font-mono text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 tabular-nums">
+            <span className="font-mono text-[11px] font-semibold text-success dark:text-success bg-success/10 px-2 py-0.5 rounded border border-success/20 tabular-nums">
               +{conversionLift.toFixed(2)}% نمو التحويل بفضل المحركات
             </span>
           )}
@@ -174,7 +174,7 @@ export const StoreAnalyticsTelemetry: React.FC<StoreAnalyticsTelemetryProps> = (
             <span className="font-sans text-[11px] text-muted-foreground block mb-0.5">
               2. التحويل الفعلي المحقق
             </span>
-            <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+            <span className="text-sm font-bold text-success dark:text-success">
               {realizedConversionRate.toFixed(2)}%
             </span>
             <span className="font-sans text-[10px] text-muted-foreground block mt-0.5">
@@ -198,7 +198,7 @@ export const StoreAnalyticsTelemetry: React.FC<StoreAnalyticsTelemetryProps> = (
             <span className="font-sans text-[11px] text-muted-foreground block mb-0.5">
               عوائد الاسترجاع المحققة
             </span>
-            <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
+            <span className="text-sm font-bold text-warning dark:text-warning">
               {formatPrice(recoveredRevenue)}
             </span>
             <span className="font-sans text-[10px] text-muted-foreground block mt-0.5">

@@ -32,7 +32,7 @@ export const OrderStatusShortageTab: React.FC<OrderStatusShortageTabProps> = ({
         <div className="rounded-lg border border-border/70 bg-card p-4 shadow-none">
           <div className="flex items-center justify-between">
             <p className="text-xs font-medium text-muted-foreground">إجمالي طلبات العجز الفاشل</p>
-            <div className="rounded-md bg-purple-500/10 p-2 text-purple-600 dark:text-purple-400">
+            <div className="rounded-md bg-primary/10 p-2 text-primary dark:text-primary">
               <AlertTriangle className="h-4 w-4" />
             </div>
           </div>
@@ -47,7 +47,7 @@ export const OrderStatusShortageTab: React.FC<OrderStatusShortageTabProps> = ({
         <div className="rounded-lg border border-border/70 bg-card p-4 shadow-none">
           <div className="flex items-center justify-between">
             <p className="text-xs font-medium text-muted-foreground">القيمة المفقودة</p>
-            <div className="rounded-md bg-amber-500/10 p-2 text-amber-600 dark:text-amber-400">
+            <div className="rounded-md bg-warning/10 p-2 text-warning dark:text-warning">
               <DollarSign className="h-4 w-4" />
             </div>
           </div>
@@ -67,11 +67,11 @@ export const OrderStatusShortageTab: React.FC<OrderStatusShortageTabProps> = ({
         <div className="rounded-lg border border-border/70 bg-card p-4 shadow-none">
           <div className="flex items-center justify-between">
             <p className="text-xs font-medium text-muted-foreground">نسبة التسليم</p>
-            <div className="rounded-md bg-emerald-500/10 p-2 text-emerald-600 dark:text-emerald-400">
+            <div className="rounded-md bg-success/10 p-2 text-success dark:text-success">
               <Target className="h-4 w-4" />
             </div>
           </div>
-          <p className="mt-2 font-mono text-2xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+          <p className="mt-2 font-mono text-2xl font-bold tabular-nums text-success dark:text-success">
             {deliveryRate}%
           </p>
           <p className="mt-1 text-xs text-muted-foreground">من إجمالي الطلبات</p>
@@ -83,7 +83,7 @@ export const OrderStatusShortageTab: React.FC<OrderStatusShortageTabProps> = ({
         <div className="rounded-lg border border-border/70 bg-card shadow-none overflow-hidden">
           <div className="border-b border-border/70 p-4">
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              <Package className="h-4 w-4 text-purple-600 dark:text-purple-400" /> أكثر المنتجات المتسببة في العجز النهائي
+              <Package className="h-4 w-4 text-primary dark:text-primary" /> أكثر المنتجات المتسببة في العجز النهائي
             </h3>
           </div>
           <div className="overflow-x-auto">
@@ -102,7 +102,7 @@ export const OrderStatusShortageTab: React.FC<OrderStatusShortageTabProps> = ({
                     <td className="py-2.5 px-4 font-sans font-medium text-foreground">{p.product}</td>
                     <td className="py-2.5 px-4 text-muted-foreground">{p.ordersCount}</td>
                     <td className="py-2.5 px-4 text-muted-foreground">{p.units}</td>
-                    <td className="py-2.5 px-4 font-semibold text-purple-600 dark:text-purple-400">
+                    <td className="py-2.5 px-4 font-semibold text-primary dark:text-primary">
                       {p.revenue.toLocaleString("ar-EG")} ج.م
                     </td>
                   </tr>
@@ -117,7 +117,7 @@ export const OrderStatusShortageTab: React.FC<OrderStatusShortageTabProps> = ({
       <div className="rounded-lg border border-border/70 bg-card shadow-none overflow-hidden">
         <div className="flex items-center justify-between border-b border-border/70 p-4">
           <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <XCircle className="h-4 w-4 text-purple-600 dark:text-purple-400" /> آخر طلبات العجز الفاشل
+            <XCircle className="h-4 w-4 text-primary dark:text-primary" /> آخر طلبات العجز الفاشل
             <span className="font-mono text-xs text-muted-foreground tabular-nums">
               ({recentFailed.length} طلب)
             </span>
@@ -152,7 +152,7 @@ export const OrderStatusShortageTab: React.FC<OrderStatusShortageTabProps> = ({
               ) : (
                 recentFailed.map((o) => (
                   <tr key={o.id} className="hover:bg-muted/30 transition-colors">
-                    <td className="py-2.5 px-4 font-bold text-purple-600 dark:text-purple-400">
+                    <td className="py-2.5 px-4 font-bold text-primary dark:text-primary">
                       {o.orderNumber}
                     </td>
                     <td className="py-2.5 px-4 font-sans text-foreground">{o.customerName || "-"}</td>
@@ -176,7 +176,7 @@ export const OrderStatusShortageTab: React.FC<OrderStatusShortageTabProps> = ({
                       <button
                         onClick={() => void onReopenOrder(o)}
                         disabled={reopeningOrderId === o.id}
-                        className="inline-flex items-center gap-1.5 rounded-md border border-purple-500/30 bg-purple-500/10 px-2.5 py-1 text-xs font-medium text-purple-600 dark:text-purple-400 transition-colors hover:bg-purple-500/20 disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 rounded-md border border-primary/30 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary dark:text-primary transition-colors hover:bg-primary/20 disabled:opacity-50"
                       >
                         <RefreshCw
                           className={`h-3 w-3 ${reopeningOrderId === o.id ? "animate-spin" : ""}`}

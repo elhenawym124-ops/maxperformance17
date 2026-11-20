@@ -28,7 +28,7 @@ export const TasksMobileCommandBar: React.FC<TasksMobileCommandBarProps> = ({
   if (selectedTasksCount > 0) {
     return (
       <div className="fixed inset-x-3 bottom-3 z-40 md:hidden animate-in slide-in-from-bottom-2 duration-200">
-        <div className="rounded-2xl border border-primary/25 bg-card/95 px-3 py-2.5 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.35)] backdrop-blur">
+        <div className="rounded-xl border border-primary/25 bg-card/95 px-3 py-2.5 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.35)] backdrop-blur">
           <div className="flex items-center justify-between gap-2">
             <span className="text-xs font-bold text-foreground tabular-nums">
               {selectedTasksCount} محددة
@@ -47,7 +47,7 @@ export const TasksMobileCommandBar: React.FC<TasksMobileCommandBarProps> = ({
               <Button
                 type="button"
                 size="sm"
-                className="h-8 rounded-xl px-2.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
+                className="h-8 rounded-xl px-2.5 text-xs bg-success hover:bg-success text-white"
                 onClick={() => handleBulkStatusChange("completed")}
               >
                 إكمال

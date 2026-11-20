@@ -114,7 +114,7 @@ const DeliveryReturnsAnalytics: React.FC = () => {
       {/* Control Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-3.5 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+          <div className="p-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20">
             <Truck className="h-5 w-5" />
           </div>
           <div>
@@ -162,7 +162,7 @@ const DeliveryReturnsAnalytics: React.FC = () => {
         <div className="p-3 border-b border-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-muted/20">
           <div className="inline-flex items-center rounded-lg bg-muted/50 p-1 border border-border/70 text-xs overflow-x-auto">
             <button onClick={() => setActiveTab("overview")} className={`px-2.5 py-1 rounded-md font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${activeTab === "overview" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-              <PieChartIcon className="h-3.5 w-3.5 text-indigo-500" />
+              <PieChartIcon className="h-3.5 w-3.5 text-primary" />
               نظرة عامة
             </button>
             <button onClick={() => setActiveTab("branches")} className={`px-2.5 py-1 rounded-md font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${activeTab === "branches" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
@@ -170,15 +170,15 @@ const DeliveryReturnsAnalytics: React.FC = () => {
               شركات الشحن ({branches.length})
             </button>
             <button onClick={() => setActiveTab("governorates")} className={`px-2.5 py-1 rounded-md font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${activeTab === "governorates" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-              <MapPin className="h-3.5 w-3.5 text-amber-500" />
+              <MapPin className="h-3.5 w-3.5 text-warning" />
               المحافظات ({governorates.length})
             </button>
             <button onClick={() => setActiveTab("reasons")} className={`px-2.5 py-1 rounded-md font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${activeTab === "reasons" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-              <AlertCircle className="h-3.5 w-3.5 text-rose-500" />
+              <AlertCircle className="h-3.5 w-3.5 text-destructive" />
               أسباب الارتجاع ({returnReasons.length})
             </button>
             <button onClick={() => setActiveTab("products")} className={`px-2.5 py-1 rounded-md font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${activeTab === "products" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-              <Package className="h-3.5 w-3.5 text-emerald-500" />
+              <Package className="h-3.5 w-3.5 text-success" />
               المنتجات ({topReturnedProducts.length})
             </button>
           </div>
@@ -186,7 +186,7 @@ const DeliveryReturnsAnalytics: React.FC = () => {
           {activeTab !== "overview" && (
             <div className="relative max-w-xs w-full">
               <Search className="h-3.5 w-3.5 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="بحث في النتائج…" className="w-full pr-8 pl-3 py-1.5 text-xs bg-card border border-border/70 rounded-md outline-none focus:ring-1 focus:ring-primary text-foreground font-mono" />
+              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="بحث في النتائج…" className="w-full pe-8 ps-3 py-1.5 text-xs bg-card border border-border/70 rounded-md outline-none focus:ring-1 focus:ring-primary text-foreground font-mono" />
             </div>
           )}
         </div>
@@ -199,7 +199,7 @@ const DeliveryReturnsAnalytics: React.FC = () => {
                   <div>
                     <div className="flex items-center justify-between mb-0.5">
                       <h4 className="text-xs font-semibold text-foreground">توزيع الشحنات</h4>
-                      <span className="text-[10px] font-mono font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20 tabular-nums">{summary?.totalShipped ?? 0} مشحون</span>
+                      <span className="text-[10px] font-mono font-medium text-primary bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20 tabular-nums">{summary?.totalShipped ?? 0} مشحون</span>
                     </div>
                     <p className="text-[11px] text-muted-foreground mb-2">نسب التسليم والارتجاع الإجمالية</p>
                   </div>

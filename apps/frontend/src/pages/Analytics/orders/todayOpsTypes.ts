@@ -63,13 +63,13 @@ export interface PageData {
 
 export function statusBadge(status: string | null): string {
   const m: Record<string, string> = {
-    CONFIRMED: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
-    PENDING: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
-    CANCELLED: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20",
+    CONFIRMED: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+    PENDING: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
+    CANCELLED: "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
     DELIVERED: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
-    PROCESSING: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20",
-    SHIPPED: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20",
-    REFUNDED: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20",
+    PROCESSING: "bg-indigo-500/10 text-primary border border-primary/20",
+    SHIPPED: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
+    REFUNDED: "bg-orange-500/10 text-warning dark:text-warning border border-warning/20",
     DUPLICATE_ORDER: "bg-muted text-muted-foreground border border-border/70",
   };
   return m[status || ""] || "bg-muted text-muted-foreground border border-border/70";

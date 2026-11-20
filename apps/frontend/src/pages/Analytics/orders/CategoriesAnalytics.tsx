@@ -142,7 +142,7 @@ const CategoriesAnalytics: React.FC = () => {
         {/* Orders Bar Chart */}
         <div className="border border-border/70 rounded-xl bg-card p-4 shadow-sm">
           <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <BarChart3 className="h-4 w-4 text-emerald-500" /> عدد الطلبيات لكل تصنيف
+            <BarChart3 className="h-4 w-4 text-success" /> عدد الطلبيات لكل تصنيف
           </h3>
           <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%" minWidth={0}>
@@ -201,7 +201,7 @@ const CategoriesAnalytics: React.FC = () => {
                       <td className="py-2.5 px-3.5 text-center font-mono font-bold text-foreground">
                         {cat.orders.toLocaleString("en-US")}
                       </td>
-                      <td className="py-2.5 px-3.5 text-center font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                      <td className="py-2.5 px-3.5 text-center font-mono font-bold text-success dark:text-success">
                         {formatPrice(cat.revenue)}
                       </td>
                       <td className="py-2.5 px-3.5 text-center">

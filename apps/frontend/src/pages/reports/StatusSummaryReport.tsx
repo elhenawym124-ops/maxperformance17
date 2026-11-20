@@ -329,14 +329,14 @@ const StatusSummaryReport: React.FC = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-5">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('reports.k_11')}</h1>
-          <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">{t('reports.k_12')}</p>
+          <h1 className="text-2xl font-bold text-foreground">{t('reports.k_11')}</h1>
+          <p className="mt-0.5 text-sm text-muted-foreground">{t('reports.k_12')}</p>
         </div>
         {reportData && (
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-600 shadow-sm transition-colors hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+            className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted hover:text-foreground dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
           >
             <ArrowDownTrayIcon className="h-4 w-4" />
             {t('reports.k_49')}
@@ -346,12 +346,12 @@ const StatusSummaryReport: React.FC = () => {
 
       {/* Filters */}
       <div className="px-6 pb-5">
-        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <div className="rounded-xl border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-muted">
           <div className="flex flex-wrap items-end gap-4">
             <div className="min-w-0 flex-1">
-              <label className="mb-1.5 block text-sm font-medium text-gray-600 dark:text-gray-400">{t('reports.k_13')}</label>
+              <label className="mb-1.5 block text-sm font-medium text-foreground dark:text-muted-foreground">{t('reports.k_13')}</label>
               {fetchingStatuses ? (
-                <div className="flex h-10 items-center gap-2 text-sm text-gray-400">
+                <div className="flex h-10 items-center gap-2 text-sm text-muted-foreground">
                   <ArrowPathIcon className="h-4 w-4 animate-spin" />
                   {t('reports.k_50')}
                 </div>
@@ -367,7 +367,7 @@ const StatusSummaryReport: React.FC = () => {
               )}
             </div>
             <div className="min-w-0">
-              <label className="mb-1.5 block text-sm font-medium text-gray-600 dark:text-gray-400">{t('reports.k_17')}</label>
+              <label className="mb-1.5 block text-sm font-medium text-foreground dark:text-muted-foreground">{t('reports.k_17')}</label>
               <div className="flex flex-wrap items-center gap-1.5">
                 {DATE_PRESETS.map((p) => (
                   <button
@@ -377,7 +377,7 @@ const StatusSummaryReport: React.FC = () => {
                     className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                       datePreset === p.key
                         ? 'bg-indigo-600 text-white shadow-sm'
-                        : 'border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                        : 'border border-border bg-white text-foreground hover:bg-muted dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted'
                     }`}
                   >
                     {p.label}
@@ -389,13 +389,13 @@ const StatusSummaryReport: React.FC = () => {
                   <DateInput
                     value={dateRange.start}
                     onChange={(e) => setDateRange((prev) => ({ ...prev, start: e.target.value }))}
-                    className="block w-40 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm transition-colors focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-indigo-400 dark:focus:bg-gray-700"
+                    className="block w-40 rounded-xl border border-border bg-muted px-3 py-2 text-sm transition-colors focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted dark:text-white dark:focus:border-primary dark:focus:bg-muted"
                   />
                   <span className="text-gray-400">{'—'}</span>
                   <DateInput
                     value={dateRange.end}
                     onChange={(e) => setDateRange((prev) => ({ ...prev, end: e.target.value }))}
-                    className="block w-40 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm transition-colors focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-indigo-400 dark:focus:bg-gray-700"
+                    className="block w-40 rounded-xl border border-border bg-muted px-3 py-2 text-sm transition-colors focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-border dark:bg-muted dark:text-white dark:focus:border-primary dark:focus:bg-muted"
                   />
                 </div>
               )}
@@ -405,7 +405,7 @@ const StatusSummaryReport: React.FC = () => {
                 type="button"
                 onClick={fetchReport}
                 disabled={selectedStatuses.length === 0 || loading}
-                className="inline-flex h-10 items-center gap-2 rounded-xl bg-indigo-600 px-5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex h-10 items-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {loading ? <ArrowPathIcon className="h-4 w-4 animate-spin" /> : <FunnelIcon className="h-4 w-4" />}
                 {t('reports.k_51')}
@@ -418,7 +418,7 @@ const StatusSummaryReport: React.FC = () => {
       {/* Error */}
       {error && (
         <div className="px-6 pb-5">
-          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">{error}</div>
+          <div className="rounded-xl border border-destructive bg-destructive/10 px-4 py-3 text-sm text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive">{error}</div>
         </div>
       )}
 
@@ -426,8 +426,8 @@ const StatusSummaryReport: React.FC = () => {
       {loading && (
         <div className="flex flex-1 items-center justify-center">
           <div className="flex flex-col items-center gap-3">
-            <ArrowPathIcon className="h-10 w-10 animate-spin text-indigo-500" />
-            <p className="text-sm text-gray-500 dark:text-gray-400">{t('reports.k_19')}</p>
+            <ArrowPathIcon className="h-10 w-10 animate-spin text-primary" />
+            <p className="text-sm text-muted-foreground">{t('reports.k_19')}</p>
           </div>
         </div>
       )}
@@ -437,9 +437,9 @@ const StatusSummaryReport: React.FC = () => {
         <div className="flex flex-1 flex-col gap-0 overflow-hidden px-6 pb-6">
           {/* Selected statuses tags */}
           <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
-            <span className="font-medium text-gray-600 dark:text-gray-400">{t('reports.k_20')}</span>
+            <span className="font-medium text-foreground dark:text-muted-foreground">{t('reports.k_20')}</span>
             {selectedStatuses.map((code) => (
-              <span key={code} className="inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300">
+              <span key={code} className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary dark:bg-primary/30 dark:text-primary">
                 {statusLabel(code)}
               </span>
             ))}
@@ -449,9 +449,9 @@ const StatusSummaryReport: React.FC = () => {
           {reportData.rows.length > 0 && (
             <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {reportData.rows.map((row) => (
-                <div key={row.status} className="overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
-                  <div className="border-b border-gray-100 bg-gray-50/50 px-4 py-2.5 dark:border-gray-700 dark:bg-gray-800/50">
-                    <h5 className="text-sm font-semibold text-gray-700 dark:text-gray-300">{statusLabel(row.status)}</h5>
+                <div key={row.status} className="overflow-hidden rounded-xl border border-border bg-white transition-shadow hover:shadow-md dark:border-border dark:bg-muted">
+                  <div className="border-b border-border bg-muted px-4 py-2.5 dark:border-border dark:bg-muted">
+                    <h5 className="text-sm font-semibold text-foreground">{statusLabel(row.status)}</h5>
                   </div>
                   <div className="space-y-0">
                     {[
@@ -460,9 +460,9 @@ const StatusSummaryReport: React.FC = () => {
                       [t('reports.k_6'), formatEGP(row.productsValue)],
                       [t('reports.k_7'), formatEGP(row.shippingValue)],
                     ].map(([label, value]) => (
-                      <div key={label} className="flex items-center justify-between border-t border-gray-50 px-4 py-2.5 text-sm dark:border-gray-700/50">
-                        <span className="text-gray-500 dark:text-gray-400">{label}</span>
-                        <span className="font-semibold text-gray-900 dark:text-white">{value}</span>
+                      <div key={label} className="flex items-center justify-between border-t border-border px-4 py-2.5 text-sm dark:border-border">
+                        <span className="text-muted-foreground">{label}</span>
+                        <span className="font-semibold text-foreground">{value}</span>
                       </div>
                     ))}
                   </div>
@@ -472,14 +472,14 @@ const StatusSummaryReport: React.FC = () => {
           )}
 
           {/* Totals Table */}
-          <div className="flex-1 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-            <div className="border-b border-gray-100 px-6 py-4 dark:border-gray-700">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white">{t('reports.k_21')}</h2>
+          <div className="flex-1 overflow-hidden rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted">
+            <div className="border-b border-border px-6 py-4 dark:border-border">
+              <h2 className="text-lg font-bold text-foreground">{t('reports.k_21')}</h2>
             </div>
             <div className="overflow-auto">
               <table className="w-full text-right">
                 <thead>
-                  <tr className="bg-gray-800 text-white dark:bg-gray-900">
+                  <tr className="bg-gray-800 text-white dark:bg-muted">
                     <th className="px-6 py-4 text-sm font-semibold">{t('reports.k_4')}</th>
                     <th className="px-6 py-4 text-sm font-semibold">{t('reports.k_5')}</th>
                     <th className="px-6 py-4 text-sm font-semibold">{t('reports.k_6')}</th>
@@ -488,10 +488,10 @@ const StatusSummaryReport: React.FC = () => {
                 </thead>
                 <tbody>
                   <tr
-                    className="border-b border-gray-100 bg-white transition-colors hover:bg-gray-50/50 cursor-pointer dark:border-gray-700/50 dark:bg-gray-800 dark:hover:bg-gray-700/50"
+                    className="border-b border-border bg-white transition-colors hover:bg-muted cursor-pointer dark:border-border dark:bg-muted dark:hover:bg-muted"
                     onClick={() => openDrillDown("orders")}
                   >
-                    <td className="px-6 py-5 text-lg font-bold text-indigo-600 dark:text-indigo-400">
+                    <td className="px-6 py-5 text-lg font-bold text-primary">
                       {formatNumber(reportData.totals.ordersCount)}
                     </td>
                     <td className="px-6 py-5">
@@ -501,52 +501,52 @@ const StatusSummaryReport: React.FC = () => {
                           e.stopPropagation();
                           openDrillDown("items");
                         }}
-                        className="text-lg font-bold text-indigo-600 transition-colors hover:text-indigo-800 hover:underline dark:text-indigo-400 dark:hover:text-indigo-300"
+                        className="text-lg font-bold text-primary transition-colors hover:text-primary hover:underline dark:text-primary dark:hover:text-primary"
                       >
                         {formatNumber(reportData.totals.itemsCount)}
                       </button>
                     </td>
-                    <td className="px-6 py-5 text-lg font-bold text-gray-900 dark:text-white">
+                    <td className="px-6 py-5 text-lg font-bold text-foreground">
                       {formatEGP(reportData.totals.productsValue)}
                     </td>
-                    <td className="px-6 py-5 text-lg font-bold text-gray-900 dark:text-white">
+                    <td className="px-6 py-5 text-lg font-bold text-foreground">
                       {formatEGP(reportData.totals.shippingValue)}
                     </td>
                   </tr>
                   {inlineExpanded && (
-                    <tr className="bg-gray-50/50 dark:bg-gray-800/50">
-                      <td colSpan={4} className="p-0 border-b border-gray-100 dark:border-gray-700">
-                        <div className="border-t-2 border-indigo-100 bg-white/50 p-6 dark:border-indigo-900/30 dark:bg-gray-900/30">
+                    <tr className="bg-gray-50/50 dark:bg-muted">
+                      <td colSpan={4} className="p-0 border-b border-border dark:border-border">
+                        <div className="border-t-2 border-primary bg-white/50 p-6 dark:border-primary/30 dark:bg-muted">
                           <div className="mb-4 flex items-center justify-between">
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                            <h3 className="text-lg font-bold text-foreground">
                               {inlineMode === "orders" ? t('reports.k_22') : t('reports.k_23')}
-                              <span className="mr-2 text-sm font-normal text-gray-500 dark:text-gray-400">
+                              <span className="me-2 text-sm font-normal text-muted-foreground">
                                 ({formatNumber(inlinePagination.total ?? 0)})
                               </span>
                             </h3>
                           </div>
-                          <div className="overflow-auto rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800 max-h-[60vh]">
+                          <div className="overflow-auto rounded-xl border border-border bg-white shadow-sm dark:border-border dark:bg-muted max-h-[60vh]">
                             {inlineLoading ? (
                               <div className="flex items-center justify-center py-16">
-                                <ArrowPathIcon className="h-8 w-8 animate-spin text-indigo-500" />
+                                <ArrowPathIcon className="h-8 w-8 animate-spin text-primary" />
                               </div>
                             ) : inlineError ? (
-                              <div className="m-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">{inlineError}</div>
+                              <div className="m-4 rounded-lg border border-destructive bg-destructive/10 p-4 text-sm text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive">{inlineError}</div>
                             ) : inlineMode === "orders" ? (
                               inlineOrders.length === 0 ? (
-                                <p className="py-16 text-center text-sm text-gray-500">{t('reports.k_24')}</p>
+                                <p className="py-16 text-center text-sm text-muted-foreground">{t('reports.k_24')}</p>
                               ) : (
                                 <table className="w-full text-right text-sm">
                                   <thead>
-                                    <tr className="sticky top-0 z-10 border-b-2 border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900">
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_25')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_26')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_27')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_3')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_8')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_28')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_29')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_30')}</th>
+                                    <tr className="sticky top-0 z-10 border-b-2 border-border bg-muted dark:border-border dark:bg-muted">
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_25')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_26')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_27')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_3')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_8')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_28')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_29')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_30')}</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -556,28 +556,28 @@ const StatusSummaryReport: React.FC = () => {
                                         <React.Fragment key={o.id}>
                                           <tr
                                             onClick={() => toggleOrder(o.id)}
-                                            className="cursor-pointer border-b border-gray-100 transition-colors hover:bg-indigo-50/50 dark:border-gray-700/50 dark:hover:bg-indigo-900/20"
+                                            className="cursor-pointer border-b border-border transition-colors hover:bg-primary/50 dark:border-border dark:hover:bg-primary/20"
                                           >
-                                            <td className="px-4 py-3 font-medium text-indigo-600 dark:text-indigo-400">
+                                            <td className="px-4 py-3 font-medium text-primary">
                                               <span className="inline-flex items-center gap-1">
                                                 {isExpanded ? <ChevronUpIcon className="h-3 w-3" /> : <ChevronDownIcon className="h-3 w-3" />}
                                                 {o.orderNumber}
                                               </span>
                                             </td>
-                                            <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
+                                            <td className="px-4 py-3 text-foreground dark:text-muted-foreground">
                                               {o.customer ? `${o.customer.firstName} ${o.customer.lastName}`.trim() || "—" : "—"}
                                             </td>
-                                            <td className="px-4 py-3 font-mono text-xs text-gray-500 dark:text-gray-400">
+                                            <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
                                               {o.customer?.phone || "—"}
                                             </td>
                                             <td className="px-4 py-3">
-                                              <span className="inline-flex rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                                              <span className="inline-flex rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground dark:bg-muted dark:text-muted-foreground">
                                                 {statusLabel(o.status)}
                                               </span>
                                             </td>
-                                            <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">{formatEGP(o.total)}</td>
-                                            <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{o.governorate || o.city || "—"}</td>
-                                            <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{formatDate(o.createdAt)}</td>
+                                            <td className="px-4 py-3 font-medium text-foreground">{formatEGP(o.total)}</td>
+                                            <td className="px-4 py-3 text-foreground dark:text-muted-foreground">{o.governorate || o.city || "—"}</td>
+                                            <td className="px-4 py-3 text-muted-foreground">{formatDate(o.createdAt)}</td>
                                             <td className="px-4 py-3">
                                               <div className="flex items-center gap-2">
                                                 <button
@@ -586,18 +586,18 @@ const StatusSummaryReport: React.FC = () => {
                                                     e.stopPropagation();
                                                     toggleOrder(o.id);
                                                   }}
-                                                  className="whitespace-nowrap text-sm font-medium text-indigo-600 transition-colors hover:text-indigo-800 hover:underline dark:text-indigo-400 dark:hover:text-indigo-300"
+                                                  className="whitespace-nowrap text-sm font-medium text-primary transition-colors hover:text-primary hover:underline dark:text-primary dark:hover:text-primary"
                                                 >
                                                   {isExpanded ? t('reports.k_31') : t('reports.items_count', { count: o.orderItems?.length ?? 0 })}
                                                 </button>
-                                                <span className="text-gray-300 dark:text-gray-600">|</span>
+                                                <span className="text-gray-300 dark:text-foreground">|</span>
                                                 <button
                                                   type="button"
                                                   onClick={(e) => {
                                                     e.stopPropagation();
                                                     navigate(`/orders/${o.orderNumber}`);
                                                   }}
-                                                  className="whitespace-nowrap text-sm font-medium text-teal-600 transition-colors hover:text-teal-800 hover:underline dark:text-teal-400 dark:hover:text-teal-300"
+                                                  className="whitespace-nowrap text-sm font-medium text-success transition-colors hover:text-success hover:underline dark:text-success dark:hover:text-success"
                                                 >
                                                   {t('reports.k_52')}
                                                 </button>
@@ -605,13 +605,13 @@ const StatusSummaryReport: React.FC = () => {
                                             </td>
                                           </tr>
                                           {isExpanded && (
-                                            <tr className="bg-indigo-50/30 dark:bg-indigo-900/10">
+                                            <tr className="bg-indigo-50/30 dark:bg-primary/10">
                                               <td colSpan={8} className="p-0">
-                                                <div className="border-y border-indigo-100 px-6 py-3 dark:border-indigo-900/30">
+                                                <div className="border-y border-primary px-6 py-3 dark:border-primary/30">
                                                   {o.orderItems && o.orderItems.length > 0 ? (
                                                     <table className="w-full text-right text-xs">
                                                       <thead>
-                                                        <tr className="border-b border-gray-200 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                                                        <tr className="border-b border-border text-muted-foreground dark:border-border dark:text-muted-foreground">
                                                           <th className="px-3 py-2 font-semibold">{t('reports.k_32')}</th>
                                                           <th className="px-3 py-2 font-semibold">{t('reports.k_33')}</th>
                                                           <th className="px-3 py-2 font-semibold">{t('reports.k_34')}</th>
@@ -625,17 +625,17 @@ const StatusSummaryReport: React.FC = () => {
                                                         {o.orderItems.map((item: any, iidx: number) => (
                                                           <tr
                                                             key={item.id || iidx}
-                                                            className="border-t border-gray-100 dark:border-gray-700/30"
+                                                            className="border-t border-border dark:border-border"
                                                           >
-                                                            <td className="px-3 py-2 font-semibold text-gray-900 dark:text-gray-100">
+                                                            <td className="px-3 py-2 font-semibold text-foreground">
                                                               {item.productName || item.product?.name || "—"}
                                                             </td>
-                                                            <td className="px-3 py-2 font-mono text-gray-500 dark:text-gray-400">
+                                                            <td className="px-3 py-2 font-mono text-muted-foreground">
                                                               {item.productSku || item.product?.sku || "—"}
                                                             </td>
                                                             <td className="px-3 py-2">
                                                               {item.productColor ? (
-                                                                <span className="inline-flex rounded-md bg-gray-100 px-2 py-0.5 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                                                                <span className="inline-flex rounded-md bg-muted px-2 py-0.5 text-foreground dark:bg-muted dark:text-muted-foreground">
                                                                   {item.productColor}
                                                                 </span>
                                                               ) : "—"}
@@ -647,15 +647,15 @@ const StatusSummaryReport: React.FC = () => {
                                                                 </span>
                                                               ) : "—"}
                                                             </td>
-                                                            <td className="px-3 py-2 font-bold text-gray-900 dark:text-gray-100">{item.quantity}</td>
-                                                            <td className="px-3 py-2 text-gray-600 dark:text-gray-400">{formatEGP(item.price)}</td>
-                                                            <td className="px-3 py-2 font-semibold text-gray-900 dark:text-gray-100">{formatEGP(item.total)}</td>
+                                                            <td className="px-3 py-2 font-bold text-foreground">{item.quantity}</td>
+                                                            <td className="px-3 py-2 text-foreground dark:text-muted-foreground">{formatEGP(item.price)}</td>
+                                                            <td className="px-3 py-2 font-semibold text-foreground">{formatEGP(item.total)}</td>
                                                           </tr>
                                                         ))}
                                                       </tbody>
                                                     </table>
                                                   ) : (
-                                                    <p className="py-3 text-center text-xs text-gray-500">{t('reports.k_38')}</p>
+                                                    <p className="py-3 text-center text-xs text-muted-foreground">{t('reports.k_38')}</p>
                                                   )}
                                                 </div>
                                               </td>
@@ -669,16 +669,16 @@ const StatusSummaryReport: React.FC = () => {
                               )
                             ) : (
                               inlineItems.length === 0 ? (
-                                <p className="py-16 text-center text-sm text-gray-500">{t('reports.k_39')}</p>
+                                <p className="py-16 text-center text-sm text-muted-foreground">{t('reports.k_39')}</p>
                               ) : (
                                 <table className="w-full text-right text-sm">
                                   <thead>
-                                    <tr className="sticky top-0 z-10 border-b-2 border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900">
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_32')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_40')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_41')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_8')}</th>
-                                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-gray-400">{t('reports.k_30')}</th>
+                                    <tr className="sticky top-0 z-10 border-b-2 border-border bg-muted dark:border-border dark:bg-muted">
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_32')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_40')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_41')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_8')}</th>
+                                      <th className="px-4 py-3 font-semibold text-foreground dark:text-muted-foreground">{t('reports.k_30')}</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -689,17 +689,17 @@ const StatusSummaryReport: React.FC = () => {
                                         <React.Fragment key={groupKey}>
                                           <tr
                                             onClick={() => toggleGroup(groupKey)}
-                                            className="cursor-pointer border-b border-gray-100 bg-white transition-colors hover:bg-indigo-50/50 dark:border-gray-700/50 dark:bg-gray-800 dark:hover:bg-indigo-900/20"
+                                            className="cursor-pointer border-b border-border bg-white transition-colors hover:bg-primary/50 dark:border-border dark:bg-muted dark:hover:bg-primary/20"
                                           >
-                                            <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                                            <td className="px-4 py-3 font-medium text-foreground">
                                               <span className="inline-flex items-center gap-1">
                                                 {isExpanded ? <ChevronUpIcon className="h-3 w-3" /> : <ChevronDownIcon className="h-3 w-3" />}
                                                 {group.productName || "—"}
                                               </span>
                                             </td>
-                                            <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{formatNumber(group.variations.length)}</td>
-                                            <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{formatNumber(group.quantity)}</td>
-                                            <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">{formatEGP(group.total)}</td>
+                                            <td className="px-4 py-3 text-foreground dark:text-muted-foreground">{formatNumber(group.variations.length)}</td>
+                                            <td className="px-4 py-3 font-bold text-foreground">{formatNumber(group.quantity)}</td>
+                                            <td className="px-4 py-3 font-medium text-foreground">{formatEGP(group.total)}</td>
                                             <td className="px-4 py-3">
                                               <button
                                                 type="button"
@@ -707,19 +707,19 @@ const StatusSummaryReport: React.FC = () => {
                                                   e.stopPropagation();
                                                   toggleGroup(groupKey);
                                                 }}
-                                                className="text-sm font-medium text-indigo-600 transition-colors hover:text-indigo-800 hover:underline dark:text-indigo-400 dark:hover:text-indigo-300"
+                                                className="text-sm font-medium text-primary transition-colors hover:text-primary hover:underline dark:text-primary dark:hover:text-primary"
                                               >
                                                 {isExpanded ? t('reports.k_42') : t('reports.k_43')}
                                               </button>
                                             </td>
                                           </tr>
                                           {isExpanded && (
-                                            <tr className="bg-gray-50/50 dark:bg-gray-800/50">
+                                            <tr className="bg-gray-50/50 dark:bg-muted">
                                               <td colSpan={5} className="p-0">
-                                                <div className="border-b border-gray-100 bg-gray-50/30 px-6 py-3 dark:border-gray-700 dark:bg-gray-900/30">
+                                                <div className="border-b border-border bg-muted px-6 py-3 dark:border-border dark:bg-muted">
                                                   <table className="w-full text-right text-xs">
                                                     <thead>
-                                                      <tr className="border-b border-gray-200 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                                                      <tr className="border-b border-border text-muted-foreground dark:border-border dark:text-muted-foreground">
                                                         <th className="px-3 py-2 font-semibold">{t('reports.k_34')}</th>
                                                         <th className="px-3 py-2 font-semibold">{t('reports.k_35')}</th>
                                                         <th className="px-3 py-2 font-semibold">{t('reports.k_33')}</th>
@@ -731,11 +731,11 @@ const StatusSummaryReport: React.FC = () => {
                                                       {group.variations.map((v, vidx) => (
                                                         <tr
                                                           key={vidx}
-                                                          className="border-t border-gray-100 transition-colors hover:bg-indigo-50/30 dark:border-gray-700/30 dark:hover:bg-indigo-900/10"
+                                                          className="border-t border-border transition-colors hover:bg-primary/30 dark:border-border dark:hover:bg-primary/10"
                                                         >
                                                           <td className="px-3 py-2">
                                                             {v.productColor ? (
-                                                              <span className="inline-flex rounded-md bg-gray-100 px-2 py-0.5 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                                                              <span className="inline-flex rounded-md bg-muted px-2 py-0.5 text-foreground dark:bg-muted dark:text-muted-foreground">
                                                                 {v.productColor}
                                                               </span>
                                                             ) : "—"}
@@ -747,11 +747,11 @@ const StatusSummaryReport: React.FC = () => {
                                                               </span>
                                                             ) : "—"}
                                                           </td>
-                                                          <td className="px-3 py-2 font-mono text-gray-500 dark:text-gray-400">
+                                                          <td className="px-3 py-2 font-mono text-muted-foreground">
                                                             {v.productSku || "—"}
                                                           </td>
-                                                          <td className="px-3 py-2 font-bold text-gray-900 dark:text-gray-100">{v.quantity}</td>
-                                                          <td className="px-3 py-2 font-semibold text-gray-900 dark:text-gray-100">{formatEGP(v.total)}</td>
+                                                          <td className="px-3 py-2 font-bold text-foreground">{v.quantity}</td>
+                                                          <td className="px-3 py-2 font-semibold text-foreground">{formatEGP(v.total)}</td>
                                                         </tr>
                                                       ))}
                                                     </tbody>
@@ -770,7 +770,7 @@ const StatusSummaryReport: React.FC = () => {
                           </div>
                           {!inlineLoading && inlinePagination.totalPages > 1 && (
                             <div className="mt-4 flex items-center justify-between px-2">
-                              <span className="text-sm text-gray-500 dark:text-gray-400">
+                              <span className="text-sm text-muted-foreground">
                                 {t('reports.k_53')} {formatNumber(inlinePagination.page)}{t('reports.from')}{formatNumber(inlinePagination.totalPages)}
                               </span>
                               <div className="flex items-center gap-2">
@@ -778,7 +778,7 @@ const StatusSummaryReport: React.FC = () => {
                                   type="button"
                                   disabled={inlinePagination.page <= 1}
                                   onClick={() => openDrillDown(inlineMode, inlinePagination.page - 1)}
-                                  className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                                  className="inline-flex items-center gap-1 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                                 >
                                   <ChevronRightIcon className="h-4 w-4" />
                                   {t('reports.k_54')}
@@ -787,7 +787,7 @@ const StatusSummaryReport: React.FC = () => {
                                   type="button"
                                   disabled={inlinePagination.page >= inlinePagination.totalPages}
                                   onClick={() => openDrillDown(inlineMode, inlinePagination.page + 1)}
-                                  className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                                  className="inline-flex items-center gap-1 rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 dark:border-border dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted"
                                 >
                                   {t('reports.k_55')}
                                   <ChevronLeftIcon className="h-4 w-4" />
@@ -810,11 +810,11 @@ const StatusSummaryReport: React.FC = () => {
       {selectedStatuses.length === 0 && !loading && !reportData && (
         <div className="flex flex-1 items-center justify-center px-6 pb-6">
           <div className="text-center">
-            <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gray-100 dark:bg-gray-800">
-              <FunnelIcon className="h-10 w-10 text-gray-400 dark:text-gray-500" />
+            <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-muted dark:bg-muted">
+              <FunnelIcon className="h-10 w-10 text-muted-foreground/80" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('reports.k_45')}</h3>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t('reports.k_46')}</p>
+            <h3 className="text-lg font-semibold text-foreground">{t('reports.k_45')}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{t('reports.k_46')}</p>
           </div>
         </div>
       )}
@@ -823,13 +823,13 @@ const StatusSummaryReport: React.FC = () => {
       {!reportData && !loading && selectedStatuses.length > 0 && (
         <div className="flex flex-1 items-center justify-center px-6 pb-6">
           <div className="text-center">
-            <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gray-100 dark:bg-gray-800">
-              <svg className="h-10 w-10 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-muted dark:bg-muted">
+              <svg className="h-10 w-10 text-muted-foreground/80" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('reports.k_47')}</h3>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t('reports.k_48')}</p>
+            <h3 className="text-lg font-semibold text-foreground">{t('reports.k_47')}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{t('reports.k_48')}</p>
           </div>
         </div>
       )}

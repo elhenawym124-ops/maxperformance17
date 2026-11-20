@@ -237,7 +237,7 @@ export function calculateDerivedMetrics(
       title: "إجمالي المبيعات",
       value: formatPrice(totalSales),
       icon: CurrencyDollarIcon,
-      color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20",
+      color: "text-emerald-600 bg-success/10 dark:bg-success/20",
     },
     {
       id: "total-orders",
@@ -256,7 +256,7 @@ export function calculateDerivedMetrics(
             ? "0"
             : "غير متاح",
       icon: ChartPieIcon,
-      color: "text-amber-600 bg-amber-50 dark:bg-amber-900/20",
+      color: "text-amber-600 bg-warning/10 dark:bg-warning/20",
     },
     {
       id: "store-visits",
@@ -266,7 +266,7 @@ export function calculateDerivedMetrics(
           ? Number(visitMetric).toLocaleString()
           : "غير متاح",
       icon: EyeIcon,
-      color: "text-cyan-600 bg-cyan-50 dark:bg-cyan-900/20",
+      color: "text-cyan-600 bg-info/10 dark:bg-info/20",
     },
     {
       id: "conversion-rate",
@@ -276,14 +276,14 @@ export function calculateDerivedMetrics(
           ? `${Math.round(conversionRate)}%`
           : "غير متاح",
       icon: ChartBarIcon,
-      color: "text-orange-600 bg-orange-50 dark:bg-orange-900/20",
+      color: "text-orange-600 bg-warning/10 dark:bg-warning/20",
     },
     {
       id: "new-customers",
       title: "عملاء جدد",
       value: totalNewCustomers.toLocaleString(),
       icon: UserGroupIcon,
-      color: "text-purple-600 bg-purple-50 dark:bg-purple-900/20",
+      color: "text-purple-600 bg-primary/10 dark:bg-primary/20",
     },
   ];
 

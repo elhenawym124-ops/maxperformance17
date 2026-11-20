@@ -72,7 +72,7 @@ export const AbandonedCartTable: React.FC<AbandonedCartTableProps> = ({
               onClick={() => onTabChange("recovered")}
               className={`px-3 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1 ${
                 activeTab === "recovered"
-                  ? "bg-card shadow-sm text-emerald-600 dark:text-emerald-400 font-semibold"
+                  ? "bg-card shadow-sm text-success dark:text-success font-semibold"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -130,7 +130,7 @@ export const AbandonedCartTable: React.FC<AbandonedCartTableProps> = ({
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="بحث بالاسم أو الهاتف أو السلة..."
-                className="w-full text-xs rounded-md border border-border/70 bg-background py-1.5 pr-8 pl-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                className="w-full text-xs rounded-md border border-border/70 bg-background py-1.5 pe-8 ps-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
               />
             </div>
           </div>
@@ -171,7 +171,7 @@ export const AbandonedCartTable: React.FC<AbandonedCartTableProps> = ({
                         </div>
                         <div className="flex items-center gap-1.5 mt-0.5 text-[11px] font-mono text-muted-foreground">
                           {cart.customerPhone ? (
-                            <span className="text-emerald-600 dark:text-emerald-400 font-semibold" dir="ltr">
+                            <span className="text-emerald-600 dark:text-success font-semibold" dir="ltr">
                               {cart.customerPhone}
                             </span>
                           ) : (
@@ -202,7 +202,7 @@ export const AbandonedCartTable: React.FC<AbandonedCartTableProps> = ({
 
                       <td className="py-2.5 px-3 font-sans">
                         {isFresh && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-warning/10 text-warning dark:text-warning border border-warning/20">
                             <Flame className="h-3 w-3" /> فرصة ذهبية
                           </span>
                         )}
@@ -235,7 +235,7 @@ export const AbandonedCartTable: React.FC<AbandonedCartTableProps> = ({
                                 type="button"
                                 onClick={() => onWhatsApp(cart)}
                                 title="تواصل عبر واتساب"
-                                className="p-1 rounded text-emerald-600 hover:bg-emerald-500/10 transition-colors"
+                                className="p-1 rounded text-success hover:bg-success/10 transition-colors"
                               >
                                 <MessageSquare className="h-3.5 w-3.5" />
                               </button>
@@ -304,11 +304,11 @@ export const AbandonedCartTable: React.FC<AbandonedCartTableProps> = ({
                         <span className="font-medium text-foreground">تم التحويل</span>
                       )}
                     </td>
-                    <td className="py-2.5 px-3 font-bold text-emerald-600 dark:text-emerald-400">
+                    <td className="py-2.5 px-3 font-bold text-success dark:text-success">
                       {formatPrice(conv.cartValue)}
                     </td>
                     <td className="py-2.5 px-3 font-sans">
-                      <span className="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                         {conv.employeeName || (conv.channel === "natural" ? "تحويل ذاتي" : "إدارة المتجر")}
                       </span>
                     </td>

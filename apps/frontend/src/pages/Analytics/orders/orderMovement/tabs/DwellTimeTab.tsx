@@ -108,14 +108,14 @@ export default function DwellTimeTab({ startDate, endDate, mode }: MovementFilte
           value={slowest ? getStatusLabel(slowest.status) : "-"}
           hint={slowest ? `متوسط ${formatDuration(slowest.avgHours)}` : undefined}
           icon={Hourglass}
-          gradient="from-orange-500 to-red-600"
+          gradient="from-orange-500 to-destructive"
         />
         <KpiCard
           label="أسرع حالة"
           value={fastest ? getStatusLabel(fastest.status) : "-"}
           hint={fastest ? `متوسط ${formatDuration(fastest.avgHours)}` : undefined}
           icon={Gauge}
-          gradient="from-emerald-500 to-teal-600"
+          gradient="from-emerald-500 to-success"
         />
         <KpiCard
           label="متوسط زمن الدورة"
@@ -126,7 +126,7 @@ export default function DwellTimeTab({ startDate, endDate, mode }: MovementFilte
               : undefined
           }
           icon={Clock}
-          gradient="from-indigo-500 to-violet-600"
+          gradient="from-indigo-500 to-primary"
         />
         <KpiCard
           label="العينات"
@@ -149,11 +149,11 @@ export default function DwellTimeTab({ startDate, endDate, mode }: MovementFilte
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <StatusPill code={row.status} />
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-muted-foreground">
                         {formatNumber(row.entries)} عينة
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <span className="inline-flex items-center gap-1">
                         <AutoBadge auto={false} />
                         {formatNumber(row.manualEntries)}
@@ -164,26 +164,26 @@ export default function DwellTimeTab({ startDate, endDate, mode }: MovementFilte
                       </span>
                     </div>
                   </div>
-                  <div className="relative mt-2 h-3 rounded-full bg-gray-100 dark:bg-gray-800" dir="ltr">
+                  <div className="relative mt-2 h-3 rounded-full bg-muted dark:bg-muted" dir="ltr">
                     <div
-                      className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500"
+                      className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-primary to-primary"
                       style={{ width: `${width}%` }}
                     />
                     <div
-                      className="absolute top-1/2 h-4 w-1 -translate-y-1/2 rounded-full bg-amber-500"
+                      className="absolute top-1/2 h-4 w-1 -translate-y-1/2 rounded-full bg-warning"
                       style={{ left: `${p90Pos}%` }}
                       title={`P90 ${formatDuration(row.p90Hours)}`}
                     />
                   </div>
                   <div className="mt-1 flex items-center justify-between text-[11px]">
-                    <span className="text-gray-500 dark:text-gray-400">
+                    <span className="text-muted-foreground">
                       المتوسط {formatDuration(row.avgHours)}
                     </span>
                     <span
                       className={
                         highP90
-                          ? "font-medium text-amber-600 dark:text-amber-400"
-                          : "text-gray-400 dark:text-gray-500"
+                          ? "font-medium text-warning dark:text-warning"
+                          : "text-muted-foreground/80"
                       }
                     >
                       P90 {formatDuration(row.p90Hours)}

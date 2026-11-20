@@ -112,7 +112,7 @@ export const VariationsCharts: React.FC<Props> = ({ sizes, colors, isArabic: pro
         <CardContent className="p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Palette className="h-4 w-4 text-rose-500" />
+              <Palette className="h-4 w-4 text-destructive" />
               <h3 className="text-sm font-semibold text-foreground">
                 {t("variationsAnalytics.topColors", isArabic ? "الألوان الأكثر مبيعاً" : "Top Selling Colors")}
               </h3>

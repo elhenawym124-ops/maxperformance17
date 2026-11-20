@@ -46,7 +46,7 @@ const FilterDropdown: React.FC<{
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`h-7 w-full bg-transparent text-xs appearance-none focus:outline-none cursor-pointer py-0.5 pr-2.5 pl-6 ${
+        className={`h-7 w-full bg-transparent text-xs appearance-none focus:outline-none cursor-pointer py-0.5 pe-2.5 ps-6 ${
           isSelected ? "text-primary font-medium" : "text-foreground"
         }`}
       >

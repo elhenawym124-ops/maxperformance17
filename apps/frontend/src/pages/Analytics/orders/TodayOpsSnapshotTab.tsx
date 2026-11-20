@@ -45,7 +45,7 @@ export const TodayOpsSnapshotTab: React.FC<Props> = ({
           value={snapDate}
           max={new Date().toISOString().slice(0, 10)}
           onChange={(e) => onDateChange(e.target.value)}
-          className="bg-background border border-border/70 rounded-md px-3 py-1.5 text-xs font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          className="bg-background border border-border/70 rounded-md px-3 py-1.5 text-xs font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
         />
       </div>
 
@@ -55,7 +55,7 @@ export const TodayOpsSnapshotTab: React.FC<Props> = ({
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي الوارد</span>
-              <BarChart3 className="h-4 w-4 text-indigo-500" />
+              <BarChart3 className="h-4 w-4 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
               {s.totalOrders.toLocaleString()}
@@ -70,9 +70,9 @@ export const TodayOpsSnapshotTab: React.FC<Props> = ({
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>المؤكدة</span>
-              <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+              <CheckCircle2 className="h-4 w-4 text-success" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success">
               {(
                 s.statusBreakdown.find((st) => st.status === "CONFIRMED")?.count || 0
               ).toLocaleString()}
@@ -87,9 +87,9 @@ export const TodayOpsSnapshotTab: React.FC<Props> = ({
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>الملغية</span>
-              <XCircle className="h-4 w-4 text-rose-500" />
+              <XCircle className="h-4 w-4 text-destructive" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">
               {(
                 s.statusBreakdown.find((st) => st.status === "CANCELLED")?.count || 0
               ).toLocaleString()}
@@ -104,9 +104,9 @@ export const TodayOpsSnapshotTab: React.FC<Props> = ({
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>المعلقة</span>
-              <Clock className="h-4 w-4 text-amber-500" />
+              <Clock className="h-4 w-4 text-warning" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-warning dark:text-warning">
               {(s.pendingList.length + s.pendingListGuests.length).toLocaleString()}
             </div>
             <div className="text-[11px] text-muted-foreground mt-1">
@@ -200,7 +200,7 @@ export const TodayOpsSnapshotTab: React.FC<Props> = ({
       <Card className="border-border/70 bg-card overflow-hidden">
         <div className="p-4 border-b border-border/70 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-amber-500" />
+            <Clock className="h-4 w-4 text-warning" />
             <h3 className="text-sm font-semibold text-foreground">
               قائمة الطلبات المعلقة في انتظار التأكيد
             </h3>

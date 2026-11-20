@@ -74,7 +74,7 @@ export const TaskCommentsTab: React.FC<TaskCommentsTabProps> = ({
                     className="size-9 rounded-full object-cover"
                   />
                 ) : (
-                  <div className="rounded-2xl bg-primary/10 p-2 text-primary">
+                  <div className="rounded-xl bg-primary/10 p-2 text-primary">
                     <UserCircleIcon className="size-5" />
                   </div>
                 )}
@@ -123,7 +123,7 @@ export const TaskCommentsTab: React.FC<TaskCommentsTabProps> = ({
                         onChange={(event) =>
                           setEditCommentContent(event.target.value)
                         }
-                        className="min-h-28 rounded-2xl"
+                        className="min-h-28 rounded-xl"
                       />
                       <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
                         <Button

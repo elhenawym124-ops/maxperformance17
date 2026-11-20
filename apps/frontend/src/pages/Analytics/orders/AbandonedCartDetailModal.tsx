@@ -59,7 +59,7 @@ export const AbandonedCartDetailModal: React.FC<AbandonedCartDetailModalProps> =
           {selectedCart.customerPhone && (
             <div className="flex justify-between font-mono tabular-nums">
               <span className="font-sans text-muted-foreground">الهاتف:</span>
-              <span className="text-emerald-600 dark:text-emerald-400 font-semibold" dir="ltr">
+              <span className="text-emerald-600 dark:text-success font-semibold" dir="ltr">
                 {selectedCart.customerPhone}
               </span>
             </div>
@@ -112,7 +112,7 @@ export const AbandonedCartDetailModal: React.FC<AbandonedCartDetailModalProps> =
         {/* Total Footer */}
         <div className="pt-3 border-t border-border/70 flex items-center justify-between text-xs font-mono tabular-nums">
           <span className="font-sans font-medium text-foreground">إجمالي قيمة السلة:</span>
-          <span className="font-bold text-rose-600 dark:text-rose-400 text-sm">
+          <span className="font-bold text-destructive dark:text-destructive text-sm">
             {formatPrice(selectedCart.cartValue)}
           </span>
         </div>
@@ -124,7 +124,7 @@ export const AbandonedCartDetailModal: React.FC<AbandonedCartDetailModalProps> =
               <button
                 type="button"
                 onClick={() => onWhatsApp(selectedCart)}
-                className="flex-1 py-1.5 px-3 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
+                className="flex-1 py-1.5 px-3 rounded-md bg-success hover:bg-success text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
               >
                 <MessageSquare className="h-3.5 w-3.5" />
                 تواصل عبر واتساب

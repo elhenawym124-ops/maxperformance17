@@ -213,15 +213,15 @@ const ShippingReport: React.FC = () => {
 
   const getStatusColor = (status?: string) => {
     if (!status)
-      return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200";
+      return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
     const statusLower = status.toLowerCase();
     if (statusLower === "delivered")
-      return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
+      return "bg-green-100 text-success dark:bg-success/30 dark:text-success";
     if (statusLower === "cancelled" || statusLower === "returned")
-      return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
+      return "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive";
     if (statusLower === "in_transit" || statusLower === "out_for_delivery")
       return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
-    return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200";
+    return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
   };
 
   const getStatusText = (status?: string) => {
@@ -239,47 +239,47 @@ const ShippingReport: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+    <div className="polaris-track p-6 text-foreground dark:text-muted-foreground">
       <div className="w-full">
-        <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-900 dark:shadow-black/20">
+        <div className="rounded-lg bg-white p-6 shadow dark:bg-muted dark:shadow-black/20">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="flex items-center text-2xl font-bold text-gray-900 dark:text-white">
-              <ChartBarIcon className="h-6 w-6 text-blue-500 ml-2" />
+            <h1 className="flex items-center text-2xl font-bold text-foreground">
+              <ChartBarIcon className="h-6 w-6 text-blue-500 ms-2" />
               تقرير الشحن - مقارنة الأسعار
             </h1>
             <div className="flex gap-2 flex-wrap">
               <button
                 onClick={openGovernorateCosts}
-                className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
               >
-                <ChartBarIcon className="w-5 h-5 ml-2" />
+                <ChartBarIcon className="w-5 h-5 ms-2" />
                 تكاليف المحافظات
               </button>
               {reportData.length > 0 && (
                 <button
                   onClick={() => setBulkModal({ open: true, newCost: "", saving: false })}
-                  className="flex items-center px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700"
+                  className="flex items-center px-4 py-2 bg-warning text-white rounded-lg hover:bg-warning"
                 >
-                  <PencilIcon className="w-5 h-5 ml-2" />
+                  <PencilIcon className="w-5 h-5 ms-2" />
                   تعديل جماعي
                 </button>
               )}
               <button
                 onClick={handleExportCSV}
-                className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="flex items-center px-4 py-2 bg-success text-white rounded-lg hover:bg-success"
               >
-                <ArrowDownTrayIcon className="w-5 h-5 ml-2" />
+                <ArrowDownTrayIcon className="w-5 h-5 ms-2" />
                 تصدير إلى Excel (CSV)
               </button>
             </div>
           </div>
 
           {/* Filters */}
-          <div className="mb-6 grid grid-cols-1 gap-4 rounded-lg bg-gray-50 p-4 dark:bg-gray-800/80 md:grid-cols-3">
+          <div className="mb-6 grid grid-cols-1 gap-4 rounded-lg bg-muted p-4 dark:bg-muted md:grid-cols-3">
             <div>
               <label
                 htmlFor="shipping-report-start-date"
-                className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                className="mb-1 block text-sm font-medium text-foreground"
               >
                 من تاريخ
               </label>
@@ -289,13 +289,13 @@ const ShippingReport: React.FC = () => {
                 onChange={(e) =>
                   setFilters({ ...filters, startDate: e.target.value })
                 }
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                className="w-full rounded-lg border border-border px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground"
               />
             </div>
             <div>
               <label
                 htmlFor="shipping-report-end-date"
-                className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                className="mb-1 block text-sm font-medium text-foreground"
               >
                 إلى تاريخ
               </label>
@@ -305,13 +305,13 @@ const ShippingReport: React.FC = () => {
                 onChange={(e) =>
                   setFilters({ ...filters, endDate: e.target.value })
                 }
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                className="w-full rounded-lg border border-border px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground"
               />
             </div>
             <div>
               <label
                 htmlFor="shipping-report-status"
-                className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                className="mb-1 block text-sm font-medium text-foreground"
               >
                 الحالة
               </label>
@@ -323,7 +323,7 @@ const ShippingReport: React.FC = () => {
                 onChange={(e) =>
                   setFilters({ ...filters, status: e.target.value })
                 }
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                className="w-full rounded-lg border border-border px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground"
               >
                 <option value="">جميع الحالات</option>
                 <option value="created">تم الإنشاء</option>
@@ -342,39 +342,39 @@ const ShippingReport: React.FC = () => {
             <>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                 <div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950/30">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <div className="text-sm font-medium text-foreground">
                     إجمالي الطلبات (مع tracking)
                   </div>
                   <div className="text-2xl font-bold text-blue-600 mt-1">
                     {statistics.totalOrders}
                   </div>
                 </div>
-                <div className="rounded-lg border-l-4 border-green-500 bg-green-50 p-4 dark:bg-green-950/30">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="rounded-lg border-l-4 border-success bg-success/10 p-4 dark:bg-success/30">
+                  <div className="text-sm font-medium text-foreground">
                     إجمالي السعر الفعلي
                   </div>
-                  <div className="text-2xl font-bold text-green-600 mt-1">
+                  <div className="text-2xl font-bold text-success mt-1">
                     {formatPrice(statistics.totalActual)} EGP
                   </div>
                 </div>
-                <div className="rounded-lg border-l-4 border-gray-500 bg-gray-50 p-4 dark:bg-gray-800">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="rounded-lg border-l-4 border-border bg-muted p-4 dark:bg-muted">
+                  <div className="text-sm font-medium text-foreground">
                     إجمالي سعر العميل
                   </div>
-                  <div className="mt-1 text-2xl font-bold text-gray-600 dark:text-gray-200">
+                  <div className="mt-1 text-2xl font-bold text-foreground dark:text-muted-foreground">
                     {formatPrice(statistics.totalCustomer)} EGP
                   </div>
                 </div>
                 <div
                   className={`p-4 rounded-lg border-l-4 ${
                     statistics.totalDifference > 0
-                      ? "bg-red-50 border-red-500 dark:bg-red-950/30"
+                      ? "bg-red-50 border-destructive dark:bg-destructive/30"
                       : statistics.totalDifference < 0
-                        ? "bg-green-50 border-green-500 dark:bg-green-950/30"
-                        : "bg-gray-50 border-gray-500 dark:bg-gray-800"
+                        ? "bg-green-50 border-success dark:bg-success/30"
+                        : "bg-gray-50 border-border dark:bg-muted"
                   }`}
                 >
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <div className="text-sm font-medium text-foreground">
                     إجمالي الفرق
                   </div>
                   <div
@@ -383,7 +383,7 @@ const ShippingReport: React.FC = () => {
                         ? "text-red-600"
                         : statistics.totalDifference < 0
                           ? "text-green-600"
-                          : "text-gray-600 dark:text-gray-200"
+                          : "text-gray-600 dark:text-muted-foreground"
                     }`}
                   >
                     {statistics.totalDifference > 0 ? "+" : ""}
@@ -392,30 +392,30 @@ const ShippingReport: React.FC = () => {
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="rounded-lg border-r-4 border-purple-500 bg-purple-50 p-4 dark:bg-purple-950/30">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="rounded-lg border-r-4 border-primary bg-primary/10 p-4 dark:bg-primary/30">
+                  <div className="text-sm font-medium text-foreground">
                     متوسط السعر الفعلي
                   </div>
-                  <div className="text-2xl font-bold text-purple-600 mt-1">
+                  <div className="text-2xl font-bold text-primary mt-1">
                     {formatPrice(statistics.avgActual)} EGP
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-muted-foreground mt-1">
                     إجمالي {statistics.ordersWithCost} طلب بسعر فعلي
                   </div>
                 </div>
-                <div className="rounded-lg border-r-4 border-orange-500 bg-orange-50 p-4 dark:bg-orange-950/30">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="rounded-lg border-r-4 border-warning bg-warning/10 p-4 dark:bg-warning/30">
+                  <div className="text-sm font-medium text-foreground">
                     متوسط سعر العميل
                   </div>
-                  <div className="text-2xl font-bold text-orange-600 mt-1">
+                  <div className="text-2xl font-bold text-warning mt-1">
                     {formatPrice(statistics.avgCustomer)} EGP
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-muted-foreground mt-1">
                     على {statistics.totalOrders} طلب
                   </div>
                 </div>
-                <div className="rounded-lg border-r-4 border-cyan-500 bg-cyan-50 p-4 dark:bg-cyan-950/30">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="rounded-lg border-r-4 border-info bg-info/10 p-4 dark:bg-info/30">
+                  <div className="text-sm font-medium text-foreground">
                     متوسط الفرق للطلب
                   </div>
                   <div
@@ -424,7 +424,7 @@ const ShippingReport: React.FC = () => {
                         ? "text-red-600"
                         : statistics.totalDifference < 0
                           ? "text-green-600"
-                          : "text-gray-600 dark:text-gray-200"
+                          : "text-gray-600 dark:text-muted-foreground"
                     }`}
                   >
                     {statistics.totalDifference > 0 ? "+" : ""}
@@ -443,13 +443,13 @@ const ShippingReport: React.FC = () => {
           {/* Governorate Costs Modal */}
           {govCostModal && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-              <div className="w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-lg bg-white p-6 shadow-xl dark:bg-gray-900">
+              <div className="w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-lg bg-white p-6 shadow-xl dark:bg-muted">
                 <h3 className="mb-4 text-lg font-bold">تكاليف الشحن الفعلية حسب المحافظة</h3>
-                <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mb-4 text-sm text-muted-foreground">
                   أدخل التكلفة الفعلية من شركة الشحن لكل محافظة. هتطبق تلقائي على كل الطلبات اللي نفس المحافظة.
                 </p>
                 {govCostsLoading ? (
-                  <div className="text-center py-8 text-gray-500">جاري التحميل...</div>
+                  <div className="text-center py-8 text-muted-foreground">جاري التحميل...</div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                     {[
@@ -460,8 +460,8 @@ const ShippingReport: React.FC = () => {
                       "مطروح", "بورسعيد", "السويس", "شمال سيناء", "جنوب سيناء",
                       "الوادي الجديد", "البحر الأحمر"
                     ].map((gov) => (
-                      <div key={gov} className="flex items-center gap-2 rounded-lg border border-gray-200 p-2 dark:border-gray-700">
-                        <span className="flex-1 text-sm font-medium text-gray-700 dark:text-gray-300">{gov}</span>
+                      <div key={gov} className="flex items-center gap-2 rounded-lg border border-border p-2 dark:border-border">
+                        <span className="flex-1 text-sm font-medium text-foreground">{gov}</span>
                         <div className="flex items-center gap-1">
                           <input
                             type="number"
@@ -470,53 +470,53 @@ const ShippingReport: React.FC = () => {
                             value={govCostsForm[gov] ?? ""}
                             onChange={(e) => setGovCostsForm({ ...govCostsForm, [gov]: e.target.value })}
                             placeholder="التكلفة"
-                            className="w-24 rounded border border-gray-300 px-2 py-1 text-left text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                            className="w-24 rounded border border-border px-2 py-1 text-left text-sm dark:border-border dark:bg-muted dark:text-muted-foreground"
                           />
-                          <span className="text-xs text-gray-400">ج.م</span>
+                          <span className="text-xs text-muted-foreground">ج.م</span>
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
-                <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/20">
+                <div className="mb-4 rounded-lg border border-warning bg-warning/10 p-3 dark:border-warning dark:bg-warning/20">
                   <div className="flex items-center gap-2">
                     <input
                       id="retroactive-check"
                       type="checkbox"
                       checked={govCostsRetroactive}
                       onChange={(e) => setGovCostsRetroactive(e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
+                      className="h-4 w-4 rounded border-border text-warning focus:ring-warning"
                     />
-                    <label htmlFor="retroactive-check" className="text-sm text-amber-800 dark:text-amber-300 cursor-pointer">
+                    <label htmlFor="retroactive-check" className="text-sm text-warning dark:text-warning cursor-pointer">
                       <span className="font-medium">تطبيق بأثر رجعي</span>
-                      <span className="block text-xs text-amber-600 dark:text-amber-400 mt-0.5">
+                      <span className="block text-xs text-warning dark:text-warning mt-0.5">
                         تحديث الطلبات القديمة اللي مالهاش تكلفة فعلية بالتكلفة الجديدة
                       </span>
                     </label>
                   </div>
                   {govCostsRetroactive && (
                     <div className="mt-3 flex items-center gap-2">
-                      <span className="text-sm text-amber-700 dark:text-amber-400">من تاريخ:</span>
+                      <span className="text-sm text-warning dark:text-warning">من تاريخ:</span>
                       <DateInput
                         value={govCostsRetroactiveFrom}
                         onChange={(e) => setGovCostsRetroactiveFrom(e.target.value)}
-                        className="rounded border border-amber-300 px-2 py-1 text-sm dark:border-amber-700 dark:bg-gray-800 dark:text-gray-100"
+                        className="rounded border border-warning px-2 py-1 text-sm dark:border-warning dark:bg-muted dark:text-muted-foreground"
                       />
-                      <span className="text-xs text-amber-600 dark:text-amber-500">(اتركه فارغاً ليبدأ من أول الطلبات)</span>
+                      <span className="text-xs text-warning dark:text-warning">(اتركه فارغاً ليبدأ من أول الطلبات)</span>
                     </div>
                   )}
                 </div>
                 <div className="flex justify-end gap-3">
                   <button
                     onClick={() => setGovCostModal(false)}
-                    className="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                    className="rounded-lg border border-border px-4 py-2 text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                   >
                     إلغاء
                   </button>
                   <button
                     onClick={saveGovernorateCosts}
                     disabled={govCostsSaving}
-                    className="rounded-lg bg-purple-600 px-4 py-2 text-white hover:bg-purple-700 disabled:opacity-50"
+                    className="rounded-lg bg-primary px-4 py-2 text-white hover:bg-primary disabled:opacity-50"
                   >
                     {govCostsSaving ? "جاري الحفظ..." : "حفظ التكاليف"}
                   </button>
@@ -528,12 +528,12 @@ const ShippingReport: React.FC = () => {
           {/* Edit Single Cost Modal */}
           {editModal.open && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-              <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-gray-900">
+              <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-muted">
                 <h3 className="mb-4 text-lg font-bold">تعديل التكلفة الفعلية</h3>
-                <p className="mb-2 text-sm text-gray-600 dark:text-gray-400">
-                  الطلب: <span className="font-medium text-gray-900 dark:text-gray-100">#{editModal.orderNumber}</span>
+                <p className="mb-2 text-sm text-foreground dark:text-muted-foreground">
+                  الطلب: <span className="font-medium text-foreground">#{editModal.orderNumber}</span>
                 </p>
-                <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mb-4 text-sm text-foreground dark:text-muted-foreground">
                   سعر العميل الحالي: <span className="font-medium">{formatPrice(editModal.currentCost)} EGP</span>
                 </p>
                 <input
@@ -544,12 +544,12 @@ const ShippingReport: React.FC = () => {
                   value={editModal.newCost}
                   onChange={(e) => setEditModal({ ...editModal, newCost: e.target.value })}
                   placeholder="أدخل التكلفة الفعلية من شركة الشحن"
-                  className="mb-4 w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                  className="mb-4 w-full rounded-lg border border-border px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground"
                 />
                 <div className="flex justify-end gap-3">
                   <button
                     onClick={() => setEditModal({ ...editModal, open: false, newCost: "" })}
-                    className="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                    className="rounded-lg border border-border px-4 py-2 text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                   >
                     إلغاء
                   </button>
@@ -568,9 +568,9 @@ const ShippingReport: React.FC = () => {
           {/* Bulk Edit Modal */}
           {bulkModal.open && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-              <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-gray-900">
+              <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-muted">
                 <h3 className="mb-4 text-lg font-bold">تعديل جماعي</h3>
-                <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mb-4 text-sm text-foreground dark:text-muted-foreground">
                   تطبيق التكلفة الفعلية على جميع طلبات التقرير الحالي ({reportData.length} طلب)
                 </p>
                 <input
@@ -581,12 +581,12 @@ const ShippingReport: React.FC = () => {
                   value={bulkModal.newCost}
                   onChange={(e) => setBulkModal({ ...bulkModal, newCost: e.target.value })}
                   placeholder="أدخل التكلفة الفعلية الموحدة"
-                  className="mb-4 w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                  className="mb-4 w-full rounded-lg border border-border px-3 py-2 dark:border-border dark:bg-muted dark:text-muted-foreground"
                 />
                 <div className="flex justify-end gap-3">
                   <button
                     onClick={() => setBulkModal({ open: false, newCost: "", saving: false })}
-                    className="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                    className="rounded-lg border border-border px-4 py-2 text-foreground hover:bg-muted dark:border-border dark:text-muted-foreground dark:hover:bg-muted"
                   >
                     إلغاء
                   </button>
@@ -606,7 +606,7 @@ const ShippingReport: React.FC = () => {
           {loading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <p className="mt-2 text-gray-600">جاري تحميل التقرير...</p>
+              <p className="mt-2 text-foreground">جاري تحميل التقرير...</p>
             </div>
           ) : reportData.length === 0 ? (
             <div className="text-center py-12">
@@ -614,40 +614,40 @@ const ShippingReport: React.FC = () => {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-gray-800">
+              <table className="min-w-full divide-y divide-border dark:divide-border">
+                <thead className="bg-gray-50 dark:bg-muted">
                   <tr>
-                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                       رقم الطلب
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                       المحافظة
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                       كود Turbo
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                       السعر الفعلي
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                       سعر العميل
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                       الفرق
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                       الحالة
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                       التاريخ
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
+                <tbody className="divide-y divide-border bg-white dark:divide-border dark:bg-muted">
                   {reportData.map((row) => (
                     <tr
                       key={row.orderId}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-800"
+                      className="hover:bg-gray-50 dark:hover:bg-muted"
                     >
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
@@ -659,10 +659,10 @@ const ShippingReport: React.FC = () => {
                           #{row.orderNumber}
                         </button>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground dark:text-muted-foreground">
                         {row.governorate || "--"}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                         {row.trackingNumber || "--"}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -672,7 +672,7 @@ const ShippingReport: React.FC = () => {
                               {formatPrice(row.actualCost)} EGP
                             </span>
                           ) : (
-                            <span className="text-gray-500 dark:text-gray-400">
+                            <span className="text-muted-foreground">
                               غير متوفر
                             </span>
                           )}
@@ -693,7 +693,7 @@ const ShippingReport: React.FC = () => {
                           </button>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">
                         {formatPrice(row.customerCost)} EGP
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -704,14 +704,14 @@ const ShippingReport: React.FC = () => {
                                 ? "text-red-600"
                                 : row.difference < 0
                                   ? "text-green-600"
-                                  : "text-gray-600 dark:text-gray-200"
+                                  : "text-gray-600 dark:text-muted-foreground"
                             }`}
                           >
                             {row.difference > 0 ? "+" : ""}
                             {formatPrice(row.difference)} EGP
                           </span>
                         ) : (
-                          <span className="text-gray-400 dark:text-gray-500">
+                          <span className="text-muted-foreground/80">
                             --
                           </span>
                         )}
@@ -723,7 +723,7 @@ const ShippingReport: React.FC = () => {
                           {getStatusText(row.status)}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
                         {formatDate(row.createdAt)}
                       </td>
                     </tr>

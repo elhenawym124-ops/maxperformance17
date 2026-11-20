@@ -64,7 +64,7 @@ export const TaskWorkspaceHeader: React.FC<TaskWorkspaceHeaderProps> = ({
   const openTasksCount = taskStats.pending + taskStats.inProgress;
 
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-card via-card/95 to-card/80 px-4 py-3.5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.18)] md:px-5 md:py-4">
+    <section className="relative overflow-hidden rounded-xl border border-border/60 bg-gradient-to-br from-card via-card/95 to-card/80 px-4 py-3.5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.18)] md:px-5 md:py-4">
       {/* Subtle decorative gradient */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-primary/[0.04] via-transparent to-transparent" />
 
@@ -81,7 +81,7 @@ export const TaskWorkspaceHeader: React.FC<TaskWorkspaceHeaderProps> = ({
             {hasCommandState ? (
               <Badge
                 variant="outline"
-                className="rounded-full border-violet-500/20 bg-violet-500/8 px-2.5 py-0.5 text-[11px] font-medium text-violet-600 dark:text-violet-400"
+                className="rounded-full border-primary/20 bg-primary/8 px-2.5 py-0.5 text-[11px] font-medium text-primary dark:text-primary"
               >
                 عرض مخصص
               </Badge>
@@ -89,7 +89,7 @@ export const TaskWorkspaceHeader: React.FC<TaskWorkspaceHeaderProps> = ({
             {showOverdueIndicators && taskStats.overdue > 0 ? (
               <Badge
                 variant="outline"
-                className="animate-pulse rounded-full border-rose-500/25 bg-rose-500/8 px-2.5 py-0.5 text-[11px] font-medium text-rose-600 dark:text-rose-400"
+                className="animate-pulse rounded-full border-destructive/25 bg-destructive/8 px-2.5 py-0.5 text-[11px] font-medium text-destructive dark:text-destructive"
               >
                 {taskStats.overdue} متأخرة
               </Badge>
@@ -152,11 +152,11 @@ export const TaskWorkspaceHeader: React.FC<TaskWorkspaceHeaderProps> = ({
             <Button
               type="button"
               variant="outline"
-              className="h-9 rounded-xl border-sky-500/30 bg-sky-500/5 px-3 text-xs font-medium text-sky-700 shadow-sm transition-all hover:bg-sky-500/10 hover:border-sky-500/40 dark:text-sky-300"
+              className="h-9 rounded-xl border-info/30 bg-info/5 px-3 text-xs font-medium text-info shadow-sm transition-all hover:bg-info/10 hover:border-info/40 dark:text-info"
               data-testid="tasks-open-create-goal-modal"
               onClick={() => setShowCreateGoalModal(true)}
             >
-              <Target className="size-4 text-sky-500" />
+              <Target className="size-4 text-info" />
               أنشئ هدف
             </Button>
           ) : null}
@@ -186,23 +186,23 @@ export const TaskWorkspaceHeader: React.FC<TaskWorkspaceHeaderProps> = ({
           <strong className="font-semibold text-blue-700 dark:text-blue-300 tabular-nums">{openTasksCount}</strong>
         </span>
 
-        <span className="inline-flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/6 px-2 py-0.5 text-[11px]">
-          <span className="size-1.5 rounded-full bg-amber-500" />
-          <span className="text-amber-700 dark:text-amber-400">انتظار</span>
-          <strong className="font-semibold text-amber-700 dark:text-amber-300 tabular-nums">{taskStats.pending}</strong>
+        <span className="inline-flex items-center gap-1.5 rounded-lg border border-warning/20 bg-warning/6 px-2 py-0.5 text-[11px]">
+          <span className="size-1.5 rounded-full bg-warning" />
+          <span className="text-amber-700 dark:text-warning">انتظار</span>
+          <strong className="font-semibold text-warning dark:text-warning tabular-nums">{taskStats.pending}</strong>
         </span>
 
-        <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/20 bg-emerald-500/6 px-2 py-0.5 text-[11px]">
-          <CheckCircleIcon className="size-3 text-emerald-500" />
-          <span className="text-emerald-700 dark:text-emerald-400">مكتملة</span>
-          <strong className="font-semibold text-emerald-700 dark:text-emerald-300 tabular-nums">{taskStats.completed}</strong>
+        <span className="inline-flex items-center gap-1.5 rounded-lg border border-success/20 bg-success/6 px-2 py-0.5 text-[11px]">
+          <CheckCircleIcon className="size-3 text-success" />
+          <span className="text-emerald-700 dark:text-success">مكتملة</span>
+          <strong className="font-semibold text-success dark:text-success tabular-nums">{taskStats.completed}</strong>
         </span>
 
         {showOverdueIndicators && taskStats.overdue > 0 ? (
-          <span className="inline-flex items-center gap-1.5 rounded-lg border border-rose-500/25 bg-rose-500/8 px-2 py-0.5 text-[11px]">
-            <ExclamationCircleIcon className="size-3 text-rose-500" />
-            <span className="text-rose-700 dark:text-rose-400">متأخرة</span>
-            <strong className="font-semibold text-rose-700 dark:text-rose-300 tabular-nums">{taskStats.overdue}</strong>
+          <span className="inline-flex items-center gap-1.5 rounded-lg border border-destructive/25 bg-destructive/8 px-2 py-0.5 text-[11px]">
+            <ExclamationCircleIcon className="size-3 text-destructive" />
+            <span className="text-rose-700 dark:text-destructive">متأخرة</span>
+            <strong className="font-semibold text-destructive dark:text-destructive tabular-nums">{taskStats.overdue}</strong>
           </span>
         ) : null}
       </div>

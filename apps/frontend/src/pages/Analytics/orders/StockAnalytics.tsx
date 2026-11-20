@@ -83,7 +83,7 @@ const StockAnalytics: React.FC = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-3.5 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+          <div className="p-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20">
             <Boxes className="h-5 w-5" />
           </div>
           <div>
@@ -129,9 +129,9 @@ const StockAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>أوشك على النفاد</span>
-              <AlertTriangle className="h-4 w-4 text-amber-500" />
+              <AlertTriangle className="h-4 w-4 text-warning" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+            <div className="text-xl font-bold font-mono tabular-nums text-warning dark:text-warning">
               {loading ? "..." : (stats?.totalLowStock || 0).toLocaleString()}
             </div>
             <div className="text-[11px] text-muted-foreground mt-0.5">
@@ -144,9 +144,9 @@ const StockAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>نفد من المخزون</span>
-              <PackageX className="h-4 w-4 text-rose-500" />
+              <PackageX className="h-4 w-4 text-destructive" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+            <div className="text-xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">
               {loading ? "..." : (stats?.totalOutOfStock || 0).toLocaleString()}
             </div>
             <div className="text-[11px] text-muted-foreground mt-0.5">
@@ -159,9 +159,9 @@ const StockAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>سريعة الحركة</span>
-              <TrendingUp className="h-4 w-4 text-emerald-500" />
+              <TrendingUp className="h-4 w-4 text-success" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">
               {loading ? "..." : (stats?.fastMovingProducts?.length || 0).toLocaleString()}
             </div>
             <div className="text-[11px] text-muted-foreground mt-0.5">
@@ -189,14 +189,14 @@ const StockAnalytics: React.FC = () => {
       {/* Low Stock Replenishment Alert Table */}
       {stats?.lowStockProducts && stats.lowStockProducts.length > 0 && (
         <Card className="border-amber-500/30 bg-card overflow-hidden shadow-sm">
-          <div className="p-3 bg-amber-500/10 border-b border-amber-500/20 flex items-center justify-between text-xs">
+          <div className="p-3 bg-warning/10 border-b border-warning/20 flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="h-4 w-4 text-amber-500" />
+              <AlertTriangle className="h-4 w-4 text-warning" />
               <h3 className="font-semibold text-foreground">
                 تنبيهات النواقص وإعادة الطلب العاجلة
               </h3>
             </div>
-            <span className="font-mono font-medium text-amber-600 dark:text-amber-400 tabular-nums">
+            <span className="font-mono font-medium text-warning dark:text-warning tabular-nums">
               {stats.lowStockProducts.length} صنف يتطلب توريداً
             </span>
           </div>
@@ -214,14 +214,14 @@ const StockAnalytics: React.FC = () => {
                 {stats.lowStockProducts.slice(0, 10).map((product) => (
                   <tr key={product.id} className="hover:bg-muted/20 transition-colors">
                     <td className="py-2.5 px-3.5 font-medium text-foreground">{product.name}</td>
-                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-bold text-rose-500">
+                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-bold text-destructive">
                       {product.stock}
                     </td>
                     <td className="py-2.5 px-3.5 text-center font-mono tabular-nums text-muted-foreground">
                       {product.threshold}
                     </td>
                     <td className="py-2.5 px-3.5 text-left">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 font-mono">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 font-mono">
                         {product.stock === 0 ? "نفد كلياً" : "حرج جداً"}
                       </span>
                     </td>
@@ -239,7 +239,7 @@ const StockAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+                <ArrowUpRight className="h-4 w-4 text-success" />
                 <h3 className="text-sm font-semibold text-foreground">
                   سرعة سحب الأصناف الأكثر طلباً (Sales Velocity)
                 </h3>
@@ -328,7 +328,7 @@ const StockAnalytics: React.FC = () => {
                         {product.avgSales}
                       </td>
                       <td className="py-2.5 px-3.5 text-left font-mono tabular-nums">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                           {monthsToSell > 12 ? "+12 شهر" : `${monthsToSell} شهر`}
                         </span>
                       </td>

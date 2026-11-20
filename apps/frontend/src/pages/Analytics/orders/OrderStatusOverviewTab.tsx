@@ -69,7 +69,7 @@ export const OrderStatusOverviewTab: React.FC<OrderStatusOverviewTabProps> = ({
         <div className="rounded-lg border border-border/70 bg-card p-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">إجمالي الإيرادات</span>
-            <DollarSign className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            <DollarSign className="h-4 w-4 text-success dark:text-success" />
           </div>
           <p className="mt-1 font-mono text-xl font-bold tabular-nums text-foreground">
             {(summary?.totalRevenue || 0).toLocaleString("ar-EG")}{" "}
@@ -83,9 +83,9 @@ export const OrderStatusOverviewTab: React.FC<OrderStatusOverviewTabProps> = ({
         <div className="rounded-lg border border-border/70 bg-card p-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">فشل بسبب العجز</span>
-            <AlertTriangle className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+            <AlertTriangle className="h-4 w-4 text-primary dark:text-primary" />
           </div>
-          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-purple-600 dark:text-purple-400">
+          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-primary dark:text-primary">
             {(summary?.shortageFailedCount || 0).toLocaleString()}
           </p>
           <p className="mt-0.5 font-mono text-[10px] text-muted-foreground tabular-nums">
@@ -96,9 +96,9 @@ export const OrderStatusOverviewTab: React.FC<OrderStatusOverviewTabProps> = ({
         <div className="rounded-lg border border-border/70 bg-card p-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">قيمة العجز الفاشل</span>
-            <Wallet className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+            <Wallet className="h-4 w-4 text-warning dark:text-warning" />
           </div>
-          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-amber-600 dark:text-amber-400">
+          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-warning dark:text-warning">
             {(summary?.shortageFailedRevenue || 0).toLocaleString("ar-EG")}{" "}
             <span className="text-xs font-normal text-muted-foreground">ج.م</span>
           </p>
@@ -147,7 +147,7 @@ export const OrderStatusOverviewTab: React.FC<OrderStatusOverviewTabProps> = ({
                   style={{ backgroundColor: STATUS_COLORS[s.status] || PIE_COLORS[i % PIE_COLORS.length] }}
                 />
                 <span className="text-muted-foreground truncate">{STATUS_LABELS[s.status] || s.status}</span>
-                <span className="font-mono font-semibold text-foreground mr-auto tabular-nums">{s.count}</span>
+                <span className="font-mono font-semibold text-foreground me-auto tabular-nums">{s.count}</span>
               </div>
             ))}
           </div>

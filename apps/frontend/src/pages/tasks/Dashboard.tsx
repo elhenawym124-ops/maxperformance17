@@ -75,21 +75,21 @@ const formatPrice = (price: number) => {
 
 const getStatusColor = (status: string) => {
   switch (status.toUpperCase()) {
-    case 'PENDING': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
+    case 'PENDING': return 'bg-yellow-100 dark:bg-warning/30 text-warning dark:text-warning';
     case 'IN_PROGRESS': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
-    case 'COMPLETED': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-    case 'CANCELLED': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-    default: return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
+    case 'COMPLETED': return 'bg-green-100 dark:bg-success/30 text-success dark:text-success';
+    case 'CANCELLED': return 'bg-red-100 dark:bg-destructive/30 text-destructive dark:text-destructive';
+    default: return 'bg-muted text-foreground dark:text-muted-foreground';
   }
 };
 
 const getPriorityColor = (priority: string) => {
   switch (priority.toUpperCase()) {
-    case 'URGENT': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-    case 'HIGH': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
-    case 'MEDIUM': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-    case 'LOW': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-    default: return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
+    case 'URGENT': return 'bg-red-100 dark:bg-destructive/30 text-destructive dark:text-destructive';
+    case 'HIGH': return 'bg-orange-100 dark:bg-warning/30 text-warning dark:text-warning';
+    case 'MEDIUM': return 'bg-yellow-100 dark:bg-warning/30 text-warning dark:text-warning';
+    case 'LOW': return 'bg-green-100 dark:bg-success/30 text-success dark:text-success';
+    default: return 'bg-muted text-foreground dark:text-muted-foreground';
   }
 };
 
@@ -182,7 +182,7 @@ const Dashboard: React.FC = () => {
   if (loading && !stats) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 dark:border-indigo-400"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary dark:border-primary"></div>
       </div>
     );
   }
@@ -200,14 +200,14 @@ const Dashboard: React.FC = () => {
   }, [stats?.recentTasks, unifiedFilters]);
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
+    <div className="polaris-track w-full px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
-          <ChartBarIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400 mr-3" />
+        <h1 className="text-3xl font-bold text-foreground flex items-center">
+          <ChartBarIcon className="h-8 w-8 text-primary me-3" />
           لوحة التحكم
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">نظرة عامة على المهام والمشاريع</p>
+        <p className="mt-2 text-foreground dark:text-muted-foreground">نظرة عامة على المهام والمشاريع</p>
       </div>
 
       {/* Unified Filter Bar */}
@@ -225,70 +225,70 @@ const Dashboard: React.FC = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {/* Total Tasks */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-card rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">إجمالي المهام</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{stats.tasks.totalTasks}</p>
+              <p className="text-sm font-medium text-foreground dark:text-muted-foreground">إجمالي المهام</p>
+              <p className="text-3xl font-bold text-foreground">{stats.tasks.totalTasks}</p>
             </div>
             <div className="bg-indigo-100 rounded-full p-3">
-              <ClipboardDocumentListIcon className="h-8 w-8 text-indigo-600" />
+              <ClipboardDocumentListIcon className="h-8 w-8 text-primary" />
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-sm text-gray-600 dark:text-gray-400">مهامي: </span>
-            <span className="text-sm font-semibold text-indigo-600">{stats.tasks.myTasks}</span>
+            <span className="text-sm text-foreground dark:text-muted-foreground">مهامي: </span>
+            <span className="text-sm font-semibold text-primary">{stats.tasks.myTasks}</span>
           </div>
         </div>
 
         {/* Overdue Tasks */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-card rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">المهام المتأخرة</p>
-              <p className="text-3xl font-bold text-red-600">{stats.tasks.overdueTasks}</p>
+              <p className="text-sm font-medium text-foreground">المهام المتأخرة</p>
+              <p className="text-3xl font-bold text-destructive">{stats.tasks.overdueTasks}</p>
             </div>
             <div className="bg-red-100 rounded-full p-3">
-              <ExclamationTriangleIcon className="h-8 w-8 text-red-600" />
+              <ExclamationTriangleIcon className="h-8 w-8 text-destructive" />
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-sm text-gray-600">مهامي المتأخرة: </span>
-            <span className="text-sm font-semibold text-red-600">{stats.tasks.myOverdueTasks}</span>
+            <span className="text-sm text-foreground">مهامي المتأخرة: </span>
+            <span className="text-sm font-semibold text-destructive">{stats.tasks.myOverdueTasks}</span>
           </div>
         </div>
 
         {/* Completion Rate */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-card rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">معدل الإنجاز</p>
-              <p className="text-3xl font-bold text-green-600">{stats.tasks.completionRate}%</p>
+              <p className="text-sm font-medium text-foreground">معدل الإنجاز</p>
+              <p className="text-3xl font-bold text-success">{stats.tasks.completionRate}%</p>
             </div>
             <div className="bg-green-100 rounded-full p-3">
-              <CheckCircleIcon className="h-8 w-8 text-green-600" />
+              <CheckCircleIcon className="h-8 w-8 text-success" />
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-sm text-gray-600">معدلي: </span>
-            <span className="text-sm font-semibold text-green-600">{stats.tasks.myCompletionRate}%</span>
+            <span className="text-sm text-foreground">معدلي: </span>
+            <span className="text-sm font-semibold text-success">{stats.tasks.myCompletionRate}%</span>
           </div>
         </div>
 
         {/* Total Projects */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-card rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">إجمالي المشاريع</p>
-              <p className="text-3xl font-bold text-gray-900">{stats.projects.totalProjects}</p>
+              <p className="text-sm font-medium text-foreground">إجمالي المشاريع</p>
+              <p className="text-3xl font-bold text-foreground">{stats.projects.totalProjects}</p>
             </div>
             <div className="bg-purple-100 rounded-full p-3">
-              <FolderIcon className="h-8 w-8 text-purple-600" />
+              <FolderIcon className="h-8 w-8 text-primary" />
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-sm text-gray-600">نشط: </span>
-            <span className="text-sm font-semibold text-purple-600">{stats.projects.activeProjects}</span>
+            <span className="text-sm text-foreground">نشط: </span>
+            <span className="text-sm font-semibold text-primary">{stats.projects.activeProjects}</span>
           </div>
         </div>
       </div>
@@ -296,18 +296,18 @@ const Dashboard: React.FC = () => {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {/* Tasks by Status */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-            <ClockIcon className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-2" />
+        <div className="bg-card rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+            <ClockIcon className="h-5 w-5 text-foreground dark:text-muted-foreground me-2" />
             المهام حسب الحالة
           </h3>
           <div className="space-y-4">
             <div>
               <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-600 dark:text-gray-400">في الانتظار</span>
+                <span className="text-gray-600 dark:text-muted-foreground">في الانتظار</span>
                 <span className="font-semibold">{stats.tasks.tasksByStatus.pending}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                 <div
                   className="bg-yellow-500 h-2 rounded-full"
                   style={{ width: `${(stats.tasks.tasksByStatus.pending / stats.tasks.totalTasks) * 100}%` }}
@@ -319,7 +319,7 @@ const Dashboard: React.FC = () => {
                 <span className="text-gray-600">قيد التنفيذ</span>
                 <span className="font-semibold">{stats.tasks.tasksByStatus.inProgress}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                 <div
                   className="bg-blue-500 h-2 rounded-full"
                   style={{ width: `${(stats.tasks.tasksByStatus.inProgress / stats.tasks.totalTasks) * 100}%` }}
@@ -331,7 +331,7 @@ const Dashboard: React.FC = () => {
                 <span className="text-gray-600">مكتمل</span>
                 <span className="font-semibold">{stats.tasks.tasksByStatus.completed}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                 <div
                   className="bg-green-500 h-2 rounded-full"
                   style={{ width: `${(stats.tasks.tasksByStatus.completed / stats.tasks.totalTasks) * 100}%` }}
@@ -343,7 +343,7 @@ const Dashboard: React.FC = () => {
                 <span className="text-gray-600">ملغي</span>
                 <span className="font-semibold">{stats.tasks.tasksByStatus.cancelled}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                 <div
                   className="bg-red-500 h-2 rounded-full"
                   style={{ width: `${(stats.tasks.tasksByStatus.cancelled / stats.tasks.totalTasks) * 100}%` }}
@@ -354,9 +354,9 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Tasks by Priority */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-            <ExclamationTriangleIcon className="h-5 w-5 text-gray-600 mr-2" />
+        <div className="bg-card rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+            <ExclamationTriangleIcon className="h-5 w-5 text-foreground me-2" />
             المهام حسب الأولوية
           </h3>
           <div className="space-y-4">
@@ -365,7 +365,7 @@ const Dashboard: React.FC = () => {
                 <span className="text-gray-600">عاجل</span>
                 <span className="font-semibold">{stats.tasks.tasksByPriority.urgent}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                 <div
                   className="bg-red-500 h-2 rounded-full"
                   style={{ width: `${(stats.tasks.tasksByPriority.urgent / stats.tasks.totalTasks) * 100}%` }}
@@ -377,7 +377,7 @@ const Dashboard: React.FC = () => {
                 <span className="text-gray-600">عالي</span>
                 <span className="font-semibold">{stats.tasks.tasksByPriority.high}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                 <div
                   className="bg-orange-500 h-2 rounded-full"
                   style={{ width: `${(stats.tasks.tasksByPriority.high / stats.tasks.totalTasks) * 100}%` }}
@@ -389,7 +389,7 @@ const Dashboard: React.FC = () => {
                 <span className="text-gray-600">متوسط</span>
                 <span className="font-semibold">{stats.tasks.tasksByPriority.medium}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                 <div
                   className="bg-yellow-500 h-2 rounded-full"
                   style={{ width: `${(stats.tasks.tasksByPriority.medium / stats.tasks.totalTasks) * 100}%` }}
@@ -401,7 +401,7 @@ const Dashboard: React.FC = () => {
                 <span className="text-gray-600">منخفض</span>
                 <span className="font-semibold">{stats.tasks.tasksByPriority.low}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
                 <div
                   className="bg-green-500 h-2 rounded-full"
                   style={{ width: `${(stats.tasks.tasksByPriority.low / stats.tasks.totalTasks) * 100}%` }}
@@ -415,55 +415,55 @@ const Dashboard: React.FC = () => {
       {/* Projects Stats */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {/* Project Status */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-            <FolderIcon className="h-5 w-5 text-gray-600 mr-2" />
+        <div className="bg-card rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+            <FolderIcon className="h-5 w-5 text-foreground me-2" />
             حالة المشاريع
           </h3>
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">نشط</p>
-              <p className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.projects.activeProjects}</p>
+            <div className="bg-green-50 dark:bg-success/20 p-4 rounded-lg">
+              <p className="text-sm text-foreground dark:text-muted-foreground">نشط</p>
+              <p className="text-2xl font-bold text-success dark:text-success">{stats.projects.activeProjects}</p>
             </div>
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">مكتمل</p>
+              <p className="text-sm text-foreground dark:text-muted-foreground">مكتمل</p>
               <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.projects.completedProjects}</p>
             </div>
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">تخطيط</p>
-              <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{stats.projects.planningProjects}</p>
+            <div className="bg-yellow-50 dark:bg-warning/20 p-4 rounded-lg">
+              <p className="text-sm text-foreground dark:text-muted-foreground">تخطيط</p>
+              <p className="text-2xl font-bold text-warning dark:text-warning">{stats.projects.planningProjects}</p>
             </div>
-            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">متوقف</p>
-              <p className="text-2xl font-bold text-gray-600 dark:text-gray-400">{stats.projects.onHoldProjects}</p>
+            <div className="bg-gray-50 dark:bg-muted p-4 rounded-lg">
+              <p className="text-sm text-foreground dark:text-muted-foreground">متوقف</p>
+              <p className="text-2xl font-bold text-foreground dark:text-muted-foreground">{stats.projects.onHoldProjects}</p>
             </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="mt-4 pt-4 border-t border-border dark:border-border">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600 dark:text-gray-400">متوسط التقدم</span>
-              <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">{stats.projects.averageProgress}%</span>
+              <span className="text-sm text-foreground dark:text-muted-foreground">متوسط التقدم</span>
+              <span className="text-lg font-bold text-primary">{stats.projects.averageProgress}%</span>
             </div>
           </div>
         </div>
 
         {/* Budget Overview */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-            <CurrencyDollarIcon className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-2" />
+        <div className="bg-card rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+            <CurrencyDollarIcon className="h-5 w-5 text-foreground dark:text-muted-foreground me-2" />
             نظرة عامة على الميزانية
           </h3>
           <div className="space-y-4">
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">إجمالي الميزانية</p>
+              <p className="text-sm text-foreground dark:text-muted-foreground">إجمالي الميزانية</p>
               <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{formatPrice(stats.projects.totalBudget)}</p>
             </div>
-            <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">المنفق</p>
-              <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{formatPrice(stats.projects.totalSpent)}</p>
+            <div className="bg-orange-50 dark:bg-warning/20 p-4 rounded-lg">
+              <p className="text-sm text-foreground dark:text-muted-foreground">المنفق</p>
+              <p className="text-2xl font-bold text-warning dark:text-warning">{formatPrice(stats.projects.totalSpent)}</p>
             </div>
-            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">المتبقي</p>
-              <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+            <div className="bg-green-50 dark:bg-success/20 p-4 rounded-lg">
+              <p className="text-sm text-foreground dark:text-muted-foreground">المتبقي</p>
+              <p className="text-2xl font-bold text-success dark:text-success">
                 {formatPrice(stats.projects.totalBudget - stats.projects.totalSpent)}
               </p>
             </div>
@@ -472,34 +472,34 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Recent Tasks */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center">
-            <ArrowTrendingUpIcon className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-2" />
+      <div className="bg-card rounded-lg shadow">
+        <div className="p-6 border-b border-border dark:border-border">
+          <h3 className="text-lg font-semibold text-foreground flex items-center">
+            <ArrowTrendingUpIcon className="h-5 w-5 text-foreground dark:text-muted-foreground me-2" />
             آخر المهام
           </h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-700">
+          <table className="min-w-full divide-y divide-border dark:divide-border">
+            <thead className="bg-gray-50 dark:bg-muted">
               <tr>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">المهمة</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">المشروع</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">المسؤول</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">الحالة</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">الأولوية</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">المهمة</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">المشروع</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">المسؤول</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">الحالة</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">الأولوية</th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="bg-card divide-y divide-border dark:divide-border">
               {filteredRecentTasks.map((task) => (
-                <tr key={task.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                <tr key={task.id} className="hover:bg-muted/50">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">
                     {task.title}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground dark:text-muted-foreground">
                     {task.projectName}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground dark:text-muted-foreground">
                     {task.assignedToName}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">

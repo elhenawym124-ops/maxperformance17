@@ -12,38 +12,38 @@ import type { TaskScopeFilter } from "../types";
 export const getStatusIcon = (status: string) => {
   switch (normalizeTaskStatus(status)) {
     case "pending":
-      return <ClockIcon className="h-5 w-5 text-yellow-500" />;
+      return <ClockIcon className="h-5 w-5 text-warning" />;
     case "in_progress":
       return <ExclamationTriangleIcon className="h-5 w-5 text-blue-500" />;
     case "in_review":
-      return <ClipboardDocumentCheckIcon className="h-5 w-5 text-purple-500" />;
+      return <ClipboardDocumentCheckIcon className="h-5 w-5 text-primary" />;
     case "on_hold":
-      return <PauseCircleIcon className="h-5 w-5 text-amber-500" />;
+      return <PauseCircleIcon className="h-5 w-5 text-warning" />;
     case "completed":
-      return <CheckIcon className="h-5 w-5 text-green-500" />;
+      return <CheckIcon className="h-5 w-5 text-success" />;
     case "cancelled":
-      return <ExclamationTriangleIcon className="h-5 w-5 text-red-500" />;
+      return <ExclamationTriangleIcon className="h-5 w-5 text-destructive" />;
     default:
-      return <ClockIcon className="h-5 w-5 text-gray-500" />;
+      return <ClockIcon className="h-5 w-5 text-muted-foreground" />;
   }
 };
 
 export const getStatusColor = (status: string) => {
   switch (normalizeTaskStatus(status)) {
     case "pending":
-      return "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300";
+      return "bg-yellow-100 dark:bg-warning/30 text-warning dark:text-warning";
     case "in_progress":
       return "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300";
     case "in_review":
-      return "bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300";
+      return "bg-purple-100 dark:bg-primary/30 text-primary dark:text-primary";
     case "on_hold":
-      return "bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300";
+      return "bg-amber-100 dark:bg-warning/30 text-warning dark:text-warning";
     case "completed":
-      return "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300";
+      return "bg-green-100 dark:bg-success/30 text-success dark:text-success";
     case "cancelled":
-      return "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300";
+      return "bg-red-100 dark:bg-destructive/30 text-destructive dark:text-destructive";
     default:
-      return "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300";
+      return "bg-muted text-foreground dark:text-muted-foreground";
   }
 };
 
@@ -69,15 +69,15 @@ export const getStatusText = (status: string) => {
 export const getPriorityColor = (priority: string) => {
   switch (priority) {
     case "urgent":
-      return "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300";
+      return "bg-red-100 dark:bg-destructive/30 text-destructive dark:text-destructive";
     case "high":
-      return "bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300";
+      return "bg-orange-100 dark:bg-warning/30 text-warning dark:text-warning";
     case "medium":
-      return "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300";
+      return "bg-yellow-100 dark:bg-warning/30 text-warning dark:text-warning";
     case "low":
-      return "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300";
+      return "bg-green-100 dark:bg-success/30 text-success dark:text-success";
     default:
-      return "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300";
+      return "bg-muted text-foreground dark:text-muted-foreground";
   }
 };
 

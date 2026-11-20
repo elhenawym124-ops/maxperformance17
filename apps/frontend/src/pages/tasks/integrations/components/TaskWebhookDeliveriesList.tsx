@@ -89,7 +89,7 @@ export const TaskWebhookDeliveriesList: React.FC<TaskWebhookDeliveriesListProps>
                   className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
                     delivery.success
                       ? 'border border-secondary/20 bg-secondary/10 text-secondary'
-                      : 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200'
+                      : 'bg-rose-100 text-destructive dark:bg-destructive/40 dark:text-destructive'
                   }`}
                 >
                   {delivery.success ? 'ناجح' : 'فشل'}
@@ -101,7 +101,7 @@ export const TaskWebhookDeliveriesList: React.FC<TaskWebhookDeliveriesListProps>
 
               <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                 <span className="inline-flex items-center">
-                  <ClockIcon className="ml-1 h-4 w-4" />
+                  <ClockIcon className="ms-1 h-4 w-4" />
                   <span className="tabular-nums font-mono">
                     {formatDateTime(delivery.createdAt)}
                   </span>
@@ -116,7 +116,7 @@ export const TaskWebhookDeliveriesList: React.FC<TaskWebhookDeliveriesListProps>
             </summary>
 
             {delivery.errorMessage && (
-              <div className="mt-4 rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800 dark:border-rose-900/40 dark:bg-rose-950/30 dark:text-rose-200">
+              <div className="mt-4 rounded-xl border border-destructive bg-destructive/10 p-3 text-sm text-destructive dark:border-destructive/40 dark:bg-destructive/30 dark:text-destructive">
                 {delivery.errorMessage}
               </div>
             )}
@@ -126,7 +126,7 @@ export const TaskWebhookDeliveriesList: React.FC<TaskWebhookDeliveriesListProps>
                 type="button"
                 onClick={() => onRetryDelivery(delivery)}
                 disabled={retryingDeliveryId === delivery.id}
-                className="rounded-2xl border border-primary/20 bg-primary/8 px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/12 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl border border-primary/20 bg-primary/8 px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/12 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {retryingDeliveryId === delivery.id
                   ? 'جارٍ الإرسال...'
@@ -152,7 +152,7 @@ export const TaskWebhookDeliveriesList: React.FC<TaskWebhookDeliveriesListProps>
                     }
                     className="inline-flex items-center rounded-xl border border-border/60 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-foreground transition-colors hover:bg-background"
                   >
-                    <DocumentDuplicateIcon className="ml-1 h-3.5 w-3.5" />
+                    <DocumentDuplicateIcon className="ms-1 h-3.5 w-3.5" />
                     نسخ
                   </button>
                 </div>
@@ -175,7 +175,7 @@ export const TaskWebhookDeliveriesList: React.FC<TaskWebhookDeliveriesListProps>
                     }
                     className="inline-flex items-center rounded-xl border border-border/60 bg-background/75 px-2.5 py-1 text-[11px] font-semibold text-foreground transition-colors hover:bg-background"
                   >
-                    <DocumentDuplicateIcon className="ml-1 h-3.5 w-3.5" />
+                    <DocumentDuplicateIcon className="ms-1 h-3.5 w-3.5" />
                     نسخ
                   </button>
                 </div>

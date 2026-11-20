@@ -109,10 +109,10 @@ const FunnelAnalytics: React.FC = () => {
   const header = (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
           {t("funnelAnalytics.title")}
         </h1>
-        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+        <p className="text-xs sm:text-sm text-muted-foreground mt-1">
           {t("funnelAnalytics.subtitle")}
         </p>
       </div>
@@ -126,7 +126,7 @@ const FunnelAnalytics: React.FC = () => {
 
       {header}
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl border border-primary/20 bg-primary/5 p-3.5 text-xs sm:text-sm text-primary dark:border-primary/30 dark:bg-primary/10">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-xs sm:text-sm text-primary dark:border-primary/30 dark:bg-primary/10">
         <div className="flex items-center gap-2">
           <SparklesIcon className="size-4.5 shrink-0" />
           <span>
@@ -142,18 +142,18 @@ const FunnelAnalytics: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center min-h-[350px] rounded-2xl border border-gray-100 bg-white/50 dark:border-gray-800 dark:bg-gray-900/50">
+        <div className="flex items-center justify-center min-h-[350px] rounded-xl border border-border bg-white/50 dark:border-border dark:bg-muted">
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
         </div>
       ) : error ? (
-        <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl text-center border border-red-200 dark:border-red-800">
-          <XCircleIcon className="h-12 w-12 text-red-500 mx-auto mb-3" />
-          <p className="text-sm sm:text-base text-red-600 dark:text-red-400 font-medium">
+        <div className="bg-red-50 dark:bg-destructive/20 p-6 rounded-xl text-center border border-destructive dark:border-destructive">
+          <XCircleIcon className="h-12 w-12 text-destructive mx-auto mb-3" />
+          <p className="text-sm sm:text-base text-destructive dark:text-destructive font-medium">
             {error}
           </p>
           <button
             onClick={() => void fetchData()}
-            className="mt-4 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 text-sm font-medium transition"
+            className="mt-4 px-4 py-2 bg-destructive text-white rounded-xl hover:bg-destructive text-sm font-medium transition"
           >
             {t("funnelAnalytics.retry")}
           </button>
@@ -162,16 +162,16 @@ const FunnelAnalytics: React.FC = () => {
         <>
           {/* Executive Briefing Chips */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
                   <FunnelIcon className="size-5 sm:size-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-xs text-muted-foreground font-medium">
                     {t("funnelAnalytics.overallConversionRate")}
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-0.5">
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-0.5">
                     {typeof stats?.overallConversionRate === "number"
                       ? stats.overallConversionRate.toFixed(1)
                       : "0.0"}
@@ -179,66 +179,66 @@ const FunnelAnalytics: React.FC = () => {
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="mt-3 text-[11px] text-muted-foreground/80">
                 نسبة إتمام الطلبات مقارنة بزيارات المتجر
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
                   <UserGroupIcon className="size-5 sm:size-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-xs text-muted-foreground font-medium">
                     إجمالي الزيارات
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-0.5">
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-0.5">
                     {totalVisits.toLocaleString()}
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="mt-3 text-[11px] text-muted-foreground/80">
                 المدخل الرئيسي لمسار الشراء
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                <div className="p-2.5 rounded-xl bg-success/10 text-success dark:text-success">
                   <ShoppingBagIcon className="size-5 sm:size-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-xs text-muted-foreground font-medium">
                     الطلبات المكتملة
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                  <p className="text-2xl sm:text-3xl font-bold text-success dark:text-success mt-0.5">
                     {purchasesCount.toLocaleString()}
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="mt-3 text-[11px] text-muted-foreground/80">
                 الطلبات المنشأة داخل المتجر
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400">
+                <div className="p-2.5 rounded-xl bg-primary/10 text-primary dark:text-primary">
                   <TruckIcon className="size-5 sm:size-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-xs text-muted-foreground font-medium">
                     نسبة التسليم للشحنات
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400 mt-0.5">
+                  <p className="text-2xl sm:text-3xl font-bold text-primary dark:text-primary mt-0.5">
                     {typeof stats?.deliveryRate === "number"
                       ? `${stats.deliveryRate.toFixed(1)}%`
                       : `${deliveredCount} طلب`}
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="mt-3 text-[11px] text-muted-foreground/80">
                 الطلبات المستلمة بنجاح من إجمالي المشحون
               </p>
             </div>
@@ -246,7 +246,7 @@ const FunnelAnalytics: React.FC = () => {
 
           {/* Supporting Signals Note */}
           {typeof stats?.supportingSignals?.addToCarts === "number" && (
-            <div className="rounded-2xl border border-amber-200/80 bg-amber-50/70 p-4 text-xs sm:text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-300">
+            <div className="rounded-xl border border-warning/80 bg-warning/70 p-4 text-xs sm:text-sm text-warning dark:border-warning/50 dark:bg-warning/20 dark:text-warning">
               <div className="flex items-center justify-between font-semibold">
                 <span>{t("funnelAnalytics.supportingSignalTitle")}</span>
                 <span>
@@ -254,7 +254,7 @@ const FunnelAnalytics: React.FC = () => {
                   {stats.supportingSignals.addToCarts.toLocaleString()}
                 </span>
               </div>
-              <p className="mt-1 text-[11px] sm:text-xs text-amber-700/90 dark:text-amber-400">
+              <p className="mt-1 text-[11px] sm:text-xs text-warning/90 dark:text-warning">
                 {t("funnelAnalytics.directOrderNote")}
               </p>
             </div>
@@ -262,8 +262,8 @@ const FunnelAnalytics: React.FC = () => {
 
           {/* Funnel Bar Chart */}
           {stats?.funnelSteps && stats.funnelSteps.length > 0 && (
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
-              <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-6 shadow-sm dark:border-border dark:bg-muted">
+              <h3 className="text-base sm:text-lg font-bold text-foreground mb-4">
                 {t("funnelAnalytics.funnelStages")}
               </h3>
               <div className="min-w-0 h-[280px] sm:h-[350px]">
@@ -313,8 +313,8 @@ const FunnelAnalytics: React.FC = () => {
           )}
 
           {/* Stage Details Breakdown */}
-          <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
-            <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4">
+          <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-6 shadow-sm dark:border-border dark:bg-muted">
+            <h3 className="text-base sm:text-lg font-bold text-foreground mb-4">
               {t("funnelAnalytics.stagesDetails")}
             </h3>
             <div className="space-y-4">
@@ -336,7 +336,7 @@ const FunnelAnalytics: React.FC = () => {
                 return (
                   <div
                     key={`${step.key || index}`}
-                    className="border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0"
+                    className="border-b border-border dark:border-border pb-4 last:border-0 last:pb-0"
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
@@ -344,19 +344,19 @@ const FunnelAnalytics: React.FC = () => {
                           className="size-2.5 rounded-full"
                           style={{ backgroundColor: color }}
                         />
-                        <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">
+                        <h4 className="text-xs sm:text-sm font-semibold text-foreground">
                           {step.step}
                         </h4>
                       </div>
-                      <span className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">
+                      <span className="text-xs sm:text-sm font-medium text-muted-foreground">
                         {step.count?.toLocaleString()}{" "}
-                        <span className="text-[11px] text-gray-400">عميل / تفاعل</span>
+                        <span className="text-[11px] text-muted-foreground">عميل / تفاعل</span>
                       </span>
                     </div>
 
                     <div className="flex items-center gap-3">
                       <div className="flex-1">
-                        <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                        <div className="h-2 bg-muted dark:bg-muted rounded-full overflow-hidden">
                           <div
                             className="h-full rounded-full transition-all duration-500"
                             style={{
@@ -366,18 +366,18 @@ const FunnelAnalytics: React.FC = () => {
                           />
                         </div>
                         {hint && (
-                          <p className="mt-1.5 text-[11px] text-gray-400 dark:text-gray-500">
+                          <p className="mt-1.5 text-[11px] text-muted-foreground/80">
                             {hint}
                           </p>
                         )}
                       </div>
 
-                      <span className="text-xs sm:text-sm font-bold text-gray-800 dark:text-gray-200 min-w-[48px] text-left">
+                      <span className="text-xs sm:text-sm font-bold text-foreground dark:text-muted-foreground min-w-[48px] text-left">
                         {typeof step.rate === "number" ? step.rate.toFixed(1) : "0.0"}%
                       </span>
 
                       {dropRate > 0 && (
-                        <span className="text-xs font-semibold text-rose-500 dark:text-rose-400 min-w-[56px] text-left">
+                        <span className="text-xs font-semibold text-destructive dark:text-destructive min-w-[56px] text-left">
                           -{dropRate.toFixed(1)}%
                         </span>
                       )}
@@ -389,19 +389,19 @@ const FunnelAnalytics: React.FC = () => {
 
             {/* Biggest Drop-Off Insight */}
             {stats?.biggestDropOff && stats.biggestDropOff.dropRate > 0 && (
-              <div className="mt-6 flex items-start gap-3 rounded-xl border border-rose-200/80 bg-rose-50/70 p-4 text-xs sm:text-sm text-rose-900 dark:border-rose-900/50 dark:bg-rose-950/20 dark:text-rose-300">
-                <ExclamationTriangleIcon className="size-5 shrink-0 text-rose-600 dark:text-rose-400 mt-0.5" />
+              <div className="mt-6 flex items-start gap-3 rounded-xl border border-destructive/80 bg-destructive/70 p-4 text-xs sm:text-sm text-destructive dark:border-destructive/50 dark:bg-destructive/20 dark:text-destructive">
+                <ExclamationTriangleIcon className="size-5 shrink-0 text-destructive dark:text-destructive mt-0.5" />
                 <div>
                   <h4 className="font-bold">
                     {t("funnelAnalytics.biggestDropOff")}
                   </h4>
-                  <p className="mt-1 text-xs text-rose-800/90 dark:text-rose-300">
+                  <p className="mt-1 text-xs text-destructive/90 dark:text-destructive">
                     {t("funnelAnalytics.from")}{" "}
                     <span className="font-bold">{stats.biggestDropOff.from}</span>{" "}
                     {t("funnelAnalytics.to")}{" "}
                     <span className="font-bold">{stats.biggestDropOff.to}</span> —{" "}
                     {t("funnelAnalytics.dropRate")}:{" "}
-                    <span className="font-bold text-rose-600 dark:text-rose-400">
+                    <span className="font-bold text-destructive dark:text-destructive">
                       {stats.biggestDropOff.dropRate.toFixed(1)}%
                     </span>
                   </p>

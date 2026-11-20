@@ -51,8 +51,8 @@ export const SuperAdminSystemHealth: React.FC<SuperAdminSystemHealthProps> = ({
 
   const dbColor =
     health.database === "connected"
-      ? "text-emerald-600 dark:text-emerald-400"
-      : "text-rose-600 dark:text-rose-400";
+      ? "text-emerald-600 dark:text-success"
+      : "text-rose-600 dark:text-destructive";
 
   const uptimeStr = formatUptime(health?.uptime);
 
@@ -67,10 +67,10 @@ export const SuperAdminSystemHealth: React.FC<SuperAdminSystemHealthProps> = ({
           className={cn(
             "font-semibold text-xs",
             health.status === "healthy"
-              ? "text-emerald-600 dark:text-emerald-400"
+              ? "text-emerald-600 dark:text-success"
               : health.status === "degraded"
-                ? "text-amber-600 dark:text-amber-400"
-                : "text-rose-600 dark:text-rose-400",
+                ? "text-amber-600 dark:text-warning"
+                : "text-rose-600 dark:text-destructive",
           )}
         >
           {statusText}

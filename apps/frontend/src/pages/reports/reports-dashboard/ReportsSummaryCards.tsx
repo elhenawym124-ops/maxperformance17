@@ -17,17 +17,17 @@ export const ReportsSummaryCards: React.FC<ReportsSummaryCardsProps> = ({
         return (
           <div
             key={card.id}
-            className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 border border-gray-100 dark:border-gray-700/60 transition-shadow hover:shadow-md"
+            className="bg-card shadow rounded-lg p-4 border border-border dark:border-border transition-shadow hover:shadow-md"
           >
             <div className="flex items-center gap-4">
               <div className={`p-3 rounded-lg ${card.color}`}>
                 <IconComponent className="h-5 w-5" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">
+                <p className="text-xs font-medium text-muted-foreground truncate">
                   {card.title}
                 </p>
-                <p className="text-xl font-bold text-gray-900 dark:text-white tabular-nums tracking-tight mt-0.5">
+                <p className="text-xl font-bold text-foreground tabular-nums tracking-tight mt-0.5">
                   {card.value}
                 </p>
               </div>

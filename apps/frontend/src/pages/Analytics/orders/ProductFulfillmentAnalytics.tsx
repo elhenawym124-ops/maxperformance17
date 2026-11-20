@@ -165,9 +165,9 @@ export default function ProductFulfillmentAnalytics() {
         <div className="rounded-lg border border-border/70 bg-card p-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">تم التسليم</span>
-            <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            <CheckCircle className="h-4 w-4 text-success dark:text-success" />
           </div>
-          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-success dark:text-success">
             {summary?.deliveryRate ? summary.deliveryRate.toFixed(1) : 0}%
           </p>
           <p className="mt-0.5 font-mono text-[10px] text-muted-foreground tabular-nums">
@@ -178,9 +178,9 @@ export default function ProductFulfillmentAnalytics() {
         <div className="rounded-lg border border-border/70 bg-card p-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">الإلغاءات</span>
-            <XCircle className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+            <XCircle className="h-4 w-4 text-destructive dark:text-destructive" />
           </div>
-          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-rose-600 dark:text-rose-400">
+          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-destructive dark:text-destructive">
             {summary?.cancellationRate ? summary.cancellationRate.toFixed(1) : 0}%
           </p>
           <p className="mt-0.5 font-mono text-[10px] text-muted-foreground tabular-nums">
@@ -191,9 +191,9 @@ export default function ProductFulfillmentAnalytics() {
         <div className="rounded-lg border border-border/70 bg-card p-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">المرتجعات</span>
-            <RotateCcw className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+            <RotateCcw className="h-4 w-4 text-warning dark:text-warning" />
           </div>
-          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-amber-600 dark:text-amber-400">
+          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-warning dark:text-warning">
             {summary?.returnRate ? summary.returnRate.toFixed(1) : 0}%
           </p>
           <p className="mt-0.5 font-mono text-[10px] text-muted-foreground tabular-nums">
@@ -204,9 +204,9 @@ export default function ProductFulfillmentAnalytics() {
         <div className="rounded-lg border border-border/70 bg-card p-3 col-span-2 sm:col-span-1">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">الإيراد المفقود</span>
-            <AlertTriangle className="h-4 w-4 text-rose-500" />
+            <AlertTriangle className="h-4 w-4 text-destructive" />
           </div>
-          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-rose-600 dark:text-rose-400">
+          <p className="mt-1 font-mono text-xl font-bold tabular-nums text-destructive dark:text-destructive">
             {formatPrice(summary?.lostRevenue || 0)}
           </p>
           <p className="mt-0.5 font-mono text-[10px] text-muted-foreground tabular-nums">
@@ -244,7 +244,7 @@ export default function ProductFulfillmentAnalytics() {
               <div key={p.name} className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: p.color }} />
                 <span className="font-sans text-muted-foreground truncate">{p.name}:</span>
-                <span className="font-semibold text-foreground mr-auto">{p.value.toLocaleString()}</span>
+                <span className="font-semibold text-foreground me-auto">{p.value.toLocaleString()}</span>
               </div>
             ))}
           </div>
@@ -262,7 +262,7 @@ export default function ProductFulfillmentAnalytics() {
                   placeholder="بحث باسم المنتج أو SKU..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full rounded-md border border-border/70 bg-background pr-8 pl-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground"
+                  className="w-full rounded-md border border-border/70 bg-background pe-8 ps-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground"
                 />
               </div>
 

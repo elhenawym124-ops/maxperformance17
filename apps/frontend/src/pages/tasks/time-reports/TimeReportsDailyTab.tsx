@@ -12,8 +12,8 @@ export const TimeReportsDailyTab: React.FC<TimeReportsDailyTabProps> = ({
 }) => {
   if (dailyStats.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-        <CalendarIcon className="h-12 w-12 mx-auto mb-4 text-gray-300 dark:text-gray-600" />
+      <div className="text-center py-12 text-muted-foreground">
+        <CalendarIcon className="h-12 w-12 mx-auto mb-4 text-muted-foreground dark:text-foreground" />
         <p>لا توجد بيانات</p>
       </div>
     );
@@ -24,12 +24,12 @@ export const TimeReportsDailyTab: React.FC<TimeReportsDailyTabProps> = ({
       {dailyStats.map((stat) => (
         <div
           key={stat.date}
-          className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 transition-colors"
+          className="bg-gray-50 dark:bg-muted rounded-lg p-4 transition-colors"
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
-              <CalendarIcon className="h-5 w-5 text-gray-400 ml-2" />
-              <span className="font-medium text-gray-900 dark:text-gray-100 tabular-nums">
+              <CalendarIcon className="h-5 w-5 text-muted-foreground ms-2" />
+              <span className="font-medium text-foreground tabular-nums">
                 {formatDate(stat.date)}
               </span>
             </div>
@@ -37,12 +37,12 @@ export const TimeReportsDailyTab: React.FC<TimeReportsDailyTabProps> = ({
               <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
                 {formatDuration(stat.totalMinutes)}
               </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">
+              <span className="text-sm text-muted-foreground me-2">
                 ({stat.entriesCount} سجل)
               </span>
             </div>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+          <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
             <div
               className="bg-blue-600 dark:bg-blue-500 h-2 rounded-full transition-all duration-300"
               style={{
@@ -50,7 +50,7 @@ export const TimeReportsDailyTab: React.FC<TimeReportsDailyTabProps> = ({
               }}
             ></div>
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-left tabular-nums">
+          <div className="text-xs text-muted-foreground mt-1 text-left tabular-nums">
             {stat.totalMinutes >= 480
               ? "8+ ساعات"
               : `${((stat.totalMinutes / 480) * 100).toFixed(0)}% من يوم العمل`}

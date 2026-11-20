@@ -80,22 +80,22 @@ export const STATUS_META: Record<
   PENDING: {
     label: "معلق",
     color: "#F59E0B",
-    pill: "border-amber-500/20 text-amber-600 bg-amber-500/10",
+    pill: "border-amber-500/20 text-warning bg-warning/10",
   },
   APPROVED: {
     label: "معتمد",
     color: "#0EA5E9",
-    pill: "border-sky-500/20 text-sky-600 bg-sky-500/10",
+    pill: "border-sky-500/20 text-info bg-info/10",
   },
   REJECTED: {
     label: "مرفوض",
     color: "#F43F5E",
-    pill: "border-rose-500/20 text-rose-600 bg-rose-500/10",
+    pill: "border-rose-500/20 text-destructive bg-destructive/10",
   },
   COMPLETED: {
     label: "مكتمل",
     color: "#10B981",
-    pill: "border-emerald-500/20 text-emerald-600 bg-emerald-500/10",
+    pill: "border-emerald-500/20 text-success bg-success/10",
   },
 };
 

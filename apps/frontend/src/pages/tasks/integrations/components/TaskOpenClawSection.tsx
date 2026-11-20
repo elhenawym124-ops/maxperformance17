@@ -113,7 +113,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
                           },
                     );
                   }}
-                  className={`rounded-2xl border p-4 text-right transition ${
+                  className={`rounded-xl border p-4 text-right transition ${
                     openClawQuickSetup.environment === environmentOption.value
                       ? 'border-secondary/25 bg-secondary/10 text-foreground shadow-[0_20px_60px_-48px_rgba(34,199,201,0.42)]'
                       : 'border-border/70 bg-background/72 text-foreground hover:bg-background'
@@ -142,7 +142,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
                   name: event.target.value,
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+              className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
               placeholder="OpenClaw Tasks Sync"
             />
           </div>
@@ -159,7 +159,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
                   agentId: event.target.value,
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+              className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
               placeholder="main"
             />
           </div>
@@ -176,7 +176,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
                   baseUrl: event.target.value,
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+              className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
               placeholder="https://openclaw.example.com أو http://127.0.0.1:18789"
             />
             <p className="mt-1 text-xs leading-5 text-muted-foreground">
@@ -200,7 +200,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
                   hookToken: event.target.value,
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 font-mono text-foreground focus:border-secondary focus:outline-none"
+              className="business-control-input w-full rounded-xl px-3 py-2 font-mono text-foreground focus:border-secondary focus:outline-none"
               placeholder="ocl_hook_..."
             />
             {currentOpenClawProfile?.hasHookToken &&
@@ -224,7 +224,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
                   wakeMode: event.target.value as OpenClawWakeMode,
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+              className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
             >
               {OPENCLAW_WAKE_MODE_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -246,7 +246,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
                   sessionMode: event.target.value as OpenClawSessionMode,
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+              className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
             >
               {OPENCLAW_SESSION_MODE_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -279,7 +279,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
               onQuickSetupChange(createInitialOpenClawQuickSetup())
             }
             disabled={submittingWebhook || savingOpenClawProfile}
-            className="rounded-2xl border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
+            className="rounded-xl border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
           >
             إعادة تعيين
           </button>
@@ -287,7 +287,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
             type="button"
             onClick={onApplyQuickSetup}
             disabled={submittingWebhook || savingOpenClawProfile}
-            className="rounded-2xl bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
+            className="rounded-xl bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
           >
             تعبئة النموذج تلقائيًا
           </button>
@@ -295,7 +295,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
             type="button"
             onClick={onSaveProfile}
             disabled={submittingWebhook || savingOpenClawProfile}
-            className="rounded-2xl border border-primary/20 bg-primary/8 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/12 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl border border-primary/20 bg-primary/8 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/12 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {savingOpenClawProfile
               ? 'جارٍ الحفظ...'
@@ -307,7 +307,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
             type="button"
             onClick={() => onCreateWebhook(false)}
             disabled={submittingWebhook || savingOpenClawProfile}
-            className="rounded-2xl border border-secondary/20 bg-secondary/8 px-4 py-2 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/12 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl border border-secondary/20 bg-secondary/8 px-4 py-2 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/12 disabled:cursor-not-allowed disabled:opacity-60"
           >
             إنشاء webhook الآن
           </button>
@@ -315,7 +315,7 @@ export const TaskOpenClawSection: React.FC<TaskOpenClawSectionProps> = ({
             type="button"
             onClick={() => onCreateWebhook(true)}
             disabled={submittingWebhook || savingOpenClawProfile}
-            className="rounded-2xl bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90 disabled:cursor-not-allowed disabled:opacity-60"
           >
             إنشاء ثم اختبار
           </button>

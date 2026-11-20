@@ -79,7 +79,7 @@ export const TaskTimeTab: React.FC<TaskTimeTabProps> = ({
                     hours: parseInt(event.target.value, 10) || 0,
                   }))
                 }
-                className="h-11 rounded-2xl"
+                className="h-11 rounded-xl"
               />
             </div>
             <div className="space-y-2">
@@ -97,7 +97,7 @@ export const TaskTimeTab: React.FC<TaskTimeTabProps> = ({
                     minutes: parseInt(event.target.value, 10) || 0,
                   }))
                 }
-                className="h-11 rounded-2xl"
+                className="h-11 rounded-xl"
               />
             </div>
             <div className="space-y-2 md:col-span-2">
@@ -113,7 +113,7 @@ export const TaskTimeTab: React.FC<TaskTimeTabProps> = ({
                   }))
                 }
                 placeholder="ما الذي تم إنجازه خلال هذا الوقت؟"
-                className="h-11 rounded-2xl"
+                className="h-11 rounded-xl"
               />
             </div>
           </div>

@@ -58,12 +58,12 @@ const emptyData: CancellationAnalyticsData = {
 
 const categoryBadgeStyle = (category: string) => {
   const m: Record<string, string> = {
-    "تعذر التواصل": "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
-    "طلب العميل": "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20",
-    "طلب مكرر": "bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20",
-    "مشكلة مخزون": "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20",
+    "تعذر التواصل": "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
+    "طلب العميل": "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20",
+    "طلب مكرر": "bg-sky-500/10 text-info dark:text-info border border-info/20",
+    "مشكلة مخزون": "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
     "مشكلة شحن": "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
-    "مشكلة دفع أو سعر": "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
+    "مشكلة دفع أو سعر": "bg-emerald-500/10 text-success dark:text-success border border-success/20",
   };
   return m[category] || "bg-muted text-muted-foreground border border-border/70";
 };
@@ -105,7 +105,7 @@ const CancellationAnalytics: React.FC = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-3.5 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-rose-500/10 text-rose-500 border border-rose-500/20">
+          <div className="p-2.5 rounded-lg bg-destructive/10 text-destructive border border-destructive/20">
             <XCircle className="h-5 w-5" />
           </div>
           <div>
@@ -137,7 +137,7 @@ const CancellationAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>إجمالي الطلبات الملغاة</span>
-              <XCircle className="h-4 w-4 text-rose-500" />
+              <XCircle className="h-4 w-4 text-destructive" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">{loading ? "..." : summary.totalCancelledOrders.toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5">{summary.regularOrders} أساسي + {summary.guestOrders} زائر</div>
@@ -147,9 +147,9 @@ const CancellationAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>إجمالي الإيراد المفقود</span>
-              <DollarSign className="h-4 w-4 text-rose-500" />
+              <DollarSign className="h-4 w-4 text-destructive" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">{loading ? "..." : formatPrice(summary.totalLostRevenue)}</div>
+            <div className="text-xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">{loading ? "..." : formatPrice(summary.totalLostRevenue)}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5 font-mono tabular-nums">متوسط {formatPrice(summary.averageCancelledOrderValue)} للطلب</div>
           </CardContent>
         </Card>
@@ -157,9 +157,9 @@ const CancellationAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>ملغاة بسبب محدد</span>
-              <ClipboardCheck className="h-4 w-4 text-emerald-500" />
+              <ClipboardCheck className="h-4 w-4 text-success" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{loading ? "..." : summary.withReason.toLocaleString()}</div>
+            <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">{loading ? "..." : summary.withReason.toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5 font-mono tabular-nums">مقابل {summary.withoutReason} بدون سبب مسجل</div>
           </CardContent>
         </Card>
@@ -167,7 +167,7 @@ const CancellationAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>مراجعة فريق المبيعات</span>
-              <Tag className="h-4 w-4 text-indigo-500" />
+              <Tag className="h-4 w-4 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">{loading ? "..." : summary.reviewedByAgent.toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5 font-mono tabular-nums">{summary.autoCancelled} إلغاء تلقائي بالنظام</div>
@@ -181,7 +181,7 @@ const CancellationAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <TrendingDown className="h-4 w-4 text-rose-500" />
+                <TrendingDown className="h-4 w-4 text-destructive" />
                 <h3 className="text-sm font-semibold text-foreground">أعلى أسباب الإلغاء تكراراً</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono">أبرز 8 أسباب</span>
@@ -204,7 +204,7 @@ const CancellationAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <Tag className="h-4 w-4 text-indigo-500" />
+                <Tag className="h-4 w-4 text-primary" />
                 <h3 className="text-sm font-semibold text-foreground">تصنيفات أسباب الإلغاء</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono tabular-nums">{data.categoryBreakdown.length} تصنيفات</span>
@@ -263,7 +263,7 @@ const CancellationAnalytics: React.FC = () => {
                       <div>{order.customerName}</div>
                       {order.customerPhone && <div className="text-[10px] text-muted-foreground font-mono dir-ltr text-right">{order.customerPhone}</div>}
                     </td>
-                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-rose-600 dark:text-rose-400">{formatPrice(order.total)}</td>
+                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-destructive dark:text-destructive">{formatPrice(order.total)}</td>
                     <td className="py-2.5 px-3.5 text-center">
                       <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-medium ${categoryBadgeStyle(order.reasonCategory)}`}>
                         {order.reason || order.reasonCategory || "غير محدد"}

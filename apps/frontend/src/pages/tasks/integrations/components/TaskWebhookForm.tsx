@@ -60,7 +60,7 @@ export const TaskWebhookForm: React.FC<TaskWebhookFormProps> = ({
                     providerType: providerOption.value,
                   }))
                 }
-                className={`rounded-2xl border p-4 text-right transition ${
+                className={`rounded-xl border p-4 text-right transition ${
                   webhookForm.providerType === providerOption.value
                     ? 'border-secondary/25 bg-secondary/10 text-foreground shadow-[0_20px_60px_-48px_rgba(34,199,201,0.42)]'
                     : 'border-border/70 bg-background/72 text-foreground hover:bg-background'
@@ -89,7 +89,7 @@ export const TaskWebhookForm: React.FC<TaskWebhookFormProps> = ({
                 name: event.target.value,
               }))
             }
-            className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
             placeholder="مثال: مزامنة متجر خارجي"
           />
         </div>
@@ -106,7 +106,7 @@ export const TaskWebhookForm: React.FC<TaskWebhookFormProps> = ({
                 targetUrl: event.target.value,
               }))
             }
-            className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
             placeholder="https://partner.example.com/webhooks/tasks"
           />
         </div>
@@ -152,7 +152,7 @@ export const TaskWebhookForm: React.FC<TaskWebhookFormProps> = ({
                 secretMode: event.target.value as WebhookSecretMode,
               }))
             }
-            className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
           >
             {!editingWebhook && (
               <option value="auto">توليد secret تلقائيًا</option>
@@ -196,7 +196,7 @@ export const TaskWebhookForm: React.FC<TaskWebhookFormProps> = ({
                   signingSecret: event.target.value,
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none font-mono"
+              className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none font-mono"
               placeholder="أدخل قيمة سرية مخصصة"
             />
           </div>
@@ -215,7 +215,7 @@ export const TaskWebhookForm: React.FC<TaskWebhookFormProps> = ({
               }))
             }
             rows={5}
-            className="business-control-input w-full rounded-2xl px-3 py-2 font-mono text-sm text-foreground focus:border-secondary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 font-mono text-sm text-foreground focus:border-secondary focus:outline-none"
             placeholder={'{\n  "X-Partner-Id": "store-17"\n}'}
           />
         </div>
@@ -225,7 +225,7 @@ export const TaskWebhookForm: React.FC<TaskWebhookFormProps> = ({
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-2xl border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
+          className="rounded-xl border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
         >
           إلغاء
         </button>
@@ -233,7 +233,7 @@ export const TaskWebhookForm: React.FC<TaskWebhookFormProps> = ({
           type="button"
           onClick={onSubmit}
           disabled={submittingWebhook}
-          className="rounded-2xl bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submittingWebhook
             ? 'جارٍ الحفظ...'

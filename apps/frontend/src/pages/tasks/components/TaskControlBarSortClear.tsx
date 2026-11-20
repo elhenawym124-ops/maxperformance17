@@ -42,7 +42,7 @@ export const TaskControlBarSortClear: React.FC<TaskControlBarSortClearProps> = (
             setSortBy(e.target.value as TaskSortBy);
             setCurrentPage?.(1);
           }}
-          className="bg-transparent text-xs appearance-none focus:outline-none cursor-pointer py-0.5 pl-3 text-foreground font-medium"
+          className="bg-transparent text-xs appearance-none focus:outline-none cursor-pointer py-0.5 ps-3 text-foreground font-medium"
         >
           {sortOptions.map((opt) => (
             <option key={opt.value} value={opt.value} className="bg-card text-foreground">
@@ -64,7 +64,7 @@ export const TaskControlBarSortClear: React.FC<TaskControlBarSortClearProps> = (
         <button
           type="button"
           onClick={onResetAll}
-          className="inline-flex items-center gap-1 rounded-lg border border-rose-500/20 bg-rose-500/10 px-2 py-1 text-xs font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 transition-all active:scale-[0.98]"
+          className="inline-flex items-center gap-1 rounded-lg border border-destructive/20 bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive dark:text-destructive hover:bg-destructive/20 transition-all active:scale-[0.98]"
           title="تصفير الفلاتر"
         >
           <RotateCcw className="size-3" />

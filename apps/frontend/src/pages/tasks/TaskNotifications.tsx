@@ -113,14 +113,14 @@ const TaskNotifications: React.FC = () => {
       case "task_assigned":
         return <UserPlus className="h-4 w-4 text-blue-500" />;
       case "due_soon":
-        return <Clock className="h-4 w-4 text-amber-500" />;
+        return <Clock className="h-4 w-4 text-warning" />;
       case "overdue":
-        return <AlertTriangle className="h-4 w-4 text-rose-500" />;
+        return <AlertTriangle className="h-4 w-4 text-destructive" />;
       case "comment":
       case "mention":
         return <MessageSquare className="h-4 w-4 text-primary" />;
       case "status_changed":
-        return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
+        return <CheckCircle2 className="h-4 w-4 text-success" />;
       default:
         return <Bell className="h-4 w-4 text-muted-foreground" />;
     }
@@ -280,7 +280,7 @@ const TaskNotifications: React.FC = () => {
                     {notification.whatsappStatus && (
                       <div className="flex items-center gap-1 text-[11px] font-medium">
                         {notification.whatsappStatus === "sent" && (
-                          <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                          <span className="inline-flex items-center gap-1 text-success dark:text-success">
                             <CheckCircle2 className="w-3 h-3" />
                             <span>أُرسلت بنجاح عبر واتساب</span>
                           </span>
@@ -296,7 +296,7 @@ const TaskNotifications: React.FC = () => {
                           </button>
                         )}
                         {notification.whatsappStatus === "pending" && (
-                          <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400">
+                          <span className="inline-flex items-center gap-1 text-warning dark:text-warning">
                             <Clock className="w-3 h-3" />
                             <span>بانتظار الإرسال المجدول</span>
                           </span>

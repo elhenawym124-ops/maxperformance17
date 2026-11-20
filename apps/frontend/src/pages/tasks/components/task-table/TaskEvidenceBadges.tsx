@@ -21,7 +21,7 @@ export const TaskEvidenceBadges: React.FC<TaskEvidenceBadgesProps> = ({ task }) 
     <div className="inline-flex items-center gap-1 flex-wrap">
       {isMissingEvidence && (
         <span
-          className="inline-flex items-center gap-0.5 rounded-full bg-rose-500/10 px-2 py-0.5 text-[10px] font-medium text-rose-600 dark:text-rose-400 border border-rose-500/20"
+          className="inline-flex items-center gap-0.5 rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-medium text-destructive dark:text-destructive border border-destructive/20"
           title="المهمة في المراجعة بدون مرفقات أو دليل عمل كافٍ"
         >
           ⚠️ بدون دليل
@@ -29,7 +29,7 @@ export const TaskEvidenceBadges: React.FC<TaskEvidenceBadgesProps> = ({ task }) 
       )}
       {isBlocked48h && (
         <span
-          className="inline-flex items-center gap-0.5 rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-600 dark:text-amber-400 border border-amber-500/20"
+          className="inline-flex items-center gap-0.5 rounded-full bg-warning/10 px-2 py-0.5 text-[10px] font-medium text-warning dark:text-warning border border-warning/20"
           title="معلقة في المراجعة لأكثر من 48 ساعة"
         >
           ⏳ مسدودة &gt; 48h
@@ -37,7 +37,7 @@ export const TaskEvidenceBadges: React.FC<TaskEvidenceBadgesProps> = ({ task }) 
       )}
       {task.returnCount && task.returnCount > 0 ? (
         <span
-          className="inline-flex items-center gap-0.5 rounded-full bg-orange-500/10 px-2 py-0.5 text-[10px] font-medium text-orange-600 dark:text-orange-400 border border-orange-500/20"
+          className="inline-flex items-center gap-0.5 rounded-full bg-warning/10 px-2 py-0.5 text-[10px] font-medium text-warning dark:text-warning border border-warning/20"
           title={`أعيدت للتعديل ${task.returnCount} مرات`}
         >
           ↩️ إرجاع ({task.returnCount})
@@ -45,7 +45,7 @@ export const TaskEvidenceBadges: React.FC<TaskEvidenceBadgesProps> = ({ task }) 
       ) : null}
       {task.convertedFromBacklog && (
         <span
-          className="inline-flex items-center gap-0.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+          className="inline-flex items-center gap-0.5 rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success dark:text-success border border-success/20"
           title="محوّلة من الباك لوج"
         >
           تحسين

@@ -119,7 +119,7 @@ export const StoreAnalyticsFunnel: React.FC<StoreAnalyticsFunnelProps> = ({
         <div>
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-1.5">
-              <AlertCircle className="h-4 w-4 text-amber-500" /> تشخيص تسرب الزوار
+              <AlertCircle className="h-4 w-4 text-warning" /> تشخيص تسرب الزوار
             </h3>
             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
               تحليل ذكي

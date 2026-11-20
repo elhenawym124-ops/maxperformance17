@@ -33,13 +33,13 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
   const dropPct = (((cancelled + returned) / total) * 100).toFixed(1);
 
   return (
-    <div className="rounded-xl border border-gray-200/80 bg-white p-4 sm:p-5 shadow-sm dark:border-white/10 dark:bg-[#121214]">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 mb-3 border-b border-gray-100 dark:border-white/5">
+    <div className="rounded-xl border border-border bg-white p-4 sm:p-5 shadow-sm dark:border-white/10 dark:bg-[#121214]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 mb-3 border-b border-border dark:border-white/5">
         <div>
-          <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-sm sm:text-base font-semibold text-foreground">
             مسار تدفق الطلبات ودورة الحياة (Order Velocity Pipeline)
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             توزيع تدفق الطلبات عبر محطات التشغيل من التسجيل وحتى التحصيل النهائي
           </p>
         </div>
@@ -53,7 +53,7 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
           </Link>
           <Link
             to="/analytics/orders/status-movement"
-            className="inline-flex items-center gap-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:underline"
+            className="inline-flex items-center gap-1 text-xs font-medium text-foreground dark:text-muted-foreground hover:underline"
           >
             <span>مصفوفة انتقال الحالات</span>
             <ArrowRightIcon className="h-3 w-3 rotate-180" />
@@ -62,7 +62,7 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
       </div>
 
       {/* Segmented Pipeline Bar */}
-      <div className="w-full bg-gray-100 dark:bg-gray-800/80 rounded-full h-3 sm:h-3.5 flex overflow-hidden p-0.5 gap-0.5">
+      <div className="w-full bg-muted dark:bg-muted rounded-full h-3 sm:h-3.5 flex overflow-hidden p-0.5 gap-0.5">
         <div
           style={{ width: `${Math.max(2, Number(deliveredPct))}%` }}
           className="bg-emerald-500 rounded-sm transition-all"
@@ -94,20 +94,20 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
       {/* Stage Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mt-4">
         {/* Stage 1: الناجحة والمسلمة */}
-        <div className="rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 p-2.5 sm:p-3">
-          <div className="flex items-center justify-between text-emerald-800 dark:text-emerald-300">
+        <div className="rounded-lg bg-success/50 dark:bg-success/20 border border-success dark:border-success/30 p-2.5 sm:p-3">
+          <div className="flex items-center justify-between text-success dark:text-success">
             <span className="text-xs font-semibold">مسلّم ومحصّل</span>
             <CheckCircleIcon className="h-4 w-4" />
           </div>
           <div className="mt-1 flex items-baseline gap-1">
-            <span className="text-lg sm:text-xl font-bold text-emerald-900 dark:text-emerald-100 tabular-nums">
+            <span className="text-lg sm:text-xl font-bold text-success dark:text-success tabular-nums">
               {delivered.toLocaleString()}
             </span>
-            <span className="text-xs text-emerald-700 dark:text-emerald-400 tabular-nums">
+            <span className="text-xs text-success dark:text-success tabular-nums">
               ({deliveredPct}%)
             </span>
           </div>
-          <p className="text-[11px] text-emerald-600/80 dark:text-emerald-400/80 mt-1">
+          <p className="text-[11px] text-success/80 dark:text-success/80 mt-1">
             كاش مستقر وناجح
           </p>
         </div>
@@ -132,39 +132,39 @@ export const OverviewPipelineFlow: React.FC<OverviewPipelineFlowProps> = ({
         </div>
 
         {/* Stage 3: قيد المتابعة والتجهيز */}
-        <div className="rounded-lg bg-amber-50/50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30 p-2.5 sm:p-3">
-          <div className="flex items-center justify-between text-amber-800 dark:text-amber-300">
+        <div className="rounded-lg bg-warning/50 dark:bg-warning/20 border border-warning dark:border-warning/30 p-2.5 sm:p-3">
+          <div className="flex items-center justify-between text-warning dark:text-warning">
             <span className="text-xs font-semibold">قيد التأكيد والتجهيز</span>
             <ArrowPathIcon className="h-4 w-4" />
           </div>
           <div className="mt-1 flex items-baseline gap-1">
-            <span className="text-lg sm:text-xl font-bold text-amber-900 dark:text-amber-100 tabular-nums">
+            <span className="text-lg sm:text-xl font-bold text-warning dark:text-warning tabular-nums">
               {processing.toLocaleString()}
             </span>
-            <span className="text-xs text-amber-700 dark:text-amber-400 tabular-nums">
+            <span className="text-xs text-warning dark:text-warning tabular-nums">
               ({processingPct}%)
             </span>
           </div>
-          <p className="text-[11px] text-amber-600/80 dark:text-amber-400/80 mt-1">
+          <p className="text-[11px] text-warning/80 dark:text-warning/80 mt-1">
             بانتظار التأكيد أو التعبئة
           </p>
         </div>
 
         {/* Stage 4: الهدر والإلغاء */}
-        <div className="rounded-lg bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 p-2.5 sm:p-3">
-          <div className="flex items-center justify-between text-rose-800 dark:text-rose-300">
+        <div className="rounded-lg bg-destructive/50 dark:bg-destructive/20 border border-destructive dark:border-destructive/30 p-2.5 sm:p-3">
+          <div className="flex items-center justify-between text-destructive dark:text-destructive">
             <span className="text-xs font-semibold">ملغي ومرتجع (RTO)</span>
             <XCircleIcon className="h-4 w-4" />
           </div>
           <div className="mt-1 flex items-baseline gap-1">
-            <span className="text-lg sm:text-xl font-bold text-rose-900 dark:text-rose-100 tabular-nums">
+            <span className="text-lg sm:text-xl font-bold text-destructive dark:text-destructive tabular-nums">
               {(cancelled + returned).toLocaleString()}
             </span>
-            <span className="text-xs text-rose-700 dark:text-rose-400 tabular-nums">
+            <span className="text-xs text-destructive dark:text-destructive tabular-nums">
               ({dropPct}%)
             </span>
           </div>
-          <p className="text-[11px] text-rose-600/80 dark:text-rose-400/80 mt-1">
+          <p className="text-[11px] text-destructive/80 dark:text-destructive/80 mt-1">
             {cancelled} إلغاء / {returned} مرتجع
           </p>
         </div>

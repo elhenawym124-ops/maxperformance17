@@ -69,26 +69,26 @@ export const OverviewDualTrendChart: React.FC<OverviewDualTrendChartProps> = ({
   }));
 
   return (
-    <div className="rounded-xl border border-gray-200/80 bg-white p-4 sm:p-5 shadow-sm dark:border-white/10 dark:bg-[#121214]">
+    <div className="rounded-xl border border-border bg-white p-4 sm:p-5 shadow-sm dark:border-white/10 dark:bg-[#121214]">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
         <div>
-          <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-sm sm:text-base font-semibold text-foreground">
             اتجاه الأداء اليومي للطلبات
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             تطور حجم الطلبات والإيرادات عبر مدار الفترة المحددة
           </p>
         </div>
 
         {/* View Mode Switcher */}
-        <div className="inline-flex items-center rounded-lg border border-gray-200 dark:border-white/10 p-0.5 bg-gray-50 dark:bg-gray-800/60 text-xs">
+        <div className="inline-flex items-center rounded-lg border border-border dark:border-white/10 p-0.5 bg-muted dark:bg-muted text-xs">
           <button
             type="button"
             onClick={() => setMetricMode("orders")}
             className={`px-2.5 py-1 rounded-md font-medium transition-all ${
               metricMode === "orders"
                 ? "bg-white dark:bg-[#1e1e24] text-blue-600 dark:text-blue-400 shadow-sm"
-                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
             }`}
           >
             حجم الطلبات
@@ -98,8 +98,8 @@ export const OverviewDualTrendChart: React.FC<OverviewDualTrendChartProps> = ({
             onClick={() => setMetricMode("revenue")}
             className={`px-2.5 py-1 rounded-md font-medium transition-all ${
               metricMode === "revenue"
-                ? "bg-white dark:bg-[#1e1e24] text-emerald-600 dark:text-emerald-400 shadow-sm"
-                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                ? "bg-white dark:bg-[#1e1e24] text-success dark:text-success shadow-sm"
+                : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-white"
             }`}
           >
             الإيرادات المالية
@@ -109,7 +109,7 @@ export const OverviewDualTrendChart: React.FC<OverviewDualTrendChartProps> = ({
 
       <div className="min-w-0 h-[240px] sm:h-[260px]">
         {formattedData.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-xs text-gray-400 dark:text-gray-500">
+          <div className="h-full flex items-center justify-center text-xs text-muted-foreground/80">
             لا توجد بيانات حركة يومية للفترة المحددة
           </div>
         ) : (

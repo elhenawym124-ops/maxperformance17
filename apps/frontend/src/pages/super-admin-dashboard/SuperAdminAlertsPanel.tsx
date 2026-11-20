@@ -40,7 +40,7 @@ export const SuperAdminAlertsPanel: React.FC<SuperAdminAlertsPanelProps> = ({
     <div className="rounded-xl border border-border/80 bg-card/40 p-4 shadow-xs">
       <div className="mb-3.5 flex items-center justify-between border-b border-border/60 pb-3">
         <div className="flex items-center gap-2.5">
-          <div className="size-8 rounded-lg border border-border/80 bg-muted/30 flex items-center justify-center text-amber-500">
+          <div className="size-8 rounded-lg border border-border/80 bg-muted/30 flex items-center justify-center text-warning">
             <AlertTriangle className="size-4" />
           </div>
           <div>
@@ -63,14 +63,14 @@ export const SuperAdminAlertsPanel: React.FC<SuperAdminAlertsPanelProps> = ({
             className={cn(
               "flex items-start gap-2.5 rounded-lg border p-2.5 text-xs transition-colors",
               a.type === "error"
-                ? "border-rose-500/20 bg-rose-500/5"
-                : "border-amber-500/20 bg-amber-500/5",
+                ? "border-rose-500/20 bg-destructive/5"
+                : "border-amber-500/20 bg-warning/5",
             )}
           >
             {a.type === "error" ? (
-              <XCircle className="mt-0.5 size-3.5 shrink-0 text-rose-500" />
+              <XCircle className="mt-0.5 size-3.5 shrink-0 text-destructive" />
             ) : (
-              <AlertTriangle className="mt-0.5 size-3.5 shrink-0 text-amber-500" />
+              <AlertTriangle className="mt-0.5 size-3.5 shrink-0 text-warning" />
             )}
             <div className="min-w-0 flex-1">
               <p className="text-xs font-medium text-foreground truncate">

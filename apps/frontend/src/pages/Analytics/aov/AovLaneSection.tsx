@@ -23,22 +23,22 @@ export const AovLaneSection: React.FC<AovLaneSectionProps> = ({
   const activeCount = tools.filter((t) => toolsTelemetry[t.id]?.isActive).length;
 
   return (
-    <section className="p-3 sm:p-4 bg-white/40 dark:bg-zinc-950/40">
+    <section className="p-3 sm:p-4 bg-white/40 dark:bg-muted">
       {/* Lane Header */}
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
         <div>
           <div className="flex items-center gap-2 flex-wrap">
-            <h2 className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white">
+            <h2 className="text-xs sm:text-sm font-bold text-foreground dark:text-white">
               {lane.title}
             </h2>
-            <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-zinc-100 dark:bg-white/[0.06] text-zinc-600 dark:text-zinc-300 border border-zinc-200/60 dark:border-white/[0.08]">
+            <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-muted dark:bg-white/[0.06] text-foreground dark:text-muted-foreground border border-border dark:border-white/[0.08]">
               {formatToolsCountLabel(tools.length)}
             </span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-success/10 text-success dark:text-success border border-success/20">
               {activeCount} نشط
             </span>
           </div>
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
+          <p className="text-[11px] text-muted-foreground dark:text-muted-foreground mt-0.5">
             {lane.description}
           </p>
         </div>

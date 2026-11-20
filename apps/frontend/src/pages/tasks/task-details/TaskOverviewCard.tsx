@@ -86,7 +86,7 @@ export const TaskOverviewCard: React.FC<TaskOverviewCardProps> = ({
           <select
             value={task.status}
             onChange={(event) => void onUpdateTask({ status: event.target.value })}
-            className="business-control-input h-11 w-full rounded-2xl border border-border/70 bg-background px-3 text-sm outline-none transition-colors focus:border-primary"
+            className="business-control-input h-11 w-full rounded-xl border border-border/70 bg-background px-3 text-sm outline-none transition-colors focus:border-primary"
           >
             {STATUS_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -103,7 +103,7 @@ export const TaskOverviewCard: React.FC<TaskOverviewCardProps> = ({
           <select
             value={task.priority}
             onChange={(event) => void onUpdateTask({ priority: event.target.value })}
-            className="business-control-input h-11 w-full rounded-2xl border border-border/70 bg-background px-3 text-sm outline-none transition-colors focus:border-primary"
+            className="business-control-input h-11 w-full rounded-xl border border-border/70 bg-background px-3 text-sm outline-none transition-colors focus:border-primary"
           >
             {PRIORITY_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -120,7 +120,7 @@ export const TaskOverviewCard: React.FC<TaskOverviewCardProps> = ({
           <select
             value={task.assignedUser?.id || ""}
             onChange={(event) => void onUpdateTask({ assignedTo: event.target.value })}
-            className="business-control-input h-11 w-full rounded-2xl border border-border/70 bg-background px-3 text-sm outline-none transition-colors focus:border-primary"
+            className="business-control-input h-11 w-full rounded-xl border border-border/70 bg-background px-3 text-sm outline-none transition-colors focus:border-primary"
           >
             {users.map((user) => (
               <option key={user.id} value={user.id}>

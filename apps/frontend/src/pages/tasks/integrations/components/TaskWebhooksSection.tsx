@@ -120,17 +120,17 @@ export const TaskWebhooksSection: React.FC<TaskWebhooksSectionProps> = ({
           <button
             type="button"
             onClick={onApplyOpenClawLocalPreset}
-            className="inline-flex items-center justify-center rounded-2xl border border-primary/20 bg-primary/8 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/12"
+            className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-primary/8 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/12"
           >
-            <LinkIcon className="ml-2 h-4 w-4" />
+            <LinkIcon className="ms-2 h-4 w-4" />
             OpenClaw محلي
           </button>
           <button
             type="button"
             onClick={onApplyOpenClawProductionPreset}
-            className="inline-flex items-center justify-center rounded-2xl border border-secondary/20 bg-secondary/8 px-4 py-2 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/12"
+            className="inline-flex items-center justify-center rounded-xl border border-secondary/20 bg-secondary/8 px-4 py-2 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/12"
           >
-            <ShieldCheckIcon className="ml-2 h-4 w-4" />
+            <ShieldCheckIcon className="ms-2 h-4 w-4" />
             OpenClaw إنتاج
           </button>
         </div>
@@ -243,7 +243,7 @@ export const TaskWebhooksSection: React.FC<TaskWebhooksSectionProps> = ({
                     <button
                       type="button"
                       onClick={() => onStartEditingWebhook(webhook)}
-                      className="rounded-2xl border border-border/60 bg-background/75 px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
+                      className="rounded-xl border border-border/60 bg-background/75 px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
                     >
                       تحرير
                     </button>
@@ -251,7 +251,7 @@ export const TaskWebhooksSection: React.FC<TaskWebhooksSectionProps> = ({
                       type="button"
                       onClick={() => onTestWebhookConnection(webhook)}
                       disabled={testingWebhookId === webhook.id}
-                      className="rounded-2xl border border-secondary/20 bg-secondary/8 px-3 py-2 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/12 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="rounded-xl border border-secondary/20 bg-secondary/8 px-3 py-2 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/12 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {testingWebhookId === webhook.id
                         ? 'جارٍ الاختبار...'
@@ -260,14 +260,14 @@ export const TaskWebhooksSection: React.FC<TaskWebhooksSectionProps> = ({
                     <button
                       type="button"
                       onClick={() => onRotateWebhookSecret(webhook)}
-                      className="rounded-2xl border border-primary/20 bg-primary/8 px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/12"
+                      className="rounded-xl border border-primary/20 bg-primary/8 px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/12"
                     >
                       تدوير secret
                     </button>
                     <button
                       type="button"
                       onClick={() => onToggleWebhookActiveState(webhook)}
-                      className={`rounded-2xl px-3 py-2 text-sm font-semibold transition-colors ${
+                      className={`rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
                         webhook.isActive
                           ? 'border border-border/60 bg-background/75 text-foreground hover:bg-background'
                           : 'border border-primary/20 bg-primary/8 text-primary hover:bg-primary/12'
@@ -278,7 +278,7 @@ export const TaskWebhooksSection: React.FC<TaskWebhooksSectionProps> = ({
                     <button
                       type="button"
                       onClick={() => onDeleteWebhook(webhook)}
-                      className="rounded-2xl border border-rose-500/20 bg-rose-500/8 px-3 py-2 text-sm font-semibold text-rose-700 transition-colors hover:bg-rose-500/12 dark:text-rose-300"
+                      className="rounded-xl border border-destructive/20 bg-destructive/8 px-3 py-2 text-sm font-semibold text-destructive transition-colors hover:bg-destructive/12 dark:text-destructive"
                     >
                       حذف
                     </button>
@@ -313,7 +313,7 @@ export const TaskWebhooksSection: React.FC<TaskWebhooksSectionProps> = ({
                       {eventName}
                     </span>
                   ))}
-                  <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-800 dark:bg-rose-900/40 dark:text-rose-200 font-mono tabular-nums">
+                  <span className="rounded-full bg-destructive px-3 py-1 text-xs font-semibold text-destructive dark:bg-destructive/40 dark:text-destructive font-mono tabular-nums">
                     failures: {webhook.failureCount}
                   </span>
                 </div>
@@ -325,13 +325,13 @@ export const TaskWebhooksSection: React.FC<TaskWebhooksSectionProps> = ({
                     className="inline-flex items-center text-sm font-semibold text-foreground transition-colors hover:text-primary"
                   >
                     {isExpanded ? (
-                      <ChevronUpIcon className="ml-2 h-4 w-4" />
+                      <ChevronUpIcon className="ms-2 h-4 w-4" />
                     ) : (
-                      <ChevronDownIcon className="ml-2 h-4 w-4" />
+                      <ChevronDownIcon className="ms-2 h-4 w-4" />
                     )}
                     سجل التسليم
                     {deliveryPagination && (
-                      <span className="mr-2 text-xs text-muted-foreground font-mono tabular-nums">
+                      <span className="me-2 text-xs text-muted-foreground font-mono tabular-nums">
                         ({deliveryPagination.total})
                       </span>
                     )}

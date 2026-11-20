@@ -99,21 +99,21 @@ function FlowList({ title, icon: Icon, rows, color }: { title: string; icon: Rea
     <MovementCard title={title}>
       <div className="space-y-3">
         {rows.length === 0 ? (
-          <p className="py-6 text-center text-sm text-gray-500 dark:text-gray-400">لا توجد بيانات</p>
+          <p className="py-6 text-center text-sm text-muted-foreground">لا توجد بيانات</p>
         ) : (
           rows.slice(0, 8).map((row, i) => (
             <div key={row.status} className="flex items-center gap-3">
-              <Icon className="h-4 w-4 shrink-0 text-gray-400" />
+              <Icon className="h-4 w-4 shrink-0 text-muted-foreground" />
               <div className="min-w-0 flex-1">
                 <div className="mb-1 flex items-center justify-between gap-2">
                   <StatusPill code={row.status} />
-                  <span className="text-xs font-semibold text-gray-900 dark:text-white">{formatNumber(row.count)}</span>
+                  <span className="text-xs font-semibold text-foreground">{formatNumber(row.count)}</span>
                 </div>
-                <div className="h-1.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700/60">
+                <div className="h-1.5 overflow-hidden rounded-full bg-muted/60">
                   <div className="h-full rounded-full transition-all" style={{ width: `${(row.count / max) * 100}%`, backgroundColor: color }} />
                 </div>
               </div>
-              <span className="w-6 text-left text-xs text-gray-400">{i + 1}</span>
+              <span className="w-6 text-left text-xs text-muted-foreground">{i + 1}</span>
             </div>
           ))
         )}
@@ -157,8 +157,8 @@ export default function SankeyTab({ startDate, endDate, mode }: MovementFilterPr
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard label="إجمالي الحركات" value={formatNumber(data.totalTransitions)} icon={GitBranch} hint={`من ${formatNumber(data.totalOrders)} طلب`} />
         <KpiCard label="حركات يدوية" value={formatNumber(data.modes.manual)} icon={MousePointerClick} gradient="from-sky-500 to-blue-600" hint={`${manualShare.toFixed(1)}%`} />
-        <KpiCard label="حركات تلقائية" value={formatNumber(data.modes.auto)} icon={Bot} gradient="from-violet-500 to-fuchsia-600" hint={`${(100 - manualShare).toFixed(1)}%`} />
-        <KpiCard label="عدد الحالات" value={formatNumber(data.nodes.length - 1)} icon={Package} gradient="from-emerald-500 to-teal-600" />
+        <KpiCard label="حركات تلقائية" value={formatNumber(data.modes.auto)} icon={Bot} gradient="from-violet-500 to-primary" hint={`${(100 - manualShare).toFixed(1)}%`} />
+        <KpiCard label="عدد الحالات" value={formatNumber(data.nodes.length - 1)} icon={Package} gradient="from-emerald-500 to-success" />
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-4">
@@ -188,14 +188,14 @@ export default function SankeyTab({ startDate, endDate, mode }: MovementFilterPr
                         if (!from || !to) return null;
                         return (
                           <div style={CHART_TOOLTIP_STYLE} className="rounded-xl px-3 py-2">
-                            <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                            <div className="text-sm font-semibold text-foreground">
                               {from.id === "START" ? "بداية" : getStatusLabel(from.id)} ← {to.id === "START" ? "بداية" : getStatusLabel(to.id)}
                             </div>
-                            <div className="text-xs text-gray-600 dark:text-gray-300">{formatNumber(link.value)} طلب</div>
-                            <div className="text-xs text-gray-600 dark:text-gray-300">
+                            <div className="text-xs text-muted-foreground">{formatNumber(link.value)} طلب</div>
+                            <div className="text-xs text-muted-foreground">
                               يدوي {formatNumber(link.manual)} · تلقائي {formatNumber(link.auto)}
                             </div>
-                            <div className="text-xs text-gray-600 dark:text-gray-300">إيراد {formatNumber(link.revenue)} ج.م</div>
+                            <div className="text-xs text-muted-foreground">إيراد {formatNumber(link.revenue)} ج.م</div>
                           </div>
                         );
                       }}
@@ -204,15 +204,15 @@ export default function SankeyTab({ startDate, endDate, mode }: MovementFilterPr
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="mt-3 flex flex-wrap items-center gap-4 border-t border-gray-100 pt-3 text-xs text-gray-500 dark:border-gray-700/60 dark:text-gray-400">
+            <div className="mt-3 flex flex-wrap items-center gap-4 border-t border-border pt-3 text-xs text-muted-foreground dark:border-border dark:text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-sky-500" /> خط أزرق = حركة يدوية غالباً
+                <span className="h-2.5 w-2.5 rounded-full bg-info" /> خط أزرق = حركة يدوية غالباً
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-violet-500" /> خط بنفسجي = حركة تلقائية غالباً
+                <span className="h-2.5 w-2.5 rounded-full bg-primary" /> خط بنفسجي = حركة تلقائية غالباً
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-indigo-500" /> عقدة البداية
+                <span className="h-2.5 w-2.5 rounded-full bg-primary" /> عقدة البداية
               </span>
             </div>
           </MovementCard>

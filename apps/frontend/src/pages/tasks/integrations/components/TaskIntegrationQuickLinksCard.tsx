@@ -54,7 +54,7 @@ export const TaskIntegrationQuickLinksCard: React.FC<
                 onClick={() => onCopySecret(externalApiBaseUrl, 'تم نسخ Base URL')}
                 className="inline-flex items-center rounded-xl border border-border/60 bg-background/75 px-2.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-background"
               >
-                <DocumentDuplicateIcon className="ml-1 h-3.5 w-3.5" />
+                <DocumentDuplicateIcon className="ms-1 h-3.5 w-3.5" />
                 نسخ
               </button>
             </div>
@@ -75,7 +75,7 @@ export const TaskIntegrationQuickLinksCard: React.FC<
                 }
                 className="inline-flex items-center rounded-xl border border-border/60 bg-background/75 px-2.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-background"
               >
-                <DocumentDuplicateIcon className="ml-1 h-3.5 w-3.5" />
+                <DocumentDuplicateIcon className="ms-1 h-3.5 w-3.5" />
                 نسخ
               </button>
             </div>
@@ -120,7 +120,7 @@ export const TaskIntegrationQuickLinksCard: React.FC<
         <div className="border-t border-border/60 px-4 pb-4 pt-4">
           <div className="rounded-[22px] border border-border/60 bg-background/72 p-4">
             <div className="flex items-start gap-3">
-              <div className="rounded-2xl bg-background p-2 text-foreground">
+              <div className="rounded-xl bg-background p-2 text-foreground">
                 <ShieldCheckIcon className="h-5 w-5" />
               </div>
               <div className="space-y-2">
@@ -182,7 +182,7 @@ export const TaskIntegrationQuickLinksCard: React.FC<
                     }
                     className="inline-flex items-center rounded-xl border border-border/60 bg-background/75 px-2.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-background"
                   >
-                    <DocumentDuplicateIcon className="ml-1 h-3.5 w-3.5" />
+                    <DocumentDuplicateIcon className="ms-1 h-3.5 w-3.5" />
                     نسخ
                   </button>
                 </div>

@@ -134,17 +134,17 @@ export const ProductDeliveryReturnsPage: React.FC = () => {
   return (
     <div className="space-y-4 p-3 sm:p-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 flex items-center justify-center font-bold">
+            <div className="h-8 w-8 rounded-lg bg-muted text-white dark:bg-muted dark:text-foreground flex items-center justify-center font-bold">
               <Package className="h-4 w-4" />
             </div>
-            <h1 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-zinc-100">
+            <h1 className="text-lg sm:text-xl font-bold text-foreground dark:text-muted-foreground">
               تقرير أداء وتسليم المنتجات التشغيلي
             </h1>
           </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+          <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
             نسب التسليم والتحصيل لكل منتج مع تفصيل أسباب المرتجعات لمعالجة الاختناقات التشغيلية
           </p>
         </div>
@@ -155,15 +155,15 @@ export const ProductDeliveryReturnsPage: React.FC = () => {
           <button
             onClick={handleExportCsv}
             disabled={!products.length}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-200 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-foreground dark:text-muted-foreground bg-white dark:bg-muted border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors disabled:opacity-50"
           >
-            <Download className="h-3.5 w-3.5 text-zinc-500" />
+            <Download className="h-3.5 w-3.5 text-muted-foreground" />
             <span>تصدير CSV</span>
           </button>
           <button
             onClick={() => query.refetch()}
             disabled={query.isFetching}
-            className="p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            className="p-1.5 text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg border border-border dark:border-border hover:bg-muted dark:hover:bg-muted transition-colors"
             title="تحديث البيانات"
           >
             <RefreshCw className={`h-4 w-4 ${query.isFetching ? 'animate-spin' : ''}`} />
@@ -173,14 +173,14 @@ export const ProductDeliveryReturnsPage: React.FC = () => {
 
       {/* Error state */}
       {query.isError && (
-        <div className="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 rounded-xl p-4 text-xs text-rose-700 dark:text-rose-300 flex items-center gap-3">
+        <div className="bg-rose-50 dark:bg-destructive/40 border border-destructive dark:border-destructive rounded-xl p-4 text-xs text-destructive dark:text-destructive flex items-center gap-3">
           <AlertCircle className="h-5 w-5 shrink-0" />
           <div className="flex-1">
             حدث خطأ أثناء تحميل تقرير تسليم وتحصيل المنتجات.
           </div>
           <button
             onClick={() => query.refetch()}
-            className="px-2.5 py-1 bg-rose-600 text-white rounded-md hover:bg-rose-700 text-xs"
+            className="px-2.5 py-1 bg-destructive text-white rounded-md hover:bg-destructive text-xs"
           >
             إعادة المحاولة
           </button>
@@ -192,10 +192,10 @@ export const ProductDeliveryReturnsPage: React.FC = () => {
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-28 bg-zinc-100 dark:bg-zinc-800/60 rounded-xl animate-pulse" />
+              <div key={i} className="h-28 bg-muted dark:bg-muted rounded-xl animate-pulse" />
             ))}
           </div>
-          <div className="h-96 bg-zinc-100 dark:bg-zinc-800/60 rounded-xl animate-pulse" />
+          <div className="h-96 bg-muted dark:bg-muted rounded-xl animate-pulse" />
         </div>
       ) : (
         <>

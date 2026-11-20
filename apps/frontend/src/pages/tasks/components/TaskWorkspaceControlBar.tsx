@@ -187,7 +187,7 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
 
   return (
     <div
-      className={`rounded-2xl border border-border/60 bg-card/90 shadow-sm backdrop-blur-md transition-all ${className}`}
+      className={`rounded-xl border border-border/60 bg-card/90 shadow-sm backdrop-blur-md transition-all ${className}`}
     >
       {/* Primary Cockpit Bar (Unified Single Surface) */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 sm:px-3 sm:py-2.5">
@@ -223,7 +223,7 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
               className="inline-flex items-center gap-1 rounded-lg border border-border/50 bg-background/60 px-2 py-0.5 text-[11px]"
               title="المهام قيد الانتظار"
             >
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
               <span className="text-muted-foreground">انتظار:</span>
               <strong className="font-semibold text-foreground font-mono tabular-nums">
                 {taskStats.pending}
@@ -234,7 +234,7 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
               className="inline-flex items-center gap-1 rounded-lg border border-border/50 bg-background/60 px-2 py-0.5 text-[11px]"
               title="المهام المكتملة"
             >
-              <CheckCircle2 className="size-3 text-emerald-500" />
+              <CheckCircle2 className="size-3 text-success" />
               <span className="text-muted-foreground">مكتملة:</span>
               <strong className="font-semibold text-foreground font-mono tabular-nums">
                 {taskStats.completed}
@@ -243,10 +243,10 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
 
             {showOverdueIndicators && taskStats.overdue > 0 && (
               <span
-                className="inline-flex items-center gap-1 rounded-lg border border-rose-500/30 bg-rose-500/10 px-2 py-0.5 text-[11px] text-rose-700 dark:text-rose-400 font-semibold"
+                className="inline-flex items-center gap-1 rounded-lg border border-destructive/30 bg-destructive/10 px-2 py-0.5 text-[11px] text-destructive dark:text-destructive font-semibold"
                 title="المهام المتأخرة عن الموعد"
               >
-                <AlertCircle className="size-3 text-rose-500 animate-pulse" />
+                <AlertCircle className="size-3 text-destructive animate-pulse" />
                 <span>متأخرة:</span>
                 <strong className="font-bold font-mono tabular-nums">
                   {taskStats.overdue}
@@ -267,7 +267,7 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
               setCurrentPage?.(1);
             }}
             placeholder="بحث في المهام..."
-            className="h-8 rounded-lg border-border/50 bg-background/60 pr-8 pl-7 text-xs shadow-none focus:border-primary/50 focus:bg-background"
+            className="h-8 rounded-lg border-border/50 bg-background/60 pe-8 ps-7 text-xs shadow-none focus:border-primary/50 focus:bg-background"
           />
           {searchQuery ? (
             <button
@@ -396,7 +396,7 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
             }}
             className={`inline-flex items-center gap-1.5 rounded-lg border px-2 py-1 text-xs font-medium transition-all active:scale-[0.98] ${
               hideCompleted
-                ? "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                ? "border-amber-500/30 bg-warning/10 text-warning dark:text-warning"
                 : "border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/40"
             }`}
           >
@@ -463,7 +463,7 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
               }}
               className={`inline-flex items-center gap-1.5 rounded-lg border px-2 py-1 text-xs font-medium ${
                 hideCompleted
-                  ? "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                  ? "border-amber-500/30 bg-warning/10 text-warning dark:text-warning"
                   : "border-border/60 bg-muted/20 text-muted-foreground"
               }`}
             >
@@ -477,7 +477,7 @@ export const TaskWorkspaceControlBar: React.FC<TaskWorkspaceControlBarProps> = (
               <button
                 type="button"
                 onClick={resetAll}
-                className="inline-flex items-center gap-1 rounded-lg border border-rose-500/20 bg-rose-500/10 px-2 py-1 text-xs font-medium text-rose-600 dark:text-rose-400"
+                className="inline-flex items-center gap-1 rounded-lg border border-destructive/20 bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive dark:text-destructive"
               >
                 <RotateCcw className="size-3" />
                 <span>تصفير ({activeFilterCount})</span>

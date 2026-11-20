@@ -140,7 +140,7 @@ export const TaskIntegrationsTab: React.FC<TaskIntegrationsTabProps> = ({
 
   if (!canManageIntegrations) {
     return (
-      <div className="rounded-[28px] border border-amber-500/20 bg-amber-500/8 p-6 text-amber-900 dark:text-amber-100">
+      <div className="rounded-[28px] border border-warning/20 bg-warning/8 p-6 text-warning dark:text-warning">
         <div className="flex items-start gap-3">
           <ShieldCheckIcon className="mt-0.5 h-6 w-6 shrink-0" />
           <div>
@@ -182,9 +182,9 @@ export const TaskIntegrationsTab: React.FC<TaskIntegrationsTabProps> = ({
               resetCredentialForm();
               setShowCredentialForm(true);
             }}
-            className="inline-flex items-center justify-center rounded-2xl border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
+            className="inline-flex items-center justify-center rounded-xl border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
           >
-            <KeyIcon className="ml-2 h-4 w-4" />
+            <KeyIcon className="ms-2 h-4 w-4" />
             مفتاح جديد
           </button>
           <button
@@ -193,9 +193,9 @@ export const TaskIntegrationsTab: React.FC<TaskIntegrationsTabProps> = ({
               resetWebhookForm();
               setShowWebhookForm(true);
             }}
-            className="inline-flex items-center justify-center rounded-2xl bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
+            className="inline-flex items-center justify-center rounded-xl bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90"
           >
-            <PlusIcon className="ml-2 h-4 w-4" />
+            <PlusIcon className="ms-2 h-4 w-4" />
             Webhook جديدة
           </button>
         </div>
@@ -220,7 +220,7 @@ export const TaskIntegrationsTab: React.FC<TaskIntegrationsTabProps> = ({
       )}
 
       {loadError && (
-        <div className="rounded-[26px] border border-rose-500/20 bg-rose-500/8 p-4 text-rose-900 dark:text-rose-100">
+        <div className="rounded-[26px] border border-destructive/20 bg-destructive/8 p-4 text-destructive dark:text-destructive">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-start gap-3">
               <ExclamationTriangleIcon className="mt-0.5 h-5 w-5 shrink-0" />
@@ -232,9 +232,9 @@ export const TaskIntegrationsTab: React.FC<TaskIntegrationsTabProps> = ({
             <button
               type="button"
               onClick={() => void loadIntegrations()}
-              className="inline-flex items-center rounded-lg border border-rose-300 px-3 py-2 text-sm font-semibold hover:bg-rose-100 dark:border-rose-800 dark:hover:bg-rose-900/50"
+              className="inline-flex items-center rounded-lg border border-destructive px-3 py-2 text-sm font-semibold hover:bg-destructive dark:border-destructive dark:hover:bg-destructive/50"
             >
-              <ArrowPathIcon className="ml-2 h-4 w-4" />
+              <ArrowPathIcon className="ms-2 h-4 w-4" />
               إعادة المحاولة
             </button>
           </div>

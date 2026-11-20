@@ -10,7 +10,7 @@ export const TaskInfoRow: React.FC<{
   <div className="rounded-[22px] border border-border/65 bg-background/70 px-4 py-3">
     <div className="flex items-start gap-3">
       {icon ? (
-        <div className="mt-0.5 rounded-2xl bg-primary/10 p-2 text-primary">
+        <div className="mt-0.5 rounded-xl bg-primary/10 p-2 text-primary">
           {icon}
         </div>
       ) : null}
@@ -53,9 +53,9 @@ export const TaskWorkspaceStat: React.FC<{
       tone === "primary" &&
         "border-primary/15 bg-primary/5 text-primary dark:bg-primary/10",
       tone === "warning" &&
-        "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-200",
+        "border-amber-500/20 bg-warning/10 text-warning dark:text-warning",
       tone === "success" &&
-        "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-200",
+        "border-emerald-500/20 bg-success/10 text-success dark:text-success",
       tone === "default" && "border-border/65 bg-background/75 text-foreground",
     )}
   >

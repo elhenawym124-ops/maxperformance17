@@ -101,7 +101,7 @@ export const StatusAnalysisCharts: React.FC<Props> = ({ chartData }) => {
           <div className="p-3 rounded-lg border border-border/60 bg-muted/20 space-y-1.5">
             <div className="flex justify-between text-xs">
               <span className="font-medium text-foreground">تمت المعالجة والإنجاز</span>
-              <span className="font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">70%</span>
+              <span className="font-bold font-mono tabular-nums text-success dark:text-success">70%</span>
             </div>
             <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
               <div className="bg-emerald-500 h-2 rounded-full" style={{ width: "70%" }} />
@@ -111,7 +111,7 @@ export const StatusAnalysisCharts: React.FC<Props> = ({ chartData }) => {
           <div className="p-3 rounded-lg border border-border/60 bg-muted/20 space-y-1.5">
             <div className="flex justify-between text-xs">
               <span className="font-medium text-foreground">قيد المراجعة والمتابعة</span>
-              <span className="font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">20%</span>
+              <span className="font-bold font-mono tabular-nums text-warning dark:text-warning">20%</span>
             </div>
             <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
               <div className="bg-amber-500 h-2 rounded-full" style={{ width: "20%" }} />
@@ -121,7 +121,7 @@ export const StatusAnalysisCharts: React.FC<Props> = ({ chartData }) => {
           <div className="p-3 rounded-lg border border-border/60 bg-muted/20 space-y-1.5">
             <div className="flex justify-between text-xs">
               <span className="font-medium text-foreground">متأخر يتطلب إجراءً</span>
-              <span className="font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">10%</span>
+              <span className="font-bold font-mono tabular-nums text-destructive dark:text-destructive">10%</span>
             </div>
             <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
               <div className="bg-rose-500 h-2 rounded-full" style={{ width: "10%" }} />

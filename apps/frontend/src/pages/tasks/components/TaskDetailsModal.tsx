@@ -77,12 +77,12 @@ export const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
             {getPriorityText(task.priority)}
           </span>
           {isOverdue(task.dueDate, task.status) ? (
-            <span className="rounded-full bg-rose-500/10 px-3 py-1 text-[11px] font-semibold text-rose-600 dark:text-rose-300">
+            <span className="rounded-full bg-destructive/10 px-3 py-1 text-[11px] font-semibold text-destructive dark:text-destructive">
               متأخرة
             </span>
           ) : null}
           {task.isRecurring ? (
-            <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+            <span className="rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold text-primary border border-primary/20">
               مهمة متكررة
             </span>
           ) : null}
@@ -304,7 +304,7 @@ export const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
                   <span
                     className={
                       isOverdue(task.dueDate, task.status)
-                        ? "text-rose-600 dark:text-rose-300"
+                        ? "text-rose-600 dark:text-destructive"
                         : undefined
                     }
                   >

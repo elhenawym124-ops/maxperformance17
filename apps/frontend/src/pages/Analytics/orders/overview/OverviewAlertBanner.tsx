@@ -29,11 +29,11 @@ export const OverviewAlertBanner: React.FC<OverviewAlertBannerProps> = ({
   return (
     <div
       role="alert"
-      className="rounded-xl border border-amber-200/80 bg-amber-50/70 p-3 sm:px-4 sm:py-3 text-amber-900 shadow-sm dark:border-amber-500/20 dark:bg-amber-950/20 dark:text-amber-200 transition-all"
+      className="rounded-xl border border-warning/80 bg-warning/70 p-3 sm:px-4 sm:py-3 text-warning shadow-sm dark:border-warning/20 dark:bg-warning/20 dark:text-warning transition-all"
     >
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-sm">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="rounded-lg bg-amber-500/15 p-1.5 shrink-0 text-amber-700 dark:text-amber-400">
+          <div className="rounded-lg bg-warning/15 p-1.5 shrink-0 text-warning dark:text-warning">
             {hasPendingAction ? (
               <ClockIcon className="h-4 w-4" />
             ) : (
@@ -41,20 +41,20 @@ export const OverviewAlertBanner: React.FC<OverviewAlertBannerProps> = ({
             )}
           </div>
           <div className="min-w-0">
-            <span className="font-semibold text-amber-950 dark:text-amber-100">
+            <span className="font-semibold text-warning dark:text-warning">
               نبض المتابعة التشغيلية:
             </span>{" "}
             {hasPendingAction && (
               <span className="tabular-nums">
                 يوجد{" "}
-                <span className="font-bold underline decoration-amber-400">
+                <span className="font-bold underline decoration-warning">
                   {pendingCount}
                 </span>{" "}
                 طلباً بانتظار التأكيد والمعالجة الفورية اليوم.
               </span>
             )}
             {hasHighCancellation && (
-              <span className="mr-2 text-xs opacity-90 tabular-nums">
+              <span className="me-2 text-xs opacity-90 tabular-nums">
                 (معدل الإلغاء مرتفع بنسبة {cancellationRate.toFixed(1)}%
                 {lostRevenue > 0 && formattedLostRevenue
                   ? ` بإيراد مفقود يقارب ${formattedLostRevenue}`
@@ -69,7 +69,7 @@ export const OverviewAlertBanner: React.FC<OverviewAlertBannerProps> = ({
           {hasPendingAction && (
             <Link
               to="/analytics/orders/today-ops"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-amber-700 active:scale-[0.98] transition-all focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-1"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-warning px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-warning active:scale-[0.98] transition-all focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-1"
             >
               <span>مراجعة عمليات اليوم</span>
               <ArrowRightIcon className="h-3 w-3 rotate-180" />
@@ -78,7 +78,7 @@ export const OverviewAlertBanner: React.FC<OverviewAlertBannerProps> = ({
           {hasHighCancellation && (
             <Link
               to="/analytics/orders/cancellations"
-              className="inline-flex items-center gap-1 rounded-lg border border-amber-300 dark:border-amber-600/40 bg-white dark:bg-amber-900/30 px-2.5 py-1 text-xs font-medium text-amber-800 dark:text-amber-200 hover:bg-amber-100/50 transition-colors"
+              className="inline-flex items-center gap-1 rounded-lg border border-warning dark:border-warning/40 bg-white dark:bg-warning/30 px-2.5 py-1 text-xs font-medium text-warning dark:text-warning hover:bg-warning/50 transition-colors"
             >
               <span>أسباب الإلغاء</span>
             </Link>

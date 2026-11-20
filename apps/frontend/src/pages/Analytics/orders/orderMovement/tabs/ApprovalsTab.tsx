@@ -81,10 +81,10 @@ const requestStatusLabel = (status: string): string => {
 const requestStatusClass = (status: string): string => {
   const s = String(status || "").toLowerCase();
   if (s === "approved")
-    return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300";
+    return "bg-emerald-100 text-success dark:bg-success/30 dark:text-success";
   if (s === "rejected")
-    return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300";
-  return "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300";
+    return "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive";
+  return "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning";
 };
 
 export default function ApprovalsTab({ startDate, endDate, mode }: MovementFilterProps) {
@@ -126,11 +126,11 @@ export default function ApprovalsTab({ startDate, endDate, mode }: MovementFilte
       <TruncatedNotice truncated={data?.truncated} />
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-7">
         <KpiCard label="إجمالي الطلبات" value={formatNumber(summary.totalRequests)} icon={ClipboardCheck} />
-        <KpiCard label="بانتظار الموافقة" value={formatNumber(summary.pending)} icon={Clock3} gradient="from-amber-500 to-orange-600" />
-        <KpiCard label="موافق عليها" value={formatNumber(summary.approved)} icon={CheckCircle2} gradient="from-emerald-500 to-teal-600" />
-        <KpiCard label="مرفوضة" value={formatNumber(summary.rejected)} icon={XCircle} gradient="from-rose-500 to-red-600" />
+        <KpiCard label="بانتظار الموافقة" value={formatNumber(summary.pending)} icon={Clock3} gradient="from-amber-500 to-warning" />
+        <KpiCard label="موافق عليها" value={formatNumber(summary.approved)} icon={CheckCircle2} gradient="from-emerald-500 to-success" />
+        <KpiCard label="مرفوضة" value={formatNumber(summary.rejected)} icon={XCircle} gradient="from-rose-500 to-destructive" />
         <KpiCard label="معدل الموافقة" value={formatPercent(summary.approvalRate)} icon={Percent} gradient="from-sky-500 to-blue-600" />
-        <KpiCard label="متوسط زمن المراجعة" value={formatDuration(summary.avgReviewHours)} icon={Timer} gradient="from-fuchsia-500 to-pink-600" />
+        <KpiCard label="متوسط زمن المراجعة" value={formatDuration(summary.avgReviewHours)} icon={Timer} gradient="from-fuchsia-500 to-primary" />
         <KpiCard label="تجاوزات" value={formatNumber(summary.totalOverrides)} icon={ShieldAlert} gradient="from-slate-600 to-gray-800" />
       </div>
 
@@ -161,8 +161,8 @@ export default function ApprovalsTab({ startDate, endDate, mode }: MovementFilte
               {pieData.map((d) => (
                 <div key={d.name} className="flex items-center gap-3 text-sm">
                   <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: d.color }} />
-                  <span className="text-gray-600 dark:text-gray-300">{d.name}</span>
-                  <span className="font-semibold text-gray-900 dark:text-white">{formatNumber(d.value)}</span>
+                  <span className="text-muted-foreground">{d.name}</span>
+                  <span className="font-semibold text-foreground">{formatNumber(d.value)}</span>
                 </div>
               ))}
             </div>
@@ -171,25 +171,25 @@ export default function ApprovalsTab({ startDate, endDate, mode }: MovementFilte
 
         <MovementCard title="أداء المراجعين" subtitle="حسب عدد المراجعات">
           {data.reviewers.length === 0 ? (
-            <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">لا توجد مراجعات بعد</p>
+            <p className="py-8 text-center text-sm text-muted-foreground">لا توجد مراجعات بعد</p>
           ) : (
             <div className="space-y-3">
               {data.reviewers.map((rv) => (
                 <div
                   key={rv.name}
-                  className="flex items-center justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3 dark:bg-gray-800/60"
+                  className="flex items-center justify-between gap-3 rounded-xl bg-muted px-4 py-3 dark:bg-muted"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-gray-900 dark:text-white">{rv.name}</p>
-                    <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                    <p className="truncate text-sm font-semibold text-foreground">{rv.name}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
                       موافق عليها: {formatNumber(rv.approved)} · مرفوضة: {formatNumber(rv.rejected)}
                     </p>
                   </div>
                   <div className="shrink-0 text-left">
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                    <p className="text-sm font-semibold text-foreground">
                       {formatNumber(rv.reviewedCount)} مراجعة
                     </p>
-                    <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                    <p className="mt-0.5 text-xs text-muted-foreground">
                       متوسط {formatDuration(rv.avgReviewHours)}
                     </p>
                   </div>
@@ -204,7 +204,7 @@ export default function ApprovalsTab({ startDate, endDate, mode }: MovementFilte
         <div className="-mx-5 -mb-5 overflow-x-auto rounded-b-2xl">
           <table className="w-full min-w-[980px] text-sm">
             <thead>
-              <tr className="border-b border-gray-100 text-xs text-gray-500 dark:border-gray-700/60 dark:text-gray-400">
+              <tr className="border-b border-border text-xs text-muted-foreground dark:border-border dark:text-muted-foreground">
                 <th className="px-5 py-3 text-right font-medium">رقم الطلب</th>
                 <th className="px-5 py-3 text-right font-medium">مقدَّم من</th>
                 <th className="px-5 py-3 text-right font-medium">نقل الحالة</th>
@@ -221,25 +221,25 @@ export default function ApprovalsTab({ startDate, endDate, mode }: MovementFilte
                 return (
                   <tr
                     key={r.id}
-                    className={`border-b border-gray-50 transition-colors last:border-0 dark:border-gray-800 ${
+                    className={`border-b border-border transition-colors last:border-0 dark:border-border ${
                       isPending
-                        ? "bg-amber-50/60 dark:bg-amber-900/10"
-                        : "hover:bg-gray-50/60 dark:hover:bg-gray-700/30"
+                        ? "bg-amber-50/60 dark:bg-warning/10"
+                        : "hover:bg-gray-50/60 dark:hover:bg-muted"
                     }`}
                   >
-                    <td className="px-5 py-3.5 font-mono text-xs font-medium text-gray-800 dark:text-gray-200">
+                    <td className="px-5 py-3.5 font-mono text-xs font-medium text-foreground dark:text-muted-foreground">
                       {r.orderNumber || "-"}
                     </td>
-                    <td className="px-5 py-3.5 text-gray-700 dark:text-gray-300">{r.requestedByName}</td>
+                    <td className="px-5 py-3.5 text-foreground">{r.requestedByName}</td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1.5">
                         <StatusPill code={r.fromStatus?.code ?? ""} />
-                        <ArrowLeft className="h-3.5 w-3.5 text-gray-400" />
+                        <ArrowLeft className="h-3.5 w-3.5 text-muted-foreground" />
                         <StatusPill code={r.toStatus?.code ?? ""} />
                       </div>
                     </td>
                     <td className="max-w-[240px] px-5 py-3.5">
-                      <span className="block truncate text-gray-600 dark:text-gray-400" title={r.reason || ""}>
+                      <span className="block truncate text-foreground dark:text-muted-foreground" title={r.reason || ""}>
                         {r.reason || "-"}
                       </span>
                     </td>
@@ -248,11 +248,11 @@ export default function ApprovalsTab({ startDate, endDate, mode }: MovementFilte
                         {requestStatusLabel(r.status)}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 text-gray-700 dark:text-gray-300">{r.reviewedByName || "-"}</td>
-                    <td className="whitespace-nowrap px-5 py-3.5 text-xs text-gray-600 dark:text-gray-400">
+                    <td className="px-5 py-3.5 text-foreground">{r.reviewedByName || "-"}</td>
+                    <td className="whitespace-nowrap px-5 py-3.5 text-xs text-foreground dark:text-muted-foreground">
                       {formatDateTime(r.createdAt)}
                     </td>
-                    <td className="whitespace-nowrap px-5 py-3.5 text-xs text-gray-600 dark:text-gray-400">
+                    <td className="whitespace-nowrap px-5 py-3.5 text-xs text-foreground dark:text-muted-foreground">
                       {formatDateTime(r.reviewedAt)}
                     </td>
                   </tr>

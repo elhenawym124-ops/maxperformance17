@@ -126,7 +126,7 @@ const CampaignAttributionAnalytics: React.FC = () => {
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary mb-3">
               <Lock className="h-6 w-6" />
             </div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 mb-2">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-warning/10 text-warning dark:text-warning mb-2">
               تطبيق إضافي مطلوب
             </div>
             <h2 className="text-base font-semibold text-foreground">
@@ -235,11 +235,11 @@ const CampaignAttributionAnalytics: React.FC = () => {
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
             placeholder="بحث بالحملة أو المعرفات..."
-            className="w-full rounded-md border border-border/70 bg-background pr-8 pl-2.5 py-1.5 text-xs font-medium text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+            className="w-full rounded-md border border-border/70 bg-background pe-8 ps-2.5 py-1.5 text-xs font-medium text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
           />
         </div>
 
-        <span className="mr-auto font-mono text-[11px] text-muted-foreground tabular-nums">
+        <span className="me-auto font-mono text-[11px] text-muted-foreground tabular-nums">
           {rows.length.toLocaleString()} صف
         </span>
       </div>
@@ -271,7 +271,7 @@ const CampaignAttributionAnalytics: React.FC = () => {
       </SectionCard>
 
       {error && data && (
-        <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-xs text-amber-600 dark:text-amber-400">
+        <div className="rounded-lg border border-warning/20 bg-warning/10 px-4 py-3 text-xs text-warning dark:text-warning">
           آخر محاولة تحديث أعادت خطأ: {error}
         </div>
       )}

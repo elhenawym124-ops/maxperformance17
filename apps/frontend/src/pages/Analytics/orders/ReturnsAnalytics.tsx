@@ -105,7 +105,7 @@ const ReturnsAnalytics: React.FC = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-4">
         <div>
           <div className="flex items-center gap-2">
-            <RotateCcw className="h-5 w-5 text-rose-500" />
+            <RotateCcw className="h-5 w-5 text-destructive" />
             <h1 className="text-xl font-bold tracking-tight text-foreground">
               {t("returnsAnalytics.title", "تحليل المرتجعات والإلغاءات")}
             </h1>
@@ -148,7 +148,7 @@ const ReturnsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي المرتجعات</span>
-              <RotateCcw className="h-4 w-4 text-rose-500" />
+              <RotateCcw className="h-4 w-4 text-destructive" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
               {summary.totalReturns.toLocaleString()}
@@ -165,9 +165,9 @@ const ReturnsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>معدل المرتجعات</span>
-              <TrendingDown className="h-4 w-4 text-amber-500" />
+              <TrendingDown className="h-4 w-4 text-warning" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-warning dark:text-warning">
               {summary.returnRate.toFixed(1)}%
             </div>
             <div className="text-[11px] text-muted-foreground mt-1">
@@ -180,9 +180,9 @@ const ReturnsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>الإيراد المفقود</span>
-              <DollarSign className="h-4 w-4 text-rose-500" />
+              <DollarSign className="h-4 w-4 text-destructive" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">
               {formatPrice(summary.totalLostRevenue)}
             </div>
             <div className="text-[11px] text-muted-foreground mt-1">
@@ -214,7 +214,7 @@ const ReturnsAnalytics: React.FC = () => {
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <Package className="h-4 w-4 text-rose-500" />
+                <Package className="h-4 w-4 text-destructive" />
                 <h3 className="text-sm font-semibold text-foreground">أعلى المنتجات مرتجعاً</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono">
@@ -265,7 +265,7 @@ const ReturnsAnalytics: React.FC = () => {
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-amber-500" />
+                <MapPin className="h-4 w-4 text-warning" />
                 <h3 className="text-sm font-semibold text-foreground">المرتجعات حسب المنطقة</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono">
@@ -333,7 +333,7 @@ const ReturnsAnalytics: React.FC = () => {
                 {data.topReturnedProducts.map((p, idx) => (
                   <tr key={idx} className="hover:bg-muted/20 transition-colors">
                     <td className="py-2.5 px-4 font-medium text-foreground">{p.name}</td>
-                    <td className="py-2.5 px-4 text-center font-mono tabular-nums text-rose-500 font-semibold">
+                    <td className="py-2.5 px-4 text-center font-mono tabular-nums text-destructive font-semibold">
                       {p.returns.toLocaleString()}
                     </td>
                     <td className="py-2.5 px-4 text-left font-mono tabular-nums text-muted-foreground">

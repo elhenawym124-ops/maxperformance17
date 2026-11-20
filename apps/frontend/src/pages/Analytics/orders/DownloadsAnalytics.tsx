@@ -126,11 +126,11 @@ const DownloadsAnalytics: React.FC = () => {
                   </td>
                   <td className="py-2.5 px-3.5 text-center">
                     {row.status === "active" ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-mono">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20 font-mono">
                         <CheckCircle2 className="h-3 w-3" /> متاح للتحميل
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 font-mono">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20 font-mono">
                         مقيد بالتراخيص
                       </span>
                     )}
@@ -160,15 +160,15 @@ const DownloadsAnalytics: React.FC = () => {
             </p>
             <div className="space-y-2 text-xs">
               <div className="flex items-center gap-2 p-2 rounded-lg bg-muted/20 border border-border/50">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                <CheckCircle2 className="h-3.5 w-3.5 text-success shrink-0" />
                 <span className="text-foreground">تحديد حد أقصى لمرات التحميل لكل مشترٍ (مثلاً 3 مرات)</span>
               </div>
               <div className="flex items-center gap-2 p-2 rounded-lg bg-muted/20 border border-border/50">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                <CheckCircle2 className="h-3.5 w-3.5 text-success shrink-0" />
                 <span className="text-foreground">صلاحية زمنية محددة للرابط (تنتهي تلقائياً بعد 48 ساعة)</span>
               </div>
               <div className="flex items-center gap-2 p-2 rounded-lg bg-muted/20 border border-border/50">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                <CheckCircle2 className="h-3.5 w-3.5 text-success shrink-0" />
                 <span className="text-foreground">إرسال الروابط فورياً عبر البريد الإلكتروني ورسائل الواتساب</span>
               </div>
             </div>
@@ -178,7 +178,7 @@ const DownloadsAnalytics: React.FC = () => {
         <Card className="border-border/70 bg-card shadow-sm">
           <CardContent className="p-4">
             <div className="flex items-center gap-2 mb-3">
-              <HelpCircle className="h-4 w-4 text-amber-500" />
+              <HelpCircle className="h-4 w-4 text-warning" />
               <h3 className="text-sm font-semibold text-foreground">إرشادات رفع وإدارة الملفات الكبيرة</h3>
             </div>
             <div className="space-y-2.5 text-xs text-muted-foreground">

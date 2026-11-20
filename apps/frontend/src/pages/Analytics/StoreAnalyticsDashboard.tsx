@@ -261,7 +261,7 @@ export const StoreAnalyticsDashboard: React.FC = () => {
   }
 
   return (
-    <div className="space-y-4 max-w-7xl mx-auto pb-12" dir="rtl">
+    <div className="polaris-track space-y-4 max-w-7xl mx-auto pb-12" dir="rtl">
       {/* 1. Header Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-border/70">
         <div>
@@ -270,8 +270,8 @@ export const StoreAnalyticsDashboard: React.FC = () => {
               لوحة تحليلات المتجر والتحويل
             </h1>
             {activeVisitors > 0 && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-success/10 text-success dark:text-success border border-success/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
                 {activeVisitors} متواجد حالياً
               </span>
             )}
@@ -335,7 +335,7 @@ export const StoreAnalyticsDashboard: React.FC = () => {
 
       {/* Executive Briefing Banner */}
       {executiveBriefing && (
-        <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3 shadow-2xs">
+        <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3 shadow-2xs">
           <Sparkles className="h-4 w-4 text-primary shrink-0 mt-0.5" />
           <div className="text-xs leading-relaxed text-foreground">
             <span className="font-bold">{executiveBriefing.headline}: </span>

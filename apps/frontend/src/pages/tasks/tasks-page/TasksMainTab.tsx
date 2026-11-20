@@ -112,15 +112,15 @@ export const TasksMainTab: React.FC<TasksMainTabProps> = ({ controller }) => {
   return (
     <section className="space-y-2.5">
       {loadError && (
-        <div className="rounded-2xl border border-rose-500/20 bg-rose-500/10 p-3 text-center">
-          <p className="text-sm font-medium text-rose-700 dark:text-rose-300 mb-1.5">
+        <div className="rounded-xl border border-destructive/20 bg-destructive/10 p-3 text-center">
+          <p className="text-sm font-medium text-destructive dark:text-destructive mb-1.5">
             {loadError}
           </p>
           <Button
             size="sm"
             variant="outline"
             onClick={fetchTasks}
-            className="gap-1.5 rounded-xl border-rose-500/30 text-rose-700 hover:bg-rose-500/15"
+            className="gap-1.5 rounded-xl border-destructive/30 text-destructive hover:bg-destructive/15"
           >
             <ArrowPathIcon className="h-4 w-4" />
             إعادة المحاولة
@@ -226,7 +226,7 @@ export const TasksMainTab: React.FC<TasksMainTabProps> = ({ controller }) => {
                 type="button"
                 size="sm"
                 variant="outline"
-                className="h-7.5 rounded-lg border-emerald-500/30 bg-emerald-500/10 px-2.5 text-xs text-emerald-700 hover:bg-emerald-500/15 dark:text-emerald-300"
+                className="h-7.5 rounded-lg border-success/30 bg-success/10 px-2.5 text-xs text-success hover:bg-success/15 dark:text-success"
                 onClick={() => handleBulkStatusChange("completed")}
               >
                 إكمال
@@ -235,7 +235,7 @@ export const TasksMainTab: React.FC<TasksMainTabProps> = ({ controller }) => {
                 <Button
                   type="button"
                   size="sm"
-                  className="h-7.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 text-xs font-medium"
+                  className="h-7.5 rounded-lg bg-success hover:bg-success text-white px-2.5 text-xs font-medium"
                   onClick={() => handleBulkStatusChange("completed")}
                   title="اعتماد المهام المحددة"
                 >
@@ -246,7 +246,7 @@ export const TasksMainTab: React.FC<TasksMainTabProps> = ({ controller }) => {
                 type="button"
                 size="sm"
                 variant="outline"
-                className="h-7.5 rounded-lg border-rose-500/30 bg-rose-500/10 px-2.5 text-xs text-rose-700 hover:bg-rose-500/15 dark:text-rose-300"
+                className="h-7.5 rounded-lg border-destructive/30 bg-destructive/10 px-2.5 text-xs text-destructive hover:bg-destructive/15 dark:text-destructive"
                 onClick={handleBulkDelete}
               >
                 حذف

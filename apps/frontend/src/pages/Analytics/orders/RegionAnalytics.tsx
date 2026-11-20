@@ -123,7 +123,7 @@ const RegionAnalytics: React.FC = () => {
         {/* Revenue by Region Bar */}
         <div className="border border-border/70 rounded-xl bg-card p-4 shadow-sm">
           <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <BarChart3 className="h-4 w-4 text-emerald-500" /> إجمالي الإيرادات حسب المحافظة
+            <BarChart3 className="h-4 w-4 text-success" /> إجمالي الإيرادات حسب المحافظة
           </h3>
           <div className="h-[260px]">
             <ResponsiveContainer width="100%" height="100%" minWidth={0}>
@@ -198,11 +198,11 @@ const RegionAnalytics: React.FC = () => {
                     <td className="py-2.5 px-3.5 text-center font-mono font-bold text-foreground tabular-nums">
                       {region.orders.toLocaleString("en-US")}
                     </td>
-                    <td className="py-2.5 px-3.5 text-center font-mono font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                    <td className="py-2.5 px-3.5 text-center font-mono font-bold text-success dark:text-success tabular-nums">
                       {formatPrice(region.revenue)}
                     </td>
                     <td className="py-2.5 px-3.5 text-center">
-                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-bold tabular-nums">
+                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-success/10 text-success dark:text-success border border-success/20 font-bold tabular-nums">
                         {region.deliveryRate ? region.deliveryRate.toFixed(1) : "0.0"}%
                       </span>
                     </td>

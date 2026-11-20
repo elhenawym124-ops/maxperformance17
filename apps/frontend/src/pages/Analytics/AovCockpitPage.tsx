@@ -34,7 +34,7 @@ export const AovCockpitPage: React.FC = () => {
       />
 
       {/* 2. SINGLE CONTINUOUS SURFACE: 4 Lifecycle Lanes */}
-      <main className="flex-1 overflow-y-auto min-h-0 bg-background divide-y divide-zinc-200/80 dark:divide-white/[0.08]">
+      <main className="flex-1 overflow-y-auto min-h-0 bg-background divide-y divide-border dark:divide-white/[0.08]">
         {AOV_LIFECYCLE_LANES.map((lane) => {
           const laneTools = AOV_TOOLS_CATALOG.filter((t) => t.lane === lane.id);
           return (

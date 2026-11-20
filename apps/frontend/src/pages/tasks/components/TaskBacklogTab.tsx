@@ -205,7 +205,7 @@ export const TaskBacklogTab: React.FC<TaskBacklogTabProps> = ({ onTaskCreated })
         <div className="md:col-span-2 rounded-xl border border-border/70 bg-card p-3.5 shadow-sm">
           <div className="flex items-center justify-between gap-2 border-b border-border/40 pb-2.5 mb-2.5">
             <div className="flex items-center gap-2">
-              <SparklesIcon className="w-5 h-5 text-amber-500" />
+              <SparklesIcon className="w-5 h-5 text-warning" />
               <div>
                 <h3 className="text-sm font-semibold tracking-tight">حصة التحسين اليومية المستمرة</h3>
                 <p className="text-[11px] text-muted-foreground">
@@ -218,8 +218,8 @@ export const TaskBacklogTab: React.FC<TaskBacklogTabProps> = ({ onTaskCreated })
                 variant="outline"
                 className={`tabular-nums text-xs px-2.5 py-0.5 font-medium ${
                   quota.isMet
-                    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                    : "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                    ? "border-emerald-500/30 bg-success/10 text-success dark:text-success"
+                    : "border-amber-500/30 bg-warning/10 text-warning dark:text-warning"
                 }`}
               >
                 {quota.isMet ? "مستوفاة اليوم (1/1+)" : "غير مستوفاة بعد (0/1)"}
@@ -238,7 +238,7 @@ export const TaskBacklogTab: React.FC<TaskBacklogTabProps> = ({ onTaskCreated })
             </div>
             <div className="rounded-lg border border-border/50 bg-background/50 p-2">
               <span className="text-[10px] text-muted-foreground block">سُلِّمت أو اعتُمدت</span>
-              <span className="text-base font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+              <span className="text-base font-bold tabular-nums text-success dark:text-success">
                 {quota?.completedCount || 0}
               </span>
             </div>
@@ -270,10 +270,10 @@ export const TaskBacklogTab: React.FC<TaskBacklogTabProps> = ({ onTaskCreated })
 
       {/* 2. Auto Suggestion Banner (When 0 open tasks) */}
       {suggestions?.shouldSuggest && suggestions.suggestions.length > 0 && (
-        <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-3.5 text-xs text-amber-900 dark:text-amber-200">
+        <div className="rounded-xl border border-warning/30 bg-warning/5 p-3.5 text-xs text-warning dark:text-warning">
           <div className="flex items-center justify-between gap-2 mb-2">
             <div className="flex items-center gap-2">
-              <ExclamationCircleIcon className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <ExclamationCircleIcon className="w-4 h-4 text-warning dark:text-warning" />
               <span className="font-semibold">{suggestions.reason}</span>
             </div>
             <Badge variant="outline" className="border-amber-500/40 text-[10px]">
@@ -284,7 +284,7 @@ export const TaskBacklogTab: React.FC<TaskBacklogTabProps> = ({ onTaskCreated })
             {suggestions.suggestions.slice(0, 2).map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between gap-3 rounded-lg border border-amber-500/20 bg-card/60 p-2"
+                className="flex items-center justify-between gap-3 rounded-lg border border-warning/20 bg-card/60 p-2"
               >
                 <div className="min-w-0">
                   <p className="font-medium text-foreground truncate">{item.title}</p>
@@ -293,7 +293,7 @@ export const TaskBacklogTab: React.FC<TaskBacklogTabProps> = ({ onTaskCreated })
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-7 px-2.5 text-[11px] border-amber-500/30 hover:bg-amber-500/10 shrink-0"
+                  className="h-7 px-2.5 text-[11px] border-warning/30 hover:bg-warning/10 shrink-0"
                   onClick={() => handleConvertToTask(item)}
                   disabled={convertingId === item.id}
                 >
@@ -438,7 +438,7 @@ export const TaskBacklogTab: React.FC<TaskBacklogTabProps> = ({ onTaskCreated })
                         variant="outline"
                         className={`text-[10px] px-1.5 py-0 ${
                           item.priority === "URGENT" || item.priority === "HIGH"
-                            ? "border-rose-500/30 text-rose-500"
+                            ? "border-rose-500/30 text-destructive"
                             : "border-border/60 text-muted-foreground"
                         }`}
                       >
@@ -471,7 +471,7 @@ export const TaskBacklogTab: React.FC<TaskBacklogTabProps> = ({ onTaskCreated })
                     {isConverted ? (
                       <Badge
                         variant="outline"
-                        className="border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 gap-1 text-[11px] py-1"
+                        className="border-emerald-500/30 bg-success/10 text-success dark:text-success gap-1 text-[11px] py-1"
                       >
                         <CheckCircleIcon className="w-3.5 h-3.5" />
                         تم التحويل لمهمة

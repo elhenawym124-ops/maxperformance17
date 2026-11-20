@@ -194,12 +194,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           <Button
             type="button"
             variant="outline"
-            className="h-11 rounded-2xl"
+            className="h-11 rounded-xl"
             onClick={() => setFilters(emptyFilters)}
           >
             إعادة تعيين
           </Button>
-          <Button type="button" className="h-11 rounded-2xl" onClick={onClose}>
+          <Button type="button" className="h-11 rounded-xl" onClick={onClose}>
             تطبيق الفلاتر
           </Button>
         </SheetFooter>

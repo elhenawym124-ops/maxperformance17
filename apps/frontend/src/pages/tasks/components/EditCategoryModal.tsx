@@ -105,7 +105,7 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
                     color: event.target.value,
                   })
                 }
-                className="h-12 w-12 cursor-pointer rounded-2xl border border-border/60 bg-transparent p-1"
+                className="h-12 w-12 cursor-pointer rounded-xl border border-border/60 bg-transparent p-1"
               />
               <div className="rounded-[18px] border border-border/60 bg-background/60 px-3 py-2 text-sm text-foreground">
                 {category.color}

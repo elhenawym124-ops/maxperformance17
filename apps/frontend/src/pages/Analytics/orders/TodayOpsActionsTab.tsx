@@ -28,7 +28,7 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي الإجراءات</span>
-              <Activity className="h-4 w-4 text-indigo-500" />
+              <Activity className="h-4 w-4 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
               {actions.total.toLocaleString()}
@@ -43,9 +43,9 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>التأكيدات الناجحة</span>
-              <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+              <CheckCircle2 className="h-4 w-4 text-success" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success">
               {actions.confirms.toLocaleString()}
             </div>
             <div className="text-[11px] text-muted-foreground mt-1">
@@ -58,9 +58,9 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>الإلغاءات</span>
-              <XCircle className="h-4 w-4 text-rose-500" />
+              <XCircle className="h-4 w-4 text-destructive" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">
               {actions.cancels.toLocaleString()}
             </div>
             <div className="text-[11px] text-muted-foreground mt-1">
@@ -91,7 +91,7 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
       <Card className="border-border/70 bg-card overflow-hidden">
         <div className="p-4 border-b border-border/70 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-indigo-500" />
+            <Users className="h-4 w-4 text-primary" />
             <h3 className="text-sm font-semibold text-foreground">
               نشاط فريق العمل والتأكيدات
             </h3>
@@ -120,10 +120,10 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
                 {actions.team.map((m) => (
                   <tr key={m.name} className="hover:bg-muted/20 transition-colors">
                     <td className="py-2.5 px-4 font-medium text-foreground">{m.name}</td>
-                    <td className="py-2.5 px-4 text-center font-mono tabular-nums text-emerald-600 dark:text-emerald-400 font-semibold">
+                    <td className="py-2.5 px-4 text-center font-mono tabular-nums text-success dark:text-success font-semibold">
                       {m.confirms}
                     </td>
-                    <td className="py-2.5 px-4 text-center font-mono tabular-nums text-rose-500 font-semibold">
+                    <td className="py-2.5 px-4 text-center font-mono tabular-nums text-destructive font-semibold">
                       {m.cancels}
                     </td>
                     <td className="py-2.5 px-4 text-center font-mono tabular-nums text-muted-foreground">
@@ -193,7 +193,7 @@ export const TodayOpsActionsTab: React.FC<Props> = ({ actions }) => {
                       {fmtTime(item.createdAt)}
                     </td>
                     <td className="py-2.5 px-4 text-left">
-                      <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-medium ${item.isOldOrder ? "bg-amber-500/10 text-amber-600 border border-amber-500/20" : "bg-blue-500/10 text-blue-600 border border-blue-500/20"}`}>
+                      <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-medium ${item.isOldOrder ? "bg-amber-500/10 text-warning border border-warning/20" : "bg-blue-500/10 text-blue-600 border border-blue-500/20"}`}>
                         {item.isOldOrder ? "قديم" : "جديد"}
                       </span>
                     </td>

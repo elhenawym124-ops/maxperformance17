@@ -40,7 +40,7 @@ export const EditProjectModal: React.FC<EditProjectModalProps> = ({
       description="عدّل حالة المشروع والميزانية والمواعيد من نفس النافذة حتى تبقى المتابعة مرتبطة بالنطاق الحقيقي للعمل."
       size="lg"
       badge={
-        <span className="rounded-full border border-emerald-500/15 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+        <span className="rounded-full border border-success/15 bg-success/10 px-3 py-1 text-[11px] font-semibold text-success dark:text-success">
           Edit Project
         </span>
       }

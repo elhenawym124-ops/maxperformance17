@@ -98,7 +98,7 @@ export const TaskSettingsTab: React.FC<TaskSettingsTabProps> = ({
           <Button
             type="button"
             variant="outline"
-            className="rounded-2xl"
+            className="rounded-xl"
             onClick={onReset}
           >
             <ArrowPathIcon className="size-4" />
@@ -106,7 +106,7 @@ export const TaskSettingsTab: React.FC<TaskSettingsTabProps> = ({
           </Button>
           <Button
             type="button"
-            className="rounded-2xl"
+            className="rounded-xl"
             onClick={() => onSave(draft)}
           >
             <CheckCircleIcon className="size-4" />
@@ -174,7 +174,7 @@ export const TaskSettingsTab: React.FC<TaskSettingsTabProps> = ({
                       event.target.value as TaskWorkspaceSettings["defaultScope"],
                     )
                   }
-                  className="h-11 w-full rounded-2xl border border-border/65 bg-background px-3 text-sm outline-none ring-0 transition focus:border-primary/35"
+                  className="h-11 w-full rounded-xl border border-border/65 bg-background px-3 text-sm outline-none ring-0 transition focus:border-primary/35"
                 >
                   {scopeOptions.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -197,7 +197,7 @@ export const TaskSettingsTab: React.FC<TaskSettingsTabProps> = ({
                       event.target.value as TaskWorkspaceSettings["defaultSortBy"],
                     )
                   }
-                  className="h-11 w-full rounded-2xl border border-border/65 bg-background px-3 text-sm outline-none ring-0 transition focus:border-primary/35"
+                  className="h-11 w-full rounded-xl border border-border/65 bg-background px-3 text-sm outline-none ring-0 transition focus:border-primary/35"
                 >
                   {sortOptions.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -220,7 +220,7 @@ export const TaskSettingsTab: React.FC<TaskSettingsTabProps> = ({
                       event.target.value as TaskWorkspaceSettings["defaultSortOrder"],
                     )
                   }
-                  className="h-11 w-full rounded-2xl border border-border/65 bg-background px-3 text-sm outline-none ring-0 transition focus:border-primary/35"
+                  className="h-11 w-full rounded-xl border border-border/65 bg-background px-3 text-sm outline-none ring-0 transition focus:border-primary/35"
                 >
                   <option value="desc">تنازلي</option>
                   <option value="asc">تصاعدي</option>
@@ -240,7 +240,7 @@ export const TaskSettingsTab: React.FC<TaskSettingsTabProps> = ({
                       Number(event.target.value) as TaskWorkspaceSettings["pageSize"],
                     )
                   }
-                  className="h-11 w-full rounded-2xl border border-border/65 bg-background px-3 text-sm outline-none ring-0 transition focus:border-primary/35"
+                  className="h-11 w-full rounded-xl border border-border/65 bg-background px-3 text-sm outline-none ring-0 transition focus:border-primary/35"
                 >
                   {[10, 25, 50, 100].map((value) => (
                     <option key={value} value={value}>
@@ -280,9 +280,9 @@ export const TaskSettingsTab: React.FC<TaskSettingsTabProps> = ({
           </p>
           <a
             href="/whatsapp/notifications?tab=tasks"
-            className="mt-3 inline-flex items-center rounded-2xl bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 transition-colors"
+            className="mt-3 inline-flex items-center rounded-xl bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 transition-colors"
           >
-            <BellIcon className="size-4 ml-2" />
+            <BellIcon className="size-4 ms-2" />
             فتح إعدادات إشعارات واتساب
           </a>
         </div>

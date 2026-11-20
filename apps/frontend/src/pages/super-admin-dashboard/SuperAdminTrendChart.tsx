@@ -84,8 +84,8 @@ export const SuperAdminTrendChart: React.FC<SuperAdminTrendChartProps> = ({
             </p>
           </div>
         </div>
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
-          <span className="size-1.5 rounded-full bg-emerald-500" />
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-success/10 text-success dark:text-success">
+          <span className="size-1.5 rounded-full bg-success" />
           معدل تصاعدي
         </span>
       </div>

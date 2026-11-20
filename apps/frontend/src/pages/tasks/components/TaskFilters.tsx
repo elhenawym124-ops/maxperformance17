@@ -181,7 +181,7 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
   };
 
   return (
-    <div className="rounded-2xl border border-border/55 bg-card/70 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.10)] backdrop-blur-sm">
+    <div className="rounded-xl border border-border/55 bg-card/70 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.10)] backdrop-blur-sm">
       {/* Main row: search + controls */}
       <div className="flex items-center gap-2 px-3 py-2.5">
         {/* Search */}
@@ -195,7 +195,7 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
               setCurrentPage(1);
             }}
             placeholder="بحث..."
-            className="business-control-input h-8 rounded-lg border-transparent bg-transparent pr-8 text-xs shadow-none focus:border-border/60 focus:bg-background/80"
+            className="business-control-input h-8 rounded-lg border-transparent bg-transparent pe-8 text-xs shadow-none focus:border-border/60 focus:bg-background/80"
           />
         </div>
 
@@ -324,7 +324,7 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
         >
           {hideCompleted ? (
             <>
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
               إخفاء المكتملة
             </>
           ) : (

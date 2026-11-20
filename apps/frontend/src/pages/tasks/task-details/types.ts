@@ -390,15 +390,15 @@ export const getMeasurementTypeText = (measurementType: string) => {
 export const getStatusBadgeClassName = (status: string) => {
   switch (status) {
     case "PENDING":
-      return "border-transparent bg-amber-500/12 text-amber-700 dark:bg-amber-500/18 dark:text-amber-300";
+      return "border-transparent bg-warning/12 text-warning dark:bg-warning/18 dark:text-warning";
     case "IN_PROGRESS":
       return "border-transparent bg-primary/12 text-primary dark:bg-primary/18 dark:text-primary";
     case "IN_REVIEW":
-      return "border-transparent bg-purple-500/12 text-purple-700 dark:bg-purple-500/18 dark:text-purple-300";
+      return "border-transparent bg-primary/12 text-primary dark:bg-primary/18 dark:text-primary";
     case "ON_HOLD":
-      return "border-transparent bg-amber-500/12 text-amber-700 dark:bg-amber-500/18 dark:text-amber-300";
+      return "border-transparent bg-warning/12 text-warning dark:bg-warning/18 dark:text-warning";
     case "COMPLETED":
-      return "border-transparent bg-emerald-500/12 text-emerald-700 dark:bg-emerald-500/18 dark:text-emerald-300";
+      return "border-transparent bg-success/12 text-success dark:bg-success/18 dark:text-success";
     case "CANCELLED":
       return "border-transparent bg-destructive/12 text-destructive dark:bg-destructive/20 dark:text-destructive";
     default:
@@ -411,11 +411,11 @@ export const getPriorityBadgeClassName = (priority: string) => {
     case "URGENT":
       return "border-transparent bg-destructive/12 text-destructive dark:bg-destructive/20 dark:text-destructive";
     case "HIGH":
-      return "border-transparent bg-orange-500/12 text-orange-700 dark:bg-orange-500/20 dark:text-orange-300";
+      return "border-transparent bg-warning/12 text-warning dark:bg-warning/20 dark:text-warning";
     case "MEDIUM":
-      return "border-transparent bg-amber-500/12 text-amber-700 dark:bg-amber-500/18 dark:text-amber-300";
+      return "border-transparent bg-warning/12 text-warning dark:bg-warning/18 dark:text-warning";
     case "LOW":
-      return "border-transparent bg-emerald-500/12 text-emerald-700 dark:bg-emerald-500/18 dark:text-emerald-300";
+      return "border-transparent bg-success/12 text-success dark:bg-success/18 dark:text-success";
     default:
       return "border-border bg-background text-foreground";
   }

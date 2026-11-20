@@ -70,7 +70,7 @@ export const TaskHeader: React.FC<TaskHeaderProps> = ({
               <Button
                 type="button"
                 variant="outline"
-                className="h-10 rounded-2xl border-white/12 bg-white/10 px-4 text-white hover:bg-white/14 hover:text-white"
+                className="h-10 rounded-xl border-white/12 bg-white/10 px-4 text-white hover:bg-white/14 hover:text-white"
                 onClick={() => setActiveTab("integrations")}
               >
                 <CpuChipIcon className="size-4" />
@@ -80,7 +80,7 @@ export const TaskHeader: React.FC<TaskHeaderProps> = ({
             <Button
               type="button"
               variant="outline"
-              className="h-10 rounded-2xl border-white/12 bg-white/10 px-4 text-white hover:bg-white/14 hover:text-white"
+              className="h-10 rounded-xl border-white/12 bg-white/10 px-4 text-white hover:bg-white/14 hover:text-white"
               onClick={() => setShowCreateProjectModal(true)}
             >
               <PlusIcon className="size-4" />
@@ -88,7 +88,7 @@ export const TaskHeader: React.FC<TaskHeaderProps> = ({
             </Button>
             <Button
               type="button"
-              className="h-10 rounded-2xl px-4 shadow-[0_24px_44px_-26px_rgba(47,107,255,0.88)]"
+              className="h-10 rounded-xl px-4 shadow-[0_24px_44px_-26px_rgba(47,107,255,0.88)]"
               onClick={() => setShowCreateTaskModal(true)}
             >
               <PlusIcon className="size-4" />

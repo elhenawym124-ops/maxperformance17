@@ -108,7 +108,7 @@ const CustomerAnalytics: React.FC = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-3.5 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+          <div className="p-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20">
             <Users className="h-5 w-5" />
           </div>
           <div>
@@ -145,7 +145,7 @@ const CustomerAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>إجمالي قاعدة العملاء</span>
-              <Users className="h-4 w-4 text-indigo-500" />
+              <Users className="h-4 w-4 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">{(stats?.totalCustomers || 0).toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5">إجمالي العملاء المسجلين</div>
@@ -155,9 +155,9 @@ const CustomerAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>عملاء متكررون</span>
-              <UserCheck className="h-4 w-4 text-emerald-500" />
+              <UserCheck className="h-4 w-4 text-success" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{(stats?.repeatCustomers || 0).toLocaleString()}</div>
+            <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">{(stats?.repeatCustomers || 0).toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5 font-mono tabular-nums">معدل تكرار {stats?.repeatRate?.toFixed(1) || 0}%</div>
           </CardContent>
         </Card>
@@ -175,9 +175,9 @@ const CustomerAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>القيمة الدائمة (LTV)</span>
-              <DollarSign className="h-4 w-4 text-amber-500" />
+              <DollarSign className="h-4 w-4 text-warning" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">{formatPrice(stats?.customerLifetimeValue || 0)}</div>
+            <div className="text-xl font-bold font-mono tabular-nums text-warning dark:text-warning">{formatPrice(stats?.customerLifetimeValue || 0)}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5">العائد التراكمي المتوقع</div>
           </CardContent>
         </Card>
@@ -189,7 +189,7 @@ const CustomerAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <Repeat className="h-4 w-4 text-indigo-500" />
+                <Repeat className="h-4 w-4 text-primary" />
                 <h3 className="text-sm font-semibold text-foreground">توزيع العملاء (جدد مقابل متكررون)</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono">نسبة الولاء</span>
@@ -225,7 +225,7 @@ const CustomerAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-emerald-500" />
+                <TrendingUp className="h-4 w-4 text-success" />
                 <h3 className="text-sm font-semibold text-foreground">شرائح سلوك وتفاعل العملاء</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono">تصنيف المحفظة</span>
@@ -250,7 +250,7 @@ const CustomerAnalytics: React.FC = () => {
         <Card className="border-border/70 bg-card overflow-hidden shadow-sm">
           <div className="p-3 bg-muted/20 border-b border-border/70 flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
-              <Star className="h-4 w-4 text-amber-500" />
+              <Star className="h-4 w-4 text-warning" />
               <h3 className="font-semibold text-foreground">كبار العملاء الأكثر إنفاقاً (VIPs)</h3>
             </div>
             <span className="text-muted-foreground font-mono tabular-nums">أعلى {stats.topCustomers.length} عملاء</span>
@@ -273,8 +273,8 @@ const CustomerAnalytics: React.FC = () => {
                     <td className="py-2.5 px-3.5 text-center font-mono text-muted-foreground">{index + 1}</td>
                     <td className="py-2.5 px-3.5 font-medium text-foreground">{customer.name}</td>
                     <td className="py-2.5 px-3.5 text-muted-foreground font-mono dir-ltr text-right">{customer.email || "-"}</td>
-                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-indigo-600 dark:text-indigo-400">{customer.orders}</td>
-                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-bold text-emerald-600 dark:text-emerald-400">{formatPrice(customer.totalSpent)}</td>
+                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-primary">{customer.orders}</td>
+                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-bold text-success dark:text-success">{formatPrice(customer.totalSpent)}</td>
                     <td className="py-2.5 px-3.5 text-left font-mono tabular-nums text-muted-foreground">
                       {customer.lastOrderDate ? new Date(customer.lastOrderDate).toLocaleDateString(i18n.language === "ar" ? "ar-EG" : "en-US") : "-"}
                     </td>

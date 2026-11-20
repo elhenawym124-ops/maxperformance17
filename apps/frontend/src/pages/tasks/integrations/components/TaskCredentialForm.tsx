@@ -54,7 +54,7 @@ export const TaskCredentialForm: React.FC<TaskCredentialFormProps> = ({
                 name: event.target.value,
               }))
             }
-            className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
             placeholder="مثال: متجر الشريك - الإنتاج"
           />
         </div>
@@ -72,7 +72,7 @@ export const TaskCredentialForm: React.FC<TaskCredentialFormProps> = ({
               }))
             }
             rows={3}
-            className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
             placeholder="لأي نظام خارجي سيُستخدم هذا المفتاح؟"
           />
         </div>
@@ -121,7 +121,7 @@ export const TaskCredentialForm: React.FC<TaskCredentialFormProps> = ({
                 actorUserId: event.target.value,
               }))
             }
-            className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
           >
             <option value="">بدون مستخدم</option>
             {userOptions.map((userOption) => (
@@ -148,7 +148,7 @@ export const TaskCredentialForm: React.FC<TaskCredentialFormProps> = ({
                 expiresAt: event.target.value,
               }))
             }
-            className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-primary focus:outline-none"
           />
         </div>
 
@@ -194,7 +194,7 @@ export const TaskCredentialForm: React.FC<TaskCredentialFormProps> = ({
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-2xl border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
+          className="rounded-xl border border-border/60 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
         >
           إلغاء
         </button>
@@ -202,7 +202,7 @@ export const TaskCredentialForm: React.FC<TaskCredentialFormProps> = ({
           type="button"
           onClick={onSubmit}
           disabled={submittingCredential}
-          className="rounded-2xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submittingCredential
             ? 'جارٍ الحفظ...'

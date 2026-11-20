@@ -74,9 +74,9 @@ export const TodayTasksFocusStrip: React.FC<TodayTasksFocusStripProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           <div className="inline-flex size-6.5 items-center justify-center rounded-lg bg-primary/10 text-primary">
             {allDone ? (
-              <Sparkles className="size-3.5 text-emerald-500 animate-spin-slow" />
+              <Sparkles className="size-3.5 text-success animate-spin-slow" />
             ) : (
-              <Flame className="size-3.5 text-amber-500" />
+              <Flame className="size-3.5 text-warning" />
             )}
           </div>
           <div>
@@ -88,7 +88,7 @@ export const TodayTasksFocusStrip: React.FC<TodayTasksFocusStripProps> = ({
                 variant="outline"
                 className={`rounded-full px-2 py-0 text-[10px] font-semibold tabular-nums font-mono ${
                   allDone
-                    ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                    ? "border-emerald-500/20 bg-success/10 text-success dark:text-success"
                     : "border-primary/25 bg-primary/10 text-primary"
                 }`}
               >
@@ -141,7 +141,7 @@ export const TodayTasksFocusStrip: React.FC<TodayTasksFocusStripProps> = ({
                 isDone
                   ? "border-border/40 bg-muted/30 opacity-70"
                   : isOverdue
-                  ? "border-rose-500/25 bg-rose-500/[0.03] hover:border-rose-500/40"
+                  ? "border-rose-500/25 bg-destructive/[0.03] hover:border-destructive/40"
                   : "border-border/60 bg-card hover:border-primary/30 hover:bg-card/90"
               }`}
             >
@@ -158,7 +158,7 @@ export const TodayTasksFocusStrip: React.FC<TodayTasksFocusStripProps> = ({
                   className="shrink-0 text-muted-foreground hover:text-primary transition-colors focus:outline-none"
                 >
                   {isDone ? (
-                    <CheckCircle2 className="size-4 text-emerald-500" />
+                    <CheckCircle2 className="size-4 text-success" />
                   ) : (
                     <Circle className="size-4 hover:scale-110 transition-transform" />
                   )}
@@ -193,7 +193,7 @@ export const TodayTasksFocusStrip: React.FC<TodayTasksFocusStripProps> = ({
               </div>
 
               {isOverdue ? (
-                <span className="shrink-0 rounded-full bg-rose-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-rose-600 dark:text-rose-400">
+                <span className="shrink-0 rounded-full bg-destructive/10 px-1.5 py-0.5 text-[9px] font-semibold text-destructive dark:text-destructive">
                   متأخرة
                 </span>
               ) : null}

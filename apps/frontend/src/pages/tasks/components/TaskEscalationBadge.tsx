@@ -58,7 +58,7 @@ export const TaskEscalationBadge: React.FC<TaskEscalationBadgeProps> = ({
     return (
       <span
         data-testid="task-escalation-badge"
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-orange-500/15 text-orange-700 dark:text-orange-400 border border-orange-500/30 ${className}`}
+        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-warning/15 text-warning dark:text-warning border border-warning/30 ${className}`}
       >
         <AlertTriangle className="w-3 h-3" />
         <span>L2 • تصعيد للمدير</span>
@@ -70,7 +70,7 @@ export const TaskEscalationBadge: React.FC<TaskEscalationBadgeProps> = ({
     return (
       <span
         data-testid="task-escalation-badge"
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30 ${className}`}
+        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-warning/15 text-warning dark:text-warning border border-warning/30 ${className}`}
       >
         <Clock className="w-3 h-3" />
         <span>L1 • تذكير متأخر</span>
@@ -84,7 +84,7 @@ export const TaskEscalationBadge: React.FC<TaskEscalationBadgeProps> = ({
     return (
       <span
         data-testid="task-escalation-badge"
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 ${className}`}
+        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20 ${className}`}
       >
         <Clock className="w-3 h-3" />
         <span>{label}</span>

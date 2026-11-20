@@ -15,10 +15,10 @@ export const ReturnReasonsStatsBar: React.FC<Props> = ({ summary }) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-3">
       {/* Insight Highlight Card */}
-      <Card className="col-span-2 md:col-span-4 xl:col-span-2 border-rose-500/30 bg-rose-500/10 text-foreground overflow-hidden">
+      <Card className="col-span-2 md:col-span-4 xl:col-span-2 border-destructive/30 bg-destructive/10 text-foreground overflow-hidden">
         <CardContent className="p-4 flex flex-col justify-between h-full">
           <div>
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-rose-600 dark:text-rose-400">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-destructive dark:text-destructive">
               <Sparkles className="h-3.5 w-3.5" />
               أهم الرؤى الميدانية
             </div>
@@ -46,7 +46,7 @@ export const ReturnReasonsStatsBar: React.FC<Props> = ({ summary }) => {
         <CardContent className="p-4">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
             <span>إجمالي المرتجعات</span>
-            <RotateCcw className="h-4 w-4 text-rose-500" />
+            <RotateCcw className="h-4 w-4 text-destructive" />
           </div>
           <div className="text-xl font-bold font-mono tabular-nums text-foreground">
             {summary.totalReturns.toLocaleString()}
@@ -62,9 +62,9 @@ export const ReturnReasonsStatsBar: React.FC<Props> = ({ summary }) => {
         <CardContent className="p-4">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
             <span>قيمة الاسترداد</span>
-            <DollarSign className="h-4 w-4 text-amber-500" />
+            <DollarSign className="h-4 w-4 text-warning" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+          <div className="text-xl font-bold font-mono tabular-nums text-warning dark:text-warning">
             {formatPrice(summary.totalRefundValue)}
           </div>
           <div className="text-[11px] text-muted-foreground mt-1 font-mono">
@@ -78,9 +78,9 @@ export const ReturnReasonsStatsBar: React.FC<Props> = ({ summary }) => {
         <CardContent className="p-4">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
             <span>تمت المعالجة</span>
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+            <CheckCircle2 className="h-4 w-4 text-success" />
           </div>
-          <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">
             {summary.resolutionRate}%
           </div>
           <div className="text-[11px] text-muted-foreground mt-1 font-mono">
@@ -94,7 +94,7 @@ export const ReturnReasonsStatsBar: React.FC<Props> = ({ summary }) => {
         <CardContent className="p-4">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
             <span>بدون سبب مسجل</span>
-            <AlertCircle className="h-4 w-4 text-indigo-500" />
+            <AlertCircle className="h-4 w-4 text-primary" />
           </div>
           <div className="text-xl font-bold font-mono tabular-nums text-foreground">
             {summary.withoutReasonCount.toLocaleString()}

@@ -50,7 +50,7 @@ export const CategoriesTab: React.FC<CategoriesTabProps> = ({
         {categories.length > 0 ? (
           <Button
             type="button"
-            className="hidden h-10 rounded-2xl md:inline-flex"
+            className="hidden h-10 rounded-xl md:inline-flex"
             onClick={() => setShowCategoryModal(true)}
           >
             <PlusIcon className="size-4" />
@@ -72,7 +72,7 @@ export const CategoriesTab: React.FC<CategoriesTabProps> = ({
           </div>
           <Button
             type="button"
-            className="rounded-2xl"
+            className="rounded-xl"
             onClick={() => setShowCategoryModal(true)}
           >
             <PlusIcon className="size-4" />
@@ -140,7 +140,7 @@ export const CategoriesTab: React.FC<CategoriesTabProps> = ({
                     type="button"
                     variant="outline"
                     size="sm"
-                    className="rounded-full text-rose-600 hover:text-rose-700"
+                    className="rounded-full text-destructive hover:text-destructive"
                     onClick={() => deleteCategory(category.id)}
                   >
                     <TrashIcon className="size-4" />

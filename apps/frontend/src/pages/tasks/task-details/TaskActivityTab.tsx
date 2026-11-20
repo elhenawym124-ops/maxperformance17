@@ -28,7 +28,7 @@ export const TaskActivityTab: React.FC<TaskActivityTabProps> = ({ activities }) 
                 className="size-9 rounded-full object-cover"
               />
             ) : (
-              <div className="rounded-2xl bg-primary/10 p-2 text-primary">
+              <div className="rounded-xl bg-primary/10 p-2 text-primary">
                 <UserCircleIcon className="size-5" />
               </div>
             )}

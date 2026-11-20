@@ -110,7 +110,7 @@ const CouponsAnalytics: React.FC = () => {
       {coupons.length > 0 && (
         <div className="border border-border/70 rounded-xl bg-card p-4 shadow-sm">
           <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <BarChart3 className="h-4 w-4 text-purple-500" /> أكثر الكوبونات استخداماً
+            <BarChart3 className="h-4 w-4 text-primary" /> أكثر الكوبونات استخداماً
           </h3>
           <div className="h-[250px]">
             <ResponsiveContainer width="100%" height="100%" minWidth={0}>
@@ -168,19 +168,19 @@ const CouponsAnalytics: React.FC = () => {
                       <td className="py-2.5 px-3.5 text-center font-mono font-bold text-foreground tabular-nums">
                         {coupon.usageCount.toLocaleString("en-US")}
                       </td>
-                      <td className="py-2.5 px-3.5 text-center font-mono font-semibold text-rose-600 dark:text-rose-400 tabular-nums">
+                      <td className="py-2.5 px-3.5 text-center font-mono font-semibold text-destructive dark:text-destructive tabular-nums">
                         {formatPrice(coupon.discountAmount)}
                       </td>
-                      <td className="py-2.5 px-3.5 text-center font-mono font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                      <td className="py-2.5 px-3.5 text-center font-mono font-bold text-success dark:text-success tabular-nums">
                         {formatPrice(coupon.revenue)}
                       </td>
                       <td className="py-2.5 px-3.5 text-center">
                         {isHighDiscount ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                             <AlertTriangle className="h-3 w-3" /> خصم مرتفع ({Math.round((coupon.discountAmount / (coupon.revenue || 1)) * 100)}%)
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                             <CheckCircle2 className="h-3 w-3" /> أداء ربحي ممتاز
                           </span>
                         )}

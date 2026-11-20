@@ -68,9 +68,9 @@ const MetricCard: React.FC<MetricCardProps> = ({
               className={cn(
                 "text-[10px] font-mono font-semibold tabular-nums",
                 isPositive
-                  ? "text-emerald-600 dark:text-emerald-400"
+                  ? "text-emerald-600 dark:text-success"
                   : isNegative
-                    ? "text-rose-600 dark:text-rose-400"
+                    ? "text-rose-600 dark:text-destructive"
                     : "text-muted-foreground",
               )}
             >

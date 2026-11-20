@@ -104,7 +104,7 @@ const PaymentMethodAnalytics: React.FC = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-3.5 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+          <div className="p-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20">
             <CreditCard className="h-5 w-5" />
           </div>
           <div>
@@ -141,7 +141,7 @@ const PaymentMethodAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>إجمالي الطلبات المحصلة</span>
-              <CreditCard className="h-4 w-4 text-indigo-500" />
+              <CreditCard className="h-4 w-4 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">{(stats?.totalOrders || 0).toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-0.5">عبر جميع وسائل الدفع</div>
@@ -151,9 +151,9 @@ const PaymentMethodAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>عند الاستلام (COD)</span>
-              <Truck className="h-4 w-4 text-amber-500" />
+              <Truck className="h-4 w-4 text-warning" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+            <div className="text-xl font-bold font-mono tabular-nums text-warning dark:text-warning">
               {stats?.codVsOnline?.cod?.percentage?.toFixed(1) || 0}%
             </div>
             <div className="text-[11px] text-muted-foreground mt-0.5 font-mono tabular-nums truncate">
@@ -165,9 +165,9 @@ const PaymentMethodAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>الدفع الإلكتروني (Online)</span>
-              <Banknote className="h-4 w-4 text-emerald-500" />
+              <Banknote className="h-4 w-4 text-success" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">
               {stats?.codVsOnline?.online?.percentage?.toFixed(1) || 0}%
             </div>
             <div className="text-[11px] text-muted-foreground mt-0.5 font-mono tabular-nums truncate">
@@ -193,7 +193,7 @@ const PaymentMethodAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <PieIcon className="h-4 w-4 text-amber-500" />
+                <PieIcon className="h-4 w-4 text-warning" />
                 <h3 className="text-sm font-semibold text-foreground">توزيع الطلبات: COD مقابل أونلاين</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono">نسبة التحصيل</span>
@@ -229,7 +229,7 @@ const PaymentMethodAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-indigo-500" />
+                <TrendingUp className="h-4 w-4 text-primary" />
                 <h3 className="text-sm font-semibold text-foreground">حجم الطلبات حسب وسيلة الدفع</h3>
               </div>
               <span className="text-xs text-muted-foreground font-mono tabular-nums">{stats?.methods?.length || 0} وسائل</span>
@@ -276,7 +276,7 @@ const PaymentMethodAnalytics: React.FC = () => {
                     <td className="py-2.5 px-3.5 font-medium text-foreground">{method.name}</td>
                     <td className="py-2.5 px-3.5 text-center font-mono tabular-nums text-foreground font-semibold">{method.count.toLocaleString()}</td>
                     <td className="py-2.5 px-3.5 text-center font-mono tabular-nums text-muted-foreground">{method.percentage?.toFixed(1) || 0}%</td>
-                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-bold text-emerald-600 dark:text-emerald-400">{formatPrice(method.revenue || 0)}</td>
+                    <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-bold text-success dark:text-success">{formatPrice(method.revenue || 0)}</td>
                     <td className="py-2.5 px-3.5 text-left font-mono tabular-nums text-muted-foreground">{formatPrice(method.averageOrderValue || 0)}</td>
                   </tr>
                 ))}

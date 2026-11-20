@@ -142,7 +142,7 @@ const ReturnReasonsAnalytics: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-4">
         <div>
           <div className="flex items-center gap-2">
-            <RotateCcw className="h-5 w-5 text-rose-500" />
+            <RotateCcw className="h-5 w-5 text-destructive" />
             <h1 className="text-xl font-bold tracking-tight text-foreground">
               أسباب المرتجعات التفصيلية
             </h1>
@@ -158,7 +158,7 @@ const ReturnReasonsAnalytics: React.FC = () => {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-md border border-border/70 bg-background px-2.5 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-rose-500"
+            className="rounded-md border border-border/70 bg-background px-2.5 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-destructive"
           >
             <option value="">كل الحالات</option>
             {statusOptions.map((opt) => (
@@ -171,7 +171,7 @@ const ReturnReasonsAnalytics: React.FC = () => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="rounded-md border border-border/70 bg-background px-2.5 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-rose-500"
+            className="rounded-md border border-border/70 bg-background px-2.5 py-1.5 text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-destructive"
           >
             <option value="">كل التصنيفات</option>
             {categoryOptions.map((opt) => (
@@ -217,7 +217,7 @@ const ReturnReasonsAnalytics: React.FC = () => {
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <TrendingDown className="h-4 w-4 text-rose-500" />
+                <TrendingDown className="h-4 w-4 text-destructive" />
                 <h3 className="text-sm font-semibold text-foreground">
                   أكثر الأسباب تكراراً (أعلى 8 أسباب)
                 </h3>
@@ -266,7 +266,7 @@ const ReturnReasonsAnalytics: React.FC = () => {
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <Tag className="h-4 w-4 text-indigo-500" />
+                <Tag className="h-4 w-4 text-primary" />
                 <h3 className="text-sm font-semibold text-foreground">
                   تصنيفات الإرجاع
                 </h3>
@@ -366,14 +366,14 @@ const ReturnReasonsAnalytics: React.FC = () => {
                           {meta.label}
                         </span>
                       </td>
-                      <td className="py-2.5 px-4 text-center font-mono tabular-nums font-semibold text-rose-600 dark:text-rose-400">
+                      <td className="py-2.5 px-4 text-center font-mono tabular-nums font-semibold text-destructive dark:text-destructive">
                         {formatPrice(row.refundAmount)}
                       </td>
                       <td className="py-2.5 px-4 text-left">
                         {row.reviewUrl ? (
                           <Link
                             to={row.reviewUrl}
-                            className="inline-flex items-center gap-1 text-[11px] text-indigo-600 hover:text-indigo-500 font-medium"
+                            className="inline-flex items-center gap-1 text-[11px] text-primary hover:text-primary font-medium"
                           >
                             عرض
                             <ExternalLink className="h-3 w-3" />

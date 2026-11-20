@@ -40,8 +40,8 @@ export const TaskWorkspaceEmptyState: React.FC<TaskWorkspaceEmptyStateProps> = (
 }) => {
   if (hasActiveFilters) {
     return (
-      <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border/80 bg-card/60 px-4 py-12 text-center">
-        <div className="inline-flex size-12 items-center justify-center rounded-2xl bg-muted/60 text-muted-foreground">
+      <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border/80 bg-card/60 px-4 py-12 text-center">
+        <div className="inline-flex size-12 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground">
           <Sparkles className="size-6 text-primary/70" />
         </div>
         <div className="space-y-1">
@@ -68,7 +68,7 @@ export const TaskWorkspaceEmptyState: React.FC<TaskWorkspaceEmptyStateProps> = (
   }
 
   return (
-    <section className="space-y-6 rounded-2xl border border-border/70 bg-card/65 p-5 md:p-7 shadow-sm">
+    <section className="space-y-6 rounded-xl border border-border/70 bg-card/65 p-5 md:p-7 shadow-sm">
       {/* Intro hero banner */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b border-border/60 pb-5">
         <div className="space-y-1.5 max-w-xl">

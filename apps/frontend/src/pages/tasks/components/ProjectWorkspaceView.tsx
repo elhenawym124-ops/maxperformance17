@@ -40,10 +40,10 @@ interface ProjectWorkspaceViewProps {
 type ProjectTab = "list" | "kanban" | "calendar" | "next-up";
 
 const KANBAN_COLUMNS: Array<{ id: TaskStatus; title: string; color: string }> = [
-  { id: "pending", title: "في الانتظار", color: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20" },
+  { id: "pending", title: "في الانتظار", color: "bg-amber-500/10 text-warning dark:text-warning border-warning/20" },
   { id: "in_progress", title: "قيد التنفيذ", color: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20" },
-  { id: "in_review", title: "قيد المراجعة", color: "bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20" },
-  { id: "completed", title: "مكتمل", color: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20" },
+  { id: "in_review", title: "قيد المراجعة", color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20" },
+  { id: "completed", title: "مكتمل", color: "bg-emerald-500/10 text-success dark:text-success border-success/20" },
 ];
 
 export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
@@ -117,7 +117,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
   return (
     <div className="space-y-4">
       {/* Top Header Card */}
-      <section className="rounded-2xl border border-border/70 bg-card/85 p-4 sm:p-5 shadow-xs space-y-4">
+      <section className="rounded-xl border border-border/70 bg-card/85 p-4 sm:p-5 shadow-xs space-y-4">
         {/* Navigation & Actions */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
@@ -181,7 +181,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
               </Badge>
             </div>
             {project.description ? (
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-3xl pr-10">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-3xl pe-10">
                 {project.description}
               </p>
             ) : null}
@@ -210,16 +210,16 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
             </div>
 
             {/* Completed */}
-            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] p-2.5 min-w-[90px] text-center">
+            <div className="rounded-xl border border-success/20 bg-success/[0.04] p-2.5 min-w-[90px] text-center">
               <span className="text-[10px] text-muted-foreground block font-medium">مكتمل</span>
-              <span className="text-base font-bold text-emerald-600 dark:text-emerald-400">{completedTasks}</span>
+              <span className="text-base font-bold text-success dark:text-success">{completedTasks}</span>
             </div>
 
             {/* Overdue */}
             {overdueTasks > 0 ? (
-              <div className="rounded-xl border border-rose-500/25 bg-rose-500/[0.05] p-2.5 min-w-[90px] text-center">
-                <span className="text-[10px] text-rose-600 dark:text-rose-400 block font-medium">متأخرة</span>
-                <span className="text-base font-bold text-rose-600 dark:text-rose-400">{overdueTasks}</span>
+              <div className="rounded-xl border border-destructive/25 bg-destructive/[0.05] p-2.5 min-w-[90px] text-center">
+                <span className="text-[10px] text-destructive dark:text-destructive block font-medium">متأخرة</span>
+                <span className="text-base font-bold text-destructive dark:text-destructive">{overdueTasks}</span>
               </div>
             ) : null}
           </div>
@@ -268,7 +268,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
 
       {/* Tab 1: Tasks List */}
       {activeTab === "list" ? (
-        <section className="rounded-2xl border border-border/70 bg-card/75 overflow-hidden shadow-xs divide-y divide-border/40">
+        <section className="rounded-xl border border-border/70 bg-card/75 overflow-hidden shadow-xs divide-y divide-border/40">
           {projectTasks.length === 0 ? (
             <div className="p-8 text-center space-y-2">
               <p className="text-sm font-semibold text-foreground">لا توجد مهام في هذا المشروع بعد</p>
@@ -279,7 +279,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
                 onClick={handleCreateTask}
                 className="mt-2 rounded-xl text-xs"
               >
-                <Plus className="size-3.5 ml-1" />
+                <Plus className="size-3.5 ms-1" />
                 إضافة أول مهمة
               </Button>
             </div>
@@ -311,7 +311,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
                       className="shrink-0 text-muted-foreground hover:text-primary transition-colors focus:outline-none"
                     >
                       {isDone ? (
-                        <CheckCircle2 className="size-4 text-emerald-500" />
+                        <CheckCircle2 className="size-4 text-success" />
                       ) : (
                         <Circle className="size-4 hover:scale-110 transition-transform" />
                       )}
@@ -380,7 +380,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
             return (
               <div
                 key={col.id}
-                className="rounded-2xl border border-border/70 bg-card/65 p-3 space-y-2.5 min-h-[300px] flex flex-col"
+                className="rounded-xl border border-border/70 bg-card/65 p-3 space-y-2.5 min-h-[300px] flex flex-col"
               >
                 <div className="flex items-center justify-between border-b border-border/40 pb-2">
                   <div className="flex items-center gap-1.5">
@@ -423,7 +423,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
 
       {/* Tab 3: Next Up (الجاي بعده) */}
       {activeTab === "next-up" ? (
-        <section className="rounded-2xl border border-border/70 bg-card/75 p-4 space-y-3">
+        <section className="rounded-xl border border-border/70 bg-card/75 p-4 space-y-3">
           <div className="flex items-center justify-between border-b border-border/50 pb-2.5">
             <div>
               <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
@@ -477,7 +477,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
                         <span
                           className={`text-xs font-semibold px-2 py-0.5 rounded-lg ${
                             isOverdue
-                              ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"
+                              ? "bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20"
                               : "text-muted-foreground"
                           }`}
                         >
@@ -490,9 +490,9 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
                         size="sm"
                         variant="ghost"
                         onClick={() => onTaskStatusChange(task.id, "completed")}
-                        className="h-7 text-xs text-emerald-600 hover:text-emerald-700 hover:bg-emerald-500/10"
+                        className="h-7 text-xs text-success hover:text-success hover:bg-success/10"
                       >
-                        <CheckCircle2 className="size-3.5 ml-1" />
+                        <CheckCircle2 className="size-3.5 ms-1" />
                         إنجاز
                       </Button>
                     </div>
@@ -506,7 +506,7 @@ export const ProjectWorkspaceView: React.FC<ProjectWorkspaceViewProps> = ({
 
       {/* Tab 4: Calendar deadlines overview */}
       {activeTab === "calendar" ? (
-        <section className="rounded-2xl border border-border/70 bg-card/75 p-4 space-y-3">
+        <section className="rounded-xl border border-border/70 bg-card/75 p-4 space-y-3">
           <div className="border-b border-border/50 pb-2.5">
             <h3 className="text-sm font-bold text-foreground">
               مواعيد تسليم مهام المشروع

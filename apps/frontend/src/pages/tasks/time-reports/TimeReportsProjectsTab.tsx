@@ -14,8 +14,8 @@ export const TimeReportsProjectsTab: React.FC<TimeReportsProjectsTabProps> = ({
 }) => {
   if (projectStats.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-        <FolderIcon className="h-12 w-12 mx-auto mb-4 text-gray-300 dark:text-gray-600" />
+      <div className="text-center py-12 text-muted-foreground">
+        <FolderIcon className="h-12 w-12 mx-auto mb-4 text-muted-foreground dark:text-foreground" />
         <p>لا توجد بيانات</p>
       </div>
     );
@@ -26,29 +26,29 @@ export const TimeReportsProjectsTab: React.FC<TimeReportsProjectsTabProps> = ({
       {projectStats.map((stat, index) => (
         <div
           key={stat.projectId}
-          className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 transition-colors"
+          className="bg-gray-50 dark:bg-muted rounded-lg p-4 transition-colors"
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
-              <span className="w-8 h-8 bg-green-100 dark:bg-green-950/60 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center font-bold ml-3 tabular-nums">
+              <span className="w-8 h-8 bg-success dark:bg-success/60 text-success dark:text-success rounded-full flex items-center justify-center font-bold ms-3 tabular-nums">
                 {index + 1}
               </span>
-              <span className="font-medium text-gray-900 dark:text-gray-100">
+              <span className="font-medium text-foreground">
                 {stat.projectName}
               </span>
             </div>
             <div className="text-left tabular-nums">
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">
+              <span className="text-lg font-bold text-success dark:text-success">
                 {formatDuration(stat.totalMinutes)}
               </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">
+              <span className="text-sm text-muted-foreground me-2">
                 ({stat.tasksCount} سجل)
               </span>
             </div>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+          <div className="w-full bg-muted dark:bg-muted rounded-full h-2">
             <div
-              className="bg-green-600 dark:bg-green-500 h-2 rounded-full transition-all duration-300"
+              className="bg-green-600 dark:bg-success h-2 rounded-full transition-all duration-300"
               style={{
                 width: `${
                   totalMinutes > 0 ? (stat.totalMinutes / totalMinutes) * 100 : 0

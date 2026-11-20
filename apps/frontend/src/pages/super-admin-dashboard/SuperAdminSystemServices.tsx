@@ -114,7 +114,7 @@ export const SuperAdminSystemServices: React.FC<SuperAdminSystemServicesProps> =
                 className={cn(
                   "size-7 rounded-md border flex items-center justify-center shrink-0",
                   s.isEnabled
-                    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                    ? "border-emerald-500/30 bg-success/10 text-success dark:text-success"
                     : "border-border/80 bg-muted text-muted-foreground",
                 )}
               >

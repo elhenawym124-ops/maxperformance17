@@ -191,12 +191,12 @@ const OrdersAnalytics: React.FC = () => {
       prev: prevPeriod?.cancelledOrders,
       icon: XCircle,
       color: "text-rose-500",
-      valueClass: "text-rose-600 dark:text-rose-400",
+      valueClass: "text-rose-600 dark:text-destructive",
     },
   ];
 
   return (
-    <div className="space-y-4" dir="rtl">
+    <div className="polaris-track space-y-4" dir="rtl">
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-3.5 shadow-sm">
         <div className="flex items-center gap-3">
@@ -280,7 +280,7 @@ const OrdersAnalytics: React.FC = () => {
                 {change && (
                   <div
                     className={`text-[11px] font-mono tabular-nums mt-0.5 ${
-                      change.startsWith("+") ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
+                      change.startsWith("+") ? "text-emerald-600 dark:text-success" : "text-rose-600 dark:text-destructive"
                     }`}
                   >
                     {change} {comparisonType === "yoy" ? "عن العام الماضي" : "عن الفترة السابقة"}

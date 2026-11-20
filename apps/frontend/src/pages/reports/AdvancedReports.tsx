@@ -278,9 +278,9 @@ const AdvancedReports: React.FC = () => {
 
   const getTrendIcon = (trend: string) => {
     return trend === "up" ? (
-      <ArrowUpIcon className="h-4 w-4 text-green-500" />
+      <ArrowUpIcon className="h-4 w-4 text-success" />
     ) : (
-      <ArrowDownIcon className="h-4 w-4 text-red-500" />
+      <ArrowDownIcon className="h-4 w-4 text-destructive" />
     );
   };
 
@@ -291,22 +291,22 @@ const AdvancedReports: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   return (
-    <div className="dark min-h-screen bg-gray-900 w-full px-4 sm:px-6 lg:px-8 py-8">
+    <div className="dark min-h-screen bg-muted w-full px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center">
-              <ChartBarIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400 mr-3" />
+            <h1 className="text-3xl font-bold text-foreground flex items-center">
+              <ChartBarIcon className="h-8 w-8 text-primary me-3" />
               التقارير والتحليلات المتقدمة
             </h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-foreground dark:text-muted-foreground">
               تحليلات شاملة وتقارير تفاعلية لأداء الأعمال
             </p>
           </div>
@@ -315,7 +315,7 @@ const AdvancedReports: React.FC = () => {
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card text-foreground"
             >
               <option value="last_7_days">آخر 7 أيام</option>
               <option value="last_30_days">آخر 30 يوم</option>
@@ -328,7 +328,7 @@ const AdvancedReports: React.FC = () => {
 
       {/* Tabs */}
       <div className="mb-8">
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-border dark:border-border">
           <nav className="-mb-px flex space-x-8 space-x-reverse">
             {[
               { id: "overview", name: "نظرة عامة", icon: ChartBarIcon },
@@ -347,11 +347,11 @@ const AdvancedReports: React.FC = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
-                    ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                    : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
+                    ? "border-indigo-500 text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:border-border"
                 }`}
               >
-                <tab.icon className="h-5 w-5 mr-2" />
+                <tab.icon className="h-5 w-5 me-2" />
                 {tab.name}
               </button>
             ))}
@@ -367,14 +367,14 @@ const AdvancedReports: React.FC = () => {
             {dashboardData.kpis.slice(0, 4).map((kpi) => (
               <div
                 key={kpi.id}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow p-6"
+                className="bg-card rounded-lg shadow p-6"
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                       {kpi.name}
                     </p>
-                    <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                    <p className="text-2xl font-semibold text-foreground">
                       {formatNumber(kpi.value)} {kpi.unit}
                     </p>
                   </div>
@@ -382,19 +382,19 @@ const AdvancedReports: React.FC = () => {
                     className={`flex items-center ${getTrendColor(kpi.trend)}`}
                   >
                     {getTrendIcon(kpi.trend)}
-                    <span className="text-sm font-medium mr-1">
+                    <span className="text-sm font-medium me-1">
                       {Math.abs(kpi.changePercent)}%
                     </span>
                   </div>
                 </div>
                 <div className="mt-4">
-                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex justify-between text-sm text-foreground dark:text-muted-foreground">
                     <span>
                       الهدف: {formatNumber(kpi.target)} {kpi.unit}
                     </span>
                     <span>{Math.round((kpi.value / kpi.target) * 100)}%</span>
                   </div>
-                  <div className="mt-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div className="mt-2 w-full bg-muted dark:bg-muted rounded-full h-2">
                     <div
                       className="bg-indigo-600 h-2 rounded-full"
                       style={{
@@ -410,20 +410,20 @@ const AdvancedReports: React.FC = () => {
           {/* Charts Row */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Sales Trends */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+            <div className="bg-card rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-foreground mb-4">
                 اتجاهات المبيعات
               </h3>
-              <div className="h-64 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded">
-                <p className="text-gray-500 dark:text-gray-400">
+              <div className="h-64 flex items-center justify-center bg-muted dark:bg-muted rounded">
+                <p className="text-muted-foreground">
                   رسم بياني للمبيعات (يتطلب مكتبة رسوم بيانية)
                 </p>
               </div>
             </div>
 
             {/* Customer Segments */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+            <div className="bg-card rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-foreground mb-4">
                 شرائح العملاء
               </h3>
               <div className="space-y-4">
@@ -435,7 +435,7 @@ const AdvancedReports: React.FC = () => {
                     >
                       <div className="flex items-center">
                         <div
-                          className={`w-3 h-3 rounded-full mr-3 ${
+                          className={`w-3 h-3 rounded-full me-3 ${
                             index === 0
                               ? "bg-indigo-500"
                               : index === 1
@@ -443,15 +443,15 @@ const AdvancedReports: React.FC = () => {
                                 : "bg-yellow-500"
                           }`}
                         ></div>
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm font-medium text-foreground">
                           {segment.name}
                         </span>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                        <p className="text-sm font-medium text-foreground">
                           {segment.count}
                         </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-muted-foreground">
                           {segment.percentage}%
                         </p>
                       </div>
@@ -463,18 +463,18 @@ const AdvancedReports: React.FC = () => {
           </div>
 
           {/* Conversion Funnel */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          <div className="bg-card rounded-lg shadow p-6">
+            <h3 className="text-lg font-medium text-foreground mb-4">
               قمع التحويل
             </h3>
             <div className="space-y-4">
               {dashboardData.conversionFunnel.map((stage, index) => (
                 <div key={index} className="flex items-center">
-                  <div className="w-24 text-sm font-medium text-gray-900 dark:text-white">
+                  <div className="w-24 text-sm font-medium text-foreground">
                     {stage.stage}
                   </div>
                   <div className="flex-1 mx-4">
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                    <div className="w-full bg-muted dark:bg-muted rounded-full h-4">
                       <div
                         className="bg-indigo-600 h-4 rounded-full flex items-center justify-center"
                         style={{ width: `${stage.percentage}%` }}
@@ -485,7 +485,7 @@ const AdvancedReports: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-20 text-right text-sm font-medium text-gray-900 dark:text-white">
+                  <div className="w-20 text-right text-sm font-medium text-foreground">
                     {formatNumber(stage.count)}
                   </div>
                 </div>
@@ -494,8 +494,8 @@ const AdvancedReports: React.FC = () => {
           </div>
 
           {/* Recent Activities */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          <div className="bg-card rounded-lg shadow p-6">
+            <h3 className="text-lg font-medium text-foreground mb-4">
               الأنشطة الأخيرة
             </h3>
             <div className="space-y-4">
@@ -506,7 +506,7 @@ const AdvancedReports: React.FC = () => {
                 >
                   <div className="flex items-center">
                     <div
-                      className={`w-2 h-2 rounded-full mr-3 ${
+                      className={`w-2 h-2 rounded-full me-3 ${
                         activity.type === "order"
                           ? "bg-green-500"
                           : activity.type === "customer"
@@ -516,16 +516,16 @@ const AdvancedReports: React.FC = () => {
                               : "bg-indigo-500"
                       }`}
                     ></div>
-                    <span className="text-sm text-gray-900 dark:text-white">
+                    <span className="text-sm text-foreground">
                       {activity.message}
                     </span>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="text-xs text-muted-foreground">
                       {activity.time}
                     </p>
                     {activity.amount && (
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm font-medium text-foreground">
                         {formatCurrency(activity.amount)}
                       </p>
                     )}
@@ -542,56 +542,56 @@ const AdvancedReports: React.FC = () => {
         <div className="space-y-8">
           {/* Real-time Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <div className="bg-card rounded-lg shadow p-6">
               <div className="flex items-center">
                 <EyeIcon className="h-8 w-8 text-blue-500" />
-                <div className="mr-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <div className="me-4">
+                  <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                     الزوار الحاليون
                   </p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-2xl font-semibold text-foreground">
                     {realTimeData.currentVisitors}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <div className="bg-card rounded-lg shadow p-6">
               <div className="flex items-center">
-                <ChatBubbleLeftRightIcon className="h-8 w-8 text-green-500" />
-                <div className="mr-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <ChatBubbleLeftRightIcon className="h-8 w-8 text-success" />
+                <div className="me-4">
+                  <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                     المحادثات النشطة
                   </p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-2xl font-semibold text-foreground">
                     {realTimeData.activeConversations}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <div className="bg-card rounded-lg shadow p-6">
               <div className="flex items-center">
-                <CurrencyDollarIcon className="h-8 w-8 text-yellow-500" />
-                <div className="mr-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <CurrencyDollarIcon className="h-8 w-8 text-warning" />
+                <div className="me-4">
+                  <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                     إيرادات اليوم
                   </p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-2xl font-semibold text-foreground">
                     {formatCurrency(realTimeData.todayRevenue)}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <div className="bg-card rounded-lg shadow p-6">
               <div className="flex items-center">
-                <ShoppingBagIcon className="h-8 w-8 text-purple-500" />
-                <div className="mr-4">
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <ShoppingBagIcon className="h-8 w-8 text-primary" />
+                <div className="me-4">
+                  <p className="text-sm font-medium text-foreground dark:text-muted-foreground">
                     طلبات اليوم
                   </p>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-2xl font-semibold text-foreground">
                     {realTimeData.todayOrders}
                   </p>
                 </div>
@@ -602,8 +602,8 @@ const AdvancedReports: React.FC = () => {
           {/* Real-time Data */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Top Pages */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+            <div className="bg-card rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-foreground mb-4">
                 أكثر الصفحات زيارة
               </h3>
               <div className="space-y-4">
@@ -612,10 +612,10 @@ const AdvancedReports: React.FC = () => {
                     key={index}
                     className="flex items-center justify-between"
                   >
-                    <span className="text-sm text-gray-900 dark:text-white">
+                    <span className="text-sm text-foreground">
                       {page.page}
                     </span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    <span className="text-sm font-medium text-foreground">
                       {page.visitors} زائر
                     </span>
                   </div>
@@ -624,8 +624,8 @@ const AdvancedReports: React.FC = () => {
             </div>
 
             {/* Recent Orders */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+            <div className="bg-card rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-foreground mb-4">
                 الطلبات الأخيرة
               </h3>
               <div className="space-y-4">
@@ -635,14 +635,14 @@ const AdvancedReports: React.FC = () => {
                     className="flex items-center justify-between"
                   >
                     <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm font-medium text-foreground">
                         {order.customer}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-muted-foreground">
                         منذ {order.time}
                       </p>
                     </div>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    <span className="text-sm font-medium text-foreground">
                       {formatCurrency(order.amount)}
                     </span>
                   </div>
@@ -652,13 +652,13 @@ const AdvancedReports: React.FC = () => {
           </div>
 
           {/* System Health */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          <div className="bg-card rounded-lg shadow p-6">
+            <h3 className="text-lg font-medium text-foreground mb-4">
               حالة النظام
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   حالة الخادم
                 </p>
                 <p
@@ -674,26 +674,26 @@ const AdvancedReports: React.FC = () => {
                 </p>
               </div>
               <div className="text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   وقت الاستجابة
                 </p>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                <p className="text-lg font-semibold text-foreground">
                   {realTimeData.systemHealth.responseTime}ms
                 </p>
               </div>
               <div className="text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   وقت التشغيل
                 </p>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                <p className="text-lg font-semibold text-foreground">
                   {realTimeData.systemHealth.uptime}
                 </p>
               </div>
               <div className="text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground dark:text-muted-foreground">
                   معدل الأخطاء
                 </p>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                <p className="text-lg font-semibold text-foreground">
                   {realTimeData.systemHealth.errorRate}
                 </p>
               </div>
@@ -703,8 +703,8 @@ const AdvancedReports: React.FC = () => {
       )}
 
       {/* Report Generation */}
-      <div className="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+      <div className="mt-8 bg-card rounded-lg shadow p-6">
+        <h3 className="text-lg font-medium text-foreground mb-4">
           إنشاء التقارير
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -721,10 +721,10 @@ const AdvancedReports: React.FC = () => {
             <button
               key={report.type}
               onClick={() => generateReport(report.type)}
-              className="flex items-center justify-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex items-center justify-center p-4 border border-border rounded-lg hover:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              <report.icon className="h-6 w-6 text-indigo-600 mr-2" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">
+              <report.icon className="h-6 w-6 text-primary me-2" />
+              <span className="text-sm font-medium text-foreground">
                 {report.name}
               </span>
             </button>

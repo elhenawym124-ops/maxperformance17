@@ -80,7 +80,7 @@ export const FulfillmentVelocityPage: React.FC<FulfillmentVelocityPageProps> = (
           <div className="flex items-center gap-3">
             <div className={`p-2.5 rounded-lg border ${
               isPrep 
-                ? "bg-amber-500/10 text-amber-500 border-amber-500/20" 
+                ? "bg-amber-500/10 text-warning border-warning/20" 
                 : "bg-primary/10 text-primary border-primary/20"
             }`}>
               {isPrep ? <Package className="h-5 w-5" /> : <Truck className="h-5 w-5" />}
@@ -112,7 +112,7 @@ export const FulfillmentVelocityPage: React.FC<FulfillmentVelocityPageProps> = (
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Package className="h-3.5 w-3.5 text-amber-500" />
+              <Package className="h-3.5 w-3.5 text-warning" />
               <span>محطة التجهيز اليدوي (جاهز للشحن)</span>
             </button>
             <button

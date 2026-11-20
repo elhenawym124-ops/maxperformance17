@@ -26,7 +26,7 @@ export const TimeReportsTabsNav: React.FC<TimeReportsTabsNavProps> = ({
   onTabChange,
 }) => {
   return (
-    <div className="border-b border-gray-200 dark:border-gray-700">
+    <div className="border-b border-border dark:border-border">
       <nav className="flex -mb-px overflow-x-auto">
         {TABS.map((tab) => {
           const Icon = tab.icon;
@@ -37,11 +37,11 @@ export const TimeReportsTabsNav: React.FC<TimeReportsTabsNavProps> = ({
               onClick={() => onTabChange(tab.id)}
               className={`flex items-center py-4 px-6 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
                 isActive
-                  ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
-                  : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
+                  ? "border-indigo-500 text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:border-border"
               }`}
             >
-              <Icon className="h-5 w-5 ml-2" />
+              <Icon className="h-5 w-5 ms-2" />
               {tab.label}
             </button>
           );

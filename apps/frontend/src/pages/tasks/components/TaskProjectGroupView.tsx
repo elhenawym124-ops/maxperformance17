@@ -51,7 +51,7 @@ interface TaskProjectGroupViewProps {
 const statusBadges: Record<string, { label: string; className: string }> = {
   pending: {
     label: "في الانتظار",
-    className: "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    className: "border-amber-500/20 bg-warning/10 text-warning dark:text-warning",
   },
   in_progress: {
     label: "قيد التنفيذ",
@@ -59,11 +59,11 @@ const statusBadges: Record<string, { label: string; className: string }> = {
   },
   in_review: {
     label: "قيد المراجعة",
-    className: "border-purple-500/20 bg-purple-500/10 text-purple-700 dark:text-purple-300",
+    className: "border-purple-500/20 bg-primary/10 text-primary dark:text-primary",
   },
   completed: {
     label: "مكتمل",
-    className: "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+    className: "border-emerald-500/20 bg-success/10 text-success dark:text-success",
   },
   cancelled: {
     label: "ملغي",
@@ -149,7 +149,7 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
     <div className="space-y-3.5">
       {/* Quick Filters & View Switcher Bar (only when not handled by external unified control bar) */}
       {!hideToolbar && (
-        <div className="flex flex-col gap-2 rounded-2xl border border-border/70 bg-card/75 p-2 sm:flex-row sm:items-center sm:justify-between shadow-xs">
+        <div className="flex flex-col gap-2 rounded-xl border border-border/70 bg-card/75 p-2 sm:flex-row sm:items-center sm:justify-between shadow-xs">
           {/* Quick time filter chips */}
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="text-xs font-semibold text-muted-foreground px-1 hidden md:inline">
@@ -237,7 +237,7 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
           return (
             <section
               key={project.id}
-              className="rounded-2xl border border-border/70 bg-card/75 shadow-xs overflow-hidden transition-all hover:border-primary/25"
+              className="rounded-xl border border-border/70 bg-card/75 shadow-xs overflow-hidden transition-all hover:border-primary/25"
             >
               {/* Project Card Header */}
               <div className="flex flex-col gap-3 p-3.5 sm:p-4 bg-muted/15 border-b border-border/50 md:flex-row md:items-center md:justify-between">
@@ -262,7 +262,7 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
                     {overdueCount > 0 ? (
                       <Badge
                         variant="outline"
-                        className="rounded-full px-2 py-0 text-[10px] font-semibold border-rose-500/25 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                        className="rounded-full px-2 py-0 text-[10px] font-semibold border-destructive/25 bg-destructive/10 text-destructive dark:text-destructive"
                       >
                         {overdueCount} متأخرة
                       </Badge>
@@ -270,14 +270,14 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
                   </div>
 
                   {project.description ? (
-                    <p className="line-clamp-1 text-xs text-muted-foreground pr-9">
+                    <p className="line-clamp-1 text-xs text-muted-foreground pe-9">
                       {project.description}
                     </p>
                   ) : null}
                 </div>
 
                 {/* Progress bar & Actions */}
-                <div className="flex flex-wrap items-center gap-3 pr-9 md:pr-0">
+                <div className="flex flex-wrap items-center gap-3 pe-9 md:pe-0">
                   {/* Progress indicator */}
                   <div className="min-w-[130px] space-y-1">
                     <div className="flex justify-between text-[11px] font-medium text-muted-foreground">
@@ -358,7 +358,7 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
                               className="shrink-0 text-muted-foreground hover:text-primary transition-colors focus:outline-none"
                             >
                               {isDone ? (
-                                <CheckCircle2 className="size-4 text-emerald-500" />
+                                <CheckCircle2 className="size-4 text-success" />
                               ) : (
                                 <Circle className="size-4 hover:scale-110 transition-transform" />
                               )}
@@ -392,7 +392,7 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
                               <span
                                 className={`text-[11px] font-medium ${
                                   isOverdue
-                                    ? "text-rose-600 font-semibold dark:text-rose-400"
+                                    ? "text-rose-600 font-semibold dark:text-destructive"
                                     : "text-muted-foreground"
                                 }`}
                               >
@@ -432,7 +432,7 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
 
         {/* Unassigned Tasks section */}
         {unassignedTasks.length > 0 ? (
-          <section className="rounded-2xl border border-dashed border-border/70 bg-card/60 shadow-xs overflow-hidden">
+          <section className="rounded-xl border border-dashed border-border/70 bg-card/60 shadow-xs overflow-hidden">
             <div className="flex items-center justify-between p-3.5 bg-muted/10 border-b border-border/40">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold text-muted-foreground">
@@ -449,7 +449,7 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
                 onClick={() => handleCreateTask()}
                 className="h-7 text-xs text-primary"
               >
-                <Plus className="size-3.5 ml-1" />
+                <Plus className="size-3.5 ms-1" />
                 إضافة مهمة عامة
               </Button>
             </div>
@@ -478,7 +478,7 @@ export const TaskProjectGroupView: React.FC<TaskProjectGroupViewProps> = ({
                         className="shrink-0 text-muted-foreground hover:text-primary transition-colors focus:outline-none"
                       >
                         {isDone ? (
-                          <CheckCircle2 className="size-4 text-emerald-500" />
+                          <CheckCircle2 className="size-4 text-success" />
                         ) : (
                           <Circle className="size-4 hover:scale-110 transition-transform" />
                         )}

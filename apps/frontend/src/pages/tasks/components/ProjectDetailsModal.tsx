@@ -23,13 +23,13 @@ export interface ProjectDetailsModalProps {
 
 const projectStatusStyles: Record<string, string> = {
   active:
-    "bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
+    "bg-emerald-500/10 text-success dark:bg-success/15 dark:text-success",
   completed:
     "bg-primary/10 text-primary dark:bg-primary/15 dark:text-primary-foreground",
   planning:
-    "bg-amber-500/10 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
+    "bg-amber-500/10 text-warning dark:bg-warning/15 dark:text-warning",
   on_hold:
-    "bg-muted text-muted-foreground dark:bg-muted/70 dark:text-slate-300",
+    "bg-muted text-muted-foreground dark:bg-muted/70 dark:text-muted-foreground",
 };
 
 const projectStatusLabels: Record<string, string> = {
@@ -190,7 +190,7 @@ export const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
               {project.tags.map((tag: string, index: number) => (
                 <span
                   key={`${project.id}-${index}`}
-                  className="rounded-full border border-emerald-500/15 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300"
+                  className="rounded-full border border-success/15 bg-success/10 px-3 py-1 text-xs font-semibold text-success dark:text-success"
                 >
                   {tag}
                 </span>

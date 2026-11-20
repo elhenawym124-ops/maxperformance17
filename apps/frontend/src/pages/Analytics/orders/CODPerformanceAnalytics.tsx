@@ -102,7 +102,7 @@ const CODPerformanceAnalytics: React.FC = () => {
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                 <span>{c.title}</span><c.icon className={`h-3.5 w-3.5 ${c.color}`} />
               </div>
-              <div className={`text-xl font-bold font-mono tabular-nums ${c.alert ? "text-rose-600 dark:text-rose-400" : "text-foreground"}`}>
+              <div className={`text-xl font-bold font-mono tabular-nums ${c.alert ? "text-rose-600 dark:text-destructive" : "text-foreground"}`}>
                 {loading ? "..." : c.val}
               </div>
               <div className="text-[11px] text-muted-foreground mt-0.5 truncate">{c.sub}</div>
@@ -114,14 +114,14 @@ const CODPerformanceAnalytics: React.FC = () => {
       {/* Secondary Ribbon: Delivery Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 border border-border/70 rounded-xl bg-card p-2.5 shadow-sm text-xs">
         <div className="flex items-center gap-2.5 p-2 rounded-lg bg-muted/20">
-          <Clock className="h-4 w-4 text-amber-500 shrink-0" />
+          <Clock className="h-4 w-4 text-warning shrink-0" />
           <div className="min-w-0">
             <div className="text-muted-foreground text-[11px]">في انتظار الاستلام</div>
             <div className="font-mono font-bold text-foreground text-sm tabular-nums">{stats?.pendingOrders || 0}</div>
           </div>
         </div>
         <div className="flex items-center gap-2.5 p-2 rounded-lg bg-muted/20">
-          <RotateCcw className="h-4 w-4 text-orange-500 shrink-0" />
+          <RotateCcw className="h-4 w-4 text-warning shrink-0" />
           <div className="min-w-0">
             <div className="text-muted-foreground text-[11px]">مرتجعات المشترين</div>
             <div className="font-mono font-bold text-foreground text-sm tabular-nums">{stats?.returnedOrders || 0} ({((stats?.returnRate || 0)).toFixed(1)}%)</div>
@@ -135,7 +135,7 @@ const CODPerformanceAnalytics: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-2.5 p-2 rounded-lg bg-muted/20">
-          <Truck className="h-4 w-4 text-emerald-500 shrink-0" />
+          <Truck className="h-4 w-4 text-success shrink-0" />
           <div className="min-w-0">
             <div className="text-muted-foreground text-[11px]">الطلبيات المسلمة</div>
             <div className="font-mono font-bold text-foreground text-sm tabular-nums">{stats?.deliveredOrders || 0}</div>
@@ -203,19 +203,19 @@ const CODPerformanceAnalytics: React.FC = () => {
                     <td className="py-2.5 px-3.5 text-center font-mono font-bold text-foreground tabular-nums">
                       {row.totalOrders.toLocaleString("en-US")}
                     </td>
-                    <td className="py-2.5 px-3.5 text-center font-mono font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                    <td className="py-2.5 px-3.5 text-center font-mono font-semibold text-success dark:text-success tabular-nums">
                       {row.deliveredOrders.toLocaleString("en-US")}
                     </td>
-                    <td className="py-2.5 px-3.5 text-center font-mono font-semibold text-rose-600 dark:text-rose-400 tabular-nums">
+                    <td className="py-2.5 px-3.5 text-center font-mono font-semibold text-destructive dark:text-destructive tabular-nums">
                       {row.cancelledOrders.toLocaleString("en-US")}
                     </td>
                     <td className="py-2.5 px-3.5 text-center">
-                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-bold tabular-nums">
+                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-success/10 text-success dark:text-success border border-success/20 font-bold tabular-nums">
                         {row.successRate.toFixed(1)}%
                       </span>
                     </td>
                     <td className="py-2.5 px-3.5 text-center">
-                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/20 font-bold tabular-nums">
+                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 font-bold tabular-nums">
                         {row.cancellationRate.toFixed(1)}%
                       </span>
                     </td>

@@ -85,7 +85,7 @@ export const AbandonedCartProductsChart: React.FC<AbandonedCartProductsChartProp
                   {prod.productName}
                 </p>
               </div>
-              <span className="font-bold text-rose-600 dark:text-rose-400 shrink-0">
+              <span className="font-bold text-destructive dark:text-destructive shrink-0">
                 {formatPrice(prod.lostRevenue)}
               </span>
             </div>

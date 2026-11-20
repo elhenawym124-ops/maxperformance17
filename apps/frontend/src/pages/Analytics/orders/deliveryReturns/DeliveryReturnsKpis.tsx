@@ -54,38 +54,38 @@ export const DeliveryReturnsKpis: React.FC<Props> = ({ summary }) => {
   return (
     <div className="space-y-4">
       {/* Context Pipeline Bar: Pre-dispatch to Shipped */}
-      <div className="bg-slate-50 dark:bg-gray-900/60 border border-slate-200/80 dark:border-gray-800 rounded-xl p-3 sm:p-4 text-xs">
+      <div className="bg-slate-50 dark:bg-muted border border-border dark:border-border rounded-xl p-3 sm:p-4 text-xs">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-700 dark:text-slate-200">
+            <span className="font-semibold text-foreground dark:text-muted-foreground">
               {t("deliveryReturnsReport.totalOrders")}:
             </span>
-            <span className="font-mono font-bold text-slate-900 dark:text-white tabular-nums">
+            <span className="font-mono font-bold text-foreground dark:text-white tabular-nums">
               {(summary?.totalOrders ?? 0).toLocaleString()}
             </span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-            <span className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400">
-              <span className="h-2 w-2 rounded-full bg-slate-400" />
+            <span className="inline-flex items-center gap-1 text-muted-foreground dark:text-muted-foreground">
+              <span className="h-2 w-2 rounded-full bg-muted" />
               {t("deliveryReturnsReport.preDispatchPending")}:
-              <b className="font-mono text-slate-700 dark:text-slate-200 tabular-nums mr-1">
+              <b className="font-mono text-foreground dark:text-muted-foreground tabular-nums me-1">
                 {(summary?.preDispatchPendingCount ?? 0).toLocaleString()}
               </b>
             </span>
 
-            <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400">
-              <span className="h-2 w-2 rounded-full bg-rose-500" />
+            <span className="inline-flex items-center gap-1 text-destructive dark:text-destructive">
+              <span className="h-2 w-2 rounded-full bg-destructive" />
               {t("deliveryReturnsReport.preDispatchCancelled")}:
-              <b className="font-mono tabular-nums mr-1">
+              <b className="font-mono tabular-nums me-1">
                 {(summary?.preDispatchCancelledCount ?? 0).toLocaleString()}
               </b>
             </span>
 
-            <span className="inline-flex items-center gap-1 font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 rounded-lg border border-emerald-200/60 dark:border-emerald-800/40">
+            <span className="inline-flex items-center gap-1 font-medium text-success dark:text-success bg-success/10 dark:bg-success/40 px-2.5 py-1 rounded-lg border border-success/60 dark:border-success/40">
               <Truck className="h-3.5 w-3.5" />
               {t("deliveryReturnsReport.totalShipped")}:
-              <b className="font-mono font-bold tabular-nums mr-1">
+              <b className="font-mono font-bold tabular-nums me-1">
                 {totalShipped.toLocaleString()}
               </b>
             </span>
@@ -96,30 +96,30 @@ export const DeliveryReturnsKpis: React.FC<Props> = ({ summary }) => {
       {/* 5 Operational Logistics KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         {/* Delivered Shipments */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700/80 shadow-sm border-t-2 border-t-emerald-500 flex flex-col justify-between">
+        <div className="bg-card rounded-xl p-4 border border-border dark:border-border shadow-sm border-t-2 border-t-emerald-500 flex flex-col justify-between">
           <div className="flex items-start justify-between gap-2">
-            <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span className="text-xs font-medium text-muted-foreground">
               {t("deliveryReturnsReport.deliveredOrders")}
             </span>
-            <div className="p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 shrink-0">
+            <div className="p-1.5 rounded-lg bg-success/10 dark:bg-success/30 text-success dark:text-success shrink-0">
               <CheckCircle className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2.5">
             <div className="flex items-baseline gap-2 flex-wrap">
-              <span className="text-2xl font-bold font-mono tracking-tight text-gray-900 dark:text-white tabular-nums">
+              <span className="text-2xl font-bold font-mono tracking-tight text-foreground tabular-nums">
                 {deliveredCount.toLocaleString()}
               </span>
-              <span className="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
+              <span className="text-xs font-mono font-semibold text-success dark:text-success tabular-nums">
                 ({summary?.shippedDeliveryRate ?? 0}% {t("deliveryReturnsReport.deliveredFromShipped")})
               </span>
             </div>
-            <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between text-[11px]">
-              <span className="text-gray-400 dark:text-gray-500">
+            <div className="mt-2 pt-2 border-t border-border dark:border-border flex items-center justify-between text-[11px]">
+              <span className="text-muted-foreground/80">
                 {t("deliveryReturnsReport.closedDeliveryRateBadge")}:
               </span>
               <span
-                className="font-mono font-bold text-emerald-700 dark:text-emerald-400 tabular-nums bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-200/50 dark:border-emerald-800/40"
+                className="font-mono font-bold text-success dark:text-success tabular-nums bg-success/10 dark:bg-success/40 px-1.5 py-0.5 rounded border border-success/50 dark:border-success/40"
                 title={`${t("deliveryReturnsReport.closedDeliveryRateHint")} (${deliveredCount} ÷ ${closedOrders})`}
               >
                 {closedDeliveryRate}% {t("deliveryReturnsReport.fromClosed")}
@@ -129,30 +129,30 @@ export const DeliveryReturnsKpis: React.FC<Props> = ({ summary }) => {
         </div>
 
         {/* Returned Shipments */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700/80 shadow-sm border-t-2 border-t-amber-500 flex flex-col justify-between">
+        <div className="bg-card rounded-xl p-4 border border-border dark:border-border shadow-sm border-t-2 border-t-amber-500 flex flex-col justify-between">
           <div className="flex items-start justify-between gap-2">
-            <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span className="text-xs font-medium text-muted-foreground">
               {t("deliveryReturnsReport.returnedOrders")}
             </span>
-            <div className="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 shrink-0">
+            <div className="p-1.5 rounded-lg bg-warning/10 dark:bg-warning/30 text-warning dark:text-warning shrink-0">
               <Undo2 className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2.5">
             <div className="flex items-baseline gap-2 flex-wrap">
-              <span className="text-2xl font-bold font-mono tracking-tight text-amber-600 dark:text-amber-400 tabular-nums">
+              <span className="text-2xl font-bold font-mono tracking-tight text-warning dark:text-warning tabular-nums">
                 {returnedCount.toLocaleString()}
               </span>
-              <span className="text-xs font-mono font-semibold text-amber-600 dark:text-amber-400 tabular-nums">
+              <span className="text-xs font-mono font-semibold text-warning dark:text-warning tabular-nums">
                 ({returnRate}% {t("deliveryReturnsReport.returnedFromShipped")})
               </span>
             </div>
-            <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between text-[11px]">
-              <span className="text-gray-400 dark:text-gray-500">
+            <div className="mt-2 pt-2 border-t border-border dark:border-border flex items-center justify-between text-[11px]">
+              <span className="text-muted-foreground/80">
                 {t("deliveryReturnsReport.closedReturnRateBadge")}:
               </span>
               <span
-                className="font-mono font-bold text-amber-700 dark:text-amber-400 tabular-nums bg-amber-50 dark:bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-200/50 dark:border-amber-800/40"
+                className="font-mono font-bold text-warning dark:text-warning tabular-nums bg-warning/10 dark:bg-warning/40 px-1.5 py-0.5 rounded border border-warning/50 dark:border-warning/40"
                 title={`${t("deliveryReturnsReport.closedReturnRateHint")} (${returnedCount} ÷ ${closedOrders})`}
               >
                 {closedReturnRate}% {t("deliveryReturnsReport.fromClosed")}
@@ -162,9 +162,9 @@ export const DeliveryReturnsKpis: React.FC<Props> = ({ summary }) => {
         </div>
 
         {/* In Transit with Couriers */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700/80 shadow-sm border-t-2 border-t-blue-500 flex flex-col justify-between">
+        <div className="bg-card rounded-xl p-4 border border-border dark:border-border shadow-sm border-t-2 border-t-blue-500 flex flex-col justify-between">
           <div className="flex items-start justify-between gap-2">
-            <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span className="text-xs font-medium text-muted-foreground">
               {t("deliveryReturnsReport.inTransitOrders")}
             </span>
             <div className="p-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shrink-0">
@@ -180,8 +180,8 @@ export const DeliveryReturnsKpis: React.FC<Props> = ({ summary }) => {
                 ({summary?.inTransitRate ?? 0}% {t("deliveryReturnsReport.inTransitFromShipped")})
               </span>
             </div>
-            <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between text-[11px]">
-              <span className="text-gray-400 dark:text-gray-500">
+            <div className="mt-2 pt-2 border-t border-border dark:border-border flex items-center justify-between text-[11px]">
+              <span className="text-muted-foreground/80">
                 {t("deliveryReturnsReport.inTransitHint")}:
               </span>
               <span className="font-mono font-medium text-blue-600 dark:text-blue-400 text-[10px] bg-blue-50 dark:bg-blue-950/40 px-1.5 py-0.5 rounded border border-blue-200/50 dark:border-blue-800/40">
@@ -192,40 +192,40 @@ export const DeliveryReturnsKpis: React.FC<Props> = ({ summary }) => {
         </div>
 
         {/* Collected COD Revenue */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700/80 shadow-sm border-t-2 border-t-teal-500 flex flex-col justify-between">
+        <div className="bg-card rounded-xl p-4 border border-border dark:border-border shadow-sm border-t-2 border-t-teal-500 flex flex-col justify-between">
           <div className="flex items-start justify-between gap-2">
-            <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span className="text-xs font-medium text-muted-foreground">
               {t("deliveryReturnsReport.codDeliveredRevenue")}
             </span>
-            <div className="p-1.5 rounded-lg bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 shrink-0">
+            <div className="p-1.5 rounded-lg bg-success/10 dark:bg-success/30 text-success dark:text-success shrink-0">
               <Banknote className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2.5">
-            <p className="text-2xl font-bold font-mono tracking-tight text-gray-900 dark:text-white tabular-nums">
+            <p className="text-2xl font-bold font-mono tracking-tight text-foreground tabular-nums">
               {formatPrice(summary?.codDeliveredRevenue ?? 0)}
             </p>
-            <p className="mt-1 text-[11px] text-gray-400 dark:text-gray-500 truncate">
+            <p className="mt-1 text-[11px] text-muted-foreground/80 truncate">
               {t("deliveryReturnsReport.fromDeliveredShipments")}
             </p>
           </div>
         </div>
 
         {/* Lost Shipping Cost on Returns */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700/80 shadow-sm border-t-2 border-t-rose-500 flex flex-col justify-between">
+        <div className="bg-card rounded-xl p-4 border border-border dark:border-border shadow-sm border-t-2 border-t-rose-500 flex flex-col justify-between">
           <div className="flex items-start justify-between gap-2">
-            <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            <span className="text-xs font-medium text-muted-foreground">
               {t("deliveryReturnsReport.lostShippingCost")}
             </span>
-            <div className="p-1.5 rounded-lg bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 shrink-0">
+            <div className="p-1.5 rounded-lg bg-destructive/10 dark:bg-destructive/30 text-destructive dark:text-destructive shrink-0">
               <ArrowDownRight className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2.5">
-            <p className="text-2xl font-bold font-mono tracking-tight text-rose-600 dark:text-rose-400 tabular-nums">
+            <p className="text-2xl font-bold font-mono tracking-tight text-destructive dark:text-destructive tabular-nums">
               {formatPrice(summary?.lostShippingCost ?? 0)}
             </p>
-            <p className="mt-1 text-[11px] text-gray-400 dark:text-gray-500 truncate" title={t("deliveryReturnsReport.lostShippingCostHint")}>
+            <p className="mt-1 text-[11px] text-muted-foreground/80 truncate" title={t("deliveryReturnsReport.lostShippingCostHint")}>
               {t("deliveryReturnsReport.onReturnedShipments")}
             </p>
           </div>

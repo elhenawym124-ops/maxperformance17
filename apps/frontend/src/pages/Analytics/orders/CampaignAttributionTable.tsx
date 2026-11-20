@@ -11,9 +11,9 @@ const trackingTypeLabels: Record<string, string> = {
 };
 
 const trackingTypeBadgeClasses: Record<string, string> = {
-  campaign: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
-  direct: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20",
-  tracked: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
+  campaign: "bg-emerald-500/10 text-success dark:text-success border border-success/20",
+  direct: "bg-sky-500/10 text-info dark:text-info border border-info/20",
+  tracked: "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
   unattributed: "bg-muted text-muted-foreground border border-border/70",
 };
 
@@ -21,8 +21,8 @@ const getTrackingBadgeClass = (type: string) =>
   trackingTypeBadgeClasses[type] || trackingTypeBadgeClasses["unattributed"];
 
 const channelBadgeClasses: Record<string, string> = {
-  storefront: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20",
-  inbox: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20",
+  storefront: "bg-indigo-500/10 text-primary border border-primary/20",
+  inbox: "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
 };
 
 const getChannelBadgeClass = (channel?: string) =>
@@ -60,7 +60,7 @@ export const CampaignAttributionTable: React.FC<CampaignAttributionTableProps> =
               key={row.key}
               className="align-top transition-colors hover:bg-muted/40 font-sans"
             >
-              <td className="py-2.5 pr-0 pl-2">
+              <td className="py-2.5 pe-0 ps-2">
                 <div className="space-y-1">
                   <div className="flex flex-wrap items-center gap-1">
                     <span
@@ -113,7 +113,7 @@ export const CampaignAttributionTable: React.FC<CampaignAttributionTableProps> =
                   {row.campaignId && <div>Campaign: {row.campaignId}</div>}
                   {row.adSetId && <div>Ad Set: {row.adSetId}</div>}
                   {row.adId && (
-                    <div className="font-medium text-purple-600 dark:text-purple-400">
+                    <div className="font-medium text-primary dark:text-primary">
                       Ad ID: {row.adId}
                     </div>
                   )}
@@ -128,13 +128,13 @@ export const CampaignAttributionTable: React.FC<CampaignAttributionTableProps> =
               <td className="px-2 py-2.5 font-mono font-bold text-foreground">
                 {row.totalOrders.toLocaleString()}
               </td>
-              <td className="px-2 py-2.5 font-mono font-semibold text-emerald-600 dark:text-emerald-400">
+              <td className="px-2 py-2.5 font-mono font-semibold text-success dark:text-success">
                 {row.deliveredOrders.toLocaleString()}
               </td>
-              <td className="px-2 py-2.5 font-mono font-semibold text-rose-600 dark:text-rose-400">
+              <td className="px-2 py-2.5 font-mono font-semibold text-destructive dark:text-destructive">
                 {row.cancelledOrders.toLocaleString()}
               </td>
-              <td className="px-2 py-2.5 font-mono font-semibold text-amber-600 dark:text-amber-400">
+              <td className="px-2 py-2.5 font-mono font-semibold text-warning dark:text-warning">
                 {row.returnedOrders.toLocaleString()}
               </td>
               <td className="px-2 py-2.5 font-mono font-medium text-foreground">

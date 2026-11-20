@@ -304,9 +304,9 @@ const TeamPerformanceAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>{t("teamPerformance.totalOrders", "الطلبات المعالجة")}</span>
-              <ShoppingBag className="h-4 w-4 text-emerald-500" />
+              <ShoppingBag className="h-4 w-4 text-success" />
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">
               {loading ? "..." : (stats?.totalOrdersProcessed?.toLocaleString() || 0)}
             </div>
             <div className="text-[11px] text-muted-foreground mt-0.5">طلبات منشأة ومؤكدة ومسندة</div>
@@ -317,7 +317,7 @@ const TeamPerformanceAnalytics: React.FC = () => {
           <CardContent className="p-3.5">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <span>{t("teamPerformance.totalRevenue", "إجمالي مبيعات الفريق")}</span>
-              <DollarSign className="h-4 w-4 text-purple-500" />
+              <DollarSign className="h-4 w-4 text-primary" />
             </div>
             <div className="text-xl font-bold font-mono tabular-nums text-foreground">
               {loading ? "..." : (stats?.totalTeamRevenue?.toLocaleString() || 0)} {t("teamPerformance.currency", "ج.م")}

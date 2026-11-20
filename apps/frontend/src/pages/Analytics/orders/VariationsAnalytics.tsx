@@ -172,7 +172,7 @@ const VariationsAnalytics: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-4">
         <div>
           <div className="flex items-center gap-2">
-            <Layers className="h-5 w-5 text-indigo-500" />
+            <Layers className="h-5 w-5 text-primary" />
             <h1 className="text-xl font-bold tracking-tight text-foreground">
               تحليل المتغيرات والألوان والمقاسات
             </h1>
@@ -206,9 +206,9 @@ const VariationsAnalytics: React.FC = () => {
 
       {/* Product Filter Banner */}
       {urlProductId && (
-        <div className="flex items-center justify-between p-3.5 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-xs">
+        <div className="flex items-center justify-between p-3.5 bg-primary/10 border border-primary/20 rounded-xl text-xs">
           <div className="flex items-center gap-2 text-foreground">
-            <Filter className="h-4 w-4 text-indigo-500 shrink-0" />
+            <Filter className="h-4 w-4 text-primary shrink-0" />
             <span>
               تصفية خاصة بمنتج: <strong className="font-semibold">{stats?.filteredProduct?.name || stats?.topVariations?.[0]?.product || urlProductId}</strong>
             </span>
@@ -237,7 +237,7 @@ const VariationsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي المتغيرات</span>
-              <Layers className="h-4 w-4 text-purple-500" />
+              <Layers className="h-4 w-4 text-primary" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{(stats?.totalVariations || 0).toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-1">توليفة نشطة</div>
@@ -257,7 +257,7 @@ const VariationsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي الطلبات</span>
-              <FileText className="h-4 w-4 text-cyan-500" />
+              <FileText className="h-4 w-4 text-info" />
             </div>
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">{(stats?.totalOrders || 0).toLocaleString()}</div>
             <div className="text-[11px] text-muted-foreground mt-1">طلب شراء</div>
@@ -267,9 +267,9 @@ const VariationsAnalytics: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
               <span>إجمالي الإيرادات</span>
-              <DollarSign className="h-4 w-4 text-emerald-500" />
+              <DollarSign className="h-4 w-4 text-success" />
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{formatPrice(stats?.totalRevenue || 0)}</div>
+            <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success">{formatPrice(stats?.totalRevenue || 0)}</div>
             <div className="text-[11px] text-muted-foreground mt-1">قيمة المبيعات المحققة</div>
           </CardContent>
         </Card>
@@ -288,7 +288,7 @@ const VariationsAnalytics: React.FC = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث في المتغيرات أو اللون أو المقاس…"
-              className="w-full pr-8 pl-3 py-1.5 text-xs bg-background border border-border/70 rounded-md outline-none focus:ring-1 focus:ring-indigo-500 text-foreground"
+              className="w-full pe-8 ps-3 py-1.5 text-xs bg-background border border-border/70 rounded-md outline-none focus:ring-1 focus:ring-primary text-foreground"
             />
           </div>
           <span className="text-xs text-muted-foreground font-mono">{filteredVariations.length} نوع</span>
@@ -324,7 +324,7 @@ const VariationsAnalytics: React.FC = () => {
                     {v.size ? <span className="inline-flex px-1.5 py-0.5 rounded text-[10px] bg-muted border border-border/70">{v.size}</span> : "-"}
                   </td>
                   <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-foreground">{v.sales.toLocaleString()}</td>
-                  <td className="py-2.5 px-3 text-left font-mono tabular-nums font-bold text-emerald-600 dark:text-emerald-400">{formatPrice(v.revenue)}</td>
+                  <td className="py-2.5 px-3 text-left font-mono tabular-nums font-bold text-success dark:text-success">{formatPrice(v.revenue)}</td>
                 </tr>
               ))}
             </tbody>
@@ -333,7 +333,7 @@ const VariationsAnalytics: React.FC = () => {
 
         {filteredVariations.length > visibleCount && (
           <div className="p-3 border-t border-border/50 text-center">
-            <Button variant="ghost" size="sm" onClick={() => setVisibleCount((c) => c + 25)} className="text-xs text-indigo-600">
+            <Button variant="ghost" size="sm" onClick={() => setVisibleCount((c) => c + 25)} className="text-xs text-primary">
               عرض المزيد ({filteredVariations.length - visibleCount} متبقٍ)
             </Button>
           </div>

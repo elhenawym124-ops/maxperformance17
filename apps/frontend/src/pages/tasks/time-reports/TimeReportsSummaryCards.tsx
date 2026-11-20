@@ -27,55 +27,55 @@ export const TimeReportsSummaryCards: React.FC<TimeReportsSummaryCardsProps> = (
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
       {/* 1. Total Time */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 sm:p-4">
+      <div className="bg-card rounded-lg shadow p-3 sm:p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               إجمالي الوقت
             </p>
-            <p className="text-lg sm:text-2xl font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">
+            <p className="text-lg sm:text-2xl font-bold text-primary tabular-nums">
               {formatDuration(totalMinutes)}
             </p>
           </div>
-          <ClockIcon className="h-8 w-8 text-indigo-400" />
+          <ClockIcon className="h-8 w-8 text-primary" />
         </div>
       </div>
 
       {/* 2. Entries Count */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 sm:p-4">
+      <div className="bg-card rounded-lg shadow p-3 sm:p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               عدد السجلات
             </p>
-            <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100 tabular-nums">
+            <p className="text-lg sm:text-2xl font-bold text-foreground tabular-nums">
               {filteredCount}
             </p>
           </div>
-          <ChartBarIcon className="h-8 w-8 text-gray-400" />
+          <ChartBarIcon className="h-8 w-8 text-muted-foreground" />
         </div>
       </div>
 
       {/* 3. Active Users */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 sm:p-4">
+      <div className="bg-card rounded-lg shadow p-3 sm:p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               المستخدمين النشطين
             </p>
-            <p className="text-lg sm:text-2xl font-bold text-green-600 dark:text-green-400 tabular-nums">
+            <p className="text-lg sm:text-2xl font-bold text-success dark:text-success tabular-nums">
               {userCount}
             </p>
           </div>
-          <UserGroupIcon className="h-8 w-8 text-green-400" />
+          <UserGroupIcon className="h-8 w-8 text-success" />
         </div>
       </div>
 
       {/* 4. Active Projects */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 sm:p-4">
+      <div className="bg-card rounded-lg shadow p-3 sm:p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               المشاريع النشطة
             </p>
             <p className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400 tabular-nums">
@@ -87,32 +87,32 @@ export const TimeReportsSummaryCards: React.FC<TimeReportsSummaryCardsProps> = (
       </div>
 
       {/* 5. Estimation Accuracy */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 sm:p-4">
+      <div className="bg-card rounded-lg shadow p-3 sm:p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               دقة التقدير
             </p>
-            <p className="text-lg sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <p className="text-lg sm:text-2xl font-bold text-success dark:text-success tabular-nums">
               {summary?.overallAccuracyPct ?? 0}%
             </p>
           </div>
-          <ChartBarIcon className="h-8 w-8 text-emerald-400" />
+          <ChartBarIcon className="h-8 w-8 text-success" />
         </div>
       </div>
 
       {/* 6. Rework Time */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 sm:p-4">
+      <div className="bg-card rounded-lg shadow p-3 sm:p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               إعادة العمل
             </p>
-            <p className="text-lg sm:text-2xl font-bold text-amber-600 dark:text-amber-400 tabular-nums">
+            <p className="text-lg sm:text-2xl font-bold text-warning dark:text-warning tabular-nums">
               {Math.round(summary?.totalReworkMinutes ?? 0)} د
             </p>
           </div>
-          <ArrowPathIcon className="h-8 w-8 text-amber-400" />
+          <ArrowPathIcon className="h-8 w-8 text-warning" />
         </div>
       </div>
     </div>

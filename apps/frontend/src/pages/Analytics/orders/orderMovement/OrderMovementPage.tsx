@@ -124,7 +124,7 @@ export default function OrderMovementPage() {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-3.5 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+          <div className="p-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20">
             <Route className="h-5 w-5" />
           </div>
           <div>

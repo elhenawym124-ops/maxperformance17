@@ -34,30 +34,30 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
       {/* 1. إجمالي الطلبات */}
       <Link
         to="/analytics/orders/orders"
-        className="group relative flex flex-col justify-between rounded-xl border border-gray-200/80 bg-white p-3.5 sm:p-4 shadow-sm hover:border-blue-400/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-blue-500/40 transition-all hover:shadow-md"
+        className="group relative flex flex-col justify-between rounded-xl border border-border bg-white p-3.5 sm:p-4 shadow-sm hover:border-blue-400/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-blue-500/40 transition-all hover:shadow-md"
       >
         <div>
-          <div className="flex items-center justify-between gap-1 text-gray-500 dark:text-gray-400">
+          <div className="flex items-center justify-between gap-1 text-muted-foreground">
             <span className="text-xs font-medium">إجمالي الطلبات</span>
             <div className="rounded-lg bg-blue-50 dark:bg-blue-950/40 p-1.5 text-blue-600 dark:text-blue-400">
               <ShoppingCartIcon className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
-            <span className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white tabular-nums">
+            <span className="text-xl sm:text-2xl font-bold tracking-tight text-foreground tabular-nums">
               {stats.totalOrders.toLocaleString()}
             </span>
-            <span className="text-xs text-gray-400 dark:text-gray-500">طلب</span>
+            <span className="text-xs text-muted-foreground/80">طلب</span>
           </div>
         </div>
 
-        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs">
+        <div className="mt-2.5 pt-2 border-t border-border dark:border-white/5 flex items-center justify-between text-xs">
           {ordersDelta !== null ? (
             <span
               className={`inline-flex items-center gap-0.5 font-semibold tabular-nums ${
                 ordersDelta >= 0
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-rose-600 dark:text-rose-400"
+                  ? "text-emerald-600 dark:text-success"
+                  : "text-rose-600 dark:text-destructive"
               }`}
             >
               {ordersDelta >= 0 ? (
@@ -69,9 +69,9 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
               {ordersDelta.toFixed(1)}%
             </span>
           ) : (
-            <span className="text-gray-400 dark:text-gray-500">الفترة الحالية</span>
+            <span className="text-muted-foreground/80">الفترة الحالية</span>
           )}
-          <span className="text-[11px] text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          <span className="text-[11px] text-muted-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             تفاصيل ↗
           </span>
         </div>
@@ -80,17 +80,17 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
       {/* 2. معدل التسليم الصافي */}
       <Link
         to="/analytics/orders/delivery-rate"
-        className="group relative flex flex-col justify-between rounded-xl border border-gray-200/80 bg-white p-3.5 sm:p-4 shadow-sm hover:border-emerald-400/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-emerald-500/40 transition-all hover:shadow-md"
+        className="group relative flex flex-col justify-between rounded-xl border border-border bg-white p-3.5 sm:p-4 shadow-sm hover:border-success/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-success/40 transition-all hover:shadow-md"
       >
         <div>
-          <div className="flex items-center justify-between gap-1 text-gray-500 dark:text-gray-400">
+          <div className="flex items-center justify-between gap-1 text-muted-foreground">
             <span className="text-xs font-medium">معدل التسليم الصافي</span>
-            <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/40 p-1.5 text-emerald-600 dark:text-emerald-400">
+            <div className="rounded-lg bg-success/10 dark:bg-success/40 p-1.5 text-success dark:text-success">
               <CheckCircleIcon className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
-            <span className="text-xl sm:text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <span className="text-xl sm:text-2xl font-bold tracking-tight text-success dark:text-success tabular-nums">
               {stats.deliveryRate > 0
                 ? `${stats.deliveryRate.toFixed(1)}%`
                 : stats.totalOrders > 0
@@ -100,11 +100,11 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
           </div>
         </div>
 
-        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs">
-          <span className="text-gray-500 dark:text-gray-400 tabular-nums text-[11px]">
+        <div className="mt-2.5 pt-2 border-t border-border dark:border-white/5 flex items-center justify-between text-xs">
+          <span className="text-muted-foreground tabular-nums text-[11px]">
             {stats.completedOrders.toLocaleString()} مسلّم بنجاح
           </span>
-          <span className="text-[11px] text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+          <span className="text-[11px] text-muted-foreground group-hover:text-success dark:group-hover:text-success transition-colors">
             نسب الشحن ↗
           </span>
         </div>
@@ -113,84 +113,84 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
       {/* 3. إجمالي الإيرادات */}
       <Link
         to="/analytics/orders/revenue"
-        className="group relative flex flex-col justify-between rounded-xl border border-gray-200/80 bg-white p-3.5 sm:p-4 shadow-sm hover:border-purple-400/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-purple-500/40 transition-all hover:shadow-md"
+        className="group relative flex flex-col justify-between rounded-xl border border-border bg-white p-3.5 sm:p-4 shadow-sm hover:border-primary/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-primary/40 transition-all hover:shadow-md"
       >
         <div>
-          <div className="flex items-center justify-between gap-1 text-gray-500 dark:text-gray-400">
+          <div className="flex items-center justify-between gap-1 text-muted-foreground">
             <span className="text-xs font-medium">إجمالي الإيرادات</span>
-            <div className="rounded-lg bg-purple-50 dark:bg-purple-950/40 p-1.5 text-purple-600 dark:text-purple-400">
+            <div className="rounded-lg bg-primary/10 dark:bg-primary/40 p-1.5 text-primary dark:text-primary">
               <CurrencyDollarIcon className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1">
-            <span className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white tabular-nums truncate">
+            <span className="text-xl sm:text-2xl font-bold tracking-tight text-foreground tabular-nums truncate">
               {formatPrice(stats.totalRevenue)}
             </span>
           </div>
         </div>
 
-        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs">
+        <div className="mt-2.5 pt-2 border-t border-border dark:border-white/5 flex items-center justify-between text-xs">
           {revenueDelta !== null ? (
             <span
               className={`inline-flex items-center gap-0.5 font-semibold tabular-nums ${
                 revenueDelta >= 0
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-rose-600 dark:text-rose-400"
+                  ? "text-emerald-600 dark:text-success"
+                  : "text-rose-600 dark:text-destructive"
               }`}
             >
               {revenueDelta >= 0 ? "+" : ""}
               {revenueDelta.toFixed(1)}%
             </span>
           ) : (
-            <span className="text-gray-400 dark:text-gray-500">المبيعات المؤكدة</span>
+            <span className="text-muted-foreground/80">المبيعات المؤكدة</span>
           )}
-          <span className="text-[11px] text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+          <span className="text-[11px] text-muted-foreground group-hover:text-primary dark:group-hover:text-primary transition-colors">
             الإيراد ↗
           </span>
         </div>
       </Link>
 
       {/* 4. متوسط قيمة الطلب (AOV) */}
-      <div className="relative flex flex-col justify-between rounded-xl border border-gray-200/80 bg-white p-3.5 sm:p-4 shadow-sm dark:border-white/10 dark:bg-[#121214]">
+      <div className="relative flex flex-col justify-between rounded-xl border border-border bg-white p-3.5 sm:p-4 shadow-sm dark:border-white/10 dark:bg-[#121214]">
         <div>
-          <div className="flex items-center justify-between gap-1 text-gray-500 dark:text-gray-400">
+          <div className="flex items-center justify-between gap-1 text-muted-foreground">
             <span className="text-xs font-medium">متوسط قيمة الطلب</span>
-            <div className="rounded-lg bg-amber-50 dark:bg-amber-950/40 p-1.5 text-amber-600 dark:text-amber-400">
+            <div className="rounded-lg bg-warning/10 dark:bg-warning/40 p-1.5 text-warning dark:text-warning">
               <ArrowTrendingUpIcon className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1">
-            <span className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white tabular-nums truncate">
+            <span className="text-xl sm:text-2xl font-bold tracking-tight text-foreground tabular-nums truncate">
               {formatPrice(stats.averageOrderValue)}
             </span>
           </div>
         </div>
 
-        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
+        <div className="mt-2.5 pt-2 border-t border-border dark:border-white/5 flex items-center justify-between text-xs text-muted-foreground/80">
           <span className="text-[11px]">معدل سلة الشراء (AOV)</span>
         </div>
       </div>
 
       {/* 5. الطلبات متعددة القطع */}
-      <div className="relative flex flex-col justify-between rounded-xl border border-gray-200/80 bg-white p-3.5 sm:p-4 shadow-sm dark:border-white/10 dark:bg-[#121214]">
+      <div className="relative flex flex-col justify-between rounded-xl border border-border bg-white p-3.5 sm:p-4 shadow-sm dark:border-white/10 dark:bg-[#121214]">
         <div>
-          <div className="flex items-center justify-between gap-1 text-gray-500 dark:text-gray-400">
+          <div className="flex items-center justify-between gap-1 text-muted-foreground">
             <span className="text-xs font-medium">الطلبات متعددة القطع</span>
-            <div className="rounded-lg bg-indigo-50 dark:bg-indigo-950/40 p-1.5 text-indigo-600 dark:text-indigo-400">
+            <div className="rounded-lg bg-primary/10 dark:bg-primary/40 p-1.5 text-primary">
               <RectangleStackIcon className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
-            <span className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white tabular-nums">
+            <span className="text-xl sm:text-2xl font-bold tracking-tight text-foreground tabular-nums">
               {stats.multiPieceOrders.toLocaleString()}
             </span>
-            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 tabular-nums">
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-primary/10 text-primary dark:bg-primary/50 dark:text-primary tabular-nums">
               {stats.multiPiecePercentage || 0}%
             </span>
           </div>
         </div>
 
-        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
+        <div className="mt-2.5 pt-2 border-t border-border dark:border-white/5 flex items-center justify-between text-xs text-muted-foreground/80">
           <span className="text-[11px] tabular-nums">
             {stats.totalPieces > 0 ? `${stats.totalPieces} قطعة مباعة` : "قطعتين أو أكثر"}
           </span>
@@ -200,20 +200,20 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
       {/* 6. فاقد الإلغاء والمرتجع */}
       <Link
         to="/analytics/orders/cancellations"
-        className="group relative flex flex-col justify-between rounded-xl border border-gray-200/80 bg-white p-3.5 sm:p-4 shadow-sm hover:border-rose-400/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-rose-500/40 transition-all hover:shadow-md"
+        className="group relative flex flex-col justify-between rounded-xl border border-border bg-white p-3.5 sm:p-4 shadow-sm hover:border-destructive/60 dark:border-white/10 dark:bg-[#121214] dark:hover:border-destructive/40 transition-all hover:shadow-md"
       >
         <div>
-          <div className="flex items-center justify-between gap-1 text-gray-500 dark:text-gray-400">
+          <div className="flex items-center justify-between gap-1 text-muted-foreground">
             <span className="text-xs font-medium">الإلغاء والمرتجع</span>
-            <div className="rounded-lg bg-rose-50 dark:bg-rose-950/40 p-1.5 text-rose-600 dark:text-rose-400">
+            <div className="rounded-lg bg-destructive/10 dark:bg-destructive/40 p-1.5 text-destructive dark:text-destructive">
               <ExclamationCircleIcon className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
-            <span className="text-xl sm:text-2xl font-bold tracking-tight text-rose-600 dark:text-rose-400 tabular-nums">
+            <span className="text-xl sm:text-2xl font-bold tracking-tight text-destructive dark:text-destructive tabular-nums">
               {(stats.cancelledOrders + stats.returnedOrders).toLocaleString()}
             </span>
-            <span className="text-xs text-gray-400 dark:text-gray-500">
+            <span className="text-xs text-muted-foreground/80">
               ({stats.totalOrders > 0
                 ? `${(((stats.cancelledOrders + stats.returnedOrders) / stats.totalOrders) * 100).toFixed(1)}%`
                 : "0%"})
@@ -221,13 +221,13 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
           </div>
         </div>
 
-        <div className="mt-2.5 pt-2 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs">
-          <span className="text-gray-400 dark:text-gray-500 text-[11px] tabular-nums truncate">
+        <div className="mt-2.5 pt-2 border-t border-border dark:border-white/5 flex items-center justify-between text-xs">
+          <span className="text-muted-foreground/80 text-[11px] tabular-nums truncate">
             {stats.lostRevenue > 0
               ? `فاقد ${formatPrice(stats.lostRevenue)}`
               : `${stats.cancelledOrders} ملغي / ${stats.returnedOrders} مرتجع`}
           </span>
-          <span className="text-[11px] text-gray-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+          <span className="text-[11px] text-muted-foreground group-hover:text-destructive dark:group-hover:text-destructive transition-colors">
             تحليل ↗
           </span>
         </div>

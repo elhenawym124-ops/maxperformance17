@@ -49,7 +49,7 @@ const TabsRenderer: React.FC<TabsRendererProps> = ({
     >
       <nav
         aria-label="تبويبات تحليلات المتجر والتحويل"
-        className="inline-flex min-w-full sm:min-w-0 items-center gap-1.5 rounded-2xl border border-gray-200/80 bg-white/70 p-1.5 shadow-sm backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/60"
+        className="inline-flex min-w-full sm:min-w-0 items-center gap-1.5 rounded-xl border border-border bg-white/70 p-1.5 shadow-sm backdrop-blur-md dark:border-border dark:bg-muted"
       >
         {TABS.map((tab) => {
           const isActive = currentPath === tab.path;
@@ -57,7 +57,7 @@ const TabsRenderer: React.FC<TabsRendererProps> = ({
           const linkClasses = `flex items-center gap-2 whitespace-nowrap rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] ${
             isActive
               ? "bg-primary text-primary-foreground shadow-sm font-semibold"
-              : "text-gray-600 hover:bg-gray-100/80 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+              : "text-gray-600 hover:bg-muted hover:text-foreground dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-muted-foreground"
           }`;
 
           const content = (
@@ -66,7 +66,7 @@ const TabsRenderer: React.FC<TabsRendererProps> = ({
                 className={`size-4 sm:size-4.5 ${
                   isActive
                     ? "text-primary-foreground"
-                    : "text-gray-400 dark:text-gray-500"
+                    : "text-muted-foreground/80"
                 }`}
               />
               <span>{tab.label}</span>

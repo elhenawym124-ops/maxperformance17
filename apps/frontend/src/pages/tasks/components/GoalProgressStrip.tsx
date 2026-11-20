@@ -13,14 +13,14 @@ export interface GoalProgressStripProps {
 }
 
 const goalTypeBadgeMap: Record<string, { label: string; className: string }> = {
-  DAILY: { label: "يومي", className: "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300" },
-  WEEKLY: { label: "أسبوعي", className: "border-indigo-500/30 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300" },
-  MONTHLY: { label: "شهري", className: "border-purple-500/30 bg-purple-500/10 text-purple-700 dark:text-purple-300" },
-  STRATEGIC: { label: "استراتيجي", className: "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300" },
-  COMPANY: { label: "شركة", className: "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" },
+  DAILY: { label: "يومي", className: "border-sky-500/30 bg-info/10 text-info dark:text-info" },
+  WEEKLY: { label: "أسبوعي", className: "border-indigo-500/30 bg-primary/10 text-primary dark:text-primary" },
+  MONTHLY: { label: "شهري", className: "border-purple-500/30 bg-primary/10 text-primary dark:text-primary" },
+  STRATEGIC: { label: "استراتيجي", className: "border-amber-500/30 bg-warning/10 text-warning dark:text-warning" },
+  COMPANY: { label: "شركة", className: "border-emerald-500/30 bg-success/10 text-success dark:text-success" },
   DEPARTMENT: { label: "قسم", className: "border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300" },
-  PROJECT: { label: "مشروع", className: "border-teal-500/30 bg-teal-500/10 text-teal-700 dark:text-teal-300" },
-  EMPLOYEE: { label: "موظف", className: "border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300" },
+  PROJECT: { label: "مشروع", className: "border-teal-500/30 bg-success/10 text-success dark:text-success" },
+  EMPLOYEE: { label: "موظف", className: "border-rose-500/30 bg-destructive/10 text-destructive dark:text-destructive" },
 };
 
 export const GoalProgressStrip: React.FC<GoalProgressStripProps> = ({
@@ -58,7 +58,7 @@ export const GoalProgressStrip: React.FC<GoalProgressStripProps> = ({
             onClick={onOpenCreateGoal}
             className="h-6.5 shrink-0 rounded-lg border-primary/30 bg-primary/5 px-2 text-[11px] font-medium text-primary hover:bg-primary/10"
           >
-            <PlusIcon className="mr-1 size-3" />
+            <PlusIcon className="me-1 size-3" />
             أنشئ هدف
           </Button>
           {(collapsible || onToggleExpand) && (

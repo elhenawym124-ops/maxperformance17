@@ -44,7 +44,7 @@ export const getStatusLabel = (code: string): string => {
 
 export const getStatusColorClass = (code: string): string => {
   const c = String(code || "").toUpperCase();
-  if (!c) return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
+  if (!c) return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
   return getStatusDisplay(c).colorClass;
 };
 
@@ -150,12 +150,12 @@ export function MovementCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white dark:bg-gray-800/80 shadow-sm shadow-gray-200/50 dark:shadow-none backdrop-blur-sm ${className}`}>
+    <div className={`rounded-xl border border-border dark:border-border bg-card/80 shadow-sm shadow-gray-200/50 dark:shadow-none backdrop-blur-sm ${className}`}>
       {(title || action) && (
-        <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-gray-100 dark:border-gray-700/60">
+        <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-4 border-b border-border dark:border-border">
           <div>
-            {title && <h3 className="text-base font-semibold text-gray-900 dark:text-white">{title}</h3>}
-            {subtitle && <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{subtitle}</p>}
+            {title && <h3 className="text-base font-semibold text-foreground">{title}</h3>}
+            {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
           </div>
           {action}
         </div>
@@ -169,7 +169,7 @@ export function KpiCard({
   label,
   value,
   icon: Icon,
-  gradient = "from-indigo-500 to-violet-600",
+  gradient = "from-indigo-500 to-primary",
   hint,
   trend,
 }: {
@@ -181,7 +181,7 @@ export function KpiCard({
   trend?: { direction: "up" | "down"; label: string };
 }) {
   return (
-    <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} p-5 text-white shadow-lg shadow-indigo-500/10 transition-transform duration-200 hover:-translate-y-0.5`}>
+    <div className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${gradient} p-5 text-white shadow-lg shadow-primary/10 transition-transform duration-200 hover:-translate-y-0.5`}>
       <div className="absolute -top-6 -left-6 h-24 w-24 rounded-full bg-white/10 blur-xl" />
       <div className="relative flex items-start justify-between gap-2">
         <div className="min-w-0">
@@ -219,8 +219,8 @@ export function AutoBadge({ auto }: { auto: boolean }) {
     <span
       className={`inline-flex items-center whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-medium ${
         auto
-          ? "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300"
-          : "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300"
+          ? "bg-violet-100 text-primary dark:bg-primary/30 dark:text-primary"
+          : "bg-sky-100 text-info dark:bg-info/30 dark:text-info"
       }`}
     >
       {auto ? "تلقائي" : "يدوي"}
@@ -232,25 +232,25 @@ export function LoadingState() {
   return (
     <div className="flex flex-col items-center justify-center gap-4 min-h-[300px]">
       <div className="relative h-12 w-12">
-        <div className="absolute inset-0 rounded-full border-4 border-indigo-200 dark:border-indigo-900/40" />
+        <div className="absolute inset-0 rounded-full border-4 border-primary dark:border-primary/40" />
         <div className="absolute inset-0 rounded-full border-4 border-t-indigo-600 animate-spin" />
       </div>
-      <p className="text-sm text-gray-500 dark:text-gray-400">جارٍ تحميل التحليل...</p>
+      <p className="text-sm text-muted-foreground">جارٍ تحميل التحليل...</p>
     </div>
   );
 }
 
 export function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 min-h-[240px] rounded-2xl border border-red-200/60 dark:border-red-900/40 bg-red-50/50 dark:bg-red-950/20 p-8 text-center">
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-        <AlertTriangle className="h-6 w-6 text-red-500" />
+    <div className="flex flex-col items-center justify-center gap-3 min-h-[240px] rounded-xl border border-destructive/60 dark:border-destructive/40 bg-destructive/50 dark:bg-destructive/20 p-8 text-center">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-destructive dark:bg-destructive/30">
+        <AlertTriangle className="h-6 w-6 text-destructive" />
       </div>
-      <p className="text-sm font-medium text-red-600 dark:text-red-400">{message}</p>
+      <p className="text-sm font-medium text-destructive dark:text-destructive">{message}</p>
       {onRetry && (
         <button
           onClick={onRetry}
-          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-red-700"
+          className="inline-flex items-center gap-2 rounded-xl bg-destructive px-4 py-2 text-xs font-medium text-white transition hover:bg-destructive"
         >
           <RefreshCw className="h-3.5 w-3.5" /> إعادة المحاولة
         </button>
@@ -261,11 +261,11 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry?: ()
 
 export function EmptyState({ message = "لا توجد بيانات في هذه الفترة" }: { message?: string }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 min-h-[240px] rounded-2xl border border-dashed border-gray-300 dark:border-gray-600 bg-gray-50/50 dark:bg-gray-800/40 p-8 text-center">
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200/70 dark:bg-gray-700/50">
-        <Inbox className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+    <div className="flex flex-col items-center justify-center gap-3 min-h-[240px] rounded-xl border border-dashed border-border bg-muted dark:bg-muted p-8 text-center">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted dark:bg-muted">
+        <Inbox className="h-6 w-6 text-muted-foreground/80" />
       </div>
-      <p className="text-sm text-gray-500 dark:text-gray-400">{message}</p>
+      <p className="text-sm text-muted-foreground">{message}</p>
     </div>
   );
 }
@@ -277,15 +277,15 @@ export function ModeToggle({ mode, onChange }: { mode: MovementMode; onChange: (
     { value: "auto", label: "تلقائي" },
   ];
   return (
-    <div className="inline-flex items-center gap-1 rounded-xl bg-gray-100 dark:bg-gray-800 p-1">
+    <div className="inline-flex items-center gap-1 rounded-xl bg-muted dark:bg-muted p-1">
       {options.map((o) => (
         <button
           key={o.value}
           onClick={() => onChange(o.value)}
           className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
             mode === o.value
-              ? "bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-indigo-300"
-              : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+              ? "bg-card shadow-sm text-primary dark:text-primary"
+              : "text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
           }`}
         >
           {o.label}
@@ -298,7 +298,7 @@ export function ModeToggle({ mode, onChange }: { mode: MovementMode; onChange: (
 export function TruncatedNotice({ truncated }: { truncated?: boolean }) {
   if (!truncated) return null;
   return (
-    <div className="flex items-start gap-2 rounded-xl border border-amber-200/70 dark:border-amber-900/50 bg-amber-50/70 dark:bg-amber-950/20 px-4 py-3 text-xs text-amber-800 dark:text-amber-300">
+    <div className="flex items-start gap-2 rounded-xl border border-warning/70 dark:border-warning/50 bg-warning/70 dark:bg-warning/20 px-4 py-3 text-xs text-warning dark:text-warning">
       <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
       <span>
         الفترة كبيرة جداً والنتيجة مبنية على أول 50,000 طلب فقط — صغّر فترة التاريخ للحصول على نتائج كاملة.

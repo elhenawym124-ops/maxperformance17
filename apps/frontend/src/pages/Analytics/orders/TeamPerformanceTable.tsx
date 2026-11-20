@@ -23,14 +23,14 @@ export const TeamPerformanceTable: React.FC<TeamPerformanceTableProps> = ({
 
   const renderSortIndicator = (field: keyof TeamMemberStat) => {
     if (sortField !== field) return null;
-    return <span className="mr-1 text-[10px]">{sortOrder === "desc" ? "▼" : "▲"}</span>;
+    return <span className="me-1 text-[10px]">{sortOrder === "desc" ? "▼" : "▲"}</span>;
   };
 
   return (
     <Card className="border-border/70 bg-card overflow-hidden shadow-sm">
       <div className="p-3 bg-muted/20 border-b border-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
         <h3 className="font-semibold text-foreground flex items-center gap-2">
-          <Trophy className="h-4 w-4 text-amber-500" />
+          <Trophy className="h-4 w-4 text-warning" />
           {t("teamPerformance.performanceDetails", "تفاصيل أداء الموظفين")}
         </h3>
         <span className="text-muted-foreground text-[11px]">
@@ -111,17 +111,17 @@ export const TeamPerformanceTable: React.FC<TeamPerformanceTableProps> = ({
                 <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-blue-600 dark:text-blue-400">
                   {member.ordersCreated?.toLocaleString() || 0}
                 </td>
-                <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-emerald-600 dark:text-emerald-400">
+                <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-success dark:text-success">
                   {member.ordersConfirmed?.toLocaleString() || 0}
                 </td>
-                <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-amber-600 dark:text-amber-400">
+                <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-semibold text-warning dark:text-warning">
                   {(member.ordersAssigned || 0).toLocaleString()}
                 </td>
                 <td className="py-2.5 px-3.5 text-center font-mono tabular-nums font-bold text-foreground">
                   {member.totalRevenue?.toLocaleString()}
                 </td>
                 <td className="py-2.5 px-3.5 text-center">
-                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-bold tabular-nums">
+                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-success/10 text-success dark:text-success border border-success/20 font-bold tabular-nums">
                     {typeof member.successRate === "number"
                       ? member.successRate.toFixed(1)
                       : "0.0"}%

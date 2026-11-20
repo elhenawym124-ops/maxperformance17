@@ -23,36 +23,36 @@ export const ReportDetailsViewer: React.FC<ReportDetailsViewerProps> = ({
       case "sales":
         return (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800">
+            <table className="min-w-full divide-y divide-border dark:divide-border">
+              <thead className="bg-gray-50 dark:bg-muted">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     التاريخ
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     المبيعات
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     الطلبات
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     متوسط الطلب
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="bg-card divide-y divide-border dark:divide-border">
                 {report.data.map((row, index) => (
-                  <tr key={index} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/30">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white tabular-nums">
+                  <tr key={index} className="hover:bg-gray-50/50 dark:hover:bg-muted">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground tabular-nums">
                       {formatDate(row.date)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600 dark:text-green-400 tabular-nums">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-success dark:text-success tabular-nums">
                       {formatPrice(row.sales)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white tabular-nums">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground tabular-nums">
                       {row.orders}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white tabular-nums">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground tabular-nums">
                       {formatPrice(row.avgOrder)}
                     </td>
                   </tr>
@@ -68,33 +68,33 @@ export const ReportDetailsViewer: React.FC<ReportDetailsViewerProps> = ({
             {report.data.map((item, index) => (
               <div
                 key={index}
-                className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700/60"
+                className="bg-gray-50 dark:bg-muted rounded-lg p-4 border border-border dark:border-border"
               >
-                <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                <h4 className="font-medium text-foreground mb-2">
                   {item.week}
                 </h4>
                 <div className="space-y-1">
                   <div className="flex justify-between">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-foreground dark:text-muted-foreground">
                       عملاء جدد:
                     </span>
-                    <span className="font-medium text-gray-900 dark:text-white tabular-nums">
+                    <span className="font-medium text-foreground tabular-nums">
                       {item.newCustomers}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-foreground dark:text-muted-foreground">
                       تحويلات:
                     </span>
-                    <span className="font-medium text-gray-900 dark:text-white tabular-nums">
+                    <span className="font-medium text-foreground tabular-nums">
                       {item.conversions}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-foreground dark:text-muted-foreground">
                       معدل التحويل:
                     </span>
-                    <span className="font-medium text-green-600 dark:text-green-400 tabular-nums">
+                    <span className="font-medium text-success dark:text-success tabular-nums">
                       {item.rate}%
                     </span>
                   </div>
@@ -107,30 +107,30 @@ export const ReportDetailsViewer: React.FC<ReportDetailsViewerProps> = ({
       case "moderators":
         return (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800">
+            <table className="min-w-full divide-y divide-border dark:divide-border">
+              <thead className="bg-gray-50 dark:bg-muted">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     الموظف
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     الرسائل المرسلة
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     المحادثات المكتملة
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="bg-card divide-y divide-border dark:divide-border">
                 {report.data.map((row, index) => (
-                  <tr key={index} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/30">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                  <tr key={index} className="hover:bg-gray-50/50 dark:hover:bg-muted">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">
                       {row.name}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white font-bold tabular-nums">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground font-bold tabular-nums">
                       {row.messagesCount} رسالة
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white tabular-nums">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground tabular-nums">
                       {row.conversationsCount} محادثة
                     </td>
                   </tr>
@@ -142,7 +142,7 @@ export const ReportDetailsViewer: React.FC<ReportDetailsViewerProps> = ({
 
       default:
         return (
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-8 text-muted-foreground">
             {t("reports.noDataAvailable", "لا توجد بيانات متاحة لهذا التقرير")}
           </div>
         );
@@ -150,23 +150,23 @@ export const ReportDetailsViewer: React.FC<ReportDetailsViewerProps> = ({
   };
 
   return (
-    <div className="bg-white shadow rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700/60 overflow-hidden">
-      <div className="border-b border-gray-200 px-6 py-4 dark:border-gray-700">
+    <div className="bg-white shadow rounded-lg dark:bg-muted border border-border dark:border-border overflow-hidden">
+      <div className="border-b border-border px-6 py-4 dark:border-border">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-primary">
               {t("reports.selectedReport", "التقرير المحدد")}
             </p>
-            <h2 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="mt-2 text-xl font-semibold text-foreground">
               {selectedReport.name}
             </h2>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            <p className="mt-1 text-sm text-foreground dark:text-muted-foreground">
               {t(
                 "reports.selectedReportHint",
                 "تفاصيل وسجلات التقرير للفترة الزمنية المحددة",
               )}
             </p>
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 tabular-nums">
+            <p className="mt-2 text-sm text-muted-foreground tabular-nums">
               آخر تحديث: {formatDate(selectedReport.lastUpdated)}
             </p>
           </div>
@@ -174,17 +174,17 @@ export const ReportDetailsViewer: React.FC<ReportDetailsViewerProps> = ({
             <button
               disabled
               title={t("reports.exportSoonHint", "التصدير متاح قريباً")}
-              className="inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium leading-4 text-gray-500 shadow-sm cursor-not-allowed dark:border-gray-600 dark:bg-gray-700/60 dark:text-gray-400"
+              className="inline-flex items-center rounded-md border border-border bg-muted px-3 py-2 text-sm font-medium leading-4 text-muted-foreground shadow-sm cursor-not-allowed dark:border-border dark:bg-muted dark:text-muted-foreground"
             >
-              <ArrowDownTrayIcon className="mr-2 h-4 w-4" />
+              <ArrowDownTrayIcon className="me-2 h-4 w-4" />
               {t("reports.exportPdfSoon", "تصدير PDF")}
             </button>
             <button
               disabled
               title={t("reports.exportSoonHint", "التصدير متاح قريباً")}
-              className="inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium leading-4 text-gray-500 shadow-sm cursor-not-allowed dark:border-gray-600 dark:bg-gray-700/60 dark:text-gray-400"
+              className="inline-flex items-center rounded-md border border-border bg-muted px-3 py-2 text-sm font-medium leading-4 text-muted-foreground shadow-sm cursor-not-allowed dark:border-border dark:bg-muted dark:text-muted-foreground"
             >
-              <ArrowDownTrayIcon className="mr-2 h-4 w-4" />
+              <ArrowDownTrayIcon className="me-2 h-4 w-4" />
               {t("reports.exportExcelSoon", "تصدير Excel")}
             </button>
           </div>

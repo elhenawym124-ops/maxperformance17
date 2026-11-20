@@ -89,7 +89,7 @@ export const OrderStatusTrendsTab: React.FC<OrderStatusTrendsTabProps> = ({
                 </span>
                 <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-purple-500 rounded-full"
+                    className="h-full bg-primary rounded-full"
                     style={{
                       width: `${(s.count / Math.max(...sourceStats.map((x) => x.count), 1)) * 100}%`,
                     }}

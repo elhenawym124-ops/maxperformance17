@@ -173,12 +173,12 @@ const StatusAnalysisReport: React.FC = () => {
   const currentStatusName = statuses.find((s) => s.id === selectedStatus)?.name || "الحالة المختارة";
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-4 sm:p-6 space-y-6" dir="rtl">
+    <div className="polaris-track text-foreground p-4 sm:p-6 space-y-6" dir="rtl">
       {/* Top Header & Actions */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/70 pb-5">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center">
+            <div className="h-9 w-9 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center">
               <Activity className="h-5 w-5" />
             </div>
             <div>
@@ -302,7 +302,7 @@ const StatusAnalysisReport: React.FC = () => {
               <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-medium text-muted-foreground">إجمالي الطلبات</span>
-                  <div className="h-8 w-8 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center">
                     <ShoppingBag className="h-4 w-4" />
                   </div>
                 </div>
@@ -317,11 +317,11 @@ const StatusAnalysisReport: React.FC = () => {
               <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-medium text-muted-foreground">القيمة المالية الإجمالية</span>
-                  <div className="h-8 w-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-lg bg-success/10 text-success dark:text-success border border-success/20 flex items-center justify-center">
                     <DollarSign className="h-4 w-4" />
                   </div>
                 </div>
-                <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+                <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success">
                   {formatCurrency(data.summary.totalRevenue)}
                 </div>
                 <div className="mt-2 text-xs text-muted-foreground">حجم التدفقات المرتبطة بالحالة</div>
@@ -347,11 +347,11 @@ const StatusAnalysisReport: React.FC = () => {
               <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-medium text-muted-foreground">معدل التحويل والنجاح</span>
-                  <div className="h-8 w-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary dark:text-primary border border-primary/20 flex items-center justify-center">
                     <Percent className="h-4 w-4" />
                   </div>
                 </div>
-                <div className="text-2xl font-bold font-mono tabular-nums text-purple-600 dark:text-purple-400">
+                <div className="text-2xl font-bold font-mono tabular-nums text-primary dark:text-primary">
                   {data.summary.successRate}%
                 </div>
                 <div className="mt-2 text-xs text-muted-foreground">كفاءة معالجة الحالة</div>

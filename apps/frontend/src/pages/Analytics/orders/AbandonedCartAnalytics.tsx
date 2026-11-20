@@ -203,7 +203,7 @@ export default function AbandonedCartAnalytics() {
           className="flex items-center justify-between p-2.5 rounded-lg border border-border/70 bg-card hover:bg-muted transition-colors"
         >
           <div className="flex items-center gap-2 min-w-0">
-            <span className="p-1 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400">
+            <span className="p-1 rounded bg-primary/10 text-primary dark:text-primary">
               <CheckCircle className="h-3.5 w-3.5" />
             </span>
             <span className="text-xs font-medium text-foreground truncate">سجل تقارير الاسترداد</span>
@@ -216,7 +216,7 @@ export default function AbandonedCartAnalytics() {
           className="flex items-center justify-between p-2.5 rounded-lg border border-border/70 bg-card hover:bg-muted transition-colors"
         >
           <div className="flex items-center gap-2 min-w-0">
-            <span className="p-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <span className="p-1 rounded bg-success/10 text-success dark:text-success">
               <MessageSquare className="h-3.5 w-3.5" />
             </span>
             <span className="text-xs font-medium text-foreground truncate">قوالب رسائل واتساب</span>
@@ -229,7 +229,7 @@ export default function AbandonedCartAnalytics() {
           className="flex items-center justify-between p-2.5 rounded-lg border border-border/70 bg-card hover:bg-muted transition-colors"
         >
           <div className="flex items-center gap-2 min-w-0">
-            <span className="p-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
+            <span className="p-1 rounded bg-warning/10 text-warning dark:text-warning">
               <Tag className="h-3.5 w-3.5" />
             </span>
             <span className="text-xs font-medium text-foreground truncate">كوبونات تحفيز الشراء</span>
@@ -267,7 +267,7 @@ export default function AbandonedCartAnalytics() {
             <div className="rounded-lg border border-border/70 bg-card p-3 shadow-none">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>السلات المتروكة</span>
-                <ShoppingCart className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+                <ShoppingCart className="h-3.5 w-3.5 text-warning dark:text-warning" />
               </div>
               <p className="mt-1 font-mono text-xl font-bold tabular-nums text-foreground">
                 {(stats?.abandonedCarts || 0).toLocaleString()}
@@ -280,9 +280,9 @@ export default function AbandonedCartAnalytics() {
             <div className="rounded-lg border border-border/70 bg-card p-3 shadow-none">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>الإيراد المفقود</span>
-                <DollarSign className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400" />
+                <DollarSign className="h-3.5 w-3.5 text-destructive dark:text-destructive" />
               </div>
-              <p className="mt-1 font-mono text-xl font-bold tabular-nums text-rose-600 dark:text-rose-400">
+              <p className="mt-1 font-mono text-xl font-bold tabular-nums text-destructive dark:text-destructive">
                 {formatPrice(stats?.totalCartValue || 0)}
               </p>
               <p className="mt-0.5 font-mono text-[10px] text-muted-foreground tabular-nums">
@@ -293,9 +293,9 @@ export default function AbandonedCartAnalytics() {
             <div className="rounded-lg border border-border/70 bg-card p-3 shadow-none">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>الإيراد المسترجع</span>
-                <Sparkles className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                <Sparkles className="h-3.5 w-3.5 text-success dark:text-success" />
               </div>
-              <p className="mt-1 font-mono text-xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+              <p className="mt-1 font-mono text-xl font-bold tabular-nums text-success dark:text-success">
                 {formatPrice(stats?.recoveredRevenue || 0)}
               </p>
               <p className="mt-0.5 font-mono text-[10px] text-muted-foreground tabular-nums">
@@ -306,13 +306,13 @@ export default function AbandonedCartAnalytics() {
             <div className="rounded-lg border border-border/70 bg-card p-3 shadow-none">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>معدل التخلي والاسترداد</span>
-                <Clock className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" />
+                <Clock className="h-3.5 w-3.5 text-primary dark:text-primary" />
               </div>
               <div className="mt-1 flex items-baseline justify-between font-mono tabular-nums">
-                <span className="text-xl font-bold text-purple-600 dark:text-purple-400">
+                <span className="text-xl font-bold text-primary dark:text-primary">
                   {(stats?.abandonmentRate || 0).toFixed(1)}%
                 </span>
-                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                <span className="text-xs font-bold text-success dark:text-success">
                   {(stats?.recoveryRate || 0).toFixed(1)}% استرداد
                 </span>
               </div>

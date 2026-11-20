@@ -80,7 +80,7 @@ export const TaskTable: React.FC<TaskTableProps> = ({
     <div
       id="tasks-queue"
       data-testid="tasks-queue"
-      className="overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.18)] mb-8 sm:mb-6"
+      className="overflow-hidden rounded-xl border border-border/60 bg-card/80 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.18)] mb-8 sm:mb-6"
     >
       <TaskTableHeader
         loading={loading}
@@ -163,7 +163,7 @@ export const TaskTable: React.FC<TaskTableProps> = ({
           </div>
         ) : isEmpty ? (
           <div className="flex flex-col items-center justify-center gap-4 px-4 py-16 text-center">
-            <div className="flex size-16 items-center justify-center rounded-2xl border border-dashed border-border bg-background/60">
+            <div className="flex size-16 items-center justify-center rounded-xl border border-dashed border-border bg-background/60">
               <ClipboardDocumentListIcon className="size-8 text-muted-foreground/50" />
             </div>
             <div className="space-y-1.5">

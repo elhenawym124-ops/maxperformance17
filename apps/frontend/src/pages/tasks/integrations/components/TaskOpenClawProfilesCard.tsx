@@ -55,7 +55,7 @@ export const TaskOpenClawProfilesCard: React.FC<
           {openClawProfiles.map((profile) => (
             <div
               key={profile.id}
-              className={`rounded-2xl border p-4 ${
+              className={`rounded-xl border p-4 ${
                 currentOpenClawProfile?.id === profile.id
                   ? 'border-secondary/25 bg-secondary/10 shadow-[0_20px_60px_-48px_rgba(34,199,201,0.4)]'
                   : 'border-border/70 bg-background/72'
@@ -105,7 +105,7 @@ export const TaskOpenClawProfilesCard: React.FC<
                   type="button"
                   onClick={() => onHydrateProfile(profile)}
                   disabled={hydratingOpenClawProfileId === profile.id}
-                  className="rounded-2xl border border-secondary/20 bg-secondary/8 px-3 py-2 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/12 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-xl border border-secondary/20 bg-secondary/8 px-3 py-2 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/12 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {hydratingOpenClawProfileId === profile.id
                     ? 'جارٍ التحميل...'
@@ -116,7 +116,7 @@ export const TaskOpenClawProfilesCard: React.FC<
                   onClick={() =>
                     onQuickSetupChange(toOpenClawQuickSetupState(profile))
                   }
-                  className="rounded-2xl border border-border/60 bg-background/75 px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
+                  className="rounded-xl border border-border/60 bg-background/75 px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-background"
                 >
                   تحميل البيانات
                 </button>
@@ -124,7 +124,7 @@ export const TaskOpenClawProfilesCard: React.FC<
                   type="button"
                   onClick={() => onDeleteProfile(profile)}
                   disabled={deletingOpenClawProfileId === profile.id}
-                  className="rounded-lg border border-rose-300 px-3 py-2 text-sm font-semibold text-rose-700 hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-rose-800 dark:text-rose-200 dark:hover:bg-rose-900/40"
+                  className="rounded-lg border border-destructive px-3 py-2 text-sm font-semibold text-destructive hover:bg-destructive/10 disabled:cursor-not-allowed disabled:opacity-60 dark:border-destructive dark:text-destructive dark:hover:bg-destructive/40"
                 >
                   {deletingOpenClawProfileId === profile.id
                     ? 'جارٍ الحذف...'

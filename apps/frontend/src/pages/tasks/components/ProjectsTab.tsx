@@ -29,9 +29,9 @@ const projectStatusStyles: Record<string, string> = {
   completed:
     "border border-secondary/20 bg-secondary/10 text-secondary dark:bg-secondary/14",
   planning:
-    "border border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    "border border-warning/20 bg-warning/10 text-warning dark:text-warning",
   on_hold:
-    "border border-border/60 bg-background/75 text-muted-foreground dark:bg-muted/70 dark:text-slate-300",
+    "border border-border/60 bg-background/75 text-muted-foreground dark:bg-muted/70 dark:text-muted-foreground",
 };
 
 const projectStatusLabels: Record<string, string> = {
@@ -42,10 +42,10 @@ const projectStatusLabels: Record<string, string> = {
 };
 
 const projectPriorityStyles: Record<string, string> = {
-  high: "border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-300",
+  high: "border border-destructive/20 bg-destructive/10 text-destructive dark:text-destructive",
   medium:
-    "border border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-  low: "border border-border/60 bg-background/75 text-muted-foreground dark:text-slate-300",
+    "border border-warning/20 bg-warning/10 text-warning dark:text-warning",
+  low: "border border-border/60 bg-background/75 text-muted-foreground dark:text-muted-foreground",
 };
 
 const projectPriorityLabels: Record<string, string> = {
@@ -107,7 +107,7 @@ export const ProjectsTab: React.FC<ProjectsTabProps> = ({
         {projects.length > 0 ? (
           <Button
             type="button"
-            className="hidden h-10 rounded-2xl md:inline-flex"
+            className="hidden h-10 rounded-xl md:inline-flex"
             onClick={() => setShowCreateProjectModal(true)}
           >
             <PlusIcon className="size-4" />
@@ -130,7 +130,7 @@ export const ProjectsTab: React.FC<ProjectsTabProps> = ({
           </div>
           <Button
             type="button"
-            className="rounded-2xl"
+            className="rounded-xl"
             onClick={() => setShowCreateProjectModal(true)}
           >
             <PlusIcon className="size-4" />
@@ -235,7 +235,7 @@ export const ProjectsTab: React.FC<ProjectsTabProps> = ({
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="rounded-full text-rose-600 hover:text-rose-700"
+                        className="rounded-full text-destructive hover:text-destructive"
                         onClick={() => deleteProject(project.id)}
                       >
                         <TrashIcon className="size-4" />

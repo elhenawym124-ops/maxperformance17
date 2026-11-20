@@ -89,10 +89,10 @@ const ConversionRateAnalytics: React.FC = () => {
   const header = (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
           {t("conversionAnalytics.title")}
         </h1>
-        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+        <p className="text-xs sm:text-sm text-muted-foreground mt-1">
           {t("conversionAnalytics.subtitle")}
         </p>
       </div>
@@ -106,7 +106,7 @@ const ConversionRateAnalytics: React.FC = () => {
 
       {header}
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl border border-primary/20 bg-primary/5 p-3.5 text-xs sm:text-sm text-primary dark:border-primary/30 dark:bg-primary/10">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-xs sm:text-sm text-primary dark:border-primary/30 dark:bg-primary/10">
         <div className="flex items-center gap-2">
           <SparklesIcon className="size-4.5 shrink-0" />
           <span>
@@ -122,18 +122,18 @@ const ConversionRateAnalytics: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center min-h-[350px] rounded-2xl border border-gray-100 bg-white/50 dark:border-gray-800 dark:bg-gray-900/50">
+        <div className="flex items-center justify-center min-h-[350px] rounded-xl border border-border bg-white/50 dark:border-border dark:bg-muted">
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
         </div>
       ) : error ? (
-        <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl text-center border border-red-200 dark:border-red-800">
-          <XCircleIcon className="h-12 w-12 text-red-500 mx-auto mb-3" />
-          <p className="text-sm sm:text-base text-red-600 dark:text-red-400 font-medium">
+        <div className="bg-red-50 dark:bg-destructive/20 p-6 rounded-xl text-center border border-destructive dark:border-destructive">
+          <XCircleIcon className="h-12 w-12 text-destructive mx-auto mb-3" />
+          <p className="text-sm sm:text-base text-destructive dark:text-destructive font-medium">
             {error}
           </p>
           <button
             onClick={() => void fetchData()}
-            className="mt-4 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 text-sm font-medium transition"
+            className="mt-4 px-4 py-2 bg-destructive text-white rounded-xl hover:bg-destructive text-sm font-medium transition"
           >
             {t("conversionAnalytics.retry")}
           </button>
@@ -142,8 +142,8 @@ const ConversionRateAnalytics: React.FC = () => {
         <>
           {/* Direct checkout callout if store bypasses cart */}
           {isDirectOrderStore && (
-            <div className="flex items-start gap-3 rounded-2xl border border-amber-200/80 bg-amber-50/70 p-4 text-xs sm:text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-300">
-              <InformationCircleIcon className="size-5 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" />
+            <div className="flex items-start gap-3 rounded-xl border border-warning/80 bg-warning/70 p-4 text-xs sm:text-sm text-warning dark:border-warning/50 dark:bg-warning/20 dark:text-warning">
+              <InformationCircleIcon className="size-5 shrink-0 text-warning dark:text-warning mt-0.5" />
               <div>
                 <span className="font-bold">ملاحظة مسار الطلب المباشر:</span>{" "}
                 المتجر يسجل طلبات شراء مباشرة عبر صفحة المنتج (Quick Order / Buy Now) دون المرور بسلة المشتريات، لذا يعتمد القياس الفعلي على معدل التحويل الإجمالي.
@@ -153,96 +153,96 @@ const ConversionRateAnalytics: React.FC = () => {
 
           {/* Key KPI Strip */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
                   <ChartBarIcon className="size-5 sm:size-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-xs text-muted-foreground font-medium">
                     {t("conversionAnalytics.overallRate")}
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mt-0.5">
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground mt-0.5">
                     {stats?.overallRate?.toFixed(1)}%
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="mt-3 text-[11px] text-muted-foreground/80">
                 إجمالي الطلبات المكتملة مقارنة بالزيارات
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                <div className="p-2.5 rounded-xl bg-success/10 text-success dark:text-success">
                   <ShoppingCartIcon className="size-5 sm:size-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-xs text-muted-foreground font-medium">
                     {t("conversionAnalytics.visitorToCart")}
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                  <p className="text-2xl sm:text-3xl font-bold text-success dark:text-success mt-0.5">
                     {stats?.visitorToCart?.toFixed(1)}%
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="mt-3 text-[11px] text-muted-foreground/80">
                 نسبة الزوار الذين أضافوا منتجاً إلى السلة
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                <div className="p-2.5 rounded-xl bg-warning/10 text-warning dark:text-warning">
                   <CreditCardIcon className="size-5 sm:size-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-xs text-muted-foreground font-medium">
                     {t("conversionAnalytics.cartToCheckout")}
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-amber-600 dark:text-amber-400 mt-0.5">
+                  <p className="text-2xl sm:text-3xl font-bold text-warning dark:text-warning mt-0.5">
                     {stats?.cartToCheckout?.toFixed(1)}%
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="mt-3 text-[11px] text-muted-foreground/80">
                 نسبة الانتقال من السلة إلى شاشة الدفع
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+            <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-5 shadow-sm dark:border-border dark:bg-muted">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400">
+                <div className="p-2.5 rounded-xl bg-primary/10 text-primary dark:text-primary">
                   <CheckCircleIcon className="size-5 sm:size-6" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-xs text-muted-foreground font-medium">
                     {t("conversionAnalytics.checkoutToOrder")}
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400 mt-0.5">
+                  <p className="text-2xl sm:text-3xl font-bold text-primary dark:text-primary mt-0.5">
                     {stats?.checkoutToOrder?.toFixed(1)}%
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="mt-3 text-[11px] text-muted-foreground/80">
                 نسبة إتمام الطلب بعد فتح شاشة الدفع
               </p>
             </div>
           </div>
 
           {/* Daily Trend Chart */}
-          <div className="rounded-2xl border border-gray-200/70 bg-white/80 p-4 sm:p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900/80">
+          <div className="rounded-xl border border-border bg-white/80 p-4 sm:p-6 shadow-sm dark:border-border dark:bg-muted">
             <div className="flex items-center justify-between gap-2 mb-4">
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
                   <ArrowTrendingUpIcon className="size-5 text-primary" />
                   {t("conversionAnalytics.trend")}
                 </h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   تغير معدل التحويل يوماً بيوم خلال الفترة المحددة
                 </p>
               </div>
-              <span className="text-xs text-gray-400 dark:text-gray-500">
+              <span className="text-xs text-muted-foreground/80">
                 {(stats?.dailyTrends?.length || 0)} نقطة بيانية
               </span>
             </div>
@@ -293,7 +293,7 @@ const ConversionRateAnalytics: React.FC = () => {
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="flex h-full items-center justify-center text-xs sm:text-sm text-gray-400">
+                <div className="flex h-full items-center justify-center text-xs sm:text-sm text-muted-foreground">
                   لا توجد بيانات حركة كافية لرسم المنحنى اليومي خلال الفترة المحددة.
                 </div>
               )}

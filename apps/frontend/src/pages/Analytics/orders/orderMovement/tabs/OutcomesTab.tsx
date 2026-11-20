@@ -140,27 +140,27 @@ export default function OutcomesTab({ startDate, endDate, mode }: MovementFilter
           label="مُسلَّم"
           value={formatNumber(summary.delivered)}
           icon={CheckCircle2}
-          gradient="from-emerald-500 to-teal-600"
+          gradient="from-emerald-500 to-success"
           hint={formatCurrency(summary.deliveredRevenue)}
         />
         <KpiCard
           label="فاشل"
           value={formatNumber(summary.failed)}
           icon={XCircle}
-          gradient="from-rose-500 to-red-600"
+          gradient="from-rose-500 to-destructive"
           hint={formatCurrency(summary.failedRevenue)}
         />
         <KpiCard
           label="نسبة النجاح"
           value={formatPercent(summary.successRate)}
           icon={Target}
-          gradient="from-sky-500 to-indigo-600"
+          gradient="from-sky-500 to-primary"
         />
         <KpiCard
           label="الإيراد الضائع"
           value={formatCurrency(summary.lostRevenue)}
           icon={Banknote}
-          gradient="from-amber-500 to-orange-600"
+          gradient="from-amber-500 to-warning"
         />
       </div>
 
@@ -202,10 +202,10 @@ export default function OutcomesTab({ startDate, endDate, mode }: MovementFilter
                         style={CHART_TOOLTIP_STYLE}
                         className="rounded-xl px-3 py-2"
                       >
-                        <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                        <div className="text-sm font-semibold text-foreground">
                           {status ? getStatusLabel(status) : "-"}
                         </div>
-                        <div className="text-xs text-gray-600 dark:text-gray-300">
+                        <div className="text-xs text-muted-foreground">
                           {formatNumber(Number(item.value ?? 0))} طلب
                         </div>
                       </div>
@@ -226,12 +226,12 @@ export default function OutcomesTab({ startDate, endDate, mode }: MovementFilter
                     className="h-2.5 w-2.5 shrink-0 rounded-full"
                     style={{ backgroundColor: statusChartColor(row.status) }}
                   />
-                  <span className="truncate text-gray-700 dark:text-gray-200">
+                  <span className="truncate text-foreground">
                     {getStatusLabel(row.status)}
                   </span>
                 </div>
-                <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold text-gray-900 dark:text-white">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <span className="font-semibold text-foreground">
                     {formatNumber(row.count)}
                   </span>
                   <span className="w-12 text-left">
@@ -276,10 +276,10 @@ export default function OutcomesTab({ startDate, endDate, mode }: MovementFilter
                         style={CHART_TOOLTIP_STYLE}
                         className="rounded-xl px-3 py-2"
                       >
-                        <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                        <div className="text-sm font-semibold text-foreground">
                           {status ? getStatusLabel(status) : "-"}
                         </div>
-                        <div className="text-xs text-gray-600 dark:text-gray-300">
+                        <div className="text-xs text-muted-foreground">
                           {formatCurrency(Number(item.value ?? 0))}
                         </div>
                       </div>
@@ -310,29 +310,29 @@ export default function OutcomesTab({ startDate, endDate, mode }: MovementFilter
             <div className="overflow-x-auto">
               <table className="w-full text-right">
                 <thead>
-                  <tr className="border-b border-gray-100 text-xs font-semibold text-gray-500 dark:border-gray-700/60 dark:text-gray-400">
+                  <tr className="border-b border-border text-xs font-semibold text-muted-foreground dark:border-border dark:text-muted-foreground">
                     <th className="px-4 py-3">السبب</th>
                     <th className="px-4 py-3">الحالة</th>
                     <th className="px-4 py-3 text-center">العدد</th>
                     <th className="px-4 py-3 text-left">الإيراد</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100 dark:divide-gray-700/60">
+                <tbody className="divide-y divide-border dark:divide-border">
                   {data.reasons.map((row) => (
                     <tr
                       key={row.reason}
-                      className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/30"
+                      className="transition-colors hover:bg-muted/50/30"
                     >
-                      <td className="max-w-[320px] truncate px-4 py-3 text-sm text-gray-800 dark:text-gray-200">
+                      <td className="max-w-[320px] truncate px-4 py-3 text-sm text-foreground dark:text-muted-foreground">
                         {row.reason}
                       </td>
                       <td className="px-4 py-3">
                         <StatusPill code={row.status} />
                       </td>
-                      <td className="px-4 py-3 text-center text-sm font-semibold text-gray-900 dark:text-white">
+                      <td className="px-4 py-3 text-center text-sm font-semibold text-foreground">
                         {formatNumber(row.count)}
                       </td>
-                      <td className="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">
+                      <td className="px-4 py-3 text-left text-sm font-semibold text-foreground">
                         {formatCurrency(row.revenue)}
                       </td>
                     </tr>
@@ -341,7 +341,7 @@ export default function OutcomesTab({ startDate, endDate, mode }: MovementFilter
               </table>
             </div>
           ) : (
-            <div className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+            <div className="py-10 text-center text-sm text-muted-foreground">
               لا توجد أسباب مسجلة للطلبات الفاشلة
             </div>
           )}
@@ -356,22 +356,22 @@ export default function OutcomesTab({ startDate, endDate, mode }: MovementFilter
               <div className="mb-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <AutoBadge auto={false} />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  <span className="text-sm font-medium text-foreground">
                     يدوي
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                  <span className="text-sm font-semibold text-foreground">
                     {formatNumber(data.modeSplit.manual)}
                   </span>
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-muted-foreground">
                     {formatPercent(manualPct)}
                   </span>
                 </div>
               </div>
-              <div className="h-2.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
+              <div className="h-2.5 overflow-hidden rounded-full bg-muted">
                 <div
-                  className="h-full rounded-full bg-gradient-to-l from-sky-500 to-sky-400"
+                  className="h-full rounded-full bg-gradient-to-l from-info to-info"
                   style={{ width: `${manualPct}%` }}
                 />
               </div>
@@ -380,27 +380,27 @@ export default function OutcomesTab({ startDate, endDate, mode }: MovementFilter
               <div className="mb-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <AutoBadge auto />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  <span className="text-sm font-medium text-foreground">
                     تلقائي
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                  <span className="text-sm font-semibold text-foreground">
                     {formatNumber(data.modeSplit.auto)}
                   </span>
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-muted-foreground">
                     {formatPercent(autoPct)}
                   </span>
                 </div>
               </div>
-              <div className="h-2.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
+              <div className="h-2.5 overflow-hidden rounded-full bg-muted">
                 <div
-                  className="h-full rounded-full bg-gradient-to-l from-violet-500 to-fuchsia-500"
+                  className="h-full rounded-full bg-gradient-to-l from-primary to-primary"
                   style={{ width: `${autoPct}%` }}
                 />
               </div>
             </div>
-            <p className="pt-1 text-xs text-gray-500 dark:text-gray-400">
+            <p className="pt-1 text-xs text-muted-foreground">
               من إجمالي {formatNumber(summary.totalOrders)} طلب في الفترة المحددة
             </p>
           </div>

@@ -251,7 +251,7 @@ export const TasksModals: React.FC<TasksModalsProps> = ({ controller }) => {
             <AlertDialogFooter>
               <AlertDialogCancel>إلغاء</AlertDialogCancel>
               <AlertDialogAction
-                className="bg-rose-600 text-white hover:bg-rose-700"
+                className="bg-rose-600 text-white hover:bg-destructive"
                 onClick={() => {
                   confirmState.onConfirm();
                   setConfirmState({ show: false, message: "", onConfirm: () => {} });

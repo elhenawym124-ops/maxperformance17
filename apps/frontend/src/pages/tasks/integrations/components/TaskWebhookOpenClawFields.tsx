@@ -51,7 +51,7 @@ export const TaskWebhookOpenClawFields: React.FC<
               },
             }))
           }
-          className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+          className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
           placeholder="Tasks"
         />
       </div>
@@ -71,7 +71,7 @@ export const TaskWebhookOpenClawFields: React.FC<
               },
             }))
           }
-          className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+          className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
           placeholder="main"
         />
       </div>
@@ -91,7 +91,7 @@ export const TaskWebhookOpenClawFields: React.FC<
               },
             }))
           }
-          className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+          className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
         >
           {OPENCLAW_WAKE_MODE_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
@@ -116,7 +116,7 @@ export const TaskWebhookOpenClawFields: React.FC<
               },
             }))
           }
-          className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+          className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
         >
           {OPENCLAW_SESSION_MODE_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
@@ -149,7 +149,7 @@ export const TaskWebhookOpenClawFields: React.FC<
                 },
               }))
             }
-            className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+            className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
             placeholder="hook:task:"
           />
         </div>
@@ -190,7 +190,7 @@ export const TaskWebhookOpenClawFields: React.FC<
                   },
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+              className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
             >
               {OPENCLAW_CHANNEL_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -215,7 +215,7 @@ export const TaskWebhookOpenClawFields: React.FC<
                   },
                 }))
               }
-              className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+              className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
               placeholder="مثال: chat id أو رقم حسب القناة"
             />
           </div>
@@ -237,7 +237,7 @@ export const TaskWebhookOpenClawFields: React.FC<
               },
             }))
           }
-          className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+          className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
           placeholder="اختياري: openai/gpt-5.2-mini"
         />
       </div>
@@ -257,7 +257,7 @@ export const TaskWebhookOpenClawFields: React.FC<
               },
             }))
           }
-          className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
+          className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none"
           placeholder="اختياري: low أو medium"
         />
       </div>
@@ -277,7 +277,7 @@ export const TaskWebhookOpenClawFields: React.FC<
               },
             }))
           }
-          className="business-control-input w-full rounded-2xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none font-mono"
+          className="business-control-input w-full rounded-xl px-3 py-2 text-foreground focus:border-secondary focus:outline-none font-mono"
           inputMode="numeric"
           placeholder="اختياري: 120"
         />

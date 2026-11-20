@@ -286,7 +286,7 @@ const CalendarView: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 dark:border-indigo-400"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary dark:border-primary"></div>
       </div>
     );
   }
@@ -299,28 +299,28 @@ const CalendarView: React.FC = () => {
           <div className="flex items-center space-x-4 space-x-reverse">
             <Link
               to="/tasks"
-              className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+              className="flex items-center text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
             >
-              <ArrowLeftIcon className="h-5 w-5 ml-2" />
+              <ArrowLeftIcon className="h-5 w-5 ms-2" />
               العودة
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
-              <CalendarIcon className="h-7 w-7 text-indigo-600 dark:text-indigo-400 ml-2" />
+            <h1 className="text-2xl font-bold text-foreground flex items-center">
+              <CalendarIcon className="h-7 w-7 text-primary ms-2" />
               عرض التقويم
             </h1>
           </div>
 
           <div className="flex items-center space-x-4 space-x-reverse">
             {/* View Mode Toggle */}
-            <div className="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+            <div className="flex bg-muted rounded-lg p-1">
               {(["month", "week", "day"] as const).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setViewMode(mode)}
                   className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                     viewMode === mode
-                      ? "bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 shadow"
-                      : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                      ? "bg-card text-primary shadow"
+                      : "text-gray-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                   }`}
                 >
                   {mode === "month"
@@ -335,9 +335,9 @@ const CalendarView: React.FC = () => {
             <Link
               to="/tasks"
               state={{ openCreateModal: true }}
-              className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary"
             >
-              <PlusIcon className="h-5 w-5 ml-2" />
+              <PlusIcon className="h-5 w-5 ms-2" />
               مهمة جديدة
             </Link>
           </div>
@@ -357,48 +357,48 @@ const CalendarView: React.FC = () => {
       </div>
 
       {/* Calendar Navigation */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow mb-6">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="bg-card rounded-lg shadow mb-6">
+        <div className="flex items-center justify-between p-4 border-b border-border dark:border-border">
           <div className="flex items-center space-x-4 space-x-reverse">
             <button
               onClick={navigatePrev}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+              className="p-2 hover:bg-muted rounded-lg"
             >
               <ChevronRightIcon className="h-5 w-5" />
             </button>
             <button
               onClick={navigateNext}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+              className="p-2 hover:bg-muted rounded-lg"
             >
               <ChevronLeftIcon className="h-5 w-5" />
             </button>
             <button
               onClick={goToToday}
-              className="px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg"
+              className="px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 dark:hover:bg-primary/30 rounded-lg"
             >
               اليوم
             </button>
           </div>
 
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+          <h2 className="text-xl font-bold text-foreground">
             {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
           </h2>
 
-          <div className="flex items-center space-x-2 space-x-reverse text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center space-x-2 space-x-reverse text-sm text-muted-foreground">
             <span className="flex items-center">
-              <span className="w-3 h-3 rounded-full bg-red-500 ml-1"></span>
+              <span className="w-3 h-3 rounded-full bg-destructive ms-1"></span>
               عاجل
             </span>
             <span className="flex items-center">
-              <span className="w-3 h-3 rounded-full bg-orange-500 ml-1"></span>
+              <span className="w-3 h-3 rounded-full bg-warning ms-1"></span>
               عالي
             </span>
             <span className="flex items-center">
-              <span className="w-3 h-3 rounded-full bg-yellow-500 ml-1"></span>
+              <span className="w-3 h-3 rounded-full bg-warning ms-1"></span>
               متوسط
             </span>
             <span className="flex items-center">
-              <span className="w-3 h-3 rounded-full bg-green-500 ml-1"></span>
+              <span className="w-3 h-3 rounded-full bg-success ms-1"></span>
               منخفض
             </span>
           </div>
@@ -412,7 +412,7 @@ const CalendarView: React.FC = () => {
               {dayNames.map((day) => (
                 <div
                   key={day}
-                  className="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2"
+                  className="text-center text-sm font-medium text-muted-foreground py-2"
                 >
                   {day}
                 </div>
@@ -426,17 +426,17 @@ const CalendarView: React.FC = () => {
                   key={index}
                   className={`min-h-[120px] p-2 border rounded-lg ${
                     day.isCurrentMonth
-                      ? "bg-white dark:bg-gray-800"
-                      : "bg-gray-50 dark:bg-gray-900"
-                  } ${day.isToday ? "border-indigo-500 dark:border-indigo-400 border-2" : "border-gray-200 dark:border-gray-700"}`}
+                      ? "bg-card"
+                      : "bg-gray-50 dark:bg-muted"
+                  } ${day.isToday ? "border-indigo-500 dark:border-primary border-2" : "border-gray-200 dark:border-border"}`}
                 >
                   <div
                     className={`text-sm font-medium mb-1 ${
                       day.isToday
-                        ? "text-indigo-600 dark:text-indigo-400"
+                        ? "text-primary"
                         : day.isCurrentMonth
-                          ? "text-gray-900 dark:text-gray-100"
-                          : "text-gray-400 dark:text-gray-500"
+                          ? "text-foreground"
+                          : "text-muted-foreground/80"
                     }`}
                   >
                     {day.date.getDate()}
@@ -447,16 +447,16 @@ const CalendarView: React.FC = () => {
                       <button
                         key={task.id}
                         onClick={() => openTaskModal(task)}
-                        className={`w-full text-right text-xs p-1 rounded border-r-2 ${getStatusColor(task.status)} bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 truncate text-gray-900 dark:text-gray-100`}
+                        className={`w-full text-right text-xs p-1 rounded border-r-2 ${getStatusColor(task.status)} bg-muted dark:bg-muted hover:bg-muted dark:hover:bg-muted truncate text-foreground`}
                       >
                         <span
-                          className={`inline-block w-2 h-2 rounded-full ${getPriorityColor(task.priority)} ml-1`}
+                          className={`inline-block w-2 h-2 rounded-full ${getPriorityColor(task.priority)} ms-1`}
                         ></span>
                         {task.title}
                       </button>
                     ))}
                     {day.tasks.length > 3 && (
-                      <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                      <div className="text-xs text-muted-foreground text-center">
                         +{day.tasks.length - 3} مهام أخرى
                       </div>
                     )}
@@ -476,12 +476,12 @@ const CalendarView: React.FC = () => {
                   key={index}
                   className={`min-h-[400px] p-3 border rounded-lg ${
                     day.isToday
-                      ? "border-indigo-500 border-2 bg-indigo-50"
+                      ? "border-indigo-500 border-2 bg-primary/10"
                       : "border-gray-200 bg-white"
                   }`}
                 >
                   <div className="text-center mb-3">
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-muted-foreground">
                       {dayNames[day.date.getDay()]}
                     </div>
                     <div
@@ -500,13 +500,13 @@ const CalendarView: React.FC = () => {
                       >
                         <div className="flex items-center mb-1">
                           <span
-                            className={`w-2 h-2 rounded-full ${getPriorityColor(task.priority)} ml-2`}
+                            className={`w-2 h-2 rounded-full ${getPriorityColor(task.priority)} ms-2`}
                           ></span>
-                          <span className="text-sm font-medium text-gray-900 truncate">
+                          <span className="text-sm font-medium text-foreground truncate">
                             {task.title}
                           </span>
                         </div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-muted-foreground">
                           {task.projectName}
                         </div>
                       </button>
@@ -522,10 +522,10 @@ const CalendarView: React.FC = () => {
         {viewMode === "day" && (
           <div className="p-4">
             <div className="text-center mb-6">
-              <div className="text-lg text-gray-500">
+              <div className="text-lg text-muted-foreground">
                 {dayNames[currentDate.getDay()]}
               </div>
-              <div className="text-4xl font-bold text-gray-900">
+              <div className="text-4xl font-bold text-foreground">
                 {currentDate.getDate()}
               </div>
               <div className="text-gray-500">
@@ -535,8 +535,8 @@ const CalendarView: React.FC = () => {
 
             <div className="max-w-2xl mx-auto space-y-3">
               {getTasksForDate(currentDate).length === 0 ? (
-                <div className="text-center py-12 text-gray-500">
-                  <CalendarIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                <div className="text-center py-12 text-muted-foreground">
+                  <CalendarIcon className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                   <p>لا توجد مهام في هذا اليوم</p>
                 </div>
               ) : (
@@ -549,21 +549,21 @@ const CalendarView: React.FC = () => {
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center">
                         <span
-                          className={`w-3 h-3 rounded-full ${getPriorityColor(task.priority)} ml-2`}
+                          className={`w-3 h-3 rounded-full ${getPriorityColor(task.priority)} ms-2`}
                         ></span>
-                        <h3 className="text-lg font-medium text-gray-900">
+                        <h3 className="text-lg font-medium text-foreground">
                           {task.title}
                         </h3>
                       </div>
                       <span
                         className={`px-2 py-1 text-xs rounded-full ${
                           task.status === "completed"
-                            ? "bg-green-100 text-green-800"
+                            ? "bg-green-100 text-success"
                             : task.status === "in_progress"
                               ? "bg-blue-100 text-blue-800"
                               : task.status === "pending"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-gray-100 text-gray-800"
+                                ? "bg-yellow-100 text-warning"
+                                : "bg-gray-100 text-foreground"
                         }`}
                       >
                         {task.status === "completed"
@@ -582,14 +582,14 @@ const CalendarView: React.FC = () => {
                       </p>
                     )}
 
-                    <div className="flex items-center justify-between text-sm text-gray-500">
+                    <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <div className="flex items-center">
-                        <UserCircleIcon className="h-4 w-4 ml-1" />
+                        <UserCircleIcon className="h-4 w-4 ms-1" />
                         {task.assignedToName}
                       </div>
                       <div className="flex items-center">
-                        <span className="ml-2">التقدم: {task.progress}%</span>
-                        <div className="w-20 bg-gray-200 rounded-full h-2">
+                        <span className="ms-2">التقدم: {task.progress}%</span>
+                        <div className="w-20 bg-muted rounded-full h-2">
                           <div
                             className="bg-indigo-600 h-2 rounded-full"
                             style={{ width: `${task.progress}%` }}
@@ -610,24 +610,24 @@ const CalendarView: React.FC = () => {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">مهام هذا الشهر</p>
-              <p className="text-2xl font-bold text-gray-900">{tasks.length}</p>
+              <p className="text-sm text-muted-foreground">مهام هذا الشهر</p>
+              <p className="text-2xl font-bold text-foreground">{tasks.length}</p>
             </div>
-            <CalendarIcon className="h-10 w-10 text-indigo-400" />
+            <CalendarIcon className="h-10 w-10 text-primary" />
           </div>
         </div>
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">مكتملة</p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-sm text-muted-foreground">مكتملة</p>
+              <p className="text-2xl font-bold text-success">
                 {
                   tasks.filter((t) => t.status?.toLowerCase() === "completed")
                     .length
                 }
               </p>
             </div>
-            <div className="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center">
+            <div className="h-10 w-10 bg-success rounded-full flex items-center justify-center">
               <span className="text-green-600 text-lg">✓</span>
             </div>
           </div>
@@ -635,7 +635,7 @@ const CalendarView: React.FC = () => {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">قيد التنفيذ</p>
+              <p className="text-sm text-muted-foreground">قيد التنفيذ</p>
               <p className="text-2xl font-bold text-blue-600">
                 {
                   tasks.filter((t) => t.status?.toLowerCase() === "in_progress")
@@ -649,8 +649,8 @@ const CalendarView: React.FC = () => {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">متأخرة</p>
-              <p className="text-2xl font-bold text-red-600">
+              <p className="text-sm text-muted-foreground">متأخرة</p>
+              <p className="text-2xl font-bold text-destructive">
                 {
                   tasks.filter((t) => {
                     if (!t.dueDate || t.status?.toLowerCase() === "completed")
@@ -660,22 +660,22 @@ const CalendarView: React.FC = () => {
                 }
               </p>
             </div>
-            <ExclamationTriangleIcon className="h-10 w-10 text-red-400" />
+            <ExclamationTriangleIcon className="h-10 w-10 text-destructive" />
           </div>
         </div>
       </div>
 
       {/* Task Modal */}
       {showTaskModal && selectedTask && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div className="fixed inset-0 bg-muted bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-20 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900">
+              <h3 className="text-lg font-medium text-foreground">
                 تفاصيل المهمة
               </h3>
               <button
                 onClick={() => setShowTaskModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-foreground"
               >
                 ✕
               </button>
@@ -683,7 +683,7 @@ const CalendarView: React.FC = () => {
 
             <div className="space-y-4">
               <div>
-                <h4 className="text-xl font-bold text-gray-900">
+                <h4 className="text-xl font-bold text-foreground">
                   {selectedTask.title}
                 </h4>
                 <p className="text-gray-600 mt-2">{selectedTask.description}</p>
@@ -691,17 +691,17 @@ const CalendarView: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-50 p-3 rounded-lg">
-                  <span className="text-sm text-gray-500">المشروع</span>
+                  <span className="text-sm text-muted-foreground">المشروع</span>
                   <p className="font-medium">
                     {selectedTask.projectName || "غير محدد"}
                   </p>
                 </div>
                 <div className="bg-gray-50 p-3 rounded-lg">
-                  <span className="text-sm text-gray-500">المسؤول</span>
+                  <span className="text-sm text-muted-foreground">المسؤول</span>
                   <p className="font-medium">{selectedTask.assignedToName}</p>
                 </div>
                 <div className="bg-gray-50 p-3 rounded-lg">
-                  <span className="text-sm text-gray-500">الحالة</span>
+                  <span className="text-sm text-muted-foreground">الحالة</span>
                   <p className="font-medium">
                     {selectedTask.status === "completed"
                       ? "مكتمل"
@@ -713,7 +713,7 @@ const CalendarView: React.FC = () => {
                   </p>
                 </div>
                 <div className="bg-gray-50 p-3 rounded-lg">
-                  <span className="text-sm text-gray-500">التقدم</span>
+                  <span className="text-sm text-muted-foreground">التقدم</span>
                   <p className="font-medium">{selectedTask.progress}%</p>
                 </div>
               </div>
@@ -721,13 +721,13 @@ const CalendarView: React.FC = () => {
               <div className="flex justify-end space-x-2 space-x-reverse">
                 <button
                   onClick={() => setShowTaskModal(false)}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+                  className="px-4 py-2 bg-muted text-foreground rounded-md hover:bg-muted"
                 >
                   إغلاق
                 </button>
                 <Link
                   to={`/tasks/${selectedTask.id}`}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary"
                 >
                   عرض التفاصيل
                 </Link>

@@ -96,20 +96,20 @@ export default function TeamTab({ startDate, endDate, mode }: MovementFilterProp
           label="حركات يدوية"
           value={formatNumber(data.summary.manualTransitions)}
           icon={MousePointerClick}
-          gradient="from-indigo-500 to-violet-600"
+          gradient="from-indigo-500 to-primary"
           hint={`${formatNumber(data.summary.totalTransitions)} إجمالي الحركات`}
         />
         <KpiCard
           label="حركات تلقائية"
           value={formatNumber(data.summary.autoTransitions)}
           icon={Bot}
-          gradient="from-violet-500 to-fuchsia-600"
+          gradient="from-violet-500 to-primary"
         />
         <KpiCard
           label="أعضاء نشطون"
           value={formatNumber(data.summary.activeMembers)}
           icon={Users}
-          gradient="from-sky-500 to-indigo-600"
+          gradient="from-sky-500 to-primary"
         />
       </div>
 
@@ -118,11 +118,11 @@ export default function TeamTab({ startDate, endDate, mode }: MovementFilterProp
         subtitle="الحركات اليدوية والتلقائية لكل عضو"
         action={
           <div className="flex items-center gap-4 text-xs">
-            <span className="inline-flex items-center gap-1.5 text-gray-600 dark:text-gray-300">
-              <span className="h-2.5 w-2.5 rounded-sm bg-indigo-500" /> يدوي
+            <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+              <span className="h-2.5 w-2.5 rounded-sm bg-primary" /> يدوي
             </span>
-            <span className="inline-flex items-center gap-1.5 text-gray-600 dark:text-gray-300">
-              <span className="h-2.5 w-2.5 rounded-sm bg-violet-500" /> تلقائي
+            <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+              <span className="h-2.5 w-2.5 rounded-sm bg-primary" /> تلقائي
             </span>
           </div>
         }
@@ -146,10 +146,10 @@ export default function TeamTab({ startDate, endDate, mode }: MovementFilterProp
         subtitle="أداء كل عضو حسب الحركات والإيراد"
         action={
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full bg-green-50 dark:bg-green-900/20 px-2.5 py-1 text-xs font-medium text-green-700 dark:text-green-300">
+            <span className="inline-flex items-center gap-1 rounded-full bg-success/10 dark:bg-success/20 px-2.5 py-1 text-xs font-medium text-success dark:text-success">
               <CheckCircle2 className="h-3 w-3" /> تأكيد
             </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-red-50 dark:bg-red-900/20 px-2.5 py-1 text-xs font-medium text-red-700 dark:text-red-300">
+            <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 dark:bg-destructive/20 px-2.5 py-1 text-xs font-medium text-destructive dark:text-destructive">
               <XCircle className="h-3 w-3" /> إلغاء
             </span>
           </div>
@@ -158,44 +158,44 @@ export default function TeamTab({ startDate, endDate, mode }: MovementFilterProp
         <div className="overflow-x-auto">
           <table className="w-full min-w-[840px] text-sm">
             <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="py-3 pr-4 pl-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+              <tr className="border-b border-border dark:border-border">
+                <th className="py-3 pe-4 ps-2 text-right text-xs font-medium text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
                     <Trophy className="h-3.5 w-3.5" /> الترتيب
                   </span>
                 </th>
-                <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                <th className="px-3 py-3 text-right text-xs font-medium text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
                     <Users className="h-3.5 w-3.5" /> العضو
                   </span>
                 </th>
-                <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                <th className="px-3 py-3 text-right text-xs font-medium text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
                     <PackageCheck className="h-3.5 w-3.5" /> الحركات
                   </span>
                 </th>
-                <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                <th className="px-3 py-3 text-right text-xs font-medium text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5" /> تأكيد
                   </span>
                 </th>
-                <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                <th className="px-3 py-3 text-right text-xs font-medium text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
                     <XCircle className="h-3.5 w-3.5" /> إلغاء
                   </span>
                 </th>
-                <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">تسليم</th>
-                <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                <th className="px-3 py-3 text-right text-xs font-medium text-muted-foreground">تسليم</th>
+                <th className="px-3 py-3 text-right text-xs font-medium text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
                     <AlertTriangle className="h-3.5 w-3.5" /> غير صالحة
                   </span>
                 </th>
-                <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                <th className="px-3 py-3 text-right text-xs font-medium text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
                     <Clock3 className="h-3.5 w-3.5" /> متوسط التأكيد
                   </span>
                 </th>
-                <th className="py-3 pl-4 pr-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">
+                <th className="py-3 ps-4 pe-3 text-right text-xs font-medium text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
                     <Wallet className="h-3.5 w-3.5" /> الإيراد
                   </span>
@@ -206,14 +206,14 @@ export default function TeamTab({ startDate, endDate, mode }: MovementFilterProp
               {data.members.map((member, index) => (
                 <tr
                   key={member.changedBy}
-                  className="border-b border-gray-100 dark:border-gray-700/60 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/40"
+                  className="border-b border-border dark:border-border transition-colors hover:bg-muted/50/40"
                 >
-                  <td className="py-3 pr-4 pl-2">
+                  <td className="py-3 pe-4 ps-2">
                     <span
                       className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
                         index < 3
-                          ? "bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow"
-                          : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                          ? "bg-gradient-to-br from-warning to-warning text-white shadow"
+                          : "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                       }`}
                     >
                       {index + 1}
@@ -221,33 +221,33 @@ export default function TeamTab({ startDate, endDate, mode }: MovementFilterProp
                   </td>
                   <td className="px-3 py-3">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-gray-900 dark:text-white">{member.name}</span>
+                      <span className="font-medium text-foreground">{member.name}</span>
                       {member.isSystem && <AutoBadge auto />}
                     </div>
                   </td>
-                  <td className="px-3 py-3 font-semibold text-gray-900 dark:text-white">
+                  <td className="px-3 py-3 font-semibold text-foreground">
                     {formatNumber(member.transitions)}
                   </td>
                   <td className="px-3 py-3">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-green-50 dark:bg-green-900/20 px-2 py-0.5 text-xs font-semibold text-green-700 dark:text-green-300">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-success/10 dark:bg-success/20 px-2 py-0.5 text-xs font-semibold text-success dark:text-success">
                       {formatNumber(member.confirms)}
                     </span>
                   </td>
                   <td className="px-3 py-3">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-red-50 dark:bg-red-900/20 px-2 py-0.5 text-xs font-semibold text-red-700 dark:text-red-300">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 dark:bg-destructive/20 px-2 py-0.5 text-xs font-semibold text-destructive dark:text-destructive">
                       {formatNumber(member.cancels)}
                     </span>
                   </td>
-                  <td className="px-3 py-3 font-medium text-emerald-600 dark:text-emerald-400">
+                  <td className="px-3 py-3 font-medium text-success dark:text-success">
                     {formatNumber(member.deliveries)}
                   </td>
-                  <td className="px-3 py-3 font-medium text-amber-600 dark:text-amber-400">
+                  <td className="px-3 py-3 font-medium text-warning dark:text-warning">
                     {formatNumber(member.invalidTransitions)}
                   </td>
-                  <td className="px-3 py-3 text-gray-600 dark:text-gray-300">
+                  <td className="px-3 py-3 text-muted-foreground">
                     {formatDuration(member.avgHoursToConfirm)}
                   </td>
-                  <td className="py-3 pl-4 pr-3 font-medium text-indigo-600 dark:text-indigo-300">
+                  <td className="py-3 ps-4 pe-3 font-medium text-primary dark:text-primary">
                     {formatCurrency(member.revenue)}
                   </td>
                 </tr>

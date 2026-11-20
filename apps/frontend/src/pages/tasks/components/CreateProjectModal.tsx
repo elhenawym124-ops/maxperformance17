@@ -45,7 +45,7 @@ export const CreateProjectModal: React.FC<CreateProjectModalProps> = ({
       description="عرّف المشروع بشكل مختصر، ثم حدد المسؤول والزمن والميزانية حتى يتحول إلى نطاق واضح يمكن ربط المهام به."
       size="lg"
       badge={
-        <span className="rounded-full border border-emerald-500/15 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+        <span className="rounded-full border border-success/15 bg-success/10 px-3 py-1 text-[11px] font-semibold text-success dark:text-success">
           Projects
         </span>
       }

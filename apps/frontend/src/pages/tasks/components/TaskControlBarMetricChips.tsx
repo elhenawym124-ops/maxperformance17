@@ -26,14 +26,14 @@ export const TaskControlBarMetricChips: React.FC<TaskControlBarMetricChipsProps>
           onClick={onToggleTodayStrip}
           className={`inline-flex items-center gap-1.5 rounded-lg border px-2 py-1 text-xs font-medium transition-all active:scale-[0.98] ${
             showTodayStrip
-              ? "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+              ? "border-amber-500/30 bg-warning/10 text-warning dark:text-warning"
               : "border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/40"
           }`}
           title="تبديل عرض شريط مهام اليوم"
         >
-          <Flame className="size-3.5 text-amber-500 shrink-0" />
+          <Flame className="size-3.5 text-warning shrink-0" />
           <span>مهام اليوم</span>
-          <span className="rounded-full bg-amber-500/15 px-1.5 py-0 text-[10px] font-bold font-mono tabular-nums">
+          <span className="rounded-full bg-warning/15 px-1.5 py-0 text-[10px] font-bold font-mono tabular-nums">
             {todayTasksCount}
           </span>
         </button>

@@ -35,28 +35,28 @@ function CompositionBar({
     <div className="w-full h-1.5 rounded-full bg-muted flex overflow-hidden">
       {delivered > 0 && (
         <div
-          className="h-full bg-emerald-500"
+          className="h-full bg-success"
           style={{ width: `${seg(delivered)}%` }}
           title={`تم التسليم: ${delivered}`}
         />
       )}
       {cancelled > 0 && (
         <div
-          className="h-full bg-rose-500"
+          className="h-full bg-destructive"
           style={{ width: `${seg(cancelled)}%` }}
           title={`ملغي: ${cancelled}`}
         />
       )}
       {returned > 0 && (
         <div
-          className="h-full bg-amber-500"
+          className="h-full bg-warning"
           style={{ width: `${seg(returned)}%` }}
           title={`مرتجع: ${returned}`}
         />
       )}
       {other > 0 && (
         <div
-          className="h-full bg-slate-400"
+          className="h-full bg-muted"
           style={{ width: `${seg(other)}%` }}
           title={`أخرى: ${other}`}
         />
@@ -177,23 +177,23 @@ export const ProductFulfillmentTable: React.FC<ProductFulfillmentTableProps> = (
                   <td className="py-2.5 px-3 font-bold text-foreground">
                     {p.totalItems.toLocaleString()}
                   </td>
-                  <td className="py-2.5 px-3 font-semibold text-emerald-600 dark:text-emerald-400">
+                  <td className="py-2.5 px-3 font-semibold text-success dark:text-success">
                     {p.deliveredItems.toLocaleString()}
                   </td>
-                  <td className="py-2.5 px-3 font-semibold text-rose-600 dark:text-rose-400">
+                  <td className="py-2.5 px-3 font-semibold text-destructive dark:text-destructive">
                     {p.cancelledItems.toLocaleString()}
                   </td>
-                  <td className="py-2.5 px-3 font-semibold text-amber-600 dark:text-amber-400">
+                  <td className="py-2.5 px-3 font-semibold text-warning dark:text-warning">
                     {p.returnedItems.toLocaleString()}
                   </td>
                   <td className="py-2.5 px-3 font-semibold text-foreground">
                     <span
                       className={`inline-block px-1.5 py-0.5 rounded text-[11px] ${
                         p.deliveryRate >= 70
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                          ? "bg-emerald-500/10 text-success dark:text-success"
                           : p.deliveryRate >= 50
-                          ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                          : "bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                          ? "bg-amber-500/10 text-warning dark:text-warning"
+                          : "bg-rose-500/10 text-destructive dark:text-destructive"
                       }`}
                     >
                       {p.deliveryRate.toFixed(1)}%
@@ -202,7 +202,7 @@ export const ProductFulfillmentTable: React.FC<ProductFulfillmentTableProps> = (
                   <td className="py-2.5 px-3 font-medium text-foreground">
                     {formatPrice(p.totalRevenue)}
                   </td>
-                  <td className="py-2.5 px-3 font-medium text-rose-600 dark:text-rose-400">
+                  <td className="py-2.5 px-3 font-medium text-destructive dark:text-destructive">
                     {formatPrice(p.lostRevenue)}
                   </td>
                 </tr>

@@ -77,12 +77,12 @@ export default function TodayOps() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-card border border-border/70 rounded-xl px-5 py-4">
         <div>
           <div className="flex items-center gap-2">
-            <Activity className="h-5 w-5 text-indigo-500" />
+            <Activity className="h-5 w-5 text-primary" />
             <h1 className="text-xl font-bold tracking-tight text-foreground">
               عمليات وتشغيل اليوم
             </h1>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono bg-success/10 text-success dark:text-success border border-success/20">
+              <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
               مباشر (٣٠ ث)
             </span>
           </div>
@@ -102,7 +102,7 @@ export default function TodayOps() {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Sparkles className="h-3.5 w-3.5 inline ml-1.5 text-indigo-500" />
+              <Sparkles className="h-3.5 w-3.5 inline ms-1.5 text-primary" />
               شغل النهارده
             </button>
             <button
@@ -113,7 +113,7 @@ export default function TodayOps() {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Calendar className="h-3.5 w-3.5 inline ml-1.5 text-blue-500" />
+              <Calendar className="h-3.5 w-3.5 inline ms-1.5 text-blue-500" />
               تقرير يوم
             </button>
           </div>

@@ -83,7 +83,7 @@ const ProfitLossReport: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/70 pb-5">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+            <div className="h-9 w-9 rounded-lg bg-success/10 text-success dark:text-success border border-success/20 flex items-center justify-center">
               <Scale className="h-5 w-5" />
             </div>
             <div>
@@ -169,7 +169,7 @@ const ProfitLossReport: React.FC = () => {
             <div className="text-2xl font-bold font-mono tabular-nums text-foreground">
               {loading ? "..." : formatPrice(revenue)}
             </div>
-            <div className="mt-2.5 flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+            <div className="mt-2.5 flex items-center gap-1.5 text-xs text-success dark:text-success">
               <ArrowUpRight className="h-3.5 w-3.5" />
               <span>مبيعات موثقة للفترة المحددة</span>
             </div>
@@ -183,11 +183,11 @@ const ProfitLossReport: React.FC = () => {
               <span className="text-xs font-medium text-muted-foreground">
                 كلفة البضاعة المباعة (COGS)
               </span>
-              <div className="h-8 w-8 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 flex items-center justify-center">
+              <div className="h-8 w-8 rounded-lg bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 flex items-center justify-center">
                 <ArrowDownRight className="h-4 w-4" />
               </div>
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">
               {loading ? "..." : formatPrice(cogs)}
             </div>
             <div className="mt-2.5 flex items-center justify-between text-xs text-muted-foreground">
@@ -204,16 +204,16 @@ const ProfitLossReport: React.FC = () => {
               <span className="text-xs font-medium text-muted-foreground">
                 إجمالي الأرباح التشغيلية
               </span>
-              <div className="h-8 w-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+              <div className="h-8 w-8 rounded-lg bg-success/10 text-success dark:text-success border border-success/20 flex items-center justify-center">
                 <TrendingUp className="h-4 w-4" />
               </div>
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success">
               {loading ? "..." : formatPrice(grossProfit)}
             </div>
             <div className="mt-2.5 flex items-center justify-between text-xs text-muted-foreground">
               <span>الفائض بعد كلفة البضاعة</span>
-              <span className="font-mono tabular-nums font-semibold text-emerald-600 dark:text-emerald-400">{profitPercent}%</span>
+              <span className="font-mono tabular-nums font-semibold text-success dark:text-success">{profitPercent}%</span>
             </div>
           </CardContent>
         </Card>
@@ -225,7 +225,7 @@ const ProfitLossReport: React.FC = () => {
               <span className="text-xs font-medium text-muted-foreground">
                 هامش الربح التشغيلي
               </span>
-              <div className="h-8 w-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 flex items-center justify-center">
+              <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary dark:text-primary border border-primary/20 flex items-center justify-center">
                 <Percent className="h-4 w-4" />
               </div>
             </div>
@@ -258,23 +258,23 @@ const ProfitLossReport: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between text-xs text-muted-foreground">
               <span className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                <span className="h-2.5 w-2.5 rounded-full bg-success" />
                 صافي الربح ({profitPercent}%)
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-rose-500" />
+                <span className="h-2.5 w-2.5 rounded-full bg-destructive" />
                 كلفة البضاعة ({cogsPercent}%)
               </span>
             </div>
 
             <div className="h-4 w-full bg-muted/60 rounded-full overflow-hidden flex border border-border/50">
               <div
-                className="h-full bg-emerald-500 transition-all duration-500"
+                className="h-full bg-success transition-all duration-500"
                 style={{ width: `${profitPercent}%` }}
                 title={`Profit: ${profitPercent}%`}
               />
               <div
-                className="h-full bg-rose-500 transition-all duration-500"
+                className="h-full bg-destructive transition-all duration-500"
                 style={{ width: `${cogsPercent}%` }}
                 title={`COGS: ${cogsPercent}%`}
               />
@@ -295,7 +295,7 @@ const ProfitLossReport: React.FC = () => {
 
             <div className="p-3.5 rounded-xl border border-border/60 bg-muted/20 space-y-1">
               <div className="text-xs text-muted-foreground">تكاليف التوريد والمخزون</div>
-              <div className="text-lg font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+              <div className="text-lg font-bold font-mono tabular-nums text-destructive dark:text-destructive">
                 {formatPrice(cogs)}
               </div>
               <p className="text-[11px] text-muted-foreground">
@@ -305,7 +305,7 @@ const ProfitLossReport: React.FC = () => {
 
             <div className="p-3.5 rounded-xl border border-border/60 bg-muted/20 space-y-1">
               <div className="text-xs text-muted-foreground">العائد التشغيلي الصافي</div>
-              <div className="text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+              <div className="text-lg font-bold font-mono tabular-nums text-success dark:text-success">
                 {formatPrice(grossProfit)}
               </div>
               <p className="text-[11px] text-muted-foreground">

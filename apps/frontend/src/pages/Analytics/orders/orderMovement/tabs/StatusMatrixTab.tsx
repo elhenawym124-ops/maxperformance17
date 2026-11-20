@@ -49,25 +49,25 @@ interface MatrixData {
 const KIND_META: { [K in MatrixKind]: { label: string; cell: string; dot: string; color: string } } = {
   invalid: {
     label: "غير مسموح",
-    cell: "bg-red-50 text-red-700 border-red-200 hover:bg-red-100 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/60 dark:hover:bg-red-900/30",
+    cell: "bg-red-50 text-destructive border-destructive hover:bg-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive/60 dark:hover:bg-destructive/30",
     dot: "bg-red-500",
     color: "#EF4444",
   },
   backward: {
     label: "تراجع",
-    cell: "bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-100 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60 dark:hover:bg-orange-900/30",
+    cell: "bg-orange-50 text-warning border-warning hover:bg-warning dark:bg-warning/40 dark:text-warning dark:border-warning/60 dark:hover:bg-warning/30",
     dot: "bg-orange-500",
     color: "#F97316",
   },
   skip: {
     label: "قفزة",
-    cell: "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900/60 dark:hover:bg-amber-900/30",
+    cell: "bg-amber-50 text-warning border-warning hover:bg-warning dark:bg-warning/40 dark:text-warning dark:border-warning/60 dark:hover:bg-warning/30",
     dot: "bg-amber-500",
     color: "#F59E0B",
   },
   forward: {
     label: "تقدم",
-    cell: "bg-green-50 text-green-700 border-green-200 hover:bg-green-100 dark:bg-green-950/40 dark:text-green-300 dark:border-green-900/60 dark:hover:bg-green-900/30",
+    cell: "bg-green-50 text-success border-success hover:bg-success dark:bg-success/40 dark:text-success dark:border-success/60 dark:hover:bg-success/30",
     dot: "bg-green-500",
     color: "#10B981",
   },
@@ -79,13 +79,13 @@ const KIND_META: { [K in MatrixKind]: { label: string; cell: string; dot: string
   },
   same: {
     label: "ثابت",
-    cell: "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-800/60 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-800",
+    cell: "bg-gray-50 text-foreground border-border hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:border-border dark:hover:bg-muted",
     dot: "bg-gray-400",
     color: "#9CA3AF",
   },
   other: {
     label: "أخرى",
-    cell: "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 dark:bg-slate-900/40 dark:text-slate-300 dark:border-slate-700 dark:hover:bg-slate-900/60",
+    cell: "bg-slate-50 text-foreground border-border hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:border-border dark:hover:bg-muted",
     dot: "bg-slate-400",
     color: "#64748B",
   },
@@ -176,37 +176,37 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
           label="إجمالي الحركات"
           value={formatNumber(data.totalTransitions)}
           icon={ArrowRightLeft}
-          gradient="from-indigo-500 to-violet-600"
+          gradient="from-indigo-500 to-primary"
           hint={`من ${formatNumber(data.totalOrders)} طلب`}
         />
         <KpiCard
           label="تقدم"
           value={formatNumber(data.forwardCount)}
           icon={ArrowUpRight}
-          gradient="from-emerald-500 to-teal-600"
+          gradient="from-emerald-500 to-success"
         />
         <KpiCard
           label="تراجع"
           value={formatNumber(data.backwardCount)}
           icon={ArrowDownRight}
-          gradient="from-orange-500 to-amber-600"
+          gradient="from-orange-500 to-warning"
         />
         <KpiCard
           label="قفزة"
           value={formatNumber(data.skipCount)}
           icon={Shuffle}
-          gradient="from-amber-500 to-yellow-600"
+          gradient="from-amber-500 to-warning"
         />
         <KpiCard
           label="غير مسموح"
           value={formatNumber(data.invalidCount)}
           icon={Ban}
-          gradient="from-red-500 to-rose-600"
+          gradient="from-red-500 to-destructive"
           hint={`نسبة ${formatPercent(invalidPercent)}`}
         />
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-indigo-200/60 dark:border-indigo-900/50 bg-indigo-50/60 dark:bg-indigo-950/20 px-4 py-3 text-xs text-indigo-700 dark:text-indigo-300">
+      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-primary/60 dark:border-primary/50 bg-primary/60 dark:bg-primary/20 px-4 py-3 text-xs text-primary dark:text-primary">
         <Info className="h-4 w-4 shrink-0" />
         <span>
           تعرض المصفوفة الانتقالات من حالة إلى أخرى ({modeLabel(mode)}) — الأخضر تقدم، البرتقالي تراجع، الكهرماني قفزة،
@@ -214,7 +214,7 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
         </span>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-blue-200/80 dark:border-blue-900/60 bg-gradient-to-r from-blue-50/90 via-indigo-50/60 to-white dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-slate-900 p-3.5 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-blue-200/80 dark:border-blue-900/60 bg-gradient-to-r from-blue-50/90 via-primary/60 to-white dark:from-blue-950/40 dark:via-primary/30 dark:to-slate-900 p-3.5 shadow-xs">
         <div className="flex items-center gap-2.5">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-xs">
             <Zap className="h-4 w-4" />
@@ -246,7 +246,7 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
           <table className="w-full min-w-[760px] border-separate border-spacing-1">
             <thead>
               <tr>
-                <th className="rounded-xl bg-gray-100 px-3 py-2 text-right text-xs font-semibold text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                <th className="rounded-xl bg-muted px-3 py-2 text-right text-xs font-semibold text-muted-foreground dark:bg-muted dark:text-muted-foreground">
                   من \ إلى
                 </th>
                 {data.statuses.map((toStatus) => (
@@ -259,7 +259,7 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
             <tbody>
               {fromStatuses.map((fromStatus) => (
                 <tr key={fromStatus}>
-                  <td className="rounded-xl bg-gray-100 px-3 py-2 dark:bg-gray-800">
+                  <td className="rounded-xl bg-muted px-3 py-2 dark:bg-muted">
                     {fromStatus === "__start__" ? <StartBadge /> : <StatusPill code={fromStatus} />}
                   </td>
                   {data.statuses.map((toStatus) => {
@@ -267,7 +267,7 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
                     if (!cell) {
                       return (
                         <td key={toStatus}>
-                          <div className="py-3 text-center text-xs text-gray-300 dark:text-gray-600">-</div>
+                          <div className="py-3 text-center text-xs text-muted-foreground dark:text-foreground">-</div>
                         </td>
                       );
                     }
@@ -281,7 +281,7 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
                         >
                           <p className="text-sm font-bold leading-none">{formatNumber(cell.count)}</p>
                           <p className="mt-0.5 text-[10px] leading-none opacity-75">{formatCurrency(cell.revenue)}</p>
-                          <div className="mt-1.5 flex h-1 w-full overflow-hidden rounded-full bg-gray-200/70 dark:bg-gray-700/50">
+                          <div className="mt-1.5 flex h-1 w-full overflow-hidden rounded-full bg-muted dark:bg-muted">
                             <div className="bg-sky-500" style={{ width: `${manualPct}%` }} />
                             <div className="bg-violet-500" style={{ width: `${autoPct}%` }} />
                           </div>
@@ -295,19 +295,19 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
           </table>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-gray-100 pt-4 dark:border-gray-700/60">
+        <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border pt-4 dark:border-border">
           {KIND_ORDER.map((kind) => (
-            <span key={kind} className="inline-flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+            <span key={kind} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
               <span className={`h-2.5 w-2.5 rounded-full ${KIND_META[kind].dot}`} />
               {KIND_META[kind].label}
             </span>
           ))}
-          <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
-            <span className="h-2.5 w-2.5 rounded-full bg-sky-500" />
+          <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/80">
+            <span className="h-2.5 w-2.5 rounded-full bg-info" />
             يدوي
           </span>
-          <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
-            <span className="h-2.5 w-2.5 rounded-full bg-violet-500" />
+          <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/80">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             تلقائي
           </span>
         </div>
@@ -349,17 +349,17 @@ export default function StatusMatrixTab({ startDate, endDate, mode, onSwitchToVe
               const count = data[`${kind}Count` as const];
               return (
                 <li key={kind} className="flex items-center justify-between gap-2 text-sm">
-                  <span className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                  <span className="inline-flex items-center gap-2 text-muted-foreground">
                     <span className={`h-2.5 w-2.5 rounded-full ${KIND_META[kind].dot}`} />
                     {KIND_META[kind].label}
                   </span>
-                  <span className="font-semibold text-gray-900 dark:text-white">{formatNumber(count)}</span>
+                  <span className="font-semibold text-foreground">{formatNumber(count)}</span>
                 </li>
               );
             })}
-            <li className="flex items-center justify-between gap-2 border-t border-gray-100 pt-3 text-sm dark:border-gray-700/60">
-              <span className="text-gray-500 dark:text-gray-400">حركات يدوية / تلقائية</span>
-              <span className="font-semibold text-gray-900 dark:text-white">
+            <li className="flex items-center justify-between gap-2 border-t border-border pt-3 text-sm dark:border-border">
+              <span className="text-muted-foreground">حركات يدوية / تلقائية</span>
+              <span className="font-semibold text-foreground">
                 {formatNumber(data.modes?.manual ?? 0)} / {formatNumber(data.modes?.auto ?? 0)}
               </span>
             </li>

@@ -14,13 +14,13 @@ const getCategoryBadge = (category: BottleneckCategory) => {
       return {
         label: 'جودة ومواصفات',
         icon: Ruler,
-        bg: 'bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800'
+        bg: 'bg-purple-50 dark:bg-primary/40 text-primary dark:text-primary border-primary dark:border-primary'
       };
     case 'LOGISTICS':
       return {
         label: 'شحن ومندوبين',
         icon: Truck,
-        bg: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800'
+        bg: 'bg-amber-50 dark:bg-warning/40 text-warning dark:text-warning border-warning dark:border-warning'
       };
     case 'CUSTOMER_SALES':
       return {
@@ -32,7 +32,7 @@ const getCategoryBadge = (category: BottleneckCategory) => {
       return {
         label: 'أخرى',
         icon: AlertCircle,
-        bg: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700'
+        bg: 'bg-zinc-100 dark:bg-muted text-foreground dark:text-muted-foreground border-border dark:border-border'
       };
   }
 };
@@ -47,40 +47,40 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
   return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-black/50 backdrop-blur-xs flex justify-end transition-opacity">
       <div 
-        className="w-full max-w-xl bg-white dark:bg-zinc-950 h-full shadow-2xl flex flex-col border-r border-zinc-200 dark:border-zinc-800 animate-in slide-in-from-right duration-200"
+        className="w-full max-w-xl bg-white dark:bg-muted h-full shadow-2xl flex flex-col border-r border-border dark:border-border animate-in slide-in-from-right duration-200"
         role="dialog"
         aria-modal="true"
       >
         {/* Header */}
-        <div className="p-4 sm:p-5 border-b border-zinc-200 dark:border-zinc-800 flex items-start justify-between gap-4">
+        <div className="p-4 sm:p-5 border-b border-border dark:border-border flex items-start justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             {product.productImage ? (
               <img
                 src={product.productImage}
                 alt={product.productName}
-                className="h-12 w-12 rounded-lg object-cover shrink-0 border border-zinc-200 dark:border-zinc-800"
+                className="h-12 w-12 rounded-lg object-cover shrink-0 border border-border dark:border-border"
               />
             ) : (
-              <div className="h-12 w-12 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0 text-zinc-400">
+              <div className="h-12 w-12 rounded-lg bg-muted dark:bg-muted flex items-center justify-center shrink-0 text-muted-foreground">
                 <Package className="h-6 w-6" />
               </div>
             )}
             <div className="min-w-0">
-              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 truncate">
+              <h2 className="text-base font-bold text-foreground dark:text-muted-foreground truncate">
                 {product.productName}
               </h2>
               <div className="flex items-center gap-2 mt-1">
                 {product.productSku && (
-                  <span className="text-[11px] font-mono text-zinc-500 bg-zinc-100 dark:bg-zinc-800/80 px-1.5 py-0.5 rounded">
+                  <span className="text-[11px] font-mono text-muted-foreground bg-muted dark:bg-muted px-1.5 py-0.5 rounded">
                     SKU: {product.productSku}
                   </span>
                 )}
                 <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${
                   product.healthStatus === 'CRITICAL'
-                    ? 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900'
+                    ? 'bg-rose-50 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive'
                     : product.healthStatus === 'WARNING'
-                    ? 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900'
-                    : 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900'
+                    ? 'bg-amber-50 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning'
+                    : 'bg-emerald-50 text-success border-success dark:bg-success/40 dark:text-success dark:border-success'
                 }`}>
                   {product.healthStatus === 'CRITICAL' ? 'حالة حرجة' : product.healthStatus === 'WARNING' ? 'تحت الملاحظة' : 'أداء ممتاز'}
                 </span>
@@ -89,7 +89,7 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -99,49 +99,49 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
         <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-5">
           {/* Quick Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-            <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 text-center">
-              <span className="text-[11px] text-zinc-500 block mb-1">نسبة التسليم</span>
+            <div className="bg-zinc-50 dark:bg-muted border border-border dark:border-border rounded-lg p-3 text-center">
+              <span className="text-[11px] text-muted-foreground block mb-1">نسبة التسليم</span>
               <span className={`text-lg font-bold font-mono tabular-nums ${
-                product.deliveryRate >= 75 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+                product.deliveryRate >= 75 ? 'text-emerald-600 dark:text-success' : 'text-rose-600 dark:text-destructive'
               }`}>
                 {product.deliveryRate}%
               </span>
             </div>
-            <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 text-center">
-              <span className="text-[11px] text-zinc-500 block mb-1">نسبة التحصيل</span>
+            <div className="bg-zinc-50 dark:bg-muted border border-border dark:border-border rounded-lg p-3 text-center">
+              <span className="text-[11px] text-muted-foreground block mb-1">نسبة التحصيل</span>
               <span className="text-lg font-bold font-mono tabular-nums text-blue-600 dark:text-blue-400">
                 {product.collectionRate}%
               </span>
             </div>
-            <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 text-center">
-              <span className="text-[11px] text-zinc-500 block mb-1">الكاش المحصل</span>
-              <span className="text-sm font-bold font-mono tabular-nums text-zinc-800 dark:text-zinc-200 block truncate">
+            <div className="bg-zinc-50 dark:bg-muted border border-border dark:border-border rounded-lg p-3 text-center">
+              <span className="text-[11px] text-muted-foreground block mb-1">الكاش المحصل</span>
+              <span className="text-sm font-bold font-mono tabular-nums text-foreground dark:text-muted-foreground block truncate">
                 {formatPrice(product.collectedRevenue)}
               </span>
             </div>
-            <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 text-center">
-              <span className="text-[11px] text-zinc-500 block mb-1">قيمة المرتجعات</span>
-              <span className="text-sm font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400 block truncate">
+            <div className="bg-zinc-50 dark:bg-muted border border-border dark:border-border rounded-lg p-3 text-center">
+              <span className="text-[11px] text-muted-foreground block mb-1">قيمة المرتجعات</span>
+              <span className="text-sm font-bold font-mono tabular-nums text-destructive dark:text-destructive block truncate">
                 {formatPrice(product.lostRevenue)}
               </span>
             </div>
           </div>
 
           {/* Operational Recommendation Card */}
-          <div className="bg-gradient-to-br from-amber-500/5 via-zinc-50 to-zinc-50 dark:from-amber-950/20 dark:via-zinc-900 dark:to-zinc-900 border border-amber-200/80 dark:border-amber-900/60 rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-2 text-amber-700 dark:text-amber-400">
+          <div className="bg-gradient-to-br from-warning/5 via-zinc-50 to-zinc-50 dark:from-warning/20 dark:via-zinc-900 dark:to-zinc-900 border border-warning/80 dark:border-warning/60 rounded-xl p-4">
+            <div className="flex items-center gap-2 mb-2 text-warning dark:text-warning">
               <Sparkles className="h-4 w-4 shrink-0" />
               <h3 className="text-xs font-bold uppercase tracking-wider">
                 التشخيص التشغيلي وتوصية المعالجة
               </h3>
             </div>
-            <p className="text-xs leading-relaxed text-zinc-700 dark:text-zinc-300">
+            <p className="text-xs leading-relaxed text-foreground dark:text-muted-foreground">
               {product.operationalRecommendation}
             </p>
             {product.lostShippingCost > 0 && (
-              <div className="mt-3 pt-3 border-t border-amber-200/60 dark:border-amber-900/40 flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400">
+              <div className="mt-3 pt-3 border-t border-warning/60 dark:border-warning/40 flex items-center justify-between text-[11px] text-muted-foreground dark:text-muted-foreground">
                 <span>مصاريف شحن مهدرة على هذا المنتج:</span>
-                <span className="font-mono font-bold text-rose-600 dark:text-rose-400">
+                <span className="font-mono font-bold text-destructive dark:text-destructive">
                   {formatPrice(product.lostShippingCost)}
                 </span>
               </div>
@@ -151,17 +151,17 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
           {/* Breakdown of Return Reasons */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+              <h3 className="text-sm font-bold text-foreground dark:text-muted-foreground">
                 تفصيل أسباب الارتجاع ({product.returnReasons.length} سبب مسجل)
               </h3>
-              <span className="text-xs text-zinc-500">
-                إجمالي المرتجعات: <strong className="font-mono text-zinc-800 dark:text-zinc-200">{product.returnedQuantity}</strong> قطعة
+              <span className="text-xs text-muted-foreground">
+                إجمالي المرتجعات: <strong className="font-mono text-foreground dark:text-muted-foreground">{product.returnedQuantity}</strong> قطعة
               </span>
             </div>
 
             {product.returnReasons.length === 0 ? (
-              <div className="py-8 text-center bg-zinc-50 dark:bg-zinc-900/40 rounded-xl border border-dashed border-zinc-200 dark:border-zinc-800 text-zinc-400">
-                <CheckCircle className="h-8 w-8 mx-auto text-emerald-500 mb-2 opacity-80" />
+              <div className="py-8 text-center bg-muted dark:bg-muted rounded-xl border border-dashed border-border dark:border-border text-muted-foreground">
+                <CheckCircle className="h-8 w-8 mx-auto text-success mb-2 opacity-80" />
                 <p className="text-xs font-medium">لا توجد مرتجعات مسجلة لهذا المنتج في هذه الفترة</p>
               </div>
             ) : (
@@ -172,14 +172,14 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
                   return (
                     <div
                       key={idx}
-                      className="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-3.5 space-y-2 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
+                      className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 space-y-2 hover:border-border dark:hover:border-border transition-colors"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-2 min-w-0">
-                          <span className="h-5 w-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 flex items-center justify-center text-[10px] font-mono shrink-0">
+                          <span className="h-5 w-5 rounded-full bg-muted dark:bg-muted text-muted-foreground flex items-center justify-center text-[10px] font-mono shrink-0">
                             {idx + 1}
                           </span>
-                          <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 break-words">
+                          <span className="text-xs font-semibold text-foreground dark:text-muted-foreground break-words">
                             {item.reason}
                           </span>
                         </div>
@@ -190,7 +190,7 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
                       </div>
 
                       {/* Progress bar */}
-                      <div className="w-full bg-zinc-100 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
+                      <div className="w-full bg-muted dark:bg-muted h-2 rounded-full overflow-hidden">
                         <div
                           className={`h-full rounded-full transition-all ${
                             item.percentage > 30 ? 'bg-rose-500' : item.percentage > 15 ? 'bg-amber-500' : 'bg-blue-500'
@@ -200,12 +200,12 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
                       </div>
 
                       {/* Stat values */}
-                      <div className="flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 font-mono">
+                      <div className="flex items-center justify-between text-[11px] text-muted-foreground dark:text-muted-foreground font-mono">
                         <span>
-                          التكرار: <strong className="text-zinc-900 dark:text-zinc-100 font-bold">{item.count}</strong> ({item.percentage}%)
+                          التكرار: <strong className="text-zinc-900 dark:text-muted-foreground font-bold">{item.count}</strong> ({item.percentage}%)
                         </span>
                         <span>
-                          الخسارة: <strong className="text-rose-600 dark:text-rose-400 font-bold">{formatPrice(item.lostValue)}</strong>
+                          الخسارة: <strong className="text-rose-600 dark:text-destructive font-bold">{formatPrice(item.lostValue)}</strong>
                         </span>
                       </div>
                     </div>
@@ -217,21 +217,21 @@ export const ProductReturnReasonsDrawer: React.FC<Props> = ({ product, onClose }
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-between gap-3">
+        <div className="p-4 border-t border-border dark:border-border bg-muted dark:bg-muted flex items-center justify-between gap-3">
           {product.productId ? (
             <a
               href={`/products`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-200 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-foreground dark:text-muted-foreground bg-white dark:bg-muted border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
             >
               <span>إدارة المنتج في الكتالوج</span>
-              <ArrowUpRight className="h-3.5 w-3.5 text-zinc-400" />
+              <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground" />
             </a>
           ) : <div />}
           <button
             onClick={onClose}
-            className="px-4 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors"
+            className="px-4 py-2 text-xs font-medium text-foreground dark:text-muted-foreground bg-white dark:bg-muted border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
           >
             إغلاق
           </button>

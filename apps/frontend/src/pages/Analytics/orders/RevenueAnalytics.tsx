@@ -107,7 +107,7 @@ const RevenueAnalytics: React.FC = () => {
               <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                 <span>{c.title}</span><c.icon className={`h-3.5 w-3.5 ${c.color}`} />
               </div>
-              <div className={`text-xl font-bold font-mono tabular-nums ${c.alert ? "text-rose-600 dark:text-rose-400" : "text-foreground"}`}>
+              <div className={`text-xl font-bold font-mono tabular-nums ${c.alert ? "text-rose-600 dark:text-destructive" : "text-foreground"}`}>
                 {loading ? "..." : c.val}
               </div>
               <div className="text-[11px] text-muted-foreground mt-0.5 truncate">{c.sub}</div>
@@ -120,7 +120,7 @@ const RevenueAnalytics: React.FC = () => {
       {stats?.dailyRevenue && stats.dailyRevenue.length > 0 && (
         <div className="border border-border/70 rounded-xl bg-card p-4 shadow-sm">
           <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <BarChart3 className="h-4 w-4 text-emerald-500" /> منحنى تطور الإيرادات اليومية
+            <BarChart3 className="h-4 w-4 text-success" /> منحنى تطور الإيرادات اليومية
           </h3>
           <div className="h-[250px]">
             <ResponsiveContainer width="100%" height="100%" minWidth={0}>
@@ -175,7 +175,7 @@ const RevenueAnalytics: React.FC = () => {
                     <td className="py-2.5 px-3.5 text-center font-mono font-bold text-foreground tabular-nums">
                       {d.orders.toLocaleString("en-US")}
                     </td>
-                    <td className="py-2.5 px-3.5 text-center font-mono font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                    <td className="py-2.5 px-3.5 text-center font-mono font-bold text-success dark:text-success tabular-nums">
                       {formatPrice(d.revenue)}
                     </td>
                     <td className="py-2.5 px-3.5 text-center font-mono text-muted-foreground tabular-nums">

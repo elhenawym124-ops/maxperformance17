@@ -259,7 +259,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
       description="حدد الهدف ومستهدف الإنجاز ومؤشر التتبع التلقائي لمواءمة مهام الفريق مع النتائج."
       size="lg"
       badge={
-        <span className="rounded-full border border-sky-500/20 bg-sky-500/10 px-3 py-1 text-[11px] font-semibold text-sky-600 dark:text-sky-400">
+        <span className="rounded-full border border-info/20 bg-info/10 px-3 py-1 text-[11px] font-semibold text-info dark:text-info">
           KPIs & Goals
         </span>
       }
@@ -283,7 +283,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
               onClick={handleSubmit}
               className="rounded-xl text-xs font-semibold"
             >
-              <Plus className="mr-1.5 size-3.5" />
+              <Plus className="me-1.5 size-3.5" />
               <span>{submitting ? "جاري الحفظ…" : "حفظ الهدف"}</span>
             </Button>
           </div>
@@ -292,7 +292,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-3.5 py-2.5 text-xs text-rose-600 dark:text-rose-400">
+          <div className="rounded-xl border border-destructive/30 bg-destructive/10 px-3.5 py-2.5 text-xs text-destructive dark:text-destructive">
             {error}
           </div>
         )}
@@ -308,7 +308,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
               onClick={() => handleModeSwitch("AUTO")}
               className={`flex items-center justify-center gap-2 rounded-xl border p-2.5 text-xs font-semibold transition-all ${
                 trackingMode === "AUTO"
-                  ? "border-sky-500 bg-sky-500/15 text-sky-600 dark:text-sky-400"
+                  ? "border-sky-500 bg-info/15 text-info dark:text-info"
                   : "border-border/60 bg-background/50 text-muted-foreground hover:bg-background"
               }`}
             >
@@ -349,7 +349,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
                 ))}
               </select>
               <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <Zap className="size-3 text-sky-500" />
+                <Zap className="size-3 text-info" />
                 <span>{currentMetric.hint}</span>
               </div>
             </div>

@@ -100,19 +100,19 @@ export default function AgingTab({ startDate, endDate, mode }: MovementFilterPro
           label="الأقدم"
           value={formatDuration(summary.oldestHours)}
           icon={Clock}
-          gradient="from-amber-500 to-orange-600"
+          gradient="from-amber-500 to-warning"
         />
         <KpiCard
           label="قيمة الفلوس المحبوسة"
           value={formatCurrency(summary.totalRevenue)}
           icon={Banknote}
-          gradient="from-rose-500 to-red-600"
+          gradient="from-rose-500 to-destructive"
         />
         <KpiCard
           label="أكثر من أسبوع"
           value={formatNumber(summary.stuckOver7d)}
           icon={AlertOctagon}
-          gradient="from-sky-500 to-indigo-600"
+          gradient="from-sky-500 to-primary"
           hint="طلبات معلقة منذ أكثر من 7 أيام"
         />
       </div>
@@ -140,13 +140,13 @@ export default function AgingTab({ startDate, endDate, mode }: MovementFilterPro
                       style={CHART_TOOLTIP_STYLE}
                       className="rounded-xl px-3 py-2"
                     >
-                      <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                      <div className="text-sm font-semibold text-foreground">
                         {bucket.label}
                       </div>
-                      <div className="text-xs text-gray-600 dark:text-gray-300">
+                      <div className="text-xs text-muted-foreground">
                         {formatNumber(bucket.count)} طلب
                       </div>
-                      <div className="text-xs text-gray-600 dark:text-gray-300">
+                      <div className="text-xs text-muted-foreground">
                         إيراد {formatCurrency(bucket.revenue)}
                       </div>
                     </div>
@@ -177,12 +177,12 @@ export default function AgingTab({ startDate, endDate, mode }: MovementFilterPro
                     backgroundColor: CHART_PALETTE[index % CHART_PALETTE.length],
                   }}
                 />
-                <span className="truncate text-gray-700 dark:text-gray-200">
+                <span className="truncate text-foreground">
                   {bucket.label}
                 </span>
               </div>
-              <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                <span className="font-semibold text-gray-900 dark:text-white">
+              <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                <span className="font-semibold text-foreground">
                   {formatNumber(bucket.count)}
                 </span>
                 <span className="w-20 text-left">
@@ -202,7 +202,7 @@ export default function AgingTab({ startDate, endDate, mode }: MovementFilterPro
           <div className="overflow-x-auto">
             <table className="w-full text-right">
               <thead>
-                <tr className="border-b border-gray-100 text-xs font-semibold text-gray-500 dark:border-gray-700/60 dark:text-gray-400">
+                <tr className="border-b border-border text-xs font-semibold text-muted-foreground dark:border-border dark:text-muted-foreground">
                   <th className="px-4 py-3">رقم الطلب</th>
                   <th className="px-4 py-3">الحالة</th>
                   <th className="px-4 py-3">العمر</th>
@@ -212,37 +212,37 @@ export default function AgingTab({ startDate, endDate, mode }: MovementFilterPro
                   <th className="px-4 py-3">آخر حركة</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-gray-700/60">
+              <tbody className="divide-y divide-border dark:divide-border">
                 {data.orders.map((order) => (
                   <tr
                     key={order.orderId}
-                    className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/30"
+                    className="transition-colors hover:bg-muted/50/30"
                   >
-                    <td className="whitespace-nowrap px-4 py-3 font-semibold text-gray-900 dark:text-white">
+                    <td className="whitespace-nowrap px-4 py-3 font-semibold text-foreground">
                       {order.orderNumber}
                     </td>
                     <td className="px-4 py-3">
                       <StatusPill code={order.status} />
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700 dark:text-gray-200">
+                    <td className="whitespace-nowrap px-4 py-3 text-sm text-foreground">
                       {formatDuration(order.ageHours)}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">
+                    <td className="whitespace-nowrap px-4 py-3 text-left text-sm font-semibold text-foreground">
                       {formatCurrency(order.total)}
                     </td>
-                    <td className="max-w-[180px] truncate px-4 py-3 text-sm text-gray-700 dark:text-gray-200">
+                    <td className="max-w-[180px] truncate px-4 py-3 text-sm text-foreground">
                       {order.customerName || "-"}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+                    <td className="whitespace-nowrap px-4 py-3 text-sm text-muted-foreground">
                       {order.governorate || "-"}
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">
                       <div className="flex flex-col gap-1">
-                        <span className="text-xs text-gray-600 dark:text-gray-300">
+                        <span className="text-xs text-muted-foreground">
                           {formatDateTime(order.lastTransitionAt)}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className="text-[11px] text-gray-400 dark:text-gray-500">
+                          <span className="text-[11px] text-muted-foreground/80">
                             {order.lastTransitionBy || "-"}
                           </span>
                           <AutoBadge auto={order.lastTransitionAuto} />
@@ -255,7 +255,7 @@ export default function AgingTab({ startDate, endDate, mode }: MovementFilterPro
             </table>
           </div>
         ) : (
-          <div className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+          <div className="py-10 text-center text-sm text-muted-foreground">
             لا توجد طلبات معلقة في هذه الفترة
           </div>
         )}

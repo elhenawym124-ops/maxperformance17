@@ -24,13 +24,13 @@ export const CampaignAttributionStats: React.FC<CampaignAttributionStatsProps> =
       label: "طلبات متتبعة",
       value: s.trackedOrders.toLocaleString(),
       detail: `${s.trackingCoverage.toFixed(1)}% تغطية التتبع`,
-      accent: "text-emerald-600 dark:text-emerald-400",
+      accent: "text-emerald-600 dark:text-success",
     },
     {
       label: "طلبات بحملة",
       value: s.campaignTaggedOrders.toLocaleString(),
       detail: `${s.directOrders.toLocaleString()} طلب مباشر`,
-      accent: "text-violet-600 dark:text-violet-400",
+      accent: "text-violet-600 dark:text-primary",
     },
     {
       label: "غير منسوبة",
@@ -45,13 +45,13 @@ export const CampaignAttributionStats: React.FC<CampaignAttributionStatsProps> =
         s.inboxRevenue !== undefined && s.inboxRevenue > 0
           ? `${formatPrice(s.storefrontRevenue || 0)} متجر · ${formatPrice(s.inboxRevenue)} إنبوكس`
           : `${formatPrice(s.deliveredRevenue)} إيراد المسلّم`,
-      accent: "text-amber-600 dark:text-amber-400",
+      accent: "text-amber-600 dark:text-warning",
     },
     {
       label: "متوسط قيمة الطلب",
       value: formatPrice(s.averageOrderValue),
       detail: `${s.deliveredOrders.toLocaleString()} طلب مسلّم`,
-      accent: "text-cyan-600 dark:text-cyan-400",
+      accent: "text-cyan-600 dark:text-info",
     },
   ];
 

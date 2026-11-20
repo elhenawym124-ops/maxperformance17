@@ -1,15 +1,15 @@
 export const getPriorityColor = (priority: string) => {
   switch (priority?.toLowerCase()) {
     case "urgent":
-      return "bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300";
+      return "bg-red-100 dark:bg-destructive/50 text-destructive dark:text-destructive";
     case "high":
-      return "bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-300";
+      return "bg-orange-100 dark:bg-warning/50 text-warning dark:text-warning";
     case "medium":
-      return "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300";
+      return "bg-yellow-100 dark:bg-warning/50 text-warning dark:text-warning";
     case "low":
-      return "bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300";
+      return "bg-green-100 dark:bg-success/50 text-success dark:text-success";
     default:
-      return "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300";
+      return "bg-muted text-foreground dark:text-muted-foreground";
   }
 };
 
