@@ -21,7 +21,11 @@ except ImportError:
     AsyncSession = Any
 
 try:
-    from src.db.session import async_session
+    import src.db.session as db_session
+    def async_session():
+        if db_session.async_session is None:
+            raise RuntimeError("Database session factory is not initialized. Call init_db() first.")
+        return db_session.async_session()
 except Exception:
     async_session = None
 
@@ -1365,3 +1369,8 @@ async def _run_worker_async():
     finally:
         await close_db()
         await redis_client.disconnect()
+
+
+if __name__ == "__main__":
+    run_worker_sync()
+

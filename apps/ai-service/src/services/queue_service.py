@@ -6,7 +6,7 @@ import os
 import time
 import uuid
 from collections.abc import Callable
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 try:
@@ -123,7 +123,7 @@ class QueueService:
                     FROM ai_runtime_queue_jobs
                     WHERE status IN ('PENDING', 'RETRY')
                       AND "companyId" IS NOT NULL
-                      AND (:queue_name IS NULL OR channel = :queue_name)
+                      AND (CAST(:queue_name AS text) IS NULL OR channel = CAST(:queue_name AS text))
                 """)
                 res_pending = await session.execute(stmt_pending, {"queue_name": queue_name})
                 pending_rows = res_pending.fetchall() if hasattr(res_pending, "fetchall") else (res_pending.all() if hasattr(res_pending, "all") else [])
@@ -240,14 +240,14 @@ class QueueService:
             return None
 
         token = str(uuid.uuid4())
-        lease_interval = f"{int(lease_seconds)} seconds"
+        lease_interval = timedelta(seconds=int(lease_seconds))
 
         stmt = text("""
             UPDATE ai_runtime_queue_jobs
             SET status = 'RUNNING',
                 "lockToken" = :lock_token,
                 "lockedAt" = now(),
-                "lockExpiresAt" = now() + (:lease_interval)::interval,
+                "lockExpiresAt" = now() + :lease_interval,
                 "startedAt" = COALESCE("startedAt", now()),
                 attempts = attempts + 1,
                 "updatedAt" = now()
@@ -256,8 +256,8 @@ class QueueService:
               FROM ai_runtime_queue_jobs j
               WHERE j.status IN ('PENDING', 'RETRY')
                 AND j."availableAt" <= now()
-                AND (:queue_name IS NULL OR j.channel = :queue_name)
-                AND (:allowed IS NULL OR j."companyId" = ANY(:allowed))
+                AND (CAST(:queue_name AS text) IS NULL OR j.channel = CAST(:queue_name AS text))
+                AND (CAST(:allowed AS text[]) IS NULL OR j."companyId" = ANY(CAST(:allowed AS text[])))
                 AND NOT EXISTS (
                   SELECT 1 FROM ai_runtime_queue_jobs r
                   WHERE r.status = 'RUNNING'
@@ -328,10 +328,10 @@ class QueueService:
         extend_seconds: int = 300,
     ) -> bool:
         """Extend lockExpiresAt by extend_seconds for a running job."""
-        extend_interval = f"{int(extend_seconds)} seconds"
+        extend_interval = timedelta(seconds=int(extend_seconds))
         stmt = text("""
             UPDATE ai_runtime_queue_jobs
-            SET "lockExpiresAt" = now() + (:extend_interval)::interval,
+            SET "lockExpiresAt" = now() + :extend_interval,
                 "updatedAt" = now()
             WHERE id = :job_id AND "lockToken" = :token AND status = 'RUNNING'
             RETURNING id;
