@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import PayrollSimulator from './components/PayrollSimulator';
+import { PolarisPayrollView } from './PolarisPayrollView';
 import {
   usePayrollController,
   PayrollHeader,
@@ -69,6 +71,99 @@ const Payroll: React.FC = () => {
     handlePrint,
     handleExportBankFile,
   } = usePayrollController();
+
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
+  if (isPolaris) {
+    return (
+      <>
+        <PolarisPayrollView
+          isMyPayroll={isMyPayroll}
+          loading={loading}
+          payrolls={payrolls}
+          summary={summary}
+          pagination={pagination}
+          setPagination={setPagination}
+          selectedMonth={selectedMonth}
+          setSelectedMonth={setSelectedMonth}
+          selectedYear={selectedYear}
+          setSelectedYear={setSelectedYear}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          selectedIds={selectedIds}
+          toggleSelectAll={toggleSelectAll}
+          toggleSelect={toggleSelect}
+          onOpenGenerateDialog={() => setShowGenerateDialog(true)}
+          onViewDetails={(payroll) => {
+            setSelectedPayroll(payroll);
+            setShowDetailsDialog(true);
+          }}
+          onApprove={handleApprove}
+          onEdit={handleEdit}
+          onPay={handlePay}
+          onPrint={handlePrint}
+          view={view}
+          setView={setView}
+          autoStatus={autoStatus}
+          autoCalculating={autoCalculating}
+          onAutoCalculate={handleAutoCalculatePayroll}
+          onExportBankFile={handleExportBankFile}
+          handleBulkApprove={handleBulkApprove}
+          handleBulkPay={handleBulkPay}
+        />
+
+        {!isMyPayroll && (
+          <PayrollGenerateModal
+            open={showGenerateDialog}
+            onOpenChange={(open) => {
+              setShowGenerateDialog(open);
+              if (!open) setForceRegenerate(false);
+            }}
+            selectedMonth={selectedMonth}
+            selectedYear={selectedYear}
+            summary={summary}
+            forceRegenerate={forceRegenerate}
+            setForceRegenerate={setForceRegenerate}
+            generating={generating}
+            onGenerate={handleGeneratePayroll}
+          />
+        )}
+        <PayrollDetailsModal
+          open={showDetailsDialog}
+          onOpenChange={setShowDetailsDialog}
+          payroll={selectedPayroll}
+          onPrint={handlePrint}
+        />
+        <PayrollEditModal
+          open={showEditDialog}
+          onOpenChange={setShowEditDialog}
+          payroll={selectedPayroll}
+          editFormData={editFormData}
+          setEditFormData={setEditFormData}
+          editingAllowances={editingAllowances}
+          setEditingAllowances={setEditingAllowances}
+          editingDeductions={editingDeductions}
+          setEditingDeductions={setEditingDeductions}
+          saving={saving}
+          onSave={handleSaveEdit}
+        />
+        <PayrollPaymentModal
+          open={showPaymentDialog}
+          onOpenChange={setShowPaymentDialog}
+          paymentMethod={paymentMethod}
+          setPaymentMethod={setPaymentMethod}
+          paying={paying}
+          onConfirmPayment={confirmPayment}
+        />
+      </>
+    );
+  }
 
   return (
     <div className="space-y-6 w-full pb-8" dir="rtl">

@@ -1,6 +1,8 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { Clock, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PolarisAttendanceView } from "./PolarisAttendanceView";
 import {
   useAttendanceController,
   formatAttendanceDate,
@@ -76,6 +78,99 @@ export const Attendance: React.FC = () => {
     fetchAttendance,
     fetchTodayStats,
   } = useAttendanceController();
+
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
+  if (isPolaris) {
+    return (
+      <>
+        <PolarisAttendanceView
+          loading={loading}
+          todayStats={todayStats}
+          records={records}
+          attendanceTimezone={attendanceTimezone}
+          pagination={pagination}
+          setPagination={setPagination}
+          autoCloseSummary={autoCloseSummary}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          useDateRange={useDateRange}
+          setUseDateRange={setUseDateRange}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          employeeId={employeeId}
+          setEmployeeId={setEmployeeId}
+          autoClosedOnly={autoClosedOnly}
+          setAutoClosedOnly={setAutoClosedOnly}
+          autoCloseReviewStatus={autoCloseReviewStatus}
+          setAutoCloseReviewStatus={setAutoCloseReviewStatus}
+          employees={employees}
+          onOpenManualDialog={() => {
+            resetManualForm();
+            setShowManualDialog(true);
+          }}
+          handleExport={handleExport}
+          fetchAttendance={fetchAttendance}
+          fetchTodayStats={fetchTodayStats}
+          handleCheckIn={handleCheckIn}
+          handleCheckOut={handleCheckOut}
+          handleEditClick={handleEditClick}
+          confirmDelete={confirmDelete}
+          openAutoCloseReview={openAutoCloseReview}
+          setSelectedNotes={setSelectedNotes}
+          setShowNotesDialog={setShowNotesDialog}
+          openLocationInMap={openLocationInMap}
+        />
+
+        <ManualAttendanceDialog
+          open={showManualDialog}
+          onOpenChange={setShowManualDialog}
+          isEditMode={isEditMode}
+          manualForm={manualForm}
+          setManualForm={setManualForm}
+          manualOverrides={manualOverrides}
+          setManualOverrides={setManualOverrides}
+          employees={employees}
+          attendanceTimezone={attendanceTimezone}
+          onSubmit={handleManualAttendance}
+          onReset={resetManualForm}
+        />
+        <AutoCloseReviewDialog
+          open={showAutoCloseReviewDialog}
+          onOpenChange={setShowAutoCloseReviewDialog}
+          selectedAutoCloseRecord={selectedAutoCloseRecord}
+          attendanceTimezone={attendanceTimezone}
+          autoCloseReviewForm={autoCloseReviewForm}
+          setAutoCloseReviewForm={setAutoCloseReviewForm}
+          onSubmitReview={submitAutoCloseReview}
+          onOpenEdit={handleEditClick}
+        />
+        <AttendanceDeleteDialog
+          open={deleteDialogOpen}
+          onOpenChange={setDeleteDialogOpen}
+          onConfirmDelete={executeDelete}
+        />
+        <AttendanceNotesDialog
+          open={showNotesDialog}
+          onOpenChange={setShowNotesDialog}
+          notes={selectedNotes}
+        />
+        <AttendanceMapDialog
+          open={showMapModal}
+          onOpenChange={setShowMapModal}
+          selectedLocation={selectedLocation}
+        />
+      </>
+    );
+  }
 
   return (
     <div className="space-y-6 w-full pb-8" dir="rtl">

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Plus,
@@ -8,6 +9,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmployeeInviteModal } from "@/components/hr/EmployeeInviteModal";
+import { PolarisEmployeesView } from "./PolarisEmployeesView";
 import {
   useEmployeesController,
   EmployeeFilters,
@@ -19,6 +21,14 @@ import {
 
 export const Employees: React.FC = () => {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const urlLayout = searchParams.get("layout");
+  const sessionLayout =
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("maxp_session_layout")
+      : null;
+  const isPolaris = urlLayout === "polaris" || sessionLayout === "polaris";
+
   const {
     loading,
     employees,
@@ -59,6 +69,78 @@ export const Employees: React.FC = () => {
     handleTerminateEmployee,
     resetForm,
   } = useEmployeesController();
+
+  if (isPolaris) {
+    return (
+      <>
+        <PolarisEmployeesView
+          loading={loading}
+          employees={employees}
+          departments={departments}
+          pagination={pagination}
+          setPagination={setPagination}
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          departmentFilter={departmentFilter}
+          setDepartmentFilter={setDepartmentFilter}
+          contractFilter={contractFilter}
+          setContractFilter={setContractFilter}
+          userStatusFilter={userStatusFilter}
+          setUserStatusFilter={setUserStatusFilter}
+          onOpenAddDialog={() => {
+            resetForm();
+            setShowAddDialog(true);
+          }}
+          onOpenInviteDialog={() => setShowInviteDialog(true)}
+          onOpenAssets={openAssetsDialog}
+          onDelete={handleDeleteEmployee}
+          onResetPassword={handleResetPassword}
+          onToggleStatus={handleToggleStatus}
+          onTerminate={handleTerminateEmployee}
+        />
+
+        <EmployeeAssetsDialog
+          assetsDialog={assetsDialog}
+          onOpenChange={(open) =>
+            setAssetsDialog((prev) => ({
+              ...prev,
+              open,
+              error: "",
+              assets: [],
+            }))
+          }
+        />
+        <EmployeeCredentialsDialog
+          state={credentialsModal}
+          onOpenChange={(open) =>
+            setCredentialsModal((prev) => ({ ...prev, open }))
+          }
+        />
+        <AddEmployeeDialog
+          open={showAddDialog}
+          onOpenChange={setShowAddDialog}
+          formData={formData}
+          setFormData={setFormData}
+          departments={departments}
+          lookupLoading={lookupLoading}
+          lookupResult={lookupResult}
+          errors={errors}
+          submitting={submitting}
+          onSubmit={handleAddEmployee}
+          onCancel={() => setShowAddDialog(false)}
+          onReactivate={handleReactivateEmployee}
+        />
+        <EmployeeInviteModal
+          open={showInviteDialog}
+          onOpenChange={setShowInviteDialog}
+          departments={departments}
+          onInvitationCreated={fetchEmployees}
+        />
+      </>
+    );
+  }
 
   return (
     <div
