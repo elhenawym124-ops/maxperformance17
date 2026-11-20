@@ -138,7 +138,7 @@ export const OrdersToolbar: React.FC<OrdersToolbarProps> = ({
 
   return (
     <div className="mb-2 space-y-2 sm:mb-3 sm:space-y-2.5">
-      <div className="space-y-2 rounded-2xl border border-border/70 bg-card p-2 sm:p-2.5 shadow-[0_1px_3px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]">
+      <div className="space-y-2 rounded-xl border border-border/70 bg-card p-2 sm:p-2.5 shadow-[0_1px_3px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]">
         <div className="flex flex-col gap-2 sm:gap-2.5">
           {/* Row 1: Unified Search & Action Bar */}
           <div className="flex items-center gap-1.5 sm:gap-2">
@@ -174,7 +174,7 @@ export const OrdersToolbar: React.FC<OrdersToolbarProps> = ({
                 {isExporting ? (
                   <Loader2 className="h-4 w-4 animate-spin text-primary" />
                 ) : (
-                  <FileSpreadsheet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                  <FileSpreadsheet className="h-4 w-4 text-success dark:text-success" />
                 )}
                 <span className="hidden sm:inline whitespace-nowrap">
                   {t("orders.exportExcel")}

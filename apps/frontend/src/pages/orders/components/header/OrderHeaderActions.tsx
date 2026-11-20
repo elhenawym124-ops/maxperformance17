@@ -95,9 +95,9 @@ export const OrderHeaderActions: React.FC<OrderHeaderActionsProps> = ({
             <button
               type="button"
               onClick={onPrintPreparationSlip}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-emerald-500/30 text-xs sm:text-sm font-medium rounded-xl text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-success/30 text-xs sm:text-sm font-medium rounded-xl text-success dark:text-success bg-success/10 hover:bg-success/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
             >
-              <Printer className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <Printer className="h-4 w-4 shrink-0 text-success dark:text-success" />
               <span>
                 <span className="hidden sm:inline">طباعة </span>
                 <span>
@@ -124,9 +124,9 @@ export const OrderHeaderActions: React.FC<OrderHeaderActionsProps> = ({
             <button
               type="button"
               onClick={onPostponeOrder}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-amber-500/30 text-xs sm:text-sm font-medium rounded-xl text-amber-700 dark:text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-warning/30 text-xs sm:text-sm font-medium rounded-xl text-warning dark:text-warning bg-warning/10 hover:bg-warning/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
             >
-              <Calendar className="h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+              <Calendar className="h-4 w-4 shrink-0 text-warning dark:text-warning" />
               <span>{t("orderDetails.postponeOrder")}</span>
             </button>
           )}
@@ -146,10 +146,10 @@ export const OrderHeaderActions: React.FC<OrderHeaderActionsProps> = ({
             <button
               type="button"
               onClick={onOpenTicket}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-amber-500/30 text-xs sm:text-sm font-medium rounded-xl text-amber-700 dark:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-warning/30 text-xs sm:text-sm font-medium rounded-xl text-warning dark:text-warning bg-warning/10 hover:bg-warning/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
               title="فتح أو متابعة تذاكر الدعم لهذا الطلب"
             >
-              <Ticket className="h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+              <Ticket className="h-4 w-4 shrink-0 text-warning dark:text-warning" />
               <span>
                 {t("orderDetails.supportTickets", {
                   defaultValue: "تذاكر الدعم",
@@ -161,10 +161,10 @@ export const OrderHeaderActions: React.FC<OrderHeaderActionsProps> = ({
           {whatsappChatUrl && (
             <Link
               to={whatsappChatUrl}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-emerald-500/30 text-xs sm:text-sm font-medium rounded-xl text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-success/30 text-xs sm:text-sm font-medium rounded-xl text-success dark:text-success bg-success/10 hover:bg-success/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
               title="فتح محادثة العميل على واتساب المنصة"
             >
-              <WhatsAppIcon className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <WhatsAppIcon className="h-4 w-4 shrink-0 text-success dark:text-success" />
               <span>
                 {t("orderDetails.whatsapp", {
                   defaultValue: "واتساب المنصة",
@@ -180,10 +180,10 @@ export const OrderHeaderActions: React.FC<OrderHeaderActionsProps> = ({
               to={`/orders/manual?exchangeOrderNumber=${encodeURIComponent(
                 order.orderNumber
               )}&phone=${encodeURIComponent(order.customerPhone || "")}`}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-blue-500/30 text-xs sm:text-sm font-medium rounded-xl text-blue-700 dark:text-blue-300 bg-blue-500/10 hover:bg-blue-500/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 border border-primary/30 text-xs sm:text-sm font-medium rounded-xl text-primary dark:text-primary bg-primary/10 hover:bg-primary/20 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs"
               title="إنشاء طلب استبدال مبني على هذا الطلب"
             >
-              <ArrowLeftRight className="h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
+              <ArrowLeftRight className="h-4 w-4 shrink-0 text-primary dark:text-primary" />
               <span>
                 {t("orderDetails.exchangeOrder", {
                   defaultValue: "طلب استبدال",
@@ -210,7 +210,7 @@ export const OrderHeaderActions: React.FC<OrderHeaderActionsProps> = ({
             type="button"
             onClick={onSave}
             disabled={updating}
-            className="inline-flex items-center gap-1.5 px-4 py-2 border border-transparent text-xs sm:text-sm font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-4 py-2 border border-transparent text-xs sm:text-sm font-semibold rounded-xl text-white bg-success hover:bg-success whitespace-nowrap shrink-0 transition active:scale-97 shadow-xs disabled:opacity-50"
           >
             <Check className="h-4 w-4 shrink-0" />
             <span>

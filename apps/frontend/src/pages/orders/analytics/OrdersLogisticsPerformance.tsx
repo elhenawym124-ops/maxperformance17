@@ -36,7 +36,7 @@ export const OrdersLogisticsPerformance: React.FC<OrdersLogisticsPerformanceProp
   translate,
 }) => {
   return (
-    <div className="border-b border-zinc-200/80 dark:border-white/[0.08] grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-zinc-200/80 dark:divide-white/[0.08] bg-white dark:bg-[#070709]">
+    <div className="border-b /80/80border-border dark:border-white/[0.08] grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x /80/80divide-border dark:divide-white/[0.08] bg-white dark:bg-[#070709]">
       {/* Column 1: Order Lifecycle & Status Distribution */}
       <OrderLifecycleColumn
         loading={loading}

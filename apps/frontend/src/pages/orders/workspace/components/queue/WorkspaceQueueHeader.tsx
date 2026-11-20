@@ -21,8 +21,8 @@ export const WorkspaceQueueHeader: React.FC<WorkspaceQueueHeaderProps> = ({
   isArabic,
 }) => {
   return (
-    <div className="flex items-center justify-between border-b border-border/30 bg-muted/15 px-3 py-1.5 text-[11px] font-semibold text-muted-foreground shrink-0 dark:border-slate-800 dark:bg-slate-900/60">
-      <span className="font-mono tabular-nums text-foreground/80 dark:text-slate-300">
+    <div className="flex items-center justify-between border-b border-border/30 bg-muted/15 px-3 py-1.5 text-[11px] font-semibold text-muted-foreground shrink-0 dark:dark:border-border dark:dark:bg-muted">
+      <span className="font-mono tabular-nums text-foreground/80 dark:dark:text-muted-foreground">
         {isArabic
           ? `معروض ${ordersCount} من ${totalCount || ordersCount} ${activeTab === 'incomplete' ? 'سلة' : 'طلب'}`
           : `Showing ${ordersCount} of ${totalCount || ordersCount}`}
@@ -34,19 +34,19 @@ export const WorkspaceQueueHeader: React.FC<WorkspaceQueueHeaderProps> = ({
         aria-pressed={riskOnly}
         className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-bold transition-colors ${
           riskOnly
-            ? 'border-destructive/40 bg-destructive/15 text-destructive dark:border-destructive/50 dark:bg-destructive/20 dark:text-red-400'
-            : 'border-border/60 bg-background/60 text-muted-foreground hover:border-destructive/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-400 dark:hover:border-slate-600'
+            ? 'border-destructive/40 bg-destructive/15 text-destructive dark:border-destructive/50 dark:bg-destructive/20 dark:text-destructive'
+            : 'border-border/60 bg-background/60 text-muted-foreground hover:border-destructive/30 dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:border-border'
         }`}
         title={isArabic ? 'عرض الطلبات عالية الخطورة فقط' : 'Show high-risk orders only'}
       >
         {isArabic ? 'خطر عالي' : 'High risk'}
       </button>
       <span
-        className="hidden items-center gap-1 sm:inline-flex text-muted-foreground/70 dark:text-slate-400"
+        className="hidden items-center gap-1 sm:inline-flex text-muted-foreground/70 dark:dark:text-muted-foreground"
         title={isArabic ? 'تنقل بالكيبورد: j أو ↓ للطلب التالي، k أو ↑ للسابق، Enter لاختيار الصف' : 'Keyboard: j/↓ next, k/↑ previous, Enter to select'}
       >
-        <kbd className="rounded border border-border/60 bg-background px-1 font-mono text-[9px] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">j</kbd>
-        <kbd className="rounded border border-border/60 bg-background px-1 font-mono text-[9px] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">k</kbd>
+        <kbd className="rounded border border-border/60 bg-background px-1 font-mono text-[9px] dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground">j</kbd>
+        <kbd className="rounded border border-border/60 bg-background px-1 font-mono text-[9px] dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground">k</kbd>
       </span>
       {loadingMore && (
         <span className="flex items-center gap-1 text-primary">

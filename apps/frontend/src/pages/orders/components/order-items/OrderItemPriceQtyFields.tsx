@@ -34,9 +34,9 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
   const hasPriceError = validationErrors[`price_${index}`];
 
   return (
-    <div className="grid grid-cols-3 gap-2 sm:gap-4 items-center sm:items-end mt-3 pt-2 sm:pt-0 border-t border-gray-100 dark:border-gray-800 sm:border-t-0 bg-gray-50/70 dark:bg-gray-800/40 p-2 sm:p-0 rounded-xl sm:bg-transparent sm:dark:bg-transparent">
+    <div className="grid grid-cols-3 gap-2 sm:gap-4 items-center sm:items-end mt-3 pt-2 sm:pt-0 border-t border-border dark:dark:border-border sm:border-t-0 /70/70bg-muted dark:dark:bg-muted p-2 sm:p-0 rounded-xl sm:bg-transparent sm:dark:bg-transparent">
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 sm:mb-1.5">
+        <label className="block text-[11px] sm:text-xs font-semibold text-foreground dark:dark:text-muted-foreground mb-1 sm:mb-1.5">
           السعر
         </label>
         {isEditing ? (
@@ -48,28 +48,28 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
               min="0.01"
               max="1000000"
               step="0.01"
-              className={`w-full px-2 py-1.5 sm:px-3 sm:py-2 border rounded-lg text-xs sm:text-sm font-semibold font-mono tabular-nums dark:bg-gray-700 dark:text-gray-100 ${
+              className={`w-full px-2 py-1.5 sm:px-3 sm:py-2 border rounded-lg text-xs sm:text-sm font-semibold font-mono tabular-nums dark:dark:bg-muted dark:dark:text-muted-foreground ${
                 hasPriceError
-                  ? "border-red-500 dark:border-red-400"
-                  : "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  ? "border-destructive dark:border-destructive"
+                  : "border-border focus:ring-2 focus:ring-primary focus:border-primary"
               }`}
             />
             {hasPriceError && (
-              <p className="mt-1 text-[10px] sm:text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
+              <p className="mt-1 text-[10px] sm:text-xs text-destructive dark:text-destructive flex items-center gap-1">
                 <ExclamationCircleIcon className="w-3 h-3" />
                 {hasPriceError}
               </p>
             )}
           </div>
         ) : (
-          <p className="text-xs sm:text-base font-bold text-gray-900 dark:text-gray-100 font-mono tabular-nums">
+          <p className="text-xs sm:text-base font-bold text-foreground font-mono tabular-nums">
             {formatPrice(item.price || 0)}
           </p>
         )}
       </div>
 
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 sm:mb-1.5">
+        <label className="block text-[11px] sm:text-xs font-semibold text-foreground dark:dark:text-muted-foreground mb-1 sm:mb-1.5">
           الكمية
         </label>
         {isEditing ? (
@@ -81,9 +81,9 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
                   decrementQuantity(index, item.quantity || 1)
                 }
                 disabled={(item.quantity || 1) <= 1}
-                className="p-1 sm:p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-md sm:rounded-lg transition-colors"
+                className="p-1 sm:p-2 bg-muted hover:hover:bg-muted dark:hover:dark:hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed rounded-md sm:rounded-lg transition-colors"
               >
-                <MinusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-700 dark:text-gray-300" />
+                <MinusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-foreground" />
               </button>
               <input
                 type="number"
@@ -96,10 +96,10 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
                 }
                 min="1"
                 max="9999"
-                className={`w-10 sm:w-16 px-1 py-1.5 sm:px-2 sm:py-2 border rounded-md sm:rounded-lg text-center text-xs sm:text-sm font-bold font-mono tabular-nums dark:bg-gray-700 dark:text-gray-100 ${
+                className={`w-10 sm:w-16 px-1 py-1.5 sm:px-2 sm:py-2 border rounded-md sm:rounded-lg text-center text-xs sm:text-sm font-bold font-mono tabular-nums dark:dark:bg-muted dark:dark:text-muted-foreground ${
                   hasQuantityError
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-gray-300 dark:border-gray-600"
+                    ? "border-destructive dark:border-destructive"
+                    : "border-border"
                 }`}
               />
               <button
@@ -107,30 +107,30 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
                 onClick={() =>
                   incrementQuantity(index, item.quantity || 1)
                 }
-                className="p-1 sm:p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md sm:rounded-lg transition-colors"
+                className="p-1 sm:p-2 bg-muted hover:hover:bg-muted dark:hover:dark:hover:bg-muted rounded-md sm:rounded-lg transition-colors"
               >
-                <PlusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-700 dark:text-gray-300" />
+                <PlusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-foreground" />
               </button>
             </div>
             {hasQuantityError && (
-              <p className="mt-1 text-[10px] sm:text-xs text-red-600 dark:text-red-400 flex items-center gap-1 justify-center">
+              <p className="mt-1 text-[10px] sm:text-xs text-destructive dark:text-destructive flex items-center gap-1 justify-center">
                 <ExclamationCircleIcon className="w-3 h-3" />
                 {hasQuantityError}
               </p>
             )}
           </div>
         ) : (
-          <p className="text-xs sm:text-base font-bold text-gray-900 dark:text-gray-100 font-mono tabular-nums">
+          <p className="text-xs sm:text-base font-bold text-foreground font-mono tabular-nums">
             {item.quantity || 1}
           </p>
         )}
       </div>
 
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 sm:mb-1.5">
+        <label className="block text-[11px] sm:text-xs font-semibold text-foreground dark:dark:text-muted-foreground mb-1 sm:mb-1.5">
           الإجمالي
         </label>
-        <p className="text-xs sm:text-lg font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+        <p className="text-xs sm:text-lg font-bold text-primary dark:text-primary font-mono tabular-nums">
           {formatPrice(itemTotal)}
         </p>
       </div>

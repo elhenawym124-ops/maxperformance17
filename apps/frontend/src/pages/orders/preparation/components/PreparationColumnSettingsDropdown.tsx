@@ -72,7 +72,7 @@ export const PreparationColumnSettingsDropdown: React.FC<PreparationColumnSettin
 
       {columnSettingsOpen && (
         <div
-          className="absolute start-0 top-full z-50 mt-1.5 w-52 rounded-2xl border border-border/70 bg-card p-1.5 shadow-2xl animate-in fade-in-50 zoom-in-95 duration-150"
+          className="absolute start-0 top-full z-50 mt-1.5 w-52 rounded-xl border border-border/70 bg-card p-1.5 shadow-2xl animate-in fade-in-50 zoom-in-95 duration-150"
           style={{ maxHeight: "calc(100vh - 220px)", overflowY: "auto" }}
         >
           <div className="border-b border-border/50 px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">

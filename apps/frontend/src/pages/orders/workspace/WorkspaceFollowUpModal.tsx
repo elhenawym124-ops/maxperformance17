@@ -44,7 +44,7 @@ export const WorkspaceFollowUpModal: React.FC<WorkspaceFollowUpModalProps> = ({
     >
       <div
         ref={panelRef}
-        className="w-full max-w-md rounded-2xl border border-border/70 bg-card p-5 shadow-xl transition-all"
+        className="w-full max-w-md rounded-xl border border-border/70 bg-card p-5 shadow-xl transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-3.5 flex items-start justify-between">

@@ -217,7 +217,7 @@ const PartialDeliveryModal: React.FC<PartialDeliveryModalProps> = ({
                     {t("orders.partialDeliveryReturned", { count: returnedQty })}
                   </span>
                 ) : (
-                  <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                  <span className="text-[11px] font-medium text-success dark:text-success">
                     {t("orders.partialDeliveryComplete")}
                   </span>
                 )}
@@ -228,9 +228,9 @@ const PartialDeliveryModal: React.FC<PartialDeliveryModalProps> = ({
       </div>
 
       {hasAnyReturn && (
-        <div className="mt-3.5 flex items-start gap-2.5 rounded-lg border border-amber-500/20 bg-amber-500/10 p-3">
-          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
-          <p className="text-xs text-amber-800 dark:text-amber-200 leading-relaxed">
+        <div className="mt-3.5 flex items-start gap-2.5 rounded-lg border border-warning/20 bg-warning/10 p-3">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning dark:text-warning" />
+          <p className="text-xs text-warning dark:text-warning leading-relaxed">
             {t("orders.partialDeliveryWarning")}
           </p>
         </div>

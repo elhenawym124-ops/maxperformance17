@@ -23,7 +23,7 @@ export const PrintMultipleControls: React.FC<PrintMultipleControlsProps> = ({
 }) => {
   return (
     <div
-      className="no-print fixed top-4 right-4 z-50 flex items-center gap-3 bg-card/95 backdrop-blur border border-border/70 p-3 rounded-2xl shadow-lg text-foreground animate-in fade-in duration-150"
+      className="no-print fixed top-4 right-4 z-50 flex items-center gap-3 bg-card/95 backdrop-blur border border-border/70 p-3 rounded-xl shadow-lg text-foreground animate-in fade-in duration-150"
       dir="rtl"
     >
       <div className="flex flex-col gap-1">

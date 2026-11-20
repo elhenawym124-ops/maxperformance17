@@ -161,7 +161,7 @@ export const IncompleteOrderTableRow: React.FC<IncompleteOrderTableRowProps> = (
       <td className="px-3 py-2.5">
         {order.abandonReason?.code ? (
           <span
-            className="inline-flex w-fit max-w-[210px] items-center rounded-md border border-amber-500/20 bg-amber-500/10 px-2 py-0.5 text-[11px] font-medium text-amber-600 dark:text-amber-400"
+            className="inline-flex w-fit max-w-[210px] items-center rounded-md border border-warning/20 bg-warning/10 px-2 py-0.5 text-[11px] font-medium text-warning dark:text-warning"
             title={getAbandonReasonLabel(order.abandonReason, t)}
           >
             <span className="truncate">

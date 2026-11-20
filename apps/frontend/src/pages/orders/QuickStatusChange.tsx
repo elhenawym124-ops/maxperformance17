@@ -114,7 +114,7 @@ export const QuickStatusChange: React.FC = () => {
       />
 
       {hasSearched && !currentOrder && !searchLoading && !searchError && (
-        <div className="bg-card rounded-2xl border border-border/70 shadow-xs p-8 sm:p-12 text-center">
+        <div className="bg-card rounded-xl border border-border/70 shadow-xs p-8 sm:p-12 text-center">
           <Search className="mx-auto text-muted-foreground/60 mb-3" size={48} />
           <h3 className="text-base font-bold text-foreground mb-1">
             {t("quickStatus.noResults")}

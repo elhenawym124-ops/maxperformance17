@@ -23,7 +23,7 @@ export const ConvertedOrdersDestinyBar: React.FC<ConvertedOrdersDestinyBarProps>
         >
           {delivered.count > 0 && (
             <div
-              className="bg-emerald-500 h-full transition-all"
+              className="bg-success h-full transition-all"
               style={{ width: `${delivered.rate}%` }}
               title={`${t("incompleteDestinyDelivered", "تم التسليم")}: ${
                 delivered.count
@@ -41,7 +41,7 @@ export const ConvertedOrdersDestinyBar: React.FC<ConvertedOrdersDestinyBarProps>
           )}
           {returned.count > 0 && (
             <div
-              className="bg-amber-500 h-full transition-all"
+              className="bg-warning h-full transition-all"
               style={{ width: `${returned.rate}%` }}
               title={`${t("incompleteDestinyReturned", "مرتجع")}: ${
                 returned.count
@@ -62,7 +62,7 @@ export const ConvertedOrdersDestinyBar: React.FC<ConvertedOrdersDestinyBarProps>
         {/* Legend */}
         <div className="flex items-center justify-between text-xs text-muted-foreground flex-wrap gap-2 pt-0.5 font-mono tabular-nums">
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+            <span className="h-2 w-2 rounded-full bg-success shrink-0" />
             {t("incompleteDestinyDelivered", "تم التسليم")}: {delivered.count} (
             {delivered.rate.toFixed(0)}%)
           </span>
@@ -72,7 +72,7 @@ export const ConvertedOrdersDestinyBar: React.FC<ConvertedOrdersDestinyBarProps>
             {inProgress.rate.toFixed(0)}%)
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />
+            <span className="h-2 w-2 rounded-full bg-warning shrink-0" />
             {t("incompleteDestinyReturned", "مرتجع")}: {returned.count} (
             {returned.rate.toFixed(0)}%)
           </span>

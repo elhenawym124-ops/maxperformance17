@@ -36,7 +36,7 @@ export const WorkspaceWhatsAppMessages: React.FC<WorkspaceWhatsAppMessagesProps>
   if (loadingMessages) {
     return (
       <div className="flex h-full flex-1 items-center justify-center">
-        <RefreshCw size={24} className="animate-spin text-emerald-500" />
+        <RefreshCw size={24} className="animate-spin text-success" />
       </div>
     );
   }
@@ -44,7 +44,7 @@ export const WorkspaceWhatsAppMessages: React.FC<WorkspaceWhatsAppMessagesProps>
   if (messages.length === 0) {
     return (
       <div className="flex h-full flex-1 flex-col items-center justify-center p-6 text-center text-muted-foreground">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 mb-3 border border-emerald-500/20">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-success/10 text-success mb-3 border border-success/20">
           <MessageSquare size={22} />
         </div>
         <p className="text-xs font-bold text-foreground">
@@ -58,7 +58,7 @@ export const WorkspaceWhatsAppMessages: React.FC<WorkspaceWhatsAppMessagesProps>
         <button
           type="button"
           onClick={onSwitchToTemplates}
-          className="mt-3.5 inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-bold text-emerald-600 hover:bg-emerald-500/20 active:scale-[0.98] transition-all"
+          className="mt-3.5 inline-flex items-center gap-1.5 rounded-xl border border-success/30 bg-success/10 px-3.5 py-1.5 text-xs font-bold text-success hover:bg-success/20 active:scale-[0.98] transition-all"
         >
           <FileText size={14} />
           <span>{isArabic ? 'تصفح القوالب الجاهزة' : 'Browse Templates'}</span>
@@ -80,20 +80,20 @@ export const WorkspaceWhatsAppMessages: React.FC<WorkspaceWhatsAppMessagesProps>
             className={`flex flex-col ${isMine ? 'items-end' : 'items-start'}`}
           >
             <div
-              className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed shadow-xs ${
+              className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-xs leading-relaxed shadow-xs ${
                 isMine
-                  ? 'rounded-ee-xs bg-emerald-600 text-white dark:bg-emerald-700'
+                  ? 'rounded-ee-xs bg-success text-white dark:bg-success'
                   : 'rounded-es-xs bg-card border border-border/70 text-foreground'
               }`}
             >
               <p className="whitespace-pre-wrap select-text">{msg.content}</p>
               <div
                 className={`mt-1.5 flex items-center justify-end gap-1 text-[10px] font-mono tabular-nums ${
-                  isMine ? 'text-emerald-100/85' : 'text-muted-foreground'
+                  isMine ? 'text-success/85' : 'text-muted-foreground'
                 }`}
               >
                 <span dir="ltr">{dateStr}</span>
-                {isMine && <CheckCircle2 size={11} className="inline text-emerald-200" />}
+                {isMine && <CheckCircle2 size={11} className="inline text-success" />}
               </div>
             </div>
           </div>

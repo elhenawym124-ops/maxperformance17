@@ -61,11 +61,11 @@ const CustomerInfoCard: React.FC<CustomerInfoCardProps> = ({
 
   return (
     <>
-      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+      <div className="bg-card shadow rounded-lg p-6">
         <div className="mb-4 flex items-start justify-between gap-3">
-          <h3 className="flex min-w-0 items-center text-lg font-medium text-gray-900 dark:text-gray-100 flex-wrap gap-2">
+          <h3 className="flex min-w-0 items-center text-lg font-medium text-foreground flex-wrap gap-2">
             <span className="flex items-center">
-              <UserIcon className="h-5 w-5 text-gray-400 dark:text-gray-500 ml-2" />{" "}
+              <UserIcon className="h-5 w-5 text-muted-foreground/80 ms-2" />{" "}
               {t("orderDetails.customerInfo")}
             </span>
             <CustomerRatingBadge
@@ -114,7 +114,7 @@ const CustomerInfoCard: React.FC<CustomerInfoCardProps> = ({
                 type="button"
                 onClick={handleUnblockCustomer}
                 disabled={savingBlock || checkingBlock || !customerBlock.rule?.id}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-50 disabled:opacity-60 dark:border-red-800 dark:bg-gray-800 dark:text-red-300 dark:hover:bg-red-900/20 active:scale-97"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-destructive bg-white px-3 py-1.5 text-xs font-semibold text-destructive transition hover:bg-destructive/10 disabled:opacity-60 dark:border-destructive dark:dark:bg-muted dark:text-destructive dark:hover:bg-destructive/20 active:scale-97"
               >
                 <CheckCircleIcon className="h-4 w-4" />
                 {savingBlock ? "جاري..." : "فك الحظر"}
@@ -124,7 +124,7 @@ const CustomerInfoCard: React.FC<CustomerInfoCardProps> = ({
                 type="button"
                 onClick={() => setShowBlockModal(true)}
                 disabled={savingBlock || checkingBlock}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-100 disabled:opacity-60 dark:border-red-800 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/30 active:scale-97"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-destructive bg-destructive/10 px-3 py-1.5 text-xs font-semibold text-destructive transition hover:bg-destructive disabled:opacity-60 dark:border-destructive dark:bg-destructive/20 dark:text-destructive dark:hover:bg-destructive/30 active:scale-97"
               >
                 <NoSymbolIcon className="h-4 w-4" />
                 {checkingBlock ? "فحص..." : "حظر العميل"}
@@ -134,7 +134,7 @@ const CustomerInfoCard: React.FC<CustomerInfoCardProps> = ({
         </div>
 
         {customerBlock?.blocked && (
-          <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
+          <div className="mb-4 rounded-lg border border-destructive bg-destructive/10 p-3 text-sm text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive">
             <div className="flex items-start gap-2">
               <NoSymbolIcon className="mt-0.5 h-4 w-4 shrink-0" />
               <div>
@@ -161,11 +161,11 @@ const CustomerInfoCard: React.FC<CustomerInfoCardProps> = ({
                 const el = document.getElementById("customer-order-history-card");
                 if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
-              className="w-full flex items-center justify-between p-2.5 rounded-lg border border-indigo-100 bg-indigo-50/60 dark:border-indigo-900/40 dark:bg-indigo-950/20 text-indigo-900 dark:text-indigo-200 transition hover:bg-indigo-100/70 dark:hover:bg-indigo-900/30 text-xs active:scale-97 cursor-pointer"
+              className="w-full flex items-center justify-between p-2.5 rounded-lg border border-primary bg-primary/60 dark:border-primary/40 dark:bg-primary/20 text-primary dark:text-primary transition hover:bg-primary/70 dark:hover:bg-primary/30 text-xs active:scale-97 cursor-pointer"
               title="الانتقال إلى سجل وتاريخ طلبات العميل السابقة"
             >
               <div className="flex items-center gap-2 min-w-0">
-                <ShoppingBagIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                <ShoppingBagIcon className="w-4 h-4 text-primary shrink-0" />
                 <span className="font-semibold truncate">
                   {order.customerHistory.stats.totalOrders > 1
                     ? `سجل المشتريات: ${order.customerHistory.stats.totalOrders} طلبات`
@@ -174,11 +174,11 @@ const CustomerInfoCard: React.FC<CustomerInfoCardProps> = ({
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
                 {order.customerHistory.stats.deliverySuccessRate !== null && (
-                  <span className="px-1.5 py-0.5 rounded text-[10.5px] font-bold tabular-nums font-mono bg-white dark:bg-gray-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
+                  <span className="px-1.5 py-0.5 rounded text-[10.5px] font-bold tabular-nums font-mono bg-card text-primary dark:text-primary border border-primary/60 dark:border-primary/60">
                     {order.customerHistory.stats.deliverySuccessRate}% استلام
                   </span>
                 )}
-                <span className="text-[10px] text-indigo-500 font-medium underline">
+                <span className="text-[10px] text-primary font-medium underline">
                   عرض السجل ↓
                 </span>
               </div>

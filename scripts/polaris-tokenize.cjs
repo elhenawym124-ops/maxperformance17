@@ -50,9 +50,9 @@ const CHROMATIC = [
   [/(?:emerald|green|teal|lime)/, "success"],
 ];
 // bg-<hue>-50 pale tints → bg-<sem>/10 ; any other shade → plain semantic token (keep /opacity)
-const RE_CHROMA = /(?:^|\s)((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|from|to|via|fill|stroke|divide|shadow|accent|caret|outline|decoration)-(rose|red|purple|violet|indigo|pink|fuchsia|cyan|sky|amber|yellow|orange|emerald|green|teal|lime|blue)-(\d{2,3})(\/\d+)?/g;
+const RE_CHROMA = /(?<=[\s"'])((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|from|to|via|fill|stroke|divide|shadow|accent|caret|outline|decoration)-(rose|red|purple|violet|indigo|pink|fuchsia|cyan|sky|amber|yellow|orange|emerald|green|teal|lime|blue)-(\d{2,3})(\/\d+)?|^((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|from|to|via|fill|stroke|divide|shadow|accent|caret|outline|decoration)-(rose|red|purple|violet|indigo|pink|fuchsia|cyan|sky|amber|yellow|orange|emerald|green|teal|lime|blue)-(\d{2,3})(\/\d+)?/g;
 
-const RE_GRAY = /(?:^|\s)((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|placeholder|divide)-(?:gray|slate|zinc|stone|neutral)-(\d{2,3})(\/\d+)?/g;
+const RE_GRAY = /(?<=[\s"'])((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|placeholder|divide)-(?:gray|slate|zinc|stone|neutral)-(\d{2,3})(\/\d+)?|^((?:(?:hover|focus|active|disabled|group-hover|dark|ltr|rtl|sm|md|lg|xl):){0,3})(text|bg|border|ring|placeholder|divide)-(?:gray|slate|zinc|stone|neutral)-(\d{2,3})(\/\d+)?/g;
 
 function mapGray(prefix, prop, shade) {
   const tone = prop === "text" ? (Number(shade) >= 600 ? "foreground" : "muted-foreground") : prop === "border" || prop === "divide" || prop === "ring" ? "border" : "muted";
@@ -80,14 +80,25 @@ for (const t of targets) {
 
     for (const [a, b] of PAIRS) { const c = s.split(a).length - 1; if (c) { s = s.split(a).join(b); n += c; } }
 
-    s = s.replace(RE_CHROMA, (m, pre, prop, hue, shade, op) => {
-      const sem = CHROMATIC.find(([re]) => re.test(hue))[1];
+    s = s.replace(RE_CHROMA, (m, pre, prop, hue, shade, op, pre2, prop2, hue2, shade2, op2) => {
+      const P = pre || pre2 || "";
+      const PR = prop || prop2;
+      const H = hue || hue2;
+      const S = shade || shade2;
+      const O = op || op2 || "";
+      const sem = CHROMATIC.find(([re]) => re.test(H))[1];
       n++;
-      if (prop === "bg" && shade === "50" && !op) return ` ${pre}${prop}-${sem}/10`;
-      return ` ${pre}${prop}-${sem}${op || ""}`;
+      if (PR === "bg" && S === "50" && !O) return `${P}${PR}-${sem}/10`;
+      return `${P}${PR}-${sem}${O}`;
     });
 
-    s = s.replace(RE_GRAY, (m, pre, prop, shade) => { n++; return " " + mapGray(pre, prop, shade); });
+    s = s.replace(RE_GRAY, (m, pre, prop, shade, pre2, prop2, shade2) => {
+      const P = pre || pre2 || "";
+      const PR = prop || prop2;
+      const S = shade || shade2;
+      n++;
+      return P + mapGray(P, PR, S);
+    });
 
     // physical → logical (AGENTS.md §2.3)
     s = s.replace(/\bml-(\d+(?:\.\d+)?|auto|px)/g, (m, x) => { n++; return `ms-${x}`; });

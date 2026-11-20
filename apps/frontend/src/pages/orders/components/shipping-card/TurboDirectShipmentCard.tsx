@@ -13,19 +13,19 @@ export const TurboDirectShipmentCard: React.FC<TurboDirectShipmentCardProps> = R
     const { formatPrice } = useCurrency();
 
     return (
-      <div className="p-3.5 rounded-lg border border-blue-100 dark:border-blue-950/60 bg-blue-50/30 dark:bg-blue-950/20 space-y-3">
+      <div className="p-3.5 rounded-lg border border-primary dark:border-primary/60 bg-primary/30 dark:bg-primary/20 space-y-3">
         <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold text-blue-900 dark:text-blue-300 flex items-center gap-1.5">
-            <TruckIcon className="h-4 w-4 text-blue-600" />
+          <span className="font-semibold text-primary dark:text-primary flex items-center gap-1.5">
+            <TruckIcon className="h-4 w-4 text-primary" />
             إرسال فوري إلى شركة تربو (Turbo Courier)
           </span>
-          <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1.5">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          <span className="text-[11px] text-success dark:text-success font-medium flex items-center gap-1.5">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-success" />
             الحساب مفعل وجاهز
           </span>
         </div>
 
-        <p className="text-xs text-slate-600 dark:text-slate-400">
+        <p className="text-xs text-foreground dark:dark:text-muted-foreground">
           سيتم إرسال بيانات العميل والمنتجات ومبلغ التحصيل (
           <span className="font-mono tabular-nums font-semibold">
             {formatPrice(orderTotal)}
@@ -38,7 +38,7 @@ export const TurboDirectShipmentCard: React.FC<TurboDirectShipmentCardProps> = R
             type="button"
             onClick={onTurboDirectShipment}
             disabled={loading}
-            className="w-full sm:w-auto px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition shadow-xs flex items-center justify-center gap-2 active:scale-97"
+            className="w-full sm:w-auto px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-primary text-white hover:bg-primary disabled:opacity-50 transition shadow-xs flex items-center justify-center gap-2 active:scale-97"
           >
             <PaperAirplaneIcon className="h-4 w-4 rotate-180" />
             <span>

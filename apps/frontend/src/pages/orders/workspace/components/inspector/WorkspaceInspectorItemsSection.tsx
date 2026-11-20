@@ -29,16 +29,16 @@ export const WorkspaceInspectorItemsSection: React.FC<WorkspaceInspectorItemsSec
   t,
 }) => {
   return (
-    <section className="border-b border-border/30 pb-3 dark:border-slate-800/80">
+    <section className="border-b border-border/30 pb-3 dark:dark:border-border">
       <div className="mb-2 flex items-center justify-between">
-        <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground dark:text-slate-400">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground dark:dark:text-muted-foreground">
           {t('orders.orderItems')} ({order.items.length})
         </p>
         {onSaveItems && (
           <button
             type="button"
             onClick={onToggleEditItems}
-            className="inline-flex items-center gap-1 rounded border border-border/60 bg-muted/40 px-2 py-0.5 text-[10px] font-bold text-muted-foreground hover:bg-muted/80 hover:text-foreground dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+            className="inline-flex items-center gap-1 rounded border border-border/60 bg-muted/40 px-2 py-0.5 text-[10px] font-bold text-muted-foreground hover:bg-muted/80 hover:text-foreground dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:bg-muted"
           >
             {isEditingItems ? (
               <>
@@ -71,32 +71,32 @@ export const WorkspaceInspectorItemsSection: React.FC<WorkspaceInspectorItemsSec
             {order.items.map((it, idx) => (
               <div
                 key={it.id || idx}
-                className="flex items-center justify-between rounded-md border border-border/30 bg-muted/10 p-2 dark:border-slate-800 dark:bg-slate-800/40"
+                className="flex items-center justify-between rounded-md border border-border/30 bg-muted/10 p-2 dark:dark:border-border dark:dark:bg-muted"
               >
                 <div className="flex items-center gap-2 min-w-0">
                   {it.productImage && (
                     <img
                       src={it.productImage}
                       alt=""
-                      className="h-8 w-8 rounded object-cover border border-border/40 shrink-0 dark:border-slate-700"
+                      className="h-8 w-8 rounded object-cover border border-border/40 shrink-0 dark:dark:border-border"
                     />
                   )}
                   <div className="min-w-0">
-                    <p className="font-semibold text-foreground truncate dark:text-slate-100">
+                    <p className="font-semibold text-foreground truncate dark:dark:text-muted-foreground">
                       {it.productName}
                     </p>
                     {(it.productColor || it.productSize) && (
-                      <p className="text-[10px] text-muted-foreground truncate dark:text-slate-400">
+                      <p className="text-[10px] text-muted-foreground truncate dark:dark:text-muted-foreground">
                         {[it.productColor, it.productSize].filter(Boolean).join(' • ')}
                       </p>
                     )}
                   </div>
                 </div>
                 <div className="text-end shrink-0 ms-2">
-                  <p className="font-mono tabular-nums text-foreground dark:text-slate-200">
+                  <p className="font-mono tabular-nums text-foreground dark:dark:text-muted-foreground">
                     {it.quantity} × {formatPrice(it.price)}
                   </p>
-                  <p className="font-mono text-[11px] font-bold tabular-nums text-primary dark:text-blue-400">
+                  <p className="font-mono text-[11px] font-bold tabular-nums text-primary dark:text-primary">
                     {formatPrice(it.total)}
                   </p>
                 </div>
@@ -105,28 +105,28 @@ export const WorkspaceInspectorItemsSection: React.FC<WorkspaceInspectorItemsSec
           </div>
 
           {/* Financial Summary */}
-          <div className="mt-3 space-y-1 border-t border-border/30 pt-2 text-[11px] text-muted-foreground dark:border-slate-800 dark:text-slate-400">
+          <div className="mt-3 space-y-1 border-t border-border/30 pt-2 text-[11px] text-muted-foreground dark:dark:border-border dark:dark:text-muted-foreground">
             <div className="flex justify-between">
               <span>{isArabic ? 'المجموع الفرعي' : 'Subtotal'}</span>
-              <span className="font-mono tabular-nums text-foreground dark:text-slate-200">
+              <span className="font-mono tabular-nums text-foreground dark:dark:text-muted-foreground">
                 {formatPrice(order.subtotal || order.total)}
               </span>
             </div>
             <div className="flex justify-between">
               <span>{isArabic ? 'الشحن' : 'Shipping'}</span>
-              <span className="font-mono tabular-nums text-foreground dark:text-slate-200">
+              <span className="font-mono tabular-nums text-foreground dark:dark:text-muted-foreground">
                 {formatPrice(order.shipping || 0)}
               </span>
             </div>
             {(order.discount || 0) > 0 && (
-              <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-semibold">
+              <div className="flex justify-between text-success dark:text-success font-semibold">
                 <span>{isArabic ? 'الخصم' : 'Discount'}</span>
                 <span className="font-mono tabular-nums">-{formatPrice(order.discount || 0)}</span>
               </div>
             )}
-            <div className="mt-1 flex justify-between border-t border-border/40 pt-1 font-bold text-foreground dark:border-slate-700 dark:text-slate-100">
+            <div className="mt-1 flex justify-between border-t border-border/40 pt-1 font-bold text-foreground dark:dark:border-border dark:dark:text-muted-foreground">
               <span>{isArabic ? 'الإجمالي النهائي' : 'Final Total'}</span>
-              <span className="font-mono text-sm tabular-nums text-primary dark:text-blue-400">
+              <span className="font-mono text-sm tabular-nums text-primary dark:text-primary">
                 {formatPrice(order.total)}
               </span>
             </div>

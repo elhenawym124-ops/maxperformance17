@@ -29,7 +29,7 @@ export const DateRangeFilterSection: React.FC<DateRangeFilterSectionProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="space-y-3 rounded-2xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+    <div className="space-y-3 rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
       <div className="flex items-center justify-between">
         <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground">
           <Calendar className="h-4 w-4 text-primary shrink-0" />

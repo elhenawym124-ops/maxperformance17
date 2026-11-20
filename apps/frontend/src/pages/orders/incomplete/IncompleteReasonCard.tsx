@@ -52,13 +52,13 @@ export const IncompleteReasonCard: React.FC<IncompleteReasonCardProps> = ({
     reason.code === "partial_shipping" ? reason.evidence ?? [] : [];
 
   return (
-    <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 shadow-xs">
+    <div className="rounded-xl border border-warning/30 bg-warning/5 p-4 shadow-xs">
       <h2 className="flex items-center gap-2 text-xs font-bold text-foreground">
-        <HelpCircle className="h-4 w-4 text-amber-500" />
+        <HelpCircle className="h-4 w-4 text-warning" />
         <span>{t("orders.incompleteReasonTitle") || "سبب ترك السلة المحتمل"}</span>
       </h2>
       <div className="mt-2.5 flex flex-wrap items-center gap-2">
-        <span className="inline-flex items-center rounded-lg border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-xs font-semibold text-amber-600 dark:text-amber-400">
+        <span className="inline-flex items-center rounded-lg border border-warning/30 bg-warning/10 px-2.5 py-1 text-xs font-semibold text-warning dark:text-warning">
           {getAbandonReasonLabel(reason, t)}
         </span>
         {missingFields.length > 0 && (

@@ -112,7 +112,7 @@ const PreparationOrderCard = ({
         selected ? "ring-1 ring-primary/40 border-primary/50" : ""
       } ${
         activeFollowUpVisual?.cardClass || "border-border/70 hover:border-border"
-      } ${isProblemHeld ? "border-amber-500/40 bg-amber-500/[0.02]" : ""}`}
+      } ${isProblemHeld ? "border-warning/40 bg-warning/[0.02]" : ""}`}
     >
       <PreparationOrderCardHeader
         order={order}

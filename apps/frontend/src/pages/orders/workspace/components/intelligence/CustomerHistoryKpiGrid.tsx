@@ -26,14 +26,14 @@ export const CustomerHistoryKpiGrid: React.FC<CustomerHistoryKpiGridProps> = ({
           {totalOrdersCount}
         </span>
       </div>
-      <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-2">
+      <div className="rounded-lg border border-success/20 bg-success/10 p-2">
         <div className="flex items-center justify-between">
-          <span className="text-emerald-700 dark:text-emerald-400 text-[10px] font-medium">
+          <span className="text-success dark:text-success text-[10px] font-medium">
             {isArabic ? "مستلمة" : "Delivered"}
           </span>
-          <CheckCircle2 className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+          <CheckCircle2 className="h-3 w-3 text-success dark:text-success" />
         </div>
-        <span className="text-sm font-bold font-mono tabular-nums text-emerald-700 dark:text-emerald-400 mt-0.5 block">
+        <span className="text-sm font-bold font-mono tabular-nums text-success dark:text-success mt-0.5 block">
           {totalDelivered}
         </span>
       </div>

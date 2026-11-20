@@ -48,8 +48,8 @@ export const SessionIpLocationSection: React.FC<SessionIpLocationSectionProps> =
           >
             {copiedIp ? (
               <>
-                <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
-                <span className="text-emerald-600 dark:text-emerald-400 font-medium">تم النسخ</span>
+                <Check className="h-3 w-3 text-success dark:text-success" />
+                <span className="text-success dark:text-success font-medium">تم النسخ</span>
               </>
             ) : (
               <>
@@ -86,7 +86,7 @@ export const SessionIpLocationSection: React.FC<SessionIpLocationSectionProps> =
                 {finalLocationDisplay}
                 {hasValidIpLocation && country ? ` (${country})` : ""}
                 {isLocationFromShipping ? (
-                  <span className="text-[10px] font-normal text-muted-foreground mr-1.5">(من بيانات الشحن)</span>
+                  <span className="text-[10px] font-normal text-muted-foreground me-1.5">(من بيانات الشحن)</span>
                 ) : null}
               </span>
             ) : (

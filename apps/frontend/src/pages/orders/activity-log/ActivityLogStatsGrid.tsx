@@ -47,7 +47,7 @@ export const ActivityLogStatsGrid: React.FC<ActivityLogStatsGridProps> = ({
             {actorsCount > 0 ? actorsCount.toLocaleString("ar-EG") : "—"}
           </div>
         </div>
-        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+        <div className="w-8 h-8 rounded-lg bg-success/10 text-success dark:text-success flex items-center justify-center border border-success/20">
           <Users className="w-4 h-4" />
         </div>
       </div>

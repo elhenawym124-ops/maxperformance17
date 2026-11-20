@@ -98,7 +98,7 @@ export const IncompleteReportsFlowTableRow: React.FC<
 
       {/* حولها الفريق لأوردرات */}
       <td className="px-3.5 py-2.5 text-center">
-        <div className="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+        <div className="text-xs sm:text-sm font-bold text-success dark:text-success font-mono tabular-nums">
           {row.byTeamConverted.toLocaleString()}
         </div>
         {row.byTeamConvertedValue > 0 && (
@@ -110,7 +110,7 @@ export const IncompleteReportsFlowTableRow: React.FC<
 
       {/* ألغاها الفريق بالتأكيد */}
       <td className="px-3.5 py-2.5 text-center">
-        <div className="text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 font-mono tabular-nums">
+        <div className="text-xs sm:text-sm font-bold text-destructive dark:text-destructive font-mono tabular-nums">
           {row.cancelled.toLocaleString()}
         </div>
         {row.cancelledValue > 0 && (
@@ -122,7 +122,7 @@ export const IncompleteReportsFlowTableRow: React.FC<
 
       {/* مفقودة بالتقادم */}
       <td className="px-3.5 py-2.5 text-center">
-        <div className="text-xs sm:text-sm font-semibold text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+        <div className="text-xs sm:text-sm font-semibold text-warning dark:text-warning font-mono tabular-nums">
           {row.lost.toLocaleString()}
         </div>
         {row.lostValue > 0 && (
@@ -134,7 +134,7 @@ export const IncompleteReportsFlowTableRow: React.FC<
 
       {/* معلقة في الطابور */}
       <td className="px-3.5 py-2.5 text-center">
-        <div className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+        <div className="text-xs sm:text-sm font-semibold text-primary dark:text-primary font-mono tabular-nums">
           {row.active.toLocaleString()}
         </div>
         {row.activeValue > 0 && (
@@ -149,7 +149,7 @@ export const IncompleteReportsFlowTableRow: React.FC<
         <div className="inline-flex flex-col items-end gap-1">
           <span className="text-xs font-semibold text-foreground font-mono tabular-nums">
             {row.active > 0 ? (
-              <span className="text-blue-600 dark:text-blue-400 font-bold">
+              <span className="text-primary dark:text-primary font-bold">
                 {row.active} معلقة
               </span>
             ) : (

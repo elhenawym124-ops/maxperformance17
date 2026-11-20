@@ -42,7 +42,7 @@ export const OrdersAnalyticsCommandBar: React.FC<OrdersAnalyticsCommandBarProps>
   return (
     <header className="h-auto min-h-11 sm:h-12 border-b border-border/70 px-3 sm:px-4 py-1 sm:py-0 bg-card/95 backdrop-blur-md flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 sm:gap-3 shrink-0 z-10">
       <div className="flex items-center gap-2 min-w-0">
-        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+        <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
         <h1 className="text-xs sm:text-sm font-bold text-foreground truncate">
           تحليلات العمليات والطلبات
         </h1>
@@ -133,7 +133,7 @@ export const OrdersAnalyticsCommandBar: React.FC<OrdersAnalyticsCommandBarProps>
           <button
             type="button"
             onClick={() => navigate("/analytics/orders/fulfillment-velocity")}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 transition-all active:scale-[0.97]"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-primary dark:text-primary bg-primary/10 hover:bg-primary/20 border border-primary/20 transition-all active:scale-[0.97]"
             title="سرعة الإنجاز وشحن اليوم وتوزيع تواريخ ورود الطلبات"
           >
             <Zap className="h-3.5 w-3.5" />

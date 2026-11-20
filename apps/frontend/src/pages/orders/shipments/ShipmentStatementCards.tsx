@@ -134,7 +134,7 @@ export const ShipmentStatementCards: React.FC<ShipmentStatementCardsProps> = ({
                   {formatPrice(Number(s.order?.total || s.cost || 0))}
                 </span>
                 {s.receivedAmount !== undefined && s.receivedAmount !== null && Number(s.receivedAmount) > 0 && (
-                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono block">
+                  <span className="text-[10px] text-success dark:text-success font-mono block">
                     محصل: {formatPrice(Number(s.receivedAmount))}
                   </span>
                 )}
@@ -151,7 +151,7 @@ export const ShipmentStatementCards: React.FC<ShipmentStatementCardsProps> = ({
                       <span>المندوب: {s.captainName}</span>
                     </div>
                     {s.captainPhone && (
-                      <a href={`tel:${s.captainPhone}`} className="text-emerald-600 dark:text-emerald-400 font-mono">
+                      <a href={`tel:${s.captainPhone}`} className="text-success dark:text-success font-mono">
                         {s.captainPhone}
                       </a>
                     )}
@@ -170,12 +170,12 @@ export const ShipmentStatementCards: React.FC<ShipmentStatementCardsProps> = ({
 
                 {/* Delay / Return reason badges */}
                 {s.delayReason && (
-                  <div className="p-1 px-1.5 rounded bg-amber-500/10 border border-amber-500/20 text-[10px] text-amber-800 dark:text-amber-300">
+                  <div className="p-1 px-1.5 rounded bg-warning/10 border border-warning/20 text-[10px] text-warning dark:text-warning">
                     سبب التأجيل: {s.delayReason}
                   </div>
                 )}
                 {s.returnReason && (
-                  <div className="p-1 px-1.5 rounded bg-rose-500/10 border border-rose-500/20 text-[10px] text-rose-800 dark:text-rose-300">
+                  <div className="p-1 px-1.5 rounded bg-destructive/10 border border-destructive/20 text-[10px] text-destructive dark:text-destructive">
                     سبب الإرجاع: {s.returnReason}
                   </div>
                 )}
@@ -228,10 +228,10 @@ export const ShipmentStatementCards: React.FC<ShipmentStatementCardsProps> = ({
                   type="button"
                   onClick={() => onSyncShipment(s.id)}
                   disabled={syncingId === s.id}
-                  className="p-1 text-muted-foreground hover:text-emerald-600 rounded"
+                  className="p-1 text-muted-foreground hover:text-success rounded"
                   title="تحديث الحالة"
                 >
-                  <ArrowPathIcon className={`h-4 w-4 ${syncingId === s.id ? "animate-spin text-emerald-600" : ""}`} />
+                  <ArrowPathIcon className={`h-4 w-4 ${syncingId === s.id ? "animate-spin text-success" : ""}`} />
                 </button>
 
                 {isTurbo && (
@@ -249,7 +249,7 @@ export const ShipmentStatementCards: React.FC<ShipmentStatementCardsProps> = ({
                       <button
                         type="button"
                         onClick={() => onOpenTicket(s)}
-                        className="p-1 text-amber-600 hover:bg-amber-500/10 rounded"
+                        className="p-1 text-warning hover:bg-warning/10 rounded"
                         title="فتح تذكرة دعم"
                       >
                         <TicketIcon className="h-4 w-4" />
@@ -259,7 +259,7 @@ export const ShipmentStatementCards: React.FC<ShipmentStatementCardsProps> = ({
                     <button
                       type="button"
                       onClick={() => onResendShipment(s)}
-                      className="p-1 text-cyan-600 hover:bg-cyan-500/10 rounded"
+                      className="p-1 text-info hover:bg-info/10 rounded"
                       title="إعادة إرسال"
                     >
                       <ArrowPathRoundedSquareIcon className="h-4 w-4" />
@@ -268,7 +268,7 @@ export const ShipmentStatementCards: React.FC<ShipmentStatementCardsProps> = ({
                     <button
                       type="button"
                       onClick={() => onCancelShipment(s)}
-                      className="p-1 text-rose-600 hover:bg-rose-500/10 rounded"
+                      className="p-1 text-destructive hover:bg-destructive/10 rounded"
                       title="إلغاء الشحنة"
                     >
                       <XCircleIcon className="h-4 w-4" />

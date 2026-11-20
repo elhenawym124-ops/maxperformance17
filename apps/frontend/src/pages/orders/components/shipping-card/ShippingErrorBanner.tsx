@@ -23,16 +23,16 @@ export const ShippingErrorBanner: React.FC<ShippingErrorBannerProps> = ({
         <div
           className={`p-4 rounded-xl border shadow-xs transition-all ${
             shippingAutoError.category === "DATA_ERROR"
-              ? "border-amber-300 bg-amber-50/90 dark:border-amber-700/60 dark:bg-amber-950/30 text-amber-950 dark:text-amber-100"
-              : "border-rose-300 bg-rose-50/90 dark:border-rose-700/60 dark:bg-rose-950/30 text-rose-950 dark:text-rose-100"
+              ? "border-warning bg-warning/90 dark:border-warning/60 dark:bg-warning/30 text-warning dark:text-warning"
+              : "border-destructive bg-destructive/90 dark:border-destructive/60 dark:bg-destructive/30 text-destructive dark:text-destructive"
           }`}
         >
           <div className="flex items-start gap-3">
             <div
               className={`p-2 rounded-lg shrink-0 mt-0.5 ${
                 shippingAutoError.category === "DATA_ERROR"
-                  ? "bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300"
-                  : "bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300"
+                  ? "bg-warning dark:bg-warning/60 text-warning dark:text-warning"
+                  : "bg-destructive dark:bg-destructive/60 text-destructive dark:text-destructive"
               }`}
             >
               {shippingAutoError.category === "DATA_ERROR" ? (
@@ -47,8 +47,8 @@ export const ShippingErrorBanner: React.FC<ShippingErrorBannerProps> = ({
                 <span
                   className={`px-2 py-0.5 text-xs font-bold rounded-md ${
                     shippingAutoError.category === "DATA_ERROR"
-                      ? "bg-amber-200 text-amber-900 dark:bg-amber-800 dark:text-amber-100"
-                      : "bg-rose-200 text-rose-900 dark:bg-rose-800 dark:text-rose-100"
+                      ? "bg-warning text-warning dark:bg-warning dark:text-warning"
+                      : "bg-destructive text-destructive dark:bg-destructive dark:text-destructive"
                   }`}
                 >
                   {shippingAutoError.category === "DATA_ERROR"
@@ -58,8 +58,8 @@ export const ShippingErrorBanner: React.FC<ShippingErrorBannerProps> = ({
                 <span
                   className={`text-xs font-medium ${
                     shippingAutoError.category === "DATA_ERROR"
-                      ? "text-amber-700 dark:text-amber-300"
-                      : "text-rose-700 dark:text-rose-300"
+                      ? "text-warning dark:text-warning"
+                      : "text-destructive dark:text-destructive"
                   }`}
                 >
                   تعذر توليد كود الشحن التلقائي
@@ -69,8 +69,8 @@ export const ShippingErrorBanner: React.FC<ShippingErrorBannerProps> = ({
               <p
                 className={`text-sm font-semibold ${
                   shippingAutoError.category === "DATA_ERROR"
-                    ? "text-amber-950 dark:text-amber-50"
-                    : "text-rose-950 dark:text-rose-50"
+                    ? "text-warning dark:text-warning"
+                    : "text-destructive dark:text-destructive"
                 }`}
               >
                 {shippingAutoError.message}
@@ -80,8 +80,8 @@ export const ShippingErrorBanner: React.FC<ShippingErrorBannerProps> = ({
                 <p
                   className={`text-xs ${
                     shippingAutoError.category === "DATA_ERROR"
-                      ? "text-amber-800 dark:text-amber-200/90"
-                      : "text-rose-800 dark:text-rose-200/90"
+                      ? "text-warning dark:text-warning/90"
+                      : "text-destructive dark:text-destructive/90"
                   }`}
                 >
                   {shippingAutoError.actionHint}
@@ -92,7 +92,7 @@ export const ShippingErrorBanner: React.FC<ShippingErrorBannerProps> = ({
             {shippingAutoError.category === "SYSTEM_ERROR" && (
               <Link
                 to="/shipping-companies"
-                className="px-2.5 py-1.5 text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white rounded-lg transition shrink-0 self-center shadow-xs active:scale-97"
+                className="px-2.5 py-1.5 text-xs font-semibold bg-destructive hover:bg-destructive text-white rounded-lg transition shrink-0 self-center shadow-xs active:scale-97"
               >
                 إعدادات الشحن
               </Link>
@@ -102,21 +102,21 @@ export const ShippingErrorBanner: React.FC<ShippingErrorBannerProps> = ({
       )}
 
       {companiesCount === 0 && !loadingCompanies && (
-        <div className="p-3.5 rounded-xl border border-amber-200 bg-amber-50 dark:border-amber-900/50 dark:bg-amber-950/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="p-3.5 rounded-xl border border-warning bg-warning/10 dark:border-warning/50 dark:bg-warning/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <ExclamationTriangleIcon className="h-5 w-5 text-amber-600 shrink-0" />
+            <ExclamationTriangleIcon className="h-5 w-5 text-warning shrink-0" />
             <div>
-              <p className="text-xs sm:text-sm font-semibold text-amber-900 dark:text-amber-200">
+              <p className="text-xs sm:text-sm font-semibold text-warning dark:text-warning">
                 لا توجد شركات شحن مفعلة حالياً
               </p>
-              <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+              <p className="text-xs text-warning dark:text-warning mt-0.5">
                 يمكنك تفعيل شركات الشحن (تربو، كيو بي إكسبريس، بوستا) وإدخال بيانات الربط للبدء في الشحن الآلي.
               </p>
             </div>
           </div>
           <Link
             to="/shipping-companies"
-            className="px-3 py-1.5 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition shrink-0 active:scale-97"
+            className="px-3 py-1.5 text-xs font-semibold bg-warning hover:bg-warning text-white rounded-lg transition shrink-0 active:scale-97"
           >
             تفعيل شركات الشحن
           </Link>

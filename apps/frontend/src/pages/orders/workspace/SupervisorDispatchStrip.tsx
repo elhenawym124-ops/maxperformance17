@@ -46,8 +46,8 @@ export const SupervisorDispatchStrip: React.FC<SupervisorDispatchStripProps> = (
           onClick={() => onSelectAgent('unassigned')}
           className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all ${
             isUnassignedSelected
-              ? 'bg-amber-500 text-amber-950 shadow-xs dark:bg-amber-400 dark:text-amber-950'
-              : 'border border-amber-500/30 bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 dark:text-amber-400'
+              ? 'bg-warning text-warning shadow-xs dark:bg-warning dark:text-warning'
+              : 'border border-warning/30 bg-warning/10 text-warning hover:bg-warning/20 dark:text-warning'
           }`}
           title={isArabic ? 'عرض الطلبات غير الموزعة' : 'View unassigned orders'}
         >
@@ -68,7 +68,7 @@ export const SupervisorDispatchStrip: React.FC<SupervisorDispatchStripProps> = (
           {isDistributing ? (
             <RefreshCw size={13} className="animate-spin" />
           ) : (
-            <Zap size={13} className="text-amber-300" />
+            <Zap size={13} className="text-warning" />
           )}
           <span>{isArabic ? 'توزيع تلقائي' : 'Auto-Distribute'}</span>
         </button>
@@ -131,7 +131,7 @@ export const SupervisorDispatchStrip: React.FC<SupervisorDispatchStripProps> = (
               >
                 <span
                   className={`h-1.5 w-1.5 rounded-full ${
-                    agent.availability === 'offline' ? 'bg-zinc-400' : 'bg-emerald-500'
+                    agent.availability === 'offline' ? 'bg-muted' : 'bg-success'
                   }`}
                 />
                 <span className="truncate max-w-[90px]">{agent.name}</span>

@@ -119,16 +119,16 @@ export const WorkspaceCustomerEditForm: React.FC<WorkspaceCustomerEditFormProps>
         {isGovernorateChanged && (
           <div
             data-testid="governorate-shipping-warning"
-            className="mt-1.5 flex items-start gap-1.5 rounded border border-amber-500/40 bg-amber-500/10 p-2 text-[11px] text-amber-800 dark:text-amber-300"
+            className="mt-1.5 flex items-start gap-1.5 rounded border border-warning/40 bg-warning/10 p-2 text-[11px] text-warning dark:text-warning"
           >
-            <ExclamationTriangleIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600 dark:text-amber-400" />
+            <ExclamationTriangleIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-warning dark:text-warning" />
             <div className="space-y-0.5">
               <p className="font-bold">
                 {isArabic
                   ? `⚠️ تم تعديل المحافظة من (${orderGovernorate}) إلى (${governorate})`
                   : `⚠️ Governorate changed from (${orderGovernorate}) to (${governorate})`}
               </p>
-              <p className="text-[10px] text-amber-700/90 dark:text-amber-400/90">
+              <p className="text-[10px] text-warning/90 dark:text-warning/90">
                 {suggestedShipping !== null
                   ? isArabic
                     ? `سعر الشحن التقديري للمحافظة الجديدة: ${suggestedShipping} ج.م (الحالي بالطلب: ${orderShipping} ج.م). يُرجى تعديل الشحن في بنود الطلب لتفادي فرق السعر.`

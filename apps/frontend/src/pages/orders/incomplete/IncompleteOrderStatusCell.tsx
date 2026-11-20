@@ -20,13 +20,13 @@ export const IncompleteOrderStatusCell: React.FC<IncompleteOrderStatusCellProps>
         <span
           className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border w-fit ${
             status === "lost"
-              ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
-              : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+              ? "bg-destructive/10 text-destructive dark:text-destructive border-destructive/20"
+              : "bg-warning/10 text-warning dark:text-warning border-warning/20"
           }`}
         >
           <span
             className={`h-1.5 w-1.5 rounded-full ${
-              status === "lost" ? "bg-rose-500" : "bg-amber-500"
+              status === "lost" ? "bg-destructive" : "bg-warning"
             }`}
           />
           <span>{getStatusLabel(status, t)}</span>

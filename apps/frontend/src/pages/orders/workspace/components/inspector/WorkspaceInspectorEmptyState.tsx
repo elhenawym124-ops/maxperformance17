@@ -19,13 +19,13 @@ export const WorkspaceInspectorEmptyState: React.FC<WorkspaceInspectorEmptyState
   if (confirmationDisabled) {
     return (
       <div className="flex h-full flex-col items-center justify-center p-8 text-center text-muted-foreground">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400">
+        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-warning/10 text-warning dark:bg-warning/15 dark:text-warning">
           <ExclamationTriangleIcon className="h-7 w-7" />
         </div>
-        <h3 className="mt-4 text-base font-bold text-foreground dark:text-slate-100">
+        <h3 className="mt-4 text-base font-bold text-foreground dark:dark:text-muted-foreground">
           {isArabic ? 'مركز التأكيد مقفول من الإعدادات' : 'Confirmation Center Disabled'}
         </h3>
-        <p className="mt-1.5 max-w-sm text-xs leading-relaxed text-muted-foreground dark:text-slate-400">
+        <p className="mt-1.5 max-w-sm text-xs leading-relaxed text-muted-foreground dark:dark:text-muted-foreground">
           {isArabic
             ? 'تم إيقاف مركز التأكيد من الإعدادات، ولن تظهر أي طلبات في قائمة التأكيد حتى يتم تفعيله من صفحة الإعدادات.'
             : 'Order confirmation center is disabled in settings. No orders will appear until enabled from settings.'}
@@ -43,11 +43,11 @@ export const WorkspaceInspectorEmptyState: React.FC<WorkspaceInspectorEmptyState
 
   return (
     <div className="flex h-full flex-col items-center justify-center p-8 text-center text-muted-foreground">
-      <ShoppingBagIcon className="h-12 w-12 stroke-[1.5] text-muted-foreground/40 dark:text-slate-600" />
-      <p className="mt-3 text-sm font-semibold text-foreground dark:text-slate-200">
+      <ShoppingBagIcon className="h-12 w-12 stroke-[1.5] text-muted-foreground/40 dark:dark:text-foreground" />
+      <p className="mt-3 text-sm font-semibold text-foreground dark:dark:text-muted-foreground">
         {t('orders.noOrderSelected')}
       </p>
-      <p className="mt-1 text-xs text-muted-foreground dark:text-slate-400">
+      <p className="mt-1 text-xs text-muted-foreground dark:dark:text-muted-foreground">
         {t('orders.selectOrderFromList')}
       </p>
     </div>

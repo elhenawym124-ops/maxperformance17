@@ -189,7 +189,7 @@ const IncompleteCancelModal: React.FC<IncompleteCancelModalProps> = ({
                 </span>
               )}
               {cartTotal != null && (
-                <span className="inline-flex items-center gap-1 font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400 ms-auto">
+                <span className="inline-flex items-center gap-1 font-bold font-mono tabular-nums text-success dark:text-success ms-auto">
                   <Banknote className="h-3.5 w-3.5" />
                   {formatPrice(cartTotal)}
                 </span>
@@ -198,8 +198,8 @@ const IncompleteCancelModal: React.FC<IncompleteCancelModalProps> = ({
           )}
 
           {/* Save-the-sale incentive tip callout box */}
-          <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-800 dark:text-amber-200 flex items-start gap-2.5">
-            <Lightbulb className="h-4.5 w-4.5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+          <div className="rounded-lg border border-warning/20 bg-warning/10 p-3 text-xs leading-relaxed text-warning dark:text-warning flex items-start gap-2.5">
+            <Lightbulb className="h-4.5 w-4.5 text-warning dark:text-warning shrink-0 mt-0.5" />
             <span>{t("orders.incompleteCancelSaveOfferNotice")}</span>
           </div>
 

@@ -170,11 +170,11 @@ export const BulkOrdersTable: React.FC<BulkOrdersTableProps> = ({
                         <div
                           className={`h-full rounded-full transition-all duration-500 ${
                             item.progress === 100
-                              ? "bg-emerald-500"
+                              ? "bg-success"
                               : item.progress > 50
                               ? "bg-primary"
                               : item.progress > 0
-                              ? "bg-amber-500"
+                              ? "bg-warning"
                               : "bg-muted-foreground/30"
                           }`}
                           style={{ width: `${item.progress}%` }}
@@ -230,7 +230,7 @@ export const BulkOrdersTable: React.FC<BulkOrdersTableProps> = ({
                         <button
                           type="button"
                           onClick={() => handleExecute(item.id)}
-                          className="p-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 dark:text-amber-400 transition-colors disabled:opacity-50"
+                          className="p-1.5 rounded-lg border border-warning/30 bg-warning/10 text-warning hover:bg-warning/20 dark:text-warning transition-colors disabled:opacity-50"
                           title={t("orders.bulkExecute")}
                           disabled={
                             activeActions.has(`exec-${item.id}`) ||

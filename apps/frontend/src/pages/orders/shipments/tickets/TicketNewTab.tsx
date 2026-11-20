@@ -159,7 +159,7 @@ export const TicketNewTab: React.FC<TicketNewTabProps> = ({
         <button
           type="submit"
           disabled={submitting || !content.trim()}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white transition disabled:opacity-50 active:scale-95 shadow-xs cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-warning hover:bg-warning text-white transition disabled:opacity-50 active:scale-95 shadow-xs cursor-pointer"
         >
           <Send className="h-3.5 w-3.5" />
           <span>{submitting ? "جاري الإرسال..." : "إرسال التذكرة"}</span>

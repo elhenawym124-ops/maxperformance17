@@ -71,7 +71,7 @@ export const IncompleteOrdersFilterBar: React.FC<IncompleteOrdersFilterBarProps>
               }`}
               aria-pressed={statusFilter === "active"}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+              <span className="h-1.5 w-1.5 rounded-full bg-warning" />
               <span>{t("orders.incompleteStatusActive")}</span>
               <span className="font-mono tabular-nums text-[11px] opacity-80">
                 ({activeCount})
@@ -87,7 +87,7 @@ export const IncompleteOrdersFilterBar: React.FC<IncompleteOrdersFilterBarProps>
               }`}
               aria-pressed={statusFilter === "lost"}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
+              <span className="h-1.5 w-1.5 rounded-full bg-destructive" />
               <span>{t("orders.incompleteStatusLost")}</span>
               <span className="font-mono tabular-nums text-[11px] opacity-80">
                 ({lostCount})

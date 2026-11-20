@@ -31,7 +31,7 @@ export const ConfirmationCancelModal: React.FC<ConfirmationCancelModalProps> = (
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-2xl border border-border/70 bg-card p-5 shadow-2xl text-card-foreground animate-in zoom-in-95 duration-200"
+        className="w-full max-w-md rounded-xl border border-border/70 bg-card p-5 shadow-2xl text-card-foreground animate-in zoom-in-95 duration-200"
         onClick={(event) => event.stopPropagation()}
       >
         <h2 className="mb-3 text-sm sm:text-base font-bold text-foreground">

@@ -35,7 +35,7 @@ export const BulkStatusResultsTable: React.FC<BulkStatusResultsTableProps> = ({
             value={filterQuery}
             onChange={(e) => onFilterQueryChange(e.target.value)}
             placeholder="بحث برقم الطلب..."
-            className="w-full pr-8 pl-3 py-1 text-xs bg-background border border-border/70 rounded-md text-foreground focus:outline-hidden"
+            className="w-full pe-8 ps-3 py-1 text-xs bg-background border border-border/70 rounded-md text-foreground focus:outline-hidden"
           />
         </div>
       </CardHeader>
@@ -62,11 +62,11 @@ export const BulkStatusResultsTable: React.FC<BulkStatusResultsTableProps> = ({
                 </td>
                 <td className="px-4 sm:px-6 py-3">
                   {r.success ? (
-                    <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold text-[11px]">
+                    <span className="inline-flex items-center gap-1 text-success dark:text-success font-semibold text-[11px]">
                       <CheckCircle2 className="h-3.5 w-3.5" /> تم التحديث
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 font-semibold text-[11px]">
+                    <span className="inline-flex items-center gap-1 text-destructive dark:text-destructive font-semibold text-[11px]">
                       <XCircle className="h-3.5 w-3.5" /> فشل التحديث
                     </span>
                   )}

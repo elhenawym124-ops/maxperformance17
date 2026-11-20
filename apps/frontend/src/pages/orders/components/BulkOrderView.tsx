@@ -145,7 +145,7 @@ const BulkOrderView = ({ id, onBack, onEdit, onDuplicate, onExport }: BulkOrderV
               type="button"
               onClick={handleExecute}
               disabled={executing}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white transition-all active:scale-[0.98] shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl bg-warning hover:bg-warning disabled:opacity-50 text-white transition-all active:scale-[0.98] shadow-xs"
             >
               {executing ? <Loader2 size={13} className="animate-spin" /> : <Play size={13} />}
               <span>{t("orders.bulkExecute")}</span>

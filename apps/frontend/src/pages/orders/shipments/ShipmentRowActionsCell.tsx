@@ -51,12 +51,12 @@ export const ShipmentRowActionsCell: React.FC<ShipmentRowActionsCellProps> = Rea
             type="button"
             onClick={() => onSyncShipment(s.id)}
             disabled={syncingId === s.id}
-            className="p-1.5 text-muted-foreground hover:text-emerald-600 hover:bg-muted/60 rounded-lg transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-success hover:bg-muted/60 rounded-lg transition-colors"
             title="تحديث الحالة من الشركة"
           >
             <ArrowPathIcon
               className={`h-4 w-4 ${
-                syncingId === s.id ? "animate-spin text-emerald-600" : ""
+                syncingId === s.id ? "animate-spin text-success" : ""
               }`}
             />
           </button>
@@ -76,7 +76,7 @@ export const ShipmentRowActionsCell: React.FC<ShipmentRowActionsCellProps> = Rea
               <button
                 type="button"
                 onClick={() => onOpenTicket(s)}
-                className="p-1.5 text-amber-600 hover:bg-amber-500/10 rounded-lg transition-colors"
+                className="p-1.5 text-warning hover:bg-warning/10 rounded-lg transition-colors"
                 title="فتح تذكرة دعم للطلب في Turbo"
               >
                 <TicketIcon className="h-4 w-4" />
@@ -86,7 +86,7 @@ export const ShipmentRowActionsCell: React.FC<ShipmentRowActionsCellProps> = Rea
               <button
                 type="button"
                 onClick={() => onResendShipment(s)}
-                className="p-1.5 text-cyan-600 hover:bg-cyan-500/10 rounded-lg transition-colors"
+                className="p-1.5 text-info hover:bg-info/10 rounded-lg transition-colors"
                 title="طلب إعادة إرسال الشحنة"
               >
                 <ArrowPathRoundedSquareIcon className="h-4 w-4" />
@@ -96,7 +96,7 @@ export const ShipmentRowActionsCell: React.FC<ShipmentRowActionsCellProps> = Rea
               <button
                 type="button"
                 onClick={() => onCancelShipment(s)}
-                className="p-1.5 text-rose-600 hover:bg-rose-500/10 rounded-lg transition-colors"
+                className="p-1.5 text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
                 title="طلب إلغاء الشحنة"
               >
                 <XCircleIcon className="h-4 w-4" />

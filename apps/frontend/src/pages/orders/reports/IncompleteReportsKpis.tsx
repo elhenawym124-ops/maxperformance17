@@ -39,7 +39,7 @@ export const IncompleteReportsKpis: React.FC<IncompleteReportsKpisProps> = ({
         </h2>
         <span className="text-xs text-muted-foreground font-mono tabular-nums">
           استرد الفريق:{" "}
-          <strong className="text-emerald-600 dark:text-emerald-400 font-bold">
+          <strong className="text-success dark:text-success font-bold">
             {summary.byTeam.toLocaleString()}
           </strong>{" "}
           طلب بقيمة {formatPrice(summary.byTeamValue)} | المتبقي:{" "}
@@ -57,17 +57,17 @@ export const IncompleteReportsKpis: React.FC<IncompleteReportsKpisProps> = ({
           <div className="p-3.5 sm:p-4 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <span className="text-xs font-semibold text-success dark:text-success">
                   حولها الفريق لأوردرات
                 </span>
-                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-success/10 text-success dark:text-success">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                 </span>
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+              <div className="text-xl sm:text-2xl font-bold text-success dark:text-success font-mono tabular-nums">
                 {summary.byTeam.toLocaleString()}
               </div>
-              <div className="text-xs font-semibold text-emerald-600/90 dark:text-emerald-400/90 mt-0.5 font-mono tabular-nums">
+              <div className="text-xs font-semibold text-success/90 dark:text-success/90 mt-0.5 font-mono tabular-nums">
                 {formatPrice(summary.byTeamValue)}
               </div>
             </div>
@@ -80,17 +80,17 @@ export const IncompleteReportsKpis: React.FC<IncompleteReportsKpisProps> = ({
           <div className="p-3.5 sm:p-4 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">
+                <span className="text-xs font-semibold text-destructive dark:text-destructive">
                   ألغاها الفريق بالتأكيد
                 </span>
-                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400">
+                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-destructive/10 text-destructive dark:text-destructive">
                   <XCircle className="h-3.5 w-3.5" />
                 </span>
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-rose-600 dark:text-rose-400 font-mono tabular-nums">
+              <div className="text-xl sm:text-2xl font-bold text-destructive dark:text-destructive font-mono tabular-nums">
                 {summary.cancelled.toLocaleString()}
               </div>
-              <div className="text-xs font-semibold text-rose-600/90 dark:text-rose-400/90 mt-0.5 font-mono tabular-nums">
+              <div className="text-xs font-semibold text-destructive/90 dark:text-destructive/90 mt-0.5 font-mono tabular-nums">
                 {formatPrice(summary.cancelledValue)}
               </div>
             </div>
@@ -103,17 +103,17 @@ export const IncompleteReportsKpis: React.FC<IncompleteReportsKpisProps> = ({
           <div className="p-3.5 sm:p-4 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                <span className="text-xs font-semibold text-primary dark:text-primary">
                   معلقة في الطابور (فرص)
                 </span>
-                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-primary dark:text-primary">
                   <Clock className="h-3.5 w-3.5" />
                 </span>
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 font-mono tabular-nums">
+              <div className="text-xl sm:text-2xl font-bold text-primary dark:text-primary font-mono tabular-nums">
                 {summary.active.toLocaleString()}
               </div>
-              <div className="text-xs font-semibold text-blue-600/90 dark:text-blue-400/90 mt-0.5 font-mono tabular-nums">
+              <div className="text-xs font-semibold text-primary/90 dark:text-primary/90 mt-0.5 font-mono tabular-nums">
                 {formatPrice(summary.activeValue)}
               </div>
             </div>
@@ -126,17 +126,17 @@ export const IncompleteReportsKpis: React.FC<IncompleteReportsKpisProps> = ({
           <div className="p-3.5 sm:p-4 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">
+                <span className="text-xs font-semibold text-warning dark:text-warning">
                   مفقودة بالتقادم
                 </span>
-                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-warning/10 text-warning dark:text-warning">
                   <AlertTriangle className="h-3.5 w-3.5" />
                 </span>
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+              <div className="text-xl sm:text-2xl font-bold text-warning dark:text-warning font-mono tabular-nums">
                 {summary.lost.toLocaleString()}
               </div>
-              <div className="text-xs font-semibold text-amber-600/90 dark:text-amber-400/90 mt-0.5 font-mono tabular-nums">
+              <div className="text-xs font-semibold text-warning/90 dark:text-warning/90 mt-0.5 font-mono tabular-nums">
                 {formatPrice(summary.lostValue)}
               </div>
             </div>
@@ -173,7 +173,7 @@ export const IncompleteReportsKpis: React.FC<IncompleteReportsKpisProps> = ({
       {/* سطر مرجعي شفاف لتوضيح حركة السلات */}
       <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground bg-card p-2.5 rounded-lg border border-border/70 flex-wrap">
         <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          <span className="h-2 w-2 rounded-full bg-success" />
           <span className="font-medium text-foreground">
             نجح الفريق في استرداد وتحويل {summary.byTeam.toLocaleString()} سلة
             بقيمة {formatPrice(summary.byTeamValue)} إلى طلبات فعلية

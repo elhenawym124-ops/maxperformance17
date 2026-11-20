@@ -540,56 +540,56 @@ const OrderModal: React.FC<OrderModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-80 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-hidden">
+      <div className="bg-card rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b border-border dark:dark:border-border">
           <div className="flex items-center gap-3">
-            <ShoppingCartIcon className="h-6 w-6 text-green-600 dark:text-green-400" />
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+            <ShoppingCartIcon className="h-6 w-6 text-success dark:text-success" />
+            <h2 className="text-xl font-semibold text-foreground">
               إنشاء طلب جديد
             </h2>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-muted-foreground">
               للعميل: {customerName}
             </span>
           </div>
           <button
             onClick={handleClose}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
+            className="p-2 hover:bg-muted rounded-full"
           >
-            <XMarkIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+            <XMarkIcon className="h-5 w-5 text-muted-foreground" />
           </button>
         </div>
 
         <div className="flex h-[70vh]">
           {/* قائمة المنتجات */}
-          <div className="w-1/2 p-6 border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+          <div className="w-1/2 p-6 border-r border-border dark:dark:border-border overflow-y-auto">
+            <h3 className="text-lg font-medium text-foreground mb-4">
               اختر المنتجات
             </h3>
 
             {loading ? (
               <div className="flex items-center justify-center py-8">
-                <ArrowPathIcon className="h-8 w-8 animate-spin text-gray-400 dark:text-gray-500" />
-                <span className="ml-2 text-gray-500 dark:text-gray-400">
+                <ArrowPathIcon className="h-8 w-8 animate-spin text-muted-foreground/80" />
+                <span className="ms-2 text-muted-foreground">
                   جاري تحميل المنتجات...
                 </span>
               </div>
             ) : error ? (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 text-center">
-                <p className="text-red-600 dark:text-red-400 mb-2">{error}</p>
+              <div className="bg-destructive/10 dark:bg-destructive/20 border border-destructive dark:border-destructive rounded-lg p-4 text-center">
+                <p className="text-destructive dark:text-destructive mb-2">{error}</p>
                 <button
                   onClick={loadProducts}
-                  className="text-sm text-red-700 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 underline"
+                  className="text-sm text-destructive dark:text-destructive hover:text-destructive dark:hover:text-destructive underline"
                 >
                   إعادة المحاولة
                 </button>
               </div>
             ) : products.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-500 dark:text-gray-400 mb-2">
+                <p className="text-muted-foreground mb-2">
                   لا توجد منتجات متاحة
                 </p>
-                <p className="text-sm text-gray-400 dark:text-gray-500">
+                <p className="text-sm text-muted-foreground/80">
                   قم بإضافة منتجات أولاً من صفحة المنتجات
                 </p>
               </div>
@@ -598,21 +598,21 @@ const OrderModal: React.FC<OrderModalProps> = ({
                 {products.map((product) => (
                   <div
                     key={product.id}
-                    className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-green-300 dark:hover:border-green-600 transition-colors bg-white dark:bg-gray-800"
+                    className="border border-border dark:dark:border-border rounded-lg p-4 hover:border-success dark:hover:border-success transition-colors bg-card"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900 dark:text-gray-100">
+                        <h4 className="font-medium text-foreground">
                           {product.name}
                         </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        <p className="text-sm text-foreground dark:dark:text-muted-foreground mt-1">
                           {product.description}
                         </p>
                         <div className="flex items-center justify-between mt-2">
-                          <span className="text-lg font-semibold text-green-600 dark:text-green-400">
+                          <span className="text-lg font-semibold text-success dark:text-success">
                             {product.price} جنيه
                           </span>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                          <span className="text-sm text-muted-foreground">
                             المخزون: {product.stock}
                           </span>
                         </div>
@@ -620,7 +620,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
                       <button
                         onClick={() => addProductToOrder(product)}
                         disabled={product.stock === 0}
-                        className="ml-4 p-2 bg-green-600 dark:bg-green-500 text-white rounded-full hover:bg-green-700 dark:hover:bg-green-600 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
+                        className="ms-4 p-2 bg-success dark:bg-success text-white rounded-full hover:bg-success dark:hover:bg-success disabled:disabled:bg-muted dark:disabled:dark:disabled:bg-muted disabled:cursor-not-allowed"
                       >
                         <PlusIcon className="h-4 w-4" />
                       </button>
@@ -633,14 +633,14 @@ const OrderModal: React.FC<OrderModalProps> = ({
 
           {/* تفاصيل الطلب */}
           <div className="w-1/2 p-6 overflow-y-auto">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+            <h3 className="text-lg font-medium text-foreground mb-4">
               تفاصيل الطلب
             </h3>
 
             {/* المنتجات المختارة */}
             <div className="space-y-3 mb-6">
               {selectedProducts.length === 0 ? (
-                <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+                <p className="text-muted-foreground text-center py-8">
                   لم يتم اختيار أي منتجات بعد
                 </p>
               ) : (
@@ -656,11 +656,11 @@ const OrderModal: React.FC<OrderModalProps> = ({
                   return (
                     <div
                       key={index}
-                      className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3"
+                      className="bg-muted dark:dark:bg-muted rounded-lg p-3"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h4 className="font-medium text-gray-900 dark:text-gray-100">
+                          <h4 className="font-medium text-foreground">
                             {item.productName}
                           </h4>
 
@@ -701,7 +701,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
                                       );
                                     }
                                   }}
-                                  className="flex-1 text-xs border border-gray-300 dark:border-gray-600 rounded px-2 py-1 focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-gray-100"
+                                  className="flex-1 text-xs border border-border rounded px-2 py-1 focus:ring-2 focus:ring-success dark:dark:bg-muted dark:dark:text-muted-foreground"
                                 >
                                   <option value="">اختر اللون</option>
                                   {colorVariants.map((variant) => (
@@ -744,7 +744,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
                                       );
                                     }
                                   }}
-                                  className="flex-1 text-xs border border-gray-300 dark:border-gray-600 rounded px-2 py-1 focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-gray-100"
+                                  className="flex-1 text-xs border border-border rounded px-2 py-1 focus:ring-2 focus:ring-success dark:dark:bg-muted dark:dark:text-muted-foreground"
                                 >
                                   <option value="">اختر المقاس</option>
                                   {sizeVariants.map((variant) => (
@@ -759,17 +759,17 @@ const OrderModal: React.FC<OrderModalProps> = ({
 
                           <div className="flex items-center gap-1.5 flex-nowrap overflow-x-auto max-w-full mt-2">
                             {item.productColor && (
-                              <span className="text-[11px] font-semibold bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded whitespace-nowrap shrink-0">
+                              <span className="text-[11px] font-semibold bg-primary dark:bg-primary/20 text-primary dark:text-primary px-2 py-0.5 rounded whitespace-nowrap shrink-0">
                                 🎨 {item.productColor}
                               </span>
                             )}
                             {item.productSize && (
-                              <span className="text-[11px] font-semibold bg-purple-100 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded whitespace-nowrap shrink-0">
+                              <span className="text-[11px] font-semibold bg-primary dark:bg-primary/20 text-primary dark:text-primary px-2 py-0.5 rounded whitespace-nowrap shrink-0">
                                 📏 {item.productSize}
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          <p className="text-sm text-foreground dark:dark:text-muted-foreground mt-1">
                             {item.price} جنيه × {item.quantity}
                           </p>
                         </div>
@@ -779,28 +779,28 @@ const OrderModal: React.FC<OrderModalProps> = ({
                               onClick={() =>
                                 updateProductQuantity(index, item.quantity - 1)
                               }
-                              className="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                              className="w-6 h-6 bg-muted dark:dark:bg-muted rounded text-muted-foreground hover:hover:bg-muted dark:hover:dark:hover:bg-muted"
                             >
                               -
                             </button>
-                            <span className="w-8 text-center text-gray-900 dark:text-gray-100">
+                            <span className="w-8 text-center text-foreground">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() =>
                                 updateProductQuantity(index, item.quantity + 1)
                               }
-                              className="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                              className="w-6 h-6 bg-muted dark:dark:bg-muted rounded text-muted-foreground hover:hover:bg-muted dark:hover:dark:hover:bg-muted"
                             >
                               +
                             </button>
                           </div>
-                          <span className="font-semibold text-green-600 dark:text-green-400 w-20 text-right">
+                          <span className="font-semibold text-success dark:text-success w-20 text-right">
                             {item.total} جنيه
                           </span>
                           <button
                             onClick={() => removeProductFromOrder(index)}
-                            className="p-1 text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
+                            className="p-1 text-destructive dark:text-destructive hover:text-destructive dark:hover:text-destructive"
                           >
                             <XMarkIcon className="h-4 w-4" />
                           </button>
@@ -814,16 +814,16 @@ const OrderModal: React.FC<OrderModalProps> = ({
 
             {/* رقم الهاتف */}
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <PhoneIcon className="h-4 w-4 inline ml-1" />
+              <label className="block text-sm font-medium text-foreground mb-2">
+                <PhoneIcon className="h-4 w-4 inline ms-1" />
                 رقم الهاتف{" "}
-                <span className="text-red-500 dark:text-red-400">*</span>
+                <span className="text-destructive dark:text-destructive">*</span>
               </label>
               <input
                 type="tel"
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:placeholder-muted"
                 placeholder="01xxxxxxxxx"
                 required
               />
@@ -831,15 +831,15 @@ const OrderModal: React.FC<OrderModalProps> = ({
 
             {/* المدينة */}
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <TruckIcon className="h-4 w-4 inline ml-1" />
+              <label className="block text-sm font-medium text-foreground mb-2">
+                <TruckIcon className="h-4 w-4 inline ms-1" />
                 المدينة / المحافظة{" "}
-                <span className="text-red-500 dark:text-red-400">*</span>
+                <span className="text-destructive dark:text-destructive">*</span>
               </label>
               <select
                 value={selectedCity}
                 onChange={(e) => handleCityChange(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent dark:dark:bg-muted dark:dark:text-muted-foreground"
                 required
               >
                 <option value="">اختر المدينة</option>
@@ -868,13 +868,13 @@ const OrderModal: React.FC<OrderModalProps> = ({
 
             {/* عنوان الشحن */}
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 عنوان الشحن التفصيلي
               </label>
               <textarea
                 value={shippingAddress}
                 onChange={(e) => setShippingAddress(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:placeholder-muted"
                 rows={2}
                 placeholder="الشارع، رقم المبنى، معالم مميزة..."
               />
@@ -882,29 +882,29 @@ const OrderModal: React.FC<OrderModalProps> = ({
 
             {/* ملاحظات */}
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 ملاحظات إضافية
               </label>
               <textarea
                 value={orderNotes}
                 onChange={(e) => setOrderNotes(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:placeholder-muted"
                 rows={2}
                 placeholder="أي ملاحظات خاصة بالطلب..."
               />
             </div>
 
             {/* الطلب المجدول */}
-            <div className="mb-6 bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
+            <div className="mb-6 bg-warning/10 dark:bg-warning/10 border border-warning dark:border-warning rounded-lg p-4">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={isScheduledOrder}
                   onChange={(e) => setIsScheduledOrder(e.target.checked)}
-                  className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 rounded focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-warning bg-muted border-border rounded focus:ring-warning dark:focus:ring-warning dark:ring-offset-gray-800 focus:ring-2 dark:dark:bg-muted dark:dark:border-border"
                 />
-                <CalendarIcon className="h-5 w-5 text-orange-600 dark:text-orange-400" />
-                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                <CalendarIcon className="h-5 w-5 text-warning dark:text-warning" />
+                <span className="text-sm font-medium text-foreground">
                   طلب مجدول (استلام في وقت محدد)
                 </span>
               </label>
@@ -913,8 +913,8 @@ const OrderModal: React.FC<OrderModalProps> = ({
                 <div className="mt-4 space-y-3">
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        تاريخ الاستلام <span className="text-red-500">*</span>
+                      <label className="block text-xs font-medium text-foreground mb-1">
+                        تاريخ الاستلام <span className="text-destructive">*</span>
                       </label>
                       <DateInput
                         value={scheduledDeliveryDate}
@@ -926,12 +926,12 @@ const OrderModal: React.FC<OrderModalProps> = ({
                             .toISOString()
                             .split("T")[0]
                         }
-                        className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100"
+                        className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent dark:dark:bg-muted dark:dark:text-muted-foreground"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-xs font-medium text-foreground mb-1">
                         وقت الاستلام (اختياري)
                       </label>
                       <input
@@ -940,23 +940,23 @@ const OrderModal: React.FC<OrderModalProps> = ({
                         onChange={(e) =>
                           setScheduledDeliveryTime(e.target.value)
                         }
-                        className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100"
+                        className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent dark:dark:bg-muted dark:dark:text-muted-foreground"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-xs font-medium text-foreground mb-1">
                       ملاحظات الجدولة
                     </label>
                     <textarea
                       value={scheduledNotes}
                       onChange={(e) => setScheduledNotes(e.target.value)}
-                      className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+                      className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:placeholder-muted"
                       rows={2}
                       placeholder="مثال: عيد ميلاد - يرجى التغليف الخاص"
                     />
                   </div>
-                  <div className="flex items-start gap-2 text-xs text-orange-700 dark:text-orange-300">
+                  <div className="flex items-start gap-2 text-xs text-warning dark:text-warning">
                     <CalendarIcon className="h-4 w-4 mt-0.5 flex-shrink-0" />
                     <p>
                       سيتم تحويل الطلب تلقائياً للحالة التالية عند حلول الموعد
@@ -969,34 +969,34 @@ const OrderModal: React.FC<OrderModalProps> = ({
 
             {/* ملخص الطلب */}
             {selectedProducts.length > 0 && (
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-2">
+              <div className="border-t border-border dark:dark:border-border pt-4 space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">
+                  <span className="text-foreground dark:dark:text-muted-foreground">
                     إجمالي المنتجات:
                   </span>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">
+                  <span className="font-medium text-foreground">
                     {calculateSubtotal()} جنيه
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">
+                  <span className="text-foreground dark:dark:text-muted-foreground">
                     تكلفة الشحن:
                   </span>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">
+                  <span className="font-medium text-foreground">
                     {shippingCost > 0 ? `${shippingCost} جنيه` : "اختر المدينة"}
                   </span>
                 </div>
                 {deliveryTime && (
-                  <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span>مدة التوصيل:</span>
                     <span>{deliveryTime}</span>
                   </div>
                 )}
-                <div className="flex items-center justify-between text-lg font-bold border-t border-gray-200 dark:border-gray-700 pt-2">
-                  <span className="text-gray-900 dark:text-gray-100">
+                <div className="flex items-center justify-between text-lg font-bold border-t border-border dark:dark:border-border pt-2">
+                  <span className="text-foreground">
                     الإجمالي الكلي:
                   </span>
-                  <span className="text-green-600 dark:text-green-400">
+                  <span className="text-success dark:text-success">
                     {calculateTotal()} جنيه
                   </span>
                 </div>
@@ -1006,16 +1006,16 @@ const OrderModal: React.FC<OrderModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+        <div className="flex items-center justify-between p-6 border-t border-border dark:dark:border-border bg-muted dark:dark:bg-muted">
           <button
             onClick={handleClose}
-            className="px-4 py-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="px-4 py-2 text-foreground bg-card border border-border rounded-lg hover:bg-muted/50"
           >
             إلغاء
           </button>
 
           {orderSuccess ? (
-            <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+            <div className="flex items-center gap-2 text-success dark:text-success">
               <CheckCircleIcon className="h-5 w-5" />
               <span>تم إنشاء الطلب بنجاح!</span>
             </div>
@@ -1023,7 +1023,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
             <button
               onClick={createOrderFromConversation}
               disabled={selectedProducts.length === 0 || creatingOrder}
-              className="flex items-center gap-2 px-6 py-2 bg-green-600 dark:bg-green-500 text-white rounded-lg hover:bg-green-700 dark:hover:bg-green-600 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-6 py-2 bg-success dark:bg-success text-white rounded-lg hover:bg-success dark:hover:bg-success disabled:disabled:bg-muted dark:disabled:dark:disabled:bg-muted disabled:cursor-not-allowed"
             >
               {creatingOrder ? (
                 <>

@@ -63,9 +63,9 @@ export const TurboCostComparisonCard: React.FC<TurboCostComparisonCardProps> = (
           <div
             className={`flex justify-between items-center p-2 rounded-lg border ${
               shippingComparison.difference > 0
-                ? "bg-rose-500/10 border-rose-500/20 text-rose-600 dark:text-rose-400"
+                ? "bg-destructive/10 border-destructive/20 text-destructive dark:text-destructive"
                 : shippingComparison.difference < 0
-                  ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                  ? "bg-success/10 border-success/20 text-success dark:text-success"
                   : "bg-muted/30 border-border/50 text-muted-foreground"
             }`}
           >

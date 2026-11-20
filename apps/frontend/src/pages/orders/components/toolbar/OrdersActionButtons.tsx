@@ -54,7 +54,7 @@ export const OrdersActionButtons: React.FC<OrdersActionButtonsProps> = ({
         aria-label={String(t("orders.filters"))}
         className={`inline-flex h-9 sm:h-10 flex-shrink-0 items-center justify-center gap-1.5 rounded-xl border px-2.5 sm:px-3 text-xs sm:text-sm font-semibold transition active:scale-[0.97] cursor-pointer ${
           showAdvancedFilters || advancedFilterCount > 0
-            ? "border-transparent bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs"
+            ? "border-transparent bg-muted text-white dark:bg-white dark:dark:text-foreground shadow-xs"
             : "border-border/70 bg-background/80 text-foreground hover:bg-muted"
         }`}
       >
@@ -66,8 +66,8 @@ export const OrdersActionButtons: React.FC<OrdersActionButtonsProps> = ({
           <span
             className={`inline-flex min-w-[20px] h-5 items-center justify-center rounded-full px-1 text-[11px] font-bold font-mono tabular-nums ${
               showAdvancedFilters || advancedFilterCount > 0
-                ? "bg-white/20 text-white dark:bg-slate-900/20 dark:text-slate-900"
-                : "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+                ? "bg-white/20 text-white dark:dark:bg-muted dark:dark:text-foreground"
+                : "bg-muted text-white dark:bg-white dark:dark:text-foreground"
             }`}
           >
             {advancedFilterCount}
@@ -82,7 +82,7 @@ export const OrdersActionButtons: React.FC<OrdersActionButtonsProps> = ({
         title={onlyUnseen ? t("orders.showAll") : t("orders.unseen")}
         className={`inline-flex h-9 sm:h-10 flex-shrink-0 items-center justify-center gap-1.5 rounded-xl border px-2.5 sm:px-3 text-xs sm:text-sm font-semibold transition active:scale-[0.97] cursor-pointer ${
           onlyUnseen
-            ? "border-transparent bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs"
+            ? "border-transparent bg-muted text-white dark:bg-white dark:dark:text-foreground shadow-xs"
             : "border-border/70 bg-background/80 text-foreground hover:bg-muted"
         }`}
       >
@@ -99,11 +99,11 @@ export const OrdersActionButtons: React.FC<OrdersActionButtonsProps> = ({
         title={onlyPostPurchaseOffer ? "عرض كل الطلبات" : "تصفية: طلبات عروض بعد الشراء"}
         className={`inline-flex h-9 sm:h-10 flex-shrink-0 items-center justify-center gap-1.5 rounded-xl border px-2.5 sm:px-3 text-xs sm:text-sm font-semibold transition active:scale-[0.97] cursor-pointer ${
           onlyPostPurchaseOffer
-            ? "border-emerald-500/30 bg-emerald-500/15 text-emerald-700 dark:text-emerald-400"
+            ? "border-success/30 bg-success/15 text-success dark:text-success"
             : "border-border/70 bg-background/80 text-foreground hover:bg-muted"
         }`}
       >
-        <Gift className={`h-4 w-4 ${onlyPostPurchaseOffer ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"}`} />
+        <Gift className={`h-4 w-4 ${onlyPostPurchaseOffer ? "text-success dark:text-success" : "text-muted-foreground"}`} />
         <span className="hidden sm:inline whitespace-nowrap">
           {onlyPostPurchaseOffer ? "عرض الكل" : "عروض بعد الشراء"}
         </span>

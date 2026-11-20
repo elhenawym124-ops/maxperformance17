@@ -54,7 +54,7 @@ export const OrdersSearchBar: React.FC<OrdersSearchBarProps> = ({
           value={localSearch}
           onChange={(e) => setLocalSearch(e.target.value)}
           onKeyDown={handleSearchKeyDown}
-          className={`${fieldClassName} h-9 sm:h-10 w-full rounded-xl border border-border/70 bg-background/80 pr-9 pl-8 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/5 transition-all`}
+          className={`${fieldClassName} h-9 sm:h-10 w-full rounded-xl border border-border/70 bg-background/80 pe-9 ps-8 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/5 transition-all`}
         />
         {localSearch && (
           <button

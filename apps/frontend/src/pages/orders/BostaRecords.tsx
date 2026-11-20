@@ -95,7 +95,7 @@ export const BostaRecords: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && fetchOrders()}
-              className="h-8 w-full rounded-md border border-border/70 bg-background/80 pr-8 pl-3 text-xs text-foreground placeholder:text-muted-foreground focus:border-foreground/30 focus:outline-none focus:ring-1 focus:ring-foreground/5 transition-all"
+              className="h-8 w-full rounded-md border border-border/70 bg-background/80 pe-8 ps-3 text-xs text-foreground placeholder:text-muted-foreground focus:border-foreground/30 focus:outline-none focus:ring-1 focus:ring-foreground/5 transition-all"
             />
           </div>
           <button

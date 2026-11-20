@@ -45,7 +45,7 @@ export const OrdersTable: React.FC<OrdersTableProps> = ({
   return (
     <div
       data-orders-density={density}
-      className="hidden overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[0_1px_3px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] lg:block"
+      className="hidden overflow-hidden rounded-xl border border-border/70 bg-card shadow-[0_1px_3px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] lg:block"
     >
       <div className="overflow-x-auto">
         <table className="w-full text-right border-collapse">

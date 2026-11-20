@@ -37,7 +37,7 @@ export const OrderHistoryTab: React.FC<OrderHistoryTabProps> = ({ order }) => {
             </span>
             {t("orders.conversation")}
           </h4>
-          <div className="bg-card/60 border border-border/60 rounded-2xl p-3 backdrop-blur-sm">
+          <div className="bg-card/60 border border-border/60 rounded-xl p-3 backdrop-blur-sm">
             <button
               type="button"
               onClick={handleOpenConversation}
@@ -59,7 +59,7 @@ export const OrderHistoryTab: React.FC<OrderHistoryTabProps> = ({ order }) => {
             </span>
             {t("orders.notes")}
           </h4>
-          <div className="bg-warning/5 border border-warning/20 rounded-2xl p-3 backdrop-blur-sm">
+          <div className="bg-warning/5 border border-warning/20 rounded-xl p-3 backdrop-blur-sm">
             <p className="text-sm text-foreground whitespace-pre-wrap">
               {order.notes}
             </p>
@@ -69,7 +69,7 @@ export const OrderHistoryTab: React.FC<OrderHistoryTabProps> = ({ order }) => {
 
       {/* Empty State */}
       {!hasHistory && (
-        <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border/60 bg-card/30 py-10 text-center">
+        <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border/60 bg-card/30 py-10 text-center">
           <ClipboardDocumentListIcon className="h-8 w-8 text-muted-foreground/60" />
           <p className="text-sm text-muted-foreground">
             {t("orders.noHistoryItems", { defaultValue: "لا توجد سجلات بعد" })}

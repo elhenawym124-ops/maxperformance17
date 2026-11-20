@@ -47,7 +47,7 @@ export const IncompleteOrderTableRowActions: React.FC<IncompleteOrderTableRowAct
           <a
             href={`tel:${phone.replace(/\D/g, "")}`}
             onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center justify-center h-7 w-7 rounded-lg border border-border/70 text-muted-foreground hover:bg-emerald-500/10 hover:text-emerald-600 hover:border-emerald-500/30 transition-all"
+            className="inline-flex items-center justify-center h-7 w-7 rounded-lg border border-border/70 text-muted-foreground hover:bg-success/10 hover:text-success hover:border-success/30 transition-all"
             title={t("orders.incompleteCall")}
             aria-label={t("orders.incompleteCall")}
           >
@@ -70,7 +70,7 @@ export const IncompleteOrderTableRowActions: React.FC<IncompleteOrderTableRowAct
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center justify-center h-7 w-7 rounded-lg border border-border/70 text-muted-foreground hover:bg-emerald-500/10 hover:text-emerald-600 hover:border-emerald-500/30 transition-all"
+            className="inline-flex items-center justify-center h-7 w-7 rounded-lg border border-border/70 text-muted-foreground hover:bg-success/10 hover:text-success hover:border-success/30 transition-all"
             title={t("orders.incompleteWhatsApp")}
             aria-label={t("orders.incompleteWhatsApp")}
           >
@@ -94,7 +94,7 @@ export const IncompleteOrderTableRowActions: React.FC<IncompleteOrderTableRowAct
             onConfirmConvert(order.cartId);
           }}
           disabled={isConverting}
-          className="inline-flex items-center justify-center h-7 w-7 rounded-lg border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          className="inline-flex items-center justify-center h-7 w-7 rounded-lg border border-success/30 text-success dark:text-success hover:bg-success/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           title={t("orders.incompleteQuickConvert")}
           aria-label={t("orders.incompleteQuickConvert")}
         >
@@ -153,7 +153,7 @@ export const IncompleteOrderTableRowActions: React.FC<IncompleteOrderTableRowAct
           aria-label={t("orders.incompleteCopyId")}
         >
           {isCopied ? (
-            <Check className="h-3.5 w-3.5 text-emerald-500" />
+            <Check className="h-3.5 w-3.5 text-success" />
           ) : (
             <Copy className="h-3.5 w-3.5" />
           )}

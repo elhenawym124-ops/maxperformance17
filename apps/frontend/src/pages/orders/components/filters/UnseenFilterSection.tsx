@@ -20,7 +20,7 @@ export const UnseenFilterSection: React.FC<UnseenFilterSectionProps> = ({
   return (
     <div className="space-y-2.5">
       {/* Unseen Toggle */}
-      <div className="rounded-2xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+      <div className="rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
@@ -56,10 +56,10 @@ export const UnseenFilterSection: React.FC<UnseenFilterSectionProps> = ({
 
       {/* Post-Purchase Offer Toggle */}
       {onToggleOnlyPostPurchaseOffer && (
-        <div className="rounded-2xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+        <div className="rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
                 <Gift className="h-4 w-4" />
               </div>
               <div>

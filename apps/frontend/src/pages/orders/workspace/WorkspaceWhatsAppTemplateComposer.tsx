@@ -33,7 +33,7 @@ export const WorkspaceWhatsAppTemplateComposer: React.FC<WorkspaceWhatsAppTempla
           <span className="truncate font-mono text-xs font-bold text-foreground">
             {activeTemplate.name}
           </span>
-          <span className="shrink-0 rounded-md bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+          <span className="shrink-0 rounded-md bg-success/10 px-1.5 py-0.5 text-[10px] font-bold text-success dark:text-success">
             {isArabic ? "قالب معتمد" : "APPROVED"}
           </span>
         </div>
@@ -75,7 +75,7 @@ export const WorkspaceWhatsAppTemplateComposer: React.FC<WorkspaceWhatsAppTempla
           type="button"
           onClick={onSendTemplate}
           disabled={isSending || templateVarIndexes.some((n) => !(templateVars[n] || "").trim())}
-          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-4 text-xs font-bold text-white transition-all active:scale-[0.98] hover:bg-emerald-700 disabled:opacity-40 shadow-xs"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl bg-success px-4 text-xs font-bold text-white transition-all active:scale-[0.98] hover:bg-success disabled:opacity-40 shadow-xs"
         >
           {isSending ? (
             <ArrowPathIcon className="h-4 w-4 animate-spin" />

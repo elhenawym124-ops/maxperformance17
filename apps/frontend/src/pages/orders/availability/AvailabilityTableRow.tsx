@@ -90,9 +90,9 @@ export const AvailabilityTableRow: React.FC<AvailabilityTableRowProps> = ({
         <span
           className={`text-xs sm:text-sm font-bold ${
             row.stock === 0
-              ? "text-rose-600 dark:text-rose-400"
+              ? "text-destructive dark:text-destructive"
               : row.stock <= 5
-              ? "text-amber-600 dark:text-amber-400"
+              ? "text-warning dark:text-warning"
               : "text-foreground"
           }`}
         >
@@ -108,10 +108,10 @@ export const AvailabilityTableRow: React.FC<AvailabilityTableRowProps> = ({
           <span
             className={`h-1.5 w-1.5 rounded-full ${
               row.stock === 0
-                ? "bg-rose-500"
+                ? "bg-destructive"
                 : row.stock <= 5
-                ? "bg-amber-500"
-                : "bg-emerald-500"
+                ? "bg-warning"
+                : "bg-success"
             }`}
           />
           {status.label}
@@ -129,7 +129,7 @@ export const AvailabilityTableRow: React.FC<AvailabilityTableRowProps> = ({
           />
           <span
             className={`text-[10px] font-semibold ${
-              row.trackInventory ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"
+              row.trackInventory ? "text-success dark:text-success" : "text-muted-foreground"
             }`}
           >
             {row.trackInventory ? "مفعل" : "معطل"}
@@ -148,7 +148,7 @@ export const AvailabilityTableRow: React.FC<AvailabilityTableRowProps> = ({
           />
           <span
             className={`text-[10px] font-semibold ${
-              row.isPreOrder ? "text-purple-600 dark:text-purple-400" : "text-muted-foreground"
+              row.isPreOrder ? "text-primary dark:text-primary" : "text-muted-foreground"
             }`}
           >
             {row.isPreOrder ? "مفعل" : "معطل"}

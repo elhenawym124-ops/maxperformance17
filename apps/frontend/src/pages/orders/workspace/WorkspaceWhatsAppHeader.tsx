@@ -25,7 +25,7 @@ export const WorkspaceWhatsAppHeader: React.FC<WorkspaceWhatsAppHeaderProps> = (
   return (
     <div className="flex items-center justify-between border-b border-border/70 px-4 py-3 bg-muted/20">
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-success/15 text-success dark:text-success">
           <WhatsAppIcon className="h-5 w-5" />
         </div>
         <div className="min-w-0">
@@ -40,8 +40,8 @@ export const WorkspaceWhatsAppHeader: React.FC<WorkspaceWhatsAppHeaderProps> = (
           <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono" dir="ltr">
             <span>{customerPhone}</span>
             {hasActiveSession && (
-              <span className="flex items-center gap-1 rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="flex items-center gap-1 rounded bg-success/10 px-1.5 py-0.5 text-[10px] font-semibold text-success dark:text-success">
+                <span className="h-1.5 w-1.5 rounded-full bg-success" />
                 <span>{sessionDisplay}</span>
               </span>
             )}

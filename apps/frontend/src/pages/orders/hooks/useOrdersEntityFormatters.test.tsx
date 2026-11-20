@@ -74,10 +74,10 @@ describe("useOrdersEntityFormatters", () => {
   describe("getConfidenceColor & getConfidenceIcon", () => {
     it("returns correct color classes across confidence thresholds", () => {
       const { result } = setup();
-      expect(result.current.getConfidenceColor()).toBe("bg-slate-100 text-slate-800");
-      expect(result.current.getConfidenceColor(0.95)).toBe("bg-green-100 text-green-800");
-      expect(result.current.getConfidenceColor(0.7)).toBe("bg-yellow-100 text-yellow-800");
-      expect(result.current.getConfidenceColor(0.4)).toBe("bg-red-100 text-red-800");
+      expect(result.current.getConfidenceColor()).toBe("bg-muted text-foreground");
+      expect(result.current.getConfidenceColor(0.95)).toBe("bg-success/10 text-success");
+      expect(result.current.getConfidenceColor(0.7)).toBe("bg-warning/10 text-warning");
+      expect(result.current.getConfidenceColor(0.4)).toBe("bg-destructive/10 text-destructive");
     });
 
     it("returns icon components without error", () => {

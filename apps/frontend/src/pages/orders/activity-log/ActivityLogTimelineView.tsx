@@ -36,31 +36,31 @@ export const CHANGE_TYPE_CONFIG: Record<string, { label: string; badgeClass: str
   },
   data_update: {
     label: "تعديل بيانات",
-    badgeClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+    badgeClass: "bg-warning/10 text-warning dark:text-warning border-warning/20",
   },
   bot_whatsapp: {
     label: "تأكيد واتساب",
-    badgeClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    badgeClass: "bg-success/10 text-success dark:text-success border-success/20",
   },
   bulk_update: {
     label: "تحديث جماعي",
-    badgeClass: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+    badgeClass: "bg-primary/10 text-primary dark:text-primary border-primary/20",
   },
   override: {
     label: "تجاوز بصلاحية",
-    badgeClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+    badgeClass: "bg-warning/10 text-warning dark:text-warning border-warning/20",
   },
   approved: {
     label: "اعتماد رسمي",
-    badgeClass: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+    badgeClass: "bg-primary/10 text-primary dark:text-primary border-primary/20",
   },
   cancelled: {
     label: "إلغاء طلب",
-    badgeClass: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    badgeClass: "bg-destructive/10 text-destructive dark:text-destructive border-destructive/20",
   },
   return: {
     label: "حركة مرتجع",
-    badgeClass: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    badgeClass: "bg-destructive/10 text-destructive dark:text-destructive border-destructive/20",
   },
 };
 
@@ -78,7 +78,7 @@ export const ActivityLogTimelineView: React.FC<ActivityLogTimelineViewProps> = (
   formatTimestamp,
 }) => {
   return (
-    <div className="relative pr-4 sm:pr-6 space-y-3">
+    <div className="relative pe-4 sm:pe-6 space-y-3">
       {/* Continuous Vertical Rail */}
       <div className="absolute right-[7px] sm:right-[11px] top-3 bottom-3 w-px bg-border/60 pointer-events-none" />
 
@@ -194,7 +194,7 @@ export const ActivityLogTimelineView: React.FC<ActivityLogTimelineViewProps> = (
                 {log.order && (
                   <div className="flex items-center gap-2">
                     {log.order.isGuest && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                         طلب زائر
                       </span>
                     )}
@@ -215,7 +215,7 @@ export const ActivityLogTimelineView: React.FC<ActivityLogTimelineViewProps> = (
                       title="نسخ رقم الطلب"
                     >
                       {copiedOrderId === log.id ? (
-                        <Check className="w-3 h-3 text-emerald-500" />
+                        <Check className="w-3 h-3 text-success" />
                       ) : (
                         <Copy className="w-3 h-3" />
                       )}

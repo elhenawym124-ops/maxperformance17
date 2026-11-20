@@ -59,10 +59,10 @@ export const OrderPaymentStatusModal: React.FC<OrderPaymentStatusModalProps> = (
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative z-10 w-full max-w-lg rounded-2xl border border-border/70 bg-card p-5 sm:p-6 shadow-2xl text-card-foreground animate-in zoom-in-95 duration-200 text-start">
+      <div className="relative z-10 w-full max-w-lg rounded-xl border border-border/70 bg-card p-5 sm:p-6 shadow-2xl text-card-foreground animate-in zoom-in-95 duration-200 text-start">
         <div className="flex items-center justify-between border-b border-border/50 pb-3 mb-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-success/10 text-success dark:text-success">
               <CreditCardIcon className="h-5 w-5" />
             </div>
             <div>
@@ -119,7 +119,7 @@ export const OrderPaymentStatusModal: React.FC<OrderPaymentStatusModalProps> = (
         <div className="mt-5 flex flex-col sm:flex-row-reverse gap-2.5 pt-2">
           <button
             type="button"
-            className="flex-1 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-xs hover:bg-emerald-700 disabled:opacity-50 active:scale-95 transition-all"
+            className="flex-1 rounded-xl bg-success px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-xs hover:bg-success disabled:opacity-50 active:scale-95 transition-all"
             onClick={onUpdatePaymentStatus}
             disabled={updating || !newPaymentStatus}
           >

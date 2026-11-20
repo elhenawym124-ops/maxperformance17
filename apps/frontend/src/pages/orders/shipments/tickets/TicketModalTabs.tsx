@@ -19,7 +19,7 @@ export const TicketModalTabs: React.FC<TicketModalTabsProps> = ({
         onClick={() => setActiveTab("new")}
         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold active:scale-95 transition ${
           activeTab === "new"
-            ? "bg-amber-600 text-white shadow-xs"
+            ? "bg-warning text-white shadow-xs"
             : "text-muted-foreground hover:bg-muted hover:text-foreground"
         }`}
       >
@@ -43,7 +43,7 @@ export const TicketModalTabs: React.FC<TicketModalTabsProps> = ({
             className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold font-mono tabular-nums ${
               activeTab === "list" || activeTab === "detail"
                 ? "bg-background/20 text-background"
-                : "bg-amber-500/15 text-amber-700 dark:text-amber-400"
+                : "bg-warning/15 text-warning dark:text-warning"
             }`}
           >
             {existingTicketsCount}

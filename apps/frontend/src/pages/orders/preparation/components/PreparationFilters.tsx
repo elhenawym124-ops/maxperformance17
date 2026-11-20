@@ -214,7 +214,7 @@ export const PreparationFilters = ({
   }, [statusCounts, tabCodes]);
 
   return (
-    <div className="sticky top-0 z-10 rounded-2xl border border-border/70 bg-card/95 shadow-xs backdrop-blur-md">
+    <div className="sticky top-0 z-10 rounded-xl border border-border/70 bg-card/95 shadow-xs backdrop-blur-md">
       {/* Stage Tabs & Search Bar */}
       <PreparationTabsBar
         activeFilter={activeFilter}

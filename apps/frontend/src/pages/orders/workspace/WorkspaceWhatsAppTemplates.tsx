@@ -83,7 +83,7 @@ export const WorkspaceWhatsAppTemplates: React.FC<WorkspaceWhatsAppTemplatesProp
       {/* Quick Instant Templates */}
       <div>
         <div className="flex items-center gap-1.5 mb-2">
-          <SparklesIcon className="h-3.5 w-3.5 text-emerald-600" />
+          <SparklesIcon className="h-3.5 w-3.5 text-success" />
           <h4 className="text-xs font-black uppercase text-muted-foreground">
             {isArabic ? 'قوالب سريعة مجهزة لبيانات الطلب' : 'Quick Ready Templates'}
           </h4>
@@ -92,7 +92,7 @@ export const WorkspaceWhatsAppTemplates: React.FC<WorkspaceWhatsAppTemplatesProp
           {quickTemplates.map((tmpl) => (
             <div
               key={tmpl.id}
-              className="group flex flex-col justify-between gap-2 rounded-lg border border-border/50 bg-card p-3 transition-colors hover:border-emerald-500/40 hover:bg-emerald-500/5"
+              className="group flex flex-col justify-between gap-2 rounded-lg border border-border/50 bg-card p-3 transition-colors hover:border-success/40 hover:bg-success/5"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-foreground">{tmpl.title}</span>
@@ -107,7 +107,7 @@ export const WorkspaceWhatsAppTemplates: React.FC<WorkspaceWhatsAppTemplatesProp
                 <button
                   type="button"
                   onClick={() => onSelectTemplate(tmpl.text)}
-                  className="inline-flex items-center gap-1 rounded bg-emerald-600 px-2.5 py-1 text-xs font-bold text-white hover:bg-emerald-700 active:scale-[0.98] transition-transform"
+                  className="inline-flex items-center gap-1 rounded bg-success px-2.5 py-1 text-xs font-bold text-white hover:bg-success active:scale-[0.98] transition-transform"
                 >
                   <CheckIcon className="h-3.5 w-3.5" />
                   <span>{isArabic ? 'استخدام في المحادثة' : 'Use in Chat'}</span>
@@ -142,11 +142,11 @@ export const WorkspaceWhatsAppTemplates: React.FC<WorkspaceWhatsAppTemplatesProp
                     </span>
                     <span className="flex items-center gap-1">
                       {varCount > 0 && (
-                        <span className="rounded bg-blue-500/10 px-1.5 py-0.5 text-[10px] font-bold text-blue-600 dark:text-blue-400 tabular-nums">
+                        <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary dark:text-primary tabular-nums">
                           {varCount} {isArabic ? 'متغير' : 'vars'}
                         </span>
                       )}
-                      <span className="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-bold text-emerald-600">
+                      <span className="rounded bg-success/10 px-1.5 py-0.5 text-[10px] font-bold text-success">
                         APPROVED
                       </span>
                     </span>

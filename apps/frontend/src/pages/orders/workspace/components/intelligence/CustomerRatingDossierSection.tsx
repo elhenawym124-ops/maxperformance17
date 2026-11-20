@@ -94,7 +94,7 @@ export const CustomerRatingDossierSection: React.FC<CustomerRatingDossierSection
               <Phone className="h-2.5 w-2.5" />
               <span dir="ltr">{order.customerPhone}</span>
               {copiedPhone ? (
-                <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                <Check className="h-3 w-3 text-success dark:text-success" />
               ) : (
                 <Copy className="h-3 w-3 opacity-60 hover:opacity-100" />
               )}
@@ -117,11 +117,11 @@ export const CustomerRatingDossierSection: React.FC<CustomerRatingDossierSection
           <div
             className={`h-full transition-all duration-300 rounded-full ${
               deliveryRate === null
-                ? "bg-slate-400 w-1/4"
+                ? "bg-muted w-1/4"
                 : deliveryRate >= 80
-                  ? "bg-emerald-500"
+                  ? "bg-success"
                   : deliveryRate >= 50
-                    ? "bg-amber-500"
+                    ? "bg-warning"
                     : "bg-destructive"
             }`}
             style={{
@@ -151,8 +151,8 @@ export const CustomerRatingDossierSection: React.FC<CustomerRatingDossierSection
       )}
 
       {isVip && (
-        <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-2 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-          <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+        <div className="rounded-lg border border-success/20 bg-success/10 p-2 text-[11px] font-semibold text-success dark:text-success flex items-center gap-1.5">
+          <ShieldCheck className="h-4 w-4 shrink-0 text-success dark:text-success" />
           <span>
             {isArabic
               ? "عميل موثوق VIP — أولوية قصوى للشحن"

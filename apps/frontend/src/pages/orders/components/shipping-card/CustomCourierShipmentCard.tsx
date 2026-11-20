@@ -21,13 +21,13 @@ export const CustomCourierShipmentCard: React.FC<CustomCourierShipmentCardProps>
     return (
       <div className="space-y-3">
         <div>
-          <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+          <label className="block text-xs font-medium text-foreground dark:dark:text-muted-foreground mb-1">
             اختر شركة الشحن
           </label>
           <select
             value={selectedCompanyId}
             onChange={(e) => setSelectedCompanyId(e.target.value)}
-            className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 text-xs sm:text-sm border border-border dark:dark:border-border rounded-lg bg-white dark:dark:bg-muted text-foreground dark:text-white focus:ring-2 focus:ring-primary"
           >
             {customCompanies.map((c) => (
               <option key={c.id} value={c.id}>
@@ -42,7 +42,7 @@ export const CustomCourierShipmentCard: React.FC<CustomCourierShipmentCardProps>
             type="button"
             onClick={onCreateShipment}
             disabled={loading || !selectedCompanyId}
-            className="w-full sm:w-auto px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 transition shadow-xs flex items-center justify-center gap-2 active:scale-97"
+            className="w-full sm:w-auto px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-primary text-white hover:bg-primary disabled:opacity-50 transition shadow-xs flex items-center justify-center gap-2 active:scale-97"
           >
             <TruckIcon className="h-4 w-4" />
             <span>

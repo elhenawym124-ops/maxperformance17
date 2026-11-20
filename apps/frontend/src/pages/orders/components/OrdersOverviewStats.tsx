@@ -92,7 +92,7 @@ export const OrdersOverviewStats: React.FC<OrdersOverviewStatsProps> = ({ onLoad
     return (
       <section
         aria-hidden="true"
-        className="mb-3 rounded-2xl border border-border/60 bg-card/60 p-3 shadow-xs"
+        className="mb-3 rounded-xl border border-border/60 bg-card/60 p-3 shadow-xs"
       >
         <div className="skeleton-shimmer h-[56px] rounded-xl" />
       </section>
@@ -101,7 +101,7 @@ export const OrdersOverviewStats: React.FC<OrdersOverviewStatsProps> = ({ onLoad
 
   return (
     <section aria-label={t("orders.overviewAriaLabel")} className="mb-3">
-      <div className="rounded-2xl border border-border/70 bg-card p-3 shadow-xs">
+      <div className="rounded-xl border border-border/70 bg-card p-3 shadow-xs">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
           {/* KPI Cards Grid */}
           <div className="grid flex-1 grid-cols-2 gap-x-3 gap-y-2.5 sm:gap-x-4 sm:gap-y-3 sm:grid-cols-3 lg:grid-cols-4">

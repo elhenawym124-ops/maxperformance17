@@ -63,7 +63,7 @@ const ProductAvailabilityGrid: React.FC = () => {
       />
 
       {/* 3. Single-Surface Chassis: Filter & Table */}
-      <div className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+      <div className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
         {/* Filter Bar */}
         <AvailabilityFilterBar
           search={search}
@@ -105,7 +105,7 @@ const ProductAvailabilityGrid: React.FC = () => {
 
       {/* Subtle Hint */}
       <p className="mt-3 text-xs text-muted-foreground text-center font-mono">
-        <CheckCircleIcon className="inline h-3.5 w-3.5 ml-1 text-primary" />
+        <CheckCircleIcon className="inline h-3.5 w-3.5 ms-1 text-primary" />
         <span>جدول تفاعلي: عدّل مفاتيح التتبع والطلب المسبق مباشرة من الجدول ويتم الحفظ تلقائياً</span>
       </p>
     </div>

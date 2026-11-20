@@ -25,7 +25,7 @@ const InvoiceModal: React.FC<InvoiceModalProps> = ({ invoice, onClose }) => {
       aria-label={`فاتورة ${invoice.invoiceNumber}`}
     >
       <div
-        className="max-h-[calc(100vh-0.5rem)] w-full overflow-y-auto rounded-t-2xl border border-border/70 bg-card text-foreground shadow-2xl sm:max-h-[90vh] sm:max-w-2xl sm:rounded-2xl print:max-h-none print:max-w-none print:rounded-none print:border-0 print:bg-white print:text-black print:shadow-none"
+        className="max-h-[calc(100vh-0.5rem)] w-full overflow-y-auto rounded-t-2xl border border-border/70 bg-card text-foreground shadow-2xl sm:max-h-[90vh] sm:max-w-2xl sm:rounded-xl print:max-h-none print:max-w-none print:rounded-none print:border-0 print:bg-white print:text-black print:shadow-none"
         onClick={(e) => e.stopPropagation()}
         dir="rtl"
       >

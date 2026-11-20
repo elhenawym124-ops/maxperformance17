@@ -207,14 +207,14 @@ export const ConfirmationQueueFilterBar: React.FC<ConfirmationQueueFilterBarProp
   }, [appliedFilters, statusFilter, statusFilterLabel, sourceFilter, sourceFilterLabel, onlyUnassigned, effectiveStartDate, effectiveEndDate, t]);
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-3 sm:p-4 shadow-xs space-y-3">
+    <div className="rounded-xl border border-border/70 bg-card p-3 sm:p-4 shadow-xs space-y-3">
       {/* Applied System Filters Ribbon */}
       <div
         data-testid="applied-filters-ribbon"
         className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground pb-2.5 border-b border-border/50"
       >
         <span className="font-semibold text-foreground/80 flex items-center gap-1.5 text-xs">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="inline-block w-2 h-2 rounded-full bg-success animate-pulse" />
           <span>{t("orders.appliedFilters", { defaultValue: "الفلاتر المطبقة:" })}</span>
         </span>
         <div className="flex flex-wrap items-center gap-1">

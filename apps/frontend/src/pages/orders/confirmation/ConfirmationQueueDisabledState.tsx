@@ -26,9 +26,9 @@ export const ConfirmationQueueDisabledState: React.FC<ConfirmationQueueDisabledS
           </div>
         </div>
       )}
-      <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 sm:p-6">
+      <div className="rounded-xl border border-warning/30 bg-warning/10 p-5 sm:p-6">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-300">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-warning/20 text-warning dark:text-warning">
             <ExclamationTriangleIcon className="h-6 w-6" />
           </div>
           <div className="space-y-1">
@@ -41,7 +41,7 @@ export const ConfirmationQueueDisabledState: React.FC<ConfirmationQueueDisabledS
             <div className="pt-3">
               <Link
                 to="/settings/orders?tab=confirmation"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-amber-600 px-4 py-2 text-xs font-bold text-white transition-all hover:bg-amber-700 active:scale-95"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-warning px-4 py-2 text-xs font-bold text-white transition-all hover:bg-warning active:scale-95"
               >
                 <span>فتح إعدادات مركز التأكيد</span>
                 <span dir="ltr">←</span>

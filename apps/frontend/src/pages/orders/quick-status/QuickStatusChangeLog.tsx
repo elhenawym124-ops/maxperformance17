@@ -28,7 +28,7 @@ export const QuickStatusChangeLog: React.FC<QuickStatusChangeLogProps> = ({
   if (changeLog.length === 0) return null;
 
   return (
-    <div className="bg-card rounded-2xl border border-border/70 shadow-xs overflow-hidden">
+    <div className="bg-card rounded-xl border border-border/70 shadow-xs overflow-hidden">
       <div className="flex items-center justify-between p-3.5 bg-muted/30 border-b border-border/60">
         <h2 className="text-sm sm:text-base font-bold text-foreground flex items-center gap-2">
           <RotateCcw className="text-primary" size={18} />
@@ -66,7 +66,7 @@ export const QuickStatusChangeLog: React.FC<QuickStatusChangeLogProps> = ({
                   {entry.newStatus ? (
                     <div className="flex items-center gap-1.5">
                       {renderStatusBadge(entry.newStatus, getStatusDisplayName(entry.newStatus))}
-                      <CheckCircle2 className="text-emerald-500 shrink-0" size={14} />
+                      <CheckCircle2 className="text-success shrink-0" size={14} />
                     </div>
                   ) : (
                     <span className="text-muted-foreground">-</span>

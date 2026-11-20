@@ -41,10 +41,10 @@ export const ShipmentStatsBar: React.FC<ShipmentStatsBarProps> = ({
       {/* 2. In Transit */}
       <div className="p-3 rounded-xl bg-card border border-border/70 shadow-xs">
         <div className="flex items-center gap-1.5 text-muted-foreground text-xs font-medium">
-          <Clock className="h-3.5 w-3.5 text-indigo-500" />
+          <Clock className="h-3.5 w-3.5 text-primary" />
           <span>قيد التوصيل</span>
         </div>
-        <p className="text-base sm:text-lg font-bold text-indigo-600 dark:text-indigo-400 mt-0.5 font-mono tabular-nums">
+        <p className="text-base sm:text-lg font-bold text-primary mt-0.5 font-mono tabular-nums">
           {inTransit}
         </p>
       </div>
@@ -52,10 +52,10 @@ export const ShipmentStatsBar: React.FC<ShipmentStatsBarProps> = ({
       {/* 3. Delivered */}
       <div className="p-3 rounded-xl bg-card border border-border/70 shadow-xs">
         <div className="flex items-center gap-1.5 text-muted-foreground text-xs font-medium">
-          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+          <CheckCircle2 className="h-3.5 w-3.5 text-success" />
           <span>تم التسليم</span>
         </div>
-        <p className="text-base sm:text-lg font-bold text-emerald-600 dark:text-emerald-400 mt-0.5 font-mono tabular-nums">
+        <p className="text-base sm:text-lg font-bold text-success dark:text-success mt-0.5 font-mono tabular-nums">
           {delivered}
         </p>
       </div>
@@ -74,10 +74,10 @@ export const ShipmentStatsBar: React.FC<ShipmentStatsBarProps> = ({
       {/* 5. Pending Remittance */}
       <div className="col-span-2 sm:col-span-1 p-3 rounded-xl bg-card border border-border/70 shadow-xs">
         <div className="flex items-center gap-1.5 text-muted-foreground text-xs font-medium">
-          <Banknote className="h-3.5 w-3.5 text-amber-500" />
+          <Banknote className="h-3.5 w-3.5 text-warning" />
           <span>معلق التحصيل</span>
         </div>
-        <p className="text-base sm:text-lg font-bold text-amber-600 dark:text-amber-400 mt-0.5 font-mono tabular-nums">
+        <p className="text-base sm:text-lg font-bold text-warning dark:text-warning mt-0.5 font-mono tabular-nums">
           {formatPrice(pendingRemittanceAmount || 0)}
         </p>
       </div>

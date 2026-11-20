@@ -40,7 +40,7 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
           </span>
           {isAffiliateDirect && (
             <span
-              className="inline-flex items-center gap-1 rounded-md bg-purple-500/10 px-1.5 py-0.5 text-[10px] font-bold text-purple-700 dark:text-purple-300 border border-purple-500/20"
+              className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary dark:text-primary border border-primary/20"
               title={affiliateCompanyName ? `أوردر من شركة مرتبطة: ${affiliateCompanyName}` : "أوردر من شركة مرتبطة"}
             >
               <span>{affiliateCompanyName ? `مرتبط — ${affiliateCompanyName}` : "مرتبط"}</span>
@@ -48,7 +48,7 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
           )}
           {(Boolean(order.isWholesale) || order.orderSource === "WHOLESALE" || Boolean(order.wholesaleCustomerId)) && (
             <span
-              className="inline-flex items-center gap-1 rounded-md bg-purple-500/10 px-1.5 py-0.5 text-[10px] font-bold text-purple-700 dark:text-purple-300 border border-purple-500/20"
+              className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary dark:text-primary border border-primary/20"
               title="طلب موزع جملة"
             >
               <span>موزع</span>
@@ -56,10 +56,10 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
           )}
           {hasPostPurchaseOffer(order) && (
             <span
-              className="inline-flex items-center gap-1 rounded-md bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:text-amber-300 border border-amber-500/20"
+              className="inline-flex items-center gap-1 rounded-md bg-warning/10 px-1.5 py-0.5 text-[10px] font-bold text-warning dark:text-warning border border-warning/20"
               title="يحتوي على عرض خاص بعد الشراء (Post-Purchase Upsell)"
             >
-              <GiftIcon className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+              <GiftIcon className="w-3 h-3 text-warning dark:text-warning" />
               <span className="hidden sm:inline">عرض بعد الشراء</span>
             </span>
           )}
@@ -70,14 +70,14 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
           )}
           {(order.status === "DUPLICATE_ORDER" || Boolean(order.metadata?.duplicate)) && (
             <span
-              className="inline-flex items-center gap-1 rounded-md bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:text-amber-300 border border-amber-500/20"
+              className="inline-flex items-center gap-1 rounded-md bg-warning/10 px-1.5 py-0.5 text-[10px] font-bold text-warning dark:text-warning border border-warning/20"
               title={
                 order.metadata?.duplicate?.duplicateOfOrderNumber
                   ? `طلب مكرر من #${order.metadata.duplicate.duplicateOfOrderNumber}`
                   : "طلب مكرر"
               }
             >
-              <DocumentDuplicateIcon className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+              <DocumentDuplicateIcon className="w-3 h-3 text-warning dark:text-warning" />
               <span>مكرر</span>
               {order.metadata?.duplicate?.duplicateOfOrderNumber && (
                 <span className="font-mono text-[10px] opacity-80" dir="ltr">
@@ -87,19 +87,19 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
             </span>
           )}
           {!order.isViewed && (
-            <span className="rounded-md bg-rose-500/10 px-1.5 py-0.5 text-[10px] font-bold text-rose-700 dark:text-rose-400 border border-rose-500/20">
+            <span className="rounded-md bg-destructive/10 px-1.5 py-0.5 text-[10px] font-bold text-destructive dark:text-destructive border border-destructive/20">
               {t("orders.newLabel")}
             </span>
           )}
         </div>
         {orderItemsSummary.hasQuantityOffers && (
-          <div className="inline-flex items-center gap-1 max-w-[220px] truncate rounded border border-amber-200/80 bg-amber-50/80 px-1.5 py-0.5 text-[11px] font-medium text-amber-900 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-200">
+          <div className="inline-flex items-center gap-1 max-w-[220px] truncate rounded border border-warning/80 bg-warning/80 px-1.5 py-0.5 text-[11px] font-medium text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning">
             <span>{orderItemsSummary.primaryLabel}</span>
           </div>
         )}
         {order.notes && (
           <div
-            className="inline-flex items-center gap-1 max-w-[240px] truncate rounded border border-indigo-200/80 bg-indigo-50/80 px-1.5 py-0.5 text-[11px] font-medium text-indigo-900 dark:border-indigo-900/40 dark:bg-indigo-900/20 dark:text-indigo-200"
+            className="inline-flex items-center gap-1 max-w-[240px] truncate rounded border border-primary/80 bg-primary/80 px-1.5 py-0.5 text-[11px] font-medium text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary"
             title={order.notes}
           >
             <span className="truncate">{order.notes}</span>

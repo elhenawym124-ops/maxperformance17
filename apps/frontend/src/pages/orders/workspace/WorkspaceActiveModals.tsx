@@ -68,7 +68,7 @@ export const WorkspaceActiveModals: React.FC<WorkspaceActiveModalsProps> = ({
         <React.Suspense
           fallback={
             <div className="flex items-center justify-center p-8">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-300 border-t-blue-600" />
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-blue-600" />
             </div>
           }
         >

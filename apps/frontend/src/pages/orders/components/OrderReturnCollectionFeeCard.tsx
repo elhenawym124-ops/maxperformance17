@@ -30,13 +30,13 @@ export const OrderReturnCollectionFeeCard: React.FC<OrderReturnCollectionFeeCard
   if (displayAmount <= 0) return null;
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-xs">
+    <div className="rounded-xl border border-border/70 bg-card p-4 shadow-xs">
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-foreground">
-          <DollarSign className="h-4 w-4 text-amber-500 shrink-0" />
+          <DollarSign className="h-4 w-4 text-warning shrink-0" />
           <span>{t("orderDetails.returnCollectionLabel", { defaultValue: "مبلغ تحصيل المرتجع" })}</span>
         </span>
-        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs sm:text-sm font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 font-mono tabular-nums">
+        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs sm:text-sm font-bold bg-warning/10 text-warning dark:text-warning border border-warning/20 font-mono tabular-nums">
           {t("orderDetails.returnAmount", {
             amount: displayAmount.toFixed(2),
             defaultValue: `${displayAmount.toFixed(2)} ج.م`,

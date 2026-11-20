@@ -28,9 +28,9 @@ export const CUSTOMER_RATING_OPTIONS: CustomerRatingOption[] = [
     label: "عميل ممتاز",
     shortLabel: "ممتاز",
     badgeClass:
-      "bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60",
-    dotClass: "bg-emerald-500 ring-emerald-500/20",
-    barColor: "bg-emerald-500",
+      "bg-success/10 text-success border-success/80 dark:bg-success/40 dark:text-success dark:border-success/60",
+    dotClass: "bg-success ring-success/20",
+    barColor: "bg-success",
     icon: StarIcon,
   },
   {
@@ -38,9 +38,9 @@ export const CUSTOMER_RATING_OPTIONS: CustomerRatingOption[] = [
     label: "عميل جيد",
     shortLabel: "جيد",
     badgeClass:
-      "bg-sky-50 text-sky-700 border-sky-200/80 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800/60",
-    dotClass: "bg-sky-500 ring-sky-500/20",
-    barColor: "bg-sky-500",
+      "bg-info/10 text-info border-info/80 dark:bg-info/40 dark:text-info dark:border-info/60",
+    dotClass: "bg-info ring-info/20",
+    barColor: "bg-info",
     icon: CheckCircleIcon,
   },
   {
@@ -48,9 +48,9 @@ export const CUSTOMER_RATING_OPTIONS: CustomerRatingOption[] = [
     label: "عميل متوسط",
     shortLabel: "متوسط",
     badgeClass:
-      "bg-amber-50 text-amber-700 border-amber-200/80 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/60",
-    dotClass: "bg-amber-500 ring-amber-500/20",
-    barColor: "bg-amber-500",
+      "bg-warning/10 text-warning border-warning/80 dark:bg-warning/40 dark:text-warning dark:border-warning/60",
+    dotClass: "bg-warning ring-warning/20",
+    barColor: "bg-warning",
     icon: MinusCircleIcon,
   },
   {
@@ -58,9 +58,9 @@ export const CUSTOMER_RATING_OPTIONS: CustomerRatingOption[] = [
     label: "عميل ضعيف / مخاطرة",
     shortLabel: "ضعيف",
     badgeClass:
-      "bg-rose-50 text-rose-700 border-rose-200/80 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/60",
-    dotClass: "bg-rose-500 ring-rose-500/20",
-    barColor: "bg-rose-500",
+      "bg-destructive/10 text-destructive border-destructive/80 dark:bg-destructive/40 dark:text-destructive dark:border-destructive/60",
+    dotClass: "bg-destructive ring-destructive/20",
+    barColor: "bg-destructive",
     icon: ExclamationTriangleIcon,
   },
   {
@@ -68,9 +68,9 @@ export const CUSTOMER_RATING_OPTIONS: CustomerRatingOption[] = [
     label: "عميل جديد / غير مصنف",
     shortLabel: "جديد",
     badgeClass:
-      "bg-slate-50 text-slate-600 border-slate-200/80 dark:bg-slate-800/50 dark:text-slate-400 dark:border-slate-700/60",
-    dotClass: "bg-slate-400 ring-slate-400/20",
-    barColor: "bg-slate-400",
+      "bg-muted text-foreground /80/80border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:border-border",
+    dotClass: "bg-muted /20/20ring-border",
+    barColor: "bg-muted",
     icon: QuestionMarkCircleIcon,
   },
 ];
@@ -241,31 +241,31 @@ export function computeHealthScore({
   let tier: "high" | "medium" | "low" = "medium";
   let tierLabel = "عميل متوسط • موثوق جزئياً";
   let badgeClass =
-    "bg-amber-50 text-amber-800 border-amber-200/90 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/60";
-  let iconClass = "text-amber-600 dark:text-amber-400";
-  let barColor = "bg-amber-500";
+    "bg-warning/10 text-warning border-warning/90 dark:bg-warning/40 dark:text-warning dark:border-warning/60";
+  let iconClass = "text-warning dark:text-warning";
+  let barColor = "bg-warning";
 
   if (isNew) {
     tier = "medium";
     tierLabel = "عميل جديد • لم تكتمل له شحنات بعد";
     badgeClass =
-      "bg-slate-100 text-slate-600 border-slate-200/80 dark:bg-slate-800/60 dark:text-slate-300 dark:border-slate-700/60";
-    iconClass = "text-slate-500 dark:text-slate-400";
-    barColor = "bg-slate-400";
+      "bg-muted text-foreground /80/80border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:border-border";
+    iconClass = "text-muted-foreground dark:dark:text-muted-foreground";
+    barColor = "bg-muted";
   } else if (score >= 8.0) {
     tier = "high";
     tierLabel = "عميل موثوق • عالي الجودة";
     badgeClass =
-      "bg-emerald-50 text-emerald-800 border-emerald-200/90 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60";
-    iconClass = "text-emerald-600 dark:text-emerald-400";
-    barColor = "bg-emerald-500";
+      "bg-success/10 text-success border-success/90 dark:bg-success/40 dark:text-success dark:border-success/60";
+    iconClass = "text-success dark:text-success";
+    barColor = "bg-success";
   } else if (score < 5.0) {
     tier = "low";
     tierLabel = "عميل عالي المخاطر • حذر";
     badgeClass =
-      "bg-rose-50 text-rose-800 border-rose-200/90 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/60";
-    iconClass = "text-rose-600 dark:text-rose-400";
-    barColor = "bg-rose-500";
+      "bg-destructive/10 text-destructive border-destructive/90 dark:bg-destructive/40 dark:text-destructive dark:border-destructive/60";
+    iconClass = "text-destructive dark:text-destructive";
+    barColor = "bg-destructive";
   }
 
   return {
@@ -498,13 +498,13 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
   if (variant === "detailed") {
     return (
       <div
-        className={`bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-3 shadow-xs ${className}`}
+        className={`bg-white dark:dark:bg-muted rounded-xl border border-border dark:dark:border-border p-4 space-y-3 shadow-xs ${className}`}
         dir="rtl"
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className={`w-2.5 h-2.5 rounded-full ring-2 ${currentOption.dotClass}`} />
-            <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
+            <span className="text-sm font-bold text-foreground dark:dark:text-muted-foreground">
               تصنيف العميل الآلي
             </span>
           </div>
@@ -520,17 +520,17 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
           </div>
         </div>
 
-        <div className="space-y-1.5 bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-lg border border-slate-100 dark:border-slate-700/60">
+        <div className="space-y-1.5 bg-muted dark:dark:bg-muted p-2.5 rounded-lg border border-border dark:dark:border-border">
           <div className="flex items-center justify-between text-xs font-medium">
-            <span className="text-slate-500 dark:text-slate-400">نسبة نجاح الاستلام:</span>
-            <span className="font-bold tabular-nums text-slate-900 dark:text-slate-100">
+            <span className="text-muted-foreground dark:dark:text-muted-foreground">نسبة نجاح الاستلام:</span>
+            <span className="font-bold tabular-nums text-foreground dark:dark:text-muted-foreground">
               {deliveryRate !== null && deliveryRate !== undefined && !healthInfo.isNew
                 ? `${Math.round(deliveryRate)}%`
                 : "عميل جديد (لم يستلم بعد)"}
             </span>
           </div>
 
-          <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+          <div className="w-full bg-muted dark:dark:bg-muted h-1.5 rounded-full overflow-hidden">
             <div
               className={`h-full ${healthInfo.barColor} transition-all duration-300`}
               style={{
@@ -539,7 +539,7 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 pt-0.5">
+          <div className="flex items-center justify-between text-[11px] text-muted-foreground dark:dark:text-muted-foreground pt-0.5">
             <span>الطلبات المستلمة:</span>
             <span className="font-medium tabular-nums">
               {totalDelivered ?? 0} من {totalAttempts ?? 0} طلب مكتمل
@@ -653,19 +653,19 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
       {/* 5. Rich Diagnostic Popover Modal */}
       {isMenuOpen && (
         <div
-          className="absolute start-0 top-full mt-1.5 z-50 w-72 rounded-xl border border-slate-200 bg-white p-3 shadow-xl dark:border-slate-800 dark:bg-slate-900 select-none animate-in fade-in zoom-in-95 duration-100"
+          className="absolute start-0 top-full mt-1.5 z-50 w-72 rounded-xl border border-border bg-white p-3 shadow-xl dark:dark:border-border dark:dark:bg-muted select-none animate-in fade-in zoom-in-95 duration-100"
           role="menu"
           dir="rtl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Popover Header */}
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+          <div className="flex items-center justify-between pb-2 border-b border-border dark:dark:border-border">
             <div className="min-w-0">
-              <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+              <div className="text-xs font-bold text-foreground dark:text-white flex items-center gap-1.5">
                 <span>تقييم العميل الآلي</span>
-                <span className="text-[10px] font-mono font-medium text-slate-400">HEALTH SCORE</span>
+                <span className="text-[10px] font-mono font-medium text-muted-foreground">HEALTH SCORE</span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+              <p className="text-[11px] text-muted-foreground dark:dark:text-muted-foreground truncate mt-0.5">
                 {healthInfo.tierLabel}
               </p>
             </div>
@@ -679,13 +679,13 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
           {/* Real Metrics and Telemetry Breakdown */}
           <div className="py-2.5 space-y-2">
             <div className="flex items-center justify-between text-xs font-medium">
-              <span className="text-slate-600 dark:text-slate-400">نسبة نجاح الاستلام:</span>
-              <span className="font-bold tabular-nums text-slate-900 dark:text-white">
+              <span className="text-foreground dark:dark:text-muted-foreground">نسبة نجاح الاستلام:</span>
+              <span className="font-bold tabular-nums text-foreground dark:text-white">
                 {displayPercent ? displayPercent : (totalAttempts && totalAttempts > 0 ? "0%" : "رصيد أولي (جديد)")}
               </span>
             </div>
 
-            <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-muted dark:dark:bg-muted h-1.5 rounded-full overflow-hidden">
               <div
                 className={`h-full transition-all duration-300 ${healthInfo.barColor}`}
                 style={{
@@ -699,40 +699,40 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
 
             {/* Counter Grid */}
             <div className="grid grid-cols-3 gap-1.5 pt-1 text-center">
-              <div className="bg-slate-50 dark:bg-slate-800/60 p-1.5 rounded-lg border border-slate-100 dark:border-slate-800">
-                <div className="text-[10px] text-slate-500 dark:text-slate-400">مستلم</div>
-                <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+              <div className="bg-muted dark:dark:bg-muted p-1.5 rounded-lg border border-border dark:dark:border-border">
+                <div className="text-[10px] text-muted-foreground dark:dark:text-muted-foreground">مستلم</div>
+                <div className="text-xs font-bold text-success dark:text-success tabular-nums">
                   {totalDelivered ?? 0}
                 </div>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-800/60 p-1.5 rounded-lg border border-slate-100 dark:border-slate-800">
-                <div className="text-[10px] text-slate-500 dark:text-slate-400">مرتجع</div>
-                <div className="text-xs font-bold text-rose-600 dark:text-rose-400 tabular-nums">
+              <div className="bg-muted dark:dark:bg-muted p-1.5 rounded-lg border border-border dark:dark:border-border">
+                <div className="text-[10px] text-muted-foreground dark:dark:text-muted-foreground">مرتجع</div>
+                <div className="text-xs font-bold text-destructive dark:text-destructive tabular-nums">
                   {totalFailed ?? Math.max(0, (totalAttempts || 0) - (totalDelivered || 0))}
                 </div>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-800/60 p-1.5 rounded-lg border border-slate-100 dark:border-slate-800">
-                <div className="text-[10px] text-slate-500 dark:text-slate-400">الإجمالي</div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white tabular-nums">
+              <div className="bg-muted dark:dark:bg-muted p-1.5 rounded-lg border border-border dark:dark:border-border">
+                <div className="text-[10px] text-muted-foreground dark:dark:text-muted-foreground">الإجمالي</div>
+                <div className="text-xs font-bold text-foreground dark:text-white tabular-nums">
                   {totalOrdersCount || totalAttempts || 1}
                 </div>
               </div>
             </div>
 
             {/* Diagnosis note */}
-            <div className="text-[11px] text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/40 p-2 rounded-lg border border-slate-100 dark:border-slate-800 leading-relaxed">
+            <div className="text-[11px] text-foreground dark:dark:text-muted-foreground bg-muted dark:dark:bg-muted p-2 rounded-lg border border-border dark:dark:border-border leading-relaxed">
               {healthDiagnosis || healthInfo.diagnosis}
             </div>
           </div>
 
           {/* Recalculate Trigger */}
           {orderNumber && (
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="pt-2 border-t border-border dark:dark:border-border">
               <button
                 type="button"
                 disabled={isUpdating || isRecalculating}
                 onClick={handleRecalculate}
-                className="w-full flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 rounded-lg transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-foreground dark:dark:text-muted-foreground hover:hover:bg-muted dark:hover:dark:hover:bg-muted rounded-lg transition-colors cursor-pointer"
               >
                 <ArrowPathIcon
                   className={`w-3.5 h-3.5 shrink-0 ${
@@ -747,8 +747,8 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
           )}
 
           {allowManualEdit && orderNumber && (
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-              <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5">
+            <div className="pt-2 border-t border-border dark:dark:border-border">
+              <div className="text-[11px] font-semibold text-muted-foreground dark:dark:text-muted-foreground mb-1.5">
                 تعديل يدوي للتصنيف:
               </div>
               <div className="grid grid-cols-2 gap-1.5">
@@ -765,7 +765,7 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
                       className={`flex items-center justify-center gap-1.5 rounded-lg border px-2 py-1.5 text-[11px] font-semibold transition-colors disabled:opacity-60 cursor-pointer ${
                         effectiveRatingLevel === opt.value
                           ? opt.badgeClass
-                          : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                          : "border-border dark:dark:border-border text-foreground dark:dark:text-muted-foreground hover:hover:bg-muted dark:hover:dark:hover:bg-muted"
                       }`}
                     >
                       <Icon className="w-3 h-3 shrink-0" />

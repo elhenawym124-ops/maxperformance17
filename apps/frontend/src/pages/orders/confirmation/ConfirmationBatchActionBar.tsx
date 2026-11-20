@@ -31,7 +31,7 @@ export const ConfirmationBatchActionBar: React.FC<ConfirmationBatchActionBarProp
   const { t } = useTranslation();
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-3 sm:p-4 shadow-xs">
+    <div className="rounded-xl border border-border/70 bg-card p-3 sm:p-4 shadow-xs">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         {/* Selection Checkbox and Counters */}
         <div className="flex items-center gap-3">
@@ -88,7 +88,7 @@ export const ConfirmationBatchActionBar: React.FC<ConfirmationBatchActionBarProp
             type="button"
             onClick={onBulkConfirm}
             disabled={selectedCount === 0 || bulkProcessing}
-            className="inline-flex h-10 items-center gap-1.5 px-3.5 rounded-xl bg-emerald-600 text-white text-xs font-bold disabled:opacity-50 hover:bg-emerald-700 shadow-xs active:scale-95 transition-all cursor-pointer"
+            className="inline-flex h-10 items-center gap-1.5 px-3.5 rounded-xl bg-success text-white text-xs font-bold disabled:opacity-50 hover:bg-success shadow-xs active:scale-95 transition-all cursor-pointer"
           >
             <CheckCheck className="h-4 w-4" />
             <span>{t("orders.bulkConfirm", { defaultValue: "تأكيد جماعي" })}</span>

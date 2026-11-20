@@ -86,7 +86,7 @@ const OrderAttributionCard: React.FC<OrderAttributionCardProps> = ({ order }) =>
   return (
     <div className="rounded-xl border border-border/70 bg-card p-4 sm:p-5 text-card-foreground shadow-sm">
       <div className="mb-4 flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-warning/10 text-warning dark:text-warning">
           <Megaphone className="h-4.5 w-4.5" />
         </div>
         <div>
@@ -109,7 +109,7 @@ const OrderAttributionCard: React.FC<OrderAttributionCardProps> = ({ order }) =>
           {(campaignLabel || attribution.platform || sourceMedium) && (
             <div className="flex flex-wrap gap-1.5">
               {campaignLabel && (
-                <span className="inline-flex items-center rounded-md border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:text-amber-300">
+                <span className="inline-flex items-center rounded-md border border-warning/20 bg-warning/10 px-2.5 py-0.5 text-xs font-medium text-warning dark:text-warning">
                   {campaignLabel}
                 </span>
               )}

@@ -26,7 +26,7 @@ export const OrderActivityLogDeleteModal: React.FC<OrderActivityLogDeleteModalPr
           className="fixed inset-0 bg-background/80 backdrop-blur-sm"
           onClick={onCancel}
         />
-        <div className="relative bg-card rounded-2xl p-6 shadow-xl border border-border/70 max-w-sm w-full">
+        <div className="relative bg-card rounded-xl p-6 shadow-xl border border-border/70 max-w-sm w-full">
           <div className="text-center">
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-destructive/10 text-destructive mb-4 border border-destructive/20">
               <Trash2 className="h-6 w-6" />

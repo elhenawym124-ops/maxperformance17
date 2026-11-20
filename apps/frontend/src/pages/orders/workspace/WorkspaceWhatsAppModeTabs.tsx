@@ -23,14 +23,14 @@ export const WorkspaceWhatsAppModeTabs: React.FC<WorkspaceWhatsAppModeTabsProps>
         onClick={() => setActiveTab("chat")}
         className={`flex items-center gap-2 border-b-2 px-3 py-2 text-xs font-bold transition-all ${
           activeTab === "chat"
-            ? "border-emerald-500 text-emerald-600 dark:text-emerald-400"
+            ? "border-success text-success dark:text-success"
             : "border-transparent text-muted-foreground hover:text-foreground"
         }`}
       >
         <ChatBubbleOvalLeftEllipsisIcon className="h-4 w-4" />
         <span>{isArabic ? "المحادثة الحية" : "Live Chat"}</span>
         {messagesCount > 0 && (
-          <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold tabular-nums">
+          <span className="rounded-full bg-success/10 px-1.5 py-0.5 font-mono text-[10px] text-success dark:text-success font-bold tabular-nums">
             {messagesCount}
           </span>
         )}
@@ -41,7 +41,7 @@ export const WorkspaceWhatsAppModeTabs: React.FC<WorkspaceWhatsAppModeTabsProps>
         onClick={() => setActiveTab("templates")}
         className={`flex items-center gap-2 border-b-2 px-3 py-2 text-xs font-bold transition-all ${
           activeTab === "templates"
-            ? "border-emerald-500 text-emerald-600 dark:text-emerald-400"
+            ? "border-success text-success dark:text-success"
             : "border-transparent text-muted-foreground hover:text-foreground"
         }`}
       >

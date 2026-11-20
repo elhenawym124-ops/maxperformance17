@@ -88,15 +88,15 @@ export const DispatchInternalCourierModal: React.FC<DispatchInternalCourierModal
       <div className="space-y-4 py-2 text-xs sm:text-sm">
         {loading ? (
           <div className="py-8 flex justify-center">
-            <ArrowPathIcon className="w-6 h-6 animate-spin text-slate-400" />
+            <ArrowPathIcon className="w-6 h-6 animate-spin text-muted-foreground" />
           </div>
         ) : couriers.length === 0 ? (
-          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-center dark:border-amber-800 dark:bg-amber-950/40">
-            <ExclamationCircleIcon className="mx-auto h-8 w-8 text-amber-500 mb-2" />
-            <p className="font-semibold text-amber-900 dark:text-amber-200">
+          <div className="rounded-xl border border-warning bg-warning/10 p-4 text-center dark:border-warning dark:bg-warning/40">
+            <ExclamationCircleIcon className="mx-auto h-8 w-8 text-warning mb-2" />
+            <p className="font-semibold text-warning dark:text-warning">
               لا يوجد مناديب مسجلين في الأسطول الداخلي
             </p>
-            <p className="text-amber-700 dark:text-amber-400 mt-1 mb-3">
+            <p className="text-warning dark:text-warning mt-1 mb-3">
               أضف مناديب شركتك أولاً لتتمكن من إنشاء مأموريات التوزيع الميداني.
             </p>
             <Link
@@ -136,11 +136,11 @@ export const DispatchInternalCourierModal: React.FC<DispatchInternalCourierModal
                           <div className="font-semibold text-foreground flex items-center gap-1.5">
                             <span>{c.name}</span>
                             {c.documentsStatus === 'VERIFIED' ? (
-                              <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200">
+                              <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium bg-success/10 text-success dark:bg-success/40 dark:text-success border border-success">
                                 موثق
                               </span>
                             ) : (
-                              <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border border-rose-200">
+                              <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive border border-destructive">
                                 غير موثق
                               </span>
                             )}
@@ -155,8 +155,8 @@ export const DispatchInternalCourierModal: React.FC<DispatchInternalCourierModal
                         <span
                           className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
                             c.status === 'AVAILABLE'
-                              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400'
-                              : 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400'
+                              ? 'bg-success/10 text-success dark:bg-success/40 dark:text-success'
+                              : 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning'
                           }`}
                         >
                           {c.status === 'AVAILABLE' ? 'متاح بالمقر' : 'في الميدان'}

@@ -23,7 +23,7 @@ export const ShippingCarrierTabs: React.FC<ShippingCarrierTabsProps> = React.mem
     customCompanies,
   }) => {
     return (
-      <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg text-xs font-medium">
+      <div className="flex flex-wrap gap-1.5 p-1 bg-muted dark:dark:bg-muted rounded-lg text-xs font-medium">
         {turboCompany && (
           <button
             type="button"
@@ -33,11 +33,11 @@ export const ShippingCarrierTabs: React.FC<ShippingCarrierTabsProps> = React.mem
             }}
             className={`py-2 px-3.5 rounded-md transition flex items-center justify-center gap-1.5 active:scale-97 ${
               courierMode === "turbo"
-                ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 font-bold shadow-xs"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-white dark:dark:bg-muted text-primary dark:text-primary font-bold shadow-xs"
+                : "text-foreground dark:dark:text-muted-foreground hover:hover:text-foreground dark:hover:text-white"
             }`}
           >
-            <TruckIcon className="h-3.5 w-3.5 text-blue-500" />
+            <TruckIcon className="h-3.5 w-3.5 text-primary" />
             <span>تربو (Turbo)</span>
           </button>
         )}
@@ -51,11 +51,11 @@ export const ShippingCarrierTabs: React.FC<ShippingCarrierTabsProps> = React.mem
             }}
             className={`py-2 px-3.5 rounded-md transition flex items-center justify-center gap-1.5 active:scale-97 ${
               courierMode === "qp"
-                ? "bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-bold shadow-xs"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-white dark:dark:bg-muted text-primary font-bold shadow-xs"
+                : "text-foreground dark:dark:text-muted-foreground hover:hover:text-foreground dark:hover:text-white"
             }`}
           >
-            <BoltIcon className="h-3.5 w-3.5 text-amber-500" />
+            <BoltIcon className="h-3.5 w-3.5 text-warning" />
             <span>كيو بي (QP Express)</span>
           </button>
         )}
@@ -69,11 +69,11 @@ export const ShippingCarrierTabs: React.FC<ShippingCarrierTabsProps> = React.mem
             }}
             className={`py-2 px-3.5 rounded-md transition flex items-center justify-center gap-1.5 active:scale-97 ${
               courierMode === "bosta"
-                ? "bg-white dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-bold shadow-xs"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-white dark:dark:bg-muted text-warning dark:text-warning font-bold shadow-xs"
+                : "text-foreground dark:dark:text-muted-foreground hover:hover:text-foreground dark:hover:text-white"
             }`}
           >
-            <TruckIcon className="h-3.5 w-3.5 text-amber-500" />
+            <TruckIcon className="h-3.5 w-3.5 text-warning" />
             <span>بوستا (Bosta)</span>
           </button>
         )}
@@ -87,8 +87,8 @@ export const ShippingCarrierTabs: React.FC<ShippingCarrierTabsProps> = React.mem
             }}
             className={`py-2 px-3.5 rounded-md transition flex items-center justify-center gap-1.5 active:scale-97 ${
               courierMode === "custom"
-                ? "bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-bold shadow-xs"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-white dark:dark:bg-muted text-primary font-bold shadow-xs"
+                : "text-foreground dark:dark:text-muted-foreground hover:hover:text-foreground dark:hover:text-white"
             }`}
           >
             <TruckIcon className="h-3.5 w-3.5" />
@@ -104,8 +104,8 @@ export const ShippingCarrierTabs: React.FC<ShippingCarrierTabsProps> = React.mem
           }}
           className={`py-2 px-3.5 rounded-md transition flex items-center justify-center gap-1.5 active:scale-97 ${
             courierMode === "manual"
-              ? "bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-bold shadow-xs"
-              : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              ? "bg-white dark:dark:bg-muted text-primary font-bold shadow-xs"
+              : "text-foreground dark:dark:text-muted-foreground hover:hover:text-foreground dark:hover:text-white"
           }`}
         >
           <UserIcon className="h-3.5 w-3.5" />

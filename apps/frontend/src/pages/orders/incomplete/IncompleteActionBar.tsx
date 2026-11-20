@@ -42,7 +42,7 @@ export const IncompleteActionBar: React.FC<IncompleteActionBarProps> = ({
               type="button"
               onClick={onConvertToOrder}
               disabled={converting || !hasCustomerPhone}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-success/30 bg-success/10 px-3.5 py-2 text-xs font-semibold text-success dark:text-success hover:bg-success/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-xs"
               title={!hasCustomerPhone ? t("orders.incompleteConvertNoPhone") || "لا يمكن التحويل لعدم وجود هاتف" : ""}
             >
               {converting ? (

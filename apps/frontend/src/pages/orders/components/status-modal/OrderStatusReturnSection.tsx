@@ -27,8 +27,8 @@ export const OrderStatusReturnSection: React.FC<
   const { t } = useTranslation();
 
   return (
-    <div className="space-y-3 rounded-xl border border-rose-500/20 bg-rose-500/5 p-3.5">
-      <label className="block text-xs font-bold text-rose-700 dark:text-rose-300">
+    <div className="space-y-3 rounded-xl border border-destructive/20 bg-destructive/5 p-3.5">
+      <label className="block text-xs font-bold text-destructive dark:text-destructive">
         {t("orderDetails.selectReturnReason", {
           defaultValue: "سبب المرتجع (اختر من الأسباب الشائعة)",
         })}
@@ -43,7 +43,7 @@ export const OrderStatusReturnSection: React.FC<
           }
         }}
         disabled={updating}
-        className="h-10 w-full rounded-xl border border-border/70 bg-background px-3 text-xs text-foreground focus:border-rose-500 focus:outline-none"
+        className="h-10 w-full rounded-xl border border-border/70 bg-background px-3 text-xs text-foreground focus:border-destructive focus:outline-none"
       >
         <option value="">
           {t("orderDetails.chooseReturnReason", {
@@ -72,7 +72,7 @@ export const OrderStatusReturnSection: React.FC<
           value={statusNotes}
           onChange={(e) => setStatusNotes(e.target.value)}
           rows={2}
-          className="w-full rounded-xl border border-border/70 bg-background p-2.5 text-xs text-foreground focus:border-rose-500 focus:outline-none"
+          className="w-full rounded-xl border border-border/70 bg-background p-2.5 text-xs text-foreground focus:border-destructive focus:outline-none"
           placeholder={String(
             t("orderDetails.returnReasonPlaceholder", {
               defaultValue: "اكتب سبب إرجاع الطلب بالتفصيل هنا...",

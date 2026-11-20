@@ -123,8 +123,8 @@ export const OrderSourceCard: React.FC<OrderSourceCardProps> = ({ order }) => {
 
         {/* Order Source Badge */}
         {order.orderSource && order.orderSource !== "REGULAR" && (
-          <div className="flex items-start gap-3 p-3 bg-amber-500/5 rounded-lg border border-amber-500/20">
-            <Sparkles className="h-4 w-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+          <div className="flex items-start gap-3 p-3 bg-warning/5 rounded-lg border border-warning/20">
+            <Sparkles className="h-4 w-4 text-warning dark:text-warning mt-0.5 flex-shrink-0" />
             <div className="flex-1 min-w-0">
               <div className="text-[11px] text-muted-foreground mb-0.5">
                 تصنيف الطلب
@@ -139,8 +139,8 @@ export const OrderSourceCard: React.FC<OrderSourceCardProps> = ({ order }) => {
 
         {/* Request Type Badge */}
         {parsedMetadata?.requestType && (
-          <div className="flex items-start gap-3 p-3 bg-blue-500/5 rounded-lg border border-blue-500/20">
-            <Package className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+          <div className="flex items-start gap-3 p-3 bg-primary/5 rounded-lg border border-primary/20">
+            <Package className="h-4 w-4 text-primary dark:text-primary mt-0.5 flex-shrink-0" />
             <div className="flex-1 min-w-0">
               <div className="text-[11px] text-muted-foreground mb-0.5">
                 نوع الطلب
@@ -157,8 +157,8 @@ export const OrderSourceCard: React.FC<OrderSourceCardProps> = ({ order }) => {
 
         {/* Previous Order Link (for Exchange / Return) */}
         {(parsedMetadata?.originalOrderNumber || parsedMetadata?.originalOrderId) && (
-          <div className="flex items-start gap-3 p-3 bg-teal-500/5 rounded-lg border border-teal-500/20">
-            <ArrowLeftRight className="h-4 w-4 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" />
+          <div className="flex items-start gap-3 p-3 bg-success/5 rounded-lg border border-success/20">
+            <ArrowLeftRight className="h-4 w-4 text-success dark:text-success mt-0.5 flex-shrink-0" />
             <div className="flex-1 min-w-0">
               <div className="text-[11px] text-muted-foreground mb-0.5">
                 الطلب السابق المرتبط بالاستبدال / المرتجع
@@ -166,7 +166,7 @@ export const OrderSourceCard: React.FC<OrderSourceCardProps> = ({ order }) => {
               <div className="flex items-center gap-2">
                 <Link
                   to={`/orders?search=${encodeURIComponent(parsedMetadata.originalOrderNumber || parsedMetadata.originalOrderId)}`}
-                  className="font-mono text-xs font-semibold text-teal-700 dark:text-teal-300 hover:underline"
+                  className="font-mono text-xs font-semibold text-success dark:text-success hover:underline"
                 >
                   #{parsedMetadata.originalOrderNumber || parsedMetadata.originalOrderId}
                 </Link>

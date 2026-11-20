@@ -30,7 +30,7 @@ export const AutomationEventSettingsCard: React.FC<AutomationEventSettingsCardPr
   getStatusName,
 }) => {
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-5 shadow-xs">
+    <div className="rounded-xl border border-border/70 bg-card p-5 shadow-xs">
       <div className="flex items-center gap-2 mb-4">
         <h3 className="text-sm font-bold text-foreground">
           الأتمتة المبنية على الأحداث

@@ -47,12 +47,12 @@ export const getPaymentMethodLabel = (method: string): string => {
 
 export const getStatusColor = (status: string): string => {
   const s = status.toUpperCase();
-  if (s.includes("DELIVERED") || s.includes("COMPLETED")) return "bg-emerald-500";
-  if (s.includes("CANCEL") || s.includes("REJECT") || s.includes("FAIL")) return "bg-rose-500";
-  if (s.includes("RETURN") || s.includes("REFUND")) return "bg-amber-500";
-  if (s.includes("SHIP") || s.includes("TRANSIT") || s.includes("OUT_FOR_DELIVERY")) return "bg-sky-500";
-  if (s.includes("PENDING") || s.includes("HOLD") || s.includes("WAIT")) return "bg-amber-500";
-  if (s.includes("PROCESS") || s.includes("PREP")) return "bg-indigo-500";
-  if (s.includes("CONFIRM")) return "bg-blue-500";
-  return "bg-zinc-500";
+  if (s.includes("DELIVERED") || s.includes("COMPLETED")) return "bg-success";
+  if (s.includes("CANCEL") || s.includes("REJECT") || s.includes("FAIL")) return "bg-destructive";
+  if (s.includes("RETURN") || s.includes("REFUND")) return "bg-warning";
+  if (s.includes("SHIP") || s.includes("TRANSIT") || s.includes("OUT_FOR_DELIVERY")) return "bg-info";
+  if (s.includes("PENDING") || s.includes("HOLD") || s.includes("WAIT")) return "bg-warning";
+  if (s.includes("PROCESS") || s.includes("PREP")) return "bg-primary";
+  if (s.includes("CONFIRM")) return "bg-primary";
+  return "bg-muted";
 };

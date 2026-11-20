@@ -24,7 +24,7 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
   return (
     <>
       <div>
-        <label className="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">
+        <label className="text-sm font-medium text-muted-foreground block mb-1">
           {t("orderDetails.governorate")}
         </label>
         {isEditing ? (
@@ -46,7 +46,7 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
             loadingText={t("orderDetails.loading") as string}
           />
         ) : (
-          <p className="text-gray-900 dark:text-gray-100">
+          <p className="text-foreground">
             {(() => {
               const val =
                 order.governorate ||
@@ -68,17 +68,17 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">
+        <label className="text-sm font-medium text-muted-foreground block mb-1">
           {t("orderDetails.areaCity")}
         </label>
         {isEditing ? (
-          <p className="text-gray-900 dark:text-gray-100">
+          <p className="text-foreground">
             {editForm.city
               ? String(editForm.city).replace(/^\d+:/, "").trim()
               : t("orders.notSpecified")}
           </p>
         ) : (
-          <p className="text-gray-900 dark:text-gray-100">
+          <p className="text-foreground">
             {order.city
               ? String(order.city).replace(/^\d+:/, "").trim()
               : t("orders.notSpecified")}
@@ -87,7 +87,7 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">
+        <label className="text-sm font-medium text-muted-foreground block mb-1">
           {t("orderDetails.detailedAddress", "العنوان التفصيلي")}
         </label>
         {isEditing ? (
@@ -97,14 +97,14 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
               onChange={(e) =>
                 setEditForm({ ...editForm, customerAddress: e.target.value })
               }
-              className="w-full border-gray-300 dark:border-gray-600 rounded-md text-sm dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+              className="w-full border-border rounded-md text-sm dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:placeholder-muted"
               rows={3}
               placeholder={t("orderDetails.addressPlaceholder", "أدخل العنوان التفصيلي...").toString()}
             />
           </div>
         ) : (
-          <div className="flex items-start text-gray-900 dark:text-gray-100">
-            <MapPinIcon className="w-4 h-4 text-gray-400 dark:text-gray-500 ml-2 mt-1" />
+          <div className="flex items-start text-foreground">
+            <MapPinIcon className="w-4 h-4 text-muted-foreground/80 ms-2 mt-1" />
             <span>
               {(() => {
                 if (!order.customerAddress) return t("orders.notSpecified");

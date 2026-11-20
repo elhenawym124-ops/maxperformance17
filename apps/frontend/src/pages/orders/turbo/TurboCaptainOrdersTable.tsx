@@ -120,13 +120,13 @@ export const TurboCaptainOrdersTable: React.FC<TurboCaptainOrdersTableProps> = (
                     </span>
                   </td>
                   <td
-                    className="px-4 py-3 text-[11px] text-amber-600 dark:text-amber-400 max-w-[180px] truncate"
+                    className="px-4 py-3 text-[11px] text-warning dark:text-warning max-w-[180px] truncate"
                     title={o.turboDelayReason || ""}
                   >
                     {o.turboDelayReason || "—"}
                   </td>
                   <td
-                    className="px-4 py-3 text-[11px] text-rose-600 dark:text-rose-400 max-w-[180px] truncate"
+                    className="px-4 py-3 text-[11px] text-destructive dark:text-destructive max-w-[180px] truncate"
                     title={o.turboReturnReason || ""}
                   >
                     {o.turboReturnReason || "—"}

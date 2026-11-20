@@ -28,7 +28,7 @@ export const TicketListTab: React.FC<TicketListTabProps> = ({
   if (existingTickets.length === 0) {
     return (
       <div className="p-8 text-center text-xs text-muted-foreground space-y-3">
-        <div className="h-10 w-10 rounded-2xl bg-muted text-muted-foreground mx-auto flex items-center justify-center">
+        <div className="h-10 w-10 rounded-xl bg-muted text-muted-foreground mx-auto flex items-center justify-center">
           <Ticket className="h-5 w-5" />
         </div>
         <p className="font-semibold text-foreground text-sm">
@@ -40,7 +40,7 @@ export const TicketListTab: React.FC<TicketListTabProps> = ({
         <button
           type="button"
           onClick={onOpenNewTab}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white transition active:scale-95 shadow-xs cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-warning hover:bg-warning text-white transition active:scale-95 shadow-xs cursor-pointer"
         >
           <Plus className="h-3.5 w-3.5" />
           <span>فتح تذكرة الآن</span>
@@ -51,7 +51,7 @@ export const TicketListTab: React.FC<TicketListTabProps> = ({
 
   return (
     <div className="p-4 space-y-3">
-      <div className="divide-y divide-border/60 border border-border/70 rounded-2xl overflow-hidden bg-card">
+      <div className="divide-y divide-border/60 border border-border/70 rounded-xl overflow-hidden bg-card">
         {existingTickets.map((t) => {
           const badge = getStatusBadge(t.status);
           const lastMsg =
@@ -92,7 +92,7 @@ export const TicketListTab: React.FC<TicketListTabProps> = ({
                   </p>
                 )}
               </div>
-              <span className="text-xs text-amber-600 dark:text-amber-400 shrink-0 font-semibold flex items-center gap-1">
+              <span className="text-xs text-warning dark:text-warning shrink-0 font-semibold flex items-center gap-1">
                 <span>عرض المحادثة</span>
                 <ArrowLeft className="h-3.5 w-3.5" />
               </span>

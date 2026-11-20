@@ -49,7 +49,7 @@ export const IncompleteReports: React.FC = () => {
       />
 
       {hint && !error && (
-        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2.5 text-xs text-amber-600 dark:text-amber-400 font-medium">
+        <div className="rounded-lg border border-warning/30 bg-warning/10 px-4 py-2.5 text-xs text-warning dark:text-warning font-medium">
           {hint}
         </div>
       )}
@@ -79,7 +79,7 @@ export const IncompleteReports: React.FC = () => {
       ) : data ? (
         <>
           {error && !loading && (
-            <div className="flex items-center justify-between flex-wrap gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3.5 py-2 text-xs text-amber-600 dark:text-amber-400 font-medium">
+            <div className="flex items-center justify-between flex-wrap gap-2 rounded-lg border border-warning/30 bg-warning/10 px-3.5 py-2 text-xs text-warning dark:text-warning font-medium">
               <span>
                 {t(
                   "orders.incompleteReportsStaleError",
@@ -89,7 +89,7 @@ export const IncompleteReports: React.FC = () => {
               <button
                 type="button"
                 onClick={handleRetry}
-                className="inline-flex items-center gap-1 rounded-md border border-amber-500/30 px-2 py-0.5 text-xs font-semibold hover:bg-amber-500/20 active:scale-[0.98] transition-all"
+                className="inline-flex items-center gap-1 rounded-md border border-warning/30 px-2 py-0.5 text-xs font-semibold hover:bg-warning/20 active:scale-[0.98] transition-all"
               >
                 <RotateCw className="h-3 w-3" />
                 <span>{t("orders.incompleteRetry", "إعادة المحاولة")}</span>

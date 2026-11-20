@@ -28,9 +28,9 @@ export const WalletPaymentProofCard: React.FC<WalletPaymentProofCardProps> = ({
     switch (status) {
       case "VERIFIED":
         return {
-          icon: <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />,
+          icon: <CheckCircle2 className="h-3.5 w-3.5 text-success dark:text-success" />,
           label: t("orders.verified", { defaultValue: "تم التحقق" }),
-          cls: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20",
+          cls: "bg-success/10 text-success dark:text-success border-success/20",
         };
       case "REJECTED":
         return {
@@ -40,9 +40,9 @@ export const WalletPaymentProofCard: React.FC<WalletPaymentProofCardProps> = ({
         };
       default:
         return {
-          icon: <Clock className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />,
+          icon: <Clock className="h-3.5 w-3.5 text-warning dark:text-warning" />,
           label: t("orders.pendingReview", { defaultValue: "بانتظار المراجعة" }),
-          cls: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20",
+          cls: "bg-warning/10 text-warning dark:text-warning border-warning/20",
         };
     }
   };
@@ -50,7 +50,7 @@ export const WalletPaymentProofCard: React.FC<WalletPaymentProofCardProps> = ({
   const badge = getStatusBadge();
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-xs space-y-3">
+    <div className="rounded-xl border border-border/70 bg-card p-4 shadow-xs space-y-3">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -117,7 +117,7 @@ export const WalletPaymentProofCard: React.FC<WalletPaymentProofCardProps> = ({
           <button
             type="button"
             onClick={() => void onVerify("VERIFY")}
-            className="flex-1 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-bold text-white hover:bg-emerald-700 active:scale-95 transition-all shadow-xs"
+            className="flex-1 rounded-xl bg-success px-3 py-2 text-xs font-bold text-white hover:bg-success active:scale-95 transition-all shadow-xs"
           >
             {t("orders.confirmPayment", { defaultValue: "تأكيد الدفع" })}
           </button>

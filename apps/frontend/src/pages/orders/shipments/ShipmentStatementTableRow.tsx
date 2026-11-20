@@ -94,14 +94,14 @@ export const ShipmentStatementTableRow: React.FC<ShipmentStatementTableRowProps>
         </div>
 
         {s.delayReason && (
-          <div className="mt-1 p-1 px-1.5 rounded bg-amber-500/10 border border-amber-500/20 text-[10px] text-amber-800 dark:text-amber-300 font-medium">
+          <div className="mt-1 p-1 px-1.5 rounded bg-warning/10 border border-warning/20 text-[10px] text-warning dark:text-warning font-medium">
             <span>سبب التأجيل: </span>
             <span>{s.delayReason}</span>
           </div>
         )}
 
         {s.returnReason && (
-          <div className="mt-1 p-1 px-1.5 rounded bg-rose-500/10 border border-rose-500/20 text-[10px] text-rose-800 dark:text-rose-300 font-medium">
+          <div className="mt-1 p-1 px-1.5 rounded bg-destructive/10 border border-destructive/20 text-[10px] text-destructive dark:text-destructive font-medium">
             <span>سبب الإرجاع: </span>
             <span>{s.returnReason}</span>
           </div>
@@ -181,7 +181,7 @@ export const ShipmentStatementTableRow: React.FC<ShipmentStatementTableRowProps>
           )}
         </div>
         {Number(s.receivedAmount) > 0 && (
-          <div className="text-[10px] font-mono tabular-nums text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
+          <div className="text-[10px] font-mono tabular-nums text-success dark:text-success font-semibold mt-0.5">
             مستلم:{" "}
             {formatPrice(
               Number(s.receivedAmount),

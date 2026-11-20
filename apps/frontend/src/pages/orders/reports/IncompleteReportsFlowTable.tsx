@@ -47,16 +47,16 @@ export const IncompleteReportsFlowTable: React.FC<
                 <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-foreground uppercase tracking-wider">
                   إجمالي غير المكتمل
                 </th>
-                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-success dark:text-success uppercase tracking-wider">
                   حولها الفريق لأوردرات
                 </th>
-                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-rose-600 dark:text-rose-400 uppercase tracking-wider">
+                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-destructive dark:text-destructive uppercase tracking-wider">
                   ألغاها الفريق بالتأكيد
                 </th>
-                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
+                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-warning dark:text-warning uppercase tracking-wider">
                   مفقودة بالتقادم
                 </th>
-                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-primary dark:text-primary uppercase tracking-wider">
                   معلقة في الطابور (فرص)
                 </th>
                 <th className="px-3.5 py-2.5 text-end text-xs font-semibold text-muted-foreground uppercase tracking-wider">

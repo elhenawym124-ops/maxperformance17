@@ -16,55 +16,55 @@ export const IncompleteReportsSources: React.FC<
   const sourceMeta: Record<string, { label: string; color: string }> = {
     facebook: {
       label: t("orders.sourceFacebook", "فيسبوك (Facebook)"),
-      color: "bg-blue-600",
+      color: "bg-primary",
     },
     instagram: {
       label: t("orders.sourceInstagram", "إنستغرام (Instagram)"),
-      color: "bg-gradient-to-r from-purple-500 to-pink-500",
+      color: "bg-gradient-to-r from-primary to-primary",
     },
     tiktok: {
       label: t("orders.sourceTikTok", "تيك توك (TikTok)"),
-      color: "bg-neutral-900 dark:bg-neutral-100",
+      color: "bg-muted dark:dark:bg-muted",
     },
     snapchat: {
       label: t("orders.sourceSnapchat", "سناب شات (Snapchat)"),
-      color: "bg-amber-400",
+      color: "bg-warning",
     },
     google: {
       label: t("orders.sourceGoogle", "إعلانات جوجل (Google)"),
-      color: "bg-red-500",
+      color: "bg-destructive",
     },
     direct: {
       label: t("orders.sourceDirect", "مباشر / بدون إعلان"),
-      color: "bg-slate-400",
+      color: "bg-muted",
     },
     storefront: {
       label: t("orders.sourceStorefront", "المتجر"),
-      color: "bg-blue-500",
+      color: "bg-primary",
     },
     ai_conversation: {
       label: t("orders.sourceAutoConversation", "محادثة ذكية"),
-      color: "bg-purple-500",
+      color: "bg-primary",
     },
     internal_push: {
       label: t("orders.sourceInternalPush", "إدخال داخلي"),
-      color: "bg-amber-500",
+      color: "bg-warning",
     },
     manual: {
       label: t("orders.sourceManual", "يدوي"),
-      color: "bg-emerald-500",
+      color: "bg-success",
     },
     woocommerce: {
       label: t("orders.sourceWooCommerce", "ووكومرس"),
-      color: "bg-teal-500",
+      color: "bg-success",
     },
     api: {
       label: t("orders.sourceAPI", "API"),
-      color: "bg-pink-500",
+      color: "bg-primary",
     },
     import: {
       label: t("orders.sourceImport", "استيراد"),
-      color: "bg-indigo-500",
+      color: "bg-primary",
     },
   };
 

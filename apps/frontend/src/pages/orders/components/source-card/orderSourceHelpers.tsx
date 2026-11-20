@@ -38,23 +38,23 @@ export const getChannelInfo = (order: {
   const channelMap: Record<string, { name: string; color: string }> = {
     WHATSAPP: {
       name: "واتساب",
-      color: "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+      color: "border-success/30 bg-success/10 text-success dark:text-success",
     },
     FACEBOOK: {
       name: "فيسبوك",
-      color: "border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400",
+      color: "border-primary/30 bg-primary/10 text-primary dark:text-primary",
     },
     INSTAGRAM: {
       name: "انستجرام",
-      color: "border-pink-500/30 bg-pink-500/10 text-pink-600 dark:text-pink-400",
+      color: "border-primary/30 bg-primary/10 text-primary dark:text-primary",
     },
     TELEGRAM: {
       name: "تيليجرام",
-      color: "border-sky-500/30 bg-sky-500/10 text-sky-600 dark:text-sky-400",
+      color: "border-info/30 bg-info/10 text-info dark:text-info",
     },
     WEBCHAT: {
       name: "الدردشة المباشرة",
-      color: "border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400",
+      color: "border-primary/30 bg-primary/10 text-primary dark:text-primary",
     },
   };
 

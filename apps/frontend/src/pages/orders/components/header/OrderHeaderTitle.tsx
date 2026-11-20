@@ -78,7 +78,7 @@ export const OrderHeaderTitle: React.FC<OrderHeaderTitleProps> = ({
               (typeof order.orderNumber === "string" && order.orderNumber.includes("-AFF-"))
           ) && (
             <span
-              className="inline-flex items-center gap-1 rounded-md bg-purple-500/10 px-2 py-0.5 text-xs font-bold text-purple-700 dark:text-purple-300 border border-purple-500/20"
+              className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary dark:text-primary border border-primary/20"
               title={
                 (order as any).affiliate?.user?.company?.name
                   ? `أوردر من شركة مرتبطة: ${(order as any).affiliate.user.company.name}`

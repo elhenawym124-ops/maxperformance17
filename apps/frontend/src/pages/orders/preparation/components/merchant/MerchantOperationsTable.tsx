@@ -84,7 +84,7 @@ export const MerchantOperationsTable: React.FC<MerchantOperationsTableProps> = (
                 <td className="px-4 py-3 font-mono text-xs font-semibold tabular-nums text-foreground">
                   {formatPrice(row.expectedAmount)}
                 </td>
-                <td className="px-4 py-3 font-mono text-xs font-bold tabular-nums text-emerald-700 dark:text-emerald-400">
+                <td className="px-4 py-3 font-mono text-xs font-bold tabular-nums text-success dark:text-success">
                   {formatPrice(row.payableAmount)}
                 </td>
               </tr>
@@ -132,11 +132,11 @@ export const MerchantOperationsTable: React.FC<MerchantOperationsTableProps> = (
                     {formatPrice(row.expectedAmount)}
                   </p>
                 </div>
-                <div className="rounded-lg bg-emerald-50 px-2 py-1.5 dark:bg-emerald-950/40">
-                  <p className="text-emerald-700 dark:text-emerald-400 text-[10px]">
+                <div className="rounded-lg bg-success/10 px-2 py-1.5 dark:bg-success/40">
+                  <p className="text-success dark:text-success text-[10px]">
                     {t("merchant.table.due")}
                   </p>
-                  <p className="font-mono text-xs font-bold text-emerald-700 dark:text-emerald-300">
+                  <p className="font-mono text-xs font-bold text-success dark:text-success">
                     {formatPrice(row.payableAmount)}
                   </p>
                 </div>

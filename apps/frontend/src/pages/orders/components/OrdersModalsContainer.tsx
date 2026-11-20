@@ -43,7 +43,7 @@ export const OrdersModalsContainer: React.FC<OrdersModalsContainerProps> = ({
         <ErrorBoundary
           fallback={
             <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-              <div className="w-full max-w-sm rounded-2xl border border-border/70 bg-card p-6 text-center shadow-2xl text-card-foreground">
+              <div className="w-full max-w-sm rounded-xl border border-border/70 bg-card p-6 text-center shadow-2xl text-card-foreground">
                 <p className="text-sm font-semibold text-foreground">
                   {t("orders.modalLoadFailed", { defaultValue: "تعذر تحميل تفاصيل الطلب" })}
                 </p>
@@ -85,7 +85,7 @@ export const OrdersModalsContainer: React.FC<OrdersModalsContainerProps> = ({
         <ErrorBoundary
           fallback={
             <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-              <div className="w-full max-w-sm rounded-2xl border border-border/70 bg-card p-6 text-center shadow-2xl text-card-foreground">
+              <div className="w-full max-w-sm rounded-xl border border-border/70 bg-card p-6 text-center shadow-2xl text-card-foreground">
                 <p className="text-sm font-semibold text-foreground">
                   {t("orders.modalLoadFailed", { defaultValue: "تعذر تحميل الفاتورة" })}
                 </p>

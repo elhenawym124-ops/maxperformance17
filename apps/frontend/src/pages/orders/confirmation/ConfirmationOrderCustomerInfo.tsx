@@ -61,7 +61,7 @@ export const ConfirmationOrderCustomerInfo: React.FC<ConfirmationOrderCustomerIn
               {paymentBadge.label}
             </span>
             {isPrepaid && (
-              <span className="text-[11px] px-2 py-0.5 rounded-md border border-amber-300 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200 font-semibold">
+              <span className="text-[11px] px-2 py-0.5 rounded-md border border-warning bg-warning/10 text-warning dark:border-warning dark:bg-warning/40 dark:text-warning font-semibold">
                 قيد المراجعة والمطابقة
               </span>
             )}

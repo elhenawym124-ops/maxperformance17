@@ -41,10 +41,10 @@ export const IncompleteReportsTeamTable: React.FC<
                 <th className="px-3.5 py-2.5 text-start text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   {t("orders.incompleteTeamEmployee", "الموظف")}
                 </th>
-                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-success dark:text-success uppercase tracking-wider">
                   سلات حولها لأوردرات
                 </th>
-                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-rose-600 dark:text-rose-400 uppercase tracking-wider">
+                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-destructive dark:text-destructive uppercase tracking-wider">
                   سلات ألغاها بالتأكيد
                 </th>
                 <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -53,7 +53,7 @@ export const IncompleteReportsTeamTable: React.FC<
                 <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   إجمالي التعامل
                 </th>
-                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                <th className="px-3.5 py-2.5 text-center text-xs font-semibold text-success dark:text-success uppercase tracking-wider">
                   نسبة التحويل
                 </th>
                 <th className="px-3.5 py-2.5 text-end text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -115,7 +115,7 @@ export const IncompleteReportsTeamTable: React.FC<
                     </td>
 
                     <td className="px-3.5 py-2.5 text-center">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono tabular-nums">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-bold bg-success/10 text-success dark:text-success border border-success/20 font-mono tabular-nums">
                         {Number(member.conversions || 0).toLocaleString()}
                       </span>
                       {Number(member.value || 0) > 0 && (
@@ -126,7 +126,7 @@ export const IncompleteReportsTeamTable: React.FC<
                     </td>
 
                     <td className="px-3.5 py-2.5 text-center">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 font-mono tabular-nums">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-bold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 font-mono tabular-nums">
                         {Number(member.dismissed || 0).toLocaleString()}
                       </span>
                     </td>
@@ -139,7 +139,7 @@ export const IncompleteReportsTeamTable: React.FC<
                       {handled.toLocaleString()}
                     </td>
 
-                    <td className="px-3.5 py-2.5 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+                    <td className="px-3.5 py-2.5 text-center text-xs font-semibold text-success dark:text-success font-mono tabular-nums">
                       {Number(member.conversionRate || 0).toFixed(1)}%
                     </td>
 
@@ -157,7 +157,7 @@ export const IncompleteReportsTeamTable: React.FC<
                   <td className="px-3.5 py-2.5 text-start text-foreground font-bold">
                     إجمالي تعامل الفريق
                   </td>
-                  <td className="px-3.5 py-2.5 text-center text-emerald-600 dark:text-emerald-400 font-mono tabular-nums font-bold">
+                  <td className="px-3.5 py-2.5 text-center text-success dark:text-success font-mono tabular-nums font-bold">
                     <div>
                       {team
                         .reduce((s, m) => s + Number(m.conversions || 0), 0)
@@ -169,7 +169,7 @@ export const IncompleteReportsTeamTable: React.FC<
                       )}
                     </div>
                   </td>
-                  <td className="px-3.5 py-2.5 text-center text-rose-600 dark:text-rose-400 font-mono tabular-nums font-bold">
+                  <td className="px-3.5 py-2.5 text-center text-destructive dark:text-destructive font-mono tabular-nums font-bold">
                     {team
                       .reduce((s, m) => s + Number(m.dismissed || 0), 0)
                       .toLocaleString()}
@@ -192,7 +192,7 @@ export const IncompleteReportsTeamTable: React.FC<
                       )
                       .toLocaleString()}
                   </td>
-                  <td className="px-3.5 py-2.5 text-center text-emerald-600 dark:text-emerald-400 font-mono tabular-nums font-bold">
+                  <td className="px-3.5 py-2.5 text-center text-success dark:text-success font-mono tabular-nums font-bold">
                     {(() => {
                       const totalHandled = team.reduce(
                         (s, m) =>

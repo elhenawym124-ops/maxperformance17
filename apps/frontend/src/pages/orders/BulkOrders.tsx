@@ -103,7 +103,7 @@ export const BulkOrders = () => {
       />
 
       {/* Filter and Table Surface */}
-      <div className="bg-card rounded-2xl border border-border/70 shadow-xs overflow-hidden">
+      <div className="bg-card rounded-xl border border-border/70 shadow-xs overflow-hidden">
         <BulkOrdersFilterBar
           search={search}
           setSearch={setSearch}

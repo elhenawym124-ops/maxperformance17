@@ -32,24 +32,24 @@ export const AvailabilityStatsStrip: React.FC<AvailabilityStatsStripProps> = ({
       title: "طلب مسبق مفعل",
       value: preOrderOn,
       icon: ShoppingBagIcon,
-      accent: "text-purple-600 dark:text-purple-400",
+      accent: "text-primary dark:text-primary",
     },
     {
       title: "تتبع مخزون مفعل",
       value: trackOn,
       icon: ShieldCheckIcon,
-      accent: "text-emerald-600 dark:text-emerald-400",
+      accent: "text-success dark:text-success",
     },
     {
       title: "نفد المخزون",
       value: outOfStock,
       icon: XCircleIcon,
-      accent: "text-rose-600 dark:text-rose-400",
+      accent: "text-destructive dark:text-destructive",
     },
   ];
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card shadow-2xs overflow-hidden">
+    <div className="rounded-xl border border-border/70 bg-card shadow-2xs overflow-hidden">
       <div className="grid grid-cols-2 divide-y divide-border/50 sm:grid-cols-4 sm:divide-y-0 sm:divide-x rtl:">
         {metricCards.map((card, index) => (
           <div key={index} className="p-3 sm:p-4 flex flex-col justify-between">

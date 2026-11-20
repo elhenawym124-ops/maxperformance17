@@ -156,7 +156,7 @@ const OrderInvoice: React.FC<{ orderId?: string; invoiceId?: string }> = ({
   if (error || !invoice) {
     return (
       <div className="p-3">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+        <div className="bg-destructive/10 border border-destructive rounded-lg p-4 text-destructive">
           {error || t("orders.invoice.notFound")}
         </div>
         <Button variant="outline" onClick={() => navigate(-1)} className="mt-2">

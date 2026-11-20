@@ -16,19 +16,19 @@ export const OrdersTopProductsTable: React.FC<OrdersTopProductsTableProps> = ({
 }) => {
   return (
     <div className="p-3 sm:p-4 bg-white dark:bg-[#0a0a0c]">
-      <div className="flex items-center justify-between pb-2.5 border-b border-zinc-150 dark:border-white/[0.06] mb-3">
+      <div className="flex items-center justify-between pb-2.5 border-b border-border dark:border-white/[0.06] mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md bg-zinc-500/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 rounded-md /10/10bg-muted text-foreground dark:dark:text-muted-foreground flex items-center justify-center shrink-0">
             <CubeIcon className="h-3.5 w-3.5" />
           </div>
           <div>
-            <h2 className="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-wider">
+            <h2 className="text-xs font-bold text-foreground dark:text-white uppercase tracking-wider">
               أفضل المنتجات مبيعاً وأعلاها عائداً
             </h2>
-            <p className="text-[10px] text-zinc-400">ترتيب المنتجات وفقاً للكميات المحققة وحجم المبيعات الفعلي</p>
+            <p className="text-[10px] text-muted-foreground">ترتيب المنتجات وفقاً للكميات المحققة وحجم المبيعات الفعلي</p>
           </div>
         </div>
-        <span className="text-[10px] text-zinc-400 font-mono tabular-nums">
+        <span className="text-[10px] text-muted-foreground font-mono tabular-nums">
           {products.length} منتج
         </span>
       </div>
@@ -40,12 +40,12 @@ export const OrdersTopProductsTable: React.FC<OrdersTopProductsTableProps> = ({
           ))}
         </div>
       ) : products.length === 0 ? (
-        <p className="text-center text-xs text-zinc-400 py-8">لا توجد بيانات مبيعات منتجات متاحة في هذه الفترة</p>
+        <p className="text-center text-xs text-muted-foreground py-8">لا توجد بيانات مبيعات منتجات متاحة في هذه الفترة</p>
       ) : (
         <div className="overflow-x-auto -mx-3.5 sm:mx-0">
           <table className="w-full text-xs min-w-[640px]">
             <thead>
-              <tr className="border-b border-zinc-200/60 dark:border-white/[0.06] text-zinc-500 dark:text-zinc-400 bg-zinc-50/50 dark:bg-zinc-900/40 text-[11px]">
+              <tr className="border-b /60/60border-border dark:border-white/[0.06] text-muted-foreground dark:dark:text-muted-foreground /50/50bg-muted dark:dark:bg-muted text-[11px]">
                 <th className="py-2 px-3 text-start font-semibold">المنتج</th>
                 <th className="py-2 px-3 text-start font-semibold">الكمية المباعة</th>
                 <th className="py-2 px-3 text-start font-semibold">عدد الطلبات</th>
@@ -53,45 +53,45 @@ export const OrdersTopProductsTable: React.FC<OrdersTopProductsTableProps> = ({
                 <th className="py-2 px-3 text-start font-semibold">إجمالي المبيعات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-150 dark:divide-white/[0.04]">
+            <tbody className="divide-y divide-border dark:divide-white/[0.04]">
               {products.slice(0, 15).map((p) => (
-                <tr key={p.productId} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-900/50 transition-colors">
+                <tr key={p.productId} className="hover:hover:bg-muted dark:hover:dark:hover:bg-muted transition-colors">
                   <td className="py-2 px-3">
                     <div className="flex items-center gap-2 min-w-0">
                       {p.productImage ? (
                         <img
                           src={p.productImage}
                           alt={p.productName}
-                          className="h-6 w-6 rounded object-cover shrink-0 border border-zinc-200 dark:border-white/10"
+                          className="h-6 w-6 rounded object-cover shrink-0 border border-border dark:border-white/10"
                           loading="lazy"
                         />
                       ) : (
-                        <div className="h-6 w-6 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-500 flex items-center justify-center shrink-0 border border-zinc-200/60 dark:border-white/10">
+                        <div className="h-6 w-6 rounded bg-muted dark:dark:bg-muted text-muted-foreground flex items-center justify-center shrink-0 border /60/60border-border dark:border-white/10">
                           <CubeIcon className="h-3 w-3" />
                         </div>
                       )}
                       <div className="min-w-0">
-                        <p className="font-semibold text-zinc-900 dark:text-white truncate text-[11px]">
+                        <p className="font-semibold text-foreground dark:text-white truncate text-[11px]">
                           {p.productName}
                         </p>
                         {p.productSku && (
-                          <p className="text-[10px] text-zinc-400 font-mono truncate">
+                          <p className="text-[10px] text-muted-foreground font-mono truncate">
                             SKU: {p.productSku}
                           </p>
                         )}
                       </div>
                     </div>
                   </td>
-                  <td className="py-2 px-3 font-bold text-zinc-900 dark:text-white tabular-nums">
+                  <td className="py-2 px-3 font-bold text-foreground dark:text-white tabular-nums">
                     {p.quantitySold.toLocaleString()}
                   </td>
-                  <td className="py-2 px-3 text-zinc-600 dark:text-zinc-300 tabular-nums">
+                  <td className="py-2 px-3 text-foreground dark:dark:text-muted-foreground tabular-nums">
                     {p.orderCount.toLocaleString()}
                   </td>
-                  <td className="py-2 px-3 text-zinc-600 dark:text-zinc-300 tabular-nums">
+                  <td className="py-2 px-3 text-foreground dark:dark:text-muted-foreground tabular-nums">
                     {formatPrice(p.averagePrice)}
                   </td>
-                  <td className="py-2 px-3 text-zinc-900 dark:text-white font-bold tabular-nums whitespace-nowrap">
+                  <td className="py-2 px-3 text-foreground dark:text-white font-bold tabular-nums whitespace-nowrap">
                     {formatPrice(p.revenue)}
                   </td>
                 </tr>

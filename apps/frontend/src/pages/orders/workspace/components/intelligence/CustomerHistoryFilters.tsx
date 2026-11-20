@@ -35,8 +35,8 @@ export const CustomerHistoryFilters: React.FC<CustomerHistoryFiltersProps> = ({
         onClick={() => onFilterChange("delivered")}
         className={`px-2 py-0.5 rounded-md font-semibold transition ${
           orderFilter === "delivered"
-            ? "bg-emerald-600 text-white font-bold"
-            : "text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10"
+            ? "bg-success text-white font-bold"
+            : "text-success dark:text-success hover:bg-success/10"
         }`}
       >
         {isArabic ? "المستلمة" : "Delivered"} ({deliveredCount})

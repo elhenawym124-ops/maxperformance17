@@ -41,7 +41,7 @@ export const ShipmentsHeader: React.FC<ShipmentsHeaderProps> = ({
 
         <Link
           to="/tickets"
-          className="px-3 py-1.5 text-xs font-medium text-amber-700 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-xl hover:bg-amber-500/20 transition-colors flex items-center gap-1"
+          className="px-3 py-1.5 text-xs font-medium text-warning dark:text-warning bg-warning/10 border border-warning/20 rounded-xl hover:bg-warning/20 transition-colors flex items-center gap-1"
         >
           <span>تذاكر وشات الشحن</span>
         </Link>

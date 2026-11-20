@@ -29,7 +29,7 @@ export const MerchantOperationsKpis: React.FC<MerchantOperationsKpisProps> = ({
         subValue: t("merchant.statSubValues.ordersCount", { count: totals.inShippingOrdersCount }),
         icon: TruckIcon,
         className:
-          "border-sky-200 bg-sky-50 text-sky-900 dark:border-sky-800 dark:bg-sky-950/40 dark:text-sky-200",
+          "border-info bg-info/10 text-info dark:border-info dark:bg-info/40 dark:text-info",
       },
       {
         label: t("merchant.statCards.delivered"),
@@ -37,7 +37,7 @@ export const MerchantOperationsKpis: React.FC<MerchantOperationsKpisProps> = ({
         subValue: t("merchant.statSubValues.ordersCount", { count: totals.deliveredOrdersCount }),
         icon: CheckCircleIcon,
         className:
-          "border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200",
+          "border-success bg-success/10 text-success dark:border-success dark:bg-success/40 dark:text-success",
       },
       {
         label: t("merchant.statCards.payable"),
@@ -45,7 +45,7 @@ export const MerchantOperationsKpis: React.FC<MerchantOperationsKpisProps> = ({
         subValue: t("merchant.statSubValues.piecesCount", { count: totals.pendingPayablePieces }),
         icon: CubeIcon,
         className:
-          "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-200",
+          "border-primary bg-primary/10 text-primary dark:border-primary dark:bg-primary/40 dark:text-primary",
       },
       {
         label: t("merchant.statCards.notCompleted"),
@@ -53,7 +53,7 @@ export const MerchantOperationsKpis: React.FC<MerchantOperationsKpisProps> = ({
         subValue: t("merchant.statSubValues.ordersCount", { count: totals.notDeliveredOrdersCount }),
         icon: XCircleIcon,
         className:
-          "border-rose-200 bg-rose-50 text-rose-900 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-200",
+          "border-destructive bg-destructive/10 text-destructive dark:border-destructive dark:bg-destructive/40 dark:text-destructive",
       },
     ],
     [t, totals],
@@ -75,7 +75,7 @@ export const MerchantOperationsKpis: React.FC<MerchantOperationsKpisProps> = ({
         subValue: t("merchant.statSubValues.piecesCount", { count: totals.payablePieces }),
         icon: BanknotesIcon,
         className:
-          "border-emerald-200 bg-emerald-50/50 text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300",
+          "border-success bg-success/50 text-success dark:border-success dark:bg-success/40 dark:text-success",
       },
       {
         label: t("merchant.moneyCards.inShippingValue"),
@@ -83,7 +83,7 @@ export const MerchantOperationsKpis: React.FC<MerchantOperationsKpisProps> = ({
         subValue: t("merchant.statSubValues.piecesCount", { count: totals.inShippingPieces }),
         icon: TruckIcon,
         className:
-          "border-sky-200 bg-sky-50/50 text-sky-900 dark:border-sky-800 dark:bg-sky-950/40 dark:text-sky-300",
+          "border-info bg-info/50 text-info dark:border-info dark:bg-info/40 dark:text-info",
       },
       {
         label: t("merchant.moneyCards.shippingCost"),
@@ -94,7 +94,7 @@ export const MerchantOperationsKpis: React.FC<MerchantOperationsKpisProps> = ({
             : t("merchant.moneyCards.noPaymentsRecorded"),
         icon: BanknotesIcon,
         className:
-          "border-amber-200 bg-amber-50/50 text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300",
+          "border-warning bg-warning/50 text-warning dark:border-warning dark:bg-warning/40 dark:text-warning",
       },
     ],
     [formatPrice, t, totals],

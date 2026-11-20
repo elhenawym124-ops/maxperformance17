@@ -50,7 +50,7 @@ export const ShippingTrackingActions: React.FC<
         type="button"
         onClick={onResendShipment}
         disabled={resending || syncing}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition disabled:opacity-50 active:scale-97"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-primary/10 dark:bg-primary/50 text-primary dark:text-primary border border-primary dark:border-primary hover:bg-primary dark:hover:bg-primary/60 transition disabled:opacity-50 active:scale-97"
         title="إعادة إرسال وتحديث بيانات الشحنة والعنوان لشركة الشحن"
       >
         <PaperAirplaneIcon
@@ -63,7 +63,7 @@ export const ShippingTrackingActions: React.FC<
         type="button"
         onClick={onSyncStatus}
         disabled={syncing || resending}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition disabled:opacity-50 active:scale-97"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border dark:dark:border-border text-foreground dark:dark:text-muted-foreground hover:hover:bg-muted dark:hover:dark:hover:bg-muted transition disabled:opacity-50 active:scale-97"
       >
         <ArrowPathIcon
           className={`h-3.5 w-3.5 ${syncing ? "animate-spin" : ""}`}
@@ -75,10 +75,10 @@ export const ShippingTrackingActions: React.FC<
         <button
           type="button"
           onClick={onOpenTicket}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 transition shadow-xs active:scale-97"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-warning/10 dark:bg-warning/50 text-warning dark:text-warning border border-warning dark:border-warning hover:bg-warning transition shadow-xs active:scale-97"
           title="فتح تذكرة دعم بخصوص هذه الشحنة في مركز التذاكر"
         >
-          <TicketIcon className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+          <TicketIcon className="h-3.5 w-3.5 text-warning dark:text-warning" />
           <span>فتح تذكرة شحن</span>
         </button>
       )}
@@ -88,9 +88,9 @@ export const ShippingTrackingActions: React.FC<
           href="https://qpxpress.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition active:scale-97"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-foreground dark:dark:text-muted-foreground border border-border dark:dark:border-border hover:hover:bg-muted dark:hover:dark:hover:bg-muted transition active:scale-97"
         >
-          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 text-indigo-500" />
+          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 text-primary" />
           <span>بوابة QP Express</span>
         </a>
       )}
@@ -100,9 +100,9 @@ export const ShippingTrackingActions: React.FC<
           href="https://business.bosta.co"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition active:scale-97"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-foreground dark:dark:text-muted-foreground border border-border dark:dark:border-border hover:hover:bg-muted dark:hover:dark:hover:bg-muted transition active:scale-97"
         >
-          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 text-amber-600" />
+          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 text-warning" />
           <span>بوابة بوستا Bosta</span>
         </a>
       )}
@@ -112,7 +112,7 @@ export const ShippingTrackingActions: React.FC<
           href={shipment.labelUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition active:scale-97"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-primary/10 dark:bg-primary/50 text-primary dark:text-primary border border-primary dark:border-primary hover:bg-primary transition active:scale-97"
         >
           <PrinterIcon className="h-3.5 w-3.5" />
           <span>طباعة البوليصة AWB</span>
@@ -123,10 +123,10 @@ export const ShippingTrackingActions: React.FC<
         <button
           type="button"
           onClick={onPrintBostaAWB}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 transition shadow-xs active:scale-97"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-warning/10 dark:bg-warning/50 text-warning dark:text-warning border border-warning dark:border-warning hover:bg-warning transition shadow-xs active:scale-97"
           title="طباعة بوليصة شحن بوستا AWB"
         >
-          <PrinterIcon className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+          <PrinterIcon className="h-3.5 w-3.5 text-warning dark:text-warning" />
           <span>طباعة بوليصة بوستا AWB</span>
         </button>
       )}
@@ -135,10 +135,10 @@ export const ShippingTrackingActions: React.FC<
         <button
           type="button"
           onClick={onPrintQpWaybill}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800 hover:bg-amber-100 transition shadow-xs active:scale-97"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-warning/10 dark:bg-warning/50 text-warning dark:text-warning border border-warning dark:border-warning hover:bg-warning transition shadow-xs active:scale-97"
           title="طباعة ستيكر حراري (80×50 مم) مع الباركود"
         >
-          <PrinterIcon className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+          <PrinterIcon className="h-3.5 w-3.5 text-warning dark:text-warning" />
           <span>طباعة ستيكر QP (80×50 مم)</span>
         </button>
       )}
@@ -153,10 +153,10 @@ export const ShippingTrackingActions: React.FC<
             }/waybill`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-800 hover:bg-blue-100 transition shadow-xs active:scale-97"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary/10 dark:bg-primary/50 text-primary dark:text-primary border border-primary dark:border-primary hover:bg-primary transition shadow-xs active:scale-97"
             title="طباعة بوليصة شحن تربو الرسمية"
           >
-            <PrinterIcon className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+            <PrinterIcon className="h-3.5 w-3.5 text-primary dark:text-primary" />
             <span>طباعة بوليصة تربو AWB</span>
           </a>
         )}
@@ -164,7 +164,7 @@ export const ShippingTrackingActions: React.FC<
       <button
         type="button"
         onClick={onShowCancelModal}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 border border-rose-200 hover:bg-rose-50 dark:border-rose-900/50 dark:hover:bg-rose-950/30 transition active:scale-97"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-destructive border border-destructive hover:bg-destructive/10 dark:border-destructive/50 dark:hover:bg-destructive/30 transition active:scale-97"
       >
         <XMarkIcon className="h-3.5 w-3.5" />
         <span>إلغاء الشحنة</span>

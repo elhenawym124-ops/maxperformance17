@@ -33,34 +33,34 @@ export const ShippingDeliveryTelemetry: React.FC<
     <>
       {/* Return & Delay Reasons from Carrier */}
       {hasReturnOrDelay && (
-        <div className="p-3 rounded-lg bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 text-xs space-y-1.5">
+        <div className="p-3 rounded-lg bg-destructive/80 dark:bg-destructive/30 border border-destructive dark:border-destructive/50 text-xs space-y-1.5">
           {order?.turboReturnReason && (
             <div className="flex items-start gap-2">
-              <span className="font-bold text-rose-800 dark:text-rose-200 shrink-0">
+              <span className="font-bold text-destructive dark:text-destructive shrink-0">
                 سبب المرتجع:
               </span>
-              <span className="text-rose-950 dark:text-rose-100 font-semibold">
+              <span className="text-destructive dark:text-destructive font-semibold">
                 {order.turboReturnReason}
               </span>
             </div>
           )}
           {order?.turboDelayReason && (
-            <div className="flex items-start gap-2 pt-1 border-t border-rose-200/60 dark:border-rose-900/30">
-              <span className="font-medium text-rose-700 dark:text-rose-300 shrink-0">
+            <div className="flex items-start gap-2 pt-1 border-t border-destructive/60 dark:border-destructive/30">
+              <span className="font-medium text-destructive dark:text-destructive shrink-0">
                 ملاحظة التأخير:
               </span>
-              <span className="text-slate-800 dark:text-slate-200">
+              <span className="text-foreground dark:dark:text-muted-foreground">
                 {order.turboDelayReason}
               </span>
             </div>
           )}
           {shipmentMeta?.returnReason &&
             shipmentMeta.returnReason !== order?.turboReturnReason && (
-              <div className="flex items-start gap-2 pt-1 border-t border-rose-200/60 dark:border-rose-900/30">
-                <span className="font-medium text-rose-700 dark:text-rose-300 shrink-0">
+              <div className="flex items-start gap-2 pt-1 border-t border-destructive/60 dark:border-destructive/30">
+                <span className="font-medium text-destructive dark:text-destructive shrink-0">
                   سبب الاسترجاع:
                 </span>
-                <span className="text-slate-800 dark:text-slate-200">
+                <span className="text-foreground dark:dark:text-muted-foreground">
                   {shipmentMeta.returnReason}
                 </span>
               </div>
@@ -70,15 +70,15 @@ export const ShippingDeliveryTelemetry: React.FC<
 
       {/* Driver & Delivery Field Details (QP Express / Integrated Couriers) */}
       {hasDriverDetails && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-3 rounded-lg bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-3 rounded-lg bg-primary/50 dark:bg-primary/20 border border-primary dark:border-primary/40">
           {liveStatus.driverName && (
             <div className="flex items-center gap-2">
-              <UserIcon className="h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0" />
+              <UserIcon className="h-4 w-4 text-primary dark:text-primary shrink-0" />
               <div className="text-xs truncate">
-                <span className="text-slate-500 dark:text-slate-400">
+                <span className="text-muted-foreground dark:dark:text-muted-foreground">
                   المندوب:{" "}
                 </span>
-                <span className="font-semibold text-slate-900 dark:text-white">
+                <span className="font-semibold text-foreground dark:text-white">
                   {liveStatus.driverName}
                 </span>
               </div>
@@ -87,14 +87,14 @@ export const ShippingDeliveryTelemetry: React.FC<
 
           {liveStatus.driverPhone && (
             <div className="flex items-center gap-2">
-              <PhoneIcon className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <PhoneIcon className="h-4 w-4 text-success dark:text-success shrink-0" />
               <div className="text-xs">
-                <span className="text-slate-500 dark:text-slate-400">
+                <span className="text-muted-foreground dark:dark:text-muted-foreground">
                   هاتف المندوب:{" "}
                 </span>
                 <a
                   href={`tel:${liveStatus.driverPhone}`}
-                  className="font-mono tabular-nums font-bold text-emerald-700 dark:text-emerald-400 hover:underline"
+                  className="font-mono tabular-nums font-bold text-success dark:text-success hover:underline"
                 >
                   {liveStatus.driverPhone}
                 </a>
@@ -103,13 +103,13 @@ export const ShippingDeliveryTelemetry: React.FC<
           )}
 
           {liveStatus.statusNote && (
-            <div className="sm:col-span-2 flex items-start gap-2 pt-1 border-t border-blue-100/60 dark:border-blue-900/30">
-              <ChatBubbleBottomCenterTextIcon className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <div className="sm:col-span-2 flex items-start gap-2 pt-1 border-t border-primary/60 dark:border-primary/30">
+              <ChatBubbleBottomCenterTextIcon className="h-4 w-4 text-warning dark:text-warning shrink-0 mt-0.5" />
               <div className="text-xs">
-                <span className="font-semibold text-amber-800 dark:text-amber-300">
+                <span className="font-semibold text-warning dark:text-warning">
                   ملاحظة المندوب الميدانية:{" "}
                 </span>
-                <span className="text-slate-700 dark:text-slate-300">
+                <span className="text-foreground dark:dark:text-muted-foreground">
                   {liveStatus.statusNote}
                 </span>
               </div>

@@ -130,7 +130,7 @@ export const OrderDetailsTab: React.FC<OrderDetailsTabProps> = ({
                               t("orders.productNotSpecified")}
                           </p>
                           {isPostPurchaseOfferItem(item) && (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-300 dark:border-amber-700/60 shadow-xs">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-warning/10 text-warning dark:bg-warning/60 dark:text-warning border border-warning dark:border-warning/60 shadow-xs">
                               <span>🎁 عرض بعد الشراء</span>
                               {item.originalPrice &&
                                 Number(item.originalPrice) >
@@ -153,12 +153,12 @@ export const OrderDetailsTab: React.FC<OrderDetailsTabProps> = ({
                           item.metadata?.size) && (
                           <div className="text-[11px] mt-1 flex items-center gap-2 flex-nowrap overflow-x-auto max-w-full">
                             {(item.productColor || item.metadata?.color) && (
-                              <span className="whitespace-nowrap shrink-0 px-2 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 font-medium border border-blue-200 dark:border-blue-800">
+                              <span className="whitespace-nowrap shrink-0 px-2 py-0.5 rounded bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary font-medium border border-primary dark:border-primary">
                                 {item.productColor || item.metadata?.color}
                               </span>
                             )}
                             {(item.productSize || item.metadata?.size) && (
-                              <span className="whitespace-nowrap shrink-0 px-2 py-0.5 rounded bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400 font-medium border border-purple-200 dark:border-purple-800">
+                              <span className="whitespace-nowrap shrink-0 px-2 py-0.5 rounded bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary font-medium border border-primary dark:border-primary">
                                 {item.productSize || item.metadata?.size}
                               </span>
                             )}
@@ -173,7 +173,7 @@ export const OrderDetailsTab: React.FC<OrderDetailsTabProps> = ({
                             {getConfidenceIcon(
                               item.confidence || item.metadata?.confidence,
                             )}
-                            <span className="text-xs ml-1 font-medium tabular-nums">
+                            <span className="text-xs ms-1 font-medium tabular-nums">
                               {t("orders.confidence")}:{" "}
                               {(
                                 (item.confidence ||

@@ -78,7 +78,7 @@ export const CreateTicketModal: React.FC<CreateTicketModalProps> = ({
       className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
       dir="rtl"
     >
-      <div className="w-full max-w-xl bg-card rounded-3xl border border-border/70 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="w-full max-w-xl bg-card rounded-xl border border-border/70 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
         <TicketModalHeader
           effectiveOrderNumber={effectiveOrderNumber}

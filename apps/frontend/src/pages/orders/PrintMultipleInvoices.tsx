@@ -44,7 +44,7 @@ const PrintMultipleInvoices: React.FC = () => {
   if (loading || settingsLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <div className="text-center p-8 bg-card border border-border/70 rounded-2xl shadow-xs">
+        <div className="text-center p-8 bg-card border border-border/70 rounded-xl shadow-xs">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-3" />
           <p className="text-xs text-muted-foreground font-medium">جاري تجهيز وتحميل الفواتير للطباعة...</p>
         </div>
@@ -55,8 +55,8 @@ const PrintMultipleInvoices: React.FC = () => {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <div className="text-center p-8 bg-card border border-border/70 rounded-2xl shadow-xs max-w-sm">
-          <p className="text-sm font-semibold text-rose-600 dark:text-rose-400 mb-1">{error}</p>
+        <div className="text-center p-8 bg-card border border-border/70 rounded-xl shadow-xs max-w-sm">
+          <p className="text-sm font-semibold text-destructive dark:text-destructive mb-1">{error}</p>
           <p className="text-xs text-muted-foreground">
             يرجى تحديد فواتير صالحة للطباعة من قائمة الطلبات
           </p>

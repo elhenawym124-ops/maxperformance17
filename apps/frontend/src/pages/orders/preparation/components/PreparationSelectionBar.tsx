@@ -97,8 +97,8 @@ export const PreparationSelectionBar: React.FC<PreparationSelectionBarProps> = (
           </span>
         </div>
         {inventoryLoading && (
-          <div className="flex items-center gap-1.5 rounded-md bg-amber-500/10 px-2 py-0.5 text-[11px] font-mono text-amber-700 dark:text-amber-400 border border-amber-500/20">
-            <div className="h-2 w-2 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
+          <div className="flex items-center gap-1.5 rounded-md bg-warning/10 px-2 py-0.5 text-[11px] font-mono text-warning dark:text-warning border border-warning/20">
+            <div className="h-2 w-2 animate-spin rounded-full border-2 border-warning border-t-transparent" />
             {t("preparation.checkingInventory", { defaultValue: "جاري فحص المخزون..." })}
           </div>
         )}
@@ -121,7 +121,7 @@ export const PreparationSelectionBar: React.FC<PreparationSelectionBarProps> = (
       </div>
 
       {selectedOrdersCount > 0 && (
-        <div className="animate-in fade-in-0 slide-in-from-top-2 border-b border-amber-500/30 bg-amber-500/10 px-3 py-2.5 duration-200 sm:px-4 sm:py-3">
+        <div className="animate-in fade-in-0 slide-in-from-top-2 border-b border-warning/30 bg-warning/10 px-3 py-2.5 duration-200 sm:px-4 sm:py-3">
           <PreparationBulkActions
             compact
             selectedOrdersCount={selectedOrdersCount}

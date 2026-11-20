@@ -100,8 +100,8 @@ const PostponeOrderModal: React.FC<PostponeOrderModalProps> = ({
                   }}
                   className={`rounded-md border px-2.5 py-1 text-xs font-semibold font-mono tabular-nums transition-colors active:scale-[0.97] ${
                     selected
-                      ? "border-amber-500/40 bg-amber-500/15 text-amber-700 dark:text-amber-300"
-                      : "border-border/70 bg-background text-muted-foreground hover:border-amber-500/30 hover:text-foreground"
+                      ? "border-warning/40 bg-warning/15 text-warning dark:text-warning"
+                      : "border-border/70 bg-background text-muted-foreground hover:border-warning/30 hover:text-foreground"
                   }`}
                 >
                   {t("orders.postponeOrderDays", "{{days}} أيام", { days })}
@@ -154,7 +154,7 @@ const PostponeOrderModal: React.FC<PostponeOrderModalProps> = ({
           />
         </label>
 
-        <label className="flex cursor-pointer items-start gap-2.5 rounded-lg border border-amber-500/20 bg-amber-500/5 p-2.5">
+        <label className="flex cursor-pointer items-start gap-2.5 rounded-lg border border-warning/20 bg-warning/5 p-2.5">
           <input
             type="checkbox"
             checked={autoTransitionEnabled}

@@ -167,7 +167,7 @@ export const BulkActionBar: React.FC<BulkActionBarProps> = ({
             size="sm"
             onClick={onCreateBostaShipments}
             disabled={busy}
-            className="min-h-[36px] justify-center gap-1.5 text-xs font-semibold rounded-lg border-amber-500/30 text-amber-700 dark:text-amber-400 hover:bg-amber-500/10"
+            className="min-h-[36px] justify-center gap-1.5 text-xs font-semibold rounded-lg border-warning/30 text-warning dark:text-warning hover:bg-warning/10"
           >
             <Truck className="h-3.5 w-3.5" />
             <span>{busy ? "جاري الشحن..." : "شحن بوستا (Bosta)"}</span>

@@ -28,7 +28,7 @@ export const TurboCaptainStatsRibbon: React.FC<TurboCaptainStatsRibbonProps> = (
           <span className="text-[11px] font-medium text-muted-foreground block">
             تم التسليم والتحصيل
           </span>
-          <span className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <span className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">
             {stats.delivered + stats.remitted}
           </span>
         </div>
@@ -36,7 +36,7 @@ export const TurboCaptainStatsRibbon: React.FC<TurboCaptainStatsRibbonProps> = (
           <span className="text-[11px] font-medium text-muted-foreground block">
             المرتجعات
           </span>
-          <span className="text-xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+          <span className="text-xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">
             {stats.returned}
           </span>
         </div>
@@ -64,7 +64,7 @@ export const TurboCaptainStatsRibbon: React.FC<TurboCaptainStatsRibbonProps> = (
           {hasDelayReasons && (
             <div className="bg-card border border-border/70 rounded-xl p-4 shadow-xs space-y-2">
               <div className="flex items-center gap-2 text-xs font-bold text-foreground border-b border-border/40 pb-2">
-                <Clock className="w-4 h-4 text-amber-500" />
+                <Clock className="w-4 h-4 text-warning" />
                 <span>أسباب التأخير المسجلة</span>
               </div>
               <div className="space-y-1 text-xs">
@@ -90,7 +90,7 @@ export const TurboCaptainStatsRibbon: React.FC<TurboCaptainStatsRibbonProps> = (
           {hasReturnReasons && (
             <div className="bg-card border border-border/70 rounded-xl p-4 shadow-xs space-y-2">
               <div className="flex items-center gap-2 text-xs font-bold text-foreground border-b border-border/40 pb-2">
-                <RotateCcw className="w-4 h-4 text-rose-500" />
+                <RotateCcw className="w-4 h-4 text-destructive" />
                 <span>أسباب الارتجاع المسجلة</span>
               </div>
               <div className="space-y-1 text-xs">

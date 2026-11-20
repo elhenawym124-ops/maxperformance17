@@ -26,7 +26,7 @@ export const QuickStatusCurrentOrderCard: React.FC<QuickStatusCurrentOrderCardPr
   const { t } = useTranslation();
 
   return (
-    <div className="bg-card rounded-2xl border border-border/70 border-r-4 border-r-primary shadow-xs p-4 sm:p-5">
+    <div className="bg-card rounded-xl border border-border/70 border-r-4 border-r-primary shadow-xs p-4 sm:p-5">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
           <Package className="text-primary" size={20} />
@@ -35,7 +35,7 @@ export const QuickStatusCurrentOrderCard: React.FC<QuickStatusCurrentOrderCardPr
               {currentOrder.orderNumber}
             </span>
             {currentOrder.customerName && (
-              <span className="text-xs text-muted-foreground mr-3">
+              <span className="text-xs text-muted-foreground me-3">
                 {currentOrder.customerName}
               </span>
             )}

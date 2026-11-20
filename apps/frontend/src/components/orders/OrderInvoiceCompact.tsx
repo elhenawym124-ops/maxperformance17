@@ -78,7 +78,7 @@ const OrderInvoiceCompact: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -86,7 +86,7 @@ const OrderInvoiceCompact: React.FC = () => {
   if (error || !invoice) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-red-600">{error || "الفاتورة غير موجودة"}</p>
+        <p className="text-destructive">{error || "الفاتورة غير موجودة"}</p>
       </div>
     );
   }
@@ -121,7 +121,7 @@ const OrderInvoiceCompact: React.FC = () => {
       <div className="no-print fixed top-4 right-4 z-50">
         <button
           onClick={() => printClean()}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+          className="bg-primary text-white px-6 py-3 rounded-lg shadow-lg hover:bg-primary transition-colors flex items-center gap-2"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path

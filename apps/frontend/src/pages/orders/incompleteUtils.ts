@@ -235,11 +235,11 @@ export const getValueTier = (total: number): ValueTier => {
 export const getValueColor = (tier: ValueTier) => {
   switch (tier) {
     case "high":
-      return "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800";
+      return "bg-primary/10 text-primary border-primary dark:bg-primary/20 dark:text-primary dark:border-primary";
     case "medium":
-      return "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-800";
+      return "bg-warning/10 text-warning border-warning dark:bg-warning/20 dark:text-warning dark:border-warning";
     default:
-      return "bg-gray-50 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700";
+      return "bg-muted text-foreground border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:border-border";
   }
 };
 
@@ -256,8 +256,8 @@ export const getValueLabel = (tier: ValueTier, t: TFunction) => {
 
 export const getStatusBadgeClasses = (status?: string) => {
   return status === "lost"
-    ? "bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800"
-    : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-800";
+    ? "bg-destructive/10 text-destructive border-destructive dark:bg-destructive/20 dark:text-destructive dark:border-destructive"
+    : "bg-warning/10 text-warning border-warning dark:bg-warning/20 dark:text-warning dark:border-warning";
 };
 
 export const getStatusLabel = (status: string | undefined, t: TFunction) => {

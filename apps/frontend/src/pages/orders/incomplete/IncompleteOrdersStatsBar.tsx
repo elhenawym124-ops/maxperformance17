@@ -28,16 +28,16 @@ export const IncompleteOrdersStatsBar: React.FC<IncompleteOrdersStatsBarProps> =
       label: t("orders.total"),
       value: stats.total,
       icon: ShoppingCart,
-      color: "text-blue-500",
-      dotBg: "bg-blue-500",
+      color: "text-primary",
+      dotBg: "bg-primary",
       sub: statsAreServer ? undefined : t("orders.incompletePageStats"),
     },
     {
       label: t("orders.incompleteStatusActive"),
       value: stats.active,
       icon: Clock,
-      color: "text-amber-500",
-      dotBg: "bg-amber-500",
+      color: "text-warning",
+      dotBg: "bg-warning",
       sub: statsAreServer
         ? formatPrice(stats.activeValue)
         : `${formatPrice(stats.activeValue)} · ${t("orders.incompletePageStats")}`,
@@ -46,8 +46,8 @@ export const IncompleteOrdersStatsBar: React.FC<IncompleteOrdersStatsBarProps> =
       label: t("orders.incompleteStatusLost"),
       value: stats.lost,
       icon: AlertTriangle,
-      color: "text-rose-500",
-      dotBg: "bg-rose-500",
+      color: "text-destructive",
+      dotBg: "bg-destructive",
       sub: statsAreServer
         ? formatPrice(stats.lostValue)
         : `${formatPrice(stats.lostValue)} · ${t("orders.incompletePageStats")}`,
@@ -56,8 +56,8 @@ export const IncompleteOrdersStatsBar: React.FC<IncompleteOrdersStatsBarProps> =
       label: t("orders.totalValue"),
       value: formatPrice(stats.totalValue),
       icon: DollarSign,
-      color: "text-emerald-500",
-      dotBg: "bg-emerald-500",
+      color: "text-success",
+      dotBg: "bg-success",
     },
   ];
 

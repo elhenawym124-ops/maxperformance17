@@ -54,7 +54,7 @@ export const OrdersTableStatusCell: React.FC<OrdersTableStatusCellProps> = ({
               )}`}
             >
               {getConfidenceIcon(order.confidence)}
-              <span className="mr-0.5 font-mono tabular-nums">
+              <span className="me-0.5 font-mono tabular-nums">
                 {(order.confidence * 100).toFixed(0)}%
               </span>
             </span>
@@ -63,10 +63,10 @@ export const OrdersTableStatusCell: React.FC<OrdersTableStatusCellProps> = ({
 
         {(order.turboReturnReason || order.turboDelayReason) && (
           <span
-            className="inline-flex items-center gap-1 text-[11px] font-medium text-rose-700 dark:text-rose-300 max-w-[170px] truncate leading-tight"
+            className="inline-flex items-center gap-1 text-[11px] font-medium text-destructive dark:text-destructive max-w-[170px] truncate leading-tight"
             title={`سبب المرتجع: ${order.turboReturnReason || order.turboDelayReason}`}
           >
-            <ArrowUturnLeftIcon className="w-3 h-3 text-rose-600 dark:text-rose-400 shrink-0" />
+            <ArrowUturnLeftIcon className="w-3 h-3 text-destructive dark:text-destructive shrink-0" />
             <span className="truncate">
               {order.turboReturnReason || order.turboDelayReason}
             </span>

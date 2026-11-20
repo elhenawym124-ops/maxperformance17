@@ -129,7 +129,7 @@ export const ConfirmationOrderRowActions: React.FC<ConfirmationOrderRowActionsPr
           className="inline-flex h-9 items-center gap-1.5 px-2.5 rounded-xl border border-border/70 bg-background text-muted-foreground hover:text-foreground text-xs font-semibold hover:bg-muted transition-colors active:scale-95"
           title="خيارات وحالة الدفع والمطابقة"
         >
-          <CreditCardIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+          <CreditCardIcon className="w-4 h-4 text-success dark:text-success" />
           <span className="hidden sm:inline">الدفع</span>
         </Link>
 
@@ -163,7 +163,7 @@ export const ConfirmationOrderRowActions: React.FC<ConfirmationOrderRowActionsPr
                 )
               : undefined
           }
-          className="inline-flex h-9 items-center gap-1 px-2.5 sm:px-3 rounded-xl border border-amber-300/40 bg-amber-500/10 text-amber-700 dark:text-amber-300 text-xs font-semibold transition-colors hover:bg-amber-500/20 disabled:cursor-not-allowed disabled:opacity-50 active:scale-95"
+          className="inline-flex h-9 items-center gap-1 px-2.5 sm:px-3 rounded-xl border border-warning/40 bg-warning/10 text-warning dark:text-warning text-xs font-semibold transition-colors hover:bg-warning/20 disabled:cursor-not-allowed disabled:opacity-50 active:scale-95"
         >
           <PhoneIcon className="w-4 h-4" />
           <span>
@@ -187,7 +187,7 @@ export const ConfirmationOrderRowActions: React.FC<ConfirmationOrderRowActionsPr
         <button
           onClick={() => onConfirm(order.id)}
           disabled={isCancelled}
-          className="inline-flex h-9 items-center gap-1 px-3 sm:px-3.5 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors disabled:cursor-not-allowed disabled:opacity-50 shadow-xs active:scale-95"
+          className="inline-flex h-9 items-center gap-1 px-3 sm:px-3.5 bg-success text-white rounded-xl text-xs font-bold hover:bg-success transition-colors disabled:cursor-not-allowed disabled:opacity-50 shadow-xs active:scale-95"
         >
           <CheckCircleIcon className="w-4 h-4" />
           <span>{t("orders.confirmOrder", { defaultValue: "تأكيد" })}</span>

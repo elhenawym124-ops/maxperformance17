@@ -41,11 +41,11 @@ export interface Stats {
 export const statusBadgeClass = (status: string) => {
   const s = (status || "").toLowerCase().trim();
   if (s === "delivered" || s === "remitted")
-    return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20";
+    return "bg-success/10 text-success dark:text-success border border-success/20";
   if (s.startsWith("returned"))
-    return "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20";
+    return "bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20";
   if (s === "delayed")
-    return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20";
+    return "bg-warning/10 text-warning dark:text-warning border border-warning/20";
   return "bg-primary/10 text-primary border border-primary/20";
 };
 

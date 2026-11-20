@@ -58,25 +58,25 @@ export const getStatusBadge = (status: any) => {
   if (val === "0" || val === "open" || val === "new") {
     return {
       label: label || "جديدة",
-      className: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20",
+      className: "bg-warning/10 text-warning dark:text-warning border-warning/20",
     };
   }
   if (val === "3" || val === "on_hold" || val === "hold" || val === "pending") {
     return {
       label: label || "معلقة",
-      className: "bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20",
+      className: "bg-primary/10 text-primary dark:text-primary border-primary/20",
     };
   }
   if (val === "1" || val === "in_progress" || val === "processing") {
     return {
       label: label || "قيد المعالجة",
-      className: "bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20",
+      className: "bg-info/10 text-info dark:text-info border-info/20",
     };
   }
   if (val === "2" || val === "closed" || val === "resolved" || val === "solved") {
     return {
       label: label || "مغلقة",
-      className: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20",
+      className: "bg-success/10 text-success dark:text-success border-success/20",
     };
   }
 

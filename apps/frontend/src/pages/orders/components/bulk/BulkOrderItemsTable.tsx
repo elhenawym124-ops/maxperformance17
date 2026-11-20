@@ -73,7 +73,7 @@ export const BulkOrderItemsTable: React.FC<BulkOrderItemsTableProps> = ({ items 
   const totalCOD = items.reduce((sum, item) => sum + Number(item.collectAmount || 0), 0);
 
   return (
-    <div className="bg-card rounded-2xl border border-border/70 shadow-xs overflow-hidden">
+    <div className="bg-card rounded-xl border border-border/70 shadow-xs overflow-hidden">
       <div className="px-4 py-3 border-b border-border/70 bg-muted/20 flex items-center justify-between">
         <h3 className="text-xs font-bold text-foreground">
           {t("orders.bulkItems")} ({items.length})
@@ -186,7 +186,7 @@ export const BulkOrderItemsTable: React.FC<BulkOrderItemsTableProps> = ({ items 
               {t("orders.bulkItemTotal")}: <span className="text-primary font-bold">{Number(totalPrice).toFixed(2)}</span>
             </span>
             <span className="text-muted-foreground">
-              COD: <span className="text-emerald-600 dark:text-emerald-400 font-bold">{Number(totalCOD).toFixed(2)}</span>
+              COD: <span className="text-success dark:text-success font-bold">{Number(totalCOD).toFixed(2)}</span>
             </span>
           </div>
         </div>

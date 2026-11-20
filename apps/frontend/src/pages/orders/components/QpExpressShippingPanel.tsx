@@ -22,9 +22,9 @@ interface QpExpressShippingPanelProps {
 }
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; icon: any }> = {
-  PENDING: { label: "طلب جديد / قيد التجهيز", color: "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-300", icon: AlertCircle },
+  PENDING: { label: "طلب جديد / قيد التجهيز", color: "border-warning/20 bg-warning/10 text-warning dark:text-warning", icon: AlertCircle },
   OUT_FOR_DELIVERY: { label: "خرج للتوصيل مع المندوب", color: "border-primary/20 bg-primary/10 text-primary", icon: Truck },
-  DELIVERED: { label: "تم التسليم بنجاح", color: "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300", icon: CheckCircle2 },
+  DELIVERED: { label: "تم التسليم بنجاح", color: "border-success/20 bg-success/10 text-success dark:text-success", icon: CheckCircle2 },
   RETURNED: { label: "مرتجع / ملغي", color: "border-destructive/20 bg-destructive/10 text-destructive", icon: AlertCircle },
   UNKNOWN: { label: "غير محدد", color: "border-border/60 bg-muted/30 text-muted-foreground", icon: Truck },
 };
@@ -122,9 +122,9 @@ export const QpExpressShippingPanel: React.FC<QpExpressShippingPanelProps> = ({
                     className="p-1 hover:bg-muted rounded text-muted-foreground transition"
                     title="نسخ رقم البوليصة"
                   >
-                    {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+                    {copied ? <Check className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
                   </button>
-                  {copied && <span className="text-[11px] text-emerald-600 font-medium">تم النسخ!</span>}
+                  {copied && <span className="text-[11px] text-success font-medium">تم النسخ!</span>}
                 </div>
               </div>
 
@@ -173,13 +173,13 @@ export const QpExpressShippingPanel: React.FC<QpExpressShippingPanelProps> = ({
               )}
 
               {trackingData.statusNote && (
-                <div className="sm:col-span-2 flex items-start gap-2.5 p-2.5 bg-amber-500/10 rounded-lg border border-amber-500/20">
-                  <MessageSquare className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                <div className="sm:col-span-2 flex items-start gap-2.5 p-2.5 bg-warning/10 rounded-lg border border-warning/20">
+                  <MessageSquare className="h-4 w-4 text-warning dark:text-warning shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-xs font-bold text-amber-700 dark:text-amber-300 block">
+                    <span className="text-xs font-bold text-warning dark:text-warning block">
                       ملاحظة المندوب الميدانية:
                     </span>
-                    <p className="text-xs text-amber-800 dark:text-amber-200 mt-0.5">
+                    <p className="text-xs text-warning dark:text-warning mt-0.5">
                       {trackingData.statusNote}
                     </p>
                   </div>

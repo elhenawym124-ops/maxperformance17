@@ -35,7 +35,7 @@ export const WorkspaceInspectorActionBar: React.FC<WorkspaceInspectorActionBarPr
   const isBusy = Boolean(busyAction);
 
   return (
-    <section className="sticky bottom-0 z-10 -mx-4 border-t border-border/30 bg-card px-4 pb-3 pt-2 dark:border-slate-800 dark:bg-slate-900">
+    <section className="sticky bottom-0 z-10 -mx-4 border-t border-border/30 bg-card px-4 pb-3 pt-2 dark:dark:border-border dark:dark:bg-muted">
       {order.isIncomplete ? (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
           <button
@@ -48,7 +48,7 @@ export const WorkspaceInspectorActionBar: React.FC<WorkspaceInspectorActionBarPr
               }
             }}
             disabled={isBusy}
-            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md bg-amber-600 px-3 py-1.5 text-xs font-bold text-white transition-all active:scale-[0.98] hover:bg-amber-700 disabled:opacity-50 dark:bg-amber-600 dark:hover:bg-amber-500"
+            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md bg-warning px-3 py-1.5 text-xs font-bold text-white transition-all active:scale-[0.98] hover:bg-warning disabled:opacity-50 dark:bg-warning dark:hover:bg-warning"
           >
             <BoltIcon className="h-4 w-4" />
             <span>
@@ -66,7 +66,7 @@ export const WorkspaceInspectorActionBar: React.FC<WorkspaceInspectorActionBarPr
             type="button"
             onClick={() => onOpenFollowUp(order)}
             disabled={isReadOnly || isBusy}
-            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md border border-blue-500/30 bg-blue-500/10 px-3 py-1.5 text-xs font-bold text-blue-600 transition-all active:scale-[0.98] hover:bg-blue-500/20 disabled:opacity-50 dark:border-blue-700/50 dark:bg-blue-950/40 dark:text-blue-300"
+            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition-all active:scale-[0.98] hover:bg-primary/20 disabled:opacity-50 dark:border-primary/50 dark:bg-primary/40 dark:text-primary"
           >
             <CalendarIcon className="h-4 w-4" />
             <span>{t('orders.scheduleFollowUp')}</span>
@@ -76,7 +76,7 @@ export const WorkspaceInspectorActionBar: React.FC<WorkspaceInspectorActionBarPr
             type="button"
             onClick={() => onCancel(order)}
             disabled={isCancelled || isBusy}
-            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-bold text-destructive transition-all active:scale-[0.98] hover:bg-destructive/20 disabled:opacity-50 dark:border-red-800/50 dark:bg-red-950/40 dark:text-red-300"
+            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-bold text-destructive transition-all active:scale-[0.98] hover:bg-destructive/20 disabled:opacity-50 dark:border-destructive/50 dark:bg-destructive/40 dark:text-destructive"
           >
             <XCircleIcon className="h-4 w-4" />
             <span>{t('orders.cancelOrder')}</span>
@@ -104,7 +104,7 @@ export const WorkspaceInspectorActionBar: React.FC<WorkspaceInspectorActionBarPr
             type="button"
             onClick={() => onOpenFollowUp(order)}
             disabled={isReadOnly || isBusy}
-            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md border border-border/60 bg-background px-3 py-1.5 text-xs font-bold text-foreground transition-all active:scale-[0.98] hover:bg-muted/40 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-200 dark:hover:bg-slate-800"
+            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md border border-border/60 bg-background px-3 py-1.5 text-xs font-bold text-foreground transition-all active:scale-[0.98] hover:bg-muted/40 disabled:opacity-50 dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:bg-muted"
           >
             <CalendarIcon className="h-4 w-4" />
             <span>{t('orders.scheduleFollowUp')}</span>
@@ -114,7 +114,7 @@ export const WorkspaceInspectorActionBar: React.FC<WorkspaceInspectorActionBarPr
             type="button"
             onClick={() => onCancel(order)}
             disabled={isCancelled || isBusy}
-            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-bold text-destructive transition-all active:scale-[0.98] hover:bg-destructive/20 disabled:opacity-50 dark:border-red-800/50 dark:bg-red-950/40 dark:text-red-300"
+            className="flex min-h-[38px] items-center justify-center gap-1.5 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-bold text-destructive transition-all active:scale-[0.98] hover:bg-destructive/20 disabled:opacity-50 dark:border-destructive/50 dark:bg-destructive/40 dark:text-destructive"
           >
             <XCircleIcon className="h-4 w-4" />
             <span>{t('orders.cancelOrder')}</span>

@@ -96,10 +96,10 @@ describe("useOrdersStatusDisplays", () => {
   test("formats payment status text and colors accurately", () => {
     const { result } = renderHook(() => useOrdersStatusDisplays(sampleParams));
 
-    expect(result.current.getPaymentStatusColor("paid")).toContain("green");
-    expect(result.current.getPaymentStatusColor("pending")).toContain("yellow");
-    expect(result.current.getPaymentStatusColor("failed")).toContain("red");
-    expect(result.current.getPaymentStatusColor("unavailable")).toContain("slate");
+    expect(result.current.getPaymentStatusColor("paid")).toContain("success");
+    expect(result.current.getPaymentStatusColor("pending")).toContain("warning");
+    expect(result.current.getPaymentStatusColor("failed")).toContain("destructive");
+    expect(result.current.getPaymentStatusColor("unavailable")).toContain("muted");
 
     expect(result.current.getPaymentStatusText("PAID")).toBe("Paid In Full");
     expect(result.current.getPaymentStatusText("COMPLETED")).toBe("orders.completed");

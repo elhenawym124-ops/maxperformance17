@@ -80,7 +80,7 @@ export const PreparationOrdersTableRowMainCells: React.FC<PreparationOrdersTable
             {t(SOURCE_LABEL_KEYS[(order.sourceType || "unknown").toLowerCase()]) || order.sourceType}
           </span>
           {shortageFollowUpVisual ? (
-            <span className="rounded border border-amber-500/20 bg-amber-500/10 px-1.5 py-0.2 text-[10px] font-mono font-semibold text-amber-700 dark:border-amber-700/60 dark:bg-amber-950/60 dark:text-amber-300">
+            <span className="rounded border border-warning/20 bg-warning/10 px-1.5 py-0.2 text-[10px] font-mono font-semibold text-warning dark:border-warning/60 dark:bg-warning/60 dark:text-warning">
               {shortageFollowUpVisual.label}
             </span>
           ) : null}
@@ -89,12 +89,12 @@ export const PreparationOrdersTableRowMainCells: React.FC<PreparationOrdersTable
             const origNum = order.originalOrderNumber || (order.metadata as any)?.originalOrderNumber;
             if (!origId && !origNum) return null;
             return (
-              <span className="inline-flex items-center gap-1 rounded border border-purple-500/30 bg-purple-50 px-1.5 py-0.2 text-[10px] font-semibold text-purple-700 dark:border-purple-600/50 dark:bg-purple-950/60 dark:text-purple-300">
+              <span className="inline-flex items-center gap-1 rounded border border-primary/30 bg-primary/10 px-1.5 py-0.2 text-[10px] font-semibold text-primary dark:border-primary/50 dark:bg-primary/60 dark:text-primary">
                 <span>استبدال</span>
                 {origNum ? (
                   <Link
                     to={`/orders/${encodeURIComponent(origNum)}`}
-                    className="font-mono underline hover:text-purple-900 dark:hover:text-purple-100"
+                    className="font-mono underline hover:text-primary dark:hover:text-primary"
                     title={`فتح الأوردر الأصلي #${origNum}`}
                     onClick={(e) => e.stopPropagation()}
                   >
@@ -191,11 +191,11 @@ export const PreparationOrdersTableRowMainCells: React.FC<PreparationOrdersTable
           <span
             className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px] font-mono font-semibold ${
               order.isReady
-                ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:bg-emerald-950/60 dark:border-emerald-700/60 dark:text-emerald-300"
-                : "border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:bg-rose-950/60 dark:border-rose-700/60 dark:text-rose-300"
+                ? "border border-success/30 bg-success/10 text-success dark:bg-success/60 dark:border-success/60 dark:text-success"
+                : "border border-destructive/30 bg-destructive/10 text-destructive dark:bg-destructive/60 dark:border-destructive/60 dark:text-destructive"
             }`}
           >
-            <span className={`h-1.5 w-1.5 rounded-full ${order.isReady ? "bg-emerald-500" : "bg-rose-500"}`} />
+            <span className={`h-1.5 w-1.5 rounded-full ${order.isReady ? "bg-success" : "bg-destructive"}`} />
             {order.isReady
               ? t("preparation.table.ready")
               : t("preparation.table.shortage", { count: order.missingItemsCount })}
@@ -208,7 +208,7 @@ export const PreparationOrdersTableRowMainCells: React.FC<PreparationOrdersTable
         <td className="px-3 py-2.5">
           {(order.printCount ?? 0) > 0 ? (
             <span
-              className="inline-flex items-center gap-1 rounded border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-mono font-semibold text-emerald-700 dark:bg-emerald-950/60 dark:border-emerald-700/60 dark:text-emerald-300"
+              className="inline-flex items-center gap-1 rounded border border-success/30 bg-success/10 px-2 py-0.5 text-[10px] font-mono font-semibold text-success dark:bg-success/60 dark:border-success/60 dark:text-success"
               title={order.printedAt ? formatDate(order.printedAt) : ""}
             >
               <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

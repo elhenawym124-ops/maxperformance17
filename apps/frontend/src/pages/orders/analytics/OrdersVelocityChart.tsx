@@ -28,28 +28,28 @@ export const OrdersVelocityChart: React.FC<OrdersVelocityChartProps> = ({
   if (!data || data.length <= 1) return null;
 
   return (
-    <div className="border-b border-zinc-200/80 dark:border-white/[0.08] p-3 sm:p-4 bg-white dark:bg-[#0a0a0c]">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-2.5 border-b border-zinc-150 dark:border-white/[0.06] gap-2 mb-3">
+    <div className="border-b /80/80border-border dark:border-white/[0.08] p-3 sm:p-4 bg-white dark:bg-[#0a0a0c]">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-2.5 border-b border-border dark:border-white/[0.06] gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 rounded-md bg-primary/10 text-primary dark:text-primary flex items-center justify-center shrink-0">
             <ChartBarIcon className="h-3.5 w-3.5" />
           </div>
           <div>
-            <h2 className="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-wider">
+            <h2 className="text-xs font-bold text-foreground dark:text-white uppercase tracking-wider">
               مسار وسرعة تنفيذ الطلبات اليومية
             </h2>
-            <p className="text-[11px] text-zinc-400">تطور حجم الطلبات والإيرادات المحققة على مدار الفترة المحددة</p>
+            <p className="text-[11px] text-muted-foreground">تطور حجم الطلبات والإيرادات المحققة على مدار الفترة المحددة</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 bg-zinc-100 dark:bg-zinc-900 p-0.5 rounded-lg border border-zinc-200/60 dark:border-white/[0.05] text-xs self-start sm:self-auto">
+        <div className="flex items-center gap-1 bg-muted dark:dark:bg-muted p-0.5 rounded-lg border /60/60border-border dark:border-white/[0.05] text-xs self-start sm:self-auto">
           <button
             type="button"
             onClick={() => setTrendMetric("orders")}
             className={`px-3 py-1 rounded-md transition-all duration-150 font-semibold active:scale-[0.98] ${
               trendMetric === "orders"
-                ? "bg-white dark:bg-zinc-800 text-zinc-950 dark:text-white shadow-xs"
-                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                ? "bg-white dark:dark:bg-muted text-foreground dark:text-white shadow-xs"
+                : "text-foreground dark:dark:text-muted-foreground hover:hover:text-foreground dark:hover:dark:hover:text-muted-foreground"
             }`}
           >
             الطلبات اليومية
@@ -59,8 +59,8 @@ export const OrdersVelocityChart: React.FC<OrdersVelocityChartProps> = ({
             onClick={() => setTrendMetric("revenue")}
             className={`px-3 py-1 rounded-md transition-all duration-150 font-semibold active:scale-[0.98] ${
               trendMetric === "revenue"
-                ? "bg-white dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 shadow-xs"
-                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                ? "bg-white dark:dark:bg-muted text-success dark:text-success shadow-xs"
+                : "text-foreground dark:dark:text-muted-foreground hover:hover:text-foreground dark:hover:dark:hover:text-muted-foreground"
             }`}
           >
             الإيرادات اليومية

@@ -117,7 +117,7 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
                 aria-label={String(t("orders.ordersPerPage"))}
                 value={limit}
                 onChange={(e) => onLimitChange(parseInt(e.target.value, 10))}
-                className="h-9 appearance-none rounded-lg border border-border/70 bg-background pr-2.5 pl-6 text-xs font-semibold font-mono tabular-nums text-foreground shadow-2xs focus:border-primary focus:outline-hidden"
+                className="h-9 appearance-none rounded-lg border border-border/70 bg-background pe-2.5 ps-6 text-xs font-semibold font-mono tabular-nums text-foreground shadow-2xs focus:border-primary focus:outline-hidden"
               >
                 {LIMIT_OPTIONS.map((value) => (
                   <option key={value} value={value}>

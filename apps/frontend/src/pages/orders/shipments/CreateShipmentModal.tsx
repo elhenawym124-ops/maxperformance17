@@ -105,18 +105,18 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/50 backdrop-blur-xs animate-fadeIn">
-      <div className="w-full max-w-lg bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="w-full max-w-lg bg-white dark:dark:bg-muted rounded-xl border border-border dark:dark:border-border shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="px-5 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+        <div className="px-5 py-4 border-b border-border dark:dark:border-border flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400">
+            <div className="p-2 rounded-xl bg-success/10 dark:bg-success/50 text-success dark:text-success">
               <TruckIcon className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white">
+              <h3 className="text-sm sm:text-base font-bold text-foreground">
                 إضافة وتوجيه شحنة جديدة
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 إرسال الطلب لشركة الشحن واستخراج بوليصة الشحن (AWB)
               </p>
             </div>
@@ -124,7 +124,7 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-lg"
+            className="p-1.5 text-muted-foreground hover:hover:text-foreground dark:hover:dark:hover:text-muted-foreground rounded-lg"
           >
             <XMarkIcon className="h-5 w-5" />
           </button>
@@ -134,13 +134,13 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
         <form onSubmit={handleCreate} className="p-5 space-y-4 overflow-y-auto">
           {/* Company Selection */}
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-foreground mb-1.5">
               شركة الشحن المستهدفة
             </label>
             <select
               value={selectedCompanyId}
               onChange={(e) => setSelectedCompanyId(e.target.value)}
-              className="w-full px-3 py-2 text-xs sm:text-sm bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-white"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:dark:bg-muted border border-border dark:dark:border-border rounded-xl focus:ring-2 focus:ring-success text-foreground"
             >
               {companies.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -152,7 +152,7 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
 
           {/* Order Search & Selection */}
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-foreground mb-1.5">
               اختر الطلب
             </label>
             {!selectedOrder ? (
@@ -166,32 +166,32 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
                       searchOrders(e.target.value);
                     }}
                     placeholder="ابحث برقم الطلب أو اسم العميل أو الهاتف..."
-                    className="w-full pr-9 pl-3 py-2 text-xs sm:text-sm bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-white"
+                    className="w-full pe-9 ps-3 py-2 text-xs sm:text-sm bg-muted dark:dark:bg-muted border border-border dark:dark:border-border rounded-xl focus:ring-2 focus:ring-success text-foreground"
                   />
-                  <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <MagnifyingGlassIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 </div>
 
                 {/* Search Results Dropdown */}
                 {loadingOrders ? (
-                  <p className="text-xs text-gray-400 py-2 text-center">جاري البحث...</p>
+                  <p className="text-xs text-muted-foreground py-2 text-center">جاري البحث...</p>
                 ) : (
                   orderOptions.length > 0 && (
-                    <div className="border border-gray-200 dark:border-gray-700 rounded-xl divide-y divide-gray-100 dark:divide-gray-800 max-h-40 overflow-y-auto">
+                    <div className="border border-border dark:dark:border-border rounded-xl divide-y divide-border dark:dark:divide-border max-h-40 overflow-y-auto">
                       {orderOptions.map((o) => (
                         <button
                           key={o.id}
                           type="button"
                           onClick={() => setSelectedOrder(o)}
-                          className="w-full p-2.5 text-right hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center justify-between text-xs"
+                          className="w-full p-2.5 text-right hover:hover:bg-muted dark:hover:dark:hover:bg-muted transition flex items-center justify-between text-xs"
                         >
                           <div>
-                            <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                            <span className="font-bold text-primary">
                               #{o.orderNumber}
                             </span>{" "}
                             - <span>{o.customerName || "عميل"}</span>
-                            <span className="text-gray-400 mr-2">({o.customerPhone})</span>
+                            <span className="text-muted-foreground me-2">({o.customerPhone})</span>
                           </div>
-                          <span className="font-semibold text-gray-900 dark:text-white">
+                          <span className="font-semibold text-foreground">
                             {o.total} ج.م
                           </span>
                         </button>
@@ -201,22 +201,22 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
                 )}
               </div>
             ) : (
-              <div className="p-3 bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl flex items-center justify-between text-xs">
+              <div className="p-3 bg-success/60 dark:bg-success/30 border border-success dark:border-success rounded-xl flex items-center justify-between text-xs">
                 <div>
-                  <p className="font-bold text-emerald-900 dark:text-emerald-200">
+                  <p className="font-bold text-success dark:text-success">
                     طلب #{selectedOrder.orderNumber}
                   </p>
-                  <p className="text-gray-600 dark:text-gray-300 mt-0.5">
+                  <p className="text-muted-foreground mt-0.5">
                     العميل: {selectedOrder.customerName} ({selectedOrder.customerPhone})
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-muted-foreground">
                     الوجهة: {selectedOrder.governorate} {selectedOrder.city} • المبلغ: {selectedOrder.total} ج.م
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedOrder(null)}
-                  className="text-xs text-rose-600 hover:underline font-medium"
+                  className="text-xs text-destructive hover:underline font-medium"
                 >
                   تغيير الطلب
                 </button>
@@ -227,7 +227,7 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
           {/* Manual Tracking Number if not LIVE API */}
           {!isLive && (
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+              <label className="block text-xs font-semibold text-foreground mb-1.5">
                 رقم بوليصة الشحن (AWB) اليدوي
               </label>
               <input
@@ -235,14 +235,14 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
                 value={manualTracking}
                 onChange={(e) => setManualTracking(e.target.value)}
                 placeholder="أدخل رقم البوليصة المسجل يدويًا (اختياري)..."
-                className="w-full px-3 py-2 text-xs sm:text-sm bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white font-mono"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:dark:bg-muted border border-border dark:dark:border-border rounded-xl text-foreground font-mono"
               />
             </div>
           )}
 
           {/* Delivery Notes */}
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-foreground mb-1.5">
               ملاحظات وتعليمات للمندوب
             </label>
             <textarea
@@ -250,7 +250,7 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="مثال: يرجى الاتصال قبل الوصول، مسموح بفتح المعاينة..."
-              className="w-full px-3 py-2 text-xs sm:text-sm bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-muted dark:dark:bg-muted border border-border dark:dark:border-border rounded-xl text-foreground"
             />
           </div>
 
@@ -259,14 +259,14 @@ export const CreateShipmentModal: React.FC<CreateShipmentModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition"
+              className="px-4 py-2 text-xs font-medium text-foreground hover:hover:bg-muted dark:hover:dark:hover:bg-muted rounded-xl transition"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={submitting || !selectedOrder}
-              className="px-5 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 rounded-xl shadow-sm transition active:scale-95 flex items-center gap-1.5"
+              className="px-5 py-2 text-xs font-bold text-white bg-success hover:bg-success disabled:opacity-50 rounded-xl shadow-sm transition active:scale-95 flex items-center gap-1.5"
             >
               <TruckIcon className="h-4 w-4" />
               <span>{submitting ? "جاري الإرسال..." : "إرسال وتوجيه الشحنة"}</span>

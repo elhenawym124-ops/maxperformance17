@@ -23,8 +23,8 @@ export const TurboRecordsStatusPills: React.FC<
   return (
     <div className="space-y-4 mb-6">
       <div>
-        <h4 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-          <TruckIcon className="h-4 w-4 text-blue-500 dark:text-blue-400" />
+        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <TruckIcon className="h-4 w-4 text-primary dark:text-primary" />
           {t("orders.k_51")}
         </h4>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2.5">
@@ -38,7 +38,7 @@ export const TurboRecordsStatusPills: React.FC<
                   item.color
                 } p-2.5 text-center transition-all cursor-pointer hover:shadow-md ${
                   filterType === item.key
-                    ? "ring-2 ring-blue-500 scale-105 font-bold shadow-sm"
+                    ? "ring-2 ring-primary scale-105 font-bold shadow-sm"
                     : "opacity-85 hover:opacity-100"
                 }`}
               >

@@ -14,7 +14,7 @@ export const IncompleteReportsDismissalReasons: React.FC<
   return (
     <section className="bg-card rounded-xl p-4 sm:p-5 shadow-2xs border border-border/70 space-y-3">
       <div className="flex items-center gap-2">
-        <ShieldAlert className="h-4 w-4 text-rose-500 shrink-0" />
+        <ShieldAlert className="h-4 w-4 text-destructive shrink-0" />
         <div>
           <h2 className="text-sm font-semibold tracking-tight text-foreground">
             أسباب الإلغاء والاستبعاد الموثقة
@@ -34,7 +34,7 @@ export const IncompleteReportsDismissalReasons: React.FC<
             <span className="text-xs font-medium text-foreground truncate">
               {item.reason}
             </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 font-mono tabular-nums shrink-0">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 font-mono tabular-nums shrink-0">
               {item.count.toLocaleString()} سلة
             </span>
           </div>

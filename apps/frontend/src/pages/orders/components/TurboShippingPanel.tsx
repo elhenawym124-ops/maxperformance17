@@ -73,7 +73,7 @@ const TurboShippingPanel: React.FC<TurboShippingPanelProps> = ({
     !isTurboShipmentDelivered;
 
   return (
-    <div className="bg-card rounded-2xl border border-border/70 p-4 sm:p-5 shadow-xs space-y-4">
+    <div className="bg-card rounded-xl border border-border/70 p-4 sm:p-5 shadow-xs space-y-4">
       <div className="flex justify-between items-center border-b border-border/40 pb-3">
         <h3 className="text-base font-bold text-foreground flex items-center gap-2">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary">

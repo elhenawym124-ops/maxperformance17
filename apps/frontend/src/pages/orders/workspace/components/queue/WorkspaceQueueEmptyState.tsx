@@ -31,7 +31,7 @@ export const WorkspaceQueueEmptyState: React.FC<WorkspaceQueueEmptyStateProps> =
     return (
       <div className="flex h-full flex-col items-center justify-center p-6 text-center">
         <ArrowPathIcon className="h-6 w-6 animate-spin text-primary" />
-        <p className="mt-2 text-xs font-medium text-muted-foreground dark:text-slate-400">
+        <p className="mt-2 text-xs font-medium text-muted-foreground dark:dark:text-muted-foreground">
           {isArabic ? 'جارٍ تحميل طلبات الطابور…' : 'Loading workspace orders…'}
         </p>
       </div>
@@ -43,21 +43,21 @@ export const WorkspaceQueueEmptyState: React.FC<WorkspaceQueueEmptyStateProps> =
   if (confirmationDisabled && isConfirmationTab) {
     if (inStream) {
       return (
-        <div className="m-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3.5 text-center dark:border-amber-500/30 dark:bg-amber-950/20">
-          <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-amber-500/20 text-amber-600 dark:bg-amber-500/25 dark:text-amber-400">
+        <div className="m-3 rounded-xl border border-warning/30 bg-warning/10 p-3.5 text-center dark:border-warning/30 dark:bg-warning/20">
+          <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-warning/20 text-warning dark:bg-warning/25 dark:text-warning">
             <ExclamationTriangleIcon className="h-5 w-5" />
           </div>
-          <h4 className="mt-2 text-xs font-bold text-amber-900 dark:text-amber-200">
+          <h4 className="mt-2 text-xs font-bold text-warning dark:text-warning">
             {isArabic ? 'المركز مقفول من الإعدادات' : 'Confirmation Center Disabled'}
           </h4>
-          <p className="mt-1 text-[11px] leading-relaxed text-amber-800/90 dark:text-amber-300/80">
+          <p className="mt-1 text-[11px] leading-relaxed text-warning/90 dark:text-warning/80">
             {isArabic
               ? 'تم إيقاف مركز التأكيد من الإعدادات، ولن تظهر أي طلبات في قائمة التأكيد حتى يتم تفعيله.'
               : 'Order confirmation center is disabled in settings. No orders will appear until enabled.'}
           </p>
           <Link
             to="/settings/orders?tab=confirmation"
-            className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-lg bg-amber-600 px-3 py-1.5 text-[11px] font-bold text-white shadow-xs transition-colors hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 dark:bg-amber-600 dark:hover:bg-amber-500"
+            className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-lg bg-warning px-3 py-1.5 text-[11px] font-bold text-white shadow-xs transition-colors hover:bg-warning focus:outline-none focus:ring-2 focus:ring-warning focus:ring-offset-1 dark:bg-warning dark:hover:bg-warning"
           >
             <span>{isArabic ? 'الانتقال لإعدادات التأكيد ←' : 'Go to Settings →'}</span>
           </Link>
@@ -67,20 +67,20 @@ export const WorkspaceQueueEmptyState: React.FC<WorkspaceQueueEmptyStateProps> =
 
     return (
       <div className="flex h-full flex-col items-center justify-center p-6 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-warning/15 text-warning dark:bg-warning/20 dark:text-warning">
           <ExclamationTriangleIcon className="h-6 w-6" />
         </div>
-        <h4 className="mt-3 text-sm font-bold text-foreground dark:text-slate-100">
+        <h4 className="mt-3 text-sm font-bold text-foreground dark:dark:text-muted-foreground">
           {isArabic ? 'المركز مقفول من الإعدادات' : 'Confirmation Center Disabled'}
         </h4>
-        <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed max-w-xs dark:text-slate-400">
+        <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed max-w-xs dark:dark:text-muted-foreground">
           {isArabic
             ? 'تم إيقاف مركز التأكيد من الإعدادات، ولن تظهر أي طلبات في قائمة التأكيد حتى يتم تفعيله.'
             : 'Order confirmation center is disabled in settings. No orders will appear until enabled.'}
         </p>
         <Link
           to="/settings/orders?tab=confirmation"
-          className="mt-3.5 inline-flex items-center gap-1.5 rounded-lg bg-amber-600 px-3.5 py-2 text-xs font-bold text-white shadow-xs transition-colors hover:bg-amber-700 dark:bg-amber-600 dark:hover:bg-amber-500"
+          className="mt-3.5 inline-flex items-center gap-1.5 rounded-lg bg-warning px-3.5 py-2 text-xs font-bold text-white shadow-xs transition-colors hover:bg-warning dark:bg-warning dark:hover:bg-warning"
         >
           <span>{isArabic ? 'الانتقال لإعدادات التأكيد ←' : 'Go to Settings →'}</span>
         </Link>
@@ -90,7 +90,7 @@ export const WorkspaceQueueEmptyState: React.FC<WorkspaceQueueEmptyStateProps> =
 
   if (inStream) {
     return (
-      <div className="flex h-32 flex-col items-center justify-center p-4 text-center text-muted-foreground dark:text-slate-400">
+      <div className="flex h-32 flex-col items-center justify-center p-4 text-center text-muted-foreground dark:dark:text-muted-foreground">
         <p className="text-xs font-medium">
           {riskOnly
             ? isArabic
@@ -106,14 +106,14 @@ export const WorkspaceQueueEmptyState: React.FC<WorkspaceQueueEmptyStateProps> =
 
   return (
     <div className="flex h-full flex-col items-center justify-center p-6 text-center">
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted/50 text-muted-foreground dark:bg-slate-800/60 dark:text-slate-400">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted/50 text-muted-foreground dark:dark:bg-muted dark:dark:text-muted-foreground">
         {fetchError ? (
           <ExclamationTriangleIcon className="h-6 w-6 text-destructive" />
         ) : (
-          <CheckCircleIcon className="h-6 w-6 text-emerald-500 dark:text-emerald-400" />
+          <CheckCircleIcon className="h-6 w-6 text-success dark:text-success" />
         )}
       </div>
-      <p className="mt-3 text-sm font-semibold text-foreground text-balance dark:text-slate-200">
+      <p className="mt-3 text-sm font-semibold text-foreground text-balance dark:dark:text-muted-foreground">
         {fetchError
           ? fetchError
           : activeTab === 'incomplete'

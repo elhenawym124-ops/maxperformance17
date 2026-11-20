@@ -41,7 +41,7 @@ export const ConfirmationTeamReportRibbon: React.FC<ConfirmationTeamReportRibbon
   };
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-xs">
+    <div className="rounded-xl border border-border/70 bg-card p-4 shadow-xs">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -67,7 +67,7 @@ export const ConfirmationTeamReportRibbon: React.FC<ConfirmationTeamReportRibbon
       </p>
 
       {/* Mobile Collapsible Details */}
-      <details className="mt-3 rounded-2xl border border-border/70 bg-muted/30 p-3 sm:hidden">
+      <details className="mt-3 rounded-xl border border-border/70 bg-muted/30 p-3 sm:hidden">
         <summary className="cursor-pointer text-xs font-bold text-foreground select-none">
           {t("orders.customizeReport", { defaultValue: "تخصيص التقرير والتاريخ" })}
         </summary>

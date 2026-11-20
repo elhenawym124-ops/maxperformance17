@@ -111,7 +111,7 @@ const PreparationOrderActions = ({
           type="button"
           onClick={() => onMarkAsShortageHold(order.orderNumber)}
           disabled={rowBusy}
-          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-1.5 text-xs font-medium text-rose-700 dark:text-rose-300 transition-all active:scale-[0.98] hover:bg-rose-500/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-medium text-destructive dark:text-destructive transition-all active:scale-[0.98] hover:bg-destructive/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
         >
           <AlertTriangle className="h-3.5 w-3.5" />
           {t("preparation.actionLabels.holdShortage")}
@@ -124,7 +124,7 @@ const PreparationOrderActions = ({
           type="button"
           onClick={() => onReleaseShortageHold(order.orderNumber)}
           disabled={rowBusy}
-          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-indigo-500/30 bg-indigo-500/10 px-3 py-1.5 text-xs font-medium text-indigo-700 dark:text-indigo-300 transition-all active:scale-[0.98] hover:bg-indigo-500/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary dark:text-primary transition-all active:scale-[0.98] hover:bg-primary/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
         >
           <RefreshCw className="h-3.5 w-3.5" />
           {t("preparation.actionLabels.returnToPreparation")}
@@ -137,7 +137,7 @@ const PreparationOrderActions = ({
           type="button"
           onClick={() => onMarkAsShortageFailed(order.orderNumber)}
           disabled={rowBusy}
-          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 px-3 py-1.5 text-xs font-medium text-purple-700 dark:text-purple-300 transition-all active:scale-[0.98] hover:bg-purple-500/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary dark:text-primary transition-all active:scale-[0.98] hover:bg-primary/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
         >
           <XCircle className="h-3.5 w-3.5" />
           {t("preparation.shortagePanel.markAsShortageFailed")}
@@ -150,7 +150,7 @@ const PreparationOrderActions = ({
           type="button"
           onClick={() => onHoldAsProblem(order.orderNumber)}
           disabled={rowBusy}
-          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-700 dark:text-amber-300 transition-all active:scale-[0.98] hover:bg-amber-500/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-warning/30 bg-warning/10 px-3 py-1.5 text-xs font-medium text-warning dark:text-warning transition-all active:scale-[0.98] hover:bg-warning/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
         >
           <Pause className="h-3.5 w-3.5" />
           {t("preparation.actionLabels.holdProblem")}
@@ -163,7 +163,7 @@ const PreparationOrderActions = ({
           type="button"
           onClick={() => onReleaseProblemHold(order.orderNumber)}
           disabled={rowBusy}
-          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-indigo-500/30 bg-indigo-500/10 px-3 py-1.5 text-xs font-medium text-indigo-700 dark:text-indigo-300 transition-all active:scale-[0.98] hover:bg-indigo-500/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary dark:text-primary transition-all active:scale-[0.98] hover:bg-primary/20 disabled:opacity-50 max-sm:min-h-[40px] max-sm:flex-1"
         >
           <RefreshCw className="h-3.5 w-3.5" />
           {t("preparation.actionLabels.releaseProblem")}
@@ -173,7 +173,7 @@ const PreparationOrderActions = ({
       {/* Ready to ship badge */}
       {order.normalizedStatus === preparationSettings.handoffStatus ||
       order.stage === "READY_TO_SHIP" ? (
-        <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-300">
+        <span className="inline-flex items-center gap-1.5 rounded-lg border border-success/30 bg-success/10 px-3 py-1.5 text-xs font-medium text-success dark:text-success">
           <Truck className="h-3.5 w-3.5" />
           {t("preparation.k_10")}
         </span>

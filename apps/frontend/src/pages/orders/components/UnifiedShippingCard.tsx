@@ -70,18 +70,18 @@ const UnifiedShippingCard: React.FC<UnifiedShippingCardProps> = ({
   });
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs p-4 sm:p-5 space-y-4">
+    <div className="bg-white dark:dark:bg-muted rounded-xl border border-border dark:dark:border-border shadow-xs p-4 sm:p-5 space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+      <div className="flex items-center justify-between border-b border-border dark:dark:border-border pb-3">
         <div className="flex items-center gap-2">
-          <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+          <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/50 text-primary">
             <TruckIcon className="h-5 w-5" />
           </div>
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+            <h3 className="text-sm sm:text-base font-bold text-foreground dark:text-white">
               إدارة الشحن والتوصيل
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-muted-foreground dark:dark:text-muted-foreground">
               ربط ومتابعة شحنة الطلب مع أي شركة شحن أو مندوب
             </p>
           </div>
@@ -94,11 +94,11 @@ const UnifiedShippingCard: React.FC<UnifiedShippingCardProps> = ({
               String(shipmentStatus).includes("مرتجع") ||
               order?.turboShipmentStatus === "returned_to_company" ||
               order?.turboShipmentStatus === "5"
-                ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800"
+                ? "bg-destructive/10 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive"
                 : String(shipmentStatus).toLowerCase().includes("deliver") ||
                   String(shipmentStatus).includes("تسليم")
-                ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800"
-                : "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800"
+                ? "bg-success/10 text-success border-success dark:bg-success/40 dark:text-success dark:border-success"
+                : "bg-primary/10 text-primary border-primary dark:bg-primary/40 dark:text-primary dark:border-primary"
             }`}
           >
             {shipmentStatus}

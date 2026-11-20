@@ -29,7 +29,7 @@ export const OverviewPeriodSelector: React.FC<OverviewPeriodSelectorProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-wrap items-center gap-2 border-t border-border/60 pt-2.5 lg:border-t-0 lg:border-r lg:pt-0 lg:pr-3">
+    <div className="flex flex-wrap items-center gap-2 border-t border-border/60 pt-2.5 lg:border-t-0 lg:border-r lg:pt-0 lg:pe-3">
       {period === "custom" && (
         <div className="flex w-full items-center justify-between gap-1.5 sm:w-auto">
           <Calendar className="h-3.5 w-3.5 text-muted-foreground" />

@@ -53,13 +53,13 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
       if (kMethod.includes("wallet") || paymentMethod.includes("wallet")) {
         return {
           label: "كاشير — محفظة إلكترونية (Kashier Wallet)",
-          icon: <Smartphone className="h-4 w-4 text-indigo-500" />,
+          icon: <Smartphone className="h-4 w-4 text-primary" />,
           badge: "محفظة كاشير",
         };
       }
       return {
         label: "كاشير — بطاقة بنكية (Visa / Mastercard)",
-        icon: <CreditCard className="h-4 w-4 text-blue-500" />,
+        icon: <CreditCard className="h-4 w-4 text-primary" />,
         badge: "كارت كاشير",
       };
     }
@@ -67,7 +67,7 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
     if (paymentMethod.includes("wallet")) {
       return {
         label: "محفظة إلكترونية",
-        icon: <Smartphone className="h-4 w-4 text-indigo-500" />,
+        icon: <Smartphone className="h-4 w-4 text-primary" />,
         badge: "محفظة",
       };
     }
@@ -75,14 +75,14 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
     if (paymentMethod.includes("credit") || paymentMethod.includes("card") || paymentMethod.includes("visa")) {
       return {
         label: "بطاقة دفع إلكتروني",
-        icon: <CreditCard className="h-4 w-4 text-blue-500" />,
+        icon: <CreditCard className="h-4 w-4 text-primary" />,
         badge: "بطاقة بنكية",
       };
     }
 
     return {
       label: "الدفع عند الاستلام (COD)",
-      icon: <Banknote className="h-4 w-4 text-emerald-500" />,
+      icon: <Banknote className="h-4 w-4 text-success" />,
       badge: "دفع عند الاستلام",
     };
   };
@@ -104,10 +104,10 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
         <span
           className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-[11px] font-medium tabular-nums ${
             isCompleted
-              ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+              ? "border-success/30 bg-success/10 text-success dark:text-success"
               : isFailed
-              ? "border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400"
-              : "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+              ? "border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive"
+              : "border-warning/30 bg-warning/10 text-warning dark:text-warning"
           }`}
         >
           {isCompleted && <CheckCircle2 className="h-3 w-3" />}
@@ -141,13 +141,13 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
       {kashier && (
         <div className="mt-3 pt-3 border-t border-border/60 space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 rounded border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300">
+            <span className="inline-flex items-center gap-1.5 rounded border border-primary/30 bg-primary/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-primary">
               <span>بوابة الدفع</span>
               <span>•</span>
               <span>Kashier V3</span>
             </span>
             {kashier.transactionResponseMessage && (
-              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <span className="text-xs font-medium text-success dark:text-success flex items-center gap-1">
                 <CheckCircle2 className="h-3 w-3" />
                 {kashier.transactionResponseMessage}
               </span>
@@ -170,7 +170,7 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
                     title="نسخ رقم المعاملة"
                   >
                     {copiedKey === "tx" ? (
-                      <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                      <Check className="h-3 w-3 text-success dark:text-success" />
                     ) : (
                       <Copy className="h-3 w-3" />
                     )}
@@ -218,7 +218,7 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
                     title="نسخ رقم المحفظة"
                   >
                     {copiedKey === "account" ? (
-                      <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                      <Check className="h-3 w-3 text-success dark:text-success" />
                     ) : (
                       <Copy className="h-3 w-3" />
                     )}
@@ -241,7 +241,7 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
             {kashier.settledAmount != null && (
               <div className="flex items-center justify-between gap-2 pt-1 border-t border-border/60">
                 <span className="font-medium text-foreground">صافي التحصيل للتاجر:</span>
-                <span className="font-mono font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
+                <span className="font-mono font-semibold tabular-nums text-success dark:text-success">
                   {Number(kashier.settledAmount).toFixed(2)} {kashier.currency || "EGP"}
                 </span>
               </div>

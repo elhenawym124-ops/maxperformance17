@@ -62,7 +62,7 @@ export const TurboTrackingInfoCard: React.FC<TurboTrackingInfoCardProps> = ({
         {turboTrackingData?.deliveredAt && (
           <div className="flex justify-between items-center py-1 border-b border-border/30">
             <span className="font-medium text-muted-foreground">تاريخ التسليم:</span>
-            <span className="font-mono tabular-nums text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+            <span className="font-mono tabular-nums text-success dark:text-success font-semibold flex items-center gap-1">
               <CheckCircle2 size={13} />
               {formatDate(turboTrackingData.deliveredAt)}
             </span>
@@ -101,7 +101,7 @@ export const TurboTrackingInfoCard: React.FC<TurboTrackingInfoCardProps> = ({
         {order.turboDelayReason && (
           <div className="flex justify-between items-center py-1 border-b border-border/30">
             <span className="font-medium text-muted-foreground">سبب التأخير:</span>
-            <span className="text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-1">
+            <span className="text-warning dark:text-warning font-semibold flex items-center gap-1">
               <Clock size={12} />
               {order.turboDelayReason}
             </span>
@@ -111,7 +111,7 @@ export const TurboTrackingInfoCard: React.FC<TurboTrackingInfoCardProps> = ({
         {order.turboReturnReason && (
           <div className="flex justify-between items-center py-1 border-b border-border/30">
             <span className="font-medium text-muted-foreground">سبب الارتجاع:</span>
-            <span className="text-rose-600 dark:text-rose-400 font-semibold flex items-center gap-1">
+            <span className="text-destructive dark:text-destructive font-semibold flex items-center gap-1">
               <RotateCcw size={12} />
               {order.turboReturnReason}
             </span>

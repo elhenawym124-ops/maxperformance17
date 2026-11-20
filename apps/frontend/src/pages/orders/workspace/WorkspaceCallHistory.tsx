@@ -63,7 +63,7 @@ export const WorkspaceCallHistory: React.FC<WorkspaceCallHistoryProps> = ({
 
                   <div className="flex items-center gap-2 font-mono text-[11px] tabular-nums text-muted-foreground">
                     {durationStr && (
-                      <span className="rounded-md bg-emerald-500/10 px-1.5 py-0.5 font-bold text-emerald-600 dark:text-emerald-400">
+                      <span className="rounded-md bg-success/10 px-1.5 py-0.5 font-bold text-success dark:text-success">
                         {durationStr}
                       </span>
                     )}

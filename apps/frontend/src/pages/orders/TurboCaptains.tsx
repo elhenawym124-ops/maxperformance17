@@ -91,10 +91,10 @@ const TurboCaptains: React.FC = () => {
   };
 
   const SortIcon = ({ field }: { field: string }) => {
-    if (sortBy !== field) return <ArrowUpDown className="w-3 h-3 text-muted-foreground/60 inline mr-1" />;
+    if (sortBy !== field) return <ArrowUpDown className="w-3 h-3 text-muted-foreground/60 inline me-1" />;
     return sortOrder === 'desc' 
-      ? <ArrowDown className="w-3 h-3 text-primary inline mr-1" />
-      : <ArrowUp className="w-3 h-3 text-primary inline mr-1" />;
+      ? <ArrowDown className="w-3 h-3 text-primary inline me-1" />
+      : <ArrowUp className="w-3 h-3 text-primary inline me-1" />;
   };
 
   if (loading && captains.length === 0) {
@@ -140,11 +140,11 @@ const TurboCaptains: React.FC = () => {
           </div>
           <div className="bg-card border border-border/70 rounded-xl p-3.5 shadow-xs space-y-1">
             <span className="text-[11px] font-medium text-muted-foreground block">تم التسليم</span>
-            <span className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{totalStats.totalDelivered}</span>
+            <span className="text-xl font-bold font-mono tabular-nums text-success dark:text-success">{totalStats.totalDelivered}</span>
           </div>
           <div className="bg-card border border-border/70 rounded-xl p-3.5 shadow-xs space-y-1">
             <span className="text-[11px] font-medium text-muted-foreground block">المرتجعات</span>
-            <span className="text-xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">{totalStats.totalReturned}</span>
+            <span className="text-xl font-bold font-mono tabular-nums text-destructive dark:text-destructive">{totalStats.totalReturned}</span>
           </div>
           <div className="bg-card border border-border/70 rounded-xl p-3.5 shadow-xs space-y-1">
             <span className="text-[11px] font-medium text-muted-foreground block">متوسط نسبة التسليم</span>
@@ -163,7 +163,7 @@ const TurboCaptains: React.FC = () => {
               onChange={e => setSearch(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && fetchData()}
               placeholder="ابحث باسم المندوب..."
-              className="w-full pl-8 pr-3 py-1.5 border border-border/70 rounded-lg text-xs bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full ps-8 pe-3 py-1.5 border border-border/70 rounded-lg text-xs bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
             <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-2.5 top-1/2 -translate-y-1/2" />
           </div>
@@ -239,10 +239,10 @@ const TurboCaptains: React.FC = () => {
                     <td className="px-4 py-3 text-center font-mono tabular-nums font-bold text-foreground">
                       {cap.total}
                     </td>
-                    <td className="px-4 py-3 text-center font-mono tabular-nums font-bold text-emerald-600 dark:text-emerald-400">
+                    <td className="px-4 py-3 text-center font-mono tabular-nums font-bold text-success dark:text-success">
                       {cap.delivered + cap.remitted}
                     </td>
-                    <td className="px-4 py-3 text-center font-mono tabular-nums font-bold text-rose-600 dark:text-rose-400">
+                    <td className="px-4 py-3 text-center font-mono tabular-nums font-bold text-destructive dark:text-destructive">
                       {cap.returned}
                     </td>
                     <td className="px-4 py-3 text-center font-mono tabular-nums text-foreground">
@@ -251,10 +251,10 @@ const TurboCaptains: React.FC = () => {
                     <td className="px-4 py-3 text-center">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono tabular-nums ${
                         cap.deliveryRate >= 80 
-                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
+                          ? 'bg-success/10 text-success dark:text-success border border-success/20' 
                           : cap.deliveryRate >= 60 
-                            ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20' 
-                            : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+                            ? 'bg-warning/10 text-warning dark:text-warning border border-warning/20' 
+                            : 'bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20'
                       }`}>
                         {cap.deliveryRate}%
                       </span>

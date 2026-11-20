@@ -51,7 +51,7 @@ export const BulkOrderStatsGrid: React.FC<BulkOrderStatsGridProps> = ({
             <div className="h-2 bg-muted rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
-                  progress === 100 ? "bg-emerald-500" : "bg-primary"
+                  progress === 100 ? "bg-success" : "bg-primary"
                 }`}
                 style={{ width: `${progress}%` }}
               />

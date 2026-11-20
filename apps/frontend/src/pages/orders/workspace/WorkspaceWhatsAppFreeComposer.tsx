@@ -58,7 +58,7 @@ export const WorkspaceWhatsAppFreeComposer: React.FC<WorkspaceWhatsAppFreeCompos
               : "Type a message or pick a template…"
           }
           rows={2}
-          className="flex-1 resize-none rounded-xl border border-border/70 bg-background p-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
+          className="flex-1 resize-none rounded-xl border border-border/70 bg-background p-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-success focus:outline-none focus:ring-2 focus:ring-success/20 transition-all"
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
@@ -71,7 +71,7 @@ export const WorkspaceWhatsAppFreeComposer: React.FC<WorkspaceWhatsAppFreeCompos
           type="button"
           onClick={onSendMessage}
           disabled={isSending || !messageText.trim()}
-          className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-4 text-xs font-bold text-white shadow-xs transition-transform active:scale-[0.98] hover:bg-emerald-700 disabled:opacity-40"
+          className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl bg-success px-4 text-xs font-bold text-white shadow-xs transition-transform active:scale-[0.98] hover:bg-success disabled:opacity-40"
         >
           {isSending ? (
             <ArrowPathIcon className="h-4 w-4 animate-spin" />

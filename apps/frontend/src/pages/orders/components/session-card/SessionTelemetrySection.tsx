@@ -23,7 +23,7 @@ export const SessionTelemetrySection: React.FC<SessionTelemetrySectionProps> = (
       {/* Time spent */}
       <div className="rounded-lg border border-border/60 bg-muted/20 p-2.5">
         <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
-          <Clock className="h-3.5 w-3.5 text-indigo-500" />
+          <Clock className="h-3.5 w-3.5 text-primary" />
           <span>وقت الشراء</span>
         </div>
         <div className="mt-1 font-mono font-semibold tabular-nums text-foreground">
@@ -34,7 +34,7 @@ export const SessionTelemetrySection: React.FC<SessionTelemetrySectionProps> = (
       {/* Session count */}
       <div className="rounded-lg border border-border/60 bg-muted/20 p-2.5">
         <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
-          <Calendar className="h-3.5 w-3.5 text-sky-500" />
+          <Calendar className="h-3.5 w-3.5 text-info" />
           <span>عدد الجلسات</span>
         </div>
         <div className="mt-1 font-mono font-semibold tabular-nums text-foreground">
@@ -47,14 +47,14 @@ export const SessionTelemetrySection: React.FC<SessionTelemetrySectionProps> = (
       {/* First visit date */}
       <div className="col-span-2 sm:col-span-1 rounded-lg border border-border/60 bg-muted/20 p-2.5">
         <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
-          <Clock className="h-3.5 w-3.5 text-teal-500" />
+          <Clock className="h-3.5 w-3.5 text-success" />
           <span>أول زيارة للمتجر</span>
         </div>
         <div className="mt-1 font-semibold text-foreground">
           {firstSeenAt ? (
             <div>
               <span className="font-mono tabular-nums">{formatDate(firstSeenAt)}</span>
-              <span className="text-[10px] font-normal text-muted-foreground mr-1">
+              <span className="text-[10px] font-normal text-muted-foreground me-1">
                 ({formatRelativeDays(firstSeenAt)})
               </span>
             </div>

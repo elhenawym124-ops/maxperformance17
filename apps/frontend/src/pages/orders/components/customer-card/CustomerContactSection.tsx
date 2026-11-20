@@ -82,7 +82,7 @@ export const CustomerContactSection: React.FC<CustomerContactSectionProps> = ({
   return (
     <>
       <div>
-        <label className="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">
+        <label className="text-sm font-medium text-muted-foreground block mb-1">
           {t("orderDetails.nameLabel")}
         </label>
         {isEditing ? (
@@ -92,17 +92,17 @@ export const CustomerContactSection: React.FC<CustomerContactSectionProps> = ({
             onChange={(e) =>
               setEditForm({ ...editForm, customerName: e.target.value })
             }
-            className="w-full border-gray-300 dark:border-gray-600 rounded-md text-sm dark:bg-gray-700 dark:text-gray-100"
+            className="w-full border-border rounded-md text-sm dark:dark:bg-muted dark:dark:text-muted-foreground"
           />
         ) : (
-          <p className="text-gray-900 dark:text-gray-100">
+          <p className="text-foreground">
             {order.customerName || t("orders.notSpecified")}
           </p>
         )}
       </div>
 
       <div>
-        <label className="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">
+        <label className="text-sm font-medium text-muted-foreground block mb-1">
           {t("orderDetails.phoneLabel")}
         </label>
         {isEditing ? (
@@ -113,31 +113,31 @@ export const CustomerContactSection: React.FC<CustomerContactSectionProps> = ({
               onChange={(e) =>
                 handlePhoneChange("customerPhone", e.target.value)
               }
-              className={`w-full rounded-md text-sm dark:bg-gray-700 dark:text-gray-100 ${
+              className={`w-full rounded-md text-sm dark:dark:bg-muted dark:dark:text-muted-foreground ${
                 phoneErrors.main
-                  ? "border-red-500 dark:border-red-500 focus:ring-red-500 focus:border-red-500"
-                  : "border-gray-300 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                  ? "border-destructive dark:border-destructive focus:ring-destructive focus:border-destructive"
+                  : "border-border focus:ring-primary focus:border-primary"
               }`}
               dir="ltr"
               placeholder="01xxxxxxxxx"
             />
             {phoneErrors.main && (
-              <div className="flex items-center gap-1 text-red-500 dark:text-red-400 text-xs mt-1">
+              <div className="flex items-center gap-1 text-destructive dark:text-destructive text-xs mt-1">
                 <ExclamationCircleIcon className="w-3 h-3" />
                 <span>{phoneErrors.main}</span>
               </div>
             )}
           </div>
         ) : (
-          <div className="flex items-center justify-between text-gray-900 dark:text-gray-100">
+          <div className="flex items-center justify-between text-foreground">
             <div className="flex items-center min-w-0">
-              <PhoneIcon className="w-4 h-4 text-gray-400 dark:text-gray-500 ms-0 me-2 shrink-0" />
+              <PhoneIcon className="w-4 h-4 text-muted-foreground/80 ms-0 me-2 shrink-0" />
               {order.customerPhone ? (
                 <span dir="ltr" className="font-mono tabular-nums font-medium">
                   {toStandardDigits(order.customerPhone)}
                 </span>
               ) : (
-                <span className="text-gray-400 text-sm">
+                <span className="text-muted-foreground text-sm">
                   {t("orders.notSpecified")}
                 </span>
               )}
@@ -155,10 +155,10 @@ export const CustomerContactSection: React.FC<CustomerContactSectionProps> = ({
               {order.customerPhone && getWhatsAppChatUrl(order.customerPhone) && (
                 <Link
                   to={getWhatsAppChatUrl(order.customerPhone)!}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition active:scale-97 shrink-0 shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-success dark:text-success bg-success/10 dark:bg-success/40 border border-success dark:border-success hover:bg-success dark:hover:bg-success/50 transition active:scale-97 shrink-0 shadow-xs"
                   title="فتح محادثة العميل على واتساب المنصة"
                 >
-                  <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <WhatsAppIcon className="w-3.5 h-3.5 text-success dark:text-success shrink-0" />
                   <span>محادثة واتساب</span>
                 </Link>
               )}
@@ -168,7 +168,7 @@ export const CustomerContactSection: React.FC<CustomerContactSectionProps> = ({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-1">
+        <label className="text-sm font-medium text-muted-foreground block mb-1">
           {t("orderDetails.alternativePhone")}
         </label>
         {isEditing ? (
@@ -179,25 +179,25 @@ export const CustomerContactSection: React.FC<CustomerContactSectionProps> = ({
               onChange={(e) =>
                 handlePhoneChange("alternativePhone", e.target.value)
               }
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm ${
+              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm ${
                 phoneErrors.alternative
-                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                  : "border-gray-300 dark:border-gray-600"
+                  ? "border-destructive focus:border-destructive focus:ring-destructive"
+                  : "border-border"
               }`}
               dir="ltr"
               placeholder={t("orderDetails.additionalPhone").toString()}
             />
             {phoneErrors.alternative && (
-              <div className="flex items-center gap-1 text-red-500 dark:text-red-400 text-xs mt-1">
+              <div className="flex items-center gap-1 text-destructive dark:text-destructive text-xs mt-1">
                 <ExclamationCircleIcon className="w-3 h-3" />
                 <span>{phoneErrors.alternative}</span>
               </div>
             )}
           </div>
         ) : order.alternativePhone ? (
-          <div className="flex items-center justify-between text-gray-900 dark:text-gray-100">
+          <div className="flex items-center justify-between text-foreground">
             <div className="flex items-center min-w-0">
-              <PhoneIcon className="w-4 h-4 text-gray-400 dark:text-gray-500 ms-0 me-2 shrink-0" />
+              <PhoneIcon className="w-4 h-4 text-muted-foreground/80 ms-0 me-2 shrink-0" />
               <span dir="ltr" className="font-mono tabular-nums font-medium">
                 {toStandardDigits(order.alternativePhone)}
               </span>
@@ -205,16 +205,16 @@ export const CustomerContactSection: React.FC<CustomerContactSectionProps> = ({
             {getWhatsAppChatUrl(order.alternativePhone) && (
               <Link
                 to={getWhatsAppChatUrl(order.alternativePhone)!}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition active:scale-97 shrink-0 shadow-xs"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-success dark:text-success bg-success/10 dark:bg-success/40 border border-success dark:border-success hover:bg-success dark:hover:bg-success/50 transition active:scale-97 shrink-0 shadow-xs"
                 title="فتح محادثة الهاتف البديل على واتساب المنصة"
               >
-                <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <WhatsAppIcon className="w-3.5 h-3.5 text-success dark:text-success shrink-0" />
                 <span>محادثة واتساب</span>
               </Link>
             )}
           </div>
         ) : (
-          <p className="text-gray-400 dark:text-gray-500 text-sm">
+          <p className="text-muted-foreground/80 text-sm">
             {t("orders.notSpecified")}
           </p>
         )}

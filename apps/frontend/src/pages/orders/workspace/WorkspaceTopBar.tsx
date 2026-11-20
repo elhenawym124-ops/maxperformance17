@@ -109,7 +109,7 @@ export const WorkspaceTopBar: React.FC<WorkspaceTopBarProps> = ({
                   onClick={() => onSelectTab(tab.key)}
                   className={`relative inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 sm:px-3.5 py-1 text-xs sm:text-sm font-medium transition-all active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                     isActive
-                      ? 'bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-500'
+                      ? 'bg-primary text-white font-semibold shadow-sm hover:bg-primary'
                       : 'border border-border/70 bg-card/60 text-muted-foreground hover:bg-muted/80 hover:text-foreground'
                   }`}
                 >

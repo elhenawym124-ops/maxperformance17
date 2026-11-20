@@ -20,10 +20,10 @@ const PreparationProblemHoldPanel = ({
   const { t } = useTranslation();
 
   return (
-    <div className="rounded-lg border border-amber-500/30 bg-amber-500/[0.04] p-3">
+    <div className="rounded-lg border border-warning/30 bg-warning/[0.04] p-3">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
-          <h4 className="text-xs font-semibold text-amber-700 dark:text-amber-300">
+          <h4 className="text-xs font-semibold text-warning dark:text-warning">
             {t("preparation.problemPanel.title")}
           </h4>
           <p className="mt-0.5 text-xs text-muted-foreground">
@@ -34,7 +34,7 @@ const PreparationProblemHoldPanel = ({
           type="button"
           onClick={() => onEditProblemReason(order.orderNumber)}
           disabled={rowBusy}
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-700 transition-all active:scale-[0.98] hover:bg-amber-500/20 dark:text-amber-300"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-warning/30 bg-warning/10 px-2.5 py-1 text-xs font-medium text-warning transition-all active:scale-[0.98] hover:bg-warning/20 dark:text-warning"
         >
           <Pencil className="h-3 w-3" />
           {problemHoldDetails.reason
@@ -49,7 +49,7 @@ const PreparationProblemHoldPanel = ({
             {problemHoldDetails.reason}
           </div>
         ) : (
-          <p className="rounded-md border border-dashed border-amber-500/30 bg-amber-500/5 px-2.5 py-1.5 text-xs text-amber-700 dark:text-amber-300">
+          <p className="rounded-md border border-dashed border-warning/30 bg-warning/5 px-2.5 py-1.5 text-xs text-warning dark:text-warning">
             {t("preparation.problemPanel.noReason")}
           </p>
         )}

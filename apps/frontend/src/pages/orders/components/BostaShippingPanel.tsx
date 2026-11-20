@@ -46,7 +46,7 @@ const BostaShippingPanel: React.FC<BostaShippingPanelProps> = ({
 
   const getStatusBadge = (s?: string) => {
     if (!s) return "border-border/60 bg-muted/30 text-muted-foreground";
-    if (s === "DELIVERED") return "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300";
+    if (s === "DELIVERED") return "border-success/20 bg-success/10 text-success dark:text-success";
     if (s === "CANCELLED" || s === "RETURNED") return "border-destructive/20 bg-destructive/10 text-destructive";
     if (s === "PROCESSING" || s === "IN_TRANSIT" || s === "OUT_FOR_DELIVERY" || s === "CONFIRMED") {
       return "border-primary/20 bg-primary/10 text-primary";
@@ -115,7 +115,7 @@ const BostaShippingPanel: React.FC<BostaShippingPanelProps> = ({
                 href={"https://track.bosta.co/" + trackingNumber}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300 transition hover:bg-emerald-500/15 active:scale-[0.97]"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-success/20 bg-success/10 px-3 py-1.5 text-xs font-semibold text-success dark:text-success transition hover:bg-success/15 active:scale-[0.97]"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
                 <span>{t("bosta.trackOnBosta")}</span>

@@ -97,7 +97,7 @@ export const CustomerOrderHistoryCard: React.FC<CustomerOrderHistoryCardProps> =
   const successRateInfo = getSuccessRateBadge(stats?.deliverySuccessRate);
 
   return (
-    <div className="bg-card shadow-xs rounded-2xl p-4 sm:p-5 border border-border/70">
+    <div className="bg-card shadow-xs rounded-xl p-4 sm:p-5 border border-border/70">
       {/* Header */}
       <div className="flex items-center justify-between gap-3 border-b border-border/70 pb-3 mb-4">
         <div className="flex items-center gap-2 min-w-0">
@@ -142,17 +142,17 @@ export const CustomerOrderHistoryCard: React.FC<CustomerOrderHistoryCardProps> =
         </div>
 
         {/* Delivered */}
-        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-2.5">
+        <div className="rounded-xl border border-success/20 bg-success/10 p-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-medium text-emerald-700 dark:text-emerald-400">
+            <span className="text-[11px] font-medium text-success dark:text-success">
               مستلمة
             </span>
-            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-success dark:text-success" />
           </div>
-          <span className="text-base font-bold font-mono tabular-nums text-emerald-700 dark:text-emerald-400 mt-0.5 block">
+          <span className="text-base font-bold font-mono tabular-nums text-success dark:text-success mt-0.5 block">
             {stats?.deliveredCount ?? 0}
           </span>
-          <span className="text-[10px] text-emerald-600/80 dark:text-emerald-400/80 block mt-0.5 truncate font-mono tabular-nums">
+          <span className="text-[10px] text-success/80 dark:text-success/80 block mt-0.5 truncate font-mono tabular-nums">
             {stats?.totalDeliveredSpent
               ? formatPrice(stats.totalDeliveredSpent)
               : "0 " + currency}
@@ -220,8 +220,8 @@ export const CustomerOrderHistoryCard: React.FC<CustomerOrderHistoryCardProps> =
             onClick={() => setFilter("delivered")}
             className={`px-2.5 py-1 rounded-md font-medium transition active:scale-97 shrink-0 ${
               filter === "delivered"
-                ? "bg-emerald-600 text-white"
-                : "text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10"
+                ? "bg-success text-white"
+                : "text-success dark:text-success hover:bg-success/10"
             }`}
           >
             المستلمة ({stats?.deliveredCount || 0})
@@ -259,14 +259,14 @@ export const CustomerOrderHistoryCard: React.FC<CustomerOrderHistoryCardProps> =
 
         {/* First time buyer notice (only 1 total order) */}
         {orders.length <= 1 && (
-          <div className="rounded-xl border border-sky-500/20 bg-sky-500/10 p-3 text-xs text-sky-900 dark:text-sky-200 mt-2">
+          <div className="rounded-xl border border-info/20 bg-info/10 p-3 text-xs text-info dark:text-info mt-2">
             <div className="flex items-start gap-2">
-              <ShoppingBag className="h-4 w-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
+              <ShoppingBag className="h-4 w-4 text-info dark:text-info shrink-0 mt-0.5" />
               <div>
                 <p className="font-semibold">
                   الطلب الأول لهذا العميل (عميل جديد)
                 </p>
-                <p className="mt-0.5 text-[11px] text-sky-700/80 dark:text-sky-300/80">
+                <p className="mt-0.5 text-[11px] text-info/80 dark:text-info/80">
                   لا توجد طلبات شراء سابقة مسجلة لنفس رقم الهاتف في متجرك. هذا
                   الطلب يمثل بداية السجل الشرائي للعميل.
                 </p>

@@ -35,7 +35,7 @@ export const getSuccessRateBadge = (
     return {
       label: `${rate}% نسبة استلام ممتازة`,
       className:
-        "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
+        "bg-success/10 text-success dark:text-success border-success/30",
       category: "excellent",
     };
   }
@@ -43,7 +43,7 @@ export const getSuccessRateBadge = (
     return {
       label: `${rate}% نسبة استلام متوسطة`,
       className:
-        "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30",
+        "bg-warning/10 text-warning dark:text-warning border-warning/30",
       category: "medium",
     };
   }

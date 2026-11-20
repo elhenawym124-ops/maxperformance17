@@ -70,7 +70,7 @@ const UnifiedShipmentsPage: React.FC = () => {
       />
 
       {/* Seamless Cockpit Chassis Container */}
-      <div className="bg-card rounded-2xl border border-border/70 shadow-xs overflow-hidden p-3.5 sm:p-4 space-y-3.5">
+      <div className="bg-card rounded-xl border border-border/70 shadow-xs overflow-hidden p-3.5 sm:p-4 space-y-3.5">
         {/* 1. Carrier Selector Tabs */}
         <CarrierTabsBar
           companies={companies}

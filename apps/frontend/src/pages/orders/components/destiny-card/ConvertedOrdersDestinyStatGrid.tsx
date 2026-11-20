@@ -23,10 +23,10 @@ export const ConvertedOrdersDestinyStatGrid: React.FC<ConvertedOrdersDestinyStat
         value: delivered.value,
         rate: delivered.rate,
         icon: CheckCircle2,
-        accentColor: "text-emerald-600 dark:text-emerald-400",
+        accentColor: "text-success dark:text-success",
         bgBadge:
-          "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
-        border: "border-emerald-500/20",
+          "bg-success/10 text-success dark:text-success border border-success/20",
+        border: "border-success/20",
       },
       {
         title: t("incompleteDestinyInProgress", "قيد الشحن والتنفيذ"),
@@ -44,10 +44,10 @@ export const ConvertedOrdersDestinyStatGrid: React.FC<ConvertedOrdersDestinyStat
         value: returned.value,
         rate: returned.rate,
         icon: RotateCcw,
-        accentColor: "text-amber-600 dark:text-amber-400",
+        accentColor: "text-warning dark:text-warning",
         bgBadge:
-          "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
-        border: "border-amber-500/20",
+          "bg-warning/10 text-warning dark:text-warning border border-warning/20",
+        border: "border-warning/20",
       },
       {
         title: t("incompleteDestinyCancelled", "ملغي"),

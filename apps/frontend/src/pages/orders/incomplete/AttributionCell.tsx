@@ -21,7 +21,7 @@ export const AttributionCell: React.FC<{
     <div className="flex flex-col items-start gap-1">
       <div className="flex flex-wrap items-center gap-1">
         {attribution.platform && (
-          <span className="inline-flex items-center rounded-full bg-blue-500/10 px-2 py-0.5 text-[11px] font-semibold text-blue-600 dark:text-blue-400">
+          <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-semibold text-primary dark:text-primary">
             {attribution.platform}
           </span>
         )}
@@ -33,7 +33,7 @@ export const AttributionCell: React.FC<{
       </div>
       {campaignLabel && (
         <span
-          className="inline-flex max-w-[170px] items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-medium text-amber-600 dark:text-amber-400"
+          className="inline-flex max-w-[170px] items-center rounded-full bg-warning/10 px-2 py-0.5 text-[11px] font-medium text-warning dark:text-warning"
           title={campaignLabel}
         >
           <span className="truncate">{campaignLabel}</span>

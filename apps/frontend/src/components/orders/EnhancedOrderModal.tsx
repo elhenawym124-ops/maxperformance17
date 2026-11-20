@@ -52,7 +52,7 @@ export const EnhancedOrderModal: React.FC<EnhancedOrderModalProps> = (props) => 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-center bg-slate-950/55 backdrop-blur-md dark:bg-slate-950/75 sm:p-4 overscroll-contain modal-overlay"
+      className="fixed inset-0 z-50 flex justify-center /55/55bg-muted backdrop-blur-md dark:dark:bg-muted sm:p-4 overscroll-contain modal-overlay"
       onClick={(e) => e.target === e.currentTarget && onClose()}
       role="dialog"
       aria-modal="true"
@@ -61,9 +61,9 @@ export const EnhancedOrderModal: React.FC<EnhancedOrderModalProps> = (props) => 
       <div
         ref={modalRef}
         tabIndex={-1}
-        className="relative flex max-h-[calc(100vh-0.5rem)] flex-col overflow-hidden rounded-t-[28px] border border-slate-200/70 bg-white/96 shadow-2xl dark:border-slate-700/70 dark:bg-slate-900/96 sm:max-h-[calc(100vh-2rem)] sm:rounded-[24px] modal-panel"
+        className="relative flex max-h-[calc(100vh-0.5rem)] flex-col overflow-hidden rounded-t-[28px] border /70/70border-border bg-white/96 shadow-2xl dark:dark:border-border dark:dark:bg-muted sm:max-h-[calc(100vh-2rem)] sm:rounded-[24px] modal-panel"
       >
-        <div className="mx-auto mt-2.5 h-1.5 w-12 rounded-full bg-slate-300 dark:bg-slate-600 sm:hidden" />
+        <div className="mx-auto mt-2.5 h-1.5 w-12 rounded-full bg-muted dark:dark:bg-muted sm:hidden" />
         <div className="flex-1 overflow-y-auto px-3 pb-3 pt-2.5 sm:px-4 sm:pb-4 sm:pt-3">
           <div className="space-y-3">
             <ModalHeader
@@ -79,17 +79,17 @@ export const EnhancedOrderModal: React.FC<EnhancedOrderModalProps> = (props) => 
             />
 
             {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 flex items-start gap-3">
-                <ExclamationTriangleIcon className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+              <div className="bg-destructive/10 dark:bg-destructive/20 border border-destructive dark:border-destructive rounded-lg p-4 flex items-start gap-3">
+                <ExclamationTriangleIcon className="h-5 w-5 text-destructive dark:text-destructive flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <p className="text-sm text-red-800 dark:text-red-200">
+                  <p className="text-sm text-destructive dark:text-destructive">
                     {error}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setError(null)}
-                  className="text-red-400 hover:text-red-600 dark:hover:text-red-300"
+                  className="text-destructive hover:text-destructive dark:hover:text-destructive"
                 >
                   <XMarkIcon className="h-4 w-4" />
                 </button>

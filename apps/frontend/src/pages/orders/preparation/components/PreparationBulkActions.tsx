@@ -67,7 +67,7 @@ const PreparationBulkActions = ({
           <span className="text-sm font-semibold text-foreground">{t("preparation.bulkActions.title")}</span>
 
           <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-muted/40 px-2.5 py-1 text-xs text-muted-foreground">
-            <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" />
+            <CheckCircleIcon className="h-3.5 w-3.5 text-success" />
             {t("preparation.bulkActions.selected", { count: selectedOrdersCount })}
           </span>
 
@@ -97,8 +97,8 @@ const PreparationBulkActions = ({
       )}
 
       {compact && selectedOrdersCount > 0 && (
-        <span className="inline-flex items-center gap-1.5 rounded-xl border border-amber-300 bg-amber-100/80 px-2.5 py-1 text-xs font-bold tabular-nums text-amber-900 dark:border-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
-          <CheckCircleIcon className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+        <span className="inline-flex items-center gap-1.5 rounded-xl border border-warning bg-warning/80 px-2.5 py-1 text-xs font-bold tabular-nums text-warning dark:border-warning dark:bg-warning/40 dark:text-warning">
+          <CheckCircleIcon className="h-3.5 w-3.5 text-warning dark:text-warning" />
           {selectedOrdersCount} {t("preparation.bulkActions.selected_plural", { count: selectedOrdersCount })}
         </span>
       )}
@@ -171,7 +171,7 @@ const PreparationBulkActions = ({
           <button
             onClick={onPrintInvoices}
             disabled={selectedOrdersCount === 0 || printingInvoices}
-            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-3.5 py-1.5 text-xs font-medium text-white transition active:scale-[0.98] hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-emerald-700 dark:hover:bg-emerald-600 max-sm:flex-1"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-success px-3.5 py-1.5 text-xs font-medium text-white transition active:scale-[0.98] hover:bg-success disabled:cursor-not-allowed disabled:opacity-50 dark:bg-success dark:hover:bg-success max-sm:flex-1"
           >
             {printingInvoices ? (
               <ArrowPathIcon className="h-3.5 w-3.5 animate-spin" />
@@ -187,7 +187,7 @@ const PreparationBulkActions = ({
         <button
           onClick={onSendToShipping || onSendToTurbo}
           disabled={selectedOrdersCount === 0 || sendingToTurbo}
-          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-3.5 py-1.5 text-xs font-medium text-white transition active:scale-[0.98] hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-blue-700 dark:hover:bg-blue-600 max-sm:flex-1"
+          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-xs font-medium text-white transition active:scale-[0.98] hover:bg-primary disabled:cursor-not-allowed disabled:opacity-50 dark:bg-primary dark:hover:bg-primary max-sm:flex-1"
         >
           {sendingToTurbo ? (
             <ArrowPathIcon className="h-3.5 w-3.5 animate-spin" />
@@ -203,14 +203,14 @@ const PreparationBulkActions = ({
             disabled={selectedOrdersCount === 0 || sendingToTurbo}
             className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border/70 bg-background text-foreground px-3 py-1.5 text-xs font-medium transition active:scale-[0.98] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 max-sm:flex-1"
           >
-            <TruckIcon className="h-3.5 w-3.5 text-emerald-600" />
+            <TruckIcon className="h-3.5 w-3.5 text-success" />
             <span>مندوب داخلي</span>
           </button>
         ) : null}
       </div>
 
       {!bulkStatusUpdateEnabled ? (
-        <div className="mt-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-200">
+        <div className="mt-2 rounded-xl border border-warning bg-warning/10 px-3 py-2 text-xs text-warning dark:border-warning dark:bg-warning/20 dark:text-warning">
           {t("preparation.bulkActions.disabledMessage")}
         </div>
       ) : null}

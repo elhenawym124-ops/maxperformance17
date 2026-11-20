@@ -29,9 +29,9 @@ export const OrderScheduledDeliveryCard: React.FC<OrderScheduledDeliveryCardProp
   });
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-4 sm:p-5 shadow-xs space-y-3.5 mt-4 sm:mt-6">
+    <div className="rounded-xl border border-border/70 bg-card p-4 sm:p-5 shadow-xs space-y-3.5 mt-4 sm:mt-6">
       <div className="flex items-center gap-2.5 border-b border-border/50 pb-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-warning/10 text-warning dark:text-warning">
           <CalendarClock className="h-4 w-4" />
         </div>
         <div>
@@ -44,7 +44,7 @@ export const OrderScheduledDeliveryCard: React.FC<OrderScheduledDeliveryCardProp
         </div>
       </div>
 
-      <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3.5 space-y-3">
+      <div className="rounded-xl border border-warning/20 bg-warning/5 p-3.5 space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <span className="text-[11px] font-semibold text-muted-foreground block mb-0.5">
@@ -66,7 +66,7 @@ export const OrderScheduledDeliveryCard: React.FC<OrderScheduledDeliveryCardProp
         </div>
 
         {scheduledNotes && (
-          <div className="border-t border-amber-500/20 pt-2.5">
+          <div className="border-t border-warning/20 pt-2.5">
             <span className="text-[11px] font-semibold text-muted-foreground block mb-1">
               {t("orderDetails.scheduledNotesLabel", { defaultValue: "ملاحظات التأجيل" })}
             </span>
@@ -79,7 +79,7 @@ export const OrderScheduledDeliveryCard: React.FC<OrderScheduledDeliveryCardProp
 
       {autoTransitionEnabled && (
         <div className="flex items-center gap-2 text-xs text-muted-foreground px-1">
-          <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <CheckCircle2 className="h-4 w-4 text-success dark:text-success shrink-0" />
           <span>
             {t("orderDetails.autoTransitionText", { defaultValue: "سيتم تحويل حالة الطلب تلقائياً إلى قيد التجهيز عند حلول الموعد" })}
           </span>

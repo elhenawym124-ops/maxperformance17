@@ -107,15 +107,15 @@ export function buildOrderActivities({
         if (isExplicitCustomer) {
           category = "customer";
           itemIcon = User;
-          itemColor = "bg-emerald-500";
+          itemColor = "bg-success";
         } else if (isExplicitProduct) {
           category = "products";
           itemIcon = ShoppingBag;
-          itemColor = "bg-indigo-500";
+          itemColor = "bg-primary";
         } else {
           category = "customer";
           itemIcon = Edit;
-          itemColor = "bg-teal-500";
+          itemColor = "bg-success";
         }
       } else if (isTrash) {
         category = "status";
@@ -124,14 +124,14 @@ export function buildOrderActivities({
       } else if (isCancelled) {
         category = "status";
         itemIcon = XCircle;
-        itemColor = "bg-rose-500";
+        itemColor = "bg-destructive";
       } else if (isReturned) {
         category = "status";
         itemIcon = RotateCcw;
         itemColor =
           String(h.status || "").toUpperCase() === "PARTIALLY_RETURNED"
-            ? "bg-amber-500"
-            : "bg-rose-600";
+            ? "bg-warning"
+            : "bg-destructive";
       } else {
         category = "status";
         itemIcon = CheckCircle2;
@@ -208,7 +208,7 @@ export function buildOrderActivities({
     author: getAuthorName(n, t),
     authorAvatar: getAuthorAvatar(n),
     icon: MessageSquare,
-    color: "bg-slate-500",
+    color: "bg-muted",
     noteId: n.id as string,
     canModify: canModifyNote(n),
     rawNote: n,
@@ -233,7 +233,7 @@ export function buildOrderActivities({
             date: order.createdAt,
             author: t("orderDetails.system"),
             icon: Calendar,
-            color: "bg-amber-500",
+            color: "bg-warning",
             canModify: false,
           },
         ]
@@ -276,7 +276,7 @@ export function buildOrderActivities({
           author: actorName,
           authorAvatar: ev.actor?.avatar || (matchedNote ? getAuthorAvatar(matchedNote) : undefined),
           icon: MessageSquare,
-          color: "bg-slate-500",
+          color: "bg-muted",
           noteId: noteId || undefined,
           canModify: matchedNote ? canModifyNote(matchedNote) : false,
           rawNote: matchedNote,
@@ -291,28 +291,28 @@ export function buildOrderActivities({
 
       if (evType === "payment" || evType === "discount") {
         category = "products";
-        itemColor = ev.action === "order.payment.failed" || ev.action === "order.discount.rejected" ? "bg-rose-500" : "bg-emerald-600";
+        itemColor = ev.action === "order.payment.failed" || ev.action === "order.discount.rejected" ? "bg-destructive" : "bg-success";
         itemIcon = ev.action === "order.payment.failed" || ev.action === "order.discount.rejected" ? XCircle : CheckCircle2;
       } else if (evType === "assign" || evType === "call") {
         category = "customer";
         itemIcon = User;
-        itemColor = "bg-indigo-500";
+        itemColor = "bg-primary";
       } else if (evType === "edit") {
         const lowerTitle = String(ev.title || "").toLowerCase();
         category = lowerTitle.includes("منتج") || lowerTitle.includes("سعر") ? "products" : "customer";
         itemIcon = category === "products" ? ShoppingBag : Edit;
-        itemColor = category === "products" ? "bg-indigo-500" : "bg-teal-500";
+        itemColor = category === "products" ? "bg-primary" : "bg-success";
       } else if (statusUpper === "TRASH" || statusUpper === "DELETED") {
         itemIcon = Trash2;
         itemColor = "bg-destructive";
       } else if (isCancellationStatus(statusUpper)) {
         itemIcon = XCircle;
-        itemColor = "bg-rose-500";
+        itemColor = "bg-destructive";
       } else if (isReturnStatusCode(statusUpper) || statusUpper.includes("RETURN")) {
         itemIcon = RotateCcw;
-        itemColor = statusUpper === "PARTIALLY_RETURNED" ? "bg-amber-500" : "bg-rose-600";
+        itemColor = statusUpper === "PARTIALLY_RETURNED" ? "bg-warning" : "bg-destructive";
       } else if (evType === "create") {
-        itemColor = "bg-emerald-600";
+        itemColor = "bg-success";
       }
 
       const rawReason = typeof ev.meta?.reason === "string" ? ev.meta.reason.trim() : "";

@@ -126,13 +126,13 @@ const toneClasses: Record<NonNullable<DetailItem["tone"]>, string> = {
   default:
     "border-border/60 bg-background/80 text-foreground",
   emerald:
-    "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    "border-success/20 bg-success/10 text-success dark:text-success",
   amber:
-    "border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    "border-warning/20 bg-warning/10 text-warning dark:text-warning",
   violet:
-    "border-violet-500/20 bg-violet-500/10 text-violet-600 dark:text-violet-400",
+    "border-primary/20 bg-primary/10 text-primary dark:text-primary",
   sky:
-    "border-sky-500/20 bg-sky-500/10 text-sky-600 dark:text-sky-400",
+    "border-info/20 bg-info/10 text-info dark:text-info",
 };
 
 const DetailCard: React.FC<{
@@ -271,7 +271,7 @@ const OrderPartnerOperationsCard: React.FC<OrderPartnerOperationsCardProps> = ({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border/70 bg-card p-4 shadow-sm text-card-foreground space-y-3.5",
+        "rounded-xl border border-border/70 bg-card p-4 shadow-sm text-card-foreground space-y-3.5",
         className,
       )}
       dir="rtl"

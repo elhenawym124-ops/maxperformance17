@@ -41,8 +41,8 @@ const InvoiceQR: React.FC<InvoiceQRProps> = ({
         <span
           className={
             compact
-              ? "text-[10px] font-semibold text-slate-900 print:text-black"
-              : "text-xs font-semibold tracking-tight text-slate-900 print:text-black"
+              ? "text-[10px] font-semibold text-foreground print:text-black"
+              : "text-xs font-semibold tracking-tight text-foreground print:text-black"
           }
         >
           {label}
@@ -52,8 +52,8 @@ const InvoiceQR: React.FC<InvoiceQRProps> = ({
         style={{ maxWidth: `${Math.max(size + 24, 72)}px` }}
         className={
           compact
-            ? "truncate font-mono text-[9px] text-slate-700 tabular-nums print:text-black"
-            : "truncate font-mono text-[10px] text-slate-700 tabular-nums print:text-black"
+            ? "truncate font-mono text-[9px] text-foreground tabular-nums print:text-black"
+            : "truncate font-mono text-[10px] text-foreground tabular-nums print:text-black"
         }
         title={value}
       >

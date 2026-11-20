@@ -12,11 +12,11 @@ const CALL_RESULT_LABELS: Record<string, { ar: string; en: string; tone: ResultT
 };
 
 export const CALL_RESULT_TONE_CLASSES: Record<ResultTone, string> = {
-  amber: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-  rose: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
-  blue: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+  amber: 'bg-warning/10 text-warning dark:text-warning',
+  rose: 'bg-destructive/10 text-destructive dark:text-destructive',
+  blue: 'bg-primary/10 text-primary dark:text-primary',
   zinc: 'bg-muted text-foreground',
-  emerald: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+  emerald: 'bg-success/10 text-success dark:text-success',
 };
 
 export const callResultLabel = (result: string, isArabic: boolean): string => {

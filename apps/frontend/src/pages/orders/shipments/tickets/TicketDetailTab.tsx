@@ -57,7 +57,7 @@ export const TicketDetailTab: React.FC<TicketDetailTabProps> = ({
       <div className="p-3.5 space-y-3 overflow-y-auto max-h-[350px] bg-background/50">
         {/* Initial Ticket Message */}
         {ticketDetail.subject && (
-          <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-950 dark:text-amber-200">
+          <div className="p-3 rounded-xl bg-warning/10 border border-warning/20 text-xs text-warning dark:text-warning">
             <p className="font-bold mb-1">موضوع التذكرة / البداية:</p>
             <p className="leading-relaxed whitespace-pre-wrap">{ticketDetail.subject}</p>
           </div>
@@ -82,9 +82,9 @@ export const TicketDetailTab: React.FC<TicketDetailTabProps> = ({
                 className={`flex flex-col ${isClient ? "items-end" : "items-start"}`}
               >
                 <div
-                  className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
+                  className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-xs leading-relaxed ${
                     isClient
-                      ? "bg-amber-600 text-white rounded-br-xs shadow-xs"
+                      ? "bg-warning text-white rounded-br-xs shadow-xs"
                       : "bg-card text-foreground border border-border/70 rounded-bl-xs shadow-xs"
                   }`}
                 >
@@ -154,14 +154,14 @@ export const TicketDetailTab: React.FC<TicketDetailTabProps> = ({
           <button
             type="submit"
             disabled={sendingReply || (!replyContent.trim() && !replyImage)}
-            className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white transition disabled:opacity-50 active:scale-95 shadow-xs cursor-pointer"
+            className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-xs font-semibold bg-warning hover:bg-warning text-white transition disabled:opacity-50 active:scale-95 shadow-xs cursor-pointer"
           >
             <Send className="h-3.5 w-3.5" />
             <span>{sendingReply ? "إرسال..." : "رد"}</span>
           </button>
         </div>
         {replyImage && (
-          <div className="flex items-center justify-between text-[11px] text-amber-700 dark:text-amber-400 bg-amber-500/10 px-3 py-1.5 rounded-xl border border-amber-500/20">
+          <div className="flex items-center justify-between text-[11px] text-warning dark:text-warning bg-warning/10 px-3 py-1.5 rounded-xl border border-warning/20">
             <span className="truncate max-w-[300px]">مرفق جاهز: {replyImage.name}</span>
             <button
               type="button"

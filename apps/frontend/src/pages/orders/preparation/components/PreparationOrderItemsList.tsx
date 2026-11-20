@@ -55,7 +55,7 @@ const PreparationOrderItemsList = ({
               key={`${order.orderNumber}-${item.id}-${item.productId}`}
               className={`rounded-lg border p-2.5 transition-colors ${
                 isShort
-                  ? "border-rose-500/30 bg-rose-500/[0.04]"
+                  ? "border-destructive/30 bg-destructive/[0.04]"
                   : "border-border/60 bg-muted/20"
               }`}
             >
@@ -97,7 +97,7 @@ const PreparationOrderItemsList = ({
                       </div>
                     ) : null}
                     {quantityOffer ? (
-                      <span className="rounded border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-amber-700 dark:text-amber-300">
+                      <span className="rounded border border-warning/30 bg-warning/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-warning dark:text-warning">
                         {t("preparation.itemsList.quantityOffer")}
                       </span>
                     ) : null}
@@ -112,7 +112,7 @@ const PreparationOrderItemsList = ({
                     {item.bestWarehouseName ? ` • ${t("preparation.itemsList.bestWarehouse", { name: item.bestWarehouseName })}` : ""}
                   </p>
                   {quantityOffer?.offerLabel ? (
-                    <p className="mt-1 text-xs font-medium text-amber-700 dark:text-amber-300">
+                    <p className="mt-1 text-xs font-medium text-warning dark:text-warning">
                       {String(quantityOffer.offerLabel)}
                     </p>
                   ) : null}
@@ -122,8 +122,8 @@ const PreparationOrderItemsList = ({
                 <span
                   className={`shrink-0 rounded-md border px-2 py-0.5 font-mono text-[11px] font-medium tabular-nums ${
                     isShort
-                      ? "border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400"
-                      : "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                      ? "border-destructive/30 bg-destructive/10 text-destructive dark:text-destructive"
+                      : "border-success/30 bg-success/10 text-success dark:text-success"
                   }`}
                 >
                   {isShort ? t("preparation.itemsList.shortage", { count: item.shortage }) : t("preparation.itemsList.available")}
@@ -157,7 +157,7 @@ const PreparationOrderItemsList = ({
                     type="button"
                     onClick={() => onQuickTransfer(order.orderNumber, item)}
                     disabled={!selectedWarehouseId || isTransfering}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-700 transition active:scale-[0.98] hover:bg-amber-500/20 disabled:cursor-not-allowed disabled:opacity-50 dark:text-amber-300 max-sm:min-h-[40px] max-sm:flex-1"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-warning/30 bg-warning/10 px-3 py-1.5 text-xs font-medium text-warning transition active:scale-[0.98] hover:bg-warning/20 disabled:cursor-not-allowed disabled:opacity-50 dark:text-warning max-sm:min-h-[40px] max-sm:flex-1"
                   >
                     <RefreshCw
                       className={`h-3 w-3 ${isTransfering ? "animate-spin" : ""}`}

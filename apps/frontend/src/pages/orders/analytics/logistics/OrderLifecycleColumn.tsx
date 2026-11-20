@@ -32,21 +32,21 @@ export const OrderLifecycleColumn: React.FC<OrderLifecycleColumnProps> = ({
 
   return (
     <div className="p-3.5 sm:p-4 flex flex-col min-w-0">
-      <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-200/60 dark:border-white/[0.06]">
+      <div className="flex items-center justify-between pb-2 mb-2 border-b /60/60border-border dark:border-white/[0.06]">
         <div className="flex items-center gap-1.5">
-          <div className="w-6 h-6 rounded-md bg-zinc-500/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 rounded-md /10/10bg-muted text-foreground dark:dark:text-muted-foreground flex items-center justify-center shrink-0">
             <ChartBarIcon className="h-3.5 w-3.5" />
           </div>
-          <h3 className="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-wider">
+          <h3 className="text-xs font-bold text-foreground dark:text-white uppercase tracking-wider">
             دورة حياة الحالات والقطع
           </h3>
         </div>
-        <span className="text-[10px] text-zinc-400 font-mono tabular-nums">
+        <span className="text-[10px] text-muted-foreground font-mono tabular-nums">
           {Object.keys(statusDist).length} حالة
         </span>
       </div>
 
-      <div className="flex-1 overflow-y-auto max-h-[350px] divide-y divide-zinc-100 dark:divide-white/[0.04] pr-1.5 scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 hover:scrollbar-thumb-zinc-400">
+      <div className="flex-1 overflow-y-auto max-h-[350px] divide-y divide-border dark:divide-white/[0.04] pe-1.5 scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 hover:scrollbar-thumb-zinc-400">
         {loading ? (
           <div className="space-y-2 py-2">
             {[1, 2, 3, 4, 5].map((n) => (
@@ -54,7 +54,7 @@ export const OrderLifecycleColumn: React.FC<OrderLifecycleColumnProps> = ({
             ))}
           </div>
         ) : sortedStatusEntries.length === 0 ? (
-          <p className="text-center text-xs text-zinc-400 py-10">لا توجد طلبات مسجلة</p>
+          <p className="text-center text-xs text-muted-foreground py-10">لا توجد طلبات مسجلة</p>
         ) : (
           sortedStatusEntries.map(([status, count]) => {
             const safeTotal = totalOrders > 0 ? totalOrders : 1;
@@ -67,31 +67,31 @@ export const OrderLifecycleColumn: React.FC<OrderLifecycleColumnProps> = ({
               <div
                 key={status}
                 onClick={() => onFilterStatus && onFilterStatus(status)}
-                className="py-2 px-1 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors cursor-pointer space-y-1"
+                className="py-2 px-1 hover:hover:bg-muted dark:hover:dark:hover:bg-muted transition-colors cursor-pointer space-y-1"
                 title="انقر لتصفية هذه الحالة"
               >
                 <div className="flex items-center justify-between text-xs gap-2">
                   <div className="flex items-center gap-1.5 min-w-0">
                     <span className={`w-2 h-2 rounded-full shrink-0 ${colorDot}`} />
-                    <span className="font-medium text-zinc-800 dark:text-zinc-200 truncate text-[11px]">
+                    <span className="font-medium text-foreground dark:dark:text-muted-foreground truncate text-[11px]">
                       {String(translate(display.labelKey) || status)}
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5 shrink-0 tabular-nums text-[11px]">
-                    <span className="font-bold text-zinc-900 dark:text-white">
+                    <span className="font-bold text-foreground dark:text-white">
                       {count.toLocaleString()} طلب
                     </span>
                     {pieces > 0 && (
-                      <span className="text-[10px] text-zinc-400">
+                      <span className="text-[10px] text-muted-foreground">
                         · {pieces.toLocaleString()} قطعة
                       </span>
                     )}
-                    <span className="text-[10px] font-semibold text-zinc-500 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] font-semibold text-muted-foreground bg-muted dark:dark:bg-muted px-1.5 py-0.5 rounded">
                       {pct}%
                     </span>
                   </div>
                 </div>
-                <div className="h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                <div className="h-1 bg-muted dark:dark:bg-muted rounded-full overflow-hidden">
                   <div
                     className={`h-full ${colorDot} rounded-full transition-all duration-300`}
                     style={{ width: `${pct}%` }}

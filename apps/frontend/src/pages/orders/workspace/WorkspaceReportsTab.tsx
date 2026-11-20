@@ -31,7 +31,7 @@ export const WorkspaceReportsTab: React.FC<WorkspaceReportsTabProps> = ({ isMana
   } = useWorkspaceReports(isManager);
 
   return (
-    <div className="flex h-full w-full flex-col overflow-y-auto bg-background/95 p-3 sm:p-5 scrollbar-thin dark:bg-slate-950/80">
+    <div className="flex h-full w-full flex-col overflow-y-auto bg-background/95 p-3 sm:p-5 scrollbar-thin dark:dark:bg-muted">
       {/* 1. Control Toolbar */}
       <ReportsToolbar
         range={range}
@@ -53,7 +53,7 @@ export const WorkspaceReportsTab: React.FC<WorkspaceReportsTabProps> = ({ isMana
 
       {/* Error Banner */}
       {error && (
-        <div className="mb-4 flex items-center justify-between rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-xs text-destructive dark:border-red-800/60 dark:bg-red-950/40 dark:text-red-300">
+        <div className="mb-4 flex items-center justify-between rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-xs text-destructive dark:border-destructive/60 dark:bg-destructive/40 dark:text-destructive">
           <span>{error}</span>
           <button
             type="button"
@@ -70,11 +70,11 @@ export const WorkspaceReportsTab: React.FC<WorkspaceReportsTabProps> = ({ isMana
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="h-24 animate-pulse rounded-lg border border-border/40 bg-muted/40 dark:border-slate-800 dark:bg-slate-800/40" />
+              <div key={i} className="h-24 animate-pulse rounded-lg border border-border/40 bg-muted/40 dark:dark:border-border dark:dark:bg-muted" />
             ))}
           </div>
-          <div className="h-44 animate-pulse rounded-lg border border-border/40 bg-muted/40 dark:border-slate-800 dark:bg-slate-800/40" />
-          <div className="h-64 animate-pulse rounded-lg border border-border/40 bg-muted/40 dark:border-slate-800 dark:bg-slate-800/40" />
+          <div className="h-44 animate-pulse rounded-lg border border-border/40 bg-muted/40 dark:dark:border-border dark:dark:bg-muted" />
+          <div className="h-64 animate-pulse rounded-lg border border-border/40 bg-muted/40 dark:dark:border-border dark:dark:bg-muted" />
         </div>
       )}
 

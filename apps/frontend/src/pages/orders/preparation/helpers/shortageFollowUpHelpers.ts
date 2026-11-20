@@ -75,30 +75,30 @@ export const getShortageFollowUpVisual = (
       return {
         label: i18n.t("preparation.shortageFollowUp.overdueLabel"),
         badgeClass:
-          "rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-800",
-        cardClass: "border-orange-300 shadow-orange-100",
+          "rounded-full border border-warning bg-warning/10 px-3 py-1 text-xs font-semibold text-warning",
+        cardClass: "border-warning shadow-warning",
         alertClass:
-          "rounded-2xl border border-orange-300 bg-orange-50 px-4 py-3 text-sm text-orange-900",
+          "rounded-xl border border-warning bg-warning/10 px-4 py-3 text-sm text-warning",
         alertText: i18n.t("preparation.shortageFollowUp.overdueText"),
       };
     case "today":
       return {
         label: i18n.t("preparation.shortageFollowUp.todayLabel"),
         badgeClass:
-          "rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-800",
-        cardClass: "border-sky-300 shadow-sky-100",
+          "rounded-full border border-info bg-info/10 px-3 py-1 text-xs font-semibold text-info",
+        cardClass: "border-info shadow-info",
         alertClass:
-          "rounded-2xl border border-sky-300 bg-sky-50 px-4 py-3 text-sm text-sky-900",
+          "rounded-xl border border-info bg-info/10 px-4 py-3 text-sm text-info",
         alertText: i18n.t("preparation.shortageFollowUp.todayText"),
       };
     case "without_date":
       return {
         label: i18n.t("preparation.shortageFollowUp.withoutDateLabel"),
         badgeClass:
-          "rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700",
-        cardClass: "border-slate-300 shadow-slate-100",
+          "rounded-full border border-border bg-muted px-3 py-1 text-xs font-semibold text-foreground",
+        cardClass: "border-border shadow-slate-100",
         alertClass:
-          "rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-800",
+          "rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground",
         alertText: i18n.t("preparation.shortageFollowUp.withoutDateText"),
       };
     default:

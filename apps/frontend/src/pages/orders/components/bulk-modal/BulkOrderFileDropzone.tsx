@@ -50,7 +50,7 @@ export const BulkOrderFileDropzone: React.FC<BulkOrderFileDropzoneProps> = React
             dragOver
               ? "border-primary bg-primary/5"
               : pendingFile
-              ? "border-emerald-500/40 bg-emerald-500/5"
+              ? "border-success/40 bg-success/5"
               : "border-border/70 bg-muted/20 hover:border-primary/40 hover:bg-muted/30"
           }`}
         >
@@ -63,8 +63,8 @@ export const BulkOrderFileDropzone: React.FC<BulkOrderFileDropzoneProps> = React
           />
           {pendingFile ? (
             <div className="text-center">
-              <Archive className="mx-auto mb-2 h-8 w-8 text-emerald-600 dark:text-emerald-400" />
-              <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+              <Archive className="mx-auto mb-2 h-8 w-8 text-success dark:text-success" />
+              <p className="text-xs font-semibold text-success dark:text-success">
                 {pendingFile.name}
               </p>
               <p className="mt-1 text-[11px] text-muted-foreground">

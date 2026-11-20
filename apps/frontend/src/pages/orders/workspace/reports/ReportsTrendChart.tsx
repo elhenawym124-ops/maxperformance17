@@ -39,15 +39,15 @@ export const ReportsTrendChart: React.FC<ReportsTrendChartProps> = ({ data, isAr
         {/* Legend */}
         <div className="flex items-center gap-3 text-[11px] font-medium text-muted-foreground">
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-blue-500" />
+            <span className="h-2 w-2 rounded-full bg-primary" />
             <span>{isArabic ? 'تواصل' : 'Contacted'}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span className="h-2 w-2 rounded-full bg-success" />
             <span>{isArabic ? 'مؤكد' : 'Confirmed'}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-rose-500" />
+            <span className="h-2 w-2 rounded-full bg-destructive" />
             <span>{isArabic ? 'ملغي' : 'Cancelled'}</span>
           </div>
         </div>
@@ -86,11 +86,11 @@ export const ReportsTrendChart: React.FC<ReportsTrendChartProps> = ({ data, isAr
                       {point.date} ({point.dayName})
                     </div>
                     <div className="flex items-center gap-2 tabular-nums">
-                      <span className="text-blue-500 font-bold">{point.contacted} {isArabic ? 'تواصل' : 'Contacted'}</span>
+                      <span className="text-primary font-bold">{point.contacted} {isArabic ? 'تواصل' : 'Contacted'}</span>
                       <span>•</span>
-                      <span className="text-emerald-500 font-bold">{point.confirmed} {isArabic ? 'مؤكد' : 'Confirmed'}</span>
+                      <span className="text-success font-bold">{point.confirmed} {isArabic ? 'مؤكد' : 'Confirmed'}</span>
                       <span>•</span>
-                      <span className="text-rose-500 font-bold">{point.cancelled} {isArabic ? 'ملغي' : 'Cancelled'}</span>
+                      <span className="text-destructive font-bold">{point.cancelled} {isArabic ? 'ملغي' : 'Cancelled'}</span>
                     </div>
                   </div>
                 )}
@@ -102,7 +102,7 @@ export const ReportsTrendChart: React.FC<ReportsTrendChartProps> = ({ data, isAr
                     style={{ height: `${point.contacted === 0 ? 2 : contactedHeight}%` }}
                     className={`w-full rounded-t transition-all ${
                       point.contacted > 0
-                        ? 'bg-blue-500/80 hover:bg-blue-500'
+                        ? 'bg-primary/80 hover:bg-primary'
                         : 'bg-muted/40'
                     }`}
                   />
@@ -111,7 +111,7 @@ export const ReportsTrendChart: React.FC<ReportsTrendChartProps> = ({ data, isAr
                     style={{ height: `${point.confirmed === 0 ? 2 : confirmedHeight}%` }}
                     className={`w-full rounded-t transition-all ${
                       point.confirmed > 0
-                        ? 'bg-emerald-500/80 hover:bg-emerald-500'
+                        ? 'bg-success/80 hover:bg-success'
                         : 'bg-muted/40'
                     }`}
                   />
@@ -120,7 +120,7 @@ export const ReportsTrendChart: React.FC<ReportsTrendChartProps> = ({ data, isAr
                     style={{ height: `${point.cancelled === 0 ? 2 : cancelledHeight}%` }}
                     className={`w-full rounded-t transition-all ${
                       point.cancelled > 0
-                        ? 'bg-rose-500/80 hover:bg-rose-500'
+                        ? 'bg-destructive/80 hover:bg-destructive'
                         : 'bg-muted/40'
                     }`}
                   />

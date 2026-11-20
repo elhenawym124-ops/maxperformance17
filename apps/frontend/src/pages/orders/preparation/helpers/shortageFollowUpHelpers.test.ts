@@ -32,7 +32,7 @@ describe("shortageFollowUpHelpers", () => {
   it("returns visual badges and classes", () => {
     const overdueVisual = getShortageFollowUpVisual("overdue");
     expect(overdueVisual).not.toBeNull();
-    expect(overdueVisual?.badgeClass).toContain("orange");
+    expect(overdueVisual?.badgeClass).toContain("warning");
 
     const noneVisual = getShortageFollowUpVisual("none");
     expect(noneVisual).toBeNull();

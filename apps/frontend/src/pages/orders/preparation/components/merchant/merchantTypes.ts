@@ -97,13 +97,13 @@ export const STATUS_LABEL_KEYS: Record<MerchantOperationStatus, string> = {
 
 export const STATUS_CLASSES: Record<MerchantOperationStatus, string> = {
   PREPARATION:
-    "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-700/60 dark:bg-amber-950/70 dark:text-amber-300",
+    "border-warning bg-warning/10 text-warning dark:border-warning/60 dark:bg-warning/70 dark:text-warning",
   IN_SHIPPING:
-    "border-sky-200 bg-sky-50 text-sky-800 dark:border-sky-700/60 dark:bg-sky-950/70 dark:text-sky-300",
+    "border-info bg-info/10 text-info dark:border-info/60 dark:bg-info/70 dark:text-info",
   DELIVERED:
-    "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-700/60 dark:bg-emerald-950/70 dark:text-emerald-300",
+    "border-success bg-success/10 text-success dark:border-success/60 dark:bg-success/70 dark:text-success",
   NOT_DELIVERED:
-    "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-700/60 dark:bg-rose-950/70 dark:text-rose-300",
+    "border-destructive bg-destructive/10 text-destructive dark:border-destructive/60 dark:bg-destructive/70 dark:text-destructive",
 };
 
 export const toNumber = (value: unknown): number => {

@@ -50,10 +50,10 @@ export const ReportsToolbar: React.FC<ReportsToolbarProps> = ({
   ];
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 pb-3 mb-4 dark:border-slate-800">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 pb-3 mb-4 dark:dark:border-border">
       {/* Date Filter Pills */}
       <div className="flex flex-wrap items-center gap-1.5">
-        <span className="text-xs font-semibold text-muted-foreground me-1 select-none dark:text-slate-400">
+        <span className="text-xs font-semibold text-muted-foreground me-1 select-none dark:dark:text-muted-foreground">
           {isArabic ? 'الفترة:' : 'Period:'}
         </span>
         {rangeButtons.map((btn) => {
@@ -66,7 +66,7 @@ export const ReportsToolbar: React.FC<ReportsToolbarProps> = ({
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition-all active:scale-[0.97] ${
                 isActive
                   ? 'bg-primary text-primary-foreground font-semibold shadow-xs'
-                  : 'border border-border/60 bg-card hover:bg-muted/70 text-muted-foreground hover:text-foreground dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:bg-slate-700'
+                  : 'border border-border/60 bg-card hover:bg-muted/70 text-muted-foreground hover:text-foreground dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:bg-muted'
               }`}
             >
               {btn.label}
@@ -81,13 +81,13 @@ export const ReportsToolbar: React.FC<ReportsToolbarProps> = ({
           <DateInput
             value={startDate}
             onChange={(e) => onCustomDatesChange(e.target.value, endDate)}
-            className="h-8 rounded-md border border-border/60 bg-background px-2 font-medium text-foreground outline-none focus:border-primary dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+            className="h-8 rounded-md border border-border/60 bg-background px-2 font-medium text-foreground outline-none focus:border-primary dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground"
           />
-          <span className="text-muted-foreground dark:text-slate-400">-</span>
+          <span className="text-muted-foreground dark:dark:text-muted-foreground">-</span>
           <DateInput
             value={endDate}
             onChange={(e) => onCustomDatesChange(startDate, e.target.value)}
-            className="h-8 rounded-md border border-border/60 bg-background px-2 font-medium text-foreground outline-none focus:border-primary dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+            className="h-8 rounded-md border border-border/60 bg-background px-2 font-medium text-foreground outline-none focus:border-primary dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground"
           />
         </div>
       )}
@@ -98,7 +98,7 @@ export const ReportsToolbar: React.FC<ReportsToolbarProps> = ({
           <select
             value={selectedAgentId}
             onChange={(e) => onAgentChange(e.target.value)}
-            className="h-8 rounded-md border border-border/60 bg-background px-2 text-xs font-semibold text-foreground outline-none focus:border-primary dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+            className="h-8 rounded-md border border-border/60 bg-background px-2 text-xs font-semibold text-foreground outline-none focus:border-primary dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground"
           >
             <option value="all">{isArabic ? 'كل الفريق' : 'All Team'}</option>
             {agents.map((agent) => (
@@ -114,10 +114,10 @@ export const ReportsToolbar: React.FC<ReportsToolbarProps> = ({
           type="button"
           onClick={onExportCsv}
           disabled={loading || !canExport}
-          className="flex h-8 items-center gap-1.5 rounded-md border border-border/60 bg-card px-2.5 text-xs font-semibold text-foreground hover:bg-muted/80 disabled:opacity-50 transition-colors dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+          className="flex h-8 items-center gap-1.5 rounded-md border border-border/60 bg-card px-2.5 text-xs font-semibold text-foreground hover:bg-muted/80 disabled:opacity-50 transition-colors dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:bg-muted"
           title={isArabic ? 'تصدير التقرير كملف CSV' : 'Export report as CSV'}
         >
-          <ArrowDownTrayIcon className="h-3.5 w-3.5 text-primary dark:text-blue-400" />
+          <ArrowDownTrayIcon className="h-3.5 w-3.5 text-primary dark:text-primary" />
           <span>{isArabic ? 'تصدير CSV' : 'Export CSV'}</span>
         </button>
 
@@ -126,7 +126,7 @@ export const ReportsToolbar: React.FC<ReportsToolbarProps> = ({
           type="button"
           onClick={onRefresh}
           disabled={loading || refreshing}
-          className="flex h-8 w-8 items-center justify-center rounded-md border border-border/60 bg-card text-muted-foreground hover:text-foreground hover:bg-muted/80 disabled:opacity-50 transition-colors dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+          className="flex h-8 w-8 items-center justify-center rounded-md border border-border/60 bg-card text-muted-foreground hover:text-foreground hover:bg-muted/80 disabled:opacity-50 transition-colors dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:bg-muted"
           title={isArabic ? 'تحديث البيانات' : 'Refresh'}
         >
           <ArrowPathIcon className={`h-3.5 w-3.5 ${refreshing ? 'animate-spin' : ''}`} />

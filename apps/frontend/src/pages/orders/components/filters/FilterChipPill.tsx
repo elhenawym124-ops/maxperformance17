@@ -10,11 +10,11 @@ export interface FilterChipPillProps {
 const toneClasses: Record<ChipTone, string> = {
   primary:
     "border-primary/25 bg-primary/10 text-primary hover:border-primary/40 hover:bg-primary/15",
-  info: "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300 hover:border-sky-500/40 hover:bg-sky-500/15",
+  info: "border-info/25 bg-info/10 text-info dark:text-info hover:border-info/40 hover:bg-info/15",
   success:
-    "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/40 hover:bg-emerald-500/15",
+    "border-success/25 bg-success/10 text-success dark:text-success hover:border-success/40 hover:bg-success/15",
   warning:
-    "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300 hover:border-amber-500/40 hover:bg-amber-500/15",
+    "border-warning/25 bg-warning/10 text-warning dark:text-warning hover:border-warning/40 hover:bg-warning/15",
   destructive:
     "border-destructive/25 bg-destructive/10 text-destructive hover:border-destructive/40 hover:bg-destructive/15",
   neutral:
@@ -23,9 +23,9 @@ const toneClasses: Record<ChipTone, string> = {
 
 const xClasses: Record<ChipTone, string> = {
   primary: "hover:bg-primary/20 text-primary/80",
-  info: "hover:bg-sky-500/20 text-sky-700/80 dark:text-sky-300/80",
-  success: "hover:bg-emerald-500/20 text-emerald-700/80 dark:text-emerald-300/80",
-  warning: "hover:bg-amber-500/20 text-amber-700/80 dark:text-amber-300/80",
+  info: "hover:bg-info/20 text-info/80 dark:text-info/80",
+  success: "hover:bg-success/20 text-success/80 dark:text-success/80",
+  warning: "hover:bg-warning/20 text-warning/80 dark:text-warning/80",
   destructive: "hover:bg-destructive/20 text-destructive/80",
   neutral: "hover:bg-foreground/15 text-muted-foreground",
 };

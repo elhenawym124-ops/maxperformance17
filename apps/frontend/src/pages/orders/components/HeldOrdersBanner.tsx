@@ -117,12 +117,12 @@ export const HeldOrdersBanner: React.FC = () => {
       />
 
       <div
-        className="relative z-10 w-full max-w-2xl rounded-2xl border border-border/70 bg-card p-5 sm:p-6 shadow-2xl text-card-foreground animate-in zoom-in-95 duration-150"
+        className="relative z-10 w-full max-w-2xl rounded-xl border border-border/70 bg-card p-5 sm:p-6 shadow-2xl text-card-foreground animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between border-b border-border/50 pb-3">
           <div className="flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-amber-500" />
+            <AlertCircle className="h-5 w-5 text-warning" />
             <h3 className="text-base sm:text-lg font-bold text-foreground">
               الطلبات المعلّقة ({heldOrders.length})
             </h3>
@@ -173,8 +173,8 @@ export const HeldOrdersBanner: React.FC = () => {
                     <span
                       className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${
                         o.holdReason === "subscription_expired"
-                          ? "bg-violet-500/10 text-violet-700 dark:text-violet-300"
-                          : "bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                          ? "bg-primary/10 text-primary dark:text-primary"
+                          : "bg-warning/10 text-warning dark:text-warning"
                       }`}
                     >
                       {HELD_REASON_LABEL[o.holdReason] || "معلّق"}
@@ -216,8 +216,8 @@ export const HeldOrdersBanner: React.FC = () => {
 
   return (
     <>
-      <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-amber-900 dark:text-amber-200 shadow-xs">
-        <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+      <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl border border-warning/30 bg-warning/10 px-4 py-3 text-warning dark:text-warning shadow-xs">
+        <AlertCircle className="h-4 w-4 text-warning dark:text-warning shrink-0" />
         <span className="font-bold text-xs sm:text-sm">
           لديك <span className="font-mono tabular-nums">{held.count}</span> طلب معلّق
           {held.subscriptionCount > 0 && held.subscriptionCount === held.count
@@ -227,7 +227,7 @@ export const HeldOrdersBanner: React.FC = () => {
               : " بسبب انخفاض رصيد المحفظة"}
           .
         </span>
-        <span className="text-xs sm:text-sm text-amber-800/90 dark:text-amber-300/90">
+        <span className="text-xs sm:text-sm text-warning/90 dark:text-warning/90">
           {held.amount > 0 ? (
             <>
               المبلغ المستحق{" "}
@@ -244,13 +244,13 @@ export const HeldOrdersBanner: React.FC = () => {
         <button
           type="button"
           onClick={openMoreInfo}
-          className="text-xs sm:text-sm font-bold underline underline-offset-4 hover:text-amber-950 dark:hover:text-amber-100 transition-colors cursor-pointer"
+          className="text-xs sm:text-sm font-bold underline underline-offset-4 hover:text-warning dark:hover:text-warning transition-colors cursor-pointer"
         >
           مزيد المعلومات
         </button>
         <Link
           to="/payments"
-          className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold underline underline-offset-4 hover:text-amber-950 dark:hover:text-amber-100 transition-colors"
+          className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold underline underline-offset-4 hover:text-warning dark:hover:text-warning transition-colors"
         >
           <span>شحن الرصيد</span>
           <ExternalLink className="h-3 w-3" />

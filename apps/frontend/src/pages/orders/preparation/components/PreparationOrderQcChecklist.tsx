@@ -47,8 +47,8 @@ const PreparationOrderQcChecklist = ({
         <span
           className={`self-start sm:self-auto rounded-md border px-2 py-0.5 text-[11px] font-medium font-mono tabular-nums ${
             qcCompleted
-              ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-              : "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+              ? "border-success/30 bg-success/10 text-success dark:text-success"
+              : "border-warning/30 bg-warning/10 text-warning dark:text-warning"
           }`}
         >
           {qcCompleted ? t("preparation.qc.completed") : t("preparation.qc.incomplete")}

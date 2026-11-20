@@ -89,7 +89,7 @@ const PreparationOrderCardHeader = ({
               <span
                 className={`rounded-md border px-2 py-0.5 text-[11px] font-medium ${
                   canPrepare
-                    ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                    ? "border-success/20 bg-success/10 text-success dark:text-success"
                     : "border-border/60 bg-muted/60 text-muted-foreground"
                 }`}
               >
@@ -108,12 +108,12 @@ const PreparationOrderCardHeader = ({
               const origNum = order.originalOrderNumber || (order.metadata as any)?.originalOrderNumber;
               if (!origId && !origNum) return null;
               return (
-                <span className="inline-flex items-center gap-1 rounded-md border border-purple-500/30 bg-purple-50 px-2 py-0.5 text-[11px] font-medium text-purple-700 dark:border-purple-600/50 dark:bg-purple-950/60 dark:text-purple-300">
+                <span className="inline-flex items-center gap-1 rounded-md border border-primary/30 bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary dark:border-primary/50 dark:bg-primary/60 dark:text-primary">
                   <span>استبدال</span>
                   {origNum ? (
                     <Link
                       to={`/orders/${encodeURIComponent(origNum)}`}
-                      className="font-mono underline hover:text-purple-900 dark:hover:text-purple-100"
+                      className="font-mono underline hover:text-primary dark:hover:text-primary"
                       title={`فتح الأوردر الأصلي #${origNum}`}
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -142,10 +142,10 @@ const PreparationOrderCardHeader = ({
             <button
               type="button"
               onClick={() => onEditProblemReason?.(order.orderNumber)}
-              className="mt-1.5 block w-full text-left line-clamp-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-[11px] font-medium text-amber-700 dark:text-amber-300 transition hover:border-amber-500/50"
+              className="mt-1.5 block w-full text-left line-clamp-2 rounded-lg border border-warning/30 bg-warning/10 px-2.5 py-1 text-[11px] font-medium text-warning dark:text-warning transition hover:border-warning/50"
               title={String(t("preparation.problemPanel.edit"))}
             >
-              <AlertTriangle className="ml-1 inline h-3 w-3 shrink-0 align-[-2px]" />
+              <AlertTriangle className="ms-1 inline h-3 w-3 shrink-0 align-[-2px]" />
               {problemHoldReason || t("preparation.problemPanel.addReason")}
             </button>
           ) : null}
@@ -208,8 +208,8 @@ const PreparationOrderCardHeader = ({
           <div
             className={`rounded-md border px-2 py-0.5 text-center text-[11px] font-medium font-mono tabular-nums ${
               order.isReady
-                ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                : "border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                ? "border-success/20 bg-success/10 text-success dark:text-success"
+                : "border-destructive/20 bg-destructive/10 text-destructive dark:text-destructive"
             }`}
           >
             {order.isReady
@@ -235,8 +235,8 @@ const PreparationOrderCardHeader = ({
         <span
           className={`rounded-md border px-2 py-0.5 font-mono text-xs font-medium tabular-nums ${
             order.isReady
-              ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-              : "border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+              ? "border-success/20 bg-success/10 text-success dark:text-success"
+              : "border-destructive/20 bg-destructive/10 text-destructive dark:text-destructive"
           }`}
         >
           {order.isReady ? t("preparation.table.readyToPrepare") : t("preparation.table.needsReview", { count: order.missingItemsCount })}
@@ -245,8 +245,8 @@ const PreparationOrderCardHeader = ({
 
       {/* Quantity offer notice */}
       {itemSummary.hasQuantityOffers ? (
-        <div className="mt-2.5 flex flex-wrap items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/5 px-2.5 py-1.5">
-          <span className="rounded border border-amber-500/30 bg-card px-1.5 py-0.5 font-mono text-[10px] font-semibold text-amber-700 dark:text-amber-300">
+        <div className="mt-2.5 flex flex-wrap items-center gap-1.5 rounded-lg border border-warning/20 bg-warning/5 px-2.5 py-1.5">
+          <span className="rounded border border-warning/30 bg-card px-1.5 py-0.5 font-mono text-[10px] font-semibold text-warning dark:text-warning">
             {t("preparation.table.quantityOffer")}
           </span>
           <span className="text-xs font-semibold text-foreground">

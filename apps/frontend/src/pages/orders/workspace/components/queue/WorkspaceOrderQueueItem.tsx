@@ -69,10 +69,10 @@ export const WorkspaceOrderQueueItem: React.FC<WorkspaceOrderQueueItemProps> = (
       aria-label={`${isArabic ? 'طلب' : 'Order'} #${order.orderNumber} — ${order.customerName || ''} ${formatPrice(order.total)}`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      className={`group relative cursor-pointer p-3 outline-none transition-colors border-b border-border/20 dark:border-slate-800/80 focus-visible:bg-accent/40 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary ${
+      className={`group relative cursor-pointer p-3 outline-none transition-colors border-b border-border/20 dark:dark:border-border focus-visible:bg-accent/40 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary ${
         isSelected
-          ? 'bg-accent/40 text-accent-foreground dark:bg-slate-800/80 dark:text-slate-100'
-          : 'hover:bg-muted/40 dark:hover:bg-slate-800/40 text-foreground dark:text-slate-200'
+          ? 'bg-accent/40 text-accent-foreground dark:dark:bg-muted dark:dark:text-muted-foreground'
+          : 'hover:bg-muted/40 dark:hover:dark:hover:bg-muted text-foreground dark:dark:text-muted-foreground'
       }`}
     >
       {/* Active selection bar */}
@@ -87,22 +87,22 @@ export const WorkspaceOrderQueueItem: React.FC<WorkspaceOrderQueueItemProps> = (
       <div className="flex items-center justify-between gap-1.5">
         <div className="flex items-center gap-1.5 flex-wrap">
           <span
-            className="font-mono text-xs font-black text-primary dark:text-blue-400"
+            className="font-mono text-xs font-black text-primary dark:text-primary"
             dir="ltr"
           >
             #{order.orderNumber}
           </span>
           {order.isIncomplete ? (
-            <span className="rounded bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:bg-amber-950/60 dark:border dark:border-amber-700/60 dark:text-amber-300">
+            <span className="rounded bg-warning/15 px-1.5 py-0.5 text-[10px] font-bold text-warning dark:bg-warning/60 dark:border dark:border-warning/60 dark:text-warning">
               {isArabic ? 'سلة متروكة' : 'Abandoned Cart'}
             </span>
           ) : order.type === 'GUEST' ? (
-            <span className="rounded bg-muted px-1 py-0.5 text-[10px] font-semibold text-muted-foreground dark:bg-slate-800 dark:text-slate-300">
+            <span className="rounded bg-muted px-1 py-0.5 text-[10px] font-semibold text-muted-foreground dark:dark:bg-muted dark:dark:text-muted-foreground">
               {isArabic ? 'زائر' : 'Guest'}
             </span>
           ) : null}
           {overdue && (
-            <span className="inline-flex items-center gap-1 rounded bg-destructive/15 px-1.5 py-0.5 text-[10px] font-bold text-destructive dark:bg-red-950/60 dark:border dark:border-red-700/60 dark:text-red-300">
+            <span className="inline-flex items-center gap-1 rounded bg-destructive/15 px-1.5 py-0.5 text-[10px] font-bold text-destructive dark:bg-destructive/60 dark:border dark:border-destructive/60 dark:text-destructive">
               <ExclamationTriangleIcon className="h-3 w-3" />
               {isArabic ? 'عاجل' : 'Urgent'}
             </span>
@@ -116,8 +116,8 @@ export const WorkspaceOrderQueueItem: React.FC<WorkspaceOrderQueueItemProps> = (
               }
               className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-bold tabular-nums font-mono ${
                 order.riskData.level === 'high'
-                  ? 'bg-destructive/15 text-destructive dark:bg-red-950/60 dark:border dark:border-red-700/60 dark:text-red-300'
-                  : 'bg-amber-500/15 text-amber-700 dark:bg-amber-950/60 dark:border dark:border-amber-700/60 dark:text-amber-300'
+                  ? 'bg-destructive/15 text-destructive dark:bg-destructive/60 dark:border dark:border-destructive/60 dark:text-destructive'
+                  : 'bg-warning/15 text-warning dark:bg-warning/60 dark:border dark:border-warning/60 dark:text-warning'
               }`}
               dir="ltr"
             >
@@ -127,7 +127,7 @@ export const WorkspaceOrderQueueItem: React.FC<WorkspaceOrderQueueItemProps> = (
           )}
         </div>
         <span
-          className="text-[11px] font-mono text-muted-foreground dark:text-slate-400"
+          className="text-[11px] font-mono text-muted-foreground dark:dark:text-muted-foreground"
           title={exactTimestamp(order.createdAt)}
         >
           {formatTimeAgo(order.createdAt)}
@@ -136,24 +136,24 @@ export const WorkspaceOrderQueueItem: React.FC<WorkspaceOrderQueueItemProps> = (
 
       {/* Customer info & location */}
       <div className="mt-1 flex items-baseline justify-between gap-2">
-        <p className="truncate text-xs font-bold text-foreground dark:text-slate-100">
+        <p className="truncate text-xs font-bold text-foreground dark:dark:text-muted-foreground">
           {order.customerName || '—'}
         </p>
-        <span className="shrink-0 font-mono text-xs font-black tabular-nums text-foreground dark:text-slate-100">
+        <span className="shrink-0 font-mono text-xs font-black tabular-nums text-foreground dark:dark:text-muted-foreground">
           {formatPrice(order.total)}
         </span>
       </div>
 
       {/* Sub-row: Location & Follow-up & Call attempts badge */}
-      <div className="mt-1 flex items-center justify-between gap-2 text-[11px] text-muted-foreground dark:text-slate-400">
+      <div className="mt-1 flex items-center justify-between gap-2 text-[11px] text-muted-foreground dark:dark:text-muted-foreground">
         <span className="truncate">{location}</span>
         <span className="flex shrink-0 items-center gap-1.5">
           {order.followUpDate && (
             <span
               className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-bold tabular-nums ${
                 followUpDue
-                  ? 'bg-destructive/15 text-destructive dark:bg-red-950/60 dark:text-red-300'
-                  : 'bg-blue-500/10 text-blue-600 dark:bg-blue-950/60 dark:border dark:border-blue-700/60 dark:text-blue-300'
+                  ? 'bg-destructive/15 text-destructive dark:bg-destructive/60 dark:text-destructive'
+                  : 'bg-primary/10 text-primary dark:bg-primary/60 dark:border dark:border-primary/60 dark:text-primary'
               }`}
             >
               {followUpDue
@@ -167,8 +167,8 @@ export const WorkspaceOrderQueueItem: React.FC<WorkspaceOrderQueueItemProps> = (
           <span
             className={`inline-flex items-center gap-1 font-mono font-bold tabular-nums ${
               order.callAttempts >= 3
-                ? 'text-amber-600 dark:text-amber-400'
-                : 'text-muted-foreground dark:text-slate-400'
+                ? 'text-warning dark:text-warning'
+                : 'text-muted-foreground dark:dark:text-muted-foreground'
             }`}
           >
             <PhoneIcon className="h-3 w-3" />

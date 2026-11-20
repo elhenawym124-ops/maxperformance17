@@ -97,7 +97,7 @@ export const WorkspaceOrderQueue: React.FC<WorkspaceOrderQueueProps> = ({
     : orders;
 
   return (
-    <div className="flex h-full flex-col overflow-hidden bg-card/50 dark:bg-slate-900/40">
+    <div className="flex h-full flex-col overflow-hidden bg-card/50 dark:dark:bg-muted">
       <WorkspaceQueueHeader
         ordersCount={orders.length}
         totalCount={pagination.total}
@@ -148,7 +148,7 @@ export const WorkspaceOrderQueue: React.FC<WorkspaceOrderQueueProps> = ({
               type="button"
               onClick={onLoadMore}
               disabled={loadingMore}
-              className="inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-border/60 bg-background py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-muted/40 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200"
+              className="inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-border/60 bg-background py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-muted/40 disabled:opacity-50 dark:dark:border-border dark:dark:bg-muted dark:hover:dark:hover:bg-muted dark:dark:text-muted-foreground"
             >
               {loadingMore && <ArrowPathIcon className="h-3.5 w-3.5 animate-spin" />}
               {loadingMore

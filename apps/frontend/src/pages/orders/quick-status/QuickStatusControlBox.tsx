@@ -39,7 +39,7 @@ export const QuickStatusControlBox: React.FC<QuickStatusControlBoxProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="bg-card rounded-2xl border border-border/70 shadow-xs p-4 sm:p-5">
+    <div className="bg-card rounded-xl border border-border/70 shadow-xs p-4 sm:p-5">
       <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 items-end">
         <div className="flex-1 w-full min-w-0">
           <label className="block text-xs font-semibold text-foreground mb-1.5">
@@ -53,7 +53,7 @@ export const QuickStatusControlBox: React.FC<QuickStatusControlBoxProps> = ({
               onChange={(e) => setOrderCode(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={String(t("quickStatus.orderCodePlaceholder"))}
-              className="w-full px-4 py-2.5 pr-10 text-base sm:text-lg border border-border/70 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground placeholder-muted-foreground transition-colors tracking-wider font-mono tabular-nums"
+              className="w-full px-4 py-2.5 pe-10 text-base sm:text-lg border border-border/70 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground placeholder-muted-foreground transition-colors tracking-wider font-mono tabular-nums"
               disabled={searchLoading || !!duplicateModal}
             />
             <Search
@@ -106,7 +106,7 @@ export const QuickStatusControlBox: React.FC<QuickStatusControlBoxProps> = ({
               !selectedStatus ||
               selectedStatus === currentOrder?.status
             }
-            className="flex-1 lg:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 disabled:opacity-50 transition font-semibold text-sm shadow-xs"
+            className="flex-1 lg:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-success text-white rounded-xl hover:bg-success disabled:opacity-50 transition font-semibold text-sm shadow-xs"
           >
             {changeLoading ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />}
             <span>{t("quickStatus.change")}</span>

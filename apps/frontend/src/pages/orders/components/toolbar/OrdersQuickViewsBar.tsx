@@ -39,7 +39,7 @@ export const OrdersQuickViewsBar: React.FC<OrdersQuickViewsBarProps> = ({
             onClick={view.apply}
             className={`inline-flex h-7 sm:h-8 min-h-[28px] sm:min-h-[32px] flex-shrink-0 items-center gap-1 whitespace-nowrap rounded-lg sm:rounded-xl border px-2.5 sm:px-3 text-xs font-semibold active:scale-[0.97] transition-all duration-150 cursor-pointer ${
               active
-                ? "border-transparent bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs"
+                ? "border-transparent bg-muted text-white dark:bg-white dark:dark:text-foreground shadow-xs"
                 : "border-border/60 bg-background/70 text-muted-foreground hover:text-foreground hover:bg-muted/80 hover:border-border"
             }`}
           >

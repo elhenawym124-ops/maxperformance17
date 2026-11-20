@@ -78,7 +78,7 @@ export const CarrierTabsBar: React.FC<CarrierTabsBarProps> = ({
                 isSelected
                   ? "bg-white/20 text-white"
                   : isLive
-                  ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20"
+                  ? "bg-success/10 text-success dark:text-success border border-success/20"
                   : "bg-muted text-muted-foreground border border-border/60"
               }`}
             >

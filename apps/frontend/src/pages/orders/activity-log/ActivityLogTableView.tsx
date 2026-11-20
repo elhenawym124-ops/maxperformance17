@@ -42,7 +42,7 @@ export const ActivityLogTableView: React.FC<ActivityLogTableViewProps> = ({
                     {log.order ? (
                       <div className="flex items-center gap-1.5">
                         {log.order.isGuest && (
-                          <span className="px-1 py-0.5 rounded text-[9px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                          <span className="px-1 py-0.5 rounded text-[9px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                             زائر
                           </span>
                         )}

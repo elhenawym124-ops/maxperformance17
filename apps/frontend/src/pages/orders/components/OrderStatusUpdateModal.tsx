@@ -87,7 +87,7 @@ export const OrderStatusUpdateModal: React.FC<OrderStatusUpdateModalProps> = ({
       aria-modal="true"
     >
       <div className="fixed inset-0" onClick={onClose} aria-hidden="true" />
-      <div className="relative z-10 w-full max-w-lg rounded-2xl border border-border/70 bg-card p-5 sm:p-6 shadow-2xl text-card-foreground animate-in zoom-in-95 duration-200 text-start">
+      <div className="relative z-10 w-full max-w-lg rounded-xl border border-border/70 bg-card p-5 sm:p-6 shadow-2xl text-card-foreground animate-in zoom-in-95 duration-200 text-start">
         <div className="flex items-center justify-between border-b border-border/50 pb-3 mb-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">

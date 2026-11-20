@@ -35,7 +35,7 @@ export const PreparationOrdersProblemCell: React.FC<PreparationOrdersProblemCell
           </button>
           {problemHoldDetails.reason ? (
             <span
-              className="line-clamp-2 max-w-[180px] rounded border border-amber-300/80 bg-amber-50/80 px-2 py-0.5 text-[11px] font-medium text-amber-900 dark:border-amber-700/60 dark:bg-amber-950/60 dark:text-amber-300"
+              className="line-clamp-2 max-w-[180px] rounded border border-warning/80 bg-warning/80 px-2 py-0.5 text-[11px] font-medium text-warning dark:border-warning/60 dark:bg-warning/60 dark:text-warning"
               title={problemHoldDetails.reason}
             >
               {problemHoldDetails.reason}
@@ -45,7 +45,7 @@ export const PreparationOrdersProblemCell: React.FC<PreparationOrdersProblemCell
               type="button"
               onClick={() => onEditProblemReason(orderNumber)}
               disabled={rowBusy}
-              className="inline-flex items-center gap-1 rounded border border-dashed border-amber-400 bg-amber-50/60 px-2 py-0.5 text-[11px] font-semibold text-amber-700 transition hover:bg-amber-100 disabled:opacity-50 dark:border-amber-700 dark:bg-amber-950/50 dark:text-amber-300"
+              className="inline-flex items-center gap-1 rounded border border-dashed border-warning bg-warning/60 px-2 py-0.5 text-[11px] font-semibold text-warning transition hover:bg-warning disabled:opacity-50 dark:border-warning dark:bg-warning/50 dark:text-warning"
             >
               <ExclamationTriangleIcon className="h-3 w-3" />
               {t("preparation.problemPanel.addReason")}

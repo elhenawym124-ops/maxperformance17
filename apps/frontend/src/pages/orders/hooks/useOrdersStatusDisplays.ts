@@ -64,7 +64,7 @@ export function useOrdersStatusDisplays({
           text: returnLabel,
           labelKey: display.secondary?.labelKey || "orders.turboReturnedToCompany",
           className:
-            "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-900/30 dark:text-rose-300",
+            "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold bg-destructive/10 text-destructive border border-destructive dark:bg-destructive/30 dark:text-destructive",
           style: undefined,
         };
       }
@@ -100,15 +100,15 @@ export function useOrdersStatusDisplays({
     switch (status) {
       case "completed":
       case "paid":
-        return "bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300";
+        return "bg-success/10 text-success dark:bg-success/30 dark:text-success";
       case "pending":
-        return "bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300";
+        return "bg-warning/10 text-warning dark:bg-warning/30 dark:text-warning";
       case "failed":
-        return "bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300";
+        return "bg-destructive/10 text-destructive dark:bg-destructive/30 dark:text-destructive";
       case "unavailable":
-        return "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300";
+        return "bg-muted text-foreground dark:dark:bg-muted dark:dark:text-muted-foreground";
       default:
-        return "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300";
+        return "bg-muted text-foreground dark:dark:bg-muted dark:dark:text-muted-foreground";
     }
   }, []);
 

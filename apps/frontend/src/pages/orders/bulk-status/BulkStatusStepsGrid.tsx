@@ -29,7 +29,7 @@ export const BulkStatusStepsGrid: React.FC<BulkStatusStepsGridProps> = ({
         <CardHeader className="pb-3 border-b border-border/60">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="h-7 w-7 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs">
+              <div className="h-7 w-7 rounded-md bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
                 1
               </div>
               <CardTitle className="text-sm font-semibold">
@@ -74,7 +74,7 @@ export const BulkStatusStepsGrid: React.FC<BulkStatusStepsGridProps> = ({
         <CardHeader className="pb-3 border-b border-border/60">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="h-7 w-7 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs">
+              <div className="h-7 w-7 rounded-md bg-success/10 text-success dark:text-success flex items-center justify-center font-bold text-xs">
                 2
               </div>
               <CardTitle className="text-sm font-semibold">

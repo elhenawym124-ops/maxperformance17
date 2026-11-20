@@ -30,15 +30,15 @@ export const IncompleteReportsFlowTableFooter: React.FC<
             {formatPrice(totalUncompletedValue)}
           </div>
         </td>
-        <td className="px-3.5 py-2.5 text-center text-emerald-600 dark:text-emerald-400 font-mono tabular-nums font-bold">
+        <td className="px-3.5 py-2.5 text-center text-success dark:text-success font-mono tabular-nums font-bold">
           <div>{summary.byTeam.toLocaleString()}</div>
           {summary.byTeamValue > 0 && (
-            <div className="text-emerald-600/80 text-[11px]">
+            <div className="text-success/80 text-[11px]">
               {formatPrice(summary.byTeamValue)}
             </div>
           )}
         </td>
-        <td className="px-3.5 py-2.5 text-center text-rose-600 dark:text-rose-400 font-mono tabular-nums font-bold">
+        <td className="px-3.5 py-2.5 text-center text-destructive dark:text-destructive font-mono tabular-nums font-bold">
           <div>{summary.cancelled.toLocaleString()}</div>
           {summary.cancelledValue > 0 && (
             <div className="text-muted-foreground text-[11px]">
@@ -46,7 +46,7 @@ export const IncompleteReportsFlowTableFooter: React.FC<
             </div>
           )}
         </td>
-        <td className="px-3.5 py-2.5 text-center text-amber-600 dark:text-amber-400 font-mono tabular-nums font-bold">
+        <td className="px-3.5 py-2.5 text-center text-warning dark:text-warning font-mono tabular-nums font-bold">
           <div>{summary.lost.toLocaleString()}</div>
           {summary.lostValue > 0 && (
             <div className="text-muted-foreground text-[11px]">
@@ -54,7 +54,7 @@ export const IncompleteReportsFlowTableFooter: React.FC<
             </div>
           )}
         </td>
-        <td className="px-3.5 py-2.5 text-center text-blue-600 dark:text-blue-400 font-mono tabular-nums font-bold">
+        <td className="px-3.5 py-2.5 text-center text-primary dark:text-primary font-mono tabular-nums font-bold">
           <div>{summary.active.toLocaleString()}</div>
           {summary.activeValue > 0 && (
             <div className="text-muted-foreground text-[11px]">

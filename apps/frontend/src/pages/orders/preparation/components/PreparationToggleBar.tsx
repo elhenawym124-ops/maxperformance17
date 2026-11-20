@@ -151,7 +151,7 @@ export const PreparationToggleBar: React.FC<PreparationToggleBarProps> = ({
         {showProductSuggestions && (
           <div
             ref={productSuggestionsRef}
-            className="absolute end-0 top-full z-50 mt-1 max-h-52 w-full overflow-y-auto rounded-2xl border border-border/80 bg-card p-1 shadow-xl text-xs"
+            className="absolute end-0 top-full z-50 mt-1 max-h-52 w-full overflow-y-auto rounded-xl border border-border/80 bg-card p-1 shadow-xl text-xs"
           >
             {productsLoading && (
               <div className="px-3 py-2 text-xs text-muted-foreground">

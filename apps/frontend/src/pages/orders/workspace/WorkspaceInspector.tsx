@@ -94,7 +94,7 @@ export const WorkspaceInspector: React.FC<WorkspaceInspectorProps> = ({
   const isBusy = Boolean(busyAction);
 
   return (
-    <div className="flex h-full flex-col overflow-y-auto bg-card p-4 text-xs space-y-4 dark:bg-slate-900/60 text-foreground dark:text-slate-100">
+    <div className="flex h-full flex-col overflow-y-auto bg-card p-4 text-xs space-y-4 dark:dark:bg-muted text-foreground dark:dark:text-muted-foreground">
       {/* 1. Customer & Header Controls */}
       <WorkspaceInspectorHeader
         order={order}

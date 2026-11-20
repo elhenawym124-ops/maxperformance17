@@ -40,7 +40,7 @@ export const AutomationRuleForm: React.FC<AutomationRuleFormProps> = ({
     form.fromStatus !== form.toStatus;
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-5 shadow-xs sticky top-24">
+    <div className="rounded-xl border border-border/70 bg-card p-5 shadow-xs sticky top-24">
       <h3 className="mb-4 text-sm font-bold text-foreground">
         {t("orders.automationAddRule") || "إضافة قاعدة جديدة"}
       </h3>

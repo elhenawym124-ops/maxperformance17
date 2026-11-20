@@ -65,7 +65,7 @@ export const OrdersTableActionsCell: React.FC<OrdersTableActionsCellProps> = ({
             to={`/whatsapp?conversationId=${order.conversationId}`}
             onClick={(e) => e.stopPropagation()}
             aria-label={`${t("orders.conversation")} ${order.orderNumber}`}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-transparent text-muted-foreground hover:border-border hover:bg-muted/80 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-95 transition"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-transparent text-muted-foreground hover:border-border hover:bg-muted/80 hover:text-success dark:hover:text-success active:scale-95 transition"
             title={t("orders.conversation")}
           >
             <ChatBubbleLeftRightIcon className="w-4 h-4" />

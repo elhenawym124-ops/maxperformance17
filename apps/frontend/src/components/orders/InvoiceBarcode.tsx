@@ -53,8 +53,8 @@ const InvoiceBarcode: React.FC<InvoiceBarcodeProps> = ({
           compact
             // the barcode block sits on a forced white surface in both themes,
             // so the caption/code must stay dark — text-foreground goes white in dark mode
-            ? "text-xs font-bold text-slate-900 print:text-black"
-            : "text-xs font-bold tracking-tight text-slate-900 print:text-black"
+            ? "text-xs font-bold text-foreground print:text-black"
+            : "text-xs font-bold tracking-tight text-foreground print:text-black"
         }
       >
         {label}
@@ -77,8 +77,8 @@ const InvoiceBarcode: React.FC<InvoiceBarcodeProps> = ({
       <span
         className={
           compact
-            ? "font-mono text-[11px] font-bold tracking-wider text-slate-900 tabular-nums print:text-black"
-            : "font-mono text-xs font-bold tracking-wider text-slate-900 tabular-nums print:text-black"
+            ? "font-mono text-[11px] font-bold tracking-wider text-foreground tabular-nums print:text-black"
+            : "font-mono text-xs font-bold tracking-wider text-foreground tabular-nums print:text-black"
         }
       >
         {safeValue}

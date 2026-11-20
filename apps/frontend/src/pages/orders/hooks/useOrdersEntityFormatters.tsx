@@ -63,10 +63,10 @@ export function useOrdersEntityFormatters({
   );
 
   const getConfidenceColor = useCallback((confidence?: number): string => {
-    if (!confidence) return "bg-slate-100 text-slate-800";
-    if (confidence >= 0.8) return "bg-green-100 text-green-800";
-    if (confidence >= 0.6) return "bg-yellow-100 text-yellow-800";
-    return "bg-red-100 text-red-800";
+    if (!confidence) return "bg-muted text-foreground";
+    if (confidence >= 0.8) return "bg-success/10 text-success";
+    if (confidence >= 0.6) return "bg-warning/10 text-warning";
+    return "bg-destructive/10 text-destructive";
   }, []);
 
   const getConfidenceIcon = useCallback(

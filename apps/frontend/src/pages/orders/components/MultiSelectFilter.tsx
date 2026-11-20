@@ -126,7 +126,7 @@ export const MultiSelectFilter: React.FC<MultiSelectFilterProps> = ({
       <PopoverContent
         align="start"
         dir="rtl"
-        className="z-[120] w-[var(--radix-popover-trigger-width)] min-w-[280px] max-w-[420px] rounded-2xl border border-border/70 bg-card p-2.5 text-card-foreground shadow-2xl animate-in fade-in-50 zoom-in-95 duration-150"
+        className="z-[120] w-[var(--radix-popover-trigger-width)] min-w-[280px] max-w-[420px] rounded-xl border border-border/70 bg-card p-2.5 text-card-foreground shadow-2xl animate-in fade-in-50 zoom-in-95 duration-150"
       >
         <div className="flex flex-col gap-2">
           {/* Search Bar */}

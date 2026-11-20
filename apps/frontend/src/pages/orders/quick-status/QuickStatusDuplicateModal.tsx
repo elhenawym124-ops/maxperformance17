@@ -21,9 +21,9 @@ export const QuickStatusDuplicateModal: React.FC<QuickStatusDuplicateModalProps>
       aria-modal="true"
       aria-labelledby="duplicate-modal-title"
     >
-      <div className="bg-card rounded-2xl shadow-2xl max-w-md w-full p-6 text-center border-2 border-amber-500/80">
-        <div className="mx-auto w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mb-4">
-          <AlertTriangle className="w-9 h-9 text-amber-600 dark:text-amber-400" />
+      <div className="bg-card rounded-xl shadow-2xl max-w-md w-full p-6 text-center border-2 border-warning/80">
+        <div className="mx-auto w-16 h-16 rounded-full bg-warning/10 flex items-center justify-center mb-4">
+          <AlertTriangle className="w-9 h-9 text-warning dark:text-warning" />
         </div>
         <h2
           id="duplicate-modal-title"

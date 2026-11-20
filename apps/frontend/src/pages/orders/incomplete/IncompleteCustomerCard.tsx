@@ -67,7 +67,7 @@ export const IncompleteCustomerCard: React.FC<IncompleteCustomerCardProps> = ({
           <div className="flex items-center gap-2 pt-2 border-t border-border/40">
             <a
               href={`tel:${customerInfo.phone.replace(/\D/g, "")}`}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-success/30 bg-success/10 px-3 py-1.5 text-xs font-semibold text-success dark:text-success hover:bg-success/20 transition-colors"
             >
               <Phone className="h-3.5 w-3.5" />
               <span>{t("orders.incompleteCall") || "اتصال هاتفي"}</span>
@@ -77,7 +77,7 @@ export const IncompleteCustomerCard: React.FC<IncompleteCustomerCardProps> = ({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-success/30 bg-success/10 px-3 py-1.5 text-xs font-semibold text-success dark:text-success hover:bg-success/20 transition-colors"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
                 <span>{t("orders.incompleteWhatsApp") || "واتساب"}</span>

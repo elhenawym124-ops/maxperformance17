@@ -67,14 +67,14 @@ export const ConfirmationOrdersVirtualList: React.FC<ConfirmationOrdersVirtualLi
   });
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-xs">
+    <div className="overflow-hidden rounded-xl border border-border/70 bg-card shadow-xs">
       {loading ? (
         <div className="p-8 text-center text-xs sm:text-sm text-muted-foreground sm:p-10">
           {t("orders.loadingOrders", { defaultValue: "جاري تحميل قائمة الطلبات..." })}
         </div>
       ) : orders.length === 0 ? (
         <div className="p-6 text-center sm:p-10">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-success/10 text-success dark:text-success">
             <CheckCircleIcon className="h-6 w-6" />
           </div>
           <div className="font-bold text-foreground text-sm sm:text-base">

@@ -60,22 +60,22 @@ export const WorkspaceInspectorHeader: React.FC<WorkspaceInspectorHeaderProps> =
   const followUpDue = order.followUpDate ? new Date(order.followUpDate).getTime() <= Date.now() : false;
 
   return (
-    <section className="border-b border-border/30 pb-3 dark:border-slate-800/80">
+    <section className="border-b border-border/30 pb-3 dark:dark:border-border">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-mono text-xs font-bold text-muted-foreground dark:text-slate-400" dir="ltr">
+            <span className="font-mono text-xs font-bold text-muted-foreground dark:dark:text-muted-foreground" dir="ltr">
               № {order.orderNumber}
             </span>
             {order.isIncomplete && (
-              <span className="rounded bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:bg-amber-950/60 dark:border dark:border-amber-700/60 dark:text-amber-300">
+              <span className="rounded bg-warning/15 px-1.5 py-0.5 text-[10px] font-bold text-warning dark:bg-warning/60 dark:border dark:border-warning/60 dark:text-warning">
                 {isArabic ? 'سلة متروكة' : 'Abandoned Cart'}
               </span>
             )}
             <button
               type="button"
               onClick={() => onOpenDetailsModal(order)}
-              className="inline-flex items-center gap-1 rounded border border-border/60 bg-muted/30 px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground hover:bg-muted/60 hover:text-foreground dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+              className="inline-flex items-center gap-1 rounded border border-border/60 bg-muted/30 px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground hover:bg-muted/60 hover:text-foreground dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:bg-muted"
               title={isArabic ? 'عرض كل تفاصيل الطلب في نافذة منبثقة' : 'View full order modal'}
             >
               <span>{isArabic ? 'كامل التفاصيل' : 'Full Details'}</span>
@@ -85,8 +85,8 @@ export const WorkspaceInspectorHeader: React.FC<WorkspaceInspectorHeaderProps> =
               <span
                 className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-bold tabular-nums ${
                   followUpDue
-                    ? 'bg-destructive/15 text-destructive dark:bg-red-950/60 dark:text-red-300'
-                    : 'bg-blue-500/10 text-blue-600 dark:bg-blue-950/60 dark:border dark:border-blue-700/60 dark:text-blue-300'
+                    ? 'bg-destructive/15 text-destructive dark:bg-destructive/60 dark:text-destructive'
+                    : 'bg-primary/10 text-primary dark:bg-primary/60 dark:border dark:border-primary/60 dark:text-primary'
                 }`}
               >
                 <CalendarIcon className="h-3 w-3" />
@@ -107,7 +107,7 @@ export const WorkspaceInspectorHeader: React.FC<WorkspaceInspectorHeaderProps> =
             <button
               type="button"
               onClick={onOpenWhatsAppDrawer}
-              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2.5 text-xs font-bold text-emerald-600 transition-transform active:scale-[0.98] hover:bg-emerald-500/20 dark:border-emerald-700/50 dark:bg-emerald-950/50 dark:text-emerald-300"
+              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-success/30 bg-success/10 px-2.5 text-xs font-bold text-success transition-transform active:scale-[0.98] hover:bg-success/20 dark:border-success/50 dark:bg-success/50 dark:text-success"
               title={isArabic ? 'فتح واتساب المنصة (محادثة كاملة، قوالب، إرسال مباشر)' : 'Open Platform WhatsApp'}
             >
               <ChatBubbleOvalLeftEllipsisIcon className="h-4 w-4" />
@@ -138,8 +138,8 @@ export const WorkspaceInspectorHeader: React.FC<WorkspaceInspectorHeaderProps> =
               onClick={onToggleRail}
               className={`inline-flex h-8 items-center gap-1.5 rounded-md border px-2.5 text-xs font-bold transition-transform active:scale-[0.98] ${
                 isRailOpen
-                  ? 'border-primary/40 bg-primary/10 text-primary dark:border-blue-700/60 dark:bg-blue-950/50 dark:text-blue-300'
-                  : 'border-border/60 bg-muted/30 text-muted-foreground hover:bg-muted/60 hover:text-foreground dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-700'
+                  ? 'border-primary/40 bg-primary/10 text-primary dark:border-primary/60 dark:bg-primary/50 dark:text-primary'
+                  : 'border-border/60 bg-muted/30 text-muted-foreground hover:bg-muted/60 hover:text-foreground dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:bg-muted'
               }`}
               title={isArabic ? 'عرض/إخفاء سجل العميل والرادار' : 'Toggle customer trust dossier'}
             >

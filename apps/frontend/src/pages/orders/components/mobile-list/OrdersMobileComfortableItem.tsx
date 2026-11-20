@@ -77,7 +77,7 @@ export const OrdersMobileComfortableItem: React.FC<OrdersMobileComfortableItemPr
             </span>
             {isAffiliateDirect && (
               <span
-                className="inline-flex items-center gap-0.5 rounded-full bg-purple-500/10 px-1.5 py-0.5 text-[10px] font-bold text-purple-700 border border-purple-500/30 dark:text-purple-300 shrink-0"
+                className="inline-flex items-center gap-0.5 rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary border border-primary/30 dark:text-primary shrink-0"
                 title={affiliateCompanyName ? `أوردر من شركة مرتبطة: ${affiliateCompanyName}` : "أوردر من شركة مرتبطة"}
               >
                 <span>{affiliateCompanyName ? `مرتبط — ${affiliateCompanyName}` : "مرتبط"}</span>
@@ -85,20 +85,20 @@ export const OrdersMobileComfortableItem: React.FC<OrdersMobileComfortableItemPr
             )}
             {(order.status === "DUPLICATE_ORDER" || Boolean(order.metadata?.duplicate)) && (
               <span
-                className="inline-flex items-center gap-0.5 rounded-full bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 border border-amber-500/30 dark:text-amber-400 shrink-0"
+                className="inline-flex items-center gap-0.5 rounded-full bg-warning/10 px-1.5 py-0.5 text-[10px] font-bold text-warning border border-warning/30 dark:text-warning shrink-0"
                 title={
                   order.metadata?.duplicate?.duplicateOfOrderNumber
                     ? `طلب مكرر من #${order.metadata.duplicate.duplicateOfOrderNumber}`
                     : "طلب مكرر"
                 }
               >
-                <Copy className="w-2.5 h-2.5 text-amber-600 dark:text-amber-400" />
+                <Copy className="w-2.5 h-2.5 text-warning dark:text-warning" />
                 <span>مكرر</span>
               </span>
             )}
             {!order.isViewed && (
               <span
-                className="inline-block h-2 w-2 rounded-full bg-red-500 ring-2 ring-red-200 dark:ring-red-900/50 shrink-0"
+                className="inline-block h-2 w-2 rounded-full bg-destructive ring-2 ring-destructive dark:ring-destructive/50 shrink-0"
                 title={t("orders.newLabel")}
               />
             )}
@@ -123,7 +123,7 @@ export const OrdersMobileComfortableItem: React.FC<OrdersMobileComfortableItemPr
               </span>
             )}
             {((order.discountApprovalStatus || (order.metadata as any)?.discountApprovalStatus) === "PENDING_APPROVAL" || order.needsDiscountApproval) && (
-              <span className="text-[9px] font-bold text-amber-700 dark:text-amber-300 bg-amber-500/10 px-1 py-0.2 rounded border border-amber-500/30">
+              <span className="text-[9px] font-bold text-warning dark:text-warning bg-warning/10 px-1 py-0.2 rounded border border-warning/30">
                 بانتظار الاعتماد
               </span>
             )}
@@ -199,7 +199,7 @@ export const OrdersMobileComfortableItem: React.FC<OrdersMobileComfortableItemPr
             {order.assignedToName || (order.assignedTo ? "موظف" : "غير موزع")}
           </span>
           {order.assignmentStrategy === "round_robin" && (
-            <span className="text-[9px] text-blue-600 dark:text-blue-400 font-normal">(آلي)</span>
+            <span className="text-[9px] text-primary dark:text-primary font-normal">(آلي)</span>
           )}
         </div>
       </div>

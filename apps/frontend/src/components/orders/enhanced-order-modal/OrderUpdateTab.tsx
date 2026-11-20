@@ -81,7 +81,7 @@ export const OrderUpdateTab: React.FC<OrderUpdateTabProps> = ({
             ).toUpperCase()}
             onChange={(e) => handleStatusSelect(e.target.value)}
             disabled={isUpdating || !canManageOrderStatus}
-            className="theme-native-control w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="theme-native-control w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {statusesToDisplay.map((s) => (
               <option key={s.code} value={s.code}>
@@ -122,7 +122,7 @@ export const OrderUpdateTab: React.FC<OrderUpdateTabProps> = ({
               value={normalizedPaymentStatus}
               onChange={(e) => handleUpdatePaymentStatus(e.target.value)}
               disabled={isUpdating}
-              className="theme-native-control w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="theme-native-control w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-card text-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <option value="pending">{t("orders.pendingPayment")}</option>
               <option value="completed">{t("orders.completed")}</option>
@@ -204,7 +204,7 @@ export const OrderUpdateTab: React.FC<OrderUpdateTabProps> = ({
                     setCancellationAdditionalNotes("");
                   }
                 }}
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg bg-destructive px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-destructive disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {t("orders.confirmCancellation")}
               </button>
@@ -216,7 +216,7 @@ export const OrderUpdateTab: React.FC<OrderUpdateTabProps> = ({
                   setCancellationReason("");
                   setCancellationAdditionalNotes("");
                 }}
-                className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                className="rounded-lg border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:hover:bg-muted disabled:opacity-50 dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:hover:dark:hover:bg-muted"
               >
                 {t("orders.keepCurrentStatus")}
               </button>

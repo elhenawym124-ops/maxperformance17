@@ -25,11 +25,11 @@ export const BulkStatusSummaryRibbon: React.FC<BulkStatusSummaryRibbonProps> = (
         {/* Progress Bar */}
         <div className="h-2.5 w-full bg-muted/60 rounded-full overflow-hidden flex border border-border/40">
           <div
-            className="bg-emerald-500 h-full transition-all duration-500"
+            className="bg-success h-full transition-all duration-500"
             style={{ width: `${successPercent}%` }}
           />
           <div
-            className="bg-rose-500 h-full transition-all duration-500"
+            className="bg-destructive h-full transition-all duration-500"
             style={{ width: `${100 - successPercent}%` }}
           />
         </div>
@@ -41,19 +41,19 @@ export const BulkStatusSummaryRibbon: React.FC<BulkStatusSummaryRibbonProps> = (
               {summary.total.toLocaleString()}
             </div>
           </div>
-          <div className="p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5">
-            <div className="text-xs text-emerald-600 dark:text-emerald-400">
+          <div className="p-3 rounded-lg border border-success/20 bg-success/5">
+            <div className="text-xs text-success dark:text-success">
               ناجحة ومحدثة
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400 mt-0.5">
+            <div className="text-xl font-bold font-mono tabular-nums text-success dark:text-success mt-0.5">
               {summary.success.toLocaleString()}
             </div>
           </div>
-          <div className="p-3 rounded-lg border border-rose-500/20 bg-rose-500/5">
-            <div className="text-xs text-rose-600 dark:text-rose-400">
+          <div className="p-3 rounded-lg border border-destructive/20 bg-destructive/5">
+            <div className="text-xs text-destructive dark:text-destructive">
               فشلت / مرفوضة
             </div>
-            <div className="text-xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400 mt-0.5">
+            <div className="text-xl font-bold font-mono tabular-nums text-destructive dark:text-destructive mt-0.5">
               {summary.failed.toLocaleString()}
             </div>
           </div>

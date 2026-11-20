@@ -33,7 +33,7 @@ export const AutomationRulesList: React.FC<AutomationRulesListProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card p-5 shadow-xs min-h-[380px]">
+    <div className="rounded-xl border border-border/70 bg-card p-5 shadow-xs min-h-[380px]">
       <h3 className="mb-4 text-sm font-bold text-foreground flex items-center gap-2">
         <span>{t("orders.automationActiveRules") || "القواعد النشطة"}</span>
         {rules.length > 0 && (

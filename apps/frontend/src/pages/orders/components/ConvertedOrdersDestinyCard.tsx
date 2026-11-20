@@ -31,7 +31,7 @@ export const ConvertedOrdersDestinyCard: React.FC<ConvertedOrdersDestinyCardProp
       return {
         label: t("incompleteQualityExcellent", "جودة ممتازة"),
         color:
-          "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+          "border-success/20 bg-success/10 text-success dark:text-success",
       };
     }
     if (rate >= 50) {
@@ -43,7 +43,7 @@ export const ConvertedOrdersDestinyCard: React.FC<ConvertedOrdersDestinyCardProp
     return {
       label: t("incompleteQualityNeedsAttention", "تحتاج متابعة"),
       color:
-        "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+        "border-warning/20 bg-warning/10 text-warning dark:text-warning",
     };
   };
 
@@ -80,7 +80,7 @@ export const ConvertedOrdersDestinyCard: React.FC<ConvertedOrdersDestinyCardProp
             <div className="text-[11px] font-medium text-muted-foreground">
               {t("incompleteDeliverySuccessRate", "معدل نجاح التسليم")}
             </div>
-            <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-success dark:text-success">
               {deliveryRate.toFixed(1)}%
             </div>
           </div>

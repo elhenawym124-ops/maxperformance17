@@ -58,14 +58,14 @@ const MerchantOperationsSummary = ({
 
   if (loading) {
     return (
-      <section className="rounded-2xl border border-border/70 bg-card text-card-foreground p-5 shadow-xs">
+      <section className="rounded-xl border border-border/70 bg-card text-card-foreground p-5 shadow-xs">
         <div className="h-20 animate-pulse rounded-xl bg-muted/50" />
       </section>
     );
   }
 
   return (
-    <section className="space-y-4 rounded-2xl border border-border/70 bg-card text-card-foreground p-5 shadow-xs">
+    <section className="space-y-4 rounded-xl border border-border/70 bg-card text-card-foreground p-5 shadow-xs">
       {/* Header & Refresh */}
       <div className="flex flex-col gap-3 border-b border-border/60 pb-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
@@ -92,7 +92,7 @@ const MerchantOperationsSummary = ({
       </div>
 
       {error ? (
-        <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300">
+        <div className="rounded-xl border border-destructive bg-destructive/10 px-4 py-3 text-sm text-destructive dark:border-destructive dark:bg-destructive/40 dark:text-destructive">
           {error}
         </div>
       ) : null}

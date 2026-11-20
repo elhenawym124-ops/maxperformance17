@@ -37,22 +37,22 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
   const { formatDate } = useDateFormat();
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+    <div className="bg-card rounded-xl border border-border dark:dark:border-border shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table
-          className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-right"
+          className="min-w-full divide-y divide-border dark:dark:divide-border text-right"
           dir="rtl"
         >
-          <thead className="bg-gray-50 dark:bg-gray-900">
+          <thead className="bg-muted dark:dark:bg-muted">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-10"
+                className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider w-10"
               >
                 <input
                   type="checkbox"
                   aria-label="تحديد جميع الطلبات"
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-border text-primary focus:ring-primary"
                   checked={
                     orders.length > 0 && selectedOrders.length === orders.length
                   }
@@ -61,63 +61,63 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider"
               >
                 {t("orders.orderLabel")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider"
               >
                 {t("orders.customer")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider"
               >
                 {t("orders.total")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider"
               >
                 {t("orders.orderStatus")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider"
               >
                 {t("orders.trackingNumber")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider"
               >
                 {t("orders.k_33")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider"
               >
                 {t("orders.date")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                className="px-6 py-3 text-center text-xs font-medium text-muted-foreground uppercase tracking-wider"
               >
                 {t("orders.actions")}
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody className="bg-card divide-y divide-border dark:dark:divide-border">
             {loading ? (
               <tr>
                 <td
                   colSpan={9}
-                  className="px-6 py-12 text-center text-gray-500 dark:text-gray-400"
+                  className="px-6 py-12 text-center text-muted-foreground"
                 >
                   <div className="flex justify-center mb-4">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary dark:border-primary"></div>
                   </div>
                   {t("orders.loadingOrders")}
                 </td>
@@ -126,7 +126,7 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
               <tr>
                 <td
                   colSpan={9}
-                  className="px-6 py-12 text-center text-gray-500 dark:text-gray-400"
+                  className="px-6 py-12 text-center text-muted-foreground"
                 >
                   {t("orders.noOrdersFound")}
                 </td>
@@ -135,13 +135,13 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
               orders.map((order) => (
                 <tr
                   key={order.id}
-                  className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  className="hover:bg-muted/50/50"
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <input
                       type="checkbox"
                       aria-label={`تحديد الطلب ${order.orderNumber}`}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      className="rounded border-border text-primary focus:ring-primary"
                       checked={selectedOrders.includes(order.id)}
                       onChange={() => onToggleOrder(order.id)}
                     />
@@ -149,23 +149,23 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Link
                       to={`/orders/${encodeURIComponent(String(order.id))}`}
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 font-medium"
+                      className="text-primary dark:text-primary hover:text-primary dark:hover:text-primary font-medium"
                     >
                       #{order.orderNumber || order.id.substring(0, 8)}
                     </Link>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <div className="text-sm font-medium text-foreground">
                       {order.customerName}
                     </div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400 font-mono">
+                    <div className="text-sm text-muted-foreground font-mono">
                       {order.customerPhone}
                     </div>
-                    <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    <div className="text-xs text-muted-foreground/80 mt-1">
                       {order.governorate} - {order.city}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100 font-mono tabular-nums">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground font-mono tabular-nums">
                     {formatPrice(order.total)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -180,12 +180,12 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
                   <td className="px-6 py-4 whitespace-nowrap">
                     {order.turboTrackingNumber || order.turboShipmentId ? (
                       <div>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-mono border border-gray-200 dark:border-gray-600">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground dark:dark:text-muted-foreground font-mono border border-border">
                           {order.turboTrackingNumber || order.turboShipmentId}
                         </span>
                       </div>
                     ) : (
-                      <span className="text-gray-400 dark:text-gray-500 text-xs">
+                      <span className="text-muted-foreground/80 text-xs">
                         -
                       </span>
                     )}
@@ -206,7 +206,7 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
                         }
                       </span>
                       {(order.turboLiveStatus || order.turboCaptainName) && (
-                        <span className="text-xs text-gray-400 dark:text-gray-500">
+                        <span className="text-xs text-muted-foreground/80">
                           {order.turboLiveStatus?.status ||
                             order.turboShipmentStatus}
                           {order.turboCaptainName &&
@@ -220,7 +220,7 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
                         </span>
                       )}
                       {order.turboBranchName && (
-                        <span className="text-xs text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded border border-blue-100 dark:border-blue-800 font-medium">
+                        <span className="text-xs text-primary dark:text-primary bg-primary/10 dark:bg-primary/30 px-2 py-0.5 rounded border border-primary dark:border-primary font-medium">
                           فرع: {order.turboBranchName}
                           {order.turboBranchPhone
                             ? ` (${order.turboBranchPhone})`
@@ -229,7 +229,7 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
                       )}
                       {(order.turboReturnReason ||
                         order.turboLiveStatus?.returnReason) && (
-                        <span className="text-xs text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/30 px-2 py-0.5 rounded border border-rose-100 dark:border-rose-800 font-medium">
+                        <span className="text-xs text-destructive dark:text-destructive bg-destructive/10 dark:bg-destructive/30 px-2 py-0.5 rounded border border-destructive dark:border-destructive font-medium">
                           {t("orders.k_39")}{" "}
                           {order.turboReturnReason ||
                             order.turboLiveStatus?.returnReason}
@@ -237,7 +237,7 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
                       )}
                       {(order.turboDelayReason ||
                         order.turboLiveStatus?.delayReason) && (
-                        <span className="text-xs text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 px-2 py-0.5 rounded border border-amber-100 dark:border-amber-800 font-medium">
+                        <span className="text-xs text-warning dark:text-warning bg-warning/10 dark:bg-warning/30 px-2 py-0.5 rounded border border-warning dark:border-warning font-medium">
                           {t("orders.k_40")}{" "}
                           {order.turboDelayReason ||
                             order.turboLiveStatus?.delayReason}
@@ -245,13 +245,13 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground font-mono tabular-nums">
                     {formatDate(order.createdAt)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                     <Link
                       to={`/orders/${encodeURIComponent(String(order.id))}`}
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 ml-3"
+                      className="text-primary dark:text-primary hover:text-primary dark:hover:text-primary ms-3"
                     >
                       {t("orders.view")}
                     </Link>
@@ -263,8 +263,8 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
         </table>
       </div>
 
-      <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-        <div className="text-sm text-gray-700 dark:text-gray-300">
+      <div className="px-6 py-4 border-t border-border dark:dark:border-border flex items-center justify-between">
+        <div className="text-sm text-foreground">
           {t("orders.totalOrders")}:{" "}
           <span className="font-medium font-mono tabular-nums">
             {totalOrders}
@@ -274,17 +274,17 @@ export const TurboRecordsTable: React.FC<TurboRecordsTableProps> = ({
           <button
             disabled={page <= 1}
             onClick={() => onPageChange(page - 1)}
-            className="px-3 py-1 border dark:border-gray-600 rounded disabled:opacity-50 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 text-xs font-semibold"
+            className="px-3 py-1 border dark:dark:border-border rounded disabled:opacity-50 text-foreground bg-card text-xs font-semibold"
           >
             {t("orders.previous")}
           </button>
-          <span className="px-3 py-1 text-gray-700 dark:text-gray-300 text-xs font-mono">
+          <span className="px-3 py-1 text-foreground text-xs font-mono">
             {t("orders.pageOf", { page, totalPages })}
           </span>
           <button
             disabled={page >= totalPages}
             onClick={() => onPageChange(page + 1)}
-            className="px-3 py-1 border dark:border-gray-600 rounded disabled:opacity-50 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 text-xs font-semibold"
+            className="px-3 py-1 border dark:dark:border-border rounded disabled:opacity-50 text-foreground bg-card text-xs font-semibold"
           >
             {t("orders.next")}
           </button>

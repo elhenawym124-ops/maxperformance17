@@ -13,7 +13,7 @@ export const TicketModalHeader: React.FC<TicketModalHeaderProps> = ({
   return (
     <div className="p-4 border-b border-border/70 flex items-center justify-between bg-card/80 shrink-0">
       <div className="flex items-center gap-2.5">
-        <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+        <div className="p-2 rounded-xl bg-warning/10 text-warning dark:text-warning">
           <Ticket className="h-5 w-5" />
         </div>
         <div>

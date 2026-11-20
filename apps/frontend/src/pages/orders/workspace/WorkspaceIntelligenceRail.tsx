@@ -250,9 +250,9 @@ export const WorkspaceIntelligenceRail: React.FC<WorkspaceIntelligenceRailProps>
 
             {/* First time buyer notice */}
             {!loadingHistory && !historyError && historyData && pastOrders.length <= 1 && (
-              <div className="rounded-lg border border-sky-500/20 bg-sky-500/10 p-2.5 text-xs text-sky-900 dark:text-sky-200">
+              <div className="rounded-lg border border-info/20 bg-info/10 p-2.5 text-xs text-info dark:text-info">
                 <div className="flex items-start gap-2">
-                  <ShoppingBag className="h-4 w-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
+                  <ShoppingBag className="h-4 w-4 text-info dark:text-info shrink-0 mt-0.5" />
                   <div>
                     <p className="font-bold text-[11px] flex items-center gap-1">
                       <span>
@@ -260,9 +260,9 @@ export const WorkspaceIntelligenceRail: React.FC<WorkspaceIntelligenceRailProps>
                           ? "الطلب الأول لهذا العميل (عميل جديد)"
                           : "First Order (New Customer)"}
                       </span>
-                      <Sparkles className="h-3 w-3 text-sky-500" />
+                      <Sparkles className="h-3 w-3 text-info" />
                     </p>
-                    <p className="mt-0.5 text-[10px] text-sky-700/80 dark:text-sky-300/80 leading-relaxed">
+                    <p className="mt-0.5 text-[10px] text-info/80 dark:text-info/80 leading-relaxed">
                       {isArabic
                         ? "لا توجد طلبات شراء سابقة مسجلة لنفس رقم الهاتف في متجرك. هذا الطلب يمثل بداية السجل الشرائي للعميل."
                         : "No past order history exists for this customer phone number in your store."}

@@ -111,14 +111,14 @@ export const OrdersStatsBar: React.FC<OrdersStatsBarProps> = ({
       value: formatPrice(payoutBalances.availableAmount || 0),
       subValue: `${formatMerchantPieces(payoutBalances.availableCommissionsCount)} ${t("orders.deliveredOrders")}`,
       icon: Banknote,
-      className: "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+      className: "border-success/20 bg-success/10 text-success dark:text-success",
     },
     {
       label: t("orders.pendingWithdrawalRequest"),
       value: formatPrice(payoutBalances.pendingPayoutAmount || 0),
       subValue: `${formatMerchantPieces(pendingPayouts.length)} ${t("orders.pendingWithdrawalRequest")}`,
       icon: Clock,
-      className: "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+      className: "border-warning/20 bg-warning/10 text-warning dark:text-warning",
     },
     {
       label: t("orders.transferred"),
@@ -132,7 +132,7 @@ export const OrdersStatsBar: React.FC<OrdersStatsBarProps> = ({
       value: formatPrice(operationsTotals.inShippingAmount),
       subValue: t("orders.piecesPending", { count: formatMerchantPieces(operationsTotals.inShippingPieces) }),
       icon: Truck,
-      className: "border-sky-500/20 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+      className: "border-info/20 bg-info/10 text-info dark:text-info",
     },
     {
       label: t("orders.sellableBalance"),
@@ -146,7 +146,7 @@ export const OrdersStatsBar: React.FC<OrdersStatsBarProps> = ({
       value: `${formatMerchantPieces(operationsTotals.deliveredOrdersCount)} ${t("orders.orders2")}`,
       subValue: t("orders.piecesDue", { count: formatMerchantPieces(operationsTotals.payablePieces) }),
       icon: CheckCircle2,
-      className: "border-emerald-500/20 bg-muted/20 text-emerald-700 dark:text-emerald-300",
+      className: "border-success/20 bg-muted/20 text-success dark:text-success",
     },
     {
       label: t("orders.settlementNotDelivered"),
@@ -162,7 +162,7 @@ export const OrdersStatsBar: React.FC<OrdersStatsBarProps> = ({
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-success/20 bg-success/10 px-2.5 py-0.5 text-xs font-semibold text-success dark:text-success">
               <Banknote className="h-3.5 w-3.5" />
               {t("orders.merchantSettlementLabel")}
             </span>
@@ -194,7 +194,7 @@ export const OrdersStatsBar: React.FC<OrdersStatsBarProps> = ({
           <button
             type="button"
             onClick={onShowDueOrders}
-            className="inline-flex min-h-[34px] items-center justify-center rounded-lg bg-emerald-600 px-3 text-xs font-semibold text-white transition hover:bg-emerald-700"
+            className="inline-flex min-h-[34px] items-center justify-center rounded-lg bg-success px-3 text-xs font-semibold text-white transition hover:bg-success"
           >
             {t("orders.dueOrders")}
           </button>
@@ -230,7 +230,7 @@ export const OrdersStatsBar: React.FC<OrdersStatsBarProps> = ({
       </div>
 
       {pendingPayouts.length > 0 ? (
-        <div className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/10 px-3 py-2.5 text-xs text-amber-800 dark:text-amber-200">
+        <div className="mt-3 rounded-lg border border-warning/20 bg-warning/10 px-3 py-2.5 text-xs text-warning dark:text-warning">
           <div className="flex flex-col gap-1.5 lg:flex-row lg:items-center lg:justify-between">
             <span className="font-semibold">
               {t("orders.pendingWithdrawalRequests", { count: formatMerchantPieces(pendingPayouts.length) })}

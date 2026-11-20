@@ -98,7 +98,7 @@ export const PreparationTabsBar: React.FC<PreparationTabsBarProps> = ({
               >
                 <span
                   className={`h-1.5 w-1.5 rounded-full ${
-                    isActive ? "bg-emerald-400" : "bg-muted-foreground/60"
+                    isActive ? "bg-success" : "bg-muted-foreground/60"
                   }`}
                 />
                 <span>{tab.name}</span>

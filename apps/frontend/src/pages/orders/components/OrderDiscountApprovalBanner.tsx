@@ -68,20 +68,20 @@ export const OrderDiscountApprovalBanner: React.FC<OrderDiscountApprovalBannerPr
       <>
         <div
           dir="rtl"
-          className="rounded-xl border border-amber-500/30 bg-amber-500/[0.04] p-3.5 sm:p-4 text-card-foreground shadow-none"
+          className="rounded-xl border border-warning/30 bg-warning/[0.04] p-3.5 sm:p-4 text-card-foreground shadow-none"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
             {/* Context Info */}
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 shrink-0 text-amber-700 dark:text-amber-300 mt-0.5 sm:mt-0">
+              <div className="p-2 rounded-lg bg-warning/10 border border-warning/30 shrink-0 text-warning dark:text-warning mt-0.5 sm:mt-0">
                 <ShieldAlert className="w-4 h-4" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h4 className="text-xs font-semibold text-amber-900 dark:text-amber-100">
+                  <h4 className="text-xs font-semibold text-warning dark:text-warning">
                     خصم بانتظار اعتماد الإدارة
                   </h4>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-mono text-[11px] font-medium tabular-nums bg-amber-500/10 text-amber-800 dark:text-amber-200 border border-amber-500/30">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-mono text-[11px] font-medium tabular-nums bg-warning/10 text-warning dark:text-warning border border-warning/30">
                     <Percent className="w-3 h-3" />
                     <span>{discountAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span> {order.currency || "ج.م"}
                   </span>
@@ -98,7 +98,7 @@ export const OrderDiscountApprovalBanner: React.FC<OrderDiscountApprovalBannerPr
                 type="button"
                 onClick={handleApproveClick}
                 disabled={loading || actionInProgress !== null}
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium transition-all duration-150 active:scale-[0.98] disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-success hover:bg-success text-white text-xs font-medium transition-all duration-150 active:scale-[0.98] disabled:opacity-50"
               >
                 {actionInProgress === "APPROVE" ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -112,7 +112,7 @@ export const OrderDiscountApprovalBanner: React.FC<OrderDiscountApprovalBannerPr
                 type="button"
                 onClick={() => setShowRejectModal(true)}
                 disabled={loading || actionInProgress !== null}
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-700 dark:text-rose-300 text-xs font-medium transition-all duration-150 active:scale-[0.98] disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-destructive/30 bg-destructive/10 hover:bg-destructive/20 text-destructive dark:text-destructive text-xs font-medium transition-all duration-150 active:scale-[0.98] disabled:opacity-50"
               >
                 <XCircle className="w-3.5 h-3.5" />
                 <span>رفض وإلغاء الخصم</span>
@@ -128,8 +128,8 @@ export const OrderDiscountApprovalBanner: React.FC<OrderDiscountApprovalBannerPr
               dir="rtl"
               className="w-full max-w-md bg-card border border-border/70 rounded-xl p-5 shadow-2xl text-card-foreground space-y-4"
             >
-              <div className="flex items-center gap-3 text-rose-600 dark:text-rose-400">
-                <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
+              <div className="flex items-center gap-3 text-destructive dark:text-destructive">
+                <div className="p-2 rounded-lg bg-destructive/10 border border-destructive/20">
                   <AlertTriangle className="w-4 h-4" />
                 </div>
                 <h3 className="text-sm font-semibold text-foreground">
@@ -138,7 +138,7 @@ export const OrderDiscountApprovalBanner: React.FC<OrderDiscountApprovalBannerPr
               </div>
 
               <p className="text-xs text-muted-foreground leading-relaxed">
-                سيتم إلغاء قيمة الخصم (<span className="font-mono font-semibold tabular-nums text-rose-600 dark:text-rose-400">{discountAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })} {order.currency || "ج.م"}</span>) وإعادة احتساب إجمالي الطلب بدون خصم ليصبح قابلاً للتأكيد.
+                سيتم إلغاء قيمة الخصم (<span className="font-mono font-semibold tabular-nums text-destructive dark:text-destructive">{discountAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })} {order.currency || "ج.م"}</span>) وإعادة احتساب إجمالي الطلب بدون خصم ليصبح قابلاً للتأكيد.
               </p>
 
               <div>
@@ -150,7 +150,7 @@ export const OrderDiscountApprovalBanner: React.FC<OrderDiscountApprovalBannerPr
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   placeholder="مثال: الكوبون غير مخصص لهذا المنتج"
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-border/70 bg-background text-foreground outline-none focus:ring-1 focus:ring-rose-500"
+                  className="w-full px-3 py-2 text-xs rounded-lg border border-border/70 bg-background text-foreground outline-none focus:ring-1 focus:ring-destructive"
                 />
               </div>
 
@@ -167,7 +167,7 @@ export const OrderDiscountApprovalBanner: React.FC<OrderDiscountApprovalBannerPr
                   type="button"
                   onClick={handleConfirmReject}
                   disabled={actionInProgress !== null}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium bg-rose-600 hover:bg-rose-700 text-white rounded-lg transition-all active:scale-[0.98] disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium bg-destructive hover:bg-destructive text-white rounded-lg transition-all active:scale-[0.98] disabled:opacity-50"
                 >
                   {actionInProgress === "REJECT" ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -194,10 +194,10 @@ export const OrderDiscountApprovalBanner: React.FC<OrderDiscountApprovalBannerPr
     return (
       <div
         dir="rtl"
-        className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 flex items-center justify-between text-xs text-emerald-700 dark:text-emerald-300 shadow-none"
+        className="rounded-xl border border-success/30 bg-success/10 px-4 py-2 flex items-center justify-between text-xs text-success dark:text-success shadow-none"
       >
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <CheckCircle2 className="w-3.5 h-3.5 text-success dark:text-success shrink-0" />
           <span>
             تم اعتماد هذا الخصم (<span className="font-mono font-semibold tabular-nums">-{discountAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })} {order.currency || "ج.م"}</span>) بواسطة <span className="font-medium text-foreground">{approvedBy}</span>
           </span>

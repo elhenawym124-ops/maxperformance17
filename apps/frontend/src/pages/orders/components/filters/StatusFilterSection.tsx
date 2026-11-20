@@ -34,7 +34,7 @@ export const StatusFilterSection: React.FC<StatusFilterSectionProps> = ({
   return (
     <div className="space-y-3.5">
       {/* Order Status */}
-      <div className="space-y-2 rounded-2xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+      <div className="space-y-2 rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
         <div className="flex items-center justify-between">
           <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground">
             <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
@@ -57,7 +57,7 @@ export const StatusFilterSection: React.FC<StatusFilterSectionProps> = ({
       </div>
 
       {/* Payment Status */}
-      <div className="space-y-2 rounded-2xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+      <div className="space-y-2 rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
         <div className="flex items-center justify-between">
           <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground">
             <CreditCard className="h-4 w-4 text-primary shrink-0" />
@@ -81,7 +81,7 @@ export const StatusFilterSection: React.FC<StatusFilterSectionProps> = ({
 
       {/* Order Source */}
       {showOrderSourceFilter && (
-        <div className="space-y-2 rounded-2xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+        <div className="space-y-2 rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
           <div className="flex items-center justify-between">
             <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground">
               <Globe className="h-4 w-4 text-primary shrink-0" />

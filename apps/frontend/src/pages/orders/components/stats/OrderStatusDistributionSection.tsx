@@ -16,15 +16,15 @@ export const OrderStatusDistributionSection: React.FC<OrderStatusDistributionSec
   const getStatusIcon = (status: string) => {
     switch (status.toLowerCase()) {
       case "pending":
-        return <Clock className="h-4 w-4 text-amber-500" />;
+        return <Clock className="h-4 w-4 text-warning" />;
       case "confirmed":
-        return <CheckCircle2 className="h-4 w-4 text-blue-500" />;
+        return <CheckCircle2 className="h-4 w-4 text-primary" />;
       case "processing":
         return <Clock className="h-4 w-4 text-primary" />;
       case "shipped":
-        return <Truck className="h-4 w-4 text-violet-500" />;
+        return <Truck className="h-4 w-4 text-primary" />;
       case "delivered":
-        return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
+        return <CheckCircle2 className="h-4 w-4 text-success" />;
       default:
         return <Clock className="h-4 w-4 text-muted-foreground" />;
     }
