@@ -478,15 +478,15 @@ export const TurboTicketsCockpit: React.FC = () => {
   // If Turbo is disabled, show prompt to enable it
   if (turboEnabled === false) {
     return (
-      <div className="w-full h-full flex items-center justify-center p-6 bg-zinc-50 dark:bg-zinc-950 text-right">
-        <div className="max-w-md w-full p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl text-center space-y-4">
-          <div className="h-12 w-12 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 mx-auto flex items-center justify-center">
+      <div className="w-full h-full flex items-center justify-center p-6 bg-muted dark:bg-muted text-right">
+        <div className="max-w-md w-full p-6 rounded-xl border border-border dark:border-border bg-white dark:bg-muted shadow-xl text-center space-y-4">
+          <div className="h-12 w-12 rounded-xl bg-warning/10 text-warning dark:text-warning mx-auto flex items-center justify-center">
             <ExclamationCircleIcon className="h-6 w-6" />
           </div>
-          <h2 className="text-base font-bold text-zinc-900 dark:text-white">
+          <h2 className="text-base font-bold text-foreground dark:text-white">
             خدمة تذاكر وشات تربو غير مفعلة
           </h2>
-          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p className="text-xs text-foreground dark:text-muted-foreground leading-relaxed">
             لربط ومزامنة التذاكر والمحادثات الحية مع عمليات تربو، يرجى تفعيل
             الخدمة وإدخال الـ API Key وكود العميل في صفحة إعدادات Turbo.
           </p>
@@ -494,14 +494,14 @@ export const TurboTicketsCockpit: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate("/settings/turbo")}
-              className="w-full sm:flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 transition active:scale-97 shadow-xs"
+              className="w-full sm:flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-white text-white dark:text-foreground transition active:scale-97 shadow-xs"
             >
               الانتقال لإعدادات Turbo
             </button>
             <button
               type="button"
               onClick={() => navigate("/support/tickets")}
-              className="w-full sm:flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition active:scale-97"
+              className="w-full sm:flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold border border-border dark:border-border hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground transition active:scale-97"
             >
               تذاكر الدعم الفني للمنصة
             </button>
@@ -514,7 +514,7 @@ export const TurboTicketsCockpit: React.FC = () => {
   return (
     <div
       dir="rtl"
-      className="w-full h-full flex flex-col overflow-hidden bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 turbo-tickets-root relative"
+      className="w-full h-full flex flex-col overflow-hidden bg-white dark:bg-muted text-foreground dark:text-muted-foreground turbo-tickets-root relative"
       data-chat-active={mobileView === "chat" ? "true" : "false"}
     >
       {/* Cockpit Chassis */}

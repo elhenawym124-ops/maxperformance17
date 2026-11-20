@@ -184,7 +184,7 @@ export const WizardRequirementsPreviewStep: React.FC<WizardRequirementsPreviewSt
                   }}
                   onFocus={() => setShowProductDropdown(true)}
                   placeholder="ابحث في المخزن أو اكتب اسم حر..."
-                  className="w-full p-2 pr-8 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full p-2 pe-8 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 <Search className="w-3.5 h-3.5 absolute right-2.5 top-2.5 text-muted-foreground" />
               </div>
@@ -203,7 +203,7 @@ export const WizardRequirementsPreviewStep: React.FC<WizardRequirementsPreviewSt
                           <span className="font-semibold text-foreground block truncate">{p.name}</span>
                           {p.sku && <span className="text-[10px] text-muted-foreground font-mono">{p.sku}</span>}
                         </div>
-                        <span className="font-mono text-[11px] text-emerald-600 shrink-0">
+                        <span className="font-mono text-[11px] text-success shrink-0">
                           {p.cost ? `${p.cost} ج.م` : 'بدون تكلفة'}
                         </span>
                       </div>
@@ -292,7 +292,7 @@ export const WizardRequirementsPreviewStep: React.FC<WizardRequirementsPreviewSt
             <thead className="bg-muted/40 text-muted-foreground border-b border-border/60">
               <tr>
                 <th className="p-2.5 font-semibold">الصنف</th>
-                <th className="p-2.5 font-semibold text-emerald-600 font-bold">الكمية المخططة</th>
+                <th className="p-2.5 font-semibold text-success font-bold">الكمية المخططة</th>
                 <th className="p-2.5 font-semibold">الوحدة</th>
                 <th className="p-2.5 font-semibold">تكلفة الوحدة</th>
                 <th className="p-2.5 font-semibold text-foreground font-bold">الإجمالي</th>
@@ -317,7 +317,7 @@ export const WizardRequirementsPreviewStep: React.FC<WizardRequirementsPreviewSt
                           <span
                             className={`text-[9px] px-1.5 py-0.5 rounded font-semibold shrink-0 ${
                               m.source === 'MANUAL'
-                                ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20'
+                                ? 'bg-amber-500/10 text-warning dark:text-warning border border-warning/20'
                                 : 'bg-primary/10 text-primary border border-primary/20'
                             }`}
                           >
@@ -338,7 +338,7 @@ export const WizardRequirementsPreviewStep: React.FC<WizardRequirementsPreviewSt
                               plannedQuantity: Math.max(0, parseFloat(e.target.value) || 0),
                             })
                           }
-                          className="w-24 p-1.5 text-xs rounded-md border border-border bg-background font-mono font-bold text-emerald-600 tabular-nums focus:outline-none focus:ring-1 focus:ring-primary"
+                          className="w-24 p-1.5 text-xs rounded-md border border-border bg-background font-mono font-bold text-success tabular-nums focus:outline-none focus:ring-1 focus:ring-primary"
                         />
                       </td>
 

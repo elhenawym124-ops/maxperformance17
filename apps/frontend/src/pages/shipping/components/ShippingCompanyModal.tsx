@@ -54,18 +54,18 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[92vh] overflow-y-auto space-y-4 p-6">
+      <div className="bg-card rounded-xl shadow-2xl max-w-lg w-full max-h-[92vh] overflow-y-auto space-y-4 p-6">
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-700 pb-3">
+        <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600">
+            <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/50 text-primary">
               <KeyIcon className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-gray-900 dark:text-white">
+              <h3 className="text-base font-bold text-foreground">
                 {editingCompany ? `إعدادات ربط ${editingCompany.name}` : "إضافة شركة شحن جديدة"}
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 تهيئة مفاتيح الاتصال البرمجي وتدفق الشحنات
               </p>
             </div>
@@ -74,7 +74,7 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
           <button
             type="button"
             onClick={() => setShowModal(false)}
-            className="text-gray-400 hover:text-gray-600 p-1"
+            className="text-gray-400 hover:text-foreground p-1"
           >
             <XMarkIcon className="h-5 w-5" />
           </button>
@@ -123,7 +123,7 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
                       <span
                         className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold ${
                           p.key === "MAXP_NETWORK"
-                            ? "bg-indigo-100 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300"
+                            ? "bg-indigo-100 text-primary dark:bg-primary/60 dark:text-primary"
                             : "bg-muted text-muted-foreground"
                         }`}
                       >
@@ -193,43 +193,43 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
           />
 
           {/* Active Status Checkbox */}
-          <div className="flex items-start gap-2 p-2.5 rounded-lg bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40">
+          <div className="flex items-start gap-2 p-2.5 rounded-lg bg-primary/50 dark:bg-primary/30 border border-primary dark:border-primary/40">
             <input
               type="checkbox"
               id="modalIsActive"
               checked={formData.isActive}
               onChange={(e) => setFormData((prev) => ({ ...prev, isActive: e.target.checked }))}
-              className="mt-0.5 h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+              className="mt-0.5 h-4 w-4 text-primary rounded border-border focus:ring-primary"
             />
-            <label htmlFor="modalIsActive" className="text-xs text-gray-700 dark:text-gray-300 cursor-pointer">
-              <span className="font-bold text-gray-900 dark:text-white">تفعيل شركة الشحن للعمل بالمتجر فوراً</span>
-              <span className="block text-[11px] text-gray-500 dark:text-gray-400">
+            <label htmlFor="modalIsActive" className="text-xs text-foreground cursor-pointer">
+              <span className="font-bold text-foreground">تفعيل شركة الشحن للعمل بالمتجر فوراً</span>
+              <span className="block text-[11px] text-muted-foreground">
                 عند التفعيل تظهر الشركة مباشرة في شحن الطلبات الفردية والجماعية وتوليد البوالص
               </span>
             </label>
           </div>
 
           {/* Auto Create Shipments & Trigger Timing */}
-          <div className="space-y-3 p-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30">
+          <div className="space-y-3 p-3 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted">
             <div className="flex items-start gap-2">
               <input
                 type="checkbox"
                 id="modalAutoCreate"
                 checked={formData.autoCreateShipments}
                 onChange={(e) => setFormData((prev) => ({ ...prev, autoCreateShipments: e.target.checked }))}
-                className="mt-0.5 h-4 w-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+                className="mt-0.5 h-4 w-4 text-primary rounded border-border focus:ring-primary"
               />
-              <label htmlFor="modalAutoCreate" className="text-xs text-gray-700 dark:text-gray-300 cursor-pointer">
-                <span className="font-semibold text-gray-900 dark:text-white">إنشاء الشحنات تلقائياً</span>
-                <span className="block text-[11px] text-gray-500 dark:text-gray-400">
+              <label htmlFor="modalAutoCreate" className="text-xs text-foreground cursor-pointer">
+                <span className="font-semibold text-foreground">إنشاء الشحنات تلقائياً</span>
+                <span className="block text-[11px] text-muted-foreground">
                   توليد بوليصة الشحن آلياً عند وصول الطلب للمرحلة المحددة أدناه
                 </span>
               </label>
             </div>
 
             {formData.autoCreateShipments && (
-              <div className="pt-2 border-t border-gray-200 dark:border-gray-700 space-y-1.5">
-                <label htmlFor="modalShipmentTrigger" className="block text-xs font-semibold text-gray-800 dark:text-gray-200">
+              <div className="pt-2 border-t border-border dark:border-border space-y-1.5">
+                <label htmlFor="modalShipmentTrigger" className="block text-xs font-semibold text-foreground dark:text-muted-foreground">
                   توقيت إنشاء بوليصة الشحن
                 </label>
                 <select
@@ -243,13 +243,13 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
                       setFormData((prev) => ({ ...prev, shipmentCreateTrigger: val }));
                     }
                   }}
-                  className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                 >
                   <option value="ON_ORDER">عند إنشاء الطلب — إنشاء البوليصة فور تسجيل الطلب بالمتجر</option>
                   <option value="ON_CONFIRM">عند تأكيد الطلب — إنشاء البوليصة بعد مراجعة وتأكيد الطلب</option>
                   <option value="ON_READY">عند الجاهز للشحن — إنشاء البوليصة بعد اكتمال التجهيز</option>
                 </select>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                <p className="text-[11px] text-muted-foreground">
                   {formData.shipmentCreateTrigger === 'ON_CONFIRM'
                     ? '⚡ يتم تأجيل البوليصة حتى يتحول الطلب إلى حالة "مؤكد" (CONFIRMED).'
                     : formData.shipmentCreateTrigger === 'ON_READY'
@@ -261,13 +261,13 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
           </div>
 
           {/* Action Buttons & Test Connection */}
-          <div className="pt-4 border-t border-gray-100 dark:border-gray-700 flex flex-wrap items-center justify-between gap-2">
+          <div className="pt-4 border-t border-border dark:border-border flex flex-wrap items-center justify-between gap-2">
             {editingCompany ? (
               <button
                 type="button"
                 onClick={() => handleTestConnection(editingCompany.id)}
                 disabled={testingConnection}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-muted text-foreground hover:bg-muted transition"
               >
                 <ArrowPathIcon className={`h-3.5 w-3.5 ${testingConnection ? "animate-spin" : ""}`} />
                 <span>فحص واختبار الاتصال</span>
@@ -278,13 +278,13 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
-                className="px-3.5 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                className="px-3.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted rounded-lg"
               >
                 إلغاء
               </button>
               <button
                 type="submit"
-                className="px-4 py-1.5 text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm"
+                className="px-4 py-1.5 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg shadow-sm"
               >
                 حفظ الإعدادات
               </button>

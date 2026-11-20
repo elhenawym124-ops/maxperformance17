@@ -98,7 +98,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
             </button>
             <button
               onClick={() => setIsOrderWizardOpen(true)}
-              className="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition-all flex items-center gap-1.5"
+              className="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm transition-all flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>أمر إنتاج جديد</span>
@@ -135,7 +135,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
           <div className="p-4 rounded-xl bg-card border border-border/70 shadow-xs">
             <div className="text-[11px] font-medium text-muted-foreground flex items-center justify-between mb-1">
               <span>الإنتاج التام المستلم</span>
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <CheckCircle2 className="w-4 h-4 text-success" />
             </div>
             <div className="text-2xl font-bold text-foreground tabular-nums">
               {metrics.totalProduced.toLocaleString()}{' '}
@@ -149,9 +149,9 @@ export const ManufacturingDashboardPage: React.FC = () => {
           <div className="p-4 rounded-xl bg-card border border-border/70 shadow-xs">
             <div className="text-[11px] font-medium text-muted-foreground flex items-center justify-between mb-1">
               <span>متوسط تكلفة القطعة الفعلية</span>
-              <Coins className="w-4 h-4 text-emerald-600" />
+              <Coins className="w-4 h-4 text-success" />
             </div>
-            <div className="text-2xl font-bold text-emerald-600 tabular-nums">
+            <div className="text-2xl font-bold text-success tabular-nums">
               {formatEGP(metrics.avgUnitCost)}{' '}
               <span className="text-xs font-normal text-muted-foreground">ج.م</span>
             </div>
@@ -229,7 +229,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
                           <span
                             className={`inline-flex px-2 py-0.5 rounded text-[10px] font-semibold ${
                               o.status === 'COMPLETED'
-                                ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+                                ? 'bg-emerald-500/10 text-success dark:text-success'
                                 : o.status === 'IN_PROGRESS'
                                 ? 'bg-blue-500/10 text-blue-700 dark:text-blue-400'
                                 : o.status === 'CANCELLED'
@@ -241,7 +241,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
                           </span>
                         </td>
                         <td className="py-3 px-4 tabular-nums">
-                          <span className="font-semibold text-emerald-600">{o.producedQuantity}</span> /{' '}
+                          <span className="font-semibold text-success">{o.producedQuantity}</span> /{' '}
                           <span>{o.plannedQuantity}</span> قطعة
                         </td>
                         <td className="py-3 px-4 tabular-nums font-semibold text-foreground">
@@ -269,7 +269,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
             {/* Quick Links Card */}
             <div className="p-4 rounded-xl bg-card border border-border/70 shadow-xs space-y-3">
               <h4 className="text-xs font-bold text-foreground flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                <Sparkles className="w-3.5 h-3.5 text-success" />
                 <span>الوصول السريع للنظام</span>
               </h4>
               <div className="grid grid-cols-2 gap-2 text-xs">
@@ -277,7 +277,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
                   onClick={() => setIsOrderWizardOpen(true)}
                   className="p-3 rounded-lg border border-border/60 bg-muted/40 hover:bg-muted text-right space-y-1 transition-all"
                 >
-                  <Plus className="w-4 h-4 text-emerald-600" />
+                  <Plus className="w-4 h-4 text-success" />
                   <div className="font-semibold text-foreground">أمر تشغيل جديد</div>
                   <div className="text-[10px] text-muted-foreground">بناء مصفوفة مقاس/لون</div>
                 </button>
@@ -295,7 +295,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
                   to="/manufacturing/reports"
                   className="p-3 rounded-lg border border-border/60 bg-muted/40 hover:bg-muted text-right space-y-1 transition-all block"
                 >
-                  <FileSpreadsheet className="w-4 h-4 text-amber-600" />
+                  <FileSpreadsheet className="w-4 h-4 text-warning" />
                   <div className="font-semibold text-foreground">تقارير التكاليف</div>
                   <div className="text-[10px] text-muted-foreground">تحليل 3-way والانحرافات</div>
                 </Link>
@@ -304,7 +304,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
                   to="/manufacturing/settings"
                   className="p-3 rounded-lg border border-border/60 bg-muted/40 hover:bg-muted text-right space-y-1 transition-all block"
                 >
-                  <Settings className="w-4 h-4 text-slate-500" />
+                  <Settings className="w-4 h-4 text-muted-foreground" />
                   <div className="font-semibold text-foreground">إعدادات المصنع</div>
                   <div className="text-[10px] text-muted-foreground">المستودعات وربط الحسابات</div>
                 </Link>
@@ -332,7 +332,7 @@ export const ManufacturingDashboardPage: React.FC = () => {
                         {b.code} · v{b.version}
                       </div>
                     </div>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success">
                       نشط
                     </span>
                   </div>

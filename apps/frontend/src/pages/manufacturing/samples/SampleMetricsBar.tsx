@@ -40,11 +40,11 @@ export const SampleMetricsBar: React.FC<SampleMetricsBarProps> = ({ samples }) =
       <div className="bg-card border border-border/70 rounded-xl p-3 flex items-center justify-between">
         <div>
           <p className="text-xs text-muted-foreground font-medium">معتمدة جاهزة للتحويل</p>
-          <p className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums mt-0.5">
+          <p className="text-xl font-bold tracking-tight text-success dark:text-success tabular-nums mt-0.5">
             {approved}
           </p>
         </div>
-        <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+        <div className="p-2 rounded-lg bg-success/10 text-success dark:text-success">
           <CheckCircle2 className="w-4 h-4" />
         </div>
       </div>
@@ -52,11 +52,11 @@ export const SampleMetricsBar: React.FC<SampleMetricsBarProps> = ({ samples }) =
       <div className="bg-card border border-border/70 rounded-xl p-3 flex items-center justify-between">
         <div>
           <p className="text-xs text-muted-foreground font-medium">محوّلة لأوامر تصنيع</p>
-          <p className="text-xl font-bold tracking-tight text-purple-600 dark:text-purple-400 tabular-nums mt-0.5">
+          <p className="text-xl font-bold tracking-tight text-primary dark:text-primary tabular-nums mt-0.5">
             {converted}
           </p>
         </div>
-        <div className="p-2 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400">
+        <div className="p-2 rounded-lg bg-primary/10 text-primary dark:text-primary">
           <ArrowRightLeft className="w-4 h-4" />
         </div>
       </div>
@@ -64,11 +64,11 @@ export const SampleMetricsBar: React.FC<SampleMetricsBarProps> = ({ samples }) =
       <div className="bg-card border border-border/70 rounded-xl p-3 flex items-center justify-between col-span-2 sm:col-span-1">
         <div>
           <p className="text-xs text-muted-foreground font-medium">مرفوضة</p>
-          <p className="text-xl font-bold tracking-tight text-rose-600 dark:text-rose-400 tabular-nums mt-0.5">
+          <p className="text-xl font-bold tracking-tight text-destructive dark:text-destructive tabular-nums mt-0.5">
             {rejected}
           </p>
         </div>
-        <div className="p-2 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400">
+        <div className="p-2 rounded-lg bg-destructive/10 text-destructive dark:text-destructive">
           <XCircle className="w-4 h-4" />
         </div>
       </div>

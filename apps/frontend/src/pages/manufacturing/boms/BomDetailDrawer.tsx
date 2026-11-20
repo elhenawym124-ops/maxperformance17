@@ -55,7 +55,7 @@ export const BomDetailDrawer: React.FC<BomDetailDrawerProps> = ({
                 <span
                   className={`px-2 py-0.5 rounded text-[10px] font-semibold border ${
                     bom.isActive
-                      ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20'
+                      ? 'bg-emerald-500/10 text-success dark:text-success border-success/20'
                       : 'bg-muted text-muted-foreground border-border/60'
                   }`}
                 >
@@ -80,7 +80,7 @@ export const BomDetailDrawer: React.FC<BomDetailDrawerProps> = ({
             </div>
             <div className="p-3 rounded-xl bg-card border border-border/70 shadow-xs">
               <span className="text-[11px] text-muted-foreground block mb-1">نسبة الهالك المسموح</span>
-              <span className="font-mono font-bold text-sm text-amber-600">{bom.wasteMarginPercent}%</span>
+              <span className="font-mono font-bold text-sm text-warning">{bom.wasteMarginPercent}%</span>
             </div>
             <div className="p-3 rounded-xl bg-card border border-border/70 shadow-xs">
               <span className="text-[11px] text-muted-foreground block mb-1">العمالة المعيارية</span>
@@ -138,12 +138,12 @@ export const BomDetailDrawer: React.FC<BomDetailDrawerProps> = ({
                               <div className="flex items-center gap-1.5">
                                 <span>{comp.rawMaterialName || comp.rawMaterialId}</span>
                                 {isLinked ? (
-                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                                     مرتبط
                                   </span>
                                 ) : (
                                   <span
-                                    className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20"
+                                    className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20"
                                     title="هذه الخامة غير مرتبطة بمنتج في الكتالوج ولن يتم خصمها من المخزن"
                                   >
                                     غير مرتبط
@@ -162,7 +162,7 @@ export const BomDetailDrawer: React.FC<BomDetailDrawerProps> = ({
                           <td className="p-2.5 font-mono tabular-nums text-foreground">
                             {comp.consumptionPerUnit} {comp.consumptionUnit || comp.unit}
                           </td>
-                          <td className="p-2.5 font-mono tabular-nums text-amber-600">
+                          <td className="p-2.5 font-mono tabular-nums text-warning">
                             {comp.scrapRate}%
                           </td>
                           <td className="p-2.5">
@@ -224,7 +224,7 @@ export const BomDetailDrawer: React.FC<BomDetailDrawerProps> = ({
                             {st.stageType}
                           </span>
                         </td>
-                        <td className="p-2.5 font-mono font-bold text-emerald-600">
+                        <td className="p-2.5 font-mono font-bold text-success">
                           {Number(st.ratePerPiece).toFixed(2)} ج.م
                         </td>
                         <td className="p-2.5 font-mono text-muted-foreground">

@@ -30,7 +30,7 @@ export const OrderGoodsReceiptsTab: React.FC<OrderGoodsReceiptsTabProps> = ({ or
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-medium text-xs">
+          <div className="p-2 rounded-lg bg-success/10 border border-success/20 text-success dark:text-success font-medium text-xs">
             إجمالي المستلم السليم:{' '}
             <span className="font-mono font-bold text-sm tabular-nums">
               {totalReceivedGood}
@@ -40,7 +40,7 @@ export const OrderGoodsReceiptsTab: React.FC<OrderGoodsReceiptsTabProps> = ({ or
           <button
             onClick={() => setModalOpen(true)}
             disabled={order.status === 'COMPLETED' || order.status === 'CANCELLED'}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-40 transition shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success disabled:opacity-40 transition shadow-sm"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>تسجيل استلام إنتاج تام</span>
@@ -64,13 +64,13 @@ export const OrderGoodsReceiptsTab: React.FC<OrderGoodsReceiptsTabProps> = ({ or
                   className="p-3.5 flex items-center justify-between cursor-pointer hover:bg-muted/20 transition"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600">
+                    <div className="p-2 rounded-lg bg-success/10 text-success">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-mono font-bold text-sm text-foreground">{receipt.receiptNumber}</span>
-                        <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">
                           {receipt.status}
                         </span>
                       </div>
@@ -83,7 +83,7 @@ export const OrderGoodsReceiptsTab: React.FC<OrderGoodsReceiptsTabProps> = ({ or
                   <div className="flex items-center gap-4">
                     <div className="text-left font-mono">
                       <span className="text-[10px] text-muted-foreground block font-sans">الكمية المستلمة:</span>
-                      <span className="text-sm font-bold text-emerald-600 tabular-nums">
+                      <span className="text-sm font-bold text-success tabular-nums">
                         {receipt.totalQuantity}
                       </span>{' '}
                       <span className="text-[10px] font-sans text-muted-foreground">قطعة (تكلفة: {Number(receipt.unitCost).toFixed(2)} ج.م/ق)</span>
@@ -100,8 +100,8 @@ export const OrderGoodsReceiptsTab: React.FC<OrderGoodsReceiptsTabProps> = ({ or
                           <tr>
                             <th className="p-2 font-semibold">المقاس</th>
                             <th className="p-2 font-semibold">اللون</th>
-                            <th className="p-2 font-semibold text-center text-emerald-600">الكمية السليمة</th>
-                            <th className="p-2 font-semibold text-center text-amber-600">الكمية الهالكة</th>
+                            <th className="p-2 font-semibold text-center text-success">الكمية السليمة</th>
+                            <th className="p-2 font-semibold text-center text-warning">الكمية الهالكة</th>
                             <th className="p-2 font-semibold">تكلفة القطعة</th>
                             <th className="p-2 font-semibold">إجمالي القيمة</th>
                           </tr>
@@ -118,8 +118,8 @@ export const OrderGoodsReceiptsTab: React.FC<OrderGoodsReceiptsTabProps> = ({ or
                               <tr key={it.id} className="hover:bg-muted/20 transition">
                                 <td className="p-2 font-mono font-bold text-foreground">{it.size || '—'}</td>
                                 <td className="p-2 text-foreground">{it.color || '—'}</td>
-                                <td className="p-2 text-center font-mono font-bold text-emerald-600 tabular-nums">{it.goodQuantity}</td>
-                                <td className="p-2 text-center font-mono font-bold text-amber-600 tabular-nums">{it.scrapQuantity}</td>
+                                <td className="p-2 text-center font-mono font-bold text-success tabular-nums">{it.goodQuantity}</td>
+                                <td className="p-2 text-center font-mono font-bold text-warning tabular-nums">{it.scrapQuantity}</td>
                                 <td className="p-2 font-mono text-muted-foreground tabular-nums">{Number(it.unitCost).toFixed(2)} ج.م</td>
                                 <td className="p-2 font-mono font-bold text-foreground tabular-nums">{Number(it.totalCost).toFixed(2)} ج.م</td>
                               </tr>

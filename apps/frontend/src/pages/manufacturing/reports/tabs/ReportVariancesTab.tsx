@@ -37,7 +37,7 @@ export const ReportVariancesTab: React.FC<ReportVariancesTabProps> = ({ metrics,
 
         <div className="p-4 rounded-lg bg-muted/40 border border-border/60 space-y-2">
           <div className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-emerald-600" />
+            <Sparkles className="w-4 h-4 text-success" />
             <span>انحراف تكلفة العمالة (Labor)</span>
           </div>
           <div className="text-xl font-bold text-foreground tabular-nums">
@@ -50,7 +50,7 @@ export const ReportVariancesTab: React.FC<ReportVariancesTabProps> = ({ metrics,
 
         <div className="p-4 rounded-lg bg-muted/40 border border-border/60 space-y-2">
           <div className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-            <Coins className="w-4 h-4 text-amber-600" />
+            <Coins className="w-4 h-4 text-warning" />
             <span>الأعباء غير المباشرة (MOH)</span>
           </div>
           <div className="text-xl font-bold text-foreground tabular-nums">

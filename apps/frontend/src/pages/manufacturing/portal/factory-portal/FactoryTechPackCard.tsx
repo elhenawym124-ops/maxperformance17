@@ -26,7 +26,7 @@ export const FactoryTechPackCard: React.FC<FactoryTechPackCardProps> = ({
             {techPack.code} V{techPack.version}
           </span>
         </div>
-        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-success dark:text-success bg-success/10 px-2 py-0.5 rounded-full border border-success/20">
           <CheckCircle2 className="w-3 h-3" />
           معتمد للتشغيل
         </span>
@@ -88,7 +88,7 @@ export const FactoryTechPackCard: React.FC<FactoryTechPackCardProps> = ({
                 className="p-2 rounded-lg border border-border/70 bg-background hover:bg-muted/40 transition flex items-center gap-2 shadow-2xs group"
               >
                 {file.kind === 'PDF' ? (
-                  <FileText className="w-4 h-4 text-red-500 shrink-0" />
+                  <FileText className="w-4 h-4 text-destructive shrink-0" />
                 ) : (
                   <ImageIcon className="w-4 h-4 text-blue-500 shrink-0" />
                 )}

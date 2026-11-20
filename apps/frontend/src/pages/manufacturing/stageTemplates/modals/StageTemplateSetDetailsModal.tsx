@@ -121,7 +121,7 @@ export const StageTemplateSetDetailsModal: React.FC<StageTemplateSetDetailsModal
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-      <div className="w-full max-w-2xl rounded-2xl bg-card border border-border/80 shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-xs">
+      <div className="w-full max-w-2xl rounded-xl bg-card border border-border/80 shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-xs">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border/70 bg-muted/20">
           <div>
@@ -147,7 +147,7 @@ export const StageTemplateSetDetailsModal: React.FC<StageTemplateSetDetailsModal
         {/* Body */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {error && (
-            <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -167,7 +167,7 @@ export const StageTemplateSetDetailsModal: React.FC<StageTemplateSetDetailsModal
             </div>
             <div>
               <span className="text-[10px] text-muted-foreground block">إجمالي أجور العمالة المعيارية</span>
-              <span className="font-bold text-sm text-emerald-600 font-mono tabular-nums">
+              <span className="font-bold text-sm text-success font-mono tabular-nums">
                 {totalLaborCost.toFixed(2)} <span className="text-[10px] font-sans">ج.م/قطعة</span>
               </span>
             </div>
@@ -223,7 +223,7 @@ export const StageTemplateSetDetailsModal: React.FC<StageTemplateSetDetailsModal
                           <span
                             className={`text-[9px] px-1.5 py-0.5 rounded font-semibold ${
                               tmpl?.executionEntity === 'EXTERNAL'
-                                ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20'
+                                ? 'bg-amber-500/10 text-warning dark:text-warning border border-warning/20'
                                 : 'bg-primary/10 text-primary border border-primary/20'
                             }`}
                           >
@@ -240,7 +240,7 @@ export const StageTemplateSetDetailsModal: React.FC<StageTemplateSetDetailsModal
 
                     <div className="flex items-center gap-4">
                       <div className="text-left font-mono text-[11px] tabular-nums">
-                        <span className="text-emerald-600 font-bold ml-2">
+                        <span className="text-emerald-600 font-bold ms-2">
                           {Number(tmpl?.ratePerPiece || 0).toFixed(2)} ج.م
                         </span>
                         <span className="text-muted-foreground">
@@ -248,7 +248,7 @@ export const StageTemplateSetDetailsModal: React.FC<StageTemplateSetDetailsModal
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-1 border-r border-border/60 pr-2">
+                      <div className="flex items-center gap-1 border-r border-border/60 pe-2">
                         <button
                           type="button"
                           onClick={() => handleMove(index, 'UP')}
@@ -271,7 +271,7 @@ export const StageTemplateSetDetailsModal: React.FC<StageTemplateSetDetailsModal
                           type="button"
                           onClick={() => handleRemoveItem(item.id)}
                           title="حذف من المسار"
-                          className="p-1 rounded text-rose-500 hover:bg-rose-500/10 transition mr-1"
+                          className="p-1 rounded text-destructive hover:bg-destructive/10 transition me-1"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>

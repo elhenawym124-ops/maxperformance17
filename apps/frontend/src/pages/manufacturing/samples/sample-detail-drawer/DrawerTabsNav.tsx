@@ -48,7 +48,7 @@ export const DrawerTabsNav: React.FC<DrawerTabsNavProps> = ({
       >
         <span>المصنع والدفع</span>
         {sample.isOverdue && (
-          <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-destructive animate-pulse" />
         )}
       </button>
 

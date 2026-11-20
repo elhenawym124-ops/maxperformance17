@@ -90,16 +90,16 @@ const PageCommentsManagement = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-primary p-4 md:p-8">
       <div className="w-full">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-3 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-blue-600 to-primary rounded-xl shadow-lg">
               <Facebook className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-800">
+              <h1 className="text-3xl font-bold text-foreground">
                 {t("pageComments.pageTitle")}
               </h1>
               <p className="text-slate-600 mt-1">
@@ -111,9 +111,9 @@ const PageCommentsManagement = () => {
 
         {/* Pages List */}
         {loading ? (
-          <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
+          <div className="bg-white rounded-xl shadow-xl p-12 text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-            <p className="mt-4 text-slate-600 font-medium">
+            <p className="mt-4 text-foreground font-medium">
               {t("pageComments.loadingPages")}
             </p>
           </div>
@@ -122,7 +122,7 @@ const PageCommentsManagement = () => {
             {pages.map((page) => (
               <div
                 key={page.pageId}
-                className="bg-white rounded-2xl shadow-xl overflow-hidden border border-white/20"
+                className="bg-white rounded-xl shadow-xl overflow-hidden border border-white/20"
               >
                 {/* Page Header */}
                 <div className="p-6 bg-gradient-to-r from-slate-50 to-slate-100">
@@ -132,10 +132,10 @@ const PageCommentsManagement = () => {
                         <Facebook className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-slate-800">
+                        <h3 className="text-xl font-bold text-foreground">
                           {page.pageName}
                         </h3>
-                        <div className="flex gap-4 mt-2 text-sm text-slate-600">
+                        <div className="flex gap-4 mt-2 text-sm text-foreground">
                           <span>📝 {page.totalPosts} منشور</span>
                           <span>💬 {page.totalComments} تعليق</span>
                           <span>✅ {page.respondedComments} تم الرد</span>
@@ -153,7 +153,7 @@ const PageCommentsManagement = () => {
                       </button>
                       <button
                         onClick={() => togglePageExpansion(page.pageId)}
-                        className="p-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition"
+                        className="p-2 bg-muted text-white rounded-lg hover:bg-muted transition"
                       >
                         {expandedPage === page.pageId ? (
                           <ChevronUp className="w-5 h-5" />
@@ -166,15 +166,15 @@ const PageCommentsManagement = () => {
 
                   {/* Page Settings Summary */}
                   {pageSettings[page.pageId] && (
-                    <div className="mt-4 p-3 bg-white rounded-lg border border-slate-200">
+                    <div className="mt-4 p-3 bg-white rounded-lg border border-border">
                       <div className="flex items-center gap-2 text-sm">
                         <span className="font-semibold">طريقة الرد:</span>
                         <span
                           className={`px-2 py-1 rounded ${
                             pageSettings[page.pageId].responseMethod ===
                             "fixed"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-gray-100 text-gray-700"
+                                ? "bg-green-100 text-success"
+                                : "bg-gray-100 text-foreground"
                           }`}
                         >
                           {pageSettings[page.pageId].responseMethod === "fixed"
@@ -189,7 +189,7 @@ const PageCommentsManagement = () => {
                 {/* Posts List (Expanded) */}
                 {expandedPage === page.pageId && (
                   <div className="p-6">
-                    <h4 className="text-lg font-semibold text-slate-800 mb-4">
+                    <h4 className="text-lg font-semibold text-foreground mb-4">
                       {t("pageComments.postsOfPage")}
                     </h4>
                     {posts[page.pageId] && posts[page.pageId].length > 0 ? (
@@ -197,14 +197,14 @@ const PageCommentsManagement = () => {
                         {posts[page.pageId].map((post) => (
                           <div
                             key={post.postId}
-                            className="p-4 bg-slate-50 rounded-lg border border-slate-200 hover:bg-slate-100 transition"
+                            className="p-4 bg-muted rounded-lg border border-border hover:bg-muted transition"
                           >
                             <div className="flex items-center justify-between">
                               <div className="flex-1">
-                                <p className="text-sm text-slate-600 font-mono truncate">
+                                <p className="text-sm text-foreground font-mono truncate">
                                   {post.postId}
                                 </p>
-                                <div className="flex gap-3 mt-2 text-xs text-slate-500">
+                                <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
                                   <span>💬 {post.totalComments} تعليق</span>
                                   <span>
                                     ✅ {post.respondedComments} تم الرد
@@ -228,7 +228,7 @@ const PageCommentsManagement = () => {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-center text-slate-500 py-8">
+                      <p className="text-center text-muted-foreground py-8">
                         {t("pageComments.noPostsForPage")}
                       </p>
                     )}
@@ -238,8 +238,8 @@ const PageCommentsManagement = () => {
             ))}
 
             {pages.length === 0 && (
-              <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
-                <Facebook className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+              <div className="bg-white rounded-xl shadow-xl p-12 text-center">
+                <Facebook className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                 <p className="text-slate-500 text-lg font-medium">
                   {t("pageComments.noPages")}
                 </p>
@@ -299,9 +299,9 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-slate-200">
-          <h2 className="text-2xl font-bold text-slate-800">
+      <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-6 border-b border-border">
+          <h2 className="text-2xl font-bold text-foreground">
             {t("pageComments.pageSettings")}: {page.pageName}
           </h2>
         </div>
@@ -309,7 +309,7 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
         <div className="p-6 space-y-6">
           {/* Response Method */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+            <label className="block text-sm font-semibold text-foreground mb-2">
               {t("pageComments.responseMethod")}
             </label>
             <select
@@ -317,7 +317,7 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
               onChange={(e) =>
                 setFormData({ ...formData, responseMethod: e.target.value })
               }
-              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="manual">{t("pageComments.manual")}</option>
               <option value="fixed">{t("pageComments.fixed")}</option>
@@ -328,7 +328,7 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
           {formData.responseMethod === "fixed" && (
             <>
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                <label className="block text-sm font-semibold text-foreground mb-2">
                   {t("pageComments.fixedComment")}
                 </label>
                 <textarea
@@ -339,14 +339,14 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
                       fixedCommentMessage: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="3"
                   placeholder={t("pageComments.enterFixedComment")}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                <label className="block text-sm font-semibold text-foreground mb-2">
                   {t("pageComments.fixedMessengerMessage")}
                 </label>
                 <textarea
@@ -357,14 +357,14 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
                       fixedMessengerMessage: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="3"
                   placeholder={t("pageComments.enterFixedMessengerMessage")}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                <label className="block text-sm font-semibold text-foreground mb-2">
                   {t("pageComments.messengerVariations")}
                 </label>
                 {formData.messengerMessages.map((msg, index) => (
@@ -379,7 +379,7 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
                           messengerMessages: newMessages,
                         });
                       }}
-                      className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       rows="2"
                       placeholder={t("pageComments.messagePlaceholder").replace(
                         "{{index}}",
@@ -397,7 +397,7 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
                             messengerMessages: newMessages,
                           });
                         }}
-                        className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                        className="px-3 py-2 bg-destructive text-white rounded-lg hover:bg-destructive transition"
                       >
                         {t("pageComments.delete")}
                       </button>
@@ -411,7 +411,7 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
                       messengerMessages: [...formData.messengerMessages, ""],
                     });
                   }}
-                  className="mt-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                  className="mt-2 px-4 py-2 bg-success text-white rounded-lg hover:bg-success transition"
                 >
                   {t("pageComments.addMessage")}
                 </button>
@@ -420,10 +420,10 @@ const PageSettingsModal = ({ page, settings, onClose, onSave }) => {
           )}
         </div>
 
-        <div className="p-6 border-t border-slate-200 flex justify-end gap-3">
+        <div className="p-6 border-t border-border flex justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition"
+            className="px-6 py-2 bg-muted text-foreground rounded-lg hover:bg-muted transition"
           >
             {t("pageComments.cancel")}
           </button>

@@ -18,30 +18,30 @@ export const QpExpressWizard: React.FC<CarrierWizardsProps> = ({
   testedProfile,
 }) => (
   <div className="space-y-3.5">
-    <div className="p-3.5 bg-gradient-to-r from-indigo-50/90 to-blue-50/60 dark:from-indigo-950/40 dark:to-blue-950/20 rounded-xl border border-indigo-200 dark:border-indigo-800/60 space-y-2">
+    <div className="p-3.5 bg-gradient-to-r from-primary/90 to-blue-50/60 dark:from-primary/40 dark:to-blue-950/20 rounded-xl border border-primary dark:border-primary/60 space-y-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="font-bold text-sm text-indigo-950 dark:text-indigo-200">
+          <span className="font-bold text-sm text-primary dark:text-primary">
             كيو بي إكسبريس (QP Express)
           </span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/60 dark:text-success font-bold">
             ربط مباشر حقيقي (LIVE)
           </span>
         </div>
         {(testedProfile?.customerId || formData.customerId) && (
-          <span className="text-xs font-mono font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900/60 px-2.5 py-0.5 rounded-md">
+          <span className="text-xs font-mono font-bold text-primary dark:text-primary bg-primary dark:bg-primary/60 px-2.5 py-0.5 rounded-md">
             كود العميل: #{testedProfile?.customerId || formData.customerId}
           </span>
         )}
       </div>
 
-      <p className="text-xs text-indigo-950 dark:text-indigo-300/90 leading-relaxed">
+      <p className="text-xs text-primary dark:text-primary/90 leading-relaxed">
         <strong>متطلبات الربط:</strong> أدخل <strong>اسم المستخدم وكلمة المرور</strong> لحسابك في كيو بي إكسبريس. سيقوم النظام تلقائياً بالتحقق واستخراج كود العميل وبيانات متجرك وربطها بدون خطوات يدوية معقدة.
       </p>
 
       {(testedProfile?.customerName || (formData.customerId && editingCompany)) && (
-        <div className="flex items-center gap-2 text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 p-2.5 rounded-lg border border-emerald-200 dark:border-emerald-800/50">
-          <CheckCircleIcon className="h-4 w-4 shrink-0 text-emerald-600" />
+        <div className="flex items-center gap-2 text-xs text-success dark:text-success bg-success/10 dark:bg-success/40 p-2.5 rounded-lg border border-success dark:border-success/50">
+          <CheckCircleIcon className="h-4 w-4 shrink-0 text-success" />
           <span>
             تم التعرف على الحساب بنجاح: <strong>{testedProfile?.customerName || "حساب معتمد"}</strong> (كود العميل #{testedProfile?.customerId || formData.customerId})
           </span>
@@ -51,7 +51,7 @@ export const QpExpressWizard: React.FC<CarrierWizardsProps> = ({
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div>
-        <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+        <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
           اسم المستخدم أو البريد الإلكتروني *
         </label>
         <input
@@ -60,13 +60,13 @@ export const QpExpressWizard: React.FC<CarrierWizardsProps> = ({
           value={formData.username}
           onChange={(e) => setFormData((prev) => ({ ...prev, username: e.target.value }))}
           placeholder="مثال: your-account@qpxpress.com"
-          className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-indigo-500"
+          className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono focus:ring-2 focus:ring-primary"
         />
-        <p className="text-[11px] text-gray-400 mt-0.5">اسم الدخول لحسابك في موقع QP Express</p>
+        <p className="text-[11px] text-muted-foreground mt-0.5">اسم الدخول لحسابك في موقع QP Express</p>
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+        <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
           كلمة المرور *
         </label>
         <input
@@ -75,14 +75,14 @@ export const QpExpressWizard: React.FC<CarrierWizardsProps> = ({
           value={formData.password}
           onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
           placeholder={editingCompany ? "•••••••• (اتركها للإبقاء على الحالية)" : "كلمة مرور حسابك في كيو بي"}
-          className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+          className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary"
         />
-        <p className="text-[11px] text-gray-400 mt-0.5">كلمة مرور حسابك في موقع QP Express</p>
+        <p className="text-[11px] text-muted-foreground mt-0.5">كلمة مرور حسابك في موقع QP Express</p>
       </div>
     </div>
 
     <div>
-      <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+      <label className="block text-xs font-medium text-foreground mb-1">
         ملاحظات المعاينة والتسليم الافتراضية للبوليصة (اختياري)
       </label>
       <input
@@ -90,9 +90,9 @@ export const QpExpressWizard: React.FC<CarrierWizardsProps> = ({
         value={formData.defaultNotes}
         onChange={(e) => setFormData((prev) => ({ ...prev, defaultNotes: e.target.value }))}
         placeholder="مثال: المعاينة في وجود المندوب ولا يوجد استرجاع إلا في حالة عيوب الصناعة"
-        className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+        className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground"
       />
-      <p className="text-[11px] text-gray-400 mt-0.5">تطبع هذه الملاحظات تلقائياً على كل بوليصة شحن تصدرها لعملائك</p>
+      <p className="text-[11px] text-muted-foreground mt-0.5">تطبع هذه الملاحظات تلقائياً على كل بوليصة شحن تصدرها لعملائك</p>
     </div>
   </div>
 );
@@ -102,23 +102,23 @@ export const BostaWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
   setFormData,
 }) => (
   <div className="space-y-3.5">
-    <div className="p-3.5 bg-gradient-to-r from-orange-50/90 to-amber-50/60 dark:from-orange-950/40 dark:to-amber-950/20 rounded-xl border border-orange-200 dark:border-orange-800/60 space-y-2">
+    <div className="p-3.5 bg-gradient-to-r from-warning/90 to-warning/60 dark:from-warning/40 dark:to-warning/20 rounded-xl border border-warning dark:border-warning/60 space-y-2">
       <div className="flex items-center justify-between">
-        <span className="font-bold text-sm text-orange-950 dark:text-orange-200">
+        <span className="font-bold text-sm text-warning dark:text-warning">
           بوستا (Bosta Courier)
         </span>
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold">
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/60 dark:text-success font-bold">
           ربط مباشر حقيقي (LIVE)
         </span>
       </div>
 
-      <p className="text-xs text-orange-950 dark:text-orange-300/90 leading-relaxed">
+      <p className="text-xs text-warning dark:text-warning/90 leading-relaxed">
         <strong>متطلبات الربط:</strong> مفتاح الـ API الخاص بحسابك في بوستا. يمكنك نسخه من لوحة تحكم بوستا (الإعدادات ⇦ مفاتيح الـ API).
       </p>
     </div>
 
     <div>
-      <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+      <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
         مفتاح الـ API (Bosta API Key) *
       </label>
       <input
@@ -127,13 +127,13 @@ export const BostaWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
         value={formData.apiKey}
         onChange={(e) => setFormData((prev) => ({ ...prev, apiKey: e.target.value }))}
         placeholder="ألصق الـ API Key من لوحة تحكم حسابك في بوستا..."
-        className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-orange-500"
+        className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono focus:ring-2 focus:ring-warning"
       />
-      <p className="text-[11px] text-gray-400 mt-0.5">يمكنك نسخه من حسابك في بوستا: الإعدادات ⇦ مفاتيح API</p>
+      <p className="text-[11px] text-muted-foreground mt-0.5">يمكنك نسخه من حسابك في بوستا: الإعدادات ⇦ مفاتيح API</p>
     </div>
 
     <div>
-      <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+      <label className="block text-xs font-medium text-foreground mb-1">
         عنوان أو كود نقطة الاستلام (Pickup Hub) - اختياري
       </label>
       <input
@@ -141,7 +141,7 @@ export const BostaWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
         value={formData.pickupAddress}
         onChange={(e) => setFormData((prev) => ({ ...prev, pickupAddress: e.target.value }))}
         placeholder="اتركه فارغاً ليتم الاستلام من العنوان الافتراضي لحسابك"
-        className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+        className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground"
       />
     </div>
   </div>
@@ -152,12 +152,12 @@ export const TurboWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
   setFormData,
 }) => (
   <div className="space-y-3.5">
-    <div className="p-3.5 bg-gradient-to-r from-blue-50/90 to-indigo-50/60 dark:from-blue-950/40 dark:to-indigo-950/20 rounded-xl border border-blue-200 dark:border-blue-800/60 space-y-2">
+    <div className="p-3.5 bg-gradient-to-r from-blue-50/90 to-primary/60 dark:from-blue-950/40 dark:to-primary/20 rounded-xl border border-blue-200 dark:border-blue-800/60 space-y-2">
       <div className="flex items-center justify-between">
         <span className="font-bold text-sm text-blue-950 dark:text-blue-200">
           تربو (Turbo Courier)
         </span>
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold">
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/60 dark:text-success font-bold">
           ربط مباشر حقيقي (LIVE)
         </span>
       </div>
@@ -167,7 +167,7 @@ export const TurboWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
     </div>
 
     <div>
-      <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+      <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
         مفتاح الـ API (Turbo API Key) *
       </label>
       <input
@@ -176,13 +176,13 @@ export const TurboWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
         value={formData.apiKey}
         onChange={(e) => setFormData((prev) => ({ ...prev, apiKey: e.target.value }))}
         placeholder="مفتاح الـ API الخاص بحساب تربو..."
-        className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500"
+        className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono focus:ring-2 focus:ring-blue-500"
       />
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div>
-        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-xs font-medium text-foreground mb-1">
           كود العميل الرئيسي (اختياري)
         </label>
         <input
@@ -190,11 +190,11 @@ export const TurboWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
           value={formData.mainClientCode}
           onChange={(e) => setFormData((prev) => ({ ...prev, mainClientCode: e.target.value }))}
           placeholder="كود العميل في تربو..."
-          className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-mono"
+          className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono"
         />
       </div>
       <div>
-        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-xs font-medium text-foreground mb-1">
           هاتف الراسل (اختياري)
         </label>
         <input
@@ -202,7 +202,7 @@ export const TurboWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFo
           value={formData.senderNumber}
           onChange={(e) => setFormData((prev) => ({ ...prev, senderNumber: e.target.value }))}
           placeholder="رقم الهاتف المسجل..."
-          className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground"
         />
       </div>
     </div>
@@ -215,31 +215,31 @@ export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "set
   editingCompany,
 }) => (
   <div className="space-y-3.5">
-    <div className="p-3.5 bg-gradient-to-r from-teal-50/90 to-emerald-50/60 dark:from-teal-950/40 dark:to-emerald-950/20 rounded-xl border border-teal-200 dark:border-teal-800/60 space-y-2">
+    <div className="p-3.5 bg-gradient-to-r from-success/90 to-success/60 dark:from-success/40 dark:to-success/20 rounded-xl border border-success dark:border-success/60 space-y-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="font-bold text-sm text-teal-950 dark:text-teal-200">
+          <span className="font-bold text-sm text-success dark:text-success">
             هاشتاج إكسبريس (Hashtag Express)
           </span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/60 dark:text-success font-bold">
             ربط مباشر حقيقي (LIVE)
           </span>
         </div>
         {(formData.apiName || formData.username) && (
-          <span className="text-xs font-mono font-bold text-teal-700 dark:text-teal-300 bg-teal-100 dark:bg-teal-900/60 px-2.5 py-0.5 rounded-md">
+          <span className="text-xs font-mono font-bold text-success dark:text-success bg-success dark:bg-success/60 px-2.5 py-0.5 rounded-md">
             الحساب: #{formData.apiName || formData.username}
           </span>
         )}
       </div>
 
-      <p className="text-xs text-teal-950 dark:text-teal-300/90 leading-relaxed">
+      <p className="text-xs text-success dark:text-success/90 leading-relaxed">
         <strong>متطلبات الربط:</strong> أدخل <strong>API NAME</strong> و <strong>API PASSWORD</strong> المستلمين من إدارة شركة هاشتاج إكسبريس، لتوليد البوالص وإرسال الشحنات والتتبع اللحظي آلياً.
       </p>
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div>
-        <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+        <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
           اسم الـ API أو كود الحساب (API NAME) *
         </label>
         <input
@@ -251,13 +251,13 @@ export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "set
             setFormData((prev) => ({ ...prev, apiName: val, username: val, apiKey: val }));
           }}
           placeholder="مثال: 429010599"
-          className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-teal-500"
+          className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono focus:ring-2 focus:ring-success"
         />
-        <p className="text-[11px] text-gray-400 mt-0.5">كود أو اسم الـ API المعطى لك من هاشتاج</p>
+        <p className="text-[11px] text-muted-foreground mt-0.5">كود أو اسم الـ API المعطى لك من هاشتاج</p>
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+        <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
           كلمة سر الـ API (API PASSWORD) *
         </label>
         <input
@@ -269,14 +269,14 @@ export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "set
             setFormData((prev) => ({ ...prev, apiPassword: val, password: val }));
           }}
           placeholder={editingCompany ? "•••••••• (اتركها للإبقاء على الحالية)" : "كلمة سر الـ API من هاشتاج"}
-          className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500"
+          className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-success"
         />
-        <p className="text-[11px] text-gray-400 mt-0.5">كلمة السر السرية الخاصة بالربط البرمجي</p>
+        <p className="text-[11px] text-muted-foreground mt-0.5">كلمة السر السرية الخاصة بالربط البرمجي</p>
       </div>
     </div>
 
     <div>
-      <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+      <label className="block text-xs font-medium text-foreground mb-1">
         ملاحظات التسليم والمعاينة الافتراضية للبوليصة (اختياري)
       </label>
       <input
@@ -284,9 +284,9 @@ export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "set
         value={formData.defaultNotes}
         onChange={(e) => setFormData((prev) => ({ ...prev, defaultNotes: e.target.value }))}
         placeholder="مثال: يسمح بالمعاينة مع المندوب قبل الاستلام"
-        className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+        className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground"
       />
-      <p className="text-[11px] text-gray-400 mt-0.5">تطبع هذه الملاحظات تلقائياً على كل بوليصة شحن تصدرها لعملائك</p>
+      <p className="text-[11px] text-muted-foreground mt-0.5">تطبع هذه الملاحظات تلقائياً على كل بوليصة شحن تصدرها لعملائك</p>
     </div>
   </div>
 );
@@ -297,7 +297,7 @@ export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | 
 }) => (
   <div className="space-y-3">
     <div>
-      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+      <label className="block text-xs font-semibold text-foreground mb-1">
         اسم شركة الشحن أو المندوب *
       </label>
       <input
@@ -306,13 +306,13 @@ export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | 
         value={formData.name}
         onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
         placeholder="مثال: أسطول التوصيل الداخلي، مندوب الجيزة..."
-        className="w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+        className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-primary"
       />
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div>
-        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-xs font-medium text-foreground mb-1">
           رقم هاتف المندوب
         </label>
         <input
@@ -320,11 +320,11 @@ export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | 
           value={formData.phone}
           onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
           placeholder="01xxxxxxxxx"
-          className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground"
         />
       </div>
       <div>
-        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-xs font-medium text-foreground mb-1">
           البريد الإلكتروني (اختياري)
         </label>
         <input
@@ -332,13 +332,13 @@ export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | 
           value={formData.email}
           onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
           placeholder="driver@company.com"
-          className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground"
         />
       </div>
     </div>
 
     <div>
-      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+      <label className="block text-xs font-semibold text-foreground mb-1">
         شعار الشركة المخصصة (اللوجو)
       </label>
       <div className="flex items-center gap-3">
@@ -346,10 +346,10 @@ export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | 
           <img
             src={formData.logoUrl}
             alt="شعار الشركة"
-            className="w-10 h-10 object-contain rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
+            className="w-10 h-10 object-contain rounded-lg border border-border bg-card"
           />
         ) : (
-          <div className="w-10 h-10 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center text-gray-400 text-xs">
+          <div className="w-10 h-10 rounded-lg border border-dashed border-border flex items-center justify-center text-muted-foreground text-xs">
             لا يوجد
           </div>
         )}
@@ -380,7 +380,7 @@ export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | 
           <div className="flex items-center gap-2">
             <label
               htmlFor="manualCompanyLogoUpload"
-              className="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-xs font-medium bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+              className="px-3 py-1.5 rounded-lg border border-border text-xs font-medium bg-card hover:bg-muted/50 cursor-pointer"
             >
               اختر ملف الشعار
             </label>
@@ -388,7 +388,7 @@ export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | 
               <button
                 type="button"
                 onClick={() => setFormData((prev: any) => ({ ...prev, logoUrl: '' }))}
-                className="text-xs text-rose-500 hover:underline"
+                className="text-xs text-destructive hover:underline"
               >
                 إزالة
               </button>
@@ -399,7 +399,7 @@ export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | 
             value={formData.logoUrl || ''}
             onChange={(e) => setFormData((prev: any) => ({ ...prev, logoUrl: e.target.value }))}
             placeholder="أو أدخل رابط الشعار مباشرة (URL)"
-            className="w-full px-3 py-1 text-[11px] font-mono border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            className="w-full px-3 py-1 text-[11px] font-mono border border-border dark:border-border rounded-md bg-white dark:bg-muted text-foreground"
           />
         </div>
       </div>
@@ -464,36 +464,36 @@ export const MaxpNetworkWizard: React.FC<CarrierWizardsProps> = ({
 
   return (
     <div className="space-y-3.5">
-      <div className="p-3.5 bg-gradient-to-r from-indigo-50/90 to-purple-50/60 dark:from-indigo-950/40 dark:to-purple-950/20 rounded-xl border border-indigo-200 dark:border-indigo-800/60 space-y-2">
+      <div className="p-3.5 bg-gradient-to-r from-primary/90 to-primary/60 dark:from-primary/40 dark:to-primary/20 rounded-xl border border-primary dark:border-primary/60 space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-sm text-indigo-950 dark:text-indigo-200">
+            <span className="font-bold text-sm text-primary dark:text-primary">
               شبكة شحن MaxP (MAXP Network)
             </span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300 font-bold">
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary text-primary dark:bg-primary/60 dark:text-primary font-bold">
               ربط داخلي مباشر (INTERNAL)
             </span>
           </div>
           {selectedCarrier && selectedCarrier.isLinked && (
-            <span className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/60 px-2.5 py-0.5 rounded-md">
+            <span className="text-xs font-mono font-bold text-success dark:text-success bg-success dark:bg-success/60 px-2.5 py-0.5 rounded-md">
               مرتبط معتمد #{selectedCarrier.merchantId?.slice(-6)}
             </span>
           )}
         </div>
 
-        <p className="text-xs text-indigo-950 dark:text-indigo-300/90 leading-relaxed">
+        <p className="text-xs text-primary dark:text-primary/90 leading-relaxed">
           <strong>الربط الداخلي:</strong> يمكنك اختيار شركة شحن تعمل على منصة MaxP لتحويل الطلبات إلى طرود في نظامها فوراً بدون الحاجة إلى مفاتيح API خارجية.
         </p>
 
         {selectedCarrier && !selectedCarrier.isLinked && (
-          <div className="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-xs text-amber-900 dark:text-amber-300">
+          <div className="p-2.5 rounded-lg bg-warning/10 dark:bg-warning/40 border border-warning dark:border-warning/50 text-xs text-warning dark:text-warning">
             ⚠️ <strong>غير مربوط بهذه الشركة بعد:</strong> يجب أن يقوم مدير شركة الشحن بإضافة متجرك كعميل لديه في لوحة التحكم وتفعيل الربط أولاً.
           </div>
         )}
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200">
+        <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground">
           اختر شركة الشحن من شبكة MaxP *
         </label>
 
@@ -543,11 +543,11 @@ export const MaxpNetworkWizard: React.FC<CarrierWizardsProps> = ({
 
                   <div>
                     {carrier.isLinked ? (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-semibold">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-success text-success dark:bg-success/60 dark:text-success font-semibold">
                         مربوط وجاهز
                       </span>
                     ) : (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 font-semibold">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-warning text-warning dark:bg-warning/60 dark:text-warning font-semibold">
                         بانتظار اعتماد الشركة
                       </span>
                     )}
@@ -560,7 +560,7 @@ export const MaxpNetworkWizard: React.FC<CarrierWizardsProps> = ({
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-gray-800 dark:text-gray-200 mb-1">
+        <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
           اسم شركة الشحن في متجرك *
         </label>
         <input
@@ -569,7 +569,7 @@ export const MaxpNetworkWizard: React.FC<CarrierWizardsProps> = ({
           value={formData.name}
           onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
           placeholder="مثال: شركة النور للشحن (MaxP Network)"
-          className="w-full px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+          className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground"
         />
       </div>
     </div>

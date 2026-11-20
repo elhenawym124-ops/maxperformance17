@@ -50,22 +50,22 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
   return (
     <div className="space-y-4">
       {/* Filter and Search */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-muted p-3 rounded-xl border border-border dark:border-border">
         <div className="relative w-full sm:w-80">
-          <MagnifyingGlassIcon className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <MagnifyingGlassIcon className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
             placeholder="بحث برقم المأمورية أو اسم المندوب..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-3 pr-9 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none"
+            className="w-full ps-3 pe-9 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none"
           />
         </div>
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full sm:w-auto px-3 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none"
+            className="w-full sm:w-auto px-3 py-2 text-xs sm:text-sm bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none"
           >
             <option value="ALL">كل الحالات</option>
             <option value="UNSETTLED">غير مسوّاة (بانتظار التوريد)</option>
@@ -76,7 +76,7 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
           <button
             onClick={fetchRuns}
             title="تحديث"
-            className="p-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            className="p-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
           >
             <ArrowPathIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -84,10 +84,10 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
       </div>
 
       {/* Runs Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs sm:text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+            <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-muted-foreground dark:text-muted-foreground">
               <tr>
                 <th className="py-3 px-4 font-medium">رقم المأمورية</th>
                 <th className="py-3 px-4 font-medium">المندوب</th>
@@ -99,10 +99,10 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
                 <th className="py-3 px-4 font-medium text-left">إجراءات المأمورية</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {runs.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-slate-500 dark:text-slate-400">
+                  <td colSpan={8} className="py-8 text-center text-muted-foreground dark:text-muted-foreground">
                     لا توجد رحلات توصيل مسجلة حالياً
                   </td>
                 </tr>
@@ -110,26 +110,26 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
                 runs.map((r) => {
                   const statusConf = STATUS_CONFIG[r.status] ?? STATUS_CONFIG['DISPATCHED'] ?? { label: r.status, color: '' };
                   return (
-                    <tr key={r.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
-                      <td className="py-3.5 px-4 font-mono font-semibold text-slate-900 dark:text-slate-100">
+                    <tr key={r.id} className="hover:bg-slate-50/50 dark:hover:bg-muted transition">
+                      <td className="py-3.5 px-4 font-mono font-semibold text-foreground dark:text-muted-foreground">
                         {r.runNumber}
                       </td>
                       <td className="py-3.5 px-4">
-                        <div className="font-medium text-slate-800 dark:text-slate-200">{r.courier?.name}</div>
-                        <div className="text-xs text-slate-400 font-mono" dir="ltr">{r.courier?.phone}</div>
+                        <div className="font-medium text-foreground dark:text-muted-foreground">{r.courier?.name}</div>
+                        <div className="text-xs text-muted-foreground font-mono" dir="ltr">{r.courier?.phone}</div>
                       </td>
-                      <td className="py-3.5 px-4 text-xs text-slate-500 dark:text-slate-400">
+                      <td className="py-3.5 px-4 text-xs text-muted-foreground dark:text-muted-foreground">
                         {formatDate(r.dispatchDate)}
                       </td>
                       <td className="py-3.5 px-4 tabular-nums">
                         <span className="font-semibold font-mono">{r.totalShipments}</span> طرد
                       </td>
-                      <td className="py-3.5 px-4 tabular-nums font-medium font-mono text-slate-900 dark:text-slate-100">
+                      <td className="py-3.5 px-4 tabular-nums font-medium font-mono text-foreground dark:text-muted-foreground">
                         {formatPrice(r.totalCODExpected)}
                       </td>
                       <td className="py-3.5 px-4 tabular-nums font-medium font-mono">
                         {r.status === 'SETTLED' ? (
-                          <span className="text-emerald-600 dark:text-emerald-400">{formatPrice(r.totalCODCollected)}</span>
+                          <span className="text-emerald-600 dark:text-success">{formatPrice(r.totalCODCollected)}</span>
                         ) : (
                           <span className="text-slate-400">بانتظار التوريد</span>
                         )}
@@ -144,14 +144,14 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
                           <button
                             onClick={() => handleCopyMobileLink(r)}
                             title="نسخ رابط المندوب للموبايل"
-                            className="p-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition"
+                            className="p-1.5 text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded-lg transition"
                           >
                             <ClipboardDocumentIcon className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleShareWhatsApp(r)}
                             title="إرسال الرابط عبر واتساب للمندوب"
-                            className="p-1.5 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 rounded-lg transition"
+                            className="p-1.5 text-success hover:bg-success/10 dark:hover:bg-success/40 rounded-lg transition"
                           >
                             <ChatBubbleLeftRightIcon className="w-4 h-4" />
                           </button>
@@ -159,7 +159,7 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
                             <button
                               onClick={() => onRevokeLink(r)}
                               title="إلغاء صلاحية الرابط الحالي"
-                              className="p-1.5 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition"
+                              className="p-1.5 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition"
                             >
                               <NoSymbolIcon className="w-4 h-4" />
                             </button>
@@ -181,7 +181,7 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
           </table>
         </div>
         {pagination && pagination.pages > 1 && (
-          <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center justify-between px-4 py-2.5 border-t border-border dark:border-border text-xs text-muted-foreground dark:text-muted-foreground">
             <span className="tabular-nums font-mono">
               {pagination.total} مأمورية — صفحة {pagination.page} من {pagination.pages}
             </span>
@@ -189,14 +189,14 @@ export const DeliveryRunsTable: React.FC<DeliveryRunsTableProps> = ({
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page <= 1 || loading}
-                className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 transition"
+                className="px-2.5 py-1.5 rounded-lg border border-border dark:border-border hover:bg-muted dark:hover:bg-muted disabled:opacity-40 transition"
               >
                 السابق
               </button>
               <button
                 onClick={() => setPage((p) => (pagination && p < pagination.pages ? p + 1 : p))}
                 disabled={!pagination || page >= pagination.pages || loading}
-                className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 transition"
+                className="px-2.5 py-1.5 rounded-lg border border-border dark:border-border hover:bg-muted dark:hover:bg-muted disabled:opacity-40 transition"
               >
                 التالي
               </button>

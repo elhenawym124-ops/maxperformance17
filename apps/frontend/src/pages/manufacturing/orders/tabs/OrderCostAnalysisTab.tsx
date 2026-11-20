@@ -62,7 +62,7 @@ export const OrderCostAnalysisTab: React.FC<OrderCostAnalysisTabProps> = ({ orde
     return (
       <span
         className={`font-mono font-bold tabular-nums inline-flex items-center gap-0.5 ${
-          isFavorable ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+          isFavorable ? 'text-emerald-600 dark:text-success' : 'text-rose-600 dark:text-destructive'
         }`}
       >
         {isFavorable ? <TrendingDown className="w-3 h-3" /> : <TrendingUp className="w-3 h-3" />}
@@ -107,7 +107,7 @@ export const OrderCostAnalysisTab: React.FC<OrderCostAnalysisTabProps> = ({ orde
           <div className="flex items-baseline gap-1">
             <span
               className={`text-xl font-bold font-mono tabular-nums ${
-                variance.isFavorable ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+                variance.isFavorable ? 'text-emerald-600 dark:text-success' : 'text-rose-600 dark:text-destructive'
               }`}
             >
               {Math.abs(Number(variance.totalVariance)).toFixed(2)}
@@ -172,7 +172,7 @@ export const OrderCostAnalysisTab: React.FC<OrderCostAnalysisTabProps> = ({ orde
             <tr className="bg-muted/30 font-bold border-t border-border">
               <td className="p-3 text-foreground">إجمالي تكلفة أمر الإنتاج</td>
               <td className="p-3 font-mono tabular-nums text-foreground">{Number(standardCost.total).toFixed(2)} ج.م</td>
-              <td className="p-3 font-mono tabular-nums text-emerald-600 dark:text-emerald-400">{Number(actualCost.total).toFixed(2)} ج.م</td>
+              <td className="p-3 font-mono tabular-nums text-success dark:text-success">{Number(actualCost.total).toFixed(2)} ج.م</td>
               <td className="p-3">{renderVarianceCell(actualCost.total, standardCost.total)}</td>
               <td className="p-3 font-mono">100%</td>
             </tr>

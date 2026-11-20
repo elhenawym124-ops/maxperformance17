@@ -131,7 +131,7 @@ export const IssueMaterialsModal: React.FC<IssueMaterialsModalProps> = ({
       <div className="w-full max-w-2xl rounded-xl bg-card border border-border/70 shadow-2xl overflow-hidden text-foreground">
         <div className="p-4 border-b border-border/60 flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600">
+            <div className="p-1.5 rounded-lg bg-warning/10 text-warning">
               <PackageMinus className="w-4 h-4" />
             </div>
             <div>
@@ -277,7 +277,7 @@ export const IssueMaterialsModal: React.FC<IssueMaterialsModalProps> = ({
             <button
               type="submit"
               disabled={saving}
-              className="px-4 py-1.5 rounded bg-amber-600 text-white font-medium hover:bg-amber-700 disabled:opacity-50 transition"
+              className="px-4 py-1.5 rounded bg-warning text-white font-medium hover:bg-warning disabled:opacity-50 transition"
             >
               {saving ? 'جارٍ الصرف...' : 'تأكيد وصرف الخامات'}
             </button>

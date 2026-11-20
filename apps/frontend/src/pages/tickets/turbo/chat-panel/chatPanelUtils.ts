@@ -65,28 +65,28 @@ export const getStatusBadge = (status: any): StatusBadgeInfo => {
     return {
       label: label || "جديدة",
       className:
-        "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20",
+        "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
     };
   }
   if (val === "3" || val === "on_hold" || val === "hold" || val === "pending") {
     return {
       label: label || "معلقة",
       className:
-        "bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20",
+        "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
     };
   }
   if (val === "1" || val === "in_progress" || val === "processing") {
     return {
       label: label || "قيد المعالجة",
       className:
-        "bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/20",
+        "bg-sky-500/10 text-info dark:text-info border border-info/20",
     };
   }
   if (val === "2" || val === "closed" || val === "resolved" || val === "solved") {
     return {
       label: label || "مغلقة",
       className:
-        "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20",
+        "bg-emerald-500/10 text-success dark:text-success border border-success/20",
     };
   }
 
@@ -94,13 +94,13 @@ export const getStatusBadge = (status: any): StatusBadgeInfo => {
     return {
       label,
       className:
-        "bg-zinc-500/10 text-zinc-700 dark:text-zinc-300 border border-zinc-500/20",
+        "bg-zinc-500/10 text-foreground dark:text-muted-foreground border border-border",
     };
   }
 
   return {
     label: "غير محدد",
     className:
-      "bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 border border-zinc-500/20",
+      "bg-zinc-500/10 text-foreground dark:text-muted-foreground border border-border",
   };
 };

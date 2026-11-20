@@ -113,7 +113,7 @@ export const CreateFactoryAgreementModal: React.FC<CreateFactoryAgreementModalPr
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-background/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-3xl bg-card border border-border rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      <div className="relative w-full max-w-3xl bg-card border border-border rounded-xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Header */}
         <div className="px-5 py-4 border-b border-border/70 flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2.5">
@@ -215,7 +215,7 @@ export const CreateFactoryAgreementModal: React.FC<CreateFactoryAgreementModalPr
                     placeholder="مثال: 12000"
                     value={totalValue}
                     onChange={(e) => setTotalValue(e.target.value)}
-                    className="w-full text-xs py-2 px-3 pr-8 bg-background border border-border rounded-lg text-foreground font-mono tabular-nums focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                    className="w-full text-xs py-2 px-3 pe-8 bg-background border border-border rounded-lg text-foreground font-mono tabular-nums focus:ring-2 focus:ring-primary/20 focus:outline-none"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-muted-foreground pointer-events-none">
                     {currency}

@@ -67,7 +67,7 @@ export const SizeChartComparisonModal: React.FC<SizeChartComparisonModalProps> =
             <>
               {/* Alert Banner */}
               {data.hasExceededTolerance ? (
-                <div className="p-3.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-xl border border-warning/30 bg-warning/10 text-warning dark:text-warning flex items-start gap-2.5">
                   <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                   <div className="text-xs leading-relaxed">
                     <strong>تنبيه فني (تجاوز التفاوت المسموح):</strong> تم رصد{' '}
@@ -76,7 +76,7 @@ export const SizeChartComparisonModal: React.FC<SizeChartComparisonModalProps> =
                   </div>
                 </div>
               ) : (
-                <div className="p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
+                <div className="p-3 rounded-xl border border-success/30 bg-success/10 text-success dark:text-success flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
                   <div className="text-xs font-semibold">
                     جميع القياسات مطابقة وضمن نسبة التفاوت المسموح بها (Tolerance) عبر النسخ الثلاث بنجاح.
@@ -129,7 +129,7 @@ export const SizeChartComparisonModal: React.FC<SizeChartComparisonModalProps> =
                           key={idx}
                           className={`transition-colors ${
                             row.isToleranceExceeded
-                              ? 'bg-amber-500/10 hover:bg-amber-500/15'
+                              ? 'bg-amber-500/10 hover:bg-warning/15'
                               : 'hover:bg-muted/20'
                           }`}
                         >
@@ -157,7 +157,7 @@ export const SizeChartComparisonModal: React.FC<SizeChartComparisonModalProps> =
                                 {row.exceededSources.map((ex, exIdx) => (
                                   <div
                                     key={exIdx}
-                                    className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/30"
+                                    className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded bg-warning/20 text-warning dark:text-warning border border-warning/30"
                                   >
                                     <AlertTriangle className="w-2.5 h-2.5 shrink-0" />
                                     <span>
@@ -167,7 +167,7 @@ export const SizeChartComparisonModal: React.FC<SizeChartComparisonModalProps> =
                                 ))}
                               </div>
                             ) : (
-                              <span className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                              <span className="inline-flex items-center gap-1 text-[11px] text-success dark:text-success font-medium">
                                 <CheckCircle2 className="w-3 h-3" />
                                 <span>مطابق</span>
                               </span>

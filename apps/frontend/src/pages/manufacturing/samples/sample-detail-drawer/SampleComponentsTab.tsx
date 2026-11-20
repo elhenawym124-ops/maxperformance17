@@ -216,7 +216,7 @@ export const SampleComponentsTab: React.FC<SampleComponentsTabProps> = ({ sample
       </div>
 
       {error && (
-        <div className="px-3 py-2 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-[11px] font-medium">
+        <div className="px-3 py-2 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive dark:text-destructive text-[11px] font-medium">
           {error}
         </div>
       )}
@@ -242,7 +242,7 @@ export const SampleComponentsTab: React.FC<SampleComponentsTabProps> = ({ sample
                   }}
                   onFocus={() => setIsAddProductDropdownOpen(true)}
                   placeholder="ابحث عن خامة من المخزن أو اكتب اسم حر..."
-                  className="w-full px-3 py-1.5 text-xs rounded-lg border border-border bg-background outline-none focus:ring-1 focus:ring-primary pl-8"
+                  className="w-full px-3 py-1.5 text-xs rounded-lg border border-border bg-background outline-none focus:ring-1 focus:ring-primary ps-8"
                 />
                 <Shirt className="w-3.5 h-3.5 text-muted-foreground absolute left-2.5 top-2" />
               </div>
@@ -284,11 +284,11 @@ export const SampleComponentsTab: React.FC<SampleComponentsTabProps> = ({ sample
 
               <div className="mt-1 flex items-center gap-1.5">
                 {draft.productId ? (
-                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                     مرتبط بالمخزن
                   </span>
                 ) : (
-                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                     غير مرتبط
                   </span>
                 )}
@@ -386,7 +386,7 @@ export const SampleComponentsTab: React.FC<SampleComponentsTabProps> = ({ sample
                           }}
                           onFocus={() => setIsEditProductDropdownOpen(true)}
                           placeholder="ابحث عن خامة من المخزن أو اكتب اسم حر..."
-                          className="w-full px-2 py-1 text-xs rounded-md border border-border bg-background outline-none focus:ring-1 focus:ring-primary pl-8"
+                          className="w-full px-2 py-1 text-xs rounded-md border border-border bg-background outline-none focus:ring-1 focus:ring-primary ps-8"
                         />
                         <Shirt className="w-3.5 h-3.5 text-muted-foreground absolute left-2.5 top-1.5" />
                       </div>
@@ -428,11 +428,11 @@ export const SampleComponentsTab: React.FC<SampleComponentsTabProps> = ({ sample
 
                       <div className="mt-1 flex items-center gap-1.5">
                         {editDraft.productId ? (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                             مرتبط بالمخزن
                           </span>
                         ) : (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                             غير مرتبط
                           </span>
                         )}
@@ -491,11 +491,11 @@ export const SampleComponentsTab: React.FC<SampleComponentsTabProps> = ({ sample
                       <div className="flex items-center gap-2">
                         <p className="font-semibold text-foreground truncate">{component.name}</p>
                         {component.productId ? (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                             مرتبط بالمخزن
                           </span>
                         ) : (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                             غير مرتبط
                           </span>
                         )}
@@ -522,7 +522,7 @@ export const SampleComponentsTab: React.FC<SampleComponentsTabProps> = ({ sample
                           <button
                             type="button"
                             onClick={() => handleDelete(component.id)}
-                            className="p-1.5 rounded-md border border-rose-500/30 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40"
+                            className="p-1.5 rounded-md border border-destructive/30 text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40"
                             title="حذف"
                           >
                             <Trash2 className="w-3 h-3" />

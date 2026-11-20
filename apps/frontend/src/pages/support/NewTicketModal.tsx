@@ -139,7 +139,7 @@ export const NewTicketModal: React.FC<NewTicketModalProps> = ({ onClose, onCreat
             <input
               type="file"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
-              className="w-full text-xs text-muted-foreground file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-muted file:text-foreground hover:file:bg-muted/80 cursor-pointer"
+              className="w-full text-xs text-muted-foreground file:me-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-muted file:text-foreground hover:file:bg-muted/80 cursor-pointer"
             />
           </div>
 

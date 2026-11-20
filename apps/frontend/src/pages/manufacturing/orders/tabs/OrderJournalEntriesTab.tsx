@@ -71,7 +71,7 @@ export const OrderJournalEntriesTab: React.FC<OrderJournalEntriesTabProps> = ({ 
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="font-mono font-bold text-sm text-foreground">{entry.entryNumber}</span>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">
                         {entry.status === 'POSTED' ? 'مرحل' : entry.status}
                       </span>
                       <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-muted text-muted-foreground border border-border/60">
@@ -98,8 +98,8 @@ export const OrderJournalEntriesTab: React.FC<OrderJournalEntriesTabProps> = ({ 
                       <th className="p-2.5 font-semibold">رقم الحساب</th>
                       <th className="p-2.5 font-semibold">اسم الحساب</th>
                       <th className="p-2.5 font-semibold">البيان</th>
-                      <th className="p-2.5 font-semibold text-emerald-600 font-bold">مدين (Debit)</th>
-                      <th className="p-2.5 font-semibold text-rose-600 font-bold">دائن (Credit)</th>
+                      <th className="p-2.5 font-semibold text-success font-bold">مدين (Debit)</th>
+                      <th className="p-2.5 font-semibold text-destructive font-bold">دائن (Credit)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border/60">
@@ -111,10 +111,10 @@ export const OrderJournalEntriesTab: React.FC<OrderJournalEntriesTabProps> = ({ 
                           <td className="p-2.5 font-mono text-muted-foreground">{line.account?.code || '—'}</td>
                           <td className="p-2.5 font-medium text-foreground">{line.account?.name || line.accountId}</td>
                           <td className="p-2.5 text-muted-foreground">{line.narration || '—'}</td>
-                          <td className="p-2.5 font-mono font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+                          <td className="p-2.5 font-mono font-bold tabular-nums text-success dark:text-success">
                             {debit > 0 ? `${debit.toFixed(2)} ج.م` : '—'}
                           </td>
-                          <td className="p-2.5 font-mono font-bold tabular-nums text-rose-600 dark:text-rose-400">
+                          <td className="p-2.5 font-mono font-bold tabular-nums text-destructive dark:text-destructive">
                             {credit > 0 ? `${credit.toFixed(2)} ج.م` : '—'}
                           </td>
                         </tr>

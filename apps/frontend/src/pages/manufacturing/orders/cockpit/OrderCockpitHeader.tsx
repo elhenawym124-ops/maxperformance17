@@ -33,17 +33,17 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
   const getOrderTypeBadge = (type?: string) => {
     switch (type) {
       case 'FULL_PACKAGE':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">حزمة كاملة (Full Package)</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">حزمة كاملة (Full Package)</span>;
       case 'CMT':
         return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20">تشغيل للغير (CMT)</span>;
       case 'CUSTOMER_MATERIALS':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20">خامات عميل</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20">خامات عميل</span>;
       case 'OUTSOURCED':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">تشغيل خارجي</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-warning/10 text-warning dark:text-warning border border-warning/20">تشغيل خارجي</span>;
       case 'SAMPLE':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/20">عينة بروتوتايب</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">عينة بروتوتايب</span>;
       case 'REWORK':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20">إعادة تشغيل</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">إعادة تشغيل</span>;
       default:
         return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground border">حزمة كاملة</span>;
     }
@@ -52,11 +52,11 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
   const getStatusBadge = (status: ProductionOrderStatus) => {
     const config: Record<ProductionOrderStatus, { label: string; class: string }> = {
       PLANNED: { label: 'مخطط', class: 'bg-muted text-muted-foreground' },
-      RELEASED: { label: 'معتمد للتشغيل', class: 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/20' },
+      RELEASED: { label: 'معتمد للتشغيل', class: 'bg-indigo-500/10 text-primary dark:text-primary border-primary/20' },
       IN_PROGRESS: { label: 'قيد التشغيل', class: 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20' },
-      QC_PENDING: { label: 'بانتظار الفحص', class: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20' },
-      COMPLETED: { label: 'مكتمل ومستلم', class: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20' },
-      CANCELLED: { label: 'ملغي', class: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20' },
+      QC_PENDING: { label: 'بانتظار الفحص', class: 'bg-amber-500/10 text-warning dark:text-warning border-warning/20' },
+      COMPLETED: { label: 'مكتمل ومستلم', class: 'bg-emerald-500/10 text-success dark:text-success border-success/20' },
+      CANCELLED: { label: 'ملغي', class: 'bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20' },
     };
     const c = config[status] || { label: status, class: 'bg-muted text-muted-foreground' };
     return (
@@ -89,7 +89,7 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
               <button
                 onClick={onRelease}
                 disabled={actionLoading}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-sm"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-primary text-white hover:bg-primary transition shadow-sm"
               >
                 <Check className="w-3.5 h-3.5" />
                 <span>اعتماد التشغيل (RELEASE)</span>
@@ -100,7 +100,7 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
               <button
                 onClick={onOpenStartDialog}
                 disabled={actionLoading}
-                className="flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition shadow-sm"
+                className="flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success transition shadow-sm"
               >
                 <Play className="w-3.5 h-3.5" />
                 <span>بدء التشغيل (START)</span>
@@ -111,7 +111,7 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
               <button
                 onClick={onCompleteOrder}
                 disabled={actionLoading}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition shadow-sm"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success transition shadow-sm"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>إقفال أمر الإنتاج (COMPLETE)</span>
@@ -122,7 +122,7 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
               <button
                 onClick={onOpenCancelDialog}
                 disabled={actionLoading}
-                className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg bg-destructive/10 text-destructive dark:text-destructive hover:bg-destructive/20 border border-destructive/20 transition"
               >
                 <Ban className="w-3.5 h-3.5" />
                 <span>إلغاء الأمر</span>
@@ -173,11 +173,11 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
               {order.customerOrder && order.customerOrder.paidAmount !== undefined && (
                 <div>
                   <span className="text-muted-foreground block text-[10px]">تحصيل أمر العميل:</span>
-                  <span className="font-bold text-emerald-600">
+                  <span className="font-bold text-success">
                     {order.customerOrder.paidAmount.toLocaleString()} ج.م
                   </span>
                   <span className="text-muted-foreground"> / </span>
-                  <span className="font-bold text-amber-600">
+                  <span className="font-bold text-warning">
                     {order.customerOrder.remainingAmount?.toLocaleString()} ج.م متبقي
                   </span>
                 </div>
@@ -194,11 +194,11 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
           </div>
           <div>
             <span className="text-[11px] text-muted-foreground block mb-0.5">المستلم التام السليم</span>
-            <span className="font-mono font-bold text-sm text-emerald-600">{produced} قطعة ({progressPercent}%)</span>
+            <span className="font-mono font-bold text-sm text-success">{produced} قطعة ({progressPercent}%)</span>
           </div>
           <div>
             <span className="text-[11px] text-muted-foreground block mb-0.5">كمية الهالك المسجل</span>
-            <span className="font-mono font-bold text-sm text-amber-600">{scrapped} قطعة</span>
+            <span className="font-mono font-bold text-sm text-warning">{scrapped} قطعة</span>
           </div>
           <div>
             <span className="text-[11px] text-muted-foreground block mb-0.5">التكلفة الفعلية المحققة</span>
@@ -224,11 +224,11 @@ export const OrderCockpitHeader: React.FC<OrderCockpitHeaderProps> = ({
 
       {/* Cost Warnings Banner */}
       {costWarnings && costWarnings.length > 0 && (
-        <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2.5 shadow-xs">
-          <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+        <div className="p-3.5 rounded-xl bg-warning/10 border border-warning/30 text-warning dark:text-warning text-xs flex items-start gap-2.5 shadow-xs">
+          <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
           <div className="space-y-1">
             <span className="font-bold block">تحذير تكلفة مخزنية (Cost Warnings):</span>
-            <ul className="list-disc list-inside space-y-0.5 text-[11px] text-amber-800 dark:text-amber-300">
+            <ul className="list-disc list-inside space-y-0.5 text-[11px] text-warning dark:text-warning">
               {costWarnings.map((w, i) => (
                 <li key={i}>{w.warning || `الخامة ${w.rawMaterialName || w.rawMaterialId} تم صرفها بتكلفة صفر.`}</li>
               ))}

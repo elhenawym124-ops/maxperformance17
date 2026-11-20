@@ -29,14 +29,14 @@ export const BomStagesTable: React.FC<BomStagesTableProps> = ({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+          <span className="text-[11px] font-semibold text-success bg-success/10 px-2 py-0.5 rounded border border-success/20">
             إجمالي أجر العمالة: {totalCalculatedLabor.toFixed(2)} ج.م/قطعة
           </span>
           {onOpenApplySetModal && (
             <button
               type="button"
               onClick={onOpenApplySetModal}
-              className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/20 transition"
+              className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition"
             >
               <Layers className="w-3.5 h-3.5" />
               <span>استدعاء مراحل قياسية</span>

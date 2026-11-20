@@ -35,7 +35,7 @@ export const FactoryPortalPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 text-foreground pb-12" dir="rtl">
+    <div className="min-h-screen bg-muted dark:bg-muted text-foreground pb-12" dir="rtl">
       <FactoryPortalHeader
         context={context}
         loading={loading}
@@ -44,7 +44,7 @@ export const FactoryPortalPage: React.FC = () => {
 
       <main className="max-w-3xl mx-auto p-3.5 sm:p-5 space-y-4">
         {actionSuccess && (
-          <div className="p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-2 animate-in fade-in">
+          <div className="p-3 rounded-xl border border-success/30 bg-success/10 text-success dark:text-success text-xs flex items-center gap-2 animate-in fade-in">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
             <span>{actionSuccess}</span>
           </div>
@@ -69,7 +69,7 @@ export const FactoryPortalPage: React.FC = () => {
             <span className="text-sm">جارٍ تحميل تكليفات المصنع...</span>
           </div>
         ) : filteredAssignments.length === 0 ? (
-          <div className="p-12 text-center rounded-2xl border border-dashed border-border bg-card/50 flex flex-col items-center justify-center gap-3">
+          <div className="p-12 text-center rounded-xl border border-dashed border-border bg-card/50 flex flex-col items-center justify-center gap-3">
             <ClipboardList className="w-8 h-8 text-muted-foreground" />
             <h3 className="font-bold text-sm text-foreground">لا توجد تكليفات في هذا الفلتر</h3>
             <p className="text-xs text-muted-foreground">

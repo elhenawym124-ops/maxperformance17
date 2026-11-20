@@ -212,14 +212,14 @@ export const CourierFleetSettingsPage: React.FC = () => {
       </div>
 
       {loadError && (
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between gap-3">
+        <div className="rounded-xl border border-warning/20 bg-warning/10 p-4 text-xs text-warning dark:text-warning flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{loadError}</span>
           </div>
           <button
             onClick={loadData}
-            className="underline font-semibold hover:text-amber-800 dark:hover:text-amber-200"
+            className="underline font-semibold hover:text-warning dark:hover:text-warning"
           >
             إعادة المحاولة
           </button>
@@ -235,9 +235,9 @@ export const CourierFleetSettingsPage: React.FC = () => {
       />
 
       {/* Bottom Sticky Save Bar */}
-      <div className="sticky bottom-4 z-20 flex items-center justify-between p-4 rounded-2xl border border-border/80 bg-card/95 backdrop-blur-md shadow-lg">
+      <div className="sticky bottom-4 z-20 flex items-center justify-between p-4 rounded-xl border border-border/80 bg-card/95 backdrop-blur-md shadow-lg">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <CheckCircle2 className="w-4 h-4 text-success dark:text-success shrink-0" />
           <span>يتم تطبيق التغييرات فوراً على المناديب وكشوف المانيفست الجديدة</span>
         </div>
         <button

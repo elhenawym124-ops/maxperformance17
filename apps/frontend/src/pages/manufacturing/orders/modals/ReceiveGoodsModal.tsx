@@ -120,7 +120,7 @@ export const ReceiveGoodsModal: React.FC<ReceiveGoodsModalProps> = ({
       <div className="w-full max-w-2xl rounded-xl bg-card border border-border/70 shadow-2xl overflow-hidden text-foreground">
         <div className="p-4 border-b border-border/60 flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600">
+            <div className="p-1.5 rounded-lg bg-success/10 text-success">
               <PackageCheck className="w-4 h-4" />
             </div>
             <div>
@@ -171,7 +171,7 @@ export const ReceiveGoodsModal: React.FC<ReceiveGoodsModalProps> = ({
             <div className="flex items-center justify-between mb-2">
               <span className="font-bold text-foreground">الكميات المستلمة حسب المتغيرات (المقاس × اللون)</span>
               <div className="text-[11px] font-mono text-muted-foreground">
-                سليم: <span className="font-bold text-emerald-600">{totalGood}</span> | هالك/معيب: <span className="font-bold text-amber-600">{totalScrap}</span>
+                سليم: <span className="font-bold text-success">{totalGood}</span> | هالك/معيب: <span className="font-bold text-warning">{totalScrap}</span>
               </div>
             </div>
 
@@ -182,8 +182,8 @@ export const ReceiveGoodsModal: React.FC<ReceiveGoodsModalProps> = ({
                     <th className="p-2.5">المقاس</th>
                     <th className="p-2.5">اللون</th>
                     <th className="p-2.5 text-center">المخطط</th>
-                    <th className="p-2.5 text-center text-emerald-600 font-bold">الكمية السليمة</th>
-                    <th className="p-2.5 text-center text-amber-600 font-bold">كمية الهالك</th>
+                    <th className="p-2.5 text-center text-success font-bold">الكمية السليمة</th>
+                    <th className="p-2.5 text-center text-warning font-bold">كمية الهالك</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/60">
@@ -209,7 +209,7 @@ export const ReceiveGoodsModal: React.FC<ReceiveGoodsModalProps> = ({
                           step="1"
                           value={it.scrapQuantity}
                           onChange={(e) => handleItemChange(idx, 'scrapQuantity', parseInt(e.target.value, 10) || 0)}
-                          className="w-20 p-1 text-center font-mono text-xs rounded border border-border bg-background font-mono text-amber-600 focus:outline-none focus:ring-1 focus:ring-primary"
+                          className="w-20 p-1 text-center font-mono text-xs rounded border border-border bg-background font-mono text-warning focus:outline-none focus:ring-1 focus:ring-primary"
                         />
                       </td>
                     </tr>
@@ -230,7 +230,7 @@ export const ReceiveGoodsModal: React.FC<ReceiveGoodsModalProps> = ({
             <button
               type="submit"
               disabled={saving}
-              className="px-4 py-1.5 rounded bg-emerald-600 text-white font-medium hover:bg-emerald-700 disabled:opacity-50 transition"
+              className="px-4 py-1.5 rounded bg-success text-white font-medium hover:bg-success disabled:opacity-50 transition"
             >
               {saving ? 'جارٍ الاستلام...' : 'تأكيد واستلام الإنتاج التام'}
             </button>

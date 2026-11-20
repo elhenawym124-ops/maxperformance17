@@ -144,32 +144,32 @@ export const ManufacturingOrdersPage: React.FC = () => {
       case 'PLANNED':
         return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20">مخطط</span>;
       case 'RELEASED':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20">معتمد</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20">معتمد</span>;
       case 'IN_PROGRESS':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">قيد التشغيل</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-warning/10 text-warning dark:text-warning border border-warning/20">قيد التشغيل</span>;
       case 'QC_PENDING':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20">فحص الجودة</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20">فحص الجودة</span>;
       case 'COMPLETED':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">مكتمل</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">مكتمل</span>;
       case 'CANCELLED':
-        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20">ملغي</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">ملغي</span>;
     }
   };
 
   const getOrderTypeBadge = (type?: string) => {
     switch (type) {
       case 'FULL_PACKAGE':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">حزمة كاملة</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">حزمة كاملة</span>;
       case 'CMT':
         return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20">تشغيل CMT</span>;
       case 'CUSTOMER_MATERIALS':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20">خامات عميل</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20">خامات عميل</span>;
       case 'OUTSOURCED':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">تشغيل خارجي</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-warning/10 text-warning dark:text-warning border border-warning/20">تشغيل خارجي</span>;
       case 'SAMPLE':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/20">عينة</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">عينة</span>;
       case 'REWORK':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20">إعادة تشغيل</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">إعادة تشغيل</span>;
       default:
         return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground border">حزمة كاملة</span>;
     }
@@ -183,7 +183,7 @@ export const ManufacturingOrdersPage: React.FC = () => {
         actions={
           <button
             onClick={() => setWizardOpen(true)}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm transition-all"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>أمر إنتاج جديد (معالج)</span>
@@ -202,7 +202,7 @@ export const ManufacturingOrdersPage: React.FC = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="بحث برقم الأمر، الموديل، العميل، أو البراند..."
-                className="w-full pl-3 pr-9 py-1.5 text-xs rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full ps-3 pe-9 py-1.5 text-xs rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
           </div>
@@ -355,7 +355,7 @@ export const ManufacturingOrdersPage: React.FC = () => {
                             </Link>
                             {((ord.children && ord.children.length > 0) || (ord._count?.children && ord._count.children > 0)) && (
                               <span
-                                className="px-1.5 py-0.5 rounded text-[10px] font-sans font-semibold bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20"
+                                className="px-1.5 py-0.5 rounded text-[10px] font-sans font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20"
                                 title={`أمر إنتاج رئيسي يضم ${ord.children?.length || ord._count?.children} أوامر فرعية`}
                               >
                                 {ord.children?.length || ord._count?.children} أوامر فرعية
@@ -418,7 +418,7 @@ export const ManufacturingOrdersPage: React.FC = () => {
                           {getStatusBadge(ord.status)}
                         </td>
                         <td className="p-3 text-center font-mono tabular-nums text-foreground">
-                          <span className="font-bold text-emerald-600">{produced}</span> / {planned}{' '}
+                          <span className="font-bold text-success">{produced}</span> / {planned}{' '}
                           {scrapped > 0 && <span className="text-amber-600 text-[10px]">({scrapped} هالك)</span>}
                         </td>
                         <td className="p-3 w-28">
@@ -480,7 +480,7 @@ export const ManufacturingOrdersPage: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => setDeletingOrder(ord)}
-                              className="px-2.5 py-1 rounded-md text-xs font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/50 border border-rose-200 dark:border-rose-800/60 transition-all flex items-center gap-1 active:scale-95 shadow-2xs"
+                              className="px-2.5 py-1 rounded-md text-xs font-semibold bg-destructive/10 text-destructive hover:bg-destructive dark:bg-destructive/40 dark:text-destructive dark:hover:bg-destructive/50 border border-destructive dark:border-destructive/60 transition-all flex items-center gap-1 active:scale-95 shadow-2xs"
                               title="حذف أمر الإنتاج"
                             >
                               <Trash2 className="w-3.5 h-3.5" />

@@ -19,7 +19,7 @@ import { NewTicketModal } from "./NewTicketModal";
 const getStatusBadge = (status: string) => {
   switch (status) {
     case "open":
-      return { label: "مفتوحة", style: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20" };
+      return { label: "مفتوحة", style: "bg-amber-500/10 text-warning dark:text-warning border-warning/20" };
     case "in_progress":
       return { label: "قيد المتابعة", style: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20" };
     case "closed":
@@ -160,7 +160,7 @@ export default function SupportCenter() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="بحث في التذاكر والمواضيع..."
-                className="w-full h-8 pr-8 pl-3 text-xs rounded-lg border border-border/80 bg-background text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary"
+                className="w-full h-8 pe-8 ps-3 text-xs rounded-lg border border-border/80 bg-background text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary"
               />
             </div>
 
@@ -310,7 +310,7 @@ export default function SupportCenter() {
                                 >
                                   <FileText className="w-3 h-3" />
                                   <span className="font-mono text-[10px]">{att.originalName}</span>
-                                  <Download className="w-3 h-3 ml-1 opacity-70" />
+                                  <Download className="w-3 h-3 ms-1 opacity-70" />
                                 </a>
                               ))}
                             </div>

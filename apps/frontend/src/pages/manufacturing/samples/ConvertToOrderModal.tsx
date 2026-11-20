@@ -114,7 +114,7 @@ export const ConvertToOrderModal: React.FC<ConvertToOrderModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-card border border-border/80 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-card border border-border/80 rounded-xl w-full max-w-lg shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-border/70 flex items-center justify-between bg-primary/5">
           <div className="flex items-center gap-3">
@@ -141,7 +141,7 @@ export const ConvertToOrderModal: React.FC<ConvertToOrderModalProps> = ({
         {/* Modal Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {error && (
-            <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive dark:text-destructive text-xs font-medium flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -167,7 +167,7 @@ export const ConvertToOrderModal: React.FC<ConvertToOrderModalProps> = ({
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">مصنع العينة:</span>
-              <span className={`font-medium ${sampleFactoryName ? '' : 'text-amber-600 dark:text-amber-400'}`}>
+              <span className={`font-medium ${sampleFactoryName ? '' : 'text-amber-600 dark:text-warning'}`}>
                 {sampleFactoryName || 'غير محدد — لازم تختار مصنع'}
               </span>
             </div>

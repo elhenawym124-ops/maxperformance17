@@ -34,11 +34,11 @@ export const DetailsPanel: React.FC<DetailsPanelProps> = ({ ticket, userHistory 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "open":
-        return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
+        return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
       case "in_progress":
         return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
       case "closed":
-        return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+        return "bg-emerald-500/10 text-success dark:text-success border-success/20";
       default:
         return "bg-muted text-muted-foreground border-border/60";
     }
@@ -49,7 +49,7 @@ export const DetailsPanel: React.FC<DetailsPanelProps> = ({ ticket, userHistory 
       case "critical":
         return "bg-destructive/10 text-destructive border-destructive/20";
       case "high":
-        return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
+        return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
       case "medium":
         return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
       case "low":
@@ -64,11 +64,11 @@ export const DetailsPanel: React.FC<DetailsPanelProps> = ({ ticket, userHistory 
       case "technical":
         return "bg-primary/10 text-primary border-primary/20";
       case "billing":
-        return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
+        return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
       case "inquiry":
         return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
       case "suggestion":
-        return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+        return "bg-emerald-500/10 text-success dark:text-success border-success/20";
       case "complaint":
         return "bg-destructive/10 text-destructive border-destructive/20";
       default:
@@ -135,11 +135,11 @@ export const DetailsPanel: React.FC<DetailsPanelProps> = ({ ticket, userHistory 
             )}`}
           >
             {ticket.status === "closed" ? (
-              <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+              <CheckCircle2 className="w-3 h-3 text-success" />
             ) : ticket.status === "in_progress" ? (
               <AlertCircle className="w-3 h-3 text-blue-500" />
             ) : (
-              <Clock className="w-3 h-3 text-amber-500" />
+              <Clock className="w-3 h-3 text-warning" />
             )}
             <span>{getStatusText(ticket.status)}</span>
           </span>
@@ -251,12 +251,12 @@ export const DetailsPanel: React.FC<DetailsPanelProps> = ({ ticket, userHistory 
                     key={star}
                     className={`w-3.5 h-3.5 ${
                       star <= ticket.rating!
-                        ? "text-amber-500 fill-amber-500"
+                        ? "text-amber-500 fill-warning"
                         : "text-muted-foreground/30"
                     }`}
                   />
                 ))}
-                <span className="mr-1 text-[11px] font-mono font-bold text-foreground tabular-nums">
+                <span className="me-1 text-[11px] font-mono font-bold text-foreground tabular-nums">
                   {ticket.rating}/5
                 </span>
               </div>

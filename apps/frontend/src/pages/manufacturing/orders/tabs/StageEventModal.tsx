@@ -78,7 +78,7 @@ export const StageEventModal: React.FC<StageEventModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-xs animate-in fade-in duration-150" dir="rtl">
-      <div className="w-full max-w-md rounded-2xl bg-card border border-border/80 shadow-2xl overflow-hidden text-foreground">
+      <div className="w-full max-w-md rounded-xl bg-card border border-border/80 shadow-2xl overflow-hidden text-foreground">
         <div className="p-4 border-b border-border/70 flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2">
             <Icon className="w-4 h-4 text-primary" />

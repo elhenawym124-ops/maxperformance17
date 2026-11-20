@@ -46,13 +46,13 @@ export const SampleFinanceTab: React.FC<SampleFinanceTabProps> = ({
     <div className="space-y-4 text-xs">
       {/* Overdue Alert Banner if overdue */}
       {sample.isOverdue && (
-        <div className="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 flex items-start gap-2.5">
-          <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+        <div className="p-3.5 rounded-xl bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive flex items-start gap-2.5">
+          <AlertTriangle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
           <div>
             <p className="font-bold text-xs">
               تنبيه: فات موعد الاستلام المتوقع من المصنع!
             </p>
-            <p className="text-[11px] text-rose-700 dark:text-rose-300 mt-0.5 tabular-nums">
+            <p className="text-[11px] text-destructive dark:text-destructive mt-0.5 tabular-nums">
               موعد الاستلام المحدد كان{' '}
               {sample.expectedDeliveryAt
                 ? new Date(sample.expectedDeliveryAt).toLocaleDateString(
@@ -161,7 +161,7 @@ export const SampleFinanceTab: React.FC<SampleFinanceTabProps> = ({
                 : 'غير محدد'}
             </span>
             {sample.sampleReceived ? (
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 inline-flex items-center gap-1">
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-success/10 text-success dark:text-success border border-success/20 inline-flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
                 <span className="tabular-nums">
                   مستلمة{' '}
@@ -174,7 +174,7 @@ export const SampleFinanceTab: React.FC<SampleFinanceTabProps> = ({
               </span>
             ) : (
               sample.isOverdue && (
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 tabular-nums">
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 tabular-nums">
                   متأخر {sample.overdueDays} يوم
                 </span>
               )
@@ -221,21 +221,21 @@ export const SampleFinanceTab: React.FC<SampleFinanceTabProps> = ({
             </div>
           </div>
 
-          <div className="p-2.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-900/50">
-            <div className="text-[10px] text-emerald-700 dark:text-emerald-300 mb-0.5">
+          <div className="p-2.5 rounded-lg bg-success/50 dark:bg-success/20 border border-success/50 dark:border-success/50">
+            <div className="text-[10px] text-success dark:text-success mb-0.5">
               المدفوع الفعلي
             </div>
-            <div className="font-bold text-sm text-emerald-800 dark:text-emerald-200 tabular-nums">
+            <div className="font-bold text-sm text-success dark:text-success tabular-nums">
               {paid.toLocaleString()}{' '}
               <span className="text-[10px] font-normal">ج.م</span>
             </div>
           </div>
 
-          <div className="p-2.5 rounded-lg bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-900/50">
-            <div className="text-[10px] text-amber-700 dark:text-amber-300 mb-0.5">
+          <div className="p-2.5 rounded-lg bg-warning/50 dark:bg-warning/20 border border-warning/50 dark:border-warning/50">
+            <div className="text-[10px] text-warning dark:text-warning mb-0.5">
               المتبقي
             </div>
-            <div className="font-bold text-sm text-amber-800 dark:text-amber-200 tabular-nums">
+            <div className="font-bold text-sm text-warning dark:text-warning tabular-nums">
               {remaining.toLocaleString()}{' '}
               <span className="text-[10px] font-normal">ج.م</span>
             </div>
@@ -252,7 +252,7 @@ export const SampleFinanceTab: React.FC<SampleFinanceTabProps> = ({
           </div>
           <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
             <div
-              className="h-full bg-emerald-600 transition-all duration-300"
+              className="h-full bg-success transition-all duration-300"
               style={{ width: `${progressPct}%` }}
             />
           </div>
@@ -317,7 +317,7 @@ export const SampleFinanceTab: React.FC<SampleFinanceTabProps> = ({
                         <button
                           onClick={() => onDeletePayment(p.id)}
                           disabled={loading}
-                          className="p-1 text-muted-foreground hover:text-rose-600 rounded transition-colors"
+                          className="p-1 text-muted-foreground hover:text-destructive rounded transition-colors"
                           title="حذف الدفعة"
                         >
                           <Trash2 className="w-3.5 h-3.5" />

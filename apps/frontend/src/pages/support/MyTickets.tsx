@@ -168,13 +168,13 @@ export const MyTickets: React.FC = () => {
         <div className="flex items-center gap-2 self-start sm:self-center">
           <div className="hidden sm:flex items-center gap-3 px-3 py-1 bg-muted/30 rounded-lg border border-border/60 text-xs">
             <div className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-amber-500" />
+              <Clock className="w-3.5 h-3.5 text-warning" />
               <span className="text-muted-foreground">مفتوحة:</span>
               <span className="font-mono font-bold text-foreground tabular-nums">{openTicketsCount}</span>
             </div>
             <div className="h-3 w-px bg-border/80" />
             <div className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-success" />
               <span className="text-muted-foreground">مغلقة:</span>
               <span className="font-mono font-bold text-foreground tabular-nums">{closedTicketsCount}</span>
             </div>

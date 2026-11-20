@@ -242,7 +242,7 @@ export const ManufacturingSettingsPage: React.FC = () => {
             type="button"
             onClick={() => handleSaveSettings()}
             disabled={saving || !settings}
-            className="px-4 py-2 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition-all disabled:opacity-50 flex items-center gap-1.5"
+            className="px-4 py-2 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm transition-all disabled:opacity-50 flex items-center gap-1.5"
           >
             {saving ? (
               <>
@@ -277,7 +277,7 @@ export const ManufacturingSettingsPage: React.FC = () => {
         )}
 
         {successMessage && (
-          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs flex items-center gap-2">
+          <div className="p-4 rounded-xl bg-success/10 border border-success/20 text-success dark:text-success text-xs flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
             <span>{successMessage}</span>
           </div>
@@ -294,12 +294,12 @@ export const ManufacturingSettingsPage: React.FC = () => {
             <div className="p-5 rounded-xl bg-card border border-border/70 shadow-xs flex flex-wrap items-center justify-between gap-4">
               <div className="space-y-1.5 max-w-xl">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-emerald-600" />
+                  <Sparkles className="w-4 h-4 text-success" />
                   <h3 className="text-sm font-bold text-foreground">
                     محرك الترحيل المحاسبي الآلي للتصنيع (Auto-Posting Engine)
                   </h3>
                   {settings.autoPostingEnabled ? (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">
                       مفعّل تلقائياً
                     </span>
                   ) : (
@@ -313,7 +313,7 @@ export const ManufacturingSettingsPage: React.FC = () => {
                   صرف الخامات للمصنع (من 110401 إلى 110402)، استحقاق أجور العمالة المباشرة (من 110402 إلى 210201)،
                   تحميل الأعباء غير المباشرة (من 110402 إلى 5103)، واستلام الإنتاج التام بالمستودع (من 110403 إلى 110402).
                 </p>
-                <div className="text-[11px] text-amber-700 dark:text-amber-400 flex items-center gap-1.5 pt-1">
+                <div className="text-[11px] text-warning dark:text-warning flex items-center gap-1.5 pt-1">
                   <Info className="w-3.5 h-3.5 shrink-0" />
                   <span>في حال التعطيل، ستظل الحركات المخزنية تُسجل ولكن لن تنعكس في ميزان المراجعة إلا بعد ترحيل يدوي.</span>
                 </div>
@@ -338,7 +338,7 @@ export const ManufacturingSettingsPage: React.FC = () => {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/50">
                     <div className="space-y-1">
                       <h4 className="text-sm font-bold text-foreground flex items-center gap-2">
-                        <MessageCircle className="w-4 h-4 text-emerald-600" />
+                        <MessageCircle className="w-4 h-4 text-success" />
                         <span>إشعارات واتساب للتصنيع</span>
                       </h4>
                       <p className="text-xs text-muted-foreground">
@@ -410,7 +410,7 @@ export const ManufacturingSettingsPage: React.FC = () => {
                                   type="checkbox"
                                   checked={ev.enabled}
                                   onChange={(e) => updateEventConfig(key, { enabled: e.target.checked })}
-                                  className="mt-0.5 rounded border-border text-emerald-600 focus:ring-emerald-500 h-4 w-4"
+                                  className="mt-0.5 rounded border-border text-success focus:ring-success h-4 w-4"
                                 />
                                 <div>
                                   <div className="text-xs font-bold text-foreground">{meta.label}</div>
@@ -592,7 +592,7 @@ export const ManufacturingSettingsPage: React.FC = () => {
               {/* Rates & Standard Defaults */}
               <div className="p-5 rounded-xl bg-card border border-border/70 shadow-xs space-y-4">
                 <h4 className="text-xs font-bold text-foreground flex items-center gap-2 pb-2 border-b border-border/50">
-                  <Coins className="w-4 h-4 text-amber-600" />
+                  <Coins className="w-4 h-4 text-warning" />
                   <span>المعدلات القياسية للتكاليف والهدر</span>
                 </h4>
 
@@ -623,7 +623,7 @@ export const ManufacturingSettingsPage: React.FC = () => {
 
                   <div>
                     <label className="block font-medium mb-1 text-muted-foreground flex items-center gap-1.5">
-                      <Coins className="w-3.5 h-3.5 text-amber-600" />
+                      <Coins className="w-3.5 h-3.5 text-warning" />
                       <span>معدل الأعباء الإضافية للقطعة MOH (ج.م)</span>
                     </label>
                     <div className="relative">

@@ -32,12 +32,12 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
   const total = Number(s.order?.total || 0);
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-xs space-y-3">
+    <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-4 shadow-xs space-y-3">
       {/* Header: Order & COD */}
-      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+      <div className="flex items-center justify-between border-b border-border dark:border-border pb-2.5">
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="font-mono font-bold text-xs text-slate-800 dark:text-slate-200">
+            <span className="font-mono font-bold text-xs text-foreground dark:text-muted-foreground">
               {s.order?.orderNumber}
             </span>
             <button
@@ -49,12 +49,12 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
               بوليصة
             </button>
           </div>
-          <h4 className="font-bold text-sm text-slate-900 dark:text-slate-100 mt-0.5">
+          <h4 className="font-bold text-sm text-foreground dark:text-muted-foreground mt-0.5">
             {s.order?.customerName}
           </h4>
         </div>
         <div className="text-left">
-          <div className="text-[10px] text-slate-400">المبلغ المطلوب (COD)</div>
+          <div className="text-[10px] text-muted-foreground">المبلغ المطلوب (COD)</div>
           <div className="text-base font-bold text-blue-600 dark:text-blue-400 tabular-nums font-mono">
             {formatPrice(
               s.collectedAmount !== null && s.collectedAmount !== undefined
@@ -66,13 +66,13 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
       </div>
 
       {/* Address & Items */}
-      <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+      <div className="space-y-1.5 text-xs text-foreground dark:text-muted-foreground">
         <div className="flex items-start gap-1.5">
-          <MapPinIcon className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+          <MapPinIcon className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
           <span>{address || 'العنوان غير مدون بدقة'}</span>
         </div>
         {s.order?.items && s.order.items.length > 0 && (
-          <div className="flex items-start gap-1.5 text-slate-400 text-[11px]">
+          <div className="flex items-start gap-1.5 text-muted-foreground text-[11px]">
             <CubeIcon className="w-4 h-4 shrink-0 mt-0.5" />
             <span>{s.order.items.map((it) => `${it.quantity}x ${it.name}`).join('، ')}</span>
           </div>
@@ -80,13 +80,13 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
       </div>
 
       {/* Direct Action Contacts */}
-      <div className="grid grid-cols-3 gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+      <div className="grid grid-cols-3 gap-2 pt-1 border-t border-border dark:border-border">
         {phone ? (
           <a
             href={`tel:${phone}`}
-            className="flex items-center justify-center gap-1 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200 active:scale-95"
+            className="flex items-center justify-center gap-1 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-semibold text-foreground dark:text-muted-foreground active:scale-95"
           >
-            <PhoneIcon className="w-3.5 h-3.5 text-emerald-600" />
+            <PhoneIcon className="w-3.5 h-3.5 text-success" />
             اتصال
           </a>
         ) : (
@@ -102,7 +102,7 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold text-emerald-700 dark:text-emerald-400 active:scale-95"
+            className="flex items-center justify-center gap-1 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-semibold text-success dark:text-success active:scale-95"
           >
             <ChatBubbleLeftRightIcon className="w-3.5 h-3.5" />
             واتساب
@@ -115,7 +115,7 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
             href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold text-blue-700 dark:text-blue-400 active:scale-95"
+            className="flex items-center justify-center gap-1 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-semibold text-blue-700 dark:text-blue-400 active:scale-95"
           >
             <MapPinIcon className="w-3.5 h-3.5" />
             الخريطة
@@ -127,22 +127,22 @@ export const CourierMobileShipmentCard: React.FC<CourierMobileShipmentCardProps>
 
       {/* Status Update Buttons */}
       {activeTab === 'pending' && (
-        <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <div className="grid grid-cols-3 gap-2 pt-2 border-t border-border dark:border-border">
           <button
             onClick={() => onOpenAction(s, 'DELIVERED')}
-            className="col-span-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs active:scale-95 transition"
+            className="col-span-1 py-2.5 bg-success hover:bg-success text-white font-bold rounded-lg text-xs active:scale-95 transition"
           >
             تم التسليم
           </button>
           <button
             onClick={() => onOpenAction(s, 'DELAYED')}
-            className="col-span-1 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg text-xs active:scale-95 transition"
+            className="col-span-1 py-2.5 bg-warning hover:bg-warning text-white font-bold rounded-lg text-xs active:scale-95 transition"
           >
             تأجيل
           </button>
           <button
             onClick={() => onOpenAction(s, 'RETURNED')}
-            className="col-span-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-xs active:scale-95 transition"
+            className="col-span-1 py-2.5 bg-destructive hover:bg-destructive text-white font-bold rounded-lg text-xs active:scale-95 transition"
           >
             مرتجع
           </button>

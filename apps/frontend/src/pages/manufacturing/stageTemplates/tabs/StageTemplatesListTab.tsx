@@ -97,7 +97,7 @@ export const StageTemplatesListTab: React.FC<StageTemplatesListTabProps> = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث بالاسم أو الكود..."
-              className="w-full pr-8 pl-3 py-1.5 rounded-lg bg-background border border-border/70 focus:outline-hidden focus:ring-1 focus:ring-primary text-xs"
+              className="w-full pe-8 ps-3 py-1.5 rounded-lg bg-background border border-border/70 focus:outline-hidden focus:ring-1 focus:ring-primary text-xs"
             />
           </div>
 
@@ -200,7 +200,7 @@ export const StageTemplatesListTab: React.FC<StageTemplatesListTabProps> = ({
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold ${
                             t.executionEntity === 'EXTERNAL'
-                              ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20'
+                              ? 'bg-amber-500/10 text-warning dark:text-warning border border-warning/20'
                               : 'bg-primary/10 text-primary border border-primary/20'
                           }`}
                         >
@@ -213,7 +213,7 @@ export const StageTemplatesListTab: React.FC<StageTemplatesListTabProps> = ({
                         )}
                       </div>
                     </td>
-                    <td className="p-3 font-mono font-bold text-emerald-600 tabular-nums">
+                    <td className="p-3 font-mono font-bold text-success tabular-nums">
                       {Number(t.ratePerPiece).toFixed(2)}{' '}
                       <span className="text-[10px] font-sans font-normal text-muted-foreground">ج.م/قطعة</span>
                     </td>
@@ -230,8 +230,8 @@ export const StageTemplatesListTab: React.FC<StageTemplatesListTabProps> = ({
                       <span
                         className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${
                           t.isActive
-                            ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
-                            : 'bg-rose-500/10 text-rose-700 dark:text-rose-400'
+                            ? 'bg-emerald-500/10 text-success dark:text-success'
+                            : 'bg-rose-500/10 text-destructive dark:text-destructive'
                         }`}
                       >
                         {t.isActive ? 'نشط' : 'معطل'}
@@ -251,8 +251,8 @@ export const StageTemplatesListTab: React.FC<StageTemplatesListTabProps> = ({
                           title={t.isActive ? 'تعطيل القالب' : 'إعادة تفعيل القالب'}
                           className={`p-1 rounded transition ${
                             t.isActive
-                              ? 'text-rose-500 hover:bg-rose-500/10'
-                              : 'text-emerald-600 hover:bg-emerald-500/10'
+                              ? 'text-rose-500 hover:bg-destructive/10'
+                              : 'text-emerald-600 hover:bg-success/10'
                           }`}
                         >
                           <Power className="w-3.5 h-3.5" />

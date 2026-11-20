@@ -129,7 +129,7 @@ export const AddPaymentModal: React.FC<AddPaymentModalProps> = ({
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
                 placeholder="مثال: دفعة اعتماد القماش، دفعة تسليم الشحنة الأولى..."
-                className="w-full pl-2.5 pr-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full ps-2.5 pe-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
           </div>
@@ -185,7 +185,7 @@ export const AddPaymentModal: React.FC<AddPaymentModalProps> = ({
                   required
                   value={amount}
                   onChange={(e) => handleAmountChange(parseFloat(e.target.value) || 0)}
-                  className="w-full pl-2.5 pr-8 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary tabular-nums"
+                  className="w-full ps-2.5 pe-8 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary tabular-nums"
                 />
               </div>
             </div>
@@ -217,7 +217,7 @@ export const AddPaymentModal: React.FC<AddPaymentModalProps> = ({
               <DateInput
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="w-full pl-2.5 pr-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full ps-2.5 pe-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
           </div>

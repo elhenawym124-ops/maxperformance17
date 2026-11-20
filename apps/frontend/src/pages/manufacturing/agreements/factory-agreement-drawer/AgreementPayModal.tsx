@@ -27,7 +27,7 @@ export const AgreementPayModal: React.FC<AgreementPayModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
-      <div className="w-full max-w-md bg-card border border-border rounded-2xl shadow-xl p-5 space-y-4">
+      <div className="w-full max-w-md bg-card border border-border rounded-xl shadow-xl p-5 space-y-4">
         <div className="flex items-center justify-between border-b border-border/60 pb-3">
           <h3 className="text-sm font-bold text-foreground">
             تسجيل سداد الدفعة: {payment.label}
@@ -45,7 +45,7 @@ export const AgreementPayModal: React.FC<AgreementPayModalProps> = ({
             <span className="text-[11px] text-muted-foreground block">
               مبلغ الدفعة المطلوب سداده:
             </span>
-            <strong className="text-base font-bold text-emerald-600 font-mono tabular-nums">
+            <strong className="text-base font-bold text-success font-mono tabular-nums">
               {Number(payment.amount).toLocaleString("en-US")} ج.م
             </strong>
           </div>
@@ -84,7 +84,7 @@ export const AgreementPayModal: React.FC<AgreementPayModalProps> = ({
             <button
               type="submit"
               disabled={actionLoading}
-              className="px-4 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700"
+              className="px-4 py-1.5 rounded-lg bg-success text-white font-semibold hover:bg-success"
             >
               تأكيد سداد الدفعة (PAID)
             </button>

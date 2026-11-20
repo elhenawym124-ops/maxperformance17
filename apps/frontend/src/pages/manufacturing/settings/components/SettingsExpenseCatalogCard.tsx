@@ -176,7 +176,7 @@ export const SettingsExpenseCatalogCard: React.FC = () => {
 
       {/* Error alert */}
       {error && (
-        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs">
+        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-destructive/10 border border-destructive/30 text-destructive dark:text-destructive text-xs">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{error}</span>
         </div>
@@ -301,7 +301,7 @@ export const SettingsExpenseCatalogCard: React.FC = () => {
               <span
                 className={`px-2 py-0.5 rounded text-[10px] font-semibold shrink-0 ${
                   edit.isActive
-                    ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                    ? 'bg-emerald-500/10 text-success border border-success/20'
                     : 'bg-muted text-muted-foreground border border-border'
                 }`}
               >
@@ -317,7 +317,7 @@ export const SettingsExpenseCatalogCard: React.FC = () => {
                   className="px-2 py-1 rounded text-[11px] font-medium bg-muted hover:bg-muted/80 text-foreground border border-border flex items-center gap-1"
                   title="حفظ التعديلات"
                 >
-                  <Check className="w-3 h-3 text-emerald-600" />
+                  <Check className="w-3 h-3 text-success" />
                   <span>حفظ</span>
                 </button>
 
@@ -326,7 +326,7 @@ export const SettingsExpenseCatalogCard: React.FC = () => {
                     type="button"
                     onClick={() => handleArchive(it.id)}
                     disabled={isSaving}
-                    className="px-2 py-1 rounded text-[11px] font-medium bg-muted hover:bg-rose-500/10 text-muted-foreground hover:text-rose-600 border border-border flex items-center gap-1"
+                    className="px-2 py-1 rounded text-[11px] font-medium bg-muted hover:bg-destructive/10 text-muted-foreground hover:text-destructive border border-border flex items-center gap-1"
                     title="أرشفة (إخفاء من القوائم)"
                   >
                     <Archive className="w-3 h-3" />
@@ -337,7 +337,7 @@ export const SettingsExpenseCatalogCard: React.FC = () => {
                     type="button"
                     onClick={() => handleRestore(it.id)}
                     disabled={isSaving}
-                    className="px-2 py-1 rounded text-[11px] font-medium bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 border border-emerald-500/30 flex items-center gap-1"
+                    className="px-2 py-1 rounded text-[11px] font-medium bg-success/10 hover:bg-success/20 text-success border border-success/30 flex items-center gap-1"
                     title="استعادة وتفعيل المصروف في القوائم"
                   >
                     <RotateCcw className="w-3 h-3" />

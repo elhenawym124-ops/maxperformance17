@@ -109,7 +109,7 @@ export const FactoryAgreementsPage: React.FC = () => {
       <div className="flex-1 p-4 sm:p-6 space-y-5 max-w-7xl mx-auto w-full">
         {/* KPI Summary Bento Strip */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          <div className="p-4 rounded-2xl bg-card border border-border/70 shadow-xs flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-card border border-border/70 shadow-xs flex items-center justify-between">
             <div>
               <span className="text-xs text-muted-foreground block font-medium">إجمالي الاتفاقيات</span>
               <strong className="text-xl sm:text-2xl font-bold text-foreground font-mono tabular-nums">
@@ -122,20 +122,20 @@ export const FactoryAgreementsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-card border border-border/70 shadow-xs flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-card border border-border/70 shadow-xs flex items-center justify-between">
             <div>
               <span className="text-xs text-muted-foreground block font-medium">الاتفاقيات النشطة</span>
-              <strong className="text-xl sm:text-2xl font-bold text-emerald-600 font-mono tabular-nums">
+              <strong className="text-xl sm:text-2xl font-bold text-success font-mono tabular-nums">
                 {metrics.activeCount}
               </strong>
-              <span className="text-[10px] text-emerald-600 font-medium block mt-0.5">سارية وقيد التشغيل</span>
+              <span className="text-[10px] text-success font-medium block mt-0.5">سارية وقيد التشغيل</span>
             </div>
-            <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-600">
+            <div className="p-3 rounded-xl bg-success/10 text-success">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-card border border-border/70 shadow-xs flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-card border border-border/70 shadow-xs flex items-center justify-between">
             <div>
               <span className="text-xs text-muted-foreground block font-medium">إجمالي قيمة الاتفاقيات</span>
               <strong className="text-xl sm:text-2xl font-bold text-foreground font-mono tabular-nums">
@@ -148,10 +148,10 @@ export const FactoryAgreementsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-card border border-border/70 shadow-xs flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-card border border-border/70 shadow-xs flex items-center justify-between">
             <div>
               <span className="text-xs text-muted-foreground block font-medium">المسدد فعلياً</span>
-              <strong className="text-xl sm:text-2xl font-bold text-emerald-600 font-mono tabular-nums">
+              <strong className="text-xl sm:text-2xl font-bold text-success font-mono tabular-nums">
                 {metrics.totalPaid?.toLocaleString('en-US')} ج.م
               </strong>
               <span className="text-[10px] text-muted-foreground block mt-0.5">
@@ -160,14 +160,14 @@ export const FactoryAgreementsPage: React.FC = () => {
                   : '0% سداد'}
               </span>
             </div>
-            <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-600">
+            <div className="p-3 rounded-xl bg-success/10 text-success">
               <Building2 className="w-5 h-5" />
             </div>
           </div>
         </div>
 
         {/* Filters & Search Bar */}
-        <div className="p-3 sm:p-4 rounded-2xl bg-card border border-border/70 shadow-xs flex flex-wrap items-center justify-between gap-3">
+        <div className="p-3 sm:p-4 rounded-xl bg-card border border-border/70 shadow-xs flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2.5 flex-1 min-w-[280px]">
             {/* Search */}
             <div className="relative flex-1 min-w-[200px]">
@@ -177,7 +177,7 @@ export const FactoryAgreementsPage: React.FC = () => {
                 placeholder="البحث بالكود، مسمى الاتفاقية، أو اسم المصنع..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full text-xs py-2 pr-9 pl-3 bg-background border border-border rounded-xl text-foreground focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                className="w-full text-xs py-2 pe-9 ps-3 bg-background border border-border rounded-xl text-foreground focus:ring-2 focus:ring-primary/20 focus:outline-none"
               />
             </div>
 
@@ -220,7 +220,7 @@ export const FactoryAgreementsPage: React.FC = () => {
         </div>
 
         {/* Agreements Table Container */}
-        <div className="rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
+        <div className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden">
           {loading ? (
             <div className="py-16 text-center text-xs text-muted-foreground flex flex-col items-center justify-center gap-2">
               <RefreshCw className="w-5 h-5 animate-spin text-primary" />
@@ -228,7 +228,7 @@ export const FactoryAgreementsPage: React.FC = () => {
             </div>
           ) : filteredAgreements.length === 0 ? (
             <div className="py-16 text-center text-xs text-muted-foreground space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-muted/50 border border-border mx-auto flex items-center justify-center text-muted-foreground">
+              <div className="w-12 h-12 rounded-xl bg-muted/50 border border-border mx-auto flex items-center justify-center text-muted-foreground">
                 <FileSignature className="w-6 h-6" />
               </div>
               <p className="font-medium text-foreground">لا توجد اتفاقيات مصانع مطابقة للشروط</p>
@@ -303,9 +303,9 @@ export const FactoryAgreementsPage: React.FC = () => {
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
                             agr.status === 'ACTIVE'
-                              ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'
+                              ? 'bg-emerald-500/10 text-success border-success/20'
                               : agr.status === 'DRAFT'
-                              ? 'bg-amber-500/10 text-amber-600 border-amber-500/20'
+                              ? 'bg-amber-500/10 text-warning border-warning/20'
                               : agr.status === 'CLOSED'
                               ? 'bg-blue-500/10 text-blue-600 border-blue-500/20'
                               : 'bg-muted text-muted-foreground border-border'
@@ -323,7 +323,7 @@ export const FactoryAgreementsPage: React.FC = () => {
                       <td className="py-3.5 px-4 min-w-[140px]">
                         <div className="space-y-1">
                           <div className="flex items-center justify-between text-[11px]">
-                            <span className="font-semibold text-emerald-600 font-mono tabular-nums">
+                            <span className="font-semibold text-success font-mono tabular-nums">
                               مسدد {agr.paidPercent || 0}%
                             </span>
                             <span className="text-[10px] text-muted-foreground font-mono tabular-nums">

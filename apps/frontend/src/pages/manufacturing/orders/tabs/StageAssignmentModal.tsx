@@ -74,7 +74,7 @@ export const StageAssignmentModal: React.FC<StageAssignmentModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-xs animate-in fade-in duration-150" dir="rtl">
-      <div className="w-full max-w-md rounded-2xl bg-card border border-border/80 shadow-2xl overflow-hidden text-foreground">
+      <div className="w-full max-w-md rounded-xl bg-card border border-border/80 shadow-2xl overflow-hidden text-foreground">
         <div className="p-4 border-b border-border/70 flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2">
             <Building2 className="w-4 h-4 text-primary" />
@@ -139,7 +139,7 @@ export const StageAssignmentModal: React.FC<StageAssignmentModalProps> = ({
                   <span>جارٍ تحميل المصانع...</span>
                 </div>
               ) : factories.length === 0 ? (
-                <div className="p-3 rounded-lg border border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400">
+                <div className="p-3 rounded-lg border border-warning/20 bg-warning/10 text-warning dark:text-warning">
                   لا يوجد مصانع شركاء نشطة. يرجى إضافة وتفعيل مصنع شريك أولاً من تبويب «المصانع الشركاء».
                 </div>
               ) : (

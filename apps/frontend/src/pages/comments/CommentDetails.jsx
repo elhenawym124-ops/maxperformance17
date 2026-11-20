@@ -81,7 +81,7 @@ const CommentDetails = () => {
       <div className="p-6">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600"></div>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-foreground">
             {t("commentDetails.loadingDetails")}
           </p>
         </div>
@@ -93,7 +93,7 @@ const CommentDetails = () => {
     return (
       <div className="p-6">
         <div className="bg-white rounded-lg shadow p-6 text-center">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">
+          <h2 className="text-xl font-bold text-foreground mb-2">
             {t("commentDetails.notFoundTitle")}
           </h2>
           <p className="text-gray-600 mb-4">
@@ -118,7 +118,7 @@ const CommentDetails = () => {
           className="flex items-center text-blue-600 hover:text-blue-800 mb-4"
         >
           <svg
-            className="w-5 h-5 mr-2"
+            className="w-5 h-5 me-2"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -132,7 +132,7 @@ const CommentDetails = () => {
           </svg>
           {t("commentDetails.backToComments")}
         </button>
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-2xl font-bold text-foreground">
           {t("commentDetails.pageTitle")}
         </h1>
       </div>
@@ -141,50 +141,50 @@ const CommentDetails = () => {
         {/* Comment Details */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">
+            <h2 className="text-xl font-bold text-foreground mb-4">
               {t("commentDetails.infoTitle")}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   {t("commentDetails.commentId")}
                 </label>
-                <div className="text-sm text-gray-900">{comment.commentId}</div>
+                <div className="text-sm text-foreground">{comment.commentId}</div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   {t("commentDetails.postId")}
                 </label>
-                <div className="text-sm text-gray-900">{comment.postId}</div>
+                <div className="text-sm text-foreground">{comment.postId}</div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   {t("commentDetails.senderName")}
                 </label>
-                <div className="text-sm text-gray-900">
+                <div className="text-sm text-foreground">
                   {comment.senderName}
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   {t("commentDetails.senderId")}
                 </label>
-                <div className="text-sm text-gray-900">{comment.senderId}</div>
+                <div className="text-sm text-foreground">{comment.senderId}</div>
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t("commentDetails.commentDate")}
               </label>
-              <div className="text-sm text-gray-900">
+              <div className="text-sm text-foreground">
                 {new Date(comment.createdTime).toLocaleString()}
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t("commentDetails.commentText")}
               </label>
               <div className="bg-gray-50 p-4 rounded-md">
@@ -194,10 +194,10 @@ const CommentDetails = () => {
 
             {comment.respondedAt && (
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   {t("commentDetails.repliedAt")}
                 </label>
-                <div className="text-sm text-gray-900">
+                <div className="text-sm text-foreground">
                   {new Date(comment.respondedAt).toLocaleString()}
                 </div>
               </div>
@@ -205,7 +205,7 @@ const CommentDetails = () => {
 
             {comment.response && (
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   {t("commentDetails.previousReply")}
                 </label>
                 <div className="bg-blue-50 p-4 rounded-md">
@@ -219,16 +219,16 @@ const CommentDetails = () => {
         {/* Response Section */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">
+            <h2 className="text-xl font-bold text-foreground mb-4">
               {t("commentDetails.replySectionTitle")}
             </h2>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t("commentDetails.yourReply")}
               </label>
               <textarea
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows="6"
                 value={responseText}
                 onChange={(e) => setResponseText(e.target.value)}
@@ -240,8 +240,8 @@ const CommentDetails = () => {
               <div
                 className={`mb-4 p-2 rounded text-center text-sm ${
                   saveMessage.includes("Error") || saveMessage.includes("خطأ")
-                    ? "bg-red-100 text-red-700"
-                    : "bg-green-100 text-green-700"
+                    ? "bg-red-100 text-destructive"
+                    : "bg-green-100 text-success"
                 }`}
               >
                 {saveMessage}
@@ -261,13 +261,13 @@ const CommentDetails = () => {
 
               <button
                 onClick={handleDeleteComment}
-                className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition"
+                className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-destructive transition"
               >
                 {t("commentDetails.deleteComment")}
               </button>
             </div>
 
-            <div className="mt-4 text-xs text-gray-500">
+            <div className="mt-4 text-xs text-muted-foreground">
               <p>{t("commentDetails.note")}</p>
             </div>
           </div>

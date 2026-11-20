@@ -39,11 +39,11 @@ const RECIPIENT_LABELS: Record<string, { label: string; badgeClass: string }> = 
   },
   FACTORY: {
     label: 'المصنع',
-    badgeClass: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+    badgeClass: 'bg-amber-500/10 text-warning dark:text-warning border-warning/20',
   },
   TEAM: {
     label: 'فريق العمل',
-    badgeClass: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
+    badgeClass: 'bg-purple-500/10 text-primary dark:text-primary border-primary/20',
   },
 };
 
@@ -126,21 +126,21 @@ export const ManufacturingNotificationsPage: React.FC = () => {
     switch (status) {
       case 'SENT':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-success/10 text-success dark:text-success border border-success/20">
             <CheckCircle2 className="w-3 h-3" />
             <span>تم الإرسال</span>
           </span>
         );
       case 'FAILED':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
             <AlertCircle className="w-3 h-3" />
             <span>فشل</span>
           </span>
         );
       case 'SKIPPED':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-500/10 text-gray-600 dark:text-gray-400 border border-gray-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-muted text-foreground dark:text-muted-foreground border border-border">
             <Clock className="w-3 h-3" />
             <span>تم التخطي</span>
           </span>
@@ -148,7 +148,7 @@ export const ManufacturingNotificationsPage: React.FC = () => {
       case 'PENDING':
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-warning/10 text-warning dark:text-warning border border-warning/20">
             <Clock className="w-3 h-3" />
             <span>قيد الانتظار</span>
           </span>
@@ -190,14 +190,14 @@ export const ManufacturingNotificationsPage: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-5">
         {/* Alerts */}
         {error && (
-          <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs flex items-center gap-2">
+          <div className="p-3.5 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive dark:text-destructive text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         {retrySuccess && (
-          <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-2">
+          <div className="p-3.5 rounded-xl bg-success/10 border border-success/20 text-success dark:text-success text-xs flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
             <span>{retrySuccess}</span>
           </div>
@@ -217,7 +217,7 @@ export const ManufacturingNotificationsPage: React.FC = () => {
                   setPage(1);
                 }}
                 placeholder="بحث بالاسم أو الرقم أو السبب..."
-                className="w-full pr-8 pl-3 py-1.5 text-xs rounded-lg border border-border/70 bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full pe-8 ps-3 py-1.5 text-xs rounded-lg border border-border/70 bg-background focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
 
@@ -328,7 +328,7 @@ export const ManufacturingNotificationsPage: React.FC = () => {
                             {log.sampleOrderId ? (
                               <span className="text-primary">عينة: {log.sampleOrderId}</span>
                             ) : log.productionOrderId ? (
-                              <span className="text-indigo-600 dark:text-indigo-400">أمر: {log.productionOrderId}</span>
+                              <span className="text-primary">أمر: {log.productionOrderId}</span>
                             ) : (
                               log.entityId || '-'
                             )}
@@ -371,7 +371,7 @@ export const ManufacturingNotificationsPage: React.FC = () => {
                             <span className="text-muted-foreground">
                               {friendlyReason}
                               {log.errorCode && (
-                                <span className="font-mono text-[10px] block text-red-500">[{log.errorCode}]</span>
+                                <span className="font-mono text-[10px] block text-destructive">[{log.errorCode}]</span>
                               )}
                             </span>
                           ) : log.status === 'SENT' ? (

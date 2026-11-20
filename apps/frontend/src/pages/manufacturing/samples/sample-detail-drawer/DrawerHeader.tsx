@@ -43,7 +43,7 @@ export const DrawerHeader: React.FC<DrawerHeaderProps> = ({
           <button
             type="button"
             onClick={onDelete}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/50 border border-rose-200 dark:border-rose-800/60 transition-colors"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-destructive/10 text-destructive hover:bg-destructive dark:bg-destructive/40 dark:text-destructive dark:hover:bg-destructive/50 border border-destructive dark:border-destructive/60 transition-colors"
             title="حذف أمر العينة"
           >
             <Trash2 className="w-3.5 h-3.5" />

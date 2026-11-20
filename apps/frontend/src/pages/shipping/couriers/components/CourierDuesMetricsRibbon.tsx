@@ -24,7 +24,7 @@ export const CourierDuesMetricsRibbon: React.FC<CourierDuesMetricsRibbonProps> =
           <Clock size={13} className="text-amber-500" />
           <span>إجمالي المستحق المعلق (DUE)</span>
         </div>
-        <div className="text-2xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400 mt-1">
+        <div className="text-2xl font-bold font-mono tabular-nums text-warning dark:text-warning mt-1">
           {formatPrice(totalDue)}
         </div>
         <div className="text-[10px] text-muted-foreground mt-0.5">عمولات تنتظر الصرف للخزينة</div>

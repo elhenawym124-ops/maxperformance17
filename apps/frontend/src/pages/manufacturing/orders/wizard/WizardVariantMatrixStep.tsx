@@ -29,7 +29,7 @@ export const WizardVariantMatrixStep: React.FC<WizardVariantMatrixStepProps> = (
             أدخل الكميات المطلوبة لكل مقاس ولون لموديل {selectedBom?.name}
           </p>
         </div>
-        <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-bold text-xs">
+        <div className="p-2 rounded-lg bg-success/10 border border-success/20 text-success dark:text-success font-bold text-xs">
           إجمالي الكمية المخططة: <span className="font-mono text-sm">{totalPlannedQty}</span> قطعة
         </div>
       </div>

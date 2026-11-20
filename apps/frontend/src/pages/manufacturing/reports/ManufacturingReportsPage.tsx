@@ -220,7 +220,7 @@ export const ManufacturingReportsPage: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-card border border-border/70 shadow-xs">
             <div className="text-[11px] font-medium text-muted-foreground flex items-center justify-between mb-1">
               <span>الكميات التامة المنتجة</span>
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <CheckCircle2 className="w-4 h-4 text-success" />
             </div>
             <div className="text-lg font-bold text-foreground tabular-nums">
               {metrics.totalProduced.toLocaleString()}{' '}
@@ -248,7 +248,7 @@ export const ManufacturingReportsPage: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-card border border-border/70 shadow-xs">
             <div className="text-[11px] font-medium text-muted-foreground flex items-center justify-between mb-1">
               <span>الربح التقديري المحقق</span>
-              <Coins className="w-4 h-4 text-emerald-600" />
+              <Coins className="w-4 h-4 text-success" />
             </div>
             <div className={`text-lg font-bold tabular-nums ${metrics.estimatedProfit >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
               {formatEGP(metrics.estimatedProfit)}{' '}
@@ -276,7 +276,7 @@ export const ManufacturingReportsPage: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-card border border-border/70 shadow-xs">
             <div className="text-[11px] font-medium text-muted-foreground flex items-center justify-between mb-1">
               <span>نسبة الهدر والتلف</span>
-              <AlertTriangle className="w-4 h-4 text-amber-600" />
+              <AlertTriangle className="w-4 h-4 text-warning" />
             </div>
             <div className="text-lg font-bold text-foreground tabular-nums">
               %{metrics.scrapRate.toFixed(2)}
@@ -350,7 +350,7 @@ export const ManufacturingReportsPage: React.FC = () => {
               <option value="all">جميع الفترات</option>
             </select>
 
-            <div className="flex items-center gap-1 text-muted-foreground mr-1">
+            <div className="flex items-center gap-1 text-muted-foreground me-1">
               <Filter className="w-3.5 h-3.5" />
               <span>الحالة:</span>
             </div>
@@ -367,7 +367,7 @@ export const ManufacturingReportsPage: React.FC = () => {
               <option value="CANCELLED">ملغي</option>
             </select>
 
-            <div className="flex items-center gap-1 text-muted-foreground mr-1">
+            <div className="flex items-center gap-1 text-muted-foreground me-1">
               <span>النمط:</span>
             </div>
             <select
@@ -386,7 +386,7 @@ export const ManufacturingReportsPage: React.FC = () => {
 
             {customers.length > 0 && (
               <>
-                <div className="flex items-center gap-1 text-muted-foreground mr-1">
+                <div className="flex items-center gap-1 text-muted-foreground me-1">
                   <span>العميل:</span>
                 </div>
                 <select

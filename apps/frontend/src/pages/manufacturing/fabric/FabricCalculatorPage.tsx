@@ -41,7 +41,7 @@ export const FabricCalculatorPage: React.FC = () => {
         {/* Anti-Error & Rule Banner */}
         <div className="p-3 rounded-xl bg-card border border-border/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2 text-foreground font-medium">
-            <div className="p-1 rounded-md bg-amber-500/10 text-amber-600">
+            <div className="p-1 rounded-md bg-warning/10 text-warning">
               <ShieldAlert className="w-4 h-4" />
             </div>
             <span>

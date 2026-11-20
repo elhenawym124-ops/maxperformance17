@@ -38,7 +38,7 @@ export const ShippingCompanyTableView: React.FC<ShippingCompanyTableViewProps> =
                   <ShippingCompanyLogo company={company} />
                   <div>
                     <span>{company.name}</span>
-                    <span className="font-mono text-[11px] text-muted-foreground mr-1.5">
+                    <span className="font-mono text-[11px] text-muted-foreground me-1.5">
                       /{company.slug || company.id.slice(0, 8)}
                     </span>
                   </div>
@@ -47,7 +47,7 @@ export const ShippingCompanyTableView: React.FC<ShippingCompanyTableViewProps> =
               <td className="px-4 py-3">
                 <span className={`font-mono text-[11px] px-2 py-0.5 rounded-full border ${
                   company.providerKey === "MAXP_NETWORK"
-                    ? "bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-500/30 font-bold"
+                    ? "bg-indigo-500/15 text-primary dark:text-primary border-primary/30 font-bold"
                     : "border-border/60 bg-muted/40 text-muted-foreground"
                 }`}>
                   {company.providerKey === "MAXP_NETWORK" ? "شحن على MaxP" : (company.integrationMode || "MANUAL")}
@@ -92,7 +92,7 @@ export const ShippingCompanyTableView: React.FC<ShippingCompanyTableViewProps> =
                     <button
                       type="button"
                       onClick={(e) => handleDelete(company, e)}
-                      className="p-1 text-muted-foreground hover:text-rose-600 rounded hover:bg-rose-500/10 transition"
+                      className="p-1 text-muted-foreground hover:text-destructive rounded hover:bg-destructive/10 transition"
                       title="حذف الشركة"
                     >
                       <TrashIcon className="size-3.5" />

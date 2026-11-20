@@ -236,7 +236,7 @@ export const LinkChildOrderModal: React.FC<LinkChildOrderModalProps> = ({
                       step="0.01"
                       value={linkSalePrice}
                       onChange={(e) => setLinkSalePrice(parseFloat(e.target.value) || 0)}
-                      className="w-full pl-2.5 pr-8 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary tabular-nums"
+                      className="w-full ps-2.5 pe-8 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary tabular-nums"
                     />
                   </div>
                 </div>
@@ -289,7 +289,7 @@ export const LinkChildOrderModal: React.FC<LinkChildOrderModalProps> = ({
                       required
                       value={createSalePrice}
                       onChange={(e) => setCreateSalePrice(parseFloat(e.target.value) || 0)}
-                      className="w-full pl-2.5 pr-8 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary tabular-nums"
+                      className="w-full ps-2.5 pe-8 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary tabular-nums"
                     />
                   </div>
                 </div>

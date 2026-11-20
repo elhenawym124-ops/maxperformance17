@@ -122,7 +122,7 @@ export const ManufacturingBomsPage: React.FC = () => {
         actions={
           <button
             onClick={handleOpenCreate}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm transition-all"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>قائمة مكونات جديدة (BOM)</span>
@@ -141,7 +141,7 @@ export const ManufacturingBomsPage: React.FC = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="بحث بكود الـ BOM أو اسم الموديل..."
-                className="w-full pl-3 pr-9 py-1.5 text-xs rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full ps-3 pe-9 py-1.5 text-xs rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
           </div>
@@ -159,7 +159,7 @@ export const ManufacturingBomsPage: React.FC = () => {
               <button
                 onClick={() => setActiveFilter('ACTIVE')}
                 className={`px-2.5 py-1 rounded text-xs font-medium transition ${
-                  activeFilter === 'ACTIVE' ? 'bg-card text-emerald-600 shadow-xs' : 'text-muted-foreground hover:text-foreground'
+                  activeFilter === 'ACTIVE' ? 'bg-card text-success shadow-xs' : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 المفعلة ({boms.filter((b) => b.isActive).length})
@@ -258,7 +258,7 @@ export const ManufacturingBomsPage: React.FC = () => {
                         <td className="p-3 text-center font-mono tabular-nums text-foreground">
                           {stageCount} مراحل
                         </td>
-                        <td className="p-3 text-center font-mono text-amber-600 font-bold">
+                        <td className="p-3 text-center font-mono text-warning font-bold">
                           {bom.wasteMarginPercent}%
                         </td>
                         <td className="p-3 font-mono tabular-nums text-foreground">
@@ -275,7 +275,7 @@ export const ManufacturingBomsPage: React.FC = () => {
                             title={bom.isActive ? 'انقر للتعطيل' : 'انقر للتفعيل'}
                             className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold border transition ${
                               bom.isActive
-                                ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
+                                ? 'bg-emerald-500/10 text-success dark:text-success border-success/20 hover:bg-success/20'
                                 : 'bg-muted text-muted-foreground border-border/60 hover:bg-muted/80'
                             }`}
                           >

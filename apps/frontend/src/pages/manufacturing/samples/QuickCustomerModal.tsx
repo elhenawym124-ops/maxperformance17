@@ -106,7 +106,7 @@ export const QuickCustomerModal: React.FC<QuickCustomerModalProps> = ({ isOpen, 
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-card border border-border/80 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-card border border-border/80 rounded-xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-border/80 bg-muted/30">
           <div className="flex items-center gap-2">
@@ -143,7 +143,7 @@ export const QuickCustomerModal: React.FC<QuickCustomerModalProps> = ({ isOpen, 
             <div
               className={`p-3 rounded-lg text-xs flex flex-col gap-2 ${
                 isDuplicate
-                  ? 'bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400'
+                  ? 'bg-amber-500/10 border border-warning/20 text-warning dark:text-warning'
                   : 'bg-destructive/10 border border-destructive/20 text-destructive'
               }`}
             >
@@ -156,7 +156,7 @@ export const QuickCustomerModal: React.FC<QuickCustomerModalProps> = ({ isOpen, 
                   type="button"
                   onClick={handleUseExisting}
                   disabled={resolvingExisting}
-                  className="mt-1 self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white shadow-xs transition"
+                  className="mt-1 self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold bg-warning hover:bg-warning text-white shadow-xs transition"
                 >
                   {resolvingExisting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Check className="w-3.5 h-3.5" />}
                   <span>استخدم العميل الموجود</span>
@@ -177,7 +177,7 @@ export const QuickCustomerModal: React.FC<QuickCustomerModalProps> = ({ isOpen, 
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="مثال: سلمى فتحي"
-                className="w-full pr-9 pl-3 py-2 text-xs rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                className="w-full pe-9 ps-3 py-2 text-xs rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
               <User className="w-4 h-4 text-muted-foreground absolute right-3 top-2.5" />
             </div>
@@ -196,7 +196,7 @@ export const QuickCustomerModal: React.FC<QuickCustomerModalProps> = ({ isOpen, 
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="01099887766"
-                className="w-full pr-3 pl-9 py-2 text-xs rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-mono text-right"
+                className="w-full pe-3 ps-9 py-2 text-xs rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-mono text-right"
               />
               <Phone className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
             </div>
@@ -214,7 +214,7 @@ export const QuickCustomerModal: React.FC<QuickCustomerModalProps> = ({ isOpen, 
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="مثال: القاهرة / الإسكندرية"
-                className="w-full pr-9 pl-3 py-2 text-xs rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                className="w-full pe-9 ps-3 py-2 text-xs rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
               <MapPin className="w-4 h-4 text-muted-foreground absolute right-3 top-2.5" />
             </div>

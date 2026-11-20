@@ -433,7 +433,7 @@ export const NewOrderWizardModal: React.FC<NewOrderWizardModalProps> = ({
         {/* Header */}
         <div className="p-4 border-b border-border/60 flex items-center justify-between bg-muted/20 shrink-0">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600">
+            <div className="p-1.5 rounded-lg bg-success/10 text-success">
               <Factory className="w-4 h-4" />
             </div>
             <div>
@@ -484,7 +484,7 @@ export const NewOrderWizardModal: React.FC<NewOrderWizardModalProps> = ({
                     <Layers className="w-3.5 h-3.5 text-primary" />
                     <span>منتجات الأمر (Finished Products)</span>
                     {rows.length > 1 && (
-                      <span className="px-1.5 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-700 dark:text-purple-300 font-mono">
+                      <span className="px-1.5 py-0.5 rounded text-[10px] bg-primary/10 text-primary dark:text-primary font-mono">
                         {rows.length} منتجات تامة
                       </span>
                     )}
@@ -613,7 +613,7 @@ export const NewOrderWizardModal: React.FC<NewOrderWizardModalProps> = ({
                                           <span className="font-medium">{p.name}</span>
                                           {p.sku && <span className="text-[10px] text-muted-foreground font-mono">كود: {p.sku}</span>}
                                         </div>
-                                        {isSelected && <Check className="w-3.5 h-3.5 text-primary shrink-0 mr-2" />}
+                                        {isSelected && <Check className="w-3.5 h-3.5 text-primary shrink-0 me-2" />}
                                       </button>
                                     );
                                   })
@@ -622,7 +622,7 @@ export const NewOrderWizardModal: React.FC<NewOrderWizardModalProps> = ({
                             )}
 
                             {rowSelectedProd && (
-                              <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium mt-1">
+                              <p className="text-[10px] text-success dark:text-success font-medium mt-1">
                                 المنتج المختار: {rowSelectedProd.name} {rowSelectedProd.sku ? `(كود: ${rowSelectedProd.sku})` : ''}
                               </p>
                             )}
@@ -906,11 +906,11 @@ export const NewOrderWizardModal: React.FC<NewOrderWizardModalProps> = ({
               />
 
               {rows.length > 1 && (
-                <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-between text-xs">
-                  <span className="font-semibold text-purple-900 dark:text-purple-300">
+                <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-between text-xs">
+                  <span className="font-semibold text-primary dark:text-primary">
                     إجمالي الكمية المخططة لجميع المنتجات ({rows.length} منتجات):
                   </span>
-                  <span className="font-mono font-bold text-sm text-purple-700 dark:text-purple-300">
+                  <span className="font-mono font-bold text-sm text-primary dark:text-primary">
                     {totalPlannedQty} قطعة
                   </span>
                 </div>
@@ -936,16 +936,16 @@ export const NewOrderWizardModal: React.FC<NewOrderWizardModalProps> = ({
                 />
               ) : (
                 <div className="space-y-4">
-                  <div className="p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 space-y-1">
+                  <div className="p-4 rounded-xl bg-primary/10 border border-primary/20 space-y-1">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-bold text-sm text-purple-950 dark:text-purple-200">
+                      <h3 className="font-bold text-sm text-primary dark:text-primary">
                         ملخص أمر الإنتاج المجمع بأكثر من منتج تام
                       </h3>
-                      <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-purple-600 text-white">
+                      <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-primary text-white">
                         إجمالي {totalPlannedQty} قطعة
                       </span>
                     </div>
-                    <p className="text-[11px] text-purple-900/80 dark:text-purple-300/80">
+                    <p className="text-[11px] text-primary/80 dark:text-primary/80">
                       سيتم إنشاء أمر إنتاج رئيسي تجميعي بالإضافة إلى {rows.length} أوامر فرعية، بحيث يحصل كل منتج تام على أمر إنتاج مستقل بـ BOM ومصفوفة المقاسات الخاصة به.
                     </p>
                   </div>
@@ -1047,7 +1047,7 @@ export const NewOrderWizardModal: React.FC<NewOrderWizardModalProps> = ({
                 type="button"
                 disabled={loading}
                 onClick={handleCreateOrder}
-                className="flex items-center gap-1.5 px-5 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold text-xs hover:bg-emerald-700 transition shadow-md disabled:opacity-50"
+                className="flex items-center gap-1.5 px-5 py-1.5 rounded-lg bg-success text-white font-semibold text-xs hover:bg-success transition shadow-md disabled:opacity-50"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>

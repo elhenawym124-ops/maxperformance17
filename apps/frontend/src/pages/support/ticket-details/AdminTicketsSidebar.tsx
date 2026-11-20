@@ -20,27 +20,27 @@ export const AdminTicketsSidebar: React.FC<AdminTicketsSidebarProps> = ({
   onSelectTicket,
 }) => {
   return (
-    <div className="w-80 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col flex-shrink-0">
+    <div className="w-80 bg-white dark:bg-muted border-l border-border dark:border-border flex flex-col flex-shrink-0">
       {/* Header */}
-      <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex-shrink-0">
+      <div className="p-4 border-b border-border dark:border-border flex-shrink-0">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-            <MessageSquare className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <h2 className="text-lg font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
+            <MessageSquare className="w-5 h-5 text-primary" />
             التذاكر
           </h2>
-          <span className="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 px-2 py-1 rounded-full text-sm font-medium">
+          <span className="bg-indigo-100 dark:bg-primary/40 text-primary dark:text-primary px-2 py-1 rounded-full text-sm font-medium">
             {allTickets.length}
           </span>
         </div>
         {/* Search */}
         <div className="relative">
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             placeholder="بحث في التذاكر..."
             value={ticketsSearchQuery}
             onChange={(e) => setTicketsSearchQuery(e.target.value)}
-            className="w-full pr-10 pl-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100"
+            className="w-full pe-10 ps-4 py-2.5 border border-border dark:border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-muted dark:bg-muted text-foreground dark:text-muted-foreground"
           />
         </div>
       </div>
@@ -51,9 +51,9 @@ export const AdminTicketsSidebar: React.FC<AdminTicketsSidebarProps> = ({
           <div
             key={t._id || t.ticketId || idx}
             onClick={() => onSelectTicket(t.ticketId)}
-            className={`p-4 border-b border-slate-100 dark:border-slate-800/60 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all ${
+            className={`p-4 border-b border-border dark:border-border cursor-pointer hover:bg-muted dark:hover:bg-muted transition-all ${
               t.ticketId === activeTicketId
-                ? "bg-indigo-50 dark:bg-indigo-950/30 border-r-4 border-r-indigo-500"
+                ? "bg-indigo-50 dark:bg-primary/30 border-r-4 border-r-indigo-500"
                 : ""
             }`}
           >
@@ -64,17 +64,17 @@ export const AdminTicketsSidebar: React.FC<AdminTicketsSidebarProps> = ({
                     ? "bg-emerald-500"
                     : t.status === "in_progress"
                       ? "bg-indigo-500"
-                      : "bg-slate-300 dark:bg-slate-600"
+                      : "bg-slate-300 dark:bg-muted"
                 }`}
               />
               <div className="flex-1 min-w-0">
-                <div className="font-semibold text-slate-800 dark:text-slate-100 text-base truncate mb-1">
+                <div className="font-semibold text-foreground dark:text-muted-foreground text-base truncate mb-1">
                   {t.subject}
                 </div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 mb-2">
+                <div className="text-sm text-muted-foreground dark:text-muted-foreground mb-2">
                   {t.userId?.name || "مستخدم"}
                 </div>
-                <div className="flex items-center gap-2 text-xs text-slate-400">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <span className="font-mono">{t.ticketId}</span>
                   <span>•</span>
                   <span>
@@ -85,12 +85,12 @@ export const AdminTicketsSidebar: React.FC<AdminTicketsSidebarProps> = ({
               <div
                 className={`text-xs px-2 py-1 rounded-lg font-medium ${
                   t.priority === "critical"
-                    ? "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-400"
+                    ? "bg-red-100 text-destructive dark:bg-destructive/40 dark:text-destructive"
                     : t.priority === "high"
-                      ? "bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400"
+                      ? "bg-orange-100 text-warning dark:bg-warning/40 dark:text-warning"
                       : t.priority === "low"
-                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
-                        : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                        ? "bg-emerald-100 text-success dark:bg-success/40 dark:text-success"
+                        : "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground"
                 }`}
               >
                 {t.priority === "critical"
@@ -105,7 +105,7 @@ export const AdminTicketsSidebar: React.FC<AdminTicketsSidebarProps> = ({
           </div>
         ))}
         {filteredTickets.length === 0 && (
-          <div className="p-8 text-center text-slate-400">
+          <div className="p-8 text-center text-muted-foreground">
             لا توجد تذاكر
           </div>
         )}

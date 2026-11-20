@@ -58,7 +58,7 @@ export const SamplePaymentModal: React.FC<SamplePaymentModalProps> = ({
         </div>
 
         {paymentError && (
-          <div className="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 text-xs text-rose-700 dark:text-rose-300">
+          <div className="p-2.5 rounded-lg bg-destructive/10 dark:bg-destructive/40 border border-destructive text-xs text-destructive dark:text-destructive">
             {paymentError}
           </div>
         )}

@@ -119,9 +119,9 @@ export const ReportPartnerFactoriesTab: React.FC<ReportPartnerFactoriesTabProps>
         <div className="p-3.5 rounded-xl border border-border/70 bg-card">
           <div className="text-[11px] text-muted-foreground font-medium flex items-center justify-between mb-1">
             <span>معدل الالتزام بالمواعيد</span>
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-success" />
           </div>
-          <div className="text-xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <div className="text-xl font-bold tracking-tight text-success dark:text-success tabular-nums">
             {avgOnTimeRate}%
           </div>
           <div className="text-[10px] text-muted-foreground mt-0.5">تسليم في الموعد المحدد</div>
@@ -130,7 +130,7 @@ export const ReportPartnerFactoriesTab: React.FC<ReportPartnerFactoriesTabProps>
         <div className="p-3.5 rounded-xl border border-border/70 bg-card">
           <div className="text-[11px] text-muted-foreground font-medium flex items-center justify-between mb-1">
             <span>إجمالي تكلفة التشغيل الخارجي</span>
-            <Coins className="w-3.5 h-3.5 text-amber-500" />
+            <Coins className="w-3.5 h-3.5 text-warning" />
           </div>
           <div className="text-xl font-bold tracking-tight text-foreground tabular-nums">
             {formatEGP(totalLaborSpend)}
@@ -168,9 +168,9 @@ export const ReportPartnerFactoriesTab: React.FC<ReportPartnerFactoriesTabProps>
                 data.map((f) => {
                   const onTimeBadge =
                     f.onTimeRate >= 90
-                      ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20'
+                      ? 'bg-emerald-500/10 text-success dark:text-success border-success/20'
                       : f.onTimeRate >= 70
-                      ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20'
+                      ? 'bg-amber-500/10 text-warning dark:text-warning border-warning/20'
                       : 'bg-destructive/10 text-destructive border-destructive/20';
 
                   return (

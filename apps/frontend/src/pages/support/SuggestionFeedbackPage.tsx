@@ -101,7 +101,7 @@ export const SuggestionFeedbackPage: React.FC = () => {
     return (
       <div dir="rtl" className="h-[calc(100vh-6rem)] flex items-center justify-center p-4 select-none">
         <div className="bg-card border border-border/70 rounded-xl p-8 text-center max-w-md w-full shadow-lg space-y-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center border border-emerald-500/20">
+          <div className="w-12 h-12 rounded-xl bg-success/10 text-success dark:text-success mx-auto flex items-center justify-center border border-success/20">
             <CheckCircle2 className="w-6 h-6 stroke-[2]" />
           </div>
           <div className="space-y-1.5">

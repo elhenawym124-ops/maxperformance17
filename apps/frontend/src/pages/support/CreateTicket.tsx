@@ -197,7 +197,7 @@ export const CreateTicket: React.FC = () => {
     return (
       <div dir="rtl" className="h-[calc(100vh-6rem)] flex items-center justify-center p-4 select-none">
         <div className="bg-card border border-border/70 rounded-xl p-8 text-center max-w-md w-full shadow-lg space-y-3">
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center border border-emerald-500/20">
+          <div className="w-12 h-12 rounded-xl bg-success/10 text-success dark:text-success mx-auto flex items-center justify-center border border-success/20">
             <CheckCircle2 className="w-6 h-6 stroke-[2]" />
           </div>
           <h2 className="text-base font-bold text-foreground">تم إنشاء التذكرة بنجاح</h2>
@@ -263,11 +263,11 @@ export const CreateTicket: React.FC = () => {
         <div className="bg-card border border-border/70 rounded-lg p-3">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>متوسط وقت الرد</span>
-            <Clock className="w-3.5 h-3.5 text-amber-500" />
+            <Clock className="w-3.5 h-3.5 text-warning" />
           </div>
           <div className="mt-1 flex items-baseline gap-1.5">
             <span className="text-sm font-bold text-foreground">أقل من 30 دقيقة</span>
-            <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">SLA 99.8%</span>
+            <span className="text-[10px] font-mono text-success dark:text-success tabular-nums">SLA 99.8%</span>
           </div>
         </div>
 

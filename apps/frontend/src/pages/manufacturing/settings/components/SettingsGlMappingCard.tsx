@@ -17,7 +17,7 @@ export const SettingsGlMappingCard: React.FC<SettingsGlMappingCardProps> = ({
     <div className="p-6 rounded-xl bg-card border border-border/70 shadow-xs space-y-4">
       <div className="flex items-center justify-between pb-3 border-b border-border/60">
         <h4 className="text-xs font-bold text-foreground flex items-center gap-2">
-          <BookOpen className="w-4 h-4 text-emerald-600" />
+          <BookOpen className="w-4 h-4 text-success" />
           <span>ربط حسابات التصنيع بدليل الحسابات العام (GL Account Mapping)</span>
         </h4>
         <span className="text-[11px] text-muted-foreground">

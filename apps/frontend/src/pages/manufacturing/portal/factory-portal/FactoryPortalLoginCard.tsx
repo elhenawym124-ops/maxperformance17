@@ -16,9 +16,9 @@ export const FactoryPortalLoginCard: React.FC<FactoryPortalLoginCardProps> = ({
   onSubmit,
 }) => {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 text-foreground flex flex-col justify-center items-center p-4" dir="rtl">
-      <div className="w-full max-w-md bg-card border border-border/80 rounded-2xl p-6 shadow-xl space-y-5 text-center">
-        <div className="w-14 h-14 mx-auto rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+    <div className="min-h-screen bg-muted dark:bg-muted text-foreground flex flex-col justify-center items-center p-4" dir="rtl">
+      <div className="w-full max-w-md bg-card border border-border/80 rounded-xl p-6 shadow-xl space-y-5 text-center">
+        <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 text-primary flex items-center justify-center">
           <Building2 className="w-7 h-7" />
         </div>
 
@@ -79,7 +79,7 @@ export const FactoryPortalLoginCard: React.FC<FactoryPortalLoginCardProps> = ({
               className="p-3 rounded-xl border border-border/80 hover:border-primary/50 hover:bg-muted/40 transition-all flex items-center justify-between group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 dark:bg-primary/40 text-primary flex items-center justify-center shrink-0">
                   <ShoppingBag className="w-4 h-4" />
                 </div>
                 <div>
@@ -95,7 +95,7 @@ export const FactoryPortalLoginCard: React.FC<FactoryPortalLoginCardProps> = ({
               className="p-3 rounded-xl border border-border/80 hover:border-primary/50 hover:bg-muted/40 transition-all flex items-center justify-between group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-success/10 dark:bg-success/40 text-success dark:text-success flex items-center justify-center shrink-0">
                   <Users className="w-4 h-4" />
                 </div>
                 <div>

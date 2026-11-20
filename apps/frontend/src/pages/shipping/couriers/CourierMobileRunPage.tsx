@@ -44,22 +44,22 @@ const CourierMobileRunPage: React.FC = () => {
 
   if (isPinPromptOpen && !run) {
     return (
-      <div className="min-h-screen bg-slate-100 dark:bg-slate-950 flex items-center justify-center p-4 text-slate-900 dark:text-slate-100" dir="rtl">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-xl space-y-4">
+      <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center p-4 text-foreground dark:text-muted-foreground" dir="rtl">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-sm w-full p-6 shadow-xl space-y-4">
           <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center">
               <KeyIcon className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
+            <h3 className="font-bold text-base text-foreground dark:text-muted-foreground">
               رمز الأمان الميداني (PIN)
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground">
               أدخل رمز PIN الخاص بالمندوب لفتح هذه الرحلة
             </p>
           </div>
 
           {pinError && (
-            <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-destructive/10 dark:bg-destructive/40 border border-destructive dark:border-destructive text-destructive dark:text-destructive text-xs flex items-center gap-2">
               <ExclamationCircleIcon className="w-4 h-4 flex-shrink-0" />
               <span>{pinError}</span>
             </div>
@@ -76,7 +76,7 @@ const CourierMobileRunPage: React.FC = () => {
                 onChange={(e) => setLinkPinInput(e.target.value.replace(/[^0-9]/g, ''))}
                 placeholder="••••"
                 autoFocus
-                className="w-full text-center tracking-widest text-xl font-mono font-bold py-3 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full text-center tracking-widest text-xl font-mono font-bold py-3 px-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -102,22 +102,22 @@ const CourierMobileRunPage: React.FC = () => {
 
   if (loading && !run) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-        <ArrowPathIcon className="w-8 h-8 animate-spin text-slate-400" />
+      <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center p-4">
+        <ArrowPathIcon className="w-8 h-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
 
   if (!run) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4 text-center text-sm text-slate-500">
+      <div className="min-h-screen bg-muted dark:bg-muted flex items-center justify-center p-4 text-center text-sm text-muted-foreground">
         مأمورية التوصيل غير موجودة أو انتهت صلاحيتها.
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-16">
+    <div className="min-h-screen bg-muted dark:bg-muted text-foreground dark:text-muted-foreground pb-16">
       {/* Top Mobile Bar */}
       <CourierMobileTopBar
         run={run}
@@ -132,7 +132,7 @@ const CourierMobileRunPage: React.FC = () => {
       {/* Orders List */}
       <div className="p-3.5 sm:p-6 space-y-3 w-full max-w-[1800px] mx-auto">
         {displayedShipments.length === 0 ? (
-          <div className="p-8 text-center text-xs text-slate-400">لا توجد طلبات في هذا التبويب</div>
+          <div className="p-8 text-center text-xs text-muted-foreground">لا توجد طلبات في هذا التبويب</div>
         ) : (
           displayedShipments.map((s) => (
             <CourierMobileShipmentCard

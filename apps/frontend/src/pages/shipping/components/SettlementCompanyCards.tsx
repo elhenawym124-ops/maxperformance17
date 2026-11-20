@@ -31,7 +31,7 @@ export const SettlementCompanyCards: React.FC<SettlementCompanyCardsProps> = ({
 
   if ((summary || []).length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-border/70 bg-card p-8 text-center text-xs text-muted-foreground">
+      <div className="rounded-xl border border-dashed border-border/70 bg-card p-8 text-center text-xs text-muted-foreground">
         {t('shippingSettlement.noCompanies', 'لا توجد شركات شحن')}
       </div>
     );
@@ -44,7 +44,7 @@ export const SettlementCompanyCards: React.FC<SettlementCompanyCardsProps> = ({
           key={item.company.id}
           type="button"
           onClick={() => onSelectCompany(item.company.id)}
-          className={`rounded-2xl border p-4 text-right transition-all shadow-2xs ${
+          className={`rounded-xl border p-4 text-right transition-all shadow-2xs ${
             selectedCompanyId === item.company.id
               ? 'border-primary bg-primary/5 ring-1 ring-primary/20'
               : 'border-border/70 bg-card hover:border-border'
@@ -60,7 +60,7 @@ export const SettlementCompanyCards: React.FC<SettlementCompanyCardsProps> = ({
             <span className="font-mono tabular-nums">
               {item.deliveredShipments} {t('shippingSettlement.deliveredCount', 'مسلّمة')}
             </span>
-            <span className="font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+            <span className="font-bold font-mono tabular-nums text-warning dark:text-warning">
               {formatPrice(item.pendingAmount)}
             </span>
           </div>

@@ -157,7 +157,7 @@ export const AttachmentUploadForm: React.FC<AttachmentUploadFormProps> = ({
             type="file"
             onChange={handleFileChange}
             accept="image/*,video/*,.pdf,.doc,.docx,.xlsx"
-            className="w-full text-xs text-foreground file:mr-2 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 cursor-pointer"
+            className="w-full text-xs text-foreground file:me-2 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 cursor-pointer"
           />
           <p className="text-[10px] text-muted-foreground mt-1">
             يدعم الصور (PNG, JPG, WebP)، الفيديوهات (MP4)، والمستندات (PDF, Word).

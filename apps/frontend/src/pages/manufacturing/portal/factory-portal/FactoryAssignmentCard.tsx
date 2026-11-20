@@ -45,7 +45,7 @@ export const FactoryAssignmentCard: React.FC<FactoryAssignmentCardProps> = ({
     asg.status === 'COMPLETED' || asg.factoryCompletedAt != null;
 
   return (
-    <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-sm hover:border-primary/40 transition-all space-y-4 p-4">
+    <div className="rounded-xl border border-border/80 bg-card overflow-hidden shadow-sm hover:border-primary/40 transition-all space-y-4 p-4">
       {/* Card Header: Order and Stage */}
       <div className="flex items-start justify-between gap-2 border-b border-border/60 pb-3">
         <div className="space-y-1">
@@ -75,7 +75,7 @@ export const FactoryAssignmentCard: React.FC<FactoryAssignmentCardProps> = ({
         {/* Timeline Stage Badge */}
         <div>
           {isCompleted ? (
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-success/15 text-success dark:text-success border border-success/30">
               <CheckCircle2 className="w-3 h-3" />
               <span>مكتملة</span>
             </span>
@@ -85,7 +85,7 @@ export const FactoryAssignmentCard: React.FC<FactoryAssignmentCardProps> = ({
               <span>قيد التشغيل</span>
             </span>
           ) : isSent ? (
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-warning/15 text-warning dark:text-warning border border-warning/30">
               <Clock className="w-3 h-3" />
               <span>بانتظار الاستلام</span>
             </span>
@@ -112,7 +112,7 @@ export const FactoryAssignmentCard: React.FC<FactoryAssignmentCardProps> = ({
           <span className="text-[11px] text-muted-foreground block">
             الكمية المنفذة:
           </span>
-          <strong className="text-sm font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <strong className="text-sm font-bold text-success dark:text-success tabular-nums">
             {asg.completedQuantity} {asg.order?.unit || 'قطعة'}
           </strong>
         </div>
@@ -209,7 +209,7 @@ export const FactoryAssignmentCard: React.FC<FactoryAssignmentCardProps> = ({
             onClick={() => onOpenMediaModal(asg)}
             className="py-2.5 px-3 rounded-xl border border-border bg-background hover:bg-muted text-foreground text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
           >
-            <Camera className="w-3.5 h-3.5 text-emerald-600" />
+            <Camera className="w-3.5 h-3.5 text-success" />
             <span>رفع صورة / فيديو</span>
           </button>
 
@@ -228,7 +228,7 @@ export const FactoryAssignmentCard: React.FC<FactoryAssignmentCardProps> = ({
             onClick={() => onOpenIssueModal(asg)}
             className="py-2.5 px-3 rounded-xl border border-border bg-background hover:bg-muted text-foreground text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
           >
-            <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
+            <AlertTriangle className="w-3.5 h-3.5 text-warning" />
             <span>تسجيل ملاحظة</span>
           </button>
         </div>

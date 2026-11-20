@@ -193,7 +193,7 @@ export const FabricActualWasteTab: React.FC = () => {
         <div className="p-4 rounded-xl bg-card border border-border/70 space-y-4">
           <div className="flex items-center justify-between border-b border-border/60 pb-2">
             <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <CheckCircle2 className="w-4 h-4 text-success" />
               <span>نتيجة تسوية الهالك الفعلي لأمر التشغيل</span>
             </h3>
             <span className="text-[11px] font-mono text-muted-foreground">
@@ -205,7 +205,7 @@ export const FabricActualWasteTab: React.FC = () => {
             {/* Actual Waste Amount */}
             <div className="p-3 rounded-lg bg-muted/30 border border-border/60">
               <span className="text-[11px] text-muted-foreground block mb-1">الهالك الفعلي غير المسترد</span>
-              <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-amber-600">
+              <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-warning">
                 {result.actualWaste} <span className="text-xs font-normal text-muted-foreground">{unit === 'KG' ? 'كجم' : 'متر'}</span>
               </div>
               <span className="text-[10px] text-muted-foreground">المصروف − المستهلك − المرتجع</span>
@@ -223,7 +223,7 @@ export const FabricActualWasteTab: React.FC = () => {
             {/* Reconciliation Status */}
             <div className="p-3 rounded-lg bg-muted/30 border border-border/60">
               <span className="text-[11px] text-muted-foreground block mb-1">حالة التسوية المخزنية</span>
-              <div className="text-xs font-bold text-emerald-600 flex items-center gap-1 mt-1">
+              <div className="text-xs font-bold text-success flex items-center gap-1 mt-1">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>الكميات متوازنة ومقفلة</span>
               </div>

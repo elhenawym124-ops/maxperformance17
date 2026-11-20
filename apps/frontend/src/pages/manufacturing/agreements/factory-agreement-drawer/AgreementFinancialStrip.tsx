@@ -26,10 +26,10 @@ export const AgreementFinancialStrip: React.FC<
         <span className="text-[11px] text-muted-foreground block">
           المسدد فعلياً:
         </span>
-        <strong className="text-sm font-bold text-emerald-600 font-mono tabular-nums">
+        <strong className="text-sm font-bold text-success font-mono tabular-nums">
           {agreement.paidAmount?.toLocaleString("en-US")} {agreement.currency}
         </strong>
-        <span className="text-[10px] text-emerald-600 font-semibold block mt-0.5 tabular-nums">
+        <span className="text-[10px] text-success font-semibold block mt-0.5 tabular-nums">
           {agreement.paidPercent}% مسدد
         </span>
       </div>
@@ -38,7 +38,7 @@ export const AgreementFinancialStrip: React.FC<
         <span className="text-[11px] text-muted-foreground block">
           قيد الانتظار:
         </span>
-        <strong className="text-sm font-bold text-amber-600 font-mono tabular-nums">
+        <strong className="text-sm font-bold text-warning font-mono tabular-nums">
           {agreement.pendingAmount?.toLocaleString("en-US")}{" "}
           {agreement.currency}
         </strong>

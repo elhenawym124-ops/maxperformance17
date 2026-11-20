@@ -151,16 +151,16 @@ const CommentsManagement = () => {
   }, [filters]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-primary p-4 md:p-8">
       <div className="w-full">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-3 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-blue-600 to-primary rounded-xl shadow-lg">
               <MessageSquare className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-800">
+              <h1 className="text-3xl font-bold text-foreground">
                 {t("commentsManagement.pageTitle")}
               </h1>
               <p className="text-slate-600 mt-1">
@@ -172,8 +172,8 @@ const CommentsManagement = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -me-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
                 <div className="p-3 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm">
@@ -191,8 +191,8 @@ const CommentsManagement = () => {
             </div>
           </div>
 
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-success to-success p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -me-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
                 <div className="p-3 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm">
@@ -210,8 +210,8 @@ const CommentsManagement = () => {
             </div>
           </div>
 
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-warning to-warning p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -me-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
                 <div className="p-3 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm">
@@ -231,17 +231,17 @@ const CommentsManagement = () => {
         </div>
 
         {/* Filters */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl p-6 mb-8 border border-white/20">
+        <div className="bg-white/80 backdrop-blur-xl rounded-xl shadow-xl p-6 mb-8 border border-white/20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-sm font-semibold text-foreground mb-2">
                 {t("commentsManagement.search")}
               </label>
               <div className="relative">
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  className="w-full pr-10 pl-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition-all text-right"
+                  className="w-full pe-10 ps-4 py-3 bg-muted border-2 border-border rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition-all text-right"
                   placeholder={t("commentsManagement.searchPlaceholder")}
                   value={filters.search}
                   onChange={(e) => handleFilterChange("search", e.target.value)}
@@ -250,11 +250,11 @@ const CommentsManagement = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-sm font-semibold text-foreground mb-2">
                 {t("commentsManagement.status")}
               </label>
               <select
-                className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition-all text-right"
+                className="w-full px-4 py-3 bg-muted border-2 border-border rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition-all text-right"
                 value={filters.status}
                 onChange={(e) => handleFilterChange("status", e.target.value)}
               >
@@ -271,11 +271,11 @@ const CommentsManagement = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-sm font-semibold text-foreground mb-2">
                 {t("commentsManagement.itemsCount")}
               </label>
               <select
-                className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition-all text-right"
+                className="w-full px-4 py-3 bg-muted border-2 border-border rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition-all text-right"
                 value={filters.limit}
                 onChange={(e) =>
                   handleFilterChange("limit", parseInt(e.target.value))
@@ -290,7 +290,7 @@ const CommentsManagement = () => {
 
             <div className="flex items-end">
               <button
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 font-semibold"
+                className="w-full bg-gradient-to-r from-blue-600 to-primary text-white py-3 px-6 rounded-xl hover:from-blue-700 hover:to-primary transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 font-semibold"
                 onClick={() => fetchComments()}
               >
                 <RefreshCw className="w-5 h-5" />
@@ -301,46 +301,46 @@ const CommentsManagement = () => {
         </div>
 
         {/* Comments Table */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-white/20">
+        <div className="bg-white/80 backdrop-blur-xl rounded-xl shadow-xl overflow-hidden border border-white/20">
           {loading ? (
             <div className="p-12 text-center">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-              <p className="mt-4 text-slate-600 font-medium">
+              <p className="mt-4 text-foreground font-medium">
                 {t("commentsManagement.loadingComments")}
               </p>
             </div>
           ) : (
             <>
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-slate-200">
+                <table className="min-w-full divide-y divide-border">
                   <thead className="bg-gradient-to-r from-slate-50 to-slate-100">
                     <tr>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         {t("commentsManagement.table_comment")}
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         {t("commentsManagement.table_sender")}
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         {t("commentsManagement.table_postId")}
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         {t("commentsManagement.table_date")}
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         {t("commentsManagement.table_status")}
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         {t("commentsManagement.table_actions")}
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-slate-100">
+                  <tbody className="bg-white divide-y divide-border">
                     {comments.length === 0 ? (
                       <tr>
                         <td colSpan="6" className="px-6 py-12 text-center">
                           <div className="flex flex-col items-center justify-center">
-                            <MessageSquare className="w-16 h-16 text-slate-300 mb-4" />
+                            <MessageSquare className="w-16 h-16 text-muted-foreground mb-4" />
                             <p className="text-slate-500 text-lg font-medium">
                               {t("commentsManagement.noComments")}
                             </p>
@@ -363,28 +363,28 @@ const CommentsManagement = () => {
                             </Link>
                           </td>
                           <td className="px-6 py-4">
-                            <div className="text-sm font-semibold text-slate-900">
+                            <div className="text-sm font-semibold text-foreground">
                               {comment.senderName}
                             </div>
-                            <div className="text-xs text-slate-500 mt-1">
+                            <div className="text-xs text-muted-foreground mt-1">
                               {comment.senderId}
                             </div>
                           </td>
                           <td className="px-6 py-4">
                             <div
-                              className="text-sm text-slate-700 font-mono max-w-xs truncate"
+                              className="text-sm text-foreground font-mono max-w-xs truncate"
                               title={comment.postId}
                             >
                               {comment.postId}
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <div className="text-sm font-medium text-slate-900">
+                            <div className="text-sm font-medium text-foreground">
                               {new Date(comment.createdTime).toLocaleDateString(
                                 "ar-EG",
                               )}
                             </div>
-                            <div className="text-xs text-slate-500 mt-1">
+                            <div className="text-xs text-muted-foreground mt-1">
                               {new Date(comment.createdTime).toLocaleTimeString(
                                 "ar-EG",
                               )}
@@ -392,12 +392,12 @@ const CommentsManagement = () => {
                           </td>
                           <td className="px-6 py-4">
                             {comment.respondedAt ? (
-                              <span className="px-3 py-1.5 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700 border border-emerald-200">
+                              <span className="px-3 py-1.5 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full bg-gradient-to-r from-success to-success text-success border border-success">
                                 <CheckCircle className="w-3.5 h-3.5" />
                                 {t("commentsManagement.respondedLabel")}
                               </span>
                             ) : (
-                              <span className="px-3 py-1.5 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-amber-700 border border-amber-200">
+                              <span className="px-3 py-1.5 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full bg-gradient-to-r from-warning to-warning text-warning border border-warning">
                                 <Clock className="w-3.5 h-3.5" />
                                 {t("commentsManagement.pendingLabel")}
                               </span>
@@ -426,7 +426,7 @@ const CommentsManagement = () => {
                               </button>
                               <button
                                 onClick={() => handleDeleteComment(comment.id)}
-                                className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                                className="p-2 text-destructive hover:bg-destructive rounded-lg transition-colors"
                                 title={t("commentsManagement.delete")}
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -442,14 +442,14 @@ const CommentsManagement = () => {
 
               {/* Pagination */}
               {pagination.totalPages > 1 && (
-                <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 flex items-center justify-between border-t border-slate-200 relative z-20 mb-8 sm:mb-6">
+                <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 flex items-center justify-between border-t border-border relative z-20 mb-8 sm:mb-6">
                   <div className="flex-1 flex justify-between sm:hidden relative z-20">
                     <button
                       onClick={() =>
                         handlePageChange(pagination.currentPage - 1)
                       }
                       disabled={pagination.currentPage === 1}
-                      className="relative inline-flex items-center px-4 py-2 border-2 border-slate-300 text-sm font-semibold rounded-xl text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="relative inline-flex items-center px-4 py-2 border-2 border-border text-sm font-semibold rounded-xl text-foreground bg-white hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                       {t("commentsManagement.previous")}
                     </button>
@@ -460,14 +460,14 @@ const CommentsManagement = () => {
                       disabled={
                         pagination.currentPage === pagination.totalPages
                       }
-                      className="mr-3 relative inline-flex items-center px-4 py-2 border-2 border-slate-300 text-sm font-semibold rounded-xl text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="me-3 relative inline-flex items-center px-4 py-2 border-2 border-border text-sm font-semibold rounded-xl text-foreground bg-white hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                       {t("commentsManagement.next")}
                     </button>
                   </div>
                   <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-sm text-slate-700 font-medium">
+                      <p className="text-sm text-foreground font-medium">
                         {t("commentsManagement.showing")}{" "}
                         <span className="font-bold text-blue-600">
                           {(pagination.currentPage - 1) * filters.limit + 1}
@@ -496,7 +496,7 @@ const CommentsManagement = () => {
                             handlePageChange(pagination.currentPage - 1)
                           }
                           disabled={pagination.currentPage === 1}
-                          className="relative inline-flex items-center px-3 py-2 rounded-lg bg-white border-2 border-slate-300 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          className="relative inline-flex items-center px-3 py-2 rounded-lg bg-white border-2 border-border text-sm font-semibold text-foreground hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                           {t("commentsManagement.previous")}
                         </button>
@@ -522,8 +522,8 @@ const CommentsManagement = () => {
                                 onClick={() => handlePageChange(page)}
                                 className={`relative inline-flex items-center px-4 py-2 text-sm font-bold rounded-lg transition-all ${
                                   page === pagination.currentPage
-                                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg scale-105"
-                                    : "bg-white border-2 border-slate-300 text-slate-700 hover:bg-slate-50"
+                                    ? "bg-gradient-to-r from-blue-600 to-primary text-white shadow-lg scale-105"
+                                    : "bg-white border-2 border-border text-foreground hover:bg-muted"
                                 }`}
                               >
                                 {page}
@@ -538,7 +538,7 @@ const CommentsManagement = () => {
                           disabled={
                             pagination.currentPage === pagination.totalPages
                           }
-                          className="relative inline-flex items-center px-3 py-2 rounded-lg bg-white border-2 border-slate-300 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          className="relative inline-flex items-center px-3 py-2 rounded-lg bg-white border-2 border-border text-sm font-semibold text-foreground hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                           {t("commentsManagement.next")}
                         </button>

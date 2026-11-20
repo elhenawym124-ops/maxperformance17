@@ -72,11 +72,11 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "open":
-        return <Clock className="w-3.5 h-3.5 text-amber-500" />;
+        return <Clock className="w-3.5 h-3.5 text-warning" />;
       case "in_progress":
         return <AlertCircle className="w-3.5 h-3.5 text-blue-500" />;
       case "closed":
-        return <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />;
+        return <CheckCircle2 className="w-3.5 h-3.5 text-success" />;
       default:
         return <Clock className="w-3.5 h-3.5 text-muted-foreground" />;
     }
@@ -87,7 +87,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
       case "critical":
         return "bg-destructive/10 text-destructive border-destructive/20";
       case "high":
-        return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
+        return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
       case "medium":
         return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
       case "low":
@@ -196,7 +196,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
                 <div
                   className={`max-w-[78%] sm:max-w-[65%] rounded-xl p-3 shadow-2xs space-y-1.5 ${
                     isInternal
-                      ? "bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-200"
+                      ? "bg-amber-500/10 border border-warning/20 text-warning dark:text-warning"
                       : isCurrentUser
                       ? "bg-primary text-primary-foreground rounded-br-xs"
                       : "bg-card border border-border/70 text-foreground rounded-bl-xs"
@@ -216,7 +216,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
                           : message.sender?.name || "فريق الدعم الفني"}
                       </span>
                       {isInternal && (
-                        <span className="text-[10px] bg-amber-500/20 text-amber-700 dark:text-amber-300 px-1.5 py-0.2 rounded font-mono">
+                        <span className="text-[10px] bg-warning/20 text-warning dark:text-warning px-1.5 py-0.2 rounded font-mono">
                           ملاحظة داخلية
                         </span>
                       )}
@@ -260,7 +260,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
                           <span className="truncate max-w-[180px] font-mono text-[11px]">
                             {att.originalName}
                           </span>
-                          <Download className="w-3 h-3 opacity-70 ml-1" />
+                          <Download className="w-3 h-3 opacity-70 ms-1" />
                         </a>
                       ))}
                     </div>

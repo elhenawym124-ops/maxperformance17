@@ -19,7 +19,7 @@ export const AttachmentPreviewModal: React.FC<AttachmentPreviewModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="relative max-w-3xl max-h-[85vh] rounded-2xl bg-card border border-border/80 overflow-hidden shadow-2xl p-2 flex flex-col items-center justify-center"
+        className="relative max-w-3xl max-h-[85vh] rounded-xl bg-card border border-border/80 overflow-hidden shadow-2xl p-2 flex flex-col items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -44,7 +44,7 @@ export const AttachmentPreviewModal: React.FC<AttachmentPreviewModalProps> = ({
           />
         ) : (
           <div className="p-12 text-center space-y-3">
-            <FileText className="w-16 h-16 text-amber-500 mx-auto" />
+            <FileText className="w-16 h-16 text-warning mx-auto" />
             <h4 className="font-bold text-foreground text-base">
               {attachment.caption || 'مستند مرفق'}
             </h4>

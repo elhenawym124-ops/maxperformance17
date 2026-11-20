@@ -29,37 +29,37 @@ export const TurboTicketInputBar: React.FC<TurboTicketInputBarProps> = ({
   onPreviewImage,
 }) => {
   return (
-    <footer className="p-2.5 sm:p-3 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shrink-0 z-20 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg sm:shadow-none">
+    <footer className="p-2.5 sm:p-3 border-t border-border dark:border-border bg-white dark:bg-muted shrink-0 z-20 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg sm:shadow-none">
       {replyImage && (
-        <div className="flex items-center gap-3 mb-2 p-2 px-3 rounded-xl bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/80 text-xs w-fit shadow-xs">
+        <div className="flex items-center gap-3 mb-2 p-2 px-3 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border text-xs w-fit shadow-xs">
           {replyImagePreview ? (
             <img
               src={replyImagePreview}
               alt="معاينة المرفق"
               onClick={() => onPreviewImage(replyImagePreview)}
-              className="w-10 h-10 object-cover rounded-lg border border-zinc-300 dark:border-zinc-700 cursor-pointer hover:opacity-80 transition shrink-0"
+              className="w-10 h-10 object-cover rounded-lg border border-border dark:border-border cursor-pointer hover:opacity-80 transition shrink-0"
               title="تكبير الصورة"
             />
           ) : (
-            <PhotoIcon className="h-6 w-6 text-zinc-500 shrink-0" />
+            <PhotoIcon className="h-6 w-6 text-muted-foreground shrink-0" />
           )}
-          <div className="min-w-0 pr-1">
+          <div className="min-w-0 pe-1">
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-zinc-800 dark:text-zinc-200 truncate max-w-[180px]">
+              <span className="font-semibold text-foreground dark:text-muted-foreground truncate max-w-[180px]">
                 {replyImage.name}
               </span>
-              <span className="text-[10px] text-zinc-400 font-mono">
+              <span className="text-[10px] text-muted-foreground font-mono">
                 ({(replyImage.size / 1024).toFixed(0)} KB)
               </span>
             </div>
-            <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
+            <p className="text-[10px] text-success dark:text-success font-medium">
               جاهزة للإرسال مع الرد
             </p>
           </div>
           <button
             type="button"
             onClick={() => setReplyImage(null)}
-            className="text-zinc-400 hover:text-rose-500 p-1 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition"
+            className="text-zinc-400 hover:text-destructive p-1 rounded-lg hover:bg-muted dark:hover:bg-muted transition"
             title="إلغاء المرفق"
           >
             <XMarkIcon className="h-4 w-4" />
@@ -69,7 +69,7 @@ export const TurboTicketInputBar: React.FC<TurboTicketInputBarProps> = ({
 
       <form onSubmit={onSendReply} className="flex items-center gap-1.5 sm:gap-2">
         <label
-          className="p-2 sm:p-2.5 rounded-xl text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer transition active:scale-95 shrink-0"
+          className="p-2 sm:p-2.5 rounded-xl text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted cursor-pointer transition active:scale-95 shrink-0"
           title="إرفاق صورة أو لقطة شاشة"
         >
           <PhotoIcon className="h-5 w-5" />
@@ -97,13 +97,13 @@ export const TurboTicketInputBar: React.FC<TurboTicketInputBarProps> = ({
               : "اكتب ردك، أو الصق لقطة الشاشة مباشرة (Ctrl+V)..."
           }
           disabled={sending}
-          className="flex-1 min-w-0 px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-zinc-400 dark:focus:border-zinc-600 transition"
+          className="flex-1 min-w-0 px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground placeholder-muted focus:outline-hidden focus:border-border dark:focus:border-border transition"
         />
 
         <button
           type="submit"
           disabled={sending || (!replyText.trim() && !replyImage)}
-          className="p-2.5 px-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 disabled:opacity-40 transition active:scale-97 flex items-center justify-center gap-1.5 text-xs sm:text-sm font-semibold shrink-0 shadow-xs"
+          className="p-2.5 px-3.5 rounded-xl bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-white text-white dark:text-foreground disabled:opacity-40 transition active:scale-97 flex items-center justify-center gap-1.5 text-xs sm:text-sm font-semibold shrink-0 shadow-xs"
         >
           <span>{sending ? "إرسال..." : "إرسال"}</span>
           <PaperAirplaneIcon className="h-3.5 w-3.5 rotate-180" />

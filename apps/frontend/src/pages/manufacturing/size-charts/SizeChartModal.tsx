@@ -220,7 +220,7 @@ export const SizeChartModal: React.FC<SizeChartModalProps> = ({
           )}
 
           {isApproved && (
-            <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 flex items-start gap-2">
+            <div className="p-3 rounded-lg bg-warning/10 border border-warning/30 text-warning dark:text-warning flex items-start gap-2">
               <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
               <div className="text-[11px] leading-relaxed">
                 <strong>تنبيه إصدار معتمد:</strong> جدول المقاسات هذا معتمد. حفظ أي تعديل هنا سينشئ تلقائياً <strong>نسخة مسودة جديدة برقم إصدار تالٍ (V{(initialSizeChart?.version || 1) + 1})</strong> مع الاحتفاظ بالنسخة المعتمدة دون أي تعديل.

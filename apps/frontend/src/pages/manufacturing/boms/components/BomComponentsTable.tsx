@@ -207,16 +207,16 @@ export const BomComponentsTable: React.FC<BomComponentsTableProps> = ({
                           {/* شارة الربط بكتالوج المنتجات */}
                           <div className="flex items-center gap-1">
                             {Boolean(item.rawMaterialId && products.some((p) => p.id === item.rawMaterialId)) ? (
-                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
+                                <span className="w-1.5 h-1.5 rounded-full bg-success" />
                                 مرتبط بمنتج
                               </span>
                             ) : (
                               <span
-                                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20"
+                                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20"
                                 title="هذه الخامة غير مرتبطة بمنتج في الكتالوج ولن يتم خصمها من المخزن عند التشغيل"
                               >
-                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-warning" />
                                 غير مرتبط — مش هيتخصم من المخزن
                               </span>
                             )}

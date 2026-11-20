@@ -37,7 +37,7 @@ export const AgreementAddPaymentModal: React.FC<
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
-      <div className="w-full max-w-md bg-card border border-border rounded-2xl shadow-xl p-5 space-y-4">
+      <div className="w-full max-w-md bg-card border border-border rounded-xl shadow-xl p-5 space-y-4">
         <div className="flex items-center justify-between border-b border-border/60 pb-3">
           <h3 className="text-sm font-bold text-foreground">
             إضافة دفعة مالية جديدة

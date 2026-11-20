@@ -11,13 +11,13 @@ export const TurboTicketDragOverlay: React.FC<TurboTicketDragOverlayProps> = ({
   if (!isDragging) return null;
 
   return (
-    <div className="absolute inset-0 z-40 bg-zinc-900/80 backdrop-blur-xs flex flex-col items-center justify-center gap-3 p-4 text-center pointer-events-none animate-fadeIn">
-      <div className="p-4 rounded-2xl bg-white/10 border-2 border-dashed border-white text-white shadow-xl">
-        <PhotoIcon className="h-10 w-10 animate-bounce text-emerald-400" />
+    <div className="absolute inset-0 z-40 bg-muted backdrop-blur-xs flex flex-col items-center justify-center gap-3 p-4 text-center pointer-events-none animate-fadeIn">
+      <div className="p-4 rounded-xl bg-white/10 border-2 border-dashed border-white text-white shadow-xl">
+        <PhotoIcon className="h-10 w-10 animate-bounce text-success" />
       </div>
       <div>
         <p className="font-bold text-base text-white">أفلت الصورة أو لقطة الشاشة هنا</p>
-        <p className="text-xs text-zinc-300 mt-1">سيتم إرفاقها بالتذكرة فوراً وتجهيزها للإرسال</p>
+        <p className="text-xs text-muted-foreground mt-1">سيتم إرفاقها بالتذكرة فوراً وتجهيزها للإرسال</p>
       </div>
     </div>
   );

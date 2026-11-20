@@ -41,7 +41,7 @@ export const AgreementDrawerQuickActions: React.FC<
             <button
               onClick={onActivate}
               disabled={actionLoading}
-              className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs flex items-center gap-1.5 transition-transform active:scale-[0.98]"
+              className="px-3 py-1.5 rounded-lg bg-success hover:bg-success text-white font-medium text-xs flex items-center gap-1.5 transition-transform active:scale-[0.98]"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               تفعيل الاتفاقية

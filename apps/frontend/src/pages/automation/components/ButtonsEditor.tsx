@@ -38,16 +38,16 @@ const ButtonsEditor: React.FC<Props> = ({ buttons, onChange, max = 3 }) => {
             value={b.title}
             onChange={(e) => update(idx, { title: e.target.value })}
             placeholder={String(t("botStudio.buttonTitle"))}
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+            className="flex-1 px-3 py-2 border border-border rounded-lg bg-card text-foreground text-sm"
           />
           <input
             type="text"
             value={b.payload}
             onChange={(e) => update(idx, { payload: e.target.value })}
             placeholder={String(t("botStudio.buttonPayload"))}
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+            className="flex-1 px-3 py-2 border border-border rounded-lg bg-card text-foreground text-sm"
           />
-          <button onClick={() => remove(idx)} className="p-2 text-gray-500 hover:text-red-600">
+          <button onClick={() => remove(idx)} className="p-2 text-muted-foreground hover:text-destructive">
             <TrashIcon className="h-4 w-4" />
           </button>
         </div>
@@ -55,7 +55,7 @@ const ButtonsEditor: React.FC<Props> = ({ buttons, onChange, max = 3 }) => {
       {buttons.length < max && (
         <button
           onClick={add}
-          className="flex items-center gap-1 text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
+          className="flex items-center gap-1 text-sm text-primary hover:underline"
         >
           <PlusIcon className="h-4 w-4" /> {t("botStudio.addButton")}
         </button>

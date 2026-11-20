@@ -179,16 +179,16 @@ export const ShareSampleModal: React.FC<ShareSampleModalProps> = ({
             </div>
           </div>
           {isWorking ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success dark:text-success border border-success/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-success" />
               نشط
             </span>
           ) : isRevoked ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">
               ملغي
             </span>
           ) : isExpired ? (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
               منتهي
             </span>
           ) : (
@@ -250,7 +250,7 @@ export const ShareSampleModal: React.FC<ShareSampleModalProps> = ({
                   </span>
                 )}
                 {link.factoryAckAt && (
-                  <span className="inline-flex items-center gap-1 text-emerald-600 font-medium">
+                  <span className="inline-flex items-center gap-1 text-success font-medium">
                     <Check className="w-3.5 h-3.5" />
                     تم استلام المصنع: {new Date(link.factoryAckAt).toLocaleString('ar-EG')}
                   </span>
@@ -272,7 +272,7 @@ export const ShareSampleModal: React.FC<ShareSampleModalProps> = ({
                   type="button"
                   onClick={() => handleRevoke(kind)}
                   disabled={revokingKind === kind}
-                  className="inline-flex items-center gap-1 text-xs text-rose-500 hover:text-rose-600 transition-colors"
+                  className="inline-flex items-center gap-1 text-xs text-destructive hover:text-destructive transition-colors"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   إلغاء الرابط
@@ -315,7 +315,7 @@ export const ShareSampleModal: React.FC<ShareSampleModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-card border border-border shadow-2xl rounded-2xl w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-card border border-border shadow-2xl rounded-xl w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="p-4 sm:p-5 border-b border-border flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2.5">
@@ -342,7 +342,7 @@ export const ShareSampleModal: React.FC<ShareSampleModalProps> = ({
         {/* Modal Body */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-4">
           {actionError && (
-            <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive dark:text-destructive text-xs font-medium flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{actionError}</span>
             </div>

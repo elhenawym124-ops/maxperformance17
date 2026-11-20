@@ -229,11 +229,11 @@ const UnifiedCommentsManagement = () => {
       case "ai":
         return "bg-blue-100 text-blue-800";
       case "fixed":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 text-success";
       case "manual":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-100 text-warning";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-foreground";
     }
   };
 
@@ -264,22 +264,22 @@ const UnifiedCommentsManagement = () => {
   if (activePostId) {
     return (
       <>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-primary dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
         <div className="w-full">
           {/* Header */}
           <div className="mb-8 animate-fade-in">
             <div className="flex items-center gap-4 mb-2">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl blur-lg opacity-50 animate-pulse"></div>
-                <div className="relative p-4 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-2xl shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-primary rounded-xl blur-lg opacity-50 animate-pulse"></div>
+                <div className="relative p-4 bg-gradient-to-br from-blue-600 via-primary to-primary rounded-xl shadow-2xl">
                   <MessageSquare className="w-8 h-8 text-white" />
                 </div>
               </div>
               <div>
-                <h1 className="text-4xl font-black bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-black bg-gradient-to-r from-blue-600 via-primary to-primary bg-clip-text text-transparent">
                   تعليقات المنشور
                 </h1>
-                <p className="text-slate-600 dark:text-gray-300 mt-2 text-lg font-medium">
+                <p className="text-slate-600 dark:text-muted-foreground mt-2 text-lg font-medium">
                   إدارة والرد على تعليقات المنشور بكل سهولة
                 </p>
               </div>
@@ -287,18 +287,18 @@ const UnifiedCommentsManagement = () => {
           </div>
 
           {/* Back Button and Post Info */}
-          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 mb-8 border border-white/30 dark:border-gray-700/30 hover:shadow-blue-200/50 dark:hover:shadow-blue-900/50 transition-all duration-300">
+          <div className="bg-white/90 dark:bg-muted backdrop-blur-2xl rounded-xl shadow-2xl p-6 mb-8 border border-white/30 dark:border-border hover:shadow-blue-200/50 dark:hover:shadow-blue-900/50 transition-all duration-300">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <button
                 onClick={handleBackToPosts}
-                className="group flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-gray-700 dark:to-gray-600 rounded-xl hover:from-blue-50 hover:to-indigo-50 dark:hover:from-blue-900/30 dark:hover:to-indigo-900/30 transition-all duration-300 shadow-md hover:shadow-lg font-semibold text-slate-700 dark:text-gray-200"
+                className="group flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-gray-700 dark:to-gray-600 rounded-xl hover:from-blue-50 hover:to-primary dark:hover:from-blue-900/30 dark:hover:to-primary/30 transition-all duration-300 shadow-md hover:shadow-lg font-semibold text-foreground dark:text-muted-foreground"
               >
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" />
                 العودة إلى المنشورات
               </button>
 
               <div className="flex-1 min-w-0">
-                <h2 className="text-lg font-semibold text-slate-800 dark:text-white truncate">
+                <h2 className="text-lg font-semibold text-foreground dark:text-white truncate">
                   معرف المنشور: {activePostId}
                 </h2>
                 {postSettings && (
@@ -316,7 +316,7 @@ const UnifiedCommentsManagement = () => {
               <div className="flex gap-3">
                 <button
                   onClick={() => navigate(`/posts/${activePostId}/settings`)}
-                  className="group flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold"
+                  className="group flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-primary to-primary text-white rounded-xl hover:from-primary hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold"
                 >
                   <Settings className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
                   إعدادات الرد
@@ -324,7 +324,7 @@ const UnifiedCommentsManagement = () => {
                 {selectedComments.length > 0 && (
                   <button
                     onClick={handleBulkDelete}
-                    className="group flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-xl hover:from-red-700 hover:to-rose-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold animate-bounce-subtle"
+                    className="group flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-destructive to-destructive text-white rounded-xl hover:from-destructive hover:to-destructive transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold animate-bounce-subtle"
                   >
                     <Trash2 className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                     حذف ({selectedComments.length})
@@ -335,15 +335,15 @@ const UnifiedCommentsManagement = () => {
           </div>
 
           {/* Filters */}
-          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 mb-8 border border-white/30 dark:border-gray-700/30">
+          <div className="bg-white/90 dark:bg-muted backdrop-blur-2xl rounded-xl shadow-2xl p-6 mb-8 border border-white/30 dark:border-border">
             <div className="flex flex-wrap gap-4 items-end">
               <div className="flex-1 min-w-[200px]">
-                <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                <label className="block text-sm font-bold text-foreground dark:text-muted-foreground mb-3 flex items-center gap-2">
                   <Clock className="w-4 h-4 text-blue-600" />
                   فلتر حسب الحالة
                 </label>
                 <select
-                  className="w-full px-4 py-3 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 border-2 border-slate-200 dark:border-gray-600 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-gray-900 dark:text-white transition-all text-right font-semibold shadow-sm"
+                  className="w-full px-4 py-3 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 border-2 border-border dark:border-border rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-foreground transition-all text-right font-semibold shadow-sm"
                   value={filters.status}
                   onChange={(e) => handleFilterChange("status", e.target.value)}
                 >
@@ -355,7 +355,7 @@ const UnifiedCommentsManagement = () => {
 
               <div>
                 <button
-                  className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2 font-semibold"
+                  className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:from-blue-700 hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center gap-2 font-semibold"
                   onClick={() => fetchComments(activePostId)}
                   disabled={loading}
                 >
@@ -369,17 +369,17 @@ const UnifiedCommentsManagement = () => {
           </div>
 
           {/* Comments List */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-white/20 dark:border-gray-700/20">
+          <div className="bg-white/80 dark:bg-muted backdrop-blur-xl rounded-xl shadow-xl overflow-hidden border border-white/20 dark:border-border">
             {loading ? (
               <div className="p-16 text-center">
                 <div className="relative inline-block">
                   <div className="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
                   <div className="relative inline-block animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent"></div>
                 </div>
-                <p className="mt-6 text-slate-600 dark:text-gray-300 font-bold text-lg">
+                <p className="mt-6 text-foreground dark:text-muted-foreground font-bold text-lg">
                   جاري تحميل التعليقات...
                 </p>
-                <p className="mt-2 text-slate-500 dark:text-gray-400 text-sm">
+                <p className="mt-2 text-muted-foreground dark:text-muted-foreground text-sm">
                   الرجاء الانتظار
                 </p>
               </div>
@@ -387,14 +387,14 @@ const UnifiedCommentsManagement = () => {
               <div className="p-16 text-center">
                 <div className="relative inline-block mb-6">
                   <div className="absolute inset-0 bg-blue-200 rounded-full blur-2xl opacity-20"></div>
-                  <div className="relative bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-3xl border-2 border-dashed border-blue-200 dark:border-blue-700">
+                  <div className="relative bg-gradient-to-br from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 p-6 rounded-xl border-2 border-dashed border-blue-200 dark:border-blue-700">
                     <MessageSquare className="w-20 h-20 text-blue-400 mx-auto" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                <h3 className="text-2xl font-bold text-foreground dark:text-white mb-2">
                   لا توجد تعليقات
                 </h3>
-                <p className="text-slate-500 dark:text-gray-400 text-lg">
+                <p className="text-slate-500 dark:text-muted-foreground text-lg">
                   لا توجد تعليقات لهذا المنشور حتى الآن.
                 </p>
               </div>
@@ -409,14 +409,14 @@ const UnifiedCommentsManagement = () => {
                     <div className="flex gap-2">
                       <button
                         onClick={handleBulkDelete}
-                        className="flex items-center gap-1 px-3 py-1.5 text-sm bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                        className="flex items-center gap-1 px-3 py-1.5 text-sm bg-destructive text-white rounded-md hover:bg-destructive transition"
                       >
                         <Trash2 className="w-4 h-4" />
                         حذف الكل
                       </button>
                       <button
                         onClick={() => setSelectedComments([])}
-                        className="px-3 py-1.5 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+                        className="px-3 py-1.5 text-sm bg-muted text-foreground rounded-md hover:bg-muted transition"
                       >
                         إلغاء الاختيار
                       </button>
@@ -424,11 +424,11 @@ const UnifiedCommentsManagement = () => {
                   </div>
                 )}
 
-                <div className="divide-y divide-slate-200 dark:divide-gray-700">
+                <div className="divide-y divide-border dark:divide-border">
                   {comments.map((comment, index) => (
                     <div
                       key={comment.id}
-                      className="p-6 hover:bg-gradient-to-r hover:from-blue-50/30 hover:to-indigo-50/30 dark:hover:bg-gray-700/50 transition-all duration-300 border-r-4 border-transparent hover:border-blue-500 animate-fade-in"
+                      className="p-6 hover:bg-gradient-to-r hover:from-blue-50/30 hover:to-primary/30 dark:hover:bg-muted transition-all duration-300 border-r-4 border-transparent hover:border-blue-500 animate-fade-in"
                       style={{ animationDelay: `${Math.min(index, 20) * 0.05}s` }}
                     >
                       <div className="flex justify-between">
@@ -446,26 +446,26 @@ const UnifiedCommentsManagement = () => {
                           <div className="bg-gray-200 border-2 border-dashed rounded-xl w-10 h-10" />
                           <div>
                             <div className="flex items-center gap-2">
-                              <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
+                              <h4 className="text-sm font-semibold text-foreground dark:text-white">
                                 {comment.senderName}
                               </h4>
-                              <span className="text-xs text-slate-500">
+                              <span className="text-xs text-muted-foreground">
                                 {comment.senderId}
                               </span>
                             </div>
-                              <p className="text-sm text-slate-500 mt-1">
+                              <p className="text-sm text-muted-foreground mt-1">
                                 {dateFt.format(new Date(comment.createdTime))}
                               </p>
                           </div>
                         </div>
                         <div>
                           {comment.respondedAt ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                            <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full bg-success text-success">
                               <CheckCircle className="w-3 h-3" />
                               تم الرد
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-800">
+                            <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-full bg-warning text-warning">
                               <Clock className="w-3 h-3" />
                               قيد الانتظار
                             </span>
@@ -473,19 +473,19 @@ const UnifiedCommentsManagement = () => {
                         </div>
                       </div>
 
-                      <div className="mt-4 mr-3">
-                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 p-5 rounded-2xl shadow-sm border border-slate-200 dark:border-gray-600">
-                          <p className="text-slate-800 dark:text-gray-100 leading-relaxed">
+                      <div className="mt-4 me-3">
+                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 p-5 rounded-xl shadow-sm border border-border dark:border-border">
+                          <p className="text-slate-800 dark:text-muted-foreground leading-relaxed">
                             {comment.message}
                           </p>
                         </div>
 
                         {comment.response && (
-                          <div className="mt-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border-2 border-blue-200 dark:border-blue-700 shadow-md">
+                          <div className="mt-4 bg-gradient-to-br from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 p-5 rounded-xl border-2 border-blue-200 dark:border-blue-700 shadow-md">
                             <div className="flex items-start gap-2 mb-2">
                               <Sparkles className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                               <div className="flex-1">
-                                <p className="text-slate-800 dark:text-gray-100 leading-relaxed font-medium">
+                                <p className="text-slate-800 dark:text-muted-foreground leading-relaxed font-medium">
                                   {comment.response}
                                 </p>
                                 <p className="text-xs text-blue-600 dark:text-blue-400 mt-3 font-semibold">
@@ -507,7 +507,7 @@ const UnifiedCommentsManagement = () => {
                                     : comment.id,
                                 )
                               }
-                              className="group inline-flex items-center gap-2 px-4 py-2 text-sm bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 font-semibold"
+                              className="group inline-flex items-center gap-2 px-4 py-2 text-sm bg-gradient-to-r from-blue-600 to-primary text-white rounded-xl hover:from-blue-700 hover:to-primary transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 font-semibold"
                             >
                               <Edit3 className="w-4 h-4 group-hover:scale-110 transition-transform" />
                               {replyCommentId === comment.id
@@ -517,7 +517,7 @@ const UnifiedCommentsManagement = () => {
                           )}
                           <button
                             onClick={() => handleDeleteComment(comment.id)}
-                            className="group inline-flex items-center gap-2 px-4 py-2 text-sm bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-xl hover:from-red-700 hover:to-rose-700 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 font-semibold"
+                            className="group inline-flex items-center gap-2 px-4 py-2 text-sm bg-gradient-to-r from-destructive to-destructive text-white rounded-xl hover:from-destructive hover:to-destructive transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 font-semibold"
                           >
                             <Trash2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
                             حذف
@@ -529,7 +529,7 @@ const UnifiedCommentsManagement = () => {
                               value={replyText}
                               onChange={(e) => setReplyText(e.target.value)}
                               placeholder="اكتب ردك هنا..."
-                              className="w-full px-4 py-3 border-2 border-blue-200 dark:border-blue-700 rounded-xl text-right bg-white dark:bg-gray-700 text-sm"
+                              className="w-full px-4 py-3 border-2 border-blue-200 dark:border-blue-700 rounded-xl text-right bg-card text-sm"
                               rows={2}
                             />
                             <div className="flex gap-2 mt-2 justify-end">
@@ -538,7 +538,7 @@ const UnifiedCommentsManagement = () => {
                                   setReplyCommentId(null);
                                   setReplyText("");
                                 }}
-                                className="px-4 py-2 text-sm bg-gray-200 dark:bg-gray-600 rounded-xl font-semibold"
+                                className="px-4 py-2 text-sm bg-muted dark:bg-muted rounded-xl font-semibold"
                               >
                                 إلغاء
                               </button>
@@ -580,23 +580,23 @@ const UnifiedCommentsManagement = () => {
 
   // Default view: Show posts list
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-primary dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
       <div className="w-full">
         {/* Header */}
         <div className="mb-8 animate-fade-in">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-6">
             <div className="flex items-center gap-4">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl blur-lg opacity-50 animate-pulse"></div>
-                <div className="relative p-4 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-2xl shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-primary rounded-xl blur-lg opacity-50 animate-pulse"></div>
+                <div className="relative p-4 bg-gradient-to-br from-blue-600 via-primary to-primary rounded-xl shadow-2xl">
                   <MessageSquare className="w-8 h-8 text-white" />
                 </div>
               </div>
               <div>
-                <h1 className="text-4xl font-black bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-black bg-gradient-to-r from-blue-600 via-primary to-primary bg-clip-text text-transparent">
                   إدارة منشورات فيسبوك
                 </h1>
-                <p className="text-slate-600 dark:text-gray-300 mt-2 text-lg font-medium">
+                <p className="text-slate-600 dark:text-muted-foreground mt-2 text-lg font-medium">
                   إدارة ومتابعة التعليقات بكل احترافية
                 </p>
               </div>
@@ -604,13 +604,13 @@ const UnifiedCommentsManagement = () => {
 
             {/* Quick Stats */}
             <div className="flex gap-4">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-4 border border-blue-100 dark:border-blue-800 shadow-lg">
+              <div className="bg-gradient-to-br from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800 shadow-lg">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-blue-600 rounded-lg">
                     <BarChart3 className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-600 dark:text-gray-400 font-medium">
+                    <p className="text-xs text-foreground dark:text-muted-foreground font-medium">
                       إجمالي المنشورات
                     </p>
                     <p className="text-2xl font-black text-blue-600">
@@ -624,18 +624,18 @@ const UnifiedCommentsManagement = () => {
         </div>
 
         {/* Filters */}
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 mb-8 border border-white/30 dark:border-gray-700/30">
+        <div className="bg-white/90 dark:bg-muted backdrop-blur-2xl rounded-xl shadow-2xl p-6 mb-8 border border-white/30 dark:border-border">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+              <label className="block text-sm font-bold text-foreground dark:text-muted-foreground mb-3 flex items-center gap-2">
                 <Search className="w-4 h-4 text-blue-600" />
                 بحث في المنشورات
               </label>
               <div className="relative">
-                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  className="w-full pr-12 pl-4 py-3.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 border-2 border-slate-200 dark:border-gray-600 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all text-right font-medium shadow-sm"
+                  className="w-full pe-12 ps-4 py-3.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 border-2 border-border dark:border-border rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-foreground placeholder-muted dark:placeholder-muted transition-all text-right font-medium shadow-sm"
                   placeholder="ابحث هنا..."
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
@@ -644,12 +644,12 @@ const UnifiedCommentsManagement = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+              <label className="block text-sm font-bold text-foreground dark:text-muted-foreground mb-3 flex items-center gap-2">
                 <Clock className="w-4 h-4 text-blue-600" />
                 فلتر الحالة
               </label>
               <select
-                className="w-full px-4 py-3.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 border-2 border-slate-200 dark:border-gray-600 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-gray-900 dark:text-white transition-all text-right font-semibold shadow-sm"
+                className="w-full px-4 py-3.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 border-2 border-border dark:border-border rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-foreground transition-all text-right font-semibold shadow-sm"
                 value={filters.status}
                 onChange={(e) => handleFilterChange("status", e.target.value)}
               >
@@ -660,12 +660,12 @@ const UnifiedCommentsManagement = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+              <label className="block text-sm font-bold text-foreground dark:text-muted-foreground mb-3 flex items-center gap-2">
                 <BarChart3 className="w-4 h-4 text-blue-600" />
                 عدد النتائج
               </label>
               <select
-                className="w-full px-4 py-3.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 border-2 border-slate-200 dark:border-gray-600 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-gray-900 dark:text-white transition-all text-right font-semibold shadow-sm"
+                className="w-full px-4 py-3.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-gray-700 dark:to-gray-600 border-2 border-border dark:border-border rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-foreground transition-all text-right font-semibold shadow-sm"
                 value={filters.limit}
                 onChange={(e) =>
                   handleFilterChange("limit", parseInt(e.target.value))
@@ -680,7 +680,7 @@ const UnifiedCommentsManagement = () => {
 
             <div className="flex items-end">
               <button
-                className="group w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2 font-bold"
+                className="group w-full bg-gradient-to-r from-blue-600 to-primary text-white py-3.5 px-6 rounded-xl hover:from-blue-700 hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2 font-bold"
                 onClick={() => fetchPosts()}
                 disabled={loading}
               >
@@ -694,61 +694,61 @@ const UnifiedCommentsManagement = () => {
         </div>
 
         {/* Posts Table */}
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border border-white/30 dark:border-gray-700/30 hover:shadow-blue-200/50 dark:hover:shadow-blue-900/50 transition-all duration-300">
+        <div className="bg-white/90 dark:bg-muted backdrop-blur-2xl rounded-xl shadow-2xl overflow-hidden border border-white/30 dark:border-border hover:shadow-blue-200/50 dark:hover:shadow-blue-900/50 transition-all duration-300">
           {loading ? (
             <div className="p-16 text-center">
               <div className="relative inline-block">
                 <div className="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
                 <div className="relative inline-block animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent"></div>
               </div>
-              <p className="mt-6 text-slate-600 dark:text-gray-300 font-bold text-lg">
+              <p className="mt-6 text-foreground dark:text-muted-foreground font-bold text-lg">
                 جاري تحميل المنشورات...
               </p>
-              <p className="mt-2 text-slate-500 dark:text-gray-400 text-sm">
+              <p className="mt-2 text-muted-foreground dark:text-muted-foreground text-sm">
                 الرجاء الانتظار
               </p>
             </div>
           ) : (
             <>
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-slate-200">
+                <table className="min-w-full divide-y divide-border">
                   <thead className="bg-gradient-to-r from-slate-50 to-slate-100">
                     <tr>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         معرف المنشور
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         آخر تعليق
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         التعليقات
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         الردود
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         طريقة الرد
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-bold text-foreground uppercase tracking-wider">
                         الإجراءات
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-slate-100 dark:divide-gray-700">
+                  <tbody className="bg-card divide-y divide-border dark:divide-border">
                     {posts.length === 0 ? (
                       <tr>
                         <td colSpan="6" className="px-6 py-16 text-center">
                           <div className="flex flex-col items-center justify-center">
                             <div className="relative inline-block mb-6">
                               <div className="absolute inset-0 bg-blue-200 rounded-full blur-2xl opacity-20"></div>
-                              <div className="relative bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-8 rounded-3xl border-2 border-dashed border-blue-200 dark:border-blue-700">
+                              <div className="relative bg-gradient-to-br from-blue-50 to-primary dark:from-blue-900/20 dark:to-primary/20 p-8 rounded-xl border-2 border-dashed border-blue-200 dark:border-blue-700">
                                 <MessageSquare className="w-24 h-24 text-blue-400" />
                               </div>
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                            <h3 className="text-2xl font-bold text-foreground dark:text-white mb-2">
                               لا يوجد منشورات
                             </h3>
-                            <p className="text-slate-500 dark:text-gray-400 text-lg">
+                            <p className="text-slate-500 dark:text-muted-foreground text-lg">
                               لم يتم العثور على أي منشورات حتى الآن
                             </p>
                           </div>
@@ -758,13 +758,13 @@ const UnifiedCommentsManagement = () => {
                       posts.map((post) => (
                         <tr
                           key={post.postId}
-                          className="hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-indigo-50/50 dark:hover:bg-gray-700/50 transition-all duration-300 border-l-4 border-transparent hover:border-blue-500"
+                          className="hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-primary/50 dark:hover:bg-muted transition-all duration-300 border-l-4 border-transparent hover:border-blue-500"
                         >
                           <td className="px-6 py-4">
-                            <div className="text-sm font-semibold text-slate-900 font-mono">
+                            <div className="text-sm font-semibold text-foreground font-mono">
                               {post.postId.substring(0, 10)}...
                             </div>
-                            <div className="text-xs text-slate-500 mt-1">
+                            <div className="text-xs text-muted-foreground mt-1">
                               {dateFt.format(new Date(
                                 post.firstCommentTime,
                               ))}
@@ -773,18 +773,18 @@ const UnifiedCommentsManagement = () => {
                           <td className="px-6 py-4">
                             {post.latestComment ? (
                               <div>
-                                <div className="text-sm font-medium text-slate-900">
+                                <div className="text-sm font-medium text-foreground">
                                   {post.latestComment.senderName}
                                 </div>
                                 <div
-                                  className="text-xs text-slate-500 mt-1 max-w-xs truncate"
+                                  className="text-xs text-muted-foreground mt-1 max-w-xs truncate"
                                   title={post.latestComment.message}
                                 >
                                   {post.latestComment.message}
                                 </div>
                               </div>
                             ) : (
-                              <div className="text-sm text-slate-500">
+                              <div className="text-sm text-muted-foreground">
                                 لا توجد تعليقات
                               </div>
                             )}
@@ -795,11 +795,11 @@ const UnifiedCommentsManagement = () => {
                                 {post.totalComments}
                               </span>
                               <div className="flex gap-1">
-                                <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full flex items-center gap-1">
+                                <span className="px-2 py-1 bg-success text-success text-xs font-bold rounded-full flex items-center gap-1">
                                   <CheckCircle className="w-3 h-3" />
                                   {post.respondedComments}
                                 </span>
-                                <span className="px-2 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full flex items-center gap-1">
+                                <span className="px-2 py-1 bg-warning text-warning text-xs font-bold rounded-full flex items-center gap-1">
                                   <Clock className="w-3 h-3" />
                                   {post.pendingComments}
                                 </span>
@@ -807,13 +807,13 @@ const UnifiedCommentsManagement = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="w-full bg-muted rounded-full h-2">
                               <div
                                 className="bg-blue-600 h-2 rounded-full"
                                 style={{ width: `${post.responseRate}%` }}
                               ></div>
                             </div>
-                            <div className="text-xs text-slate-500 mt-1">
+                            <div className="text-xs text-muted-foreground mt-1">
                               {post.responseRate}%
                             </div>
                           </td>
@@ -837,7 +837,7 @@ const UnifiedCommentsManagement = () => {
                                 onClick={() =>
                                   navigate(`/posts/${post.postId}/settings`)
                                 }
-                                className="group px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 flex items-center gap-2"
+                                className="group px-4 py-2 bg-gradient-to-r from-primary to-primary text-white text-sm font-semibold rounded-xl hover:from-primary hover:to-primary transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 flex items-center gap-2"
                               >
                                 <Settings className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
                                 إعدادات
@@ -853,14 +853,14 @@ const UnifiedCommentsManagement = () => {
 
               {/* Pagination */}
               {pagination.totalPages > 1 && (
-                <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 flex items-center justify-between border-t border-slate-200 relative z-20 mb-8 sm:mb-6">
+                <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 flex items-center justify-between border-t border-border relative z-20 mb-8 sm:mb-6">
                   <div className="flex-1 flex justify-between sm:hidden relative z-20">
                     <button
                       onClick={() =>
                         handlePageChange(pagination.currentPage - 1)
                       }
                       disabled={pagination.currentPage === 1}
-                      className="relative inline-flex items-center px-4 py-2 border-2 border-slate-300 text-sm font-semibold rounded-xl text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="relative inline-flex items-center px-4 py-2 border-2 border-border text-sm font-semibold rounded-xl text-foreground bg-white hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                       السابق
                     </button>
@@ -871,14 +871,14 @@ const UnifiedCommentsManagement = () => {
                       disabled={
                         pagination.currentPage === pagination.totalPages
                       }
-                      className="mr-3 relative inline-flex items-center px-4 py-2 border-2 border-slate-300 text-sm font-semibold rounded-xl text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="me-3 relative inline-flex items-center px-4 py-2 border-2 border-border text-sm font-semibold rounded-xl text-foreground bg-white hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                       التالي
                     </button>
                   </div>
                   <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-sm text-slate-700 font-medium">
+                      <p className="text-sm text-foreground font-medium">
                         عرض{" "}
                         <span className="font-bold text-blue-600">
                           {(pagination.currentPage - 1) * filters.limit + 1}
@@ -907,7 +907,7 @@ const UnifiedCommentsManagement = () => {
                             handlePageChange(pagination.currentPage - 1)
                           }
                           disabled={pagination.currentPage === 1}
-                          className="relative inline-flex items-center px-3 py-2 rounded-lg bg-white border-2 border-slate-300 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          className="relative inline-flex items-center px-3 py-2 rounded-lg bg-white border-2 border-border text-sm font-semibold text-foreground hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                           السابق
                         </button>
@@ -932,8 +932,8 @@ const UnifiedCommentsManagement = () => {
                                 key={page}
                                 onClick={() => handlePageChange(page)}
                                 className={`relative inline-flex items-center px-4 py-2 text-sm font-bold rounded-lg transition-all ${page === pagination.currentPage
-                                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg scale-105"
-                                    : "bg-white border-2 border-slate-300 text-slate-700 hover:bg-slate-50"
+                                    ? "bg-gradient-to-r from-blue-600 to-primary text-white shadow-lg scale-105"
+                                    : "bg-white border-2 border-border text-foreground hover:bg-muted"
                                   }`}
                               >
                                 {page}
@@ -948,7 +948,7 @@ const UnifiedCommentsManagement = () => {
                           disabled={
                             pagination.currentPage === pagination.totalPages
                           }
-                          className="relative inline-flex items-center px-3 py-2 rounded-lg bg-white border-2 border-slate-300 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          className="relative inline-flex items-center px-3 py-2 rounded-lg bg-white border-2 border-border text-sm font-semibold text-foreground hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                           التالي
                         </button>

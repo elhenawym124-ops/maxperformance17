@@ -69,7 +69,7 @@ export const RecordPaymentModal: React.FC<RecordPaymentModalProps> = ({
         {/* Header */}
         <div className="p-4 border-b border-border/60 flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600">
+            <div className="p-1.5 rounded-lg bg-success/10 text-success">
               <CheckCircle2 className="w-4 h-4" />
             </div>
             <div>
@@ -107,7 +107,7 @@ export const RecordPaymentModal: React.FC<RecordPaymentModalProps> = ({
                 required
                 value={paidAmount}
                 onChange={(e) => setPaidAmount(parseFloat(e.target.value) || 0)}
-                className="w-full pl-2.5 pr-8 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary tabular-nums"
+                className="w-full ps-2.5 pe-8 py-1.5 text-xs font-mono font-bold rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary tabular-nums"
               />
             </div>
           </div>
@@ -122,7 +122,7 @@ export const RecordPaymentModal: React.FC<RecordPaymentModalProps> = ({
               <select
                 value={method}
                 onChange={(e) => setMethod(e.target.value)}
-                className="w-full pl-2.5 pr-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary font-medium"
+                className="w-full ps-2.5 pe-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary font-medium"
               >
                 <option value="BANK_TRANSFER">تحويل بنكي / إيداع</option>
                 <option value="INSTAPAY">إنستاباي (InstaPay)</option>
@@ -160,7 +160,7 @@ export const RecordPaymentModal: React.FC<RecordPaymentModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition active:scale-[0.98] disabled:opacity-50"
+              className="flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm transition active:scale-[0.98] disabled:opacity-50"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>{loading ? 'جاري التأكيد...' : 'تأكيد السداد وتحديث الرصيد'}</span>

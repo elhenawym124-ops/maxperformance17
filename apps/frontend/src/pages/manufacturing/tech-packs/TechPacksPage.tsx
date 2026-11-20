@@ -144,7 +144,7 @@ export const TechPacksPage: React.FC = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث بالكود أو اسم الموديل أو البراند..."
-              className="w-full pl-3 pr-9 py-1.5 text-xs rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full ps-3 pe-9 py-1.5 text-xs rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
 
@@ -160,7 +160,7 @@ export const TechPacksPage: React.FC = () => {
             <button
               onClick={() => setStatusFilter('APPROVED')}
               className={`px-2.5 py-1 rounded text-xs font-medium transition whitespace-nowrap ${
-                statusFilter === 'APPROVED' ? 'bg-card text-emerald-600 shadow-xs' : 'text-muted-foreground hover:text-foreground'
+                statusFilter === 'APPROVED' ? 'bg-card text-success shadow-xs' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               المعتمدة ({techPacks.filter((t) => t.status === 'APPROVED').length})
@@ -168,7 +168,7 @@ export const TechPacksPage: React.FC = () => {
             <button
               onClick={() => setStatusFilter('DRAFT')}
               className={`px-2.5 py-1 rounded text-xs font-medium transition whitespace-nowrap ${
-                statusFilter === 'DRAFT' ? 'bg-card text-amber-600 shadow-xs' : 'text-muted-foreground hover:text-foreground'
+                statusFilter === 'DRAFT' ? 'bg-card text-warning shadow-xs' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               المسودات ({techPacks.filter((t) => t.status === 'DRAFT').length})
@@ -246,13 +246,13 @@ export const TechPacksPage: React.FC = () => {
                       </td>
                       <td className="p-3 whitespace-nowrap">
                         {tp.status === 'APPROVED' && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-success/10 text-success dark:text-success border border-success/20">
                             <CheckCircle2 className="w-3 h-3" />
                             معتمد ✅
                           </span>
                         )}
                         {tp.status === 'DRAFT' && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-warning/10 text-warning dark:text-warning border border-warning/20">
                             <Clock className="w-3 h-3" />
                             مسودة ⏳
                           </span>
@@ -291,7 +291,7 @@ export const TechPacksPage: React.FC = () => {
                             <button
                               onClick={() => handleApprove(tp)}
                               title="اعتماد الملف الفني"
-                              className="px-2 py-0.5 text-[10px] font-semibold rounded bg-emerald-600 text-white hover:bg-emerald-700 transition shadow-2xs"
+                              className="px-2 py-0.5 text-[10px] font-semibold rounded bg-success text-white hover:bg-success transition shadow-2xs"
                             >
                               اعتماد
                             </button>

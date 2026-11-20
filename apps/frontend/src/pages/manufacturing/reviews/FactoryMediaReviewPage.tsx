@@ -146,14 +146,14 @@ export const FactoryMediaReviewPage: React.FC = () => {
     switch (status) {
       case 'UNDER_REVIEW':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-warning/15 text-warning dark:text-warning border border-warning/30">
             <Clock className="w-3 h-3" />
             <span>قيد المراجعة</span>
           </span>
         );
       case 'APPROVED':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success/15 text-success dark:text-success border border-success/30">
             <CheckCircle2 className="w-3 h-3" />
             <span>معتمد</span>
           </span>
@@ -208,7 +208,7 @@ export const FactoryMediaReviewPage: React.FC = () => {
       <div className="p-4 sm:p-6 max-w-7xl mx-auto space-y-6">
         {/* Success Alert */}
         {successMsg && (
-          <div className="p-3.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-sm flex items-center justify-between gap-3 animate-in fade-in">
+          <div className="p-3.5 rounded-xl border border-success/30 bg-success/10 text-success dark:text-success text-sm flex items-center justify-between gap-3 animate-in fade-in">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{successMsg}</span>
@@ -256,7 +256,7 @@ export const FactoryMediaReviewPage: React.FC = () => {
                       className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
                         isActive
                           ? 'bg-primary-foreground/20 text-primary-foreground'
-                          : 'bg-amber-500/20 text-amber-600 dark:text-amber-400'
+                          : 'bg-amber-500/20 text-warning dark:text-warning'
                       }`}
                     >
                       {tab.badge}
@@ -276,7 +276,7 @@ export const FactoryMediaReviewPage: React.FC = () => {
                 placeholder="فلترة باسم المصنع الشريك أو الكود..."
                 value={factorySearch}
                 onChange={(e) => setFactorySearch(e.target.value)}
-                className="w-full pr-9 pl-3 py-1.5 text-xs bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="w-full pe-9 ps-3 py-1.5 text-xs bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
             </div>
             <div className="relative">
@@ -286,7 +286,7 @@ export const FactoryMediaReviewPage: React.FC = () => {
                 placeholder="فلترة برقم أمر التشغيل (MO-...) أو المرحلة..."
                 value={orderSearch}
                 onChange={(e) => setOrderSearch(e.target.value)}
-                className="w-full pr-9 pl-3 py-1.5 text-xs bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="w-full pe-9 ps-3 py-1.5 text-xs bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
             </div>
           </div>
@@ -299,9 +299,9 @@ export const FactoryMediaReviewPage: React.FC = () => {
             <span className="text-sm">جارٍ تحميل المرفقات للمراجعة...</span>
           </div>
         ) : filteredAttachments.length === 0 ? (
-          <div className="p-16 text-center rounded-2xl border border-dashed border-border bg-card/40 flex flex-col items-center justify-center gap-3">
+          <div className="p-16 text-center rounded-xl border border-dashed border-border bg-card/40 flex flex-col items-center justify-center gap-3">
             <div className="p-3 rounded-full bg-muted text-muted-foreground">
-              <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+              <CheckCircle2 className="w-8 h-8 text-success" />
             </div>
             <h3 className="font-bold text-base text-foreground">لا توجد مرفقات مطابقة في هذا الفلتر</h3>
             <p className="text-xs text-muted-foreground max-w-md">
@@ -323,9 +323,9 @@ export const FactoryMediaReviewPage: React.FC = () => {
                     onClick={() => setPreviewMedia(att)}
                   >
                     {isVideo ? (
-                      <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-900 text-white">
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-muted text-white">
                         <Video className="w-10 h-10 mb-2 opacity-80" />
-                        <span className="text-xs text-zinc-300">انقر لمعاينة الفيديو</span>
+                        <span className="text-xs text-muted-foreground">انقر لمعاينة الفيديو</span>
                       </div>
                     ) : (
                       <img
@@ -421,7 +421,7 @@ export const FactoryMediaReviewPage: React.FC = () => {
                         <>
                           <button
                             onClick={() => handleApprove(att)}
-                            className="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 active:scale-[0.98] transition-all"
+                            className="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-success text-white text-xs font-semibold hover:bg-success active:scale-[0.98] transition-all"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             <span>اعتماد</span>
@@ -469,7 +469,7 @@ export const FactoryMediaReviewPage: React.FC = () => {
                       {att.reviewStatus === 'REJECTED' && (
                         <button
                           onClick={() => handleApprove(att)}
-                          className="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg border border-emerald-500/30 text-emerald-600 hover:bg-emerald-500/10 text-xs font-semibold transition-all"
+                          className="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg border border-success/30 text-success hover:bg-success/10 text-xs font-semibold transition-all"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span>إعادة اعتماد المرفق</span>
@@ -505,7 +505,7 @@ export const FactoryMediaReviewPage: React.FC = () => {
       {/* Reject Modal with Mandatory Reason */}
       {rejectingItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-card border border-border rounded-2xl max-w-md w-full p-5 space-y-4 shadow-xl">
+          <div className="bg-card border border-border rounded-xl max-w-md w-full p-5 space-y-4 shadow-xl">
             <div className="flex items-center gap-3 text-destructive">
               <div className="p-2 rounded-xl bg-destructive/10">
                 <XCircle className="w-6 h-6" />
@@ -562,7 +562,7 @@ export const FactoryMediaReviewPage: React.FC = () => {
           onClick={() => setPreviewMedia(null)}
         >
           <div
-            className="max-w-4xl max-h-[90vh] bg-card border border-border rounded-2xl overflow-hidden flex flex-col shadow-2xl"
+            className="max-w-4xl max-h-[90vh] bg-card border border-border rounded-xl overflow-hidden flex flex-col shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-3 bg-muted/60 border-b border-border flex items-center justify-between text-xs">

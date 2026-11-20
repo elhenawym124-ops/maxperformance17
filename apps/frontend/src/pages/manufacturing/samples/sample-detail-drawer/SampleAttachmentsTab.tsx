@@ -82,7 +82,7 @@ export const SampleAttachmentsTab: React.FC<SampleAttachmentsTabProps> = ({
                 <button
                   type="button"
                   onClick={() => onDeleteAttachment(att.id)}
-                  className="p-1 rounded text-muted-foreground hover:text-rose-500 hover:bg-muted"
+                  className="p-1 rounded text-muted-foreground hover:text-destructive hover:bg-muted"
                   title="حذف المرفق"
                 >
                   <Trash2 className="w-3.5 h-3.5" />

@@ -27,11 +27,11 @@ import { tToast } from "../../utils/i18n-toast";
    Helper: Avatar initials with deterministic colour
 ──────────────────────────────────────────── */
 const AVATAR_COLOURS = [
-  "from-violet-500 to-purple-700",
-  "from-blue-500 to-cyan-600",
-  "from-emerald-500 to-teal-600",
-  "from-rose-500 to-pink-600",
-  "from-amber-500 to-orange-600",
+  "from-violet-500 to-primary",
+  "from-blue-500 to-info",
+  "from-emerald-500 to-success",
+  "from-rose-500 to-primary",
+  "from-amber-500 to-warning",
   "from-indigo-500 to-blue-700",
 ];
 
@@ -110,11 +110,11 @@ function ReplyBox({ commentId, onReplySent }) {
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="اكتب ردك هنا... (Ctrl+Enter للإرسال)"
-          className="w-full px-4 py-2.5 pr-4 text-sm border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-[#6b52a3]/40 focus:border-[#6b52a3] transition-all bg-white shadow-sm placeholder:text-gray-400 text-right"
+          className="w-full px-4 py-2.5 pe-4 text-sm border border-border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-[#6b52a3]/40 focus:border-[#6b52a3] transition-all bg-white shadow-sm placeholder:text-gray-400 text-right"
           dir="rtl"
           disabled={sending}
         />
-        <span className="absolute bottom-2 left-2 text-[10px] text-gray-300 select-none">
+        <span className="absolute bottom-2 left-2 text-[10px] text-muted-foreground select-none">
           {text.length}
         </span>
       </div>
@@ -123,7 +123,7 @@ function ReplyBox({ commentId, onReplySent }) {
         disabled={sending || !text.trim()}
         className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm flex-shrink-0 ${
           sending || !text.trim()
-            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            ? "bg-gray-100 text-muted-foreground cursor-not-allowed"
             : "bg-[#6b52a3] hover:bg-[#5a4491] text-white"
         }`}
       >
@@ -152,12 +152,12 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
     // Use toast confirm pattern instead of window.confirm
     toast(
       <div className="text-right" dir="rtl">
-        <p className="font-bold text-gray-800 mb-1">حذف التعليق؟</p>
-        <p className="text-sm text-gray-500 mb-3">لا يمكن التراجع عن هذا الإجراء</p>
+        <p className="font-bold text-foreground mb-1">حذف التعليق؟</p>
+        <p className="text-sm text-muted-foreground mb-3">لا يمكن التراجع عن هذا الإجراء</p>
         <div className="flex gap-2 justify-end">
           <button
             onClick={() => toast.dismiss()}
-            className="px-3 py-1 text-sm bg-gray-100 rounded-lg hover:bg-gray-200 text-gray-700"
+            className="px-3 py-1 text-sm bg-muted rounded-lg hover:bg-muted text-foreground"
           >
             إلغاء
           </button>
@@ -179,7 +179,7 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
                 setDeleting(false);
               }
             }}
-            className="px-3 py-1 text-sm bg-red-600 rounded-lg hover:bg-red-700 text-white"
+            className="px-3 py-1 text-sm bg-destructive rounded-lg hover:bg-destructive text-white"
           >
             حذف
           </button>
@@ -191,10 +191,10 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
 
   return (
     <div
-      className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
+      className={`bg-white rounded-xl border transition-all duration-200 overflow-hidden ${
         selected
           ? "border-[#6b52a3]/40 shadow-md ring-1 ring-[#6b52a3]/20"
-          : "border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200"
+          : "border-gray-100 shadow-sm hover:shadow-md hover:border-border"
       } ${deleting ? "opacity-50" : ""}`}
     >
       {/* Card Header */}
@@ -204,7 +204,7 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
           type="checkbox"
           checked={selected}
           onChange={onToggleSelect}
-          className="mt-1 w-4 h-4 rounded text-[#6b52a3] border-gray-300 focus:ring-[#6b52a3] cursor-pointer flex-shrink-0"
+          className="mt-1 w-4 h-4 rounded text-[#6b52a3] border-border focus:ring-[#6b52a3] cursor-pointer flex-shrink-0"
         />
 
         {/* Avatar */}
@@ -215,23 +215,23 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <div className="flex items-center gap-2">
               {responded ? (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-700">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-success text-success">
                   <CheckCheck className="w-3 h-3" />
                   تم الرد
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-100 text-amber-700">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-warning text-warning">
                   <Clock className="w-3 h-3" />
                   انتظار
                 </span>
               )}
             </div>
             <div className="text-right">
-              <h4 className="font-bold text-sm text-gray-900 truncate">{comment.senderName}</h4>
-              <p className="text-[10px] text-gray-400 mt-0.5">
+              <h4 className="font-bold text-sm text-foreground truncate">{comment.senderName}</h4>
+              <p className="text-[10px] text-muted-foreground mt-0.5">
                 {comment.senderId && <span className="font-mono">{comment.senderId}</span>}
                 {comment.createdTime && (
-                  <span className="mr-2">
+                  <span className="me-2">
                     {dtf.format(new Date(comment.createdTime))}
                   </span>
                 )}
@@ -243,8 +243,8 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
 
       {/* Comment Text */}
       <div className="px-4 pb-3">
-        <div className="bg-gray-50 rounded-xl px-4 py-3 border border-gray-100 text-right" dir="rtl">
-          <p className="text-sm text-gray-800 leading-relaxed whitespace-pre-wrap">{comment.message}</p>
+        <div className="bg-gray-50 rounded-xl px-4 py-3 border border-border text-right" dir="rtl">
+          <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">{comment.message}</p>
         </div>
       </div>
 
@@ -256,9 +256,9 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
               <CheckCircle className="w-3.5 h-3.5 text-[#6b52a3]" />
               <span className="text-[10px] font-bold text-[#6b52a3]">ردك</span>
             </div>
-            <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{comment.response}</p>
+            <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">{comment.response}</p>
             {comment.respondedAt && (
-              <p className="text-[10px] text-gray-400 mt-2">
+              <p className="text-[10px] text-muted-foreground mt-2">
                 {dtf.format(new Date(comment.respondedAt))}
               </p>
             )}
@@ -267,11 +267,11 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
       )}
 
       {/* Actions Footer */}
-      <div className="px-4 pb-4 flex items-center justify-between gap-2 border-t border-gray-50 pt-3">
+      <div className="px-4 pb-4 flex items-center justify-between gap-2 border-t border-border pt-3">
         <button
           onClick={handleDelete}
           disabled={deleting}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-red-100 hover:border-red-200"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-destructive hover:bg-destructive/10 rounded-lg transition-colors border border-destructive hover:border-destructive"
         >
           <Trash2 className="w-3.5 h-3.5" />
           حذف
@@ -282,7 +282,7 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
             onClick={() => setShowReply((v) => !v)}
             className={`inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold rounded-lg transition-all border ${
               showReply
-                ? "bg-gray-100 text-gray-600 border-gray-200"
+                ? "bg-gray-100 text-foreground border-border"
                 : "bg-[#6b52a3] text-white border-transparent hover:bg-[#5a4491] shadow-sm"
             }`}
           >
@@ -295,7 +295,7 @@ function CommentCard({ comment, selected, onToggleSelect, onDelete, onReplySent 
 
       {/* Inline Reply Box */}
       {showReply && !responded && (
-        <div className="px-4 pb-4 border-t border-gray-50 pt-3 bg-gray-50/50">
+        <div className="px-4 pb-4 border-t border-border pt-3 bg-muted">
           <ReplyBox
             commentId={comment.id}
             onReplySent={() => {
@@ -368,14 +368,14 @@ const PostComments = () => {
     }
     toast(
       <div className="text-right" dir="rtl">
-        <p className="font-bold text-gray-800 mb-1">
+        <p className="font-bold text-foreground mb-1">
           حذف {selectedComments.length} تعليق؟
         </p>
-        <p className="text-sm text-gray-500 mb-3">لا يمكن التراجع عن هذا الإجراء</p>
+        <p className="text-sm text-muted-foreground mb-3">لا يمكن التراجع عن هذا الإجراء</p>
         <div className="flex gap-2 justify-end">
           <button
             onClick={() => toast.dismiss()}
-            className="px-3 py-1 text-sm bg-gray-100 rounded-lg hover:bg-gray-200 text-gray-700"
+            className="px-3 py-1 text-sm bg-muted rounded-lg hover:bg-muted text-foreground"
           >
             إلغاء
           </button>
@@ -398,7 +398,7 @@ const PostComments = () => {
                 setDeletingBulk(false);
               }
             }}
-            className="px-3 py-1 text-sm bg-red-600 rounded-lg hover:bg-red-700 text-white"
+            className="px-3 py-1 text-sm bg-destructive rounded-lg hover:bg-destructive text-white"
           >
             حذف الكل
           </button>
@@ -424,18 +424,18 @@ const PostComments = () => {
     <div className="min-h-screen bg-[#f3f4f6]" dir="rtl">
 
       {/* ── Top Bar ── */}
-      <div className="bg-white border-b border-gray-100 sticky top-0 z-20 shadow-sm">
+      <div className="bg-white border-b border-border sticky top-0 z-20 shadow-sm">
         <div className="max-w-5xl mx-auto px-4 md:px-6 py-3 flex items-center gap-3">
           <button
             onClick={() => navigate("/unified-comments")}
-            className="p-2 text-gray-500 hover:text-[#6b52a3] hover:bg-[#6b52a3]/5 rounded-xl transition-colors"
+            className="p-2 text-muted-foreground hover:text-[#6b52a3] hover:bg-[#6b52a3]/5 rounded-xl transition-colors"
             title="رجوع"
           >
             <ArrowRight className="w-5 h-5" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="font-bold text-gray-900 text-base truncate">تعليقات المنشور</h1>
-            <p className="text-[11px] text-gray-400 font-mono truncate">{postId}</p>
+            <h1 className="font-bold text-foreground text-base truncate">تعليقات المنشور</h1>
+            <p className="text-[11px] text-muted-foreground font-mono truncate">{postId}</p>
           </div>
           <button
             onClick={() => navigate(`/posts/${postId}/settings`)}
@@ -447,7 +447,7 @@ const PostComments = () => {
           <button
             onClick={() => fetchComments(true)}
             disabled={refreshing}
-            className="p-2 text-gray-400 hover:text-[#6b52a3] hover:bg-[#6b52a3]/5 rounded-xl transition-colors"
+            className="p-2 text-muted-foreground hover:text-[#6b52a3] hover:bg-[#6b52a3]/5 rounded-xl transition-colors"
           >
             <RefreshCw className={`w-4 h-4 ${refreshing ? "animate-spin" : ""}`} />
           </button>
@@ -459,25 +459,25 @@ const PostComments = () => {
         {/* ── Stats Row ── */}
         {!loading && comments.length > 0 && (
           <div className="grid grid-cols-3 gap-3">
-            <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-center">
-              <p className="text-2xl font-black text-gray-900">{comments.length}</p>
-              <p className="text-xs text-gray-500 mt-0.5 font-medium">إجمالي</p>
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-border text-center">
+              <p className="text-2xl font-black text-foreground">{comments.length}</p>
+              <p className="text-xs text-muted-foreground mt-0.5 font-medium">إجمالي</p>
             </div>
-            <div className="bg-white rounded-2xl p-4 shadow-sm border border-emerald-100 text-center">
-              <p className="text-2xl font-black text-emerald-600">{respondedCount}</p>
-              <p className="text-xs text-emerald-500 mt-0.5 font-medium">تم الرد</p>
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-success text-center">
+              <p className="text-2xl font-black text-success">{respondedCount}</p>
+              <p className="text-xs text-success mt-0.5 font-medium">تم الرد</p>
             </div>
-            <div className="bg-white rounded-2xl p-4 shadow-sm border border-amber-100 text-center">
-              <p className="text-2xl font-black text-amber-600">{pendingCount}</p>
-              <p className="text-xs text-amber-500 mt-0.5 font-medium">انتظار</p>
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-warning text-center">
+              <p className="text-2xl font-black text-warning">{pendingCount}</p>
+              <p className="text-xs text-warning mt-0.5 font-medium">انتظار</p>
             </div>
           </div>
         )}
 
         {/* ── Filter & Bulk Toolbar ── */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-3 flex flex-wrap items-center gap-3">
+        <div className="bg-white rounded-xl shadow-sm border border-border p-3 flex flex-wrap items-center gap-3">
           {/* Filter tabs */}
-          <div className="flex items-center gap-1 bg-gray-100 rounded-xl p-1 flex-shrink-0">
+          <div className="flex items-center gap-1 bg-muted rounded-xl p-1 flex-shrink-0">
             {[
               { val: "all", label: "الكل" },
               { val: "pending", label: "انتظار" },
@@ -489,7 +489,7 @@ const PostComments = () => {
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   filters.status === val
                     ? "bg-white text-[#6b52a3] shadow-sm"
-                    : "text-gray-500 hover:text-gray-700"
+                    : "text-gray-500 hover:text-foreground"
                 }`}
               >
                 {label}
@@ -499,12 +499,12 @@ const PostComments = () => {
 
           {/* Select All */}
           {comments.length > 0 && (
-            <label className="flex items-center gap-2 cursor-pointer text-xs text-gray-600 font-medium select-none">
+            <label className="flex items-center gap-2 cursor-pointer text-xs text-foreground font-medium select-none">
               <input
                 type="checkbox"
                 checked={selectedComments.length === comments.length && comments.length > 0}
                 onChange={toggleSelectAll}
-                className="w-4 h-4 rounded text-[#6b52a3] border-gray-300 focus:ring-[#6b52a3]"
+                className="w-4 h-4 rounded text-[#6b52a3] border-border focus:ring-[#6b52a3]"
               />
               تحديد الكل ({comments.length})
             </label>
@@ -515,14 +515,14 @@ const PostComments = () => {
             <button
               onClick={handleBulkDelete}
               disabled={deletingBulk}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold bg-red-600 hover:bg-red-700 text-white rounded-xl transition-colors shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold bg-destructive hover:bg-destructive text-white rounded-xl transition-colors shadow-sm"
             >
               <Trash2 className="w-3.5 h-3.5" />
               حذف {selectedComments.length} محدد
             </button>
           )}
 
-          <div className="mr-auto flex items-center gap-1 text-xs text-gray-400">
+          <div className="me-auto flex items-center gap-1 text-xs text-muted-foreground">
             <Filter className="w-3.5 h-3.5" />
             <span>{visibleComments.length} نتيجة</span>
           </div>
@@ -536,14 +536,14 @@ const PostComments = () => {
           </div>
         ) : visibleComments.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#6b52a3]/10 to-[#e84b5c]/10 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#6b52a3]/10 to-[#e84b5c]/10 flex items-center justify-center">
               <MessageSquare className="w-8 h-8 text-[#6b52a3]/40" />
             </div>
             <div className="text-center">
-              <p className="font-bold text-gray-600 text-base">
+              <p className="font-bold text-foreground text-base">
                 {filters.status === "all" ? "لا توجد تعليقات بعد" : "لا توجد تعليقات في هذه الفئة"}
               </p>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-sm text-muted-foreground mt-1">
                 {filters.status === "all"
                   ? "ستظهر التعليقات هنا عندما يتفاعل الجمهور مع المنشور"
                   : "جرّب فلتراً مختلفاً"}

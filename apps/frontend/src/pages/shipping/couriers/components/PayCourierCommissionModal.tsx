@@ -24,10 +24,10 @@ export const PayCourierCommissionModal: React.FC<PayCourierCommissionModalProps>
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-xs">
-      <div className="bg-card border border-border/70 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-xl">
+      <div className="bg-card border border-border/70 rounded-xl w-full max-w-md p-6 space-y-4 shadow-xl">
         <div className="flex items-center justify-between pb-3 border-b border-border/60">
           <div className="flex items-center gap-2">
-            <Banknote className="size-5 text-emerald-600" />
+            <Banknote className="size-5 text-success" />
             <h3 className="font-bold text-sm text-foreground">صرف مستحقات {payingRow.name}</h3>
           </div>
           <button
@@ -41,9 +41,9 @@ export const PayCourierCommissionModal: React.FC<PayCourierCommissionModalProps>
 
         <div className="text-xs text-muted-foreground space-y-1">
           <div>المبلغ الإجمالي المستحق:</div>
-          <div className="text-xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+          <div className="text-xl font-bold font-mono tabular-nums text-warning dark:text-warning">
             {formatPrice(payingRow.dueAmount)}
-            <span className="text-xs font-normal text-muted-foreground mr-1.5">
+            <span className="text-xs font-normal text-muted-foreground me-1.5">
               ({payingRow.dueCount} قيد معلق)
             </span>
           </div>
@@ -80,7 +80,7 @@ export const PayCourierCommissionModal: React.FC<PayCourierCommissionModalProps>
           <button
             type="button"
             onClick={onConfirm}
-            className="h-9 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold active:scale-[0.98] transition-all shadow-xs"
+            className="h-9 bg-success hover:bg-success text-white rounded-xl text-xs font-bold active:scale-[0.98] transition-all shadow-xs"
           >
             تأكيد الصرف
           </button>

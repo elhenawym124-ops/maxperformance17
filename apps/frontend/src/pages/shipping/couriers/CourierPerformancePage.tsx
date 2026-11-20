@@ -124,7 +124,7 @@ const CourierPerformancePage: React.FC = () => {
                 <CheckCircle2 size={13} className="text-emerald-500" />
                 <span>تسليمات الفترة</span>
               </div>
-              <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400 mt-1">
+              <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success mt-1">
                 {totals.delivered}
               </div>
               <div className="text-[10px] text-muted-foreground mt-0.5">شحنات تم تسليمها بنجاح</div>
@@ -135,7 +135,7 @@ const CourierPerformancePage: React.FC = () => {
                 <XCircle size={13} className="text-rose-500" />
                 <span>مرتجعات الفترة</span>
               </div>
-              <div className="text-2xl font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400 mt-1">
+              <div className="text-2xl font-bold font-mono tabular-nums text-destructive dark:text-destructive mt-1">
                 {totals.returned}
               </div>
               <div className="text-[10px] text-muted-foreground mt-0.5">شحنات مرتدة أو ملغاة</div>
@@ -157,7 +157,7 @@ const CourierPerformancePage: React.FC = () => {
                 <BarChart3 size={13} className="text-sky-500" />
                 <span>نسبة نجاح الأسطول</span>
               </div>
-              <div className="text-2xl font-bold font-mono tabular-nums text-sky-600 dark:text-sky-400 mt-1">
+              <div className="text-2xl font-bold font-mono tabular-nums text-info dark:text-info mt-1">
                 {overallSuccessRate ? `${overallSuccessRate}%` : '—'}
               </div>
               <div className="text-[10px] text-muted-foreground mt-0.5">متوسط معدل الإنجاز العام</div>
@@ -208,10 +208,10 @@ const CourierPerformancePage: React.FC = () => {
                           {r.phone}
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-emerald-600 dark:text-emerald-400">
+                      <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-success dark:text-success">
                         {r.deliveredCount}
                       </td>
-                      <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-rose-600 dark:text-rose-400">
+                      <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-destructive dark:text-destructive">
                         {r.returnedCount}
                       </td>
                       <td className="py-3 px-4 text-center font-mono tabular-nums text-muted-foreground">
@@ -227,10 +227,10 @@ const CourierPerformancePage: React.FC = () => {
                           <span
                             className={`inline-block font-mono tabular-nums font-bold text-xs px-2 py-0.5 rounded-full border ${
                               r.successRate >= 80
-                                ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                                ? 'bg-emerald-500/10 text-success dark:text-success border-success/20'
                                 : r.successRate >= 60
-                                ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
-                                : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'
+                                ? 'bg-amber-500/10 text-warning dark:text-warning border-warning/20'
+                                : 'bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20'
                             }`}
                           >
                             {r.successRate}%

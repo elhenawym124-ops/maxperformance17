@@ -28,7 +28,7 @@ export const SettlementFilterBar: React.FC<SettlementFilterBarProps> = ({
   processing,
 }) => {
   return (
-    <div className="bg-card p-3 rounded-2xl border border-border/70 shadow-2xs space-y-3">
+    <div className="bg-card p-3 rounded-xl border border-border/70 shadow-2xs space-y-3">
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -37,7 +37,7 @@ export const SettlementFilterBar: React.FC<SettlementFilterBarProps> = ({
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="البحث برقم الطلب، التتبع، أو اسم العميل..."
-            className="w-full pr-9 pl-3 py-2 text-xs border border-border/70 rounded-xl bg-muted/20 text-foreground placeholder:text-muted-foreground focus:outline-hidden"
+            className="w-full pe-9 ps-3 py-2 text-xs border border-border/70 rounded-xl bg-muted/20 text-foreground placeholder:text-muted-foreground focus:outline-hidden"
           />
         </div>
 

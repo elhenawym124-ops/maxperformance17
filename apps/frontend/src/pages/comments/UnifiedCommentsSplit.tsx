@@ -111,9 +111,9 @@ const UnifiedCommentsSplit: React.FC = () => {
       case "ai":
         return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
       case "fixed":
-        return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+        return "bg-emerald-500/10 text-success dark:text-success border-success/20";
       case "manual":
-        return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
+        return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
       default:
         return "bg-muted text-muted-foreground border-border/60";
     }
@@ -231,7 +231,7 @@ const UnifiedCommentsSplit: React.FC = () => {
               <input
                 type="text"
                 placeholder="بحث في معرف أو محتوى المنشور..."
-                className="w-full pr-8 pl-3 py-1.5 text-xs rounded-md border border-border/70 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full pe-8 ps-3 py-1.5 text-xs rounded-md border border-border/70 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                 value={filters.search}
                 onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
               />
@@ -315,11 +315,11 @@ const UnifiedCommentsSplit: React.FC = () => {
                           <MessageSquare className="h-3 w-3 text-primary" />
                           <span>{post.totalComments} تعليق</span>
                         </span>
-                        <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400">
+                        <span className="flex items-center gap-1 text-warning dark:text-warning">
                           <Clock className="h-3 w-3" />
                           <span>{post.pendingComments} معلق</span>
                         </span>
-                        <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                        <span className="flex items-center gap-1 text-success dark:text-success">
                           <CheckCircle2 className="h-3 w-3" />
                           <span>{post.responseRate}% معدل الرد</span>
                         </span>

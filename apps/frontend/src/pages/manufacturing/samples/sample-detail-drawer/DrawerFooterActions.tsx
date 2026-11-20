@@ -26,7 +26,7 @@ export const DrawerFooterActions: React.FC<DrawerFooterActionsProps> = ({
           <button
             onClick={onOpenApproveModal}
             disabled={loading}
-            className="px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors flex items-center gap-1 shadow-sm active:scale-95"
+            className="px-4 py-2 rounded-lg bg-success text-white text-xs font-bold hover:bg-success transition-colors flex items-center gap-1 shadow-sm active:scale-95"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>اعتماد العينة</span>
@@ -34,7 +34,7 @@ export const DrawerFooterActions: React.FC<DrawerFooterActionsProps> = ({
           <button
             onClick={onOpenRejectModal}
             disabled={loading}
-            className="px-3.5 py-2 rounded-lg border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs font-semibold hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+            className="px-3.5 py-2 rounded-lg border border-destructive/30 text-destructive dark:text-destructive text-xs font-semibold hover:bg-destructive/10 dark:hover:bg-destructive/40 transition-colors"
           >
             <span>رفض</span>
           </button>

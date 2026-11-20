@@ -33,11 +33,11 @@ export const TicketsSidebar: React.FC<TicketsSidebarProps> = ({
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "open":
-        return <Clock className="w-3.5 h-3.5 text-amber-500" />;
+        return <Clock className="w-3.5 h-3.5 text-warning" />;
       case "in_progress":
         return <AlertCircle className="w-3.5 h-3.5 text-blue-500" />;
       case "closed":
-        return <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />;
+        return <CheckCircle2 className="w-3.5 h-3.5 text-success" />;
       default:
         return <Clock className="w-3.5 h-3.5 text-muted-foreground" />;
     }
@@ -46,11 +46,11 @@ export const TicketsSidebar: React.FC<TicketsSidebarProps> = ({
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "open":
-        return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
+        return "bg-amber-500/10 text-warning dark:text-warning border-warning/20";
       case "in_progress":
         return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
       case "closed":
-        return "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+        return "bg-emerald-500/10 text-success dark:text-success border-success/20";
       default:
         return "bg-muted text-muted-foreground border-border/60";
     }
@@ -138,7 +138,7 @@ export const TicketsSidebar: React.FC<TicketsSidebarProps> = ({
             placeholder="البحث برقم التذكرة أو الموضوع..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pr-8 pl-3 py-1.5 text-xs rounded-lg border border-border/80 bg-background text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary focus:border-transparent transition-all"
+            className="w-full pe-8 ps-3 py-1.5 text-xs rounded-lg border border-border/80 bg-background text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary focus:border-transparent transition-all"
           />
         </div>
       </div>

@@ -73,7 +73,7 @@ export const FactoryPortalModals: React.FC<FactoryPortalModalsProps> = ({
       {/* UPDATE QUANTITIES MODAL */}
       {activeModal.type === 'UPDATE' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-card border border-border rounded-2xl max-w-md w-full p-5 space-y-4 shadow-xl">
+          <div className="bg-card border border-border rounded-xl max-w-md w-full p-5 space-y-4 shadow-xl">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <h3 className="font-bold text-base text-foreground">تحديث كميات التشغيل</h3>
               <button
@@ -158,7 +158,7 @@ export const FactoryPortalModals: React.FC<FactoryPortalModalsProps> = ({
       {/* UPLOAD MEDIA MODAL */}
       {activeModal.type === 'MEDIA' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-card border border-border rounded-2xl max-w-md w-full p-5 space-y-4 shadow-xl">
+          <div className="bg-card border border-border rounded-xl max-w-md w-full p-5 space-y-4 shadow-xl">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <h3 className="font-bold text-base text-foreground">رفع صور أو فيديو لمرحلة التشغيل</h3>
               <button
@@ -183,7 +183,7 @@ export const FactoryPortalModals: React.FC<FactoryPortalModalsProps> = ({
                   {mediaPreviewUrl ? (
                     <div className="max-h-48 rounded-lg overflow-hidden flex items-center justify-center">
                       {selectedFile?.type.startsWith('video/') ? (
-                        <div className="text-xs p-4 bg-zinc-900 text-white rounded">
+                        <div className="text-xs p-4 bg-muted text-white rounded">
                           تم اختيار فيديو: {selectedFile.name}
                         </div>
                       ) : (
@@ -215,7 +215,7 @@ export const FactoryPortalModals: React.FC<FactoryPortalModalsProps> = ({
                 />
               </div>
 
-              <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-[11px] flex items-center gap-1.5">
+              <div className="p-2.5 rounded-lg bg-warning/10 border border-warning/20 text-warning dark:text-warning text-[11px] flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 shrink-0" />
                 <span>سيدخل المرفق تلقائياً تحت مراجعة الإدارة قبل عرضه للعميل.</span>
               </div>
@@ -233,7 +233,7 @@ export const FactoryPortalModals: React.FC<FactoryPortalModalsProps> = ({
                 type="button"
                 onClick={onUploadMedia}
                 disabled={submitting || !selectedFile}
-                className="px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 disabled:opacity-50 shadow"
+                className="px-4 py-2 rounded-lg bg-success text-white text-xs font-semibold hover:bg-success disabled:opacity-50 shadow"
               >
                 {submitting ? 'جارٍ الرفع...' : 'رفع المرفق للمراجعة'}
               </button>
@@ -245,7 +245,7 @@ export const FactoryPortalModals: React.FC<FactoryPortalModalsProps> = ({
       {/* REQUEST APPROVAL MODAL */}
       {activeModal.type === 'APPROVAL' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-card border border-border rounded-2xl max-w-md w-full p-5 space-y-4 shadow-xl">
+          <div className="bg-card border border-border rounded-xl max-w-md w-full p-5 space-y-4 shadow-xl">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <h3 className="font-bold text-base text-foreground">طلب اعتماد مرحلة التشغيل</h3>
               <button
@@ -297,7 +297,7 @@ export const FactoryPortalModals: React.FC<FactoryPortalModalsProps> = ({
       {/* REPORT ISSUE MODAL */}
       {activeModal.type === 'ISSUE' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-card border border-border rounded-2xl max-w-md w-full p-5 space-y-4 shadow-xl">
+          <div className="bg-card border border-border rounded-xl max-w-md w-full p-5 space-y-4 shadow-xl">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <h3 className="font-bold text-base text-foreground">تسجيل ملاحظة أو عائق تشغيل</h3>
               <button
@@ -335,7 +335,7 @@ export const FactoryPortalModals: React.FC<FactoryPortalModalsProps> = ({
                 type="button"
                 onClick={onSendIssue}
                 disabled={submitting || !issueText.trim()}
-                className="px-4 py-2 rounded-lg bg-amber-600 text-white text-xs font-semibold hover:bg-amber-700 disabled:opacity-50 shadow"
+                className="px-4 py-2 rounded-lg bg-warning text-white text-xs font-semibold hover:bg-warning disabled:opacity-50 shadow"
               >
                 {submitting ? 'جارٍ التسجيل...' : 'إرسال الملاحظة'}
               </button>

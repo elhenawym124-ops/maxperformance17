@@ -26,7 +26,7 @@ export const FactoryStageMediaGallery: React.FC<
           >
             <div className="aspect-[4/3] rounded-lg overflow-hidden bg-black/10 relative">
               {att.kind === 'VIDEO' ? (
-                <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-white">
+                <div className="w-full h-full flex items-center justify-center bg-muted text-white">
                   <Video className="w-6 h-6" />
                 </div>
               ) : (
@@ -41,13 +41,13 @@ export const FactoryStageMediaGallery: React.FC<
             {/* Status badge */}
             <div>
               {att.reviewStatus === 'UNDER_REVIEW' && (
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-600 dark:text-amber-400">
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-warning dark:text-warning">
                   <Clock className="w-2.5 h-2.5" />
                   <span>بانتظار مراجعة الإدارة</span>
                 </span>
               )}
               {att.reviewStatus === 'APPROVED' && (
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-600">
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-success">
                   <Check className="w-2.5 h-2.5" />
                   <span>معتمدة من الإدارة</span>
                 </span>

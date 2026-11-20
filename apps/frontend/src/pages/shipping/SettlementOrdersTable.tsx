@@ -43,7 +43,7 @@ export const SettlementOrdersTable: React.FC<SettlementOrdersTableProps> = ({
   const getStatusBadge = (order: SettlementOrder) => {
     if (order.settlementStatus === 'SETTLED') {
       return (
-        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+        <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2.5 py-0.5 text-[11px] font-semibold text-success dark:text-success border border-success/20">
           <CheckCircle2 className="w-3 h-3" />
           تمت التسوية
         </span>
@@ -57,7 +57,7 @@ export const SettlementOrdersTable: React.FC<SettlementOrdersTableProps> = ({
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20">
+      <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2.5 py-0.5 text-[11px] font-semibold text-warning dark:text-warning border border-warning/20">
         <Clock className="w-3 h-3" />
         قيد التسوية
       </span>
@@ -66,7 +66,7 @@ export const SettlementOrdersTable: React.FC<SettlementOrdersTableProps> = ({
 
   return (
     <div className="space-y-3">
-      <div className="overflow-x-auto rounded-2xl border border-border/70 bg-card shadow-2xs">
+      <div className="overflow-x-auto rounded-xl border border-border/70 bg-card shadow-2xs">
         <table className="w-full text-xs">
           <thead className="bg-muted/40 border-b border-border/70 text-muted-foreground">
             <tr>
@@ -143,7 +143,7 @@ export const SettlementOrdersTable: React.FC<SettlementOrdersTableProps> = ({
                         type="button"
                         onClick={() => onUnsettle(order.id)}
                         disabled={processing}
-                        className="p-1.5 text-muted-foreground hover:text-amber-600 hover:bg-amber-500/10 rounded-lg transition-colors text-[11px] font-semibold"
+                        className="p-1.5 text-muted-foreground hover:text-warning hover:bg-warning/10 rounded-lg transition-colors text-[11px] font-semibold"
                         title="تراجع عن التسوية"
                       >
                         <RotateCcw className="w-3.5 h-3.5" />

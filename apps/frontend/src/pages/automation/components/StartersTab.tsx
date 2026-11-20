@@ -154,31 +154,31 @@ const StartersTab: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-48">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600 dark:border-indigo-400 mx-auto"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary dark:border-primary mx-auto"></div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between flex-wrap gap-2">
-          <p className="text-sm text-gray-600 dark:text-gray-400">{t("botStudio.startersHint")}</p>
+      <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border overflow-hidden">
+        <div className="p-4 border-b border-border dark:border-border flex items-center justify-between flex-wrap gap-2">
+          <p className="text-sm text-foreground dark:text-muted-foreground">{t("botStudio.startersHint")}</p>
           <button
             onClick={openCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm transition-colors"
           >
             <PlusIcon className="h-4 w-4" />
             {t("botStudio.addStarter")}
           </button>
         </div>
 
-        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+        <div className="divide-y divide-border dark:divide-border">
           {starters.length === 0 && (
             <div className="p-10 text-center">
-              <LinkIcon className="h-10 w-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-              <h3 className="font-medium text-gray-900 dark:text-white">{t("botStudio.noStarters")}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t("botStudio.noStartersDesc")}</p>
+              <LinkIcon className="h-10 w-10 text-muted-foreground dark:text-foreground mx-auto mb-3" />
+              <h3 className="font-medium text-foreground">{t("botStudio.noStarters")}</h3>
+              <p className="text-sm text-foreground dark:text-muted-foreground mt-1">{t("botStudio.noStartersDesc")}</p>
             </div>
           )}
           {starters.map((s) => {
@@ -187,9 +187,9 @@ const StartersTab: React.FC = () => {
               <div key={s.id} className="p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-gray-900 dark:text-white">{s.name}</h3>
+                    <h3 className="font-medium text-foreground">{s.name}</h3>
                     {s.message && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 truncate">{s.message}</p>
+                      <p className="text-sm text-foreground dark:text-muted-foreground mt-1 truncate">{s.message}</p>
                     )}
                     <div className="flex flex-wrap gap-1 mt-2">
                       {s.channels.map((c) => (
@@ -197,7 +197,7 @@ const StartersTab: React.FC = () => {
                           key={c}
                           className={`px-2 py-0.5 rounded text-xs font-medium ${
                             c === "WHATSAPP"
-                              ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
+                              ? "bg-green-100 dark:bg-success text-success dark:text-success"
                               : "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
                           }`}
                         >
@@ -210,21 +210,21 @@ const StartersTab: React.FC = () => {
                         {starterLinks.flatMap((l) =>
                           l.channels.map((ch) => (
                             <div key={`${l.starterId}-${ch.channel}`} className="flex items-center gap-2">
-                              <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0 w-16">
+                              <span className="text-xs text-muted-foreground shrink-0 w-16">
                                 {ch.channel === "WHATSAPP" ? "WhatsApp" : "Messenger"}
                               </span>
-                              <code className="flex-1 truncate text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                              <code className="flex-1 truncate text-xs bg-muted px-2 py-1 rounded">
                                 {ch.url}
                               </code>
                               <button
                                 onClick={() => copyLink(ch.url)}
-                                className="text-indigo-600 dark:text-indigo-400 hover:underline text-xs shrink-0"
+                                className="text-primary hover:underline text-xs shrink-0"
                               >
                                 {t("botStudio.copy")}
                               </button>
                               <button
                                 onClick={() => setQrLink({ url: ch.url, channel: ch.channel })}
-                                className="text-indigo-600 dark:text-indigo-400 hover:underline text-xs shrink-0"
+                                className="text-primary hover:underline text-xs shrink-0"
                               >
                                 QR
                               </button>
@@ -235,10 +235,10 @@ const StartersTab: React.FC = () => {
                     )}
                   </div>
                   <div className="flex gap-1 shrink-0">
-                    <button onClick={() => openEdit(s)} className="p-2 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                    <button onClick={() => openEdit(s)} className="p-2 text-muted-foreground hover:text-primary">
                       <PencilIcon className="h-4 w-4" />
                     </button>
-                    <button onClick={() => remove(s)} className="p-2 text-gray-500 hover:text-red-600">
+                    <button onClick={() => remove(s)} className="p-2 text-muted-foreground hover:text-destructive">
                       <TrashIcon className="h-4 w-4" />
                     </button>
                   </div>
@@ -251,27 +251,27 @@ const StartersTab: React.FC = () => {
 
       {dialogOpen && editing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-xl">
-            <div className="p-5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="bg-card rounded-xl shadow-xl w-full max-w-xl">
+            <div className="p-5 border-b border-border dark:border-border flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-foreground">
                 {editing.id ? t("botStudio.editStarter") : t("botStudio.addStarter")}
               </h2>
-              <button onClick={closeDialog} className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+              <button onClick={closeDialog} className="text-gray-500 hover:text-foreground">
                 <XMarkIcon className="h-5 w-5" />
               </button>
             </div>
             <div className="p-5 space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.ruleName")}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.ruleName")}</label>
                 <input
                   type="text"
                   value={editing.name}
                   onChange={(e) => setEditing({ ...editing, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t("botStudio.channels")}</label>
+                <label className="block text-sm font-medium text-foreground mb-2">{t("botStudio.channels")}</label>
                 <div className="flex gap-2">
                   {CHANNELS.map((c) => (
                     <button
@@ -279,8 +279,8 @@ const StartersTab: React.FC = () => {
                       onClick={() => toggleChannel(c)}
                       className={`px-4 py-2 rounded-lg border text-sm transition-colors ${
                         editing.channels.includes(c)
-                          ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300"
-                          : "border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400"
+                          ? "border-indigo-600 bg-primary/10 dark:bg-primary text-primary dark:text-primary"
+                          : "border-border text-muted-foreground"
                       }`}
                     >
                       {c === "WHATSAPP" ? t("botStudio.whatsapp") : t("botStudio.facebook")}
@@ -289,37 +289,37 @@ const StartersTab: React.FC = () => {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.starterMessage")}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.starterMessage")}</label>
                 <textarea
                   value={editing.message}
                   onChange={(e) => setEditing({ ...editing, message: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                   placeholder={t("botStudio.starterMessagePlaceholder")}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.refCode")}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.refCode")}</label>
                 <input
                   type="text"
                   value={editing.refCode}
                   onChange={(e) => setEditing({ ...editing, refCode: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                   placeholder={t("botStudio.refCodePlaceholder")}
                 />
               </div>
             </div>
-            <div className="p-5 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-2">
+            <div className="p-5 border-t border-border dark:border-border flex justify-end gap-2">
               <button
                 onClick={closeDialog}
-                className="flex items-center gap-1 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-gray-500"
+                className="flex items-center gap-1 px-4 py-2 bg-muted dark:bg-muted text-foreground rounded-lg text-sm hover:bg-muted dark:hover:bg-muted"
               >
                 <XMarkIcon className="h-4 w-4" /> {t("botStudio.cancel")}
               </button>
               <button
                 onClick={save}
                 disabled={saving}
-                className="flex items-center gap-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-lg text-sm"
+                className="flex items-center gap-1 px-4 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white rounded-lg text-sm"
               >
                 <CheckIcon className="h-4 w-4" /> {saving ? t("botStudio.saving") : t("botStudio.save")}
               </button>
@@ -330,13 +330,13 @@ const StartersTab: React.FC = () => {
 
       {qrLink && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-sm">
-            <div className="p-5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                <QrCodeIcon className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+          <div className="bg-card rounded-xl shadow-xl w-full max-w-sm">
+            <div className="p-5 border-b border-border dark:border-border flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <QrCodeIcon className="h-5 w-5 text-primary" />
                 {qrLink.channel === "WHATSAPP" ? "WhatsApp" : "Messenger"}
               </h2>
-              <button onClick={() => setQrLink(null)} className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+              <button onClick={() => setQrLink(null)} className="text-gray-500 hover:text-foreground">
                 <XMarkIcon className="h-5 w-5" />
               </button>
             </div>
@@ -344,12 +344,12 @@ const StartersTab: React.FC = () => {
               <div ref={qrWrapRef} className="bg-white p-3 rounded-xl">
                 <QRCodeCanvas value={qrLink.url} size={180} includeMargin />
               </div>
-              <code className="w-full text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-center break-all">
+              <code className="w-full text-xs bg-muted px-2 py-1 rounded text-center break-all">
                 {qrLink.url}
               </code>
               <button
                 onClick={downloadQr}
-                className="flex items-center gap-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm"
+                className="flex items-center gap-1 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm"
               >
                 <QrCodeIcon className="h-4 w-4" /> {t("botStudio.qrDownload")}
               </button>

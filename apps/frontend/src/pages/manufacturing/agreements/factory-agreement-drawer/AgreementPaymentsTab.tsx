@@ -89,9 +89,9 @@ export const AgreementPaymentsTab: React.FC<AgreementPaymentsTabProps> = ({
                     <span
                       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
                         p.status === "PAID"
-                          ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+                          ? "bg-emerald-500/10 text-success border-success/20"
                           : p.status === "PENDING"
-                          ? "bg-amber-500/10 text-amber-600 border-amber-500/20"
+                          ? "bg-amber-500/10 text-warning border-warning/20"
                           : "bg-muted text-muted-foreground border-border"
                       }`}
                     >
@@ -113,7 +113,7 @@ export const AgreementPaymentsTab: React.FC<AgreementPaymentsTabProps> = ({
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => onSelectPaymentToPay(p)}
-                          className="px-2 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-medium transition-colors"
+                          className="px-2 py-1 rounded bg-success hover:bg-success text-white text-[11px] font-medium transition-colors"
                         >
                           تسجيل سداد
                         </button>

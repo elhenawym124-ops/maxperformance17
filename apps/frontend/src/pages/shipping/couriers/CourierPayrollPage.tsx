@@ -125,28 +125,28 @@ const CourierPayrollPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-foreground dark:text-muted-foreground">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border dark:border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight">مسير رواتب ومكافآت المناديب</h1>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success/10 text-success dark:bg-success/40 dark:text-success border border-success">
               شهري آلي
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground mt-1">
             احتساب تلقائي للرواتب الأساسية، شرائح بونص الأداء، والعمولات مع التوريد والصرف من الخزينة
           </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <Link
             to="/shipping/couriers"
-            className="px-3.5 py-2 text-xs sm:text-sm font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+            className="px-3.5 py-2 text-xs sm:text-sm font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
           >
             إدارة أسطول المناديب
           </Link>
-          <div className="flex items-center gap-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-1 text-xs sm:text-sm">
+          <div className="flex items-center gap-1.5 bg-white dark:bg-muted border border-border dark:border-border rounded-lg p-1 text-xs sm:text-sm">
             <span className="text-slate-500 text-xs px-1">الشهر:</span>
             <input
               type="month"
@@ -158,7 +158,7 @@ const CourierPayrollPage: React.FC = () => {
           <button
             onClick={handleRunPayroll}
             disabled={running}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition active:scale-95 disabled:opacity-50 shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-success rounded-lg hover:bg-success transition active:scale-95 disabled:opacity-50 shadow-xs"
           >
             <PlayIcon className="w-4 h-4" />
             {running ? 'جاري الاحتساب...' : 'تشغيل واحتساب مسير الشهر'}
@@ -166,7 +166,7 @@ const CourierPayrollPage: React.FC = () => {
           <button
             onClick={() => fetchPayroll(selectedMonth)}
             title="تحديث"
-            className="p-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            className="p-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
           >
             <ArrowPathIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -175,60 +175,60 @@ const CourierPayrollPage: React.FC = () => {
 
       {/* Summary Metrics Ribbon */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5">
-          <div className="text-xs text-slate-500 dark:text-slate-400">إجمالي الأساسي</div>
-          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-slate-900 dark:text-slate-100 mt-1">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5">
+          <div className="text-xs text-muted-foreground dark:text-muted-foreground">إجمالي الأساسي</div>
+          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-foreground dark:text-muted-foreground mt-1">
             {formatPrice(totals?.totalBaseSalary || 0)}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5">
-          <div className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1 font-medium">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5">
+          <div className="text-xs text-warning dark:text-warning flex items-center gap-1 font-medium">
             <SparklesIcon className="w-3.5 h-3.5" />
             إجمالي بونص الأداء
           </div>
-          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-amber-600 mt-1">
+          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-warning mt-1">
             {formatPrice(totals?.totalBonus || 0)}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5">
           <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">إجمالي العمولات</div>
           <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-blue-600 mt-1">
             {formatPrice(totals?.totalCommission || 0)}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5">
-          <div className="text-xs text-rose-500 font-medium">إجمالي الخصومات</div>
-          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-rose-500 mt-1">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5">
+          <div className="text-xs text-destructive font-medium">إجمالي الخصومات</div>
+          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-destructive mt-1">
             {formatPrice(totals?.totalDeductions || 0)}
           </div>
         </div>
 
-        <div className="bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl p-3.5">
-          <div className="text-xs text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
+        <div className="bg-emerald-50/60 dark:bg-success/30 border border-success dark:border-success rounded-xl p-3.5">
+          <div className="text-xs text-success dark:text-success font-bold flex items-center gap-1">
             <BanknotesIcon className="w-3.5 h-3.5" />
             صافي المستحق الإجمالي
           </div>
-          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-emerald-700 dark:text-emerald-300 mt-1">
+          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-success dark:text-success mt-1">
             {formatPrice(totals?.totalNetPayable || 0)}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5">
-          <div className="text-xs text-slate-500 dark:text-slate-400">إجمالي الطلبات المسلّمة</div>
-          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-slate-900 dark:text-slate-100 mt-1">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5">
+          <div className="text-xs text-muted-foreground dark:text-muted-foreground">إجمالي الطلبات المسلّمة</div>
+          <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-foreground dark:text-muted-foreground mt-1">
             {totals?.totalDeliveredOrders || 0} أوردر
           </div>
         </div>
       </div>
 
       {/* Payroll Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-xs">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs sm:text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+            <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-muted-foreground dark:text-muted-foreground">
               <tr>
                 <th className="py-3 px-4 font-medium">المندوب</th>
                 <th className="py-3 px-4 font-medium">نظام التعويض</th>
@@ -242,26 +242,26 @@ const CourierPayrollPage: React.FC = () => {
                 <th className="py-3 px-4 font-medium text-left">إجراءات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-border dark:divide-border">
               {payrolls.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="py-12 text-center text-slate-500 dark:text-slate-400">
+                  <td colSpan={10} className="py-12 text-center text-muted-foreground dark:text-muted-foreground">
                     لم يتم تشغيل مسير رواتب لهذا الشهر ({selectedMonth}) بعد. انقر على «تشغيل واحتساب مسير الشهر» لبدء الاحتساب التلقائي.
                   </td>
                 </tr>
               ) : (
                 payrolls.map((p) => (
-                  <tr key={p.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
+                  <tr key={p.id} className="hover:bg-slate-50/50 dark:hover:bg-muted transition">
                     <td className="py-3.5 px-4">
-                      <div className="font-semibold text-slate-900 dark:text-slate-100">
+                      <div className="font-semibold text-foreground dark:text-muted-foreground">
                         {p.courier?.name || 'مندوب غير مسمى'}
                       </div>
-                      <div className="text-xs text-slate-400 font-mono" dir="ltr">
+                      <div className="text-xs text-muted-foreground font-mono" dir="ltr">
                         {p.courier?.phone}
                       </div>
                     </td>
                     <td className="py-3.5 px-4 text-xs">
-                      <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">
+                      <span className="px-2 py-0.5 rounded-md bg-muted dark:bg-muted text-foreground dark:text-muted-foreground font-medium">
                         {COMPENSATION_MODEL_LABELS[p.compensationModel] || p.compensationModel}
                       </span>
                     </td>
@@ -271,21 +271,21 @@ const CourierPayrollPage: React.FC = () => {
                     <td className="py-3.5 px-4 font-mono tabular-nums">
                       {formatPrice(p.baseSalary)}
                     </td>
-                    <td className="py-3.5 px-4 font-mono tabular-nums text-amber-600 font-medium">
+                    <td className="py-3.5 px-4 font-mono tabular-nums text-warning font-medium">
                       {p.bonus > 0 ? `+${formatPrice(p.bonus)}` : '0'}
                     </td>
                     <td className="py-3.5 px-4 font-mono tabular-nums text-blue-600">
                       {p.commission > 0 ? `+${formatPrice(p.commission)}` : '0'}
                     </td>
-                    <td className="py-3.5 px-4 font-mono tabular-nums text-rose-500">
+                    <td className="py-3.5 px-4 font-mono tabular-nums text-destructive">
                       {p.deductions > 0 ? `-${formatPrice(p.deductions)}` : '0'}
                     </td>
-                    <td className="py-3.5 px-4 font-mono tabular-nums font-bold text-slate-900 dark:text-slate-100 text-sm">
+                    <td className="py-3.5 px-4 font-mono tabular-nums font-bold text-foreground dark:text-muted-foreground text-sm">
                       {formatPrice(p.netPayable)}
                     </td>
                     <td className="py-3.5 px-4">
                       {p.status === 'PAID' ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success/10 text-success dark:bg-success/40 dark:text-success border border-success">
                           <CheckCircleIcon className="w-3.5 h-3.5" />
                           تم الصرف
                         </span>
@@ -294,7 +294,7 @@ const CourierPayrollPage: React.FC = () => {
                           معتمد
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-200">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning border border-warning">
                           مسودة
                         </span>
                       )}
@@ -312,13 +312,13 @@ const CourierPayrollPage: React.FC = () => {
                         {p.status !== 'PAID' && (
                           <button
                             onClick={() => handleOpenPayModal(p)}
-                            className="px-2.5 py-1 text-xs font-semibold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition active:scale-95 shadow-2xs"
+                            className="px-2.5 py-1 text-xs font-semibold text-white bg-success rounded-lg hover:bg-success transition active:scale-95 shadow-2xs"
                           >
                             صرف نقدي
                           </button>
                         )}
                         {p.status === 'PAID' && (
-                          <span className="text-[11px] text-slate-400 font-mono">
+                          <span className="text-[11px] text-muted-foreground font-mono">
                             مصروف {p.paidAt ? new Date(p.paidAt).toLocaleDateString('ar-EG') : ''}
                           </span>
                         )}
@@ -334,17 +334,17 @@ const CourierPayrollPage: React.FC = () => {
 
       {/* Pay Modal */}
       {payingPayroll && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md shadow-2xl p-6 space-y-4 text-xs sm:text-sm">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-xs">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl w-full max-w-md shadow-2xl p-6 space-y-4 text-xs sm:text-sm">
+            <div className="flex items-center justify-between border-b border-border dark:border-border pb-3">
               <h3 className="font-bold text-base flex items-center gap-1.5">
-                <BanknotesIcon className="w-5 h-5 text-emerald-600" />
+                <BanknotesIcon className="w-5 h-5 text-success" />
                 صرف مسير الراتب من الخزينة
               </h3>
-              <button onClick={() => setPayingPayroll(null)} className="text-slate-400 hover:text-slate-600">✕</button>
+              <button onClick={() => setPayingPayroll(null)} className="text-slate-400 hover:text-foreground">✕</button>
             </div>
 
-            <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+            <div className="bg-slate-50 dark:bg-muted p-3 rounded-xl border border-border dark:border-border space-y-1">
               <div className="flex justify-between">
                 <span className="text-slate-500">المندوب:</span>
                 <span className="font-bold">{payingPayroll.courier?.name}</span>
@@ -353,7 +353,7 @@ const CourierPayrollPage: React.FC = () => {
                 <span className="text-slate-500">شهر الاستحقاق:</span>
                 <span className="font-mono font-bold">{payingPayroll.month}</span>
               </div>
-              <div className="flex justify-between text-base font-bold text-emerald-700 dark:text-emerald-400 pt-1 border-t border-slate-200 dark:border-slate-700">
+              <div className="flex justify-between text-base font-bold text-success dark:text-success pt-1 border-t border-border dark:border-border">
                 <span>المبلغ الصافي المنصرف:</span>
                 <span className="font-mono">{formatPrice(payingPayroll.netPayable)}</span>
               </div>
@@ -361,13 +361,13 @@ const CourierPayrollPage: React.FC = () => {
 
             <div>
               <label className="block font-medium mb-1 flex items-center gap-1">
-                <BuildingLibraryIcon className="w-4 h-4 text-slate-500" />
+                <BuildingLibraryIcon className="w-4 h-4 text-muted-foreground" />
                 الخزينة المصروف منها *
               </label>
               <select
                 value={selectedTreasuryId}
                 onChange={(e) => setSelectedTreasuryId(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium"
+                className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-medium"
               >
                 {treasuryAccounts.map((acc) => (
                   <option key={acc.id} value={acc.id}>
@@ -384,15 +384,15 @@ const CourierPayrollPage: React.FC = () => {
                 value={payNotes}
                 onChange={(e) => setPayNotes(e.target.value)}
                 placeholder="مثال: تحويل فودافون كاش / صرف كاش بالمقر"
-                className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs"
+                className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-xs"
               />
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={() => setPayingPayroll(null)}
-                className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                className="px-4 py-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
               >
                 إلغاء
               </button>
@@ -400,7 +400,7 @@ const CourierPayrollPage: React.FC = () => {
                 type="button"
                 disabled={processingPay}
                 onClick={handleConfirmPay}
-                className="px-5 py-2 text-white bg-emerald-600 font-bold rounded-lg hover:bg-emerald-700 transition active:scale-95 disabled:opacity-50"
+                className="px-5 py-2 text-white bg-success font-bold rounded-lg hover:bg-success transition active:scale-95 disabled:opacity-50"
               >
                 {processingPay ? 'جاري تسجيل الصرف...' : 'تأكيد الصرف من الخزينة'}
               </button>

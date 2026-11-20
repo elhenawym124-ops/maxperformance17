@@ -87,14 +87,14 @@ export const OrderStagesTab: React.FC<OrderStagesTabProps> = ({ order, onRefresh
     switch (st) {
       case 'COMPLETED':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">
             <CheckCircle2 className="w-3 h-3" />
             <span>مكتملة</span>
           </span>
         );
       case 'IN_PROGRESS':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-warning/10 text-warning dark:text-warning border border-warning/20">
             <Play className="w-3 h-3" />
             <span>قيد العمل</span>
           </span>
@@ -134,12 +134,12 @@ export const OrderStagesTab: React.FC<OrderStagesTabProps> = ({ order, onRefresh
             type="button"
             disabled={isOrderClosed}
             onClick={() => setApplyModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold hover:bg-indigo-500/20 transition disabled:opacity-40"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 text-primary font-semibold hover:bg-primary/20 transition disabled:opacity-40"
           >
             <Layers className="w-3.5 h-3.5" />
             <span>استدعاء مراحل قياسية</span>
           </button>
-          <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-medium">
+          <div className="p-2.5 rounded-lg bg-success/10 border border-success/20 text-success dark:text-success font-medium">
             إجمالي أجور العمالة المحققة:{' '}
             <span className="font-mono font-bold text-sm tabular-nums">
               {totalLaborCost.toFixed(2)}
@@ -200,7 +200,7 @@ export const OrderStagesTab: React.FC<OrderStagesTabProps> = ({ order, onRefresh
                       <td className="p-3">
                         <div className="flex items-center gap-1.5">
                           {isExternal ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20">
                               <Building2 className="w-3 h-3" />
                               <span>خارجي: {st.partnerFactory?.name || 'مصنع شريك'}</span>
                             </span>
@@ -251,7 +251,7 @@ export const OrderStagesTab: React.FC<OrderStagesTabProps> = ({ order, onRefresh
                                 <button
                                   onClick={() => setEventModalData({ stage: st, event: 'ACK_RECEIPT' })}
                                   disabled={isOrderClosed || isCompleted}
-                                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 disabled:opacity-40"
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-warning/10 text-warning dark:text-warning hover:bg-warning/20 border border-warning/20 disabled:opacity-40"
                                 >
                                   <CheckCircle2 className="w-3 h-3" />
                                   <span>تأكيد استلام</span>
@@ -260,20 +260,20 @@ export const OrderStagesTab: React.FC<OrderStagesTabProps> = ({ order, onRefresh
                             ) : !st.factoryCompletedAt ? (
                               <div className="flex items-center gap-1.5">
                                 <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                                  <CheckCircle2 className="w-3 h-3 text-amber-500" />
+                                  <CheckCircle2 className="w-3 h-3 text-warning" />
                                   <span>استلمها المصنع</span>
                                 </span>
                                 <button
                                   onClick={() => setEventModalData({ stage: st, event: 'COMPLETED' })}
                                   disabled={isOrderClosed || isCompleted}
-                                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/20 disabled:opacity-40"
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-success/10 text-success dark:text-success hover:bg-success/20 border border-success/20 disabled:opacity-40"
                                 >
                                   <PackageCheck className="w-3 h-3" />
                                   <span>تأكيد إتمام</span>
                                 </button>
                               </div>
                             ) : (
-                              <div className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
+                              <div className="inline-flex items-center gap-1 text-[10px] font-medium text-success dark:text-success">
                                 <CheckCircle2 className="w-3 h-3" />
                                 <span>تم الإنجاز بالمصنع</span>
                               </div>
@@ -288,7 +288,7 @@ export const OrderStagesTab: React.FC<OrderStagesTabProps> = ({ order, onRefresh
                         {Number(st.ratePerPiece).toFixed(2)} ج.م
                       </td>
 
-                      <td className="p-3 font-mono font-bold tabular-nums text-emerald-600">
+                      <td className="p-3 font-mono font-bold tabular-nums text-success">
                         {Number(st.stageLaborCost).toFixed(2)} ج.م
                       </td>
 
@@ -352,7 +352,7 @@ export const OrderStagesTab: React.FC<OrderStagesTabProps> = ({ order, onRefresh
                     step="1"
                     value={scrapQty}
                     onChange={(e) => setScrapQty(parseInt(e.target.value, 10) || 0)}
-                    className="w-full p-2 text-xs rounded border border-border bg-background font-mono text-amber-600"
+                    className="w-full p-2 text-xs rounded border border-border bg-background font-mono text-warning"
                   />
                 </div>
               </div>
@@ -415,7 +415,7 @@ export const OrderStagesTab: React.FC<OrderStagesTabProps> = ({ order, onRefresh
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-1.5 rounded bg-emerald-600 text-white font-medium hover:bg-emerald-700 disabled:opacity-50 transition"
+                  className="px-4 py-1.5 rounded bg-success text-white font-medium hover:bg-success disabled:opacity-50 transition"
                 >
                   {saving ? 'جارٍ الحفظ...' : 'حفظ التحديث'}
                 </button>

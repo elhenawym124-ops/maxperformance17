@@ -162,10 +162,10 @@ export const CustomerOrderDetailPage: React.FC = () => {
     const config: Record<CustomerOrderStatus, { label: string; class: string }> = {
       DRAFT: { label: 'مسودة عقد', class: 'bg-muted text-muted-foreground border-border' },
       CONFIRMED: { label: 'مؤكد ومعتمد', class: 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20' },
-      IN_PRODUCTION: { label: 'قيد التشغيل والإنتاج', class: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20' },
-      READY: { label: 'جاهز للتسليم', class: 'bg-violet-500/10 text-violet-700 dark:text-violet-400 border-violet-500/20' },
-      DELIVERED: { label: 'تم التسليم بالكامل', class: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20' },
-      CANCELLED: { label: 'ملغي', class: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20' },
+      IN_PRODUCTION: { label: 'قيد التشغيل والإنتاج', class: 'bg-amber-500/10 text-warning dark:text-warning border-warning/20' },
+      READY: { label: 'جاهز للتسليم', class: 'bg-violet-500/10 text-primary dark:text-primary border-primary/20' },
+      DELIVERED: { label: 'تم التسليم بالكامل', class: 'bg-emerald-500/10 text-success dark:text-success border-success/20' },
+      CANCELLED: { label: 'ملغي', class: 'bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20' },
     };
     const c = config[status] || { label: status, class: 'bg-muted text-muted-foreground border-border' };
     return (
@@ -178,17 +178,17 @@ export const CustomerOrderDetailPage: React.FC = () => {
   const getOrderTypeBadge = (type?: string) => {
     switch (type) {
       case 'FULL_PACKAGE':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">حزمة كاملة</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">حزمة كاملة</span>;
       case 'CMT':
         return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20">تشغيل CMT</span>;
       case 'CUSTOMER_MATERIALS':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20">خامات عميل</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20">خامات عميل</span>;
       case 'OUTSOURCED':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">تشغيل خارجي</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-warning/10 text-warning dark:text-warning border border-warning/20">تشغيل خارجي</span>;
       case 'SAMPLE':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/20">عينة</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">عينة</span>;
       case 'REWORK':
-        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20">إعادة تشغيل</span>;
+        return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20">إعادة تشغيل</span>;
       default:
         return <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground border">حزمة كاملة</span>;
     }
@@ -248,7 +248,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
               <button
                 onClick={() => handleStatusChange('CONFIRMED')}
                 disabled={actionLoading}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition active:scale-[0.98]"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm transition active:scale-[0.98]"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>اعتماد وتأكيد العقد (CONFIRM)</span>
@@ -269,7 +269,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
               <button
                 onClick={() => handleStatusChange('READY')}
                 disabled={actionLoading}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-violet-600 text-white hover:bg-violet-700 shadow-sm transition active:scale-[0.98]"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-primary text-white hover:bg-primary shadow-sm transition active:scale-[0.98]"
               >
                 <span>جاهز للتسليم (READY)</span>
               </button>
@@ -279,7 +279,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
               <button
                 onClick={() => handleStatusChange('DELIVERED')}
                 disabled={actionLoading}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition active:scale-[0.98]"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm transition active:scale-[0.98]"
               >
                 <span>تسليم العقد بالكامل (DELIVERED)</span>
               </button>
@@ -324,14 +324,14 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
             <div>
               <span className="text-[11px] text-muted-foreground block mb-0.5">المحصل فعلياً</span>
-              <span className="font-mono font-bold text-base text-emerald-600 dark:text-emerald-400 tabular-nums">
+              <span className="font-mono font-bold text-base text-success dark:text-success tabular-nums">
                 {paidAmount.toLocaleString()} {order.currency || 'EGP'}
               </span>
             </div>
 
             <div>
               <span className="text-[11px] text-muted-foreground block mb-0.5">المتبقي للتحصيل</span>
-              <span className="font-mono font-bold text-base text-amber-600 dark:text-amber-400 tabular-nums">
+              <span className="font-mono font-bold text-base text-warning dark:text-warning tabular-nums">
                 {remainingAmount.toLocaleString()} {order.currency || 'EGP'}
               </span>
             </div>
@@ -360,7 +360,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
               </div>
               <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
                 <div
-                  className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                  className="h-full bg-success rounded-full transition-all duration-300"
                   style={{ width: `${percentCollected}%` }}
                 />
               </div>
@@ -372,7 +372,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
         <div className="p-4 sm:p-5 rounded-xl bg-card border border-border/70 shadow-xs space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              <div className="p-2 rounded-xl bg-success/10 text-success dark:text-success">
                 <Link2 className="w-5 h-5" />
               </div>
               <div>
@@ -380,12 +380,12 @@ export const CustomerOrderDetailPage: React.FC = () => {
                   <h3 className="text-sm font-bold text-foreground">بوابة متابعة العميل (Customer Portal)</h3>
                   {order.portalToken ? (
                     order.portalEnabled ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-success/10 text-success dark:text-success border border-success/20">
                         <CheckCircle2 className="w-3 h-3" />
                         <span>نشط ومفعل</span>
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-warning/10 text-warning dark:text-warning border border-warning/20">
                         <Clock className="w-3 h-3" />
                         <span>معطل مؤقتاً</span>
                       </span>
@@ -428,8 +428,8 @@ export const CustomerOrderDetailPage: React.FC = () => {
                     disabled={actionLoading}
                     className={`flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg border transition ${
                       order.portalEnabled
-                        ? 'border-amber-200 text-amber-700 hover:bg-amber-50 dark:hover:bg-amber-950/20'
-                        : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/20'
+                        ? 'border-amber-200 text-warning hover:bg-warning/10 dark:hover:bg-warning/20'
+                        : 'border-emerald-200 text-success hover:bg-success/10 dark:hover:bg-success/20'
                     }`}
                   >
                     <Power className="w-3.5 h-3.5" />
@@ -459,7 +459,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                 <button
                   onClick={handleGeneratePortalLink}
                   disabled={actionLoading}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition active:scale-[0.98]"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm transition active:scale-[0.98]"
                 >
                   <Link2 className="w-3.5 h-3.5" />
                   <span>توليد وتفعيل رابط العميل</span>
@@ -593,7 +593,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
         <div className="p-4 sm:p-5 rounded-xl bg-card border border-border/70 shadow-xs space-y-3">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600">
+              <div className="p-1.5 rounded-lg bg-success/10 text-success">
                 <CreditCard className="w-4 h-4" />
               </div>
               <div>
@@ -606,7 +606,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
               <button
                 onClick={handleGenerateDefaultPayments}
                 disabled={actionLoading}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/20 transition active:scale-[0.98]"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-success/10 text-success dark:text-success hover:bg-success/20 border border-success/20 transition active:scale-[0.98]"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>توليد سياسة الدفعات (70% - 20% - 10%)</span>
@@ -628,7 +628,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
               <p className="text-xs text-muted-foreground">لم يتم إنشاء جدول دفعات لهذا العقد بعد</p>
               <button
                 onClick={handleGenerateDefaultPayments}
-                className="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm"
+                className="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success shadow-sm"
               >
                 توليد جدول الدفعات الافتراضي الآن
               </button>
@@ -679,11 +679,11 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
                         <td className="py-2.5 px-3">
                           {isPaid ? (
-                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-success/10 text-success dark:text-success border border-success/20">
                               تم السداد ✓
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-warning/10 text-warning dark:text-warning border border-warning/20">
                               بانتظار السداد
                             </span>
                           )}
@@ -692,7 +692,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                         <td className="py-2.5 px-3 text-left">
                           {isPaid ? (
                             <div className="space-y-0.5 font-mono text-[11px]">
-                              <span className="font-bold text-emerald-600 block tabular-nums">
+                              <span className="font-bold text-success block tabular-nums">
                                 {(p.paidAmount || p.amount).toLocaleString()} {order.currency || 'EGP'}
                               </span>
                               <span className="text-muted-foreground text-[10px] block">
@@ -711,7 +711,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                                 setSelectedPayment(p);
                                 setRecordModalOpen(true);
                               }}
-                              className="px-2.5 py-1 text-[11px] font-semibold rounded bg-emerald-600 text-white hover:bg-emerald-700 shadow-xs transition active:scale-[0.98]"
+                              className="px-2.5 py-1 text-[11px] font-semibold rounded bg-success text-white hover:bg-success shadow-xs transition active:scale-[0.98]"
                             >
                               تسجيل السداد
                             </button>

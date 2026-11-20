@@ -74,35 +74,35 @@ export const CourierModal: React.FC<CourierModalProps> = ({
   const preview = calculatePreview();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-muted backdrop-blur-xs">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border">
           <div>
             <h3 className="font-bold text-base sm:text-lg">
               {editingCourier ? 'تعديل بيانات المندوب' : 'إضافة مندوب توصيل داخلي'}
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-0.5">
               تحديد بيانات الهوية، وسيلة النقل، ونظام المستحقات (راتب، بونص، أو عمولة)
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg"
+            className="text-slate-400 hover:text-foreground dark:hover:text-muted-foreground text-lg"
           >
             ✕
           </button>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 px-6 pt-2 gap-4">
+        <div className="flex border-b border-border dark:border-border bg-muted dark:bg-muted px-6 pt-2 gap-4">
           <button
             type="button"
             onClick={() => setActiveTab('info')}
             className={`pb-3 font-semibold text-xs sm:text-sm flex items-center gap-1.5 border-b-2 transition ${
               activeTab === 'info'
-                ? 'border-slate-900 text-slate-900 dark:border-slate-100 dark:text-slate-100'
-                : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'
+                ? 'border-slate-900 text-foreground dark:border-border dark:text-muted-foreground'
+                : 'border-transparent text-muted-foreground hover:text-foreground dark:text-muted-foreground'
             }`}
           >
             <UserIcon className="w-4 h-4" />
@@ -113,8 +113,8 @@ export const CourierModal: React.FC<CourierModalProps> = ({
             onClick={() => setActiveTab('compensation')}
             className={`pb-3 font-semibold text-xs sm:text-sm flex items-center gap-1.5 border-b-2 transition ${
               activeTab === 'compensation'
-                ? 'border-slate-900 text-slate-900 dark:border-slate-100 dark:text-slate-100'
-                : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'
+                ? 'border-slate-900 text-foreground dark:border-border dark:text-muted-foreground'
+                : 'border-transparent text-muted-foreground hover:text-foreground dark:text-muted-foreground'
             }`}
           >
             <BanknotesIcon className="w-4 h-4" />
@@ -130,7 +130,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                 <KeyIcon className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
                   <p className="font-semibold">بيانات دخول المندوب على التطبيق:</p>
-                  <p className="text-slate-600 dark:text-slate-300">
+                  <p className="text-slate-600 dark:text-muted-foreground">
                     لا يلزم بريد إلكتروني — يدخل المندوب على التطبيق بـ <b>رقم الهاتف</b> و <b>رمز PIN الميداني</b> (الافتراضي 0000).
                   </p>
                 </div>
@@ -144,7 +144,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none"
                     placeholder="مثال: أحمد عبد الله"
                   />
                 </div>
@@ -155,7 +155,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none font-mono tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none font-mono tabular-nums"
                     placeholder="01xxxxxxxxx"
                     dir="ltr"
                   />
@@ -178,7 +178,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                         pin: e.target.value.replace(/\D/g, ''),
                       })
                     }
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none font-mono tabular-nums tracking-widest text-center"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none font-mono tabular-nums tracking-widest text-center"
                     placeholder={
                       editingCourier
                         ? 'اتركه فارغاً للإبقاء على الرمز الحالي'
@@ -186,7 +186,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     }
                     dir="ltr"
                   />
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">
+                  <span className="text-[11px] text-muted-foreground dark:text-muted-foreground mt-1 block">
                     الرمز الافتراضي: 0000 إذا تركته فارغاً
                   </span>
                 </div>
@@ -195,7 +195,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                   <select
                     value={formData.vehicleType}
                     onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none"
                   >
                     <option value="MOTORCYCLE">دراجة نارية / موتوسيكل</option>
                     <option value="CAR">سيارة ملاكي</option>
@@ -213,7 +213,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     type="text"
                     value={formData.nationalId || ''}
                     onChange={(e) => setFormData({ ...formData, nationalId: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none font-mono tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none font-mono tabular-nums"
                     placeholder="14 رقم"
                     dir="ltr"
                   />
@@ -224,7 +224,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     type="text"
                     value={formData.plateNumber || ''}
                     onChange={(e) => setFormData({ ...formData, plateNumber: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none font-mono"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none font-mono"
                     placeholder="مثال: أ ب ج 123"
                   />
                 </div>
@@ -237,7 +237,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     type="date"
                     value={formData.hireDate ? formData.hireDate.slice(0, 10) : ''}
                     onChange={(e) => setFormData({ ...formData, hireDate: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none font-mono"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none font-mono"
                   />
                 </div>
                 <div>
@@ -246,7 +246,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     type="text"
                     value={formData.governorates || ''}
                     onChange={(e) => setFormData({ ...formData, governorates: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none"
                     placeholder="مثال: القاهرة، مدينة نصر، مصر الجديدة، التجمع"
                   />
                 </div>
@@ -258,7 +258,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                   rows={2}
                   value={formData.notes || ''}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none"
+                  className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none"
                   placeholder="أي تفاصيل خاصة بالمندوب..."
                 />
               </div>
@@ -271,7 +271,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                 <select
                   value={formData.compensationModel || 'COMMISSION_ONLY'}
                   onChange={(e) => setFormData({ ...formData, compensationModel: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none font-medium"
+                  className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none font-medium"
                 >
                   <option value="COMMISSION_ONLY">عمولة فقط لكل شحنة مسلّمة (COMMISSION_ONLY)</option>
                   <option value="SALARY_ONLY">مرتب شهري ثابت فقط (SALARY_ONLY)</option>
@@ -291,7 +291,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     step="100"
                     value={formData.salaryBase || 0}
                     onChange={(e) => setFormData({ ...formData, salaryBase: Number(e.target.value) })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none font-mono tabular-nums text-base font-semibold"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none font-mono tabular-nums text-base font-semibold"
                     placeholder="مثال: 4000"
                   />
                 </div>
@@ -308,47 +308,47 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                     step="0.5"
                     value={formData.commissionAmount || 0}
                     onChange={(e) => setFormData({ ...formData, commissionAmount: Number(e.target.value) })}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none font-mono tabular-nums"
+                    className="w-full px-3 py-2 bg-muted dark:bg-muted border border-border dark:border-border rounded-lg focus:outline-none font-mono tabular-nums"
                   />
                 </div>
               )}
 
               {formData.compensationModel === 'SALARY_PLUS_BONUS' && (
-                <div className="space-y-3 p-3.5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800">
-                  <div className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                    <SparklesIcon className="w-4 h-4 text-amber-500" />
+                <div className="space-y-3 p-3.5 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border">
+                  <div className="font-semibold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
+                    <SparklesIcon className="w-4 h-4 text-warning" />
                     قواعد بونص الأداء
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-slate-600 dark:text-slate-400 mb-1">قيمة البونص لكل أوردر إضافي (ج.م)</label>
+                      <label className="block text-foreground dark:text-muted-foreground mb-1">قيمة البونص لكل أوردر إضافي (ج.م)</label>
                       <input
                         type="number"
                         min="0"
                         step="1"
                         value={formData.bonusPerOrder || 0}
                         onChange={(e) => setFormData({ ...formData, bonusPerOrder: Number(e.target.value) })}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-mono"
+                        className="w-full px-3 py-2 bg-white dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-mono"
                         placeholder="مثال: 6"
                       />
                     </div>
                     <div>
-                      <label className="block text-slate-600 dark:text-slate-400 mb-1">يبدأ البونص بعد إنجاز (أوردر)</label>
+                      <label className="block text-foreground dark:text-muted-foreground mb-1">يبدأ البونص بعد إنجاز (أوردر)</label>
                       <input
                         type="number"
                         min="0"
                         step="1"
                         value={formData.bonusStartsAfterOrders || 0}
                         onChange={(e) => setFormData({ ...formData, bonusStartsAfterOrders: Number(e.target.value) })}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-mono"
+                        className="w-full px-3 py-2 bg-white dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-mono"
                         placeholder="مثال: 30"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 dark:text-slate-400 mb-1">
+                    <label className="block text-foreground dark:text-muted-foreground mb-1">
                       شرائح البونص المتقدمة (JSON اختياري — يلغي البونص البسيط أعلاه عند وجوده)
                     </label>
                     <textarea
@@ -356,7 +356,7 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                       value={typeof formData.bonusTiers === 'object' ? JSON.stringify(formData.bonusTiers) : formData.bonusTiers || ''}
                       onChange={(e) => setFormData({ ...formData, bonusTiers: e.target.value })}
                       placeholder='[{"from":1,"to":50,"amount":6},{"from":51,"to":null,"amount":8}]'
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-mono"
+                      className="w-full px-3 py-2 bg-white dark:bg-muted border border-border dark:border-border rounded-lg text-xs font-mono"
                     />
                   </div>
                 </div>
@@ -376,22 +376,22 @@ export const CourierModal: React.FC<CourierModalProps> = ({
                       min="0"
                       value={testOrders}
                       onChange={(e) => setTestOrders(Math.max(0, parseInt(e.target.value, 10) || 0))}
-                      className="w-16 px-2 py-0.5 bg-white dark:bg-slate-900 border border-blue-300 rounded font-mono text-center font-bold text-xs"
+                      className="w-16 px-2 py-0.5 bg-white dark:bg-muted border border-blue-300 rounded font-mono text-center font-bold text-xs"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-4 gap-2 text-center pt-1 font-mono text-xs">
-                  <div className="bg-white/80 dark:bg-slate-900/60 p-2 rounded-lg">
-                    <div className="text-[10px] text-slate-500">الأساسي</div>
-                    <div className="font-bold text-slate-800 dark:text-slate-100">{preview.base} ج</div>
+                  <div className="bg-white/80 dark:bg-muted p-2 rounded-lg">
+                    <div className="text-[10px] text-muted-foreground">الأساسي</div>
+                    <div className="font-bold text-foreground dark:text-muted-foreground">{preview.base} ج</div>
                   </div>
-                  <div className="bg-white/80 dark:bg-slate-900/60 p-2 rounded-lg">
-                    <div className="text-[10px] text-slate-500">البونص</div>
-                    <div className="font-bold text-amber-600">{preview.bonus} ج</div>
+                  <div className="bg-white/80 dark:bg-muted p-2 rounded-lg">
+                    <div className="text-[10px] text-muted-foreground">البونص</div>
+                    <div className="font-bold text-warning">{preview.bonus} ج</div>
                   </div>
-                  <div className="bg-white/80 dark:bg-slate-900/60 p-2 rounded-lg">
-                    <div className="text-[10px] text-slate-500">العمولة</div>
+                  <div className="bg-white/80 dark:bg-muted p-2 rounded-lg">
+                    <div className="text-[10px] text-muted-foreground">العمولة</div>
                     <div className="font-bold text-blue-600">{preview.commission} ج</div>
                   </div>
                   <div className="bg-blue-600 text-white p-2 rounded-lg shadow-xs">
@@ -403,18 +403,18 @@ export const CourierModal: React.FC<CourierModalProps> = ({
             </>
           )}
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border dark:border-border">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+              className="px-4 py-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2 text-white bg-slate-900 dark:bg-slate-50 dark:text-slate-900 rounded-lg hover:bg-slate-800 transition active:scale-95 disabled:opacity-50 font-medium"
+              className="px-5 py-2 text-white bg-muted dark:bg-muted dark:text-foreground rounded-lg hover:bg-muted transition active:scale-95 disabled:opacity-50 font-medium"
             >
               {saving ? 'جاري الحفظ...' : editingCourier ? 'حفظ التعديلات' : 'إضافة المندوب'}
             </button>

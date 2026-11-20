@@ -87,13 +87,13 @@ export const SizeChartVersionsModal: React.FC<SizeChartVersionsModalProps> = ({
                       </div>
                       <div>
                         {ver.status === 'APPROVED' && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-success/10 text-success dark:text-success border border-success/20">
                             <CheckCircle2 className="w-2.5 h-2.5" />
                             معتمد
                           </span>
                         )}
                         {ver.status === 'DRAFT' && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-warning/10 text-warning dark:text-warning border border-warning/20">
                             <Clock className="w-2.5 h-2.5" />
                             مسودة
                           </span>

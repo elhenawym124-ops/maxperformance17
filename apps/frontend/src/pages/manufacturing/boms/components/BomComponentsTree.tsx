@@ -56,7 +56,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level = 0 }) => {
               <span
                 className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
                   isInclusive
-                    ? 'bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200/60 dark:border-purple-800/40'
+                    ? 'bg-purple-100 text-primary dark:bg-primary/60 dark:text-primary border border-primary/60 dark:border-primary/40'
                     : 'bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/40'
                 }`}
               >
@@ -133,9 +133,9 @@ export const BomComponentsTree: React.FC<BomComponentsTreeProps> = ({
 
       {/* Warnings yellow box */}
       {warnings && warnings.length > 0 && (
-        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs space-y-1">
+        <div className="p-3 rounded-xl bg-warning/10 border border-warning/30 text-warning dark:text-warning text-xs space-y-1">
           <div className="flex items-center gap-1.5 font-bold">
-            <AlertTriangle className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
+            <AlertTriangle className="w-4 h-4 shrink-0 text-warning dark:text-warning" />
             <span>تنبيهات شجرة المكونات:</span>
           </div>
           <ul className="list-disc list-inside space-y-0.5 ps-1 text-[11px]">

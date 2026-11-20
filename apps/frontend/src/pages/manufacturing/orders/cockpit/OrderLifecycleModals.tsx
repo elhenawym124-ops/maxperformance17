@@ -39,7 +39,7 @@ export const OrderLifecycleModals: React.FC<OrderLifecycleModalsProps> = ({
           <div className="w-full max-w-md rounded-xl bg-card border border-border/70 shadow-2xl overflow-hidden text-foreground">
             <div className="p-4 border-b border-border/60 flex items-center justify-between bg-muted/20">
               <div className="flex items-center gap-2">
-                <Play className="w-4 h-4 text-emerald-600" />
+                <Play className="w-4 h-4 text-success" />
                 <h3 className="text-sm font-bold">بدء تشغيل أمر الإنتاج</h3>
               </div>
               <button
@@ -76,7 +76,7 @@ export const OrderLifecycleModals: React.FC<OrderLifecycleModalsProps> = ({
                   type="button"
                   onClick={onConfirmStart}
                   disabled={actionLoading}
-                  className="px-4 py-1.5 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700"
+                  className="px-4 py-1.5 rounded-lg bg-success text-white font-medium hover:bg-success"
                 >
                   {actionLoading ? 'جارٍ البدء...' : 'تأكيد وبدء التشغيل'}
                 </button>
@@ -95,8 +95,8 @@ export const OrderLifecycleModals: React.FC<OrderLifecycleModalsProps> = ({
           <div className="w-full max-w-md rounded-xl bg-card border border-border/70 shadow-2xl overflow-hidden text-foreground">
             <div className="p-4 border-b border-border/60 flex items-center justify-between bg-muted/20">
               <div className="flex items-center gap-2">
-                <Ban className="w-4 h-4 text-rose-600" />
-                <h3 className="text-sm font-bold text-rose-600">إلغاء أمر الإنتاج</h3>
+                <Ban className="w-4 h-4 text-destructive" />
+                <h3 className="text-sm font-bold text-destructive">إلغاء أمر الإنتاج</h3>
               </div>
               <button
                 onClick={onCloseCancelDialog}
@@ -129,7 +129,7 @@ export const OrderLifecycleModals: React.FC<OrderLifecycleModalsProps> = ({
                   type="button"
                   onClick={onConfirmCancel}
                   disabled={actionLoading || !cancelReason.trim()}
-                  className="px-4 py-1.5 rounded-lg bg-rose-600 text-white font-medium hover:bg-rose-700 disabled:opacity-50"
+                  className="px-4 py-1.5 rounded-lg bg-destructive text-white font-medium hover:bg-destructive disabled:opacity-50"
                 >
                   {actionLoading ? 'جارٍ الإلغاء...' : 'تأكيد إلغاء الأمر'}
                 </button>

@@ -106,14 +106,14 @@ export const SampleStagesTab: React.FC<SampleStagesTabProps> = ({
                 <button
                   onClick={() => onStageStatusChange(st, 'COMPLETED')}
                   disabled={loading}
-                  className="px-2.5 py-1 rounded-lg border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-medium hover:bg-emerald-100 flex items-center gap-1 active:scale-95"
+                  className="px-2.5 py-1 rounded-lg border border-success/30 bg-success/10 dark:bg-success/40 text-success dark:text-success font-medium hover:bg-success flex items-center gap-1 active:scale-95"
                 >
                   <Check className="w-3 h-3" />
                   <span>إنهاء</span>
                 </button>
               )}
               {st.status === 'COMPLETED' && (
-                <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-medium">
+                <span className="text-emerald-600 dark:text-success flex items-center gap-1 font-medium">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>تم</span>
                 </span>

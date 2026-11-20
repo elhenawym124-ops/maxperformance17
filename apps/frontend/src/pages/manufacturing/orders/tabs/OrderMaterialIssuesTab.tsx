@@ -44,7 +44,7 @@ export const OrderMaterialIssuesTab: React.FC<OrderMaterialIssuesTabProps> = ({
           <button
             onClick={() => setModalOpen(true)}
             disabled={order.status === 'COMPLETED' || order.status === 'CANCELLED'}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-600 text-white hover:bg-amber-700 disabled:opacity-40 transition shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-warning text-white hover:bg-warning disabled:opacity-40 transition shadow-sm"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>إذن صرف يدوي</span>
@@ -68,13 +68,13 @@ export const OrderMaterialIssuesTab: React.FC<OrderMaterialIssuesTabProps> = ({
                   className="p-3.5 flex items-center justify-between cursor-pointer hover:bg-muted/20 transition"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-amber-500/10 text-amber-600">
+                    <div className="p-2 rounded-lg bg-warning/10 text-warning">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-mono font-bold text-sm text-foreground">{issue.issueNumber}</span>
-                        <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-success/10 text-success dark:text-success border border-success/20">
                           {issue.status}
                         </span>
                       </div>

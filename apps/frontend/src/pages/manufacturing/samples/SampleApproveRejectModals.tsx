@@ -24,7 +24,7 @@ export const SampleApproveModal: React.FC<ApproveModalProps> = ({ isOpen, loadin
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder="ملاحظات الاعتماد (اختياري)..."
-          className="w-full px-3 py-2 text-xs rounded-lg border border-border bg-background outline-none resize-none focus:ring-1 focus:ring-emerald-500"
+          className="w-full px-3 py-2 text-xs rounded-lg border border-border bg-background outline-none resize-none focus:ring-1 focus:ring-success"
         />
         <div className="flex justify-end gap-2 pt-2">
           <button onClick={onClose} className="px-3 py-1.5 text-xs rounded-lg border hover:bg-muted">
@@ -33,7 +33,7 @@ export const SampleApproveModal: React.FC<ApproveModalProps> = ({ isOpen, loadin
           <button
             onClick={() => onConfirm(notes)}
             disabled={loading}
-            className="px-4 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50"
+            className="px-4 py-1.5 text-xs font-semibold rounded-lg bg-success text-white hover:bg-success disabled:opacity-50"
           >
             {loading ? 'جاري الاعتماد...' : 'تأكيد الاعتماد'}
           </button>
@@ -68,11 +68,11 @@ export const SampleRejectModal: React.FC<RejectModalProps> = ({ isOpen, loading,
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
       <div className="bg-card border border-border rounded-xl w-full max-w-sm p-5 space-y-3 shadow-xl animate-in zoom-in-95">
-        <h3 className="text-sm font-bold text-rose-600 dark:text-rose-400">رفض العينة</h3>
+        <h3 className="text-sm font-bold text-destructive dark:text-destructive">رفض العينة</h3>
         <p className="text-xs text-muted-foreground">
           يرجى تسجيل سبب الرفض بوضوح (إلزامي للتوثيق وتعديل الباترون/الخامة).
         </p>
-        {error && <p className="text-[11px] text-rose-500 font-medium">{error}</p>}
+        {error && <p className="text-[11px] text-destructive font-medium">{error}</p>}
         <textarea
           rows={3}
           required
@@ -82,7 +82,7 @@ export const SampleRejectModal: React.FC<RejectModalProps> = ({ isOpen, loading,
             if (error) setError(null);
           }}
           placeholder="اكتب سبب الرفض هنا بالتفصيل..."
-          className="w-full px-3 py-2 text-xs rounded-lg border border-border bg-background outline-none resize-none focus:ring-1 focus:ring-rose-500"
+          className="w-full px-3 py-2 text-xs rounded-lg border border-border bg-background outline-none resize-none focus:ring-1 focus:ring-destructive"
         />
         <div className="flex justify-end gap-2 pt-2">
           <button onClick={onClose} className="px-3 py-1.5 text-xs rounded-lg border hover:bg-muted">
@@ -91,7 +91,7 @@ export const SampleRejectModal: React.FC<RejectModalProps> = ({ isOpen, loading,
           <button
             onClick={handleConfirm}
             disabled={loading || !reason.trim()}
-            className="px-4 py-1.5 text-xs font-semibold rounded-lg bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
+            className="px-4 py-1.5 text-xs font-semibold rounded-lg bg-destructive text-white hover:bg-destructive disabled:opacity-50"
           >
             {loading ? 'جاري الرفض...' : 'تأكيد الرفض'}
           </button>

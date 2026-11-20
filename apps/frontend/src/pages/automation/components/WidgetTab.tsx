@@ -67,22 +67,22 @@ const WidgetTab: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-48">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600 dark:border-indigo-400 mx-auto"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary dark:border-primary mx-auto"></div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+      <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900">
-              <DocumentDuplicateIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+            <div className="p-3 rounded-full bg-primary dark:bg-primary">
+              <DocumentDuplicateIcon className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white">{t("botStudio.widgetTitle")}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{t("botStudio.widgetDesc")}</p>
+              <h3 className="font-semibold text-foreground">{t("botStudio.widgetTitle")}</h3>
+              <p className="text-sm text-foreground dark:text-muted-foreground">{t("botStudio.widgetDesc")}</p>
             </div>
           </div>
           <label className="relative inline-flex items-center cursor-pointer shrink-0" dir="ltr">
@@ -92,25 +92,25 @@ const WidgetTab: React.FC = () => {
               onChange={(e) => setSettings({ ...settings, widgetEnabled: e.target.checked })}
               className="sr-only peer"
             />
-            <div className="w-14 h-7 bg-gray-200 dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 dark:after:border-gray-600 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
+            <div className="w-14 h-7 bg-muted dark:bg-muted peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 dark:after:border-gray-600 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
           </label>
         </div>
 
         <div className="mt-5 flex items-center gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.widgetColor")}</label>
+            <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.widgetColor")}</label>
             <input
               type="color"
               value={settings.widgetColor}
               onChange={(e) => setSettings({ ...settings, widgetColor: e.target.value })}
-              className="h-9 w-16 rounded border border-gray-300 dark:border-gray-600 cursor-pointer bg-white dark:bg-gray-700"
+              className="h-9 w-16 rounded border border-border cursor-pointer bg-card"
             />
           </div>
         </div>
 
         <div className="mt-5">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t("botStudio.widgetPreview")}</label>
-          <div className="relative border border-dashed border-gray-300 dark:border-gray-600 rounded-xl h-40 flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+          <label className="block text-sm font-medium text-foreground mb-2">{t("botStudio.widgetPreview")}</label>
+          <div className="relative border border-dashed border-border rounded-xl h-40 flex items-center justify-center bg-muted dark:bg-muted">
             <div className="flex flex-col gap-2">
               {settings.channels.includes("WHATSAPP") && (
                 <span className="px-3 py-1.5 rounded-full text-xs text-white" style={{ backgroundColor: "#25D366" }}>
@@ -123,7 +123,7 @@ const WidgetTab: React.FC = () => {
                 </span>
               )}
               {settings.channels.length === 0 && (
-                <span className="text-xs text-gray-400">{t("botStudio.widgetNoChannels")}</span>
+                <span className="text-xs text-muted-foreground">{t("botStudio.widgetNoChannels")}</span>
               )}
             </div>
             <span
@@ -136,14 +136,14 @@ const WidgetTab: React.FC = () => {
         </div>
 
         <div className="mt-5">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t("botStudio.widgetEmbed")}</label>
+          <label className="block text-sm font-medium text-foreground mb-2">{t("botStudio.widgetEmbed")}</label>
           <div className="flex gap-2">
-            <code className="flex-1 truncate text-xs bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-lg overflow-x-auto">
+            <code className="flex-1 truncate text-xs bg-muted px-3 py-2 rounded-lg overflow-x-auto">
               {snippet()}
             </code>
             <button
               onClick={copySnippet}
-              className="flex items-center gap-1 px-3 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-gray-500"
+              className="flex items-center gap-1 px-3 py-2 bg-muted dark:bg-muted text-foreground rounded-lg text-sm hover:bg-muted dark:hover:bg-muted"
             >
               <CheckIcon className="h-4 w-4" /> {t("botStudio.copy")}
             </button>
@@ -154,7 +154,7 @@ const WidgetTab: React.FC = () => {
           <button
             onClick={save}
             disabled={saving}
-            className="flex items-center gap-1 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
+            className="flex items-center gap-1 px-6 py-3 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
           >
             <CheckIcon className="h-4 w-4" /> {saving ? t("botStudio.saving") : t("botStudio.save")}
           </button>

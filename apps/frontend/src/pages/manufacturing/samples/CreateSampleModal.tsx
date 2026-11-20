@@ -607,7 +607,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-card border border-border/80 rounded-2xl w-full max-w-5xl shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[92vh]">
+      <div className="bg-card border border-border/80 rounded-xl w-full max-w-5xl shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[92vh]">
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-border/70 flex items-center justify-between bg-muted/20">
           <div>
@@ -688,7 +688,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
         {/* Modal Form */}
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-4 flex-1">
           {error && (
-            <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium">
+            <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive dark:text-destructive text-xs font-medium">
               {error}
             </div>
           )}
@@ -743,7 +743,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                         لا توجد منتجات — أضف منتج من شاشة المنتجات أولًا
                       </p>
                     ) : selectedProduct ? (
-                      <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                      <p className="text-[11px] text-success dark:text-success font-medium">
                         المنتج المختار: {selectedProduct.name} — كود{' '}
                         {selectedProduct.sku ? selectedProduct.sku : 'بدون كود'}
                       </p>
@@ -808,7 +808,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                                 <span className="font-medium">{p.name}</span>
                                 {p.sku && <span className="text-[10px] text-muted-foreground font-mono">كود: {p.sku}</span>}
                               </div>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-primary shrink-0 mr-2" />}
+                              {isSelected && <Check className="w-3.5 h-3.5 text-primary shrink-0 me-2" />}
                             </button>
                           );
                         })
@@ -910,7 +910,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                                           <span className="font-medium">{p.name}</span>
                                           {p.sku && <span className="text-[10px] text-muted-foreground font-mono">كود: {p.sku}</span>}
                                         </div>
-                                        {isSelected && <Check className="w-3 h-3 text-primary shrink-0 mr-2" />}
+                                        {isSelected && <Check className="w-3 h-3 text-primary shrink-0 me-2" />}
                                       </button>
                                     );
                                   })
@@ -919,7 +919,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                             )}
 
                             {rowSelectedProduct ? (
-                              <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
+                              <p className="text-[10px] text-success dark:text-success font-medium mt-0.5">
                                 {rowSelectedProduct.name} {rowSelectedProduct.sku ? `(${rowSelectedProduct.sku})` : ''}
                               </p>
                             ) : null}
@@ -1208,11 +1208,11 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
 
                               <div className="mt-1 flex items-center gap-1.5">
                                 {comp.productId ? (
-                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                                     مرتبط بالمخزن
                                   </span>
                                 ) : (
-                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                                     غير مرتبط
                                   </span>
                                 )}
@@ -1373,7 +1373,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                     <button
                       type="button"
                       onClick={() => setExpenses((prev) => prev.filter((_, idx) => idx !== i))}
-                      className="p-1 text-muted-foreground hover:text-rose-500"
+                      className="p-1 text-muted-foreground hover:text-destructive"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -1545,7 +1545,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                     تم استلام العينة الفعلية من المصنع
                   </span>
                   {sampleReceived && (
-                    <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-success/10 text-success dark:text-success border border-success/20">
                       مستلمة
                     </span>
                   )}
@@ -1579,7 +1579,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                       onClick={() => setMaterialSource('CUSTOMER')}
                       className={`px-3 py-2 rounded-lg text-xs font-medium border text-center transition-all ${
                         materialSource === 'CUSTOMER'
-                          ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200 font-semibold'
+                          ? 'border-amber-500 bg-warning/10 dark:bg-warning/40 text-warning dark:text-warning font-semibold'
                           : 'border-border bg-background text-muted-foreground hover:bg-muted'
                       }`}
                     >
@@ -1590,7 +1590,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                       onClick={() => setMaterialSource('COMPANY')}
                       className={`px-3 py-2 rounded-lg text-xs font-medium border text-center transition-all ${
                         materialSource === 'COMPANY'
-                          ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-200 font-semibold'
+                          ? 'border-indigo-500 bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary font-semibold'
                           : 'border-border bg-background text-muted-foreground hover:bg-muted'
                       }`}
                     >
@@ -1640,7 +1640,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                         <button
                           type="button"
                           onClick={() => handleRemoveStage(idx)}
-                          className="p-1.5 text-muted-foreground hover:text-rose-500 rounded-lg hover:bg-muted"
+                          className="p-1.5 text-muted-foreground hover:text-destructive rounded-lg hover:bg-muted"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -1703,7 +1703,7 @@ export const CreateSampleModal: React.FC<CreateSampleModalProps> = ({ isOpen, on
                         <button
                           type="button"
                           onClick={() => setSelectedFiles((prev) => prev.filter((_, i) => i !== idx))}
-                          className="p-0.5 text-muted-foreground hover:text-rose-500 rounded"
+                          className="p-0.5 text-muted-foreground hover:text-destructive rounded"
                         >
                           <Trash2 className="w-3 h-3" />
                         </button>

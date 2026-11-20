@@ -96,10 +96,10 @@ export const CustomerOrdersListPage: React.FC = () => {
     const config: Record<CustomerOrderStatus, { label: string; class: string }> = {
       DRAFT: { label: 'مسودة عقد', class: 'bg-muted text-muted-foreground border-border' },
       CONFIRMED: { label: 'مؤكد ومعتمد', class: 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20' },
-      IN_PRODUCTION: { label: 'قيد الإنتاج', class: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20' },
-      READY: { label: 'جاهز للتسليم', class: 'bg-violet-500/10 text-violet-700 dark:text-violet-400 border-violet-500/20' },
-      DELIVERED: { label: 'تم التسليم بالكامل', class: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20' },
-      CANCELLED: { label: 'ملغي', class: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20' },
+      IN_PRODUCTION: { label: 'قيد الإنتاج', class: 'bg-amber-500/10 text-warning dark:text-warning border-warning/20' },
+      READY: { label: 'جاهز للتسليم', class: 'bg-violet-500/10 text-primary dark:text-primary border-primary/20' },
+      DELIVERED: { label: 'تم التسليم بالكامل', class: 'bg-emerald-500/10 text-success dark:text-success border-success/20' },
+      CANCELLED: { label: 'ملغي', class: 'bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20' },
     };
     const c = config[status] || { label: status, class: 'bg-muted text-muted-foreground border-border' };
     return (
@@ -154,27 +154,27 @@ export const CustomerOrdersListPage: React.FC = () => {
               <span className="font-mono font-bold text-lg text-foreground tabular-nums">
                 {(summaryTotals.totalAmount || 0).toLocaleString()} <span className="text-xs font-sans">ج.م</span>
               </span>
-              <DollarSign className="w-4 h-4 text-emerald-500" />
+              <DollarSign className="w-4 h-4 text-success" />
             </div>
           </div>
 
           <div className="p-3.5 rounded-xl bg-card border border-border/70 shadow-xs">
             <span className="text-[11px] text-muted-foreground block mb-1">المحصل فعلياً</span>
             <div className="flex items-center justify-between">
-              <span className="font-mono font-bold text-lg text-emerald-600 dark:text-emerald-400 tabular-nums">
+              <span className="font-mono font-bold text-lg text-success dark:text-success tabular-nums">
                 {(summaryTotals.totalPaidAmount || 0).toLocaleString()} <span className="text-xs font-sans">ج.م</span>
               </span>
-              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+              <CheckCircle2 className="w-4 h-4 text-success" />
             </div>
           </div>
 
           <div className="p-3.5 rounded-xl bg-card border border-border/70 shadow-xs col-span-2 sm:col-span-1">
             <span className="text-[11px] text-muted-foreground block mb-1">المتبقي للتحصيل</span>
             <div className="flex items-center justify-between">
-              <span className="font-mono font-bold text-lg text-amber-600 dark:text-amber-400 tabular-nums">
+              <span className="font-mono font-bold text-lg text-warning dark:text-warning tabular-nums">
                 {(summaryTotals.totalRemainingAmount || 0).toLocaleString()} <span className="text-xs font-sans">ج.م</span>
               </span>
-              <TrendingUp className="w-4 h-4 text-amber-500" />
+              <TrendingUp className="w-4 h-4 text-warning" />
             </div>
           </div>
         </div>
@@ -189,7 +189,7 @@ export const CustomerOrdersListPage: React.FC = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="بحث برقم العقد، اسم البراند، أو العميل..."
-                className="w-full pl-3 pr-9 py-1.5 text-xs rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full ps-3 pe-9 py-1.5 text-xs rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
           </div>
@@ -326,13 +326,13 @@ export const CustomerOrdersListPage: React.FC = () => {
                         <td className="py-3 px-3 text-left">
                           <div className="space-y-1">
                             <div className="flex items-center justify-between text-[11px] font-mono tabular-nums">
-                              <span className="text-emerald-600 dark:text-emerald-400 font-bold">{paidVal.toLocaleString()}</span>
+                              <span className="text-emerald-600 dark:text-success font-bold">{paidVal.toLocaleString()}</span>
                               <span className="text-muted-foreground">/</span>
                               <span className="text-muted-foreground">{remainingVal.toLocaleString()}</span>
                             </div>
                             <div className="w-24 h-1.5 rounded-full bg-muted overflow-hidden">
                               <div
-                                className="h-full bg-emerald-500 rounded-full transition-all"
+                                className="h-full bg-success rounded-full transition-all"
                                 style={{ width: `${percentCollected}%` }}
                               />
                             </div>
@@ -382,7 +382,7 @@ export const CustomerOrdersListPage: React.FC = () => {
                                 e.stopPropagation();
                                 setDeletingOrder(ord);
                               }}
-                              className="px-2.5 py-1 rounded-md text-xs font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/50 border border-rose-200 dark:border-rose-800/60 transition-all flex items-center gap-1 active:scale-95 shadow-2xs"
+                              className="px-2.5 py-1 rounded-md text-xs font-semibold bg-destructive/10 text-destructive hover:bg-destructive dark:bg-destructive/40 dark:text-destructive dark:hover:bg-destructive/50 border border-destructive dark:border-destructive/60 transition-all flex items-center gap-1 active:scale-95 shadow-2xs"
                               title="حذف العقد"
                             >
                               <Trash2 className="w-3.5 h-3.5" />

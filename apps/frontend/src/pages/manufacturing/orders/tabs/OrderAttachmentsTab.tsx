@@ -189,7 +189,7 @@ export const OrderAttachmentsTab: React.FC<OrderAttachmentsTabProps> = ({ order 
                       <Video className="w-8 h-8" />
                     </div>
                   ) : (
-                    <div className="p-4 rounded-full bg-amber-500/10 text-amber-600">
+                    <div className="p-4 rounded-full bg-warning/10 text-warning">
                       <FileText className="w-8 h-8" />
                     </div>
                   )}

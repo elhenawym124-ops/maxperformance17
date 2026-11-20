@@ -42,8 +42,8 @@ export const ShippingCompanyDetailHeader: React.FC<ShippingCompanyDetailHeaderPr
               <span
                 className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border ${
                   company.isActive
-                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
-                    : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'
+                    ? 'bg-emerald-500/10 text-success dark:text-success border-success/20'
+                    : 'bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20'
                 }`}
               >
                 {company.isActive ? t('shipping.k_37') : t('shipping.k_38')}
@@ -71,7 +71,7 @@ export const ShippingCompanyDetailHeader: React.FC<ShippingCompanyDetailHeaderPr
             <button
               type="button"
               onClick={onDelete}
-              className="h-9 px-3.5 rounded-lg border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-xs font-semibold text-rose-600 dark:text-rose-400 flex items-center gap-2 transition-all shadow-xs active:scale-[0.98]"
+              className="h-9 px-3.5 rounded-lg border border-destructive/30 bg-destructive/10 hover:bg-destructive/20 text-xs font-semibold text-destructive dark:text-destructive flex items-center gap-2 transition-all shadow-xs active:scale-[0.98]"
             >
               <Trash2 size={13} />
               <span>{t('shipping.k_23')}</span>
@@ -99,8 +99,8 @@ export const ShippingCompanyDetailHeader: React.FC<ShippingCompanyDetailHeaderPr
             <span
               className={`inline-block px-2 py-0.5 rounded text-[11px] font-mono ${
                 company.integrationMode === 'LIVE'
-                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                  : 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                  ? 'bg-emerald-500/15 text-success dark:text-success'
+                  : 'bg-amber-500/15 text-warning dark:text-warning'
               }`}
             >
               {integrationLabels[company.integrationMode || 'MANUAL'] || company.integrationMode || t('shipping.k_1')}

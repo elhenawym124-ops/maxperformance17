@@ -91,28 +91,28 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
       return {
         label: label || "جديدة",
         className:
-          "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20",
+          "bg-amber-500/10 text-warning dark:text-warning border border-warning/20",
       };
     }
     if (val === "3" || val === "on_hold" || val === "hold" || val === "pending") {
       return {
         label: label || "معلقة",
         className:
-          "bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20",
+          "bg-purple-500/10 text-primary dark:text-primary border border-primary/20",
       };
     }
     if (val === "1" || val === "in_progress" || val === "processing") {
       return {
         label: label || "قيد المعالجة",
         className:
-          "bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/20",
+          "bg-sky-500/10 text-info dark:text-info border border-info/20",
       };
     }
     if (val === "2" || val === "closed" || val === "resolved" || val === "solved") {
       return {
         label: label || "مغلقة",
         className:
-          "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20",
+          "bg-emerald-500/10 text-success dark:text-success border border-success/20",
       };
     }
 
@@ -120,14 +120,14 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
       return {
         label,
         className:
-          "bg-zinc-500/10 text-zinc-700 dark:text-zinc-300 border border-zinc-500/20",
+          "bg-zinc-500/10 text-foreground dark:text-muted-foreground border border-border",
       };
     }
 
     return {
       label: "غير محدد",
       className:
-        "bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 border border-zinc-500/20",
+        "bg-zinc-500/10 text-foreground dark:text-muted-foreground border border-border",
     };
   };
 
@@ -246,23 +246,23 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
   }, [tickets, activeCategory]);
 
   return (
-    <aside className="w-full h-full min-h-0 flex flex-col overflow-hidden bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-800 shrink-0">
+    <aside className="w-full h-full min-h-0 flex flex-col overflow-hidden bg-white dark:bg-muted border-l border-border dark:border-border shrink-0">
       {/* Top Header Bar */}
-      <div className="p-3 border-b border-zinc-200 dark:border-zinc-800 space-y-2 shrink-0 bg-white dark:bg-zinc-900 z-10">
+      <div className="p-3 border-b border-border dark:border-border space-y-2 shrink-0 bg-white dark:bg-muted z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="size-8 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-foreground flex items-center justify-center">
-              <TicketIcon className="size-4 text-zinc-600 dark:text-zinc-300" />
+            <div className="size-8 rounded-lg border border-border dark:border-border bg-muted dark:bg-muted text-foreground flex items-center justify-center">
+              <TicketIcon className="size-4 text-foreground dark:text-muted-foreground" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+              <h2 className="text-sm font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
                 <span>تذاكر وشات تربو</span>
                 {unreadCount > 0 ? (
-                  <span className="font-mono tabular-nums px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-rose-500 text-white">
+                  <span className="font-mono tabular-nums px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-destructive text-white">
                     {unreadCount}
                   </span>
                 ) : (
-                  <span className="size-1.5 rounded-full bg-emerald-500" />
+                  <span className="size-1.5 rounded-full bg-success" />
                 )}
               </h2>
             </div>
@@ -280,8 +280,8 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                 }
                 className={`p-1.5 rounded-lg transition relative ${
                   desktopNotificationPermission === "granted"
-                    ? "text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
-                    : "text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                    ? "text-emerald-600 dark:text-success hover:bg-success/10 dark:hover:bg-success/30"
+                    : "text-zinc-400 hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted"
                 }`}
               >
                 {desktopNotificationPermission === "granted" ? (
@@ -290,7 +290,7 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                   <BellIcon className="size-4" />
                 )}
                 {unreadCount > 0 && (
-                  <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-zinc-900" />
+                  <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-destructive ring-2 ring-white dark:ring-border" />
                 )}
               </button>
             )}
@@ -299,7 +299,7 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
               onClick={onRefresh}
               disabled={loading}
               title="تحديث التذاكر"
-              className="p-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition active:scale-[0.98] disabled:opacity-50"
+              className="p-1.5 text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition active:scale-[0.98] disabled:opacity-50"
             >
               <ArrowPathIcon
                 className={`size-3.5 ${loading ? "animate-spin" : ""}`}
@@ -308,7 +308,7 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
             <button
               type="button"
               onClick={onOpenNewTicket}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 transition active:scale-[0.98] shadow-2xs"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-white text-white dark:text-foreground transition active:scale-[0.98] shadow-2xs"
             >
               <PlusIcon className="size-3.5 stroke-[2.5]" />
               <span>تذكرة جديدة</span>
@@ -318,14 +318,14 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
 
         {/* Multi-Store Account Filter Chips */}
         {accounts && accounts.length > 1 && (
-          <div className="flex items-center gap-1 p-0.5 bg-zinc-100/90 dark:bg-zinc-800/80 rounded-lg text-[11px] font-medium overflow-x-auto scrollbar-none border border-zinc-200/60 dark:border-zinc-700/50">
+          <div className="flex items-center gap-1 p-0.5 bg-muted dark:bg-muted rounded-lg text-[11px] font-medium overflow-x-auto scrollbar-none border border-border dark:border-border">
             <button
               type="button"
               onClick={() => onChangeAccount && onChangeAccount("all")}
               className={`flex-1 min-w-max py-1 px-2.5 rounded-md transition text-center whitespace-nowrap text-xs ${
                 selectedAccount === "all" || !selectedAccount
-                  ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-2xs font-bold"
-                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                  ? "bg-white dark:bg-muted text-foreground dark:text-muted-foreground shadow-2xs font-bold"
+                  : "text-zinc-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
               }`}
             >
               كل الحسابات ({accounts.length})
@@ -341,8 +341,8 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                   onClick={() => onChangeAccount && onChangeAccount(acc.id)}
                   className={`flex-1 min-w-max py-1 px-2.5 rounded-md transition text-center whitespace-nowrap text-xs flex items-center justify-center gap-1 ${
                     isSelected
-                      ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-2xs font-bold"
-                      : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                      ? "bg-white dark:bg-muted text-foreground dark:text-muted-foreground shadow-2xs font-bold"
+                      : "text-zinc-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                   }`}
                 >
                   <span>{acc.name}</span>
@@ -358,7 +358,7 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
         )}
 
         {/* Category Classification Tabs */}
-        <div className="flex items-center gap-1 p-0.5 bg-zinc-100 dark:bg-zinc-800/80 rounded-lg text-[11px] font-medium overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-1 p-0.5 bg-muted dark:bg-muted rounded-lg text-[11px] font-medium overflow-x-auto scrollbar-none">
           {categoryTabs.map((tab) => {
             const isActive = activeCategory === tab.key;
             return (
@@ -368,13 +368,13 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                 onClick={() => setCategory(tab.key)}
                 className={`flex-1 min-w-max py-1 px-2 rounded-md transition text-center whitespace-nowrap flex items-center justify-center gap-1 shrink-0 ${
                   isActive
-                    ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-2xs font-bold"
-                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                    ? "bg-white dark:bg-muted text-foreground dark:text-muted-foreground shadow-2xs font-bold"
+                    : "text-zinc-600 dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 <span>{tab.label}</span>
                 {tab.key === "unread" && (tab.count ?? 0) > 0 && (
-                  <span className="tabular-nums px-1 py-0.2 rounded-full text-[9px] font-bold bg-rose-500 text-white">
+                  <span className="tabular-nums px-1 py-0.2 rounded-full text-[9px] font-bold bg-destructive text-white">
                     {tab.count}
                   </span>
                 )}
@@ -385,18 +385,18 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
 
         {/* Search Bar */}
         <div className="relative">
-          <MagnifyingGlassIcon className="absolute right-2.5 top-2.5 h-3.5 w-3.5 text-zinc-400 pointer-events-none" />
+          <MagnifyingGlassIcon className="absolute right-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onChangeSearchQuery(e.target.value)}
             placeholder="بحث برقم التذكرة، الشحنة، أو الأوردر..."
-            className="w-full pr-8 pl-3 py-1.5 text-xs rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/80 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-hidden focus:border-zinc-400 dark:focus:border-zinc-600 transition"
+            className="w-full pe-8 ps-3 py-1.5 text-xs rounded-lg border border-border dark:border-border bg-muted dark:bg-muted text-foreground dark:text-muted-foreground placeholder-muted focus:outline-hidden focus:border-border dark:focus:border-border transition"
           />
         </div>
 
         {/* Status Filter Tabs */}
-        <div className="flex items-center gap-1 p-0.5 bg-zinc-100/70 dark:bg-zinc-800/50 rounded-lg text-[10.5px] font-medium overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-1 p-0.5 bg-muted dark:bg-muted rounded-lg text-[10.5px] font-medium overflow-x-auto scrollbar-none">
           {statusTabs.map((tab) => {
             const isActive = statusFilter === tab.key;
             return (
@@ -406,8 +406,8 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                 onClick={() => onChangeStatusFilter(tab.key)}
                 className={`flex-1 min-w-max py-0.5 px-1.5 rounded transition text-center whitespace-nowrap shrink-0 ${
                   isActive
-                    ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-2xs font-semibold"
-                    : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                    ? "bg-white dark:bg-muted text-foreground dark:text-muted-foreground shadow-2xs font-semibold"
+                    : "text-zinc-500 dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 {tab.label}
@@ -418,16 +418,16 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
       </div>
 
       {/* Tickets Scrollable List */}
-      <div className="flex-1 overflow-y-auto overscroll-contain divide-y divide-zinc-100 dark:divide-zinc-800/60 min-h-0 touch-pan-y" style={{ WebkitOverflowScrolling: "touch" }}>
+      <div className="flex-1 overflow-y-auto overscroll-contain divide-y divide-border dark:divide-border min-h-0 touch-pan-y" style={{ WebkitOverflowScrolling: "touch" }}>
         {loading && tickets.length === 0 ? (
-          <div className="p-8 text-center text-xs text-zinc-500 dark:text-zinc-400 space-y-2">
-            <div className="h-5 w-5 border-2 border-zinc-900 dark:border-zinc-100 border-t-transparent animate-spin rounded-full mx-auto" />
+          <div className="p-8 text-center text-xs text-muted-foreground dark:text-muted-foreground space-y-2">
+            <div className="h-5 w-5 border-2 border-border dark:border-border border-t-transparent animate-spin rounded-full mx-auto" />
             <p>جاري تحميل التذاكر من تربو...</p>
           </div>
         ) : processedTickets.length === 0 ? (
-          <div className="p-8 text-center text-xs text-zinc-500 dark:text-zinc-400 space-y-2">
-            <ChatBubbleLeftEllipsisIcon className="h-8 w-8 mx-auto text-zinc-300 dark:text-zinc-700" />
-            <p className="font-semibold text-zinc-700 dark:text-zinc-300">
+          <div className="p-8 text-center text-xs text-muted-foreground dark:text-muted-foreground space-y-2">
+            <ChatBubbleLeftEllipsisIcon className="h-8 w-8 mx-auto text-muted-foreground dark:text-foreground" />
+            <p className="font-semibold text-foreground dark:text-muted-foreground">
               {activeCategory === "unread"
                 ? "لا توجد رسائل غير مقروءة حالياً"
                 : activeCategory === "shipments"
@@ -440,7 +440,7 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                 ? "لا توجد تذاكر مفتوحة حالياً"
                 : "لا توجد تذاكر مطابقة"}
             </p>
-            <p className="text-[11px] text-zinc-400 max-w-xs mx-auto leading-relaxed">
+            <p className="text-[11px] text-muted-foreground max-w-xs mx-auto leading-relaxed">
               {activeCategory === "unread"
                 ? "جميع التذاكر والمحادثات مقروءة ومحدثة."
                 : statusFilter === "open"
@@ -451,7 +451,7 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
               <button
                 type="button"
                 onClick={() => onChangeStatusFilter("all")}
-                className="mt-2 inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 transition cursor-pointer"
+                className="mt-2 inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground transition cursor-pointer"
               >
                 <span>عرض كافة الحالات</span>
               </button>
@@ -499,40 +499,40 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                 }}
                 className={`p-3 text-right cursor-pointer transition relative group focus:outline-hidden ${
                   isSelected
-                    ? "bg-zinc-100 dark:bg-zinc-800/90"
+                    ? "bg-zinc-100 dark:bg-muted"
                     : unreadMsgCount > 0
-                    ? "bg-rose-500/[0.04] dark:bg-rose-500/[0.08] hover:bg-rose-500/[0.08] dark:hover:bg-rose-500/[0.12]"
-                    : "hover:bg-zinc-50 dark:hover:bg-zinc-800/40"
+                    ? "bg-rose-500/[0.04] dark:bg-destructive/[0.08] hover:bg-destructive/[0.08] dark:hover:bg-destructive/[0.12]"
+                    : "hover:bg-zinc-50 dark:hover:bg-muted"
                 }`}
               >
                 {/* Active / Unread Indicator Strip */}
                 {isSelected ? (
-                  <div className="absolute right-0 top-0 bottom-0 w-1 bg-zinc-900 dark:bg-zinc-100 rounded-l" />
+                  <div className="absolute right-0 top-0 bottom-0 w-1 bg-muted dark:bg-muted rounded-l" />
                 ) : unreadMsgCount > 0 ? (
-                  <div className="absolute right-0 top-0 bottom-0 w-1 bg-rose-500 rounded-l" />
+                  <div className="absolute right-0 top-0 bottom-0 w-1 bg-destructive rounded-l" />
                 ) : null}
 
                 <div className="flex items-start justify-between gap-2 mb-1.5">
                   <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
-                    <span className="font-mono text-xs font-bold text-zinc-900 dark:text-zinc-100 tabular-nums">
+                    <span className="font-mono text-xs font-bold text-foreground dark:text-muted-foreground tabular-nums">
                       #{t.id}
                     </span>
                     {t.storeName && (
                       <span
-                        className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20 truncate max-w-[110px]"
+                        className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-primary/10 text-primary dark:text-primary border border-primary/20 truncate max-w-[110px]"
                         title={`المتجر: ${t.storeName}${t.clientCode ? ` (#${t.clientCode})` : ""}`}
                       >
                         {t.storeName}
                       </span>
                     )}
                     {t.code && String(t.code).trim() !== String(t.id).trim() && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 truncate max-w-[120px]">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-muted dark:bg-muted text-foreground dark:text-muted-foreground truncate max-w-[120px]">
                         شحنة: {t.code}
                       </span>
                     )}
                     {linkedOrderNumber && (
                       <span
-                        className="inline-flex items-center gap-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 font-semibold truncate max-w-[130px]"
+                        className="inline-flex items-center gap-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-success/10 text-success dark:text-success border border-success/20 font-semibold truncate max-w-[130px]"
                         title={`طلب مرتبط: #${linkedOrderNumber}`}
                       >
                         <span>طلب #{linkedOrderNumber}</span>
@@ -540,7 +540,7 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                     )}
                     {unreadMsgCount > 0 && (
                       <span
-                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white shadow-2xs tabular-nums"
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-destructive text-white shadow-2xs tabular-nums"
                         title={`${unreadMsgCount} رسائل غير مقروءة`}
                       >
                         <span className="h-1.5 w-1.5 rounded-full bg-white animate-ping" />
@@ -559,27 +559,27 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
                   <p
                     className={`text-xs line-clamp-2 leading-relaxed ${
                       unreadMsgCount > 0
-                        ? "font-bold text-zinc-900 dark:text-zinc-100"
-                        : "text-zinc-600 dark:text-zinc-300"
+                        ? "font-bold text-foreground dark:text-muted-foreground"
+                        : "text-zinc-600 dark:text-muted-foreground"
                     }`}
                   >
                     {title}
                   </p>
                   {creator && (
-                    <p className="text-[10px] text-zinc-400 dark:text-zinc-500 truncate">
-                      تذكرة بواسطة: <span className="text-zinc-600 dark:text-zinc-400 font-medium">{creator}</span>
+                    <p className="text-[10px] text-muted-foreground dark:text-muted-foreground truncate">
+                      تذكرة بواسطة: <span className="text-zinc-600 dark:text-muted-foreground font-medium">{creator}</span>
                     </p>
                   )}
                 </div>
 
-                <div className="flex items-center justify-between text-[10px] text-zinc-400 dark:text-zinc-500">
+                <div className="flex items-center justify-between text-[10px] text-muted-foreground dark:text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <ClockIcon className="h-3 w-3" />
                     <span className="tabular-nums">{timeStr}</span>
                   </span>
                   {unreadMsgCount > 0 ? (
-                    <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold tabular-nums">
-                      <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
+                    <span className="inline-flex items-center gap-1 text-destructive dark:text-destructive font-bold tabular-nums">
+                      <span className="h-1.5 w-1.5 rounded-full bg-destructive" />
                       <span>{unreadMsgCount} غير مقروء</span>
                     </span>
                   ) : t.rate ? (
@@ -600,12 +600,12 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
 
       {/* Pagination Footer */}
       {total > perPage && (
-        <div className="p-2 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+        <div className="p-2 border-t border-border dark:border-border flex items-center justify-between text-xs text-muted-foreground dark:text-muted-foreground bg-muted dark:bg-muted shrink-0">
           <button
             type="button"
             disabled={page <= 1 || loading}
             onClick={() => onPageChange(page - 1)}
-            className="px-2 py-1 rounded border border-zinc-200 dark:border-zinc-800 hover:bg-white dark:hover:bg-zinc-800 disabled:opacity-40 transition"
+            className="px-2 py-1 rounded border border-border dark:border-border hover:bg-white dark:hover:bg-muted disabled:opacity-40 transition"
           >
             السابق
           </button>
@@ -616,7 +616,7 @@ export const TurboTicketListPanel: React.FC<TurboTicketListPanelProps> = ({
             type="button"
             disabled={page >= totalPages || loading}
             onClick={() => onPageChange(page + 1)}
-            className="px-2 py-1 rounded border border-zinc-200 dark:border-zinc-800 hover:bg-white dark:hover:bg-zinc-800 disabled:opacity-40 transition"
+            className="px-2 py-1 rounded border border-border dark:border-border hover:bg-white dark:hover:bg-muted disabled:opacity-40 transition"
           >
             التالي
           </button>

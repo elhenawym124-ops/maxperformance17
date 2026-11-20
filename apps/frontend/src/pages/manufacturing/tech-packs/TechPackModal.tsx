@@ -222,7 +222,7 @@ export const TechPackModal: React.FC<TechPackModalProps> = ({
           )}
 
           {isApproved && (
-            <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 flex items-start gap-2">
+            <div className="p-3 rounded-lg bg-warning/10 border border-warning/30 text-warning dark:text-warning flex items-start gap-2">
               <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
               <div className="text-[11px] leading-relaxed">
                 <strong>تنبيه إصدار معتمد:</strong> هذا الملف الفني معتمد حالياً. حفظ أي تعديل هنا لن يمس النسخة المعتمدة، بل سينشئ تلقائياً <strong>نسخة مسودة جديدة برقم إصدار تالٍ (V{(initialTechPack?.version || 1) + 1})</strong>.
@@ -397,7 +397,7 @@ export const TechPackModal: React.FC<TechPackModalProps> = ({
                   >
                     <div className="flex items-center gap-1.5 min-w-0">
                       {file.kind === 'PDF' ? (
-                        <FileText className="w-4 h-4 text-red-500 shrink-0" />
+                        <FileText className="w-4 h-4 text-destructive shrink-0" />
                       ) : (
                         <ImageIcon className="w-4 h-4 text-blue-500 shrink-0" />
                       )}

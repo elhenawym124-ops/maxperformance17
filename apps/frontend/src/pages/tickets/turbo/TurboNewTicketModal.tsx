@@ -208,18 +208,18 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
       aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/60 backdrop-blur-xs animate-fadeIn"
     >
-      <div className="w-full max-w-lg bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden text-right">
+      <div className="w-full max-w-lg bg-white dark:bg-muted rounded-xl border border-border dark:border-border shadow-2xl flex flex-col max-h-[90vh] overflow-hidden text-right">
         {/* Header */}
-        <div className="p-4 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/50">
+        <div className="p-4 border-b border-border dark:border-border flex items-center justify-between bg-muted dark:bg-muted">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">
+            <div className="p-2 rounded-xl bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
               <TicketIcon className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-bold text-sm text-zinc-900 dark:text-white">
+              <h3 className="font-bold text-sm text-foreground dark:text-white">
                 فتح تذكرة دعم جديدة
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              <p className="text-xs text-muted-foreground dark:text-muted-foreground">
                 إرسال استفسار أو شكوى مباشرة لغرفة عمليات تربو
               </p>
             </div>
@@ -227,7 +227,7 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+            className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg hover:bg-muted dark:hover:bg-muted transition"
           >
             <XMarkIcon className="h-5 w-5" />
           </button>
@@ -238,13 +238,13 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
           {/* Store Account Selector */}
           {accounts && accounts.length > 1 && (
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
                 المتجر / حساب الشحن *
               </label>
               <select
                 value={selectedCompanyId}
                 onChange={(e) => setSelectedCompanyId(e.target.value)}
-                className="w-full text-xs rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2.5 text-zinc-900 dark:text-white focus:outline-hidden focus:border-zinc-500"
+                className="w-full text-xs rounded-xl border border-border dark:border-border bg-white dark:bg-muted p-2.5 text-foreground dark:text-white focus:outline-hidden focus:border-border"
               >
                 {accounts.map((acc) => (
                   <option key={acc.id} value={acc.id}>
@@ -258,14 +258,14 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
 
           {/* Category */}
           <div>
-            <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
               تصنيف التذكرة *
             </label>
             <select
               value={selectedCategoryId}
               onChange={(e) => setSelectedCategoryId(e.target.value)}
               disabled={loadingCategories}
-              className="w-full text-xs rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2.5 text-zinc-900 dark:text-white focus:outline-hidden focus:border-zinc-500"
+              className="w-full text-xs rounded-xl border border-border dark:border-border bg-white dark:bg-muted p-2.5 text-foreground dark:text-white focus:outline-hidden focus:border-border"
             >
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -278,7 +278,7 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
           {/* Shipment Code & Priority */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
                 كود الشحنة (اختياري)
               </label>
               <input
@@ -286,18 +286,18 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
                 value={shipmentCode}
                 onChange={(e) => setShipmentCode(e.target.value)}
                 placeholder="مثال: TRB-123456"
-                className="w-full text-xs rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2.5 text-zinc-900 dark:text-white font-mono focus:outline-hidden focus:border-zinc-500"
+                className="w-full text-xs rounded-xl border border-border dark:border-border bg-white dark:bg-muted p-2.5 text-foreground dark:text-white font-mono focus:outline-hidden focus:border-border"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
                 درجة الأهمية
               </label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as any)}
-                className="w-full text-xs rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2.5 text-zinc-900 dark:text-white focus:outline-hidden focus:border-zinc-500"
+                className="w-full text-xs rounded-xl border border-border dark:border-border bg-white dark:bg-muted p-2.5 text-foreground dark:text-white focus:outline-hidden focus:border-border"
               >
                 <option value="medium">عادية / متوسطة</option>
                 <option value="low">منخفضة</option>
@@ -309,10 +309,10 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
           {/* Description */}
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground">
                 تفاصيل المشكلة أو الاستفسار *
               </label>
-              <span className="text-[10px] text-zinc-400">
+              <span className="text-[10px] text-muted-foreground">
                 يدعم لصق لقطة الشاشة مباشرة (Ctrl+V)
               </span>
             </div>
@@ -322,48 +322,48 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
               onChange={(e) => setContent(e.target.value)}
               onPaste={handlePaste}
               placeholder="اكتب كل التفاصيل والملاحظات المطلوب متابعتها، ويمكنك لصق لقطة الشاشة هنا مباشرة (Ctrl+V)..."
-              className="w-full text-xs rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2.5 text-zinc-900 dark:text-white focus:outline-hidden focus:border-zinc-500 resize-none"
+              className="w-full text-xs rounded-xl border border-border dark:border-border bg-white dark:bg-muted p-2.5 text-foreground dark:text-white focus:outline-hidden focus:border-border resize-none"
             />
           </div>
 
           {/* Image Attachment */}
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground">
                 صورة أو لقطة شاشة (اختياري)
               </label>
-              <span className="text-[10px] text-emerald-600 dark:text-emerald-400">
+              <span className="text-[10px] text-success dark:text-success">
                 {imageFile ? "جاهزة للإرسال" : ""}
               </span>
             </div>
 
             {imageFile && imagePreview ? (
-              <div className="flex items-center gap-3 p-2.5 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-xs shadow-xs">
+              <div className="flex items-center gap-3 p-2.5 px-3 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border text-xs shadow-xs">
                 <img
                   src={imagePreview}
                   alt="معاينة المرفق"
-                  className="w-12 h-12 object-cover rounded-lg border border-zinc-300 dark:border-zinc-700 shrink-0"
+                  className="w-12 h-12 object-cover rounded-lg border border-border dark:border-border shrink-0"
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="font-semibold text-zinc-800 dark:text-zinc-200 truncate">
+                  <p className="font-semibold text-foreground dark:text-muted-foreground truncate">
                     {imageFile.name}
                   </p>
-                  <p className="text-[10px] text-zinc-400 font-mono">
+                  <p className="text-[10px] text-muted-foreground font-mono">
                     ({(imageFile.size / 1024).toFixed(0)} KB)
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setImageFile(null)}
-                  className="text-zinc-400 hover:text-rose-500 p-1.5 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition"
+                  className="text-zinc-400 hover:text-destructive p-1.5 rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                   title="إلغاء المرفق"
                 >
                   <XMarkIcon className="h-4 w-4" />
                 </button>
               </div>
             ) : (
-              <label className="flex items-center justify-center gap-2 p-3 border border-dashed border-zinc-300 dark:border-zinc-700 hover:border-zinc-500 rounded-xl text-xs cursor-pointer text-zinc-600 dark:text-zinc-400 transition bg-zinc-50/50 dark:bg-zinc-800/40">
-                <PhotoIcon className="h-4 w-4 text-zinc-400" />
+              <label className="flex items-center justify-center gap-2 p-3 border border-dashed border-border dark:border-border hover:border-border rounded-xl text-xs cursor-pointer text-foreground dark:text-muted-foreground transition bg-muted dark:bg-muted">
+                <PhotoIcon className="h-4 w-4 text-muted-foreground" />
                 <span>اختر صورة أو اسحبها هنا، أو الصق لقطة الشاشة (Ctrl+V)</span>
                 <input
                   type="file"
@@ -380,18 +380,18 @@ export const TurboNewTicketModal: React.FC<TurboNewTicketModalProps> = ({
           </div>
 
           {/* Footer Actions */}
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border dark:border-border">
             <button
               type="button"
               onClick={onClose}
-              className="px-3.5 py-2 rounded-xl text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+              className="px-3.5 py-2 rounded-xl text-xs font-medium text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={submitting || !content.trim()}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 transition active:scale-97 disabled:opacity-40 shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-muted hover:bg-muted dark:bg-muted dark:hover:bg-white text-white dark:text-foreground transition active:scale-97 disabled:opacity-40 shadow-xs"
             >
               <PaperAirplaneIcon className="h-3.5 w-3.5 rotate-180" />
               <span>{submitting ? "جاري الإرسال..." : "إرسال التذكرة"}</span>

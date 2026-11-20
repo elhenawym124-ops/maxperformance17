@@ -769,7 +769,7 @@ export const EditSampleModal: React.FC<EditSampleModalProps> = ({
                         لا توجد منتجات — أضف منتج من شاشة المنتجات أولًا
                       </p>
                     ) : selectedProduct ? (
-                      <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                      <p className="text-[11px] text-success dark:text-success font-medium">
                         المنتج المختار: {selectedProduct.name} — كود {selectedProduct.sku ? selectedProduct.sku : 'بدون كود'}
                       </p>
                     ) : (
@@ -824,7 +824,7 @@ export const EditSampleModal: React.FC<EditSampleModalProps> = ({
                                 <span className="font-medium">{p.name}</span>
                                 {p.sku && <span className="text-[10px] text-muted-foreground font-mono">كود: {p.sku}</span>}
                               </div>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-primary shrink-0 mr-2" />}
+                              {isSelected && <Check className="w-3.5 h-3.5 text-primary shrink-0 me-2" />}
                             </button>
                           );
                         })
@@ -911,7 +911,7 @@ export const EditSampleModal: React.FC<EditSampleModalProps> = ({
                                             <span className="font-medium">{p.name}</span>
                                             {p.sku && <span className="text-[10px] text-muted-foreground font-mono">كود: {p.sku}</span>}
                                           </div>
-                                          {isSelected && <Check className="w-3 h-3 text-primary shrink-0 mr-2" />}
+                                          {isSelected && <Check className="w-3 h-3 text-primary shrink-0 me-2" />}
                                         </button>
                                       );
                                     })
@@ -920,7 +920,7 @@ export const EditSampleModal: React.FC<EditSampleModalProps> = ({
                               )}
 
                               {rowSelectedProduct ? (
-                                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
+                                <p className="text-[10px] text-success dark:text-success font-medium mt-0.5">
                                   {rowSelectedProduct.name} {rowSelectedProduct.sku ? `(${rowSelectedProduct.sku})` : ''}
                                 </p>
                               ) : null}
@@ -1190,11 +1190,11 @@ export const EditSampleModal: React.FC<EditSampleModalProps> = ({
 
                               <div className="mt-1 flex items-center gap-1.5">
                                 {comp.productId ? (
-                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-success/10 text-success dark:text-success border border-success/20">
                                     مرتبط بالمخزن
                                   </span>
                                 ) : (
-                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                                  <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-warning/10 text-warning dark:text-warning border border-warning/20">
                                     غير مرتبط
                                   </span>
                                 )}

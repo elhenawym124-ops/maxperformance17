@@ -34,8 +34,8 @@ class TurboErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="h-full w-full min-h-[400px] flex flex-col items-center justify-center p-6 bg-background text-center font-sans">
-          <div className="max-w-md w-full p-6 sm:p-7 rounded-2xl border border-border/80 bg-card shadow-xl space-y-4">
-            <div className="h-12 w-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 mx-auto flex items-center justify-center shadow-xs">
+          <div className="max-w-md w-full p-6 sm:p-7 rounded-xl border border-border/80 bg-card shadow-xl space-y-4">
+            <div className="h-12 w-12 rounded-xl bg-warning/10 border border-warning/20 text-warning dark:text-warning mx-auto flex items-center justify-center shadow-xs">
               <AlertTriangle className="h-6 w-6" />
             </div>
             <div className="space-y-1">

@@ -130,7 +130,7 @@ export const NewCustomerOrderModal: React.FC<NewCustomerOrderModalProps> = ({
                     loadCustomers(e.target.value);
                   }}
                   placeholder="ابحث باسم العميل أو رقم الهاتف..."
-                  className="w-full pl-3 pr-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full ps-3 pe-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
 
@@ -169,7 +169,7 @@ export const NewCustomerOrderModal: React.FC<NewCustomerOrderModalProps> = ({
                   value={brandName}
                   onChange={(e) => setBrandName(e.target.value)}
                   placeholder="مثال: Brand X, Zara, إلخ"
-                  className="w-full pl-2.5 pr-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full ps-2.5 pe-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
             </div>
@@ -185,7 +185,7 @@ export const NewCustomerOrderModal: React.FC<NewCustomerOrderModalProps> = ({
                   value={customerCountry}
                   onChange={(e) => setCustomerCountry(e.target.value)}
                   placeholder="مصر، السعودية، ألمانيا..."
-                  className="w-full pl-2.5 pr-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full ps-2.5 pe-8 py-1.5 text-xs rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
             </div>

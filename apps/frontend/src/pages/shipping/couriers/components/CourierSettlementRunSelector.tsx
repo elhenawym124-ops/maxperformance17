@@ -82,7 +82,7 @@ export const CourierSettlementRunSelector: React.FC<CourierSettlementRunSelector
                     className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
                       isSettled
                         ? 'bg-muted text-muted-foreground'
-                        : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20'
+                        : 'bg-emerald-500/10 text-success dark:text-success border border-success/20'
                     }`}
                   >
                     {isSettled ? 'تم التوريد' : 'بانتظار التوريد'}

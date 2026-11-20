@@ -113,8 +113,8 @@ const SettlementPage: React.FC = () => {
           <RotateCcw className="h-6 w-6 animate-spin text-muted-foreground" />
         </div>
       ) : (orders || []).length === 0 ? (
-        <div className="bg-card border border-border/70 rounded-2xl p-12 text-center shadow-2xs">
-          <div className="h-12 w-12 rounded-2xl bg-muted/40 flex items-center justify-center text-muted-foreground mx-auto mb-3 border border-border/60">
+        <div className="bg-card border border-border/70 rounded-xl p-12 text-center shadow-2xs">
+          <div className="h-12 w-12 rounded-xl bg-muted/40 flex items-center justify-center text-muted-foreground mx-auto mb-3 border border-border/60">
             <Truck className="h-6 w-6" />
           </div>
           <h3 className="text-sm font-bold text-foreground mb-1">لا توجد شحنات مطابقة</h3>

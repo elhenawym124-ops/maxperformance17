@@ -93,7 +93,7 @@ export const StageTemplateSetsTab: React.FC<StageTemplateSetsTabProps> = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث في المجموعات والمسارات القياسية..."
-              className="w-full pr-8 pl-3 py-1.5 rounded-lg bg-background border border-border/70 focus:outline-hidden focus:ring-1 focus:ring-primary text-xs"
+              className="w-full pe-8 ps-3 py-1.5 rounded-lg bg-background border border-border/70 focus:outline-hidden focus:ring-1 focus:ring-primary text-xs"
             />
           </div>
 
@@ -129,7 +129,7 @@ export const StageTemplateSetsTab: React.FC<StageTemplateSetsTabProps> = ({
 
       {/* Grid of Sets */}
       {filteredSets.length === 0 ? (
-        <div className="py-16 text-center text-muted-foreground bg-card border border-dashed border-border/70 rounded-2xl">
+        <div className="py-16 text-center text-muted-foreground bg-card border border-dashed border-border/70 rounded-xl">
           <Layers className="w-8 h-8 mx-auto mb-2 text-muted-foreground/50" />
           <p className="font-semibold text-foreground">لا توجد مسارات قياسية حالياً</p>
           <p className="text-[11px] mt-1">
@@ -158,7 +158,7 @@ export const StageTemplateSetsTab: React.FC<StageTemplateSetsTabProps> = ({
             return (
               <div
                 key={s.id}
-                className="rounded-2xl bg-card border border-border/70 p-4 shadow-2xs hover:border-border transition flex flex-col justify-between"
+                className="rounded-xl bg-card border border-border/70 p-4 shadow-2xs hover:border-border transition flex flex-col justify-between"
               >
                 <div>
                   {/* Card Header */}
@@ -172,8 +172,8 @@ export const StageTemplateSetsTab: React.FC<StageTemplateSetsTabProps> = ({
                         <span
                           className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${
                             s.isActive
-                              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
-                              : 'bg-rose-500/10 text-rose-700 dark:text-rose-400'
+                              ? 'bg-emerald-500/10 text-success dark:text-success'
+                              : 'bg-rose-500/10 text-destructive dark:text-destructive'
                           }`}
                         >
                           {s.isActive ? 'نشط' : 'معطل'}
@@ -199,8 +199,8 @@ export const StageTemplateSetsTab: React.FC<StageTemplateSetsTabProps> = ({
                         title={s.isActive ? 'تعطيل المسار' : 'إعادة تفعيل المسار'}
                         className={`p-1.5 rounded-lg transition ${
                           s.isActive
-                            ? 'text-rose-500 hover:bg-rose-500/10'
-                            : 'text-emerald-600 hover:bg-emerald-500/10'
+                            ? 'text-rose-500 hover:bg-destructive/10'
+                            : 'text-emerald-600 hover:bg-success/10'
                         }`}
                       >
                         <Power className="w-3.5 h-3.5" />
@@ -224,7 +224,7 @@ export const StageTemplateSetsTab: React.FC<StageTemplateSetsTabProps> = ({
                     </div>
                     <div>
                       <span className="text-[10px] text-muted-foreground block">أجر العمالة المعياري</span>
-                      <span className="font-mono font-bold text-emerald-600 tabular-nums">
+                      <span className="font-mono font-bold text-success tabular-nums">
                         {totalLabor.toFixed(2)} ج.م/ق
                       </span>
                     </div>
@@ -251,7 +251,7 @@ export const StageTemplateSetsTab: React.FC<StageTemplateSetsTabProps> = ({
                             </span>
                             <span className="text-foreground">{it.template?.name || 'مرحلة'}</span>
                             {it.template?.executionEntity === 'EXTERNAL' && (
-                              <span className="text-[9px] text-amber-600 font-normal">(خارجي)</span>
+                              <span className="text-[9px] text-warning font-normal">(خارجي)</span>
                             )}
                           </span>
                         ))}

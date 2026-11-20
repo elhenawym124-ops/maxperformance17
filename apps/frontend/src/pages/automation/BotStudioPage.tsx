@@ -69,7 +69,7 @@ function ChannelBadges({ channels }: { channels: BotChannel[] }) {
           key={c}
           className={`px-2 py-0.5 rounded text-xs font-medium ${
             c === "WHATSAPP"
-              ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
+              ? "bg-green-100 dark:bg-success text-success dark:text-success"
               : "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
           }`}
         >
@@ -244,7 +244,7 @@ const BotStudioPage: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 dark:border-indigo-400 mx-auto"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary dark:border-primary mx-auto"></div>
       </div>
     );
   }
@@ -252,20 +252,20 @@ const BotStudioPage: React.FC = () => {
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center">
-          <ChatBubbleLeftRightIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400 ml-3" />
+        <h1 className="text-3xl font-bold text-foreground flex items-center">
+          <ChatBubbleLeftRightIcon className="h-8 w-8 text-primary ms-3" />
           {t("botStudio.pageTitle")}
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">{t("botStudio.pageSubtitle")}</p>
+        <p className="mt-2 text-foreground dark:text-muted-foreground">{t("botStudio.pageSubtitle")}</p>
       </div>
 
-      <div className="flex gap-1 mb-6 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex gap-1 mb-6 border-b border-border dark:border-border">
         <button
           onClick={() => setActiveTab("rules")}
           className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
             activeTab === "rules"
-              ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+              ? "border-indigo-600 text-primary dark:border-primary dark:text-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground"
           }`}
         >
           {t("botStudio.tabsRules")}
@@ -274,8 +274,8 @@ const BotStudioPage: React.FC = () => {
           onClick={() => setActiveTab("starters")}
           className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
             activeTab === "starters"
-              ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+              ? "border-indigo-600 text-primary dark:border-primary dark:text-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground"
           }`}
         >
           {t("botStudio.tabsStarters")}
@@ -284,8 +284,8 @@ const BotStudioPage: React.FC = () => {
           onClick={() => setActiveTab("menu")}
           className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
             activeTab === "menu"
-              ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+              ? "border-indigo-600 text-primary dark:border-primary dark:text-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground"
           }`}
         >
           {t("botStudio.tabsMenu")}
@@ -294,8 +294,8 @@ const BotStudioPage: React.FC = () => {
           onClick={() => setActiveTab("widget")}
           className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
             activeTab === "widget"
-              ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+              ? "border-indigo-600 text-primary dark:border-primary dark:text-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground"
           }`}
         >
           {t("botStudio.tabsWidget")}
@@ -304,8 +304,8 @@ const BotStudioPage: React.FC = () => {
           onClick={() => setActiveTab("audience")}
           className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
             activeTab === "audience"
-              ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+              ? "border-indigo-600 text-primary dark:border-primary dark:text-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground"
           }`}
         >
           {t("botStudio.tabsAudience")}
@@ -314,8 +314,8 @@ const BotStudioPage: React.FC = () => {
           onClick={() => setActiveTab("settings")}
           className={`px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-colors ${
             activeTab === "settings"
-              ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
-              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+              ? "border-indigo-600 text-primary dark:border-primary dark:text-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground"
           }`}
         >
           {t("botStudio.tabsSettings")}
@@ -324,36 +324,36 @@ const BotStudioPage: React.FC = () => {
 
       {activeTab === "rules" ? (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between flex-wrap gap-2">
-              <p className="text-sm text-gray-600 dark:text-gray-400">{t("botStudio.rulesHint")}</p>
+          <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border overflow-hidden">
+            <div className="p-4 border-b border-border dark:border-border flex items-center justify-between flex-wrap gap-2">
+              <p className="text-sm text-foreground dark:text-muted-foreground">{t("botStudio.rulesHint")}</p>
               <button
                 onClick={openCreate}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm transition-colors"
               >
                 <PlusIcon className="h-4 w-4" />
                 {t("botStudio.addRule")}
               </button>
             </div>
 
-            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            <div className="divide-y divide-border dark:divide-border">
               {rules.length === 0 && (
                 <div className="p-10 text-center">
-                  <SparklesIcon className="h-10 w-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-                  <h3 className="font-medium text-gray-900 dark:text-white">{t("botStudio.noRules")}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t("botStudio.noRulesDesc")}</p>
+                  <SparklesIcon className="h-10 w-10 text-muted-foreground dark:text-foreground mx-auto mb-3" />
+                  <h3 className="font-medium text-foreground">{t("botStudio.noRules")}</h3>
+                  <p className="text-sm text-foreground dark:text-muted-foreground mt-1">{t("botStudio.noRulesDesc")}</p>
                 </div>
               )}
               {rules.map((rule) => (
                 <div key={rule.id} className="p-4 flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-gray-900 dark:text-white truncate">{rule.name}</h3>
+                      <h3 className="font-medium text-foreground truncate">{rule.name}</h3>
                       <span
                         className={`px-2 py-0.5 rounded text-xs ${
                           rule.isEnabled
-                            ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                            : "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+                            ? "bg-green-100 dark:bg-success text-success dark:text-success"
+                            : "bg-muted text-muted-foreground"
                         }`}
                       >
                         {rule.isEnabled ? t("botStudio.active") : t("botStudio.inactive")}
@@ -361,17 +361,17 @@ const BotStudioPage: React.FC = () => {
                     </div>
                     <div className="flex flex-wrap gap-1 mt-2">
                       {rule.keywords.slice(0, 6).map((kw, idx) => (
-                        <span key={idx} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs">
+                        <span key={idx} className="px-2 py-0.5 bg-muted text-foreground dark:text-muted-foreground rounded text-xs">
                           {kw}
                         </span>
                       ))}
                       {rule.keywords.length > 6 && (
-                        <span className="px-2 py-0.5 text-gray-500 dark:text-gray-500 text-xs">
+                        <span className="px-2 py-0.5 text-muted-foreground dark:text-muted-foreground text-xs">
                           +{rule.keywords.length - 6}
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 truncate">
+                    <p className="text-sm text-foreground dark:text-muted-foreground mt-2 truncate">
                       {rule.replyType !== "TEXT" ? `[${rule.replyType}] ` : ""}
                       {rule.replyType === "TEXT" ? rule.replyText : rule.mediaUrl}
                     </p>
@@ -380,10 +380,10 @@ const BotStudioPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex gap-1 shrink-0">
-                    <button onClick={() => openEdit(rule)} className="p-2 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                    <button onClick={() => openEdit(rule)} className="p-2 text-muted-foreground hover:text-primary">
                       <PencilIcon className="h-4 w-4" />
                     </button>
-                    <button onClick={() => deleteRule(rule)} className="p-2 text-gray-500 hover:text-red-600">
+                    <button onClick={() => deleteRule(rule)} className="p-2 text-muted-foreground hover:text-destructive">
                       <TrashIcon className="h-4 w-4" />
                     </button>
                   </div>
@@ -402,15 +402,15 @@ const BotStudioPage: React.FC = () => {
         <AudienceTab />
       ) : (
         <div className="space-y-6 max-w-2xl">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border p-6">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900">
-                  <EnvelopeIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                <div className="p-3 rounded-full bg-primary dark:bg-primary">
+                  <EnvelopeIcon className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">{t("botStudio.welcome")}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{t("botStudio.welcomeDesc")}</p>
+                  <h3 className="font-semibold text-foreground">{t("botStudio.welcome")}</h3>
+                  <p className="text-sm text-foreground dark:text-muted-foreground">{t("botStudio.welcomeDesc")}</p>
                 </div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer shrink-0" dir="ltr">
@@ -420,27 +420,27 @@ const BotStudioPage: React.FC = () => {
                   onChange={(e) => setSettings({ ...settings, welcomeEnabled: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-14 h-7 bg-gray-200 dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 dark:after:border-gray-600 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
+                <div className="w-14 h-7 bg-muted dark:bg-muted peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 dark:after:border-gray-600 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
               </label>
             </div>
             <textarea
               value={settings.welcomeMessage}
               onChange={(e) => setSettings({ ...settings, welcomeMessage: e.target.value })}
               rows={3}
-              className="mt-4 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+              className="mt-4 w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
               placeholder={t("botStudio.welcomePlaceholder")}
             />
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border p-6">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-700">
-                  <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                <div className="p-3 rounded-full bg-muted">
+                  <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6 text-foreground dark:text-muted-foreground" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">{t("botStudio.defaultReply")}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{t("botStudio.defaultReplyDesc")}</p>
+                  <h3 className="font-semibold text-foreground">{t("botStudio.defaultReply")}</h3>
+                  <p className="text-sm text-foreground dark:text-muted-foreground">{t("botStudio.defaultReplyDesc")}</p>
                 </div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer shrink-0" dir="ltr">
@@ -450,20 +450,20 @@ const BotStudioPage: React.FC = () => {
                   onChange={(e) => setSettings({ ...settings, defaultReplyEnabled: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-14 h-7 bg-gray-200 dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 dark:after:border-gray-600 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
+                <div className="w-14 h-7 bg-muted dark:bg-muted peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer peer-checked:bg-indigo-600 dark:peer-checked:bg-indigo-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 dark:after:border-gray-600 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
               </label>
             </div>
             <textarea
               value={settings.defaultReply}
               onChange={(e) => setSettings({ ...settings, defaultReply: e.target.value })}
               rows={3}
-              className="mt-4 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+              className="mt-4 w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
               placeholder={t("botStudio.defaultReplyPlaceholder")}
             />
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="font-semibold text-gray-900 dark:text-white">{t("botStudio.settingsChannels")}</h3>
+          <div className="bg-card rounded-xl shadow-sm border border-border dark:border-border p-6">
+            <h3 className="font-semibold text-foreground">{t("botStudio.settingsChannels")}</h3>
             <div className="flex gap-2 mt-3">
               {CHANNELS.map((c) => (
                 <button
@@ -471,8 +471,8 @@ const BotStudioPage: React.FC = () => {
                   onClick={() => toggleSettingsChannel(c)}
                   className={`px-4 py-2 rounded-lg border text-sm transition-colors ${
                     settings.channels.includes(c)
-                      ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300"
-                      : "border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400"
+                      ? "border-indigo-600 bg-primary/10 dark:bg-primary text-primary dark:text-primary"
+                      : "border-border text-muted-foreground"
                   }`}
                 >
                   {c === "WHATSAPP" ? t("botStudio.whatsapp") : t("botStudio.facebook")}
@@ -485,7 +485,7 @@ const BotStudioPage: React.FC = () => {
             <button
               onClick={saveSettings}
               disabled={saving}
-              className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
+              className="px-6 py-3 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white rounded-xl font-medium transition-colors"
             >
               {saving ? t("botStudio.saving") : t("botStudio.settingsSave")}
             </button>
@@ -495,30 +495,30 @@ const BotStudioPage: React.FC = () => {
 
       {dialogOpen && editingRule && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="p-5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="bg-card rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div className="p-5 border-b border-border dark:border-border flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-foreground">
                 {editingRule.id ? t("botStudio.editRule") : t("botStudio.addRule")}
               </h2>
-              <button onClick={closeDialog} className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+              <button onClick={closeDialog} className="text-gray-500 hover:text-foreground">
                 <XMarkIcon className="h-5 w-5" />
               </button>
             </div>
 
             <div className="p-5 space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.ruleName")}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.ruleName")}</label>
                 <input
                   type="text"
                   value={editingRule.name}
                   onChange={(e) => setEditingRule({ ...editingRule, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                   placeholder={t("botStudio.ruleNamePlaceholder")}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t("botStudio.channels")}</label>
+                <label className="block text-sm font-medium text-foreground mb-2">{t("botStudio.channels")}</label>
                 <div className="flex gap-2">
                   {CHANNELS.map((c) => (
                     <button
@@ -526,8 +526,8 @@ const BotStudioPage: React.FC = () => {
                       onClick={() => toggleChannel(c)}
                       className={`px-4 py-2 rounded-lg border text-sm transition-colors ${
                         editingRule.channels.includes(c)
-                          ? "border-indigo-600 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300"
-                          : "border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400"
+                          ? "border-indigo-600 bg-primary/10 dark:bg-primary text-primary dark:text-primary"
+                          : "border-border text-muted-foreground"
                       }`}
                     >
                       {c === "WHATSAPP" ? t("botStudio.whatsapp") : t("botStudio.facebook")}
@@ -537,11 +537,11 @@ const BotStudioPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.matchMode")}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.matchMode")}</label>
                 <select
                   value={editingRule.matchMode}
                   onChange={(e) => setEditingRule({ ...editingRule, matchMode: e.target.value as BotMatchMode })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                 >
                   {MATCH_MODES.map((m) => (
                     <option key={m.value} value={m.value}>
@@ -552,10 +552,10 @@ const BotStudioPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t("botStudio.keywords")}</label>
+                <label className="block text-sm font-medium text-foreground mb-2">{t("botStudio.keywords")}</label>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {editingRule.keywords.map((kw, idx) => (
-                    <span key={idx} className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full text-sm">
+                    <span key={idx} className="inline-flex items-center gap-1 px-3 py-1 bg-primary dark:bg-primary text-primary dark:text-primary rounded-full text-sm">
                       {kw}
                       <button onClick={() => removeKeyword(idx)} className="hover:text-red-500">
                         <XMarkIcon className="h-4 w-4" />
@@ -569,21 +569,21 @@ const BotStudioPage: React.FC = () => {
                     value={newKeyword}
                     onChange={(e) => setNewKeyword(e.target.value)}
                     onKeyPress={(e) => e.key === "Enter" && addKeyword()}
-                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                    className="flex-1 px-3 py-2 border border-border rounded-lg bg-card text-foreground text-sm"
                     placeholder={t("botStudio.keywordPlaceholder")}
                   />
-                  <button onClick={addKeyword} className="px-3 py-2 bg-gray-200 dark:bg-gray-600 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500">
-                    <PlusIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
+                  <button onClick={addKeyword} className="px-3 py-2 bg-muted dark:bg-muted rounded-lg hover:bg-muted dark:hover:bg-muted">
+                    <PlusIcon className="h-4 w-4 text-foreground" />
                   </button>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.replyType")}</label>
+                <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.replyType")}</label>
                 <select
                   value={editingRule.replyType}
                   onChange={(e) => setEditingRule({ ...editingRule, replyType: e.target.value as BotAutomationRule["replyType"] })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                 >
                   <option value="TEXT">{t("botStudio.textReply")}</option>
                   <option value="IMAGE">{t("botStudio.mediaReply")}</option>
@@ -593,23 +593,23 @@ const BotStudioPage: React.FC = () => {
 
               {editingRule.replyType === "TEXT" ? (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.reply")}</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.reply")}</label>
                   <textarea
                     value={editingRule.replyText}
                     onChange={(e) => setEditingRule({ ...editingRule, replyText: e.target.value })}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                     placeholder={t("botStudio.replyPlaceholder")}
                   />
                 </div>
               ) : (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.mediaUrlPlaceholder")}</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.mediaUrlPlaceholder")}</label>
                   <input
                     type="text"
                     value={editingRule.mediaUrl}
                     onChange={(e) => setEditingRule({ ...editingRule, mediaUrl: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                     placeholder={t("botStudio.mediaUrlPlaceholder")}
                   />
                 </div>
@@ -617,49 +617,49 @@ const BotStudioPage: React.FC = () => {
 
               {editingRule.replyType === "TEXT" && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t("botStudio.buttons")}</label>
+                  <label className="block text-sm font-medium text-foreground mb-2">{t("botStudio.buttons")}</label>
                   <ButtonsEditor
                     buttons={editingRule.buttons}
                     onChange={(buttons: BotButton[]) => setEditingRule({ ...editingRule, buttons })}
                   />
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t("botStudio.buttonsHint")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("botStudio.buttonsHint")}</p>
                 </div>
               )}
 
               <div className="flex items-center gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t("botStudio.priority")}</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">{t("botStudio.priority")}</label>
                   <input
                     type="number"
                     value={editingRule.priority}
                     onChange={(e) => setEditingRule({ ...editingRule, priority: Number(e.target.value) })}
-                    className="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                    className="w-24 px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-primary"
                   />
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t("botStudio.priorityHelper")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("botStudio.priorityHelper")}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <label className="text-sm text-gray-700 dark:text-gray-300">{t("botStudio.enabled")}</label>
+                  <label className="text-sm text-foreground">{t("botStudio.enabled")}</label>
                   <input
                     type="checkbox"
                     checked={editingRule.isEnabled}
                     onChange={(e) => setEditingRule({ ...editingRule, isEnabled: e.target.checked })}
-                    className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    className="h-5 w-5 rounded border-border text-primary focus:ring-primary"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="p-5 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-2">
+            <div className="p-5 border-t border-border dark:border-border flex justify-end gap-2">
               <button
                 onClick={closeDialog}
-                className="flex items-center gap-1 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-gray-500"
+                className="flex items-center gap-1 px-4 py-2 bg-muted dark:bg-muted text-foreground rounded-lg text-sm hover:bg-muted dark:hover:bg-muted"
               >
                 <XMarkIcon className="h-4 w-4" /> {t("botStudio.cancel")}
               </button>
               <button
                 onClick={saveRule}
                 disabled={saving}
-                className="flex items-center gap-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-lg text-sm"
+                className="flex items-center gap-1 px-4 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white rounded-lg text-sm"
               >
                 <CheckIcon className="h-4 w-4" /> {saving ? t("botStudio.saving") : t("botStudio.save")}
               </button>

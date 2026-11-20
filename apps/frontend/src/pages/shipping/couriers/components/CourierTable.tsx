@@ -54,10 +54,10 @@ export const CourierTable: React.FC<CourierTableProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-xs">
+    <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-xs">
       <div className="overflow-x-auto">
         <table className="w-full text-right text-xs sm:text-sm">
-          <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+          <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border text-muted-foreground dark:text-muted-foreground">
             <tr>
               <th className="py-3 px-4 font-medium">المندوب والتوثيق</th>
               <th className="py-3 px-4 font-medium">وسيلة الانتقال</th>
@@ -68,23 +68,23 @@ export const CourierTable: React.FC<CourierTableProps> = ({
               <th className="py-3 px-4 font-medium text-left">إجراءات</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody className="divide-y divide-border dark:divide-border">
             {couriers.length === 0 ? (
               <tr>
-                <td colSpan={7} className="py-8 text-center text-slate-500 dark:text-slate-400">
+                <td colSpan={7} className="py-8 text-center text-muted-foreground dark:text-muted-foreground">
                   لا يوجد مناديب مسجلين حالياً تطابق معايير البحث
                 </td>
               </tr>
             ) : (
               couriers.map((c) => (
-                <tr key={c.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
+                <tr key={c.id} className="hover:bg-slate-50/50 dark:hover:bg-muted transition">
                   <td className="py-3.5 px-4">
                     <div className="flex items-center gap-2">
-                      <div className="font-semibold text-slate-900 dark:text-slate-100">{c.name}</div>
+                      <div className="font-semibold text-foreground dark:text-muted-foreground">{c.name}</div>
                       {c.documentsStatus === 'VERIFIED' ? (
                         <span
                           title="مستندات معتمدة وموثقة بالكامل"
-                          className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200"
+                          className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-success/10 text-success dark:bg-success/40 dark:text-success border border-success"
                         >
                           <CheckBadgeIcon className="w-3.5 h-3.5" />
                           موثق
@@ -92,7 +92,7 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                       ) : c.documentsStatus === 'PENDING_REVIEW' ? (
                         <span
                           title="مستندات مرفوعة قيد المراجعة"
-                          className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-200"
+                          className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning border border-warning"
                         >
                           <ClockIcon className="w-3.5 h-3.5" />
                           قيد الفحص
@@ -100,7 +100,7 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                       ) : (
                         <span
                           title="أوراق ناقصة (يلزم بطاقة + وصل أمانة)"
-                          className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border border-rose-200"
+                          className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive border border-destructive"
                         >
                           <ExclamationCircleIcon className="w-3.5 h-3.5" />
                           أوراق ناقصة
@@ -108,7 +108,7 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                       )}
                     </div>
                     <div
-                      className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5"
+                      className="text-xs text-muted-foreground dark:text-muted-foreground flex items-center gap-1 mt-0.5"
                       dir="ltr"
                     >
                       <PhoneIcon className="w-3.5 h-3.5" />
@@ -118,23 +118,23 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                   <td className="py-3.5 px-4">
                     <div className="text-xs">{VEHICLE_LABELS[c.vehicleType] || c.vehicleType}</div>
                     {c.plateNumber && (
-                      <div className="text-[11px] text-slate-400 tabular-nums font-mono">
+                      <div className="text-[11px] text-muted-foreground tabular-nums font-mono">
                         لوحة: {c.plateNumber}
                       </div>
                     )}
                   </td>
                   <td className="py-3.5 px-4">
                     {c.status === 'ON_DUTY' ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success dark:bg-success/40 dark:text-success border border-success dark:border-success">
+                        <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
                         في الميدان
                       </span>
                     ) : c.status === 'AVAILABLE' ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">
                         متاح بالمقر
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive">
                         خارج الدوام
                       </span>
                     )}
@@ -150,7 +150,7 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                   </td>
                   <td className="py-3.5 px-4 tabular-nums font-mono font-medium">
                     {c.pendingSettlementCash > 0 ? (
-                      <span className="text-amber-600 dark:text-amber-400">
+                      <span className="text-amber-600 dark:text-warning">
                         {formatPrice(c.pendingSettlementCash)}
                       </span>
                     ) : (
@@ -161,8 +161,8 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                     <span
                       className={`font-semibold ${
                         c.successRate >= 80
-                          ? 'text-emerald-600 dark:text-emerald-400'
-                          : 'text-amber-600 dark:text-amber-400'
+                          ? 'text-emerald-600 dark:text-success'
+                          : 'text-amber-600 dark:text-warning'
                       }`}
                     >
                       {c.successRate}%
@@ -182,21 +182,21 @@ export const CourierTable: React.FC<CourierTableProps> = ({
                       <button
                         onClick={() => handleSetPin(c)}
                         title="تعيين/إلغاء رمز PIN الميداني"
-                        className="p-1.5 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition"
+                        className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded-lg transition"
                       >
                         <KeyIcon className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onOpenEdit(c)}
                         title="تعديل بيانات المندوب"
-                        className="p-1.5 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition"
+                        className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded-lg transition"
                       >
                         <PencilSquareIcon className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onDelete(c.id, c.name)}
                         title="حذف المندوب"
-                        className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition"
+                        className="p-1.5 text-destructive hover:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/40 rounded-lg transition"
                       >
                         <TrashIcon className="w-4 h-4" />
                       </button>

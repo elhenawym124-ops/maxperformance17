@@ -53,7 +53,7 @@ export const ReportOrdersTab: React.FC<ReportOrdersTabProps> = ({ orders, format
                       <span
                         className={`inline-flex px-2 py-0.5 rounded text-[10px] font-semibold ${
                           o.status === 'COMPLETED'
-                            ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+                            ? 'bg-emerald-500/10 text-success dark:text-success'
                             : o.status === 'IN_PROGRESS'
                             ? 'bg-blue-500/10 text-blue-700 dark:text-blue-400'
                             : o.status === 'CANCELLED'
@@ -76,7 +76,7 @@ export const ReportOrdersTab: React.FC<ReportOrdersTabProps> = ({ orders, format
                     <td className={`py-3 px-4 tabular-nums font-bold ${profit !== null && profit >= 0 ? 'text-emerald-600' : profit !== null ? 'text-rose-600' : 'text-muted-foreground'}`}>
                       {profit !== null ? `${formatEGP(profit)} ج.م` : '—'}
                     </td>
-                    <td className="py-3 px-4 tabular-nums font-bold text-emerald-600">{formatEGP(o.unitCost)} ج.م</td>
+                    <td className="py-3 px-4 tabular-nums font-bold text-success">{formatEGP(o.unitCost)} ج.م</td>
                     <td className="py-3 px-4 text-center">
                       <Link
                         to={`/manufacturing/orders/${o.id}`}

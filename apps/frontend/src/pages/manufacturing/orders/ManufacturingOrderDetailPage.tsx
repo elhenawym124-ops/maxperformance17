@@ -181,7 +181,7 @@ export const ManufacturingOrderDetailPage: React.FC = () => {
               <button
                 onClick={handleCopyClientPortalLink}
                 title="نسخ رابط متابعة العميل"
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-800/60 transition"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary/10 text-primary hover:bg-primary dark:bg-primary/40 dark:text-primary dark:hover:bg-primary/50 border border-primary dark:border-primary/60 transition"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>لينك متابعة العميل</span>
@@ -229,7 +229,7 @@ export const ManufacturingOrderDetailPage: React.FC = () => {
                   <span>بيانات العميل</span>
                 </span>
                 {order.customer ? (
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-success/10 text-success dark:text-success border border-success/20">
                     عميل مسجل
                   </span>
                 ) : (
@@ -264,13 +264,13 @@ export const ManufacturingOrderDetailPage: React.FC = () => {
                 {order.publicToken && (
                   <div className="pt-3 mt-2 border-t border-border/60 flex items-center justify-between">
                     <span className="text-xs text-muted-foreground flex items-center gap-1">
-                      <Globe className="w-3.5 h-3.5 text-indigo-500" />
+                      <Globe className="w-3.5 h-3.5 text-primary" />
                       <span>بوابة متابعة العميل</span>
                     </span>
                     <button
                       type="button"
                       onClick={handleCopyClientPortalLink}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/20 transition"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition"
                       title="نسخ رابط بوابة العميل"
                     >
                       <Copy className="w-3 h-3" />
@@ -301,11 +301,11 @@ export const ManufacturingOrderDetailPage: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-indigo-500" />
+                      <Building2 className="w-3.5 h-3.5 text-primary" />
                       <span>المصنع المنفذ وجهة التشغيل</span>
                     </span>
                     {primaryFactory ? (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">
                         تشغيل خارجي
                       </span>
                     ) : (

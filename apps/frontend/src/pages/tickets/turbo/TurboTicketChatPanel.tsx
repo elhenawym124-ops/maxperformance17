@@ -62,7 +62,7 @@ export const TurboTicketChatPanel: React.FC<TurboTicketChatPanelProps> = ({
   }
 
   return (
-    <main className="flex-1 flex flex-col h-full min-h-0 overflow-hidden bg-zinc-50/50 dark:bg-zinc-950/40 min-w-0 relative">
+    <main className="flex-1 flex flex-col h-full min-h-0 overflow-hidden bg-muted dark:bg-muted min-w-0 relative">
       <TurboTicketChatHeader
         ticket={ticket}
         loading={loading}
@@ -99,7 +99,7 @@ export const TurboTicketChatPanel: React.FC<TurboTicketChatPanelProps> = ({
             />
 
             {uniqueMessages.length === 0 ? (
-              <div className="py-12 text-center text-xs text-zinc-400">
+              <div className="py-12 text-center text-xs text-muted-foreground">
                 لا توجد ردود بعد. سيتم عرض ردود خدمة عملاء تربو هنا فور وصولها.
               </div>
             ) : (

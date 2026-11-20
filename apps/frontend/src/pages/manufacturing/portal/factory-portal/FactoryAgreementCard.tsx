@@ -11,9 +11,9 @@ export const FactoryAgreementCard: React.FC<FactoryAgreementCardProps> = ({
 }) => {
   const statusBadge =
     agreementSummary.status === 'ACTIVE'
-      ? { label: 'سارية (ACTIVE)', className: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' }
+      ? { label: 'سارية (ACTIVE)', className: 'bg-emerald-500/10 text-success border-success/20' }
       : agreementSummary.status === 'DRAFT'
-      ? { label: 'مسودة', className: 'bg-amber-500/10 text-amber-600 border-amber-500/20' }
+      ? { label: 'مسودة', className: 'bg-amber-500/10 text-warning border-warning/20' }
       : { label: agreementSummary.status, className: 'bg-muted text-muted-foreground border-border' };
 
   return (
@@ -96,9 +96,9 @@ export const FactoryAgreementCard: React.FC<FactoryAgreementCardProps> = ({
                   <span
                     className={`inline-block text-[10px] px-2 py-0.5 rounded-full font-semibold border ${
                       p.status === 'PAID'
-                        ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'
+                        ? 'bg-emerald-500/10 text-success border-success/20'
                         : p.status === 'PENDING'
-                        ? 'bg-amber-500/10 text-amber-600 border-amber-500/20'
+                        ? 'bg-amber-500/10 text-warning border-warning/20'
                         : 'bg-muted text-muted-foreground border-border'
                     }`}
                   >

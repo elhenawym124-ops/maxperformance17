@@ -239,7 +239,7 @@ export const SampleInfoTab: React.FC<SampleInfoTabProps> = ({
         {sample.expenses?.map((ex) => (
           <div
             key={ex.id}
-            className="flex justify-between items-center text-[11px] text-muted-foreground pr-2 border-b pb-1"
+            className="flex justify-between items-center text-[11px] text-muted-foreground pe-2 border-b pb-1"
           >
             <span className="flex items-center gap-1.5">
               {sample.status !== 'CONVERTED' && (
@@ -249,7 +249,7 @@ export const SampleInfoTab: React.FC<SampleInfoTabProps> = ({
                   className="hover:text-rose-600 p-0.5 rounded transition-colors"
                   title="حذف هذا المصروف"
                 >
-                  <Trash2 className="w-3 h-3 text-muted-foreground hover:text-rose-600" />
+                  <Trash2 className="w-3 h-3 text-muted-foreground hover:text-destructive" />
                 </button>
               )}
               <span>· {ex.name}</span>
@@ -294,7 +294,7 @@ export const SampleInfoTab: React.FC<SampleInfoTabProps> = ({
           <span className="text-muted-foreground">حالة استلام العينة:</span>
           <div>
             {sample.sampleReceived ? (
-              <span className="font-semibold text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1">
+              <span className="font-semibold text-success dark:text-success inline-flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span className="tabular-nums">
                   تم الاستلام{' '}
@@ -306,7 +306,7 @@ export const SampleInfoTab: React.FC<SampleInfoTabProps> = ({
                 </span>
               </span>
             ) : (
-              <span className="text-amber-600 dark:text-amber-400 font-medium">
+              <span className="text-amber-600 dark:text-warning font-medium">
                 في انتظار الاستلام من المصنع
               </span>
             )}

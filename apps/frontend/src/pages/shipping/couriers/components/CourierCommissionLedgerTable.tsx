@@ -81,8 +81,8 @@ export const CourierCommissionLedgerTable: React.FC<CourierCommissionLedgerTable
                     <span
                       className={`inline-block text-[10px] font-mono px-2 py-0.5 rounded-full border ${
                         e.status === 'PAID'
-                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
-                          : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+                          ? 'bg-emerald-500/10 text-success dark:text-success border-success/20'
+                          : 'bg-amber-500/10 text-warning dark:text-warning border-warning/20'
                       }`}
                     >
                       {e.status === 'PAID' ? 'مصروفة' : 'مستحقة'}

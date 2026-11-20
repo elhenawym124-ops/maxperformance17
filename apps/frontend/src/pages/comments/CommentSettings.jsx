@@ -72,7 +72,7 @@ const CommentSettings = () => {
   return (
     <div className="p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-2xl font-bold text-foreground">
           {t("commentSettings.pageTitle")}
         </h1>
         <p className="text-gray-600">{t("commentSettings.description")}</p>
@@ -81,14 +81,14 @@ const CommentSettings = () => {
       {loading ? (
         <div className="bg-white rounded-lg shadow p-6 text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600"></div>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-foreground">
             {t("commentSettings.loadingSettings")}
           </p>
         </div>
       ) : (
         <div className="bg-white rounded-lg shadow p-6">
           <div className="mb-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">
+            <h2 className="text-lg font-medium text-foreground mb-4">
               {t("commentSettings.autoReplyTemplateTitle")}
             </h2>
             <p className="text-gray-600 mb-4">
@@ -96,11 +96,11 @@ const CommentSettings = () => {
             </p>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t("commentSettings.templateLabel")}
               </label>
               <textarea
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows="4"
                 value={settings.commentResponseTemplate}
                 onChange={(e) =>
@@ -111,7 +111,7 @@ const CommentSettings = () => {
                 }
                 placeholder={t("commentSettings.templatePlaceholder")}
               />
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-muted-foreground">
                 {t("commentSettings.templateHint")}
               </p>
             </div>
@@ -119,7 +119,7 @@ const CommentSettings = () => {
 
           {/* Fixed Messages Section */}
           <div className="mb-6 border-t pt-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">
+            <h2 className="text-lg font-medium text-foreground mb-4">
               {t("commentSettings.fixedMessagesTitle")}
             </h2>
             <p className="text-gray-600 mb-4">
@@ -127,11 +127,11 @@ const CommentSettings = () => {
             </p>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t("commentSettings.fixedCommentLabel")}
               </label>
               <textarea
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows="3"
                 value={settings.fixedCommentMessage}
                 onChange={(e) =>
@@ -145,11 +145,11 @@ const CommentSettings = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t("commentSettings.fixedMessengerLabel")}
               </label>
               <textarea
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows="3"
                 value={settings.fixedMessengerMessage}
                 onChange={(e) =>
@@ -165,7 +165,7 @@ const CommentSettings = () => {
 
           {/* Messenger Message Variations */}
           <div className="mb-6 border-t pt-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">
+            <h2 className="text-lg font-medium text-foreground mb-4">
               {t("commentSettings.messengerVariationsTitle")}
             </h2>
             <p className="text-gray-600 mb-4">
@@ -175,7 +175,7 @@ const CommentSettings = () => {
             {settings.messengerMessages.map((msg, index) => (
               <div key={index} className="mb-3 flex gap-2">
                 <textarea
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="2"
                   value={msg}
                   onChange={(e) => {
@@ -201,7 +201,7 @@ const CommentSettings = () => {
                         messengerMessages: newMessages,
                       });
                     }}
-                    className="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                    className="px-3 py-2 bg-destructive text-white rounded-md hover:bg-destructive transition"
                   >
                     {t("pageComments.delete")}
                   </button>
@@ -216,7 +216,7 @@ const CommentSettings = () => {
                   messengerMessages: [...settings.messengerMessages, ""],
                 });
               }}
-              className="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+              className="mt-2 px-4 py-2 bg-success text-white rounded-md hover:bg-success transition"
             >
               {t("commentSettings.addNewMessage")}
             </button>

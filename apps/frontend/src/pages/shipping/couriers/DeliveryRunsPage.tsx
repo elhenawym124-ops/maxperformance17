@@ -63,7 +63,7 @@ const DeliveryRunsPage: React.FC = () => {
   } = useDeliveryRunsData();
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-slate-900 dark:text-slate-100">
+    <div className="p-4 sm:p-6 space-y-6 w-full max-w-[1800px] mx-auto text-foreground dark:text-muted-foreground">
       <DeliveryRunsHeader onOpenCreateRun={handleOpenCreateRun} />
 
       <DeliveryRunsTable
@@ -143,32 +143,32 @@ const DeliveryRunsPage: React.FC = () => {
       />
       {/* Link Revocation Confirmation Modal */}
       {revokingRun && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-xl space-y-4" dir="rtl">
-            <div className="flex items-center gap-3 text-rose-600 dark:text-rose-400">
-              <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm">
+          <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl max-w-md w-full p-6 shadow-xl space-y-4" dir="rtl">
+            <div className="flex items-center gap-3 text-destructive dark:text-destructive">
+              <div className="w-10 h-10 rounded-xl bg-destructive/10 dark:bg-destructive/50 flex items-center justify-center">
                 <NoSymbolIcon className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
+                <h3 className="font-bold text-base text-foreground dark:text-muted-foreground">
                   إلغاء صلاحية رابط المندوب
                 </h3>
-                <p className="text-xs text-slate-500 font-mono">
+                <p className="text-xs text-muted-foreground font-mono">
                   المأمورية {revokingRun.runNumber}
                 </p>
               </div>
             </div>
 
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p className="text-xs text-foreground dark:text-muted-foreground leading-relaxed">
               هل أنت متأكد من إلغاء صلاحية هذا الرابط؟ لن يتمكن المندوب من فتحه بهذا الرابط القديم.
             </p>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border dark:border-border">
               <button
                 type="button"
                 onClick={() => setRevokingRun(null)}
                 disabled={isRevoking}
-                className="px-4 py-2 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                className="px-4 py-2 text-xs font-semibold rounded-xl border border-border dark:border-border text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition"
               >
                 إلغاء
               </button>
@@ -176,7 +176,7 @@ const DeliveryRunsPage: React.FC = () => {
                 type="button"
                 onClick={confirmRevokeLink}
                 disabled={isRevoking}
-                className="px-4 py-2 text-xs font-bold rounded-xl bg-rose-600 hover:bg-rose-700 text-white transition flex items-center gap-1.5 shadow-sm disabled:opacity-50"
+                className="px-4 py-2 text-xs font-bold rounded-xl bg-destructive hover:bg-destructive text-white transition flex items-center gap-1.5 shadow-sm disabled:opacity-50"
               >
                 {isRevoking ? 'جاري الإلغاء...' : 'تأكيد إلغاء الرابط'}
               </button>

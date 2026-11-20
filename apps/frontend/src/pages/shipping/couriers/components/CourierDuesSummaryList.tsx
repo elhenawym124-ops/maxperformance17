@@ -40,7 +40,7 @@ export const CourierDuesSummaryList: React.FC<CourierDuesSummaryListProps> = ({
               <div className="flex items-center gap-4 shrink-0">
                 <div className="text-left font-mono">
                   <div className="text-[10px] text-muted-foreground uppercase">مستحق معلق</div>
-                  <div className="font-bold text-xs text-amber-600 dark:text-amber-400 tabular-nums">
+                  <div className="font-bold text-xs text-warning dark:text-warning tabular-nums">
                     {formatPrice(r.dueAmount)}{' '}
                     <span className="text-[10px] font-normal text-muted-foreground">({r.dueCount})</span>
                   </div>
@@ -48,7 +48,7 @@ export const CourierDuesSummaryList: React.FC<CourierDuesSummaryListProps> = ({
 
                 <div className="text-left font-mono">
                   <div className="text-[10px] text-muted-foreground uppercase">تم صرفه</div>
-                  <div className="font-semibold text-xs text-emerald-600 dark:text-emerald-400 tabular-nums">
+                  <div className="font-semibold text-xs text-success dark:text-success tabular-nums">
                     {formatPrice(r.paidAmount)}{' '}
                     <span className="text-[10px] font-normal text-muted-foreground">({r.paidCount})</span>
                   </div>
@@ -58,7 +58,7 @@ export const CourierDuesSummaryList: React.FC<CourierDuesSummaryListProps> = ({
                   <button
                     type="button"
                     onClick={() => onOpenPay(r.courierId)}
-                    className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold active:scale-[0.97] transition-all shadow-xs"
+                    className="px-3 py-1.5 rounded-lg bg-success hover:bg-success text-white text-xs font-semibold active:scale-[0.97] transition-all shadow-xs"
                   >
                     صرف المستحقات
                   </button>

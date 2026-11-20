@@ -48,13 +48,13 @@ export const TurboTicketChatHeader: React.FC<TurboTicketChatHeaderProps> = ({
     ticket.code && String(ticket.code).trim() !== String(ticket.id).trim();
 
   return (
-    <header className="p-2.5 sm:p-3 px-3 sm:px-4 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-between gap-2.5 shrink-0 z-10">
+    <header className="p-2.5 sm:p-3 px-3 sm:px-4 border-b border-border dark:border-border bg-white dark:bg-muted flex items-center justify-between gap-2.5 shrink-0 z-10">
       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         {onBackToList && (
           <button
             type="button"
             onClick={onBackToList}
-            className="md:hidden p-1.5 px-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition active:scale-95 flex items-center gap-1 text-xs font-semibold shrink-0"
+            className="md:hidden p-1.5 px-2 rounded-lg text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition active:scale-95 flex items-center gap-1 text-xs font-semibold shrink-0"
             title="الرجوع لقائمة التذاكر"
           >
             <ArrowRightIcon className="h-4 w-4" />
@@ -64,7 +64,7 @@ export const TurboTicketChatHeader: React.FC<TurboTicketChatHeaderProps> = ({
 
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 font-mono tabular-nums">
+            <h2 className="text-sm font-bold text-foreground dark:text-muted-foreground font-mono tabular-nums">
               تذكرة #{ticket.id}
             </h2>
             {statusInfo && (
@@ -78,19 +78,19 @@ export const TurboTicketChatHeader: React.FC<TurboTicketChatHeaderProps> = ({
               <button
                 type="button"
                 onClick={() => onCopyCode(ticket.code!)}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-mono transition"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted dark:bg-muted hover:bg-muted dark:hover:bg-muted text-foreground dark:text-muted-foreground text-xs font-mono transition"
                 title="نسخ كود الشحنة"
               >
                 <span>شحنة: {ticket.code}</span>
                 {copiedCode ? (
-                  <ClipboardDocumentCheckIcon className="h-3 w-3 text-emerald-600" />
+                  <ClipboardDocumentCheckIcon className="h-3 w-3 text-success" />
                 ) : (
-                  <ClipboardDocumentIcon className="h-3 w-3 text-zinc-400" />
+                  <ClipboardDocumentIcon className="h-3 w-3 text-muted-foreground" />
                 )}
               </button>
             )}
           </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate max-w-sm mt-0.5">
+          <p className="text-xs text-muted-foreground dark:text-muted-foreground truncate max-w-sm mt-0.5">
             {ticket.subject || ticket.description || "استفسار شحن"}
           </p>
         </div>
@@ -103,25 +103,25 @@ export const TurboTicketChatHeader: React.FC<TurboTicketChatHeaderProps> = ({
           onClick={onToggleOrderSidebar}
           className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition border ${
             showOrderSidebar
-              ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 border-zinc-900 dark:border-zinc-100 shadow-xs"
+              ? "bg-zinc-900 text-white dark:bg-muted dark:text-foreground border-border dark:border-border shadow-xs"
               : activeOrder || ticket.matchedOrderSummary
-              ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20"
-              : "border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              ? "border-emerald-500/30 bg-success/10 text-success dark:text-success hover:bg-success/20"
+              : "border-zinc-200 dark:border-border text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted"
           }`}
           title="تفاصيل الأوردر المرتبط"
         >
           <ShoppingBagIcon className="h-4 w-4" />
           <span className="hidden sm:inline">تفاصيل الأوردر</span>
           {(activeOrder || ticket.matchedOrderSummary) && (
-            <span className="tabular-nums font-mono px-1.5 py-0.2 rounded text-[10px] bg-emerald-600 text-white font-bold">
+            <span className="tabular-nums font-mono px-1.5 py-0.2 rounded text-[10px] bg-success text-white font-bold">
               #{activeOrder?.orderNumber || ticket.matchedOrderSummary?.orderNumber}
             </span>
           )}
         </button>
 
         {/* Rating */}
-        <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-xs">
-          <span className="text-zinc-500 text-[11px] ml-1">تقييم:</span>
+        <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-muted dark:bg-muted text-xs">
+          <span className="text-zinc-500 text-[11px] ms-1">تقييم:</span>
           {[1, 2, 3, 4, 5].map((s) => (
             <button
               key={s}
@@ -133,7 +133,7 @@ export const TurboTicketChatHeader: React.FC<TurboTicketChatHeaderProps> = ({
               {ratingScore && ratingScore >= s ? (
                 <StarSolid className="h-3.5 w-3.5" />
               ) : (
-                <StarOutline className="h-3.5 w-3.5 text-zinc-400" />
+                <StarOutline className="h-3.5 w-3.5 text-muted-foreground" />
               )}
             </button>
           ))}
@@ -142,7 +142,7 @@ export const TurboTicketChatHeader: React.FC<TurboTicketChatHeaderProps> = ({
         <button
           type="button"
           onClick={onOpenLogs}
-          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium border border-border dark:border-border text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition"
         >
           <ClockIcon className="h-3.5 w-3.5" />
           <span>السجل</span>
@@ -152,7 +152,7 @@ export const TurboTicketChatHeader: React.FC<TurboTicketChatHeaderProps> = ({
           type="button"
           onClick={onRefreshTicket}
           disabled={loading}
-          className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition disabled:opacity-50"
+          className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition disabled:opacity-50"
           title="تحديث المحادثة"
         >
           <ArrowPathIcon

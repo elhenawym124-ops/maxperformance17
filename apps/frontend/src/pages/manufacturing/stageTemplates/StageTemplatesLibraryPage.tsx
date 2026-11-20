@@ -58,14 +58,14 @@ export const StageTemplatesLibraryPage: React.FC = () => {
 
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 max-w-7xl mx-auto w-full">
         {error && (
-          <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 flex items-center justify-between text-xs">
+          <div className="p-3.5 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
             <button
               onClick={loadData}
-              className="px-2.5 py-1 rounded bg-rose-500/20 hover:bg-rose-500/30 font-semibold"
+              className="px-2.5 py-1 rounded bg-destructive/20 hover:bg-destructive/30 font-semibold"
             >
               إعادة المحاولة
             </button>
@@ -74,7 +74,7 @@ export const StageTemplatesLibraryPage: React.FC = () => {
 
         {/* Overview Stats Chassis */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="p-3.5 rounded-2xl bg-card border border-border/70 shadow-2xs">
+          <div className="p-3.5 rounded-xl bg-card border border-border/70 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground font-medium">المسارات القياسية (Sets)</span>
               <div className="p-1.5 rounded-lg bg-primary/10 text-primary">
@@ -89,10 +89,10 @@ export const StageTemplatesLibraryPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-card border border-border/70 shadow-2xs">
+          <div className="p-3.5 rounded-xl bg-card border border-border/70 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground font-medium">قوالب المراحل الفردية</span>
-              <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600">
+              <div className="p-1.5 rounded-lg bg-success/10 text-success">
                 <ListOrdered className="w-4 h-4" />
               </div>
             </div>
@@ -104,7 +104,7 @@ export const StageTemplatesLibraryPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-card border border-border/70 shadow-2xs">
+          <div className="p-3.5 rounded-xl bg-card border border-border/70 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground font-medium">مرات الاستدعاء للأوامر</span>
               <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-600">

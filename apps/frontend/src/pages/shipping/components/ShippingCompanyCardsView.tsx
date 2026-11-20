@@ -75,16 +75,16 @@ export const ShippingCompanyCardsView: React.FC<ShippingCompanyCardsViewProps> =
               {/* Telemetry Chips */}
               <div className="flex flex-wrap items-center gap-1.5 pt-1">
                 {company.providerKey === "MAXP_NETWORK" && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30">
-                    <span className="size-1.5 rounded-full bg-indigo-500" />
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-primary/15 text-primary dark:text-primary border border-primary/30">
+                    <span className="size-1.5 rounded-full bg-primary" />
                     <span>شحن على MaxP</span>
                   </span>
                 )}
                 <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                   isLive
-                    ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20"
+                    ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                     : isDemo
-                    ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20"
+                    ? "bg-amber-500/10 text-warning dark:text-warning border-warning/20"
                     : "bg-muted text-muted-foreground border-border/60"
                 }`}>
                   <span className={`size-1.5 rounded-full ${isLive ? "bg-emerald-500" : isDemo ? "bg-amber-500" : "bg-muted-foreground"}`} />
@@ -99,8 +99,8 @@ export const ShippingCompanyCardsView: React.FC<ShippingCompanyCardsViewProps> =
                 {isLive && (
                   <span className={`inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded ${
                     hasApiKey
-                      ? "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
-                      : "text-amber-600 dark:text-amber-400 bg-amber-500/10"
+                      ? "text-emerald-600 dark:text-success bg-success/10"
+                      : "text-amber-600 dark:text-warning bg-warning/10"
                   }`}>
                     {hasApiKey ? "API: Configured" : "API: Missing Key"}
                   </span>
@@ -140,7 +140,7 @@ export const ShippingCompanyCardsView: React.FC<ShippingCompanyCardsViewProps> =
                 <button
                   type="button"
                   onClick={(e) => handleDelete(company, e)}
-                  className="p-1.5 text-muted-foreground hover:text-rose-600 rounded-lg hover:bg-rose-500/10 transition active:scale-[0.98]"
+                  className="p-1.5 text-muted-foreground hover:text-destructive rounded-lg hover:bg-destructive/10 transition active:scale-[0.98]"
                   title="حذف الشركة"
                 >
                   <TrashIcon className="size-3.5" />

@@ -59,7 +59,7 @@ export const FactoryAgreementDrawer: React.FC<FactoryAgreementDrawerProps> = (
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm">
-      <div className="absolute inset-y-0 left-0 max-w-full flex pl-0 sm:pl-10">
+      <div className="absolute inset-y-0 left-0 max-w-full flex ps-0 sm:ps-10">
         <div className="w-screen max-w-2xl bg-card border-r border-border shadow-2xl flex flex-col">
           {/* Drawer Top Control Bar */}
           <AgreementDrawerHeader agreement={agreement} onClose={onClose} />

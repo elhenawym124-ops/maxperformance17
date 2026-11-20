@@ -39,9 +39,9 @@ export const TurboTicketInitialCard: React.FC<TurboTicketInitialCardProps> = ({
   const initialMediaUrls = extractMediaUrls(ticket);
 
   return (
-    <div className="p-3 sm:p-3.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-2xs">
-      <div className="flex items-center justify-between text-xs text-zinc-500 mb-1.5 flex-wrap gap-1">
-        <span className="font-semibold text-zinc-800 dark:text-zinc-200">
+    <div className="p-3 sm:p-3.5 rounded-xl border border-border dark:border-border bg-white dark:bg-muted shadow-2xs">
+      <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5 flex-wrap gap-1">
+        <span className="font-semibold text-foreground dark:text-muted-foreground">
           تذكرة بواسطة: {byText}
         </span>
         <span className="tabular-nums font-mono text-[11px]">
@@ -50,19 +50,19 @@ export const TurboTicketInitialCard: React.FC<TurboTicketInitialCardProps> = ({
       </div>
       {ticket.category?.name && (
         <div className="mb-2">
-          <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60">
+          <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border">
             الفئة: {ticket.category.name}
           </span>
         </div>
       )}
-      <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed whitespace-pre-wrap">
+      <p className="text-xs text-foreground dark:text-muted-foreground leading-relaxed whitespace-pre-wrap">
         {ticket.content || ticket.description || "لا يوجد وصف إضافي"}
       </p>
 
       {/* Initial Ticket Attachment if present */}
       {initialMediaUrls.length > 0 && (
-        <div className="mt-2.5 pt-2 border-t border-zinc-100 dark:border-zinc-800/60">
-          <p className="text-[11px] text-zinc-400 mb-1.5 font-medium">
+        <div className="mt-2.5 pt-2 border-t border-border dark:border-border">
+          <p className="text-[11px] text-muted-foreground mb-1.5 font-medium">
             مرفقات التذكرة ({initialMediaUrls.length}):
           </p>
           <div className="flex flex-wrap gap-2">
@@ -71,7 +71,7 @@ export const TurboTicketInitialCard: React.FC<TurboTicketInitialCardProps> = ({
                 key={attIdx}
                 type="button"
                 onClick={() => onPreviewImage(url)}
-                className="group relative rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700 max-w-[160px] max-h-[120px] focus:outline-hidden bg-zinc-950/20"
+                className="group relative rounded-lg overflow-hidden border border-border dark:border-border max-w-[160px] max-h-[120px] focus:outline-hidden bg-muted"
                 title="تكبير المرفق"
               >
                 <img

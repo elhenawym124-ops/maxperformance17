@@ -116,11 +116,11 @@ export const SampleDetailDrawer: React.FC<SampleDetailDrawerProps> = ({
         />
 
         {actionError && (
-          <div className="p-3 mx-4 mt-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium flex items-center justify-between">
+          <div className="p-3 mx-4 mt-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive dark:text-destructive text-xs font-medium flex items-center justify-between">
             <span>{actionError}</span>
             <button
               onClick={() => setActionError(null)}
-              className="text-rose-400 hover:text-rose-600"
+              className="text-rose-400 hover:text-destructive"
             >
               <X className="w-4 h-4" />
             </button>

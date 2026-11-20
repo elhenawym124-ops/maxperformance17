@@ -24,15 +24,15 @@ export const UserReplyForm: React.FC<UserReplyFormProps> = ({
   removeAttachment,
 }) => {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-lg shadow-md p-4 flex-shrink-0 border border-slate-200/80 dark:border-slate-800">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">
+    <div className="bg-white dark:bg-muted rounded-lg shadow-md p-4 flex-shrink-0 border border-border dark:border-border">
+      <h3 className="text-lg font-semibold text-foreground dark:text-muted-foreground mb-3">
         إضافة رد
       </h3>
 
       {error && (
-        <div className="bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 rounded-lg p-3 mb-3 flex items-center">
-          <AlertCircle className="w-5 h-5 text-red-500 ml-3" />
-          <span className="text-red-700 dark:text-red-300 text-sm">{error}</span>
+        <div className="bg-red-50 dark:bg-destructive/40 border border-destructive dark:border-destructive rounded-lg p-3 mb-3 flex items-center">
+          <AlertCircle className="w-5 h-5 text-destructive ms-3" />
+          <span className="text-red-700 dark:text-destructive text-sm">{error}</span>
         </div>
       )}
 
@@ -42,7 +42,7 @@ export const UserReplyForm: React.FC<UserReplyFormProps> = ({
           onChange={(e) => setMessageContent(e.target.value)}
           placeholder="اكتب ردك هنا..."
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm"
+          className="w-full px-3 py-2 border border-border dark:border-border bg-white dark:bg-muted text-foreground dark:text-muted-foreground rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm"
         />
 
         {/* File Upload */}
@@ -57,9 +57,9 @@ export const UserReplyForm: React.FC<UserReplyFormProps> = ({
           />
           <label
             htmlFor="user-message-file-upload"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 cursor-pointer transition-colors text-sm text-gray-700 dark:text-slate-300"
+            className="inline-flex items-center px-4 py-2 border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted cursor-pointer transition-colors text-sm text-foreground dark:text-muted-foreground"
           >
-            <Paperclip className="w-4 h-4 ml-2" />
+            <Paperclip className="w-4 h-4 ms-2" />
             إرفاق ملفات
           </label>
         </div>
@@ -70,7 +70,7 @@ export const UserReplyForm: React.FC<UserReplyFormProps> = ({
             {attachments.map((attachment, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between bg-gray-50 dark:bg-slate-800/80 rounded-lg p-3 border border-slate-200/60 dark:border-slate-700"
+                className="flex items-center justify-between bg-muted dark:bg-muted rounded-lg p-3 border border-border dark:border-border"
               >
                 <div className="flex items-center gap-3">
                   {attachment.preview ? (
@@ -80,18 +80,18 @@ export const UserReplyForm: React.FC<UserReplyFormProps> = ({
                       className="w-8 h-8 object-cover rounded"
                     />
                   ) : (
-                    <div className="w-8 h-8 bg-gray-200 dark:bg-slate-700 rounded flex items-center justify-center">
-                      <Paperclip className="w-3 h-3 text-gray-500 dark:text-slate-400" />
+                    <div className="w-8 h-8 bg-muted dark:bg-muted rounded flex items-center justify-center">
+                      <Paperclip className="w-3 h-3 text-muted-foreground dark:text-muted-foreground" />
                     </div>
                   )}
-                  <span className="text-sm text-gray-900 dark:text-slate-200 truncate max-w-xs">
+                  <span className="text-sm text-foreground dark:text-muted-foreground truncate max-w-xs">
                     {attachment.file.name}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => removeAttachment(index)}
-                  className="text-red-500 hover:text-red-700 p-1"
+                  className="text-red-500 hover:text-destructive p-1"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -111,12 +111,12 @@ export const UserReplyForm: React.FC<UserReplyFormProps> = ({
           >
             {sendingMessage ? (
               <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white ml-2"></div>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white ms-2"></div>
                 جاري الإرسال...
               </>
             ) : (
               <>
-                <Send className="w-4 h-4 ml-2" />
+                <Send className="w-4 h-4 ms-2" />
                 إرسال
               </>
             )}

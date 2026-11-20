@@ -306,7 +306,7 @@ export const FabricRequirementsTab: React.FC<FabricRequirementsTabProps> = ({
         <div className="p-4 rounded-xl bg-card border border-border/70 space-y-4">
           <div className="flex items-center justify-between border-b border-border/60 pb-2">
             <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <CheckCircle2 className="w-4 h-4 text-success" />
               <span>مخرجات التخطيط والتكاليف المعتمدة</span>
             </h3>
             <span className="text-[11px] font-mono text-muted-foreground">
@@ -327,7 +327,7 @@ export const FabricRequirementsTab: React.FC<FabricRequirementsTabProps> = ({
             {/* Expected Weight in Kg */}
             <div className="p-3 rounded-lg bg-muted/30 border border-border/60">
               <span className="text-[11px] text-muted-foreground block mb-1">الوزن المتوقع للطلب</span>
-              <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-emerald-600">
+              <div className="text-base sm:text-lg font-bold font-mono tabular-nums text-success">
                 {result.expectedWeightKg} <span className="text-xs font-normal text-muted-foreground">كجم</span>
               </div>
               <span className="text-[10px] text-muted-foreground">المطلوب × العرض × GSM ÷ 1000</span>

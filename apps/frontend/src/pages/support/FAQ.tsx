@@ -175,11 +175,11 @@ export const FAQ: React.FC = () => {
         <div className="bg-card border border-border/70 rounded-lg p-3">
           <div className="flex items-center justify-between text-muted-foreground text-xs">
             <span>حل المشكلات الفوري</span>
-            <LifeBuoy className="w-3.5 h-3.5 text-amber-500" />
+            <LifeBuoy className="w-3.5 h-3.5 text-warning" />
           </div>
           <div className="mt-1 flex items-baseline gap-1.5">
             <span className="text-base font-bold text-foreground">إجابات فورية 24/7</span>
-            <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">Knowledge SLA</span>
+            <span className="text-[10px] font-mono text-success dark:text-success">Knowledge SLA</span>
           </div>
         </div>
       </div>
@@ -194,7 +194,7 @@ export const FAQ: React.FC = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && void fetchFAQs()}
-            className="w-full h-9 pr-9 pl-3 text-xs rounded-lg border border-border/80 bg-background text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary"
+            className="w-full h-9 pe-9 ps-3 text-xs rounded-lg border border-border/80 bg-background text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary"
           />
         </div>
 
@@ -290,7 +290,7 @@ export const FAQ: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => void rateFAQ(faq.id, true)}
-                              className="inline-flex items-center gap-1 text-emerald-600 hover:text-emerald-700 font-medium transition-colors cursor-pointer"
+                              className="inline-flex items-center gap-1 text-success hover:text-success font-medium transition-colors cursor-pointer"
                             >
                               <ThumbsUp className="w-3.5 h-3.5" />
                               <span className="font-mono tabular-nums">({faq.helpful})</span>

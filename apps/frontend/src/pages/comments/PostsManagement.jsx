@@ -187,11 +187,11 @@ const PostsManagement = ({ embedded = false }) => {
       case "ai":
         return "bg-blue-100 text-blue-800";
       case "fixed":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 text-success";
       case "manual":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-100 text-warning";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-foreground";
     }
   };
 
@@ -208,7 +208,7 @@ const PostsManagement = ({ embedded = false }) => {
       className={`flex flex-col ${embedded ? "h-full" : "h-screen"} bg-[#f3f4f6] overflow-hidden`}
     >
       {/* Top Header */}
-      <div className="bg-white m-2 md:m-4 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between px-4 md:px-6 py-3 md:py-4 flex-shrink-0 gap-2">
+      <div className="bg-white m-2 md:m-4 rounded-xl shadow-sm border border-border flex flex-col md:flex-row items-start md:items-center justify-between px-4 md:px-6 py-3 md:py-4 flex-shrink-0 gap-2">
         <div className="flex items-center gap-3 w-full md:w-auto">
           <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-[#6b52a3] flex-shrink-0" />
           <h1 className="text-base md:text-xl font-bold text-[#6b52a3]">
@@ -228,10 +228,10 @@ const PostsManagement = ({ embedded = false }) => {
 
       {/* Settings Bar (replaces middle column - moved to top) */}
       {selectedPageObj && (
-        <div className="bg-white mx-2 md:mx-4 mb-2 md:mb-4 rounded-xl shadow-sm border border-gray-100 p-3 md:p-4 flex-shrink-0">
+        <div className="bg-white mx-2 md:mx-4 mb-2 md:mb-4 rounded-xl shadow-sm border border-border p-3 md:p-4 flex-shrink-0">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
             <div className="flex items-center gap-3 w-full md:w-auto">
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-muted flex-shrink-0">
                 <img
                   src={`https://graph.facebook.com/${selectedPageObj.pageId}/picture?type=small`}
                   alt={selectedPageObj.pageName}
@@ -243,7 +243,7 @@ const PostsManagement = ({ embedded = false }) => {
                 />
               </div>
               <div>
-                <h2 className="font-bold text-sm md:text-base text-gray-800">
+                <h2 className="font-bold text-sm md:text-base text-foreground">
                   {selectedPageObj.pageName}
                 </h2>
                 <span
@@ -257,7 +257,7 @@ const PostsManagement = ({ embedded = false }) => {
             <div className="flex flex-wrap items-center gap-3 md:gap-6 w-full md:w-auto">
               {/* Delay Reply Toggle */}
               <div className="flex items-center gap-2">
-                <span className="text-xs md:text-sm font-bold text-gray-600 whitespace-nowrap">
+                <span className="text-xs md:text-sm font-bold text-foreground whitespace-nowrap">
                   {t("postsManagement.delayReply")}
                 </span>
                 <button
@@ -269,19 +269,19 @@ const PostsManagement = ({ embedded = false }) => {
                     className={`absolute top-0.5 md:top-1 w-3.5 h-3.5 md:w-4 md:h-4 bg-white rounded-full transition-all ${enableDelayReply ? "right-0.5 md:right-1" : "right-5 md:right-7"}`}
                   ></span>
                 </button>
-                <span className="text-[10px] md:text-xs font-bold text-gray-500">
+                <span className="text-[10px] md:text-xs font-bold text-muted-foreground">
                   {enableDelayReply ? t("postsManagement.enabled") : t("postsManagement.disabled")}
                 </span>
               </div>
 
               {/* Stats */}
               <div className="flex items-center gap-2 md:gap-4">
-                <div className="flex items-center gap-1.5 bg-[#f8f9fa] px-2.5 py-1.5 rounded-lg border border-gray-100">
+                <div className="flex items-center gap-1.5 bg-[#f8f9fa] px-2.5 py-1.5 rounded-lg border border-border">
                   <MessageCircle className="w-3.5 h-3.5 text-[#6b52a3]" />
-                  <span className="text-[10px] md:text-xs font-bold text-gray-700 whitespace-nowrap">
+                  <span className="text-[10px] md:text-xs font-bold text-foreground whitespace-nowrap">
                     {t("postsManagement.autoReply")}
                   </span>
-                  <span className="bg-gray-200 text-gray-600 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="bg-gray-200 text-foreground text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
                     {posts.filter(
                       (p) =>
                         p.responseMethod === "ai" ||
@@ -289,12 +289,12 @@ const PostsManagement = ({ embedded = false }) => {
                     ).length}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 bg-[#eef8fc] px-2.5 py-1.5 rounded-lg border border-gray-100">
+                <div className="flex items-center gap-1.5 bg-[#eef8fc] px-2.5 py-1.5 rounded-lg border border-border">
                   <MessageSquare className="w-3.5 h-3.5 text-[#3bb0d9]" />
-                  <span className="text-[10px] md:text-xs font-bold text-gray-700 whitespace-nowrap">
+                  <span className="text-[10px] md:text-xs font-bold text-foreground whitespace-nowrap">
                     {t("postsManagement.comments")}
                   </span>
-                  <span className="bg-gray-200 text-gray-600 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="bg-gray-200 text-foreground text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
                     {posts.reduce((sum, p) => sum + (p.totalComments || 0), 0)}
                   </span>
                 </div>
@@ -308,19 +308,19 @@ const PostsManagement = ({ embedded = false }) => {
 
       {/* Error Banner */}
       {error && (
-        <div className="mx-2 md:mx-4 mb-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3 flex items-center gap-2 text-red-700 text-sm flex-shrink-0">
+        <div className="mx-2 md:mx-4 mb-2 bg-destructive/10 border border-destructive rounded-xl px-4 py-3 flex items-center gap-2 text-destructive text-sm flex-shrink-0">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span className="flex-1">{error}</span>
           <button
             onClick={() => errorType === "pages" ? fetchPages() : fetchPosts()}
-            className="text-red-600 hover:text-red-800 font-bold ml-2 flex items-center gap-1"
+            className="text-red-600 hover:text-destructive font-bold ms-2 flex items-center gap-1"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             {t("postsManagement.retry")}
           </button>
           <button
             onClick={() => setError(null)}
-            className="text-red-400 hover:text-red-600 font-bold text-lg"
+            className="text-red-400 hover:text-destructive font-bold text-lg"
           >
             ×
           </button>
@@ -331,7 +331,7 @@ const PostsManagement = ({ embedded = false }) => {
       <div className="flex-1 overflow-hidden flex flex-col md:flex-row gap-2 md:gap-4 px-2 md:px-4 pb-2 md:pb-4 min-h-0">
         {/* Mobile: Pages Dropdown */}
         <div className="md:hidden flex-shrink-0">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+          <div className="bg-white rounded-xl shadow-sm border border-border">
             <button
               onClick={() => setShowMobilePages(!showMobilePages)}
               className="w-full flex items-center justify-between px-4 py-3 text-[#6b52a3] font-bold"
@@ -345,10 +345,10 @@ const PostsManagement = ({ embedded = false }) => {
               />
             </button>
             {showMobilePages && (
-              <div className="border-t border-gray-100 max-h-48 overflow-y-auto">
+              <div className="border-t border-border max-h-48 overflow-y-auto">
                 {loadingPages ? (
                   <div className="flex justify-center py-4">
-                    <div className="animate-spin rounded-full h-6 w-6 border-2 border-indigo-500 border-t-transparent"></div>
+                    <div className="animate-spin rounded-full h-6 w-6 border-2 border-primary border-t-transparent"></div>
                   </div>
                 ) : (
                   filteredPages.map((page) => (
@@ -358,10 +358,10 @@ const PostsManagement = ({ embedded = false }) => {
                       className={`flex items-center gap-3 px-4 py-3 cursor-pointer border-r-4 ${
                         selectedPage === page.pageId
                           ? "bg-[#6b52a3] text-white border-transparent"
-                          : "hover:bg-gray-50 text-gray-700 border-transparent"
+                          : "hover:bg-gray-50 text-foreground border-transparent"
                       }`}
                     >
-                      <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-muted flex-shrink-0">
                         <img
                           src={`https://graph.facebook.com/${page.pageId}/picture?type=small`}
                           alt={page.pageName}
@@ -384,18 +384,18 @@ const PostsManagement = ({ embedded = false }) => {
         </div>
 
         {/* Left Column: Pages (desktop) */}
-        <div className="hidden md:flex w-[260px] lg:w-[300px] bg-white rounded-xl shadow-sm border border-gray-100 flex-col flex-shrink-0">
-          <div className="p-3 md:p-4 border-b border-gray-100 flex items-center justify-between">
+        <div className="hidden md:flex w-[260px] lg:w-[300px] bg-white rounded-xl shadow-sm border border-border flex-col flex-shrink-0">
+          <div className="p-3 md:p-4 border-b border-border flex items-center justify-between">
             <div className="flex items-center gap-2 font-bold text-[#6b52a3] text-sm md:text-base">
               <Layers className="w-4 h-4 md:w-5 md:h-5" />
               <span>{t("postsManagement.pages")}</span>
             </div>
             <div className="relative w-24 md:w-32">
-              <Search className="w-3 h-3 md:w-3.5 md:h-3.5 absolute left-2 top-1/2 -translate-y-1/2 text-gray-400" />
+              <Search className="w-3 h-3 md:w-3.5 md:h-3.5 absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="text"
                 placeholder={t("postsManagement.search")}
-                className="w-full text-[10px] md:text-xs pl-6 md:pl-7 pr-1.5 md:pr-2 py-1 md:py-1.5 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full text-[10px] md:text-xs ps-6 md:ps-7 pe-1.5 md:pe-2 py-1 md:py-1.5 bg-muted border border-border rounded-full focus:outline-none focus:ring-1 focus:ring-primary"
                 value={pagesSearch}
                 onChange={(e) => setPagesSearch(e.target.value)}
               />
@@ -405,10 +405,10 @@ const PostsManagement = ({ embedded = false }) => {
           <div className="flex-1 overflow-y-auto">
             {loadingPages ? (
               <div className="flex justify-center py-10">
-                <div className="animate-spin rounded-full h-8 w-8 border-4 border-indigo-500 border-t-transparent"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div>
               </div>
             ) : filteredPages.length === 0 ? (
-              <div className="text-center py-10 text-gray-400 font-medium text-sm">
+              <div className="text-center py-10 text-muted-foreground font-medium text-sm">
                 {t("postsManagement.noPages")}
               </div>
             ) : (
@@ -419,10 +419,10 @@ const PostsManagement = ({ embedded = false }) => {
                   className={`flex items-center gap-3 p-3 md:p-4 cursor-pointer transition-colors border-l-4 ${
                     selectedPage === page.pageId
                       ? "bg-[#6b52a3] text-white border-transparent"
-                      : "hover:bg-gray-50 text-gray-700 border-transparent"
+                      : "hover:bg-gray-50 text-foreground border-transparent"
                   }`}
                 >
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-muted flex-shrink-0">
                     <img
                       src={`https://graph.facebook.com/${page.pageId}/picture?type=small`}
                       alt={page.pageName}
@@ -448,19 +448,19 @@ const PostsManagement = ({ embedded = false }) => {
         </div>
 
         {/* Right Column: Latest Posts */}
-        <div className="flex-1 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col min-w-0 overflow-hidden">
+        <div className="flex-1 bg-white rounded-xl shadow-sm border border-border flex flex-col min-w-0 overflow-hidden">
           <div className="bg-gradient-to-r from-[#6b52a3] via-[#ab5498] to-[#e84b5c] rounded-t-xl flex items-center justify-between px-3 md:px-6 py-2 md:py-3 flex-shrink-0">
             <div className="flex items-center gap-1.5 md:gap-2 text-white font-bold text-sm md:text-lg">
               <Rss className="w-4 h-4 md:w-5 md:h-5" />
               <span>{t("postsManagement.latestPosts")}</span>
-              {syncing && <span className="text-white/70 text-xs mr-2 animate-pulse">{t("postsManagement.syncing")}</span>}
+              {syncing && <span className="text-white/70 text-xs me-2 animate-pulse">{t("postsManagement.syncing")}</span>}
             </div>
             <div className="flex items-center gap-2 md:gap-4">
 
               <input
                 type="text"
                 placeholder={t("postsManagement.search")}
-                className="w-28 md:w-56 text-[10px] md:text-sm px-2 md:px-4 py-1 md:py-1.5 rounded-full bg-white text-gray-700 focus:outline-none shadow-sm"
+                className="w-28 md:w-56 text-[10px] md:text-sm px-2 md:px-4 py-1 md:py-1.5 rounded-full bg-white text-foreground focus:outline-none shadow-sm"
                 value={postsSearch}
                 onChange={(e) => setPostsSearch(e.target.value)}
               />
@@ -479,14 +479,14 @@ const PostsManagement = ({ embedded = false }) => {
           <div className="flex-1 overflow-y-auto p-3 md:p-6">
             {loading ? (
               <div className="flex justify-center py-10">
-                <div className="animate-spin rounded-full h-8 w-8 border-4 border-indigo-500 border-t-transparent"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div>
               </div>
             ) : !selectedPage ? (
-              <div className="text-center py-10 text-gray-400 font-medium text-sm">
+              <div className="text-center py-10 text-muted-foreground font-medium text-sm">
                 {t("postsManagement.selectPage")}
               </div>
             ) : filteredPosts.length === 0 ? (
-              <div className="text-center py-10 text-gray-500 font-medium text-sm">
+              <div className="text-center py-10 text-muted-foreground font-medium text-sm">
                 {posts.length > 0 ? t("postsManagement.noSearchResults") : t("postsManagement.noPosts")}
               </div>
             ) : (
@@ -494,11 +494,11 @@ const PostsManagement = ({ embedded = false }) => {
                 {filteredPosts.map((post) => (
                   <div
                     key={post.postId}
-                    className="flex flex-col md:flex-row gap-3 md:gap-4 p-3 md:p-0 bg-gray-50 md:bg-transparent rounded-xl md:rounded-none"
+                    className="flex flex-col md:flex-row gap-3 md:gap-4 p-3 md:p-0 bg-muted md:bg-transparent rounded-xl md:rounded-none"
                   >
                     <div className="flex items-center gap-3 md:block">
                       <div className="relative w-12 h-12 md:w-[80px] md:h-[80px] flex-shrink-0">
-                        <div className="w-full h-full rounded-xl overflow-hidden bg-gray-100 border-2 border-white shadow-md">
+                        <div className="w-full h-full rounded-xl overflow-hidden bg-muted border-2 border-white shadow-md">
                           {post.pictureUrl ? (
                             <img
                               src={post.pictureUrl}
@@ -522,7 +522,7 @@ const PostsManagement = ({ embedded = false }) => {
                           onClick={() =>
                             navigate(`/posts/${post.postId}/settings`)
                           }
-                          className="absolute -bottom-1 -left-1 md:bottom-0 md:right-0 bg-white rounded-full p-0.5 md:p-1 shadow-md border border-gray-100 hover:bg-gray-50 transition-colors"
+                          className="absolute -bottom-1 -left-1 md:bottom-0 md:right-0 bg-white rounded-full p-0.5 md:p-1 shadow-md border border-border hover:bg-muted transition-colors"
                         >
                           <Settings className="w-3 h-3 md:w-4 md:h-4 text-blue-500" />
                         </button>
@@ -536,7 +536,7 @@ const PostsManagement = ({ embedded = false }) => {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[12px] md:text-[13px] font-bold text-gray-800 line-clamp-2 leading-relaxed">
+                      <p className="text-[12px] md:text-[13px] font-bold text-foreground line-clamp-2 leading-relaxed">
                         {post.message || t("postsManagement.noText")}
                       </p>
                       <div className="flex flex-wrap items-center justify-between gap-1.5 mt-2">

@@ -107,11 +107,11 @@ const ShippingCompanies: React.FC = () => {
         <div className="p-3 rounded-xl border border-border/70 dark:border-border/50 bg-card/60 backdrop-blur-xs flex items-center justify-between">
           <div>
             <p className="text-[11px] font-medium text-muted-foreground">الشركات المفعلة</p>
-            <p className="text-lg font-bold font-mono tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <p className="text-lg font-bold font-mono tracking-tight text-success dark:text-success tabular-nums">
               {stats.active}
             </p>
           </div>
-          <span className="size-2 rounded-full bg-emerald-500" />
+          <span className="size-2 rounded-full bg-success" />
         </div>
 
         <div className="p-3 rounded-xl border border-border/70 dark:border-border/50 bg-card/60 backdrop-blur-xs flex items-center justify-between">
@@ -148,7 +148,7 @@ const ShippingCompanies: React.FC = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="ابحث بالاسم، الكود، أو المعرف..."
-                className="w-full pr-8 pl-3 py-1.5 text-xs bg-background/80 border border-border/80 rounded-lg text-foreground placeholder:text-muted-foreground/70 focus:outline-hidden focus:ring-1 focus:ring-primary"
+                className="w-full pe-8 ps-3 py-1.5 text-xs bg-background/80 border border-border/80 rounded-lg text-foreground placeholder:text-muted-foreground/70 focus:outline-hidden focus:ring-1 focus:ring-primary"
               />
             </div>
 

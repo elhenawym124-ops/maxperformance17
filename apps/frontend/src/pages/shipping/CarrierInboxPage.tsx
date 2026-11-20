@@ -168,13 +168,13 @@ export const CarrierInboxPage: React.FC = () => {
       case "OPEN":
         return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">مفتوحة</span>;
       case "PENDING_MERCHANT":
-        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">في انتظار الرد</span>;
+        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-warning text-warning dark:bg-warning/40 dark:text-warning">في انتظار الرد</span>;
       case "RESOLVED":
-        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">تم الرد</span>;
+        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-success text-success dark:bg-success/40 dark:text-success">تم الرد</span>;
       case "CLOSED":
-        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">مغلقة</span>;
+        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground dark:bg-muted dark:text-muted-foreground">مغلقة</span>;
       default:
-        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">{status}</span>;
+        return <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground">{status}</span>;
     }
   };
 
@@ -226,7 +226,7 @@ export const CarrierInboxPage: React.FC = () => {
       </div>
 
       {errorMsg && (
-        <div className="p-4 rounded-lg bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300 text-sm">
+        <div className="p-4 rounded-lg bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive text-sm">
           {errorMsg}
         </div>
       )}
@@ -272,7 +272,7 @@ export const CarrierInboxPage: React.FC = () => {
                           {thread.code || thread.externalId}
                         </span>
                         {isDemo ? (
-                          <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300">
+                          <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-primary text-primary dark:bg-primary/50 dark:text-primary">
                             DEMO
                           </span>
                         ) : (
@@ -320,7 +320,7 @@ export const CarrierInboxPage: React.FC = () => {
                       تذكرة شحن: {selectedThread.code || selectedThread.externalId}
                     </h2>
                     {selectedThread.providerKey === "DEMO" && (
-                      <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300">
+                      <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-primary text-primary dark:bg-primary/50 dark:text-primary">
                         وضع الاختبار DEMO
                       </span>
                     )}
@@ -354,7 +354,7 @@ export const CarrierInboxPage: React.FC = () => {
                         className={`flex flex-col ${isInbound ? "items-start" : "items-end"}`}
                       >
                         <div
-                          className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm shadow-sm ${
+                          className={`max-w-[75%] rounded-xl px-4 py-2.5 text-sm shadow-sm ${
                             isInbound
                               ? "bg-card border border-border text-foreground rounded-br-none"
                               : "bg-primary text-primary-foreground rounded-bl-none"

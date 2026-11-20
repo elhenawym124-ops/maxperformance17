@@ -50,7 +50,7 @@ export const TurboTicketLogsModal: React.FC<TurboTicketLogsModalProps> = ({
       aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-background/80 backdrop-blur-sm animate-in fade-in"
     >
-      <div className="w-full max-w-md bg-card rounded-2xl border border-border/80 shadow-2xl flex flex-col max-h-[80vh] overflow-hidden text-right font-sans">
+      <div className="w-full max-w-md bg-card rounded-xl border border-border/80 shadow-2xl flex flex-col max-h-[80vh] overflow-hidden text-right font-sans">
         {/* Header */}
         <div className="p-4 border-b border-border/60 flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2.5">

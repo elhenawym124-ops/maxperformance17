@@ -36,10 +36,10 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
   formatPrice
 }) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm print:p-0 print:bg-white">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-[1200px] max-h-[90vh] shadow-xl flex flex-col overflow-hidden print:border-none print:shadow-none print:max-h-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-muted backdrop-blur-sm print:p-0 print:bg-white">
+      <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl w-full max-w-[1200px] max-h-[90vh] shadow-xl flex flex-col overflow-hidden print:border-none print:shadow-none print:max-h-none">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800 print:hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border print:hidden">
           <div className="flex items-center gap-2">
             <DocumentTextIcon className="w-5 h-5 text-blue-600" />
             <h3 className="font-bold text-base sm:text-lg">
@@ -50,7 +50,7 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
             {onRevokeLink && (
               <button
                 onClick={() => onRevokeLink(selectedRun)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-rose-700 bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 rounded-lg hover:bg-rose-100 transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-destructive bg-destructive/10 dark:bg-destructive/50 border border-destructive dark:border-destructive rounded-lg hover:bg-destructive transition"
               >
                 <NoSymbolIcon className="w-4 h-4" />
                 إلغاء الرابط
@@ -58,14 +58,14 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
             )}
             <button
               onClick={() => onCopyMobileLink(selectedRun)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
             >
-              <ClipboardDocumentIcon className="w-4 h-4 text-slate-500" />
+              <ClipboardDocumentIcon className="w-4 h-4 text-muted-foreground" />
               رابط المندوب
             </button>
             <button
               onClick={() => onShareWhatsApp(selectedRun)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 rounded-lg hover:bg-emerald-100 transition"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-success bg-success/10 dark:bg-success/50 border border-success dark:border-success rounded-lg hover:bg-success transition"
             >
               <ChatBubbleLeftRightIcon className="w-4 h-4" />
               واتساب
@@ -79,7 +79,7 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
             </button>
             <button
               onClick={onPrint}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
             >
               <PrinterIcon className="w-4 h-4" />
               طباعة المانيفست
@@ -87,7 +87,7 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
             <button
               onClick={onClose}
               aria-label="إغلاق"
-              className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition"
+              className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground rounded-lg transition"
             >
               <XMarkIcon className="w-5 h-5" />
             </button>
@@ -96,22 +96,22 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
 
         {/* Printable Manifest Content */}
         <div className="p-6 overflow-y-auto space-y-6 text-xs sm:text-sm">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border">
             <div>
-              <div className="text-xs text-slate-400">المندوب المستلم</div>
-              <div className="font-semibold text-slate-900 dark:text-slate-100 mt-0.5">{selectedRun.courier?.name}</div>
-              <div className="text-[11px] text-slate-500 font-mono" dir="ltr">{selectedRun.courier?.phone}</div>
+              <div className="text-xs text-muted-foreground">المندوب المستلم</div>
+              <div className="font-semibold text-foreground dark:text-muted-foreground mt-0.5">{selectedRun.courier?.name}</div>
+              <div className="text-[11px] text-muted-foreground font-mono" dir="ltr">{selectedRun.courier?.phone}</div>
             </div>
             <div>
-              <div className="text-xs text-slate-400">تاريخ الخروج</div>
+              <div className="text-xs text-muted-foreground">تاريخ الخروج</div>
               <div className="font-semibold mt-0.5">{formatDate(selectedRun.dispatchDate)}</div>
             </div>
             <div>
-              <div className="text-xs text-slate-400">إجمالي الطرود</div>
+              <div className="text-xs text-muted-foreground">إجمالي الطرود</div>
               <div className="font-semibold mt-0.5 tabular-nums font-mono">{selectedRun.totalShipments} طرد</div>
             </div>
             <div>
-              <div className="text-xs text-slate-400">إجمالي المبلغ المطلوب (COD)</div>
+              <div className="text-xs text-muted-foreground">إجمالي المبلغ المطلوب (COD)</div>
               <div className="font-semibold text-blue-600 dark:text-blue-400 mt-0.5 tabular-nums font-mono">
                 {formatPrice(selectedRun.totalCODExpected)}
               </div>
@@ -119,9 +119,9 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
           </div>
 
           {/* Shipments List */}
-          <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+          <div className="border border-border dark:border-border rounded-xl overflow-hidden">
             <table className="w-full text-right text-xs">
-              <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-800 font-medium text-slate-500">
+              <thead className="bg-slate-50 dark:bg-muted border-b border-border dark:border-border font-medium text-muted-foreground">
                 <tr>
                   <th className="py-2.5 px-3">#</th>
                   <th className="py-2.5 px-3">رقم الطلب</th>
@@ -134,27 +134,27 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
                   <th className="py-2.5 px-3 print:table-cell hidden">توقيع المستلم</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-border dark:divide-border">
                 {selectedRun.shipments?.map((s, idx) => (
                   <tr key={s.id}>
-                    <td className="py-2.5 px-3 tabular-nums font-mono text-slate-400">{idx + 1}</td>
+                    <td className="py-2.5 px-3 tabular-nums font-mono text-muted-foreground">{idx + 1}</td>
                     <td className="py-2.5 px-3 font-mono font-medium">{s.order?.orderNumber}</td>
                     <td className="py-2.5 px-3">
                       <div className="font-medium">{s.order?.customerName}</div>
-                      <div className="text-[11px] text-slate-500 font-mono" dir="ltr">{s.order?.customerPhone}</div>
+                      <div className="text-[11px] text-muted-foreground font-mono" dir="ltr">{s.order?.customerPhone}</div>
                     </td>
                     <td className="py-2.5 px-3 max-w-[200px] truncate">
                       {s.order?.governorate ? `${s.order.governorate} - ` : ''}
                       {s.order?.customerAddress || s.destinationAddress || '-'}
                     </td>
-                    <td className="py-2.5 px-3 text-slate-500">
+                    <td className="py-2.5 px-3 text-muted-foreground">
                       {s.order?.items?.map((it) => `${it.quantity}x ${it.name}`).join('، ') || 'طرد مغلق'}
                     </td>
                     <td className="py-2.5 px-3 font-semibold tabular-nums font-mono">
                       {formatPrice(s.order?.total || 0)}
                     </td>
                     <td className="py-2.5 px-3">
-                      <span className="font-medium text-slate-700 dark:text-slate-300">
+                      <span className="font-medium text-foreground dark:text-muted-foreground">
                         {s.status === 'DELIVERED' ? 'تم التسليم' : s.status === 'RETURNED' ? 'مرتجع' : s.status === 'DELAYED' ? 'مؤجل' : 'في الطريق'}
                       </span>
                     </td>
@@ -163,7 +163,7 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
                         <button
                           onClick={() => onViewWaybill({ run: selectedRun, shipment: s })}
                           title="طباعة بوليصة هذا الطرد"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                         >
                           <PrinterIcon className="w-3.5 h-3.5 text-blue-600" />
                           بوليصة
@@ -173,15 +173,15 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
                           <button
                             onClick={() => onOpenReassign(s)}
                             title="إعادة إسناد الطرد لمندوب آخر"
-                            className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium border border-border dark:border-border rounded-lg hover:bg-muted dark:hover:bg-muted transition"
                           >
-                            <ArrowRightCircleIcon className="w-3.5 h-3.5 text-amber-600" />
+                            <ArrowRightCircleIcon className="w-3.5 h-3.5 text-warning" />
                             نقل
                           </button>
                         )}
                       </div>
                     </td>
-                    <td className="py-2.5 px-3 print:table-cell hidden border-b border-dashed border-slate-300 w-24"></td>
+                    <td className="py-2.5 px-3 print:table-cell hidden border-b border-dashed border-border w-24"></td>
                   </tr>
                 ))}
               </tbody>
@@ -190,10 +190,10 @@ export const DeliveryRunDetailModal: React.FC<DeliveryRunDetailModalProps> = ({
 
           {/* Signatures for print */}
           <div className="pt-8 grid grid-cols-2 gap-8 text-center text-xs print:grid hidden">
-            <div className="border-t border-slate-400 pt-2">
+            <div className="border-t border-border pt-2">
               توقيع أمين المخزن المسلم: ..............................
             </div>
-            <div className="border-t border-slate-400 pt-2">
+            <div className="border-t border-border pt-2">
               توقيع المندوب المستلم للعهدة: ..............................
             </div>
           </div>

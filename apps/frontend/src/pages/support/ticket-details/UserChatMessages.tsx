@@ -14,10 +14,10 @@ export const UserChatMessages: React.FC<UserChatMessagesProps> = ({
   formatFileSize,
 }) => {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-lg shadow-md mb-4 flex-1 flex flex-col min-h-0 border border-slate-200/80 dark:border-slate-800">
-      <div className="p-4 border-b border-gray-200 dark:border-slate-800 flex-shrink-0">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 flex items-center">
-          <MessageSquare className="w-5 h-5 ml-2" />
+    <div className="bg-white dark:bg-muted rounded-lg shadow-md mb-4 flex-1 flex flex-col min-h-0 border border-border dark:border-border">
+      <div className="p-4 border-b border-border dark:border-border flex-shrink-0">
+        <h2 className="text-lg font-semibold text-foreground dark:text-muted-foreground flex items-center">
+          <MessageSquare className="w-5 h-5 ms-2" />
           المحادثة ({ticket.messages.length})
         </h2>
       </div>
@@ -34,14 +34,14 @@ export const UserChatMessages: React.FC<UserChatMessagesProps> = ({
               className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
                 message.senderType === "user"
                   ? "bg-blue-600 text-white"
-                  : "bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-slate-100"
+                  : "bg-gray-100 dark:bg-muted text-foreground dark:text-muted-foreground"
               }`}
             >
               <div className="flex items-center mb-2">
                 {message.senderType === "admin" ? (
-                  <Shield className="w-4 h-4 ml-1 text-blue-600" />
+                  <Shield className="w-4 h-4 ms-1 text-blue-600" />
                 ) : (
-                  <User className="w-4 h-4 ml-1" />
+                  <User className="w-4 h-4 ms-1" />
                 )}
                 <span className="text-xs font-medium">
                   {message.senderType === "admin"
@@ -72,7 +72,7 @@ export const UserChatMessages: React.FC<UserChatMessagesProps> = ({
                           rel="noopener noreferrer"
                           className="flex items-center text-xs hover:underline"
                         >
-                          <Download className="w-3 h-3 ml-1" />
+                          <Download className="w-3 h-3 ms-1" />
                           {attachment.originalName} (
                           {formatFileSize(attachment.size)})
                         </a>
