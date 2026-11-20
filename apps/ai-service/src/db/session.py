@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Annotated, Any
+
+from fastapi import Depends
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -73,4 +75,6 @@ async def get_session() -> AsyncSession:
         except Exception:
             pass
 
+
+SessionDep = Annotated[AsyncSession, Depends(get_session)]
 
