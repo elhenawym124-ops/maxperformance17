@@ -27,20 +27,20 @@ export const TagsInput: React.FC<TagsInputProps> = ({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <label className="block text-sm font-medium text-foreground mb-2">
         {label}
       </label>
       <div className="flex flex-wrap gap-2 mb-3">
         {tags && Array.isArray(tags) && tags.map((tag, index) => (
           <span
             key={index}
-            className="inline-flex items-center pl-3 pr-2 py-1 rounded-full text-sm font-medium bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300"
+            className="inline-flex items-center ps-3 pe-2 py-1 rounded-full text-sm font-medium bg-primary dark:bg-primary/40 text-primary dark:text-primary"
           >
             {tag}
             <button
               type="button"
               onClick={() => onRemoveTag(tag)}
-              className="mr-1 flex-shrink-0 ml-1 h-4 w-4 rounded-full inline-flex items-center justify-center text-indigo-400 dark:text-indigo-500 hover:bg-indigo-200 dark:hover:bg-indigo-700 hover:text-indigo-500 dark:hover:text-indigo-400 focus:outline-none focus:bg-indigo-500 dark:focus:bg-indigo-600 focus:text-white"
+              className="me-1 flex-shrink-0 ms-1 h-4 w-4 rounded-full inline-flex items-center justify-center text-primary dark:text-primary hover:bg-primary dark:hover:bg-primary hover:text-primary dark:hover:text-primary focus:outline-none focus:bg-primary dark:focus:bg-primary focus:text-white"
             >
               <XMarkIcon className="h-3 w-3" />
             </button>
@@ -58,19 +58,19 @@ export const TagsInput: React.FC<TagsInputProps> = ({
               handleAddTag();
             }
           }}
-          className="flex-1 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          className="flex-1 border-border bg-card text-foreground placeholder:text-gray-500 dark:placeholder:text-gray-400 rounded-md shadow-sm focus:ring-primary focus:border-primary"
           placeholder={placeholder}
         />
         <button
           type="button"
           onClick={handleAddTag}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 dark:bg-indigo-700 hover:bg-indigo-700 dark:hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 focus:ring-indigo-500"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary dark:bg-primary hover:bg-primary dark:hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 focus:ring-primary"
         >
-          <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+          <PlusIcon className="-ms-1 me-2 h-5 w-5" aria-hidden="true" />
           إضافة
         </button>
       </div>
-      <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+      <p className="mt-2 text-xs text-muted-foreground">
         اضغط Enter لإضافة العلامة
       </p>
     </div>

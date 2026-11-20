@@ -54,8 +54,8 @@ export const VariantCard: React.FC<VariantCardProps> = ({
     <div
       className={`border overflow-hidden transition-all duration-200 ${
         isExpanded
-          ? "border-indigo-200 dark:border-indigo-800/50 shadow-md rounded-xl bg-white dark:bg-gray-800 ring-1 ring-indigo-50 dark:ring-indigo-900/20"
-          : "border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50/50 dark:bg-gray-800/30 hover:bg-white dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 shadow-sm hover:shadow"
+          ? "border-indigo-200 dark:border-primary/50 shadow-md rounded-xl bg-card ring-1 ring-primary dark:ring-primary/20"
+          : "border-gray-200 dark:border-border rounded-lg bg-muted dark:bg-muted hover:bg-white dark:hover:bg-muted hover:border-border shadow-sm hover:shadow"
       }`}
     >
       <VariantCardHeader
@@ -68,7 +68,7 @@ export const VariantCard: React.FC<VariantCardProps> = ({
       />
 
       {isExpanded && (
-        <div className="border-t border-indigo-100 dark:border-indigo-900/30 bg-white dark:bg-gray-800 p-6 space-y-8 animate-slide-down">
+        <div className="border-t border-primary dark:border-primary/30 bg-card p-6 space-y-8 animate-slide-down">
           <VariantCardBasicInfo
             idx={idx}
             variant={variant}

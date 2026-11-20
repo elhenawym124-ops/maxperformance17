@@ -81,7 +81,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
       <div className="flex justify-end mb-4">
         <button
           onClick={addDefaults}
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-purple-700 transition-colors shadow-xs"
+          className="bg-purple-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary transition-colors shadow-xs"
         >
           <Sparkles size={18} /> {t('returns.k_172')}
         </button>
@@ -91,7 +91,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
         {/* Categories List */}
         <div className="lg:col-span-1">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
               <FolderPlus size={20} className="text-blue-500" /> {t('returns.k_173')}
             </h2>
             <button
@@ -106,26 +106,26 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
               {t('returns.k_174')}
             </button>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xs border border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
+          <div className="bg-card rounded-lg shadow-xs border border-border dark:border-border divide-y divide-border dark:divide-border">
             {loading ? (
-              <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+              <div className="p-4 text-center text-muted-foreground">
                 {t('returns.k_144')}
               </div>
             ) : categories.length === 0 ? (
-              <div className="p-4 text-center text-gray-400">
+              <div className="p-4 text-center text-muted-foreground">
                 {t('returns.k_175')}
               </div>
             ) : (
               categories.map((cat) => (
                 <div
                   key={cat.id}
-                  className="p-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 group transition-colors"
+                  className="p-4 flex justify-between items-center hover:bg-muted/50/50 group transition-colors"
                 >
                   <div>
-                    <div className="font-medium text-gray-900 dark:text-white">
+                    <div className="font-medium text-foreground">
                       {cat.name}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1 mt-1">
+                    <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                       <Shield size={12} />
                       {t('returns.k_107')} {cat.defaultRole}
                     </div>
@@ -144,7 +144,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                     </button>
                     <button
                       onClick={() => deleteCategory(cat.id)}
-                      className="text-gray-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="text-gray-400 hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -158,7 +158,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
         {/* Reasons List */}
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
               <Tag size={20} className="text-green-500" /> {t('returns.k_176')}
             </h2>
             <button
@@ -174,37 +174,37 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
               {t('returns.k_177')}
             </button>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xs border border-gray-100 dark:border-gray-700 overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-900/50">
+          <div className="bg-card rounded-lg shadow-xs border border-border dark:border-border overflow-hidden">
+            <table className="min-w-full divide-y divide-border dark:divide-border">
+              <thead className="bg-gray-50 dark:bg-muted">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     {t('returns.k_57')}
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     {t('returns.k_178')}
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                     {t('returns.k_61')}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase pl-6">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase ps-6">
                     {t('returns.k_67')}
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="bg-card divide-y divide-border dark:divide-border">
                 {loading ? (
                   <tr>
                     <td
                       colSpan={4}
-                      className="p-4 text-center text-gray-500 dark:text-gray-400"
+                      className="p-4 text-center text-muted-foreground"
                     >
                       {t('returns.k_144')}
                     </td>
                   </tr>
                 ) : reasons.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="p-4 text-center text-gray-400">
+                    <td colSpan={4} className="p-4 text-center text-muted-foreground">
                       {t('returns.k_179')}
                     </td>
                   </tr>
@@ -212,13 +212,13 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                   reasons.map((reason) => (
                     <tr
                       key={reason.id}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                      className="hover:bg-muted/50/50 transition-colors"
                     >
                       <td className="px-6 py-4">
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                        <div className="text-sm font-medium text-foreground">
                           {reason.reason}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-xs">
+                        <div className="text-xs text-muted-foreground truncate max-w-xs">
                           {reason.description}
                         </div>
                       </td>
@@ -229,16 +229,16 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                       </td>
                       <td className="px-6 py-4">
                         {reason.isActive ? (
-                          <span className="text-green-600 dark:text-green-400 flex items-center gap-1 text-xs">
+                          <span className="text-green-600 dark:text-success flex items-center gap-1 text-xs">
                             <CheckCircle size={14} /> {t('returns.k_180')}
                           </span>
                         ) : (
-                          <span className="text-gray-400 dark:text-gray-500 flex items-center gap-1 text-xs">
+                          <span className="text-muted-foreground/80 flex items-center gap-1 text-xs">
                             <XCircle size={14} /> {t('returns.k_181')}
                           </span>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-left pl-6">
+                      <td className="px-6 py-4 text-left ps-6">
                         <div className="flex gap-3">
                           <button
                             onClick={() => {
@@ -254,7 +254,7 @@ export const ReturnReasonsTab: React.FC<ReturnReasonsTabProps> = ({
                           </button>
                           <button
                             onClick={() => deleteReason(reason.id)}
-                            className="text-red-400 hover:text-red-600"
+                            className="text-red-400 hover:text-destructive"
                           >
                             <Trash2 size={16} />
                           </button>

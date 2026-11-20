@@ -178,7 +178,7 @@ export function useInventoryStudioController() {
 
     if (stock <= 0) {
       return (
-        <div className="flex items-center gap-1.5 text-xs font-bold text-rose-600 dark:text-rose-400">
+        <div className="flex items-center gap-1.5 text-xs font-bold text-destructive dark:text-destructive">
           <AlertTriangle className="w-3.5 h-3.5" />
           <span>تنبيه: نفذ المخزون</span>
         </div>
@@ -187,7 +187,7 @@ export function useInventoryStudioController() {
 
     if (stock < 10) {
       return (
-        <div className="flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400">
+        <div className="flex items-center gap-1.5 text-xs font-bold text-warning dark:text-warning">
           <AlertTriangle className="w-3.5 h-3.5" />
           <span>تنبيه: مخزون حرج</span>
         </div>
@@ -195,7 +195,7 @@ export function useInventoryStudioController() {
     }
 
     return (
-      <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+      <div className="flex items-center gap-1.5 text-xs font-bold text-success dark:text-success">
         <Sparkles className="w-3.5 h-3.5" />
         <span>المخزون في مستوى آمن</span>
       </div>

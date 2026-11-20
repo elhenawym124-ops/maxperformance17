@@ -38,21 +38,21 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
   if (colorGroups.length === 0) return null;
 
   return (
-    <div className="bg-gray-50/80 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl p-3.5 sm:p-4 mb-4 space-y-3">
+    <div className="bg-gray-50/80 dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 sm:p-4 mb-4 space-y-3">
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-2">
-          <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
-            <PhotoIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+          <span className="text-xs sm:text-sm font-bold text-foreground flex items-center gap-1.5">
+            <PhotoIcon className="w-4 h-4 text-primary" />
             تعيين الصورة حسب اللون لجميع المقاسات:
           </span>
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-muted-foreground">
             (اختر اللون وارفع أو ضع صورته لتطبيقها على كافة مقاساته فوراً)
           </span>
         </div>
         <button
           type="button"
           onClick={onOpenColorModal}
-          className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-semibold underline underline-offset-2"
+          className="text-xs text-primary hover:text-primary dark:hover:text-primary font-semibold underline underline-offset-2"
         >
           إدارة صور جميع الألوان ({colorGroups.length} ألوان)...
         </button>
@@ -61,7 +61,7 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
       <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3">
         {/* Color dropdown */}
         <div className="flex items-center gap-2 min-w-[200px]">
-          <label className="text-xs font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+          <label className="text-xs font-medium text-foreground whitespace-nowrap">
             اللون:
           </label>
           <select
@@ -70,7 +70,7 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
               setSelectedQuickColorId(e.target.value);
               setQuickCustomUrl("");
             }}
-            className="flex-1 text-xs border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg py-1.5 px-2.5 font-semibold focus:ring-1 focus:ring-indigo-500"
+            className="flex-1 text-xs border-border bg-card text-foreground rounded-lg py-1.5 px-2.5 font-semibold focus:ring-1 focus:ring-primary"
           >
             {colorGroups.map((g) => (
               <option key={g.id} value={g.id}>
@@ -84,7 +84,7 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
         {activeQuickGroup && (
           <div className="flex items-center gap-2.5 flex-1 flex-wrap">
             {/* Thumbnail */}
-            <div className="w-10 h-10 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex-shrink-0 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg overflow-hidden border border-border dark:border-border bg-card flex-shrink-0 flex items-center justify-center">
               {activeQuickGroup.currentImage || activeQuickGroup.savedAttributeImage ? (
                 <img
                   src={
@@ -95,12 +95,12 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <PhotoIcon className="w-5 h-5 text-gray-400" />
+                <PhotoIcon className="w-5 h-5 text-muted-foreground" />
               )}
             </div>
 
             {/* Upload button */}
-            <label className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-700 active:scale-[0.98] rounded-lg cursor-pointer transition shadow-sm whitespace-nowrap">
+            <label className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary/90 dark:bg-primary dark:hover:bg-primary active:scale-[0.98] rounded-lg cursor-pointer transition shadow-sm whitespace-nowrap">
               {isQuickUploading ? (
                 <ArrowPathIcon className="w-3.5 h-3.5 animate-spin" />
               ) : (
@@ -148,7 +148,7 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
                   }
                 }}
                 placeholder={`رابط صورة لتطبيقها على كل مقاسات "${activeQuickGroup.name}"...`}
-                className="flex-1 text-xs border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-lg py-1.5 px-2.5 text-gray-900 dark:text-white focus:ring-1 focus:ring-indigo-500"
+                className="flex-1 text-xs border-border bg-card rounded-lg py-1.5 px-2.5 text-foreground focus:ring-1 focus:ring-primary"
               />
               {quickCustomUrl.trim() && (
                 <button
@@ -157,7 +157,7 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
                     applyImageToGroup(activeQuickGroup, quickCustomUrl.trim());
                     setQuickCustomUrl("");
                   }}
-                  className="px-3 py-1.5 bg-indigo-700 hover:bg-indigo-800 text-white rounded-lg text-xs font-semibold whitespace-nowrap active:scale-[0.98] transition shadow-sm"
+                  className="px-3 py-1.5 bg-primary hover:bg-primary text-white rounded-lg text-xs font-semibold whitespace-nowrap active:scale-[0.98] transition shadow-sm"
                 >
                   تطبيق ({activeQuickGroup.items.length} مقاسات)
                 </button>
@@ -173,7 +173,7 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
                     const img = activeQuickGroup.currentImage || activeQuickGroup.savedAttributeImage;
                     if (img) applyImageToGroup(activeQuickGroup, img);
                   }}
-                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white rounded-lg text-xs font-semibold whitespace-nowrap transition shadow-sm"
+                  className="px-3 py-1.5 bg-success hover:bg-success active:scale-[0.98] text-white rounded-lg text-xs font-semibold whitespace-nowrap transition shadow-sm"
                 >
                   ⚡ تطبيق هذه الصورة على كافة المقاسات ({activeQuickGroup.items.length})
                 </button>
@@ -184,8 +184,8 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
 
       {/* Quick Pick from Product Images */}
       {uploadedImages && uploadedImages.length > 0 && activeQuickGroup && (
-        <div className="flex items-center gap-2 pt-1 border-t border-gray-200/80 dark:border-gray-700/60 flex-wrap">
-          <span className="text-[11px] text-gray-500 dark:text-gray-400">
+        <div className="flex items-center gap-2 pt-1 border-t border-border dark:border-border flex-wrap">
+          <span className="text-[11px] text-muted-foreground">
             أو اختر من صور المنتج لتعيينها لـ "{activeQuickGroup.name}":
           </span>
           <div className="flex items-center gap-1.5 flex-wrap">
@@ -197,8 +197,8 @@ export const VariantsQuickColorToolbar: React.FC<VariantsQuickColorToolbarProps>
                 title={`تطبيق على جميع مقاسات ${activeQuickGroup.name}`}
                 className={`w-7 h-7 rounded border overflow-hidden transition-all hover:scale-110 active:scale-95 ${
                   activeQuickGroup.currentImage === imgUrl
-                    ? "ring-2 ring-indigo-500 border-indigo-500"
-                    : "border-gray-200 dark:border-gray-700 opacity-80 hover:opacity-100"
+                    ? "ring-2 ring-primary border-primary"
+                    : "border-gray-200 dark:border-border opacity-80 hover:opacity-100"
                 }`}
               >
                 <img

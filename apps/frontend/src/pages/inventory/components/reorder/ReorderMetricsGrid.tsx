@@ -21,18 +21,18 @@ export const ReorderMetricsGrid: React.FC<ReorderMetricsGridProps> = ({
       {cards.map((card, index) => (
         <div
           key={index}
-          className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-xs overflow-hidden relative"
+          className="rounded-xl border border-border dark:border-border bg-card p-5 shadow-xs overflow-hidden relative"
         >
           <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} pointer-events-none`} />
           <div className="relative flex items-center gap-4">
-            <div className="rounded-xl bg-white/80 dark:bg-gray-900/60 p-3">
+            <div className="rounded-xl bg-white/80 dark:bg-muted p-3">
               <card.icon className="h-6 w-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <p className="text-sm font-medium text-muted-foreground">
                 {card.title}
               </p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white tabular-nums font-mono">
+              <p className="text-2xl font-bold text-foreground tabular-nums font-mono">
                 {loading ? "..." : card.value}
               </p>
             </div>

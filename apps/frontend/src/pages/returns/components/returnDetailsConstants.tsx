@@ -23,9 +23,9 @@ export const ACTION_CONFIG: Record<
     label: 'مراجعة واعتماد المرتجع',
     icon: CheckCircle2,
     badgeClass:
-      'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/40',
-    borderClass: 'border-emerald-500 dark:border-emerald-400',
-    dotClass: 'bg-emerald-500 dark:border-emerald-400',
+      'bg-emerald-50 text-success dark:bg-success/40 dark:text-success border-success dark:border-success/40',
+    borderClass: 'border-emerald-500 dark:border-success',
+    dotClass: 'bg-emerald-500 dark:border-success',
   },
   AUTO_CREATED: {
     label: 'إنشاء طلب إرجاع تلقائي',
@@ -39,41 +39,41 @@ export const ACTION_CONFIG: Record<
     label: 'تسجيل محاولة تواصل',
     icon: Phone,
     badgeClass:
-      'bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-300 border-purple-200 dark:border-purple-800/40',
-    borderClass: 'border-purple-500 dark:border-purple-400',
-    dotClass: 'bg-purple-500 dark:bg-purple-400',
+      'bg-purple-50 text-primary dark:bg-primary/40 dark:text-primary border-primary dark:border-primary/40',
+    borderClass: 'border-purple-500 dark:border-primary',
+    dotClass: 'bg-purple-500 dark:bg-primary',
   },
   STATUS_CHANGE: {
     label: 'تغيير حالة المرتجع',
     icon: ArrowRightLeft,
     badgeClass:
-      'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border-amber-200 dark:border-amber-800/40',
-    borderClass: 'border-amber-500 dark:border-amber-400',
-    dotClass: 'bg-amber-500 dark:bg-amber-400',
+      'bg-amber-50 text-warning dark:bg-warning/40 dark:text-warning border-warning dark:border-warning/40',
+    borderClass: 'border-amber-500 dark:border-warning',
+    dotClass: 'bg-amber-500 dark:bg-warning',
   },
   NOTE_ADDED: {
     label: 'ملاحظة إدارية',
     icon: FileText,
     badgeClass:
-      'bg-slate-50 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-200 dark:border-slate-700',
-    borderClass: 'border-slate-400 dark:border-slate-500',
-    dotClass: 'bg-slate-500 dark:bg-slate-400',
+      'bg-slate-50 text-foreground dark:bg-muted dark:text-muted-foreground border-border dark:border-border',
+    borderClass: 'border-slate-400 dark:border-border',
+    dotClass: 'bg-slate-500 dark:bg-muted',
   },
   UPDATED: {
     label: 'تعديل بيانات المرتجع',
     icon: Edit3,
     badgeClass:
-      'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/40',
-    borderClass: 'border-indigo-500 dark:border-indigo-400',
-    dotClass: 'bg-indigo-500 dark:bg-indigo-400',
+      'bg-indigo-50 text-primary dark:bg-primary/40 dark:text-primary border-primary dark:border-primary/40',
+    borderClass: 'border-indigo-500 dark:border-primary',
+    dotClass: 'bg-indigo-500 dark:bg-primary',
   },
   CREATED: {
     label: 'إنشاء طلب إرجاع يدوي',
     icon: PlusCircle,
     badgeClass:
-      'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/40',
-    borderClass: 'border-cyan-500 dark:border-cyan-400',
-    dotClass: 'bg-cyan-500 dark:bg-cyan-400',
+      'bg-cyan-50 text-info dark:bg-info/40 dark:text-info border-info dark:border-info/40',
+    borderClass: 'border-cyan-500 dark:border-info',
+    dotClass: 'bg-cyan-500 dark:bg-info',
   },
 };
 
@@ -82,7 +82,7 @@ export const renderRoleBadge = (role?: string) => {
   const upper = role.toUpperCase();
   if (upper === 'OWNER') {
     return (
-      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/40">
+      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-warning/10 text-warning border border-warning dark:bg-warning/40 dark:text-warning dark:border-warning/40">
         مالك الحساب
       </span>
     );
@@ -96,20 +96,20 @@ export const renderRoleBadge = (role?: string) => {
   }
   if (upper === 'MODERATOR') {
     return (
-      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 dark:bg-purple-950/40 dark:text-purple-300 dark:border-purple-800/40">
+      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary dark:bg-primary/40 dark:text-primary dark:border-primary/40">
         مشرف
       </span>
     );
   }
   if (upper === 'EMPLOYEE') {
     return (
-      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700">
+      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-muted text-foreground border border-border dark:bg-muted dark:text-muted-foreground dark:border-border">
         موظف
       </span>
     );
   }
   return (
-    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
+    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-muted text-foreground border border-border dark:bg-muted dark:text-muted-foreground dark:border-border">
       {role}
     </span>
   );

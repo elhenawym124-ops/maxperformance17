@@ -18,17 +18,17 @@ const TYPE_CONFIG: Record<
   IN: {
     label: 'وارد',
     icon: ArrowDownLeft,
-    className: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20',
+    className: 'bg-emerald-500/10 text-success dark:text-success border-success/20',
   },
   OUT: {
     label: 'صادر',
     icon: ArrowUpRight,
-    className: 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/20',
+    className: 'bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20',
   },
   ADJUSTMENT: {
     label: 'تعديل وجرد',
     icon: SlidersHorizontal,
-    className: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20',
+    className: 'bg-amber-500/10 text-warning dark:text-warning border-warning/20',
   },
   TRANSFER: {
     label: 'مناقلة فروع',
@@ -38,7 +38,7 @@ const TYPE_CONFIG: Record<
   RETURN: {
     label: 'مرتجع',
     icon: RotateCcw,
-    className: 'bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/20',
+    className: 'bg-purple-500/10 text-primary dark:text-primary border-primary/20',
   },
 };
 
@@ -130,8 +130,8 @@ export const StockMovementsTable: React.FC<StockMovementsTableProps> = ({
                       <span
                         className={`font-mono font-bold text-xs px-2 py-0.5 rounded ${
                           qty < 0
-                            ? 'bg-rose-500/10 text-rose-600 border border-rose-500/20'
-                            : 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                            ? 'bg-rose-500/10 text-destructive border border-destructive/20'
+                            : 'bg-emerald-500/10 text-success border border-success/20'
                         }`}
                       >
                         {qty > 0 ? `+${qty}` : qty}

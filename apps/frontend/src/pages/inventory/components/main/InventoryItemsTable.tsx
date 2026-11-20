@@ -33,7 +33,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
       return {
         status: "نفد المخزون",
         color:
-          "text-rose-700 bg-rose-50 border border-rose-200/80 dark:bg-rose-950/30 dark:border-rose-900/50 dark:text-rose-300",
+          "text-rose-700 bg-destructive/10 border border-destructive/80 dark:bg-destructive/30 dark:border-destructive/50 dark:text-destructive",
         dot: "bg-rose-500",
       };
     }
@@ -42,7 +42,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
       return {
         status: "مخزون منخفض",
         color:
-          "text-amber-700 bg-amber-50 border border-amber-200/80 dark:bg-amber-950/30 dark:border-amber-900/50 dark:text-amber-300",
+          "text-amber-700 bg-warning/10 border border-warning/80 dark:bg-warning/30 dark:border-warning/50 dark:text-warning",
         dot: "bg-amber-500",
       };
     }
@@ -50,28 +50,28 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
     return {
       status: "متوفر",
       color:
-        "text-emerald-700 bg-emerald-50 border border-emerald-200/80 dark:bg-emerald-950/30 dark:border-emerald-900/50 dark:text-emerald-300",
+        "text-emerald-700 bg-success/10 border border-success/80 dark:bg-success/30 dark:border-success/50 dark:text-success",
       dot: "bg-emerald-500",
     };
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 shadow-2xs rounded-xl overflow-hidden border border-gray-200/80 dark:border-gray-800">
+    <div className="bg-white dark:bg-muted shadow-2xs rounded-xl overflow-hidden border border-border dark:border-border">
       {/* Mobile View (< sm:) */}
-      <div className="block sm:hidden divide-y divide-gray-100 dark:divide-gray-700/60 p-3 space-y-3">
+      <div className="block sm:hidden divide-y divide-border dark:divide-border p-3 space-y-3">
         {inventory.map((item) => {
           const stockStatus = getStockStatus(item);
           return (
             <div
               key={item.id}
-              className="bg-white dark:bg-gray-800/90 rounded-xl p-3.5 border border-gray-200/80 dark:border-gray-700/60 space-y-2.5 shadow-xs"
+              className="bg-card/90 rounded-xl p-3.5 border border-border dark:border-border space-y-2.5 shadow-xs"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-sm font-bold text-gray-900 dark:text-white line-clamp-1">
+                  <h3 className="text-sm font-bold text-foreground line-clamp-1">
                     {item.productName}
                   </h3>
-                  <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-0.5">
                     {item.sku && (
                       <span dir="ltr" className="font-mono text-[11px] tabular-nums">
                         {item.sku}
@@ -88,26 +88,26 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                 </span>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 bg-gray-50 dark:bg-gray-700/40 p-2.5 rounded-lg text-center">
+              <div className="grid grid-cols-3 gap-2 bg-muted dark:bg-muted p-2.5 rounded-lg text-center">
                 <div>
-                  <span className="block text-[11px] text-gray-500 dark:text-gray-400">الإجمالي</span>
-                  <span className="text-sm font-bold text-gray-900 dark:text-white tabular-nums font-mono">
+                  <span className="block text-[11px] text-muted-foreground">الإجمالي</span>
+                  <span className="text-sm font-bold text-foreground tabular-nums font-mono">
                     {item.quantity}
                   </span>
                 </div>
                 <div>
-                  <span className="block text-[11px] text-gray-500 dark:text-gray-400">المتاح</span>
-                  <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 tabular-nums font-mono">
+                  <span className="block text-[11px] text-muted-foreground">المتاح</span>
+                  <span className="text-sm font-bold text-success dark:text-success tabular-nums font-mono">
                     {item.available}
                   </span>
                 </div>
                 <div>
-                  <span className="block text-[11px] text-gray-500 dark:text-gray-400">السعر</span>
-                  <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400 tabular-nums font-mono">
+                  <span className="block text-[11px] text-muted-foreground">السعر</span>
+                  <span className="text-sm font-bold text-primary tabular-nums font-mono">
                     {formatPrice(item.price)}
                   </span>
                   {item.cost !== undefined && item.cost !== null && item.cost > 0 ? (
-                    <span className="block text-[10px] text-gray-400 dark:text-gray-500 tabular-nums font-mono">
+                    <span className="block text-[10px] text-muted-foreground/80 tabular-nums font-mono">
                       تكلفة: {formatPrice(item.cost)}
                     </span>
                   ) : null}
@@ -115,14 +115,14 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
               </div>
 
               <div className="flex items-center justify-between pt-1 text-xs">
-                <span className="text-gray-400 dark:text-gray-500 text-[11px] tabular-nums font-mono">
+                <span className="text-muted-foreground/80 text-[11px] tabular-nums font-mono">
                   {item.batchNumber ? `دفعة: ${item.batchNumber}` : "بدون دفعة"}
                 </span>
                 <div className="flex items-center gap-1">
                   <button
                     type="button"
                     onClick={() => onViewDetails(item)}
-                    className="p-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 cursor-pointer"
+                    className="p-1.5 rounded-lg text-primary hover:bg-primary/10 dark:hover:bg-primary/30 cursor-pointer"
                     title="تفاصيل"
                   >
                     <EyeIcon className="h-4 w-4" />
@@ -132,7 +132,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                       <button
                         type="button"
                         onClick={() => onOpenTransfer(item)}
-                        className="p-1.5 rounded-lg text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 cursor-pointer"
+                        className="p-1.5 rounded-lg text-warning dark:text-warning hover:bg-warning/10 dark:hover:bg-warning/30 cursor-pointer"
                         title="نقل"
                       >
                         <ArrowPathIcon className="h-4 w-4" />
@@ -140,7 +140,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                       <button
                         type="button"
                         onClick={() => onOpenSupply(item)}
-                        className="p-1.5 rounded-lg text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 cursor-pointer"
+                        className="p-1.5 rounded-lg text-success dark:text-success hover:bg-success/10 dark:hover:bg-success/30 cursor-pointer"
                         title="توريد"
                       >
                         <PlusIcon className="h-4 w-4" />
@@ -148,7 +148,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                       <button
                         type="button"
                         onClick={() => onOpenDispense(item)}
-                        className="p-1.5 rounded-lg text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 cursor-pointer"
+                        className="p-1.5 rounded-lg text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/30 cursor-pointer"
                         title="صرف"
                       >
                         <MinusIcon className="h-4 w-4" />
@@ -164,72 +164,72 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
 
       {/* Desktop Table (sm: and above) */}
       <div className="hidden sm:block overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50/80 dark:bg-gray-900/80">
+        <table className="min-w-full divide-y divide-border dark:divide-border">
+          <thead className="bg-gray-50/80 dark:bg-muted">
             <tr>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 المنتج / SKU
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 المستودع
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 الدفعة / الصلاحية
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 الكمية
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 المتاح
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 الحالة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 السعر
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 الإجراءات
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white/60 dark:bg-gray-800/60 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody className="bg-white/60 dark:bg-muted divide-y divide-border dark:divide-border">
             {inventory.map((item) => {
               const stockStatus = getStockStatus(item);
 
               return (
                 <tr
                   key={item.id}
-                  className="hover:bg-gray-50/70 dark:hover:bg-gray-800/50 transition-colors border-b border-gray-100 dark:border-gray-800/80 last:border-0"
+                  className="hover:bg-gray-50/70 dark:hover:bg-muted transition-colors border-b border-border dark:border-border last:border-0"
                 >
                   <td className="px-4 py-3 whitespace-nowrap">
-                    <div className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">
+                    <div className="text-xs sm:text-sm font-semibold text-foreground">
                       {item.productName}
                     </div>
-                    <div className="text-[11px] text-gray-400 dark:text-gray-500 font-mono tabular-nums">
+                    <div className="text-[11px] text-muted-foreground/80 font-mono tabular-nums">
                       {item.sku}
                     </div>
                   </td>
-                  <td className="px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-gray-800 dark:text-gray-200">
+                  <td className="px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-foreground dark:text-muted-foreground">
                     <div>{item.warehouseName}</div>
                     {item.stockLocationLabel && (
-                      <div className="text-[11px] text-gray-400 dark:text-gray-500">
+                      <div className="text-[11px] text-muted-foreground/80">
                         {item.stockLocationLabel}
                       </div>
                     )}
                   </td>
-                  <td className="px-4 py-3 whitespace-nowrap text-xs text-gray-500 dark:text-gray-400 font-mono tabular-nums">
+                  <td className="px-4 py-3 whitespace-nowrap text-xs text-muted-foreground font-mono tabular-nums">
                     <div>{item.batchNumber || "---"}</div>
                     {item.expiryDate && (
-                      <div className="text-[10px] text-rose-500">
+                      <div className="text-[10px] text-destructive">
                         {formatDate(item.expiryDate)}
                       </div>
                     )}
                   </td>
-                  <td className="px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white font-mono tabular-nums font-bold">
+                  <td className="px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-foreground font-mono tabular-nums font-bold">
                     {item.quantity}
                   </td>
-                  <td className="px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 font-mono tabular-nums font-semibold">
+                  <td className="px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-success dark:text-success font-mono tabular-nums font-semibold">
                     {item.available}
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
@@ -240,10 +240,10 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                       {stockStatus.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white font-mono tabular-nums font-semibold">
+                  <td className="px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-foreground font-mono tabular-nums font-semibold">
                     <div>{formatPrice(item.price)}</div>
                     {item.cost !== undefined && item.cost !== null && item.cost > 0 ? (
-                      <div className="text-[11px] text-gray-400 dark:text-gray-500 font-normal">
+                      <div className="text-[11px] text-muted-foreground/80 font-normal">
                         تكلفة: {formatPrice(item.cost)}
                       </div>
                     ) : null}
@@ -253,7 +253,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                       <button
                         type="button"
                         onClick={() => onViewDetails(item)}
-                        className="p-1 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors cursor-pointer"
+                        className="p-1 text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-white hover:bg-muted dark:hover:bg-muted rounded-md transition-colors cursor-pointer"
                         title="عرض التفاصيل"
                       >
                         <EyeIcon className="h-4 w-4" />
@@ -263,7 +263,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                           <button
                             type="button"
                             onClick={() => onOpenTransfer(item)}
-                            className="p-1.5 text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
+                            className="p-1.5 text-warning dark:text-warning hover:text-warning dark:hover:text-warning hover:bg-muted rounded-lg transition-colors cursor-pointer"
                             title="نقل مخزن"
                           >
                             <ArrowPathIcon className="h-4 w-4" />
@@ -271,7 +271,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                           <button
                             type="button"
                             onClick={() => onOpenSupply(item)}
-                            className="p-1.5 text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
+                            className="p-1.5 text-success dark:text-success hover:text-success dark:hover:text-success hover:bg-muted rounded-lg transition-colors cursor-pointer"
                             title="توريد"
                           >
                             <PlusIcon className="h-4 w-4" />
@@ -279,7 +279,7 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
                           <button
                             type="button"
                             onClick={() => onOpenDispense(item)}
-                            className="p-1.5 text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
+                            className="p-1.5 text-destructive dark:text-destructive hover:text-destructive dark:hover:text-destructive hover:bg-muted rounded-lg transition-colors cursor-pointer"
                             title="صرف"
                           >
                             <MinusIcon className="h-4 w-4" />
@@ -297,11 +297,11 @@ export const InventoryItemsTable: React.FC<InventoryItemsTableProps> = ({
 
       {inventory.length === 0 && (
         <div className="text-center py-16">
-          <CubeIcon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
-          <h3 className="mt-2 text-base font-bold text-gray-900 dark:text-white">
+          <CubeIcon className="mx-auto h-12 w-12 text-muted-foreground/80" />
+          <h3 className="mt-2 text-base font-bold text-foreground">
             لا توجد بيانات مخزون حالياً
           </h3>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-xs text-muted-foreground">
             ابدأ بإضافة منتجاتك أو سجل كميات المخزون المتاحة.
           </p>
         </div>

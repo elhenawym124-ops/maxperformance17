@@ -33,9 +33,9 @@ export const VariantsBulkActions: React.FC<VariantsBulkActionsProps> = ({
   onOpenColorModal,
 }) => {
   return (
-    <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 mb-4">
+    <div className="bg-gray-50 dark:bg-muted rounded-lg p-4 mb-4">
       <div className="flex items-center gap-3 flex-wrap">
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <span className="text-sm font-medium text-foreground">
           إجراء جماعي على كل المتغيرات:
         </span>
         <select
@@ -48,7 +48,7 @@ export const VariantsBulkActions: React.FC<VariantsBulkActionsProps> = ({
             }
             handleBulkActionChange(val);
           }}
-          className="border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md text-sm min-w-[200px]"
+          className="border-border bg-card text-foreground rounded-md text-sm min-w-[200px]"
         >
           <option value="">-- اختر إجراء --</option>
           <optgroup label="🖼️ الصور">
@@ -111,7 +111,7 @@ export const VariantsBulkActions: React.FC<VariantsBulkActionsProps> = ({
                       ? "الوزن (كجم)"
                       : "القيمة"
             }
-            className="border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md text-sm w-28 tabular-nums"
+            className="border-border bg-card text-foreground rounded-md text-sm w-28 tabular-nums"
             min="0"
             step={bulkAction.includes("weight") ? "0.01" : "1"}
           />
@@ -122,7 +122,7 @@ export const VariantsBulkActions: React.FC<VariantsBulkActionsProps> = ({
           <select
             value={bulkValue}
             onChange={(e) => setBulkValue(e.target.value)}
-            className="border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md text-sm"
+            className="border-border bg-card text-foreground rounded-md text-sm"
           >
             <option value="">اختر فئة الشحن</option>
             {shippingClassOptions.map((option) => (
@@ -137,7 +137,7 @@ export const VariantsBulkActions: React.FC<VariantsBulkActionsProps> = ({
           type="button"
           onClick={applyBulkAction}
           disabled={!bulkAction || (showBulkInput && !bulkValue)}
-          className="px-4 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-md text-sm hover:bg-indigo-700 dark:hover:bg-indigo-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 bg-primary dark:bg-primary text-white rounded-md text-sm hover:bg-primary dark:hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           تطبيق على {variantsCount} متغير
         </button>

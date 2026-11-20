@@ -29,8 +29,8 @@ export const VariantCardHeader: React.FC<VariantCardHeaderProps> = ({
         <div
           className={`flex items-center justify-center w-8 h-8 rounded-md text-sm font-semibold transition-colors tabular-nums ${
             isExpanded
-              ? "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400"
-              : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+              ? "bg-indigo-100 dark:bg-primary/50 text-primary dark:text-primary"
+              : "bg-gray-200 dark:bg-muted text-foreground"
           }`}
         >
           {idx + 1}
@@ -41,14 +41,14 @@ export const VariantCardHeader: React.FC<VariantCardHeaderProps> = ({
             <h4
               className={`font-semibold text-base transition-colors ${
                 isExpanded
-                  ? "text-indigo-900 dark:text-indigo-100"
-                  : "text-gray-900 dark:text-gray-100"
+                  ? "text-indigo-900 dark:text-primary"
+                  : "text-foreground"
               }`}
             >
               {variant.name || "متغير جديد"}
             </h4>
             {variant.type && (
-              <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-700/50 px-2 py-0.5 rounded-full">
+              <span className="text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
                 {variant.type === "color"
                   ? "لون"
                   : variant.type === "size"
@@ -58,7 +58,7 @@ export const VariantCardHeader: React.FC<VariantCardHeaderProps> = ({
             )}
           </div>
           {variant.sku && (
-            <span className="text-xs text-gray-400 dark:text-gray-500 font-medium mt-0.5 font-mono tracking-wide">
+            <span className="text-xs text-muted-foreground/80 font-medium mt-0.5 font-mono tracking-wide">
               {variant.sku}
             </span>
           )}
@@ -68,12 +68,12 @@ export const VariantCardHeader: React.FC<VariantCardHeaderProps> = ({
       <div className="flex items-center gap-4">
         {variant.price ? (
           <div className="text-right hidden sm:block">
-            <p className="text-xs text-gray-400 dark:text-gray-500 mb-0.5">
+            <p className="text-xs text-muted-foreground/80 mb-0.5">
               السعر
             </p>
-            <span className="text-sm font-bold text-gray-900 dark:text-gray-100 tabular-nums">
+            <span className="text-sm font-bold text-foreground tabular-nums">
               {variant.price}{" "}
-              <span className="text-xs font-normal text-gray-500">
+              <span className="text-xs font-normal text-muted-foreground">
                 {displayCurrency}
               </span>
             </span>
@@ -82,14 +82,14 @@ export const VariantCardHeader: React.FC<VariantCardHeaderProps> = ({
 
         {variant.trackInventory && variant.stock !== undefined ? (
           <div className="text-right hidden sm:block">
-            <p className="text-xs text-gray-400 dark:text-gray-500 mb-0.5">
+            <p className="text-xs text-muted-foreground/80 mb-0.5">
               المخزون
             </p>
             <span
-              className={`text-sm font-bold tabular-nums ${variant.stock > 0 ? "text-gray-900 dark:text-gray-100" : "text-red-600 dark:text-red-400"}`}
+              className={`text-sm font-bold tabular-nums ${variant.stock > 0 ? "text-foreground" : "text-red-600 dark:text-destructive"}`}
             >
               {variant.stock}{" "}
-              <span className="text-xs font-normal text-gray-500">
+              <span className="text-xs font-normal text-muted-foreground">
                 قطعة
               </span>
             </span>
@@ -99,14 +99,14 @@ export const VariantCardHeader: React.FC<VariantCardHeaderProps> = ({
         <span
           className={`text-xs px-2.5 py-1 rounded-full font-medium border ${
             variant.isActive
-              ? "bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800/50"
-              : "bg-gray-50 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700"
+              ? "bg-green-50 text-success border-success dark:bg-success/20 dark:text-success dark:border-success/50"
+              : "bg-gray-50 text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border"
           }`}
         >
           {variant.isActive ? "نشط" : "معطل"}
         </span>
 
-        <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
+        <div className="h-8 w-px bg-muted dark:bg-muted mx-1 hidden sm:block"></div>
 
         <button
           type="button"
@@ -114,7 +114,7 @@ export const VariantCardHeader: React.FC<VariantCardHeaderProps> = ({
             e.stopPropagation();
             onRemove();
           }}
-          className="text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 p-2 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-all focus:outline-none focus:ring-2 focus:ring-red-500/20"
+          className="text-muted-foreground/80 hover:text-destructive dark:hover:text-destructive p-2 rounded-md hover:bg-destructive/10 dark:hover:bg-destructive/20 transition-all focus:outline-none focus:ring-2 focus:ring-destructive/20"
           title="حذف المتغير"
         >
           <XMarkIcon className="h-5 w-5" />
@@ -123,8 +123,8 @@ export const VariantCardHeader: React.FC<VariantCardHeaderProps> = ({
         <div
           className={`p-1.5 rounded-full transition-colors ${
             isExpanded
-              ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
-              : "bg-transparent text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300"
+              ? "bg-indigo-50 dark:bg-primary/30 text-primary"
+              : "bg-transparent text-muted-foreground group-hover:text-foreground dark:group-hover:text-muted-foreground"
           }`}
         >
           <svg

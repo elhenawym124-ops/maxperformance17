@@ -63,8 +63,8 @@ export const STATUS_META: Record<
   StockStatus,
   { label: string; className: string; dot: string }
 > = {
-  low: { label: "مخزون منخفض", className: "text-yellow-700 bg-yellow-100 border-yellow-200", dot: "bg-yellow-500" },
-  out: { label: "نفد المخزون", className: "text-red-700 bg-red-100 border-red-200", dot: "bg-red-500" },
-  safe: { label: "متوفر", className: "text-emerald-700 bg-emerald-100 border-emerald-200", dot: "bg-emerald-500" },
-  untracked: { label: "بدون تتبع", className: "text-gray-600 bg-gray-100 border-gray-200", dot: "bg-gray-400" },
+  low: { label: "مخزون منخفض", className: "text-yellow-700 bg-warning border-warning", dot: "bg-yellow-500" },
+  out: { label: "نفد المخزون", className: "text-red-700 bg-destructive border-destructive", dot: "bg-red-500" },
+  safe: { label: "متوفر", className: "text-emerald-700 bg-success border-success", dot: "bg-emerald-500" },
+  untracked: { label: "بدون تتبع", className: "text-gray-600 bg-muted border-border", dot: "bg-gray-400" },
 };

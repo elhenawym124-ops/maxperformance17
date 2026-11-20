@@ -93,10 +93,10 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
   const alignClass = isEn ? "text-left" : "text-right";
 
   return (
-    <div className="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl shadow-2xs overflow-hidden">
+    <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl shadow-2xs overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-zinc-200/60 dark:divide-zinc-800/60">
-          <thead className="bg-zinc-50/80 dark:bg-zinc-850/80 border-b border-zinc-200/80 dark:border-zinc-800/80">
+        <table className="min-w-full divide-y divide-border dark:divide-border">
+          <thead className="bg-zinc-50/80 dark:bg-muted border-b border-border dark:border-border">
             <tr>
               {canSelectProducts && (
                 <th className={`px-4 py-3.5 ${alignClass}`}>
@@ -104,7 +104,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                     type="checkbox"
                     checked={selectAll}
                     onChange={onSelectAll}
-                    className="h-4 w-4 text-zinc-900 dark:text-zinc-100 focus:ring-zinc-900 dark:focus:ring-zinc-100 border-zinc-300 dark:border-zinc-700 rounded dark:bg-zinc-800"
+                    className="h-4 w-4 text-foreground dark:text-muted-foreground focus:ring-border dark:focus:ring-border border-border dark:border-border rounded dark:bg-muted"
                   />
                 </th>
               )}
@@ -119,7 +119,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                   return (
                     <th
                       key={label}
-                      className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.08em]`}
+                      className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-[0.08em]`}
                     >
                       {label}
                     </th>
@@ -130,7 +130,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                   <th
                     key={field}
                     onClick={() => onSort(field)}
-                    className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.08em] cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors select-none`}
+                    className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-[0.08em] cursor-pointer hover:text-foreground dark:hover:text-muted-foreground transition-colors select-none`}
                   >
                     <div className="flex items-center gap-1">
                       {label}
@@ -139,24 +139,24 @@ const ProductsTable: React.FC<ProductsTableProps> = ({
                   </th>
                 );
               })}
-              <th className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.08em]`}>
+              <th className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-[0.08em]`}>
                 {isEn ? "Status" : "الحالة"}
               </th>
               <th
                 onClick={() => onSort("updatedAt")}
-                className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.08em] cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors select-none`}
+                className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-[0.08em] cursor-pointer hover:text-foreground dark:hover:text-muted-foreground transition-colors select-none`}
               >
                 <div className="flex items-center gap-1">
                   {isEn ? "Last Modified By" : "آخر تعديل بواسطة"}
                   <SortIcon field="updatedAt" />
                 </div>
               </th>
-              <th className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.08em]`}>
+              <th className={`px-4 py-3.5 ${alignClass} text-[11px] font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-[0.08em]`}>
                 {isEn ? "Actions" : "الإجراءات"}
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-zinc-900 divide-y divide-zinc-100 dark:divide-zinc-800/60">
+          <tbody className="bg-white dark:bg-muted divide-y divide-border dark:divide-border">
             {products.map((product) => (
               <ProductTableRow
                 key={product.id}

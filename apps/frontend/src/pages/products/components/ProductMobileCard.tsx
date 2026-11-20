@@ -134,7 +134,7 @@ export const ProductMobileCard: React.FC<ProductMobileCardProps> = ({
             type="button"
             onClick={() => onWorkflowAction(product, "approve")}
             disabled={isWorkflowBusy}
-            className={`${btnSize} text-green-600 hover:bg-green-50 dark:hover:bg-green-950/40`}
+            className={`${btnSize} text-success hover:bg-success/10 dark:hover:bg-success/40`}
             title={isEn ? "Approve" : "اعتماد"}
             aria-label={isEn ? "Approve" : "اعتماد"}
           >
@@ -160,7 +160,7 @@ export const ProductMobileCard: React.FC<ProductMobileCardProps> = ({
           type="button"
           onClick={() => onWorkflowAction(product, "publish")}
           disabled={isWorkflowBusy}
-          className={`${btnSize} text-green-600 hover:bg-green-50 dark:hover:bg-green-950/40`}
+          className={`${btnSize} text-success hover:bg-success/10 dark:hover:bg-success/40`}
           title={isEn ? "Publish" : "نشر"}
           aria-label={isEn ? "Publish" : "نشر"}
         >
@@ -175,7 +175,7 @@ export const ProductMobileCard: React.FC<ProductMobileCardProps> = ({
           type="button"
           onClick={() => onWorkflowAction(product, "unpublish")}
           disabled={isWorkflowBusy}
-          className={`${btnSize} text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-950/40`}
+          className={`${btnSize} text-warning hover:bg-warning/10 dark:hover:bg-warning/40`}
           title={isEn ? "Unpublish" : "إلغاء النشر"}
           aria-label={isEn ? "Unpublish" : "إلغاء النشر"}
         >
@@ -189,7 +189,7 @@ export const ProductMobileCard: React.FC<ProductMobileCardProps> = ({
 
   return (
     <div
-      className={`rounded-2xl border p-3.5 transition-all shadow-xs ${
+      className={`rounded-xl border p-3.5 transition-all shadow-xs ${
         selected
           ? "border-primary bg-primary/10 ring-1 ring-primary/30"
           : "border-border bg-card hover:border-border"
@@ -246,7 +246,7 @@ export const ProductMobileCard: React.FC<ProductMobileCardProps> = ({
               {product.sku || (isEn ? "No SKU" : "بدون SKU")}
             </span>
             {isVariableProduct && (
-              <span className="rounded px-1.5 py-0.2 text-[9px] font-semibold bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300">
+              <span className="rounded px-1.5 py-0.2 text-[9px] font-semibold bg-primary text-primary dark:bg-primary/40 dark:text-primary">
                 {product.variantsCount} {isEn ? (product.variantsCount === 1 ? "variant" : "variants") : "متغير"}
               </span>
             )}
@@ -262,8 +262,8 @@ export const ProductMobileCard: React.FC<ProductMobileCardProps> = ({
               </Link>
             )}
             {product.isHidden && (
-              <span className="inline-flex items-center rounded px-1.5 py-0.2 text-[9px] font-semibold bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300">
-                <EyeSlashIcon className={`h-2.5 w-2.5 ${isEn ? "mr-0.5" : "ml-0.5"}`} />
+              <span className="inline-flex items-center rounded px-1.5 py-0.2 text-[9px] font-semibold bg-warning text-warning dark:bg-warning/40 dark:text-warning">
+                <EyeSlashIcon className={`h-2.5 w-2.5 ${isEn ? "me-0.5" : "ms-0.5"}`} />
                 {isEn ? "Hidden" : "مخفي"}
               </span>
             )}

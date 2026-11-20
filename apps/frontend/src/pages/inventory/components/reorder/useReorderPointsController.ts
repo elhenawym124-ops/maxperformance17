@@ -117,25 +117,25 @@ export function useReorderPointsController() {
         title: t("reorderPoints.lowStock", "مخزون منخفض"),
         value: safeSummary.lowStockCount,
         icon: ExclamationTriangleIcon,
-        gradient: "from-yellow-500/20 to-yellow-500/5 text-yellow-600",
+        gradient: "from-yellow-500/20 to-warning/5 text-warning",
       },
       {
         title: t("reorderPoints.outOfStock", "نفد المخزون"),
         value: safeSummary.outOfStockCount,
         icon: XCircleIcon,
-        gradient: "from-red-500/20 to-red-500/5 text-red-600",
+        gradient: "from-red-500/20 to-destructive/5 text-destructive",
       },
       {
         title: t("reorderPoints.preOrderCount", "الطلب المسبق"),
         value: safeSummary.preOrderCount,
         icon: ShoppingBagIcon,
-        gradient: "from-indigo-500/20 to-indigo-500/5 text-indigo-600",
+        gradient: "from-indigo-500/20 to-primary/5 text-primary",
       },
       {
         title: t("reorderPoints.atRiskValue", "قيمة معرضة للخطر"),
         value: formatPrice(safeSummary.atRiskValue),
         icon: ArrowDownTrayIcon,
-        gradient: "from-emerald-500/20 to-emerald-500/5 text-emerald-600",
+        gradient: "from-emerald-500/20 to-success/5 text-success",
       },
     ];
   }, [summary, t, formatPrice]);

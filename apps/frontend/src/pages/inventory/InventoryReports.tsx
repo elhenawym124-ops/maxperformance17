@@ -138,9 +138,9 @@ const InventoryReports: React.FC = () => {
         <div className="flex items-center justify-between text-xs font-medium">
           <span className="text-foreground flex items-center gap-1.5"><BarChart2 className="h-3.5 w-3.5 text-primary" /> توزيع صحة المخزون العام</span>
           <div className="flex items-center gap-3 text-[11px]">
-            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-emerald-500"></span> رصيد آمن ({hPct}%)</span>
-            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-amber-500"></span> منخفض ({lPct}%)</span>
-            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-rose-500"></span> نافذ ({oPct}%)</span>
+            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-success"></span> رصيد آمن ({hPct}%)</span>
+            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-warning"></span> منخفض ({lPct}%)</span>
+            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-destructive"></span> نافذ ({oPct}%)</span>
           </div>
         </div>
         <div className="h-2 w-full bg-muted rounded-full overflow-hidden flex">
@@ -157,19 +157,19 @@ const InventoryReports: React.FC = () => {
             <button onClick={() => setStatusFilter("all")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "all" ? "bg-background text-foreground shadow-sm font-medium" : "text-muted-foreground"}`}>
               كل الأصناف ({products.length})
             </button>
-            <button onClick={() => setStatusFilter("healthy")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "healthy" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-medium" : "text-muted-foreground"}`}>
+            <button onClick={() => setStatusFilter("healthy")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "healthy" ? "bg-emerald-500/10 text-success dark:text-success font-medium" : "text-muted-foreground"}`}>
               الرصيد الآمن ({healthyCount})
             </button>
-            <button onClick={() => setStatusFilter("low")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "low" ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 font-medium" : "text-muted-foreground"}`}>
+            <button onClick={() => setStatusFilter("low")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "low" ? "bg-amber-500/10 text-warning dark:text-warning font-medium" : "text-muted-foreground"}`}>
               المنخفض ({lowCount})
             </button>
-            <button onClick={() => setStatusFilter("out")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "out" ? "bg-rose-500/10 text-rose-700 dark:text-rose-300 font-medium" : "text-muted-foreground"}`}>
+            <button onClick={() => setStatusFilter("out")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "out" ? "bg-rose-500/10 text-destructive dark:text-destructive font-medium" : "text-muted-foreground"}`}>
               النافذ ({outCount})
             </button>
           </div>
           <div className="relative w-full sm:w-72">
             <Search className="h-3.5 w-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <Input type="text" placeholder="بحث باسم الصنف أو SKU..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-8 pr-9 pl-3 text-xs bg-background border-border/70" />
+            <Input type="text" placeholder="بحث باسم الصنف أو SKU..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-8 pe-9 ps-3 text-xs bg-background border-border/70" />
           </div>
         </div>
 
@@ -205,15 +205,15 @@ const InventoryReports: React.FC = () => {
                     <td className="py-2.5 px-3.5 text-center font-mono font-bold text-primary">{formatPrice(p.totalValue)}</td>
                     <td className="py-2.5 px-3.5 text-center">
                       {p.status === "healthy" ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-success text-success dark:bg-success/30 dark:text-success">
                           <CheckCircle2 className="h-3 w-3" /> رصيد متوفر
                         </span>
                       ) : p.status === "low" ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-warning text-warning dark:bg-warning/30 dark:text-warning">
                           <AlertTriangle className="h-3 w-3" /> دون الحد الأدنى
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-destructive text-destructive dark:bg-destructive/30 dark:text-destructive">
                           <MinusCircle className="h-3 w-3" /> نافذ من المخزن
                         </span>
                       )}

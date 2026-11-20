@@ -54,7 +54,7 @@ export const ReturnActivityDetails: React.FC<ReturnActivityDetailsProps> = ({
   }
 
   return (
-    <div className="text-xs bg-gray-50 dark:bg-gray-800 p-2.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">
+    <div className="text-xs bg-muted dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border text-foreground">
       {typeof details === 'string' ? details : JSON.stringify(details)}
     </div>
   );

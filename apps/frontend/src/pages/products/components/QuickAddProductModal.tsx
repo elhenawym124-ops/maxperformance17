@@ -63,7 +63,7 @@ export const QuickAddProductModal: React.FC<QuickAddProductModalProps> = (props)
       aria-modal="true"
       aria-labelledby={titleId}
     >
-      <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      <div className="relative w-full max-w-2xl bg-white dark:bg-muted border border-border dark:border-border rounded-xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Header */}
         <QuickAddHeader titleId={titleId} onClose={controller.handleClose} />
 

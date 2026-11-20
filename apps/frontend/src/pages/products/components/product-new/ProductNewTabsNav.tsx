@@ -85,17 +85,17 @@ export const ProductNewTabsNav: React.FC<ProductNewTabsNavProps> = ({
                     isActive
                       ? "text-primary"
                       : "text-muted-foreground/70 group-hover:text-foreground"
-                  } shrink-0 mr-2.5 rtl:ml-2.5 rtl:mr-0 h-4 w-4 transition-colors`}
+                  } shrink-0 me-2.5 rtl:ms-2.5 rtl:me-0 h-4 w-4 transition-colors`}
                   aria-hidden="true"
                 />
                 <span className="truncate">{tab.name}</span>
 
                 {tab.id === "basic" &&
                   (fieldErrors.name || fieldErrors.category) && (
-                    <span className="ml-auto rtl:mr-auto w-2 h-2 bg-destructive rounded-full" />
+                    <span className="ms-auto rtl:me-auto w-2 h-2 bg-destructive rounded-full" />
                   )}
                 {tab.id === "pricing" && fieldErrors.price && (
-                  <span className="ml-auto rtl:mr-auto w-2 h-2 bg-destructive rounded-full" />
+                  <span className="ms-auto rtl:me-auto w-2 h-2 bg-destructive rounded-full" />
                 )}
               </a>
             );

@@ -35,20 +35,20 @@ export const ReturnActivityEventBadges: React.FC<ReturnActivityEventBadgesProps>
     const notes = detailsObj.notes as string | undefined;
 
     return (
-      <div className="text-xs bg-purple-50/70 dark:bg-purple-950/30 p-2.5 rounded-lg border border-purple-100 dark:border-purple-900/30 space-y-1.5">
+      <div className="text-xs bg-primary/70 dark:bg-primary/30 p-2.5 rounded-lg border border-primary dark:border-primary/30 space-y-1.5">
         <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-gray-500 dark:text-gray-400">وسيلة التواصل:</span>
-          <span className="font-semibold text-gray-900 dark:text-white">
+          <span className="text-muted-foreground">وسيلة التواصل:</span>
+          <span className="font-semibold text-foreground">
             {method === 'WHATSAPP' ? 'واتساب (WhatsApp)' : 'مكالمة هاتفية (Phone)'}
           </span>
-          <span className="text-gray-300 dark:text-gray-600">•</span>
-          <span className="text-gray-500 dark:text-gray-400">النتيجة:</span>
-          <span className="font-semibold text-purple-700 dark:text-purple-300">
+          <span className="text-gray-300 dark:text-foreground">•</span>
+          <span className="text-muted-foreground">النتيجة:</span>
+          <span className="font-semibold text-primary dark:text-primary">
             {CONTACT_RESULTS_MAP[result] || result}
           </span>
         </div>
         {notes && (
-          <p className="text-gray-700 dark:text-gray-300 text-xs mt-1 border-t border-purple-100 dark:border-purple-900/30 pt-1">
+          <p className="text-foreground text-xs mt-1 border-t border-primary dark:border-primary/30 pt-1">
             &ldquo;{notes}&rdquo;
           </p>
         )}
@@ -62,19 +62,19 @@ export const ReturnActivityEventBadges: React.FC<ReturnActivityEventBadgesProps>
     const reason = detailsObj.reason as string | undefined;
 
     return (
-      <div className="text-xs bg-amber-50/70 dark:bg-amber-950/30 p-2.5 rounded-lg border border-amber-100 dark:border-amber-900/30 space-y-1">
+      <div className="text-xs bg-warning/70 dark:bg-warning/30 p-2.5 rounded-lg border border-warning dark:border-warning/30 space-y-1">
         <div className="flex items-center gap-2">
-          <span className="text-gray-500 dark:text-gray-400">تغيير الحالة:</span>
-          <span className="font-semibold px-2 py-0.5 rounded bg-white dark:bg-gray-800 border border-amber-200 dark:border-amber-800 text-gray-800 dark:text-white font-mono">
+          <span className="text-muted-foreground">تغيير الحالة:</span>
+          <span className="font-semibold px-2 py-0.5 rounded bg-card border border-warning dark:border-warning text-foreground dark:text-white font-mono">
             {fromVal}
           </span>
-          <ArrowRightLeft size={12} className="text-amber-600 dark:text-amber-400" />
-          <span className="font-semibold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 font-mono">
+          <ArrowRightLeft size={12} className="text-amber-600 dark:text-warning" />
+          <span className="font-semibold px-2 py-0.5 rounded bg-warning dark:bg-warning/50 border border-warning dark:border-warning text-warning dark:text-warning font-mono">
             {toVal}
           </span>
         </div>
         {reason && (
-          <p className="text-gray-600 dark:text-gray-400 text-xs mt-1">السبب: {reason}</p>
+          <p className="text-gray-600 dark:text-muted-foreground text-xs mt-1">السبب: {reason}</p>
         )}
       </div>
     );
@@ -85,8 +85,8 @@ export const ReturnActivityEventBadges: React.FC<ReturnActivityEventBadgesProps>
     const changes = detailsObj.changes as Record<string, { from?: unknown; to?: unknown }> | undefined;
 
     return (
-      <div className="text-xs bg-indigo-50/70 dark:bg-indigo-950/30 p-2.5 rounded-lg border border-indigo-100 dark:border-indigo-900/30 space-y-2">
-        <span className="font-medium text-indigo-900 dark:text-indigo-200 block">
+      <div className="text-xs bg-primary/70 dark:bg-primary/30 p-2.5 rounded-lg border border-primary dark:border-primary/30 space-y-2">
+        <span className="font-medium text-primary dark:text-primary block">
           {description}
         </span>
         {changes && (
@@ -94,12 +94,12 @@ export const ReturnActivityEventBadges: React.FC<ReturnActivityEventBadgesProps>
             {Object.entries(changes).map(([field, change]) => (
               <div
                 key={field}
-                className="bg-white dark:bg-gray-800 p-2 rounded border border-indigo-100 dark:border-indigo-900/40 text-xs"
+                className="bg-card p-2 rounded border border-primary dark:border-primary/40 text-xs"
               >
-                <span className="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">
+                <span className="text-muted-foreground block text-[11px] mb-0.5">
                   {FIELD_LABELS[field] || field}
                 </span>
-                <span className="text-red-500 line-through mr-1 font-mono">
+                <span className="text-red-500 line-through me-1 font-mono">
                   {String(change?.from ?? 'فارغ')}
                 </span>
                 <span className="text-emerald-600 font-semibold font-mono">
@@ -122,9 +122,9 @@ export const ReturnActivityEventBadges: React.FC<ReturnActivityEventBadgesProps>
         : null;
 
     return (
-      <div className="text-xs bg-slate-50 dark:bg-gray-800 p-2.5 rounded-lg border border-slate-200 dark:border-gray-700">
-        <span className="text-gray-500 dark:text-gray-400 block mb-1">الملاحظة:</span>
-        <p className="text-gray-800 dark:text-gray-200 font-medium">
+      <div className="text-xs bg-muted dark:bg-muted p-2.5 rounded-lg border border-border dark:border-border">
+        <span className="text-muted-foreground block mb-1">الملاحظة:</span>
+        <p className="text-gray-800 dark:text-muted-foreground font-medium">
           {noteText || 'تم تحديث الملاحظات الإدارية'}
         </p>
       </div>
@@ -133,8 +133,8 @@ export const ReturnActivityEventBadges: React.FC<ReturnActivityEventBadgesProps>
 
   if (action === 'CREATED') {
     return (
-      <div className="text-xs text-cyan-900 dark:text-cyan-200 bg-cyan-50/70 dark:bg-cyan-950/30 p-2.5 rounded-lg border border-cyan-100 dark:border-cyan-900/30 flex items-center gap-2">
-        <PlusCircle size={15} className="text-cyan-600 dark:text-cyan-400 shrink-0" />
+      <div className="text-xs text-info dark:text-info bg-info/70 dark:bg-info/30 p-2.5 rounded-lg border border-info dark:border-info/30 flex items-center gap-2">
+        <PlusCircle size={15} className="text-cyan-600 dark:text-info shrink-0" />
         <span>تم إنشاء طلب الإرجاع في النظام</span>
       </div>
     );

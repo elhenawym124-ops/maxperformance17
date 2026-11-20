@@ -146,7 +146,7 @@ const ReturnEmployeePerformance: React.FC = () => {
               <Clock size={13} className="text-amber-500" />
               <span>إجمالي المعين</span>
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400 mt-1">
+            <div className="text-2xl font-bold font-mono tabular-nums text-warning dark:text-warning mt-1">
               {totals.assigned}
             </div>
             <div className="text-[10px] text-muted-foreground mt-0.5">شحنات مرتجعة محولة للموظفين</div>
@@ -157,7 +157,7 @@ const ReturnEmployeePerformance: React.FC = () => {
               <CheckCircle2 size={13} className="text-emerald-500" />
               <span>تمت مراجعته</span>
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400 mt-1">
+            <div className="text-2xl font-bold font-mono tabular-nums text-success dark:text-success mt-1">
               {totals.reviewed}
             </div>
             <div className="text-[10px] text-muted-foreground mt-0.5">طلبات تم فحصها نهائياً</div>
@@ -168,7 +168,7 @@ const ReturnEmployeePerformance: React.FC = () => {
               <Layers size={13} className="text-sky-500" />
               <span>إجمالي الإجراءات</span>
             </div>
-            <div className="text-2xl font-bold font-mono tabular-nums text-sky-600 dark:text-sky-400 mt-1">
+            <div className="text-2xl font-bold font-mono tabular-nums text-info dark:text-info mt-1">
               {totals.actions}
             </div>
             <div className="text-[10px] text-muted-foreground mt-0.5">قرارات فحص وقبول/رفض</div>
@@ -228,21 +228,21 @@ const ReturnEmployeePerformance: React.FC = () => {
                             </span>
                           </div>
                         </td>
-                        <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-amber-600 dark:text-amber-400">
+                        <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-warning dark:text-warning">
                           {emp.totalAssigned}
                         </td>
-                        <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-emerald-600 dark:text-emerald-400">
+                        <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-success dark:text-success">
                           {emp.totalReviewed}
                         </td>
-                        <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-sky-600 dark:text-sky-400">
+                        <td className="py-3 px-4 text-center font-mono tabular-nums font-bold text-info dark:text-info">
                           {emp.totalActions}
                         </td>
                         <td className="py-3 px-4 text-center">
                           <span className={`inline-block font-mono tabular-nums font-bold text-xs px-2 py-0.5 rounded-full border ${
                             completionRate >= 80
-                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                              ? 'bg-emerald-500/10 text-success dark:text-success border-success/20'
                               : completionRate >= 50
-                              ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+                              ? 'bg-amber-500/10 text-warning dark:text-warning border-warning/20'
                               : 'bg-muted/40 text-muted-foreground border-border/60'
                           }`}>
                             {completionRate}%

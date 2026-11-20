@@ -66,7 +66,7 @@ export const EasyOrdersSettingsTab: React.FC<EasyOrdersSettingsTabProps> = ({
 
           <div className="bg-muted/30 border border-border/60 rounded-xl p-4 text-xs">
             <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-              <CheckCircleIcon className="h-4 w-4 text-emerald-500" />
+              <CheckCircleIcon className="h-4 w-4 text-success" />
               <span>حالة المزامنة التلقائية</span>
             </h3>
             {settings ? (
@@ -98,7 +98,7 @@ export const EasyOrdersSettingsTab: React.FC<EasyOrdersSettingsTabProps> = ({
             <button
               onClick={syncOrders}
               disabled={syncing || !settings?.hasApiKey}
-              className="w-full mt-4 px-4 py-2.5 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 flex items-center justify-center gap-2 transition-all shadow-xs disabled:opacity-50"
+              className="w-full mt-4 px-4 py-2.5 bg-primary text-white font-semibold rounded-lg hover:bg-primary flex items-center justify-center gap-2 transition-all shadow-xs disabled:opacity-50"
             >
               <ArrowPathIcon className={`h-4 w-4 ${syncing ? "animate-spin" : ""}`} />
               <span>{syncing ? "جاري مزامنة الطلبات..." : "مزامنة الطلبات الآن"}</span>
@@ -111,7 +111,7 @@ export const EasyOrdersSettingsTab: React.FC<EasyOrdersSettingsTabProps> = ({
       <div className="bg-card rounded-xl border border-border/70 shadow-xs overflow-hidden">
         <div className="p-4 sm:p-5 border-b border-border/60 flex justify-between items-center">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-lg">
+            <div className="p-1.5 bg-warning/10 text-warning dark:text-warning rounded-lg">
               <DocumentTextIcon className="h-5 w-5" />
             </div>
             <h2 className="text-base font-bold text-foreground">سجلات المزامنة</h2>
@@ -146,10 +146,10 @@ export const EasyOrdersSettingsTab: React.FC<EasyOrdersSettingsTabProps> = ({
                       <span
                         className={`inline-flex px-2 py-0.5 rounded-full text-[11px] font-medium font-sans ${
                           log.status === "SUCCESS"
-                            ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+                            ? "bg-emerald-500/10 text-success border border-success/20"
                             : log.status === "RUNNING"
                             ? "bg-blue-500/10 text-blue-600 border border-blue-500/20"
-                            : "bg-red-500/10 text-red-600 border border-red-500/20"
+                            : "bg-red-500/10 text-destructive border border-destructive/20"
                         }`}
                       >
                         {log.status === "SUCCESS"

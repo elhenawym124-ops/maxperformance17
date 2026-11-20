@@ -104,7 +104,7 @@ export default function TreasuryExpensesPage() {
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono tabular-nums ${
               totalLiquidity < 0
                 ? "bg-destructive/10 text-destructive border-destructive/20"
-                : "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                : "bg-emerald-50 text-success dark:bg-success/40 dark:text-success border-success dark:border-success"
             }`}
           >
             <span
@@ -130,7 +130,7 @@ export default function TreasuryExpensesPage() {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Receipt className="size-3.5 text-rose-500" />
+              <Receipt className="size-3.5 text-destructive" />
               <span>النفقات والمصروفات</span>
             </button>
 
@@ -142,7 +142,7 @@ export default function TreasuryExpensesPage() {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Landmark className="size-3.5 text-emerald-600" />
+              <Landmark className="size-3.5 text-success" />
               <span>الخزنة ورأس المال</span>
             </button>
           </div>
@@ -151,9 +151,9 @@ export default function TreasuryExpensesPage() {
 
       {/* Access Blocked / Re-activation Banner */}
       {accessBlocked && (
-        <div className="rounded-xl border border-amber-500/30 bg-amber-50 dark:bg-amber-950/20 p-4 flex flex-col md:flex-row items-center justify-between gap-3 shadow-xs">
+        <div className="rounded-xl border border-warning/30 bg-warning/10 dark:bg-warning/20 p-4 flex flex-col md:flex-row items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+            <div className="p-2 rounded-lg bg-warning/10 text-warning dark:text-warning">
               <ShieldCheck className="size-5" />
             </div>
             <div>
@@ -178,7 +178,7 @@ export default function TreasuryExpensesPage() {
                 setActivating(false);
               }
             }}
-            className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors shrink-0 disabled:opacity-50 cursor-pointer"
+            className="px-4 py-2 rounded-lg bg-success hover:bg-success text-white text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors shrink-0 disabled:opacity-50 cursor-pointer"
           >
             {activating ? <Loader2 className="size-4 animate-spin" /> : <Sparkles className="size-4" />}
             <span>تفعيل الأداة مجاناً الآن</span>

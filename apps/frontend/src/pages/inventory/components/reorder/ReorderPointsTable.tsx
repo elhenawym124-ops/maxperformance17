@@ -63,10 +63,10 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
   const { t } = useTranslation();
 
   const urgencyMeta = (urgency?: string) => {
-    if (urgency === "critical") return { label: "حرج", className: "bg-red-100 text-red-700" };
-    if (urgency === "warning") return { label: "تحذير", className: "bg-orange-100 text-orange-700" };
-    if (urgency === "moderate") return { label: "متوسط", className: "bg-yellow-100 text-yellow-700" };
-    return { label: "آمن", className: "bg-emerald-100 text-emerald-700" };
+    if (urgency === "critical") return { label: "حرج", className: "bg-red-100 text-destructive" };
+    if (urgency === "warning") return { label: "تحذير", className: "bg-orange-100 text-warning" };
+    if (urgency === "moderate") return { label: "متوسط", className: "bg-yellow-100 text-warning" };
+    return { label: "آمن", className: "bg-emerald-100 text-success" };
   };
 
   const sortableHead = (field: string, label: string) => (
@@ -86,7 +86,7 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
     return (
       <div className="space-y-3">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="animate-pulse bg-gray-200 dark:bg-gray-700 rounded-xl h-10 w-full" />
+          <div key={i} className="animate-pulse bg-muted dark:bg-muted rounded-xl h-10 w-full" />
         ))}
       </div>
     );
@@ -95,8 +95,8 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
   if (items.length === 0) {
     return (
       <div className="py-16 text-center">
-        <CheckCircleIcon className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600" />
-        <p className="mt-4 text-gray-500 dark:text-gray-400">
+        <CheckCircleIcon className="h-12 w-12 mx-auto text-muted-foreground dark:text-foreground" />
+        <p className="mt-4 text-muted-foreground">
           {t("reorderPoints.empty", "لا توجد بيانات مطابقة")}
         </p>
       </div>
@@ -113,7 +113,7 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                 type="checkbox"
                 checked={selectedIds.size === items.length && items.length > 0}
                 onChange={onToggleAll}
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600"
+                className="h-4 w-4 rounded border-border text-primary"
               />
             </TableHead>
             <TableHead>{sortableHead("name", t("reorderPoints.colProduct", "المنتج"))}</TableHead>
@@ -147,7 +147,7 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                     checked={selectedIds.has(key)}
                     disabled={!canEditPoint}
                     onChange={() => onToggleSelection(key, item)}
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 disabled:opacity-30"
+                    className="h-4 w-4 rounded border-border text-primary disabled:opacity-30"
                   />
                 </TableCell>
                 <TableCell>
@@ -156,18 +156,18 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                       <img
                         src={imageUrl}
                         alt={item.name}
-                        className="h-10 w-10 rounded-lg object-cover border border-gray-200 dark:border-gray-700"
+                        className="h-10 w-10 rounded-lg object-cover border border-border dark:border-border"
                       />
                     ) : (
-                      <div className="h-10 w-10 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center">
-                        <ArchiveBoxIcon className="h-5 w-5 text-gray-400" />
+                      <div className="h-10 w-10 rounded-lg bg-muted dark:bg-muted border border-border dark:border-border flex items-center justify-center">
+                        <ArchiveBoxIcon className="h-5 w-5 text-muted-foreground" />
                       </div>
                     )}
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                      <p className="text-sm font-semibold text-foreground">
                         {item.name}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 tabular-nums font-mono">
+                      <p className="text-xs text-muted-foreground tabular-nums font-mono">
                         {item.sku}
                         {item.categoryName ? ` • ${item.categoryName}` : ""}
                       </p>
@@ -182,17 +182,17 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                 </TableCell>
                 {view === "warehouse" ? (
                   <TableCell>
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                    <span className="text-sm text-foreground">
                       {item.warehouseName || "—"}
                     </span>
                   </TableCell>
                 ) : null}
                 <TableCell>
-                  <span className={`text-sm font-bold tabular-nums font-mono ${item.status === "out" ? "text-red-600" : item.status === "low" ? "text-yellow-600" : "text-gray-900 dark:text-white"}`}>
+                  <span className={`text-sm font-bold tabular-nums font-mono ${item.status === "out" ? "text-red-600" : item.status === "low" ? "text-yellow-600" : "text-foreground"}`}>
                     {item.available}
                   </span>
                   {item.reserved > 0 ? (
-                    <span className="text-xs text-gray-400 mr-1 tabular-nums font-mono">
+                    <span className="text-xs text-muted-foreground me-1 tabular-nums font-mono">
                       (+{item.reserved} محجوز)
                     </span>
                   ) : null}
@@ -200,10 +200,10 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                 <TableCell>
                   {!canEditPoint ? (
                     <div className="flex flex-col">
-                      <span className="text-sm text-gray-400 dark:text-gray-500">
+                      <span className="text-sm text-muted-foreground/80">
                         {t("reorderPoints.noInventory", "بلا سجلات مخزون")}
                       </span>
-                      <span className="text-[11px] text-gray-400/70">
+                      <span className="text-[11px] text-muted-foreground">
                         {t("reorderPoints.noInventoryHint", "أضف مخزوناً أولاً من صفحة إدارة المخزون")}
                       </span>
                     </div>
@@ -221,27 +221,27 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                         type="button"
                         onClick={() => onSaveSingle(item)}
                         disabled={isSaving}
-                        className="p-1.5 rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 disabled:opacity-50 cursor-pointer"
+                        className="p-1.5 rounded-lg bg-success text-white hover:bg-success disabled:opacity-50 cursor-pointer"
                       >
                         <CheckIcon className="h-4 w-4" />
                       </button>
                       <button
                         type="button"
                         onClick={onCancelEdit}
-                        className="p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                        className="p-1.5 rounded-lg text-muted-foreground hover:bg-muted dark:hover:bg-muted cursor-pointer"
                       >
                         <XCircleIcon className="h-4 w-4" />
                       </button>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
-                      <span className={`text-sm font-bold tabular-nums font-mono ${item.status === "low" || item.status === "out" ? "text-yellow-600" : "text-gray-900 dark:text-white"}`}>
+                      <span className={`text-sm font-bold tabular-nums font-mono ${item.status === "low" || item.status === "out" ? "text-yellow-600" : "text-foreground"}`}>
                         {item.reorderPoint}
                       </span>
                       <button
                         type="button"
                         onClick={() => onStartEdit(item)}
-                        className="p-1 rounded-md text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 cursor-pointer"
+                        className="p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/20 cursor-pointer"
                         title={t("reorderPoints.edit", "تعديل النقطة") as string}
                       >
                         <PencilSquareIcon className="h-3.5 w-3.5" />
@@ -251,13 +251,13 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col gap-1">
-                    <span className={`inline-flex items-center gap-1 w-fit rounded-full px-2 py-0.5 text-[11px] font-bold ${item.isPreOrder ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300" : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"}`}>
+                    <span className={`inline-flex items-center gap-1 w-fit rounded-full px-2 py-0.5 text-[11px] font-bold ${item.isPreOrder ? "bg-indigo-100 text-primary dark:bg-primary/40 dark:text-primary" : "bg-gray-100 text-muted-foreground dark:bg-muted dark:text-muted-foreground"}`}>
                       {item.isPreOrder
                         ? t("reorderPoints.preOrderOn", "مفعل")
                         : t("reorderPoints.preOrderOff", "معطل")}
                     </span>
                     {item.preOrderDate ? (
-                      <span className="text-[11px] text-gray-400 tabular-nums font-mono">
+                      <span className="text-[11px] text-muted-foreground tabular-nums font-mono">
                         {new Date(item.preOrderDate).toLocaleDateString("ar-EG")}
                       </span>
                     ) : null}
@@ -265,7 +265,7 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col gap-1">
-                    <span className="text-sm font-bold text-gray-900 dark:text-white tabular-nums font-mono">
+                    <span className="text-sm font-bold text-foreground tabular-nums font-mono">
                       {item.daysUntilStockout === 999
                         ? "∞"
                         : item.daysUntilStockout}
@@ -277,11 +277,11 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white tabular-nums font-mono">
+                    <span className="text-sm font-semibold text-foreground tabular-nums font-mono">
                       {item.suggestedReorder || "—"}
                     </span>
                     {typeof item.dailyAvgSales === "number" && item.dailyAvgSales > 0 ? (
-                      <span className="text-[11px] text-gray-400 tabular-nums font-mono">
+                      <span className="text-[11px] text-muted-foreground tabular-nums font-mono">
                         {t("reorderPoints.perDay", "{{count}}/يوم").replace(
                           "{{count}}",
                           String(item.dailyAvgSales),
@@ -295,7 +295,7 @@ export const ReorderPointsTable: React.FC<ReorderPointsTableProps> = ({
                     type="button"
                     disabled={!canEditPoint}
                     onClick={() => onStartEdit(item)}
-                    className="p-2 rounded-lg text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                    className="p-2 rounded-lg text-primary hover:bg-primary/10 dark:hover:bg-primary/20 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                     title={t("reorderPoints.edit", "تعديل النقطة") as string}
                   >
                     <PencilSquareIcon className="h-4 w-4" />

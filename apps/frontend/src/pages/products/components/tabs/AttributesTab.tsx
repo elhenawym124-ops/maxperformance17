@@ -89,13 +89,13 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
     setEditValues((prev) => prev.filter((_, i) => i !== idx));
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow rounded-xl p-3.5 sm:p-6 animate-fade-in">
+    <div className="bg-card shadow rounded-xl p-3.5 sm:p-6 animate-fade-in">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+          <h3 className="text-lg font-medium text-foreground">
             {t("products.attributes.title")}
           </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             {t("products.attributes.description")}
           </p>
         </div>
@@ -108,15 +108,15 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
           onClick={() => setAttributeMode("templates")}
           className={`flex-1 p-4 rounded-lg border-2 transition-all ${
             attributeMode === "templates"
-              ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 dark:border-indigo-400"
-              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+              ? "border-indigo-500 bg-primary/10 dark:bg-primary/30 dark:border-primary"
+              : "border-gray-200 dark:border-border hover:border-border"
           }`}
         >
           <div className="text-2xl mb-2">📦</div>
-          <h4 className="font-medium text-gray-900 dark:text-white">
+          <h4 className="font-medium text-foreground">
             {t("products.attributes.templates")}
           </h4>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             {t("products.attributes.templatesDesc")}
           </p>
         </button>
@@ -125,15 +125,15 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
           onClick={() => setAttributeMode("custom")}
           className={`flex-1 p-4 rounded-lg border-2 transition-all ${
             attributeMode === "custom"
-              ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 dark:border-indigo-400"
-              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+              ? "border-indigo-500 bg-primary/10 dark:bg-primary/30 dark:border-primary"
+              : "border-gray-200 dark:border-border hover:border-border"
           }`}
         >
           <div className="text-2xl mb-2">✏️</div>
-          <h4 className="font-medium text-gray-900 dark:text-white">
+          <h4 className="font-medium text-foreground">
             {t("products.attributes.custom")}
           </h4>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             {t("products.attributes.customDesc")}
           </p>
         </button>
@@ -142,7 +142,7 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
       {/* Templates Mode */}
       {attributeMode === "templates" && (
         <div className="space-y-4">
-          <h4 className="font-medium text-gray-700 dark:text-gray-300">
+          <h4 className="font-medium text-foreground">
             {t("products.attributes.selectFromTemplates")}
           </h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -242,19 +242,19 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                   disabled={isAdded}
                   className={`p-3 rounded-lg border-2 transition-all text-center ${
                     isAdded
-                      ? "border-green-300 bg-green-50 dark:bg-green-900/30 dark:border-green-700 cursor-default"
-                      : "border-dashed border-gray-300 dark:border-gray-600 hover:border-indigo-400 dark:hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                      ? "border-green-300 bg-success/10 dark:bg-success/30 dark:border-success cursor-default"
+                      : "border-dashed border-border hover:border-primary dark:hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20"
                   }`}
                 >
                   <span className="text-2xl">{template.icon}</span>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mt-1">
+                  <p className="text-sm font-medium text-foreground mt-1">
                     {template.name}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     {template.values.slice(0, 3).join("، ")}...
                   </p>
                   {isAdded && (
-                    <span className="text-xs text-green-600 dark:text-green-400 mt-1 block">
+                    <span className="text-xs text-success dark:text-success mt-1 block">
                       ✓ مضاف
                     </span>
                   )}
@@ -267,10 +267,10 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
 
       {/* Custom Mode */}
       {attributeMode === "custom" && (
-        <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+        <div className="bg-gray-50 dark:bg-muted rounded-lg p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t("products.attributes.attributeName")}
               </label>
               <input
@@ -278,13 +278,13 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                 value={newAttributeName}
                 onChange={(e) => setNewAttributeName(e.target.value)}
                 placeholder="مثل: اللون، الحجم، النكهة"
-                className="block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                className="block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t("products.attributes.values")}{" "}
-                <span className="text-gray-400 dark:text-gray-500 font-normal">
+                <span className="text-muted-foreground/80 font-normal">
                   {t("products.attributes.valuesHint")}
                 </span>
               </label>
@@ -297,13 +297,13 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                       onChange={(e) => updateValueField(index, e.target.value)}
                       onKeyDown={(e) => handleValueKeyPress(e, index)}
                       placeholder={index === 0 ? "القيمة الأولى" : "قيمة أخرى..."}
-                      className="attribute-value-input flex-1 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                      className="attribute-value-input flex-1 border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm"
                     />
                     {newAttributeValuesList.length > 1 && (
                       <button
                         type="button"
                         onClick={() => removeValueField(index)}
-                        className="px-2 text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
+                        className="px-2 text-destructive dark:text-destructive hover:text-destructive dark:hover:text-destructive"
                       >
                         <XMarkIcon className="h-5 w-5" />
                       </button>
@@ -313,7 +313,7 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                 <button
                   type="button"
                   onClick={addValueField}
-                  className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 flex items-center gap-1"
+                  className="text-sm text-primary hover:text-primary dark:hover:text-primary flex items-center gap-1"
                 >
                   <PlusIcon className="h-4 w-4" /> {t("products.attributes.addValue")}
                 </button>
@@ -328,9 +328,9 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                 !newAttributeName.trim() ||
                 !newAttributeValuesList.some((v) => v.trim())
               }
-              className="px-4 py-2 bg-indigo-600 dark:bg-indigo-600 text-white rounded-md hover:bg-indigo-700 dark:hover:bg-indigo-700 text-sm disabled:opacity-50 disabled:dark:opacity-50"
+              className="px-4 py-2 bg-primary dark:bg-primary text-white rounded-md hover:bg-primary dark:hover:bg-primary text-sm disabled:opacity-50 disabled:dark:opacity-50"
             >
-              <PlusIcon className="h-4 w-4 inline ml-1" />{" "}
+              <PlusIcon className="h-4 w-4 inline ms-1" />{" "}
               {t("products.attributes.addAttribute")}
             </button>
           </div>
@@ -340,14 +340,14 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
       {/* Added Attributes List */}
       {attributes.length > 0 && (
         <div className="mt-6">
-          <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-3">
+          <h4 className="font-medium text-foreground mb-3">
             {t("products.attributes.addedAttributes")} ({attributes.length}):
           </h4>
           <div className="space-y-2">
             {attributes.map((attr) => (
               <div
                 key={attr.id}
-                className="flex items-center justify-between bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3"
+                className="flex items-center justify-between bg-card border border-border rounded-lg p-3"
               >
                 {editingAttrId === attr.id ? (
                   <div className="w-full space-y-2">
@@ -356,7 +356,7 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                         type="text"
                         value={editName}
                         onChange={(e) => setEditName(e.target.value)}
-                        className="border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                        className="border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm"
                         placeholder={t("products.attributes.attributeName")}
                       />
                       <div className="md:col-span-2 space-y-2">
@@ -365,14 +365,14 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                             <input
                               value={val}
                               onChange={(e) => updateEditValue(i, e.target.value)}
-                              className="flex-1 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                              className="flex-1 border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm"
                               placeholder={t("products.attributes.values")}
                             />
                             {editValues.length > 1 && (
                               <button
                                 type="button"
                                 onClick={() => removeEditValue(i)}
-                                className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 px-2"
+                                className="text-red-500 dark:text-destructive hover:text-destructive dark:hover:text-destructive px-2"
                               >
                                 <XMarkIcon className="h-4 w-4" />
                               </button>
@@ -382,14 +382,14 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                         <button
                           type="button"
                           onClick={addEditValue}
-                          className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300"
+                          className="text-xs text-primary hover:text-primary dark:hover:text-primary"
                         >
                           + {t("products.attributes.addValue")}
                         </button>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <label className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <label className="flex items-center gap-1 text-xs text-muted-foreground">
                         <input
                           type="checkbox"
                           checked={attr.forVariations}
@@ -408,11 +408,11 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                               )
                             )
                           }
-                          className="h-4 w-4 text-indigo-600 dark:text-indigo-500 rounded"
+                          className="h-4 w-4 text-primary dark:text-primary rounded"
                         />
                         {t("products.attributes.forVariations")}
                       </label>
-                      <label className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <label className="flex items-center gap-1 text-xs text-muted-foreground">
                         <input
                           type="checkbox"
                           checked={attr.forVariations && attr.requiredForOrder !== false}
@@ -426,7 +426,7 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                               )
                             )
                           }
-                          className="h-4 w-4 text-indigo-600 dark:text-indigo-500 rounded disabled:opacity-50"
+                          className="h-4 w-4 text-primary dark:text-primary rounded disabled:opacity-50"
                         />
                         يسأل عنه النظام عند إنشاء الأوردر
                       </label>
@@ -435,14 +435,14 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                           type="button"
                           onClick={saveEdit}
                           disabled={!editName.trim() || !editValues.some((v) => v.trim())}
-                          className="px-3 py-1 bg-indigo-600 text-white rounded-md text-sm disabled:opacity-50"
+                          className="px-3 py-1 bg-primary text-white rounded-md text-sm disabled:opacity-50"
                         >
                           {t("common.save") ?? "حفظ"}
                         </button>
                         <button
                           type="button"
                           onClick={cancelEdit}
-                          className="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-md text-sm"
+                          className="px-3 py-1 bg-muted dark:bg-muted text-foreground dark:text-muted-foreground rounded-md text-sm"
                         >
                           {t("common.cancel") ?? "إلغاء"}
                         </button>
@@ -452,14 +452,14 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                 ) : (
                   <>
                     <div className="flex-1">
-                      <span className="font-medium text-gray-800 dark:text-gray-200">
+                      <span className="font-medium text-foreground dark:text-muted-foreground">
                         {attr.name}
                       </span>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {attr.values.map((val, i) => (
                           <span
                             key={i}
-                            className="px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded text-xs"
+                            className="px-2 py-0.5 bg-primary dark:bg-primary/40 text-primary dark:text-primary rounded text-xs"
                           >
                             {val}
                           </span>
@@ -467,7 +467,7 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <label className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <label className="flex items-center gap-1 text-xs text-muted-foreground">
                         <input
                           type="checkbox"
                           checked={attr.forVariations}
@@ -486,11 +486,11 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                               )
                             )
                           }
-                          className="h-4 w-4 text-indigo-600 dark:text-indigo-500 rounded"
+                          className="h-4 w-4 text-primary dark:text-primary rounded"
                         />
                         {t("products.attributes.forVariations")}
                       </label>
-                      <label className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <label className="flex items-center gap-1 text-xs text-muted-foreground">
                         <input
                           type="checkbox"
                           checked={attr.forVariations && attr.requiredForOrder !== false}
@@ -504,21 +504,21 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
                               )
                             )
                           }
-                          className="h-4 w-4 text-indigo-600 dark:text-indigo-500 rounded disabled:opacity-50"
+                          className="h-4 w-4 text-primary dark:text-primary rounded disabled:opacity-50"
                         />
                         مطلوب للأوردر
                       </label>
                       <button
                         type="button"
                         onClick={() => beginEdit(attr)}
-                        className="text-indigo-600 dark:text-indigo-300 hover:text-indigo-800 dark:hover:text-indigo-200 text-sm"
+                        className="text-indigo-600 dark:text-primary hover:text-primary dark:hover:text-primary text-sm"
                       >
                         {t("common.edit") ?? "تعديل"}
                       </button>
                       <button
                         type="button"
                         onClick={() => removeAttribute(attr.id)}
-                        className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1"
+                        className="text-red-500 dark:text-destructive hover:text-destructive dark:hover:text-destructive p-1"
                       >
                         <XMarkIcon className="h-4 w-4" />
                       </button>
@@ -533,15 +533,15 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
 
       {/* Generate Variations Button */}
       {attributes.filter((a) => a.forVariations).length > 0 && (
-        <div className="mt-6 flex items-center justify-between bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-4">
+        <div className="mt-6 flex items-center justify-between bg-success/10 dark:bg-success/20 border border-success dark:border-success rounded-lg p-4">
           <div>
-            <p className="text-green-800 dark:text-green-300 font-medium">
+            <p className="text-green-800 dark:text-success font-medium">
               🔄 {t("products.attributes.generateVariants")}{" "}
               {attributes
                 .filter((a) => a.forVariations)
                 .reduce((acc, attr) => acc * attr.values.length, 1)}
             </p>
-            <p className="text-green-600 dark:text-green-400 text-sm">
+            <p className="text-green-600 dark:text-success text-sm">
               من{" "}
               {attributes
                 .filter((a) => a.forVariations)
@@ -555,7 +555,7 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
               generateVariations();
               setActiveTab("variants");
             }}
-            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2"
+            className="px-4 py-2 bg-success text-white rounded-md hover:bg-success flex items-center gap-2"
           >
             {t("products.attributes.generateVariants")}
             <span className="transform rotate-180">→</span>
@@ -564,8 +564,8 @@ export const AttributesTab: React.FC<AttributesTabProps> = ({
       )}
 
       {attributes.length === 0 && (
-        <div className="mt-6 text-center py-8 text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-          <SwatchIcon className="h-12 w-12 mx-auto text-gray-400 dark:text-gray-500 mb-2" />
+        <div className="mt-6 text-center py-8 text-muted-foreground bg-muted dark:bg-muted rounded-lg">
+          <SwatchIcon className="h-12 w-12 mx-auto text-muted-foreground/80 mb-2" />
           <p>لم تضف أي صفات بعد</p>
           <p className="text-sm">اختر من القوالب الجاهزة أو أنشئ صفات مخصصة</p>
         </div>

@@ -16,7 +16,7 @@ export const StudioQuickStrategyTriggers: React.FC<StudioQuickStrategyTriggersPr
 }) => {
   return (
     <div className="space-y-2 pt-2">
-      <h4 className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+      <h4 className="text-[11px] font-black text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
         أدوات التحليل والضبط السريع
       </h4>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -27,15 +27,15 @@ export const StudioQuickStrategyTriggers: React.FC<StudioQuickStrategyTriggersPr
               `افحص هامش الربح لمنتج "${productName}" وقارنه بالتكلفة ${cost} ج.م واقترح أفضل تسعير.`
             )
           }
-          className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-indigo-400 hover:bg-indigo-50/30 dark:hover:bg-indigo-950/20 active:scale-[0.98] transition text-right cursor-pointer group"
+          className="p-2.5 rounded-xl border border-border dark:border-border bg-white dark:bg-muted hover:border-primary hover:bg-primary/30 dark:hover:bg-primary/20 active:scale-[0.98] transition text-right cursor-pointer group"
         >
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+            <span className="text-xs font-bold text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary">
               مراجعة الهامش والتسعير
             </span>
-            <Tag className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition" />
+            <Tag className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition" />
           </div>
-          <p className="text-[10px] text-slate-500 dark:text-slate-400">
+          <p className="text-[10px] text-muted-foreground dark:text-muted-foreground">
             حساب صافي الربح واقتراح سعر بيع متوازن
           </p>
         </button>
@@ -47,15 +47,15 @@ export const StudioQuickStrategyTriggers: React.FC<StudioQuickStrategyTriggersPr
               `تحقق من حركة مبيعات ورصيد منتج "${productName}" (${stock} قطعة) وتوقع معدل الاستهلاك.`
             )
           }
-          className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-indigo-400 hover:bg-indigo-50/30 dark:hover:bg-indigo-950/20 active:scale-[0.98] transition text-right cursor-pointer group"
+          className="p-2.5 rounded-xl border border-border dark:border-border bg-white dark:bg-muted hover:border-primary hover:bg-primary/30 dark:hover:bg-primary/20 active:scale-[0.98] transition text-right cursor-pointer group"
         >
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+            <span className="text-xs font-bold text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary">
               توقع نفاذ المخزون
             </span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition" />
           </div>
-          <p className="text-[10px] text-slate-500 dark:text-slate-400">
+          <p className="text-[10px] text-muted-foreground dark:text-muted-foreground">
             تقدير الأيام المتبقية وحساب حد إعادة الطلب
           </p>
         </button>

@@ -16,7 +16,7 @@ export const ConsolidatorVariantsStep: React.FC<ConsolidatorVariantsStepProps> =
 
   return (
     <div className="mb-6">
-      <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+      <h2 className="text-sm font-semibold text-foreground mb-2">
         4. تفاصيل المتغيرات (لكل منتج SKU مستقل)
       </h2>
       <div className="space-y-3">
@@ -25,29 +25,29 @@ export const ConsolidatorVariantsStep: React.FC<ConsolidatorVariantsStepProps> =
           return (
             <div
               key={item.id}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-gray-50 dark:bg-gray-800/50"
+              className="border border-border dark:border-border rounded-lg p-3 bg-muted dark:bg-muted"
             >
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">اسم المتغير</label>
+                  <label className="block text-xs text-muted-foreground mb-1">اسم المتغير</label>
                   <input
                     type="text"
                     value={edit.name ?? item.name}
                     onChange={(e) => onSetVariantEdit(item.id, { name: e.target.value })}
-                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md text-sm p-1.5"
+                    className="w-full border-border bg-card text-foreground rounded-md text-sm p-1.5"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">SKU</label>
+                  <label className="block text-xs text-muted-foreground mb-1">SKU</label>
                   <input
                     type="text"
                     value={edit.sku ?? item.sku ?? ""}
                     onChange={(e) => onSetVariantEdit(item.id, { sku: e.target.value })}
-                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md text-sm p-1.5 font-mono tabular-nums"
+                    className="w-full border-border bg-card text-foreground rounded-md text-sm p-1.5 font-mono tabular-nums"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">السعر</label>
+                  <label className="block text-xs text-muted-foreground mb-1">السعر</label>
                   <input
                     type="number"
                     value={edit.price !== undefined ? edit.price : item.price}
@@ -56,11 +56,11 @@ export const ConsolidatorVariantsStep: React.FC<ConsolidatorVariantsStepProps> =
                         price: e.target.value === "" ? null : Number(e.target.value),
                       })
                     }
-                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md text-sm p-1.5 font-mono tabular-nums"
+                    className="w-full border-border bg-card text-foreground rounded-md text-sm p-1.5 font-mono tabular-nums"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">المخزون (اختياري)</label>
+                  <label className="block text-xs text-muted-foreground mb-1">المخزون (اختياري)</label>
                   <input
                     type="number"
                     value={edit.stock !== undefined && edit.stock !== null ? edit.stock : ""}
@@ -70,7 +70,7 @@ export const ConsolidatorVariantsStep: React.FC<ConsolidatorVariantsStepProps> =
                       })
                     }
                     placeholder="يُورث من المنتج الأصلي"
-                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md text-sm p-1.5 font-mono tabular-nums"
+                    className="w-full border-border bg-card text-foreground rounded-md text-sm p-1.5 font-mono tabular-nums"
                   />
                 </div>
               </div>

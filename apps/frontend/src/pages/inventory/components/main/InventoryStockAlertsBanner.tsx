@@ -14,11 +14,11 @@ export const InventoryStockAlertsBanner: React.FC<InventoryStockAlertsBannerProp
   const getAlertPriorityColor = (priority: string) => {
     switch (priority) {
       case "critical":
-        return "bg-red-100 text-red-800 border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-900/60";
+        return "bg-red-100 text-destructive border-destructive dark:bg-destructive/40 dark:text-destructive dark:border-destructive/60";
       case "high":
-        return "bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-900/60";
+        return "bg-orange-100 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning/60";
       case "medium":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-950/40 dark:text-yellow-300 dark:border-yellow-900/60";
+        return "bg-yellow-100 text-warning border-warning dark:bg-warning/40 dark:text-warning dark:border-warning/60";
       default:
         return "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/60";
     }
@@ -26,8 +26,8 @@ export const InventoryStockAlertsBanner: React.FC<InventoryStockAlertsBannerProp
 
   return (
     <div className="mb-4">
-      <h2 className="text-base font-bold text-gray-900 dark:text-white mb-3 flex items-center">
-        <ExclamationTriangleIcon className="h-5 w-5 text-amber-500 mr-2" />
+      <h2 className="text-base font-bold text-foreground mb-3 flex items-center">
+        <ExclamationTriangleIcon className="h-5 w-5 text-warning me-2" />
         تنبيهات المخزون ({alerts.length})
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -38,13 +38,13 @@ export const InventoryStockAlertsBanner: React.FC<InventoryStockAlertsBannerProp
           >
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="font-bold text-sm dark:text-gray-100">
+                <h3 className="font-bold text-sm dark:text-muted-foreground">
                   {alert.productName}
                 </h3>
-                <p className="text-xs mt-1 dark:text-gray-300">
+                <p className="text-xs mt-1 dark:text-muted-foreground">
                   {alert.message}
                 </p>
-                <p className="text-xs mt-2 dark:text-gray-400 tabular-nums font-mono">
+                <p className="text-xs mt-2 dark:text-muted-foreground tabular-nums font-mono">
                   المخزون الحالي: {alert.currentStock} | نقطة الطلب: {alert.reorderPoint}
                 </p>
               </div>

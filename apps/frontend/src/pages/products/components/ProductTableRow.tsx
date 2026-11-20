@@ -137,14 +137,14 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
   };
 
   const actionBtn =
-    "inline-flex h-8 w-8 items-center justify-center rounded-lg border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all duration-150 active:scale-[0.94]";
+    "inline-flex h-8 w-8 items-center justify-center rounded-lg border border-transparent hover:border-border dark:hover:border-border hover:bg-muted dark:hover:bg-muted text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground transition-all duration-150 active:scale-[0.94]";
   const renderWorkflowActions = () => {
     if (canSubmitReviewWorkflow && canSubmitReview(product.workflow)) {
       return (
         <button
           onClick={() => onWorkflowAction(product, "submit_review")}
           disabled={isWorkflowBusy}
-          className={`${actionBtn} text-amber-600 hover:text-amber-700 disabled:cursor-wait disabled:opacity-50`}
+          className={`${actionBtn} text-warning hover:text-warning disabled:cursor-wait disabled:opacity-50`}
           aria-label={isEn ? "Submit for review" : "إرسال للمراجعة"}
           title={isEn ? "Submit for review" : "إرسال للمراجعة"}
         >
@@ -159,7 +159,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           <button
             onClick={() => onWorkflowAction(product, "approve")}
             disabled={isWorkflowBusy}
-            className={`${actionBtn} text-emerald-600 hover:text-emerald-700 disabled:cursor-wait disabled:opacity-50`}
+            className={`${actionBtn} text-success hover:text-success disabled:cursor-wait disabled:opacity-50`}
             aria-label={isEn ? "Approve" : "اعتماد"}
             title={isEn ? "Approve" : "اعتماد"}
           >
@@ -183,7 +183,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
         <button
           onClick={() => onWorkflowAction(product, "publish")}
           disabled={isWorkflowBusy}
-          className={`${actionBtn} text-emerald-600 hover:text-emerald-700 disabled:cursor-wait disabled:opacity-50`}
+          className={`${actionBtn} text-success hover:text-success disabled:cursor-wait disabled:opacity-50`}
           aria-label={isEn ? "Publish" : "نشر"}
           title={isEn ? "Publish" : "نشر"}
         >
@@ -197,7 +197,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
         <button
           onClick={() => onWorkflowAction(product, "unpublish")}
           disabled={isWorkflowBusy}
-          className={`${actionBtn} text-amber-600 hover:text-amber-700 disabled:cursor-wait disabled:opacity-50`}
+          className={`${actionBtn} text-warning hover:text-warning disabled:cursor-wait disabled:opacity-50`}
           aria-label={isEn ? "Unpublish" : "إلغاء النشر"}
           title={isEn ? "Unpublish" : "إلغاء النشر"}
         >
@@ -211,7 +211,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
 
   return (
     <tr
-      className={`hover:bg-zinc-50/70 dark:hover:bg-zinc-800/40 transition-colors ${selected ? "bg-zinc-100/70 dark:bg-zinc-800/60" : ""}`}
+      className={`hover:bg-zinc-50/70 dark:hover:bg-muted transition-colors ${selected ? "bg-zinc-100/70 dark:bg-muted" : ""}`}
     >
       {canSelect && (
         <td className="px-4 py-3">
@@ -220,7 +220,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
             checked={selected}
             onChange={() => onSelect(product.id)}
             onClick={(e) => e.stopPropagation()}
-            className="h-4 w-4 text-zinc-900 dark:text-zinc-100 focus:ring-zinc-900 dark:focus:ring-zinc-100 border-zinc-300 dark:border-zinc-700 rounded dark:bg-zinc-800"
+            className="h-4 w-4 text-foreground dark:text-muted-foreground focus:ring-border dark:focus:ring-border border-border dark:border-border rounded dark:bg-muted"
           />
         </td>
       )}
@@ -237,12 +237,12 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
                 alt={product.name}
                 loading="lazy"
                 decoding="async"
-                className="h-14 w-14 rounded-lg object-cover shadow-2xs border border-zinc-200/80 dark:border-zinc-700"
+                className="h-14 w-14 rounded-lg object-cover shadow-2xs border border-border dark:border-border"
                 onError={() => setImageError(true)}
               />
             ) : (
-              <div className="h-14 w-14 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center border border-zinc-200/80 dark:border-zinc-700">
-                <PhotoIcon className="h-6 w-6 text-zinc-400" />
+              <div className="h-14 w-14 rounded-lg bg-muted dark:bg-muted flex items-center justify-center border border-border dark:border-border">
+                <PhotoIcon className="h-6 w-6 text-muted-foreground" />
               </div>
             )}
           </a>
@@ -250,12 +250,12 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
             <a
               href={getStorefrontUrl(product)}
               onClick={prepareStorefrontContext}
-              className="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors truncate max-w-xs block"
+              className="text-xs sm:text-sm font-semibold text-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground transition-colors truncate max-w-xs block"
             >
               {product.name}
             </a>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] text-zinc-400 dark:text-zinc-500 font-medium">{product.category}</span>
+              <span className="text-[11px] text-muted-foreground dark:text-muted-foreground font-medium">{product.category}</span>
               {product.hasQuantityOffers && (
                 <button
                   type="button"
@@ -269,7 +269,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
                   title={quantityOffersTooltip}
                   className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-success/10 text-success border border-success/20 hover:bg-success/20 transition-colors shadow-2xs"
                 >
-                  <SparklesIcon className="h-2.5 w-2.5 text-emerald-600 dark:text-emerald-400" />
+                  <SparklesIcon className="h-2.5 w-2.5 text-success dark:text-success" />
                   <span>{isEn ? "Volume" : "عروض كميات"}</span>
                   {product.quantityOffersCount ? (
                     <span className="font-mono text-[9px] tabular-nums">
@@ -287,14 +287,14 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           <span
             className={`inline-flex w-fit items-center rounded-md px-2 py-0.5 text-[11px] font-medium border ${
               isVariableProduct
-                ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200/80 dark:border-zinc-700"
-                : "bg-zinc-50 dark:bg-zinc-850 text-zinc-600 dark:text-zinc-400 border-zinc-200/60 dark:border-zinc-800"
+                ? "bg-zinc-100 dark:bg-muted text-foreground dark:text-muted-foreground border-border dark:border-border"
+                : "bg-zinc-50 dark:bg-muted text-foreground dark:text-muted-foreground border-border dark:border-border"
             }`}
           >
             {isVariableProduct ? (isEn ? "Variable" : "متغيرات") : (isEn ? "Simple" : "بسيط")}
           </span>
           {isVariableProduct && (
-            <span className="text-[10px] font-mono tabular-nums text-zinc-400 dark:text-zinc-500">
+            <span className="text-[10px] font-mono tabular-nums text-muted-foreground dark:text-muted-foreground">
               {product.variantsCount} {isEn ? (product.variantsCount === 1 ? "variant" : "variants") : "متغير"}
             </span>
           )}
@@ -306,12 +306,12 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
             type="text"
             value={editSku}
             onChange={(e) => onEditSkuChange(e.target.value)}
-            className="w-28 px-2 py-1 border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white rounded text-xs font-mono"
+            className="w-28 px-2 py-1 border border-border dark:border-border dark:bg-muted dark:text-white rounded text-xs font-mono"
             placeholder="SKU"
             dir="ltr"
           />
         ) : (
-          <span className="text-xs font-mono text-zinc-600 dark:text-zinc-400" dir="ltr">
+          <span className="text-xs font-mono text-foreground dark:text-muted-foreground" dir="ltr">
             {product.sku || <span className="text-zinc-400">-</span>}
           </span>
         )}
@@ -322,13 +322,13 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
             type="number"
             value={editPrice}
             onChange={(e) => onEditPriceChange(e.target.value)}
-            className="w-24 px-2 py-1 border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white rounded text-xs font-mono tabular-nums"
+            className="w-24 px-2 py-1 border border-border dark:border-border dark:bg-muted dark:text-white rounded text-xs font-mono tabular-nums"
           />
         ) : (
           <>
-            <div className="text-xs sm:text-sm font-bold font-mono tabular-nums text-zinc-900 dark:text-zinc-100">{formatPrice(product.price)}</div>
+            <div className="text-xs sm:text-sm font-bold font-mono tabular-nums text-foreground dark:text-muted-foreground">{formatPrice(product.price)}</div>
             {product.comparePrice && (
-              <div className="text-[11px] font-mono tabular-nums text-zinc-400 line-through">{formatPrice(product.comparePrice)}</div>
+              <div className="text-[11px] font-mono tabular-nums text-muted-foreground line-through">{formatPrice(product.comparePrice)}</div>
             )}
           </>
         )}
@@ -339,16 +339,16 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
             type="number"
             value={editStock}
             onChange={(e) => onEditStockChange(e.target.value)}
-            className="w-20 px-2 py-1 border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white rounded text-xs font-mono tabular-nums"
+            className="w-20 px-2 py-1 border border-border dark:border-border dark:bg-muted dark:text-white rounded text-xs font-mono tabular-nums"
           />
         ) : (
           <div className="flex flex-col gap-1">
-            <div className="text-xs font-mono tabular-nums font-semibold text-zinc-900 dark:text-zinc-100">{product.stock} {isEn ? "pcs" : "قطعة"}</div>
+            <div className="text-xs font-mono tabular-nums font-semibold text-foreground dark:text-muted-foreground">{product.stock} {isEn ? "pcs" : "قطعة"}</div>
             <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md w-fit ${getStockStatusColor(stockStatus)}`}>
               {getStockStatusText(stockStatus, isEn)}
             </span>
             {!canEditStock && stockLocationLabel && (
-              <div className="text-[10px] font-medium text-amber-600 dark:text-amber-400 font-mono">
+              <div className="text-[10px] font-medium text-warning dark:text-warning font-mono">
                 {stockLocationLabel}
               </div>
             )}
@@ -366,7 +366,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
             {workflowLabel}
           </span>
           {product.isHidden && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 w-fit">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-foreground dark:bg-muted dark:text-muted-foreground w-fit">
               <EyeSlashIcon className="h-3 w-3" />
               {isEn ? "Hidden" : "مخفي"}
             </span>
@@ -380,10 +380,10 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
       </td>
       <td className="px-4 py-3 whitespace-nowrap text-xs">
         <div className="flex flex-col">
-          <span className="font-medium text-zinc-800 dark:text-zinc-200 truncate max-w-[140px]">
+          <span className="font-medium text-foreground dark:text-muted-foreground truncate max-w-[140px]">
             {product.lastModifiedBy?.userName || "—"}
           </span>
-          <span className="text-[11px] font-mono tabular-nums text-zinc-400 dark:text-zinc-500">
+          <span className="text-[11px] font-mono tabular-nums text-muted-foreground dark:text-muted-foreground">
             {formatDate(product.lastModifiedBy?.updatedAt ? new Date(product.lastModifiedBy.updatedAt) : product.updatedAt)}
           </span>
         </div>
@@ -394,7 +394,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
             <>
               <button
                 onClick={() => onSaveQuickEdit(product.id)}
-                className={`${actionBtn} text-emerald-600 hover:text-emerald-700`}
+                className={`${actionBtn} text-success hover:text-success`}
                 aria-label={isEn ? "Save" : "حفظ"}
                 title={isEn ? "Save" : "حفظ"}
               >
@@ -433,7 +433,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
                 aria-label={isEn ? "Quick Edit" : "تعديل سريع"}
                 title={isEn ? "Quick Edit" : "تعديل سريع"}
               >
-                <PencilIcon className="h-3.5 w-3.5 text-zinc-400" />
+                <PencilIcon className="h-3.5 w-3.5 text-muted-foreground" />
               </button>
               <button
                 onClick={() => onDuplicate(product)}

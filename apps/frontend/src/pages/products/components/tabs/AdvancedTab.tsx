@@ -123,14 +123,14 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
     }));
   };
   return (
-    <div className="bg-white dark:bg-gray-800 shadow rounded-xl p-3.5 sm:p-6 space-y-6 animate-fade-in">
-      <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+    <div className="bg-card shadow rounded-xl p-3.5 sm:p-6 space-y-6 animate-fade-in">
+      <h3 className="text-lg font-medium text-foreground">
         {t("products.advanced.title")}
       </h3>
 
       {/* Featured Product */}
-      <div className="space-y-4 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <h4 className="text-md font-medium text-gray-900 dark:text-gray-200">
+      <div className="space-y-4 border-b border-border dark:border-border pb-6">
+        <h4 className="text-md font-medium text-foreground dark:text-muted-foreground">
           {t("products.advanced.featured")}
         </h4>
         <div className="flex items-center">
@@ -140,16 +140,16 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
             type="checkbox"
             checked={formData.isFeatured}
             onChange={handleInputChange}
-            className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="isFeatured"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             {t("products.advanced.featuredDesc")}
           </label>
         </div>
-        <p className="mr-6 text-xs text-gray-500 dark:text-gray-400">
+        <p className="me-6 text-xs text-muted-foreground">
           {t("products.advanced.featuredHint")}
         </p>
 
@@ -157,7 +157,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
           <div>
             <label
               htmlFor="featuredPriority"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
             >
               {t("products.advanced.featuredPriority")}
             </label>
@@ -169,10 +169,10 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               onChange={handleInputChange}
               min="0"
               max="100"
-              className="mt-1 block w-full md:w-1/3 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 block w-full md:w-1/3 border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary"
               placeholder="0"
             />
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-xs text-muted-foreground">
               {t("products.advanced.featuredPriorityHint")}
             </p>
           </div>
@@ -180,8 +180,8 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
       </div>
 
       {/* Hidden Product */}
-      <div className="space-y-4 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <h4 className="text-md font-medium text-gray-900 dark:text-gray-200">
+      <div className="space-y-4 border-b border-border dark:border-border pb-6">
+        <h4 className="text-md font-medium text-foreground dark:text-muted-foreground">
           {t("products.advanced.isHidden")}
         </h4>
         <div className="flex items-center">
@@ -191,23 +191,23 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
             type="checkbox"
             checked={formData.isHidden}
             onChange={handleInputChange}
-            className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="isHidden"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             {t("products.advanced.isHiddenDesc")}
           </label>
         </div>
-        <p className="mr-6 text-xs text-gray-500 dark:text-gray-400">
+        <p className="me-6 text-xs text-muted-foreground">
           {t("products.advanced.isHiddenHint")}
         </p>
       </div>
 
       {/* Fake Counter Toggle */}
-      <div className="space-y-4 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <h4 className="text-md font-medium text-gray-900 dark:text-gray-200">
+      <div className="space-y-4 border-b border-border dark:border-border pb-6">
+        <h4 className="text-md font-medium text-foreground dark:text-muted-foreground">
           عداد وهمي
         </h4>
         <div className="flex items-center">
@@ -217,11 +217,11 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
             type="checkbox"
             checked={formData.showFakeStock}
             onChange={handleInputChange}
-            className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="showFakeStock"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             إظهار عداد وهمي للعملاء (3-12 قطعة) لخلق حالة من الاستعجال
           </label>
@@ -229,15 +229,15 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
       </div>
 
       {/* Shipping Settings */}
-      <div className="space-y-4 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <h4 className="text-md font-medium text-gray-900 dark:text-gray-200">
+      <div className="space-y-4 border-b border-border dark:border-border pb-6">
+        <h4 className="text-md font-medium text-foreground dark:text-muted-foreground">
           {t("products.advanced.shippingSettings")}
         </h4>
 
         <div>
           <label
             htmlFor="shippingClass"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            className="block text-sm font-medium text-foreground mb-1"
           >
             {t("products.advanced.shippingClass")}
           </label>
@@ -246,7 +246,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
             name="shippingClass"
             value={formData.shippingClass}
             onChange={handleInputChange}
-            className="mt-1 block w-full md:w-1/2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 block w-full md:w-1/2 border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary"
           >
             {shippingClassOptions.map((option) => (
               <option key={option.key} value={option.key}>
@@ -254,7 +254,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               </option>
             ))}
           </select>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-xs text-muted-foreground">
             تحدد تكلفة الشحن بناءً على نوع المنتج
           </p>
         </div>
@@ -266,23 +266,23 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
             type="checkbox"
             checked={formData.excludeFromFreeShipping}
             onChange={handleInputChange}
-            className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="excludeFromFreeShipping"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             استثناء من الشحن المجاني
           </label>
         </div>
-        <p className="mr-6 text-xs text-gray-500 dark:text-gray-400">
+        <p className="me-6 text-xs text-muted-foreground">
           لن ينطبق عليه عروض الشحن المجاني حتى لو وصل الطلب للحد الأدنى
         </p>
       </div>
 
       {/* Checkout Settings */}
-      <div className="space-y-4 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <h4 className="text-md font-medium text-gray-900 dark:text-gray-200">
+      <div className="space-y-4 border-b border-border dark:border-border pb-6">
+        <h4 className="text-md font-medium text-foreground dark:text-muted-foreground">
           إعدادات الشراء
         </h4>
         <div className="flex items-center">
@@ -292,16 +292,16 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
             type="checkbox"
             checked={formData.enableCheckoutForm}
             onChange={handleInputChange}
-            className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="enableCheckoutForm"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             تفعيل فورم الشيك أوت لهذا المنتج
           </label>
         </div>
-        <p className="mr-6 text-xs text-gray-500 dark:text-gray-400">
+        <p className="me-6 text-xs text-muted-foreground">
           يسمح للعملاء بإتمام الطلب مباشرة من صفحة المنتج
         </p>
 
@@ -312,26 +312,26 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
             type="checkbox"
             checked={formData.showAddToCartButton}
             onChange={handleInputChange}
-            className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="showAddToCartButton"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             إظهار زر إضافة للسلة في صفحة المنتج
           </label>
         </div>
-        <p className="mr-6 text-xs text-gray-500 dark:text-gray-400">
+        <p className="me-6 text-xs text-muted-foreground">
           عند إلغاء التفعيل، لن يظهر زر "أضف للسلة"
         </p>
       </div>
 
       {/* External / Affiliate Checkout */}
-      <div className="space-y-4 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <h4 className="text-md font-medium text-gray-900 dark:text-gray-200">
+      <div className="space-y-4 border-b border-border dark:border-border pb-6">
+        <h4 className="text-md font-medium text-foreground dark:text-muted-foreground">
           External / Affiliate Product
         </h4>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-sm text-foreground dark:text-muted-foreground">
           اربط المنتج بمتجر أو شريك خارجي. يمكنك استخدامه كزر إضافي بجانب الشراء
           الداخلي أو كمنتج خارجي فقط.
         </p>
@@ -343,16 +343,16 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
             type="checkbox"
             checked={Boolean(formData.externalOnly)}
             onChange={handleInputChange}
-            className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
           />
           <label
             htmlFor="externalOnly"
-            className="mr-2 block text-sm text-gray-900 dark:text-gray-300"
+            className="me-2 block text-sm text-foreground dark:text-muted-foreground"
           >
             منتج خارجي فقط
           </label>
         </div>
-        <p className="mr-6 text-xs text-gray-500 dark:text-gray-400">
+        <p className="me-6 text-xs text-muted-foreground">
           عند التفعيل، سيتم استبدال زر الشراء الداخلي في الثيم بزر يفتح رابط
           الشريك مباشرة.
         </p>
@@ -361,7 +361,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
           <div className="md:col-span-2">
             <label
               htmlFor="externalUrl"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
             >
               رابط الشراء الخارجي
             </label>
@@ -371,7 +371,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               name="externalUrl"
               value={formData.externalUrl || ""}
               onChange={handleInputChange}
-              className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary"
               placeholder="https://partner-store.com/product"
             />
           </div>
@@ -379,7 +379,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
           <div>
             <label
               htmlFor="externalButtonLabel"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
             >
               نص الزر الخارجي
             </label>
@@ -389,7 +389,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               name="externalButtonLabel"
               value={formData.externalButtonLabel || ""}
               onChange={handleInputChange}
-              className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary"
               placeholder="Buy from partner"
             />
           </div>
@@ -397,7 +397,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
           <div>
             <label
               htmlFor="externalVendor"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
             >
               اسم الشريك أو المتجر
             </label>
@@ -407,7 +407,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               name="externalVendor"
               value={formData.externalVendor || ""}
               onChange={handleInputChange}
-              className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary"
               placeholder="Amazon, Noon, Partner Store"
             />
           </div>
@@ -415,7 +415,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
           <div className="md:col-span-2">
             <label
               htmlFor="externalDescription"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              className="block text-sm font-medium text-foreground mb-1"
             >
               وصف قصير
             </label>
@@ -425,7 +425,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               value={formData.externalDescription || ""}
               onChange={handleInputChange}
               rows={3}
-              className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary"
               placeholder="سيتم تحويل العميل إلى صفحة الشريك لإكمال الطلب."
             />
           </div>
@@ -433,19 +433,19 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
       </div>
 
       {/* Size Guide */}
-      <div className="space-y-4 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/70 dark:bg-gray-800/40 p-4 transition-all">
+      <div className="space-y-4 border-b border-border dark:border-border pb-6">
+        <div className="rounded-xl border border-border dark:border-border bg-muted dark:bg-muted p-4 transition-all">
           <div className="flex items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">📏</span>
               <div>
                 <label
                   htmlFor="advancedSizeGuideToggle"
-                  className="block text-sm font-bold text-gray-900 dark:text-gray-100 cursor-pointer"
+                  className="block text-sm font-bold text-foreground cursor-pointer"
                 >
                   دليل المقاسات
                 </label>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-muted-foreground">
                   (يظهر في صفحة المنتج ونافذة المقاسات عند التفعيل)
                 </span>
               </div>
@@ -456,7 +456,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               <span
                 className={`text-xs font-bold ${
                   Boolean(formData.sizeGuide && formData.sizeGuide.trim())
-                    ? "text-emerald-600 dark:text-emerald-400"
+                    ? "text-emerald-600 dark:text-success"
                     : "text-gray-400"
                 }`}
               >
@@ -477,10 +477,10 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
                     }
                   }
                 }}
-                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
                   Boolean(formData.sizeGuide && formData.sizeGuide.trim())
                     ? "bg-indigo-600"
-                    : "bg-gray-300 dark:bg-gray-600"
+                    : "bg-gray-300 dark:bg-muted"
                 }`}
               >
                 <span
@@ -516,17 +516,17 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
                   value={formData.sizeGuide}
                   onChange={handleInputChange}
                   rows={6}
-                  className="block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm"
+                  className="block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary font-mono text-sm"
                   placeholder="أدخل دليل المقاسات هنا... يمكنك استخدام Markdown أو HTML"
                 />
               )}
-              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+              <p className="mt-2 text-xs text-muted-foreground">
                 يمكنك إضافة تفاصيل وجدول مقاسات للمنتج. سيظهر للعملاء في صفحة المنتج ونافذة المقاسات.
               </p>
             </div>
           ) : (
-            <div className="mt-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 rounded-lg text-xs text-amber-800 dark:text-amber-300 flex items-center gap-2">
-              <svg className="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="mt-2 p-3 bg-warning/10 dark:bg-warning/20 border border-warning dark:border-warning/40 rounded-lg text-xs text-warning dark:text-warning flex items-center gap-2">
+              <svg className="w-4 h-4 text-warning shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
               <span>دليل المقاسات غير مفعل لهذا المنتج. لن يظهر زر &quot;دليل المقاسات&quot; في صفحة المنتج بالمتجر.</span>
@@ -536,19 +536,19 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
       </div>
 
       {/* Custom Checkout Fields for this product */}
-      <div className="space-y-4 border-b border-gray-200 dark:border-gray-700 pb-6">
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/70 dark:bg-gray-800/40 p-4 transition-all">
+      <div className="space-y-4 border-b border-border dark:border-border pb-6">
+        <div className="rounded-xl border border-border dark:border-border bg-muted dark:bg-muted p-4 transition-all">
           <div className="flex items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">📝</span>
               <div>
                 <label
                   htmlFor="advancedCustomFieldsToggle"
-                  className="block text-sm font-bold text-gray-900 dark:text-gray-100 cursor-pointer"
+                  className="block text-sm font-bold text-foreground cursor-pointer"
                 >
                   حقول مخصصة لطلب هذا المنتج (Custom Checkout Fields)
                 </label>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-muted-foreground">
                   (مثل: نوع وموديل وسنة صنع السيارة لمنتجات السيارات، أو اسم للنقش، أو مقاسات خاصة)
                 </span>
               </div>
@@ -559,7 +559,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               <span
                 className={`text-xs font-bold ${
                   hasCustomFields
-                    ? "text-emerald-600 dark:text-emerald-400"
+                    ? "text-emerald-600 dark:text-success"
                     : "text-gray-400"
                 }`}
               >
@@ -571,10 +571,10 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
                 role="switch"
                 aria-checked={hasCustomFields}
                 onClick={toggleCustomFields}
-                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
                   hasCustomFields
                     ? "bg-indigo-600"
-                    : "bg-gray-300 dark:bg-gray-600"
+                    : "bg-gray-300 dark:bg-muted"
                 }`}
               >
                 <span
@@ -591,23 +591,23 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               {customAttributesList.map((attr, idx) => (
                 <div
                   key={attr.key || idx}
-                  className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-3"
+                  className="p-3 bg-card border border-border dark:border-border rounded-xl space-y-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-gray-700 dark:text-gray-200">
+                    <span className="text-xs font-bold text-foreground">
                       الحقل رقم {idx + 1}
                     </span>
                     <button
                       type="button"
                       onClick={() => removeCustomField(idx)}
-                      className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 font-semibold"
+                      className="text-xs text-destructive hover:text-destructive dark:text-destructive font-semibold"
                     >
                       حذف الحقل
                     </button>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-xs font-semibold text-foreground mb-1">
                         تسمية الحقل (العنوان الظاهر للعميل)
                       </label>
                       <input
@@ -615,11 +615,11 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
                         value={attr.label || ""}
                         onChange={(e) => updateCustomField(idx, "label", e.target.value)}
                         placeholder="مثال: نوع وموديل وسنة صنع السيارة"
-                        className="w-full text-xs rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/40 p-2.5 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                        className="w-full text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted p-2.5 text-foreground focus:ring-2 focus:ring-primary"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-xs font-semibold text-foreground mb-1">
                         نص توضيحي (Placeholder)
                       </label>
                       <input
@@ -627,7 +627,7 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
                         value={attr.placeholder || ""}
                         onChange={(e) => updateCustomField(idx, "placeholder", e.target.value)}
                         placeholder="مثال: كيا سبورتاج 2023"
-                        className="w-full text-xs rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/40 p-2.5 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
+                        className="w-full text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted p-2.5 text-foreground focus:ring-2 focus:ring-primary"
                       />
                     </div>
                   </div>
@@ -637,9 +637,9 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
                       id={`attr_required_${idx}`}
                       checked={Boolean(attr.required)}
                       onChange={(e) => updateCustomField(idx, "required", e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
                     />
-                    <label htmlFor={`attr_required_${idx}`} className="text-xs font-medium text-gray-700 dark:text-gray-300 cursor-pointer">
+                    <label htmlFor={`attr_required_${idx}`} className="text-xs font-medium text-foreground cursor-pointer">
                       حقل إجباري (يجب على العميل ملؤه لإتمام الطلب)
                     </label>
                   </div>
@@ -649,13 +649,13 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
               <button
                 type="button"
                 onClick={addCustomField}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-dashed border-indigo-300 dark:border-indigo-700 text-xs font-semibold text-indigo-600 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-dashed border-primary dark:border-primary text-xs font-semibold text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/30 transition"
               >
                 + إضافة حقل إضافي آخر
               </button>
             </div>
           ) : (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            <p className="text-xs text-muted-foreground mt-2">
               الحقول المخصصة غير مفعلة لهذا المنتج. سيتم استخدام حقول المتجر العامة فقط في نموذج الطلب.
             </p>
           )}
@@ -664,10 +664,10 @@ export const AdvancedTab: React.FC<AdvancedTabProps> = ({
 
       {/* Recommended Products */}
       <div className="space-y-4">
-        <h4 className="text-md font-medium text-gray-900 dark:text-gray-200">
+        <h4 className="text-md font-medium text-foreground dark:text-muted-foreground">
           المنتجات المقترحة
         </h4>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        <p className="text-sm text-foreground dark:text-muted-foreground mb-4">
           حدد منتجات معينة لعرضها كتوصيات. سيتم دمجها مع التوصيات التلقائية من
           النظام.
         </p>

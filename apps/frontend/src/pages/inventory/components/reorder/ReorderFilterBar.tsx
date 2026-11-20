@@ -41,7 +41,7 @@ export const ReorderFilterBar: React.FC<ReorderFilterBarProps> = ({
     <Card className="mb-6">
       <CardHeader className="pb-3">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div className="inline-flex rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 p-1">
+          <div className="inline-flex rounded-xl border border-border dark:border-border bg-muted dark:bg-muted p-1">
             {viewTabs.map((tab) => (
               <button
                 key={tab.key}
@@ -49,8 +49,8 @@ export const ReorderFilterBar: React.FC<ReorderFilterBarProps> = ({
                 onClick={() => onViewChange(tab.key)}
                 className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
                   view === tab.key
-                    ? "bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-xs"
-                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                    ? "bg-white dark:bg-muted text-foreground shadow-xs"
+                    : "text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 {tab.label}
@@ -60,16 +60,16 @@ export const ReorderFilterBar: React.FC<ReorderFilterBarProps> = ({
 
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <MagnifyingGlassIcon className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <MagnifyingGlassIcon className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={search}
                 onChange={(event) => onSearchChange(event.target.value)}
                 placeholder={t("reorderPoints.search", "بحث بالاسم أو SKU...") as string}
-                className="pl-9 w-56"
+                className="ps-9 w-56"
               />
             </div>
             <div className="flex items-center gap-2">
-              <FunnelIcon className="h-4 w-4 text-gray-400" />
+              <FunnelIcon className="h-4 w-4 text-muted-foreground" />
               <Select
                 value={stockFilter}
                 onValueChange={(value) => onStockFilterChange(value ?? "all")}

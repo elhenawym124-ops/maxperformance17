@@ -38,7 +38,7 @@ export const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((star) =>
         star <= rating ? (
-          <StarSolidIcon key={star} className="h-3.5 w-3.5 text-amber-400" />
+          <StarSolidIcon key={star} className="h-3.5 w-3.5 text-warning" />
         ) : (
           <StarOutlineIcon key={star} className="h-3.5 w-3.5 text-muted-foreground/40" />
         )
@@ -73,8 +73,8 @@ export const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
             <span
               className={`px-2 py-0.5 rounded-full text-[11px] font-medium ${
                 review.isApproved
-                  ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
-                  : "bg-amber-500/10 text-amber-600 border border-amber-500/20"
+                  ? "bg-emerald-500/10 text-success border border-success/20"
+                  : "bg-amber-500/10 text-warning border border-warning/20"
               }`}
             >
               {review.isApproved
@@ -147,7 +147,7 @@ export const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
           {!review.isApproved ? (
             <button
               onClick={() => handleApprove(review.id)}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors text-xs font-semibold shadow-xs"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-success text-white rounded-md hover:bg-success transition-colors text-xs font-semibold shadow-xs"
               title={t("productReviews.k_26")}
             >
               <CheckCircleIcon className="h-3.5 w-3.5" />
@@ -156,7 +156,7 @@ export const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
           ) : (
             <button
               onClick={() => handleReject(review.id)}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition-colors text-xs font-semibold shadow-xs"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-warning text-white rounded-md hover:bg-warning transition-colors text-xs font-semibold shadow-xs"
               title={t("productReviews.k_30")}
             >
               <XCircleIcon className="h-3.5 w-3.5" />
@@ -166,7 +166,7 @@ export const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
 
           <button
             onClick={() => handleDelete(review.id)}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-xs font-semibold shadow-xs"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-destructive text-white rounded-md hover:bg-destructive transition-colors text-xs font-semibold shadow-xs"
             title={t("productReviews.k_28")}
           >
             <TrashIcon className="h-3.5 w-3.5" />

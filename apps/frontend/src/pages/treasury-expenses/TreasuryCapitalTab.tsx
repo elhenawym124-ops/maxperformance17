@@ -174,11 +174,11 @@ export default function TreasuryCapitalTab({
       case "BANK":
         return <Landmark className="w-5 h-5 text-blue-600 dark:text-blue-400" />;
       case "WALLET":
-        return <Wallet className="w-5 h-5 text-purple-600 dark:text-purple-400" />;
+        return <Wallet className="w-5 h-5 text-primary dark:text-primary" />;
       case "CUSTODY":
-        return <Briefcase className="w-5 h-5 text-amber-600 dark:text-amber-400" />;
+        return <Briefcase className="w-5 h-5 text-warning dark:text-warning" />;
       default:
-        return <Banknote className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />;
+        return <Banknote className="w-5 h-5 text-success dark:text-success" />;
     }
   };
 
@@ -188,13 +188,13 @@ export default function TreasuryCapitalTab({
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
         {/* Total Liquid Cash */}
         <div
-          className={`bg-white dark:bg-zinc-900 border rounded-2xl p-3.5 shadow-sm ${
+          className={`bg-white dark:bg-muted border rounded-xl p-3.5 shadow-sm ${
             (stats?.totalLiquidCash || 0) < 0
-              ? "border-red-300 dark:border-red-900/60"
-              : "border-zinc-200 dark:border-zinc-800"
+              ? "border-red-300 dark:border-destructive/60"
+              : "border-zinc-200 dark:border-border"
           }`}
         >
-          <div className="flex items-center justify-between text-zinc-500 dark:text-zinc-400 mb-1">
+          <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground mb-1">
             <span className="text-xs font-medium">السيولة النقدية الحالية</span>
             <Banknote
               className={`w-4 h-4 ${
@@ -205,13 +205,13 @@ export default function TreasuryCapitalTab({
           <div
             className={`text-xl sm:text-2xl font-bold font-mono tabular-nums ${
               (stats?.totalLiquidCash || 0) < 0
-                ? "text-red-600 dark:text-red-400"
-                : "text-emerald-600 dark:text-emerald-400"
+                ? "text-red-600 dark:text-destructive"
+                : "text-emerald-600 dark:text-success"
             }`}
           >
             {formatMoney(stats?.totalLiquidCash || 0)}
           </div>
-          <p className="text-[11px] text-zinc-500 mt-1">
+          <p className="text-[11px] text-muted-foreground mt-1">
             {(stats?.totalLiquidCash || 0) < 0
               ? "يوجد عجز في السيولة النقدية (رصيد سالب)"
               : "المجموع الفعلي المتاح في كافة الخزائن والبنوك"}
@@ -219,39 +219,39 @@ export default function TreasuryCapitalTab({
         </div>
 
         {/* Total Injected Capital */}
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 shadow-sm">
-          <div className="flex items-center justify-between text-zinc-500 dark:text-zinc-400 mb-1">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 shadow-sm">
+          <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground mb-1">
             <span className="text-xs font-medium">إجمالي رأس المال المودع</span>
             <TrendingUp className="w-4 h-4 text-blue-600" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold font-mono text-foreground dark:text-muted-foreground tabular-nums">
             {formatMoney(stats?.totalInjectedCapital || 0)}
           </div>
-          <p className="text-[11px] text-zinc-500 mt-1">{stats?.depositsCount || 0} دفعات تمويل وضخ سيولة</p>
+          <p className="text-[11px] text-muted-foreground mt-1">{stats?.depositsCount || 0} دفعات تمويل وضخ سيولة</p>
         </div>
 
         {/* Assets Value (CAPEX) */}
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 shadow-sm">
-          <div className="flex items-center justify-between text-zinc-500 dark:text-zinc-400 mb-1">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 shadow-sm">
+          <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground mb-1">
             <span className="text-xs font-medium">قيمة الأصول والمعدات</span>
-            <Layers className="w-4 h-4 text-purple-600" />
+            <Layers className="w-4 h-4 text-primary" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-purple-600 dark:text-purple-400 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold font-mono text-primary dark:text-primary tabular-nums">
             {formatMoney(stats?.totalCapexAssets || 0)}
           </div>
-          <p className="text-[11px] text-zinc-500 mt-1">أجهزة ومعدات ولابتوبات (أصل ثابت)</p>
+          <p className="text-[11px] text-muted-foreground mt-1">أجهزة ومعدات ولابتوبات (أصل ثابت)</p>
         </div>
 
         {/* Total Net Equity */}
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 shadow-sm">
-          <div className="flex items-center justify-between text-zinc-500 dark:text-zinc-400 mb-1">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 shadow-sm">
+          <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground mb-1">
             <span className="text-xs font-medium">صافي القيمة التشغيلية والأصول</span>
-            <ShieldCheck className="w-4 h-4 text-indigo-600" />
+            <ShieldCheck className="w-4 h-4 text-primary" />
           </div>
-          <div className="text-xl sm:text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 tabular-nums">
+          <div className="text-xl sm:text-2xl font-bold font-mono text-foreground dark:text-muted-foreground tabular-nums">
             {formatMoney(stats?.netEquityValue || 0)}
           </div>
-          <p className="text-[11px] text-zinc-500 mt-1">السيولة النقدية + الأصول الثابتة المقتناة</p>
+          <p className="text-[11px] text-muted-foreground mt-1">السيولة النقدية + الأصول الثابتة المقتناة</p>
         </div>
       </div>
 
@@ -259,17 +259,17 @@ export default function TreasuryCapitalTab({
       <div className="space-y-3">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-zinc-500" />
+            <h3 className="text-sm font-bold text-foreground dark:text-muted-foreground flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-muted-foreground" />
               الخزائن والحسابات البنكية والمحافظ ({accounts.length})
             </h3>
-            <p className="text-xs text-zinc-500">حسابات الشركة المنفصلة وحركات السيولة النقدية اللحظية</p>
+            <p className="text-xs text-muted-foreground">حسابات الشركة المنفصلة وحركات السيولة النقدية اللحظية</p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setIsCreateAccountOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700/60 rounded-xl transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border border-border dark:border-border bg-white dark:bg-muted hover:bg-muted dark:hover:bg-muted rounded-xl transition-colors"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>إضافة خزينة / حساب</span>
@@ -284,7 +284,7 @@ export default function TreasuryCapitalTab({
             </button>
             <button
               onClick={() => setIsDepositOpen(true)}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-sm transition-all active:scale-[0.97]"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-success hover:bg-success rounded-xl shadow-sm transition-all active:scale-[0.97]"
             >
               <DollarSign className="w-3.5 h-3.5" />
               <span>إيداع رأس مال / تمويل</span>
@@ -294,7 +294,7 @@ export default function TreasuryCapitalTab({
                 setSelectedAccountForExpense(accounts[0]?.id || "");
                 setIsExpenseModalOpen(true);
               }}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-xl shadow-sm transition-all active:scale-[0.97]"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-destructive hover:bg-destructive rounded-xl shadow-sm transition-all active:scale-[0.97]"
             >
               <Receipt className="w-3.5 h-3.5" />
               <span>تسجيل نفقة / صرف</span>
@@ -310,27 +310,27 @@ export default function TreasuryCapitalTab({
             return (
               <div
                 key={acc.id}
-                className={`bg-white dark:bg-zinc-900 border rounded-2xl p-4 shadow-sm transition-all ${
+                className={`bg-white dark:bg-muted border rounded-xl p-4 shadow-sm transition-all ${
                   isNegative
-                    ? "border-red-300 dark:border-red-900/70 bg-red-50/10 hover:border-red-400 dark:hover:border-red-800"
-                    : "border-zinc-200/90 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+                    ? "border-red-300 dark:border-destructive/70 bg-destructive/10 hover:border-destructive dark:hover:border-destructive"
+                    : "border-zinc-200/90 dark:border-border hover:border-border dark:hover:border-border"
                 }`}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700">
+                    <div className="p-2 rounded-xl bg-muted dark:bg-muted border border-border dark:border-border">
                       {getAccountIcon(acc.type)}
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+                      <h4 className="text-sm font-bold text-foreground dark:text-muted-foreground flex items-center gap-1.5">
                         {acc.name}
                         {acc.isDefault && (
-                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-normal">
+                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-muted dark:bg-muted text-foreground dark:text-muted-foreground font-normal">
                             الرئيسية
                           </span>
                         )}
                       </h4>
-                      <span className="text-[11px] text-zinc-400">
+                      <span className="text-[11px] text-muted-foreground">
                         {acc.type === "BANK"
                           ? `بنك ${acc.bankName || "رسمي"}`
                           : acc.type === "WALLET"
@@ -349,7 +349,7 @@ export default function TreasuryCapitalTab({
                         setIsExpenseModalOpen(true);
                       }}
                       title="تسجيل صرف نفقة من هذه الخزينة"
-                      className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-rose-700 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 rounded-lg transition-colors border border-rose-200/60 dark:border-rose-900/40"
+                      className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-destructive dark:text-destructive bg-destructive/10 dark:bg-destructive/40 hover:bg-destructive dark:hover:bg-destructive/40 rounded-lg transition-colors border border-destructive/60 dark:border-destructive/40"
                     >
                       <Receipt className="w-3 h-3" />
                       <span>صرف</span>
@@ -357,7 +357,7 @@ export default function TreasuryCapitalTab({
                     <button
                       onClick={() => setEditingAccount(acc)}
                       title="تعديل بيانات الحساب"
-                      className="p-1.5 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-colors"
+                      className="p-1.5 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded-lg transition-colors"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                     </button>
@@ -365,25 +365,25 @@ export default function TreasuryCapitalTab({
                 </div>
 
                 {acc.accountNumber && (
-                  <div className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 mb-3 bg-zinc-50 dark:bg-zinc-800/50 px-2 py-1 rounded-lg">
+                  <div className="text-[11px] font-mono text-muted-foreground dark:text-muted-foreground mb-3 bg-muted dark:bg-muted px-2 py-1 rounded-lg">
                     رقم الحساب: {acc.accountNumber}
                   </div>
                 )}
 
-                <div className="flex items-baseline justify-between pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
-                  <span className="text-xs text-zinc-500">الرصيد الفعلي:</span>
+                <div className="flex items-baseline justify-between pt-2 border-t border-border dark:border-border">
+                  <span className="text-xs text-muted-foreground">الرصيد الفعلي:</span>
                   <div className="flex items-center gap-1.5">
                     <span
                       className={`text-lg font-bold font-mono tabular-nums ${
                         isNegative
-                          ? "text-red-600 dark:text-red-400"
-                          : "text-zinc-900 dark:text-zinc-100"
+                          ? "text-red-600 dark:text-destructive"
+                          : "text-zinc-900 dark:text-muted-foreground"
                       }`}
                     >
                       {formatMoney(acc.balance, acc.currency)}
                     </span>
                     {isNegative && (
-                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-red-100 text-red-700 dark:bg-red-950/60 dark:text-red-400">
+                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-destructive text-destructive dark:bg-destructive/60 dark:text-destructive">
                         سالب / مكشوف
                       </span>
                     )}
@@ -399,10 +399,10 @@ export default function TreasuryCapitalTab({
       <div className="space-y-3 pt-2">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+            <h3 className="text-sm font-bold text-foreground dark:text-muted-foreground">
               كشف حساب الخزينة الموحد (Audit Ledger)
             </h3>
-            <p className="text-xs text-zinc-500">سجل تراكمي لحظي لكل حركة مالية (إيداع، سحب، تحويل) مع الرصيد بعد الحركة</p>
+            <p className="text-xs text-muted-foreground">سجل تراكمي لحظي لكل حركة مالية (إيداع، سحب، تحويل) مع الرصيد بعد الحركة</p>
           </div>
 
           {/* Ledger Filters */}
@@ -413,7 +413,7 @@ export default function TreasuryCapitalTab({
                 setSelectedAccountId(e.target.value);
                 setPage(1);
               }}
-              className="px-2.5 py-1.5 text-xs bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:outline-none"
+              className="px-2.5 py-1.5 text-xs bg-white dark:bg-muted border border-border dark:border-border rounded-xl focus:outline-none"
             >
               <option value="">جميع الخزائن</option>
               {accounts.map((a) => (
@@ -429,7 +429,7 @@ export default function TreasuryCapitalTab({
                 setTypeFilter(e.target.value);
                 setPage(1);
               }}
-              className="px-2.5 py-1.5 text-xs bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl focus:outline-none"
+              className="px-2.5 py-1.5 text-xs bg-white dark:bg-muted border border-border dark:border-border rounded-xl focus:outline-none"
             >
               <option value="">كافة أنواع الحركات</option>
               <option value="DEPOSIT">إيداعات وتغذية</option>
@@ -439,14 +439,14 @@ export default function TreasuryCapitalTab({
             </select>
 
             {/* Date Preset Filter */}
-            <div className="inline-flex p-0.5 bg-zinc-100 dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs">
+            <div className="inline-flex p-0.5 bg-muted dark:bg-muted rounded-xl border border-border dark:border-border text-xs">
               <button
                 type="button"
                 onClick={() => handlePresetChange("all")}
                 className={`px-2 py-1 rounded-lg transition-all ${
                   datePreset === "all"
-                    ? "bg-white dark:bg-zinc-900 font-semibold text-zinc-900 dark:text-zinc-100 shadow-sm"
-                    : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                    ? "bg-white dark:bg-muted font-semibold text-foreground dark:text-muted-foreground shadow-sm"
+                    : "text-zinc-500 hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 الكل
@@ -456,8 +456,8 @@ export default function TreasuryCapitalTab({
                 onClick={() => handlePresetChange("today")}
                 className={`px-2 py-1 rounded-lg transition-all ${
                   datePreset === "today"
-                    ? "bg-white dark:bg-zinc-900 font-semibold text-zinc-900 dark:text-zinc-100 shadow-sm"
-                    : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                    ? "bg-white dark:bg-muted font-semibold text-foreground dark:text-muted-foreground shadow-sm"
+                    : "text-zinc-500 hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 اليوم
@@ -467,8 +467,8 @@ export default function TreasuryCapitalTab({
                 onClick={() => handlePresetChange("this_month")}
                 className={`px-2 py-1 rounded-lg transition-all ${
                   datePreset === "this_month"
-                    ? "bg-white dark:bg-zinc-900 font-semibold text-zinc-900 dark:text-zinc-100 shadow-sm"
-                    : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                    ? "bg-white dark:bg-muted font-semibold text-foreground dark:text-muted-foreground shadow-sm"
+                    : "text-zinc-500 hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 هذا الشهر
@@ -478,8 +478,8 @@ export default function TreasuryCapitalTab({
                 onClick={() => handlePresetChange("custom")}
                 className={`px-2 py-1 rounded-lg transition-all ${
                   datePreset === "custom"
-                    ? "bg-white dark:bg-zinc-900 font-semibold text-zinc-900 dark:text-zinc-100 shadow-sm"
-                    : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                    ? "bg-white dark:bg-muted font-semibold text-foreground dark:text-muted-foreground shadow-sm"
+                    : "text-zinc-500 hover:text-foreground dark:hover:text-muted-foreground"
                 }`}
               >
                 مخصص
@@ -495,7 +495,7 @@ export default function TreasuryCapitalTab({
                     setStartDate(e.target.value);
                     setPage(1);
                   }}
-                  className="px-2 py-1 text-xs bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl"
+                  className="px-2 py-1 text-xs bg-white dark:bg-muted border border-border dark:border-border rounded-xl"
                 />
                 <span className="text-zinc-400 text-xs">-</span>
                 <DateInput
@@ -504,7 +504,7 @@ export default function TreasuryCapitalTab({
                     setEndDate(e.target.value);
                     setPage(1);
                   }}
-                  className="px-2 py-1 text-xs bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl"
+                  className="px-2 py-1 text-xs bg-white dark:bg-muted border border-border dark:border-border rounded-xl"
                 />
               </div>
             )}
@@ -516,14 +516,14 @@ export default function TreasuryCapitalTab({
                 setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"));
                 setPage(1);
               }}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-border dark:border-border bg-white dark:bg-muted text-xs font-medium text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition-colors shadow-xs"
               title={
                 sortOrder === "desc"
                   ? "الترتيب حالياً: من الأحدث للأقدم (اضغط للتبديل للأقدم أولاً)"
                   : "الترتيب حالياً: من الأقدم للأحدث (اضغط للتبديل للأحدث أولاً)"
               }
             >
-              <ArrowUpDown className="w-3.5 h-3.5 text-zinc-500" />
+              <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground" />
               <span>{sortOrder === "desc" ? "الأحدث أولاً" : "الأقدم أولاً"}</span>
             </button>
 
@@ -531,16 +531,16 @@ export default function TreasuryCapitalTab({
               onClick={handleExportCsv}
               disabled={ledger.length === 0}
               title="تصدير كشف الحساب إلى ملف CSV"
-              className="flex items-center gap-1 px-2.5 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-xl text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors text-xs disabled:opacity-40"
+              className="flex items-center gap-1 px-2.5 py-1.5 border border-border dark:border-border rounded-xl text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted transition-colors text-xs disabled:opacity-40"
             >
-              <Download className="w-3.5 h-3.5 text-zinc-500" />
+              <Download className="w-3.5 h-3.5 text-muted-foreground" />
               <span>تصدير CSV</span>
             </button>
 
             <button
               onClick={loadData}
               title="تحديث كشف الحساب"
-              className="p-1.5 border border-zinc-200 dark:border-zinc-700 rounded-xl text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+              className="p-1.5 border border-border dark:border-border rounded-xl text-muted-foreground hover:bg-muted dark:hover:bg-muted transition-colors"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
             </button>
@@ -548,11 +548,11 @@ export default function TreasuryCapitalTab({
         </div>
 
         {/* Ledger Table */}
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-right text-xs">
               <thead>
-                <tr className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 text-zinc-500 dark:text-zinc-400 font-medium">
+                <tr className="border-b border-border dark:border-border bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground font-medium">
                   <th className="py-3 px-4">التاريخ والوقت</th>
                   <th className="py-3 px-4">الخزينة</th>
                   <th className="py-3 px-4">نوع الحركة</th>
@@ -561,16 +561,16 @@ export default function TreasuryCapitalTab({
                   <th className="py-3 px-4 text-left">الرصيد بعد الحركة</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/60">
+              <tbody className="divide-y divide-border dark:divide-border">
                 {loading && ledger.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="py-10 text-center text-zinc-400">
+                    <td colSpan={6} className="py-10 text-center text-muted-foreground">
                       جاري تحميل كشف الحساب...
                     </td>
                   </tr>
                 ) : ledger.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="py-10 text-center text-zinc-400">
+                    <td colSpan={6} className="py-10 text-center text-muted-foreground">
                       لا توجد حركات نقدية مسجلة في هذه الفترة
                     </td>
                   </tr>
@@ -578,8 +578,8 @@ export default function TreasuryCapitalTab({
                   ledger.map((tx) => {
                     const isPositive = Number(tx.amount) > 0;
                     return (
-                      <tr key={tx.id} className="hover:bg-zinc-50/70 dark:hover:bg-zinc-800/40 transition-colors">
-                        <td className="py-3 px-4 font-mono text-zinc-500 dark:text-zinc-400 text-[11px]">
+                      <tr key={tx.id} className="hover:bg-zinc-50/70 dark:hover:bg-muted transition-colors">
+                        <td className="py-3 px-4 font-mono text-muted-foreground dark:text-muted-foreground text-[11px]">
                           {tx.date
                             ? new Date(tx.date).toLocaleDateString("ar-EG", {
                                 year: "numeric",
@@ -591,19 +591,19 @@ export default function TreasuryCapitalTab({
                               })
                             : "—"}
                         </td>
-                        <td className="py-3 px-4 font-semibold text-zinc-800 dark:text-zinc-200">
+                        <td className="py-3 px-4 font-semibold text-foreground dark:text-muted-foreground">
                           {tx.treasuryAccount?.name || "الخزينة"}
                         </td>
                         <td className="py-3 px-4">
                           <span
                             className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium ${
                               tx.type === "DEPOSIT"
-                                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"
+                                ? "bg-emerald-100 text-success dark:bg-success/60 dark:text-success"
                                 : tx.type === "EXPENSE"
-                                ? "bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300"
+                                ? "bg-red-100 text-destructive dark:bg-destructive/60 dark:text-destructive"
                                 : tx.type === "TRANSFER_IN"
                                 ? "bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300"
-                                : "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                                : "bg-amber-100 text-warning dark:bg-warning/60 dark:text-warning"
                             }`}
                           >
                             {tx.type === "DEPOSIT"
@@ -615,14 +615,14 @@ export default function TreasuryCapitalTab({
                               : "تحويل صادر -"}
                           </span>
                         </td>
-                        <td className="py-3 px-4 text-zinc-700 dark:text-zinc-300 max-w-xs truncate">
+                        <td className="py-3 px-4 text-foreground dark:text-muted-foreground max-w-xs truncate">
                           {tx.description}
                         </td>
                         <td
                           className={`py-3 px-4 text-left font-mono font-bold tabular-nums text-xs ${
                             isPositive
-                              ? "text-emerald-600 dark:text-emerald-400"
-                              : "text-red-600 dark:text-red-400"
+                              ? "text-emerald-600 dark:text-success"
+                              : "text-red-600 dark:text-destructive"
                           }`}
                         >
                           {isPositive ? `+${formatMoney(tx.amount)}` : formatMoney(tx.amount)}
@@ -630,8 +630,8 @@ export default function TreasuryCapitalTab({
                         <td
                           className={`py-3 px-4 text-left font-mono font-bold tabular-nums text-xs ${
                             Number(tx.runningBalance) < 0
-                              ? "text-red-600 dark:text-red-400 font-extrabold"
-                              : "text-zinc-900 dark:text-zinc-100"
+                              ? "text-red-600 dark:text-destructive font-extrabold"
+                              : "text-zinc-900 dark:text-muted-foreground"
                           }`}
                         >
                           {formatMoney(tx.runningBalance)}
@@ -646,13 +646,13 @@ export default function TreasuryCapitalTab({
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="px-4 py-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs text-zinc-500">
+            <div className="px-4 py-3 border-t border-border dark:border-border flex items-center justify-between text-xs text-muted-foreground">
               <span>إجمالي الحركات: {totalCount}</span>
               <div className="flex items-center gap-1">
                 <button
                   disabled={page <= 1}
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  className="px-2 py-1 rounded border border-zinc-200 dark:border-zinc-700 disabled:opacity-40"
+                  className="px-2 py-1 rounded border border-border dark:border-border disabled:opacity-40"
                 >
                   السابق
                 </button>
@@ -662,7 +662,7 @@ export default function TreasuryCapitalTab({
                 <button
                   disabled={page >= totalPages}
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                  className="px-2 py-1 rounded border border-zinc-200 dark:border-zinc-700 disabled:opacity-40"
+                  className="px-2 py-1 rounded border border-border dark:border-border disabled:opacity-40"
                 >
                   التالي
                 </button>

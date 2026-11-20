@@ -35,7 +35,7 @@ export const ReorderBulkActions: React.FC<ReorderBulkActionsProps> = ({
   return (
     <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div className="flex items-center gap-2">
-        <span className="text-sm text-gray-500 dark:text-gray-400 tabular-nums font-mono">
+        <span className="text-sm text-muted-foreground tabular-nums font-mono">
           {t("reorderPoints.selected", "المحدد: {{count}}").replace(
             "{{count}}",
             String(selectedCount),

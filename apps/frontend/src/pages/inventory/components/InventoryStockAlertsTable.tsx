@@ -47,7 +47,7 @@ export const InventoryStockAlertsTable: React.FC<InventoryStockAlertsTableProps>
             onClick={() => onTabChange('low')}
             className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
               activeTab === 'low'
-                ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 shadow-2xs'
+                ? 'bg-amber-500/10 text-warning dark:text-warning border border-warning/20 shadow-2xs'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -58,7 +58,7 @@ export const InventoryStockAlertsTable: React.FC<InventoryStockAlertsTableProps>
             onClick={() => onTabChange('out')}
             className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
               activeTab === 'out'
-                ? 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/20 shadow-2xs'
+                ? 'bg-rose-500/10 text-destructive dark:text-destructive border border-destructive/20 shadow-2xs'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -73,7 +73,7 @@ export const InventoryStockAlertsTable: React.FC<InventoryStockAlertsTableProps>
             placeholder="بحث بالمنتج أو رمز SKU..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="h-8 pr-9 pl-3 text-xs bg-background border-border/70"
+            className="h-8 pe-9 ps-3 text-xs bg-background border-border/70"
           />
         </div>
       </div>
@@ -123,8 +123,8 @@ export const InventoryStockAlertsTable: React.FC<InventoryStockAlertsTableProps>
                     <span
                       className={`inline-flex items-center gap-1 font-mono font-bold text-xs px-2 py-0.5 rounded ${
                         item.status === 'out'
-                          ? 'bg-rose-500/10 text-rose-600 border border-rose-500/20'
-                          : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                          ? 'bg-rose-500/10 text-destructive border border-destructive/20'
+                          : 'bg-amber-500/10 text-warning border border-warning/20'
                       }`}
                     >
                       {item.status === 'out' ? (
@@ -139,8 +139,8 @@ export const InventoryStockAlertsTable: React.FC<InventoryStockAlertsTableProps>
                     <span
                       className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium ${
                         item.status === 'out'
-                          ? 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300'
-                          : 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'
+                          ? 'bg-rose-100 text-destructive dark:bg-destructive/30 dark:text-destructive'
+                          : 'bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning'
                       }`}
                     >
                       {item.status === 'out' ? 'مخزون نافذ بالكامل' : 'دون الحد الأدنى'}

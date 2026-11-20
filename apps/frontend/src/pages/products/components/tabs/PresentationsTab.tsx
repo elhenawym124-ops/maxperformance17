@@ -197,20 +197,20 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
 
   if (!productId) {
     return (
-      <div className="bg-white dark:bg-gray-800 shadow rounded-xl p-3.5 sm:p-6 animate-fade-in">
+      <div className="bg-card shadow rounded-xl p-3.5 sm:p-6 animate-fade-in">
         <div className="text-center py-12">
-          <div className="mx-auto w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-4">
+          <div className="mx-auto w-12 h-12 rounded-full bg-primary dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary mb-4">
             <LinkIcon className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+          <h3 className="text-base font-bold text-foreground mb-2">
             العروض التقديمية (Presentations)
           </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">
+          <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
             أنشئ روابط مخصصة لهذا المنتج (بصور وعناوين مختلفة) مناسبة
             للحملات الإعلانية ومجموعات العملاء المختلفة — دون تكرار المنتج في
             الكتالوج أو تقسيم المخزون.
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 text-xs text-amber-800 dark:text-amber-300 font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-warning/10 dark:bg-warning/20 border border-warning dark:border-warning/40 text-xs text-warning dark:text-warning font-medium">
             <span>💡</span>
             <span>احفظ المنتج أولاً لتتمكن من إضافة عروض تقديمية له</span>
           </div>
@@ -221,17 +221,17 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="bg-white dark:bg-gray-800 shadow rounded-xl p-3.5 sm:p-6">
+      <div className="bg-card shadow rounded-xl p-3.5 sm:p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg text-purple-600 dark:text-purple-400">
+            <div className="p-2 bg-primary dark:bg-primary/30 rounded-lg text-primary dark:text-primary">
               <PhotoIcon className="h-6 w-6" />
             </div>
             <div>
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+              <h3 className="text-lg font-medium text-foreground">
                 العروض التقديمية ({presentations.length})
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 أنشئ عروض تقديمية مختلفة لنفس المنتج — كل عرض له صوره ورابطه المستقل
               </p>
             </div>
@@ -239,16 +239,16 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
         </div>
 
         {error && (
-          <div className="mb-4 bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-3 rounded-l-md">
+          <div className="mb-4 bg-destructive/10 dark:bg-destructive/20 border-r-4 border-destructive p-3 rounded-l-md">
             <div className="flex items-center gap-2">
-              <XMarkIcon className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
+              <XMarkIcon className="h-5 w-5 text-destructive" />
+              <p className="text-sm text-destructive dark:text-destructive">{error}</p>
             </div>
           </div>
         )}
 
         {loading ? (
-          <div className="text-center py-8 text-gray-500">جاري التحميل...</div>
+          <div className="text-center py-8 text-muted-foreground">جاري التحميل...</div>
         ) : (
           <div className="space-y-3">
             {presentations.map((pres) => {
@@ -260,16 +260,16 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
               return (
                 <div
                   key={pres.id}
-                  className="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden"
+                  className="border border-border rounded-lg overflow-hidden"
                 >
                   {/* Header (collapsed) */}
                   <button
                     type="button"
                     onClick={() => toggleExpand(pres.id!)}
-                    className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    className="w-full flex items-center justify-between p-4 hover:bg-muted/50/50 transition-colors"
                   >
                     <div className="flex items-center gap-4 min-w-0">
-                      <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 font-bold shrink-0">
+                      <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex items-center justify-center text-muted-foreground font-bold shrink-0">
                         {getThumbnail(pres) ? (
                           <img
                             src={getImageUrl(getThumbnail(pres)) || ""}
@@ -281,10 +281,10 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                         )}
                       </div>
                       <div className="min-w-0 text-right">
-                        <div className="font-medium text-gray-900 dark:text-white truncate">
+                        <div className="font-medium text-foreground truncate">
                           {presEdit.name ?? pres.name}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 dir-ltr text-left">
+                        <div className="text-xs text-muted-foreground dir-ltr text-left">
                           {buildPresentationUrl(pres)}
                         </div>
                       </div>
@@ -297,35 +297,35 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                           openPresentationPage(pres);
                         }}
                         title="فتح صفحة العرض في المتجر"
-                        className="inline-flex items-center gap-1 rounded-md border border-indigo-200 bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 dark:border-indigo-900/40 dark:bg-indigo-900/20 dark:text-indigo-300 dark:hover:bg-indigo-900/30"
+                        className="inline-flex items-center gap-1 rounded-md border border-primary bg-primary/10 px-2 py-1 text-xs font-medium text-primary hover:bg-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary dark:hover:bg-primary/30"
                       >
                         <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" />
                         فتح الصفحة
                       </button>
                       {presEdit.isActive ?? pres.isActive ? (
-                        <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full">
+                        <span className="text-xs bg-success dark:bg-success/30 text-success dark:text-success px-2 py-0.5 rounded-full">
                           نشط
                         </span>
                       ) : (
-                        <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded-full">
+                        <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-full">
                           غير نشط
                         </span>
                       )}
                       {isExpanded ? (
-                        <ChevronUpIcon className="h-5 w-5 text-gray-400" />
+                        <ChevronUpIcon className="h-5 w-5 text-muted-foreground" />
                       ) : (
-                        <ChevronDownIcon className="h-5 w-5 text-gray-400" />
+                        <ChevronDownIcon className="h-5 w-5 text-muted-foreground" />
                       )}
                     </div>
                   </button>
 
                   {/* Expanded content */}
                   {isExpanded && (
-                    <div className="border-t border-gray-200 dark:border-gray-600 p-4 space-y-4">
+                    <div className="border-t border-border p-4 space-y-4">
                       {/* Name & Slug */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-foreground mb-1">
                             الاسم
                           </label>
                           <input
@@ -337,15 +337,15 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                                 [pres.id!]: { ...prev[pres.id!], name: e.target.value },
                               }))
                             }
-                            className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                            className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-foreground mb-1">
                             الرابط
                           </label>
                           <div className="flex items-center gap-2">
-                            <span className="text-xs text-gray-400 shrink-0">/products/</span>
+                            <span className="text-xs text-muted-foreground shrink-0">/products/</span>
                             <input
                               type="text"
                               value={presEdit.slug ?? pres.slug}
@@ -355,7 +355,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                                   [pres.id!]: { ...prev[pres.id!], slug: e.target.value },
                                 }))
                               }
-                              className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                              className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
                             />
                           </div>
                         </div>
@@ -364,7 +364,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                       {/* Title & Description */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-foreground mb-1">
                             عنوان مخصص
                           </label>
                           <input
@@ -377,11 +377,11 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                               }))
                             }
                             placeholder="يورث من اسم المنتج"
-                            className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                            className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-foreground mb-1">
                             الحالة
                           </label>
                           <select
@@ -392,7 +392,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                                 [pres.id!]: { ...prev[pres.id!], isActive: e.target.value === "active" },
                               }))
                             }
-                            className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                            className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
                           >
                             <option value="active">نشط</option>
                             <option value="inactive">غير نشط</option>
@@ -401,7 +401,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        <label className="block text-sm font-medium text-foreground mb-1">
                           وصف مخصص
                         </label>
                         <textarea
@@ -414,13 +414,13 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                             }))
                           }
                           placeholder="يورث من وصف المنتج"
-                          className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                          className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
                         />
                       </div>
 
                       {/* Images */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-foreground mb-2">
                           الصور
                         </label>
                         <div className="flex gap-3 flex-wrap">
@@ -429,14 +429,14 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                               <img
                                 src={getImageUrl(img)}
                                 alt=""
-                                className="w-20 h-20 object-cover rounded-lg border border-gray-200 dark:border-gray-600"
+                                className="w-20 h-20 object-cover rounded-lg border border-border"
                               />
                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-1">
                                 {mainImage !== img && (
                                   <button
                                     type="button"
                                     onClick={() => setAsMain(pres, img)}
-                                    className="p-1 bg-white/90 rounded text-xs font-medium text-indigo-600 hover:bg-white"
+                                    className="p-1 bg-white/90 rounded text-xs font-medium text-primary hover:bg-white"
                                     title="تعيين كأساسية"
                                   >
                                     ★
@@ -445,20 +445,20 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => removeImage(pres, imgIdx)}
-                                  className="p-1 bg-white/90 rounded text-xs font-medium text-red-600 hover:bg-white"
+                                  className="p-1 bg-white/90 rounded text-xs font-medium text-destructive hover:bg-white"
                                 >
                                   ✕
                                 </button>
                               </div>
                               {mainImage === img && (
-                                <span className="absolute -top-1 -left-1 bg-yellow-400 text-xs px-1 rounded font-bold">
+                                <span className="absolute -top-1 -left-1 bg-warning text-xs px-1 rounded font-bold">
                                   أساسية
                                 </span>
                               )}
                             </div>
                           ))}
-                          <label className="w-20 h-20 flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-purple-400 dark:hover:border-purple-500 transition-colors">
-                            <PlusIcon className="h-6 w-6 text-gray-400" />
+                          <label className="w-20 h-20 flex items-center justify-center border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary dark:hover:border-primary transition-colors">
+                            <PlusIcon className="h-6 w-6 text-muted-foreground" />
                             <input
                               type="file"
                               accept="image/*"
@@ -474,18 +474,18 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                       </div>
 
                       {/* Description preview */}
-                      <div className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
+                      <div className="text-xs text-muted-foreground/80 flex items-center gap-1">
                         <LinkIcon className="h-3 w-3" />
                         الرابط: {buildPresentationUrl(pres)} (رابط فريد قابل للتتبع)
                       </div>
 
                       {/* Actions */}
-                      <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
+                      <div className="flex items-center justify-between pt-2 border-t border-border dark:border-border">
                         <div className="flex items-center gap-3">
                           <button
                             type="button"
                             onClick={() => openPresentationPage(pres)}
-                            className="inline-flex items-center gap-1 text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300"
+                            className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary dark:hover:text-primary"
                           >
                             <ArrowTopRightOnSquareIcon className="h-4 w-4" />
                             فتح الصفحة
@@ -497,7 +497,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                                 onDelete(pres.id!);
                               }
                             }}
-                            className="text-sm text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                            className="text-sm text-destructive dark:text-destructive hover:text-destructive dark:hover:text-destructive"
                           >
                             حذف
                           </button>
@@ -513,7 +513,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                               });
                               setExpandedId(null);
                             }}
-                            className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800"
+                            className="px-3 py-1.5 text-sm text-foreground dark:text-muted-foreground hover:text-foreground"
                           >
                             إلغاء
                           </button>
@@ -521,7 +521,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                             type="button"
                             onClick={() => handleUpdate(pres)}
                             disabled={!editState[pres.id!] || Object.keys(editState[pres.id!] || {}).length === 0}
-                            className="px-4 py-1.5 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="px-4 py-1.5 text-sm bg-primary text-white rounded-md hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             حفظ
                           </button>
@@ -537,10 +537,10 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
 
         {/* Add new presentation */}
         {isAdding ? (
-          <div className="mt-4 border border-dashed border-purple-300 dark:border-purple-600 rounded-lg p-4 space-y-3">
+          <div className="mt-4 border border-dashed border-primary dark:border-primary rounded-lg p-4 space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   اسم العرض التقديمي
                 </label>
                 <input
@@ -555,16 +555,16 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                     }));
                   }}
                   placeholder="مثال: اختبار صور فيسبوك"
-                  className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                  className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
                   autoFocus
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   الرابط
                 </label>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-400 shrink-0">
+                  <span className="text-xs text-muted-foreground shrink-0">
                     /products/{productId || productSlug || "..."}/
                   </span>
                   <input
@@ -573,14 +573,14 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                     onChange={(e) =>
                       setEditState((prev) => ({ ...prev, _newSlug: e.target.value }))
                     }
-                    className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                    className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
                   />
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   عنوان مخصص (اختياري)
                 </label>
                 <input
@@ -590,7 +590,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                     setEditState((prev) => ({ ...prev, _newTitle: e.target.value }))
                   }
                   placeholder="يورث من اسم المنتج"
-                  className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                  className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
                 />
               </div>
               <div className="flex items-end gap-2">
@@ -609,21 +609,21 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                       return next;
                     });
                   }}
-                  className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
+                  className="px-4 py-2 text-sm text-foreground dark:text-muted-foreground border border-border rounded-md hover:bg-muted/50"
                 >
                   إلغاء
                 </button>
                 <button
                   type="button"
                   onClick={handleAdd}
-                  className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                  className="px-4 py-2 text-sm bg-primary text-white rounded-md hover:bg-primary"
                 >
                   إضافة
                 </button>
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 وصف مخصص (اختياري)
               </label>
               <textarea
@@ -633,7 +633,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
                   setEditState((prev) => ({ ...prev, _newDescription: e.target.value }))
                 }
                 placeholder="يورث من وصف المنتج"
-                className="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md text-sm"
+                className="w-full border-border dark:bg-muted dark:text-white rounded-md text-sm"
               />
             </div>
           </div>
@@ -641,7 +641,7 @@ export const PresentationsTab: React.FC<PresentationsTabProps> = ({
           <button
             type="button"
             onClick={() => setIsAdding(true)}
-            className="mt-4 w-full py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-gray-500 dark:text-gray-400 hover:border-purple-400 dark:hover:border-purple-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex items-center justify-center gap-2"
+            className="mt-4 w-full py-3 border-2 border-dashed border-border rounded-lg text-muted-foreground hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary transition-colors flex items-center justify-center gap-2"
           >
             <PlusIcon className="h-5 w-5" />
             إضافة عرض تقديمي جديد

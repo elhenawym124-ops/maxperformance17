@@ -35,15 +35,15 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
     <div className="space-y-4">
       {/* Generation Action Banner */}
       {validAttributes.length > 0 && (
-        <div className="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="p-3.5 rounded-xl bg-success/70 dark:bg-success/30 border border-success dark:border-success/60 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <ArrowPathIcon className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
-              <span className="text-xs sm:text-sm font-bold text-emerald-900 dark:text-emerald-200">
+              <ArrowPathIcon className="w-4 h-4 text-success dark:text-success" />
+              <span className="text-xs sm:text-sm font-bold text-success dark:text-success">
                 توليد التركيبات والمتغيرات ({potentialCombinationCount})
               </span>
             </div>
-            <p className="text-xs text-emerald-700 dark:text-emerald-300 mt-0.5">
+            <p className="text-xs text-success dark:text-success mt-0.5">
               سيتم دمج الخصائص:{" "}
               {validAttributes.map((a) => `${a.name} (${a.values.length})`).join(" × ")}
             </p>
@@ -52,7 +52,7 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
           <button
             type="button"
             onClick={onGenerateVariations}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm active:scale-97 shrink-0"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-success hover:bg-success text-white rounded-xl text-xs font-bold transition-all shadow-sm active:scale-97 shrink-0"
           >
             <ArrowPathIcon className="w-4 h-4" />
             <span>توليد المتغيرات ({potentialCombinationCount})</span>
@@ -62,13 +62,13 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
 
       {/* Generated Variations Matrix / List */}
       {variants.length > 0 && (
-        <div className="space-y-3 pt-2 border-t border-indigo-100/80 dark:border-indigo-900/30">
+        <div className="space-y-3 pt-2 border-t border-primary/80 dark:border-primary/30">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
+              <span className="text-xs font-bold text-foreground dark:text-muted-foreground">
                 قائمة المتغيرات المولدة ({variants.length})
               </span>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              <p className="text-[11px] text-muted-foreground dark:text-muted-foreground">
                 حدد السعر والكمية لكل متغير أو طبّق قيمة موحدة
               </p>
             </div>
@@ -79,7 +79,7 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
                 <button
                   type="button"
                   onClick={onApplyBasePriceToAll}
-                  className="px-2.5 py-1 text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 rounded-lg border border-indigo-200 dark:border-indigo-800/40 transition-colors"
+                  className="px-2.5 py-1 text-[11px] font-semibold text-primary dark:text-primary bg-primary/10 dark:bg-primary/30 hover:bg-primary rounded-lg border border-primary dark:border-primary/40 transition-colors"
                 >
                   تطبيق السعر الأساسي ({price}) على الكل
                 </button>
@@ -91,13 +91,13 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
                   value={bulkStockValue}
                   onChange={(e) => setBulkStockValue(e.target.value)}
                   placeholder="كمية موحدة"
-                  className="w-20 px-2 py-1 text-xs tabular-nums bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-100 focus:outline-none"
+                  className="w-20 px-2 py-1 text-xs tabular-nums bg-white dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-muted-foreground focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={onApplyBulkStockToAll}
                   disabled={!bulkStockValue.trim()}
-                  className="px-2.5 py-1 text-[11px] font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 transition-colors"
+                  className="px-2.5 py-1 text-[11px] font-semibold text-foreground dark:text-muted-foreground bg-muted dark:bg-muted hover:bg-muted rounded-lg border border-border dark:border-border disabled:opacity-50 transition-colors"
                 >
                   تطبيق
                 </button>
@@ -106,15 +106,15 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
           </div>
 
           {/* Variations Scrollable List */}
-          <div className="space-y-2 max-h-60 overflow-y-auto pr-0.5">
+          <div className="space-y-2 max-h-60 overflow-y-auto pe-0.5">
             {variants.map((v) => (
               <div
                 key={v.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-2xs"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-2.5 rounded-xl bg-white dark:bg-muted border border-border dark:border-border shadow-2xs"
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  <TagIcon className="w-4 h-4 text-indigo-500 shrink-0" />
-                  <span className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+                  <TagIcon className="w-4 h-4 text-primary shrink-0" />
+                  <span className="text-xs font-bold text-foreground dark:text-muted-foreground truncate">
                     {v.name}
                   </span>
                 </div>
@@ -122,7 +122,7 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
                 <div className="flex items-center gap-3 shrink-0">
                   {/* Price */}
                   <div className="flex items-center gap-1">
-                    <span className="text-[11px] text-slate-400">السعر:</span>
+                    <span className="text-[11px] text-muted-foreground">السعر:</span>
                     <input
                       type="number"
                       min="0"
@@ -130,20 +130,20 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
                       value={v.price}
                       onChange={(e) => onUpdateVariant(v.id, "price", e.target.value)}
                       placeholder={price || "0.00"}
-                      className="w-20 px-2 py-1 text-xs tabular-nums bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-slate-100 focus:outline-none"
+                      className="w-20 px-2 py-1 text-xs tabular-nums bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-muted-foreground focus:outline-none"
                     />
                   </div>
 
                   {/* Stock */}
                   <div className="flex items-center gap-1">
-                    <span className="text-[11px] text-slate-400">الكمية:</span>
+                    <span className="text-[11px] text-muted-foreground">الكمية:</span>
                     <input
                       type="number"
                       min="0"
                       value={v.stock}
                       onChange={(e) => onUpdateVariant(v.id, "stock", e.target.value)}
                       placeholder="10"
-                      className="w-18 px-2 py-1 text-xs tabular-nums bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-slate-100 focus:outline-none"
+                      className="w-18 px-2 py-1 text-xs tabular-nums bg-muted dark:bg-muted border border-border dark:border-border rounded-lg text-foreground dark:text-muted-foreground focus:outline-none"
                     />
                   </div>
 
@@ -152,7 +152,7 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
                     type="button"
                     onClick={() => onRemoveVariant(v.id)}
                     aria-label={`حذف متغير ${v.name}`}
-                    className="p-1 text-slate-400 hover:text-rose-500 transition-colors"
+                    className="p-1 text-muted-foreground hover:text-destructive transition-colors"
                   >
                     <TrashIcon className="w-4 h-4" />
                   </button>
@@ -164,7 +164,7 @@ export const QuickAddVariantsMatrix: React.FC<QuickAddVariantsMatrixProps> = ({
       )}
 
       {fieldErrorOptions && (
-        <p className="text-xs text-rose-500">{fieldErrorOptions}</p>
+        <p className="text-xs text-destructive">{fieldErrorOptions}</p>
       )}
     </div>
   );

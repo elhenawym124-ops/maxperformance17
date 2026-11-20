@@ -112,8 +112,8 @@ export const AdvertisingProfitTab: React.FC<AdvertisingProfitTabProps> = ({
       </div>
 
       {!preview.isReady && (
-        <div className="flex items-start gap-2.5 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3.5 text-xs text-amber-700 dark:text-amber-300">
-          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+        <div className="flex items-start gap-2.5 rounded-xl border border-warning/20 bg-warning/10 p-3.5 text-xs text-warning dark:text-warning">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning dark:text-warning" />
           <span className="leading-relaxed">
             تكلفة المنتج غير مكتملة. قرارات التوسع/الإغلاق ستظهر بحذر لحين تسجيل التكلفة من تبويب التسعير أو الـ variants أو المخزون.
           </span>
@@ -150,7 +150,7 @@ export const AdvertisingProfitTab: React.FC<AdvertisingProfitTabProps> = ({
           <p className="text-[11px] font-semibold text-muted-foreground uppercase">
             Target CPA
           </p>
-          <p className="mt-1 text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
+          <p className="mt-1 text-xs font-mono font-semibold text-success dark:text-success tabular-nums">
             {formatMoney(preview.targetCpa, displayCurrency)}
           </p>
         </div>
@@ -280,7 +280,7 @@ export const AdvertisingProfitTab: React.FC<AdvertisingProfitTabProps> = ({
               {formatMoney(preview.requiredNetProfit, displayCurrency)}
             </strong>
             <span className="text-muted-foreground">حد CPA المستخدم</span>
-            <strong className="text-left font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+            <strong className="text-left font-mono tabular-nums text-success dark:text-success">
               {formatMoney(preview.targetCpa, displayCurrency)}
             </strong>
           </div>

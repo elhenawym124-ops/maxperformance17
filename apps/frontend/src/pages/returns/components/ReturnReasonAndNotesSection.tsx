@@ -52,7 +52,7 @@ export const ReturnReasonAndNotesSection: React.FC<ReturnReasonAndNotesSectionPr
   return (
     <>
       <div>
-        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs font-medium text-muted-foreground mb-1">
           {t('returns.k_202')}
         </label>
         <select
@@ -61,7 +61,7 @@ export const ReturnReasonAndNotesSection: React.FC<ReturnReasonAndNotesSectionPr
             setResponsibleParty(e.target.value);
             setReasonId('');
           }}
-          className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-md"
+          className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md"
         >
           <option value="">{t('returns.k_30')}</option>
           {responsiblePartyOptions.map((opt) => (
@@ -73,7 +73,7 @@ export const ReturnReasonAndNotesSection: React.FC<ReturnReasonAndNotesSectionPr
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs font-medium text-muted-foreground mb-1">
           {t('returns.k_154')}
         </label>
         <select
@@ -85,7 +85,7 @@ export const ReturnReasonAndNotesSection: React.FC<ReturnReasonAndNotesSectionPr
               setResponsibleParty(selectedReason.category.defaultRole);
             }
           }}
-          className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-md"
+          className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md"
         >
           <option value="">{t('returns.k_30')}</option>
           {matchingCategories.map((cat) => (
@@ -114,7 +114,7 @@ export const ReturnReasonAndNotesSection: React.FC<ReturnReasonAndNotesSectionPr
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs font-medium text-muted-foreground mb-1">
           {t('returns.k_156')}
         </label>
         <textarea
@@ -122,19 +122,19 @@ export const ReturnReasonAndNotesSection: React.FC<ReturnReasonAndNotesSectionPr
           onChange={(e) => setCustomerNotes(e.target.value)}
           rows={2}
           placeholder={t('returns.k_35')}
-          className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-md"
+          className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md"
         />
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+        <label className="block text-xs font-medium text-muted-foreground mb-1">
           {t('returns.k_207')}
         </label>
         <textarea
           value={adminNotes}
           onChange={(e) => setAdminNotes(e.target.value)}
           rows={2}
-          className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-md"
+          className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md"
         />
       </div>
     </>

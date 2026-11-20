@@ -71,7 +71,7 @@ export const ReturnDetailsTab: React.FC<ReturnDetailsTabProps> = ({
     <div className="space-y-6">
       <ReturnSettlementSummaryBar request={request} />
 
-      <div className="bg-white dark:bg-gray-900/50 border-2 border-blue-100 dark:border-blue-900/30 p-4 rounded-lg space-y-4">
+      <div className="bg-white dark:bg-muted border-2 border-blue-100 dark:border-blue-900/30 p-4 rounded-lg space-y-4">
         <h3 className="text-sm font-bold text-blue-800 dark:text-blue-300 flex items-center gap-2">
           <Shield size={16} /> {t('returns.k_201')}
         </h3>

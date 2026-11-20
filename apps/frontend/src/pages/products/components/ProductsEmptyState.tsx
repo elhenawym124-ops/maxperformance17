@@ -17,7 +17,7 @@ const ProductsEmptyState: React.FC<ProductsEmptyStateProps> = ({
 
   return (
     <div className="rounded-xl border border-border/70 bg-card p-10 sm:p-14 text-center shadow-xs">
-      <div className="w-14 h-14 rounded-2xl bg-muted text-muted-foreground mx-auto mb-4 flex items-center justify-center border border-border/50">
+      <div className="w-14 h-14 rounded-xl bg-muted text-muted-foreground mx-auto mb-4 flex items-center justify-center border border-border/50">
         <PackageOpen className="h-7 w-7" />
       </div>
       <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1.5">

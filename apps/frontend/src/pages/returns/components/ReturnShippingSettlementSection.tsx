@@ -48,13 +48,13 @@ export const ReturnShippingSettlementSection: React.FC<ReturnShippingSettlementS
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">
             {t('returns.k_254')}
           </label>
           <select
             value={shippingCompanyId}
             onChange={(e) => handleShippingCompanyChange(e.target.value)}
-            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-md"
+            className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md"
           >
             <option value="">{t('returns.k_264') || '-- اختر شركة الشحن --'}</option>
             {shippingCompanies.map((sc) => (
@@ -65,14 +65,14 @@ export const ReturnShippingSettlementSection: React.FC<ReturnShippingSettlementS
           </select>
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">
             {t('returns.k_255')}
           </label>
           <select
             value={returnTypeId}
             onChange={(e) => handleReturnTypeChange(e.target.value)}
             disabled={returnTypes.length === 0}
-            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-md disabled:opacity-50"
+            className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md disabled:opacity-50"
           >
             <option value="">{t('returns.k_265') || '-- اختر نوع المرتجع --'}</option>
             {returnTypes.map((rt) => (
@@ -98,7 +98,7 @@ export const ReturnShippingSettlementSection: React.FC<ReturnShippingSettlementS
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">
             {t('returns.k_228')}
           </label>
           <input
@@ -107,11 +107,11 @@ export const ReturnShippingSettlementSection: React.FC<ReturnShippingSettlementS
             value={shippingReturnCost}
             onChange={(e) => setShippingReturnCost(e.target.value)}
             placeholder="0.00"
-            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-md tabular-nums font-mono"
+            className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md tabular-nums font-mono"
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">
             {t('returns.k_229')}
           </label>
           <input
@@ -120,7 +120,7 @@ export const ReturnShippingSettlementSection: React.FC<ReturnShippingSettlementS
             value={settlementAmount}
             onChange={(e) => setSettlementAmount(e.target.value)}
             placeholder="0.00"
-            className="w-full text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-md tabular-nums font-mono"
+            className="w-full text-sm border-border dark:bg-muted dark:text-white rounded-md tabular-nums font-mono"
           />
         </div>
       </div>

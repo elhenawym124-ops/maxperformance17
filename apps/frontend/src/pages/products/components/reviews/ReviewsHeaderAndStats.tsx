@@ -39,7 +39,7 @@ export const ReviewsHeaderAndStats: React.FC<ReviewsHeaderAndStatsProps> = ({
           <div className="text-xs text-muted-foreground mb-1 font-medium">
             {t("productReviews.k_12")}
           </div>
-          <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono tabular-nums">
+          <div className="text-2xl font-bold text-success dark:text-success font-mono tabular-nums">
             {approvedCount}
           </div>
         </div>
@@ -48,7 +48,7 @@ export const ReviewsHeaderAndStats: React.FC<ReviewsHeaderAndStatsProps> = ({
           <div className="text-xs text-muted-foreground mb-1 font-medium">
             {t("productReviews.k_13")}
           </div>
-          <div className="text-2xl font-bold text-amber-600 dark:text-amber-400 font-mono tabular-nums">
+          <div className="text-2xl font-bold text-warning dark:text-warning font-mono tabular-nums">
             {pendingCount}
           </div>
         </div>

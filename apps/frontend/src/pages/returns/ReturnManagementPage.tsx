@@ -90,10 +90,10 @@ const ReturnManagementPage: React.FC = () => {
         <div className="p-3.5 sm:p-4 space-y-1">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-amber-500" />
+              <span className="size-1.5 rounded-full bg-warning" />
               بانتظار المراجعة
             </span>
-            <Clock className="size-3.5 text-amber-500" />
+            <Clock className="size-3.5 text-warning" />
           </div>
           <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-foreground">
             {reviewTab === "pending" ? total : "—"}
@@ -106,10 +106,10 @@ const ReturnManagementPage: React.FC = () => {
         <div className="p-3.5 sm:p-4 space-y-1">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="size-1.5 rounded-full bg-success" />
               تمت المراجعة
             </span>
-            <Package className="size-3.5 text-emerald-500" />
+            <Package className="size-3.5 text-success" />
           </div>
           <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums text-foreground">
             {reviewTab === "reviewed" ? total : "—"}
@@ -149,7 +149,7 @@ const ReturnManagementPage: React.FC = () => {
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                <span className="size-1.5 rounded-full bg-amber-500" />
+                <span className="size-1.5 rounded-full bg-warning" />
                 <span>بانتظار المراجعة</span>
               </button>
               <button
@@ -161,7 +161,7 @@ const ReturnManagementPage: React.FC = () => {
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                <span className="size-1.5 rounded-full bg-emerald-500" />
+                <span className="size-1.5 rounded-full bg-success" />
                 <span>تمت المراجعة</span>
               </button>
             </div>

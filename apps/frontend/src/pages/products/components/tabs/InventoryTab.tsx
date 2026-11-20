@@ -24,23 +24,23 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Header */}
-      <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+      <div className="border-b border-border dark:border-border pb-4">
+        <h3 className="text-lg font-medium text-foreground">
           {t("products.tabs.inventory")}
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           {t("products.inventory.description") || "إدارة معرفات المنتج والمخزون"}
         </p>
       </div>
 
       {/* Section 1: Product Identifiers */}
       <div>
-        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 uppercase tracking-wide">
+        <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
           {t("products.inventory.identifiers") || "معرفات المنتج"}
         </h4>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-medium text-foreground">
               {t("products.sku")}
             </label>
             <input
@@ -48,15 +48,15 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
               name="sku"
               value={formData.sku}
               onChange={handleInputChange}
-              className="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary bg-card text-foreground"
               placeholder="مثل: SHIRT-BLK-M"
             />
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-xs text-muted-foreground">
               رمز التخزين التعريفي للمنتج
             </p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-medium text-foreground">
               {t("products.inventory.barcode") || "الباركود (Barcode / GTIN)"}
             </label>
             <input
@@ -64,29 +64,29 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
               name="barcode"
               value={formData.barcode || ""}
               onChange={handleInputChange}
-              className="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary bg-card text-foreground"
               placeholder="أدخل رمز الباركود..."
             />
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-xs text-muted-foreground">
               ISBN, UPC, GTIN أو أي رمز باركود آخر
             </p>
           </div>
         </div>
       </div>
 
-      <hr className="border-gray-200 dark:border-gray-700" />
+      <hr className="border-gray-200 dark:border-border" />
 
       {/* Section 2: Stock Tracking */}
       <div>
-        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 uppercase tracking-wide">
+        <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
           المخزون
         </h4>
-        <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 mb-4">
+        <div className="flex items-center justify-between bg-muted dark:bg-muted rounded-lg p-4 mb-4">
           <div>
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="text-sm font-medium text-foreground">
               {t("products.inventory.trackInventory")}
             </label>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {t("products.inventory.trackInventoryHint")}
             </p>
           </div>
@@ -96,13 +96,13 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             checked={formData.trackInventory}
             onChange={handleInputChange}
             disabled={!canEditStock}
-            className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-5 w-5 text-primary focus:ring-primary border-border rounded"
           />
         </div>
         {formData.trackInventory && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium text-foreground">
                 {t("products.inventory.quantity")}
               </label>
               <input
@@ -112,23 +112,23 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
                 onChange={handleInputChange}
                 min="0"
                 disabled={!canEditStock}
-                className={`${getInputClassName("stock")} disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 dark:disabled:bg-gray-800 dark:disabled:text-gray-400`}
+                className={`${getInputClassName("stock")} disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground dark:disabled:bg-muted dark:disabled:text-muted-foreground`}
                 placeholder="0"
                 aria-invalid={Boolean(fieldErrors.stock)}
               />
               {!canEditStock && stockLocationLabel && (
-                <p className="mt-2 text-xs font-medium text-amber-700 dark:text-amber-300">
+                <p className="mt-2 text-xs font-medium text-warning dark:text-warning">
                   {stockLocationLabel}
                 </p>
               )}
               {fieldErrors.stock && (
-                <p className="mt-2 text-xs text-red-600 dark:text-red-400">
+                <p className="mt-2 text-xs text-destructive dark:text-destructive">
                   {fieldErrors.stock}
                 </p>
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium text-foreground">
                 {t("products.inventory.lowStockThreshold")}
               </label>
               <input
@@ -137,22 +137,22 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
                 value={formData.lowStockThreshold}
                 onChange={handleInputChange}
                 min="0"
-                className="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary bg-card text-foreground"
                 placeholder="5"
               />
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-xs text-muted-foreground">
                 {t("products.inventory.lowStockThresholdHint")}
               </p>
             </div>
           </div>
         )}
         {formData.trackInventory && (
-          <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 mt-4">
+          <div className="flex items-center justify-between bg-muted dark:bg-muted rounded-lg p-4 mt-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="text-sm font-medium text-foreground">
                 السماح بالطلب عند نفاد المخزون (Backorders)
               </label>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 يتيح للعملاء الاستمرار في طلب المنتج حتى لو أصبحت الكمية 0 (مناسب للمنتجات المصنعة بالطلب أو المحجوزة مسبقاً)
               </p>
             </div>
@@ -161,7 +161,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
               name="allowBackorders"
               checked={Boolean(formData.allowBackorders)}
               onChange={handleInputChange}
-              className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+              className="h-5 w-5 text-primary focus:ring-primary border-border rounded"
             />
           </div>
         )}
@@ -174,19 +174,19 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
         )}
       </div>
 
-      <hr className="border-gray-200 dark:border-gray-700" />
+      <hr className="border-gray-200 dark:border-border" />
 
       {/* Section 3: Fake Stock (FOMO) */}
       <div>
-        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 uppercase tracking-wide">
+        <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
           تسويق الندرة (FOMO)
         </h4>
-        <div className="flex items-center justify-between bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg p-4">
+        <div className="flex items-center justify-between bg-warning/10 dark:bg-warning/20 border border-warning dark:border-warning rounded-lg p-4">
           <div>
-            <label className="text-sm font-medium text-amber-800 dark:text-amber-300">
+            <label className="text-sm font-medium text-warning dark:text-warning">
               عرض مخزون وهمي
             </label>
-            <p className="text-sm text-amber-700 dark:text-amber-400 mt-0.5">
+            <p className="text-sm text-warning dark:text-warning mt-0.5">
               يُظهر للعميل كمية قليلة متبقية لتشجيعه على الشراء الفوري
             </p>
           </div>
@@ -195,24 +195,24 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             name="showFakeStock"
             checked={formData.showFakeStock}
             onChange={handleInputChange}
-            className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-5 w-5 text-primary focus:ring-primary border-border rounded"
           />
         </div>
       </div>
 
-      <hr className="border-gray-200 dark:border-gray-700" />
+      <hr className="border-gray-200 dark:border-border" />
 
       {/* Section 4: Pre-order */}
       <div>
-        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 uppercase tracking-wide">
+        <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
           الطلب المسبق (Pre-order)
         </h4>
-        <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+        <div className="flex items-center justify-between bg-muted dark:bg-muted rounded-lg p-4">
           <div>
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="text-sm font-medium text-foreground">
               تفعيل الطلب المسبق
             </label>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               يتيح للعميل الطلب حتى قبل توفر المنتج
             </p>
           </div>
@@ -221,24 +221,24 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             name="isPreOrder"
             checked={formData.isPreOrder || false}
             onChange={handleInputChange}
-            className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+            className="h-5 w-5 text-primary focus:ring-primary border-border rounded"
           />
         </div>
         {formData.isPreOrder && (
           <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium text-foreground">
                 تاريخ توفر المنتج المتوقع
               </label>
               <DateInput
                 name="preOrderDate"
                 value={formData.preOrderDate || ""}
                 onChange={handleInputChange}
-                className="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary bg-card text-foreground"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium text-foreground">
                 رسالة الطلب المسبق
               </label>
               <textarea
@@ -246,7 +246,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
                 value={formData.preOrderMessage || ""}
                 onChange={handleInputChange}
                 rows={2}
-                className="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="mt-1 block w-full border-border rounded-md shadow-sm focus:ring-primary focus:border-primary bg-card text-foreground"
                 placeholder="مثلاً: التوصيل سيبدأ من تاريخ..."
               />
             </div>

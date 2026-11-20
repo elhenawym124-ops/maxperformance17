@@ -128,7 +128,7 @@ export const ProductNewHeader: React.FC<ProductNewHeaderProps> = ({
                 ? undefined
                 : "احفظ المنتج أولاً قبل تحويله إلى عرض تقديمي"
             }
-            className={`inline-flex shrink-0 whitespace-nowrap items-center gap-1 rounded-lg border border-purple-200 dark:border-purple-900/40 bg-card px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors ${
+            className={`inline-flex shrink-0 whitespace-nowrap items-center gap-1 rounded-lg border border-primary dark:border-primary/40 bg-card px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-primary dark:text-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors ${
               effectiveProductId ? "" : "cursor-not-allowed opacity-50"
             }`}
           >
@@ -156,7 +156,7 @@ export const ProductNewHeader: React.FC<ProductNewHeaderProps> = ({
             }`}
           >
             {loading && (
-              <div className="animate-spin rounded-full h-3.5 w-3.5 border-2 border-primary-foreground border-t-transparent mr-2 rtl:ml-2" />
+              <div className="animate-spin rounded-full h-3.5 w-3.5 border-2 border-primary-foreground border-t-transparent me-2 rtl:ms-2" />
             )}
             <span>
               {effectiveProductId ? t("common.saveChanges") : t("products.save")}
@@ -168,7 +168,7 @@ export const ProductNewHeader: React.FC<ProductNewHeaderProps> = ({
               type="button"
               onClick={() => runWorkflowAction("submit_review")}
               disabled={loading}
-              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-500/10 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 transition-colors ${
+              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-warning dark:border-warning/40 bg-warning/10 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-warning dark:text-warning hover:bg-warning/20 transition-colors ${
                 loading ? "cursor-not-allowed opacity-75" : ""
               }`}
             >
@@ -181,7 +181,7 @@ export const ProductNewHeader: React.FC<ProductNewHeaderProps> = ({
               type="button"
               onClick={() => runWorkflowAction("approve")}
               disabled={loading}
-              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-emerald-200 dark:border-emerald-900/40 bg-emerald-500/10 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 transition-colors ${
+              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-success dark:border-success/40 bg-success/10 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-success dark:text-success hover:bg-success/20 transition-colors ${
                 loading ? "cursor-not-allowed opacity-75" : ""
               }`}
             >
@@ -194,7 +194,7 @@ export const ProductNewHeader: React.FC<ProductNewHeaderProps> = ({
               type="button"
               onClick={() => runWorkflowAction("reject")}
               disabled={loading}
-              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-rose-200 dark:border-rose-900/40 bg-rose-500/10 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 transition-colors ${
+              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-destructive dark:border-destructive/40 bg-destructive/10 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-destructive dark:text-destructive hover:bg-destructive/20 transition-colors ${
                 loading ? "cursor-not-allowed opacity-75" : ""
               }`}
             >
@@ -207,7 +207,7 @@ export const ProductNewHeader: React.FC<ProductNewHeaderProps> = ({
               type="button"
               onClick={() => runWorkflowAction("publish")}
               disabled={loading}
-              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-emerald-200 dark:border-emerald-900/40 bg-emerald-600 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-white hover:bg-emerald-700 transition-colors ${
+              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-success dark:border-success/40 bg-success px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-white hover:bg-success transition-colors ${
                 loading ? "cursor-not-allowed opacity-75" : ""
               }`}
             >
@@ -220,7 +220,7 @@ export const ProductNewHeader: React.FC<ProductNewHeaderProps> = ({
               type="button"
               onClick={() => runWorkflowAction("unpublish")}
               disabled={loading}
-              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-orange-200 dark:border-orange-900/40 bg-orange-500/10 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-orange-700 dark:text-orange-300 hover:bg-orange-500/20 transition-colors ${
+              className={`inline-flex shrink-0 whitespace-nowrap items-center rounded-lg border border-warning dark:border-warning/40 bg-warning/10 px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-warning dark:text-warning hover:bg-warning/20 transition-colors ${
                 loading ? "cursor-not-allowed opacity-75" : ""
               }`}
             >

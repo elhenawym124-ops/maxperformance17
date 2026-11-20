@@ -29,14 +29,14 @@ export const ReturnCategoryModal: React.FC<ReturnCategoryModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/35 backdrop-blur-[2px] flex items-center justify-center z-[60] p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg w-full max-w-md p-6 border border-gray-200 dark:border-gray-700 shadow-xl">
-        <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
+      <div className="bg-card rounded-lg w-full max-w-md p-6 border border-border dark:border-border shadow-xl">
+        <h3 className="text-lg font-bold mb-4 text-foreground">
           {editingCategory ? t('returns.k_109') : t('returns.k_110')}
         </h3>
         <form onSubmit={onSave}>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t('returns.k_182')}
               </label>
               <input
@@ -44,17 +44,17 @@ export const ReturnCategoryModal: React.FC<ReturnCategoryModalProps> = ({
                 required
                 value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t('returns.k_183')}
               </label>
               <select
                 value={defaultRole}
                 onChange={(e) => setDefaultRole(e.target.value as any)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="CUSTOMER">{t('returns.k_184')}</option>
                 <option value="STORE">{t('returns.k_111')}</option>
@@ -67,7 +67,7 @@ export const ReturnCategoryModal: React.FC<ReturnCategoryModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+              className="px-4 py-2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
             >
               {t('returns.k_158')}
             </button>

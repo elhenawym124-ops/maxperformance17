@@ -27,7 +27,7 @@ export const QuickAddBasicFields: React.FC<QuickAddBasicFieldsProps> = ({
     <>
       {/* 1. Name */}
       <div>
-        <label className="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+        <label className="block text-xs sm:text-sm font-semibold text-foreground dark:text-muted-foreground mb-1.5">
           اسم المنتج <span className="text-rose-500">*</span>
         </label>
         <input
@@ -38,14 +38,14 @@ export const QuickAddBasicFields: React.FC<QuickAddBasicFieldsProps> = ({
             if (fieldErrors.name) setFieldErrors((p) => ({ ...p, name: "" }));
           }}
           placeholder="مثال: تيشرت قطن أوفر سايز"
-          className={`w-full px-3.5 py-2.5 text-sm bg-white dark:bg-slate-800 border rounded-xl text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all ${
+          className={`w-full px-3.5 py-2.5 text-sm bg-white dark:bg-muted border rounded-xl text-foreground dark:text-muted-foreground placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all ${
             fieldErrors.name
-              ? "border-rose-400 dark:border-rose-600"
-              : "border-slate-200 dark:border-slate-700"
+              ? "border-rose-400 dark:border-destructive"
+              : "border-slate-200 dark:border-border"
           }`}
         />
         {fieldErrors.name && (
-          <p className="mt-1 text-xs text-rose-500">{fieldErrors.name}</p>
+          <p className="mt-1 text-xs text-destructive">{fieldErrors.name}</p>
         )}
       </div>
 
@@ -53,7 +53,7 @@ export const QuickAddBasicFields: React.FC<QuickAddBasicFieldsProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Sale Price */}
         <div>
-          <label className="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+          <label className="block text-xs sm:text-sm font-semibold text-foreground dark:text-muted-foreground mb-1.5">
             سعر البيع ({displayCurrency}) <span className="text-rose-500">*</span>
           </label>
           <input
@@ -66,22 +66,22 @@ export const QuickAddBasicFields: React.FC<QuickAddBasicFieldsProps> = ({
               if (fieldErrors.price) setFieldErrors((p) => ({ ...p, price: "" }));
             }}
             placeholder="0.00"
-            className={`w-full px-3.5 py-2.5 text-sm tabular-nums bg-white dark:bg-slate-800 border rounded-xl text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all ${
+            className={`w-full px-3.5 py-2.5 text-sm tabular-nums bg-white dark:bg-muted border rounded-xl text-foreground dark:text-muted-foreground placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all ${
               fieldErrors.price
-                ? "border-rose-400 dark:border-rose-600"
-                : "border-slate-200 dark:border-slate-700"
+                ? "border-rose-400 dark:border-destructive"
+                : "border-slate-200 dark:border-border"
             }`}
           />
           {fieldErrors.price && (
-            <p className="mt-1 text-xs text-rose-500">{fieldErrors.price}</p>
+            <p className="mt-1 text-xs text-destructive">{fieldErrors.price}</p>
           )}
         </div>
 
         {/* Compare Price (Optional) */}
         <div>
-          <label className="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+          <label className="block text-xs sm:text-sm font-semibold text-foreground dark:text-muted-foreground mb-1.5">
             السعر قبل الخصم ({displayCurrency})
-            <span className="text-[11px] font-normal text-slate-400 mr-1.5">(اختياري للخصومات)</span>
+            <span className="text-[11px] font-normal text-muted-foreground me-1.5">(اختياري للخصومات)</span>
           </label>
           <input
             type="number"
@@ -93,14 +93,14 @@ export const QuickAddBasicFields: React.FC<QuickAddBasicFieldsProps> = ({
               if (fieldErrors.comparePrice) setFieldErrors((p) => ({ ...p, comparePrice: "" }));
             }}
             placeholder="0.00"
-            className={`w-full px-3.5 py-2.5 text-sm tabular-nums bg-white dark:bg-slate-800 border rounded-xl text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all ${
+            className={`w-full px-3.5 py-2.5 text-sm tabular-nums bg-white dark:bg-muted border rounded-xl text-foreground dark:text-muted-foreground placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all ${
               fieldErrors.comparePrice
-                ? "border-rose-400 dark:border-rose-600"
-                : "border-slate-200 dark:border-slate-700"
+                ? "border-rose-400 dark:border-destructive"
+                : "border-slate-200 dark:border-border"
             }`}
           />
           {fieldErrors.comparePrice && (
-            <p className="mt-1 text-xs text-rose-500">{fieldErrors.comparePrice}</p>
+            <p className="mt-1 text-xs text-destructive">{fieldErrors.comparePrice}</p>
           )}
         </div>
       </div>

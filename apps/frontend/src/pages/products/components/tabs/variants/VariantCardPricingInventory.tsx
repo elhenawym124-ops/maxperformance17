@@ -30,10 +30,10 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
   return (
     <>
       {/* Pricing Section */}
-      <div className="border-b border-gray-200 dark:border-gray-600 pb-4">
+      <div className="border-b border-border pb-4">
         <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-          <h5 className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center">
-            <CurrencyDollarIcon className="h-4 w-4 ml-1" />
+          <h5 className="text-sm font-semibold text-foreground flex items-center">
+            <CurrencyDollarIcon className="h-4 w-4 ms-1" />
             التسعير
           </h5>
           {defaultPricing?.price !== undefined &&
@@ -41,7 +41,7 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
               <button
                 type="button"
                 onClick={() => syncWithProductPricing?.(idx)}
-                className="inline-flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline"
+                className="inline-flex items-center gap-1 text-xs text-primary hover:text-primary dark:hover:text-primary hover:underline"
                 title="استعادة تسعير المنتج الأساسي لهذا المتغير"
               >
                 <ArrowPathIcon className="h-3 w-3" />
@@ -52,7 +52,7 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               السعر في الخصم ({displayCurrency})
             </label>
             <input
@@ -72,11 +72,11 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
               min="0"
               step="0.01"
               placeholder="السعر بعد الخصم"
-              className="block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm tabular-nums"
+              className="block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm tabular-nums"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               السعر الأساسي ({displayCurrency})
             </label>
             <input
@@ -97,11 +97,11 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
               min="0"
               step="0.01"
               placeholder="السعر قبل الخصم"
-              className="block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm tabular-nums"
+              className="block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm tabular-nums"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               سعر الشراء ({displayCurrency})
             </label>
             <input
@@ -121,25 +121,25 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
               min="0"
               step="0.01"
               placeholder="تكلفة الشراء"
-              className="block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm tabular-nums"
+              className="block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm tabular-nums"
             />
           </div>
         </div>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+        <p className="text-xs text-muted-foreground mt-2">
           💡 يتم أخذ التسعير تلقائياً من إعدادات تسعير المنتج الأساسي، ويمكنك تخصيص أي قيمة بحرية لهذا المتغير.
         </p>
       </div>
 
       {/* Inventory Section */}
-      <div className="border-b border-gray-200 dark:border-gray-600 pb-4">
-        <h5 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
-          <CubeIcon className="h-4 w-4 ml-1" />
+      <div className="border-b border-border pb-4">
+        <h5 className="text-sm font-semibold text-foreground mb-3 flex items-center">
+          <CubeIcon className="h-4 w-4 ms-1" />
           المخزون
         </h5>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
+          <div className="flex items-center justify-between bg-muted dark:bg-muted p-3 rounded-lg">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-sm font-medium text-foreground">
                 تتبع المخزون
               </label>
             </div>
@@ -149,13 +149,13 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
               onChange={(e) =>
                 updateVariant(idx, "trackInventory", e.target.checked)
               }
-              className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+              className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
             />
           </div>
           {variant.trackInventory && (
             <>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   الكمية
                 </label>
                 <input
@@ -169,11 +169,11 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
                     )
                   }
                   min="0"
-                  className="block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm tabular-nums"
+                  className="block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm tabular-nums"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   حد التنبيه
                 </label>
                 <input
@@ -188,15 +188,15 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
                   }
                   min="0"
                   placeholder="5"
-                  className="block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm tabular-nums"
+                  className="block w-full border-border dark:bg-muted dark:text-white rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm tabular-nums"
                 />
               </div>
-              <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
+              <div className="flex items-center justify-between bg-muted dark:bg-muted p-3 rounded-lg">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium text-foreground">
                     طلبات مسبقة
                   </label>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     السماح بالشراء عند نفاد المخزون
                   </p>
                 </div>
@@ -206,7 +206,7 @@ export const VariantCardPricingInventory: React.FC<VariantCardPricingInventoryPr
                   onChange={(e) =>
                     updateVariant(idx, "allowBackorders", e.target.checked)
                   }
-                  className="h-4 w-4 text-indigo-600 dark:text-indigo-500 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
+                  className="h-4 w-4 text-primary dark:text-primary focus:ring-primary border-border rounded"
                 />
               </div>
             </>

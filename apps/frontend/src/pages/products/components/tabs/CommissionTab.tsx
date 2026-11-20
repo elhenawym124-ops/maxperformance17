@@ -234,7 +234,7 @@ export const CommissionTab: React.FC<CommissionTabProps> = ({
                 لا يوجد مسوقين نشطين للاختيار.
               </div>
             ) : (
-              <div className="grid max-h-60 grid-cols-1 gap-2 overflow-y-auto pr-1 sm:grid-cols-2">
+              <div className="grid max-h-60 grid-cols-1 gap-2 overflow-y-auto pe-1 sm:grid-cols-2">
                 {activeAffiliates.map((affiliate) => {
                   const name =
                     `${affiliate.user?.firstName || ""} ${affiliate.user?.lastName || ""}`.trim() ||
@@ -290,14 +290,14 @@ export const CommissionTab: React.FC<CommissionTabProps> = ({
             </p>
             <p>
               سعر البيع للجمهور:{" "}
-              <span className="font-mono tabular-nums font-semibold text-emerald-600 dark:text-emerald-400">
+              <span className="font-mono tabular-nums font-semibold text-success dark:text-success">
                 {formData.price || 0}
               </span>{" "}
               {displayCurrency}
             </p>
             <p>
               صافي عمولة المسوق:{" "}
-              <span className="font-mono tabular-nums font-semibold text-amber-600 dark:text-amber-400">
+              <span className="font-mono tabular-nums font-semibold text-warning dark:text-warning">
                 {formData.commissionType === "PERCENTAGE"
                   ? `${(((formData.price || 0) * (formData.affiliateCommission || 0)) / 100).toFixed(2)} (${formData.affiliateCommission}%)`
                   : `${formData.affiliateCommission || 0} مبلغ ثابت`}

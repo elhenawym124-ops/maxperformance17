@@ -54,14 +54,14 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
       {/* Category with inline quick add and select */}
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+          <label className="text-xs sm:text-sm font-semibold text-foreground dark:text-muted-foreground">
             قسم المنتج <span className="text-rose-500">*</span>
           </label>
           {!isQuickAddingCategory && (
             <button
               type="button"
               onClick={() => setIsQuickAddingCategory(true)}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary dark:text-primary dark:hover:text-primary transition-colors"
             >
               <PlusIcon className="w-3.5 h-3.5" />
               <span>إضافة قسم جديد</span>
@@ -70,7 +70,7 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
         </div>
 
         {isQuickAddingCategory ? (
-          <div className="space-y-2 p-2 bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800/60 rounded-xl">
+          <div className="space-y-2 p-2 bg-primary/60 dark:bg-primary/30 border border-primary dark:border-primary/60 rounded-xl">
             <div className="flex items-center gap-1.5">
               <input
                 type="text"
@@ -84,13 +84,13 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
                   }
                 }}
                 placeholder="اكتب اسم القسم الجديد (مثال: ملابس)..."
-                className="flex-1 px-3 py-1.5 text-xs sm:text-sm bg-white dark:bg-slate-800 border border-indigo-300 dark:border-indigo-700 rounded-lg text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                className="flex-1 px-3 py-1.5 text-xs sm:text-sm bg-white dark:bg-muted border border-primary dark:border-primary rounded-lg text-foreground dark:text-muted-foreground placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
               <button
                 type="button"
                 disabled={addingCategoryLoading || !newCategoryName.trim()}
                 onClick={handleQuickAddCategory}
-                className="px-3 py-1.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:scale-95 disabled:opacity-50 rounded-lg transition-all shrink-0"
+                className="px-3 py-1.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 active:scale-95 disabled:opacity-50 rounded-lg transition-all shrink-0"
               >
                 {addingCategoryLoading ? "جارٍ الحفظ..." : "حفظ القسم"}
               </button>
@@ -100,7 +100,7 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
                   setIsQuickAddingCategory(false);
                   setNewCategoryName("");
                 }}
-                className="px-2.5 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors shrink-0"
+                className="px-2.5 py-1.5 text-xs font-medium text-foreground dark:text-muted-foreground hover:bg-muted dark:hover:bg-muted rounded-lg transition-colors shrink-0"
               >
                 إلغاء
               </button>
@@ -115,10 +115,10 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
                 if (fieldErrors.category) setFieldErrors((p) => ({ ...p, category: "" }));
               }}
               disabled={loadingCategories}
-              className={`flex-1 px-3.5 py-2.5 text-sm bg-white dark:bg-slate-800 border rounded-xl text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all ${
+              className={`flex-1 px-3.5 py-2.5 text-sm bg-white dark:bg-muted border rounded-xl text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all ${
                 fieldErrors.category
-                  ? "border-rose-400 dark:border-rose-600"
-                  : "border-slate-200 dark:border-slate-700"
+                  ? "border-rose-400 dark:border-destructive"
+                  : "border-slate-200 dark:border-border"
               }`}
             >
               <option value="">
@@ -139,7 +139,7 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
               onClick={() => setIsQuickAddingCategory(true)}
               title="إضافة قسم جديد فوراً"
               aria-label="إضافة قسم جديد"
-              className="inline-flex items-center gap-1 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/40 rounded-xl text-xs font-bold transition-all transform active:scale-95 shrink-0"
+              className="inline-flex items-center gap-1 px-3 py-2 bg-primary/10 hover:bg-primary dark:bg-primary/40 dark:hover:bg-primary/50 text-primary dark:text-primary border border-primary dark:border-primary/40 rounded-xl text-xs font-bold transition-all transform active:scale-95 shrink-0"
             >
               <PlusIcon className="w-4 h-4" />
               <span className="hidden sm:inline">قسم جديد</span>
@@ -147,14 +147,14 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
           </div>
         )}
         {fieldErrors.category && (
-          <p className="mt-1 text-xs text-rose-500">{fieldErrors.category}</p>
+          <p className="mt-1 text-xs text-destructive">{fieldErrors.category}</p>
         )}
       </div>
 
       {/* Warehouse Selector (shown when showWarehouseSelect is true) */}
       {showWarehouseSelect && (
         <div>
-          <label className="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+          <label className="block text-xs sm:text-sm font-semibold text-foreground dark:text-muted-foreground mb-1.5">
             المخزن <span className="text-rose-500">*</span>
           </label>
           <select
@@ -164,10 +164,10 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
               if (fieldErrors.warehouse) setFieldErrors((p) => ({ ...p, warehouse: "" }));
             }}
             disabled={loadingWarehouses}
-            className={`w-full px-3.5 py-2.5 text-sm bg-white dark:bg-slate-800 border rounded-xl text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all ${
+            className={`w-full px-3.5 py-2.5 text-sm bg-white dark:bg-muted border rounded-xl text-foreground dark:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all ${
               fieldErrors.warehouse
-                ? "border-rose-400 dark:border-rose-600"
-                : "border-slate-200 dark:border-slate-700"
+                ? "border-rose-400 dark:border-destructive"
+                : "border-slate-200 dark:border-border"
             }`}
           >
             <option value="">
@@ -184,17 +184,17 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
             ))}
           </select>
           {fieldErrors.warehouse && (
-            <p className="mt-1 text-xs text-rose-500">{fieldErrors.warehouse}</p>
+            <p className="mt-1 text-xs text-destructive">{fieldErrors.warehouse}</p>
           )}
         </div>
       )}
 
       {/* Initial Stock (Only manually editable when no variants are enabled) */}
       <div className={showWarehouseSelect ? "sm:col-span-2" : ""}>
-        <label className="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+        <label className="block text-xs sm:text-sm font-semibold text-foreground dark:text-muted-foreground mb-1.5">
           الكمية المتوفرة بالمخزن
           {hasOptions && (
-            <span className="text-[11px] font-normal text-indigo-600 dark:text-indigo-400 mr-1.5">
+            <span className="text-[11px] font-normal text-primary me-1.5">
               (تُحسب تلقائياً من مجموع المتغيرات)
             </span>
           )}
@@ -210,7 +210,7 @@ export const QuickAddCategoryWarehouseSection: React.FC<QuickAddCategoryWarehous
           }
           onChange={(e) => setStock(e.target.value)}
           placeholder="10"
-          className="w-full px-3.5 py-2.5 text-sm tabular-nums bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 disabled:bg-slate-50 dark:disabled:bg-slate-800/50 disabled:text-slate-400 transition-all"
+          className="w-full px-3.5 py-2.5 text-sm tabular-nums bg-white dark:bg-muted border border-border dark:border-border rounded-xl text-foreground dark:text-muted-foreground placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:bg-muted dark:disabled:bg-muted disabled:text-muted-foreground transition-all"
         />
       </div>
     </div>

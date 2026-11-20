@@ -36,20 +36,20 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
   return (
     <div className="space-y-4">
       {loadingLogs ? (
-        <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-12 text-muted-foreground">
           <div className="inline-block w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mb-2" />
           <p className="text-sm">{t('returns.k_144')}</p>
         </div>
       ) : (
         <>
           {/* Action Filters */}
-          <div className="flex gap-2 flex-wrap border-b border-gray-100 dark:border-gray-700 pb-3">
+          <div className="flex gap-2 flex-wrap border-b border-border dark:border-border pb-3">
             <button
               onClick={() => setActivityFilter('')}
               className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
                 activityFilter === ''
                   ? 'bg-blue-600 dark:bg-blue-500 text-white shadow-xs'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  : 'bg-muted text-muted-foreground hover:bg-muted dark:hover:bg-muted'
               }`}
             >
               {t('returns.k_13')}{' '}
@@ -65,7 +65,7 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                   className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                     activityFilter === action
                       ? 'bg-blue-600 dark:bg-blue-500 text-white shadow-xs'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                      : 'bg-muted text-muted-foreground hover:bg-muted dark:hover:bg-muted'
                   }`}
                 >
                   {meta?.label || action}
@@ -76,11 +76,11 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
           </div>
 
           {activityLog.filter((l) => !activityFilter || l.action === activityFilter).length === 0 ? (
-            <div className="text-center py-12 bg-gray-50 dark:bg-gray-900/40 rounded-xl border border-dashed border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500 text-sm">
+            <div className="text-center py-12 bg-muted dark:bg-muted rounded-xl border border-dashed border-border dark:border-border text-muted-foreground/80 text-sm">
               {t('returns.k_217')}
             </div>
           ) : (
-            <div className="relative border-r-2 border-gray-200 dark:border-gray-700 mr-4 space-y-6">
+            <div className="relative border-r-2 border-border dark:border-border me-4 space-y-6">
               {activityLog
                 .filter((l) => !activityFilter || l.action === activityFilter)
                 .map((log) => {
@@ -88,9 +88,9 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                     label: log.action,
                     icon: Info,
                     badgeClass:
-                      'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700',
-                    borderClass: 'border-gray-400 dark:border-gray-600',
-                    dotClass: 'bg-gray-400 dark:bg-gray-500',
+                      'bg-gray-100 text-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border',
+                    borderClass: 'border-gray-400 dark:border-border',
+                    dotClass: 'bg-gray-400 dark:bg-muted',
                   };
                   const ActionIcon = actionMeta.icon;
                   const isSystem = !log.user || !log.user.id;
@@ -109,12 +109,12 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                   return (
                     <div key={log.id} className="relative flex items-start gap-3 mr-[-9px]">
                       {/* Timeline Dot */}
-                      <div className="bg-white dark:bg-gray-800 p-1 rounded-full border-2 border-gray-200 dark:border-gray-700 shadow-xs shrink-0 mt-0.5">
+                      <div className="bg-card p-1 rounded-full border-2 border-border dark:border-border shadow-xs shrink-0 mt-0.5">
                         <div className={`w-2.5 h-2.5 rounded-full ${actionMeta.dotClass}`} />
                       </div>
 
                       {/* Card Surface */}
-                      <div className="flex-1 bg-gray-50/70 dark:bg-gray-900/50 p-4 rounded-xl border border-gray-200/80 dark:border-gray-700/80 shadow-xs space-y-3">
+                      <div className="flex-1 bg-muted dark:bg-muted p-4 rounded-xl border border-border dark:border-border shadow-xs space-y-3">
                         {/* Header: Action Badge + Timestamp */}
                         <div className="flex justify-between items-center flex-wrap gap-2">
                           <span
@@ -123,7 +123,7 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                             <ActionIcon size={14} />
                             {actionMeta.label}
                           </span>
-                          <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1 tabular-nums">
+                          <span className="text-xs text-muted-foreground/80 flex items-center gap-1 tabular-nums">
                             <Calendar size={12} />
                             {new Date(log.createdAt).toLocaleString('ar-EG')}
                           </span>
@@ -136,12 +136,12 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                               <Bot size={16} />
                             </div>
                           ) : (
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-2xs">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-primary flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-2xs">
                               {initials || <User size={14} />}
                             </div>
                           )}
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-bold text-sm text-gray-900 dark:text-white">
+                            <span className="font-bold text-sm text-foreground">
                               {fullName}
                             </span>
                             {log.user?.role && renderRoleBadge(log.user.role)}
@@ -152,7 +152,7 @@ export const ReturnActivityTimelineTab: React.FC<ReturnActivityTimelineTabProps>
                             )}
                             {log.user?.email && (
                               <span
-                                className="text-xs text-gray-400 dark:text-gray-500 hidden sm:inline"
+                                className="text-xs text-muted-foreground/80 hidden sm:inline"
                                 dir="ltr"
                               >
                                 ({log.user.email})

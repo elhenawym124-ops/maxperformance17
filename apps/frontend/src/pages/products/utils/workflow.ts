@@ -137,22 +137,22 @@ export const getWorkflowStatusColor = (
   workflow?: ProductWorkflow | null,
 ): string => {
   if (workflow && isUnpublishedWorkflow(workflow)) {
-    return "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300";
+    return "bg-orange-100 text-warning dark:bg-warning/30 dark:text-warning";
   }
 
   switch (status) {
     case PRODUCT_WORKFLOW_STATUSES.DRAFT:
-      return "bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200";
+      return "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground";
     case PRODUCT_WORKFLOW_STATUSES.IN_REVIEW:
-      return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300";
+      return "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning";
     case PRODUCT_WORKFLOW_STATUSES.APPROVED:
-      return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300";
+      return "bg-emerald-100 text-success dark:bg-success/30 dark:text-success";
     case PRODUCT_WORKFLOW_STATUSES.REJECTED:
-      return "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300";
+      return "bg-rose-100 text-destructive dark:bg-destructive/30 dark:text-destructive";
     case PRODUCT_WORKFLOW_STATUSES.PUBLISHED:
-      return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
+      return "bg-green-100 text-success dark:bg-success/30 dark:text-success";
     default:
-      return "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300";
+      return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
   }
 };
 

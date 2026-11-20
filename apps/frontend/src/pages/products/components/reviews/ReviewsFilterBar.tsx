@@ -30,7 +30,7 @@ export const ReviewsFilterBar: React.FC<ReviewsFilterBarProps> = ({
               placeholder={t("productReviews.k_10")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pr-9 pl-3.5 py-2 text-xs border border-border/70 bg-background text-foreground rounded-lg focus:ring-1 focus:ring-primary focus:outline-none placeholder:text-muted-foreground"
+              className="w-full pe-9 ps-3.5 py-2 text-xs border border-border/70 bg-background text-foreground rounded-lg focus:ring-1 focus:ring-primary focus:outline-none placeholder:text-muted-foreground"
             />
           </div>
         </div>

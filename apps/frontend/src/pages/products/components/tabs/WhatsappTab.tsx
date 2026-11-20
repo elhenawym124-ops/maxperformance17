@@ -103,9 +103,9 @@ export const WhatsappTab: React.FC<WhatsappTabProps> = ({
           </div>
         )}
 
-        <div className="p-3 bg-amber-500/10 rounded-lg border border-amber-500/20 flex items-start gap-2.5">
-          <Lightbulb className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-          <p className="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">
+        <div className="p-3 bg-warning/10 rounded-lg border border-warning/20 flex items-start gap-2.5">
+          <Lightbulb className="h-4 w-4 text-warning dark:text-warning shrink-0 mt-0.5" />
+          <p className="text-xs text-warning dark:text-warning leading-relaxed">
             نصيحة: تأكد من أن جلسة الواتساب متصلة في صفحة الإشعارات قبل الحفظ لضمان بدء الحملة فوراً.
           </p>
         </div>

@@ -42,21 +42,21 @@ export const ReviewsBulkToolbar: React.FC<ReviewsBulkToolbarProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => handleBulkAction("approve")}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors font-medium shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-success/10 text-success dark:text-success border border-success/20 rounded-lg hover:bg-success/20 transition-colors font-medium shadow-xs"
           >
             <CheckCircleIcon className="h-3.5 w-3.5" />
             <span>{t("productReviews.k_26")}</span>
           </button>
           <button
             onClick={() => handleBulkAction("reject")}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 rounded-lg hover:bg-amber-500/20 transition-colors font-medium shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-warning/10 text-warning dark:text-warning border border-warning/20 rounded-lg hover:bg-warning/20 transition-colors font-medium shadow-xs"
           >
             <XCircleIcon className="h-3.5 w-3.5" />
             <span>{t("productReviews.k_27")}</span>
           </button>
           <button
             onClick={() => handleBulkAction("delete")}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500/20 transition-colors font-medium shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-destructive/10 text-destructive dark:text-destructive border border-destructive/20 rounded-lg hover:bg-destructive/20 transition-colors font-medium shadow-xs"
           >
             <TrashIcon className="h-3.5 w-3.5" />
             <span>{t("productReviews.k_28")}</span>

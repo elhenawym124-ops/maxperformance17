@@ -122,7 +122,7 @@ const InventoryAudits: React.FC = () => {
                 <span>{c.title}</span>
                 <c.icon className={`h-3.5 w-3.5 ${c.color}`} />
               </div>
-              <div className={`text-lg font-bold font-mono tabular-nums ${c.alert ? "text-amber-600 dark:text-amber-400" : "text-foreground"}`}>
+              <div className={`text-lg font-bold font-mono tabular-nums ${c.alert ? "text-amber-600 dark:text-warning" : "text-foreground"}`}>
                 {loading ? "..." : c.val}
               </div>
               <div className="text-[11px] text-muted-foreground mt-0.5">{c.sub}</div>
@@ -138,16 +138,16 @@ const InventoryAudits: React.FC = () => {
             <button onClick={() => setStatusFilter("all")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "all" ? "bg-background text-foreground shadow-sm font-medium" : "text-muted-foreground"}`}>
               الكل ({audits.length})
             </button>
-            <button onClick={() => setStatusFilter("pending")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "pending" ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 font-medium" : "text-muted-foreground"}`}>
+            <button onClick={() => setStatusFilter("pending")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "pending" ? "bg-amber-500/10 text-warning dark:text-warning font-medium" : "text-muted-foreground"}`}>
               بانتظار الاعتماد ({pendingCount})
             </button>
-            <button onClick={() => setStatusFilter("approved")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "approved" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-medium" : "text-muted-foreground"}`}>
+            <button onClick={() => setStatusFilter("approved")} className={`px-2.5 py-1 text-xs rounded-md ${statusFilter === "approved" ? "bg-emerald-500/10 text-success dark:text-success font-medium" : "text-muted-foreground"}`}>
               المعتمدة ({approvedCount})
             </button>
           </div>
           <div className="relative w-full sm:w-72">
             <Search className="h-3.5 w-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <Input type="text" placeholder="بحث بالمنتج أو المسؤول..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="h-8 pr-9 pl-3 text-xs bg-background border-border/70" />
+            <Input type="text" placeholder="بحث بالمنتج أو المسؤول..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="h-8 pe-9 ps-3 text-xs bg-background border-border/70" />
           </div>
         </div>
 
@@ -194,18 +194,18 @@ const InventoryAudits: React.FC = () => {
                         {a.batchNumber && <div className="text-[10px] font-mono text-muted-foreground">دفعة: {a.batchNumber}</div>}
                       </td>
                       <td className="py-2.5 px-3.5 text-center whitespace-nowrap">
-                        <span className={`inline-block font-mono font-bold text-xs px-2 py-0.5 rounded ${isInc ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" : "bg-rose-500/10 text-rose-600 border border-rose-500/20"}`}>
+                        <span className={`inline-block font-mono font-bold text-xs px-2 py-0.5 rounded ${isInc ? "bg-emerald-500/10 text-success border border-success/20" : "bg-rose-500/10 text-destructive border border-destructive/20"}`}>
                           {isInc ? `+${a.quantity}` : `-${a.quantity}`}
                         </span>
                         <div className="text-[10px] font-mono text-muted-foreground mt-0.5">{a.type}</div>
                       </td>
                       <td className="py-2.5 px-3.5 text-center whitespace-nowrap">
                         {a.isApproved ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-success text-success dark:bg-success/30 dark:text-success">
                             <CheckCircle2 className="h-3 w-3" /> معتمد
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-warning text-warning dark:bg-warning/30 dark:text-warning">
                             <Clock className="h-3 w-3" /> بانتظار الموافقة
                           </span>
                         )}

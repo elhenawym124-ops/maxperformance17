@@ -74,16 +74,16 @@ export const InventoryActionCanvas: React.FC<InventoryActionCanvasProps> = ({
   return (
     <div className="flex flex-col h-full overflow-y-auto p-4 sm:p-5 space-y-4 select-none">
       {/* Canvas Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+      <div className="flex items-center justify-between pb-3 border-b border-border dark:border-border">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
+          <div className="p-1.5 rounded-lg bg-primary/10 dark:bg-primary/60 text-primary">
             <Boxes className="w-4 h-4" />
           </div>
           <div>
-            <h2 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
+            <h2 className="text-xs sm:text-sm font-black text-foreground dark:text-white">
               لوحة اقتصاديات المنتج والمخزون
             </h2>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+            <p className="text-[11px] text-muted-foreground dark:text-muted-foreground">
               مؤشرات الأرباح والكميات المتاحة والتوصيات المعتمدة
             </p>
           </div>
@@ -93,10 +93,10 @@ export const InventoryActionCanvas: React.FC<InventoryActionCanvasProps> = ({
           <span
             className={`inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full font-bold tabular-nums font-mono ${
               isOutOfStock
-                ? "bg-rose-100 text-rose-800 dark:bg-rose-950/70 dark:text-rose-300"
+                ? "bg-rose-100 text-destructive dark:bg-destructive/70 dark:text-destructive"
                 : isLowStock
-                ? "bg-amber-100 text-amber-800 dark:bg-amber-950/70 dark:text-amber-300"
-                : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300"
+                ? "bg-amber-100 text-warning dark:bg-warning/70 dark:text-warning"
+                : "bg-emerald-100 text-success dark:bg-success/70 dark:text-success"
             }`}
           >
             {isOutOfStock ? "نفذ المخزون" : isLowStock ? "مخزون حرج" : "مخزون آمن"}
@@ -142,12 +142,12 @@ export const InventoryActionCanvas: React.FC<InventoryActionCanvasProps> = ({
           />
         </div>
       ) : (
-        <div className="h-64 flex flex-col items-center justify-center text-center p-6 text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
-          <Package className="w-8 h-8 mb-2 opacity-40 text-indigo-500" />
-          <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+        <div className="h-64 flex flex-col items-center justify-center text-center p-6 text-muted-foreground border border-dashed border-border dark:border-border rounded-xl">
+          <Package className="w-8 h-8 mb-2 opacity-40 text-primary" />
+          <h3 className="text-xs font-bold text-foreground dark:text-muted-foreground mb-1">
             لم يتم تحديد منتج بعد
           </h3>
-          <p className="text-[11px] text-slate-500 max-w-xs">
+          <p className="text-[11px] text-muted-foreground max-w-xs">
             اختر منتجاً من الشريط العلوي أو رادار المنتجات لعرض مؤشرات الهامش والكميات والمسودات التفاعلية.
           </p>
         </div>

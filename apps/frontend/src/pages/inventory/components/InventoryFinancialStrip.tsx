@@ -51,14 +51,14 @@ export const InventoryFinancialStrip: React.FC<InventoryFinancialStripProps> = (
         <CardContent className="p-3.5">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>إيرادات بيع متوقعة</span>
-            <TrendingUp className="h-3.5 w-3.5 text-emerald-500" />
+            <TrendingUp className="h-3.5 w-3.5 text-success" />
           </div>
-          <div className="text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <div className="text-lg font-bold font-mono tabular-nums text-success dark:text-success">
             {loading ? '...' : formatPrice(potentialRevenue)}
           </div>
           <div className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1">
             <span>هامش الربح:</span>
-            <span className="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
+            <span className="font-mono text-success dark:text-success font-semibold">
               {profitMargin}%
             </span>
           </div>
@@ -84,7 +84,7 @@ export const InventoryFinancialStrip: React.FC<InventoryFinancialStripProps> = (
         <CardContent className="p-3.5">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>إجمالي الوحدات بالمخزن</span>
-            <Boxes className="h-3.5 w-3.5 text-indigo-500" />
+            <Boxes className="h-3.5 w-3.5 text-primary" />
           </div>
           <div className="text-lg font-bold font-mono tabular-nums text-foreground">
             {loading ? '...' : totalStock.toLocaleString('en-US')}
@@ -99,14 +99,14 @@ export const InventoryFinancialStrip: React.FC<InventoryFinancialStripProps> = (
         <CardContent className="p-3.5">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>تنبيهات النواقص</span>
-            <ShieldAlert className="h-3.5 w-3.5 text-amber-500" />
+            <ShieldAlert className="h-3.5 w-3.5 text-warning" />
           </div>
           <div className="flex items-center gap-2 mt-0.5">
-            <span className="text-lg font-bold font-mono tabular-nums text-amber-600 dark:text-amber-400">
+            <span className="text-lg font-bold font-mono tabular-nums text-warning dark:text-warning">
               {lowCount}
             </span>
             <span className="text-xs text-muted-foreground">منخفض /</span>
-            <span className="text-lg font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+            <span className="text-lg font-bold font-mono tabular-nums text-destructive dark:text-destructive">
               {outCount}
             </span>
             <span className="text-xs text-muted-foreground">نافذ</span>

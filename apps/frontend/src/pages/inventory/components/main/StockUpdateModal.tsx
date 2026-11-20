@@ -31,15 +31,15 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-5 sm:p-6 w-full max-w-lg border border-gray-100 dark:border-gray-700 animate-in fade-in zoom-in-95">
-        <div className="flex items-center justify-between mb-4 border-b border-gray-100 dark:border-gray-700 pb-3">
-          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+      <div className="bg-card rounded-xl shadow-2xl p-5 sm:p-6 w-full max-w-lg border border-border dark:border-border animate-in fade-in zoom-in-95">
+        <div className="flex items-center justify-between mb-4 border-b border-border dark:border-border pb-3">
+          <h3 className="text-base sm:text-lg font-bold text-foreground">
             تحديث المخزون
           </h3>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 cursor-pointer"
+            className="text-gray-400 hover:text-foreground dark:hover:text-muted-foreground p-1 cursor-pointer"
           >
             <XMarkIcon className="h-5 w-5" />
           </button>
@@ -47,7 +47,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
 
         <div className="space-y-3.5">
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               المنتج *
             </label>
             <select
@@ -58,7 +58,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                   productId: e.target.value,
                 })
               }
-              className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white cursor-pointer"
+              className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground cursor-pointer"
             >
               <option value="">اختر المنتج</option>
               {inventoryProductOptions.map((item) => (
@@ -71,7 +71,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 المستودع *
               </label>
               <select
@@ -82,7 +82,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                     warehouseId: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white cursor-pointer"
+                className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground cursor-pointer"
                 disabled={warehouses.length === 0}
               >
                 {warehouses.length === 0 ? (
@@ -98,7 +98,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 نوع الحركة
               </label>
               <select
@@ -109,7 +109,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                     type: e.target.value as StockMovementType,
                   })
                 }
-                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white cursor-pointer"
+                className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground cursor-pointer"
               >
                 <option value="IN">إدخال (توريد)</option>
                 <option value="OUT">إخراج (صرف)</option>
@@ -121,7 +121,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 الكمية *
               </label>
               <input
@@ -133,13 +133,13 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                     quantity: parseInt(e.target.value) || 0,
                   })
                 }
-                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white tabular-nums font-mono"
+                className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground tabular-nums font-mono"
                 min="0"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 السبب
               </label>
               <select
@@ -150,7 +150,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                     reason: e.target.value as StockMovementReason,
                   })
                 }
-                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white cursor-pointer"
+                className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground cursor-pointer"
               >
                 <option value="PURCHASE">شراء</option>
                 <option value="SALE">بيع</option>
@@ -163,7 +163,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 رقم الدفعة (Batch)
               </label>
               <input
@@ -175,12 +175,12 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                     batchNumber: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white tabular-nums font-mono"
+                className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground tabular-nums font-mono"
                 placeholder="رقم الدفعة أو Lot"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-foreground mb-1">
                 تاريخ الصلاحية
               </label>
               <DateInput
@@ -191,7 +191,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                     expiryDate: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground"
               />
             </div>
           </div>
@@ -207,16 +207,16 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                     isApproved: !e.target.checked,
                   })
                 }
-                className="rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 dark:bg-gray-700"
+                className="rounded border-border text-primary focus:ring-primary dark:bg-muted"
               />
-              <span className="mr-2 text-xs font-semibold text-blue-800 dark:text-blue-300">
+              <span className="me-2 text-xs font-semibold text-blue-800 dark:text-blue-300">
                 يتطلب موافقة المدير (حفظ كمسودة)
               </span>
             </label>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               المرجع
             </label>
             <input
@@ -228,13 +228,13 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
                   reference: e.target.value,
                 })
               }
-              className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground"
               placeholder="رقم الطلب أو إذن الاستلام"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-foreground mb-1">
               ملاحظات
             </label>
             <textarea
@@ -242,7 +242,7 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
               onChange={(e) =>
                 onStockUpdateChange({ ...stockUpdate, notes: e.target.value })
               }
-              className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-primary bg-card text-foreground"
               rows={2}
               placeholder="ملاحظات إضافية..."
             />
@@ -253,14 +253,14 @@ export const StockUpdateModal: React.FC<StockUpdateModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+            className="px-4 py-2 bg-muted text-foreground rounded-lg text-sm font-medium hover:bg-muted dark:hover:bg-muted transition-colors cursor-pointer"
           >
             إلغاء
           </button>
           <button
             type="button"
             onClick={onSubmit}
-            className="px-5 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm transition-all cursor-pointer"
+            className="px-5 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary shadow-sm transition-all cursor-pointer"
           >
             تحديث المخزون
           </button>

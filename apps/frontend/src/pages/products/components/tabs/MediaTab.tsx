@@ -69,7 +69,7 @@ const SortableImageItem = ({
 
       {/* Main Image Badge */}
       {isMain && (
-        <div className="absolute top-2 left-2 bg-amber-500 text-white text-[10px] px-1.5 py-0.5 rounded-md shadow-xs font-semibold flex items-center gap-1 pointer-events-none">
+        <div className="absolute top-2 left-2 bg-warning text-white text-[10px] px-1.5 py-0.5 rounded-md shadow-xs font-semibold flex items-center gap-1 pointer-events-none">
           <Star className="w-3 h-3 fill-current" />
           <span>الرئيسية</span>
         </div>
@@ -96,7 +96,7 @@ const SortableImageItem = ({
                 e.stopPropagation();
                 onSetMain();
               }}
-              className="text-foreground hover:text-amber-500 bg-background/90 p-1.5 rounded-full border border-border/70 transition-colors shadow-xs"
+              className="text-foreground hover:text-warning bg-background/90 p-1.5 rounded-full border border-border/70 transition-colors shadow-xs"
               title="تعيين كصورة رئيسية"
             >
               <Star className="w-4 h-4" />

@@ -33,9 +33,9 @@ export const VariantCardImage: React.FC<VariantCardImageProps> = ({
   const isCopied = copiedGroupToast?.idx === idx;
 
   return (
-    <div className="border-b border-gray-200 dark:border-gray-600 pb-4">
-      <h5 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
-        <PhotoIcon className="h-4 w-4 ml-1" />
+    <div className="border-b border-border pb-4">
+      <h5 className="text-sm font-semibold text-foreground mb-3 flex items-center">
+        <PhotoIcon className="h-4 w-4 ms-1" />
         صورة المتغير
       </h5>
       <div className="flex items-center gap-4">
@@ -44,20 +44,20 @@ export const VariantCardImage: React.FC<VariantCardImageProps> = ({
             <img
               src={getImageUrl(variant.image) || variant.image}
               alt=""
-              className="h-24 w-24 object-cover rounded-lg border border-gray-300 dark:border-gray-600"
+              className="h-24 w-24 object-cover rounded-lg border border-border"
             />
             <button
               type="button"
               onClick={() => updateVariant(idx, "image", undefined)}
-              className="absolute -top-2 -right-2 bg-red-500 dark:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600 dark:hover:bg-red-700"
+              className="absolute -top-2 -right-2 bg-destructive dark:bg-destructive text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-destructive dark:hover:bg-destructive"
             >
               ×
             </button>
           </div>
         ) : (
-          <label className="h-24 w-24 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-700 cursor-pointer hover:border-indigo-400 dark:hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
-            <PhotoIcon className="h-8 w-8 text-gray-400 dark:text-gray-500" />
-            <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <label className="h-24 w-24 border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center bg-muted dark:bg-muted cursor-pointer hover:border-primary dark:hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
+            <PhotoIcon className="h-8 w-8 text-muted-foreground/80" />
+            <span className="text-xs text-muted-foreground mt-1">
               رفع صورة
             </span>
             <input
@@ -75,9 +75,9 @@ export const VariantCardImage: React.FC<VariantCardImageProps> = ({
               value={variant.image || ""}
               onChange={(e) => updateVariant(idx, "image", e.target.value)}
               placeholder="أو أدخل رابط الصورة"
-              className="flex-1 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+              className="flex-1 border-border bg-card text-foreground rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm"
             />
-            <label className="px-3 py-2 bg-indigo-600 dark:bg-indigo-700 text-white rounded-md text-sm cursor-pointer hover:bg-indigo-700 dark:hover:bg-indigo-800 flex items-center gap-1">
+            <label className="px-3 py-2 bg-primary dark:bg-primary text-white rounded-md text-sm cursor-pointer hover:bg-primary dark:hover:bg-primary flex items-center gap-1">
               <PhotoIcon className="h-4 w-4" />
               رفع
               <input
@@ -94,20 +94,20 @@ export const VariantCardImage: React.FC<VariantCardImageProps> = ({
             <>
               {!variant.image && availImg && (
                 <div className="pt-1.5 flex items-center gap-2 flex-wrap">
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                  <span className="text-xs text-muted-foreground">
                     صورة لون "{group.name}" المتاحة:
                   </span>
                   <button
                     type="button"
                     onClick={() => updateVariant(idx, "image", availImg)}
-                    className="inline-flex items-center gap-1 text-xs text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/40 border border-indigo-200 dark:border-indigo-800/60 rounded px-2 py-0.5 hover:bg-indigo-100"
+                    className="inline-flex items-center gap-1 text-xs text-primary dark:text-primary bg-primary/10 dark:bg-primary/40 border border-primary dark:border-primary/60 rounded px-2 py-0.5 hover:bg-primary"
                   >
                     استخدام لهذا المقاس
                   </button>
                   <button
                     type="button"
                     onClick={() => applyImageToGroup(group, availImg)}
-                    className="inline-flex items-center gap-1 text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 rounded px-2.5 py-0.5 hover:bg-emerald-100 font-semibold"
+                    className="inline-flex items-center gap-1 text-xs text-success dark:text-success bg-success/10 dark:bg-success/40 border border-success dark:border-success/60 rounded px-2.5 py-0.5 hover:bg-success font-semibold"
                   >
                     ⚡ تطبيق على كل مقاسات "{group.name}" ({group.items.length})
                   </button>
@@ -126,7 +126,7 @@ export const VariantCardImage: React.FC<VariantCardImageProps> = ({
                       });
                       setTimeout(() => setCopiedGroupToast(null), 3500);
                     }}
-                    className="inline-flex items-center gap-1.5 text-xs text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 border border-indigo-200 dark:border-indigo-800/60 rounded-md px-2.5 py-1.5 transition-colors shadow-sm active:scale-[0.98]"
+                    className="inline-flex items-center gap-1.5 text-xs text-primary dark:text-primary bg-primary/10 dark:bg-primary/40 hover:bg-primary dark:hover:bg-primary/60 border border-primary dark:border-primary/60 rounded-md px-2.5 py-1.5 transition-colors shadow-sm active:scale-[0.98]"
                     title={`نسخ هذه الصورة إلى جميع مقاسات ${group.name}`}
                   >
                     <PhotoIcon className="h-3.5 w-3.5" />
@@ -141,7 +141,7 @@ export const VariantCardImage: React.FC<VariantCardImageProps> = ({
             </>
           )}
 
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-muted-foreground">
             صورة مختلفة لهذا المتغير (اختياري)
           </p>
         </div>

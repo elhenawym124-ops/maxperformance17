@@ -32,7 +32,7 @@ export const StockMovementsFilterBar: React.FC<StockMovementsFilterBarProps> = (
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="ابحث باسم المنتج، SKU، أو رقم المرجع..."
-          className="h-8 pr-9 pl-3 text-xs bg-background border-border/70"
+          className="h-8 pe-9 ps-3 text-xs bg-background border-border/70"
         />
       </div>
 

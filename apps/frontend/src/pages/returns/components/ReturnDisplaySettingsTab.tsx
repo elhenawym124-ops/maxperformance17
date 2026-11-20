@@ -43,23 +43,23 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
   return (
     <div className="space-y-6">
       {/* Columns Section */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+      <div className="bg-card rounded-lg shadow border border-border dark:border-border p-6">
         <div className="flex items-center gap-3 mb-5">
           <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
             <Settings2 size={20} />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+            <h2 className="text-lg font-bold text-foreground dark:text-white">
               {t('returns.k_164')}
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {t('returns.k_165')}
             </p>
           </div>
         </div>
 
         {settingsLoading ? (
-          <div className="text-center py-8 text-gray-400">
+          <div className="text-center py-8 text-muted-foreground">
             {t('returns.k_144')}
           </div>
         ) : (
@@ -67,14 +67,14 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
             {DISPLAY_FIELDS.filter((f) => f.section === 'columns').map((field) => (
               <div
                 key={field.key}
-                className="flex items-center justify-between p-4 rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors"
+                className="flex items-center justify-between p-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted hover:bg-muted/50/30 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <div
                     className={`p-2 rounded-lg ${
                       displayConfig[field.key]
-                        ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500'
+                        ? 'bg-green-50 dark:bg-success/20 text-success dark:text-success'
+                        : 'bg-muted text-muted-foreground/80'
                     }`}
                   >
                     {displayConfig[field.key] ? (
@@ -84,10 +84,10 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
                     )}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-gray-800 dark:text-white">
+                    <div className="text-sm font-semibold text-foreground dark:text-white">
                       {field.label}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-muted-foreground">
                       {field.description}
                     </div>
                   </div>
@@ -103,16 +103,16 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
       </div>
 
       {/* Controls Section */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+      <div className="bg-card rounded-lg shadow border border-border dark:border-border p-6">
         <div className="flex items-center gap-3 mb-5">
-          <div className="p-2 rounded-lg bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">
+          <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary">
             <Settings2 size={20} />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+            <h2 className="text-lg font-bold text-foreground dark:text-white">
               {t('returns.k_166')}
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {t('returns.k_167')}
             </p>
           </div>
@@ -122,14 +122,14 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
           {DISPLAY_FIELDS.filter((f) => f.section === 'controls').map((field) => (
             <div
               key={field.key}
-              className="flex items-center justify-between p-4 rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors"
+              className="flex items-center justify-between p-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted hover:bg-muted/50/30 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <div
                   className={`p-2 rounded-lg ${
                     displayConfig[field.key]
-                      ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500'
+                      ? 'bg-green-50 dark:bg-success/20 text-success dark:text-success'
+                      : 'bg-muted text-muted-foreground/80'
                   }`}
                 >
                   {displayConfig[field.key] ? (
@@ -139,10 +139,10 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
                   )}
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-gray-800 dark:text-white">
+                  <div className="text-sm font-semibold text-foreground dark:text-white">
                     {field.label}
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-muted-foreground">
                     {field.description}
                   </div>
                 </div>
@@ -157,16 +157,16 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
       </div>
 
       {/* Filter Statuses Section */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+      <div className="bg-card rounded-lg shadow border border-border dark:border-border p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400">
+          <div className="p-2 rounded-lg bg-success/10 dark:bg-success/20 text-success dark:text-success">
             <Package size={20} />
           </div>
           <div>
-            <h3 className="text-base font-bold text-gray-800 dark:text-white">
+            <h3 className="text-base font-bold text-foreground dark:text-white">
               {t('returns.k_170')}
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-muted-foreground">
               {t('returns.k_171')}
             </p>
           </div>
@@ -175,14 +175,14 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
           {ORDER_STATUS_FIELDS.map((field) => (
             <div
               key={field.code}
-              className="flex items-center justify-between p-4 rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors"
+              className="flex items-center justify-between p-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted hover:bg-muted/50/30 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <div
                   className={`p-2 rounded-lg ${
                     isOrderStatusVisible(field.code)
-                      ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500'
+                      ? 'bg-green-50 dark:bg-success/20 text-success dark:text-success'
+                      : 'bg-muted text-muted-foreground/80'
                   }`}
                 >
                   {isOrderStatusVisible(field.code) ? (
@@ -192,10 +192,10 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
                   )}
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-gray-800 dark:text-white">
+                  <div className="text-sm font-semibold text-foreground dark:text-white">
                     {field.label}
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 font-mono">
+                  <div className="text-xs text-muted-foreground font-mono">
                     {field.code}
                   </div>
                 </div>
@@ -210,16 +210,16 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
       </div>
 
       {/* Start Date Filter Section */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6">
+      <div className="bg-card rounded-lg shadow border border-border dark:border-border p-6">
         <div className="flex items-center gap-3 mb-5">
-          <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400">
+          <div className="p-2 rounded-lg bg-warning/10 dark:bg-warning/20 text-warning dark:text-warning">
             <Calendar size={20} />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+            <h2 className="text-lg font-bold text-foreground dark:text-white">
               تاريخ بدء ظهور الطلبات والمرتجعات
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               تحديد تاريخ بداية الشغل على النظام بحيث تظهر فقط الطلبات والمرتجعات المنشأة من هذا التاريخ وما بعده
             </p>
           </div>
@@ -234,7 +234,7 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
                 ordersStartDate: e.target.value || undefined,
               }))
             }
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums font-mono"
+            className="px-4 py-2 border border-border rounded-lg bg-card text-foreground dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 tabular-nums font-mono"
           />
           {displayConfig.ordersStartDate && (
             <button
@@ -245,7 +245,7 @@ export const ReturnDisplaySettingsTab: React.FC<ReturnDisplaySettingsTabProps> =
                   ordersStartDate: undefined,
                 }))
               }
-              className="text-xs text-red-500 hover:text-red-700 dark:hover:text-red-400 underline font-medium"
+              className="text-xs text-destructive hover:text-destructive dark:hover:text-destructive underline font-medium"
             >
               إلغاء تاريخ البدء (عرض جميع البيانات القديمة)
             </button>

@@ -70,28 +70,28 @@ const ReturnSettingsPage: React.FC = () => {
 
   return (
     <div
-      className="p-3 sm:p-6 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-white"
+      className="p-3 sm:p-6 bg-muted dark:bg-muted min-h-screen text-foreground"
       dir="rtl"
     >
       <div className="flex justify-between items-center mb-4 sm:mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground dark:text-white">
             {t('returns.k_160')}
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
+          <p className="text-muted-foreground text-xs sm:text-sm">
             {t('returns.k_161')}
           </p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-6 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700 w-full sm:w-fit max-w-full overflow-x-auto">
+      <div className="flex gap-1 mb-6 bg-card rounded-lg p-1 border border-border dark:border-border w-full sm:w-fit max-w-full overflow-x-auto">
         <button
           onClick={() => setActiveTab('display')}
           className={`px-5 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
             activeTab === 'display'
               ? 'bg-blue-600 text-white shadow-xs'
-              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+              : 'text-muted-foreground hover:bg-muted'
           }`}
         >
           <Eye size={16} /> {t('returns.k_162')}
@@ -101,7 +101,7 @@ const ReturnSettingsPage: React.FC = () => {
           className={`px-5 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
             activeTab === 'reasons'
               ? 'bg-blue-600 text-white shadow-xs'
-              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+              : 'text-muted-foreground hover:bg-muted'
           }`}
         >
           <Tag size={16} /> {t('returns.k_163')}
@@ -111,7 +111,7 @@ const ReturnSettingsPage: React.FC = () => {
           className={`px-5 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
             activeTab === 'types'
               ? 'bg-blue-600 text-white shadow-xs'
-              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+              : 'text-muted-foreground hover:bg-muted'
           }`}
         >
           <Truck size={16} /> {t('returns.k_230')}

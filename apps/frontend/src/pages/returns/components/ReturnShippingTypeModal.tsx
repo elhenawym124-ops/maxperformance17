@@ -50,14 +50,14 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
 
   return (
     <div className="fixed inset-0 bg-black/35 backdrop-blur-[2px] flex items-center justify-center z-[60] p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg w-full max-w-md p-6 border border-gray-200 dark:border-gray-700 shadow-xl">
-        <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
+      <div className="bg-card rounded-lg w-full max-w-md p-6 border border-border dark:border-border shadow-xl">
+        <h3 className="text-lg font-bold mb-4 text-foreground">
           {editingType ? t('returns.k_235') : t('returns.k_234')}
         </h3>
         <form onSubmit={onSave}>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t('returns.k_236')} *
               </label>
               <input
@@ -65,18 +65,18 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
                 required
                 value={typeName}
                 onChange={(e) => setTypeName(e.target.value)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t('returns.k_254')} *
               </label>
               <select
                 required
                 value={typeShippingCompanyId}
                 onChange={(e) => setTypeShippingCompanyId(e.target.value)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="">{t('returns.k_115')}</option>
                 {shippingCompanies.map((c) => (
@@ -87,14 +87,14 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t('returns.k_237')} *
               </label>
               <select
                 required
                 value={typeCode}
                 onChange={(e) => setTypeCode(e.target.value as ReturnTypeCode)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="SENDER_PAYS">{t('returns.k_241')}</option>
                 <option value="RECIPIENT_PAYS">{t('returns.k_242')}</option>
@@ -103,14 +103,14 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 {t('returns.k_238')} *
               </label>
               <select
                 required
                 value={typeCostModel}
                 onChange={(e) => setTypeCostModel(e.target.value as ReturnTypeCostModel)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="FULL">{t('returns.k_245')}</option>
                 <option value="NONE">{t('returns.k_246')}</option>
@@ -119,7 +119,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
             </div>
             {typeCostModel === 'FIXED' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                   {t('returns.k_239')} *
                 </label>
                 <input
@@ -130,7 +130,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
                   value={typeFixedAmount}
                   onChange={(e) => setTypeFixedAmount(e.target.value)}
                   placeholder="0.00"
-                  className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500 tabular-nums font-mono"
+                  className="w-full border-border bg-card text-foreground rounded-lg shadow-xs focus:border-blue-500 focus:ring-blue-500 tabular-nums font-mono"
                 />
               </div>
             )}
@@ -139,7 +139,7 @@ export const ReturnShippingTypeModal: React.FC<ReturnShippingTypeModalProps> = (
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+              className="px-4 py-2 text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground"
             >
               {t('returns.k_158')}
             </button>

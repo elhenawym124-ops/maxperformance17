@@ -151,7 +151,7 @@ export const VariantsTab: React.FC<VariantsTabProps> = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="bg-white dark:bg-gray-800 shadow rounded-xl p-3.5 sm:p-6">
+      <div className="bg-card shadow rounded-xl p-3.5 sm:p-6">
         <VariantsTabHeader
           variantsCount={variants.length}
           colorGroupsCount={colorGroups.length}
@@ -181,12 +181,12 @@ export const VariantsTab: React.FC<VariantsTabProps> = ({
         )}
 
         {copiedGroupToast?.idx === -1 && (
-          <div className="mb-4 p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs rounded-xl flex items-center justify-between animate-fade-in shadow-sm">
+          <div className="mb-4 p-3 bg-success/10 dark:bg-success/40 border border-success dark:border-success text-success dark:text-success text-xs rounded-xl flex items-center justify-between animate-fade-in shadow-sm">
             <span className="font-semibold">{copiedGroupToast.message}</span>
             <button
               type="button"
               onClick={() => setCopiedGroupToast(null)}
-              className="text-emerald-700 hover:text-emerald-900 text-xs font-bold"
+              className="text-emerald-700 hover:text-success text-xs font-bold"
             >
               ✕
             </button>
@@ -244,9 +244,9 @@ export const VariantsTab: React.FC<VariantsTabProps> = ({
             <button
               type="button"
               onClick={addVariant}
-              className="w-full flex justify-center items-center px-4 py-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl text-gray-600 dark:text-gray-400 hover:border-indigo-500 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all font-medium mt-4"
+              className="w-full flex justify-center items-center px-4 py-4 border-2 border-dashed border-border rounded-xl text-foreground dark:text-muted-foreground hover:border-primary dark:hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary transition-all font-medium mt-4"
             >
-              <PlusIcon className="h-5 w-5 ml-2" />
+              <PlusIcon className="h-5 w-5 ms-2" />
               {t("products.variants.addVariant")}
             </button>
 

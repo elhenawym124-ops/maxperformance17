@@ -82,7 +82,7 @@ const ProductsBulkBar: React.FC<ProductsBulkBarProps> = ({
           <button
             type="button"
             onClick={onEnableTrack}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-[0.98]"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-success hover:bg-success text-white rounded-lg text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-[0.98]"
             title={isEn ? "Enable stock tracking" : "تفعيل تتبع المخزون"}
           >
             <Box className="h-3.5 w-3.5" />
@@ -105,7 +105,7 @@ const ProductsBulkBar: React.FC<ProductsBulkBarProps> = ({
         <button
           type="button"
           onClick={onHide}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-[0.98]"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-warning hover:bg-warning text-white rounded-lg text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-[0.98]"
         >
           <EyeOff className="h-3.5 w-3.5" />
           <span>{isEn ? "Hide" : "إخفاء"}</span>
@@ -114,7 +114,7 @@ const ProductsBulkBar: React.FC<ProductsBulkBarProps> = ({
         <button
           type="button"
           onClick={onUnhide}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-[0.98]"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-success hover:bg-success text-white rounded-lg text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-[0.98]"
         >
           <Eye className="h-3.5 w-3.5" />
           <span>{isEn ? "Show" : "إظهار"}</span>

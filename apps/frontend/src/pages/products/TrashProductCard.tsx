@@ -51,7 +51,7 @@ export const TrashProductCard: React.FC<TrashProductCardProps> = ({
 
   return (
     <div
-      className={`bg-card rounded-2xl border p-4 transition-all shadow-2xs ${
+      className={`bg-card rounded-xl border p-4 transition-all shadow-2xs ${
         isSelected
           ? 'border-primary ring-1 ring-primary/20'
           : 'border-border/70 hover:border-border'

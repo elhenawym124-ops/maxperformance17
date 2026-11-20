@@ -99,7 +99,7 @@ export const EasyOrdersProductsTab: React.FC<EasyOrdersProductsTabProps> = ({
           </button>
           <button
             onClick={importProducts}
-            className="px-4 py-1.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg flex items-center gap-1.5 transition-colors shadow-xs disabled:opacity-50 font-mono tabular-nums"
+            className="px-4 py-1.5 text-xs bg-success hover:bg-success text-white font-semibold rounded-lg flex items-center gap-1.5 transition-colors shadow-xs disabled:opacity-50 font-mono tabular-nums"
             disabled={importing || selectedProducts.size === 0}
           >
             {importing && (

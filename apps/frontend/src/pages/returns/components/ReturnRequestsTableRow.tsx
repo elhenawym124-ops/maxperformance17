@@ -22,25 +22,25 @@ const getRatingBadge = (
   switch (rating) {
     case "EXCELLENT":
       return (
-        <span className="mr-2 text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-0.5 rounded-full">
+        <span className="me-2 text-xs bg-primary dark:bg-primary/30 text-primary dark:text-primary px-2 py-0.5 rounded-full">
           {t("returns.k_136")}
         </span>
       );
     case "GOOD":
       return (
-        <span className="mr-2 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded-full">
+        <span className="me-2 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded-full">
           {t("returns.k_137")}
         </span>
       );
     case "AVERAGE":
       return (
-        <span className="mr-2 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-full">
+        <span className="me-2 text-xs bg-muted text-foreground px-2 py-0.5 rounded-full">
           {t("returns.k_138")}
         </span>
       );
     case "BAD":
       return (
-        <span className="mr-2 text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 px-2 py-0.5 rounded-full">
+        <span className="me-2 text-xs bg-destructive dark:bg-destructive/30 text-destructive dark:text-destructive px-2 py-0.5 rounded-full">
           {t("returns.k_139")}
         </span>
       );
@@ -117,9 +117,9 @@ export const ReturnRequestsTableRow: React.FC<ReturnRequestsTableRowProps> = ({
             <span
               className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                 request.responsibleParty === "CUSTOMER"
-                  ? "bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/20"
+                  ? "bg-rose-500/10 text-destructive dark:text-destructive border-destructive/20"
                   : request.responsibleParty === "STORE"
-                  ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20"
+                  ? "bg-emerald-500/10 text-success dark:text-success border-success/20"
                   : "bg-muted text-muted-foreground border-border/60"
               }`}
             >
@@ -177,7 +177,7 @@ export const ReturnRequestsTableRow: React.FC<ReturnRequestsTableRowProps> = ({
             <div className="font-mono text-[11px] tabular-nums space-y-0.5">
               {request.shippingReturnCost !== undefined &&
                 request.shippingReturnCost !== null && (
-                  <div className="text-rose-600 dark:text-rose-400">
+                  <div className="text-rose-600 dark:text-destructive">
                     {t("returns.k_228")}: {request.shippingReturnCost}{" "}
                     {request.order?.currency || t("returns.k_22")}
                   </div>
@@ -187,8 +187,8 @@ export const ReturnRequestsTableRow: React.FC<ReturnRequestsTableRowProps> = ({
                   <div
                     className={
                       request.settlementAmount >= 0
-                        ? "text-emerald-600 dark:text-emerald-400 font-bold"
-                        : "text-rose-600 dark:text-rose-400 font-bold"
+                        ? "text-emerald-600 dark:text-success font-bold"
+                        : "text-rose-600 dark:text-destructive font-bold"
                     }
                   >
                     {t("returns.k_229")}: {request.settlementAmount}{" "}

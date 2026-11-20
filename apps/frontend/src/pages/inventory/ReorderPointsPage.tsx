@@ -51,16 +51,16 @@ export const ReorderPointsPage: React.FC = () => {
   } = useReorderPointsController();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8" dir="rtl">
+    <div className="min-h-screen bg-muted dark:bg-muted p-4 sm:p-6 lg:p-8" dir="rtl">
       <div className="mx-auto max-w-7xl">
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <ArchiveBoxIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+            <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+              <ArchiveBoxIcon className="h-8 w-8 text-primary" />
               {t("reorderPoints.title", "إدارة نقاط عجز المخزون")}
             </h1>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-sm text-muted-foreground">
               {t(
                 "reorderPoints.subtitle",
                 "راجع الكميات المتبقية ونقاط إعادة الطلب والطلب المسبق لكل منتج",

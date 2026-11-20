@@ -40,9 +40,9 @@ export const StockMovementsTelemetryStrip: React.FC<StockMovementsTelemetryStrip
         <CardContent className="p-3.5">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>حركات وارد (IN)</span>
-            <ArrowDownLeft className="h-3.5 w-3.5 text-emerald-500" />
+            <ArrowDownLeft className="h-3.5 w-3.5 text-success" />
           </div>
-          <div className="text-lg font-bold font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+          <div className="text-lg font-bold font-mono tabular-nums text-success dark:text-success">
             {loading ? '...' : inCount}
           </div>
           <div className="text-[11px] text-muted-foreground mt-0.5">
@@ -55,9 +55,9 @@ export const StockMovementsTelemetryStrip: React.FC<StockMovementsTelemetryStrip
         <CardContent className="p-3.5">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>حركات صادر (OUT)</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-rose-500" />
+            <ArrowUpRight className="h-3.5 w-3.5 text-destructive" />
           </div>
-          <div className="text-lg font-bold font-mono tabular-nums text-rose-600 dark:text-rose-400">
+          <div className="text-lg font-bold font-mono tabular-nums text-destructive dark:text-destructive">
             {loading ? '...' : outCount}
           </div>
           <div className="text-[11px] text-muted-foreground mt-0.5">
@@ -70,7 +70,7 @@ export const StockMovementsTelemetryStrip: React.FC<StockMovementsTelemetryStrip
         <CardContent className="p-3.5">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
             <span>تسويات ومناقلات</span>
-            <ArrowLeftRight className="h-3.5 w-3.5 text-indigo-500" />
+            <ArrowLeftRight className="h-3.5 w-3.5 text-primary" />
           </div>
           <div className="text-lg font-bold font-mono tabular-nums text-foreground">
             {loading ? '...' : adjustCount + transferCount}

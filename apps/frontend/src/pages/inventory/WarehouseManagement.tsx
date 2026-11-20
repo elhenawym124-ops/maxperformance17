@@ -33,9 +33,9 @@ interface WarehouseItem {
 
 const TYPE_CONFIG: Record<string, { label: string; icon: any; color: string }> = {
   main: { label: "مستودع رئيسي", icon: Building2, color: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/20" },
-  cold: { label: "تبريد وتجميد", icon: Snowflake, color: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/20" },
-  secondary: { label: "مستودع فرعي", icon: Boxes, color: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/20" },
-  fulfillment: { label: "مركز شحن وتجهيز", icon: Truck, color: "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/20" },
+  cold: { label: "تبريد وتجميد", icon: Snowflake, color: "bg-cyan-500/10 text-info dark:text-info border-info/20" },
+  secondary: { label: "مستودع فرعي", icon: Boxes, color: "bg-indigo-500/10 text-primary dark:text-primary border-primary/20" },
+  fulfillment: { label: "مركز شحن وتجهيز", icon: Truck, color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20" },
 };
 
 const WarehouseManagement: React.FC = () => {
@@ -157,7 +157,7 @@ const WarehouseManagement: React.FC = () => {
         <div className="p-3 bg-muted/20 border-b border-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="relative w-full sm:w-72">
             <Search className="h-3.5 w-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <Input type="text" placeholder="بحث باسم المستودع أو الموقع..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-8 pr-9 pl-3 text-xs bg-background border-border/70" />
+            <Input type="text" placeholder="بحث باسم المستودع أو الموقع..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-8 pe-9 ps-3 text-xs bg-background border-border/70" />
           </div>
           <div className="text-xs text-muted-foreground">المستودعات: <strong className="text-foreground font-mono">{filtered.length}</strong></div>
         </div>
@@ -190,13 +190,13 @@ const WarehouseManagement: React.FC = () => {
                         </div>
                         <div className="flex items-center gap-1">
                           <button onClick={() => handleEdit(w)} className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"><Pencil className="h-3.5 w-3.5" /></button>
-                          <button onClick={() => handleDelete(w.id)} className="p-1.5 text-muted-foreground hover:text-rose-600 hover:bg-rose-500/10 rounded-md transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
+                          <button onClick={() => handleDelete(w.id)} className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
                         </div>
                       </div>
                       <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3"><MapPin className="h-3.5 w-3.5 shrink-0" /><span className="truncate">{w.location || "الموقع غير محدد"}</span></div>
                     </div>
                     <div className="pt-3 border-t border-border/60 flex items-center justify-between text-xs">
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium ${w.isActive ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300" : "bg-muted text-muted-foreground"}`}>
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium ${w.isActive ? "bg-emerald-100 text-success dark:bg-success/30 dark:text-success" : "bg-muted text-muted-foreground"}`}>
                         {w.isActive ? <CheckCircle2 className="h-3 w-3" /> : <XCircle className="h-3 w-3" />} {w.isActive ? "نشط" : "معطل"}
                       </span>
                       <span className="font-mono text-muted-foreground text-[11px]">السعة: <strong className="text-foreground">{w.capacity ? w.capacity.toLocaleString("en-US") : "غير محدد"}</strong></span>

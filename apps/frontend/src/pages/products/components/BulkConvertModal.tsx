@@ -213,8 +213,8 @@ export const BulkConvertModal: React.FC<BulkConvertModalProps> = ({
           </p>
 
           <div className="flex items-start gap-2.5 bg-warning/10 border border-warning/20 rounded-lg p-3">
-            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-            <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+            <AlertTriangle className="h-4 w-4 text-warning dark:text-warning shrink-0 mt-0.5" />
+            <p className="text-xs text-warning dark:text-warning leading-relaxed">
               {WARNING_TEXT}
             </p>
           </div>
@@ -246,7 +246,7 @@ export const BulkConvertModal: React.FC<BulkConvertModalProps> = ({
               onChange={(e) => setSearch(e.target.value)}
               placeholder="ابحث عن المنتج الأصلي بالاسم أو الـ SKU..."
               autoComplete="off"
-              className="w-full rounded-lg border border-border/70 bg-background pr-9 pl-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground font-medium"
+              className="w-full rounded-lg border border-border/70 bg-background pe-9 ps-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground font-medium"
             />
           </div>
 

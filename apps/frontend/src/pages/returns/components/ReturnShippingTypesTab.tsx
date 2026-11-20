@@ -59,14 +59,14 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400">
+          <div className="p-2 rounded-lg bg-success/10 dark:bg-success/20 text-success dark:text-success">
             <Truck size={20} />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+            <h2 className="text-lg font-bold text-foreground dark:text-white">
               {t('returns.k_230')}
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {t('returns.k_231')}
             </p>
           </div>
@@ -80,11 +80,11 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
       </div>
 
       {typesLoading ? (
-        <div className="text-center py-8 text-gray-400">
+        <div className="text-center py-8 text-muted-foreground">
           {t('returns.k_144')}
         </div>
       ) : shippingCompanies.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500">
+        <div className="text-center py-12 bg-card rounded-lg border border-border dark:border-border text-muted-foreground/80">
           {t('returns.k_233')}
         </div>
       ) : (
@@ -92,18 +92,18 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
           {shippingCompanies.map((company) => (
             <div
               key={company.id}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-xs border border-gray-200 dark:border-gray-700 overflow-hidden"
+              className="bg-card rounded-lg shadow-xs border border-border dark:border-border overflow-hidden"
             >
-              <div className="px-6 py-4 bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+              <div className="px-6 py-4 bg-muted dark:bg-muted border-b border-border dark:border-border flex justify-between items-center">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
                     <Truck size={18} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 dark:text-white">
+                    <h3 className="font-bold text-foreground">
                       {company.name}
                     </h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="text-xs text-muted-foreground">
                       {company.returnTypes?.length || 0} {t('returns.k_255')}
                     </p>
                   </div>
@@ -117,26 +117,26 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
               </div>
 
               {!company.returnTypes || company.returnTypes.length === 0 ? (
-                <div className="p-6 text-center text-gray-400 dark:text-gray-500 text-sm">
+                <div className="p-6 text-center text-muted-foreground/80 text-sm">
                   {t('returns.k_240')}
                 </div>
               ) : (
-                <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                <div className="divide-y divide-border dark:divide-border">
                   {company.returnTypes.map((type) => (
                     <div
                       key={type.id}
-                      className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 group transition-colors"
+                      className="px-6 py-4 flex justify-between items-center hover:bg-muted/50/50 group transition-colors"
                     >
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-gray-900 dark:text-white">
+                          <span className="font-medium text-foreground">
                             {type.name}
                           </span>
                           <span
                             className={`text-xs px-2 py-0.5 rounded-full ${
                               type.isActive
-                                ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400'
-                                : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
+                                ? 'bg-green-50 dark:bg-success/20 text-success dark:text-success'
+                                : 'bg-muted text-muted-foreground'
                             }`}
                           >
                             {type.isActive
@@ -144,8 +144,8 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
                               : t('returns.k_260')}
                           </span>
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 flex items-center gap-2 flex-wrap">
-                          <span className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono">
+                        <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2 flex-wrap">
+                          <span className="px-1.5 py-0.5 rounded bg-muted font-mono">
                             {type.code}
                           </span>
                           <span>{t(`returns.k_${typeCodeKey(type.code)}`)}</span>
@@ -168,7 +168,7 @@ export const ReturnShippingTypesTab: React.FC<ReturnShippingTypesTabProps> = ({
                         </button>
                         <button
                           onClick={() => deleteType(type.id)}
-                          className="text-red-400 hover:text-red-600"
+                          className="text-red-400 hover:text-destructive"
                           title={t('returns.k_250')}
                         >
                           <Trash2 size={16} />

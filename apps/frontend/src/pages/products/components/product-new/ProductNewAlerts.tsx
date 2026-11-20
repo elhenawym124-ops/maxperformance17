@@ -45,7 +45,7 @@ export const ProductNewAlerts: React.FC<ProductNewAlertsProps> = ({
             <div className="shrink-0">
               <XMarkIcon className="h-5 w-5 text-destructive" aria-hidden="true" />
             </div>
-            <div className="ml-3 rtl:mr-3 rtl:ml-0 flex-1">
+            <div className="ms-3 rtl:me-3 rtl:ms-0 flex-1">
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <p className="text-xs sm:text-sm font-medium text-destructive">
                   {error}
@@ -83,13 +83,13 @@ export const ProductNewAlerts: React.FC<ProductNewAlertsProps> = ({
       )}
 
       {(success || successMessage) && (
-        <div className="mb-6 bg-emerald-500/10 border-l-4 rtl:border-l-0 rtl:border-r-4 border-emerald-500 p-4 rounded-md">
+        <div className="mb-6 bg-success/10 border-l-4 rtl:border-l-0 rtl:border-r-4 border-success p-4 rounded-md">
           <div className="flex items-center">
             <div className="shrink-0">
-              <CheckCircleIcon className="h-5 w-5 text-emerald-600" />
+              <CheckCircleIcon className="h-5 w-5 text-success" />
             </div>
-            <div className="ml-3 rtl:mr-3 rtl:ml-0">
-              <p className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 font-medium">
+            <div className="ms-3 rtl:me-3 rtl:ms-0">
+              <p className="text-xs sm:text-sm text-success dark:text-success font-medium">
                 {successMessage || t("products.messages.productCreated")}
               </p>
             </div>
@@ -98,18 +98,18 @@ export const ProductNewAlerts: React.FC<ProductNewAlertsProps> = ({
       )}
 
       {convertSuccess && (
-        <div className="mb-6 bg-emerald-500/10 border-l-4 rtl:border-l-0 rtl:border-r-4 border-emerald-500 p-4 rounded-md">
+        <div className="mb-6 bg-success/10 border-l-4 rtl:border-l-0 rtl:border-r-4 border-success p-4 rounded-md">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
               <CheckCircleIcon
-                className="h-5 w-5 text-emerald-600 shrink-0"
+                className="h-5 w-5 text-success shrink-0"
                 aria-hidden="true"
               />
               <div>
-                <p className="text-xs sm:text-sm font-medium text-emerald-800 dark:text-emerald-300">
+                <p className="text-xs sm:text-sm font-medium text-success dark:text-success">
                   تم تحويل المنتج إلى عرض تقديمي بنجاح
                 </p>
-                <p className="mt-1 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-emerald-700 dark:text-emerald-400">
+                <p className="mt-1 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-success dark:text-success">
                   <span>الرابط الجديد:</span>
                   <span dir="ltr" className="font-mono text-xs">
                     /products/{convertSuccess.presentationSlug}
@@ -117,7 +117,7 @@ export const ProductNewAlerts: React.FC<ProductNewAlertsProps> = ({
                   <button
                     type="button"
                     onClick={handleCopyConvertLink}
-                    className="inline-flex items-center gap-1 rounded-md border border-emerald-300 dark:border-emerald-800 px-2 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors"
+                    className="inline-flex items-center gap-1 rounded-md border border-success dark:border-success px-2 py-1 text-xs font-medium text-success dark:text-success hover:bg-success dark:hover:bg-success/30 transition-colors"
                   >
                     {linkCopied ? (
                       <CheckCircleIcon className="h-3.5 w-3.5" />
@@ -132,7 +132,7 @@ export const ProductNewAlerts: React.FC<ProductNewAlertsProps> = ({
             <button
               type="button"
               onClick={() => setConvertSuccess(null)}
-              className="text-emerald-600 hover:text-emerald-800 shrink-0 p-1"
+              className="text-emerald-600 hover:text-success shrink-0 p-1"
               aria-label="إغلاق الإشعار"
             >
               <XMarkIcon className="h-4 w-4" />

@@ -44,7 +44,7 @@ const ProductsStats: React.FC<ProductsStatsProps> = ({
       label: isEn ? "Total Products" : "إجمالي المنتجات",
       value: total,
       meta: isEn ? "Full catalog" : "كامل الكتالوج",
-      dotClass: "bg-zinc-400 dark:bg-zinc-500 ring-zinc-400/20",
+      dotClass: "bg-zinc-400 dark:bg-muted ring-border",
       isActive: activeStockFilter === "all" && activeStatusFilter === "all",
     },
     {
@@ -74,7 +74,7 @@ const ProductsStats: React.FC<ProductsStatsProps> = ({
   ];
 
   return (
-    <div className="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl overflow-hidden shadow-2xs divide-y sm:divide-y-0 sm:divide-x divide-zinc-200/60 dark:divide-zinc-800/60 grid grid-cols-2 lg:grid-cols-4">
+    <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl overflow-hidden shadow-2xs divide-y sm:divide-y-0 sm:divide-x divide-border dark:divide-border grid grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (
         <button
           key={stat.type}
@@ -82,14 +82,14 @@ const ProductsStats: React.FC<ProductsStatsProps> = ({
           onClick={() => onStatClick?.(stat.type)}
           className={`relative p-3.5 sm:p-4 text-start transition-all duration-150 active:scale-[0.99] group ${
             stat.isActive
-              ? "bg-zinc-100/70 dark:bg-zinc-800/60"
-              : "hover:bg-zinc-50/80 dark:hover:bg-zinc-850/40"
+              ? "bg-zinc-100/70 dark:bg-muted"
+              : "hover:bg-zinc-50/80 dark:hover:bg-muted"
           }`}
           title={isEn ? `Filter by: ${stat.label}` : `تصفية حسب: ${stat.label}`}
         >
           {/* Header row: micro-label + status LED dot */}
           <div className="flex items-center justify-between gap-2">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground dark:text-muted-foreground">
               {stat.label}
             </span>
             <span
@@ -99,17 +99,17 @@ const ProductsStats: React.FC<ProductsStatsProps> = ({
 
           {/* Metric Value */}
           <div className="mt-2.5 flex items-baseline justify-between gap-2">
-            <span className="text-2xl sm:text-3xl font-bold font-mono tabular-nums tracking-tight text-zinc-900 dark:text-zinc-100">
+            <span className="text-2xl sm:text-3xl font-bold font-mono tabular-nums tracking-tight text-foreground dark:text-muted-foreground">
               {stat.value}
             </span>
-            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500 truncate">
+            <span className="text-[10px] font-mono text-muted-foreground dark:text-muted-foreground truncate">
               {stat.meta}
             </span>
           </div>
 
           {/* Active bottom hairline indicator */}
           {stat.isActive && (
-            <span className="absolute bottom-0 inset-x-0 h-0.5 bg-zinc-900 dark:bg-zinc-100" />
+            <span className="absolute bottom-0 inset-x-0 h-0.5 bg-muted dark:bg-muted" />
           )}
         </button>
       ))}

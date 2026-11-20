@@ -42,7 +42,7 @@ export const WooCommerceProductsGrid: React.FC<WooCommerceProductsGridProps> = (
             placeholder="بحث في المنتجات المجلوبة..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pr-8 pl-3 py-1.5 rounded-md border border-border/70 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full pe-8 ps-3 py-1.5 rounded-md border border-border/70 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
 
