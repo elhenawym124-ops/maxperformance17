@@ -123,9 +123,6 @@ export default function AcademyDashboardPage() {
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">مسارات ومسودات</p>
           </div>
-          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-            <BookOpen className="size-3.5" />
-          </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
@@ -135,9 +132,6 @@ export default function AcademyDashboardPage() {
               {totalEnrollments}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">مشترك نشط حالياً</p>
-          </div>
-          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-            <Users className="size-3.5" />
           </div>
         </div>
 
@@ -149,9 +143,6 @@ export default function AcademyDashboardPage() {
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">فيديوهات وتمارين</p>
           </div>
-          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-            <Layers className="size-3.5" />
-          </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
@@ -162,9 +153,6 @@ export default function AcademyDashboardPage() {
               جاهز ومُفعّل
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">إجابات فورية من المنهج</p>
-          </div>
-          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-            <Sparkles className="size-3.5" />
           </div>
         </div>
       </div>

@@ -16,28 +16,28 @@ export function DashboardQuickActions() {
           <button
             type="button"
             onClick={() => navigate("/dental-lab/cases?new=1")}
-            className="p-3 text-right rounded-xl border border-primary dark:border-primary bg-primary/50 dark:bg-primary/30 hover:bg-primary/60 dark:hover:bg-primary/50 text-primary dark:text-primary text-xs font-semibold transition-colors"
+            className="p-3 text-right rounded-lg border border-primary/30 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-semibold transition-colors"
           >
             إنشاء أمر شغل جديد
           </button>
           <button
             type="button"
             onClick={() => navigate("/dental-lab/cases?tab=OVERDUE")}
-            className="p-3 text-right rounded-xl border border-destructive dark:border-destructive bg-destructive/50 dark:bg-destructive/30 hover:bg-destructive/60 dark:hover:bg-destructive/50 text-destructive dark:text-destructive text-xs font-semibold transition-colors"
+            className="p-3 text-right rounded-lg border border-warning/30 bg-warning/10 hover:bg-warning/20 text-warning text-xs font-semibold transition-colors"
           >
             متابعة الحالات المتأخرة
           </button>
           <button
             type="button"
             onClick={() => navigate("/dental-lab/cases?kiosk=1")}
-            className="p-3 text-right rounded-xl border border-primary dark:border-primary bg-primary/50 dark:bg-primary/30 hover:bg-primary/60 dark:hover:bg-primary/50 text-primary dark:text-primary text-xs font-semibold transition-colors"
+            className="p-3 text-right rounded-lg border border-border/70 bg-card hover:bg-muted text-foreground text-xs font-semibold transition-colors"
           >
             محطة مسح الباركود Kiosk
           </button>
           <button
             type="button"
             onClick={() => navigate("/dental-lab/invoices")}
-            className="p-3 text-right rounded-xl border border-success dark:border-success bg-success/50 dark:bg-success/30 hover:bg-success/60 dark:hover:bg-success/50 text-success dark:text-success text-xs font-semibold transition-colors"
+            className="p-3 text-right rounded-lg border border-border/70 bg-card hover:bg-muted text-foreground text-xs font-semibold transition-colors"
           >
             إصدار وتحصيل الفواتير
           </button>

@@ -18,24 +18,15 @@ export function DashboardKpiGrid({ cards }: DashboardKpiGridProps) {
             (e.key === "Enter" || e.key === " ") && c.onClick()
           }
           title={c.tooltip}
-          className="group flex items-center gap-3 rounded-xl border border-border dark:border-border bg-card px-4 py-3 cursor-pointer hover:border-primary dark:hover:border-primary hover:shadow-md transition-all duration-200"
+          className="group rounded-xl border border-border dark:border-border bg-card px-4 py-3 cursor-pointer hover:border-primary dark:hover:border-primary transition-colors duration-150"
         >
-          <div
-            className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${c.bg} ${c.tone} group-hover:scale-105 transition-transform`}
-          >
-            {c.icon}
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-xs text-muted-foreground truncate flex items-center justify-between">
-              <span>{c.label}</span>
-              <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-60 transition-opacity" />
-            </p>
-            <p
-              className={`text-xl font-bold truncate font-mono tabular-nums ${c.tone}`}
-            >
-              {c.value}
-            </p>
-          </div>
+          <p className="text-xs text-muted-foreground truncate flex items-center justify-between">
+            <span>{c.label}</span>
+            <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-60 transition-opacity" />
+          </p>
+          <p className="text-xl font-bold truncate font-mono tabular-nums text-foreground mt-1">
+            {c.value}
+          </p>
         </div>
       ))}
     </div>
