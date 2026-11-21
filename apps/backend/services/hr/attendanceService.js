@@ -1409,7 +1409,10 @@ class AttendanceService {
       }
 
       if (attendance.checkOut) {
-        throw new Error("تم تسجيل الانصراف مسبقاً لهذا السجل");
+        // تعارض عمل: الانصراف مسجّل بالفعل (كان يصل كـ500)
+        const already = new Error("تم تسجيل الانصراف مسبقاً لهذا السجل");
+        already.statusCode = 409;
+        throw already;
       }
 
       // حماية البصمة المزدوجة (Double-Punch Bounce Guard)

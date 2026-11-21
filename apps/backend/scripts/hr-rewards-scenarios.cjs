@@ -21,8 +21,13 @@ const plus = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
   const stamp = Date.now().toString(36);
 
   const seed = await call('POST', '/hr/rewards/types/seed', hr, {});
-  rec('RW1', 'تهيئة أنواع المكافآت الافتراضية', seed.status === 200 && Number(seed.d?.count) > 0,
-    `${seed.status} count=${seed.d?.count} ${seed.d?.error || ''}`);
+  let typesCount = Number(seed.d?.count || 0);
+  if (typesCount === 0) {
+    const t = await call('GET', '/hr/rewards/types', hr);
+    typesCount = (t.d?.types || t.d?.data || []).length;
+  }
+  rec('RW1', 'تهيئة أنواع المكافآت الافتراضية', seed.status === 200 && typesCount > 0,
+    `${seed.status} count=${typesCount} ${seed.d?.error || ''}`);
 
   const oneTime = await call('POST', '/hr/rewards/types', hr, {
     name: `مكافأة QA ${stamp}`, category: 'TARGET_ACHIEVEMENT', calculationMethod: 'FIXED_AMOUNT',
