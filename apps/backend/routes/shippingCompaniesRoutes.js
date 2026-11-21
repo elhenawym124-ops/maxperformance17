@@ -971,14 +971,41 @@ router.post('/:id/test-connection', verifyToken.authenticateToken, async (req, r
     }
 
     if (providerKey === 'TURBO') {
-      if (!company.apiKey) {
+      const settings = shippingProviderService.safeJsonParse(company.settings, {});
+      const apiKey = (req.body?.apiKey || company.apiKey || settings.apiKey || '').trim();
+      const mainClientCode = req.body?.mainClientCode || settings.mainClientCode || company.mainClientCode;
+
+      if (!apiKey) {
         return res.status(400).json({ success: false, error: 'يرجى إدخال مفتاح الـ API Key أولاً' });
       }
-      return res.json({
-        success: true,
-        status: 'CONNECTED',
-        message: 'تم التحقق من إعدادات الاتصال بشركة تربو بنجاح',
-      });
+
+      try {
+        const TurboService = require('../services/turboService');
+        const turbo = new TurboService(apiKey, companyId);
+        const axios = require('axios');
+        const url = `${turbo.baseUrl}/get-government?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`;
+        const resp = await axios.get(url, {
+          headers: { authentication_key: apiKey },
+          timeout: 15000,
+        });
+
+        const respData = resp.data;
+        if (respData && (respData.error || (typeof respData.message === 'string' && respData.message.includes('Invalid authentication key')))) {
+          throw new Error(respData.message || respData.error || 'Invalid authentication key');
+        }
+
+        return res.json({
+          success: true,
+          status: 'CONNECTED',
+          message: 'تم التحقق والاتصال بنجاح بسيرفر شركة تربو (Turbo)',
+        });
+      } catch (err) {
+        const errMsg = err.response?.data?.message || err.response?.data?.error || err.message;
+        return res.status(400).json({
+          success: false,
+          error: `فحص الاتصال بشركة تربو: ${errMsg}`,
+        });
+      }
     }
 
     if (providerKey === 'HASHTAG') {
