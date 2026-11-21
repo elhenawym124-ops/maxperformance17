@@ -21,20 +21,17 @@ export const getStatusBadge = (
   const statusOption = statusOptions.find((option) => option.value === status);
   if (!statusOption) return null;
 
-  const colorClasses: Record<string, string> = {
-    yellow: "bg-yellow-100 text-warning",
-    green: "bg-green-100 text-success",
-    gray: "bg-gray-100 text-foreground",
-    purple: "bg-purple-100 text-primary",
-    red: "bg-red-100 text-destructive",
+  const dotClasses: Record<string, string> = {
+    yellow: "bg-warning",
+    green: "bg-success",
+    gray: "bg-muted-foreground/50",
+    purple: "bg-primary",
+    red: "bg-destructive",
   };
 
   return (
-    <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-        colorClasses[statusOption.color] || "bg-gray-100 text-foreground"
-      }`}
-    >
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground">
+      <span className={`h-2 w-2 rounded-full shrink-0 ${dotClasses[statusOption.color] || "bg-muted-foreground/50"}`} />
       {statusOption.label}
     </span>
   );
@@ -43,57 +40,34 @@ export const getStatusBadge = (
 export const getRatingBadge = (rating: string | undefined, deliveryRate?: number | null) => {
   if (!rating || rating === "UNKNOWN") return null;
   const r = rating.toLowerCase();
-  switch (r) {
-    case "excellent":
-      return (
-        <span className="ms-2 text-xs bg-success text-success dark:bg-success/40 dark:text-success px-2 py-0.5 rounded-full ring-1 ring-success/20 font-medium inline-flex items-center gap-1">
-          <span>عميل ممتاز</span>
-          {deliveryRate !== undefined && deliveryRate !== null && deliveryRate > 0 && (
-            <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
-          )}
-        </span>
-      );
-    case "good":
-      return (
-        <span className="ms-2 text-xs bg-info text-info dark:bg-info/40 dark:text-info px-2 py-0.5 rounded-full ring-1 ring-info/20 font-medium inline-flex items-center gap-1">
-          <span>عميل جيد</span>
-          {deliveryRate !== undefined && deliveryRate !== null && deliveryRate > 0 && (
-            <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
-          )}
-        </span>
-      );
-    case "average":
-      return (
-        <span className="ms-2 text-xs bg-warning text-warning dark:bg-warning/40 dark:text-warning px-2 py-0.5 rounded-full ring-1 ring-warning/20 font-medium inline-flex items-center gap-1">
-          <span>عميل متوسط</span>
-          {deliveryRate !== undefined && deliveryRate !== null && deliveryRate > 0 && (
-            <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
-          )}
-        </span>
-      );
-    case "poor":
-    case "bad":
-      return (
-        <span className="ms-2 text-xs bg-destructive text-destructive dark:bg-destructive/40 dark:text-destructive px-2 py-0.5 rounded-full ring-1 ring-destructive/20 font-medium inline-flex items-center gap-1">
-          <span>عميل ضعيف</span>
-          {deliveryRate !== undefined && deliveryRate !== null && (
-            <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
-          )}
-        </span>
-      );
-    default:
-      return null;
-  }
+  const ratingMap: Record<string, { label: string; dot: string }> = {
+    excellent: { label: "عميل ممتاز", dot: "bg-success" },
+    good: { label: "عميل جيد", dot: "bg-info" },
+    average: { label: "عميل متوسط", dot: "bg-warning" },
+    poor: { label: "عميل ضعيف", dot: "bg-destructive" },
+    bad: { label: "عميل ضعيف", dot: "bg-destructive" },
+  };
+  const cfg = ratingMap[r];
+  if (!cfg) return null;
+  return (
+    <span className="ms-2 inline-flex items-center gap-1.5 text-xs bg-muted text-foreground px-2 py-0.5 rounded-full font-medium">
+      <span className={`h-2 w-2 rounded-full shrink-0 ${cfg.dot}`} />
+      <span>{cfg.label}</span>
+      {deliveryRate !== undefined && deliveryRate !== null && deliveryRate > 0 && (
+        <span className="opacity-80 text-[10px] font-mono tabular-nums">({Math.round(deliveryRate)}%)</span>
+      )}
+    </span>
+  );
 };
-
 export const getAutoDiscountBadge = (status: string | null | undefined) => {
   if (!status) return null;
   if (status === "AVAILABLE") {
     return (
       <span
-        className="me-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-success text-success dark:bg-success/30 dark:text-success"
+        className="me-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground"
         title="عند العميل كوبون خصم فعّال على أوردره الجاي"
       >
+        <span className="h-2 w-2 rounded-full shrink-0 bg-success" />
         خصم متاح
       </span>
     );

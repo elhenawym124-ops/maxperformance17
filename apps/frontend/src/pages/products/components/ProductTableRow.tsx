@@ -4,6 +4,7 @@ import {
   Product,
   getStockStatus,
   getStockStatusColor,
+  getStockStatusDotColor,
   getStockStatusText,
 } from "./ProductsTypes";
 import {
@@ -27,6 +28,7 @@ import {
   canSubmitReview,
   canUnpublish,
   getWorkflowStatusColor,
+  getWorkflowStatusDotColor,
   getWorkflowStatusLabel,
 } from "../utils/workflow";
 import { getImageUrl } from "../../../utils/imageUrl";
@@ -347,7 +349,8 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
         ) : (
           <div className="flex flex-col gap-1">
             <div className="text-xs font-mono tabular-nums font-semibold text-foreground dark:text-muted-foreground">{product.stock} {isEn ? "pcs" : "قطعة"}</div>
-            <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md w-fit ${getStockStatusColor(stockStatus)}`}>
+            <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-medium rounded-md w-fit ${getStockStatusColor(stockStatus)}`}>
+              <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${getStockStatusDotColor(stockStatus)}`} />
               {getStockStatusText(stockStatus, isEn)}
             </span>
             {!canEditStock && stockLocationLabel && (
@@ -366,6 +369,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
               product.workflow,
             )}`}
           >
+            <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${getWorkflowStatusDotColor(product.workflow.status, product.workflow)}`} />
             {workflowLabel}
           </span>
           {product.isHidden && (

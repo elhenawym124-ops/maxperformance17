@@ -84,16 +84,19 @@ export const getStockStatus = (product: Product): StockStatus => {
   return "in-stock";
 };
 
-export const getStockStatusColor = (status: StockStatus): string => {
+export const getStockStatusColor = (_status: StockStatus): string =>
+  "bg-muted text-foreground";
+
+export const getStockStatusDotColor = (status: StockStatus): string => {
   switch (status) {
     case "in-stock":
-      return "bg-green-100 text-success dark:bg-success/30 dark:text-success";
+      return "bg-success";
     case "low-stock":
-      return "bg-yellow-100 text-warning dark:bg-warning/30 dark:text-warning";
+      return "bg-warning";
     case "out-of-stock":
-      return "bg-red-100 text-destructive dark:bg-destructive/30 dark:text-destructive";
+      return "bg-destructive";
     default:
-      return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
+      return "bg-muted-foreground/50";
   }
 };
 

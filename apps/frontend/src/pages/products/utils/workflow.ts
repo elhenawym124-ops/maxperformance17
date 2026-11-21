@@ -123,6 +123,8 @@ export const getWorkflowStatusLabel = (
       return isEn ? "In Review" : "قيد المراجعة";
     case PRODUCT_WORKFLOW_STATUSES.APPROVED:
       return isEn ? "Approved" : "معتمد";
+    case PRODUCT_WORKFLOW_STATUSES.PUBLISHED:
+      return "bg-success";
     case PRODUCT_WORKFLOW_STATUSES.REJECTED:
       return isEn ? "Rejected" : "مرفوض";
     case PRODUCT_WORKFLOW_STATUSES.PUBLISHED:
@@ -132,27 +134,27 @@ export const getWorkflowStatusLabel = (
   }
 };
 
-export const getWorkflowStatusColor = (
+export const getWorkflowStatusColor = (_status: ProductWorkflowStatus, _workflow?: ProductWorkflow | null): string =>
+  "bg-muted text-foreground";
+
+export const getWorkflowStatusDotColor = (
   status: ProductWorkflowStatus,
   workflow?: ProductWorkflow | null,
 ): string => {
   if (workflow && isUnpublishedWorkflow(workflow)) {
-    return "bg-orange-100 text-warning dark:bg-warning/30 dark:text-warning";
+    return "bg-warning";
   }
-
   switch (status) {
     case PRODUCT_WORKFLOW_STATUSES.DRAFT:
-      return "bg-slate-100 text-foreground dark:bg-muted dark:text-muted-foreground";
+      return "bg-muted-foreground/50";
     case PRODUCT_WORKFLOW_STATUSES.IN_REVIEW:
-      return "bg-amber-100 text-warning dark:bg-warning/30 dark:text-warning";
+      return "bg-warning";
     case PRODUCT_WORKFLOW_STATUSES.APPROVED:
-      return "bg-emerald-100 text-success dark:bg-success/30 dark:text-success";
+      return "bg-success";
     case PRODUCT_WORKFLOW_STATUSES.REJECTED:
-      return "bg-rose-100 text-destructive dark:bg-destructive/30 dark:text-destructive";
-    case PRODUCT_WORKFLOW_STATUSES.PUBLISHED:
-      return "bg-green-100 text-success dark:bg-success/30 dark:text-success";
+      return "bg-destructive";
     default:
-      return "bg-gray-100 text-foreground dark:bg-muted dark:text-muted-foreground";
+      return "bg-muted-foreground/50";
   }
 };
 

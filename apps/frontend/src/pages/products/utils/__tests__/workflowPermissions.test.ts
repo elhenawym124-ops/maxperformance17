@@ -66,6 +66,7 @@ describe("product workflow role permissions", () => {
       isUnpublishedWorkflow,
       getWorkflowStatusLabel,
       getWorkflowStatusColor,
+      getWorkflowStatusDotColor,
       matchesWorkflowFilter,
     } = await import("../workflow");
 
@@ -85,7 +86,9 @@ describe("product workflow role permissions", () => {
 
     expect(isUnpublishedWorkflow(unpublishedWorkflow)).toBe(true);
     expect(getWorkflowStatusLabel(unpublishedWorkflow.status, unpublishedWorkflow)).toBe("ملغي النشر");
-    expect(getWorkflowStatusColor(unpublishedWorkflow.status, unpublishedWorkflow)).toContain("orange");
+    // Polaris badge contract: pill is neutral; the semantic warning color moved to the dot helper
+    expect(getWorkflowStatusColor(unpublishedWorkflow.status, unpublishedWorkflow)).toContain("bg-muted");
+    expect(getWorkflowStatusDotColor(unpublishedWorkflow.status, unpublishedWorkflow)).toContain("bg-warning");
     expect(matchesWorkflowFilter(unpublishedWorkflow, "unpublished")).toBe(true);
     expect(matchesWorkflowFilter(unpublishedWorkflow, "published")).toBe(false);
   });
