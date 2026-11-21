@@ -41,6 +41,12 @@ function buildMetaTemplatePayload(localTemplate, company = null) {
     .replace(/(\{\{\s*\d+\s*\}\})(\s*)$/, (m, varToken, ws) => {
       metaPaddingNotes.push('تمت إضافة "،" بعد المتغير في نهاية النص');
       return `${varToken}،${ws}`;
+    })
+    // ميتا بتتجاهل الترقيم في آخر النص: "{{1}}." يُعامَل كمتغير في النهاية ويرجع
+    // subcode 2388299. الفاصلة "،" وحدها مقبولة، فبنضيف نصاً ثابتاً بعد الترقيم.
+    .replace(/(\{\{\s*\d+\s*\}\}\s*[.!?؟;؛:…\-–—"'»)\]]+\s*)$/, (m) => {
+      metaPaddingNotes.push('تمت إضافة "شكراً" بعد المتغير في نهاية النص');
+      return `${m} شكراً.`;
     });
 
   // تجهيز الأزرار (إن وجدت)

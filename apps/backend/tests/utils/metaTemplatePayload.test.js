@@ -32,6 +32,28 @@ describe('buildMetaTemplatePayload', () => {
     expect(out.metaPadding).toContain('،');
   });
 
+  test('🔴 regression: متغير في نهاية النص يليه ترقيم — يضيف نصاً ثابتاً (subcode 2388299)', () => {
+    const out = buildMetaTemplatePayload({
+      content: 'تم إلغاء حصة الطالب {{studentName}} المقررة يوم {{sessionDate}}.',
+      category: 'EDUCATION',
+      hasButtons: false,
+      buttons: null
+    });
+    expect(out.bodyText).toBe('تم إلغاء حصة الطالب {{1}} المقررة يوم {{2}}. شكراً.');
+    expect(out.metaPadding).toContain('شكراً');
+  });
+
+  test('لا يلمس النص المنتهي بمتغير + فاصلة عربية (مقبول في ميتا)', () => {
+    const out = buildMetaTemplatePayload({
+      content: 'تم تأكيد حجزكم بنجاح {{studentName}}،',
+      category: 'EDUCATION',
+      hasButtons: false,
+      buttons: null
+    });
+    expect(out.bodyText).toBe('تم تأكيد حجزكم بنجاح {{1}}،');
+    expect(out.metaPadding).toBeNull();
+  });
+
   test('يبني أزرار QUICK_REPLY لو في أزرار', () => {
     const out = buildMetaTemplatePayload({
       content: 'تأكيد طلبك',
