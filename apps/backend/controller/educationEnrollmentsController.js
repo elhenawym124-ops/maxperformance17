@@ -340,6 +340,11 @@ const payInstallment = async (req, res) => {
     } catch (_) { currentInstallments = []; }
 
     let target = currentInstallments.find(i => Number(i.installmentNumber) === num);
+    // توافق: بعض الخطط القديمة لا تحمل installmentNumber — نطابق بالترتيب
+    if (!target && num >= 1 && num <= currentInstallments.length) {
+      target = currentInstallments[num - 1];
+      target.installmentNumber = num;
+    }
     if (!target) {
       return res.status(404).json({ success: false, error: 'القسط غير موجود' });
     }

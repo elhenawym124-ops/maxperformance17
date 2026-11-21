@@ -1086,8 +1086,8 @@ const generateGroupSessionsInternal = async ({
   const group = groupRows[0];
 
   const effectiveTeacherId = teacherId || group.teacherId;
-  const effectiveStart = startDate ? new Date(startDate) : (group.startDate ? new Date(group.startDate) : null);
-  const effectiveEnd = endDate ? new Date(endDate) : (group.endDate ? new Date(group.endDate) : null);
+  const effectiveStart = startDate ? new Date(startDate) : (group.startDate ? new Date(group.startDate) : new Date());
+  const effectiveEnd = endDate ? new Date(endDate) : (group.endDate ? new Date(group.endDate) : new Date(Date.now() + 30 * 864e5));
 
   if (!effectiveStart || isNaN(effectiveStart.getTime())) {
     throw new Error('تاريخ بداية المجموعة مطلوب لتوليد الحصص');

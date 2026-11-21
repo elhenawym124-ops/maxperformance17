@@ -133,12 +133,15 @@ const remove = async (req, res) => {
     const existing = await getSharedPrismaClient().educationSubject.findFirst({ where: { id, companyId } });
     if (!existing) return res.status(404).json({ success: false, error: 'المادة غير موجودة' });
 
-    // منع الحذف عند وجود باقات مرتبطة (كان يرجع 500 من قيد FK)
-    const linkedPackages = await getSharedPrismaClient().educationPackage.count({ where: { subjectId: id, companyId } });
-    if (linkedPackages > 0) {
+    // منع الحذف عند وجود باقات أو ربط مع مدرسين (كان يرجع 500 من قيد FK)
+    const [linkedPackages, linkedTeachers] = await Promise.all([
+      getSharedPrismaClient().educationPackage.count({ where: { subjectId: id, companyId } }),
+      getSharedPrismaClient().educationTeacherSubject.count({ where: { subjectId: id } }),
+    ]);
+    if (linkedPackages > 0 || linkedTeachers > 0) {
       return res.status(409).json({
         success: false,
-        error: `لا يمكن حذف المادة لوجود ${linkedPackages} باقة مرتبطة بها`,
+        error: `لا يمكن حذف المادة — مرتبطة بـ ${linkedPackages} باقة و${linkedTeachers} مدرس`,
       });
     }
 
