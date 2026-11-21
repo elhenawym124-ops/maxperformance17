@@ -105,3 +105,13 @@ procurement → wholesale → invoices/payments (سوبر أدمن) → باقي
 **الإجمالي: 18+ صفحة فُحصت عميقًا · 6 عيوب حقيقية اتصلحت جميعها · 3 إنذارات كاذبة موثقة · صفر regressions.**
 
 **طابور المراجعة القادم (نفس البروتوكول):** marketplace + academy تفاصيل + dental invoices + super-admin reports/settings تبويبات.
+
+## marketplace + mobile theme — فحص عميق (2026-11-21، جلسة سوان light على الإنتاج)
+
+| الفحص | النتيجة |
+|--------|---------|
+| /marketplace desktop light | ✅ بنية ممتازة: كانفاس + كروت بيضا + فلاتر chips + صفر rawKeys + **صفر icon chips ملونة** (الأناتومي سليم) |
+| /marketplace mobile 390 | ✅ صفر overflow + 100% عرض + BottomNav — **لكن اللقطة dark رغم ضبط المفتاحين** → **باج mobile shell يقرأ مفتاح ثيم ثالث** (مسجل لموجة توحيد موبايل) |
+| procurement (سوان) | ✅ بوابة دقيقة (مؤكد سابقًا) |
+
+**الحالة:** المتجر سليم كاليبرًا. المتبقي المسجل: mobile dark-key bug (موجة توحيد موبايل مستقلة) + أناتومي نطاق الجملة (بادج v2.4 + أزرار).
