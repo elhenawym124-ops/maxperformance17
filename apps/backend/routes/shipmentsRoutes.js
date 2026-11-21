@@ -902,6 +902,44 @@ router.post('/:id/sync', verifyToken.authenticateToken, blockCourierMobileToken,
       }
     }
 
+    // LG Express Live Sync
+    if ((providerKey === 'LG_EXPRESS' || shipment.carrierType === 'LG_EXPRESS') && shipment.trackingNumber) {
+      const LgService = require('../services/lgService');
+      const lgService = new LgService({}, companyId);
+      const tracking = await lgService.trackShipment(shipment.trackingNumber);
+
+      if (tracking?.success) {
+        const rawStatus = tracking.status || tracking.raw?.status?.name || 'SHIPPED';
+        await prisma.shipment.update({
+          where: { id: shipment.id },
+          data: {
+            status: rawStatus,
+            metadata: JSON.stringify({
+              ...shippingProviderService.safeJsonParse(shipment.metadata, {}),
+              lastLiveSync: new Date().toISOString(),
+              liveStatus: tracking,
+            }),
+          },
+        });
+        if (rawStatus !== shipment.status) {
+          await recordShipmentEvent(prisma, {
+            companyId,
+            shipmentId: shipment.id,
+            fromStatus: shipment.status,
+            toStatus: rawStatus,
+            notes: `تمت المزامنة من LG Express (${rawStatus})`,
+            actorType: 'SYSTEM',
+          });
+        }
+        return res.json({ success: true, tracking, message: 'تمت المزامنة مع LG Express بنجاح' });
+      } else {
+        return res.status(404).json({
+          success: false,
+          error: 'الشحنة غير موجودة في سيستم LG Express بعد أو لم يتم استلام الحالة',
+        });
+      }
+    }
+
     res.json({
       success: true,
       message: 'تم فحص الشحنة (لا يدعم هذا المزود المزامنة الحية المباشرة)',

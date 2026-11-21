@@ -20,4 +20,7 @@ router.get('/track/:trackingNumber', verifyToken.authenticateToken, lgController
 // فحص الاتصال
 router.post('/test-connection', verifyToken.authenticateToken, lgController.testConnection);
 
+// استقبال إشعارات Webhook من شركة الشحن (تحديث الحالة اللحظي)
+router.post('/webhook', lgController.handleWebhook);
+
 module.exports = router;

@@ -235,3 +235,93 @@ exports.testConnection = async (req, res) => {
     return res.status(400).json({ success: false, error: error.message });
   }
 };
+
+// ---------------------------------------------------------------------------
+// POST /lg/webhook
+// استقبال إشعارات تحديث الحالة اللحظية من Accurate Logistics / LG Express
+// ---------------------------------------------------------------------------
+exports.handleWebhook = async (req, res) => {
+  try {
+    const prisma = getSharedPrismaClient();
+    const payload = req.body || {};
+    const code = payload.shipmentCode || payload.code || payload.trackingNumber;
+    const externalId = payload.shipmentId ? String(payload.shipmentId) : null;
+    const statusCode = payload.shipmentStatusCode || payload.statusCode || '';
+    const statusName = payload.statusName || payload.status?.name || statusCode;
+
+    if (!code && !externalId) {
+      return res.status(400).json({ success: false, error: 'shipmentCode or shipmentId required' });
+    }
+
+    const shipment = await safeQuery(() =>
+      prisma.shipment.findFirst({
+        where: {
+          OR: [
+            ...(code ? [{ trackingNumber: String(code) }] : []),
+            ...(externalId ? [{ externalShipmentId: externalId }] : []),
+          ],
+        },
+        include: { order: true },
+      }),
+      2
+    );
+
+    if (!shipment) {
+      return res.status(200).json({ success: true, message: 'Shipment not found locally, ignored' });
+    }
+
+    // Map LG status codes to MaxP statuses
+    let mappedStatus = 'SHIPPED';
+    let mappedOrderStatus = null;
+
+    const normCode = String(statusCode).toUpperCase();
+    if (normCode === 'DTR' || normCode.includes('DELIVER') || statusName.includes('تسليم')) {
+      mappedStatus = 'DELIVERED';
+      mappedOrderStatus = 'DELIVERED';
+    } else if (normCode === 'RTS' || normCode.includes('RETURN') || statusName.includes('مرتجع')) {
+      mappedStatus = 'RETURNED';
+      mappedOrderStatus = 'RETURNED';
+    } else if (normCode === 'CAN' || normCode.includes('CANCEL') || statusName.includes('إلغاء') || statusName.includes('الغاء')) {
+      mappedStatus = 'CANCELLED';
+      mappedOrderStatus = 'CANCELLED';
+    } else if (normCode === 'O4D' || normCode.includes('OUT') || statusName.includes('توزيع') || statusName.includes('مندوب')) {
+      mappedStatus = 'OUT_FOR_DELIVERY';
+    } else {
+      mappedStatus = statusName || normCode || 'SHIPPED';
+    }
+
+    await prisma.shipment.update({
+      where: { id: shipment.id },
+      data: {
+        status: mappedStatus,
+        metadata: JSON.stringify({
+          ...(typeof shipment.metadata === 'string' ? JSON.parse(shipment.metadata || '{}') : (shipment.metadata || {})),
+          lastWebhook: new Date().toISOString(),
+          webhookPayload: payload,
+        }),
+      },
+    });
+
+    if (mappedOrderStatus && shipment.orderId) {
+      await prisma.order.update({
+        where: { id: shipment.orderId },
+        data: {
+          status: mappedOrderStatus,
+          statusHistory: {
+            create: {
+              status: mappedOrderStatus,
+              oldStatus: shipment.order?.status || 'SHIPPED',
+              reason: `تحديث آلي من LG Express عبر Webhook (${statusName})`,
+              changedBy: 'SYSTEM',
+            },
+          },
+        },
+      }).catch(() => null);
+    }
+
+    return res.status(200).json({ success: true, message: 'Webhook processed successfully' });
+  } catch (error) {
+    console.error('⚠️ [LG_EXPRESS] Webhook processing error:', error.message);
+    return res.status(200).json({ success: false, error: error.message });
+  }
+};
