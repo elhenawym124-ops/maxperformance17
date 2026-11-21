@@ -124,9 +124,9 @@ export const OrdersMobileCompactItem: React.FC<OrdersMobileCompactItemProps> = (
         </div>
       </div>
 
-      <div className="flex items-center gap-1.5 shrink-0">
+      <div className="flex items-center gap-1.5 min-w-0">
         <span
-          className="truncate text-[11px] font-medium text-muted-foreground shrink-0"
+          className="truncate text-[11px] font-medium text-muted-foreground min-w-0"
           title={formatDate(order.createdAt || new Date().toISOString())}
         >
           {compactTime}
@@ -154,7 +154,7 @@ export const OrdersMobileCompactItem: React.FC<OrdersMobileCompactItemProps> = (
         <span
           className={`${unifiedStatus.className} text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 shadow-xs`}
           style={unifiedStatus.style}
-          aria-label={unifiedStatus.labelKey}
+          aria-label={unifiedStatus.label}
         >
           {unifiedStatus.text}
         </span>

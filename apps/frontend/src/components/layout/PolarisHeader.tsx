@@ -91,7 +91,7 @@ export const PolarisHeader: React.FC<PolarisHeaderProps> = ({
             type="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={t("header.searchOrders", "بحث في المتجر، الطلبات، العملاء...")}
+            placeholder={t("header.searchOrders", "بحث في المتجر، الطلبات، العملاء…")}
             className="w-full h-8 ps-9 pe-12 text-xs bg-muted/40 hover:bg-muted/60 focus:bg-background border border-border/70 rounded-lg text-foreground placeholder-muted-foreground transition-all focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <div className="absolute top-1/2 end-2.5 -translate-y-1/2 flex items-center gap-1 pointer-events-none">

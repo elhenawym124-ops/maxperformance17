@@ -93,13 +93,16 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
           )}
         </div>
         {orderItemsSummary.hasQuantityOffers && (
-          <div className="inline-flex items-center gap-1 max-w-[220px] truncate rounded border border-warning/80 bg-warning/80 px-1.5 py-0.5 text-[11px] font-medium text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning">
-            <span>{orderItemsSummary.primaryLabel}</span>
+          <div
+            className="inline-flex items-center gap-1 max-w-[220px] truncate rounded border border-warning/30 bg-warning/10 px-1.5 py-0.5 text-[11px] font-medium text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning"
+            title={orderItemsSummary.primaryLabel}
+          >
+            <span className="truncate">{orderItemsSummary.primaryLabel}</span>
           </div>
         )}
         {order.notes && (
           <div
-            className="inline-flex items-center gap-1 max-w-[240px] truncate rounded border border-primary/80 bg-primary/80 px-1.5 py-0.5 text-[11px] font-medium text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary"
+            className="inline-flex items-center gap-1 max-w-[240px] truncate rounded border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-[11px] font-medium text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary"
             title={order.notes}
           >
             <span className="truncate">{order.notes}</span>

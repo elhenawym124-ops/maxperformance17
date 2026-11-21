@@ -149,7 +149,7 @@ export const PreparationOrdersTableRowMainCells: React.FC<PreparationOrdersTable
             return (
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${statusInfo.colorClass}`}
-                aria-label={statusInfo.labelKey}
+                aria-label={statusInfo.label}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-current opacity-80" />
                 {t(statusInfo.labelKey) || statusInfo.label}

@@ -178,7 +178,7 @@ export const OrdersMobileComfortableItem: React.FC<OrdersMobileComfortableItemPr
           <span
             className={`${unifiedStatus.className} text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 shadow-xs`}
             style={unifiedStatus.style}
-            aria-label={unifiedStatus.labelKey}
+            aria-label={unifiedStatus.label}
           >
             {unifiedStatus.text}
           </span>

@@ -332,7 +332,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
               type="search"
               value={search}
               onChange={(e) => onFilterChange("search", e.target.value)}
-              placeholder="تصفية برقم الطلب، العميل، الهاتف..."
+              placeholder="تصفية برقم الطلب، العميل، الهاتف…"
               className="w-full h-8 ps-8 pe-3 text-xs bg-card border border-border/70 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary transition-all"
             />
           </div>

@@ -73,7 +73,7 @@ const PreparationOrderCardHeader = ({
               return (
                 <span
                   className={`rounded-md border px-2 py-0.5 text-[11px] font-medium font-mono tabular-nums ${statusInfo.colorClass}`}
-                  aria-label={statusInfo.labelKey}
+                  aria-label={statusInfo.label}
                 >
                   {t(statusInfo.labelKey) || statusInfo.label}
                 </span>

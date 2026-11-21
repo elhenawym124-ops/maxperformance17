@@ -29,7 +29,7 @@ export const OrdersTableStatusCell: React.FC<OrdersTableStatusCellProps> = ({
           <span
             className={`${unifiedStatus.className} text-xs py-1 px-2.5 rounded-full font-medium`}
             style={unifiedStatus.style}
-            aria-label={unifiedStatus.labelKey}
+            aria-label={unifiedStatus.label}
           >
             {unifiedStatus.text}
           </span>
