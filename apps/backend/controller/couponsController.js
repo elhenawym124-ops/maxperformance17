@@ -135,8 +135,7 @@ exports.createCoupon = async (req, res) => {
     } = req.body;
 
     // التحقق من البيانات المطلوبة
-    if (!code || !name || !type || (value === undefined || value === null || value === '') || !validFrom || !validTo) {
-      const missingFields = [];
+    if (!code || !name || !type || (value === undefined || value === null || value === '') || !validFrom || !validTo) {      const missingFields = [];
       if (!code) missingFields.push('code');
       if (!name) missingFields.push('name');
       if (!type) missingFields.push('type');
@@ -168,6 +167,15 @@ exports.createCoupon = async (req, res) => {
         success: false,
         error: 'تاريخ الانتهاء يجب أن يكون بعد تاريخ البداية'
       });
+    }
+
+    // التحقق من قيمة الخصم (كانت 150% تُقبل)
+    const numericValue = parseFloat(value);
+    if (Number.isNaN(numericValue) || numericValue < 0) {
+      return res.status(400).json({ success: false, error: 'قيمة الخصم غير صحيحة' });
+    }
+    if (type === 'PERCENTAGE' && numericValue > 100) {
+      return res.status(400).json({ success: false, error: 'نسبة الخصم لا يمكن أن تتجاوز 100%' });
     }
 
     // التحقق من عدم وجود كوبون بنفس الكود
@@ -254,6 +262,16 @@ exports.updateCoupon = async (req, res) => {
           error: 'يوجد كوبون آخر بنفس الكود بالفعل'
         });
       }
+    }
+
+    // التحقق من قيمة الخصم عند التعديل (نفس قاعدة الإنشاء)
+    const nextType = String(updateData.type || existingCoupon.type || '').toUpperCase();
+    const nextValue = updateData.value !== undefined ? parseFloat(updateData.value) : Number(existingCoupon.value);
+    if (Number.isNaN(nextValue) || nextValue < 0) {
+      return res.status(400).json({ success: false, error: 'قيمة الخصم غير صحيحة' });
+    }
+    if (nextType === 'PERCENTAGE' && nextValue > 100) {
+      return res.status(400).json({ success: false, error: 'نسبة الخصم لا يمكن أن تتجاوز 100%' });
     }
 
     // تجهيز الحقول المسموح بتعديلها فقط (Safe Whitelist)
@@ -448,6 +466,18 @@ exports.applyCoupon = async (req, res) => {
   try {
     const { companyId } = req.user;
     const { couponId, orderId, customerId, orderAmount, discountAmount } = req.body;
+
+    // تحقق من المدخلات — كان غياب couponId ينتج 500 من Prisma
+    if (!couponId) {
+      return res.status(400).json({ success: false, error: 'معرّف الكوبون مطلوب' });
+    }
+    const coupon = await getPrisma().coupon.findFirst({ where: { id: couponId, companyId } });
+    if (!coupon) {
+      return res.status(404).json({ success: false, error: 'الكوبون غير موجود' });
+    }
+    if (coupon.usageLimit && coupon.usageCount >= coupon.usageLimit) {
+      return res.status(400).json({ success: false, error: 'تم استهلاك حد استخدام الكوبون' });
+    }
 
     // تسجيل استخدام الكوبون
     await getPrisma().$transaction([
