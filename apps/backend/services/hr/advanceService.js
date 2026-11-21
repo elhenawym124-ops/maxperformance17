@@ -177,13 +177,19 @@ class AdvanceService {
                 : requestedAmount; // fallback: allow the requested amount
 
             // 6. التحقق من فترة السداد
-            if (repaymentType === 'INSTALLMENTS' && parseInt(installmentsCount) > settings.advanceRepaymentMonths) {
-                throw new Error(`الحد الأقصى لفترة السداد هو ${settings.advanceRepaymentMonths} أشهر`);
+            const parsedInstallments = parseInt(installmentsCount, 10);
+            if (repaymentType === 'INSTALLMENTS') {
+                if (!Number.isFinite(parsedInstallments) || parsedInstallments < 1) {
+                    throw new Error('عدد الأقساط يجب أن يكون 1 على الأقل');
+                }
+                if (parsedInstallments > settings.advanceRepaymentMonths) {
+                    throw new Error(`الحد الأقصى لفترة السداد هو ${settings.advanceRepaymentMonths} أشهر`);
+                }
             }
 
             // 7. حساب القسط الشهري
             const monthlyAmount = repaymentType === 'INSTALLMENTS'
-                ? requestedAmount / parseInt(installmentsCount)
+                ? requestedAmount / parsedInstallments
                 : requestedAmount;
 
             // 8. إنشاء الطلب
@@ -195,7 +201,7 @@ class AdvanceService {
                     amount: requestedAmount,
                     reason,
                     repaymentType,
-                    installmentsCount: repaymentType === 'INSTALLMENTS' ? parseInt(installmentsCount) : 1,
+                    installmentsCount: repaymentType === 'INSTALLMENTS' ? parsedInstallments : 1,
                     monthlyAmount,
                     employeeSalary: baseSalary,
                     maxAllowedAmount: maxAllowed,
