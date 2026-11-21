@@ -187,6 +187,7 @@ export const FacebookInbox: React.FC<FacebookInboxProps> = ({
           onSelectConversation={handleSelectConversationItem}
           hasMoreConversations={hasMoreConversations}
           onLoadMoreConversations={loadMoreConversations}
+          searchQuery={inboxData.searchQuery}
         />
 
         <div

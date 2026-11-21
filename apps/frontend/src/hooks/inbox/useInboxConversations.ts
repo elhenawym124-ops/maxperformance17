@@ -232,6 +232,10 @@ export const useInboxConversations = () => {
   // Track the last priority filter so "load more" pagination respects it.
   const lastPriorityRef = useRef<boolean | undefined>(undefined);
 
+  // Track the last search & message search filter for pagination
+  const lastSearchRef = useRef<string | undefined>(undefined);
+  const lastSearchInMessagesRef = useRef<boolean | undefined>(undefined);
+
   const currentConversationIdRef = useRef<string | null>(null);
 
   // Store counts from API
@@ -250,10 +254,12 @@ export const useInboxConversations = () => {
       search?: string,
       channel?: string,
       priority?: boolean,
+      searchInMessages?: boolean,
     ) => {
       if (!companyId) return;
 
       try {
+        setConversationsPage(pageNum);
         if (pageNum === 1) {
           setLoading(true);
           currentTabRef.current = tab; // Update current tab
@@ -262,6 +268,8 @@ export const useInboxConversations = () => {
 
         if (channel) lastChannelRef.current = channel;
         if (priority !== undefined) lastPriorityRef.current = priority;
+        lastSearchRef.current = search;
+        lastSearchInMessagesRef.current = searchInMessages;
 
         const isPriority = priority !== undefined ? priority : (lastPriorityRef.current || false);
 
@@ -272,6 +280,7 @@ export const useInboxConversations = () => {
             page: pageNum,
             tab: tab,
             ...(search && search.trim() ? { search: search.trim() } : {}), // 🆕 Add search parameter
+            ...(searchInMessages ? { searchInMessages: 'true', searchScope: 'all' } : {}), // 🆕 Opt-in message text search
             ...(channel ? { channel } : {}), // 🆕 Filter by channel (e.g. INSTAGRAM)
             ...(isPriority ? { priority: "true" } : {}), // 🆕 Server-side priority filter
           },
@@ -434,9 +443,10 @@ export const useInboxConversations = () => {
         conversationsPage + 1,
         true,
         currentTabRef.current,
-        undefined,
+        lastSearchRef.current,
         lastChannelRef.current,
         lastPriorityRef.current,
+        lastSearchInMessagesRef.current,
       );
     }
   }, [hasMoreConversations, loading, conversationsPage, loadConversations]);

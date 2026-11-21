@@ -29,6 +29,7 @@ interface FacebookConversationSidebarProps {
   onSelectConversation: (conversation: InboxConversation) => void;
   hasMoreConversations: boolean;
   onLoadMoreConversations: () => void;
+  searchQuery?: string;
 }
 
 export const FacebookConversationSidebar: React.FC<FacebookConversationSidebarProps> = ({
@@ -52,6 +53,7 @@ export const FacebookConversationSidebar: React.FC<FacebookConversationSidebarPr
   onSelectConversation,
   hasMoreConversations,
   onLoadMoreConversations,
+  searchQuery,
 }) => {
   const { t } = useTranslation();
 
@@ -232,8 +234,25 @@ export const FacebookConversationSidebar: React.FC<FacebookConversationSidebarPr
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  {t('facebookInbox.noConversations')}
+                  {t('facebookInbox.noConversations', 'لا توجد محادثات')}
                 </p>
+                {Boolean(searchQuery?.trim()) && (
+                  !filters.searchInMessages ? (
+                    <div className="mt-3">
+                      <button
+                        type="button"
+                        onClick={() => setFilters((prev) => ({ ...prev, searchInMessages: true }))}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 active:scale-[0.97] transition-all cursor-pointer"
+                      >
+                        <span>البحث في نصوص الرسائل (آخر 180 يوم)</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-muted-foreground/80 mt-1">
+                      تم البحث في الأسماء وأرشيف نصوص الرسائل
+                    </p>
+                  )
+                )}
               </>
             )}
           </div>

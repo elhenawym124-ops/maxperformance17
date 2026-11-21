@@ -25,6 +25,7 @@ interface UseFacebookInboxDataParams {
     search?: string,
     channel?: string,
     priorityOnly?: boolean,
+    searchInMessages?: boolean,
   ) => void;
   addConversationToList: (conv: InboxConversation) => void;
   updateSelectedConversation: (updates: Partial<InboxConversation>) => void;
@@ -149,10 +150,11 @@ export function useFacebookInboxData({
       loadConversationsTimeoutRef.current = setTimeout(() => {
         const search = debouncedSearchQueryRef.current?.trim();
         const isPriority = filtersRef.current.priorityOnly || tab === 'priority';
+        const searchInMessages = filtersRef.current.searchInMessages;
         if (search) {
-          loadConversationsRef.current(1, false, tab, search, channel, isPriority);
+          loadConversationsRef.current(1, false, tab, search, channel, isPriority, searchInMessages);
         } else {
-          loadConversationsRef.current(1, false, tab, undefined, channel, isPriority);
+          loadConversationsRef.current(1, false, tab, undefined, channel, isPriority, searchInMessages);
         }
         loadConversationsTimeoutRef.current = null;
       }, 500);
@@ -164,6 +166,7 @@ export function useFacebookInboxData({
   const isInitialMount = useRef(true);
   useEffect(() => {
     const isPriority = filters.priorityOnly || activeTab === 'priority';
+    const searchInMessages = filters.searchInMessages;
     if (isInitialMount.current) {
       isInitialMount.current = false;
       const search = debouncedSearchQuery?.trim();
@@ -174,6 +177,7 @@ export function useFacebookInboxData({
         search || undefined,
         channel,
         isPriority,
+        searchInMessages,
       );
       return;
     }
@@ -186,8 +190,9 @@ export function useFacebookInboxData({
       search || undefined,
       channel,
       isPriority,
+      searchInMessages,
     );
-  }, [activeTab, debouncedSearchQuery, filters.priorityOnly, channel]);
+  }, [activeTab, debouncedSearchQuery, filters.priorityOnly, filters.searchInMessages, channel]);
 
   // Check customer block status
   const checkBlockStatus = useCallback(async () => {

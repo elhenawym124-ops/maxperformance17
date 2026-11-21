@@ -11,7 +11,11 @@ const { conversationCache } = require('../../utils/cachingUtils');
 const { isPermissionError, getPermissionErrorMessage } = require('../../utils/dbPermissionHelper');
 const { proxyCustomerAvatarUrl } = require('../../utils/facebookMediaProxy');
 const { normalizeConversationStatus } = require('../../utils/validator');
-const { extractContentTokens, buildConversationSearchWhere } = require('./conversationSearchWhere');
+const {
+    extractContentTokens,
+    buildConversationSearchWhere,
+    searchMessageConversationIds,
+} = require('./conversationSearchWhere');
 const { computeFacebookWindow, resolveFacebookLastInboundAt } = require('../../utils/facebookWindow');
 const {
     getEffectiveAiAutoReplySetting,
@@ -161,7 +165,20 @@ const deleteConverstation = async (req, res) => {
 // 🆕 Get all conversations with pagination and filtering
 const getConversations = async (req, res) => {
     try {
-        const { page = 1, limit = 20, status, search, platform, unread, tab, channel: channelParam, priority } = req.query;
+        const {
+            page = 1,
+            limit = 20,
+            status,
+            search,
+            platform,
+            unread,
+            tab,
+            channel: channelParam,
+            priority,
+            searchScope,
+            searchInMessages,
+            searchDays,
+        } = req.query;
         const companyId = req.user?.companyId;
 
         if (!companyId) {
@@ -231,33 +248,54 @@ const getConversations = async (req, res) => {
         let conversations, total;
 
         const searchActive = Boolean(search && search.trim());
-        let contentIds = [];
+        const wantsMessageSearch = searchActive && (
+            searchScope === 'messages' ||
+            searchScope === 'all' ||
+            searchInMessages === 'true' ||
+            searchInMessages === true
+        );
 
-        if (searchActive && prisma.message?.findMany) {
-            const contentTokens = extractContentTokens(search);
-            if (contentTokens.length) {
-                const rows = await executeWithRetry(() => prisma.message.findMany({
-                    where: {
-                        conversation: { companyId, channel: where.channel },
-                        AND: contentTokens.map(t => ({ content: { contains: t, mode: 'insensitive' } })),
-                    },
-                    select: { conversationId: true },
-                    distinct: ['conversationId'],
-                    orderBy: { conversationId: 'asc' },
-                    take: 1500,
-                }), 3);
-                contentIds = rows.map(r => r.conversationId);
-            }
+        let contentIds = [];
+        if (wantsMessageSearch) {
+            contentIds = await searchMessageConversationIds(prisma, {
+                companyId,
+                channel: where.channel,
+                search: search.trim(),
+                days: parseInt(searchDays, 10) || 180,
+                limit: 200,
+            });
+            console.log(`🔍 [GET-CONV] Message search returned ${contentIds.length} conversations`);
         }
 
         let queryWhere;
 
         if (searchActive) {
             queryWhere = { ...where };
+            if (priority === 'true' || priority === true || tab === 'priority') {
+                queryWhere.priority = { gt: 1 };
+            }
             const namePart = buildConversationSearchWhere(search);
-            const contentPart = contentIds.length ? { id: { in: contentIds } } : null;
-            const searchPart = contentPart ? { AND: [{ OR: [namePart, contentPart] }] } : namePart;
-            queryWhere.AND = [...(queryWhere.AND || []), ...(searchPart?.AND || [])];
+
+            if (searchScope === 'messages') {
+                // Explicitly searching inside message bodies only
+                if (contentIds.length) {
+                    queryWhere.AND = [...(queryWhere.AND || []), { id: { in: contentIds } }];
+                } else {
+                    queryWhere.AND = [...(queryWhere.AND || []), { id: '__no_match__' }];
+                }
+            } else if (wantsMessageSearch) {
+                // 'all' scope: either name/phone/lastMessagePreview OR message content
+                const contentPart = contentIds.length ? { id: { in: contentIds } } : null;
+                const searchPart = contentPart ? { AND: [{ OR: [namePart, contentPart] }] } : namePart;
+                if (searchPart) {
+                    queryWhere.AND = [...(queryWhere.AND || []), ...(searchPart?.AND || [])];
+                }
+            } else {
+                // Default FAST path: searches customer name, phone, and lastMessagePreview directly on indexed columns
+                if (namePart) {
+                    queryWhere.AND = [...(queryWhere.AND || []), ...(namePart?.AND || [])];
+                }
+            }
         } else {
             // 🆕 For unreplied tab, we now use the database column directly!
             // Extended logic for ALL tabs to ensure server-side filtering works

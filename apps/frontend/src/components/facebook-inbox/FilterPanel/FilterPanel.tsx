@@ -11,6 +11,7 @@ export interface FilterState {
   priorityOnly?: boolean;
   windowStatus?: "all" | "open" | "expired";
   failedDeliveryOnly?: boolean;
+  searchInMessages?: boolean;
 }
 
 interface FilterPanelProps {
@@ -95,6 +96,24 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             >
               <Star className="w-3.5 h-3.5 text-warning fill-warning" />
               <span>ذات أولوية فقط</span>
+            </label>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="searchInMessages"
+              checked={!!filters.searchInMessages}
+              onChange={(e) => handleChange("searchInMessages", e.target.checked)}
+              className="w-4 h-4 rounded border-border/70 text-primary focus:ring-primary/40 cursor-pointer"
+            />
+            <label
+              htmlFor="searchInMessages"
+              className="text-xs text-foreground cursor-pointer select-none flex items-center gap-1.5"
+              title="البحث في نص الرسائل داخل آخر 180 يوم"
+            >
+              <span>بحث في نص الرسائل</span>
+              <span className="text-[10px] text-muted-foreground font-mono">(180 يوم)</span>
             </label>
           </div>
         </div>

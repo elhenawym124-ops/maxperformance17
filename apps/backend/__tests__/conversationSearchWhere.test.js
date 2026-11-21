@@ -1,6 +1,7 @@
 const {
   extractContentTokens,
   buildConversationSearchWhere,
+  searchMessageConversationIds,
 } = require('../controller/conversation/conversationSearchWhere');
 
 describe('conversationSearchWhere', () => {
@@ -93,6 +94,62 @@ describe('conversationSearchWhere', () => {
       expect(extractContentTokens('   ')).toEqual([]);
       expect(extractContentTokens(null)).toEqual([]);
       expect(extractContentTokens(undefined)).toEqual([]);
+    });
+  });
+
+  describe('searchMessageConversationIds', () => {
+    it('returns empty array if search term is empty or has no content tokens', async () => {
+      const mockPrisma = { $queryRawUnsafe: jest.fn() };
+      const res1 = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: '' });
+      const res2 = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'ab' });
+      const res3 = await searchMessageConversationIds(null, { companyId: 'comp1', search: 'valid' });
+
+      expect(res1).toEqual([]);
+      expect(res2).toEqual([]);
+      expect(res3).toEqual([]);
+      expect(mockPrisma.$queryRawUnsafe).not.toHaveBeenCalled();
+    });
+
+    it('queries messages using parameterized CTE and returns conversation IDs', async () => {
+      const mockPrisma = {
+        $queryRawUnsafe: jest.fn().mockResolvedValue([
+          { id: 'conv-1' },
+          { id: 'conv-2' },
+        ]),
+      };
+
+      const result = await searchMessageConversationIds(mockPrisma, {
+        companyId: 'comp1',
+        channel: 'FACEBOOK',
+        search: 'سناء',
+        days: 180,
+        limit: 200,
+      });
+
+      expect(result).toEqual(['conv-1', 'conv-2']);
+      expect(mockPrisma.$queryRawUnsafe).toHaveBeenCalledTimes(1);
+
+      const [queryStr, pattern, cutoffDate, companyId, channel, limit] = mockPrisma.$queryRawUnsafe.mock.calls[0];
+      expect(queryStr).toContain('WITH matched_messages AS');
+      expect(queryStr).toContain('m.content ILIKE');
+      expect(pattern).toBe('%سناء%');
+      expect(cutoffDate).toBeInstanceOf(Date);
+      expect(companyId).toBe('comp1');
+      expect(channel).toBe('FACEBOOK');
+      expect(limit).toBe(200);
+    });
+
+    it('handles query failures gracefully without throwing', async () => {
+      const mockPrisma = {
+        $queryRawUnsafe: jest.fn().mockRejectedValue(new Error('DB connection failed')),
+      };
+
+      const result = await searchMessageConversationIds(mockPrisma, {
+        companyId: 'comp1',
+        search: 'error-term',
+      });
+
+      expect(result).toEqual([]);
     });
   });
 });
