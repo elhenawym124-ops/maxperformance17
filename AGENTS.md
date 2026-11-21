@@ -20,6 +20,7 @@
 4. **Linear-Caliber Clarification:** Linear caliber strictly means **hairline borders (`border-border/70`), spring micro-haptics (`:active scale(0.97)`), and keyboard shortcuts (`⌘K`)** — it DOES NOT mean copying dark developer terminal themes on merchant or business screens.
 5. **Single-Surface Chassis:** Workspaces and dashboards must be a single continuous surface separated by clean hairline dividers, banning floating islands separated by wide grey gaps.
 6. **The 12 Banned AI Slop Flags:** Zero emoji littering in titles (`🤖🚀⚡`), ban purple/cyan dark mesh, ban cookie-cutter card clones, ban marketing fluff, ban glassmorphism spam, ban fake glowing borders, ban floating islands, ban stock 3D avatars, ban centered hero trap, ban dead unclickable badges, ban developer jargon on merchant pages, and ban meta-explanatory clutter in production UI.
+7. **Polaris Track Exception:** Merchant surfaces scoped under the Shopify Polaris Track (`taste-skill` Section 16 + `polaris-track.css`) render grey canvas + floating white surface cards **by design**. Rules 5 & 6's floating-island bans are lifted ONLY on those scoped pages. Tokens law (1), Typography (2), RTL (3), and MOB-015 still apply unchanged.
 
 ---
 
