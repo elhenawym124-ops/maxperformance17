@@ -193,7 +193,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
   return (
     <div
       data-orders-polaris-view="true"
-      className="polaris-orders-container max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4 space-y-4"
+      className="polaris-orders-container w-full max-w-7xl min-w-0 mx-auto h-full min-h-0 overflow-y-auto px-2 sm:px-4 lg:px-6 py-4 space-y-4"
     >
       {/* 1. Authentic Shopify Polaris Page Header */}
       <ShopifyPageHeader
