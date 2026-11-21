@@ -7,9 +7,10 @@
  *
  * Batched & Logged:
  * - Scans shared customers (> threshold phones, default 3)
- * - Processes in safe batches (--batch N, default 25) with real-time progress logging
+ * - Processes in safe batches (--batch N, default 10 or 25) with real-time progress logging
  * - Supports --limit N for safe partial testing
  * - Defaults to dry-run (no DB writes); --apply explicitly required to write
+ * - Groups orders by phone number for O(1) bulk customer resolution (ultra fast)
  * - Idempotent + generates JSON rollback file
  * - Modifies ONLY customerId column on Order
  *
@@ -27,7 +28,7 @@ function parseArgs(argv) {
     apply: false,
     rollback: null,
     limit: null,
-    batch: 25,
+    batch: 10,
     threshold: 3,
   };
 
@@ -108,7 +109,7 @@ async function repairSharedCustomers(options = {}) {
     apply = false,
     rollback: rollbackFile = null,
     limit = null,
-    batch = 25,
+    batch = 10,
     threshold = 3,
     outputDir = __dirname,
   } = options;
@@ -279,7 +280,7 @@ async function repairSharedCustomers(options = {}) {
     console.log(`⏱️ [Repair] Limit applied: will process ${targetCustomerIds.length} of ${candidateSharedCustomerIds.length} shared customers.`);
   }
 
-  const batchSize = Number.isInteger(batch) && batch > 0 ? batch : 25;
+  const batchSize = Number.isInteger(batch) && batch > 0 ? batch : 10;
   const totalBatches = targetCustomerIds.length > 0 ? Math.ceil(targetCustomerIds.length / batchSize) : 0;
   console.log(`🚀 [Repair] Plan: ${targetCustomerIds.length} shared customers to process in ${totalBatches} batch(es) of size ${batchSize}.\n`);
 
@@ -342,8 +343,10 @@ async function repairSharedCustomers(options = {}) {
       });
     }
 
-    // Filter candidate orders in this batch
-    const batchCandidateOrders = [];
+    // Group candidate orders in this batch by canonical phone (O(1) resolution)
+    const candidateOrdersByPhone = new Map();
+    let totalCandidateOrdersInBatch = 0;
+
     for (const order of batchOrders) {
       const orderPhoneCanonical = toCanonicalE164(order.customerPhone);
       if (!orderPhoneCanonical) {
@@ -358,19 +361,22 @@ async function repairSharedCustomers(options = {}) {
 
       // Condition: order phone does NOT match customer phone
       if (!sharedCust || !sharedPhoneCanonical || sharedPhoneCanonical !== orderPhoneCanonical) {
-        batchCandidateOrders.push({
+        if (!candidateOrdersByPhone.has(orderPhoneCanonical)) {
+          candidateOrdersByPhone.set(orderPhoneCanonical, []);
+        }
+        candidateOrdersByPhone.get(orderPhoneCanonical).push({
           ...order,
           orderPhoneCanonical,
         });
+        totalCandidateOrdersInBatch++;
       }
     }
 
-    console.log(`   Orders in batch: ${batchOrders.length} | Candidate orders to reassign: ${batchCandidateOrders.length}`);
+    const distinctPhonesCount = candidateOrdersByPhone.size;
+    console.log(`   Orders in batch: ${batchOrders.length} | Candidate orders: ${totalCandidateOrdersInBatch} (${distinctPhonesCount} distinct phone numbers)`);
 
-    // Pre-populate customer cache in bulk for candidate phones in this batch
-    const phonesToLookup = Array.from(
-      new Set(batchCandidateOrders.map((o) => o.orderPhoneCanonical).filter((p) => !localCustomerCache.has(p)))
-    );
+    // Bulk pre-populate customer cache for the distinct phones in this batch
+    const phonesToLookup = Array.from(candidateOrdersByPhone.keys()).filter((p) => !localCustomerCache.has(p));
 
     if (phonesToLookup.length > 0 && prisma.customer && typeof prisma.customer.findMany === 'function') {
       try {
@@ -400,12 +406,11 @@ async function repairSharedCustomers(options = {}) {
       } catch (_) {}
     }
 
-    // Reassign orders
+    // Reassign orders by distinct phone (drastically reduces DB roundtrips)
     let batchMoved = 0;
     let batchCreated = 0;
 
-    for (const order of batchCandidateOrders) {
-      const orderPhoneCanonical = order.orderPhoneCanonical;
+    for (const [orderPhoneCanonical, ordersForPhone] of candidateOrdersByPhone.entries()) {
       let targetCustomer = localCustomerCache.get(orderPhoneCanonical) || null;
 
       if (!targetCustomer) {
@@ -426,7 +431,8 @@ async function repairSharedCustomers(options = {}) {
       }
 
       if (!targetCustomer) {
-        const rawName = (order.customerName || 'عميل').trim();
+        const sampleOrder = ordersForPhone[0];
+        const rawName = (sampleOrder.customerName || 'عميل').trim();
         const nameParts = rawName.split(/\s+/);
         const firstName = nameParts[0] || 'عميل';
         const lastName = nameParts.slice(1).join(' ') || '';
@@ -437,7 +443,7 @@ async function repairSharedCustomers(options = {}) {
               companyId,
               firstName,
               lastName,
-              phone: order.customerPhone,
+              phone: sampleOrder.customerPhone,
               phoneNormalized: orderPhoneCanonical,
               status: 'ACTIVE',
               notes: 'فُصل من عميل مشترك 2026-11-21',
@@ -448,7 +454,7 @@ async function repairSharedCustomers(options = {}) {
             id: `dry-run-cust-${orderPhoneCanonical}`,
             firstName,
             lastName,
-            phone: order.customerPhone,
+            phone: sampleOrder.customerPhone,
             phoneNormalized: orderPhoneCanonical,
           };
         }
@@ -457,21 +463,23 @@ async function repairSharedCustomers(options = {}) {
         localCustomerCache.set(orderPhoneCanonical, targetCustomer);
       }
 
-      if (apply) {
-        await prisma.order.update({
-          where: { id: order.id },
-          data: { customerId: targetCustomer.id },
+      for (const order of ordersForPhone) {
+        if (apply) {
+          await prisma.order.update({
+            where: { id: order.id },
+            data: { customerId: targetCustomer.id },
+          });
+        }
+
+        rollbackRecords.push({
+          orderId: order.id,
+          oldCustomerId: order.customerId,
+          newCustomerId: targetCustomer.id,
         });
+
+        batchMoved++;
+        ordersMoved++;
       }
-
-      rollbackRecords.push({
-        orderId: order.id,
-        oldCustomerId: order.customerId,
-        newCustomerId: targetCustomer.id,
-      });
-
-      batchMoved++;
-      ordersMoved++;
     }
 
     const elapsed = Date.now() - batchStartTime;
