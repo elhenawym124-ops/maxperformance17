@@ -62,7 +62,8 @@ const plus = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
 
   // ── Promotions ──
   const promo = await call('POST', '/hr/promotions', hr, {
-    employeeId: empId, toPositionId: positions[0]?.id, effectiveDate: plus(7),
+    employeeId: empId, toPositionId: positions[0]?.id,
+    promotionDate: plus(0), effectiveDate: plus(7),
     reason: `QA ترقية ${stamp}`, newSalary: 15000,
   });
   const promoId = promo.d?.promotion?.id;
