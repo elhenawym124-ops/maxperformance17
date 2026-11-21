@@ -1,0 +1,536 @@
+{
+  "id": "code-camp-junior",
+  "name": "أكاديمية كود كامب جونيور (CodeCamp Junior)",
+  "tokens": {
+    "colors": {
+      "primary": "230 65% 25%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "220 40% 14%",
+      "secondaryForeground": "220 80% 80%",
+      "accent": "28 95% 52%",
+      "accentForeground": "0 0% 100%",
+      "background": "220 25% 6%",
+      "foreground": "210 40% 98%",
+      "muted": "220 25% 14%",
+      "mutedForeground": "215 20% 65%",
+      "border": "217 25% 20%",
+      "card": "222 30% 9%",
+      "cardForeground": "210 40% 98%",
+      "ring": "28 95% 52%"
+    },
+    "typography": {
+      "headingFont": "\"Cairo\", \"IBM Plex Sans Arabic\", sans-serif",
+      "bodyFont": "\"IBM Plex Sans Arabic\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "0.75rem"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 14px 40px -16px rgba(249, 115, 22, 0.22)",
+      "hoverShadow": "0 22px 56px -20px rgba(249, 115, 22, 0.38)",
+      "badgeRadius": "0.625rem",
+      "buttonRadius": "0.75rem",
+      "surfaceOpacity": "0.96"
+    }
+  },
+  "preview": {
+    "colors": [
+      "230 65% 25%",
+      "28 95% 52%",
+      "220 25% 6%"
+    ],
+    "imageUrl": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+  },
+  "seo": {
+    "titleTemplate": "%s | أكاديمية كود كامب جونيور لبرمجة الأطفال واليافعين",
+    "description": "أكاديمية كود كامب جونيور (CodeCamp Junior) — معسكرات ودورات تفاعلية لتعليم البرمجة وتطوير الألعاب والذكاء الاصطناعي للأطفال واليافعين من سن 7 إلى 18 سنة مع مدربين تربويين معتمدين."
+  },
+  "header": {
+    "brandName": "CodeCamp Junior 🚀",
+    "showSearch": true,
+    "navigation": [
+      { "label": "الرئيسية", "to": "/" },
+      { "label": "البرامج حسب العمر", "to": "/shop" },
+      { "label": "المسارات التعليمية", "to": "/collections" },
+      { "label": "مخيمات الإجازة", "to": "/sale" },
+      { "label": "حجز حصة تجريبية مجانية", "to": "/contact" }
+    ]
+  },
+  "footer": {
+    "description": "أكاديمية كود كامب جونيور — الوجهة التعليمية الموثوقة لغرس التفكير المنطقي والابتكار البرمجي ومهارات المستقبل لدى الأجيال الصاعدة بأسلوب تفاعلي ممتع وآمن.",
+    "copyrightText": "© 2026 CodeCamp Junior. جميع الحقوق محفوظة.",
+    "socialLinks": {
+      "github": "https://github.com",
+      "linkedin": "https://linkedin.com",
+      "youtube": "https://youtube.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "الفئات العمرية",
+        "links": [
+          { "label": "المستكشفون الصغار (7-10 سنوات)", "to": "/shop" },
+          { "label": "المبرمجون اليافعون (11-14 سنة)", "to": "/shop" },
+          { "label": "قادة المستقبل (15-18 سنة)", "to": "/shop" },
+          { "label": "مخيمات الإجازات الموسمية", "to": "/sale" }
+        ]
+      },
+      {
+        "title": "لأولياء الأمور",
+        "links": [
+          { "label": "حجز حصة تجريبية مجانية", "to": "/contact" },
+          { "label": "منهجية التعليم التربوية", "to": "/shipping" },
+          { "label": "تقارير متابعة مستوى الطفل", "to": "/returns" },
+          { "label": "شهادات إتمام المشاريع", "to": "/shipping" }
+        ]
+      }
+    ],
+    "legalLinks": [
+      { "label": "سياسة حماية وخصوصية الأطفال", "to": "/privacy" },
+      { "label": "الشروط والأحكام", "to": "/terms" }
+    ]
+  },
+  "description": "قالب أكاديمية برمجة الأطفال واليافعين (Youth Coding, Game Development, Scratch, Python for Kids, Robotics & AI) — ألوان حيوية ملهمة، واجهات تفاعلية مبسطة، إمكانية حجز حصص تجريبية مجانية، ومتابعة مخصصة لأولياء الأمور.",
+  "direction": "rtl",
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "id": "hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "variant": "skill-lab-motion",
+            "title": "نحوّل شغف طفلك بالألعاب إلى مهارة برمجية حقيقية",
+            "subtitle": "دورات ومخيمات تدريبية تفاعلية وممتعة للأعمار من 7 حتى 18 سنة، لتعليم التفكير المنطقي، وصناعة الألعاب، وبرمجة تطبيقات الذكاء الاصطناعي مع مدربين متخصصين.",
+            "primaryCta": {
+              "label": "احجز حصة تجريبية مجانية",
+              "to": "/contact"
+            },
+            "secondaryCta": {
+              "label": "استكشف برامج الأعمار",
+              "to": "/shop"
+            },
+            "statsBadge": "مخيم إجازة نصف العام البرمجي مفتوح الآن",
+            "statNumber": "+5,200",
+            "statLabel": "طفل ويافع أطلقوا مشاريعهم البرمجية وألعابهم الأولى معنا",
+            "terminalCode": "// مرحبا بك في رحلة برمجة الألعاب!\nclass PlayerHero {\n  constructor(name) {\n    this.name = name;\n    this.skills = ['Logical Thinking', 'Game Design', 'Python'];\n  }\n  buildFutureGame() {\n    return `${this.name} just published a 3D game! 🎮`;\n  }\n}"
+          }
+        },
+        {
+          "id": "promo-strip",
+          "type": "promo-strip",
+          "visible": true,
+          "content": {
+            "variant": "sale-signal",
+            "badgeText": "عرض الإجازة",
+            "mainText": "خصم 30% على مخيم الابتكار البرمجي وصناعة الألعاب للأطفال والناشئين — مقاعد المجموعات محدودة لـ 6 طلاب فقط لكل صف!",
+            "countdownDate": "2026-12-31T23:59:59Z",
+            "ctaLabel": "احجز مقعد طفلك الآن",
+            "ctaTo": "/shop"
+          }
+        },
+        {
+          "id": "features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Smile",
+                "title": "مجموعات صغيرة تفاعلية",
+                "description": "حد أقصى 6 طلاب لكل مجموعة تفاعلية لضمان الانتباه الكامل لكل طفل"
+              },
+              {
+                "icon": "Gamepad2",
+                "title": "التعلم القائم على بناء الألعاب",
+                "description": "بناء ألعاب Roblox وMinecraft وScratch بدلاً من الحفظ النظري الجاف"
+              },
+              {
+                "icon": "HeartHandshake",
+                "title": "مدربون معتمدون تربوياً",
+                "description": "فريق مدرب ومؤهل للتعامل مع مختلف الفئات العمرية وتشجيع الفضول"
+              },
+              {
+                "icon": "Award",
+                "title": "تقرير أسبوعي لولي الأمر",
+                "description": "متابعة دورية مستمرة مع ملف رقمي يعرض مشاريع طفلك وفيديوهات شرحه"
+              }
+            ]
+          }
+        },
+        {
+          "id": "age-tracks",
+          "type": "featured-collections",
+          "visible": true,
+          "content": {
+            "title": "المسارات التعليمية مصممة حسب الفئة العمرية",
+            "subtitle": "تدرج منهجي مدروس يضمن استيعاب المفاهيم بسلاسة ودون أي تعقيد",
+            "collections": [
+              {
+                "id": "c1",
+                "title": "المستكشف الصغير (7 - 9 سنوات)",
+                "description": "البرمجة المرئية عبر Scratch Junior وألغاز التفكير المنطقي وأساسيات الروبوت.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c2",
+                "title": "صناع الألعاب والمبدعون (10 - 13 سنة)",
+                "description": "برمجة ألعاب 2D وتطوير عوالم Roblox التفاعلية بلغة Lua وScratch 3.0 المتقدم.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c3",
+                "title": "المبرمج المحترف (14 - 18 سنة)",
+                "description": "لغة بايثون Python الحقيقية، معالجة البيانات، وبناء أول نموذج ذكاء اصطناعي وتطبيق ويب.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c4",
+                "title": "مخيم الروبوتات والذكاء الاصطناعي",
+                "description": "التحكم في الميكروكنترولر Micro:bit ومحاكاة الروبوتات الذكية للناشئين.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "platforms-grid",
+          "type": "services-grid",
+          "visible": true,
+          "content": {
+            "title": "المنصات والأدوات التعليمية العالمية",
+            "subtitle": "نستخدم أفضل البيئات الموصى بها من معهد ماساتشوستس للتكنولوجيا MIT وجامعة ستانفورد",
+            "services": [
+              {
+                "title": "MIT Scratch Studio",
+                "description": "بيئة البرمجة المرئية الأشهر عالمياً لتعلم المفاهيم البرمجية التأسيسية.",
+                "icon": "Code"
+              },
+              {
+                "title": "Roblox Studio & Lua",
+                "description": "تصميم وتطوير عوالم الألعاب ثلاثية الأبعاد وبرمجة قواعد اللعب بلغة Lua.",
+                "icon": "Gamepad"
+              },
+              {
+                "title": "Python Turtle & Games",
+                "description": "الانتقال للبرمجة النصية الحقيقية برسم الأشكال وهندسة الألعاب الحركية.",
+                "icon": "Sparkles"
+              },
+              {
+                "title": "AI & Machine Learning for Kids",
+                "description": "تدريب نماذج التعرف على الصور والأصوات برؤية مبسطة وتفاعلية.",
+                "icon": "Brain"
+              }
+            ]
+          }
+        },
+        {
+          "id": "camp-pricing",
+          "type": "offer-bento",
+          "visible": true,
+          "content": {
+            "title": "خطط الاشتراكات والمخيمات الموسمية",
+            "subtitle": "خيارات مرنة تناسب أوقات الدراسة والإجازات مع ضمان استرداد الرسوم بعد أول حصتين",
+            "offers": [
+              {
+                "id": "tier-1",
+                "badge": "مجاناً بالكامل",
+                "title": "الحصة التجريبية التقييمية",
+                "price": "0 ج.م",
+                "period": "جلسة 45 دقيقة",
+                "features": [
+                  "لقاء مباشر مع مدرب تربوي متخصص",
+                  "تحديد مستوى شغف ومهارات طفلك",
+                  "بناء أول مشروع برمجي صغير في الحصة",
+                  "توصية بالمسار الأنسب لمستقبله"
+                ],
+                "cta": {
+                  "label": "احجز حصة طفلك المجانية",
+                  "to": "/contact"
+                }
+              },
+              {
+                "id": "tier-2",
+                "badge": "الأكثر إقبالاً",
+                "title": "اشتراك النادي البرمجي الشهري",
+                "price": "1,200 ج.م",
+                "period": "شهرياً (حصة أسبوعياً)",
+                "features": [
+                  "مجموعات صغيرة (4 إلى 6 طلاب فقط)",
+                  "مشروع برمجي جديد ومكتمل كل شهر",
+                  "منصة واجبات وتحديات تفاعلية أسبوعية",
+                  "تقرير تقدم شخصي لولي الأمر كل أسبوعين",
+                  "شهادة إتمام مستوى في نهاية كل دورة"
+                ],
+                "cta": {
+                  "label": "اشترك في النادي الشهري",
+                  "to": "/shop"
+                }
+              },
+              {
+                "id": "tier-3",
+                "badge": "المخيم المكثف",
+                "title": "مخيم الإجازات المكثف (Bootcamp)",
+                "price": "2,800 ج.م",
+                "period": "3 أسابيع (3 حصص أسبوعياً)",
+                "features": [
+                  "إنجاز مسار كامل خلال فترة الإجازة المدرسية",
+                  "بناء ونشر لعبة حقيقية يشاركها مع أصدقائه",
+                  "معرض ختامي يستعرض فيه الطلاب مشاريعهم",
+                  "درع وشهادة تفوق وبورتفوليو رقمي خاص"
+                ],
+                "cta": {
+                  "label": "سجل في مخيم الإجازة",
+                  "to": "/shop"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "countdown",
+          "type": "countdown-banner",
+          "visible": true,
+          "content": {
+            "title": "بدء انطلاق مجموعات مخيم نصف العام خلال:",
+            "endDate": "2026-12-31T23:59:59Z",
+            "ctaLabel": "احجز مقعد طفلك قبل الإغلاق",
+            "ctaTo": "/shop"
+          }
+        },
+        {
+          "id": "featured",
+          "type": "featured-products",
+          "visible": true,
+          "content": {
+            "title": "الدورات والمخيمات المتاحة للحجز الآن",
+            "subtitle": "برامج تفاعلية بأوقات صباحية ومسائية تناسب مواعيد دراسة طفلك",
+            "limit": 6
+          }
+        },
+        {
+          "id": "reviews",
+          "type": "reviews",
+          "visible": true,
+          "content": {
+            "title": "ماذا يقول أولياء الأمور وأطفالنا المبدعون؟",
+            "subtitle": "قصص حقيقية عن كيف تحوّل شغف أطفالنا إلى ثقة بالنفس ومهارات حل مشكلات مذهلة"
+          }
+        },
+        {
+          "id": "newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "نصائح وإرشادات تربوية للتربية الرقمية",
+            "subtitle": "نشارككم شهرياً نصائح لكيفية توجيه استخدام طفلك للشاشات نحو الإبداع والإنتاج.",
+            "buttonText": "انضم إلى مجتمعنا",
+            "placeholder": "أدخل بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "sections": [
+        {
+          "id": "shop-hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "title": "دليل البرامج والدورات حسب العمر",
+            "subtitle": "اختر البرنامج المناسب لسن طفلك واكتشف خطة التعلم الممتعة"
+          }
+        },
+        {
+          "id": "shop-promo",
+          "type": "promo-strip",
+          "visible": true,
+          "content": {
+            "mainText": "خصم خاص 20% عند تسجيل الأخوين في نفس الفصل التدريبي"
+          }
+        },
+        {
+          "id": "shop-products",
+          "type": "featured-products",
+          "visible": true,
+          "content": {
+            "title": "جميع الدورات والمخيمات المتاحة",
+            "limit": 12
+          }
+        },
+        {
+          "id": "shop-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Laptop",
+                "title": "حصص مباشرة تفاعلية",
+                "description": "بث مباشر عبر زووم مع مشاركة شاشة ودعم خطوة بخطوة"
+              },
+              {
+                "icon": "ShieldCheck",
+                "title": "بيئة تعليمية آمنة 100%",
+                "description": "غرف تعلم مغلقة وخاضعة للرقابة والإشراف التربوي المستمر"
+              },
+              {
+                "icon": "Trophy",
+                "title": "شهادات تشجيعية",
+                "description": "أوسمة وشهادات تقديرية ترفع من ثقة الطفل وإحساسه بالإنجاز"
+              }
+            ]
+          }
+        },
+        {
+          "id": "shop-newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "اشترك لتصلك مواعيد المخيمات القادمة",
+            "subtitle": "كن أول من يعلم بفتح باب الحجز لمخيمات الصيف والشتاء"
+          }
+        }
+      ]
+    },
+    "pdp": {
+      "sections": [
+        {
+          "id": "gallery",
+          "type": "product-gallery",
+          "visible": true
+        },
+        {
+          "id": "info",
+          "type": "product-info",
+          "visible": true
+        },
+        {
+          "id": "conversion",
+          "type": "conversion-stack",
+          "visible": true
+        },
+        {
+          "id": "pdp-reviews",
+          "type": "reviews",
+          "visible": true
+        },
+        {
+          "id": "related",
+          "type": "related-products",
+          "visible": true
+        }
+      ]
+    },
+    "cart": {
+      "sections": [
+        {
+          "id": "items",
+          "type": "cart-items",
+          "visible": true
+        },
+        {
+          "id": "summary",
+          "type": "order-summary",
+          "visible": true
+        }
+      ]
+    },
+    "collections": {
+      "sections": [
+        {
+          "id": "collections-hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "title": "المسارات التعليمية المتخصصة للأجيال الصاعدة",
+            "subtitle": "خريطة تعلم متدرجة ترافق طفلك من الابتدائية حتى الثانوية"
+          }
+        },
+        {
+          "id": "collections-grid",
+          "type": "featured-collections",
+          "visible": true,
+          "content": {
+            "title": "اختر المرحلة المناسبة لطفلك",
+            "subtitle": "لكل مرحلة أهدافها المعرفية والمهارية المحددة بدقة"
+          }
+        },
+        {
+          "id": "collections-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Clock",
+                "title": "أوقات مرنة تناسب المدارس",
+                "description": "مواعيد في عطلات نهاية الأسبوع وبعد انتهاء اليوم الدراسي"
+              },
+              {
+                "icon": "Repeat",
+                "title": "إمكانية تعويض الحصص",
+                "description": "تسجيلات الحصص وجلسات تعويضية في حال غياب الطفل بعذر"
+              }
+            ]
+          }
+        },
+        {
+          "id": "collections-newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "هل تحتاج لمساعدة في تحديد عمر طفلك والمسار الأنسب؟",
+            "subtitle": "تواصل مع مستشارنا التعليمي وسنساعدك في اختيار الصف الأنسب"
+          }
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "id": "contact-main",
+          "type": "contact-form",
+          "visible": true,
+          "content": {
+            "title": "احجز الحصة التجريبية المجانية لطفلك",
+            "subtitle": "املأ البيانات وسيقوم فريقنا بالتواصل معك لتحديد موعد الجلسة التجريبية ولقاء المدرب."
+          }
+        },
+        {
+          "id": "contact-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Phone",
+                "title": "هاتف واستفسارات أولياء الأمور",
+                "description": "+20 100 000 0000"
+              },
+              {
+                "icon": "MessageCircle",
+                "title": "دعم الواتساب الفوري",
+                "description": "تواصل معنا مباشرة للحصول على المواعيد المتاحة"
+              },
+              {
+                "icon": "MapPin",
+                "title": "المقر والفروع التفاعلية",
+                "description": "فروعنا التفاعلية في الشيخ زايد، والمعادي، ومدينة نصر"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

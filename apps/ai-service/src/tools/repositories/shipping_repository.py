@@ -281,6 +281,26 @@ class ShippingRepository(BaseRepository):
                 settings_dict["username"] = username.strip()
             if password:
                 settings_dict["password"] = password.strip()
+
+        elif "hashtag" in raw_carrier or "هاشتاج" in raw_carrier:
+            provider_key = "HASHTAG"
+            slug = "hashtag"
+            if not carrier_name:
+                carrier_name = "هاشتاج إكسبريس (Hashtag Express)"
+            if not website:
+                website = "https://hashtag-express.com"
+            if not phone:
+                phone = ""
+            api_url = "https://hashtag-express.com/app"
+            integration_mode = "LIVE"
+            if username or api_key:
+                val = (username or api_key or "").strip()
+                settings_dict["apiName"] = val
+                settings_dict["username"] = val
+            if password:
+                val = password.strip()
+                settings_dict["apiPassword"] = val
+                settings_dict["password"] = val
         else:
             if not carrier_name:
                 carrier_name = carrier.strip()

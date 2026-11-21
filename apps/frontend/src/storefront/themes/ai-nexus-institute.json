@@ -1,0 +1,538 @@
+{
+  "id": "ai-nexus-institute",
+  "name": "معهد نكسوس للذكاء الاصطناعي (AI Nexus Institute)",
+  "tokens": {
+    "colors": {
+      "primary": "215 90% 48%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "220 50% 12%",
+      "secondaryForeground": "210 90% 75%",
+      "accent": "174 85% 42%",
+      "accentForeground": "0 0% 100%",
+      "background": "222 47% 6%",
+      "foreground": "210 40% 98%",
+      "muted": "220 38% 13%",
+      "mutedForeground": "215 20% 65%",
+      "border": "217 33% 20%",
+      "card": "222 47% 9%",
+      "cardForeground": "210 40% 98%",
+      "ring": "215 90% 48%"
+    },
+    "typography": {
+      "headingFont": "\"Cairo\", \"IBM Plex Sans Arabic\", sans-serif",
+      "bodyFont": "\"IBM Plex Sans Arabic\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.875rem",
+      "buttonRadius": "0.625rem"
+    },
+    "productCard": {
+      "borderRadius": "0.875rem",
+      "boxShadow": "0 14px 40px -16px rgba(37, 99, 235, 0.22)",
+      "hoverShadow": "0 22px 56px -20px rgba(37, 99, 235, 0.38)",
+      "badgeRadius": "0.5rem",
+      "buttonRadius": "0.625rem",
+      "surfaceOpacity": "0.96"
+    }
+  },
+  "preview": {
+    "colors": [
+      "215 90% 48%",
+      "174 85% 42%",
+      "222 47% 6%"
+    ],
+    "imageUrl": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+  },
+  "seo": {
+    "titleTemplate": "%s | معهد نكسوس للذكاء الاصطناعي وهندسة النماذج اللغوية",
+    "description": "معهد نكسوس للذكاء الاصطناعي (AI Nexus Institute) — برامج تدريبية احترافية في هندسة النماذج اللغوية الكبيرة LLMs، أنظمة استرجاع المعلومات RAG، أسراب الوكلاء الذكية Multi-Agent Swarms، وتدريب النماذج محلياً."
+  },
+  "header": {
+    "brandName": "AI Nexus Institute 🧬",
+    "showSearch": true,
+    "navigation": [
+      { "label": "الرئيسية", "to": "/" },
+      { "label": "برامج الذكاء الاصطناعي", "to": "/shop" },
+      { "label": "مسارات التخصص", "to": "/collections" },
+      { "label": "الباقات والاشتراكات", "to": "/sale" },
+      { "label": "تقييم الكفاءة", "to": "/contact" }
+    ]
+  },
+  "footer": {
+    "description": "معهد نكسوس للذكاء الاصطناعي — صرح تدريبي رائد في إعداد مهندسي الذكاء الاصطناعي التوليدي، وتطوير الوكلاء المستقلين وأنظمة RAG المتقدمة للشركات والمؤسسات.",
+    "copyrightText": "© 2026 AI Nexus Institute. جميع الحقوق محفوظة.",
+    "socialLinks": {
+      "github": "https://github.com",
+      "linkedin": "https://linkedin.com",
+      "youtube": "https://youtube.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "البرامج والمسارات",
+        "links": [
+          { "label": "كافة المعسكرات والدورات", "to": "/shop" },
+          { "label": "معمارية وكلاء AI Swarms", "to": "/collections" },
+          { "label": "هندسة RAG والبحث الشعاعي", "to": "/shop" },
+          { "label": "Fine-Tuning وتطويع النماذج", "to": "/shop" }
+        ]
+      },
+      {
+        "title": "الاعتماد والدعم",
+        "links": [
+          { "label": "الشهادات والاعتماد المهني", "to": "/shipping" },
+          { "label": "شروط القبول والضمان", "to": "/returns" },
+          { "label": "حجز مقابلة قبول", "to": "/contact" },
+          { "label": "مختبرات الحوسبة A100", "to": "/shipping" }
+        ]
+      }
+    ],
+    "legalLinks": [
+      { "label": "سياسة الخصوصية", "to": "/privacy" },
+      { "label": "الشروط والأحكام", "to": "/terms" }
+    ]
+  },
+  "description": "قالب معهد تدريب الذكاء الاصطناعي المتقدم (AI Engineering, LLM Fine-Tuning, Multi-Agent Swarms, RAG Architecture) — معسكرات متخصصة، محاكاة شبكات عصبية ثلاثية الأبعاد، مختبرات GPUs حية، وباقات التدريب المؤسسي.",
+  "direction": "rtl",
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "id": "hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "variant": "skill-lab-motion",
+            "title": "اصنع مستقبل الذكاء الاصطناعي بهندسة حقيقية",
+            "subtitle": "معسكرات مكثفة لإتقان هندسة النماذج اللغوية الكبيرة LLMs، أسراب الوكلاء الذاتية Multi-Agent Swarms، وتطوير أنظمة RAG فائقة السرعة للمؤسسات.",
+            "primaryCta": {
+              "label": "استكشف معسكرات الـ AI",
+              "to": "/shop"
+            },
+            "secondaryCta": {
+              "label": "حجز تقييم مستوى فني",
+              "to": "/contact"
+            },
+            "statsBadge": "دفعة الربيع 2026: بقي 9 مقاعد فقط",
+            "statNumber": "98%",
+            "statLabel": "نسبة نجاح التوظيف في شركات التكنولوجيا العالمية",
+            "terminalCode": "import { Agent, Swarm } from '@nexus/ai-core';\n\n// تهيئة شبكة وكلاء ذكاء اصطناعي متعددة المهام\nconst orchestrator = new Swarm({\n  memory: 'vector-qdrant',\n  reasoning: 'o3-high',\n  tools: [webSearch, databaseTool, codeRunner]\n});\n\nawait orchestrator.execute('Deploy Autonomous Pipeline');"
+          }
+        },
+        {
+          "id": "promo-strip",
+          "type": "promo-strip",
+          "visible": true,
+          "content": {
+            "variant": "sale-signal",
+            "badgeText": "قبول فوري",
+            "mainText": "خصم 25% والتسجيل مفتوح لمعسكر مهندس الذكاء الاصطناعي التوليدي (GenAI Architect Cohort 2026)",
+            "countdownDate": "2026-12-31T23:59:59Z",
+            "ctaLabel": "احجز مقعدك الآن",
+            "ctaTo": "/shop"
+          }
+        },
+        {
+          "id": "features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Cpu",
+                "title": "مختبرات حوسبة A100/H100 حية",
+                "description": "وصول سحابي مباشر لعتاد الحوسبة الفائقة لتدريب وتقييم النماذج اللغوية محلياً"
+              },
+              {
+                "icon": "Workflow",
+                "title": "هندسة أسراب الوكلاء الذاتية",
+                "description": "بناء وكلاء متعاونين وفق معمارية LangGraph وMicrosoft Agent Framework"
+              },
+              {
+                "icon": "Database",
+                "title": "أنظمة RAG والبحث الشعاعي",
+                "description": "استرجاع معرفي فائق الدقة مع Qdrant وMilvus وتقنيات إعادة الترتيب Re-Ranking"
+              },
+              {
+                "icon": "ShieldCheck",
+                "title": "اعتماد مهني وحوكمة AI Safety",
+                "description": "معايير الأمان السيبراني للذكاء الاصطناعي ومنع هجمات Prompt Injection"
+              }
+            ]
+          }
+        },
+        {
+          "id": "tracks",
+          "type": "featured-collections",
+          "visible": true,
+          "content": {
+            "title": "المسارات الاحترافية الرائدة في هندسة الذكاء الاصطناعي",
+            "subtitle": "برامج مصممة بالتعاون مع كبار مهندسي الذكاء الاصطناعي في وادي السيليكون والشركات الكبرى",
+            "collections": [
+              {
+                "id": "c1",
+                "title": "معمارية الوكلاء المستقلة (Autonomous Agents)",
+                "description": "تصميم شبكات الوكلاء متعددة الأدوار وتنسيق المهام المعقدة واتخاذ القرارات الذاتية.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c2",
+                "title": "النماذج اللغوية المخصصة (LLM Fine-Tuning)",
+                "description": "تقنيات LoRA وQLoRA وRLHF لتدريب النماذج مفتوحة المصدر (Llama, DeepSeek, Mistral).",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c3",
+                "title": "أنظمة RAG المؤسسية فائقة السرعة",
+                "description": "بناء محركات البحث الدلالي والتقسيم الذكي للمستندات والربط بقواعد البيانات الشعاعية.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c4",
+                "title": "حوكمة وأمان الذكاء الاصطناعي (AI SecOps)",
+                "description": "حماية النماذج من الهجمات وتدقيق مخرجات LLMs ومراقبة التكاليف وجودة التوليد.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "stack",
+          "type": "services-grid",
+          "visible": true,
+          "content": {
+            "title": "الأدوات والمكتبات المعتمدة في المختبرات",
+            "subtitle": "تعمل في بيئة مطابقة للشركات التقنية الكبرى بدون اختصارات نظرية",
+            "services": [
+              {
+                "title": "LangGraph & Swarms",
+                "description": "بناء رسوم بيانية تفاعلية للوكلاء مع حالات ذاكرة دائمة واستئناف ذاتي.",
+                "icon": "Layers"
+              },
+              {
+                "title": "Qdrant & Vector DBs",
+                "description": "قواعد بيانات المتجهات عالية الأداء مع الفهرسة الدلالية HNSW السريعة.",
+                "icon": "Database"
+              },
+              {
+                "title": "vLLM & TensorRT-LLM",
+                "description": "محركات استدلال فائقة السرعة مع تحسين الذاكرة PagedAttention.",
+                "icon": "Zap"
+              },
+              {
+                "title": "Evaluations & Tracing",
+                "description": "تتبع خطوط التفكير والتقييم الآلي لمخرجات النماذج بواسطة LangSmith وArize.",
+                "icon": "BarChart3"
+              }
+            ]
+          }
+        },
+        {
+          "id": "pricing-tiers",
+          "type": "offer-bento",
+          "visible": true,
+          "content": {
+            "title": "باقات الالتحاق والاستثمار في مستقبلك المهني",
+            "subtitle": "اختر نمط التدريب الأنسب لجدولك، مع ضمان الرضا الكامل وإمكانية التقسيط",
+            "offers": [
+              {
+                "id": "tier-1",
+                "badge": "الدراسة الذاتية + المختبرات",
+                "title": "مسار التعلم الذاتي مع السحابة",
+                "price": "3,400 ج.م",
+                "period": "وصول سنوي كامل",
+                "features": [
+                  "كافة المحاضرات المسجلة والمشاريع العملية",
+                  "100 ساعة وصول مباشر لخوادم الحوسبة A100",
+                  "مستودعات الأكواد الخاصة ومجموعات البيانات",
+                  "مجتمع مهندسي الذكاء الاصطناعي الحصري",
+                  "شهادة إتمام معتمدة برابط تحقق رقمي"
+                ],
+                "cta": {
+                  "label": "اشترك الآن",
+                  "to": "/shop"
+                }
+              },
+              {
+                "id": "tier-2",
+                "badge": "الأكثر طلباً - معسكر تفاعلي",
+                "title": "معسكر نخبة مهندسي الـ AI المباشر",
+                "price": "8,900 ج.م",
+                "period": "12 أسبوعاً تدريبياً مكثفاً",
+                "features": [
+                  "كل ما في مسار التعلم الذاتي بدون حدود",
+                  "جلسات أسبوعية مباشرة مع كبار مهندسي الذكاء الاصطناعي",
+                  "مراجعة كود فردية 1-on-1 لكل مشروع تخرج",
+                  "بناء نظام وكلاء إنتاجي متكامل لشركة حقيقية",
+                  "تدريب مكثف على المقابلات التقنية لشركات الـ AI",
+                  "ساعات حوسبة غير محدودة طوال فترة المعسكر"
+                ],
+                "cta": {
+                  "label": "انضم لدفعة الربيع 2026",
+                  "to": "/shop"
+                }
+              },
+              {
+                "id": "tier-3",
+                "badge": "للشركات والمؤسسات",
+                "title": "تدريب الفرق ومختبرات الـ Enterprise",
+                "price": "مخصص",
+                "period": "وفق احتياج المؤسسة",
+                "features": [
+                  "تأهيل فرق التطوير في شركتك لبناء حلول GenAI داخلية",
+                  "نشر النماذج محلياً على البنية التحتية الخاصة (On-Premises)",
+                  "تأمين وحوكمة أمن البيانات ومنع تسريب أسرار العمل",
+                  "دعم استشاري مباشر من خبرائنا أثناء تنفيذ المشاريع"
+                ],
+                "cta": {
+                  "label": "طلب عرض سعر للمؤسسات",
+                  "to": "/contact"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "countdown",
+          "type": "countdown-banner",
+          "visible": true,
+          "content": {
+            "title": "ينتهي التسجيل المبكر لدفعة الذكاء الاصطناعي خلال:",
+            "endDate": "2026-12-31T23:59:59Z",
+            "ctaLabel": "سجل الآن قبل اكتمال العدد",
+            "ctaTo": "/shop"
+          }
+        },
+        {
+          "id": "featured",
+          "type": "featured-products",
+          "visible": true,
+          "content": {
+            "title": "أبرز المعسكرات والبرامج المتاحة للتسجيل",
+            "subtitle": "برامج معتمدة تركز على المشاريع الملموسة وسوق العمل الحديث",
+            "limit": 6
+          }
+        },
+        {
+          "id": "reviews",
+          "type": "reviews",
+          "visible": true,
+          "content": {
+            "title": "ماذا يقول خريجو معهد نكسوس؟",
+            "subtitle": "قصص نجاح مهندسينا الذين قادوا مبادرات الذكاء الاصطناعي في كبرى المؤسسات"
+          }
+        },
+        {
+          "id": "newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "النشرة البريدية لأبحاث وتطبيقات الذكاء الاصطناعي",
+            "subtitle": "تحليلات أسبوعية معمقة لأحدث النماذج وأوراق البحث وخلاصات بناء أنظمة الـ AI الإنتاجية.",
+            "buttonText": "اشترك مجاناً",
+            "placeholder": "أدخل بريدك الإلكتروني المؤسسي"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "sections": [
+        {
+          "id": "shop-hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "title": "دليل البرامج والمعسكرات التخصصية",
+            "subtitle": "استكشف كافة المسارات الهندسية المتاحة واختر ما يطابق طموحك المهني"
+          }
+        },
+        {
+          "id": "shop-promo",
+          "type": "promo-strip",
+          "visible": true,
+          "content": {
+            "mainText": "متاح خطط تقسيط ميسرة وبدون فوائد حتى 12 شهراً"
+          }
+        },
+        {
+          "id": "shop-products",
+          "type": "featured-products",
+          "visible": true,
+          "content": {
+            "title": "جميع البرامج التدريبية المتاحة",
+            "limit": 12
+          }
+        },
+        {
+          "id": "shop-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Laptop",
+                "title": "مشاريع عملية 100%",
+                "description": "تطبيق على أكواد حقيقية ومستودعات GitHub للمحفظة الرقمية"
+              },
+              {
+                "icon": "Award",
+                "title": "شهادات دولية معتمدة",
+                "description": "شهادات قابلة للتحقق وموثقة على منصات التوظيف العالمية"
+              },
+              {
+                "icon": "Users",
+                "title": "شبكة خريجين حصرية",
+                "description": "تواصل مستمر مع المطورين وفرص عمل حصرية في مجتمعنا"
+              }
+            ]
+          }
+        },
+        {
+          "id": "shop-newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "ابق على اطلاع بكل مسار جديد",
+            "subtitle": "نرسل تحديثات الكورسات ومواعيد الدفعات القادمة مباشرة إلى بريدك"
+          }
+        }
+      ]
+    },
+    "pdp": {
+      "sections": [
+        {
+          "id": "gallery",
+          "type": "product-gallery",
+          "visible": true
+        },
+        {
+          "id": "info",
+          "type": "product-info",
+          "visible": true
+        },
+        {
+          "id": "conversion",
+          "type": "conversion-stack",
+          "visible": true
+        },
+        {
+          "id": "pdp-reviews",
+          "type": "reviews",
+          "visible": true
+        },
+        {
+          "id": "related",
+          "type": "related-products",
+          "visible": true
+        }
+      ]
+    },
+    "cart": {
+      "sections": [
+        {
+          "id": "items",
+          "type": "cart-items",
+          "visible": true
+        },
+        {
+          "id": "summary",
+          "type": "order-summary",
+          "visible": true
+        }
+      ]
+    },
+    "collections": {
+      "sections": [
+        {
+          "id": "collections-hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "title": "مسارات التخصص والاعتماد المهني",
+            "subtitle": "خطط تدريبية متسلسلة تأخذك من الأساسيات إلى رتبة كبير مهندسي الـ AI"
+          }
+        },
+        {
+          "id": "collections-grid",
+          "type": "featured-collections",
+          "visible": true,
+          "content": {
+            "title": "اختر مسارك الوظيفي المستهدف",
+            "subtitle": "كل مسار يضم مجموعة معسكرات متكاملة تغطي كافة متطلبات المنصب"
+          }
+        },
+        {
+          "id": "collections-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "CheckCircle",
+                "title": "إشراف هندسي مباشر",
+                "description": "توجيه خطوة بخطوة من خبراء المجال طوال رحلة المسار"
+              },
+              {
+                "icon": "Briefcase",
+                "title": "ربط بالشركات الشريكة",
+                "description": "ترشيح مباشر لأفضل الخريجين للمقابلات الوظيفية"
+              }
+            ]
+          }
+        },
+        {
+          "id": "collections-newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "احصل على استشارة مهنية مجانية",
+            "subtitle": "تحدث مع مستشارنا لتحديد المسار الأنسب لخبرتك الحالية"
+          }
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "id": "contact-main",
+          "type": "contact-form",
+          "visible": true,
+          "content": {
+            "title": "تواصل مع مستشاري القبول بمعهد نكسوس",
+            "subtitle": "هل تحتاج مساعدة في اختيار المعسكر أو مناقشة خطط التدريب للشركات؟ فريقنا متواجد للإجابة عن استفساراتك."
+          }
+        },
+        {
+          "id": "contact-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Phone",
+                "title": "استجابة سريعة",
+                "description": "نرد على جميع الاستفسارات خلال أقل من ساعتين عمل"
+              },
+              {
+                "icon": "MapPin",
+                "title": "مقر المعهد والمختبرات",
+                "description": "القاهرة الجديدة، التجمع الخامس — شارع التسعين الشمالي"
+              },
+              {
+                "icon": "Mail",
+                "title": "البريد الإلكتروني المباشر",
+                "description": "admissions@ai-nexus.institute"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

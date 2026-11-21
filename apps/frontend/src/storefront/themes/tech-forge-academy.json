@@ -1,0 +1,471 @@
+{
+  "id": "tech-forge-academy",
+  "name": "أكاديمية ديف فورج التقنية (DevForge Academy)",
+  "tokens": {
+    "colors": {
+      "primary": "160 84% 39%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "222 47% 11%",
+      "secondaryForeground": "160 70% 85%",
+      "accent": "190 95% 45%",
+      "accentForeground": "0 0% 100%",
+      "background": "224 71% 4%",
+      "foreground": "210 40% 98%",
+      "muted": "220 38% 13%",
+      "mutedForeground": "215 20% 65%",
+      "border": "217 33% 18%",
+      "card": "222 47% 7%",
+      "cardForeground": "210 40% 98%",
+      "ring": "160 84% 39%"
+    },
+    "typography": {
+      "headingFont": "\"Cairo\", \"IBM Plex Sans Arabic\", sans-serif",
+      "bodyFont": "\"IBM Plex Sans Arabic\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.875rem",
+      "buttonRadius": "0.625rem"
+    },
+    "productCard": {
+      "borderRadius": "0.875rem",
+      "boxShadow": "0 14px 40px -16px rgba(16, 185, 129, 0.18)",
+      "hoverShadow": "0 22px 56px -20px rgba(16, 185, 129, 0.32)",
+      "badgeRadius": "0.5rem",
+      "buttonRadius": "0.625rem",
+      "surfaceOpacity": "0.96"
+    }
+  },
+  "preview": {
+    "colors": [
+      "160 84% 39%",
+      "190 95% 45%",
+      "224 71% 4%"
+    ],
+    "imageUrl": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+  },
+  "seo": {
+    "titleTemplate": "%s | أكاديمية ديف فورج للهندسة البرمجية",
+    "description": "أكاديمية ديف فورج التقنية (DevForge Academy) — معسكرات هندسة البرمجيات المتقدمة، معمارية النظم الموزعة، وهندسة وكلاء الذكاء الاصطناعي مع مشاريع عملية موثقة على GitHub."
+  },
+  "header": {
+    "brandName": "DevForge Academy ⚡",
+    "showSearch": true,
+    "navigation": [
+      { "label": "الرئيسية", "to": "/" },
+      { "label": "المسارات الهندسية", "to": "/shop" },
+      { "label": "مشاريع التخرج", "to": "/collections" },
+      { "label": "باقات المعسكر", "to": "/sale" },
+      { "label": "تحديد المستوى", "to": "/contact" }
+    ]
+  },
+  "footer": {
+    "description": "أكاديمية ديف فورج التقنية — صرح تدريبي هندسي رائد في إعداد كبار مهندسي البرمجيات والنظم السحابية ووكلاء الذكاء الاصطناعي بمشاريع إنتاج حقيقية ومراجعات كود فردية.",
+    "copyrightText": "© 2026 DevForge Academy. جميع الحقوق محفوظة.",
+    "socialLinks": {
+      "github": "https://github.com",
+      "linkedin": "https://linkedin.com",
+      "youtube": "https://youtube.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "المسارات والبرامج",
+        "links": [
+          { "label": "كافة الكورسات والمسارات", "to": "/shop" },
+          { "label": "مسارات التخصص المهني", "to": "/collections" },
+          { "label": "باقات الالتحاق والتقسيط", "to": "/sale" },
+          { "label": "مشاريع التخرج المنشورة", "to": "/shop" }
+        ]
+      },
+      {
+        "title": "الاعتماد والدعم",
+        "links": [
+          { "label": "التحقق من الشهادات", "to": "/shipping" },
+          { "label": "شروط القبول والضمان", "to": "/returns" },
+          { "label": "حجز استشارة تقنية", "to": "/contact" },
+          { "label": "الأسئلة الشائعة", "to": "/shipping" }
+        ]
+      }
+    ],
+    "legalLinks": [
+      { "label": "سياسة الخصوصية", "to": "/privacy" },
+      { "label": "الشروط والأحكام", "to": "/terms" }
+    ]
+  },
+  "description": "قالب نخبوي لمعسكرات البرمجة والتدريب التقني المتقدم (Full-Stack, Cloud Architecture, AI Agents, Systems Engineering) — مسارات تخصصية، بانتو الاشتراكات، استعراض مشاريع GitHub التفاعلية، بوابات التقديم للدفعات (Cohorts)، وشهادات معتمدة.",
+  "direction": "rtl",
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "⚡ دفعة الربع الأول 2026",
+            "message": "فتح باب التقديم لدفعة هندسة النظم السحابية ووكلاء الذكاء الاصطناعي — 20 مقعداً فقط بحد أقصى لكل دفعة لضمان المراجعة الفردية.",
+            "saleLabel": "خصم التسجيل المبكر 25%",
+            "shippingLabel": "وصول فوري للمختبرات",
+            "returnLabel": "ضمان استرداد 14 يوماً",
+            "ctaText": "احجز مقعدك",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "skill-lab-motion",
+          "settings": {
+            "eyebrow": "المعسكر الهندسي المكثف • لمهندسي البرمجيات والنظم المتقدمة",
+            "title": "اصنع أنظمة برمجية حقيقية تتوسع لملايين المستخدمين وتخطَّ حدود المطور التقليدي",
+            "subtitle": "مسارات تدريبية تطبيقية 100% تجمع بين معمارية النظم الموزعة Microservices، وكلاء الذكاء الاصطناعي الذاتية Multi-Agent Swarms، وأحدث ممارسات الـ DevOps والـ Zero Blast-Radius. كودك يُراجع سطراً بسطر من كبار المهندسين.",
+            "ctaText": "استكشف المسارات واشترك الآن",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "استعرض مشاريع التخرج والمنهج",
+            "secondaryCtaLink": "/collections",
+            "backgroundImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+            "panelImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+          }
+        },
+        {
+          "type": "features-bar",
+          "settings": {
+            "title": "معايير ديف فورج في التدريب الهندسي",
+            "subtitle": "نقلة نوعية من التعليم النظري إلى ممارسات شركات الفئة الأولى عالمياً (Tier-1 Tech Companies).",
+            "items": [
+              {
+                "icon": "target",
+                "title": "مشاريع إنتاج حقيقية",
+                "description": "لا توجد مشاريع مكررة؛ كل متدرب يبني منصة متكاملة متعددة المستأجرين منشورة على السحابة."
+              },
+              {
+                "icon": "shield",
+                "title": "مراجعات كود فردية 1-on-1",
+                "description": "كل Pull Request يُفحص وفق معايير AST Guards واختبارات الأداء والأمان قبل اعتماده."
+              },
+              {
+                "icon": "grid",
+                "title": "مختبرات سحابية مجانية",
+                "description": "وصول مباشر لخوادم التطوير وحاويات Docker وسلاسل CI/CD ومفاتيح واجهات الذكاء الاصطناعي."
+              },
+              {
+                "icon": "search",
+                "title": "شهادة مهنية ومحفظة GitHub",
+                "description": "شهادة بكود تحقق مشفر مع روابط مباشرة لجميع التزاماتك ومشاريعك المنجزة على GitHub."
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "المسارات الهندسية المعتمدة لعام 2026",
+            "subtitle": "مسارات تخصصية متدرجة مصممة لنقلك مباشرة إلى سوق العمل المحلي والدولي.",
+            "limit": 4,
+            "ctaText": "استعرض جميع المسارات",
+            "ctaLink": "/collections",
+            "collections": [
+              {
+                "title": "معمارية النظم وتطبيقات السحاب الفائقة (Backend Architect)",
+                "subtitle": "Node.js Enterprise, PostgreSQL Optimization, Multi-Tenant Isolation, Redis Cluster, BullMQ, Docker.",
+                "link": "/shop",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+              },
+              {
+                "title": "هندسة الذكاء الاصطناعي وشبكات الوكلاء (AI Agents & LLMs)",
+                "subtitle": "Multi-Agent Swarms, Model Context Protocol (FastMCP), RAG Architectures, Vector DBs, LangChain.",
+                "link": "/shop",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+              },
+              {
+                "title": "مهندس البنية التحتية والـ DevOps (Cloud Native SRE)",
+                "subtitle": "Kubernetes, Docker Swarm, GitHub Actions Hardening, Linux Kernel Tuning, Zero-Downtime Releases.",
+                "link": "/shop",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+              },
+              {
+                "title": "هندسة الواجهات المتقدمة والموشن فائق السرعة (Frontend Architect)",
+                "subtitle": "Modern React 19, TypeScript Deep Dive, Tailwind v4, Mobile-First MOB-015, TanStack Query, 60 FPS Micro-Haptics.",
+                "link": "/shop",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "type": "services-grid",
+          "variant": "standard",
+          "settings": {
+            "title": "التقنيات والأدوات التي ستتقنها عملياً",
+            "subtitle": "نفس حزمة التقنيات المعتمدة في كبرى الشركات التقنية والمنصات المليونية.",
+            "services": [
+              {
+                "title": "PostgreSQL & Data Modeling",
+                "description": "عزل بيانات المستأجرين (Tenant Isolation)، كتابة الاستعلامات المعقدة، الفهارس المتقدمة، وحل اختناقات Deadlocks.",
+                "icon": "database"
+              },
+              {
+                "title": "Docker & Container Orchestration",
+                "description": "بناء صور الإنتاج المحصنة، التنسيق عبر Docker Compose، وإدارة المجلدات والشبكات الافتراضية بأمان.",
+                "icon": "server"
+              },
+              {
+                "title": "Automated CI/CD & Security Gates",
+                "description": "تصميم خطوط النشر الآلي عبر GitHub Actions، حماية المفاتيح، والتحقق المستمر قبل كل Git Push.",
+                "icon": "shield-check"
+              },
+              {
+                "title": "Autonomous AI Agents & Swarms",
+                "description": "ربط الوكلاء الذكية بالأنظمة، استدعاء الأدوات المهيكلة (Function Calling)، وضبط الذاكرة ثلاثية المستويات.",
+                "icon": "cpu-chip"
+              }
+            ]
+          }
+        },
+        {
+          "type": "offer-bento",
+          "settings": {
+            "badge": "باقات الالتحاق",
+            "title": "اختر أسلوب التعلم الأنسب لمسارك المهني",
+            "subtitle": "خيارات مرنة للدفع والتقسيط مع ضمان كامل لجودة التجربة التعليمية.",
+            "cards": [
+              {
+                "label": "الأكثر شمولاً",
+                "title": "عضوية النخبة الهندسية (All-Access Pass)",
+                "subtitle": "وصول كامل لكافة المسارات الحالية والمستقبلية + 12 جلسة إرشاد هندسي 1-on-1 + مراجعة شاملة لملف الـ CV والـ Portfolio.",
+                "ctaText": "انضم للنخبة الآن",
+                "link": "/shop",
+                "tone": "primary",
+                "stat": "8,500 ج.م"
+              },
+              {
+                "label": "تخصصي مكثف",
+                "title": "المعسكر المباشر التخصصي (Live Cohort)",
+                "subtitle": "معسكر تفاعلي 16 أسبوعاً مع مدرب مباشر + محاضرات حية أسبوعية + مشروع تخرج جماعي ضخم.",
+                "ctaText": "احجز مقعدك في الدفعة",
+                "link": "/shop",
+                "tone": "accent",
+                "stat": "5,200 ج.م"
+              },
+              {
+                "label": "تعلم ذاتي",
+                "title": "المسار الذاتي المرن (Self-Paced Track)",
+                "subtitle": "وصول فوري لكافة المحاضرات والمختبرات السحابية + مجتمع المطورين الخاص للدعم والمساعدة البرمجية المستمرة.",
+                "ctaText": "ابدأ التعلم الآن",
+                "link": "/shop",
+                "tone": "muted",
+                "stat": "2,800 ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-products",
+          "settings": {
+            "title": "الكورسات والبرامج التدريبية المفتوحة للتسجيل",
+            "subtitle": "اختر برنامجك وابدأ فوراً أو انضم للدفعة التفاعلية القادمة.",
+            "limit": 6
+          }
+        },
+        {
+          "type": "countdown-banner",
+          "variant": "inline",
+          "settings": {
+            "badge": "إغلاق باب التسجيل",
+            "title": "ينتهي خصم التسجيل المبكر وحجز مقاعد الدفعة الأولى قريباً",
+            "subtitle": "المقاعد المتبقية محدودة لضمان الجودة والتركيز والمراجعة الفردية لكل متدرب.",
+            "endDate": "2026-12-15T23:59:59Z",
+            "ctaText": "سجل الآن قبل اكتمال العدد",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "ماذا يقول مهندسونا الخريجون؟",
+            "subtitle": "قصص نجاح واقعية لمتدربين انتقلوا للعمل في شركات محلية ودولية مرموقة.",
+            "items": [
+              {
+                "name": "م. أحمد مصطفى",
+                "role": "Senior Backend Engineer @ PayTech UK",
+                "comment": "أفضل استثمار في مسيرتي المهنية. المعسكر لم يعلمني كتابة كود فقط، بل كيف أفكر كمعماري نظم وأدير مشاريع تتحمل ملايين العمليات بدون أي عطل.",
+                "rating": 5
+              },
+              {
+                "name": "م. سارة المهدي",
+                "role": "AI Solutions Developer @ Enterprise Cloud",
+                "comment": "بناء وكلاء الذكاء الاصطناعي وربط الـ MCP في مشاريع حقيقية كان النقطة الفاصلة في اجتيازي لمقابلات العمل التقنية الصعبة بسهولة.",
+                "rating": 5
+              },
+              {
+                "name": "م. كريم عبد الرحمن",
+                "role": "Full-Stack Architect @ MaxPlatform",
+                "comment": "المراجعة الدقيقة لكل سطر كود والملاحظات المعمارية من كبار المهندسين وفرت عليّ سنوات من التجربة والخطأ.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "standard",
+          "settings": {
+            "title": "انضم لأكثر من 15,000 مهندس في نشرتنا الأسبوعية",
+            "subtitle": "تحليلات معمارية معمقة، شروحات لأحدث تقنيات الـ Backend والذكاء الاصطناعي، ومشاريع كود مفتوحة المصدر.",
+            "placeholder": "أدخل بريدك الإلكتروني المهني...",
+            "buttonText": "اشترك مجاناً"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "sections": [
+        {
+          "type": "shop-command-bar",
+          "settings": {
+            "title": "كتالوج المسارات والكورسات الهندسية",
+            "showFilters": true,
+            "showSort": true
+          }
+        },
+        {
+          "type": "filters-sidebar",
+          "settings": {
+            "title": "تصفية المسارات",
+            "filterByLevel": true,
+            "filterByTrack": true
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "columns": 3,
+            "showBadges": true,
+            "showRating": true,
+            "showDuration": true
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات المتدربين على المسارات"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "standard",
+          "settings": {
+            "title": "اشترك لتصلك أحدث الكورسات والخصومات الحصرية"
+          }
+        }
+      ]
+    },
+    "pdp": {
+      "sections": [
+        {
+          "type": "product-gallery",
+          "settings": {
+            "showThumbnails": true
+          }
+        },
+        {
+          "type": "product-info",
+          "settings": {
+            "showDescription": true,
+            "showPrerequisites": true,
+            "showOutcomes": true
+          }
+        },
+        {
+          "type": "conversion-stack",
+          "settings": {
+            "badge": "ضمان الجودة",
+            "title": "ما ستحصل عليه فور الانضمام للمسار",
+            "guaranteeTitle": "ضمان استرداد كامل خلال 14 يوماً"
+          }
+        },
+        {
+          "type": "related-products",
+          "settings": {
+            "title": "مسارات وكورسات مقترحة تكميلية",
+            "limit": 3
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات الطلاب المسجلين في هذا المسار"
+          }
+        }
+      ]
+    },
+    "cart": {
+      "sections": [
+        {
+          "type": "cart-items",
+          "settings": {
+            "showCoupon": true,
+            "showInstallmentNote": true
+          }
+        },
+        {
+          "type": "order-summary",
+          "settings": {
+            "title": "ملخص الاشتراك والتسجيل"
+          }
+        }
+      ]
+    },
+    "collections": {
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "كافة المسارات المهنية المتخصصة",
+            "subtitle": "برامج تأهيلية متكاملة مصممة لنقلك من الأساس إلى الاحتراف في مسار محدد."
+          }
+        },
+        {
+          "type": "services-grid",
+          "variant": "standard",
+          "settings": {
+            "title": "مميزات مسارات ديف فورج المهنية"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "standard",
+          "settings": {
+            "title": "اشترك لتصلك تحديثات المسارات والفعاليات القادمة"
+          }
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "type": "info-content",
+          "settings": {
+            "title": "تواصل مع مستشاري القبول والتدريب الهندسي",
+            "subtitle": "هل أنت متردد في اختيار المسار الأنسب لك؟ احجز جلسة استشارية واختبار تحديد مستوى مجاني.",
+            "phone": "+201000000000",
+            "email": "admissions@devforge.academy",
+            "address": "المقر الرئيسي: التجمع الخامس، القاهرة الجديدة — متاح الحضور الفعلي وعبر الإنترنت"
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "standard",
+          "settings": {
+            "title": "اشترك لتصلك فعاليات الهاكاثون وورش العمل المجانية القادمة"
+          }
+        }
+      ]
+    }
+  }
+}

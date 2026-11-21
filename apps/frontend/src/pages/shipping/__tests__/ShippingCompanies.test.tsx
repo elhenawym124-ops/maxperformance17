@@ -140,7 +140,7 @@ describe("ShippingCompanies Suite", () => {
     });
   });
 
-  it("hides delete button for all built-in carriers (Turbo, Bosta, QP Express) and keeps it for custom carrier", async () => {
+  it("hides delete button for all built-in carriers (Turbo, Bosta, QP Express, Hashtag) and keeps it for custom carrier", async () => {
     (apiClient.get as any).mockResolvedValueOnce({
       data: {
         success: true,
@@ -148,6 +148,7 @@ describe("ShippingCompanies Suite", () => {
           { id: "c-turbo", name: "Turbo", slug: "turbo", providerKey: "TURBO", integrationMode: "LIVE", isActive: true, createdAt: "2026-01-01T00:00:00Z" },
           { id: "c-bosta", name: "Bosta", slug: "bosta", providerKey: "BOSTA", integrationMode: "LIVE", isActive: true, createdAt: "2026-01-01T00:00:00Z" },
           { id: "c-qp", name: "QP Express", slug: "qp-express", providerKey: "QP_EXPRESS", integrationMode: "LIVE", isActive: true, createdAt: "2026-01-01T00:00:00Z" },
+          { id: "c-hashtag", name: "Hashtag Express", slug: "hashtag", providerKey: "HASHTAG", integrationMode: "LIVE", isActive: true, createdAt: "2026-01-01T00:00:00Z" },
           { id: "c-custom", name: "شركة توصيل خاصة", slug: "custom-ship", providerKey: "MANUAL", integrationMode: "MANUAL", isActive: true, createdAt: "2026-01-02T00:00:00Z" },
         ],
       },
@@ -164,7 +165,7 @@ describe("ShippingCompanies Suite", () => {
     });
 
     const builtInNotices = screen.getAllByText("شركة مدمجة — استخدم إيقاف العمل");
-    expect(builtInNotices.length).toBe(3);
+    expect(builtInNotices.length).toBe(4);
 
     const deleteButtons = screen.getAllByTitle("حذف الشركة");
     expect(deleteButtons.length).toBe(1);

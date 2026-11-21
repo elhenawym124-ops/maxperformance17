@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import {
   Calendar,
@@ -20,6 +20,7 @@ import { buildApiUrl } from "../../utils/urlHelper";
 
 export default function EducationPublicDemoPage() {
   const { id } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,6 +78,12 @@ export default function EducationPublicDemoPage() {
 
     setSubmitting(true);
     try {
+      const utm_source = searchParams.get("utm_source") || searchParams.get("source") || undefined;
+      const utm_medium = searchParams.get("utm_medium") || searchParams.get("medium") || undefined;
+      const utm_campaign = searchParams.get("utm_campaign") || searchParams.get("campaign") || undefined;
+      const adId = searchParams.get("adId") || searchParams.get("ad_id") || undefined;
+      const postId = searchParams.get("postId") || searchParams.get("post_id") || undefined;
+
       const res = await fetch(buildApiUrl(`education/demo-day/public/${id}/register`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -89,6 +96,12 @@ export default function EducationPublicDemoPage() {
           age: age ? Number(age) : null,
           grade: grade.trim() || null,
           notes: notes.trim() || null,
+          utm_source,
+          utm_medium,
+          utm_campaign,
+          adId,
+          postId,
+          landingUrl: window.location.href,
         }),
       });
 

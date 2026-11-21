@@ -175,6 +175,23 @@ const ensureDefaultShippingCompanies = async (prisma, companyId) => {
         },
       }).catch((e) => console.warn('Could not auto-seed QP Express:', e.message));
     }
+
+    // 4. Ensure Hashtag Express (default inactive)
+    if (!existingKeys.has('HASHTAG') && !existingSlugs.has('hashtag') && !existingSlugs.has('hashtag-express')) {
+      await prisma.shippingCompany.create({
+        data: {
+          companyId,
+          name: 'هاشتاج إكسبريس (Hashtag Express)',
+          slug: 'hashtag',
+          providerKey: 'HASHTAG',
+          integrationMode: 'LIVE',
+          website: 'https://hashtag-express.com',
+          apiUrl: 'https://hashtag-express.com/app',
+          phone: '',
+          isActive: false,
+        },
+      }).catch((e) => console.warn('Could not auto-seed Hashtag:', e.message));
+    }
     if (company?.turboApiKey) {
       await prisma.shippingCompany.updateMany({
         where: {
@@ -1016,8 +1033,8 @@ router.delete('/:id', verifyToken.authenticateToken, async (req, res) => {
     }
 
     // 403 Forbidden for built-in / integrated providers
-    const BUILTIN_PROVIDER_KEYS = new Set(['TURBO', 'BOSTA', 'QP_EXPRESS', 'BOSTA_DEMO', 'MYLERZ_DEMO', 'ARAMEX_DEMO']);
-    const BUILTIN_SLUGS = new Set(['turbo', 'bosta', 'qp-express', 'qp_express']);
+    const BUILTIN_PROVIDER_KEYS = new Set(['TURBO', 'BOSTA', 'QP_EXPRESS', 'HASHTAG', 'BOSTA_DEMO', 'MYLERZ_DEMO', 'ARAMEX_DEMO']);
+    const BUILTIN_SLUGS = new Set(['turbo', 'bosta', 'qp-express', 'qp_express', 'hashtag', 'hashtag-express']);
     const normKey = String(existing.providerKey || '').trim().toUpperCase();
     const normSlug = String(existing.slug || '').trim().toLowerCase();
     if (BUILTIN_PROVIDER_KEYS.has(normKey) || BUILTIN_SLUGS.has(normSlug)) {

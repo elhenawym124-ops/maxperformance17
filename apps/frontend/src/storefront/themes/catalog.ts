@@ -858,6 +858,36 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "online-supermarket",
     "سوبرماركت أونلاين",
   ),
+  "tech-forge-academy": createThemeCategoryMeta(
+    "education",
+    "تعليم وتدريب",
+    "tech-academy",
+    "أكاديميات البرمجة والتقنية",
+  ),
+  "ai-nexus-institute": createThemeCategoryMeta(
+    "education",
+    "تعليم وتدريب",
+    "ai-institute",
+    "معاهد الذكاء الاصطناعي",
+  ),
+  "cyber-shield-academy": createThemeCategoryMeta(
+    "education",
+    "تعليم وتدريب",
+    "cyber-security",
+    "أكاديميات الأمن السيبراني",
+  ),
+  "code-camp-junior": createThemeCategoryMeta(
+    "education",
+    "تعليم وتدريب",
+    "kids-coding",
+    "برمجة الأطفال واليافعين",
+  ),
+  "frontend-craft-studio": createThemeCategoryMeta(
+    "education",
+    "تعليم وتدريب",
+    "frontend-craft",
+    "هندسة الواجهات والتفاعلات",
+  ),
   "kwrsat-2026": createThemeCategoryMeta(
     "digital",
     "رقمي وإبداعي",
@@ -1203,6 +1233,16 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "ثيم دافئ بألوان أرضية لمنصات الحرف اليدوية مع قصص الحرفيين وقطع محدودة الإنتاج.",
   "fresh-cart":
     "قالب سوبرماركت أونلاين يسرّع الطلبات اليومية: أقسام مفهومة، باقات جاهزة، وعروض تتحرك بسرعة.",
+  "tech-forge-academy":
+    "قالب نخبوي لمعسكرات البرمجة والتدريب التقني المتقدم (Full-Stack, Cloud Architecture, AI Agents, Systems Engineering) مع جزيئات تفاعلية 60 FPS وبطاقات تفاعلية 3D ومسارات احترافية وباقات اشتراك ديناميكية.",
+  "ai-nexus-institute":
+    "قالب معهد تدريب الذكاء الاصطناعي المتقدم (AI Engineering, LLM Fine-Tuning, Multi-Agent Swarms, RAG Architecture) مع محاكاة شبكات عصبية ومختبرات حوسبة A100 حية وباقات تدريب مؤسسي.",
+  "cyber-shield-academy":
+    "قالب أكاديمية الأمن السيبراني والاختراق الأخلاقي (Cybersecurity, Ethical Hacking, SOC Operations, Reverse Engineering) بمختبرات اختراق سحابية معزولة وتحديات CTF تفاعلية.",
+  "code-camp-junior":
+    "قالب أكاديمية برمجة الأطفال واليافعين (Youth Coding, Game Development, Scratch, Python for Kids, Robotics & AI) بألوان حيوية ملهمة وحجز حصص تجريبية مجانية ومتابعة أسبوعية لأولياء الأمور.",
+  "frontend-craft-studio":
+    "قالب استوديو هندسة الواجهات والتفاعلات المتقدمة (Frontend Architecture, 60 FPS Web Motion, Design Systems, React 19 & Next.js) مع بيئة تشغيل تفاعلية وتحسين فائق لمؤشرات أداء الويب Core Web Vitals.",
   "kwrsat-2026":
     "قالب كورسات 2026 النخبوي: تصميم سينمائي فائق السرعة بمحرك موشن 60 FPS وجزيئات كانفاس تفاعلية وبطاقات مشاريع ستاكينج وباقات اشتراك ديناميكية.",
   kwrsat:
@@ -1415,6 +1455,11 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
   "turbo-parts": "/assets/themes/elessi-garage-fit/engine-bay.jpg",
   crafted: "/assets/themes/aura-chic/artisan.png",
   "fresh-cart": "/assets/themes/elessi-harvest-fold/hero-market.jpg",
+  "tech-forge-academy": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+  "ai-nexus-institute": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+  "cyber-shield-academy": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+  "code-camp-junior": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+  "frontend-craft-studio": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
   "kwrsat-2026": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
   kwrsat: "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
   "skill-lab": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",

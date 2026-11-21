@@ -91,6 +91,7 @@ export const useShippingCompaniesData = () => {
       if (item.providerKey === 'QP_EXPRESS') return 1;
       if (item.providerKey === 'BOSTA') return 2;
       if (item.providerKey === 'TURBO') return 3;
+      if (item.providerKey === 'HASHTAG') return 4;
       return 10;
     };
 
@@ -102,7 +103,7 @@ export const useShippingCompaniesData = () => {
     });
 
     for (const c of sorted) {
-      if (c.providerKey && ['QP_EXPRESS', 'BOSTA', 'TURBO'].includes(c.providerKey)) {
+      if (c.providerKey && ['QP_EXPRESS', 'BOSTA', 'TURBO', 'HASHTAG'].includes(c.providerKey)) {
         if (seenStandardKeys.has(c.providerKey)) continue;
         seenStandardKeys.add(c.providerKey);
       }

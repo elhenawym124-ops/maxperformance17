@@ -596,6 +596,9 @@ const PUBLIC_ROUTES = [
   'GET /api/v1/education/demo-day/public/*',
   'POST /api/v1/education/demo-day/public/*',
   'POST /api/v1/education/demo-day/public/*/register',
+  'GET /api/v1/education/demo-days/public/*',
+  'POST /api/v1/education/demo-days/public/*',
+  'POST /api/v1/education/demo-days/public/*/register',
 
   // Teacher Portal (public login endpoint)
   'POST /api/v1/education/teacher-portal/login',

@@ -168,6 +168,17 @@ export const fetchAttributionAnalytics = async (period: string = "all"): Promise
   return data.data;
 };
 
+export const exportDemoDayAttendeesCsv = async (demoDayId: string): Promise<Blob> => {
+  const url = demoDayApi(`${demoDayId}/export`);
+  const headers = getAuthHeaders();
+  const res = await fetch(url, { headers });
+  if (!res.ok) {
+    const errorText = await res.text().catch(() => "");
+    throw new Error(errorText || "Failed to export attendees");
+  }
+  return await res.blob();
+};
+
 export const fetchEducationLookup = async (): Promise<{ subjects: any[]; teachers: any[]; packages: any[]; groups: any[]; branches: any[] }> => {
   const cid = getCompanyId();
   const q = cid ? `?companyId=${cid}` : "";

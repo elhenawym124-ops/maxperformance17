@@ -27,6 +27,8 @@ export function AddAttendeeModal({
   const [age, setAge] = useState<number | "">("");
   const [branchId, setBranchId] = useState<string>("");
   const [grade, setGrade] = useState("");
+  const [sourceChannel, setSourceChannel] = useState("PHONE");
+  const [campaignName, setCampaignName] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,6 +58,8 @@ export function AddAttendeeModal({
         age: age ? Number(age) : null,
         branchId: branchId || null,
         grade: grade.trim() || null,
+        leadSource: sourceChannel || "PHONE",
+        campaignName: campaignName.trim() || null,
         notes: notes.trim() || null,
       });
       onClose();
@@ -259,6 +263,43 @@ export function AddAttendeeModal({
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="example@gmail.com"
                 dir="ltr"
+                className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Booking Attribution Fields */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-foreground">
+                {isEn ? "Booking Channel" : "قناة الحجز / التواصل"}
+              </label>
+              <select
+                value={sourceChannel}
+                onChange={(e) => setSourceChannel(e.target.value)}
+                className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
+              >
+                <option value="PHONE">📞 {isEn ? "Phone Call" : "اتصال هاتفي (Phone)"}</option>
+                <option value="WHATSAPP">💬 {isEn ? "WhatsApp" : "محادثة واتساب (WhatsApp)"}</option>
+                <option value="WALK_IN">🏢 {isEn ? "Walk-In (Branch)" : "حضور مباشر للفرع (Walk-In)"}</option>
+                <option value="FACEBOOK">⚡ {isEn ? "Facebook Ads/Page" : "إعلانات فيسبوك (Facebook)"}</option>
+                <option value="INSTAGRAM">📸 {isEn ? "Instagram" : "إنستجرام (Instagram)"}</option>
+                <option value="MESSENGER">💬 {isEn ? "Messenger" : "ماسنجر (Messenger)"}</option>
+                <option value="REFERRAL">🤝 {isEn ? "Referral" : "ترشيح من عميل (Referral)"}</option>
+                <option value="WEBSITE">🌐 {isEn ? "Website" : "الموقع الإلكتروني (Website)"}</option>
+                <option value="OTHER">🔗 {isEn ? "Other" : "أخرى / مباشر"}</option>
+              </select>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-foreground">
+                {isEn ? "Campaign Name (Optional)" : "اسم الحملة الإعلانية (اختياري)"}
+              </label>
+              <input
+                type="text"
+                value={campaignName}
+                onChange={(e) => setCampaignName(e.target.value)}
+                placeholder={isEn ? "e.g. Summer Robotics 2026" : "مثال: حملة روبوتيكس الصيف"}
                 className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
               />
             </div>

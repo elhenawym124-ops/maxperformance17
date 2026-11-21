@@ -1,0 +1,535 @@
+{
+  "id": "frontend-craft-studio",
+  "name": "ستوديو فرونت إند كرافت (Frontend Craft Studio)",
+  "tokens": {
+    "colors": {
+      "primary": "248 55% 22%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "240 28% 12%",
+      "secondaryForeground": "248 75% 82%",
+      "accent": "12 90% 55%",
+      "accentForeground": "0 0% 100%",
+      "background": "240 25% 6%",
+      "foreground": "210 40% 98%",
+      "muted": "240 20% 14%",
+      "mutedForeground": "220 15% 68%",
+      "border": "240 20% 20%",
+      "card": "240 25% 9%",
+      "cardForeground": "210 40% 98%",
+      "ring": "12 90% 55%"
+    },
+    "typography": {
+      "headingFont": "\"Cairo\", \"IBM Plex Sans Arabic\", sans-serif",
+      "bodyFont": "\"IBM Plex Sans Arabic\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.875rem",
+      "buttonRadius": "0.625rem"
+    },
+    "productCard": {
+      "borderRadius": "0.875rem",
+      "boxShadow": "0 14px 40px -16px rgba(249, 115, 22, 0.20)",
+      "hoverShadow": "0 22px 56px -20px rgba(249, 115, 22, 0.35)",
+      "badgeRadius": "0.5rem",
+      "buttonRadius": "0.625rem",
+      "surfaceOpacity": "0.96"
+    }
+  },
+  "preview": {
+    "colors": [
+      "248 55% 22%",
+      "12 90% 55%",
+      "240 25% 6%"
+    ],
+    "imageUrl": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+  },
+  "seo": {
+    "titleTemplate": "%s | ستوديو فرونت إند كرافت لهندسة واجهات الويب وأنظمة التصميم",
+    "description": "ستوديو فرونت إند كرافت (Frontend Craft Studio) — برامج تدريبية احترافية في معمارية React 19، تفاعلات وحركات الويب بمعدل 60 إطاراً في الثانية (Web Motion)، وتشييد نظم التصميم Design Systems للمؤسسات."
+  },
+  "header": {
+    "brandName": "Frontend Craft Studio ✨",
+    "showSearch": true,
+    "navigation": [
+      { "label": "الرئيسية", "to": "/" },
+      { "label": "المسارات وورش العمل", "to": "/shop" },
+      { "label": "معارض الأعمال التفاعلية", "to": "/collections" },
+      { "label": "الباقات والماستركلاس", "to": "/sale" },
+      { "label": "طلب مراجعة كود مجانية", "to": "/contact" }
+    ]
+  },
+  "footer": {
+    "description": "ستوديو فرونت إند كرافت — المدرسة الهندسية الرائدة في إعداد مهندسي واجهات المستخدم المحترفين، وإتقان تفاعلات الويب الحركية السلسة ونظم التصميم المعقدة للمنصات العالمية.",
+    "copyrightText": "© 2026 Frontend Craft Studio. جميع الحقوق محفوظة.",
+    "socialLinks": {
+      "github": "https://github.com",
+      "linkedin": "https://linkedin.com",
+      "youtube": "https://youtube.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "المسارات الهندسية",
+        "links": [
+          { "label": "جميع المسارات وورش العمل", "to": "/shop" },
+          { "label": "هندسة نظم التصميم Design Systems", "to": "/collections" },
+          { "label": "تفاعلات وحركات الويب 60 FPS", "to": "/shop" },
+          { "label": "معمارية React 19 وNext.js", "to": "/shop" }
+        ]
+      },
+      {
+        "title": "الاعتماد والاستوديو",
+        "links": [
+          { "label": "الشهادات والتحقق الرقمي", "to": "/shipping" },
+          { "label": "ضمان الإتقان والاسترداد", "to": "/returns" },
+          { "label": "معرض مشاريع الخريجين", "to": "/collections" },
+          { "label": "مراجعات الكود الفردية", "to": "/contact" }
+        ]
+      }
+    ],
+    "legalLinks": [
+      { "label": "سياسة الخصوصية", "to": "/privacy" },
+      { "label": "الشروط والأحكام", "to": "/terms" }
+    ]
+  },
+  "description": "قالب استوديو هندسة الواجهات والتفاعلات المتقدمة (Frontend Architecture, 60 FPS Web Motion, Design Systems, React 19 & Next.js) — استعراض حركي سينمائي، بيئة تشغيل أكواد CSS/Motion حية، وتحسين دقيق لمؤشرات أداء الويب Core Web Vitals.",
+  "direction": "rtl",
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "id": "hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "variant": "skill-lab-motion",
+            "title": "هندسة واجهات استثنائية بحركة نقية وأداء 60 FPS",
+            "subtitle": "ماستركلاس معمق في بناء نظم التصميم الشاملة، وهندسة التفاعلات الحركية السلسة، وإتقان معمارية React 19 لمطوري الواجهات الطامحين للمستوى العالمي.",
+            "primaryCta": {
+              "label": "استكشف ورش العمل الهندسية",
+              "to": "/shop"
+            },
+            "secondaryCta": {
+              "label": "احجز مراجعة محفظتك الرقمية",
+              "to": "/contact"
+            },
+            "statsBadge": "الدفعة الشتوية: متبقي 7 مقاعد فقط",
+            "statNumber": "60 FPS",
+            "statLabel": "أداء فيزيائي فائق بدون تسريب ذاكرة أو هبوط في الإطارات",
+            "terminalCode": "import { motion, useSpring } from 'framer-motion';\n\n// بناء تفاعل فيزيائي فائق النعومة متوافق مع شاشات 120Hz\nexport const HapticCard = () => {\n  const scale = useSpring(1, { stiffness: 400, damping: 25 });\n  return (\n    <motion.div\n      whileHover={{ scale: 1.03 }}\n      whileTap={{ scale: 0.97 }}\n      className=\"bg-card border border-border/70 rounded-2xl p-6\"\n    />\n  );\n};"
+          }
+        },
+        {
+          "id": "promo-strip",
+          "type": "promo-strip",
+          "visible": true,
+          "content": {
+            "variant": "sale-signal",
+            "badgeText": "عرض حصري",
+            "mainText": "خصم 25% والتسجيل مفتوح لماستركلاس تفاعلات الواجهات الحديثة ونظم التصميم المتقدمة (Design Systems Masterclass 2026)",
+            "countdownDate": "2026-12-31T23:59:59Z",
+            "ctaLabel": "انضم للماستركلاس الآن",
+            "ctaTo": "/shop"
+          }
+        },
+        {
+          "id": "features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Layers",
+                "title": "هندسة نظم التصميم Figma-to-Code",
+                "description": "توحيد لغة الرموز التنسيقية Tokens، والمكونات المركبة Compound Components"
+              },
+              {
+                "icon": "Sparkles",
+                "title": "تفاعلات فيزيائية 60 FPS حقيقية",
+                "description": "استخدام View Transitions API وWebGL وFramer Motion دون التأثير على زمن الاستجابة"
+              },
+              {
+                "icon": "Gauge",
+                "title": "درجة 100/100 في Core Web Vitals",
+                "description": "تحسين أداء المتصفح ومنع تكرار الرسم Reflow وتنسيق تحميل حزم الـ JavaScript"
+              },
+              {
+                "icon": "CheckSquare",
+                "title": "إمكانية وصول عالمية WCAG A11y",
+                "description": "بناء واجهات تدعم قارئات الشاشة والملاحة عبر لوحة المفاتيح والاتجاه من اليمين لليسار RTL"
+              }
+            ]
+          }
+        },
+        {
+          "id": "craft-tracks",
+          "type": "featured-collections",
+          "visible": true,
+          "content": {
+            "title": "مسارات إتقان الواجهات والتفاعلات",
+            "subtitle": "دورات متخصصة تنقلك من كتابة الأكواد العادية إلى صناعة تجارب بصرية مبهرة",
+            "collections": [
+              {
+                "id": "c1",
+                "title": "معمارية نظم التصميم (Design Systems Engineering)",
+                "description": "بناء مكتبات مكونات مؤسسية مع Radix UI وTailwind وتوثيق Storybook شامل.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c2",
+                "title": "تفاعلات وحركات الويب (Web Motion & 3D)",
+                "description": "إتقان Framer Motion والفيزياء الحركية ورسوم الـ Three.js وتأثيرات الشاشات التفاعلية.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c3",
+                "title": "هندسة React 19 وServer Actions المتقدمة",
+                "description": "استخدام useActionState وSuspense والمعالجة المتزامنة في تطبيقات الويب الضخمة.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c4",
+                "title": "أداء الواجهات والـ Web Performance Profiling",
+                "description": "فحص وتقليل زمن التفاعل INP وتقليص أحجام الحزم والذاكرة عبر Chrome DevTools.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "tech-craft",
+          "type": "services-grid",
+          "visible": true,
+          "content": {
+            "title": "أدوات وتقنيات الاستوديو المعتمدة",
+            "subtitle": "نستخدم أحدث المعايير البرمجية لضمان تجربة مستخدم لا تُنسى",
+            "services": [
+              {
+                "title": "Framer Motion & Spring Physics",
+                "description": "محاكاة فيزيائية للتصادم والاهتزاز مع استجابة دقيقة للمس والمؤشر.",
+                "icon": "Zap"
+              },
+              {
+                "title": "Radix UI Primitives",
+                "description": "مكونات أساسية خالية من التنسيق تدعم إمكانية الوصول الكاملة واختصارات لوحة المفاتيح.",
+                "icon": "Box"
+              },
+              {
+                "title": "Tailwind CSS & Tokens",
+                "description": "هندسة الرموز التنسيقية مع دعم كامل للوضع المظلم والأبعاد المنطقية للغة العربية.",
+                "icon": "Palette"
+              },
+              {
+                "title": "Chrome Perf Profiler",
+                "description": "تحليل مسار الـ Main Thread وتتبع الهبوط في الإطارات وعزل مشاكل إعادة الرسم.",
+                "icon": "Cpu"
+              }
+            ]
+          }
+        },
+        {
+          "id": "craft-pricing",
+          "type": "offer-bento",
+          "visible": true,
+          "content": {
+            "title": "باقات الماستركلاس والاستشارات الهندسية",
+            "subtitle": "استثمر في مهاراتك التي تميزك عن 99% من مطوري الويب التقليديين",
+            "offers": [
+              {
+                "id": "tier-1",
+                "badge": "ورش العمل المسجلة",
+                "title": "اشتراك مكتبة الورش والمعامل",
+                "price": "2,800 ج.م",
+                "period": "وصول كامل لمدة عام",
+                "features": [
+                  "كافة الورش المسجلة والمشاريع المفتوحة",
+                  "مستودعات مكونات نظم التصميم الجاهزة",
+                  "تحديثات مستمرة لكل إصدارات React وNext.js",
+                  "مجتمع مطوري الواجهات الحصري للنقاشات"
+                ],
+                "cta": {
+                  "label": "انضم للمكتبة",
+                  "to": "/shop"
+                }
+              },
+              {
+                "id": "tier-2",
+                "badge": "الأكثر طلباً - ماستركلاس حي",
+                "title": "ماستركلاس مهندس الواجهات المحترف",
+                "price": "6,900 ج.م",
+                "period": "8 أسابيع تدريب حي ومكثف",
+                "features": [
+                  "جلسات أسبوعية تفاعلية مباشرة مع مهندسي الواجهات",
+                  "مراجعة كود دقيقة لكل تفاعل وحركة تبنيها",
+                  "بناء نظام تصميم متكامل ونشره على NPM",
+                  "تجهيز بورتفوليو رقمي تفاعلي يجذب كبرى الشركات العالمية",
+                  "شهادة معتمدة موثقة برابط تحقق رقمي"
+                ],
+                "cta": {
+                  "label": "احجز مقعدك في الدفعة الحالية",
+                  "to": "/shop"
+                }
+              },
+              {
+                "id": "tier-3",
+                "badge": "استشارات وفرق العمل",
+                "title": "تطوير نظم التصميم للشركات",
+                "price": "مخصص",
+                "period": "وفق خطة المشروع",
+                "features": [
+                  "مراجعة بنية الواجهات في منصة شركتك ورفع أدائها",
+                  "تأسيس نظام تصميم موحد لفرق التصميم والتطوير",
+                  "ورش تدريب داخلية للمطورين لرفع معايير الجودة"
+                ],
+                "cta": {
+                  "label": "طلب استشارة للشركات",
+                  "to": "/contact"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "countdown",
+          "type": "countdown-banner",
+          "visible": true,
+          "content": {
+            "title": "ينتهي التسجيل في ماستركلاس الواجهات خلال:",
+            "endDate": "2026-12-31T23:59:59Z",
+            "ctaLabel": "انضم الآن قبل نفاد المقاعد",
+            "ctaTo": "/shop"
+          }
+        },
+        {
+          "id": "featured",
+          "type": "featured-products",
+          "visible": true,
+          "content": {
+            "title": "المسارات والورش الهندسية المتاحة للتسجيل",
+            "subtitle": "تعلم المعايير الهندسية الحديثة التي تطلبها الشركات التقنية العالمية",
+            "limit": 6
+          }
+        },
+        {
+          "id": "reviews",
+          "type": "reviews",
+          "visible": true,
+          "content": {
+            "title": "آراء وتجارب مهندسي الواجهات",
+            "subtitle": "مطورون قفزوا بمستواهم المهني وصنعوا واجهات مستخدم تحصد الجوائز"
+          }
+        },
+        {
+          "id": "newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "النشرة الأسبوعية لحرفية الواجهات والتفاعلات",
+            "subtitle": "تحليلات للتفاعلات البصرية الملهمة، وتقنيات CSS الحديثة، وأسرار الأداء العالي.",
+            "buttonText": "اشترك مجاناً",
+            "placeholder": "أدخل بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "sections": [
+        {
+          "id": "shop-hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "title": "كتالوج المسارات وورش العمل الهندسية",
+            "subtitle": "دورات معمقة صممت لتزويدك بمهارات الواجهات المتقدمة الأكثر طلباً"
+          }
+        },
+        {
+          "id": "shop-promo",
+          "type": "promo-strip",
+          "visible": true,
+          "content": {
+            "mainText": "متاح خطط تقسيط ميسرة بدون فوائد لجميع المسارات"
+          }
+        },
+        {
+          "id": "shop-products",
+          "type": "featured-products",
+          "visible": true,
+          "content": {
+            "title": "جميع البرامج التدريبية المتاحة",
+            "limit": 12
+          }
+        },
+        {
+          "id": "shop-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Code2",
+                "title": "كود إنتاجي نظيف",
+                "description": "تطبيق أفضل ممارسات Clean Code وهندسة المكونات المرنة"
+              },
+              {
+                "icon": "ShieldCheck",
+                "title": "شهادات دولية معتمدة",
+                "description": "شهادات موثقة رقمياً تثبت احترافك للتفاعلات ومعمارية الواجهات"
+              },
+              {
+                "icon": "Sparkle",
+                "title": "مشاريع عملية متقدمة",
+                "description": "بناء تطبيقات حقيقية تبرز في محفظتك الرقمية أمام مدراء التوظيف"
+              }
+            ]
+          }
+        },
+        {
+          "id": "shop-newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "اشترك لتصلك تحديثات الورش والماستركلاس",
+            "subtitle": "نرسل تحليلات تقنية ومواعيد الورش الجديدة مباشرة إلى بريدك"
+          }
+        }
+      ]
+    },
+    "pdp": {
+      "sections": [
+        {
+          "id": "gallery",
+          "type": "product-gallery",
+          "visible": true
+        },
+        {
+          "id": "info",
+          "type": "product-info",
+          "visible": true
+        },
+        {
+          "id": "conversion",
+          "type": "conversion-stack",
+          "visible": true
+        },
+        {
+          "id": "pdp-reviews",
+          "type": "reviews",
+          "visible": true
+        },
+        {
+          "id": "related",
+          "type": "related-products",
+          "visible": true
+        }
+      ]
+    },
+    "cart": {
+      "sections": [
+        {
+          "id": "items",
+          "type": "cart-items",
+          "visible": true
+        },
+        {
+          "id": "summary",
+          "type": "order-summary",
+          "visible": true
+        }
+      ]
+    },
+    "collections": {
+      "sections": [
+        {
+          "id": "collections-hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "title": "المسارات المهنية لهندسة الواجهات",
+            "subtitle": "خطط تدريبية متكاملة تؤهلك لمناصب Senior & Lead Frontend Engineer"
+          }
+        },
+        {
+          "id": "collections-grid",
+          "type": "featured-collections",
+          "visible": true,
+          "content": {
+            "title": "التخصصات الهندسية الأساسية",
+            "subtitle": "اختر تخصصك المستهدف وابدأ رحلة التعلم المعمق"
+          }
+        },
+        {
+          "id": "collections-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "CheckCircle",
+                "title": "مراجعات كود فردية",
+                "description": "ملاحظات تفصيلية سطر بسطر على كل مشروع تقدمه"
+              },
+              {
+                "icon": "Users",
+                "title": "مجتمع خبراء الواجهات",
+                "description": "نقاشات وتبادل خبرات مع نخبة مطوري الفرونت إند في الوطن العربي"
+              }
+            ]
+          }
+        },
+        {
+          "id": "collections-newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "هل تحتاج لاستشارة في اختيار المسار؟",
+            "subtitle": "تواصل مع خبير الواجهات لمراجعة مهاراتك واقتراح الأنسب لك"
+          }
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "id": "contact-main",
+          "type": "contact-form",
+          "visible": true,
+          "content": {
+            "title": "تواصل مع ستوديو فرونت إند كرافت",
+            "subtitle": "يسعدنا الإجابة عن استفساراتك حول برامج الماستركلاس أو طلب مراجعة مجانية لمعرض أعمالك."
+          }
+        },
+        {
+          "id": "contact-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Mail",
+                "title": "البريد الإلكتروني المباشر",
+                "description": "hello@frontendcraft.studio"
+              },
+              {
+                "icon": "Phone",
+                "title": "الدعم الهاتفي والواتساب",
+                "description": "+20 100 000 0000"
+              },
+              {
+                "icon": "MapPin",
+                "title": "الاستوديو والمختبرات",
+                "description": "المعادي، القاهرة — شارع النصر، مبنى التقنية الإبداعية"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

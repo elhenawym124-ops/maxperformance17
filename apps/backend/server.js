@@ -1235,6 +1235,7 @@ app.use("/api/v1/education/parent-portal", educationParentPortalRoutes);
 app.use("/api/v1/education/settings", educationSettingsRoutes);
 app.use("/api/v1/education/logs", educationLogsRoutes);
 app.use("/api/v1/education/demo-day", educationDemoDayRoutes);
+app.use("/api/v1/education/demo-days", educationDemoDayRoutes);
 app.use("/api/v1/education/branches", educationBranchesRoutes);
 app.use("/api/education/branches", educationBranchesRoutes);
 app.use("/api/v1/academy", academyRoutes);

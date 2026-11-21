@@ -103,6 +103,8 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
           ? 'https://qpxpress.com:8001'
           : company.providerKey === 'BOSTA'
           ? 'https://app.bosta.co'
+          : company.providerKey === 'HASHTAG'
+          ? 'https://hashtag-express.com/app'
           : ''),
       providerKey: company.providerKey || 'MANUAL',
       integrationMode: company.integrationMode || 'MANUAL',

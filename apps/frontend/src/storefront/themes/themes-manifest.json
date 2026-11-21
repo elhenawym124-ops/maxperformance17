@@ -62,6 +62,37 @@
     }
   },
   {
+    "id": "ai-nexus-institute",
+    "name": "معهد نكسوس للذكاء الاصطناعي (AI Nexus Institute)",
+    "description": "قالب معهد تدريب الذكاء الاصطناعي المتقدم (AI Engineering, LLM Fine-Tuning, Multi-Agent Swarms, RAG Architecture) مع محاكاة شبكات عصبية ومختبرات حوسبة A100 حية وباقات تدريب مؤسسي.",
+    "category": "education",
+    "categoryMeta": {
+      "primary": {
+        "id": "education",
+        "label": "تعليم وتدريب"
+      },
+      "secondary": {
+        "id": "ai-institute",
+        "label": "معاهد الذكاء الاصطناعي"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "215 90% 48%",
+      "220 50% 12%",
+      "174 85% 42%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 5,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
     "id": "airlume-ai",
     "name": "Airlume Travel",
     "description": "واجهة سفر حديثة مع Hero عائم وبطاقات مزايا غير منتظمة لعرض تجربة حجز أكثر وضوحًا.",
@@ -589,6 +620,37 @@
     }
   },
   {
+    "id": "code-camp-junior",
+    "name": "أكاديمية كود كامب جونيور (CodeCamp Junior)",
+    "description": "قالب أكاديمية برمجة الأطفال واليافعين (Youth Coding, Game Development, Scratch, Python for Kids, Robotics & AI) بألوان حيوية ملهمة وحجز حصص تجريبية مجانية ومتابعة أسبوعية لأولياء الأمور.",
+    "category": "education",
+    "categoryMeta": {
+      "primary": {
+        "id": "education",
+        "label": "تعليم وتدريب"
+      },
+      "secondary": {
+        "id": "kids-coding",
+        "label": "برمجة الأطفال واليافعين"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "230 65% 25%",
+      "220 40% 14%",
+      "28 95% 52%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 5,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
     "id": "couture-atelier-eg",
     "name": "Couture Atelier EG",
     "description": "كوتور أتيليه مصر — دار أزياء وأتيليه تحريري راقٍ يجمع بين الحرفية اليدوية وتنسيقات الأطقم الكاملة (Shop The Look) والسرد القصصي البانورامي والتسوق البصري التفاعلي.",
@@ -710,6 +772,37 @@
       "pdpSections": 7,
       "cartSections": 2,
       "totalSections": 20
+    }
+  },
+  {
+    "id": "cyber-shield-academy",
+    "name": "أكاديمية سايبر شيلد للأمن السيبراني (CyberShield Academy)",
+    "description": "قالب أكاديمية الأمن السيبراني والاختراق الأخلاقي (Cybersecurity, Ethical Hacking, SOC Operations, Reverse Engineering) بمختبرات اختراق سحابية معزولة وتحديات CTF تفاعلية.",
+    "category": "education",
+    "categoryMeta": {
+      "primary": {
+        "id": "education",
+        "label": "تعليم وتدريب"
+      },
+      "secondary": {
+        "id": "cyber-security",
+        "label": "أكاديميات الأمن السيبراني"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "158 82% 38%",
+      "215 32% 12%",
+      "38 92% 50%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 5,
+      "cartSections": 2,
+      "totalSections": 22
     }
   },
   {
@@ -1268,6 +1361,37 @@
       "pdpSections": 5,
       "cartSections": 2,
       "totalSections": 20
+    }
+  },
+  {
+    "id": "frontend-craft-studio",
+    "name": "ستوديو فرونت إند كرافت (Frontend Craft Studio)",
+    "description": "قالب استوديو هندسة الواجهات والتفاعلات المتقدمة (Frontend Architecture, 60 FPS Web Motion, Design Systems, React 19 & Next.js) مع بيئة تشغيل تفاعلية وتحسين فائق لمؤشرات أداء الويب Core Web Vitals.",
+    "category": "education",
+    "categoryMeta": {
+      "primary": {
+        "id": "education",
+        "label": "تعليم وتدريب"
+      },
+      "secondary": {
+        "id": "frontend-craft",
+        "label": "هندسة الواجهات والتفاعلات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "248 55% 22%",
+      "240 28% 12%",
+      "12 90% 55%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 5,
+      "cartSections": 2,
+      "totalSections": 22
     }
   },
   {
@@ -3193,6 +3317,37 @@
     }
   },
   {
+    "id": "tech-forge-academy",
+    "name": "أكاديمية ديف فورج التقنية (DevForge Academy)",
+    "description": "قالب نخبوي لمعسكرات البرمجة والتدريب التقني المتقدم (Full-Stack, Cloud Architecture, AI Agents, Systems Engineering) مع جزيئات تفاعلية 60 FPS وبطاقات تفاعلية 3D ومسارات احترافية وباقات اشتراك ديناميكية.",
+    "category": "education",
+    "categoryMeta": {
+      "primary": {
+        "id": "education",
+        "label": "تعليم وتدريب"
+      },
+      "secondary": {
+        "id": "tech-academy",
+        "label": "أكاديميات البرمجة والتقنية"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "160 84% 39%",
+      "222 47% 11%",
+      "190 95% 45%"
+    ],
+    "previewImage": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 5,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
     "id": "tpl-001-bulk-commerce-women-fashion",
     "name": "Wholesale House — أزياء حريمي",
     "description": "Wholesale House — قالب أزياء حريمي بمنطق الجملة: باقات كمية محسوبة، حد أدنى واضح، وشريط ثقة يجاوب سؤال الفاتورة والاستبدال قبل الشراء.",
@@ -3442,7 +3597,7 @@
   },
   {
     "id": "tpl-013-modest-warehouse-atelier",
-    "name": "Warehouse — Metal (Shopify 1:1 Exact Replica)",
+    "name": "Atelier Warehouse — أتيلييه عبايات وأزياء محتشمة",
     "description": "قالب عبايات محتشمة بكثافة كتالوج عالية: هيرو كاسكيد، ريل فئات مربعات، شريط عروض، شبكة منتجات كثيفة، وآراء تحريرية. مبني لمنطق متجر يفتح بكتالوج كبير مش بصورة واحدة.",
     "category": "fashion",
     "categoryMeta": {
@@ -3455,7 +3610,7 @@
         "label": "عبايات ومحجبات"
       }
     },
-    "direction": "ltr",
+    "direction": "rtl",
     "previewColors": [
       "231 61% 30%",
       "204 8% 96%",

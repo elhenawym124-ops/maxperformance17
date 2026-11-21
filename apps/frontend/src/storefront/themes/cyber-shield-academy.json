@@ -1,0 +1,535 @@
+{
+  "id": "cyber-shield-academy",
+  "name": "أكاديمية سايبر شيلد للأمن السيبراني (CyberShield Academy)",
+  "tokens": {
+    "colors": {
+      "primary": "158 82% 38%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "215 32% 12%",
+      "secondaryForeground": "158 70% 85%",
+      "accent": "38 92% 50%",
+      "accentForeground": "0 0% 100%",
+      "background": "220 30% 6%",
+      "foreground": "210 40% 98%",
+      "muted": "220 25% 14%",
+      "mutedForeground": "215 20% 65%",
+      "border": "217 25% 18%",
+      "card": "222 30% 8%",
+      "cardForeground": "210 40% 98%",
+      "ring": "158 82% 38%"
+    },
+    "typography": {
+      "headingFont": "\"Cairo\", \"IBM Plex Sans Arabic\", sans-serif",
+      "bodyFont": "\"IBM Plex Sans Arabic\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.875rem",
+      "buttonRadius": "0.625rem"
+    },
+    "productCard": {
+      "borderRadius": "0.875rem",
+      "boxShadow": "0 14px 40px -16px rgba(16, 185, 129, 0.20)",
+      "hoverShadow": "0 22px 56px -20px rgba(16, 185, 129, 0.35)",
+      "badgeRadius": "0.5rem",
+      "buttonRadius": "0.625rem",
+      "surfaceOpacity": "0.96"
+    }
+  },
+  "preview": {
+    "colors": [
+      "158 82% 38%",
+      "38 92% 50%",
+      "220 30% 6%"
+    ],
+    "imageUrl": "/assets/themes/pc-hub-eg/workbook-14-air.jpg"
+  },
+  "seo": {
+    "titleTemplate": "%s | أكاديمية سايبر شيلد للأمن السيبراني والاختراق الأخلاقي",
+    "description": "أكاديمية سايبر شيلد (CyberShield Academy) — معسكرات الدفاع السيبراني المتقدم، اختبار اختراق الويب والشبكات، عمليات مراكز مراقبة الأمن SOC، والهندسة العكسية بمختبرات حية."
+  },
+  "header": {
+    "brandName": "CyberShield Academy 🛡️",
+    "showSearch": true,
+    "navigation": [
+      { "label": "الرئيسية", "to": "/" },
+      { "label": "معسكرات الأمن السيبراني", "to": "/shop" },
+      { "label": "مسارات التخصص", "to": "/collections" },
+      { "label": "الباقات والمختبرات", "to": "/sale" },
+      { "label": "اختبار المستوى", "to": "/contact" }
+    ]
+  },
+  "footer": {
+    "description": "أكاديمية سايبر شيلد — الصرح المتخصص في تأهيل خبراء الدفاع السيبراني ومختبري الاختراق ومحللي الحوادث الأمنية في الشرق الأوسط بمختبرات وتحديات CTF واقعية.",
+    "copyrightText": "© 2026 CyberShield Academy. جميع الحقوق محفوظة.",
+    "socialLinks": {
+      "github": "https://github.com",
+      "linkedin": "https://linkedin.com",
+      "youtube": "https://youtube.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "المسارات والشهادات",
+        "links": [
+          { "label": "كافة المسارات الأمنية", "to": "/shop" },
+          { "label": "اختبار الاختراق والـ Red Team", "to": "/collections" },
+          { "label": "عمليات الدفاع الـ Blue Team وSOC", "to": "/shop" },
+          { "label": "أمن الحوسبة السحابية Cloud Sec", "to": "/shop" }
+        ]
+      },
+      {
+        "title": "المختبرات والدعم",
+        "links": [
+          { "label": "بوابة التحقق من الشهادات", "to": "/shipping" },
+          { "label": "شروط القبول والضمان", "to": "/returns" },
+          { "label": "تحديات الـ CTF المباشرة", "to": "/contact" },
+          { "label": "مختبرات Attack Sandbox", "to": "/shipping" }
+        ]
+      }
+    ],
+    "legalLinks": [
+      { "label": "سياسة الخصوصية", "to": "/privacy" },
+      { "label": "ميثاق الأخلاقيات السيبرانية", "to": "/terms" }
+    ]
+  },
+  "description": "قالب أكاديمية الأمن السيبراني والاختراق الأخلاقي (Cybersecurity, Ethical Hacking, SOC Operations, Reverse Engineering) — مختبرات اختراق سحابية منعزلة، تحديات CTF تفاعلية، طرفيات أوامر دفاعية، واستعداد مهني للشهادات الدولية (OSCP, CEH, CISSP).",
+  "direction": "rtl",
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "id": "hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "variant": "skill-lab-motion",
+            "title": "احترف الأمن السيبراني في الخطوط الدفاعية الأولى",
+            "subtitle": "معسكرات وتدريبات عملية على سيناريوهات اختراق حقيقية في مختبرات سحابية معزولة، تؤهلك لحصد أعلى الشهادات وقيادة فرق الـ Red & Blue Teams.",
+            "primaryCta": {
+              "label": "استكشف مسارات الأمن السيبراني",
+              "to": "/shop"
+            },
+            "secondaryCta": {
+              "label": "تحدي قياس المستوى الأمني",
+              "to": "/contact"
+            },
+            "statsBadge": "تحدي الـ CTF الأسبوعي متاح الآن",
+            "statNumber": "+1,450",
+            "statLabel": "خريج يعملون حالياً في كبرى إدارات الأمن السيبراني والبنوك",
+            "terminalCode": "#!/bin/bash\n# تشغيل مختبر اختبار الاختراق المعزول\ncurl -sSL https://cybershield.academy/init-sandbox | bash\nsudo cybershield attack-sim --target 'corp-vpc.internal' --suite 'zero-trust'\n[✓] 14 Vulnerabilities Mapped | Exploit Chain Verified | Remediation Script Generated"
+          }
+        },
+        {
+          "id": "promo-strip",
+          "type": "promo-strip",
+          "visible": true,
+          "content": {
+            "variant": "sale-signal",
+            "badgeText": "مقاعد محدودة",
+            "mainText": "التسجيل مفتوح لمعسكر محترف اختبار الاختراق الهجومي المتقدم (Advanced Penetration Tester Cohort 2026)",
+            "countdownDate": "2026-12-31T23:59:59Z",
+            "ctaLabel": "احجز مقعدك في المختبر",
+            "ctaTo": "/shop"
+          }
+        },
+        {
+          "id": "features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "ShieldAlert",
+                "title": "مختبرات Attack Sandbox معزولة",
+                "description": "بيئات اختبار واقعية ومحمية لكل طالب لتطبيق الهجمات وتصحيح الثغرات بأمان"
+              },
+              {
+                "icon": "Terminal",
+                "title": "تدريب عملي على أدوات المعركة",
+                "description": "إتقان Kali Linux, Burp Suite Pro, Metasploit, Wireshark, وGhidra"
+              },
+              {
+                "icon": "Crosshair",
+                "title": "محاكاة هجوم ودفاع Red vs Blue",
+                "description": "فرق عمل حقيقية تتنافس في سيناريوهات الاستجابة للحوادث واختراق الأنظمة"
+              },
+              {
+                "icon": "FileCheck2",
+                "title": "تأهيل كامل لشهادات OSCP وCEH",
+                "description": "مناهج مطابقة تماماً للمتطلبات الدولية لضمان النجاح من المحاولة الأولى"
+              }
+            ]
+          }
+        },
+        {
+          "id": "tracks",
+          "type": "featured-collections",
+          "visible": true,
+          "content": {
+            "title": "المسارات المهنية المعتمدة في الأمن السيبراني",
+            "subtitle": "تخصصات عملية مصممة لتغطية الاحتياج المتسارع لسوق أمن المعلومات المحلي والدولي",
+            "collections": [
+              {
+                "id": "c1",
+                "title": "اختبار اختراق تطبيقات الويب والـ APIs",
+                "description": "اكتشاف واستغلال ثغرات OWASP Top 10 وثغرات مصادقة JWT والـ Business Logic.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c2",
+                "title": "عمليات الـ SOC والاستجابة للحوادث",
+                "description": "تحليل السجلات ومراقبة شبكات الـ SIEM، واحتواء الهجمات المتقدمة APTs.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c3",
+                "title": "أمن الحوسبة السحابية (Cloud Security)",
+                "description": "تأمين بيئات AWS وKubernetes وتنفيذ استراتيجيات Zero-Trust الصارمة.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              },
+              {
+                "id": "c4",
+                "title": "الهندسة العكسية وتحليل البرمجيات الخبيثة",
+                "description": "تفكيك الشيفرات الثنائية واكتشاف برمجيات الفدية Ransomware وفحص الثغرات الصفرية.",
+                "image": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
+                "to": "/shop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "tools-grid",
+          "type": "services-grid",
+          "visible": true,
+          "content": {
+            "title": "ترسانة الأدوات والمختبرات التقنية",
+            "subtitle": "وصول كامل لأدوات ومختبرات الشركات دون الحاجة لتثبيت أي شيء على جهازك الشخصي",
+            "services": [
+              {
+                "title": "Burp Suite Pro Labs",
+                "description": "فحص ثغرات وتعديل حزم الـ HTTP/WebSocket واختبار الـ REST & GraphQL APIs.",
+                "icon": "Globe"
+              },
+              {
+                "title": "SIEM & Splunk Enterprise",
+                "description": "تحليل بيانات المرور وكتابة قواعد الرصد المتقدمة وكشف الاختراقات فورياً.",
+                "icon": "Activity"
+              },
+              {
+                "title": "Active Directory Labs",
+                "description": "محاكاة هجمات المجال الداخلي (Kerberoasting, Pass-the-Hash, BloodHound).",
+                "icon": "Server"
+              },
+              {
+                "title": "Reverse Engineering",
+                "description": "بيئات IDA Pro وGhidra لتحليل العينات المجهولة والثنائيات المشفرة.",
+                "icon": "Cpu"
+              }
+            ]
+          }
+        },
+        {
+          "id": "pricing",
+          "type": "offer-bento",
+          "visible": true,
+          "content": {
+            "title": "باقات التدريب والوصول لمختبرات الهجوم والدفاع",
+            "subtitle": "خطط شفافة مع وصول سحابي للمختبرات على مدار الساعة طوال أيام الأسبوع",
+            "offers": [
+              {
+                "id": "tier-1",
+                "badge": "مختبرات ذاتية",
+                "title": "اشتراك مختبرات الـ Sandbox السحابية",
+                "price": "2,900 ج.م",
+                "period": "صلاحية 6 أشهر",
+                "features": [
+                  "وصول لـ 150 هدف ومختبر اختراق افتراضي",
+                  "أدوات Kali سحابية جاهزة عبر المتصفح",
+                  "حلول وتوجيهات لكافة التحديات",
+                  "مجتمع نقاشات الـ CTF وتبادل الخبرات"
+                ],
+                "cta": {
+                  "label": "بدء الاشتراك",
+                  "to": "/shop"
+                }
+              },
+              {
+                "id": "tier-2",
+                "badge": "المعسكر المكثف - الأكثر طلباً",
+                "title": "معسكر محترف الاختراق الأخلاقي المباشر",
+                "price": "7,800 ج.م",
+                "period": "10 أسابيع تدريب مباشر",
+                "features": [
+                  "جميع مختبرات الـ Sandbox المتقدمة",
+                  "محاضرات تفاعلية حية وتطبيق مباشر خطوة بخطوة",
+                  "محاكاة اختبار OSCP العملي مدته 24 ساعة",
+                  "جلسات إرشاد وتوجيه وظيفي مع كبار قادة الأمن",
+                  "شهادة معتمدة موثقة برقم تسلسلي دولي"
+                ],
+                "cta": {
+                  "label": "انضم للدفعة الحالية",
+                  "to": "/shop"
+                }
+              },
+              {
+                "id": "tier-3",
+                "badge": "للشركات والمؤسسات",
+                "title": "تدريب الفرق الأمنية ومحاكاة Red Team",
+                "price": "مخصص",
+                "period": "مرن حسب حجم الفريق",
+                "features": [
+                  "محاكاة هجمات حقيقية على بنية الشركة لرفع الجاهزية",
+                  "تدريب فرق المطورين على Secure Code Review",
+                  "تقارير امتثال وجاهزية أمنية معتمدة"
+                ],
+                "cta": {
+                  "label": "طلب عرض تدريب شركات",
+                  "to": "/contact"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "countdown",
+          "type": "countdown-banner",
+          "visible": true,
+          "content": {
+            "title": "ينتهي الخصم المبكر لمعسكر أمن المعلومات خلال:",
+            "endDate": "2026-12-31T23:59:59Z",
+            "ctaLabel": "سجل الآن واضمن مقعدك",
+            "ctaTo": "/shop"
+          }
+        },
+        {
+          "id": "featured",
+          "type": "featured-products",
+          "visible": true,
+          "content": {
+            "title": "المعسكرات والشهادات الأمنية المتاحة للتسجيل",
+            "subtitle": "ابدأ مسيرتك في أكثر المجالات طلباً واستقراراً في العالم الرقمي",
+            "limit": 6
+          }
+        },
+        {
+          "id": "reviews",
+          "type": "reviews",
+          "visible": true,
+          "content": {
+            "title": "تجارب أبطال الأمن السيبراني",
+            "subtitle": "آراء وتجارب المتدربين الذين اجتازوا اختبارات الاختراق وحصلوا على شهاداتهم الدولية"
+          }
+        },
+        {
+          "id": "newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "النشرة الأمنية للأدلة والتحذيرات السيبرانية",
+            "subtitle": "تقرير دوري يوجز أحدث الثغرات المكتشفة، وتحليلات الهجمات وطرق التصدي المعتمدة.",
+            "buttonText": "اشترك مجاناً",
+            "placeholder": "أدخل بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "sections": [
+        {
+          "id": "shop-hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "title": "كتالوج المعسكرات والدبلومات الأمنية",
+            "subtitle": "برامج وتدريبات مصممة لنقلك من الصفر وحتى قيادة غرف العمليات الأمنية"
+          }
+        },
+        {
+          "id": "shop-promo",
+          "type": "promo-strip",
+          "visible": true,
+          "content": {
+            "mainText": "متاح تقسيط رسوم المعسكرات بدون فوائد لجميع البنوك المصرية والعربية"
+          }
+        },
+        {
+          "id": "shop-products",
+          "type": "featured-products",
+          "visible": true,
+          "content": {
+            "title": "كافة المعسكرات والمسارات المتاحة",
+            "limit": 12
+          }
+        },
+        {
+          "id": "shop-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Key",
+                "title": "وصول آمن وفوري",
+                "description": "تفعيل حساب المختبر السحابي فور تأكيد التسجيل"
+              },
+              {
+                "icon": "Shield",
+                "title": "شهادات مهنية معتمدة",
+                "description": "شهادات معترف بها تثبت قدرتك العملية على تنفيذ المهام"
+              },
+              {
+                "icon": "UserCheck",
+                "title": "مرشد أمني مرافق",
+                "description": "جلسات توجيه فردية للإجابة عن التحديات التقنية الصعبة"
+              }
+            ]
+          }
+        },
+        {
+          "id": "shop-newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "لا تفوت انطلاق أي معسكر أمني",
+            "subtitle": "اشترك ليصلك إشعار مبكر قبل فتح باب التسجيل لأي دفعة جديدة"
+          }
+        }
+      ]
+    },
+    "pdp": {
+      "sections": [
+        {
+          "id": "gallery",
+          "type": "product-gallery",
+          "visible": true
+        },
+        {
+          "id": "info",
+          "type": "product-info",
+          "visible": true
+        },
+        {
+          "id": "conversion",
+          "type": "conversion-stack",
+          "visible": true
+        },
+        {
+          "id": "pdp-reviews",
+          "type": "reviews",
+          "visible": true
+        },
+        {
+          "id": "related",
+          "type": "related-products",
+          "visible": true
+        }
+      ]
+    },
+    "cart": {
+      "sections": [
+        {
+          "id": "items",
+          "type": "cart-items",
+          "visible": true
+        },
+        {
+          "id": "summary",
+          "type": "order-summary",
+          "visible": true
+        }
+      ]
+    },
+    "collections": {
+      "sections": [
+        {
+          "id": "collections-hero",
+          "type": "hero-banner",
+          "visible": true,
+          "content": {
+            "title": "المسارات المهنية وتخصصات الأمن السيبراني",
+            "subtitle": "اختر تخصصك المحدد: هجومي، دفاعي، أو تأمين البنية السحابية"
+          }
+        },
+        {
+          "id": "collections-grid",
+          "type": "featured-collections",
+          "visible": true,
+          "content": {
+            "title": "التخصصات المهنية الكبرى",
+            "subtitle": "خارطة طريق كاملة لكل تخصص مدعومة بالمشاريع والشهادات"
+          }
+        },
+        {
+          "id": "collections-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "CheckCircle2",
+                "title": "منهجية معتمدة دولياً",
+                "description": "توافق تام مع إطار عمل NIST وإرشادات MITRE ATT&CK"
+              },
+              {
+                "icon": "Award",
+                "title": "إعداد وظيفي شامل",
+                "description": "تجهيز السيرة الذاتية والمحفظة الرقمية لملفات الاختراق والتقارير"
+              }
+            ]
+          }
+        },
+        {
+          "id": "collections-newsletter",
+          "type": "newsletter",
+          "visible": true,
+          "content": {
+            "title": "تحدث مع مستشار أمني متخصص",
+            "subtitle": "احصل على استشارة لتحديد المسار المناسب لخلفيتك التقنية"
+          }
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "id": "contact-main",
+          "type": "contact-form",
+          "visible": true,
+          "content": {
+            "title": "تواصل مع فريق القبول بأكاديمية سايبر شيلد",
+            "subtitle": "يسعدنا الرد على جميع استفساراتك حول المناهج، المختبرات، أو برامج تدريب الشركات."
+          }
+        },
+        {
+          "id": "contact-features",
+          "type": "features-bar",
+          "visible": true,
+          "content": {
+            "items": [
+              {
+                "icon": "Mail",
+                "title": "البريد الإلكتروني للقبول",
+                "description": "admissions@cybershield.academy"
+              },
+              {
+                "icon": "Phone",
+                "title": "خدمة العملاء والواتساب",
+                "description": "+20 100 000 0000"
+              },
+              {
+                "icon": "MapPin",
+                "title": "مقر الأكاديمية والعمليات",
+                "description": "القرية الذكية، طريق مصر الإسكندرية الصحراوي، مبنى الابتكار الأمني"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

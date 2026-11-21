@@ -172,6 +172,7 @@ describe('Shipping Companies Validation & Built-in Deletion Protection', () => {
       { id: 'sc-turbo', providerKey: 'TURBO', slug: 'turbo', name: 'Turbo' },
       { id: 'sc-bosta', providerKey: 'BOSTA', slug: 'bosta', name: 'Bosta' },
       { id: 'sc-qp', providerKey: 'QP_EXPRESS', slug: 'qp-express', name: 'QP Express' },
+      { id: 'sc-hashtag', providerKey: 'HASHTAG', slug: 'hashtag', name: 'Hashtag Express' },
     ])('returns 403 for built-in carrier $name', async (carrier) => {
       mockPrisma.shippingCompany.findFirst.mockResolvedValue({
         ...carrier,

@@ -16,6 +16,7 @@ import {
   ExternalLink,
   Copy,
   Bell,
+  Download,
 } from "lucide-react";
 import { DemoDayEvent, DemoDayAttendee, DemoDayStats } from "./types";
 import {
@@ -29,6 +30,7 @@ import {
   deleteAttendee,
   fetchEducationLookup,
   broadcastDemoDayReminder,
+  exportDemoDayAttendeesCsv,
 } from "./api";
 import { DemoDayEventsList } from "./DemoDayEventsList";
 import { DemoDayAttendeesTable } from "./DemoDayAttendeesTable";
@@ -67,6 +69,33 @@ export default function EducationDemoDayPage() {
   const [convertModalOpen, setConvertModalOpen] = useState<boolean>(false);
   const [targetAttendeeForConvert, setTargetAttendeeForConvert] = useState<DemoDayAttendee | null>(null);
   const [broadcasting, setBroadcasting] = useState<boolean>(false);
+  const [exporting, setExporting] = useState<boolean>(false);
+
+  const handleExportAttendees = async () => {
+    if (!selectedEventDetail) return;
+    if (!selectedEventDetail.attendees?.length) {
+      toast.error(isEn ? "No attendees to export" : "لا يوجد مسجلين لتصديرهم في هذه الفعالية");
+      return;
+    }
+    setExporting(true);
+    try {
+      const blob = await exportDemoDayAttendeesCsv(selectedEventDetail.id);
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = downloadUrl;
+      const cleanTitle = selectedEventDetail.title.replace(/[\\/:*?"<>|]/g, "_");
+      a.download = `demo_day_${cleanTitle}_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+      toast.success(isEn ? "Attendees list exported successfully!" : "تم تصدير قائمة المسجلين ومصادر الإسناد بنجاح!");
+    } catch (err: any) {
+      toast.error(err.message || (isEn ? "Export failed" : "فشل تصدير البيانات"));
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const handleBroadcastReminder = async () => {
     if (!selectedEventDetail) return;
@@ -458,6 +487,16 @@ export default function EducationDemoDayPage() {
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>{isEn ? "Copy Public Form Link" : "نسخ رابط التسجيل الخارجي"}</span>
+                </button>
+                <button
+                  type="button"
+                  disabled={exporting}
+                  onClick={handleExportAttendees}
+                  aria-label={isEn ? "Export attendees CSV" : "تصدير المسجلين كملف Excel/CSV"}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border border-border bg-background hover:bg-muted text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:opacity-50"
+                >
+                  <Download className={`w-3.5 h-3.5 ${exporting ? "animate-spin" : ""}`} />
+                  <span>{exporting ? (isEn ? "Exporting…" : "جاري التصدير…") : (isEn ? "Export CSV" : "تصدير الحضور (CSV)")}</span>
                 </button>
                 <button
                   type="button"

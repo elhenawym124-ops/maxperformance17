@@ -29,7 +29,7 @@ test('educationDemoDayController unit test suite', async (t) => {
         return 1;
       }
       if (sql.includes('INSERT INTO "education_demo_attendees"')) {
-        // Handles both admin (with convertedStudentId & branchId) and legacy inserts
+        // Handles admin, public, and attribution columns
         const id = params[0];
         const companyId = params[1];
         const demoDayId = params[2];
@@ -44,16 +44,40 @@ test('educationDemoDayController unit test suite', async (t) => {
         const convertedStudentId = params[11] && typeof params[11] === 'string' && params[11].startsWith('stu_') ? params[11] : null;
         const branchId = params[12] || null;
         const notes = params[13] || params[11] || null;
+        const registeredByType = params[14] || null;
+        const registeredByUserId = params[15] || null;
+        const registeredByName = params[16] || null;
+        const sourceChannel = params[17] || null;
+        const sourceRaw = params[18] || null;
+        const campaignName = params[19] || null;
+        const adRef = params[20] || null;
+        const postRef = params[21] || null;
+        const landingUrl = params[22] || null;
 
         attendeesDb.push({
           id, companyId, demoDayId, customerId, studentName, guardianName, phone, phone2, email, age, grade,
           attendanceStatus: 'REGISTERED', conversionStatus: 'PENDING',
           convertedStudentId, branchId, notes,
+          registeredByType, registeredByUserId, registeredByName,
+          sourceChannel, sourceRaw, campaignName, adRef, postRef, landingUrl,
           createdAt: new Date(), updatedAt: new Date()
         });
         return 1;
       }
       if (sql.includes('UPDATE "education_demo_attendees"')) {
+        if (sql.includes('"registeredByType" = COALESCE')) {
+          const [registeredByType, sourceChannel, sourceRaw, campaignName, adRef, postRef, attendeeId] = params;
+          const a = attendeesDb.find(x => x.id === attendeeId);
+          if (a) {
+            if (!a.registeredByType) a.registeredByType = registeredByType;
+            if (!a.sourceChannel) a.sourceChannel = sourceChannel;
+            if (!a.sourceRaw) a.sourceRaw = sourceRaw;
+            if (!a.campaignName) a.campaignName = campaignName;
+            if (!a.adRef) a.adRef = adRef;
+            if (!a.postRef) a.postRef = postRef;
+          }
+          return 1;
+        }
         if (sql.includes('"attendanceStatus" = \'ATTENDED\'')) {
           const attendeeId = params[3] || params[2];
           const a = attendeesDb.find(x => x.id === attendeeId);
@@ -82,6 +106,52 @@ test('educationDemoDayController unit test suite', async (t) => {
       return 1;
     },
     $queryRawUnsafe: async (sql, ...params) => {
+      if (sql.includes('FROM "education_demo_attendees" a') && sql.includes('revenueGenerated')) {
+        const companyId = params[0];
+        return attendeesDb
+          .filter(a => a.companyId === companyId)
+          .map(a => {
+            const cust = customersDb.find(c => c.id === a.customerId);
+            return {
+              ...a,
+              customerId: a.customerId,
+              leadSource: cust?.leadSource || 'OTHER',
+              revenueGenerated: a.conversionStatus === 'CONVERTED' ? 1500 : 0
+            };
+          });
+      }
+      if (sql.includes('FROM "education_demo_attendees" a') && sql.includes('demoDayTitle')) {
+        const companyId = params[0];
+        const demoDayId = params[1];
+        return attendeesDb
+          .filter(a => a.companyId === companyId && (!demoDayId || demoDayId === 'all' || a.demoDayId === demoDayId))
+          .map(a => {
+            const d = demoDaysDb.find(x => x.id === a.demoDayId);
+            return {
+              ...a,
+              demoDayTitle: d?.title || 'فعالية تجريبية',
+              demoDayScheduledAt: d?.scheduledAt || new Date().toISOString(),
+              branchName: 'الفرع الرئيسي',
+              studentCode: 'STU-1001'
+            };
+          });
+      }
+      if (sql.includes('FROM "education_demo_attendees"') && sql.includes('"sourceChannel" IS NULL')) {
+        return attendeesDb
+          .filter(a => a.sourceChannel === null || a.registeredByType === null)
+          .map(a => ({
+            id: a.id,
+            companyId: a.companyId,
+            demoDayId: a.demoDayId,
+            studentName: a.studentName,
+            notes: a.notes,
+            registeredByType: a.registeredByType,
+            sourceChannel: a.sourceChannel,
+            campaignName: a.campaignName,
+            adRef: a.adRef,
+            postRef: a.postRef
+          }));
+      }
       if (sql.includes('FROM "education_demo_days" d')) {
         const companyId = params[0];
         return demoDaysDb
@@ -192,9 +262,13 @@ test('educationDemoDayController unit test suite', async (t) => {
   const createMockRes = () => {
     let responseData = null;
     let statusCode = 200;
+    const headers = {};
     const res = {
       status: (code) => { statusCode = code; return res; },
       json: (data) => { responseData = data; return res; },
+      setHeader: (k, v) => { headers[k.toLowerCase()] = v; return res; },
+      send: (data) => { responseData = data; return res; },
+      getHeader: (k) => headers[k.toLowerCase()],
       getData: () => responseData,
       getStatusCode: () => statusCode
     };
@@ -444,6 +518,303 @@ test('educationDemoDayController unit test suite', async (t) => {
     const listData = resList.getData();
     assert.strictEqual(listData.success, true);
     assert.strictEqual(listData.data.length, 0); // Empty for company 2!
+  });
+
+  // --- Attribution & Registrar Feature Tests ---
+
+  await t.test('registerPublicAttendee captures UTM query, body, referer: registeredByType=SELF, sourceChannel, campaignName, adRef, postRef, landingUrl', async () => {
+    const demoId = demoDaysDb[0].id;
+    const req = {
+      params: { id: demoId },
+      query: {
+        utm_source: 'facebook',
+        utm_medium: 'paid',
+        utm_campaign: 'spring_coding_camp_2026',
+        adId: 'fb_ad_101',
+        postId: 'fb_post_202'
+      },
+      body: {
+        studentName: 'محمود عبد الرازق',
+        guardianName: 'عبد الرازق شريف',
+        phone: '01019998877',
+        age: 13,
+        grade: 'الصف الثاني الإعدادي'
+      },
+      headers: {
+        referer: 'https://maxp.online/lp/spring-camp?utm_source=facebook'
+      },
+      get: function(h) { return this.headers[h.toLowerCase()]; }
+    };
+    const res = createMockRes();
+    await controller.registerPublicAttendee(req, res);
+    assert.strictEqual(res.getStatusCode(), 201);
+    const data = res.getData();
+    assert.strictEqual(data.success, true);
+
+    const att = attendeesDb.find(a => a.id === data.data.id);
+    assert.ok(att);
+    assert.strictEqual(att.registeredByType, 'SELF');
+    assert.strictEqual(att.sourceChannel, 'FACEBOOK');
+    assert.strictEqual(att.sourceRaw, 'facebook');
+    assert.strictEqual(att.campaignName, 'spring_coding_camp_2026');
+    assert.strictEqual(att.adRef, 'fb_ad_101');
+    assert.strictEqual(att.postRef, 'fb_post_202');
+    assert.strictEqual(att.landingUrl, 'https://maxp.online/lp/spring-camp?utm_source=facebook');
+  });
+
+  await t.test('registerPublicAttendee normalizes unknown channel to OTHER and stores sourceRaw', async () => {
+    const demoId = demoDaysDb[0].id;
+    const req = {
+      params: { id: demoId },
+      query: {
+        utm_source: 'snapchat_influencer_khalid',
+        utm_campaign: 'influencer_exclusive'
+      },
+      body: {
+        studentName: 'نور أحمد',
+        phone: '01077778899',
+        age: 10
+      },
+      headers: {},
+      get: function(h) { return this.headers[h.toLowerCase()]; }
+    };
+    const res = createMockRes();
+    await controller.registerPublicAttendee(req, res);
+    assert.strictEqual(res.getStatusCode(), 201);
+    const data = res.getData();
+
+    const att = attendeesDb.find(a => a.id === data.data.id);
+    assert.ok(att);
+    assert.strictEqual(att.registeredByType, 'SELF');
+    assert.strictEqual(att.sourceChannel, 'OTHER');
+    assert.strictEqual(att.sourceRaw, 'snapchat_influencer_khalid');
+    assert.strictEqual(att.campaignName, 'influencer_exclusive');
+  });
+
+  await t.test('registerAttendee sets registeredByType=EMPLOYEE and records user credentials from req.user', async () => {
+    const demoId = demoDaysDb[0].id;
+    const req = {
+      user: { id: 'usr_emp_42', name: 'أحمد محمود (مسؤول القبول)', role: 'EMPLOYEE', companyId: 'comp-edu-1' },
+      params: { id: demoId },
+      body: {
+        studentName: 'ياسين أحمد فؤاد',
+        phone: '01123456789',
+        channel: 'WHATSAPP',
+        campaignName: 'حملة العودة للمدارس',
+        adRef: 'ad_wa_99',
+        notes: 'تم التواصل هاتفياً وتأكيد الحضور'
+      }
+    };
+    const res = createMockRes();
+    await controller.registerAttendee(req, res);
+    assert.strictEqual(res.getStatusCode(), 201);
+    const data = res.getData();
+
+    const att = attendeesDb.find(a => a.id === data.data.id);
+    assert.ok(att);
+    assert.strictEqual(att.registeredByType, 'EMPLOYEE');
+    assert.strictEqual(att.registeredByUserId, 'usr_emp_42');
+    assert.strictEqual(att.registeredByName, 'أحمد محمود (مسؤول القبول)');
+    assert.strictEqual(att.sourceChannel, 'WHATSAPP');
+    assert.strictEqual(att.campaignName, 'حملة العودة للمدارس');
+    assert.strictEqual(att.adRef, 'ad_wa_99');
+  });
+
+  await t.test('registerAttendee preserves explicit registeredByType for IMPORT and API integration', async () => {
+    const demoId = demoDaysDb[0].id;
+    // Test IMPORT
+    const reqImport = {
+      user: { id: 'usr_importer', name: 'خدمة الاستيراد', role: 'ADMIN', companyId: 'comp-edu-1' },
+      params: { id: demoId },
+      body: {
+        studentName: 'طالب مستورد من إكسل',
+        phone: '01233445566',
+        registeredByType: 'IMPORT',
+        sourceChannel: 'REFERRAL',
+        campaignName: 'استيراد ملف معارض مارس'
+      }
+    };
+    const resImport = createMockRes();
+    await controller.registerAttendee(reqImport, resImport);
+    assert.strictEqual(resImport.getStatusCode(), 201);
+    const attImport = attendeesDb.find(a => a.id === resImport.getData().data.id);
+    assert.strictEqual(attImport.registeredByType, 'IMPORT');
+    assert.strictEqual(attImport.sourceChannel, 'REFERRAL');
+
+    // Test API
+    const reqApi = {
+      user: { id: 'usr_api_key', name: 'تكامل Zapier', role: 'INTEGRATION', companyId: 'comp-edu-1' },
+      params: { id: demoId },
+      body: {
+        studentName: 'طالب تكامل خارجي',
+        phone: '01299887766',
+        registeredByType: 'API',
+        sourceChannel: 'WEBSITE',
+        campaignName: 'Webhook Typeform'
+      }
+    };
+    const resApi = createMockRes();
+    await controller.registerAttendee(reqApi, resApi);
+    assert.strictEqual(resApi.getStatusCode(), 201);
+    const attApi = attendeesDb.find(a => a.id === resApi.getData().data.id);
+    assert.strictEqual(attApi.registeredByType, 'API');
+  });
+
+  await t.test('customer.leadSource protection: preserves existing specific source, updates only if null or OTHER', async () => {
+    const demoId = demoDaysDb[0].id;
+    // 1. Create a customer with a specific leadSource
+    const existingCust = {
+      id: 'cust_specific',
+      companyId: 'comp-edu-1',
+      phone: '01511223344',
+      name: 'ولي أمر سابق',
+      leadSource: 'INSTAGRAM',
+      status: 'LEAD'
+    };
+    customersDb.push(existingCust);
+
+    // Register attendee with channel=PHONE
+    const req1 = {
+      user: { id: 'u1', name: 'الموظف', role: 'EMPLOYEE', companyId: 'comp-edu-1' },
+      params: { id: demoId },
+      body: {
+        studentName: 'ابن العميل',
+        phone: '01511223344',
+        channel: 'PHONE'
+      }
+    };
+    const res1 = createMockRes();
+    await controller.registerAttendee(req1, res1);
+    assert.strictEqual(res1.getStatusCode(), 201);
+    // Must remain INSTAGRAM, NOT overwritten by PHONE
+    assert.strictEqual(existingCust.leadSource, 'INSTAGRAM');
+
+    // 2. Create a customer with leadSource='OTHER'
+    const otherCust = {
+      id: 'cust_other',
+      companyId: 'comp-edu-1',
+      phone: '01599887766',
+      name: 'عميل مصدره غير محدد',
+      leadSource: 'OTHER',
+      status: 'LEAD'
+    };
+    customersDb.push(otherCust);
+
+    const req2 = {
+      user: { id: 'u1', name: 'الموظف', role: 'EMPLOYEE', companyId: 'comp-edu-1' },
+      params: { id: demoId },
+      body: {
+        studentName: 'طالب جديد',
+        phone: '01599887766',
+        channel: 'WHATSAPP'
+      }
+    };
+    const res2 = createMockRes();
+    await controller.registerAttendee(req2, res2);
+    assert.strictEqual(res2.getStatusCode(), 201);
+    // Should be upgraded from OTHER to WHATSAPP
+    assert.strictEqual(otherCust.leadSource, 'WHATSAPP');
+  });
+
+  await t.test('idempotent backfill script runBackfill safely extracts legacy [ATTR: ...] tags without modifying notes', async () => {
+    const { runBackfill } = require('../../scripts/backfill_education_demo_attendees_attribution');
+    
+    // Insert a legacy row with [ATTR: ...] in notes and null attribution columns
+    const legacyRow = {
+      id: 'att_legacy_test',
+      companyId: 'comp-edu-1',
+      demoDayId: demoDaysDb[0].id,
+      customerId: 'cust_legacy',
+      studentName: 'طالب مسجل قديماً',
+      phone: '01199998888',
+      attendanceStatus: 'REGISTERED',
+      conversionStatus: 'PENDING',
+      notes: 'تم التسجيل في 17/11 [ATTR: {"source":"INSTAGRAM","campaign":"حملة إنستغرام ربيع 2026","adId":"ad_ig_777","postId":"post_ig_888"}] - ملاحظات إضافية',
+      registeredByType: null,
+      registeredByUserId: null,
+      registeredByName: null,
+      sourceChannel: null,
+      sourceRaw: null,
+      campaignName: null,
+      adRef: null,
+      postRef: null,
+      landingUrl: null,
+      createdAt: new Date('2026-11-17T10:00:00Z'),
+      updatedAt: new Date('2026-11-17T10:00:00Z')
+    };
+    attendeesDb.push(legacyRow);
+
+    const originalNotes = legacyRow.notes;
+
+    // Run backfill 1st time
+    const silentLogger = { log: () => {}, error: () => {} };
+    const result1 = await runBackfill({ prisma: mockPrisma, logger: silentLogger });
+    assert.strictEqual(result1.updatedCount >= 1, true);
+
+    // Verify fields updated
+    assert.strictEqual(legacyRow.sourceChannel, 'INSTAGRAM');
+    assert.strictEqual(legacyRow.campaignName, 'حملة إنستغرام ربيع 2026');
+    assert.strictEqual(legacyRow.adRef, 'ad_ig_777');
+    assert.strictEqual(legacyRow.postRef, 'post_ig_888');
+    assert.strictEqual(legacyRow.registeredByType, 'SELF');
+    // STRICT SAFETY RULE CHECK: notes must be completely untouched!
+    assert.strictEqual(legacyRow.notes, originalNotes);
+
+    // Run backfill 2nd time: IDEMPOTENCY CHECK
+    const result2 = await runBackfill({ prisma: mockPrisma, logger: silentLogger });
+    assert.strictEqual(result2.updatedCount, 0, 'Second run must update 0 rows (idempotent)');
+  });
+
+  await t.test('getAttributionAnalytics aggregates new attribution columns and preserves response contract', async () => {
+    const req = {
+      user: { id: 'u1', role: 'OWNER', companyId: 'comp-edu-1' },
+      query: { period: 'all' }
+    };
+    const res = createMockRes();
+    await controller.getAttributionAnalytics(req, res);
+    assert.strictEqual(res.getStatusCode(), 200);
+    const data = res.getData();
+    assert.strictEqual(data.success, true);
+    assert.ok(data.data.summary);
+    assert.ok(typeof data.data.summary.totalLeads === 'number');
+    assert.ok(typeof data.data.summary.overallAttendanceRate === 'string');
+    assert.ok(Array.isArray(data.data.campaigns));
+    
+    // Check campaign entries contain our attribution data
+    const igCampaign = data.data.campaigns.find(c => c.channel === 'INSTAGRAM' && c.campaignName === 'حملة إنستغرام ربيع 2026');
+    assert.ok(igCampaign, 'Should find backfilled Instagram campaign in attribution analytics');
+    assert.strictEqual(igCampaign.adId, 'ad_ig_777');
+  });
+
+  await t.test('exportDemoDayAttendees generates UTF-8 BOM CSV with Arabic headers and attribution columns', async () => {
+    const req = {
+      user: { id: 'u1', role: 'OWNER', companyId: 'comp-edu-1' },
+      params: { id: 'all' }
+    };
+    const res = createMockRes();
+    await controller.exportDemoDayAttendees(req, res);
+    assert.strictEqual(res.getStatusCode(), 200);
+    assert.strictEqual(res.getHeader('content-type'), 'text/csv; charset=utf-8');
+    
+    const csv = res.getData();
+    assert.ok(typeof csv === 'string');
+    // Starts with UTF-8 BOM
+    assert.strictEqual(csv.startsWith('\uFEFF'), true);
+
+    // Contains Arabic headers
+    assert.ok(csv.includes('اسم الطالب'));
+    assert.ok(csv.includes('الهاتف'));
+    assert.ok(csv.includes('قناة الحجز'));
+    assert.ok(csv.includes('اسم الحملة'));
+    assert.ok(csv.includes('معرف الإعلان'));
+    assert.ok(csv.includes('سجّله'));
+    assert.ok(csv.includes('اسم الموظف المسجل'));
+
+    // Contains attendees registered earlier
+    assert.ok(csv.includes('محمود عبد الرازق'));
+    assert.ok(csv.includes('ياسين أحمد فؤاد'));
+    assert.ok(csv.includes('أحمد محمود (مسؤول القبول)'));
+    assert.ok(csv.includes('حملة العودة للمدارس'));
   });
 
   activePrismaGetter = originalGetSharedPrisma;

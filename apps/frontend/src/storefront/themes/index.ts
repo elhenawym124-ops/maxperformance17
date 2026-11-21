@@ -80,6 +80,11 @@ import freshCartData from "./fresh-cart.json";
 import skillLabData from "./skill-lab.json";
 import kwrsatData from "./kwrsat.json";
 import kwrsat2026Data from "./kwrsat-2026.json";
+import techForgeAcademyData from "./tech-forge-academy.json";
+import aiNexusInstituteData from "./ai-nexus-institute.json";
+import cyberShieldAcademyData from "./cyber-shield-academy.json";
+import codeCampJuniorData from "./code-camp-junior.json";
+import frontendCraftStudioData from "./frontend-craft-studio.json";
 import baladiMarketEgData from "./baladi-market-eg.json";
 import nileEleganceEgData from "./nile-elegance-eg.json";
 import primeButcherLuxeData from "./prime-butcher-luxe.json";
@@ -772,6 +777,11 @@ export const STOREFRONT_THEME_PRESETS: Record<string, StorefrontTheme> = {
   "fresh-cart": asStorefrontTheme(freshCartData),
   "skill-lab": asStorefrontTheme(skillLabData),
   "kwrsat-2026": asStorefrontTheme(kwrsat2026Data),
+  "tech-forge-academy": asStorefrontTheme(techForgeAcademyData),
+  "ai-nexus-institute": asStorefrontTheme(aiNexusInstituteData),
+  "cyber-shield-academy": asStorefrontTheme(cyberShieldAcademyData),
+  "code-camp-junior": asStorefrontTheme(codeCampJuniorData),
+  "frontend-craft-studio": asStorefrontTheme(frontendCraftStudioData),
   kwrsat: asStorefrontTheme(kwrsatData),
   "baladi-market-eg": asStorefrontTheme(baladiMarketEgData),
   "nile-elegance-eg": asStorefrontTheme(nileEleganceEgData),

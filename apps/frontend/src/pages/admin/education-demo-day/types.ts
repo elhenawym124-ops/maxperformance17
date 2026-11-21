@@ -49,6 +49,15 @@ export interface DemoDayAttendee {
   conversionStatus: "PENDING" | "CONVERTED" | "NOT_INTERESTED" | "FOLLOW_UP";
   convertedStudentId?: string | null;
   notes?: string | null;
+  registeredByType?: "SELF" | "EMPLOYEE" | "IMPORT" | "API" | string | null;
+  registeredByUserId?: string | null;
+  registeredByName?: string | null;
+  sourceChannel?: "WHATSAPP" | "FACEBOOK" | "INSTAGRAM" | "MESSENGER" | "WEBSITE" | "PHONE" | "WALK_IN" | "REFERRAL" | "OTHER" | string | null;
+  sourceRaw?: string | null;
+  campaignName?: string | null;
+  adRef?: string | null;
+  postRef?: string | null;
+  landingUrl?: string | null;
   createdAt: string;
   leadStage?: string | null;
   leadPriority?: string | null;

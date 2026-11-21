@@ -6,6 +6,14 @@ const {
   generateAttendeeId
 } = require('../services/educationDemoDayService');
 const { logEducationEvent } = require('../services/educationAuditService');
+const {
+  normalizeSourceChannel,
+  normalizeRegisteredByType,
+  extractAttributionFromNotes,
+  buildAttributionTag,
+  getChannelArabicLabel,
+  getRegisteredByTypeArabicLabel,
+} = require('../services/educationAttributionHelper');
 
 const DISALLOWED_ROLES = new Set(['SHIPPING_CLIENT', 'STUDENT', 'CUSTOMER', 'COURIER']);
 
@@ -446,11 +454,25 @@ const registerAttendee = async (req, res) => {
       }
     });
 
+    // Registered By details (from token / authenticated user, not body)
+    const registeredByUserId = req.user?.id ? String(req.user.id) : (req.user?.userId ? String(req.user.userId) : null);
+    const registeredByName = (
+      req.user?.name ||
+      [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ') ||
+      req.user?.email ||
+      'موظف'
+    ).trim();
+    // Path 4: Import / API integrations tag as IMPORT/API, otherwise default to EMPLOYEE
+    const registeredByType = normalizeRegisteredByType(
+      req.body.registeredByType || (req.apiKey ? 'API' : 'EMPLOYEE'),
+      'EMPLOYEE'
+    );
+
     // Try resolving attribution data (Ad ID, Post ID, Campaign)
-    let adId = inputAdId || null;
-    let postId = inputPostId || null;
-    let campaign = campaignName || req.body.campaign || req.body.utmCampaign || null;
-    let source = leadSource || req.body.source || req.body.utmSource || null;
+    let adId = inputAdId || req.body.adRef || req.body.adId || null;
+    let postId = inputPostId || req.body.postRef || req.body.postId || null;
+    let campaign = campaignName || req.body.campaign || req.body.utmCampaign || req.body.utm_campaign || null;
+    let rawSource = req.body.sourceChannel || req.body.channel || leadSource || req.body.source || req.body.utmSource || req.body.utm_source || null;
 
     if (!adId && !postId && customer?.id) {
       try {
@@ -465,12 +487,18 @@ const registerAttendee = async (req, res) => {
           if (parsed.postId) postId = parsed.postId;
           if (parsed.adRef) campaign = parsed.adRef;
           if (parsed.adsContextData?.ad_title && !campaign) campaign = parsed.adsContextData.ad_title;
-          if (!source && conv.channel) source = conv.channel;
+          if (!rawSource && conv.channel) rawSource = conv.channel;
         }
       } catch (_) {}
     }
 
-    if (!source) source = customer?.leadSource || 'OTHER';
+    if (!rawSource) rawSource = customer?.leadSource || 'OTHER';
+
+    const { channel: sourceChannel, raw: sourceRaw } = normalizeSourceChannel(rawSource, 'OTHER');
+    const resolvedCampaignName = campaign ? String(campaign).trim().slice(0, 255) : 'حملة عامة';
+    const adRef = adId ? String(adId).trim().slice(0, 255) : null;
+    const postRef = postId ? String(postId).trim().slice(0, 255) : null;
+    const landingUrl = req.body.landingUrl ? String(req.body.landingUrl).trim().slice(0, 1000) : null;
 
     // Auto-generate credentials for student/parent
     const { generateUserCredentials } = require('../services/educationAgeLevelService');
@@ -499,19 +527,27 @@ const registerAttendee = async (req, res) => {
           password: hashedPassword,
           status: 'LEAD',
           leadStage: 'NEW_LEAD',
-          leadSource: ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE', 'OTHER'].includes(source) ? source : 'OTHER',
+          leadSource: ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE', 'OTHER'].includes(sourceChannel) ? sourceChannel : 'OTHER',
           notes: `سجل لحضور الديمو داي: ${notes || ''}`
         }
       });
-    } else if (hashedPassword && !customer.password) {
-      await prisma.customer.update({
-        where: { id: customer.id },
-        data: { password: hashedPassword }
-      }).catch(() => {});
+    } else {
+      const custUpdate = {};
+      if (hashedPassword && !customer.password) custUpdate.password = hashedPassword;
+      // Guard: Only update leadSource if empty or OTHER
+      if ((!customer.leadSource || customer.leadSource === 'OTHER') && ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE', 'PHONE', 'WALK_IN', 'REFERRAL'].includes(sourceChannel)) {
+        custUpdate.leadSource = ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE'].includes(sourceChannel) ? sourceChannel : 'OTHER';
+      }
+      if (Object.keys(custUpdate).length > 0) {
+        customer = await prisma.customer.update({
+          where: { id: customer.id },
+          data: custUpdate
+        }).catch(() => customer);
+      }
     }
 
-    // Attach structured attribution tag to notes
-    const attrTag = `[ATTR: ${JSON.stringify({ source, campaign: campaign || 'حملة عامة', adId, postId })}]`;
+    // Attach structured attribution tag to notes (preserve backward compatibility)
+    const attrTag = buildAttributionTag({ source: sourceChannel, campaign: resolvedCampaignName, adId: adRef, postId: postRef });
     const finalNotes = notes ? `${notes} ${attrTag}` : attrTag;
 
     // Requirement 1: Auto-register student in EducationStudent list
@@ -552,14 +588,20 @@ const registerAttendee = async (req, res) => {
       INSERT INTO "education_demo_attendees" (
         "id", "companyId", "demoDayId", "customerId", "studentName", "guardianName",
         "phone", "phone2", "email", "age", "grade", "attendanceStatus",
-        "conversionStatus", "convertedStudentId", "branchId", "notes", "createdAt", "updatedAt"
+        "conversionStatus", "convertedStudentId", "branchId", "notes",
+        "registeredByType", "registeredByUserId", "registeredByName",
+        "sourceChannel", "sourceRaw", "campaignName", "adRef", "postRef", "landingUrl",
+        "createdAt", "updatedAt"
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'REGISTERED', 'PENDING', $12, $13, $14, NOW(), NOW()
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'REGISTERED', 'PENDING', $12, $13, $14,
+        $15, $16, $17, $18, $19, $20, $21, $22, $23, NOW(), NOW()
       )
     `, attendeeId, companyId, demoDayId, customer.id, studentName.trim(), guardianName ? guardianName.trim() : null,
        cleanPhone, phone2 ? String(phone2).replace(/[^\d+]/g, '').trim() : null,
        email ? String(email).trim() : null, age ? parseInt(age, 10) : null, grade || null,
-       student.id, resolvedBranchId, finalNotes);
+       student.id, resolvedBranchId, finalNotes,
+       registeredByType, registeredByUserId, registeredByName,
+       sourceChannel, sourceRaw, resolvedCampaignName, adRef, postRef, landingUrl);
 
     // Auto-send WhatsApp Confirmation Notification
     try {
@@ -1011,12 +1053,67 @@ const registerPublicAttendee = async (req, res) => {
       });
     }
 
-    // Attribution for public attendee (e.g. utm_source, utm_campaign, adId)
-    const source = req.body.leadSource || req.body.utmSource || req.body.utm_source || 'WEBSITE';
-    const campaign = req.body.campaignName || req.body.campaign || req.body.utmCampaign || req.body.utm_campaign || 'الموقع العام';
-    const adId = req.body.adId || null;
-    const postId = req.body.postId || null;
-    const attrTag = `[ATTR: ${JSON.stringify({ source, campaign, adId, postId })}]`;
+    // Attribution for public attendee (query + body + Referer)
+    const query = req.query || {};
+    const body = req.body || {};
+    const referer = typeof req.get === 'function' ? (req.get('Referer') || req.get('referrer') || '') : '';
+
+    const rawSource =
+      body.utm_source ||
+      query.utm_source ||
+      body.leadSource ||
+      query.leadSource ||
+      body.source ||
+      query.source ||
+      body.utmSource ||
+      query.utmSource ||
+      'WEBSITE';
+
+    const rawCampaign =
+      body.utm_campaign ||
+      query.utm_campaign ||
+      body.campaignName ||
+      query.campaignName ||
+      body.campaign ||
+      query.campaign ||
+      body.utmCampaign ||
+      query.utmCampaign ||
+      'الموقع العام';
+
+    const rawAdId =
+      body.adId ||
+      query.adId ||
+      body.ad_id ||
+      query.ad_id ||
+      body.adRef ||
+      query.adRef ||
+      null;
+
+    const rawPostId =
+      body.postId ||
+      query.postId ||
+      body.post_id ||
+      query.post_id ||
+      body.postRef ||
+      query.postRef ||
+      null;
+
+    const landingUrl =
+      (body.landingUrl || query.landingUrl || referer || '')
+        .toString()
+        .trim()
+        .slice(0, 1000) || null;
+
+    const { channel: sourceChannel, raw: sourceRaw } = normalizeSourceChannel(rawSource, 'WEBSITE');
+    const resolvedCampaignName = String(rawCampaign || 'الموقع العام').trim().slice(0, 255);
+    const adRef = rawAdId ? String(rawAdId).trim().slice(0, 255) : null;
+    const postRef = rawPostId ? String(rawPostId).trim().slice(0, 255) : null;
+
+    const registeredByType = 'SELF';
+    const registeredByUserId = null;
+    const registeredByName = null;
+
+    const attrTag = buildAttributionTag({ source: sourceChannel, campaign: resolvedCampaignName, adId: adRef, postId: postRef });
     const finalNotes = notes ? `${notes} ${attrTag}` : attrTag;
 
     // Auto-generate credentials for student/parent
@@ -1054,7 +1151,7 @@ const registerPublicAttendee = async (req, res) => {
           password: hashedPassword,
           status: 'LEAD',
           leadStage: 'NEW_LEAD',
-          leadSource: ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE', 'OTHER'].includes(source) ? source : 'WEBSITE',
+          leadSource: ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE', 'OTHER'].includes(sourceChannel) ? sourceChannel : 'WEBSITE',
           notes: `تسجيل ذاتي عبر رابط الديمو داي: ${event.title}`
         }
       });
@@ -1063,6 +1160,10 @@ const registerPublicAttendee = async (req, res) => {
       if (hashedPassword && !customer.password) custUpdate.password = hashedPassword;
       if (email && !customer.email) custUpdate.email = String(email).trim();
       if (phone2 && !customer.phone2) custUpdate.phone2 = String(phone2).replace(/[^\d+]/g, '').trim();
+      // Guard: Only update leadSource if empty or OTHER
+      if ((!customer.leadSource || customer.leadSource === 'OTHER') && ['WHATSAPP', 'FACEBOOK', 'INSTAGRAM', 'WEBSITE'].includes(sourceChannel)) {
+        custUpdate.leadSource = sourceChannel;
+      }
       if (Object.keys(custUpdate).length > 0) {
         customer = await prisma.customer.update({
           where: { id: customer.id },
@@ -1126,14 +1227,20 @@ const registerPublicAttendee = async (req, res) => {
       INSERT INTO "education_demo_attendees" (
         "id", "companyId", "demoDayId", "customerId", "studentName", "guardianName",
         "phone", "phone2", "email", "age", "grade", "attendanceStatus",
-        "conversionStatus", "convertedStudentId", "branchId", "notes", "createdAt", "updatedAt"
+        "conversionStatus", "convertedStudentId", "branchId", "notes",
+        "registeredByType", "registeredByUserId", "registeredByName",
+        "sourceChannel", "sourceRaw", "campaignName", "adRef", "postRef", "landingUrl",
+        "createdAt", "updatedAt"
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'REGISTERED', 'PENDING', $12, $13, $14, NOW(), NOW()
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'REGISTERED', 'PENDING', $12, $13, $14,
+        $15, $16, $17, $18, $19, $20, $21, $22, $23, NOW(), NOW()
       )
     `, attendeeId, companyId, demoDayId, customer.id, studentName.trim(), guardianName ? guardianName.trim() : null,
        cleanPhone, phone2 ? String(phone2).replace(/[^\d+]/g, '').trim() : null,
        email ? String(email).trim() : null, age ? parseInt(age, 10) : null, grade ? String(grade).trim() : null,
-       student.id, resolvedBranchId, finalNotes);
+       student.id, resolvedBranchId, finalNotes,
+       registeredByType, registeredByUserId, registeredByName,
+       sourceChannel, sourceRaw, resolvedCampaignName, adRef, postRef, landingUrl);
 
     // Auto WhatsApp confirmation for public registrant
     try {
@@ -1223,6 +1330,14 @@ const getAttributionAnalytics = async (req, res) => {
         a."convertedStudentId",
         a."notes",
         a."createdAt",
+        a."registeredByType",
+        a."registeredByName",
+        a."sourceChannel",
+        a."sourceRaw",
+        a."campaignName",
+        a."adRef",
+        a."postRef",
+        a."landingUrl",
         c.id AS "customerId",
         c."leadSource",
         COALESCE(
@@ -1248,30 +1363,26 @@ const getAttributionAnalytics = async (req, res) => {
       const rev = Number(row.revenueGenerated || 0);
       totalRevenue += rev;
 
-      let campaignName = 'حملة عامة / غير محددة';
-      let channel = row.leadSource || 'OTHER';
-      let adId = null;
-      let postId = null;
+      // Requirement 7: Read new columns primarily, fallback to [ATTR: ...] in notes for legacy rows
+      let campaignName = row.campaignName || null;
+      let channel = row.sourceChannel || null;
+      let adId = row.adRef || null;
+      let postId = row.postRef || null;
 
-      if (row.notes && row.notes.includes('[ATTR:')) {
-        try {
-          const match = row.notes.match(/\[ATTR:\s*({.*?})\]/);
-          if (match && match[1]) {
-            const parsed = JSON.parse(match[1]);
-            if (parsed.campaign) campaignName = parsed.campaign;
-            if (parsed.source) channel = parsed.source;
-            if (parsed.adId) adId = parsed.adId;
-            if (parsed.postId) postId = parsed.postId;
-          }
-        } catch (_) {}
+      if ((!channel || !campaignName) && row.notes && row.notes.includes('[ATTR:')) {
+        const parsed = extractAttributionFromNotes(row.notes);
+        if (parsed) {
+          if (!campaignName && parsed.campaign) campaignName = parsed.campaign;
+          if (!channel && parsed.source) channel = parsed.source;
+          if (!adId && parsed.adId) adId = parsed.adId;
+          if (!postId && parsed.postId) postId = parsed.postId;
+        }
       }
 
-      let channelLabel = 'أخرى / مباشر';
-      if (channel === 'WHATSAPP') channelLabel = 'إعلانات ورسائل واتساب (Click-to-WhatsApp)';
-      else if (channel === 'FACEBOOK') channelLabel = 'إعلانات وفيسبوك (Facebook Ads)';
-      else if (channel === 'MESSENGER') channelLabel = 'إعلانات ماسنجر (Messenger Ads)';
-      else if (channel === 'INSTAGRAM') channelLabel = 'إنستجرام (Instagram Direct)';
-      else if (channel === 'WEBSITE') channelLabel = 'الموقع ولاندينج بيج (Website Direct)';
+      if (!channel) channel = row.leadSource || 'OTHER';
+      if (!campaignName) campaignName = 'حملة عامة / غير محددة';
+
+      const channelLabel = getChannelArabicLabel(channel);
 
       const key = `${channel}:::${campaignName}`;
       if (!channelMap.has(key)) {
@@ -1398,6 +1509,156 @@ const generateCredentialsEndpoint = async (req, res) => {
   }
 };
 
+// 14. Export Demo Day attendees (CSV with UTF-8 BOM for Arabic Excel support)
+const exportDemoDayAttendees = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id: demoDayId } = req.params;
+    const prisma = getSharedPrismaClient();
+    await ensureTablesExist(prisma);
+
+    let whereClause = `WHERE a."companyId" = $1`;
+    const params = [companyId];
+
+    if (demoDayId && demoDayId !== 'all') {
+      params.push(demoDayId);
+      whereClause += ` AND a."demoDayId" = $${params.length}`;
+    }
+
+    const rows = await prisma.$queryRawUnsafe(`
+      SELECT 
+        a.*,
+        d.title AS "demoDayTitle",
+        d."scheduledAt" AS "demoDayScheduledAt",
+        COALESCE(b.name, d_b.name) AS "branchName",
+        stu.code AS "studentCode"
+      FROM "education_demo_attendees" a
+      LEFT JOIN "education_demo_days" d ON d.id = a."demoDayId"
+      LEFT JOIN "branches" b ON b.id = a."branchId"
+      LEFT JOIN "branches" d_b ON d_b.id = d."branchId"
+      LEFT JOIN "education_students" stu ON stu.id = a."convertedStudentId"
+      ${whereClause}
+      ORDER BY a."createdAt" DESC
+    `, ...params);
+
+    const escapeCsv = (val) => {
+      if (val === null || val === undefined) return '""';
+      const str = String(val).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const headers = [
+      'كود الحجز',
+      'كود الطالب',
+      'اسم الطالب',
+      'ولي الأمر',
+      'الهاتف',
+      'هاتف بديل',
+      'البريد الإلكتروني',
+      'السن',
+      'المرحلة الدراسية',
+      'الفعالية',
+      'موعد الفعالية',
+      'الفرع',
+      'حالة الحضور',
+      'حالة العميل المحتمل',
+      'سجّله',
+      'اسم الموظف المسجل',
+      'معرف الموظف',
+      'قناة الحجز',
+      'اسم الحملة',
+      'معرف الإعلان',
+      'معرف المنشور',
+      'رابط الوصول',
+      'المصدر الخام',
+      'تاريخ التسجيل',
+      'الملاحظات'
+    ];
+
+    const csvLines = [headers.join(',')];
+
+    for (const r of rows) {
+      let channel = r.sourceChannel || null;
+      let campaign = r.campaignName || null;
+      let adId = r.adRef || null;
+      let postId = r.postRef || null;
+      let regType = r.registeredByType || null;
+      let regName = r.registeredByName || null;
+
+      if ((!channel || !campaign) && r.notes && r.notes.includes('[ATTR:')) {
+        const parsed = extractAttributionFromNotes(r.notes);
+        if (parsed) {
+          if (!channel) channel = parsed.source;
+          if (!campaign) campaign = parsed.campaign;
+          if (!adId) adId = parsed.adId;
+          if (!postId) postId = parsed.postId;
+        }
+      }
+      if (!channel) channel = 'OTHER';
+      if (!campaign) campaign = 'حملة عامة';
+      if (!regType) regType = 'SELF';
+
+      const regTypeLabel = getRegisteredByTypeArabicLabel(regType, regName);
+      const channelLabel = getChannelArabicLabel(channel);
+
+      const attendanceLabel = 
+        r.attendanceStatus === 'ATTENDED' ? 'حضر الديمو' :
+        r.attendanceStatus === 'ABSENT' ? 'غائب' :
+        r.attendanceStatus === 'CANCELLED' ? 'ملغي' : 'مسجل';
+
+      const leadLabel =
+        r.conversionStatus === 'CONVERTED' ? 'مشترك (طالب رسمي)' :
+        r.conversionStatus === 'FOLLOW_UP' ? 'مهتم - إعادة تواصل' :
+        r.conversionStatus === 'NOT_INTERESTED' ? 'غير مهتم' : 'عميل محتمل (متابعة)';
+
+      const scheduledStr = r.demoDayScheduledAt ? new Date(r.demoDayScheduledAt).toLocaleString('ar-EG') : '';
+      const createdStr = r.createdAt ? new Date(r.createdAt).toLocaleString('ar-EG') : '';
+
+      const line = [
+        escapeCsv(r.id),
+        escapeCsv(r.studentCode || ''),
+        escapeCsv(r.studentName),
+        escapeCsv(r.guardianName || ''),
+        escapeCsv(r.phone),
+        escapeCsv(r.phone2 || ''),
+        escapeCsv(r.email || ''),
+        escapeCsv(r.age || ''),
+        escapeCsv(r.grade || ''),
+        escapeCsv(r.demoDayTitle || ''),
+        escapeCsv(scheduledStr),
+        escapeCsv(r.branchName || ''),
+        escapeCsv(attendanceLabel),
+        escapeCsv(leadLabel),
+        escapeCsv(regTypeLabel),
+        escapeCsv(regName || ''),
+        escapeCsv(r.registeredByUserId || ''),
+        escapeCsv(channelLabel),
+        escapeCsv(campaign),
+        escapeCsv(adId || ''),
+        escapeCsv(postId || ''),
+        escapeCsv(r.landingUrl || ''),
+        escapeCsv(r.sourceRaw || ''),
+        escapeCsv(createdStr),
+        escapeCsv(r.notes || '')
+      ].join(',');
+
+      csvLines.push(line);
+    }
+
+    const csvContent = '\uFEFF' + csvLines.join('\r\n');
+    const filename = `demo_day_attendees_${new Date().toISOString().slice(0, 10)}.csv`;
+
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
+    res.send(csvContent);
+  } catch (error) {
+    console.error('Error in exportDemoDayAttendees:', error);
+    res.status(500).json({ success: false, error: 'فشل تصدير بيانات الحضور' });
+  }
+};
+
 module.exports = {
   getAllDemoDays,
   getDemoDayById,
@@ -1413,5 +1674,6 @@ module.exports = {
   getAttributionAnalytics,
   broadcastReminder,
   getAgeLevels,
-  generateCredentialsEndpoint
+  generateCredentialsEndpoint,
+  exportDemoDayAttendees
 };
