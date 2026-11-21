@@ -631,12 +631,21 @@ router.post('/create', verifyToken.authenticateToken, blockCourierMobileToken, a
       });
     }
 
-    const order = await prisma.order.findFirst({
+    // Try by UUID first, fallback to orderNumber (some flows send orderNumber as orderId)
+    let order = await prisma.order.findFirst({
       where: { id: orderId, companyId },
       include: { customer: true, orderItems: { include: { product: true } } },
     });
 
     if (!order) {
+      order = await prisma.order.findFirst({
+        where: { orderNumber: orderId, companyId },
+        include: { customer: true, orderItems: { include: { product: true } } },
+      });
+    }
+
+    if (!order) {
+      console.error(`❌ [SHIPMENTS/CREATE] Order not found: orderId=${orderId}, companyId=${companyId}`);
       return res.status(404).json({ success: false, error: 'Order not found' });
     }
 
