@@ -53,7 +53,7 @@ export default function StoreConversionSettingsPage({
     <div className="max-w-5xl space-y-8" dir={getDirection()}>
       <header className="space-y-4 border-b border-border pb-6 dark:border-border">
         <div className="space-y-2">
-          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-primary dark:text-primary">
+          <p className="text-[11px] font-semibold text-primary dark:text-primary">
             {t("storeConversionSettings.pageHeader") as string}
           </p>
           <h1 className="text-3xl font-black tracking-tight text-foreground">

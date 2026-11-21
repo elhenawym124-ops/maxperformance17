@@ -62,7 +62,7 @@ export const ProposalHero: React.FC<ProposalHeroProps> = ({ proposal, agencyName
         <div className="lg:order-last">
           {lastTarget ? (
             <div className="border-r-2 border-[#FFD368] pr-6 space-y-2">
-              <div className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#FFD368]">
+              <div className="text-[11px] font-semibold text-[#FFD368]">
                 الهدف المتفق عليه
               </div>
               <div className="font-mono text-6xl sm:text-7xl xl:text-8xl font-black tabular-nums leading-none">

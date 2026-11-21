@@ -192,7 +192,7 @@ export const PlacementCard = ({
           {icon}
         </div>
         <div className="space-y-2">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
+          <div className="text-xs font-semibold text-primary dark:text-primary">
             {eyebrow}
           </div>
           <h2 className="text-2xl font-black text-foreground">{title}</h2>
@@ -247,7 +247,7 @@ export const PlacementPreview = ({
   <div className="rounded-[28px] border border-border bg-gradient-to-br from-slate-50 via-white to-primary/70 p-5 shadow-sm dark:border-border dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-primary/20">
     <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
       <div>
-        <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
+        <div className="text-xs font-semibold text-primary dark:text-primary">
           Preview Snapshot
         </div>
         <h3 className="mt-2 text-xl font-black text-foreground">{title}</h3>

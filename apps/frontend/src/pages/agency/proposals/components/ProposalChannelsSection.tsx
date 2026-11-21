@@ -111,7 +111,7 @@ export const ProposalChannelsSection: React.FC<ProposalChannelsSectionProps> = (
         <div className="pt-12 mt-4 border-t border-white/10">
           <div className="flex flex-col lg:flex-row lg:items-start gap-10">
             <div className="lg:w-2/5 space-y-3">
-              <div className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#FFD368]">
+              <div className="text-[11px] font-semibold text-[#FFD368]">
                 محرك المحتوى
               </div>
               <h3 className="text-2xl sm:text-3xl font-black leading-snug">

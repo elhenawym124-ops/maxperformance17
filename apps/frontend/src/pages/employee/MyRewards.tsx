@@ -270,25 +270,25 @@ const MyRewards: React.FC = () => {
                         <div className="p-8 max-h-[70vh] overflow-y-auto space-y-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-1">
-                                    <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-black">{t("employee.rewards.rewardName")}</p>
+                                    <p className="text-[10px] font-medium text-muted-foreground">{t("employee.rewards.rewardName")}</p>
                                     <p className="text-xl font-bold text-foreground">
                                         {selectedReward.rewardName}
                                     </p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-black">{t("employee.rewards.rewardValue")}</p>
+                                    <p className="text-[10px] font-medium text-muted-foreground">{t("employee.rewards.rewardValue")}</p>
                                     <p className="text-2xl font-black text-success dark:text-success">
                                         {formatCurrency(selectedReward.calculatedValue)}
                                     </p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-black">{t("employee.rewards.period")}</p>
+                                    <p className="text-[10px] font-medium text-muted-foreground">{t("employee.rewards.period")}</p>
                                     <p className="text-lg font-bold text-foreground">
                                         {getMonthName(selectedReward.appliedMonth)} {selectedReward.appliedYear}
                                     </p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-black">{t("employee.rewards.recordDate")}</p>
+                                    <p className="text-[10px] font-medium text-muted-foreground">{t("employee.rewards.recordDate")}</p>
                                     <p className="text-lg font-bold text-foreground">
                                         {formatDate(selectedReward.createdAt)}
                                     </p>
@@ -297,7 +297,7 @@ const MyRewards: React.FC = () => {
 
                             <div className="space-y-4">
                                 <div className="p-6 bg-primary/50 dark:bg-primary/10 border border-primary dark:border-primary/30 rounded-xl">
-                                    <p className="text-[10px] text-primary uppercase tracking-[0.2em] font-black mb-3">{t("employee.rewards.reason")}</p>
+                                    <p className="text-[10px] font-medium text-primary mb-3">{t("employee.rewards.reason")}</p>
                                     <p className="text-foreground leading-relaxed text-lg italic">
                                         {selectedReward.reason || t("employee.rewards.noReason")}
                                     </p>

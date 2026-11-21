@@ -154,7 +154,7 @@ export const ReportDetailsViewer: React.FC<ReportDetailsViewerProps> = ({
       <div className="border-b border-border px-6 py-4 dark:border-border">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-primary">
+            <p className="text-xs font-semibold">
               {t("reports.selectedReport", "التقرير المحدد")}
             </p>
             <h2 className="mt-2 text-xl font-semibold text-foreground">

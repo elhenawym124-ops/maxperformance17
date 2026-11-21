@@ -214,7 +214,7 @@ export const TaskModalMetric: React.FC<TaskModalMetricProps> = ({
         className,
       )}
     >
-      <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+      <div className="text-[11px] font-medium">
         {label}
       </div>
       <div className="mt-2 text-sm font-semibold text-foreground">{value}</div>

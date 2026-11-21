@@ -119,7 +119,7 @@ export const UpsellGeneralSection: React.FC<UpsellGeneralSectionProps> = ({
         </PlacementPreview>
 
         <div className="rounded-[28px] border border-border bg-muted p-5 dark:border-border dark:bg-muted">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
+          <div className="text-xs font-semibold text-primary dark:text-primary">
             Admin Guidance
           </div>
           <h3 className="mt-2 text-xl font-black text-foreground">

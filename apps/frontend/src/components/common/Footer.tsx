@@ -453,7 +453,7 @@ const Footer: React.FC<FooterProps> = ({ layoutVariant = "columns", section }) =
         <div className={gridClass}>
           {finalSettings.showAboutStore && (
             <div className="space-y-8">
-              <h2 className="text-2xl font-serif tracking-[0.2em]" style={{ fontFamily: "var(--theme-font-heading)" }}>{companyDisplayName}</h2>
+              <h2 className="text-2xl font-serif" style={{ fontFamily: "var(--theme-font-heading)" }}>{companyDisplayName}</h2>
               <p className="text-[12px] leading-relaxed footer-muted tracking-wider">{finalSettings.aboutStore}</p>
             </div>
           )}
@@ -464,7 +464,7 @@ const Footer: React.FC<FooterProps> = ({ layoutVariant = "columns", section }) =
               <ul className="space-y-4">
                 {CORE_STORE_LINKS.map((item) => (
                   <li key={item.path}>
-                    <Link to={withStorefrontCompany(item.path, resolvedCompanyId)} className="text-[11px] uppercase tracking-[0.2em] footer-link">
+                    <Link to={withStorefrontCompany(item.path, resolvedCompanyId)} className="text-[11px] footer-link">
                       {item.label}
                     </Link>
                   </li>
@@ -478,15 +478,15 @@ const Footer: React.FC<FooterProps> = ({ layoutVariant = "columns", section }) =
               <h4 className="text-[11px] uppercase tracking-[0.3em] font-bold footer-accent">بيانات التواصل</h4>
               <ul className="space-y-4">
                 {finalSettings.showEmail && finalSettings.email && (
-                  <li><a href={`mailto:${finalSettings.email}`} className="text-[11px] uppercase tracking-[0.2em] footer-link">{finalSettings.email}</a></li>
+                  <li><a href={`mailto:${finalSettings.email}`} className="text-[11px] footer-link">{finalSettings.email}</a></li>
                 )}
                 {finalSettings.showPhone && finalSettings.phone && (
-                  <li><a href={`tel:${finalSettings.phone}`} className="text-[11px] uppercase tracking-[0.2em] footer-link">{finalSettings.phone}</a></li>
+                  <li><a href={`tel:${finalSettings.phone}`} className="text-[11px] footer-link">{finalSettings.phone}</a></li>
                 )}
                 {finalSettings.showAddress && finalSettings.address && (
-                  <li className="text-[11px] uppercase tracking-[0.2em] footer-link">{finalSettings.address}</li>
+                  <li className="text-[11px] footer-link">{finalSettings.address}</li>
                 )}
-                <li><Link to={withStorefrontCompany("/contact", resolvedCompanyId)} className="text-[11px] uppercase tracking-[0.2em] footer-link">صفحة التواصل</Link></li>
+                <li><Link to={withStorefrontCompany("/contact", resolvedCompanyId)} className="text-[11px] footer-link">صفحة التواصل</Link></li>
               </ul>
             </div>
           )}
@@ -522,7 +522,7 @@ const Footer: React.FC<FooterProps> = ({ layoutVariant = "columns", section }) =
               <ul className="space-y-2 pt-4">
                 {footerPages.map((page) => (
                   <li key={page.id}>
-                    <Link to={withStorefrontCompany(`/shop/page/${page.slug}`, resolvedCompanyId)} className="text-[10px] uppercase tracking-[0.2em] footer-link">{page.title}</Link>
+                    <Link to={withStorefrontCompany(`/shop/page/${page.slug}`, resolvedCompanyId)} className="text-[10px] footer-link">{page.title}</Link>
                   </li>
                 ))}
               </ul>

@@ -106,7 +106,7 @@ const AssetAssignmentModal: React.FC<AssetAssignmentModalProps> = ({
         <div className="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-primary to-primary" />
         <div className="flex items-center justify-between px-8 py-6 border-b border-border dark:border-border bg-muted dark:bg-muted backdrop-blur-xl">
           <div>
-            <p className="text-[10px] font-black text-primary dark:text-primary uppercase tracking-[0.2em] mb-1">
+            <p className="text-[10px] font-semibold text-primary dark:text-primary mb-1">
               {type === "assign" ? "نموذج تسليم عهدة" : "نموذج استرجاع عهدة"}
             </p>
             <h3 className="text-2xl font-black text-foreground">

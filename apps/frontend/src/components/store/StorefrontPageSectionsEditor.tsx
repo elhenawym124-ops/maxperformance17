@@ -560,7 +560,7 @@ const PageMapCard: React.FC<{
       </div>
 
       <div className="mt-4">
-        <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+        <div className="text-[11px] font-semibold text-muted-foreground">
           {card.stage}
         </div>
         <div className="mt-2 text-base font-bold text-foreground">
@@ -3065,7 +3065,7 @@ export const StorefrontPageSectionsEditor: React.FC<
               <div className="rounded-[24px] border border-primary bg-white/90 p-4 dark:border-primary/70 dark:bg-muted">
                 <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-primary">
+                    <div className="text-xs font-semibold text-primary dark:text-primary">
                       الصفحة المفتوحة الآن
                     </div>
                     <div className="mt-2 text-base font-bold text-foreground">
@@ -3217,7 +3217,7 @@ export const StorefrontPageSectionsEditor: React.FC<
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-2">
-        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        <span className="text-xs font-semibold text-muted-foreground">
           اختيار الصفحة
         </span>
         {pageMapCards.map((card) => {

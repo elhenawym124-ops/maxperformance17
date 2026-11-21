@@ -233,7 +233,7 @@ export function FlowCanvas({
         {/* Header */}
         <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
+            <p className="text-xs text-muted-foreground">
               {t("whatsappJourney.steps.timelineCount", {
                 count: orderedSteps.length,
               })}
@@ -645,7 +645,7 @@ function WhatsAppPreviewPane({ step, totalSteps }: WhatsAppPreviewPaneProps) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
+        <p className="text-xs text-muted-foreground">
           {t("whatsappJourney.steps.livePreview")}
         </p>
         <motion.span

@@ -396,7 +396,7 @@ const PreviewShellInner: React.FC<{
                     </div>
 
                     <div className="pointer-events-none absolute start-6 top-6 z-30 flex flex-wrap items-center gap-2">
-                      <span className="rounded-full bg-white/92 px-3 py-1 text-[11px] font-black tracking-[0.18em] text-foreground shadow-sm backdrop-blur uppercase">
+                      <span className="rounded-full bg-white/92 px-3 py-1 text-[11px] font-semibold text-foreground shadow-sm backdrop-blur">
                         {sectionLabel}
                       </span>
                       {selected ? (
@@ -422,7 +422,7 @@ const PreviewShellInner: React.FC<{
                 <div className="grid gap-4 sm:grid-cols-2">
                   {footerGroups.map((group) => (
                     <div key={group.title}>
-                      <div className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground">
+                      <div className="text-xs font-semibold text-muted-foreground">
                         {group.title}
                       </div>
                       <div className="mt-3 space-y-2">
@@ -1074,7 +1074,7 @@ const StorefrontVisualEditor: React.FC<StorefrontVisualEditorProps> = ({
 
                 {selectedSectionManifest?.variants?.length ? (
                   <div className="rounded-[1.5rem] border border-border bg-white p-4 dark:border-border dark:bg-muted">
-                    <label className="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                    <label className="mb-2 block text-xs font-semibold text-muted-foreground">
                       شكل العرض
                     </label>
                     <select

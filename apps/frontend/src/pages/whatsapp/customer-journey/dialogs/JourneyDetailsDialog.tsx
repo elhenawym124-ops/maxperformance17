@@ -42,7 +42,7 @@ export const JourneyDetailsDialog: React.FC<JourneyDetailsDialogProps> = ({
           <div className="space-y-5 px-6 pb-6">
             <div className="grid gap-3 md:grid-cols-2">
               <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
-                <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
+                <p className="text-xs text-muted-foreground">
                   {t("whatsappJourney.monitoring.customer")}
                 </p>
                 <p className="mt-2 text-base font-semibold text-[color:var(--color-foreground)]">
@@ -54,7 +54,7 @@ export const JourneyDetailsDialog: React.FC<JourneyDetailsDialogProps> = ({
               </div>
 
               <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
-                <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
+                <p className="text-xs text-muted-foreground">
                   {t("whatsappJourney.monitoring.status")}
                 </p>
                 <div className="mt-2 flex flex-wrap items-center gap-2">

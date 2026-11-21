@@ -56,7 +56,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
 
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="text-xs font-semibold text-muted-foreground">
                 وقت التوصيل
               </p>
               <div className="mt-2 flex items-center gap-2 text-sm font-bold text-foreground">
@@ -66,7 +66,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
             </div>
 
             <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="text-xs font-semibold text-muted-foreground">
                 السعر
               </p>
               <div className="mt-2 text-sm font-bold text-foreground font-mono tabular-nums">
@@ -75,7 +75,7 @@ export const DeliveryOptionCard: React.FC<DeliveryOptionCardProps> = ({
             </div>
 
             <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="text-xs font-semibold text-muted-foreground">
                 ترتيب العرض
               </p>
               <div className="mt-2 text-sm font-bold text-foreground font-mono tabular-nums">

@@ -233,7 +233,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
             )}
 
             <div className="mt-4 rounded-xl border border-success/80 bg-success/10 px-4 py-4 dark:border-success/40 dark:bg-success/[0.08]">
-              <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-success dark:text-success">
+              <p className="mb-2 text-xs font-medium">
                 {isArabic ? "محتوى الرسالة" : "Message preview"}
               </p>
               <p className="line-clamp-5 whitespace-pre-wrap text-sm leading-7 text-success dark:text-success">

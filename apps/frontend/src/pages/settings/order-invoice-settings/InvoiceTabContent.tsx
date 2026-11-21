@@ -123,7 +123,7 @@ export function InvoiceTabContent({
           </div>
 
           <div className="rounded-[20px] border border-dashed border-info bg-info/80 p-4 dark:border-info dark:bg-info/20">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-info dark:text-info">
+            <p className="text-xs font-semibold text-info dark:text-info">
               معاينة رقم الفاتورة
             </p>
             <p className="mt-2 text-sm font-bold font-mono tabular-nums text-foreground dark:text-muted-foreground" dir="ltr">

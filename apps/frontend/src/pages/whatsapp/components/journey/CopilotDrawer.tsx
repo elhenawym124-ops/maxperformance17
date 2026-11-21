@@ -212,7 +212,7 @@ export function CopilotDrawer({
               <Sparkles className="size-4" />
             </span>
             <div>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
+              <p className="text-[10px] text-muted-foreground">
                 {t("whatsappJourney.copilot.title")}
               </p>
               <h2 className="text-base font-semibold text-[color:var(--color-foreground)]">
@@ -265,7 +265,7 @@ export function CopilotDrawer({
         {/* Quick prompts */}
         {messages.length === 0 && (
           <div className="border-t border-[color:color-mix(in_srgb,var(--shell-control-border)_50%,transparent)] p-4">
-            <p className="mb-2 text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
+            <p className="mb-2 text-[10px] text-muted-foreground">
               {t("whatsappJourney.copilot.quickPrompts")}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -444,7 +444,7 @@ function MessageBubble({
         isUser ? "items-end" : "items-start",
       )}
     >
-      <p className="text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
+      <p className="text-[10px] text-muted-foreground">
         {isUser
           ? t("whatsappJourney.copilot.you")
           : t("whatsappJourney.copilot.assistant")}

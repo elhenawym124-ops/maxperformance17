@@ -23,7 +23,7 @@ export const CustomerListsHeader: React.FC<CustomerListsHeaderProps> = ({
             <div className="min-w-0 space-y-1 sm:space-y-2">
               <Badge
                 variant="outline"
-                className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-2 text-[9px] uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)] sm:px-2.5 sm:text-[10px]"
+                className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-2 text-[9px] font-medium text-muted-foreground sm:px-2.5 sm:text-[10px]"
               >
                 Customer Lists
               </Badge>

@@ -246,7 +246,7 @@ export const ProjectsTab: React.FC<ProjectsTabProps> = ({
 
                   <div className="grid gap-3 text-sm sm:grid-cols-2 xl:grid-cols-4">
                     <div className={infoCardClassName}>
-                      <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      <dt className="text-[11px] font-semibold">
                         المدير
                       </dt>
                       <dd className="mt-1 font-semibold text-foreground">
@@ -254,7 +254,7 @@ export const ProjectsTab: React.FC<ProjectsTabProps> = ({
                       </dd>
                     </div>
                     <div className={infoCardClassName}>
-                      <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      <dt className="text-[11px] font-semibold">
                         البداية
                       </dt>
                       <dd className="mt-1 font-semibold text-foreground">
@@ -264,7 +264,7 @@ export const ProjectsTab: React.FC<ProjectsTabProps> = ({
                       </dd>
                     </div>
                     <div className={infoCardClassName}>
-                      <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      <dt className="text-[11px] font-semibold">
                         الميزانية
                       </dt>
                       <dd className="mt-1 font-semibold text-foreground">
@@ -274,7 +274,7 @@ export const ProjectsTab: React.FC<ProjectsTabProps> = ({
                       </dd>
                     </div>
                     <div className={infoCardClassName}>
-                      <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      <dt className="text-[11px] font-semibold">
                         المتبقي
                       </dt>
                       <dd className="mt-1 font-semibold text-foreground">

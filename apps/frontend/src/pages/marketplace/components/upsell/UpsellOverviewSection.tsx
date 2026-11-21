@@ -39,7 +39,7 @@ export const UpsellOverviewSection: React.FC<UpsellOverviewSectionProps> = ({
       >
         <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-5">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em]">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold">
               <Sparkles size={14} />
               Upsell Operator View
             </div>

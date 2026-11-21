@@ -252,7 +252,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
             </div>
 
             <div className="space-y-3">
-              <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 {t("whatsappJourney.steps.preview")}
               </p>
               <MessagePreview content={currentStep.content || ""} />
