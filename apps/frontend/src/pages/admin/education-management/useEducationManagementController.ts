@@ -50,6 +50,7 @@ export function useEducationManagementController() {
   const [packages, setPackages] = useState<EducationPackage[]>([]);
   const [students, setStudents] = useState<EducationStudent[]>([]);
   const [studentsTotal, setStudentsTotal] = useState<number>(0);
+  const [studentsTotalAll, setStudentsTotalAll] = useState<number>(0);
   const [studentsTotalPages, setStudentsTotalPages] = useState<number>(1);
   const [studentsLoading, setStudentsLoading] = useState<boolean>(false);
   const [teachers, setTeachers] = useState<EducationTeacher[]>([]);
@@ -157,6 +158,7 @@ export function useEducationManagementController() {
 
       setStudents(items);
       setStudentsTotal(total);
+      setStudentsTotalAll(data?.totalAll !== undefined ? Number(data.totalAll) : 0);
       setStudentsTotalPages(totalPages);
       return data;
     } catch (e: any) {
@@ -516,6 +518,7 @@ export function useEducationManagementController() {
     packages,
     students,
     studentsTotal,
+    studentsTotalAll,
     studentsTotalPages,
     studentsLoading,
     studentsMeta: {

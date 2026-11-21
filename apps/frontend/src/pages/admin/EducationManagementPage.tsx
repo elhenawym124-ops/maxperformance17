@@ -25,6 +25,7 @@ export default function EducationManagementPage() {
     packages,
     students,
     studentsTotal,
+    studentsTotalAll,
     studentsTotalPages,
     studentsLoading,
     fetchStudents,
@@ -245,6 +246,7 @@ export default function EducationManagementPage() {
             <EducationStudentsTab
               students={students}
               studentsTotal={studentsTotal}
+              studentsTotalAll={studentsTotalAll}
               studentsTotalPages={studentsTotalPages}
               studentsLoading={studentsLoading}
               onStudentsQuery={fetchStudents}

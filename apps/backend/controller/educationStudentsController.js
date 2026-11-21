@@ -175,6 +175,10 @@ const getAll = async (req, res) => {
 
     const { where, page, pageSize, sortBy, sortDir } = buildStudentsWhere(queryWithGroup, companyId);
 
+    // Roster total for the tenant (unfiltered) — lets the UI keep showing a true
+    // "X من Y" counter even when the page is opened straight from a filtered URL.
+    const rosterTotal = await prisma.educationStudent.count({ where: { companyId } });
+
     const includeRelations = {
       customer: { select: { id: true, firstName: true, lastName: true, phone: true, phone2: true, email: true } },
       enrollments: {
@@ -202,6 +206,7 @@ const getAll = async (req, res) => {
           data: [],
           items: [],
           total: 0,
+          totalAll: rosterTotal,
           page,
           pageSize,
           totalPages: 0
@@ -249,7 +254,7 @@ const getAll = async (req, res) => {
         let ordered = allIds.map(id => rowMap.get(id)).filter(Boolean);
         ordered = await attachStudentGroupNames(ordered, companyId, prisma);
         const safeOrdered = sanitizeStudentRows(ordered);
-        return res.json({ success: true, data: safeOrdered, items: safeOrdered, total: ordered.length });
+        return res.json({ success: true, data: safeOrdered, items: safeOrdered, total: ordered.length, totalAll: rosterTotal });
       }
 
       const start = (page - 1) * pageSize;
@@ -272,6 +277,7 @@ const getAll = async (req, res) => {
         data: items,
         items,
         total,
+        totalAll: rosterTotal,
         page,
         pageSize,
         totalPages: Math.ceil(total / pageSize)
@@ -289,7 +295,7 @@ const getAll = async (req, res) => {
       });
       data = await attachStudentGroupNames(data, companyId, prisma);
       const safeData = sanitizeStudentRows(data);
-      return res.json({ success: true, data: safeData, items: safeData, total: data.length });
+      return res.json({ success: true, data: safeData, items: safeData, total: data.length, totalAll: rosterTotal });
     }
 
     const [total, rawItems] = await Promise.all([
@@ -310,6 +316,7 @@ const getAll = async (req, res) => {
       data: items,
       items,
       total,
+      totalAll: rosterTotal,
       page,
       pageSize,
       totalPages: Math.ceil(total / pageSize)

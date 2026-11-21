@@ -30,6 +30,7 @@ import { EducationStudentsPagination } from "./EducationStudentsPagination";
 export interface EducationStudentsTabProps {
   students: EducationStudent[];
   studentsTotal?: number;
+  studentsTotalAll?: number;
   studentsTotalPages?: number;
   studentsLoading?: boolean;
   onStudentsQuery?: (query: any) => Promise<any>;
@@ -52,6 +53,7 @@ export interface EducationStudentsTabProps {
 export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
   students,
   studentsTotal,
+  studentsTotalAll,
   studentsTotalPages = 1,
   studentsLoading = false,
   onStudentsQuery,
@@ -232,7 +234,14 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
   }, [hasActiveFilters, studentsTotal]);
 
   const serverCount = studentsTotal !== undefined ? studentsTotal : students.length;
-  const totalCount = !hasActiveFilters ? serverCount : (baselineTotalRef.current || serverCount);
+  // Y in "X من Y": always the tenant roster total. When the page is opened from a
+  // filtered URL there is no unfiltered baseline in state, so prefer the server's
+  // totalAll instead of collapsing to "X من X".
+  const rosterTotal =
+    studentsTotalAll !== undefined && studentsTotalAll > 0
+      ? studentsTotalAll
+      : baselineTotalRef.current || 0;
+  const totalCount = !hasActiveFilters ? serverCount : rosterTotal || serverCount;
 
   // Multi-Selection State for Bulk Actions (current page only)
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
