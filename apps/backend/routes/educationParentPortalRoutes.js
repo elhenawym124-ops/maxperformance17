@@ -285,6 +285,28 @@ router.get('/dashboard', authenticateParentToken, async (req, res) => {
   }
 });
 
+// Get academy active teachers for parent booking & info
+router.get('/teachers', authenticateParentToken, async (req, res) => {
+  try {
+    const companyId = req.parent.companyId;
+    const teachers = await getSharedPrismaClient().educationTeacher.findMany({
+      where: { companyId, isActive: true },
+      select: {
+        id: true,
+        name: true,
+        phone: true,
+        rating: true,
+        specialties: true
+      },
+      orderBy: { name: 'asc' }
+    });
+    res.json({ success: true, data: teachers });
+  } catch (error) {
+    console.error('[ParentPortal] Teachers error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في جلب قائمة المعلمين' });
+  }
+});
+
 // Get teacher available slots for booking
 router.get('/teachers/:teacherId/availability', authenticateParentToken, async (req, res) => {
   try {
@@ -339,18 +361,26 @@ router.post('/sessions/book', authenticateParentToken, async (req, res) => {
       });
     }
 
-    if (!enrollment.teacherId) {
+    let targetTeacherId = enrollment.teacherId || req.body.teacherId;
+    if (!targetTeacherId) {
       return res.status(400).json({
         success: false,
-        message: 'لم يتم تعيين معلم للباقة بعد، يرجى التواصل مع إدارة المركز'
+        message: 'لم يتم تعيين معلم للباقة بعد، يرجى اختيار معلم للحصة'
       });
+    }
+
+    if (!enrollment.teacherId && targetTeacherId) {
+      await prisma.educationEnrollment.update({
+        where: { id: enrollment.id },
+        data: { teacherId: targetTeacherId }
+      }).catch(e => console.warn('[ParentBookAssignTeacher]', e.message));
     }
 
     const newSession = await prisma.educationSession.create({
       data: {
         companyId,
         enrollmentId: enrollment.id,
-        teacherId: enrollment.teacherId,
+        teacherId: targetTeacherId,
         studentId: student.id,
         subjectId: enrollment.package.subjectId,
         scheduledAt: new Date(scheduledAt),

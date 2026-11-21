@@ -70,6 +70,8 @@ const ParentSessionsPage: React.FC = () => {
   const [bookModalOpen, setBookModalOpen] = useState(false);
   const [bookChildId, setBookChildId] = useState("");
   const [bookEnrollmentId, setBookEnrollmentId] = useState("");
+  const [bookTeacherId, setBookTeacherId] = useState("");
+  const [teachers, setTeachers] = useState<Array<{ id: string; name: string }>>([]);
   const [bookDateTime, setBookDateTime] = useState("");
   const [bookNotes, setBookNotes] = useState("");
   const [bookSubmitting, setBookSubmitting] = useState(false);
@@ -109,6 +111,16 @@ const ParentSessionsPage: React.FC = () => {
         setChildren([]);
         setSessionsMap({});
       }
+      // Fetch teachers for booking
+      try {
+        const tRes = await fetch("/api/v1/education/parent-portal/teachers", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const tJson = await tRes.json();
+        if (tJson.success && Array.isArray(tJson.data)) {
+          setTeachers(tJson.data);
+        }
+      } catch {}
     } catch {
       setChildren([]);
       setSessionsMap({});
@@ -183,6 +195,7 @@ const ParentSessionsPage: React.FC = () => {
     setBookChildId(defaultChild ? defaultChild.id : "");
     const defaultEnr = defaultChild?.enrollments?.[0];
     setBookEnrollmentId(defaultEnr ? defaultEnr.id : "");
+    setBookTeacherId(defaultEnr?.teacher?.id || (teachers[0]?.id || ""));
     setBookDateTime("");
     setBookNotes("");
     setBookSuccess(null);
@@ -195,9 +208,18 @@ const ParentSessionsPage: React.FC = () => {
     return c?.enrollments || [];
   }, [children, bookChildId]);
 
+  const selectedEnrollment = useMemo(() => {
+    return selectedChildEnrollments.find(e => e.id === bookEnrollmentId);
+  }, [selectedChildEnrollments, bookEnrollmentId]);
+
   const handleSubmitBook = async () => {
     if (!bookChildId || !bookEnrollmentId || !bookDateTime) {
       setBookError("يرجى اختيار الطالب، الباقة، وتحديد موعد الحصة");
+      return;
+    }
+    const effectiveTeacherId = selectedEnrollment?.teacher?.id || bookTeacherId;
+    if (!effectiveTeacherId) {
+      setBookError("يرجى اختيار المعلم للحصة");
       return;
     }
     try {
@@ -214,6 +236,7 @@ const ParentSessionsPage: React.FC = () => {
         body: JSON.stringify({
           studentId: bookChildId,
           enrollmentId: bookEnrollmentId,
+          teacherId: effectiveTeacherId,
           scheduledAt: new Date(bookDateTime).toISOString(),
           notes: bookNotes.trim()
         })
@@ -695,6 +718,25 @@ const ParentSessionsPage: React.FC = () => {
                   </select>
                 )}
               </div>
+
+              {/* Select Teacher if package has no dedicated teacher */}
+              {!selectedEnrollment?.teacher?.id && (
+                <div className="space-y-1">
+                  <label className="font-semibold text-foreground">اختيار المعلم للحصة *</label>
+                  <select
+                    value={bookTeacherId}
+                    onChange={(e) => setBookTeacherId(e.target.value)}
+                    className="w-full h-8 px-2 rounded-md border border-border bg-background text-xs"
+                  >
+                    <option value="">-- اختر المعلم المناسب --</option>
+                    {teachers.map((t) => (
+                      <option key={t.id} value={t.id}>
+                        {t.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
               {/* Date & Time */}
               <div className="space-y-1">
