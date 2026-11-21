@@ -244,7 +244,71 @@ async function recordEducationRevenue({
   }
 }
 
+/**
+ * Records refund or cancellation outflow from treasury_accounts
+ */
+async function recordEducationRefund({
+  companyId,
+  amount,
+  sourceType = 'EDUCATION_REFUND',
+  sourceId,
+  studentName,
+  title = 'استرداد رسوم تعليمية',
+  reason,
+  createdById
+}) {
+  try {
+    const numAmount = Number(amount);
+    if (!numAmount || numAmount <= 0) return null;
+
+    const prisma = getSharedPrismaClient();
+
+    // Idempotency guard
+    const existingTx = await prisma.treasuryTransaction.findFirst({
+      where: {
+        companyId,
+        referenceType: sourceType,
+        referenceId: String(sourceId)
+      }
+    });
+    if (existingTx) return existingTx;
+
+    const treasury = await getOrCreateDefaultTreasury(prisma, companyId);
+
+    return await prisma.$transaction(async (tx) => {
+      // 1. Decrement treasury balance
+      const updatedTreasury = await tx.treasuryAccount.update({
+        where: { id: treasury.id },
+        data: { balance: { decrement: numAmount } }
+      });
+
+      // 2. Create treasury transaction
+      const transaction = await tx.treasuryTransaction.create({
+        data: {
+          companyId,
+          treasuryAccountId: treasury.id,
+          amount: numAmount,
+          type: 'EXPENSE',
+          runningBalance: Number(updatedTreasury.balance),
+          referenceType: sourceType,
+          referenceId: String(sourceId),
+          description: `${title} - الطالب: ${studentName || 'طالب'}${reason ? ` (${reason})` : ''} بمبلغ ${numAmount} ج.م`,
+          createdById: createdById || null,
+          date: new Date()
+        }
+      });
+
+      console.log(`[EducationFinance] Successfully recorded education refund ${sourceType}/${sourceId} (-${numAmount} EGP)`);
+      return { transaction, treasuryBalance: updatedTreasury.balance };
+    });
+  } catch (error) {
+    console.error('[EducationFinance] Error recording education refund:', error);
+    return null;
+  }
+}
+
 module.exports = {
   recordTeacherSalaryPayout,
-  recordEducationRevenue
+  recordEducationRevenue,
+  recordEducationRefund
 };

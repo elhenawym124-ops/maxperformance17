@@ -32,6 +32,9 @@ interface Session {
   room?: string;
   topic?: string | null;
   homework?: string | null;
+  evaluationGrade?: string | null;
+  isRescheduleRequested?: boolean;
+  rescheduleRequestDetails?: string | null;
   notes?: string | null;
   student: { id?: string; firstName: string; lastName: string; phone?: string };
   subject: { name: string };
@@ -59,6 +62,7 @@ export default function TeacherSchedulePage() {
   const [activeSession, setActiveSession] = useState<Session | null>(null);
   const [formTopic, setFormTopic] = useState("");
   const [formHomework, setFormHomework] = useState("");
+  const [formEvaluationGrade, setFormEvaluationGrade] = useState("");
   const [formDuration, setFormDuration] = useState(60);
   const [formNotes, setFormNotes] = useState("");
   const [groupStudents, setGroupStudents] = useState<GroupStudentItem[]>([]);
@@ -66,6 +70,15 @@ export default function TeacherSchedulePage() {
   const [submitting, setSubmitting] = useState(false);
   const [actionSuccessMsg, setActionSuccessMsg] = useState<string | null>(null);
   const [actionErrorMsg, setActionErrorMsg] = useState<string | null>(null);
+
+  // Reschedule Modal State
+  const [rescheduleModalOpen, setRescheduleModalOpen] = useState(false);
+  const [rescheduleSession, setRescheduleSession] = useState<Session | null>(null);
+  const [rescheduleDate, setRescheduleDate] = useState("");
+  const [rescheduleNotes, setRescheduleNotes] = useState("");
+  const [rescheduleSubmitting, setRescheduleSubmitting] = useState(false);
+  const [rescheduleSuccessMsg, setRescheduleSuccessMsg] = useState<string | null>(null);
+  const [rescheduleErrorMsg, setRescheduleErrorMsg] = useState<string | null>(null);
 
   const fetchSessions = async () => {
     try {
@@ -138,6 +151,7 @@ export default function TeacherSchedulePage() {
     setActiveSession(session);
     setFormTopic(session.topic || "");
     setFormHomework(session.homework || "");
+    setFormEvaluationGrade(session.evaluationGrade || "");
     setFormDuration(session.actualDuration || session.plannedDuration || 60);
     setFormNotes(session.notes || "");
     setActionSuccessMsg(null);
@@ -196,6 +210,7 @@ export default function TeacherSchedulePage() {
         actualDuration: Number(formDuration),
         topic: formTopic.trim(),
         homework: formHomework.trim(),
+        evaluationGrade: formEvaluationGrade.trim(),
         notes: formNotes.trim()
       };
 
@@ -231,6 +246,60 @@ export default function TeacherSchedulePage() {
       setActionErrorMsg(err.message || "فشل الاتصال بالخادم");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  // Open Reschedule Modal
+  const handleOpenRescheduleModal = (session: Session) => {
+    setRescheduleSession(session);
+    try {
+      const dt = new Date(session.scheduledAt);
+      const offsetMs = dt.getTimezoneOffset() * 60000;
+      const localISOTime = new Date(dt.getTime() - offsetMs).toISOString().slice(0, 16);
+      setRescheduleDate(localISOTime);
+    } catch {
+      setRescheduleDate("");
+    }
+    setRescheduleNotes("");
+    setRescheduleSuccessMsg(null);
+    setRescheduleErrorMsg(null);
+    setRescheduleModalOpen(true);
+  };
+
+  const handleSubmitReschedule = async () => {
+    if (!rescheduleSession || !rescheduleDate) return;
+    try {
+      setRescheduleSubmitting(true);
+      setRescheduleErrorMsg(null);
+      const token = localStorage.getItem("teacherToken") || localStorage.getItem("token");
+
+      const res = await fetch(`/api/v1/education/teacher-portal/sessions/${rescheduleSession.id}/reschedule`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          newScheduledAt: new Date(rescheduleDate).toISOString(),
+          notes: rescheduleNotes.trim()
+        })
+      });
+
+      const json = await res.json();
+      if (json.success) {
+        setRescheduleSuccessMsg(json.message || "تمت إعادة جدولة الحصة وتحديد الموعد الجديد بنجاح!");
+        setTimeout(() => {
+          setRescheduleModalOpen(false);
+          setRescheduleSuccessMsg(null);
+          void fetchSessions();
+        }, 1200);
+      } else {
+        setRescheduleErrorMsg(json.message || "حدث خطأ أثناء إعادة الجدولة");
+      }
+    } catch (err: any) {
+      setRescheduleErrorMsg(err.message || "فشل الاتصال بالخادم");
+    } finally {
+      setRescheduleSubmitting(false);
     }
   };
 
@@ -439,7 +508,7 @@ export default function TeacherSchedulePage() {
                       </div>
 
                       {/* Topic & Homework Display */}
-                      {(session.topic || session.homework) && (
+                      {(session.topic || session.homework || session.evaluationGrade) && (
                         <div className="pt-1.5 space-y-1">
                           {session.topic && (
                             <div className="flex items-center gap-1.5 text-xs text-foreground/90 font-medium">
@@ -453,6 +522,33 @@ export default function TeacherSchedulePage() {
                               <span>الواجب: {session.homework}</span>
                             </div>
                           )}
+                          {session.evaluationGrade && (
+                            <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[11px] font-mono mr-2">
+                              <CheckCircle2 className="size-3 shrink-0" />
+                              <span>التقييم: {session.evaluationGrade}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Reschedule Request from Parent Banner */}
+                      {session.isRescheduleRequested && (
+                        <div className="mt-2 p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <div className="flex items-center gap-1.5">
+                            <AlertCircle className="size-4 text-amber-600 shrink-0" />
+                            <div>
+                              <span className="font-bold">طلب اعتذار / تأجيل من ولي الأمر: </span>
+                              <span>{session.rescheduleRequestDetails || "يرجى تحديد موعد بديل"}</span>
+                            </div>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleOpenRescheduleModal(session)}
+                            className="h-7 text-xs font-mono bg-amber-500/20 border-amber-500/40 text-amber-950 dark:text-amber-100 hover:bg-amber-500/30 shrink-0"
+                          >
+                            الموافقة وتحديد موعد جديد
+                          </Button>
                         </div>
                       )}
                     </div>
@@ -460,6 +556,17 @@ export default function TeacherSchedulePage() {
 
                   {/* Actions Button */}
                   <div className="flex items-center gap-2 self-end md:self-center shrink-0">
+                    {!isConfirmed && session.sessionType !== "GROUP" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleOpenRescheduleModal(session)}
+                        className="h-8 text-xs font-mono gap-1 text-muted-foreground hover:text-foreground"
+                      >
+                        <Clock className="size-3.5" />
+                        <span>إعادة جدولة</span>
+                      </Button>
+                    )}
                     <Button
                       size="sm"
                       variant={isConfirmed ? "outline" : "default"}
@@ -644,6 +751,21 @@ export default function TeacherSchedulePage() {
                 </div>
               )}
 
+              {/* Academic Evaluation Grade */}
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                  <Sparkles className="size-3 text-emerald-500" />
+                  <span>درجة التقييم أو الاختبار السريع (اختياري)</span>
+                </label>
+                <Input
+                  type="text"
+                  placeholder="مثال: 95% أو 10/10 أو ممتاز"
+                  value={formEvaluationGrade}
+                  onChange={(e) => setFormEvaluationGrade(e.target.value)}
+                  className="h-8 text-xs bg-background border-emerald-500/30 focus-visible:ring-emerald-500 font-mono"
+                />
+              </div>
+
               {/* Teacher Notes / Academic Evaluation */}
               <div className="space-y-1">
                 <label className="text-xs font-semibold text-foreground">
@@ -685,6 +807,112 @@ export default function TeacherSchedulePage() {
                   <>
                     <Check className="size-3.5" />
                     <span>تأكيد واعتماد الحصة</span>
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reschedule Modal */}
+      {rescheduleModalOpen && rescheduleSession && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in" dir="rtl">
+          <div className="bg-card text-card-foreground border border-border shadow-xl rounded-xl w-full max-w-md p-5 space-y-4">
+            <div className="flex items-start justify-between border-b border-border/70 pb-3">
+              <div>
+                <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
+                  <Clock className="size-4 text-primary" />
+                  <span>إعادة جدولة موعد الحصة</span>
+                </h2>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  الطالب: {rescheduleSession.student.firstName} {rescheduleSession.student.lastName} • {rescheduleSession.subject.name}
+                </p>
+              </div>
+              <button
+                onClick={() => setRescheduleModalOpen(false)}
+                className="text-muted-foreground hover:text-foreground p-1 rounded-md"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+
+            {/* Reschedule Notification Messages */}
+            {rescheduleSuccessMsg && (
+              <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs flex items-center gap-2 font-medium">
+                <CheckCircle2 className="size-4 shrink-0" />
+                <span>{rescheduleSuccessMsg}</span>
+              </div>
+            )}
+            {rescheduleErrorMsg && (
+              <div className="p-2.5 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2 font-medium">
+                <AlertCircle className="size-4 shrink-0" />
+                <span>{rescheduleErrorMsg}</span>
+              </div>
+            )}
+
+            {rescheduleSession.isRescheduleRequested && (
+              <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 text-xs space-y-1">
+                <span className="font-bold flex items-center gap-1">
+                  <AlertCircle className="size-3.5 text-amber-600" />
+                  طلب ولي الأمر الأصلي:
+                </span>
+                <p className="text-[11px] font-mono pr-4.5">{rescheduleSession.rescheduleRequestDetails}</p>
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-foreground">
+                  الموعد والتوقيت الجديد <span className="text-destructive">*</span>
+                </label>
+                <Input
+                  type="datetime-local"
+                  value={rescheduleDate}
+                  onChange={(e) => setRescheduleDate(e.target.value)}
+                  className="h-8 text-xs font-mono bg-background"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-foreground">
+                  ملاحظات موجهة لولي الأمر حول الموعد البديل (اختياري)
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder="مثال: تم الاتفاق على تبكير الموعد ساعة واحدة بناءً على طلبكم..."
+                  value={rescheduleNotes}
+                  onChange={(e) => setRescheduleNotes(e.target.value)}
+                  className="w-full text-xs p-2 rounded-md border border-border bg-background focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border/70">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setRescheduleModalOpen(false)}
+                disabled={rescheduleSubmitting}
+                className="h-8 text-xs"
+              >
+                إلغاء
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => void handleSubmitReschedule()}
+                disabled={rescheduleSubmitting || !rescheduleDate}
+                className="h-8 text-xs font-medium gap-1.5"
+              >
+                {rescheduleSubmitting ? (
+                  <>
+                    <RefreshCw className="size-3.5 animate-spin" />
+                    <span>جاري تحديث الموعد...</span>
+                  </>
+                ) : (
+                  <>
+                    <Check className="size-3.5" />
+                    <span>تأكيد الموعد الجديد</span>
                   </>
                 )}
               </Button>

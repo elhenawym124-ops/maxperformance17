@@ -81,18 +81,25 @@ router.get('/children/:studentId/sessions', authenticateParentToken, async (req,
 
     const formattedPrivate = privateSessions.map((s) => {
       let homework = null;
-      let cleanNotes = s.notes;
+      let cleanNotes = s.notes || '';
       if (cleanNotes && cleanNotes.includes('[الواجب]:')) {
         const parts = cleanNotes.split('[الواجب]:');
         cleanNotes = parts[0].trim();
         homework = parts[1].trim();
       }
+      const gradeMatch = (s.notes || '').match(/\[درجة التقييم الأكاديمي\]:\s*([^\n\r]+)/);
+      const evaluationGrade = gradeMatch ? gradeMatch[1].trim() : null;
+      const rescheduleMatch = (s.notes || '').match(/\[تم قبول التأجيل وتحديد موعد جديد من المعلم\]:\s*([^\n\r]+)/);
+      const rescheduledInfo = rescheduleMatch ? rescheduleMatch[1].trim() : null;
+
       return {
         ...s,
         sessionType: 'PRIVATE',
         attendanceStatus: s.status === 'CONFIRMED' ? 'PRESENT' : (s.status === 'CANCELLED' ? 'CANCELLED' : 'SCHEDULED'),
         topic: s.topic || null,
         homework: homework || null,
+        evaluationGrade: evaluationGrade || null,
+        rescheduledInfo: rescheduledInfo || null,
         notes: cleanNotes || s.notes
       };
     });

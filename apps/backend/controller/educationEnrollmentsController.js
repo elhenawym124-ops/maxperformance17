@@ -369,6 +369,26 @@ const payInstallment = async (req, res) => {
       }
     });
 
+    // 🏦 Automatic Financial Inflow to Treasury for Installment Payment
+    const instAmount = Number(target.amount) || 0;
+    if (instAmount > 0) {
+      try {
+        const educationFinancialService = require('../services/educationFinancialIntegrationService');
+        const studentName = `${updated.student?.firstName || ''} ${updated.student?.lastName || ''}`.trim();
+        educationFinancialService.recordEducationRevenue({
+          companyId,
+          sourceType: 'EDUCATION_INSTALLMENT',
+          sourceId: `${enrollment.id}_inst_${num}`,
+          studentName,
+          title: `تحصيل قسط تعليمي رقم ${num} (${updated.package?.name || ''})`,
+          amount: instAmount,
+          createdById: req.user?.id
+        }).catch(e => console.warn('[InstallmentRevenuePosting] warning:', e.message));
+      } catch (fe) {
+        console.warn('[InstallmentRevenuePosting] notice:', fe.message);
+      }
+    }
+
     res.json({
       success: true,
       message: `تم سداد القسط رقم ${num} بمبلغ ${target.amount} ج.م بنجاح`,

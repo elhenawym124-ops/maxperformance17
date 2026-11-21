@@ -31,15 +31,24 @@ router.get('/sessions', authenticateTeacherToken, async (req, res) => {
 
     const mappedPrivate = privateSessions.map(s => {
       let homework = null;
-      let cleanNotes = s.notes;
+      let cleanNotes = s.notes || '';
       if (cleanNotes && cleanNotes.includes('[الواجب]:')) {
         const parts = cleanNotes.split('[الواجب]:');
         cleanNotes = parts[0].trim();
         homework = parts[1].trim();
       }
+      const gradeMatch = (s.notes || '').match(/\[درجة التقييم الأكاديمي\]:\s*([^\n\r]+)/);
+      const evaluationGrade = gradeMatch ? gradeMatch[1].trim() : null;
+      const rescheduleMatch = (s.notes || '').match(/\[طلب (?:اعتذار\/تأجيل|تأجيل|اعتذار)[^\]]*\]:\s*([^\n\r]+)/);
+      const isRescheduleRequested = Boolean(rescheduleMatch) || (s.notes || '').includes('[طلب تأجيل') || (s.notes || '').includes('[طلب اعتذار');
+      const rescheduleRequestDetails = rescheduleMatch ? rescheduleMatch[1].trim() : (isRescheduleRequested ? 'طلب تأجيل معلق' : null);
+
       return {
         ...s,
         homework: homework || null,
+        evaluationGrade: evaluationGrade || null,
+        isRescheduleRequested: Boolean(isRescheduleRequested),
+        rescheduleRequestDetails: rescheduleRequestDetails || null,
         notes: cleanNotes || s.notes,
         sessionType: 'PRIVATE'
       };
@@ -209,15 +218,24 @@ router.get('/schedule', authenticateTeacherToken, async (req, res) => {
 
     const mappedPrivate = privateSessions.map(s => {
       let homework = null;
-      let cleanNotes = s.notes;
+      let cleanNotes = s.notes || '';
       if (cleanNotes && cleanNotes.includes('[الواجب]:')) {
         const parts = cleanNotes.split('[الواجب]:');
         cleanNotes = parts[0].trim();
         homework = parts[1].trim();
       }
+      const gradeMatch = (s.notes || '').match(/\[درجة التقييم الأكاديمي\]:\s*([^\n\r]+)/);
+      const evaluationGrade = gradeMatch ? gradeMatch[1].trim() : null;
+      const rescheduleMatch = (s.notes || '').match(/\[طلب (?:اعتذار\/تأجيل|تأجيل|اعتذار)[^\]]*\]:\s*([^\n\r]+)/);
+      const isRescheduleRequested = Boolean(rescheduleMatch) || (s.notes || '').includes('[طلب تأجيل') || (s.notes || '').includes('[طلب اعتذار');
+      const rescheduleRequestDetails = rescheduleMatch ? rescheduleMatch[1].trim() : (isRescheduleRequested ? 'طلب تأجيل معلق' : null);
+
       return {
         ...s,
         homework: homework || null,
+        evaluationGrade: evaluationGrade || null,
+        isRescheduleRequested: Boolean(isRescheduleRequested),
+        rescheduleRequestDetails: rescheduleRequestDetails || null,
         notes: cleanNotes || s.notes,
         sessionType: 'PRIVATE'
       };
@@ -374,7 +392,7 @@ router.post('/sessions/:id/complete', authenticateTeacherToken, async (req, res)
   try {
     const { id: teacherId, companyId } = req.teacher;
     const { id: sessionId } = req.params;
-    const { actualDuration, topic, homework, notes, attendanceList } = req.body;
+    const { actualDuration, topic, homework, evaluationGrade, notes, attendanceList } = req.body;
     const prisma = getSharedPrismaClient();
 
     // 1. Check if private educationSession
@@ -402,10 +420,13 @@ router.post('/sessions/:id/complete', authenticateTeacherToken, async (req, res)
         return res.status(400).json({ success: false, message: 'الساعات المتبقية للطالب غير كافية' });
       }
 
-      // Build structured notes with homework
+      // Build structured notes with homework and academic evaluation grade
       let combinedNotes = notes ? notes.trim() : '';
       if (homework && homework.trim()) {
         combinedNotes = `[الواجب]: ${homework.trim()}${combinedNotes ? `\n${combinedNotes}` : ''}`;
+      }
+      if (evaluationGrade && evaluationGrade.trim()) {
+        combinedNotes = `[درجة التقييم الأكاديمي]: ${evaluationGrade.trim()}${combinedNotes ? `\n${combinedNotes}` : ''}`;
       }
 
       // Calculate session payment amount
@@ -505,6 +526,11 @@ router.post('/sessions/:id/complete', authenticateTeacherToken, async (req, res)
 
     const groupSession = groupSessionRows[0];
 
+    let groupCombinedNotes = notes ? notes.trim() : '';
+    if (evaluationGrade && evaluationGrade.trim()) {
+      groupCombinedNotes = `[درجة التقييم الأكاديمي]: ${evaluationGrade.trim()}${groupCombinedNotes ? `\n${groupCombinedNotes}` : ''}`;
+    }
+
     await prisma.$executeRawUnsafe(`
       UPDATE "education_group_sessions"
       SET 
@@ -513,7 +539,7 @@ router.post('/sessions/:id/complete', authenticateTeacherToken, async (req, res)
         "homework" = COALESCE($2, "homework"),
         "notes" = COALESCE($3, "notes")
       WHERE id = $4 AND "companyId" = $5
-    `, topic || null, homework || null, notes || null, sessionId, companyId);
+    `, topic || null, homework || null, groupCombinedNotes || null, sessionId, companyId);
 
     if (Array.isArray(attendanceList) && attendanceList.length > 0) {
       await prisma.$executeRawUnsafe(`
@@ -541,6 +567,127 @@ router.post('/sessions/:id/complete', authenticateTeacherToken, async (req, res)
   } catch (error) {
     console.error('[TeacherPortal] Complete session error:', error);
     res.status(500).json({ success: false, message: error.message || 'حدث خطأ في تسجيل الحصة' });
+  }
+});
+
+// Teacher reschedules / accepts reschedule of a session with a new date and time
+router.post('/sessions/:id/reschedule', authenticateTeacherToken, async (req, res) => {
+  try {
+    const { id: teacherId, companyId } = req.teacher;
+    const { id: sessionId } = req.params;
+    const { newScheduledAt, notes } = req.body;
+
+    if (!newScheduledAt) {
+      return res.status(400).json({ success: false, message: 'يرجى تحديد الموعد الجديد' });
+    }
+
+    const newDate = new Date(newScheduledAt);
+    if (isNaN(newDate.getTime())) {
+      return res.status(400).json({ success: false, message: 'تاريخ الموعد الجديد غير صالح' });
+    }
+
+    const prisma = getSharedPrismaClient();
+
+    const session = await prisma.educationSession.findFirst({
+      where: { id: sessionId, teacherId, companyId },
+      include: {
+        student: { select: { id: true, firstName: true, lastName: true } },
+        subject: { select: { id: true, name: true } }
+      }
+    });
+
+    if (!session) {
+      return res.status(404).json({ success: false, message: 'الحصة غير موجودة أو غير مسندة لك' });
+    }
+
+    let cleanNotes = (session.notes || '')
+      .replace(/\[طلب (?:اعتذار\/تأجيل|تأجيل|اعتذار)[^\]]*\]:[^\n\r]*/g, '')
+      .replace(/\[تم قبول التأجيل وتحديد موعد جديد من المعلم\]:[^\n\r]*/g, '')
+      .trim();
+
+    const formattedDate = newDate.toLocaleString('ar-EG', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    const rescheduleNote = `[تم قبول التأجيل وتحديد موعد جديد من المعلم]: ${formattedDate}${notes ? ` - ملاحظات: ${notes.trim()}` : ''}`;
+    cleanNotes = `${rescheduleNote}\n${cleanNotes}`.trim();
+
+    const updated = await prisma.educationSession.update({
+      where: { id: sessionId },
+      data: {
+        scheduledAt: newDate,
+        status: 'SCHEDULED',
+        notes: cleanNotes
+      },
+      include: {
+        student: { select: { id: true, firstName: true, lastName: true } },
+        subject: { select: { id: true, name: true } }
+      }
+    });
+
+    try {
+      const educationNotificationService = require('../services/educationNotificationService');
+      educationNotificationService.notifySessionScheduled(companyId, sessionId).catch(e =>
+        console.warn('[TeacherPortal Reschedule Notify]', e.message)
+      );
+    } catch (ne) {}
+
+    return res.json({
+      success: true,
+      message: 'تمت إعادة جدولة الحصة وتحديد الموعد الجديد بنجاح',
+      data: updated
+    });
+  } catch (error) {
+    console.error('[TeacherPortal] Reschedule error:', error);
+    res.status(500).json({ success: false, message: error.message || 'حدث خطأ في إعادة جدولة الحصة' });
+  }
+});
+
+// Teacher cancels a scheduled session
+router.post('/sessions/:id/cancel', authenticateTeacherToken, async (req, res) => {
+  try {
+    const { id: teacherId, companyId } = req.teacher;
+    const { id: sessionId } = req.params;
+    const { reason } = req.body;
+
+    const prisma = getSharedPrismaClient();
+
+    const session = await prisma.educationSession.findFirst({
+      where: { id: sessionId, teacherId, companyId }
+    });
+
+    if (!session) {
+      return res.status(404).json({ success: false, message: 'الحصة غير موجودة أو غير مسندة لك' });
+    }
+
+    if (session.status === 'CONFIRMED' || session.status === 'COMPLETED') {
+      return res.status(400).json({ success: false, message: 'لا يمكن إلغاء حصة تم تأكيدها أو إنجازها' });
+    }
+
+    const cancelNote = `[تم إلغاء الحصة من قبل المعلم]: ${reason || 'اعتذار المعلم عن الموعد'}`;
+    const cleanNotes = `${cancelNote}\n${session.notes || ''}`.trim();
+
+    const updated = await prisma.educationSession.update({
+      where: { id: sessionId },
+      data: {
+        status: 'CANCELLED',
+        notes: cleanNotes
+      }
+    });
+
+    return res.json({
+      success: true,
+      message: 'تم إلغاء الحصة بنجاح',
+      data: updated
+    });
+  } catch (error) {
+    console.error('[TeacherPortal] Cancel error:', error);
+    res.status(500).json({ success: false, message: error.message || 'حدث خطأ في إلغاء الحصة' });
   }
 });
 

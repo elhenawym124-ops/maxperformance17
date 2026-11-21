@@ -32,6 +32,8 @@ interface Session {
   attendanceStatus?: "PRESENT" | "ABSENT" | "EXCUSED" | "SCHEDULED" | "PENDING";
   topic?: string | null;
   homework?: string | null;
+  evaluationGrade?: string | null;
+  rescheduledInfo?: string | null;
   notes?: string | null;
   subject: { name: string };
   teacher: { name: string };
@@ -499,8 +501,8 @@ const ParentSessionsPage: React.FC = () => {
                         )}
                       </div>
 
-                      {/* Topic & Homework Display */}
-                      {(s.topic || s.homework || s.notes) && (
+                      {/* Topic, Homework, Evaluation & Notes Display */}
+                      {(s.topic || s.homework || s.evaluationGrade || s.rescheduledInfo || s.notes) && (
                         <div className="mt-2.5 p-3 rounded-lg bg-muted/40 border border-border/70 space-y-2 text-xs">
                           {s.topic && (
                             <div className="flex items-start gap-1.5">
@@ -508,6 +510,26 @@ const ParentSessionsPage: React.FC = () => {
                               <div>
                                 <span className="font-semibold text-foreground">موضوع الدرس: </span>
                                 <span className="text-foreground/90">{s.topic}</span>
+                              </div>
+                            </div>
+                          )}
+
+                          {s.evaluationGrade && (
+                            <div className="p-2 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300 flex items-start gap-2">
+                              <Sparkles className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                              <div>
+                                <span className="font-bold">درجة التقييم والأداء: </span>
+                                <span className="font-mono font-semibold">{s.evaluationGrade}</span>
+                              </div>
+                            </div>
+                          )}
+
+                          {s.rescheduledInfo && (
+                            <div className="p-2 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-800 dark:text-blue-300 flex items-start gap-2">
+                              <Clock className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+                              <div>
+                                <span className="font-bold">الموعد الجديد المعتمد من المعلم: </span>
+                                <span>{s.rescheduledInfo}</span>
                               </div>
                             </div>
                           )}
