@@ -137,8 +137,7 @@ async function importOrdersBatchOptimized(prisma, companyId, orders, options = {
                     { sku: { in: Array.from(skus) } },
                     { wooCommerceId: { in: Array.from(productWooIds) } }
                 ]
-            },
-            include: { product: true }
+            }
         }),
         prisma.productVariant.findMany({
             where: {
