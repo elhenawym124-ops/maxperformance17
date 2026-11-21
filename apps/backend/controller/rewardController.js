@@ -8,6 +8,7 @@ const rewardApplicationService = require('../services/hr/rewardApplicationServic
 const rewardReportingService = require('../services/hr/rewardReportingService');
 const rewardManagementService = require('../services/hr/rewardManagementService');
 const { handleHRError } = require('../utils/hrErrors');
+const { getSharedPrismaClient } = require('../services/sharedDatabase');
 
 class RewardController {
     // --- Reward Types ---
@@ -89,7 +90,14 @@ class RewardController {
     async applyReward(req, res) {
         try {
             const { companyId } = req.user;
-            const { userId, rewardTypeId, periodStart, periodEnd, reason, skipEligibilityCheck } = req.body;
+            const { rewardTypeId, periodStart, periodEnd, reason, skipEligibilityCheck } = req.body;
+            // يقبل userId أو employeeId (Employee.id) — كان يرفض الثاني بـ 404
+            let userId = req.body.userId || req.body.employeeId;
+            if (userId) {
+                const resolved = await require('../services/hr/resolveEmployeeIdentity')
+                    .findUserByAnyId(getSharedPrismaClient(), companyId, userId);
+                if (resolved) userId = resolved.id;
+            }
 
             const start = periodStart || new Date().toISOString().split('T')[0];
             const end = periodEnd || new Date().toISOString().split('T')[0];

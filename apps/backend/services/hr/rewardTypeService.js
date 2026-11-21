@@ -35,6 +35,22 @@ class RewardTypeService {
             throw new ValidationError('البيانات الأساسية مطلوبة (الاسم، الفئة، طريقة الحساب، نوع التنفيذ)');
         }
 
+        // تطبيع القيم لتطابق enums المخطط (الفئات القديمة كانت تُسبب 500)
+        const normalizeCategory = (category) => {
+            const c = String(category || '').toUpperCase();
+            if (['FINANCIAL', 'NON_FINANCIAL'].includes(c)) return c;
+            return Number(data.value) > 0 ? 'FINANCIAL' : 'NON_FINANCIAL';
+        };
+        const normalizeCalculation = (method) => {
+            const m = String(method || '').toUpperCase();
+            if (m.startsWith('PERCENTAGE')) return 'PERCENTAGE';
+            if (m === 'FIXED' || m === 'FIXED_AMOUNT') return 'FIXED';
+            return 'FIXED';
+        };
+        const FREQUENCY_MAP = {
+            ONCE: 'ONCE', ONE_TIME: 'ONCE', MONTHLY: 'MONTHLY', QUARTERLY: 'QUARTERLY', YEARLY: 'YEARLY',
+        };
+
         // Validate calculation method values
         const percentageMethods = ['PERCENTAGE_SALARY', 'PERCENTAGE_SALES', 'PERCENTAGE_PROJECT_PROFIT'];
         if (percentageMethods.includes(data.calculationMethod) && !data.value) {
@@ -45,8 +61,9 @@ class RewardTypeService {
             throw new ValidationError('يجب تحديد المبلغ الثابت للمكافأة');
         }
 
-        // Validate Frequency
-        if (data.frequency && !['MONTHLY', 'QUARTERLY', 'YEARLY', 'ONE_TIME'].includes(data.frequency)) {
+        // Validate Frequency — نقبل ONCE و ONE_TIME ونخزّن ONCE
+        const normalizedFrequency = FREQUENCY_MAP[String(data.frequency || 'MONTHLY').toUpperCase()];
+        if (data.frequency && !normalizedFrequency) {
             throw new ValidationError('تكرار المكافأة غير صالح');
         }
 
@@ -56,13 +73,13 @@ class RewardTypeService {
                 name: data.name,
                 nameAr: data.nameAr,
                 description: data.description,
-                category: data.category,
-                calculationMethod: data.calculationMethod,
+                category: normalizeCategory(data.category),
+                calculationMethod: normalizeCalculation(data.calculationMethod),
                 value: data.value || 0,
                 maxCap: data.maxCap,
                 eligibilityConditions: data.eligibilityConditions ? JSON.stringify(data.eligibilityConditions) : null,
                 triggerType: data.triggerType,
-                frequency: data.frequency || 'MONTHLY',
+                frequency: normalizedFrequency || 'MONTHLY',
                 isActive: data.isActive !== undefined ? data.isActive : true,
                 priority: data.priority || 1,
                 effectiveFrom: data.effectiveFrom ? new Date(data.effectiveFrom) : null,
@@ -89,13 +106,24 @@ class RewardTypeService {
         if (data.name) updateData.name = data.name;
         if (data.nameAr !== undefined) updateData.nameAr = data.nameAr;
         if (data.description !== undefined) updateData.description = data.description;
-        if (data.category) updateData.category = data.category;
-        if (data.calculationMethod) updateData.calculationMethod = data.calculationMethod;
+        if (data.category) {
+            const c = String(data.category).toUpperCase();
+            updateData.category = ['FINANCIAL', 'NON_FINANCIAL'].includes(c)
+                ? c
+                : (Number(data.value ?? existing.value) > 0 ? 'FINANCIAL' : 'NON_FINANCIAL');
+        }
+        if (data.calculationMethod) {
+            const m = String(data.calculationMethod).toUpperCase();
+            updateData.calculationMethod = m.startsWith('PERCENTAGE') ? 'PERCENTAGE' : 'FIXED';
+        }
         if (data.value !== undefined) updateData.value = data.value;
         if (data.maxCap !== undefined) updateData.maxCap = data.maxCap;
         if (data.eligibilityConditions !== undefined) updateData.eligibilityConditions = data.eligibilityConditions ? JSON.stringify(data.eligibilityConditions) : null;
         if (data.triggerType) updateData.triggerType = data.triggerType;
-        if (data.frequency) updateData.frequency = data.frequency;
+        if (data.frequency) {
+            const f = String(data.frequency).toUpperCase();
+            updateData.frequency = (f === 'ONE_TIME' ? 'ONCE' : f);
+        }
         if (data.isActive !== undefined) updateData.isActive = data.isActive;
         if (data.priority !== undefined) updateData.priority = data.priority;
         if (data.effectiveFrom !== undefined) updateData.effectiveFrom = data.effectiveFrom ? new Date(data.effectiveFrom) : null;

@@ -28,6 +28,8 @@ const login = async (email) => {
 };
 
 const call = async (method, path, token, body) => {
+  // RATE-LIMIT-GUARD: مسافة بين محاولات الدخول
+  if (/\/auth\/login$/.test(path)) await new Promise((res) => setTimeout(res, 1200));
   const r = await fetch(`${BASE}${path}`, {
     method,
     headers: {

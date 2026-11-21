@@ -7,6 +7,8 @@ const results = [];
 const rec = (id, name, ok, detail) => results.push({ id, name, ok, detail: String(detail ?? '').slice(0, 220) });
 
 const call = async (m, p, t, b) => {
+  // RATE-LIMIT-GUARD: مسافة بين محاولات الدخول
+  if (/\/auth\/login$/.test(p)) await new Promise((res) => setTimeout(res, 1200));
   const r = await fetch(B + p, { method: m, headers: { 'Content-Type': 'application/json', ...(t ? { Authorization: 'Bearer ' + t } : {}) }, ...(b !== undefined ? { body: JSON.stringify(b) } : {}) });
   let d = null; try { d = await r.json(); } catch { }
   return { status: r.status, d };

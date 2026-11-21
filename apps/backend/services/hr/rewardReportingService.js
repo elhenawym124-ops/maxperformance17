@@ -59,12 +59,12 @@ class RewardReportingService {
         };
 
         rewards.forEach(r => {
-            if (r.status === 'APPROVED' || r.status === 'APPLIED') {
+            if (r.status === 'APPROVED' || r.status === 'GIVEN') {
                 stats.totalAmount += Number(r.calculatedValue || 0);
             }
 
             if (r.status === 'PENDING') stats.pendingCount++;
-            if (r.status === 'APPROVED' || r.status === 'APPLIED') stats.approvedCount++;
+            if (r.status === 'APPROVED' || r.status === 'GIVEN') stats.approvedCount++;
 
             const cat = r.rewardCategory;
             stats.byCategory[cat] = (stats.byCategory[cat] || 0) + 1;
@@ -90,14 +90,23 @@ class RewardReportingService {
      * Reward Cost Analysis
      */
     async getRewardCostAnalysis(companyId, startDate, endDate) {
+        // تواريخ افتراضية = السنة الحالية (كانت new Date(undefined) ترمي 500)
+        const now = new Date();
+        const from = startDate && !Number.isNaN(new Date(startDate).getTime())
+            ? new Date(startDate)
+            : new Date(now.getFullYear(), 0, 1);
+        const to = endDate && !Number.isNaN(new Date(endDate).getTime())
+            ? new Date(endDate)
+            : new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
+
         const records = await this.prisma.rewardRecord.findMany({
             where: {
                 companyId,
                 appliedAt: {
-                    gte: new Date(startDate),
-                    lte: new Date(endDate)
+                    gte: from,
+                    lte: to
                 },
-                status: { in: ['APPROVED', 'APPLIED'] }
+                status: { in: ['APPROVED', 'GIVEN'] }
             },
             include: {
                 rewardType: { select: { name: true } }
