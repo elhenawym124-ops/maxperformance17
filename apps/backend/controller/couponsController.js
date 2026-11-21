@@ -480,9 +480,10 @@ exports.applyCoupon = async (req, res) => {
     }
 
     // تسجيل استخدام الكوبون
-    await getPrisma().$transaction([
+    const prisma = getPrisma();
+    await prisma.$transaction([
       // إضافة سجل الاستخدام
-      getPrisma().couponUsage.create({
+      prisma.couponUsage.create({
         data: {
           couponId,
           companyId,
@@ -493,7 +494,7 @@ exports.applyCoupon = async (req, res) => {
         }
       }),
       // تحديث عداد الاستخدام
-      getPrisma().coupon.update({
+      prisma.coupon.update({
         where: { id: couponId },
         data: {
           usageCount: {
