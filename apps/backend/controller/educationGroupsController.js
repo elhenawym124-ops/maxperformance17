@@ -643,6 +643,30 @@ const addMember = async (req, res) => {
       `, groupId, companyId);
     }
 
+    // 🏦 Automatic Financial Inflow to Treasury
+    const paidNum = amountPaid ? parseFloat(amountPaid) : 0;
+    if (paidNum > 0 && (paymentStatus === 'PAID' || !paymentStatus)) {
+      try {
+        const studentInfo = await prisma.educationStudent.findUnique({
+          where: { id: studentId },
+          select: { firstName: true, lastName: true }
+        });
+        const groupInfo = groupRows[0]?.name || 'مجموعة دراسية';
+        const educationFinancialService = require('../services/educationFinancialIntegrationService');
+        educationFinancialService.recordEducationRevenue({
+          companyId,
+          sourceType: 'EDUCATION_GROUP_FEE',
+          sourceId: memberId,
+          studentName: studentInfo ? `${studentInfo.firstName} ${studentInfo.lastName}`.trim() : 'طالب',
+          title: `تحصيل رسوم مجموعة (${groupInfo})`,
+          amount: paidNum,
+          createdById: req.user?.id
+        }).catch(e => console.warn('[GroupFeePosting] warning:', e.message));
+      } catch (fe) {
+        console.warn('[GroupFeePosting] notice:', fe.message);
+      }
+    }
+
     return res.json({
       success: true,
       data: {

@@ -156,6 +156,25 @@ const create = async (req, res) => {
 
     const studentName = `${student.firstName} ${student.lastName || ''}`.trim();
     const teacherLabel = teacher ? await getSingularTeacherLabel(companyId, 'ar') : '';
+
+    // 🏦 Automatic Financial Inflow to Treasury
+    const paidAmount = Number(amountPaid) || 0;
+    if (paidAmount > 0 && (safePaymentStatus === 'COMPLETED' || safePaymentStatus === 'PAID' || safePaymentStatus === 'PARTIALLY_PAID')) {
+      try {
+        const educationFinancialService = require('../services/educationFinancialIntegrationService');
+        educationFinancialService.recordEducationRevenue({
+          companyId,
+          sourceType: 'EDUCATION_PACKAGE_REVENUE',
+          sourceId: data.id,
+          studentName,
+          title: `تحصيل باقة تعليمية (${pkg.name})`,
+          amount: paidAmount,
+          createdById: req.user?.id
+        }).catch(e => console.warn('[EnrollmentRevenuePosting] warning:', e.message));
+      } catch (fe) {
+        console.warn('[EnrollmentRevenuePosting] notice:', fe.message);
+      }
+    }
     logEducationEvent({
       companyId,
       action: 'CREATE_ENROLLMENT',

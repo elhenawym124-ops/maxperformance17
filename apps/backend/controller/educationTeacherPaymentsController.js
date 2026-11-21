@@ -291,6 +291,23 @@ const markPaid = async (req, res) => {
       include: { teacher: { select: { id: true, name: true } } }
     });
 
+    // 🏦 Automatic Financial Posting: deduct from Treasury and record in Company Expenses
+    try {
+      const educationFinancialService = require('../services/educationFinancialIntegrationService');
+      educationFinancialService.recordTeacherSalaryPayout({
+        companyId,
+        paymentId: data.id,
+        teacherName: data.teacher?.name,
+        teacherId: data.teacherId,
+        amount: data.netAmount,
+        periodFrom: data.periodFrom,
+        periodTo: data.periodTo,
+        createdById: req.user?.id
+      }).catch(fErr => console.error('[TeacherPaymentFinancePosting] error:', fErr.message));
+    } catch (fErr) {
+      console.warn('[TeacherPaymentFinancePosting] warning:', fErr.message);
+    }
+
     const payTeacherLabel = await getSingularTeacherLabel(companyId, 'ar');
     logEducationEvent({
       companyId,
