@@ -68,7 +68,7 @@ const RouteAwareErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
 const AdminAppBootstrap: React.FC = () => (
   <QueryClientProvider client={queryClient}>
   <React.Suspense fallback={null}>
-    <ThemeProvider defaultTheme="light" storageKey="max-store-theme">
+    <ThemeProvider defaultTheme="light" storageKey="theme">
       <BrowserRouter
         future={{
           v7_startTransition: true,
