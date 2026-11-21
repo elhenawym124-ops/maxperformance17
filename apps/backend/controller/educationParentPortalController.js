@@ -205,6 +205,17 @@ const purchasePackage = async (req, res) => {
       req,
     }).catch(e => console.error('[ParentPurchaseAudit]', e.message));
 
+    // 📣 إشعار ولي الأمر بإتمام الشراء (نفس قالب تسجيل باقة)
+    try {
+      const educationNotificationService = require('../services/educationNotificationService');
+      if (typeof educationNotificationService.notifyEnrollmentCreated === 'function') {
+        educationNotificationService.notifyEnrollmentCreated(companyId, result)
+          .catch(e => console.error('[ParentPurchaseNotify]', e.message));
+      }
+    } catch (notifyErr) {
+      console.error('[ParentPurchaseNotify] load error:', notifyErr.message);
+    }
+
     res.json({ success: true, data: result, message: `تم شراء الباقة "${pkg.name}" بنجاح` });
   } catch (error) {
     console.error('[ParentPortal] Purchase error:', error);

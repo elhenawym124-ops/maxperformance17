@@ -352,6 +352,14 @@ const update = async (req, res) => {
       req,
     }).catch(e => console.error('[SessionAudit]', e.message));
 
+    // 📣 إبلاغ ولي الأمر والمعلم عند تغيير الموعد أو المدرس
+    const scheduleChanged = Boolean(scheduledAt) && new Date(scheduledAt).getTime() !== new Date(existing.scheduledAt).getTime();
+    const teacherChanged = Boolean(safeTeacherId) && safeTeacherId !== existing.teacherId;
+    if ((scheduleChanged || teacherChanged) && typeof educationNotificationService.notifySessionScheduled === 'function') {
+      educationNotificationService.notifySessionScheduled(companyId, data)
+        .catch(e => console.error('[SessionUpdateNotify]', e.message));
+    }
+
     res.json({ success: true, data });
   } catch (error) {
     console.error('Error updating session:', error);

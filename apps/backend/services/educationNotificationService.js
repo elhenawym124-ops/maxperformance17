@@ -9,6 +9,7 @@ const EDUCATION_NOTIFICATION_EVENTS = {
   ENROLLMENT_LOW_HOURS: 'education_enrollment_low_hours',
   ENROLLMENT_EXPIRING: 'education_enrollment_expiring',
   PARENT_ACTIVATED: 'education_parent_activated',
+  ABSENCE_ALERT: 'education_absence_alert',
   DEMO_DAY_REGISTERED: 'education_demo_day_registered',
   DEMO_DAY_REMINDER_24H: 'education_demo_day_reminder_24h',
   DEMO_DAY_REMINDER_2H: 'education_demo_day_reminder_2h',
@@ -107,6 +108,12 @@ const NOTIFICATION_TEMPLATES = {
 تم تفعيل حساب ولي الأمر بنجاح ✅
 
 يمكنك الآن متابعة الحصص ورصيد الساعات مباشرة عبر بوابة ولي الأمر.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.ABSENCE_ALERT]: {
+    parent: `نحيط سيادتكم علماً بأن الطالب/ة {studentName} تغيب اليوم عن حضور موعد مجموعته الدراسية.
+
+برجاء التواصل مع الإدارة لتحديد موعد بديل.
+شكراً لتعاونكم.`,
   },
   [EDUCATION_NOTIFICATION_EVENTS.DEMO_DAY_REGISTERED]: {
     parent: `أهلاً {parentName} 🎉
@@ -220,26 +227,41 @@ async function sendEducationNotification({
   try {
     const prisma = getSharedPrismaClient();
 
-    // 1. Check if notification event is disabled in schedule
+    // 1. Check if notification event is disabled in schedule — بيتم على مفتاح
+    // المستلم كمان (teacher/staff) عشان تشغيل/إطفاء صفوفهم في اللوحة يبقى له تأثير.
+    // 2. Check for customized template from database (بيختلف حسب نوع المستلم).
+    const RECIPIENT_EVENT_SUFFIX = { TEACHER: '_teacher', EMPLOYEE: '_teacher', STAFF: '_staff' };
+    const recipientSuffix = RECIPIENT_EVENT_SUFFIX[String(recipientType || '').toUpperCase()] || '';
+    const candidateEventTypes = recipientSuffix ? [`${eventType}${recipientSuffix}`, eventType] : [eventType];
+
     try {
       if (prisma && prisma.customerNotificationSchedule && typeof prisma.customerNotificationSchedule.findUnique === 'function') {
-        const schedule = await prisma.customerNotificationSchedule.findUnique({
-          where: { companyId_eventType: { companyId, eventType } }
-        });
-        if (schedule && schedule.enabled === false) {
-          return { success: false, reason: 'event_type_disabled', message: 'تم إيقاف هذا الإشعار من جدول الإشعارات' };
+        for (const candidateEventType of candidateEventTypes) {
+          const schedule = await prisma.customerNotificationSchedule.findUnique({
+            where: { companyId_eventType: { companyId, eventType: candidateEventType } }
+          });
+          if (schedule && schedule.enabled === false) {
+            return { success: false, reason: 'event_type_disabled', message: 'تم إيقاف هذا الإشعار من جدول الإشعارات' };
+          }
         }
       }
     } catch (_) {}
 
-    // 2. Check for customized template from database
     let customTemplate = null;
+    let resolvedEventType = eventType;
     try {
       if (prisma && prisma.whatsAppNotificationTemplate && typeof prisma.whatsAppNotificationTemplate.findFirst === 'function') {
-        customTemplate = await prisma.whatsAppNotificationTemplate.findFirst({
-          where: { companyId, eventType, isActive: true },
-          orderBy: { updatedAt: 'desc' }
-        });
+        for (const candidateEventType of candidateEventTypes) {
+          const row = await prisma.whatsAppNotificationTemplate.findFirst({
+            where: { companyId, eventType: candidateEventType, isActive: true },
+            orderBy: { updatedAt: 'desc' }
+          });
+          if (row) {
+            customTemplate = row;
+            resolvedEventType = candidateEventType;
+            break;
+          }
+        }
       }
     } catch (_) {}
 
@@ -254,7 +276,7 @@ async function sendEducationNotification({
       recipientName: recipientName || variables.parentName || variables.studentName || 'عميلنا',
       recipientType,
       category: 'education',
-      eventType,
+      eventType: resolvedEventType,
       rawEventType: eventType,
       contentOverride: content,
       template: customTemplate || undefined,
@@ -270,9 +292,9 @@ async function sendEducationNotification({
         action: 'SEND_NOTIFICATION',
         entityType: 'NOTIFICATION',
         entityName: recipientName || recipientPhone,
-        description: `إرسال إشعار تعليمي (${eventType}) إلى ${recipientName || recipientPhone}`,
+        description: `إرسال إشعار تعليمي (${resolvedEventType}) إلى ${recipientName || recipientPhone}`,
         details: {
-          eventType,
+          eventType: resolvedEventType,
           recipientPhone,
           recipientName,
           recipientType,
@@ -617,6 +639,31 @@ async function notifyParentActivated({ companyId, customerId, parentPhone, paren
     recipientName: resolvedName,
     recipientType: 'CUSTOMER',
     url: '/parent',
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
+async function notifyAbsenceAlert({ companyId, studentName, parentName, phone, groupName = '' }) {
+  if (!companyId || !phone) return null;
+
+  const resolvedParentName = parentName || 'وليّ الأمر';
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: null,
+    eventType: EDUCATION_NOTIFICATION_EVENTS.ABSENCE_ALERT,
+    title: 'تنبيه غياب عن حصة المجموعة',
+    templates: NOTIFICATION_TEMPLATES[EDUCATION_NOTIFICATION_EVENTS.ABSENCE_ALERT].parent,
+    variables: {
+      studentName: studentName || 'الطالب',
+      parentName: resolvedParentName,
+      groupName,
+    },
+    recipientPhone: phone,
+    recipientName: resolvedParentName,
+    recipientType: 'CUSTOMER',
+    url: '/parent/sessions',
     pushFirst: false,
     forceWhatsApp: true,
   });
@@ -1014,6 +1061,7 @@ module.exports = {
   notifySessionCancelled,
   notifySessionReminder,
   notifyParentActivated,
+  notifyAbsenceAlert,
   notifyDemoDayRegistered,
   notifyDemoDayReminder,
   getFunnelStats,

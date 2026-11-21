@@ -8,13 +8,6 @@ const {
   generateAttId
 } = require('../services/educationGroupsService');
 
-let sendNotification = null;
-try {
-  sendNotification = require('../services/whatsapp/WhatsAppNotificationService').sendNotification;
-} catch (e) {
-  // Optional notification service
-}
-
 const DISALLOWED_ROLES = new Set(['SHIPPING_CLIENT', 'STUDENT', 'CUSTOMER', 'COURIER']);
 
 const getCompanyId = (req) => {
@@ -921,25 +914,24 @@ const recordSession = async (req, res) => {
         let notifiedAt = null;
 
         // Notify absent parent if requested
-        if (notifyAbsentWhatsApp && item.status === 'ABSENT' && sendNotification) {
+        if (notifyAbsentWhatsApp && item.status === 'ABSENT') {
           try {
             const st = studentMap.get(item.studentId);
             const phone = st?.customer?.phone || st?.phone;
             if (phone) {
               const studentName = `${st.firstName || ''} ${st.lastName || ''}`.trim();
               const parentName = st.customer?.firstName || 'ولي الأمر';
-              const msg = `نحيط سيادتكم علماً بأن الطالب/ة (${studentName}) تغيب اليوم عن حضور موعد مجموعته الدراسية.`;
-              await sendNotification({
+              const educationNotificationService = require('../services/educationNotificationService');
+              const notifResult = await educationNotificationService.notifyAbsenceAlert({
                 companyId,
-                recipientPhone: phone,
-                recipientName: parentName,
-                recipientType: 'CUSTOMER',
-                category: 'EDUCATION',
-                eventType: 'EDUCATION_ABSENCE_ALERT',
-                contentOverride: msg,
-                priority: 3
-              }).catch(waErr => console.error('[EducationGroups] Send absence alert error:', waErr.message));
-              notifiedAt = new Date();
+                studentName,
+                parentName,
+                phone,
+              }).catch(waErr => {
+                console.error('[EducationGroups] Send absence alert error:', waErr.message);
+                return null;
+              });
+              if (notifResult && notifResult.success !== false) notifiedAt = new Date();
             }
           } catch (notifErr) {
             console.error('[EducationGroups] Absence notification failed:', notifErr.message);

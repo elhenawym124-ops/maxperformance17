@@ -680,6 +680,17 @@ router.post('/sessions/:id/cancel', authenticateTeacherToken, async (req, res) =
       }
     });
 
+    // 📣 إبلاغ ولي الأمر (والمعلم) بإلغاء الحصة
+    try {
+      const educationNotificationService = require('../services/educationNotificationService');
+      if (typeof educationNotificationService.notifySessionCancelled === 'function') {
+        educationNotificationService.notifySessionCancelled(companyId, { id: sessionId })
+          .catch(e => console.error('[TeacherPortal] Cancel notify error:', e.message));
+      }
+    } catch (notifyErr) {
+      console.error('[TeacherPortal] Cancel notify load error:', notifyErr.message);
+    }
+
     return res.json({
       success: true,
       message: 'تم إلغاء الحصة بنجاح',

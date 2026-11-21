@@ -14,6 +14,8 @@ export const ALL_EDUCATION_EVENTS = [
   "education_session_reminder",
   "education_enrollment_low_hours",
   "education_enrollment_expiring",
+  "education_parent_activated",
+  "education_absence_alert",
   "education_session_scheduled_teacher",
   "education_session_cancelled_teacher",
   "education_session_reminder_teacher",
@@ -78,6 +80,8 @@ export const EVENT_LABELS: Record<string, string> = {
   education_session_reminder: "تذكير بموعد الحصة",
   education_enrollment_low_hours: "تنبيه رصيد الساعات المنخفض",
   education_enrollment_expiring: "تنبيه قرب انتهاء الباقة",
+  education_parent_activated: "تفعيل حساب ولي الأمر",
+  education_absence_alert: "تنبيه غياب عن حصة المجموعة",
   education_session_scheduled_teacher: "إشعار المعلم: حصة جديدة",
   education_session_cancelled_teacher: "إشعار المعلم: إلغاء حصة",
   education_session_reminder_teacher: "إشعار المعلم: تذكير بالحصة",
@@ -97,6 +101,8 @@ export const EVENT_TRIGGERS: Record<string, string> = {
   education_session_reminder: "تذكير تلقائي قبل موعد الحصة بـ 24 ساعة",
   education_enrollment_low_hours: "عند وصول رصيد الساعات المتبقية لحد منخفض",
   education_enrollment_expiring: "قبل انتهاء تاريخ صلاحية الباقة التعليمية",
+  education_parent_activated: "عند تفعيل حساب ولي الأمر ودخوله بوابة المتابعة",
+  education_absence_alert: "عند تسجيل الطالب غائباً في حصة مجموعته الدراسية",
   education_session_scheduled_teacher: "إشعار للمعلم عند جدولة حصة جديدة",
   education_session_cancelled_teacher: "إشعار للمعلم عند إلغاء الحصة",
   education_session_reminder_teacher: "تذكير تلقائي للمعلم بموعد الحصة",
@@ -116,6 +122,8 @@ export const EVENT_COLORS: Record<string, string> = {
   education_session_reminder: "#8B5CF6",
   education_enrollment_low_hours: "#F97316",
   education_enrollment_expiring: "#EC4899",
+  education_parent_activated: "#0EA5E9",
+  education_absence_alert: "#DC2626",
   education_session_scheduled_teacher: "#6366F1",
   education_session_cancelled_teacher: "#DC2626",
   education_session_reminder_teacher: "#7C3AED",
@@ -185,6 +193,17 @@ export const DEFAULT_TEMPLATES: Record<string, string> = {
 
 الرصيد المتبقي: {{remainingHours}} ساعة.
 يرجى التواصل معنا لتجديد الباقة أو استهلاك الساعات المتبقية. 🌟`,
+
+  education_parent_activated: `أهلاً {{parentName}} 🎉
+
+تم تفعيل حساب ولي الأمر بنجاح ✅
+
+يمكنك الآن متابعة الحصص ورصيد الساعات مباشرة عبر بوابة ولي الأمر.`,
+
+  education_absence_alert: `نحيط سيادتكم علماً بأن الطالب/ة {{studentName}} تغيب اليوم عن حضور موعد مجموعته الدراسية.
+
+برجاء التواصل مع الإدارة لتحديد موعد بديل.
+شكراً لتعاونكم.`,
 
   education_session_scheduled_teacher: `حصة دراسية جديدة 📅
 
