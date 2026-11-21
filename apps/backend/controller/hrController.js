@@ -1118,7 +1118,9 @@ async function createPromotion(req, res) {
     console.error("❌ [CREATE-PROMOTION] Error creating promotion:", error);
     console.error("❌ [CREATE-PROMOTION] Error stack:", error.stack);
     console.error("❌ [CREATE-PROMOTION] Error message:", error.message);
-    res.status(500).json({
+    // أخطاء التحقق من الخدمة تُرجع 500 — نفصل أخطاء Prisma عن أخطاء قواعد العمل
+    const isPrismaError = String(error.name || "").startsWith("Prisma");
+    res.status(error.statusCode || (isPrismaError ? 500 : 400)).json({
       success: false,
       error: error.message || "حدث خطأ أثناء إنشاء الترقية",
       details: process.env.NODE_ENV === "development" ? error.stack : undefined,
