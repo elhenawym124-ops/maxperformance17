@@ -55,7 +55,7 @@ export const ChatSidebarContextMenu: React.FC<ChatSidebarContextMenuProps> = ({
         aria-label="Close menu"
       />
       <div
-        className="fixed z-50 w-56 rounded-xl border border-[color:var(--shell-overlay-border)] bg-[var(--shell-overlay-bg)] p-1.5 shadow-[var(--shell-overlay-shadow)] ring-1 ring-[color:var(--shell-overlay-edge)]"
+        className="fixed z-50 w-56 rounded-xl border border-border/70 bg-popover p-1.5 shadow-md shadow-foreground/10 "
         style={{ left: menuLeft, top: menuTop }}
         role="menu"
         onKeyDown={(e) => {
@@ -79,7 +79,7 @@ export const ChatSidebarContextMenu: React.FC<ChatSidebarContextMenuProps> = ({
             onPinChat(contact);
             onClose();
           }}
-          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-[color:var(--color-foreground)] transition-colors hover:bg-[color:var(--shell-control-hover)]"
+          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
         >
           <span>
             {contact.isPinned
@@ -95,7 +95,7 @@ export const ChatSidebarContextMenu: React.FC<ChatSidebarContextMenuProps> = ({
             onMarkAsRead(contact);
             onClose();
           }}
-          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-[color:var(--color-foreground)] transition-colors hover:bg-[color:var(--shell-control-hover)]"
+          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
         >
           <span>
             {contact.unreadCount
@@ -111,7 +111,7 @@ export const ChatSidebarContextMenu: React.FC<ChatSidebarContextMenuProps> = ({
             onMuteChat(contact);
             onClose();
           }}
-          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-[color:var(--color-foreground)] transition-colors hover:bg-[color:var(--shell-control-hover)]"
+          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
         >
           <span>
             {contact.isMuted
@@ -127,7 +127,7 @@ export const ChatSidebarContextMenu: React.FC<ChatSidebarContextMenuProps> = ({
             onArchiveChat(contact);
             onClose();
           }}
-          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-[color:var(--color-foreground)] transition-colors hover:bg-[color:var(--shell-control-hover)]"
+          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
         >
           <span>
             {contact.isArchived

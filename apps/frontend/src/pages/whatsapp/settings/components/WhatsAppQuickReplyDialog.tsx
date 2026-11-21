@@ -63,8 +63,8 @@ export const WhatsAppQuickReplyDialog: React.FC<
         }
       }}
     >
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-xl">
-        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-0 sm:max-w-xl">
+        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>
             {editingQuickReply
               ? t("whatsappSettings.dialogs.editQuickReply")
@@ -109,7 +109,7 @@ export const WhatsAppQuickReplyDialog: React.FC<
               }
               className="h-11 bg-[color:var(--color-card)] font-mono"
             />
-            <p className="text-sm text-[color:var(--color-muted-foreground)]">
+            <p className="text-sm text-muted-foreground">
               {t("whatsappSettings.dialogs.shortcutHelper")}
             </p>
           </div>
@@ -155,7 +155,7 @@ export const WhatsAppQuickReplyDialog: React.FC<
               }
               className="min-h-[9rem] bg-[color:var(--color-card)]"
             />
-            <p className="text-sm text-[color:var(--color-muted-foreground)]">
+            <p className="text-sm text-muted-foreground">
               {t("whatsappSettings.dialogs.variablesHelper")}
             </p>
           </div>
@@ -164,7 +164,7 @@ export const WhatsAppQuickReplyDialog: React.FC<
         <DialogFooter className="px-6">
           <Button
             variant="outline"
-            className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
+            className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
             onClick={onClose}
           >
             {t("whatsappSettings.dialogs.cancel")}

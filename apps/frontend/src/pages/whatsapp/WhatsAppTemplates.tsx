@@ -70,7 +70,7 @@ const WhatsAppTemplates: React.FC<WhatsAppTemplatesProps> = (props) => {
               value={ctrl.selectedMetaSession}
               onValueChange={(v) => ctrl.setSelectedMetaSession(v ?? "")}
             >
-              <SelectTrigger className="h-9 w-auto min-w-[140px] rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] text-xs">
+              <SelectTrigger className="h-9 w-auto min-w-[140px] rounded-full border-border/70 bg-muted text-xs">
                 <Globe className="size-3 me-1" />
                 <SelectValue
                   placeholder={
@@ -91,7 +91,7 @@ const WhatsAppTemplates: React.FC<WhatsAppTemplatesProps> = (props) => {
             variant="outline"
             onClick={ctrl.refreshPageData}
             disabled={ctrl.refreshing}
-            className="rounded-full bg-[color:var(--color-muted)]"
+            className="rounded-full bg-muted"
           >
             {ctrl.refreshing ? (
               <span className="flex items-center gap-2">
@@ -132,12 +132,12 @@ const WhatsAppTemplates: React.FC<WhatsAppTemplatesProps> = (props) => {
             <div className="flex flex-col gap-4">
               {/* Search bar */}
               <div className="relative w-full">
-                <Search className="pointer-events-none absolute top-1/2 start-3 size-4 -translate-y-1/2 text-[color:var(--color-muted-foreground)]" />
+                <Search className="pointer-events-none absolute top-1/2 start-3 size-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   value={ctrl.templateSearch}
                   onChange={(e) => ctrl.setTemplateSearch(e.target.value)}
                   placeholder={String(ctrl.t("common.search"))}
-                  className="h-11 rounded-full bg-[color:var(--color-muted)] ps-10"
+                  className="h-11 rounded-full bg-muted ps-10"
                 />
               </div>
 

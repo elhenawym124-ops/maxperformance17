@@ -20,7 +20,7 @@ interface ChatRightPanelOrdersTabProps {
 
 const sectionStyle = {
   borderRadius: '0.75rem',
-  border: '1px solid color-mix(in srgb, var(--shell-control-border) 60%, transparent)',
+  border: '1px solid color-mix(in srgb, var(--color-border) 60%, transparent)',
   backgroundColor: 'var(--whatsapp-surface-strong)',
   padding: '0.875rem',
 };

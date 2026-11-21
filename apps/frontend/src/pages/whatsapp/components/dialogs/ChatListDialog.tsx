@@ -49,10 +49,10 @@ export const ChatListDialog: React.FC<ChatListDialogProps> = ({
     <UiDialog open={open} onOpenChange={onOpenChange}>
       <UiDialogContent
         showCloseButton={false}
-        className="max-w-4xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="max-w-4xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <UiDialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
-          <UiDialogTitle className="flex items-center gap-2 text-lg text-[color:var(--color-foreground)]">
+        <UiDialogHeader className="border-b border-border/70 px-6 py-5">
+          <UiDialogTitle className="flex items-center gap-2 text-lg text-foreground">
             <ListIcon className="size-5 text-[color:var(--color-primary)]" />
             <span>إرسال رسالة بقائمة</span>
           </UiDialogTitle>
@@ -60,7 +60,7 @@ export const ChatListDialog: React.FC<ChatListDialogProps> = ({
 
         <div className="max-h-[70vh] space-y-4 overflow-y-auto px-6 py-6">
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-[color:var(--color-foreground)]">
+            <label className="text-sm font-semibold text-foreground">
               نص الرسالة
             </label>
             <UiTextarea
@@ -74,7 +74,7 @@ export const ChatListDialog: React.FC<ChatListDialogProps> = ({
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[color:var(--color-foreground)]">
+              <label className="text-sm font-semibold text-foreground">
                 عنوان القائمة
               </label>
               <UiInput
@@ -85,7 +85,7 @@ export const ChatListDialog: React.FC<ChatListDialogProps> = ({
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[color:var(--color-foreground)]">
+              <label className="text-sm font-semibold text-foreground">
                 نص الزر
               </label>
               <UiInput
@@ -101,7 +101,7 @@ export const ChatListDialog: React.FC<ChatListDialogProps> = ({
             {listData.sections.map((section, sIndex) => (
               <div
                 key={`${section.title}-${sIndex}`}
-                className="space-y-3 rounded-[24px] border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] p-4"
+                className="space-y-3 rounded-[24px] border border-border/70 bg-[var(--whatsapp-surface)] p-4"
               >
                 <div className="flex items-center gap-2">
                   <UiInput
@@ -223,7 +223,7 @@ export const ChatListDialog: React.FC<ChatListDialogProps> = ({
           ) : null}
         </div>
 
-        <UiDialogFooter className="border-t border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)]">
+        <UiDialogFooter className="border-t border-border/70 bg-[var(--whatsapp-surface-overlay)]">
           <UiButton variant="outline" onClick={handleClose}>
             إلغاء
           </UiButton>

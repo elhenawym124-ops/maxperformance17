@@ -68,10 +68,10 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
         aria-label="Close menu"
       />
       <div
-        className="fixed z-50 w-64 rounded-[24px] border border-[color:var(--shell-overlay-border)] bg-[var(--shell-overlay-bg)] p-2 shadow-[var(--shell-overlay-shadow)] ring-1 ring-[color:var(--shell-overlay-edge)]"
+        className="fixed z-50 w-64 rounded-[24px] border border-border/70 bg-popover p-2 shadow-md shadow-foreground/10 "
         style={{ left: messageMenuLeft, top: messageMenuTop }}
       >
-        <div className="mb-2 flex flex-wrap gap-1 border-b border-[color:var(--shell-control-border)] pb-2">
+        <div className="mb-2 flex flex-wrap gap-1 border-b border-border/70 pb-2">
           {commonReactions.map((emoji) => (
             <button
               key={emoji}
@@ -80,7 +80,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
                 onSendReaction(selectedMessage.messageId, emoji);
                 onClose();
               }}
-              className="flex size-9 items-center justify-center rounded-xl text-lg transition-colors hover:bg-[color:var(--shell-control-hover)]"
+              className="flex size-9 items-center justify-center rounded-xl text-lg transition-colors hover:bg-muted"
             >
               {emoji}
             </button>
@@ -105,7 +105,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
             onReply(selectedMessage);
             onClose();
           }}
-          className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-[color:var(--color-foreground)] transition-colors hover:bg-[color:var(--shell-control-hover)]"
+          className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
         >
           <Reply className="size-4" />
           <span>رد</span>
@@ -117,7 +117,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
             onCopy(selectedMessage);
             onClose();
           }}
-          className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-[color:var(--color-foreground)] transition-colors hover:bg-[color:var(--shell-control-hover)]"
+          className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
         >
           <Copy className="size-4" />
           <span>نسخ</span>
@@ -129,7 +129,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
             onForward(selectedMessage);
             onClose();
           }}
-          className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-[color:var(--color-foreground)] transition-colors hover:bg-[color:var(--shell-control-hover)]"
+          className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
         >
           <Forward className="size-4" />
           <span>إعادة توجيه</span>
@@ -141,7 +141,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
             onStarMessage(selectedMessage);
             onClose();
           }}
-          className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-[color:var(--color-foreground)] transition-colors hover:bg-[color:var(--shell-control-hover)]"
+          className="flex w-full items-center gap-2 rounded-[18px] px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
         >
           <Star className="size-4" />
           <span>تمييز بنجمة</span>
@@ -160,8 +160,8 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
             <span>إلغاء التثبيت</span>
           </button>
         ) : (
-          <div className="border-t border-[color:var(--shell-control-border)] pt-1.5 mt-1">
-            <div className="flex items-center gap-1.5 px-3 py-1 text-xs text-[color:var(--color-muted-foreground)]">
+          <div className="border-t border-border/70 pt-1.5 mt-1">
+            <div className="flex items-center gap-1.5 px-3 py-1 text-xs text-muted-foreground">
               <Pin className="size-3.5" />
               <span>تثبيت الرسالة لمدة:</span>
             </div>
@@ -172,7 +172,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
                   onPinMessage(selectedMessage, 86400);
                   onClose();
                 }}
-                className="rounded-xl px-1.5 py-1 text-xs text-center font-medium bg-[color:var(--shell-control-hover)] hover:bg-primary/20 transition-colors tabular-nums font-mono"
+                className="rounded-xl px-1.5 py-1 text-xs text-center font-medium bg-muted hover:bg-primary/20 transition-colors tabular-nums font-mono"
                 title="24 ساعة"
               >
                 24 س
@@ -183,7 +183,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
                   onPinMessage(selectedMessage, 604800);
                   onClose();
                 }}
-                className="rounded-xl px-1.5 py-1 text-xs text-center font-medium bg-[color:var(--shell-control-hover)] hover:bg-primary/20 transition-colors tabular-nums font-mono"
+                className="rounded-xl px-1.5 py-1 text-xs text-center font-medium bg-muted hover:bg-primary/20 transition-colors tabular-nums font-mono"
                 title="7 أيام"
               >
                 7 أيام
@@ -194,7 +194,7 @@ export const ChatMessageContextMenu: React.FC<ChatMessageContextMenuProps> = ({
                   onPinMessage(selectedMessage, 2592000);
                   onClose();
                 }}
-                className="rounded-xl px-1.5 py-1 text-xs text-center font-medium bg-[color:var(--shell-control-hover)] hover:bg-primary/20 transition-colors tabular-nums font-mono"
+                className="rounded-xl px-1.5 py-1 text-xs text-center font-medium bg-muted hover:bg-primary/20 transition-colors tabular-nums font-mono"
                 title="30 يوماً"
               >
                 30 يوم

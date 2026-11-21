@@ -90,7 +90,7 @@ export const EmployeeAnalyticsResponseChartsCard: React.FC<EmployeeAnalyticsResp
       {/* Response Rate Radial */}
       <motion.div
         variants={reducedMotion ? noMotion : itemSlide}
-        className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl"
+        className="relative overflow-hidden rounded-xl border border-border/70 bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl"
       >
         <div className="mb-4 flex items-center justify-between">
           <div className="space-y-1">
@@ -133,7 +133,7 @@ export const EmployeeAnalyticsResponseChartsCard: React.FC<EmployeeAnalyticsResp
       {/* Per-Employee Bar Chart */}
       <motion.div
         variants={reducedMotion ? noMotion : itemSlide}
-        className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl lg:col-span-2"
+        className="relative overflow-hidden rounded-xl border border-border/70 bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl lg:col-span-2"
       >
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">

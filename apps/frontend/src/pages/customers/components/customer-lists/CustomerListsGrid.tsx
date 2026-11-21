@@ -46,7 +46,7 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm"
+            className="rounded-xl border border-border/70 bg-[color:var(--color-card)] p-5 shadow-sm"
           >
             <Skeleton className="mb-3 h-5 w-1/3" />
             <Skeleton className="mb-2 h-4 w-full" />
@@ -60,13 +60,13 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
 
   if (lists.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-6 py-16 text-center sm:rounded-xl">
+      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-border/70 bg-[color:var(--color-card)] px-6 py-16 text-center sm:rounded-xl">
         <div className="flex size-14 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] text-[color:var(--color-primary)]">
           <Layers className="size-7" />
         </div>
         <div className="space-y-1">
-          <p className="font-semibold text-[color:var(--color-foreground)]">لا توجد قوائم بعد</p>
-          <p className="max-w-sm text-sm text-[color:var(--color-muted-foreground)]">
+          <p className="font-semibold text-foreground">لا توجد قوائم بعد</p>
+          <p className="max-w-sm text-sm text-muted-foreground">
             {searchTerm || filterType !== "all"
               ? "لم يتم العثور على قوائم تطابق البحث."
               : "أنشئ أول قائمة عملاء ذكية لاستهداف حملاتك بشكل دقيق."}
@@ -86,7 +86,7 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
       {lists.map((list) => (
         <div
           key={list.id}
-          className="group flex flex-col rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-raised sm:rounded-xl"
+          className="group flex flex-col rounded-xl border border-border/70 bg-[color:var(--color-card)] p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-raised sm:rounded-xl"
         >
           <div className="mb-3 flex items-start justify-between gap-2">
             <div className="flex min-w-0 items-center gap-3">
@@ -94,8 +94,8 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
                 <Users className="size-5" />
               </div>
               <div className="min-w-0">
-                <h3 className="truncate font-semibold text-[color:var(--color-foreground)]">{list.name}</h3>
-                <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                <h3 className="truncate font-semibold text-foreground">{list.name}</h3>
+                <p className="text-xs text-muted-foreground">
                   {list.isDefault ? "قائمة افتراضية" : formatDate(list.updatedAt)}
                 </p>
               </div>
@@ -108,21 +108,21 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
           </div>
 
           {list.description ? (
-            <p className="mb-3 line-clamp-2 text-sm text-[color:var(--color-muted-foreground)]">
+            <p className="mb-3 line-clamp-2 text-sm text-muted-foreground">
               {list.description}
             </p>
           ) : null}
 
-          <div className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-[color:var(--color-muted)] px-2.5 py-1 text-[11px] text-[color:var(--color-muted-foreground)]">
+          <div className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-[11px] text-muted-foreground">
             <ListFilter className="size-3" />
             {criteriaSummary(list.criteria, i18n?.language?.startsWith('en') ? 'en' : 'ar')}
           </div>
 
           <div className="mb-4 flex items-baseline gap-1.5">
-            <span className="text-2xl font-bold tabular-nums font-mono text-[color:var(--color-foreground)]">
+            <span className="text-2xl font-bold tabular-nums font-mono text-foreground">
               {list.count.toLocaleString("ar-EG")}
             </span>
-            <span className="text-sm text-[color:var(--color-muted-foreground)]">عميل</span>
+            <span className="text-sm text-muted-foreground">عميل</span>
             {!list.isDefault && list.isStale ? (
               <span
                 className="inline-flex items-center gap-1 rounded-full bg-warning px-2 py-0.5 text-[10px] font-medium text-warning dark:bg-warning/30 dark:text-warning"
@@ -133,7 +133,7 @@ export const CustomerListsGrid: React.FC<CustomerListsGridProps> = ({
             ) : null}
           </div>
 
-          <div className="mt-auto flex flex-wrap gap-1.5 border-t border-[color:color-mix(in_srgb,var(--shell-control-border)_60%,transparent)] pt-3">
+          <div className="mt-auto flex flex-wrap gap-1.5 border-t border-[color:color-mix(in_srgb,var(--color-border)_60%,transparent)] pt-3">
             <Button
               variant="outline"
               size="sm"

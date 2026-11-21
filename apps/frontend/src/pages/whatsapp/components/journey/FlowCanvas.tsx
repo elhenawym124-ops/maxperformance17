@@ -229,7 +229,7 @@ export function FlowCanvas({
   return (
     <div className="space-y-4">
       {/* Step nodes (full width) */}
-      <div className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-4 sm:p-5">
+      <div className="overflow-hidden rounded-xl border border-border/70 bg-[color:var(--color-card)] p-4 sm:p-5">
         {/* Header */}
         <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -238,10 +238,10 @@ export function FlowCanvas({
                 count: orderedSteps.length,
               })}
             </p>
-            <h3 className="mt-1 text-lg font-semibold text-[color:var(--color-foreground)]">
+            <h3 className="mt-1 text-lg font-semibold text-foreground">
               {t("whatsappJourney.steps.buildSequence")}
             </h3>
-            <p className="mt-1 text-xs text-[color:var(--color-muted-foreground)]">
+            <p className="mt-1 text-xs text-muted-foreground">
               {isAdmin
                 ? t("whatsappJourney.steps.dragHint")
                 : t("whatsappJourney.steps.readonlyHint")}
@@ -325,7 +325,7 @@ export function FlowCanvas({
 
       {/* Live WhatsApp preview (below, collapsible) */}
       {previewOpen && (
-        <div className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:color-mix(in_srgb,var(--color-muted)_50%,var(--color-background))] p-4 sm:p-5">
+        <div className="overflow-hidden rounded-xl border border-border/70 bg-[color:color-mix(in_srgb,var(--color-muted)_50%,var(--color-background))] p-4 sm:p-5">
           <WhatsAppPreviewPane step={activePreviewStep} totalSteps={orderedSteps.length} />
         </div>
       )}
@@ -419,7 +419,7 @@ function SortableStep({
               style={{
                 minHeight: 24,
                 background:
-                  "color-mix(in srgb, var(--shell-control-border) 60%, transparent)",
+                  "color-mix(in srgb, var(--color-border) 60%, transparent)",
               }}
               aria-hidden
             />
@@ -441,7 +441,7 @@ function SortableStep({
             {isAdmin && (
               <button
                 type="button"
-                className="flex shrink-0 cursor-grab items-center justify-center pt-0.5 text-[color:var(--color-muted-foreground)] opacity-0 transition-opacity group-hover:opacity-100 active:cursor-grabbing"
+                className="flex shrink-0 cursor-grab items-center justify-center pt-0.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 active:cursor-grabbing"
                 aria-label={t("whatsappJourney.steps.dragHint") as string}
                 {...attributes}
                 {...listeners}
@@ -453,12 +453,12 @@ function SortableStep({
             {/* Content */}
             <div className="min-w-0 flex-1 space-y-1.5">
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-[10px] font-bold tabular-nums text-[color:var(--color-muted-foreground)]">
+                <span className="text-[10px] font-bold tabular-nums text-muted-foreground">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <Badge
                   variant="outline"
-                  className="gap-1 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-1.5 py-px text-[10px] font-medium text-[color:var(--color-muted-foreground)]"
+                  className="gap-1 rounded-full border-border/70 bg-muted px-1.5 py-px text-[10px] font-medium text-muted-foreground"
                 >
                   <MessageSquare className="size-2.5" />
                   {t("whatsappJourney.steps.send")}
@@ -466,7 +466,7 @@ function SortableStep({
                 {step.delayDays > 0 ? (
                   <Badge
                     variant="outline"
-                    className="gap-1 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-1.5 py-px text-[10px] font-medium text-[color:var(--color-muted-foreground)]"
+                    className="gap-1 rounded-full border-border/70 bg-muted px-1.5 py-px text-[10px] font-medium text-muted-foreground"
                   >
                     {t("whatsappJourney.steps.waitDays", {
                       days: step.delayDays,
@@ -486,11 +486,11 @@ function SortableStep({
                 )}
               </div>
               <p
-                className="text-sm leading-5 text-[color:var(--color-foreground)]"
+                className="text-sm leading-5 text-foreground"
                 style={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}
               >
                 {step.content || (
-                  <span className="text-[color:var(--color-muted-foreground)]">
+                  <span className="text-muted-foreground">
                     {t("whatsappJourney.steps.emptyMessage")}
                   </span>
                 )}
@@ -524,7 +524,7 @@ function SortableStep({
               <div className="flex shrink-0 items-start gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
                 <button
                   type="button"
-                  className="flex size-7 items-center justify-center rounded-lg text-[color:var(--color-muted-foreground)] transition-colors hover:bg-[color:var(--color-muted)] hover:text-[color:var(--color-foreground)]"
+                  className="flex size-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   onClick={() => onEdit(step)}
                   aria-label={t("common.edit") as string}
                 >
@@ -532,7 +532,7 @@ function SortableStep({
                 </button>
                 <button
                   type="button"
-                  className="flex size-7 items-center justify-center rounded-lg text-[color:var(--color-muted-foreground)] transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-destructive)_12%,transparent)] hover:text-[color:var(--color-destructive)]"
+                  className="flex size-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-destructive)_12%,transparent)] hover:text-[color:var(--color-destructive)]"
                   onClick={() => onDelete(step)}
                   aria-label={t("common.delete") as string}
                 >
@@ -586,7 +586,7 @@ function ValidationBadge({
         "gap-1 rounded-full px-2.5 py-1 text-[10px] font-medium",
         isError
           ? "border-[color:color-mix(in_srgb,var(--color-destructive)_40%,transparent)] bg-[color:color-mix(in_srgb,var(--color-destructive)_10%,transparent)] text-[color:var(--color-destructive)]"
-          : "border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] text-[color:var(--color-muted-foreground)]",
+          : "border-border/70 bg-muted text-muted-foreground",
       )}
       title={issues.map((i) => i.message).join("\n")}
     >
@@ -605,16 +605,16 @@ function FlowEmptyState({ onAdd, isAdmin }: { onAdd: () => void; isAdmin: boolea
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.35 }}
-      className="flex min-h-[16rem] flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[color:color-mix(in_srgb,var(--color-card)_40%,transparent)] py-10 text-center"
+      className="flex min-h-[16rem] flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-[color:color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color:color-mix(in_srgb,var(--color-card)_40%,transparent)] py-10 text-center"
     >
       <div className="flex size-12 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
         <MessageSquare className="size-6" />
       </div>
       <div className="space-y-1">
-        <p className="text-base font-semibold text-[color:var(--color-foreground)]">
+        <p className="text-base font-semibold text-foreground">
           {t("whatsappJourney.steps.noStepsTitle")}
         </p>
-        <p className="mx-auto max-w-sm text-sm text-[color:var(--color-muted-foreground)]">
+        <p className="mx-auto max-w-sm text-sm text-muted-foreground">
           {t("whatsappJourney.steps.noStepsDesc")}
         </p>
       </div>
@@ -650,7 +650,7 @@ function WhatsAppPreviewPane({ step, totalSteps }: WhatsAppPreviewPaneProps) {
         </p>
         <motion.span
           key={step ? step.id || `idx-${step.stepOrder}` : "empty"}
-          className="text-xs font-medium text-[color:var(--color-muted-foreground)]"
+          className="text-xs font-medium text-muted-foreground"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.2 }}
@@ -666,7 +666,7 @@ function WhatsAppPreviewPane({ step, totalSteps }: WhatsAppPreviewPaneProps) {
 
       {/* WhatsApp message preview */}
       <div
-        className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] p-4"
+        className="overflow-hidden rounded-xl border border-border/70 p-4"
         style={{
           background: "#ECE5DD",
           backgroundImage:
@@ -726,8 +726,8 @@ function WhatsAppPreviewPane({ step, totalSteps }: WhatsAppPreviewPaneProps) {
       </div>
 
       {/* Variables legend */}
-      <details className="text-xs text-[color:var(--color-muted-foreground)]">
-        <summary className="cursor-pointer text-xs uppercase tracking-[0.1em] text-[color:var(--color-muted-foreground)]">
+      <details className="text-xs text-muted-foreground">
+        <summary className="cursor-pointer text-xs uppercase tracking-[0.1em] text-muted-foreground">
           {t("whatsappJourney.steps.variables")}
         </summary>
         <ul className="mt-2 space-y-1" style={{ paddingInlineStart: 0, listStyle: "none" }}>
@@ -736,10 +736,10 @@ function WhatsAppPreviewPane({ step, totalSteps }: WhatsAppPreviewPaneProps) {
               key={token}
               className="flex items-center justify-between text-xs"
             >
-              <code className="rounded bg-[color:var(--color-muted)] px-1.5 py-0.5 text-[color:var(--color-foreground)]">
+              <code className="rounded bg-muted px-1.5 py-0.5 text-foreground">
                 {token}
               </code>
-              <span className="text-[color:var(--color-muted-foreground)]">→ {value}</span>
+              <span className="text-muted-foreground">→ {value}</span>
             </li>
           ))}
         </ul>

@@ -185,7 +185,7 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
 
   if (loading) {
     return (
-      <div className="flex h-48 items-center justify-center text-sm text-[color:var(--color-muted-foreground)]">
+      <div className="flex h-48 items-center justify-center text-sm text-muted-foreground">
         <RefreshCw className="size-5 animate-spin ltr:me-2 rtl:ms-2" />
         {isAr ? "جاري تحميل إعدادات التقارير المجدولة..." : "Loading scheduled reports..."}
       </div>
@@ -227,14 +227,14 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
             <div className="space-y-4 pt-2">
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-[color:var(--color-muted-foreground)]">
+                  <Label className="text-xs font-medium text-muted-foreground">
                     {isAr ? "دورية الإرسال" : "Cadence"}
                   </Label>
                   <Select
                     value={config.frequency}
                     onValueChange={(val: "DAILY" | "WEEKLY") => setConfig((prev) => ({ ...prev, frequency: val }))}
                   >
-                    <SelectTrigger className="h-10 border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+                    <SelectTrigger className="h-10 border-border/70 bg-[color:var(--color-card)]">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -245,7 +245,7 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-[color:var(--color-muted-foreground)]">
+                  <Label className="text-xs font-medium text-muted-foreground">
                     {isAr ? "توقيت الإرسال بتوقيت المتجر" : "Send Time"}
                   </Label>
                   <div className="relative">
@@ -253,22 +253,22 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
                       type="time"
                       value={config.sendTime}
                       onChange={(e) => setConfig((prev) => ({ ...prev, sendTime: e.target.value }))}
-                      className="h-10 border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] font-mono tabular-nums"
+                      className="h-10 border-border/70 bg-[color:var(--color-card)] font-mono tabular-nums"
                     />
-                    <Clock className="pointer-events-none absolute top-3 size-4 text-[color:var(--color-muted-foreground)] ltr:right-3 rtl:left-3" />
+                    <Clock className="pointer-events-none absolute top-3 size-4 text-muted-foreground ltr:right-3 rtl:left-3" />
                   </div>
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-xs font-medium text-[color:var(--color-muted-foreground)]">
+                <Label className="text-xs font-medium text-muted-foreground">
                   {isAr ? "نوع التقرير" : "Report Type"}
                 </Label>
                 <Select
                   value={config.reportType}
                   onValueChange={(val) => setConfig((prev) => ({ ...prev, reportType: val }))}
                 >
-                  <SelectTrigger className="h-10 border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+                  <SelectTrigger className="h-10 border-border/70 bg-[color:var(--color-card)]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -282,7 +282,7 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-xs font-medium text-[color:var(--color-muted-foreground)]">
+                <Label className="text-xs font-medium text-muted-foreground">
                   {isAr ? "أرقام هواتف المستلمين (مفصولة بفواصل)" : "Recipient Phone Numbers (comma-separated)"}
                 </Label>
                 <div className="relative">
@@ -290,24 +290,24 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
                     placeholder="201012345678, 201298765432"
                     value={config.recipients}
                     onChange={(e) => setConfig((prev) => ({ ...prev, recipients: e.target.value }))}
-                    className="h-10 border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] font-mono text-sm tabular-nums"
+                    className="h-10 border-border/70 bg-[color:var(--color-card)] font-mono text-sm tabular-nums"
                   />
-                  <Smartphone className="pointer-events-none absolute top-3 size-4 text-[color:var(--color-muted-foreground)] ltr:right-3 rtl:left-3" />
+                  <Smartphone className="pointer-events-none absolute top-3 size-4 text-muted-foreground ltr:right-3 rtl:left-3" />
                 </div>
-                <p className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                <p className="text-[11px] text-muted-foreground">
                   {isAr ? "اكتب كود الدولة بدون علامة + (مثال: 2010xxxxxxx)" : "Use full international format without + (e.g. 2010xxxxxxx)"}
                 </p>
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-xs font-medium text-[color:var(--color-muted-foreground)]">
+                <Label className="text-xs font-medium text-muted-foreground">
                   {isAr ? "جلسة الواتساب المستخدمة" : "WhatsApp Session"}
                 </Label>
                 <Select
                   value={config.sessionId ?? "__default__"}
                   onValueChange={(val) => setConfig((prev) => ({ ...prev, sessionId: val === "__default__" ? null : val }))}
                 >
-                  <SelectTrigger className="h-10 border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+                  <SelectTrigger className="h-10 border-border/70 bg-[color:var(--color-card)]">
                     <SelectValue placeholder={isAr ? "الجلسة المتصلة الافتراضية" : "Default Connected Session"} />
                   </SelectTrigger>
                   <SelectContent>
@@ -321,31 +321,31 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
                 </Select>
               </div>
 
-              <div className="space-y-2 border-t border-[color:var(--shell-control-border)]/50 pt-3">
+              <div className="space-y-2 border-t border-border/70/50 pt-3">
                 <Label className="text-xs font-semibold">{isAr ? "أقسام التقرير المضمنة" : "Included Sections"}</Label>
                 <div className="grid gap-2 sm:grid-cols-2">
-                  <label className="flex items-center gap-2 rounded-lg border border-[color:var(--shell-control-border)]/40 p-2.5 text-xs transition-colors hover:bg-[color:var(--color-muted)]/20 cursor-pointer">
+                  <label className="flex items-center gap-2 rounded-lg border border-border/70/40 p-2.5 text-xs transition-colors hover:bg-muted/20 cursor-pointer">
                     <Switch
                       checked={config.includeSales}
                       onCheckedChange={(c) => setConfig((prev) => ({ ...prev, includeSales: c }))}
                     />
                     <span>{isAr ? "المبيعات والإيرادات" : "Sales & Revenue"}</span>
                   </label>
-                  <label className="flex items-center gap-2 rounded-lg border border-[color:var(--shell-control-border)]/40 p-2.5 text-xs transition-colors hover:bg-[color:var(--color-muted)]/20 cursor-pointer">
+                  <label className="flex items-center gap-2 rounded-lg border border-border/70/40 p-2.5 text-xs transition-colors hover:bg-muted/20 cursor-pointer">
                     <Switch
                       checked={config.includeOps}
                       onCheckedChange={(c) => setConfig((prev) => ({ ...prev, includeOps: c }))}
                     />
                     <span>{isAr ? "حالات العمليات والتجهيز" : "Fulfillment & Ops"}</span>
                   </label>
-                  <label className="flex items-center gap-2 rounded-lg border border-[color:var(--shell-control-border)]/40 p-2.5 text-xs transition-colors hover:bg-[color:var(--color-muted)]/20 cursor-pointer">
+                  <label className="flex items-center gap-2 rounded-lg border border-border/70/40 p-2.5 text-xs transition-colors hover:bg-muted/20 cursor-pointer">
                     <Switch
                       checked={config.includeTopItems}
                       onCheckedChange={(c) => setConfig((prev) => ({ ...prev, includeTopItems: c }))}
                     />
                     <span>{isAr ? "أكثر المنتجات طلباً" : "Top Selling Items"}</span>
                   </label>
-                  <label className="flex items-center gap-2 rounded-lg border border-[color:var(--shell-control-border)]/40 p-2.5 text-xs transition-colors hover:bg-[color:var(--color-muted)]/20 cursor-pointer">
+                  <label className="flex items-center gap-2 rounded-lg border border-border/70/40 p-2.5 text-xs transition-colors hover:bg-muted/20 cursor-pointer">
                     <Switch
                       checked={config.includeStock}
                       onCheckedChange={(c) => setConfig((prev) => ({ ...prev, includeStock: c }))}
@@ -355,8 +355,8 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
                 </div>
               </div>
 
-              <div className="flex items-center justify-between border-t border-[color:var(--shell-control-border)]/50 pt-4">
-                <div className="text-xs text-[color:var(--color-muted-foreground)]">
+              <div className="flex items-center justify-between border-t border-border/70/50 pt-4">
+                <div className="text-xs text-muted-foreground">
                   {config.lastSentAt ? (
                     <span className="tabular-nums">
                       {isAr ? "آخر إرسال: " : "Last sent: "}
@@ -400,7 +400,7 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
               </Button>
             }
           >
-            <div className="relative rounded-xl border border-[color:var(--shell-control-border)]/60 bg-[#e5ddd5]/30 p-4 dark:bg-muted">
+            <div className="relative rounded-xl border border-border/70/60 bg-[#e5ddd5]/30 p-4 dark:bg-muted">
               <div className="rounded-xl border border-white/20 bg-white/95 p-3.5 shadow-sm dark:border-white/10 dark:bg-muted">
                 <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed text-foreground dark:text-muted-foreground">
                   {previewText || (isAr ? "جاري تجهيز بيانات التقرير..." : "Preparing report data...")}
@@ -419,7 +419,7 @@ export const WhatsAppScheduledReportsTab: React.FC<WhatsAppScheduledReportsTabPr
                   placeholder="2010xxxxxxxx"
                   value={testPhone}
                   onChange={(e) => setTestPhone(e.target.value)}
-                  className="h-10 border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] font-mono text-sm tabular-nums"
+                  className="h-10 border-border/70 bg-[color:var(--color-card)] font-mono text-sm tabular-nums"
                 />
                 <Button
                   onClick={handleTestSend}

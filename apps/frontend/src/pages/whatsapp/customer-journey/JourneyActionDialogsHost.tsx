@@ -136,7 +136,7 @@ export const JourneyActionDialogsHost: React.FC<JourneyActionDialogsHostProps> =
       >
         <AlertDialogContent
           size="sm"
-          className="rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)]"
+          className="rounded-xl border-border/70 bg-[var(--app-panel-bg)]"
         >
           <AlertDialogHeader>
             <AlertDialogMedia className="rounded-xl bg-destructive/10 text-destructive dark:text-destructive">
@@ -145,7 +145,7 @@ export const JourneyActionDialogsHost: React.FC<JourneyActionDialogsHostProps> =
             <AlertDialogTitle>{flowDeleteTitle}</AlertDialogTitle>
             <AlertDialogDescription>{flowDeleteDescription}</AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="rounded-b-3xl border-t border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] bg-[color:color-mix(in_srgb,var(--color-background)_86%,var(--shell-control-bg)_14%)]">
+          <AlertDialogFooter className="rounded-b-3xl border-t border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] bg-[color:color-mix(in_srgb,var(--color-background)_86%,var(--color-card)_14%)]">
             <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
             <AlertDialogAction
               variant="destructive"

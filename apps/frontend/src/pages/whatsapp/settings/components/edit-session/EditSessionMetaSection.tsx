@@ -31,8 +31,8 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
   return (
     <div className="space-y-4">
       {/* Auth Details */}
-      <div className="rounded-xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
-        <h4 className="flex items-center gap-2 text-sm font-semibold text-[color:var(--color-foreground)]">
+      <div className="rounded-xl border border-border/70 p-5 space-y-4 bg-[color:var(--color-card)]">
+        <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <Key className="size-4 text-[color:var(--color-primary)]" />
           {t("whatsappSettings.dialogs.authDetails")}
         </h4>
@@ -85,8 +85,8 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
       </div>
 
       {/* Account Info */}
-      <div className="rounded-xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
-        <h4 className="flex items-center gap-2 text-sm font-semibold text-[color:var(--color-foreground)]">
+      <div className="rounded-xl border border-border/70 p-5 space-y-4 bg-[color:var(--color-card)]">
+        <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <Briefcase className="size-4 text-[color:var(--color-primary)]" />
           {t("whatsappSettings.dialogs.accountDetails")}
         </h4>
@@ -157,7 +157,7 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
       {/* Webhook Settings */}
       <div className="rounded-xl border border-info/30 bg-info/5 p-5 space-y-4">
         <div className="flex items-center justify-between">
-          <h4 className="flex items-center gap-2 text-sm font-semibold text-[color:var(--color-foreground)]">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <Globe className="size-4 text-info dark:text-info" />
             إعدادات رد الاتصال (Meta Webhook)
           </h4>
@@ -184,13 +184,13 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
                 id="edit-meta-webhook-url"
                 readOnly
                 value={getMetaWebhookUrl()}
-                className="h-11 bg-[color:var(--color-card)] font-mono text-xs select-all text-[color:var(--color-foreground)]"
+                className="h-11 bg-[color:var(--color-card)] font-mono text-xs select-all text-foreground"
                 dir="ltr"
               />
               <Button
                 type="button"
                 variant="outline"
-                className="h-11 px-3 border-[color:var(--shell-control-border)] cursor-pointer shrink-0 gap-1.5"
+                className="h-11 px-3 border-border/70 cursor-pointer shrink-0 gap-1.5"
                 onClick={() => {
                   navigator.clipboard.writeText(getMetaWebhookUrl());
                   toast.success("تم نسخ رابط الويب هوك بنجاح");
@@ -207,7 +207,7 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
               <Label htmlFor="edit-meta-verify">
                 {t("whatsappSettings.dialogs.metaWebhookVerifyToken")}
               </Label>
-              <span className="text-[10px] text-[color:var(--color-muted-foreground)]">
+              <span className="text-[10px] text-muted-foreground">
                 ضعه في خانة Verify Token في Meta
               </span>
             </div>
@@ -231,7 +231,7 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
               <Button
                 type="button"
                 variant="outline"
-                className="h-11 px-3 border-[color:var(--shell-control-border)] cursor-pointer shrink-0 gap-1.5"
+                className="h-11 px-3 border-border/70 cursor-pointer shrink-0 gap-1.5"
                 onClick={() => {
                   if (editingSession.metaWebhookVerifyToken) {
                     navigator.clipboard.writeText(
@@ -248,7 +248,7 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
               <Button
                 type="button"
                 variant="outline"
-                className="h-11 px-3 border-[color:var(--shell-control-border)] cursor-pointer shrink-0"
+                className="h-11 px-3 border-border/70 cursor-pointer shrink-0"
                 onClick={() => {
                   const chars =
                     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -277,9 +277,9 @@ export const EditSessionMetaSection: React.FC<EditSessionMetaSectionProps> = ({
       </div>
 
       {/* Advanced Settings */}
-      <div className="rounded-xl border border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[color:var(--color-card)]">
-        <h4 className="flex items-center gap-2 text-sm font-semibold text-[color:var(--color-foreground)]">
-          <Settings className="size-4 text-[color:var(--color-muted-foreground)]" />
+      <div className="rounded-xl border border-border/70 p-5 space-y-4 bg-[color:var(--color-card)]">
+        <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <Settings className="size-4 text-muted-foreground" />
           {t("whatsappSettings.dialogs.advancedSettings")}
         </h4>
         <div className="grid gap-4 sm:grid-cols-2">

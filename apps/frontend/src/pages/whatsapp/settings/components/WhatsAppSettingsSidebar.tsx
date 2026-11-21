@@ -110,7 +110,7 @@ export const WhatsAppSettingsNav: React.FC<WhatsAppSettingsNavProps> = ({
                 "flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all whitespace-nowrap active:scale-95 min-h-[40px] cursor-pointer",
                 selected
                   ? "bg-[color:var(--business-success)] text-white shadow-sm ring-2 ring-[color:var(--business-success)]/20"
-                  : "border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] text-[color:var(--color-foreground)] hover:bg-[color:var(--color-muted)]",
+                  : "border border-border/70 bg-[color:var(--color-card)] text-foreground hover:bg-muted",
               )}
             >
               <Icon className="size-4 shrink-0" />

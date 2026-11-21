@@ -57,9 +57,9 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
       <UiSheetContent
         side="right"
         dir="rtl"
-        className="w-full max-w-md border-l border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="w-full max-w-md border-l border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <UiSheetHeader className="border-b border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-6 py-6 text-start">
+        <UiSheetHeader className="border-b border-border/70 bg-muted px-6 py-6 text-start">
           <div className="flex flex-col items-center gap-4 pt-7">
             <UiAvatar className="size-28 shadow-[0_18px_40px_rgba(15,27,45,0.12)]">
               <UiAvatarImage src={getInboxExternalImageUrl(contact.profilePicUrl) || undefined} />
@@ -70,7 +70,7 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
             <div className="min-w-0 max-w-full space-y-3 text-center">
               <UiSheetTitle
                 dir="auto"
-                className="mx-auto max-w-full break-words text-center text-xl leading-7 text-[color:var(--color-foreground)]"
+                className="mx-auto max-w-full break-words text-center text-xl leading-7 text-foreground"
               >
                 {contactName}
               </UiSheetTitle>
@@ -81,7 +81,7 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
                 <a
                   href={contactPhoneHref}
                   dir="ltr"
-                  className="mx-auto inline-flex h-9 max-w-full items-center justify-center gap-2 rounded-full border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-input-bg)] px-3 font-mono text-sm font-semibold tracking-normal text-[color:var(--color-foreground)] shadow-[0_10px_24px_rgba(15,27,45,0.08)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+                  className="mx-auto inline-flex h-9 max-w-full items-center justify-center gap-2 rounded-full border border-border/70 bg-[var(--whatsapp-input-bg)] px-3 font-mono text-sm font-semibold tracking-normal text-foreground shadow-[0_10px_24px_rgba(15,27,45,0.08)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
                 >
                   <Phone className="size-4 text-[color:var(--color-primary)]" />
                   <span className="truncate tabular-nums font-mono">{contactPhoneLabel}</span>
@@ -92,33 +92,33 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
         </UiSheetHeader>
 
         <div className="space-y-5 overflow-y-auto px-6 py-6">
-          <div className="overflow-hidden rounded-[22px] border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-strong)] shadow-[0_14px_34px_rgba(15,27,45,0.05)]">
+          <div className="overflow-hidden rounded-[22px] border border-border/70 bg-[var(--whatsapp-surface-strong)] shadow-[0_14px_34px_rgba(15,27,45,0.05)]">
             <button
               type="button"
-              className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-[color:var(--color-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+              className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
             >
               <span>الوسائط والروابط والمستندات</span>
-              <span className="rounded-full bg-black/5 px-2 py-0.5 text-xs text-[color:var(--color-muted-foreground)] tabular-nums font-mono">
+              <span className="rounded-full bg-black/5 px-2 py-0.5 text-xs text-muted-foreground tabular-nums font-mono">
                 0
               </span>
             </button>
-            <div className="h-px bg-[color:var(--shell-control-border)]" />
+            <div className="h-px bg-border/70" />
             <button
               type="button"
               onClick={onLoadStarredMessages}
-              className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-[color:var(--color-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+              className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
             >
               <span>الرسائل المميزة بنجمة</span>
               <Star className="size-4 text-warning dark:text-warning" />
             </button>
-            <div className="h-px bg-[color:var(--shell-control-border)]" />
+            <div className="h-px bg-border/70" />
             <button
               type="button"
               onClick={() => onMuteChat(contact)}
-              className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-[color:var(--color-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+              className="flex min-h-12 w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
             >
               <span>كتم الإشعارات</span>
-              <span className="text-xs text-[color:var(--color-muted-foreground)]">
+              <span className="text-xs text-muted-foreground">
                 {contact.isMuted ? 'مفعل' : 'غير مفعل'}
               </span>
             </button>

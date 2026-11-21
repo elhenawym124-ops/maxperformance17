@@ -122,10 +122,10 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="max-w-2xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="max-w-2xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <DialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
-          <DialogTitle className="flex items-center gap-2 text-lg text-[color:var(--color-foreground)]">
+        <DialogHeader className="border-b border-border/70 px-6 py-5">
+          <DialogTitle className="flex items-center gap-2 text-lg text-foreground">
             <Sparkles className="size-5 text-[color:var(--color-primary)]" />
             إرسال رسالة بأزرار تفاعلية (Native Flow)
           </DialogTitle>
@@ -136,7 +136,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
 
         <div className="max-h-[70vh] space-y-4 overflow-y-auto px-6 py-6">
           <div className="space-y-1.5">
-            <Label className="text-xs font-semibold text-[color:var(--color-foreground)]">
+            <Label className="text-xs font-semibold text-foreground">
               العنوان الرئيسي (اختياري)
             </Label>
             <Input
@@ -148,7 +148,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-xs font-semibold text-[color:var(--color-foreground)]">
+            <Label className="text-xs font-semibold text-foreground">
               نص الرسالة *
             </Label>
             <Textarea
@@ -161,7 +161,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-xs font-semibold text-[color:var(--color-foreground)]">
+            <Label className="text-xs font-semibold text-foreground">
               نص التذييل (Footer - اختياري)
             </Label>
             <Input
@@ -174,7 +174,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
 
           <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-semibold text-[color:var(--color-foreground)]">
+              <Label className="text-xs font-semibold text-foreground">
                 الأزرار التفاعلية ({buttons.length}/3)
               </Label>
               {buttons.length < 3 && (
@@ -195,7 +195,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
               {buttons.map((btn, index) => (
                 <div
                   key={index}
-                  className="rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-3 space-y-2.5"
+                  className="rounded-xl border border-border/70 bg-[var(--whatsapp-surface-muted)] p-3 space-y-2.5"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5 text-xs font-bold text-[color:var(--color-primary)]">
@@ -240,7 +240,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div className="space-y-1">
-                      <span className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                      <span className="text-[11px] text-muted-foreground">
                         نص الزر الظاهر للعميل
                       </span>
                       <Input
@@ -255,7 +255,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
 
                     {btn.type === "copy" && (
                       <div className="space-y-1">
-                        <span className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                        <span className="text-[11px] text-muted-foreground">
                           الكود الذي سيتم نسخه
                         </span>
                         <Input
@@ -271,7 +271,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
 
                     {btn.type === "url" && (
                       <div className="space-y-1">
-                        <span className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                        <span className="text-[11px] text-muted-foreground">
                           الرابط (URL)
                         </span>
                         <Input
@@ -287,7 +287,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
 
                     {btn.type === "call" && (
                       <div className="space-y-1">
-                        <span className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                        <span className="text-[11px] text-muted-foreground">
                           رقم الهاتف للاتصال
                         </span>
                         <Input
@@ -307,7 +307,7 @@ export const InteractiveButtonsModal: React.FC<InteractiveButtonsModalProps> = (
           </div>
         </div>
 
-        <DialogFooter className="border-t border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] px-6 py-4">
+        <DialogFooter className="border-t border-border/70 bg-[var(--whatsapp-surface-overlay)] px-6 py-4">
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}

@@ -38,7 +38,7 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
       }
     >
       {quickReplies.length === 0 ? (
-        <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+        <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
           <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
           <AlertTitle>{t("whatsappSettings.quickReplies")}</AlertTitle>
           <AlertDescription>{t("whatsappSettings.noQuickReplies")}</AlertDescription>
@@ -48,18 +48,18 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
           {quickReplies.map((reply) => (
             <div
               key={reply.id}
-              className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4 shadow-sm"
+              className="rounded-xl border border-border/70 bg-[color:var(--color-card)] px-4 py-4 shadow-sm"
             >
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div className="space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-base font-semibold text-[color:var(--color-foreground)]">
+                    <p className="text-base font-semibold text-foreground">
                       {reply.title}
                     </p>
                     {reply.shortcut ? (
                       <Badge
                         variant="outline"
-                        className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] font-mono"
+                        className="rounded-full border-border/70 bg-[color:var(--color-card)] font-mono"
                       >
                         {reply.shortcut}
                       </Badge>
@@ -80,7 +80,7 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
                     ) : null}
                   </div>
 
-                  <p className="max-w-3xl text-sm leading-6 text-[color:var(--color-muted-foreground)]">
+                  <p className="max-w-3xl text-sm leading-6 text-muted-foreground">
                     {reply.content}
                   </p>
                 </div>
@@ -88,13 +88,13 @@ export const WhatsAppQuickRepliesTab: React.FC<WhatsAppQuickRepliesTabProps> = (
                 <div className="flex flex-wrap items-center gap-2 lg:justify-end">
                   <Badge
                     variant="outline"
-                    className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] font-mono tabular-nums"
+                    className="rounded-full border-border/70 bg-[color:var(--color-card)] font-mono tabular-nums"
                   >
                     {t("whatsappSettings.usedTimes", { count: reply.usageCount })}
                   </Badge>
                   <Button
                     variant="outline"
-                    className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
+                    className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
                     onClick={() => onEdit(reply)}
                   >
                     <Edit className="size-4" />

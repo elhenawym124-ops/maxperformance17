@@ -151,7 +151,7 @@ export const WindowPolicySettingsTab: React.FC = () => {
       >
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label className="text-sm font-semibold text-[color:var(--color-foreground)]">
+            <Label className="text-sm font-semibold text-foreground">
               سلوك المراسلة المعتمد خارج النافذة:
             </Label>
             <Select
@@ -160,7 +160,7 @@ export const WindowPolicySettingsTab: React.FC = () => {
                 setConfig((prev) => ({ ...prev, windowPolicy: val }))
               }
             >
-              <SelectTrigger className="w-full bg-[color:var(--color-card)] h-11 border-[color:var(--shell-control-border)]">
+              <SelectTrigger className="w-full bg-[color:var(--color-card)] h-11 border-border/70">
                 <SelectValue placeholder="اختر السياسة" />
               </SelectTrigger>
               <SelectContent>
@@ -175,7 +175,7 @@ export const WindowPolicySettingsTab: React.FC = () => {
                 </SelectItem>
               </SelectContent>
             </Select>
-            <p className="text-xs text-[color:var(--color-muted-foreground)]">
+            <p className="text-xs text-muted-foreground">
               {config.windowPolicy === "SMART_FALLBACK" &&
                 "الوضع الافتراضي الأكثر موثوقية: يضمن وصول الرسالة للعميل حتى إذا لم يتوفر قالب معتمد للحدث."}
               {config.windowPolicy === "TEMPLATE_ONLY" &&
@@ -185,10 +185,10 @@ export const WindowPolicySettingsTab: React.FC = () => {
             </p>
           </div>
 
-          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-3.5 flex items-start gap-3">
+          <div className="rounded-xl border border-border/70 bg-muted/30 p-3.5 flex items-start gap-3">
             <Clock className="size-5 shrink-0 text-warning mt-0.5" />
-            <div className="text-xs space-y-1 text-[color:var(--color-muted-foreground)]">
-              <span className="font-semibold text-[color:var(--color-foreground)] block">
+            <div className="text-xs space-y-1 text-muted-foreground">
+              <span className="font-semibold text-foreground block">
                 كيف تعمل النافذة تلقائياً؟
               </span>
               <span>
@@ -205,12 +205,12 @@ export const WindowPolicySettingsTab: React.FC = () => {
         description="تفعيل وإعداد بوابة SMS لإرسال الرسائل البديلة عند انغلاق نافذة الواتساب أو فشل التسليم"
       >
         <div className="space-y-5">
-          <div className="flex items-center justify-between border-b border-[color:var(--shell-control-border)]/60 pb-3">
+          <div className="flex items-center justify-between border-b border-border/70/60 pb-3">
             <div className="space-y-0.5">
-              <Label className="text-sm font-semibold text-[color:var(--color-foreground)]">
+              <Label className="text-sm font-semibold text-foreground">
                 تفعيل التحويل التلقائي لـ SMS (SMS Fallback)
               </Label>
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 إرسال الرسالة كـ SMS في حال تعذر إرسالها عبر واتساب
               </p>
             </div>
@@ -233,7 +233,7 @@ export const WindowPolicySettingsTab: React.FC = () => {
                       setConfig((prev) => ({ ...prev, smsProvider: val }))
                     }
                   >
-                    <SelectTrigger className="bg-[color:var(--color-card)] border-[color:var(--shell-control-border)]">
+                    <SelectTrigger className="bg-[color:var(--color-card)] border-border/70">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -369,8 +369,8 @@ export const WindowPolicySettingsTab: React.FC = () => {
               )}
 
               {/* قسم اختبار الإرسال السريع */}
-              <div className="mt-4 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-4 space-y-3">
-                <Label className="text-xs font-semibold text-[color:var(--color-foreground)] flex items-center gap-1.5">
+              <div className="mt-4 rounded-xl border border-border/70 bg-[color:var(--color-card)] p-4 space-y-3">
+                <Label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
                   <Smartphone className="size-4 text-[color:var(--color-primary)]" />
                   اختبار بوابة الـ SMS:
                 </Label>

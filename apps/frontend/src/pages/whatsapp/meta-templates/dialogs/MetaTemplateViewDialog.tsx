@@ -39,7 +39,7 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <div>
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 الحالة
               </p>
               <Badge
@@ -51,7 +51,7 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
               </Badge>
             </div>
             <div>
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 التصنيف
               </p>
               <p className="mt-1 font-medium text-xs sm:text-sm">
@@ -59,7 +59,7 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
               </p>
             </div>
             <div>
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 القسم
               </p>
               <Badge
@@ -71,7 +71,7 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
               </Badge>
             </div>
             <div>
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 اللغة
               </p>
               <p className="mt-1 font-medium font-mono text-xs sm:text-sm">
@@ -82,7 +82,7 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
 
           {viewTemplate.rejected_reason && (
             <div>
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 سبب الرفض
               </p>
               <p className="mt-1 font-medium text-xs text-destructive">
@@ -91,20 +91,20 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
             </div>
           )}
 
-          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] p-4 space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-muted-foreground)]">
+          <div className="rounded-xl border border-border/70 bg-[var(--color-muted)] p-4 space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               معاينة المكونات
             </p>
             {viewTemplate.components?.map((c, i) => {
               if (c.type === "HEADER") {
                 return (
                   <div key={i} className="space-y-1">
-                    <p className="text-[10px] font-medium text-[color:var(--color-muted-foreground)]">
+                    <p className="text-[10px] font-medium text-muted-foreground">
                       {(c.format || "TEXT") === "TEXT"
                         ? "رأس الرسالة"
                         : `رأس (${c.format})`}
                     </p>
-                    <p className="rounded-xl bg-[var(--shell-overlay-bg)] px-3 py-2 text-sm font-medium">
+                    <p className="rounded-xl bg-popover px-3 py-2 text-sm font-medium">
                       {c.text || "(بدون نص)"}
                     </p>
                   </div>
@@ -113,10 +113,10 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
               if (c.type === "BODY") {
                 return (
                   <div key={i} className="space-y-1">
-                    <p className="text-[10px] font-medium text-[color:var(--color-muted-foreground)]">
+                    <p className="text-[10px] font-medium text-muted-foreground">
                       محتوى الرسالة
                     </p>
-                    <p className="rounded-xl bg-[var(--shell-overlay-bg)] px-3 py-2 text-sm whitespace-pre-wrap leading-relaxed">
+                    <p className="rounded-xl bg-popover px-3 py-2 text-sm whitespace-pre-wrap leading-relaxed">
                       {c.text || "(بدون نص)"}
                     </p>
                   </div>
@@ -125,10 +125,10 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
               if (c.type === "FOOTER") {
                 return (
                   <div key={i} className="space-y-1">
-                    <p className="text-[10px] font-medium text-[color:var(--color-muted-foreground)]">
+                    <p className="text-[10px] font-medium text-muted-foreground">
                       تذييل
                     </p>
-                    <p className="rounded-xl bg-[var(--shell-overlay-bg)] px-3 py-2 text-xs text-[color:var(--color-muted-foreground)]">
+                    <p className="rounded-xl bg-popover px-3 py-2 text-xs text-muted-foreground">
                       {c.text || "(بدون نص)"}
                     </p>
                   </div>
@@ -137,14 +137,14 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
               if (c.type === "BUTTONS") {
                 return (
                   <div key={i} className="space-y-1">
-                    <p className="text-[10px] font-medium text-[color:var(--color-muted-foreground)]">
+                    <p className="text-[10px] font-medium text-muted-foreground">
                       أزرار
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {c.buttons?.map((b, bi) => (
                         <span
                           key={bi}
-                          className="rounded-full border border-[color:var(--shell-control-border)] bg-[var(--shell-overlay-bg)] px-3 py-1 text-xs"
+                          className="rounded-full border border-border/70 bg-popover px-3 py-1 text-xs"
                         >
                           {b.text}
                         </span>
@@ -156,7 +156,7 @@ export const MetaTemplateViewDialog: React.FC<MetaTemplateViewDialogProps> = ({
               return null;
             })}
             {(!viewTemplate.components || viewTemplate.components.length === 0) && (
-              <p className="py-4 text-center text-sm text-[color:var(--color-muted-foreground)]">
+              <p className="py-4 text-center text-sm text-muted-foreground">
                 لا توجد تفاصيل للمكونات
               </p>
             )}

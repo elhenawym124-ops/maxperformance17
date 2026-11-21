@@ -26,10 +26,10 @@ export const HeaderMediaUploadField: React.FC<HeaderMediaUploadFieldProps> = ({
   return (
     <div className="flex h-11 flex-1 items-center gap-2">
       {handle ? (
-        <div className="flex h-full flex-1 items-center gap-2 rounded-lg border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] px-3">
-          <FileText className="ms-1 size-4 shrink-0 text-[color:var(--color-muted-foreground)]" />
+        <div className="flex h-full flex-1 items-center gap-2 rounded-lg border border-border/70 bg-[var(--color-muted)] px-3">
+          <FileText className="ms-1 size-4 shrink-0 text-muted-foreground" />
           <span
-            className="flex-1 truncate text-sm text-[color:var(--color-muted-foreground)]"
+            className="flex-1 truncate text-sm text-muted-foreground"
             dir="ltr"
           >
             {fileName || handle}

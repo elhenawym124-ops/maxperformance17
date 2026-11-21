@@ -64,9 +64,9 @@ export const TemplateMessageContent: React.FC<TemplateMessageContentProps> = ({
             className="max-h-[14rem] max-w-full rounded-lg"
           />
         ) : isDocumentHeader ? (
-          <div className="flex min-w-[14rem] items-center gap-3 rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2">
+          <div className="flex min-w-[14rem] items-center gap-3 rounded-xl border border-[color:color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2">
             <FileText className="size-5 text-destructive" />
-            <span className="truncate text-xs font-medium text-[color:var(--color-foreground)]">
+            <span className="truncate text-xs font-medium text-foreground">
               {message.mediaFileName || t("whatsapp.media.document", "مستند القالب")}
             </span>
             <a
@@ -101,7 +101,7 @@ export const TemplateMessageContent: React.FC<TemplateMessageContentProps> = ({
       {showBodyText ? (
         <LinkifiedText
           text={bodyContent}
-          className="block whitespace-pre-wrap text-sm leading-[1.45] text-[color:var(--color-foreground)]"
+          className="block whitespace-pre-wrap text-sm leading-[1.45] text-foreground"
         />
       ) : null}
       {renderButtonsBlock()}

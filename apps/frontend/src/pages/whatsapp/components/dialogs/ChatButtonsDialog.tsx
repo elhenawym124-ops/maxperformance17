@@ -43,10 +43,10 @@ export const ChatButtonsDialog: React.FC<ChatButtonsDialogProps> = ({
     <UiDialog open={open} onOpenChange={onOpenChange}>
       <UiDialogContent
         showCloseButton={false}
-        className="max-w-2xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="max-w-2xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <UiDialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
-          <UiDialogTitle className="flex items-center gap-2 text-lg text-[color:var(--color-foreground)]">
+        <UiDialogHeader className="border-b border-border/70 px-6 py-5">
+          <UiDialogTitle className="flex items-center gap-2 text-lg text-foreground">
             <MousePointerSquare className="size-5 text-[color:var(--color-primary)]" />
             <span>إرسال رسالة بأزرار</span>
           </UiDialogTitle>
@@ -54,7 +54,7 @@ export const ChatButtonsDialog: React.FC<ChatButtonsDialogProps> = ({
 
         <div className="space-y-4 px-6 py-6">
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-[color:var(--color-foreground)]">
+            <label className="text-sm font-semibold text-foreground">
               نص الرسالة
             </label>
             <UiTextarea
@@ -67,7 +67,7 @@ export const ChatButtonsDialog: React.FC<ChatButtonsDialogProps> = ({
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-[color:var(--color-foreground)]">
+            <label className="text-sm font-semibold text-foreground">
               نص التذييل
             </label>
             <UiInput
@@ -80,10 +80,10 @@ export const ChatButtonsDialog: React.FC<ChatButtonsDialogProps> = ({
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-[color:var(--color-foreground)]">
+              <label className="text-sm font-semibold text-foreground">
                 الأزرار
               </label>
-              <span className="text-xs text-[color:var(--color-muted-foreground)] tabular-nums font-mono">
+              <span className="text-xs text-muted-foreground tabular-nums font-mono">
                 بحد أقصى 3
               </span>
             </div>
@@ -135,7 +135,7 @@ export const ChatButtonsDialog: React.FC<ChatButtonsDialogProps> = ({
           </div>
         </div>
 
-        <UiDialogFooter className="border-t border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)]">
+        <UiDialogFooter className="border-t border-border/70 bg-[var(--whatsapp-surface-overlay)]">
           <UiButton variant="outline" onClick={handleClose}>
             إلغاء
           </UiButton>

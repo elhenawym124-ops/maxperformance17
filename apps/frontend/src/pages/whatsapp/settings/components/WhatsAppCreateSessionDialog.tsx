@@ -122,8 +122,8 @@ export const WhatsAppCreateSessionDialog: React.FC<
         }
       }}
     >
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-2xl">
-        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-0 sm:max-w-2xl">
+        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>{t("whatsappSettings.dialogs.addSessionTitle")}</DialogTitle>
           <DialogDescription>{t("whatsappSettings.description")}</DialogDescription>
         </DialogHeader>
@@ -131,7 +131,7 @@ export const WhatsAppCreateSessionDialog: React.FC<
         {/* Stepper progress indicator */}
         <div className="px-6 pt-4">
           <div className="relative flex items-center justify-between px-2 pt-2">
-            <div className="absolute top-[18px] left-[10%] right-[10%] h-0.5 bg-[color:var(--shell-control-border)] -z-10 overflow-hidden">
+            <div className="absolute top-[18px] left-[10%] right-[10%] h-0.5 bg-border/70 -z-10 overflow-hidden">
               <div
                 className="h-full bg-[color:var(--color-primary)] transition-all duration-300"
                 style={{
@@ -160,7 +160,7 @@ export const WhatsAppCreateSessionDialog: React.FC<
                         ? "border-[color:var(--color-primary)] bg-[color:var(--color-primary)] text-white"
                         : isActive
                         ? "border-[color:var(--color-primary)] bg-[var(--app-panel-bg)] text-[color:var(--color-primary)] ring-4 ring-primary/15"
-                        : "border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] text-[color:var(--color-muted-foreground)]",
+                        : "border-border/70 bg-[var(--app-panel-bg)] text-muted-foreground",
                     )}
                   >
                     {isCompleted ? (
@@ -174,7 +174,7 @@ export const WhatsAppCreateSessionDialog: React.FC<
                       "text-[11px] sm:text-xs font-medium text-center",
                       isActive
                         ? "text-[color:var(--color-primary)] font-semibold"
-                        : "text-[color:var(--color-muted-foreground)]",
+                        : "text-muted-foreground",
                     )}
                   >
                     {step.label}
@@ -256,12 +256,12 @@ export const WhatsAppCreateSessionDialog: React.FC<
           )}
         </div>
 
-        <DialogFooter className="px-6 border-t border-[color:color-mix(in_srgb,var(--shell-control-border)_40%,transparent)] pt-4 pb-6 flex items-center justify-between sm:justify-between">
+        <DialogFooter className="px-6 border-t border-[color:color-mix(in_srgb,var(--color-border)_40%,transparent)] pt-4 pb-6 flex items-center justify-between sm:justify-between">
           <div>
             {wizardStep > 1 ? (
               <Button
                 variant="outline"
-                className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)] cursor-pointer"
+                className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)] cursor-pointer"
                 onClick={() => setWizardStep((prev) => prev - 1)}
               >
                 <ChevronLeft className="size-4 rtl:rotate-180" />
@@ -270,7 +270,7 @@ export const WhatsAppCreateSessionDialog: React.FC<
             ) : (
               <Button
                 variant="outline"
-                className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)] cursor-pointer"
+                className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)] cursor-pointer"
                 onClick={() => onOpenChange(false)}
               >
                 {t("whatsappSettings.dialogs.cancel")}

@@ -78,10 +78,10 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
               <Globe className="size-6" />
             </div>
             <div>
-              <h4 className="text-sm sm:text-base font-semibold text-[color:var(--color-foreground)]">
+              <h4 className="text-sm sm:text-base font-semibold text-foreground">
                 الربط التلقائي السريع مع فيسبوك
               </h4>
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 ربط مباشر لحسابك التجاري ورقمك بضغطة زر واحدة (Embedded Sign-up)
               </p>
             </div>
@@ -94,7 +94,7 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
           </Badge>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 text-xs text-[color:var(--color-muted-foreground)] py-0.5">
+        <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground py-0.5">
           <div className="flex items-center gap-1.5">
             <CheckCircle2 className="size-3.5 text-success dark:text-success shrink-0" />
             <span>توثيق رسمي ومعتمد</span>
@@ -123,13 +123,13 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
       </div>
 
       {/* Collapsible Manual Setup */}
-      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] overflow-hidden">
+      <div className="rounded-xl border border-border/70 bg-[color:var(--color-card)] overflow-hidden">
         <button
           type="button"
           onClick={() => setShowManualMeta((prev) => !prev)}
-          className="flex w-full items-center justify-between px-4 py-3.5 text-start font-medium text-[color:var(--color-foreground)] hover:bg-[color:var(--color-muted)] transition-colors cursor-pointer"
+          className="flex w-full items-center justify-between px-4 py-3.5 text-start font-medium text-foreground hover:bg-muted transition-colors cursor-pointer"
         >
-          <span className="flex items-center gap-2 text-xs sm:text-sm text-[color:var(--color-muted-foreground)]">
+          <span className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
             <Key className="size-4 text-[color:var(--color-primary)]" />
             إدخال المفاتيح والرموز يدوياً (للمطورين)
           </span>
@@ -160,14 +160,14 @@ export const SessionMetaCloudStep: React.FC<SessionMetaCloudStepProps> = ({
       </div>
 
       {/* Collapsible Advanced Settings */}
-      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] overflow-hidden">
+      <div className="rounded-xl border border-border/70 bg-[color:var(--color-card)] overflow-hidden">
         <button
           type="button"
           onClick={() => setShowAdvancedMeta((prev) => !prev)}
-          className="flex w-full items-center justify-between px-5 py-4 text-start font-medium text-[color:var(--color-foreground)] cursor-pointer"
+          className="flex w-full items-center justify-between px-5 py-4 text-start font-medium text-foreground cursor-pointer"
         >
           <span className="flex items-center gap-2 text-sm">
-            <Settings className="size-4 text-[color:var(--color-muted-foreground)]" />
+            <Settings className="size-4 text-muted-foreground" />
             إعدادات متقدمة
           </span>
           <ChevronRight

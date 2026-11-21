@@ -22,7 +22,7 @@ export const MessageDateSeparator: React.FC<MessageDateSeparatorProps> = ({ time
 
   return (
     <div className="mb-space-2 flex justify-center">
-      <div className="rounded-full border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] px-space-3 py-space-1 text-xs text-[color:var(--color-muted-foreground)] shadow-xs">
+      <div className="rounded-full border border-border/70 bg-[var(--whatsapp-surface)] px-space-3 py-space-1 text-xs text-muted-foreground shadow-xs">
         {getDateSeparatorText(timestamp)}
       </div>
     </div>

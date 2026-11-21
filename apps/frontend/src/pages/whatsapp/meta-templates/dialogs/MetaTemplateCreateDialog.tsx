@@ -120,7 +120,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                   className={`h-0.5 flex-1 rounded-full transition-all duration-300 ${
                     createStep >= s.step
                       ? "bg-[color:var(--color-primary)]"
-                      : "bg-[color:var(--shell-control-border)]"
+                      : "bg-border/70"
                   }`}
                 />
               )}
@@ -130,7 +130,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                 className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 hover:scale-[1.03] active:scale-95 ${
                   createStep === s.step
                     ? "bg-[color:var(--color-primary)] text-[color:var(--color-primary-foreground)] shadow-sm"
-                    : "bg-[var(--color-muted)] text-[color:var(--color-muted-foreground)] hover:bg-[var(--shell-overlay-bg)]"
+                    : "bg-[var(--color-muted)] text-muted-foreground hover:bg-popover"
                 }`}
               >
                 <span
@@ -164,7 +164,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
               />
               {form.name && (
                 <div className="flex items-center gap-2 text-xs">
-                  <span className="text-[color:var(--color-muted-foreground)]">
+                  <span className="text-muted-foreground">
                     الاسم في Meta:
                   </span>
                   <code
@@ -178,7 +178,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                   </code>
                 </div>
               )}
-              <p className="text-[11px] text-[color:var(--color-muted-foreground)]">
+              <p className="text-[11px] text-muted-foreground">
                 أحرف إنجليزية صغيرة وأرقام و _ فقط. الأحرف العربية والمسافات
                 تُحوَّل تلقائياً.
               </p>
@@ -350,7 +350,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                     }
                     className="h-11"
                   />
-                  <p className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                  <p className="text-[11px] text-muted-foreground">
                     اتركه فارغاً للاستخدام الافتراضي المعتمد (
                     {form.language === "ar" ? "نسخ الرمز" : "Copy Code"}).
                   </p>
@@ -365,7 +365,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                       className={`text-[11px] tabular-nums font-mono ${
                         form.bodyText.length > 1024
                           ? "text-red-500"
-                          : "text-[color:var(--color-muted-foreground)]"
+                          : "text-muted-foreground"
                       }`}
                     >
                       {form.bodyText.length}/1024
@@ -389,13 +389,13 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                 </div>
 
                 {/* Variable chips */}
-                <div className="space-y-2 rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--color-muted)] p-3">
+                <div className="space-y-2 rounded-xl border border-border/70 bg-[var(--color-muted)] p-3">
                   <div className="flex items-center justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold text-[color:var(--color-foreground)]">
+                      <p className="text-xs font-semibold text-foreground">
                         المتغيرات
                       </p>
-                      <p className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                      <p className="text-[11px] text-muted-foreground">
                         كل {"{{n}}"} بيتحوّل لقيمة العميل وقت الإرسال.
                       </p>
                     </div>
@@ -411,7 +411,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                   </div>
 
                   {bodyVars.length === 0 ? (
-                    <p className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                    <p className="text-[11px] text-muted-foreground">
                       مفيش متغيرات لحد دلوقتي — اضغط «إضافة متغير» لإدراج{" "}
                       {"{{1}}"} ثم {"{{2}}"} … حسب ترتيب الظهور.
                     </p>
@@ -422,7 +422,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                           const key = v.replace(/\D/g, "");
                           return (
                             <div key={key} className="flex items-center gap-2">
-                              <code className="w-12 shrink-0 rounded-md bg-[var(--shell-overlay-bg)] px-1.5 py-0.5 text-center font-mono text-[11px] text-[color:var(--color-muted-foreground)]">
+                              <code className="w-12 shrink-0 rounded-md bg-popover px-1.5 py-0.5 text-center font-mono text-[11px] text-muted-foreground">
                                 {v}
                               </code>
                               <Input
@@ -440,7 +440,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                           );
                         })}
                       </div>
-                      <p className="text-[11px] text-[color:var(--color-muted-foreground)]">
+                      <p className="text-[11px] text-muted-foreground">
                         القيم دي للمراجعة فقط — القيم الحقيقية بتتحدد وقت
                         الإرسال.
                       </p>
@@ -455,7 +455,7 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
                       className={`text-[11px] tabular-nums font-mono ${
                         form.footerText.length > 60
                           ? "text-red-500"
-                          : "text-[color:var(--color-muted-foreground)]"
+                          : "text-muted-foreground"
                       }`}
                     >
                       {form.footerText.length}/60
@@ -510,12 +510,12 @@ export const MetaTemplateCreateDialog: React.FC<MetaTemplateCreateDialogProps> =
         {/* Step 3: Review */}
         {createStep === 3 && (
           <div className="space-y-4 animate-[fadeIn_0.25s_ease-out]">
-            <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-4">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[color:var(--color-muted-foreground)]">
+            <div className="rounded-xl border border-border/70 bg-[var(--whatsapp-surface-muted)] p-4">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 معاينة حية
               </p>
               <div className="wa-bubble rounded-xl bg-[#d9fdd3] px-4 py-3 shadow-sm dark:bg-[var(--whatsapp-message-outgoing)]">
-                <p className="whitespace-pre-wrap text-[0.95rem] leading-7 text-[color:var(--color-foreground)]">
+                <p className="whitespace-pre-wrap text-[0.95rem] leading-7 text-foreground">
                   {previewText || "(لا يوجد محتوى)"}
                 </p>
               </div>

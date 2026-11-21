@@ -42,10 +42,10 @@ export const ChatCatalogDialog: React.FC<ChatCatalogDialogProps> = ({
     <UiDialog open={open} onOpenChange={onOpenChange}>
       <UiDialogContent
         showCloseButton={false}
-        className="max-w-5xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="max-w-5xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <UiDialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
-          <UiDialogTitle className="flex items-center gap-2 text-lg text-[color:var(--color-foreground)]">
+        <UiDialogHeader className="border-b border-border/70 px-6 py-5">
+          <UiDialogTitle className="flex items-center gap-2 text-lg text-foreground">
             <Store className="size-5 text-[color:var(--color-primary)]" />
             <span>إرسال منتج من الكتالوج</span>
           </UiDialogTitle>
@@ -53,7 +53,7 @@ export const ChatCatalogDialog: React.FC<ChatCatalogDialogProps> = ({
 
         <div className="max-h-[70vh] overflow-y-auto px-6 py-6">
           {products.length === 0 ? (
-            <div className="rounded-[24px] border border-dashed border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] px-4 py-10 text-center text-sm text-[color:var(--color-muted-foreground)]">
+            <div className="rounded-[24px] border border-dashed border-border/70 bg-[var(--whatsapp-surface-overlay)] px-4 py-10 text-center text-sm text-muted-foreground">
               لا توجد منتجات في الكتالوج.
             </div>
           ) : (
@@ -67,7 +67,7 @@ export const ChatCatalogDialog: React.FC<ChatCatalogDialogProps> = ({
                     'overflow-hidden rounded-[24px] border text-start transition-all',
                     selectedProduct?.id === product.id
                       ? 'border-[color:var(--color-primary)] bg-primary/8 shadow-md'
-                      : 'border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] hover:bg-[var(--whatsapp-surface-hover)]',
+                      : 'border-border/70 bg-[var(--whatsapp-surface)] hover:bg-[var(--whatsapp-surface-hover)]',
                   )}
                 >
                   {product.imageUrl ? (
@@ -78,10 +78,10 @@ export const ChatCatalogDialog: React.FC<ChatCatalogDialogProps> = ({
                     />
                   ) : null}
                   <div className="space-y-2 p-4">
-                    <p className="truncate text-sm font-semibold text-[color:var(--color-foreground)]">
+                    <p className="truncate text-sm font-semibold text-foreground">
                       {product.name}
                     </p>
-                    <p className="line-clamp-2 text-sm text-[color:var(--color-muted-foreground)]">
+                    <p className="line-clamp-2 text-sm text-muted-foreground">
                       {product.description}
                     </p>
                     <p className="text-base font-semibold text-[color:var(--color-primary)] tabular-nums font-mono">
@@ -94,7 +94,7 @@ export const ChatCatalogDialog: React.FC<ChatCatalogDialogProps> = ({
           )}
         </div>
 
-        <UiDialogFooter className="border-t border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)]">
+        <UiDialogFooter className="border-t border-border/70 bg-[var(--whatsapp-surface-overlay)]">
           <UiButton variant="outline" onClick={handleClose}>
             إلغاء
           </UiButton>

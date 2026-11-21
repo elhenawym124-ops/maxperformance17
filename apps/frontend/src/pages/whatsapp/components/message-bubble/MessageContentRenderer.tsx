@@ -85,23 +85,23 @@ export const MessageContentRenderer: React.FC<MessageContentRendererProps> = ({
               href={safeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 rounded-lg border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2 text-center text-sm font-semibold text-[color:var(--color-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+              className="flex items-center justify-center gap-1.5 rounded-lg border border-[color:color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2 text-center text-sm font-semibold text-foreground transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
             >
               {btn.text}
-              <span className="text-[color:var(--color-muted-foreground)]">↗</span>
+              <span className="text-muted-foreground">↗</span>
             </a>
           ) : (
             <div
               key={btn.id || i}
               title="زر تفاعلي مخصص للعميل للضغط عليه داخل تطبيق واتساب على هاتفه"
-              className="flex items-center justify-center rounded-lg border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2 text-center text-sm font-semibold text-[color:var(--color-foreground)] select-none opacity-90 cursor-default"
+              className="flex items-center justify-center rounded-lg border border-[color:color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2 text-center text-sm font-semibold text-foreground select-none opacity-90 cursor-default"
             >
               {btn.text}
             </div>
           );
         })}
         {interactiveFooter ? (
-          <p className="pt-0.5 text-center text-xs text-[color:var(--color-muted-foreground)]">
+          <p className="pt-0.5 text-center text-xs text-muted-foreground">
             {interactiveFooter}
           </p>
         ) : null}
@@ -162,7 +162,7 @@ export const MessageContentRenderer: React.FC<MessageContentRendererProps> = ({
   return (
     <LinkifiedText
       text={message.content ?? ""}
-      className="block whitespace-pre-wrap text-sm leading-[1.45] text-[color:var(--color-foreground)]"
+      className="block whitespace-pre-wrap text-sm leading-[1.45] text-foreground"
     />
   );
 };

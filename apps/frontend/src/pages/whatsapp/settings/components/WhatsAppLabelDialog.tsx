@@ -39,8 +39,8 @@ export const WhatsAppLabelDialog: React.FC<WhatsAppLabelDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-sm">
-        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-0 sm:max-w-sm">
+        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>{t("whatsappSettings.dialogs.addLabelTitle")}</DialogTitle>
           <DialogDescription>{t("whatsappSettings.manageLabels")}</DialogDescription>
         </DialogHeader>
@@ -89,7 +89,7 @@ export const WhatsAppLabelDialog: React.FC<WhatsAppLabelDialogProps> = ({
         <DialogFooter className="px-6">
           <Button
             variant="outline"
-            className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
+            className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
             onClick={onClose}
           >
             {t("whatsappSettings.dialogs.cancel")}

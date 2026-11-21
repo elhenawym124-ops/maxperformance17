@@ -116,7 +116,7 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
     <>
       <Button
         variant="outline"
-        className="min-h-[36px] rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
+        className="min-h-[36px] rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
         onClick={() => void data.handleRefresh()}
         disabled={data.refreshing}
       >
@@ -128,7 +128,7 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
           <Button
             variant="outline"
             aria-label="بيانات Webhook"
-            className="min-h-[36px] rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-muted)] text-xs font-medium gap-1.5"
+            className="min-h-[36px] rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-muted text-xs font-medium gap-1.5"
             onClick={() => {
               const metaSession =
                 data.sessions.find((s) => s.provider === "META_CLOUD") || null;

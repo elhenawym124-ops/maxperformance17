@@ -22,7 +22,7 @@ export const ChatReactionPickerDialog: React.FC<ChatReactionPickerDialogProps> =
     <UiDialog open={Boolean(messageId)} onOpenChange={(open) => !open && onClose()}>
       <UiDialogContent
         showCloseButton={false}
-        className="max-w-fit rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-4"
+        className="max-w-fit rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-4"
       >
         <UiDialogHeader className="pb-3 text-start">
           <UiDialogTitle className="text-base">اختر تفاعل</UiDialogTitle>

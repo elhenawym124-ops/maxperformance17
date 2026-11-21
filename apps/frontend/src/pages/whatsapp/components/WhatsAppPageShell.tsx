@@ -76,7 +76,7 @@ export function WhatsAppPageShell({
       )}
     >
       <div
-        className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-soft sm:rounded-xl sm:shadow-raised"
+        className="relative overflow-hidden rounded-xl border border-border/70 bg-[color:var(--color-card)] shadow-soft sm:rounded-xl sm:shadow-raised"
         style={{ backgroundImage: "var(--journey-header-gradient)", backgroundSize: "200% 200%" }}
       >
         {/* Accent glow orb */}
@@ -94,7 +94,7 @@ export function WhatsAppPageShell({
                   aria-label={backLabel ?? title}
                   className={cn(
                     buttonVariants({ variant: "outline", size: "icon-sm" }),
-                    "mt-0.5 shrink-0 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-background)] text-[color:var(--color-foreground)] hover:bg-[color:var(--color-muted)] sm:mt-1",
+                    "mt-0.5 shrink-0 rounded-full border-border/70 bg-[color:var(--color-background)] text-foreground hover:bg-muted sm:mt-1",
                   )}
                 >
                   <ChevronLeft
@@ -110,15 +110,15 @@ export function WhatsAppPageShell({
                 <div className="min-w-0 space-y-1 sm:space-y-2">
                   <Badge
                     variant="outline"
-                    className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-2 text-[9px] font-medium text-[color:var(--color-muted-foreground)] sm:px-2.5 sm:text-[10px]"
+                    className="rounded-full border-border/70 bg-muted px-2 text-[9px] font-medium text-muted-foreground sm:px-2.5 sm:text-[10px]"
                   >
                     {eyebrow}
                   </Badge>
                   <div className="space-y-0.5 sm:space-y-1">
-                    <h1 className="text-balance font-heading text-xl font-semibold tracking-normal text-[color:var(--color-foreground)] sm:text-[2rem]">
+                    <h1 className="text-balance font-heading text-xl font-semibold tracking-normal text-foreground sm:text-[2rem]">
                       {title}
                     </h1>
-                    <p className="max-w-3xl text-xs leading-5 text-[color:var(--color-muted-foreground)] sm:text-sm sm:leading-6 sm:text-[0.95rem]">
+                    <p className="max-w-3xl text-xs leading-5 text-muted-foreground sm:text-sm sm:leading-6 sm:text-[0.95rem]">
                       {description}
                     </p>
                   </div>
@@ -151,21 +151,21 @@ export function WhatsAppSurfaceCard({
   return (
     <Card
       className={cn(
-        "rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-soft sm:rounded-xl sm:shadow-raised",
+        "rounded-xl border border-border/70 bg-[color:var(--color-card)] shadow-soft sm:rounded-xl sm:shadow-raised",
         className,
       )}
     >
       {title || description || action ? (
-        <CardHeader className="gap-space-2 border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_76%,transparent)] pb-space-2 sm:gap-space-3 sm:pb-space-4">
+        <CardHeader className="gap-space-2 border-b border-[color:color-mix(in_srgb,var(--color-border)_76%,transparent)] pb-space-2 sm:gap-space-3 sm:pb-space-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
             <div className="space-y-1">
               {title ? (
-                <CardTitle className="text-sm font-semibold text-[color:var(--color-foreground)] sm:text-[1.05rem]">
+                <CardTitle className="text-sm font-semibold text-foreground sm:text-[1.05rem]">
                   {title}
                 </CardTitle>
               ) : null}
               {description ? (
-                <CardDescription className="max-w-2xl text-xs text-[color:var(--color-muted-foreground)] sm:text-sm">
+                <CardDescription className="max-w-2xl text-xs text-muted-foreground sm:text-sm">
                   {description}
                 </CardDescription>
               ) : null}
@@ -192,10 +192,10 @@ export function WhatsAppMetricCard({
   const isZero = !Number.isNaN(numValue) && numValue === 0;
 
   return (
-    <Card className="h-full min-w-0 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-sm transition-shadow sm:rounded-xl sm:shadow-md">
+    <Card className="h-full min-w-0 rounded-xl border border-border/70 bg-[color:var(--color-card)] shadow-sm transition-shadow sm:rounded-xl sm:shadow-md">
       <CardContent className="flex h-full items-start justify-between gap-3 p-3.5 sm:gap-4 sm:p-5">
         <div className="min-w-0 space-y-1 sm:space-y-2">
-          <p className="line-clamp-1 text-[11px] font-normal text-[color:var(--color-muted-foreground)] sm:text-xs">
+          <p className="line-clamp-1 text-[11px] font-normal text-muted-foreground sm:text-xs">
             {label}
           </p>
           <div
@@ -203,14 +203,14 @@ export function WhatsAppMetricCard({
             className={cn(
               "font-mono text-3xl leading-none tracking-tight tabular-nums sm:text-4xl",
               isZero
-                ? "font-medium text-[color:var(--color-muted-foreground)]/75"
-                : "font-bold text-[color:var(--color-foreground)]",
+                ? "font-medium text-muted-foreground/75"
+                : "font-bold text-foreground",
             )}
           >
             {value}
           </div>
           {hint ? (
-            <p className="line-clamp-1 text-[11px] text-[color:var(--color-muted-foreground)] sm:text-xs">
+            <p className="line-clamp-1 text-[11px] text-muted-foreground sm:text-xs">
               {hint}
             </p>
           ) : null}
@@ -219,7 +219,7 @@ export function WhatsAppMetricCard({
           className={cn(
             "flex size-9 shrink-0 items-center justify-center rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] sm:size-11 sm:rounded-xl",
             isZero
-              ? "bg-[color:var(--color-muted)] text-[color:var(--color-muted-foreground)]/75"
+              ? "bg-muted text-muted-foreground/75"
               : toneClasses[tone],
           )}
         >

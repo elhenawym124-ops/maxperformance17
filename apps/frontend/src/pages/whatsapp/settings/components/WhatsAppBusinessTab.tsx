@@ -81,12 +81,12 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
         ) : businessProfile ? (
           <div className="space-y-4">
             <div className="grid gap-4 xl:grid-cols-2">
-              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
-                <div className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_60%,transparent)] pb-3">
-                  <h3 className="text-sm font-semibold text-[color:var(--color-foreground)] sm:text-base">
+              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
+                <div className="border-b border-[color:color-mix(in_srgb,var(--color-border)_60%,transparent)] pb-3">
+                  <h3 className="text-sm font-semibold text-foreground sm:text-base">
                     {ts("whatsappSettings.businessInfo")}
                   </h3>
-                  <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                  <p className="text-xs text-muted-foreground">
                     {currentScopedSession?.name ||
                       ts("whatsappSettings.businessProfile")}
                   </p>
@@ -177,12 +177,12 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
                 </div>
               </div>
 
-              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
-                <div className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_60%,transparent)] pb-3">
-                  <h3 className="text-sm font-semibold text-[color:var(--color-foreground)] sm:text-base">
+              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
+                <div className="border-b border-[color:color-mix(in_srgb,var(--color-border)_60%,transparent)] pb-3">
+                  <h3 className="text-sm font-semibold text-foreground sm:text-base">
                     {ts("whatsappSettings.websites")}
                   </h3>
-                  <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                  <p className="text-xs text-muted-foreground">
                     {ts("whatsappSettings.addWebsite")}
                   </p>
                 </div>
@@ -229,7 +229,7 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
                       </div>
                     ))
                   ) : (
-                    <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+                    <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
                       <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
                       <AlertTitle>{t("whatsappSettings.websites")}</AlertTitle>
                       <AlertDescription>
@@ -240,7 +240,7 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
 
                   <Button
                     variant="outline"
-                    className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
+                    className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
                     onClick={() =>
                       setBusinessProfile((previous) =>
                         previous
@@ -273,7 +273,7 @@ export const WhatsAppBusinessTab: React.FC<WhatsAppBusinessTabProps> = ({
             </Button>
           </div>
         ) : (
-          <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+          <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
             <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
             <AlertTitle>{t("whatsappSettings.businessProfile")}</AlertTitle>
             <AlertDescription>

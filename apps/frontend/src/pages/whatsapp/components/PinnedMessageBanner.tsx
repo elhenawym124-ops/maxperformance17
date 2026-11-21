@@ -40,7 +40,7 @@ export const PinnedMessageBanner: React.FC<PinnedMessageBannerProps> = ({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-3 border-b border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] px-4 py-2 text-xs transition-colors backdrop-blur-xs",
+        "flex items-center justify-between gap-3 border-b border-border/70 bg-[var(--whatsapp-surface-overlay)] px-4 py-2 text-xs transition-colors backdrop-blur-xs",
         className,
       )}
     >
@@ -57,7 +57,7 @@ export const PinnedMessageBanner: React.FC<PinnedMessageBannerProps> = ({
           <span className="block font-bold text-warning dark:text-warning text-[11px]">
             رسالة مثبتة
           </span>
-          <p className="truncate text-[11px] text-[color:var(--color-muted-foreground)]">
+          <p className="truncate text-[11px] text-muted-foreground">
             {getSnippet(pinnedMessage)}
           </p>
         </div>
@@ -69,7 +69,7 @@ export const PinnedMessageBanner: React.FC<PinnedMessageBannerProps> = ({
           e.stopPropagation();
           onUnpin(pinnedMessage.messageId);
         }}
-        className="flex size-6 items-center justify-center rounded-lg text-[color:var(--color-muted-foreground)] transition-colors hover:bg-destructive/10 hover:text-destructive"
+        className="flex size-6 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
         title="إلغاء التثبيت"
       >
         <X className="size-3.5" />

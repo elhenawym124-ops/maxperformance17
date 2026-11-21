@@ -104,18 +104,18 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
 }) => {
   if (multiSelectMode) {
     return (
-      <div className="flex h-12 w-full items-center justify-between border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_76%,transparent)] bg-[color:var(--color-muted)] px-3 shrink-0">
+      <div className="flex h-12 w-full items-center justify-between border-b border-[color:color-mix(in_srgb,var(--color-border)_76%,transparent)] bg-muted px-3 shrink-0">
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
             size="icon-sm"
             onClick={onExitMultiSelect}
-            className="size-8 rounded-full text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+            className="size-8 rounded-full text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
             title="إلغاء"
           >
             <X className="size-4" />
           </Button>
-          <span className="text-xs font-semibold font-mono tabular-nums text-[color:var(--color-foreground)]">
+          <span className="text-xs font-semibold font-mono tabular-nums text-foreground">
             {selectedJids.size > 0 ? `محدد ${selectedJids.size}` : 'اختر المحادثات'}
           </span>
         </div>
@@ -124,7 +124,7 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
             variant="ghost"
             size="sm"
             onClick={onToggleSelectAll}
-            className="h-7 rounded-lg px-2 text-[11px] text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+            className="h-7 rounded-lg px-2 text-[11px] text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
           >
             {selectedJids.size === conversations.length ? 'إلغاء الكل' : 'تحديد الكل'}
           </Button>
@@ -154,7 +154,7 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
   }
 
   return (
-    <div className="flex h-12 items-center justify-between border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_76%,transparent)] bg-[color:var(--color-muted)] px-3 shrink-0">
+    <div className="flex h-12 items-center justify-between border-b border-[color:color-mix(in_srgb,var(--color-border)_76%,transparent)] bg-muted px-3 shrink-0">
       <div className="flex items-center gap-2">
         <button
           type="button"
@@ -181,7 +181,7 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
         {showArchived && (
           <Badge
             variant="outline"
-            className="border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] text-[9px] uppercase tracking-[0.16em] text-[color:var(--color-muted-foreground)] px-1.5 py-0"
+            className="border-border/70 bg-[var(--whatsapp-surface-overlay)] text-[9px] uppercase tracking-[0.16em] text-muted-foreground px-1.5 py-0"
           >
             الأرشيف
           </Badge>
@@ -193,7 +193,7 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
             onValueChange={(v) => v && onSelectSession(v)}
           >
             <SelectTrigger className="h-7 min-w-0 max-w-[9rem] rounded-lg bg-[var(--whatsapp-surface)] text-[10px] px-2 gap-1">
-              <span className="truncate font-medium text-[color:var(--color-foreground)]">
+              <span className="truncate font-medium text-foreground">
                 {resolvedSessionValue === 'all'
                   ? translate('whatsapp.sidebar.all')
                   : sessionOptions.find((s) => s.id === resolvedSessionValue)?.name ||
@@ -217,7 +217,7 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
           variant="ghost"
           size="icon-sm"
           onClick={onOpenNewChat}
-          className="size-8 rounded-full text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+          className="size-8 rounded-full text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
           title="محادثة جديدة"
         >
           <MessageSquarePlus className="size-4" />
@@ -228,7 +228,7 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
             <Button
               variant="ghost"
               size="icon-sm"
-              className="size-8 rounded-full text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+              className="size-8 rounded-full text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
               title="المزيد"
               aria-label="المزيد"
             >

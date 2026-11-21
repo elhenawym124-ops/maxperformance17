@@ -22,7 +22,7 @@ export const selectedSurfaceStyle: React.CSSProperties = {
 export const idleSurfaceStyle: React.CSSProperties = {
   borderColor: "var(--business-card-border)",
   background:
-    "color-mix(in srgb, var(--color-background) 88%, var(--shell-control-bg) 12%)",
+    "color-mix(in srgb, var(--color-background) 88%, var(--color-card) 12%)",
 };
 
 export const activeTabStyle: React.CSSProperties = {
@@ -43,7 +43,7 @@ export const inactiveTabStyle: React.CSSProperties = {
 export const pillActiveStyle: React.CSSProperties = {
   color: "var(--color-foreground)",
   background:
-    "color-mix(in srgb, var(--color-background) 80%, var(--shell-control-bg) 20%)",
+    "color-mix(in srgb, var(--color-background) 80%, var(--color-card) 20%)",
 };
 
 export const pillIdleStyle: React.CSSProperties = {
@@ -53,14 +53,14 @@ export const pillIdleStyle: React.CSSProperties = {
 export const controlInputStyle: React.CSSProperties = {
   borderColor: "var(--business-card-border)",
   background:
-    "color-mix(in srgb, var(--color-background) 90%, var(--shell-control-bg) 10%)",
+    "color-mix(in srgb, var(--color-background) 90%, var(--color-card) 10%)",
   color: "var(--color-foreground)",
 };
 
 export const dropzoneStyle: React.CSSProperties = {
   borderColor: "var(--business-card-border)",
   background:
-    "color-mix(in srgb, var(--color-background) 84%, var(--shell-control-bg) 16%)",
+    "color-mix(in srgb, var(--color-background) 84%, var(--color-card) 16%)",
 };
 
 export const primaryActionStyle: React.CSSProperties = {
@@ -71,7 +71,7 @@ export const primaryActionStyle: React.CSSProperties = {
 
 export const disabledActionStyle: React.CSSProperties = {
   background:
-    "color-mix(in srgb, var(--color-muted-foreground) 24%, var(--shell-control-bg))",
+    "color-mix(in srgb, var(--color-muted-foreground) 24%, var(--color-card))",
   color: "color-mix(in srgb, var(--color-background) 82%, transparent)",
 };
 

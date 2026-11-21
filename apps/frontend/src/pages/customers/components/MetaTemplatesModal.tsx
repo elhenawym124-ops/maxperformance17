@@ -59,17 +59,17 @@ export default function MetaTemplatesModal({ open, onClose, onPick, title }: Pro
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
             <div
-                className="max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-background)] shadow-2xl"
+                className="max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-xl border border-border/70 bg-[color:var(--color-background)] shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="flex items-center justify-between border-b border-[color:var(--shell-control-border)] p-4">
+                <div className="flex items-center justify-between border-b border-border/70 p-4">
                     <div>
                         <h3 className="text-lg font-bold">{title || '📚 قوالب ميتا المعتمدة'}</h3>
-                        <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                        <p className="text-xs text-muted-foreground">
                             اختاري قالباً معتمداً ليُحمَّل نصه في الرسالة — القوالب دي بتتصل بـ Meta Cloud API
                         </p>
                     </div>
-                    <button onClick={onClose} className="rounded-full p-2 hover:bg-[color:var(--color-muted)]">✕</button>
+                    <button onClick={onClose} className="rounded-full p-2 hover:bg-muted">✕</button>
                 </div>
 
                 <div className="p-4">
@@ -77,7 +77,7 @@ export default function MetaTemplatesModal({ open, onClose, onPick, title }: Pro
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="ابحث بالاسم أو نوع الحدث..."
-                        className="mb-3 w-full rounded-xl border border-[color:var(--shell-control-border)] bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-success/40"
+                        className="mb-3 w-full rounded-xl border border-border/70 bg-transparent px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-success/40"
                     />
                     {loading ? (
                         <div className="flex justify-center py-10">
@@ -86,14 +86,14 @@ export default function MetaTemplatesModal({ open, onClose, onPick, title }: Pro
                     ) : error ? (
                         <p className="py-8 text-center text-sm text-destructive">{error}</p>
                     ) : filtered.length === 0 ? (
-                        <p className="py-8 text-center text-sm text-[color:var(--color-muted-foreground)]">لا توجد قوالب ميتا معتمدة بعد</p>
+                        <p className="py-8 text-center text-sm text-muted-foreground">لا توجد قوالب ميتا معتمدة بعد</p>
                     ) : (
                         <div className="max-h-[50vh] space-y-2 overflow-y-auto ps-1">
                             {filtered.map((t) => (
                                 <button
                                     key={t.id}
                                     onClick={() => { onPick(t.content || '', t); onClose(); }}
-                                    className="w-full rounded-xl border border-[color:var(--shell-control-border)] p-3 text-right transition-colors hover:border-success/60 hover:bg-success/5"
+                                    className="w-full rounded-xl border border-border/70 p-3 text-right transition-colors hover:border-success/60 hover:bg-success/5"
                                 >
                                     <div className="flex items-center justify-between gap-2">
                                         <span className="font-bold">{t.name || t.metaTemplateName}</span>
@@ -101,11 +101,11 @@ export default function MetaTemplatesModal({ open, onClose, onPick, title }: Pro
                                             ✓ معتمد
                                         </span>
                                     </div>
-                                    <p className="mt-1 line-clamp-2 text-xs text-[color:var(--color-muted-foreground)]">
+                                    <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
                                         {(t.content || '').slice(0, 140)}
                                     </p>
                                     {t.eventType ? (
-                                        <span className="mt-1 inline-block text-[10px] text-[color:var(--color-muted-foreground)]">{t.eventType}</span>
+                                        <span className="mt-1 inline-block text-[10px] text-muted-foreground">{t.eventType}</span>
                                     ) : null}
                                 </button>
                             ))}

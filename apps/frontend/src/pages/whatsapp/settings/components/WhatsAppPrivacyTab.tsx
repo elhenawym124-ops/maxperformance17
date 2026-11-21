@@ -83,12 +83,12 @@ export const WhatsAppPrivacyTab: React.FC<WhatsAppPrivacyTabProps> = ({
         ) : privacySettings ? (
           <div className="space-y-4">
             <div className="grid gap-4 xl:grid-cols-2">
-              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
-                <div className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_60%,transparent)] pb-3">
-                  <h3 className="text-sm font-semibold text-[color:var(--color-foreground)] sm:text-base">
+              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
+                <div className="border-b border-[color:color-mix(in_srgb,var(--color-border)_60%,transparent)] pb-3">
+                  <h3 className="text-sm font-semibold text-foreground sm:text-base">
                     {ts("whatsappSettings.privacyVisibilityTitle")}
                   </h3>
-                  <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                  <p className="text-xs text-muted-foreground">
                     {currentScopedSession?.name ||
                       ts("whatsappSettings.privacy")}
                   </p>
@@ -138,17 +138,17 @@ export const WhatsAppPrivacyTab: React.FC<WhatsAppPrivacyTabProps> = ({
                 </div>
               </div>
 
-              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
-                <div className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_60%,transparent)] pb-3">
-                  <h3 className="text-sm font-semibold text-[color:var(--color-foreground)] sm:text-base">
+              <div className="rounded-xl border border-[color:color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[color:var(--color-card)]/70 p-4 sm:p-5 space-y-4 shadow-none">
+                <div className="border-b border-[color:color-mix(in_srgb,var(--color-border)_60%,transparent)] pb-3">
+                  <h3 className="text-sm font-semibold text-foreground sm:text-base">
                     {ts("whatsappSettings.blocklist")}
                   </h3>
-                  <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                  <p className="text-xs text-muted-foreground">
                     {ts("whatsappSettings.noBlocked")}
                   </p>
                 </div>
                 {blocklist.length === 0 ? (
-                  <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+                  <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
                     <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
                     <AlertTitle>{t("whatsappSettings.blocklist")}</AlertTitle>
                     <AlertDescription>
@@ -160,11 +160,11 @@ export const WhatsAppPrivacyTab: React.FC<WhatsAppPrivacyTabProps> = ({
                     {blocklist.map((jid) => (
                       <div
                         key={jid}
-                        className="flex items-center justify-between gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-3"
+                        className="flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-[color:var(--color-card)] px-4 py-3"
                       >
                         <div className="space-y-1">
                           <p
-                            className="text-sm font-medium text-[color:var(--color-foreground)] font-mono tabular-nums"
+                            className="text-sm font-medium text-foreground font-mono tabular-nums"
                             dir="ltr"
                           >
                             {getContactDisplayPhone({ jid })}
@@ -172,7 +172,7 @@ export const WhatsAppPrivacyTab: React.FC<WhatsAppPrivacyTabProps> = ({
                         </div>
                         <Button
                           variant="outline"
-                          className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] hover:bg-[color:var(--color-card)]"
+                          className="rounded-full border-border/70 bg-muted hover:bg-[color:var(--color-card)]"
                           onClick={() => onUnblock(jid)}
                         >
                           {t("whatsappSettings.unblock")}

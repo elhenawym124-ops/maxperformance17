@@ -79,7 +79,7 @@ const AIIgnoreListPage: React.FC<AIIgnoreListPageProps> = ({ companyId: propComp
   return (
     <div className="space-y-4">
       {!companyId && (
-        <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+        <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
           <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
           <AlertTitle>{t("aiHub.ignoreList.tabLabel")}</AlertTitle>
           <AlertDescription>{t("aiHub.ignoreList.companyRequired")}</AlertDescription>
@@ -92,7 +92,7 @@ const AIIgnoreListPage: React.FC<AIIgnoreListPageProps> = ({ companyId: propComp
         title={t("aiHub.ignoreList.title")}
         description={t("aiHub.ignoreList.description")}
       >
-        <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+        <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
           <Bot className="size-4 text-[color:var(--color-primary)]" />
           <AlertTitle>{t("aiHub.ignoreList.ignoreListTitle")}</AlertTitle>
           <AlertDescription>
@@ -104,7 +104,7 @@ const AIIgnoreListPage: React.FC<AIIgnoreListPageProps> = ({ companyId: propComp
       {/* --- Stats card --- */}
       <WhatsAppSurfaceCard
         title={t("aiHub.ignoreList.statsTitle")}
-        className="border-[color:color-mix(in_srgb,var(--shell-control-border)_80%,transparent)] shadow-none"
+        className="border-[color:color-mix(in_srgb,var(--color-border)_80%,transparent)] shadow-none"
       >
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <StatTile
@@ -138,7 +138,7 @@ const AIIgnoreListPage: React.FC<AIIgnoreListPageProps> = ({ companyId: propComp
           <div className="flex flex-wrap gap-2">
             <Button
               variant="outline"
-              className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]"
+              className="rounded-full border-border/70 bg-[color:var(--color-card)]"
               onClick={() => setBulkDialogOpen(true)}
             >
               <ClipboardList className="size-4" />
@@ -155,12 +155,12 @@ const AIIgnoreListPage: React.FC<AIIgnoreListPageProps> = ({ companyId: propComp
         }
       >
         {listQuery.isLoading ? (
-          <div className="flex items-center gap-2 text-sm text-[color:var(--color-muted-foreground)]">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Loader2 className="size-4 animate-spin" />
             {t("common.loading")}
           </div>
         ) : entries.length === 0 ? (
-          <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+          <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
             <Users className="size-4 text-[color:var(--color-primary)]" />
             <AlertTitle>{t("aiHub.ignoreList.ignoreListTitle")}</AlertTitle>
             <AlertDescription>{t("aiHub.ignoreList.empty")}</AlertDescription>
@@ -253,11 +253,11 @@ const StatTile: React.FC<{ label: string; value: number; loading?: boolean }> = 
   value,
   loading,
 }) => (
-  <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-3">
-    <p className="text-xs uppercase tracking-wide text-[color:var(--color-muted-foreground)]">
+  <div className="rounded-xl border border-border/70 bg-[color:var(--color-card)] px-4 py-3">
+    <p className="text-xs uppercase tracking-wide text-muted-foreground">
       {label}
     </p>
-    <p className="mt-1 text-2xl font-semibold text-[color:var(--color-foreground)]" dir="ltr">
+    <p className="mt-1 text-2xl font-semibold text-foreground" dir="ltr">
       {loading ? <Loader2 className="size-4 animate-spin" /> : value}
     </p>
   </div>
@@ -271,7 +271,7 @@ const IgnoreEntryRow: React.FC<{
   const { t } = useTranslation();
   return (
     <div
-      className="flex items-center justify-between gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-3"
+      className="flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-[color:var(--color-card)] px-4 py-3"
       data-testid="wa-ignore-row"
     >
       <div className="flex items-start gap-3">
@@ -280,18 +280,18 @@ const IgnoreEntryRow: React.FC<{
         </div>
         <div className="space-y-0.5">
           <p
-            className="text-sm font-medium text-[color:var(--color-foreground)]"
+            className="text-sm font-medium text-foreground"
             dir="ltr"
           >
             +{entry.phoneNumber}
           </p>
           {entry.label ? (
-            <p className="text-xs text-[color:var(--color-muted-foreground)]">
+            <p className="text-xs text-muted-foreground">
               {entry.label}
             </p>
           ) : null}
           {entry.notes ? (
-            <p className="text-xs italic text-[color:var(--color-muted-foreground)]">
+            <p className="text-xs italic text-muted-foreground">
               {entry.notes}
             </p>
           ) : null}
@@ -300,7 +300,7 @@ const IgnoreEntryRow: React.FC<{
       <Button
         variant="outline"
         size="sm"
-        className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] hover:bg-[color:var(--color-card)]"
+        className="rounded-full border-border/70 bg-muted hover:bg-[color:var(--color-card)]"
         onClick={onRemove}
         disabled={removing}
       >
@@ -497,7 +497,7 @@ const BulkImportDialog: React.FC<{
             onChange={(e) => setRaw(e.target.value)}
             className="font-mono text-sm"
           />
-          <p className="text-xs text-[color:var(--color-muted-foreground)]">
+          <p className="text-xs text-muted-foreground">
             {count} {count === 1 ? "entry" : "entries"} ready
           </p>
           {error ? (

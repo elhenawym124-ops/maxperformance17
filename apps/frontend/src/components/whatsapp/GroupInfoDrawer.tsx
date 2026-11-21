@@ -273,7 +273,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
       <Sheet open={open} onOpenChange={(nextOpen) => !nextOpen && onClose()}>
         <SheetContent
           side="right"
-          className="w-full max-w-xl border-l border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+          className="w-full max-w-xl border-l border-border/70 bg-[var(--app-panel-bg)] p-0"
         >
           {loading && !metadata ? (
             <div className="flex h-full items-center justify-center">
@@ -281,7 +281,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
             </div>
           ) : metadata ? (
             <>
-              <SheetHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-6 text-start">
+              <SheetHeader className="border-b border-border/70 px-6 py-6 text-start">
                 <div className="flex flex-col items-center gap-4 pt-6">
                   <Avatar className="size-28 shadow-[0_18px_40px_rgba(15,27,45,0.12)]">
                     <AvatarImage />
@@ -306,7 +306,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
-                      <SheetTitle className="text-2xl text-[color:var(--color-foreground)]">
+                      <SheetTitle className="text-2xl text-foreground">
                         {metadata.subject}
                       </SheetTitle>
                       <Button
@@ -327,9 +327,9 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
               </SheetHeader>
 
               <div className="space-y-6 overflow-y-auto px-6 py-6">
-                <section className="space-y-3 rounded-[24px] border border-[color:var(--shell-control-border)] bg-white/70 p-4">
+                <section className="space-y-3 rounded-[24px] border border-border/70 bg-white/70 p-4">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+                    <p className="text-sm font-semibold text-foreground">
                       الوصف
                     </p>
                     {!editingDesc ? (
@@ -345,7 +345,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                         rows={4}
                         value={newDesc}
                         onChange={(event) => setNewDesc(event.target.value)}
-                        className="rounded-[18px] border-[color:var(--shell-control-border)] bg-white/75"
+                        className="rounded-[18px] border-border/70 bg-white/75"
                       />
                       <div className="flex gap-2">
                         <Button onClick={handleUpdateDesc}>
@@ -358,18 +358,18 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                       </div>
                     </div>
                   ) : (
-                    <p className="rounded-[18px] bg-white/75 px-3 py-3 text-sm leading-6 text-[color:var(--color-muted-foreground)]">
+                    <p className="rounded-[18px] bg-white/75 px-3 py-3 text-sm leading-6 text-muted-foreground">
                       {metadata.desc || i18n.t("groupInfoDrawer.msg_fd2e")}
                     </p>
                   )}
                 </section>
 
-                <section className="space-y-3 rounded-[24px] border border-[color:var(--shell-control-border)] bg-white/70 p-4">
-                  <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+                <section className="space-y-3 rounded-[24px] border border-border/70 bg-white/70 p-4">
+                  <p className="text-sm font-semibold text-foreground">
                     معرف المجموعة
                   </p>
                   <div className="flex items-center justify-between gap-3 rounded-[18px] bg-white/75 px-3 py-3">
-                    <code className="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[color:var(--color-foreground)]">
+                    <code className="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-xs text-foreground">
                       {metadata.id}
                     </code>
                     <Button
@@ -386,16 +386,16 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                   </div>
                 </section>
 
-                <section className="space-y-4 rounded-[24px] border border-[color:var(--shell-control-border)] bg-white/70 p-4">
-                  <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+                <section className="space-y-4 rounded-[24px] border border-border/70 bg-white/70 p-4">
+                  <p className="text-sm font-semibold text-foreground">
                     إعدادات المجموعة
                   </p>
                   <div className="flex items-center justify-between gap-4 rounded-[18px] bg-white/75 px-4 py-3">
                     <div>
-                      <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+                      <p className="text-sm font-medium text-foreground">
                         إرسال الرسائل
                       </p>
-                      <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                      <p className="text-xs text-muted-foreground">
                         السماح للمشرفين فقط بإرسال الرسائل
                       </p>
                     </div>
@@ -408,10 +408,10 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                   </div>
                   <div className="flex items-center justify-between gap-4 rounded-[18px] bg-white/75 px-4 py-3">
                     <div>
-                      <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+                      <p className="text-sm font-medium text-foreground">
                         تعديل معلومات المجموعة
                       </p>
-                      <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                      <p className="text-xs text-muted-foreground">
                         السماح للمشرفين فقط بتعديل الاسم والوصف
                       </p>
                     </div>
@@ -424,10 +424,10 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                   </div>
                 </section>
 
-                <section className="space-y-3 rounded-[24px] border border-[color:var(--shell-control-border)] bg-white/70 p-4">
+                <section className="space-y-3 rounded-[24px] border border-border/70 bg-white/70 p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+                      <p className="text-sm font-semibold text-foreground">
                         المشاركون ({metadata.participants.length})
                       </p>
                     </div>
@@ -447,7 +447,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                     {metadata.participants.map((participant) => (
                       <div
                         key={participant.id}
-                        className="rounded-[20px] border border-[color:var(--shell-control-border)] bg-white/75 px-3 py-3"
+                        className="rounded-[20px] border border-border/70 bg-white/75 px-3 py-3"
                       >
                         <div className="flex items-start gap-3">
                           <Avatar className="size-10">
@@ -458,7 +458,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                           </Avatar>
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2">
-                              <p className="truncate text-sm font-medium text-[color:var(--color-foreground)]">
+                              <p className="truncate text-sm font-medium text-foreground">
                                 {getContactName(participant.id)}
                               </p>
                               {participant.admin ? (
@@ -474,7 +474,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                                 </span>
                               ) : null}
                             </div>
-                            <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                            <p className="text-xs text-muted-foreground">
                               {getContactDisplayPhone({ jid: participant.id })}
                             </p>
                             <div className="mt-3 flex flex-wrap gap-2">
@@ -537,9 +537,9 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
       >
         <DialogContent
           showCloseButton={false}
-          className="max-w-2xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+          className="max-w-2xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
         >
-          <DialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
+          <DialogHeader className="border-b border-border/70 px-6 py-5">
             <DialogTitle>إضافة مشاركين</DialogTitle>
             <DialogDescription>
               اختر جهات الاتصال التي تريد ضمها للمجموعة الحالية.
@@ -567,7 +567,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                       "flex w-full items-center gap-3 rounded-[20px] border px-3 py-3 text-start transition-all",
                       isSelected
                         ? "border-[color:var(--color-primary)] bg-[color:color-mix(in_srgb,var(--color-primary)_10%,white)]"
-                        : "border-[color:var(--shell-control-border)] bg-white/75 hover:bg-white",
+                        : "border-border/70 bg-white/75 hover:bg-white",
                     )}
                   >
                     <Avatar className="size-10">
@@ -577,10 +577,10 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                       </AvatarFallback>
                     </Avatar>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-[color:var(--color-foreground)]">
+                      <p className="truncate text-sm font-medium text-foreground">
                         {contactName}
                       </p>
-                      <p className="truncate text-xs text-[color:var(--color-muted-foreground)]">
+                      <p className="truncate text-xs text-muted-foreground">
                         {getContactDisplayPhone(contact)}
                       </p>
                     </div>
@@ -589,13 +589,13 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
                 );
               })
             ) : (
-              <div className="px-4 py-8 text-center text-sm text-[color:var(--color-muted-foreground)]">
+              <div className="px-4 py-8 text-center text-sm text-muted-foreground">
                 لا توجد جهات اتصال متاحة للإضافة
               </div>
             )}
           </div>
 
-          <DialogFooter className="border-t border-[color:var(--shell-control-border)] bg-white/55">
+          <DialogFooter className="border-t border-border/70 bg-white/55">
             <Button variant="outline" onClick={() => setAddParticipantOpen(false)}>
               إلغاء
             </Button>
@@ -609,9 +609,9 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
       <Dialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen}>
         <DialogContent
           showCloseButton={false}
-          className="max-w-xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+          className="max-w-xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
         >
-          <DialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
+          <DialogHeader className="border-b border-border/70 px-6 py-5">
             <DialogTitle>رابط الدعوة للمجموعة</DialogTitle>
             <DialogDescription>
               أرسل هذا الرابط لمن تريد ضمّه إلى المجموعة الحالية.
@@ -619,8 +619,8 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
           </DialogHeader>
 
           <div className="space-y-4 px-6 py-6">
-            <div className="rounded-[20px] border border-[color:var(--shell-control-border)] bg-white/75 px-4 py-4 text-center">
-              <code className="break-all text-sm text-[color:var(--color-foreground)]">
+            <div className="rounded-[20px] border border-border/70 bg-white/75 px-4 py-4 text-center">
+              <code className="break-all text-sm text-foreground">
                 {inviteCode ? `https://chat.whatsapp.com/${inviteCode}` : "..." }
               </code>
             </div>
@@ -643,7 +643,7 @@ const GroupInfoDrawer: React.FC<GroupInfoDrawerProps> = ({
             </div>
           </div>
 
-          <DialogFooter className="border-t border-[color:var(--shell-control-border)] bg-white/55">
+          <DialogFooter className="border-t border-border/70 bg-white/55">
             <Button variant="outline" onClick={() => setInviteDialogOpen(false)}>
               إغلاق
             </Button>

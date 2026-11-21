@@ -84,7 +84,7 @@ export const TemplateCategoryTabs: React.FC<TemplateCategoryTabsProps> = ({
               className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-all ${
                 metaSubCategory === sub.id
                   ? "bg-sky-600 text-white shadow-sm dark:bg-info"
-                  : "border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] text-[color:var(--color-muted-foreground)] hover:text-[color:var(--color-foreground)]"
+                  : "border border-border/70 bg-[color:var(--color-card)] text-muted-foreground hover:text-foreground"
               }`}
             >
               <span>{sub.label}</span>

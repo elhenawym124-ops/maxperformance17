@@ -41,7 +41,7 @@ export const ChatRightPanelOrderModals: React.FC<ChatRightPanelOrderModalsProps>
             aria-label="Close order menu"
           />
           <div
-            className="fixed z-50 w-52 rounded-xl border border-[color:var(--shell-overlay-border)] bg-[var(--shell-overlay-bg)] p-1.5 shadow-[var(--shell-overlay-shadow)] ring-1 ring-[color:var(--shell-overlay-edge)]"
+            className="fixed z-50 w-52 rounded-xl border border-border/70 bg-popover p-1.5 shadow-md shadow-foreground/10 "
             style={{
               left: Math.min(
                 orderMenu.mouseX,
@@ -54,7 +54,7 @@ export const ChatRightPanelOrderModals: React.FC<ChatRightPanelOrderModalsProps>
             }}
             role="menu"
           >
-            <p className="mx-1 mb-1 border-b border-[color:var(--shell-control-border)] px-1 pb-1 text-[10px] font-mono font-semibold text-muted-foreground">
+            <p className="mx-1 mb-1 border-b border-border/70 px-1 pb-1 text-[10px] font-mono font-semibold text-muted-foreground">
               {orderMenu.orderNumber}
             </p>
             <button
@@ -64,7 +64,7 @@ export const ChatRightPanelOrderModals: React.FC<ChatRightPanelOrderModalsProps>
                 onCloseOrderMenu();
                 window.open(`/orders/${encodeURIComponent(code)}?edit=1`, '_blank');
               }}
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-[color:var(--shell-control-hover)]"
+              className="flex w-full items-center gap-2 rounded-xl px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-muted"
             >
               <Pencil className="size-3.5" />
               <span>تعديل</span>
@@ -76,7 +76,7 @@ export const ChatRightPanelOrderModals: React.FC<ChatRightPanelOrderModalsProps>
                 onCloseOrderMenu();
                 onViewOrderDetails(code);
               }}
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-[color:var(--shell-control-hover)]"
+              className="flex w-full items-center gap-2 rounded-xl px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-muted"
             >
               <FileText className="size-3.5" />
               <span>{orderDetailsLoading ? 'جاري التحميل...' : 'عرض التفاصيل'}</span>
@@ -88,7 +88,7 @@ export const ChatRightPanelOrderModals: React.FC<ChatRightPanelOrderModalsProps>
                 onCloseOrderMenu();
                 onOpenReturnReason(code);
               }}
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-[color:var(--shell-control-hover)]"
+              className="flex w-full items-center gap-2 rounded-xl px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-muted"
             >
               <Undo2 className="size-3.5" />
               <span>سبب المرتجع</span>

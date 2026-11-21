@@ -58,7 +58,7 @@ export const JourneyStepsCanvasCard: React.FC<JourneyStepsCanvasCardProps> = ({
               "gap-1.5 rounded-full px-2.5 py-1 text-xs",
               selectedFlow.isEnabled
                 ? "border-[color:color-mix(in_srgb,var(--business-success)_40%,transparent)] bg-[color:color-mix(in_srgb,var(--business-success)_10%,transparent)] text-[color:color-mix(in_srgb,var(--business-success)_80%,var(--color-foreground))]"
-                : "border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] text-[color:var(--color-muted-foreground)]",
+                : "border-border/70 bg-muted text-muted-foreground",
             )}
           >
             <span
@@ -95,7 +95,7 @@ export const JourneyStepsCanvasCard: React.FC<JourneyStepsCanvasCardProps> = ({
           {Array.from({ length: 3 }).map((_, index) => (
             <Skeleton
               key={index}
-              className="h-40 rounded-xl border border-[color:var(--shell-control-border)]"
+              className="h-40 rounded-xl border border-border/70"
             />
           ))}
         </div>

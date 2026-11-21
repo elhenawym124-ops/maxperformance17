@@ -180,25 +180,25 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
     <div className="space-y-6">
       {/* ── Include Rules Section ── */}
       <div className="space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[color:var(--shell-control-border)] pb-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/70 pb-2">
           <div className="flex items-center gap-2">
             <Layers className="size-4 text-[color:var(--color-primary)]" />
-            <span className="font-semibold text-sm text-[color:var(--color-foreground)]">
+            <span className="font-semibold text-sm text-foreground">
               شروط الاستهداف (Include)
             </span>
           </div>
 
           {criteria.include.groups.length > 1 && (
             <div className="flex items-center gap-2">
-              <span className="text-xs text-[color:var(--color-muted-foreground)]">العلاقة بين المجموعات:</span>
-              <div className="inline-flex rounded-lg border border-[color:var(--shell-control-border)] p-0.5 bg-[color:var(--color-muted)]/40">
+              <span className="text-xs text-muted-foreground">العلاقة بين المجموعات:</span>
+              <div className="inline-flex rounded-lg border border-border/70 p-0.5 bg-muted/40">
                 <button
                   type="button"
                   onClick={() => handleTopOperatorChange("AND")}
                   className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all ${
                     criteria.include.operator === "AND"
                       ? "bg-[color:var(--color-primary)] text-white shadow-xs"
-                      : "text-[color:var(--color-muted-foreground)] hover:text-[color:var(--color-foreground)]"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   مطابقة الكل (AND)
@@ -209,7 +209,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                   className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all ${
                     criteria.include.operator === "OR"
                       ? "bg-[color:var(--color-primary)] text-white shadow-xs"
-                      : "text-[color:var(--color-muted-foreground)] hover:text-[color:var(--color-foreground)]"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   مطابقة أي منها (OR)
@@ -224,15 +224,15 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
           {criteria.include.groups.map((group, gIdx) => (
             <div
               key={gIdx}
-              className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-3.5 space-y-3 shadow-xs"
+              className="rounded-xl border border-border/70 bg-[color:var(--color-card)] p-3.5 space-y-3 shadow-xs"
             >
               {/* Group Header */}
-              <div className="flex items-center justify-between gap-2 border-b border-[color:var(--shell-control-border)]/60 pb-2">
+              <div className="flex items-center justify-between gap-2 border-b border-border/70/60 pb-2">
                 <div className="flex items-center gap-2">
                   <span className="inline-flex size-5 items-center justify-center rounded-full bg-[color:var(--color-primary)]/10 text-[color:var(--color-primary)] text-xs font-bold font-mono">
                     {gIdx + 1}
                   </span>
-                  <span className="text-xs font-medium text-[color:var(--color-foreground)]">
+                  <span className="text-xs font-medium text-foreground">
                     المجموعة {gIdx + 1}
                   </span>
 
@@ -244,7 +244,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                         className={`px-2 py-0.5 text-[11px] rounded transition-all ${
                           group.operator === "AND"
                             ? "bg-[color:var(--color-primary)]/20 text-[color:var(--color-primary)] font-semibold"
-                            : "text-[color:var(--color-muted-foreground)] hover:bg-[color:var(--color-muted)]"
+                            : "text-muted-foreground hover:bg-muted"
                         }`}
                       >
                         كل الشروط (AND)
@@ -255,7 +255,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                         className={`px-2 py-0.5 text-[11px] rounded transition-all ${
                           group.operator === "OR"
                             ? "bg-[color:var(--color-primary)]/20 text-[color:var(--color-primary)] font-semibold"
-                            : "text-[color:var(--color-muted-foreground)] hover:bg-[color:var(--color-muted)]"
+                            : "text-muted-foreground hover:bg-muted"
                         }`}
                       >
                         أي شرط (OR)
@@ -283,7 +283,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                 {group.rules.map((rule, rIdx) => (
                   <div
                     key={rIdx}
-                    className="flex flex-wrap items-start gap-2 rounded-lg border border-[color:var(--shell-control-border)]/50 bg-[color:var(--color-muted)]/20 p-2.5"
+                    className="flex flex-wrap items-start gap-2 rounded-lg border border-border/70/50 bg-muted/20 p-2.5"
                   >
                     {/* Field Select */}
                     <div className="w-full sm:w-52 shrink-0">
@@ -298,7 +298,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                           {RULE_FIELDS.map((rf) => (
                             <SelectItem key={rf.value} value={rf.value} className="text-xs">
                               <span className="flex items-center gap-1.5">
-                                <rf.icon className="size-3.5 text-[color:var(--color-muted-foreground)]" />
+                                <rf.icon className="size-3.5 text-muted-foreground" />
                                 {rf.label}
                               </span>
                             </SelectItem>
@@ -345,7 +345,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                               onChange={(e) => handleUpdateRule(gIdx, rIdx, { dateFrom: e.target.value })}
                               title="من تاريخ"
                             />
-                            <span className="text-xs text-[color:var(--color-muted-foreground)]">-</span>
+                            <span className="text-xs text-muted-foreground">-</span>
                             <DateInput
                               
                               className="h-9 text-xs w-32"
@@ -360,14 +360,14 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                       {/* 2. orderedInPeriod */}
                       {rule.field === "orderedInPeriod" && (
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-[color:var(--color-muted-foreground)]">من:</span>
+                          <span className="text-xs text-muted-foreground">من:</span>
                           <DateInput
                             
                             className="h-9 text-xs w-36"
                             value={rule.dateFrom ? rule.dateFrom.slice(0, 10) : ""}
                             onChange={(e) => handleUpdateRule(gIdx, rIdx, { dateFrom: e.target.value })}
                           />
-                          <span className="text-xs text-[color:var(--color-muted-foreground)]">إلى:</span>
+                          <span className="text-xs text-muted-foreground">إلى:</span>
                           <DateInput
                             
                             className="h-9 text-xs w-36"
@@ -409,7 +409,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                           </div>
                           {rule.op === "between" && (
                             <>
-                              <span className="text-xs text-[color:var(--color-muted-foreground)]">و</span>
+                              <span className="text-xs text-muted-foreground">و</span>
                               <div className="w-24 shrink-0">
                                 <Input
                                   type="number"
@@ -543,7 +543,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className="size-8 text-[color:var(--color-muted-foreground)] hover:text-[color:var(--color-destructive)]"
+                        className="size-8 text-muted-foreground hover:text-[color:var(--color-destructive)]"
                         onClick={() => handleRemoveRule(gIdx, rIdx)}
                         title="حذف هذا الشرط"
                       >
@@ -583,10 +583,10 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
       </div>
 
       {/* ── Exclusions Section ── */}
-      <div className="space-y-4 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/20 p-4">
-        <div className="flex items-center gap-2 border-b border-[color:var(--shell-control-border)]/60 pb-2">
+      <div className="space-y-4 rounded-xl border border-border/70 bg-muted/20 p-4">
+        <div className="flex items-center gap-2 border-b border-border/70/60 pb-2">
           <AlertCircle className="size-4 text-warning" />
-          <span className="font-semibold text-sm text-[color:var(--color-foreground)]">
+          <span className="font-semibold text-sm text-foreground">
             شروط وقواعد الاستبعاد (Exclusions)
           </span>
         </div>
@@ -595,7 +595,7 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <Label className="text-xs font-medium">استبعاد المراسَلين حديثاً</Label>
-            <p className="text-[11px] text-[color:var(--color-muted-foreground)]">
+            <p className="text-[11px] text-muted-foreground">
               استبعاد العملاء الذين لديهم أي رسالة (واردة أو صادرة) خلال الفترة لتجنب التكرار.
             </p>
           </div>
@@ -621,9 +621,9 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
 
         {/* 2. Exclude Existing Customer Lists */}
         {existingLists.length > 0 && (
-          <div className="space-y-2 pt-2 border-t border-[color:var(--shell-control-border)]/50">
+          <div className="space-y-2 pt-2 border-t border-border/70/50">
             <Label className="text-xs font-medium">استبعاد أعضاء قوائم أخرى</Label>
-            <p className="text-[11px] text-[color:var(--color-muted-foreground)]">
+            <p className="text-[11px] text-muted-foreground">
               استبعاد أي عميل متطابق مع أي من هذه القوائم:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-36 overflow-y-auto p-1">
@@ -636,8 +636,8 @@ export const CustomerListRuleBuilderV2: React.FC<CustomerListRuleBuilderV2Props>
                     onClick={() => handleToggleExcludeList(l.id)}
                     className={`flex items-center justify-between gap-2 p-2 rounded-lg border text-xs text-start transition-all ${
                       selected
-                        ? "border-[color:var(--color-primary)] bg-[color:var(--color-primary)]/10 text-[color:var(--color-foreground)] font-medium"
-                        : "border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] text-[color:var(--color-muted-foreground)] hover:border-[color:var(--color-primary)]/40"
+                        ? "border-[color:var(--color-primary)] bg-[color:var(--color-primary)]/10 text-foreground font-medium"
+                        : "border-border/70 bg-[color:var(--color-card)] text-muted-foreground hover:border-[color:var(--color-primary)]/40"
                     }`}
                   >
                     <span className="truncate">{l.name}</span>

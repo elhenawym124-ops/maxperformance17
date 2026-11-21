@@ -115,18 +115,18 @@ export const CustomerListCreateModal: React.FC<CustomerListCreateModalProps> = (
                       "flex items-start gap-2 rounded-xl border p-3 text-start transition-all",
                       active
                         ? "border-[color:var(--color-primary)] bg-[color:color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] ring-1 ring-[color:var(--color-primary)]/30"
-                        : "border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:border-[color:var(--color-primary)]/40",
+                        : "border-border/70 bg-[color:var(--color-card)] hover:border-[color:var(--color-primary)]/40",
                     )}
                   >
                     <p.icon
                       className={cn(
                         "mt-0.5 size-4 shrink-0",
-                        active ? "text-[color:var(--color-primary)]" : "text-[color:var(--color-muted-foreground)]",
+                        active ? "text-[color:var(--color-primary)]" : "text-muted-foreground",
                       )}
                     />
                     <span className="min-w-0">
-                      <span className="block text-sm font-medium text-[color:var(--color-foreground)]">{p.label}</span>
-                      <span className="block text-[11px] leading-4 text-[color:var(--color-muted-foreground)]">{p.hint}</span>
+                      <span className="block text-sm font-medium text-foreground">{p.label}</span>
+                      <span className="block text-[11px] leading-4 text-muted-foreground">{p.hint}</span>
                     </span>
                   </button>
                 );
@@ -173,7 +173,7 @@ export const CustomerListCreateModal: React.FC<CustomerListCreateModalProps> = (
                     ))}
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                <p className="text-xs text-muted-foreground">
                   {CRITERIA_TYPES.find((ct) => ct.value === formCriteriaType)?.hint}
                 </p>
               </div>
@@ -192,7 +192,7 @@ export const CustomerListCreateModal: React.FC<CustomerListCreateModalProps> = (
           <div className="flex items-center justify-between rounded-xl border border-[color:color-mix(in_srgb,var(--color-primary)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] px-4 py-3">
             <div className="flex items-center gap-2">
               <Users className="size-4 text-[color:var(--color-primary)]" />
-              <span className="text-sm font-medium text-[color:var(--color-foreground)]">عدد العملاء المتوقع</span>
+              <span className="text-sm font-medium text-foreground">عدد العملاء المتوقع</span>
             </div>
             {previewLoading ? (
               <Loader2 className="size-4 animate-spin text-[color:var(--color-primary)]" />
@@ -200,9 +200,9 @@ export const CustomerListCreateModal: React.FC<CustomerListCreateModalProps> = (
               <div className="text-left leading-tight">
                 <span className="block text-lg font-bold tabular-nums font-mono text-[color:var(--color-primary)]">
                   {previewCounts.after.toLocaleString("ar-EG")}
-                  <span className="text-xs font-normal text-[color:var(--color-muted-foreground)]"> عميل بعد الاستبعاد</span>
+                  <span className="text-xs font-normal text-muted-foreground"> عميل بعد الاستبعاد</span>
                 </span>
-                <span className="block text-[11px] text-[color:var(--color-muted-foreground)]">
+                <span className="block text-[11px] text-muted-foreground">
                   {previewCounts.before.toLocaleString("ar-EG")} قبل الاستبعاد · مستبعد{" "}
                   {previewCounts.excluded.toLocaleString("ar-EG")}
                 </span>
@@ -210,10 +210,10 @@ export const CustomerListCreateModal: React.FC<CustomerListCreateModalProps> = (
             ) : previewCount !== null ? (
               <span className="text-lg font-bold tabular-nums font-mono text-[color:var(--color-primary)]">
                 {previewCount.toLocaleString("ar-EG")}{" "}
-                <span className="text-xs font-normal text-[color:var(--color-muted-foreground)]">عميل</span>
+                <span className="text-xs font-normal text-muted-foreground">عميل</span>
               </span>
             ) : (
-              <span className="text-sm text-[color:var(--color-muted-foreground)]">غير متاح</span>
+              <span className="text-sm text-muted-foreground">غير متاح</span>
             )}
           </div>
         </div>

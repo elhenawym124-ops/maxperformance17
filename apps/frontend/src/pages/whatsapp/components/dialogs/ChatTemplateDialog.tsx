@@ -76,10 +76,10 @@ export const ChatTemplateDialog: React.FC<ChatTemplateDialogProps> = ({
     >
       <UiDialogContent
         showCloseButton={false}
-        className="max-w-2xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="max-w-2xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <UiDialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
-          <UiDialogTitle className="flex items-center gap-2 text-lg text-[color:var(--color-foreground)]">
+        <UiDialogHeader className="border-b border-border/70 px-6 py-5">
+          <UiDialogTitle className="flex items-center gap-2 text-lg text-foreground">
             <FileText className="size-5 text-[color:var(--color-primary)]" />
             <span>{selectedTemplate ? 'تعبئة متغيرات القالب' : 'إرسال قالب معتمد'}</span>
           </UiDialogTitle>
@@ -93,11 +93,11 @@ export const ChatTemplateDialog: React.FC<ChatTemplateDialogProps> = ({
         <div className="max-h-[28rem] space-y-3 overflow-y-auto px-6 py-6">
           {loadingTemplates ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="size-6 animate-spin text-[color:var(--color-muted-foreground)]" />
+              <Loader2 className="size-6 animate-spin text-muted-foreground" />
             </div>
           ) : !selectedTemplate ? (
             templates.length === 0 ? (
-              <p className="py-8 text-center text-sm text-[color:var(--color-muted-foreground)]">
+              <p className="py-8 text-center text-sm text-muted-foreground">
                 لا توجد قوالب معتمدة متاحة
               </p>
             ) : (
@@ -106,17 +106,17 @@ export const ChatTemplateDialog: React.FC<ChatTemplateDialogProps> = ({
                   key={tmpl.name}
                   type="button"
                   onClick={() => handleSelectTemplate(tmpl)}
-                  className="flex w-full items-start gap-3 rounded-[20px] border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] p-4 text-right transition-all hover:border-[color:var(--color-primary)] hover:shadow-sm"
+                  className="flex w-full items-start gap-3 rounded-[20px] border border-border/70 bg-[var(--whatsapp-surface)] p-4 text-right transition-all hover:border-[color:var(--color-primary)] hover:shadow-sm"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-[color:var(--color-foreground)]">
+                    <p className="font-semibold text-foreground">
                       {tmpl.name}
                     </p>
-                    <p className="mt-1 text-xs text-[color:var(--color-muted-foreground)]">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {tmpl.language} · {tmpl.category}
                     </p>
                     {tmpl.components?.find((c: any) => c.type === 'BODY')?.text && (
-                      <p className="mt-1 line-clamp-2 text-sm text-[color:var(--color-muted-foreground)]">
+                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
                         {tmpl.components.find((c: any) => c.type === 'BODY').text}
                       </p>
                     )}
@@ -126,8 +126,8 @@ export const ChatTemplateDialog: React.FC<ChatTemplateDialogProps> = ({
             )
           ) : (
             <div className="space-y-4">
-              <div className="rounded-[20px] border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] p-4">
-                <p className="mb-2 text-sm font-semibold text-[color:var(--color-foreground)]">
+              <div className="rounded-[20px] border border-border/70 bg-[var(--whatsapp-surface)] p-4">
+                <p className="mb-2 text-sm font-semibold text-foreground">
                   {selectedTemplate.name}
                 </p>
                 {selectedTemplate.components?.map((comp: any, idx: number) => (
@@ -138,14 +138,14 @@ export const ChatTemplateDialog: React.FC<ChatTemplateDialogProps> = ({
                       </p>
                     )}
                     {comp.type === 'BODY' && (
-                      <p className="whitespace-pre-wrap text-sm leading-6 text-[color:var(--color-foreground)]">
+                      <p className="whitespace-pre-wrap text-sm leading-6 text-foreground">
                         {comp.text?.replace(/\{\{(\d+)\}\}/g, (_: string, num: string) =>
                           templateVariables[`{{${num}}}`] || `{{${num}}}`
                         )}
                       </p>
                     )}
                     {comp.type === 'FOOTER' && comp.text && (
-                      <p className="mt-1 text-xs text-[color:var(--color-muted-foreground)]">
+                      <p className="mt-1 text-xs text-muted-foreground">
                         {comp.text}
                       </p>
                     )}
@@ -155,7 +155,7 @@ export const ChatTemplateDialog: React.FC<ChatTemplateDialogProps> = ({
 
               {Object.keys(templateVariables).length > 0 && (
                 <div className="space-y-3">
-                  <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+                  <p className="text-sm font-semibold text-foreground">
                     المتغيرات
                   </p>
                   {Object.keys(templateVariables)
@@ -179,7 +179,7 @@ export const ChatTemplateDialog: React.FC<ChatTemplateDialogProps> = ({
               )}
 
               {Object.keys(templateVariables).length === 0 && (
-                <p className="text-sm text-[color:var(--color-muted-foreground)]">
+                <p className="text-sm text-muted-foreground">
                   هذا القالب لا يحتوي على متغيرات
                 </p>
               )}
@@ -187,7 +187,7 @@ export const ChatTemplateDialog: React.FC<ChatTemplateDialogProps> = ({
           )}
         </div>
 
-        <UiDialogFooter className="border-t border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)]">
+        <UiDialogFooter className="border-t border-border/70 bg-[var(--whatsapp-surface-overlay)]">
           <UiButton variant="outline" onClick={handleClose}>
             {selectedTemplate ? 'رجوع' : 'إلغاء'}
           </UiButton>

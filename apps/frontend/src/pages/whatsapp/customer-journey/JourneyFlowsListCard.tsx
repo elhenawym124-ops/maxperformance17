@@ -34,15 +34,15 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-[16rem] flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[color:color-mix(in_srgb,var(--color-card)_40%,transparent)] px-6 py-10 text-center">
+    <div className="flex min-h-[16rem] flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-[color:color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color:color-mix(in_srgb,var(--color-card)_40%,transparent)] px-6 py-10 text-center">
       <div className="flex size-12 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
         <Icon className="size-6" />
       </div>
       <div className="space-y-1">
-        <p className="text-base font-semibold text-[color:var(--color-foreground)]">
+        <p className="text-base font-semibold text-foreground">
           {title}
         </p>
-        <p className="mx-auto max-w-sm text-sm leading-6 text-[color:var(--color-muted-foreground)]">
+        <p className="mx-auto max-w-sm text-sm leading-6 text-muted-foreground">
           {description}
         </p>
       </div>
@@ -74,9 +74,9 @@ export const JourneyFlowsListCard: React.FC<JourneyFlowsListCardProps> = ({
       action={
         <Badge
           variant="outline"
-          className="gap-1.5 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-2.5 py-1 text-xs font-mono tabular-nums"
+          className="gap-1.5 rounded-full border-border/70 bg-muted px-2.5 py-1 text-xs font-mono tabular-nums"
         >
-          <GitBranch className="size-3.5 text-[color:var(--color-muted-foreground)]" />
+          <GitBranch className="size-3.5 text-muted-foreground" />
           {flows.length}
         </Badge>
       }
@@ -86,7 +86,7 @@ export const JourneyFlowsListCard: React.FC<JourneyFlowsListCardProps> = ({
         <div className="relative">
           <Search
             className={cn(
-              "pointer-events-none absolute top-1/2 size-3.5 -translate-y-1/2 text-[color:var(--color-muted-foreground)]",
+              "pointer-events-none absolute top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground",
               isRtl ? "right-2.5" : "left-2.5",
             )}
           />
@@ -122,7 +122,7 @@ export const JourneyFlowsListCard: React.FC<JourneyFlowsListCardProps> = ({
                     "group relative flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-start transition-all duration-200",
                     selected
                       ? "bg-[color:var(--journey-accent-soft)]"
-                      : "bg-[color:var(--color-card)] hover:bg-[color:var(--color-muted)]",
+                      : "bg-[color:var(--color-card)] hover:bg-muted",
                   )}
                   style={
                     selected
@@ -144,10 +144,10 @@ export const JourneyFlowsListCard: React.FC<JourneyFlowsListCardProps> = ({
                   />
 
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-xs font-semibold text-[color:var(--color-foreground)]">
+                    <p className="truncate text-xs font-semibold text-foreground">
                       {flow.name}
                     </p>
-                    <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-[color:var(--color-muted-foreground)]">
+                    <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-muted-foreground">
                       <span className="flex items-center gap-0.5 font-mono tabular-nums">
                         <MessageSquare className="size-2.5" />
                         {flow._count?.steps || 0}
@@ -169,7 +169,7 @@ export const JourneyFlowsListCard: React.FC<JourneyFlowsListCardProps> = ({
                     <div className="flex shrink-0 items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
                       <button
                         type="button"
-                        className="flex size-6 items-center justify-center rounded-md text-[color:var(--color-muted-foreground)] transition-colors hover:bg-[color:var(--color-muted)] hover:text-[color:var(--color-foreground)]"
+                        className="flex size-6 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                         onClick={(event) => {
                           event.stopPropagation();
                           onEditFlow(flow);
@@ -180,7 +180,7 @@ export const JourneyFlowsListCard: React.FC<JourneyFlowsListCardProps> = ({
                       </button>
                       <button
                         type="button"
-                        className="flex size-6 items-center justify-center rounded-md text-[color:var(--color-muted-foreground)] transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-destructive)_12%,transparent)] hover:text-[color:var(--color-destructive)]"
+                        className="flex size-6 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-destructive)_12%,transparent)] hover:text-[color:var(--color-destructive)]"
                         onClick={(event) => {
                           event.stopPropagation();
                           onDeleteFlow(flow);

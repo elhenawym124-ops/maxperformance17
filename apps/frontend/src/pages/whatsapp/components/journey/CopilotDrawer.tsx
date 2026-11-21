@@ -195,7 +195,7 @@ export function CopilotDrawer({
         role="dialog"
         aria-label={t("whatsappJourney.copilot.title") as string}
         className={cn(
-          "fixed top-0 z-50 flex h-full w-full max-w-md flex-col border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] shadow-2xl",
+          "fixed top-0 z-50 flex h-full w-full max-w-md flex-col border-border/70 bg-[color:var(--color-card)] shadow-2xl",
           "transition-transform duration-200 ease-out",
           isRtl ? "border-r" : "border-l",
         )}
@@ -206,7 +206,7 @@ export function CopilotDrawer({
         dir={isRtl ? "rtl" : "ltr"}
       >
         {/* Header */}
-        <header className="flex items-center justify-between border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-4 py-3.5">
+        <header className="flex items-center justify-between border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-4 py-3.5">
           <div className="flex items-center gap-3">
             <span className="flex size-9 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
               <Sparkles className="size-4" />
@@ -215,7 +215,7 @@ export function CopilotDrawer({
               <p className="text-[10px] text-muted-foreground">
                 {t("whatsappJourney.copilot.title")}
               </p>
-              <h2 className="text-base font-semibold text-[color:var(--color-foreground)]">
+              <h2 className="text-base font-semibold text-foreground">
                 {activeAgent
                   ? t("whatsappJourney.copilot.ready")
                   : t("whatsappJourney.copilot.title")}
@@ -223,12 +223,12 @@ export function CopilotDrawer({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <kbd className="hidden items-center rounded-md border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-1.5 py-0.5 text-[10px] font-medium text-[color:var(--color-muted-foreground)] sm:inline-flex">
+            <kbd className="hidden items-center rounded-md border border-border/70 bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline-flex">
               ESC
             </kbd>
             <button
               type="button"
-              className="flex size-8 items-center justify-center rounded-lg text-[color:var(--color-muted-foreground)] transition-colors hover:bg-[color:var(--color-muted)] hover:text-[color:var(--color-foreground)]"
+              className="flex size-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               onClick={onClose}
               aria-label={t("whatsappJourney.copilot.close") as string}
             >
@@ -255,7 +255,7 @@ export function CopilotDrawer({
           )}
 
           {isStreaming && (
-            <div className="flex items-center gap-2 text-xs text-[color:var(--color-muted-foreground)]">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Loader2 className="size-3 animate-spin" />
               {t("whatsappJourney.copilot.thinking")}
             </div>
@@ -264,7 +264,7 @@ export function CopilotDrawer({
 
         {/* Quick prompts */}
         {messages.length === 0 && (
-          <div className="border-t border-[color:color-mix(in_srgb,var(--shell-control-border)_50%,transparent)] p-4">
+          <div className="border-t border-[color:color-mix(in_srgb,var(--color-border)_50%,transparent)] p-4">
             <p className="mb-2 text-[10px] text-muted-foreground">
               {t("whatsappJourney.copilot.quickPrompts")}
             </p>
@@ -273,7 +273,7 @@ export function CopilotDrawer({
                 <button
                   key={p.label}
                   type="button"
-                  className="cursor-pointer rounded-full border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-2.5 py-1 text-[10px] font-medium text-[color:var(--color-muted-foreground)] transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-primary)_8%,var(--color-muted))] hover:text-[color:var(--color-foreground)]"
+                  className="cursor-pointer rounded-full border border-border/70 bg-muted px-2.5 py-1 text-[10px] font-medium text-muted-foreground transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-primary)_8%,var(--color-muted))] hover:text-foreground"
                   onClick={() => setInput(p.prompt)}
                 >
                   {p.label}
@@ -284,8 +284,8 @@ export function CopilotDrawer({
         )}
 
         {/* Composer */}
-        <div className="border-t border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] p-4">
-          <div className="flex items-end gap-2 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] p-2">
+        <div className="border-t border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] p-4">
+          <div className="flex items-end gap-2 rounded-xl border border-border/70 bg-muted p-2">
             <textarea
               ref={inputRef}
               value={input}
@@ -293,7 +293,7 @@ export function CopilotDrawer({
               onKeyDown={handleKey}
               rows={2}
               placeholder={t("whatsappJourney.copilot.placeholder") as string}
-              className="min-h-[2.5rem] flex-1 resize-none border-0 bg-transparent p-2 text-sm text-[color:var(--color-foreground)] outline-none placeholder:text-[color:var(--color-muted-foreground)]"
+              className="min-h-[2.5rem] flex-1 resize-none border-0 bg-transparent p-2 text-sm text-foreground outline-none placeholder:text-muted-foreground"
             />
             <Button
               size="icon"
@@ -309,7 +309,7 @@ export function CopilotDrawer({
               )}
             </Button>
           </div>
-          <p className="mt-2 text-center text-[9px] text-[color:var(--color-muted-foreground)]">
+          <p className="mt-2 text-center text-[9px] text-muted-foreground">
             {t("whatsappJourney.copilot.hint")}
           </p>
         </div>
@@ -418,10 +418,10 @@ function EmptyState({
       <span className="flex size-12 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-card))] text-[color:var(--color-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
         <Wand2 className="size-5" />
       </span>
-      <p className="max-w-[320px] text-base font-semibold leading-relaxed text-[color:var(--color-foreground)]">
+      <p className="max-w-[320px] text-base font-semibold leading-relaxed text-foreground">
         {greeting}
       </p>
-      <p className="max-w-[320px] text-xs text-[color:var(--color-muted-foreground)]">
+      <p className="max-w-[320px] text-xs text-muted-foreground">
         {t("whatsappJourney.copilot.poweredBy")}
       </p>
     </div>
@@ -454,7 +454,7 @@ function MessageBubble({
           "max-w-[90%] rounded-xl border p-3 text-sm leading-6",
           isUser
             ? "border-[color:var(--color-primary)] bg-[color:var(--color-primary)] text-[color:var(--color-primary-foreground)]"
-            : "border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] text-[color:var(--color-foreground)]",
+            : "border-border/70 bg-muted text-foreground",
         )}
         style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
       >
@@ -505,7 +505,7 @@ function InsightCard({ insight }: { insight: Insight }) {
 
   return (
     <li
-      className="flex items-start gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-3"
+      className="flex items-start gap-3 rounded-xl border border-border/70 bg-[color:var(--color-card)] p-3"
     >
       <span
         className="flex size-7 shrink-0 items-center justify-center rounded-lg"
@@ -516,7 +516,7 @@ function InsightCard({ insight }: { insight: Insight }) {
       >
         <Icon className="size-3.5" />
       </span>
-      <p className="m-0 text-xs leading-5 text-[color:var(--color-foreground)]">
+      <p className="m-0 text-xs leading-5 text-foreground">
         {insight.text}
       </p>
     </li>

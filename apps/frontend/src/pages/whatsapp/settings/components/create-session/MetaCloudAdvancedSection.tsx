@@ -32,7 +32,7 @@ export const MetaCloudAdvancedSection: React.FC<
   const { t } = useTranslation();
 
   return (
-    <div className="border-t border-[color:var(--shell-control-border)] p-5 space-y-4 bg-[var(--app-panel-bg)] animate-in fade-in-50 duration-200">
+    <div className="border-t border-border/70 p-5 space-y-4 bg-[var(--app-panel-bg)] animate-in fade-in-50 duration-200">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label className="flex items-center gap-1.5" htmlFor="meta-api-version">
@@ -40,7 +40,7 @@ export const MetaCloudAdvancedSection: React.FC<
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <HelpCircle className="size-3.5 text-[color:var(--color-muted-foreground)] cursor-help" />
+                  <HelpCircle className="size-3.5 text-muted-foreground cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent>
                   {t("whatsappSettings.dialogs.metaApiVersionHelper")}
@@ -63,7 +63,7 @@ export const MetaCloudAdvancedSection: React.FC<
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <HelpCircle className="size-3.5 text-[color:var(--color-muted-foreground)] cursor-help" />
+                  <HelpCircle className="size-3.5 text-muted-foreground cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent>
                   {t("whatsappSettings.dialogs.metaDisplayPhoneHelper")}
@@ -90,7 +90,7 @@ export const MetaCloudAdvancedSection: React.FC<
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <HelpCircle className="size-3.5 text-[color:var(--color-muted-foreground)] cursor-help" />
+                <HelpCircle className="size-3.5 text-muted-foreground cursor-help" />
               </TooltipTrigger>
               <TooltipContent>
                 {t("whatsappSettings.dialogs.metaWebhookSecretHelper")}

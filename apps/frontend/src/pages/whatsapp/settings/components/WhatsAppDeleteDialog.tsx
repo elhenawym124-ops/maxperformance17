@@ -51,7 +51,7 @@ export const WhatsAppDeleteDialog: React.FC<WhatsAppDeleteDialogProps> = ({
     >
       <AlertDialogContent
         size="sm"
-        className="rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)]"
+        className="rounded-xl border-border/70 bg-[var(--app-panel-bg)]"
       >
         <AlertDialogHeader>
           <AlertDialogMedia className="rounded-xl bg-destructive/10 text-destructive dark:text-destructive">
@@ -81,7 +81,7 @@ export const WhatsAppDeleteDialog: React.FC<WhatsAppDeleteDialogProps> = ({
             </div>
           )}
         </AlertDialogHeader>
-        <AlertDialogFooter className="rounded-b-3xl border-t border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] bg-[color:var(--color-muted)]">
+        <AlertDialogFooter className="rounded-b-3xl border-t border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] bg-muted">
           <AlertDialogCancel onClick={onClose}>
             {t("whatsappSettings.dialogs.cancel")}
           </AlertDialogCancel>

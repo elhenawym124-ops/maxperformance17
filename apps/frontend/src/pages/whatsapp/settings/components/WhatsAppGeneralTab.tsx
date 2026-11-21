@@ -30,7 +30,7 @@ export const WhatsAppGeneralTab: React.FC<WhatsAppGeneralTabProps> = ({
 
   if (!settings) {
     return (
-      <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+      <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
         <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
         <AlertTitle>{t("whatsappSettings.generalSettings")}</AlertTitle>
         <AlertDescription>{t("whatsappSettings.dialogs.errorLoading")}</AlertDescription>

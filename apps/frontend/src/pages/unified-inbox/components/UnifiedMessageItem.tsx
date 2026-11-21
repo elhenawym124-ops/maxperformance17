@@ -65,7 +65,7 @@ export const UnifiedMessageItem: React.FC<UnifiedMessageItemProps> = ({
           }`}
           style={{
             background:
-              'color-mix(in srgb, var(--color-background) 92%, var(--shell-control-bg) 8%)',
+              'color-mix(in srgb, var(--color-background) 92%, var(--color-card) 8%)',
             border: '1px solid var(--business-card-border)',
           }}
         >

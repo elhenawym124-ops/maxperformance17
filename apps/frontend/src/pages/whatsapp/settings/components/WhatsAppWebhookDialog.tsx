@@ -44,7 +44,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-6 sm:max-w-xl">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-6 sm:max-w-xl">
         <DialogHeader className="space-y-2">
           <div className="flex items-center gap-3">
             <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-info/10 text-info dark:text-info">
@@ -54,7 +54,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
               <DialogTitle className="text-base sm:text-lg font-bold">
                 بيانات رد الاتصال (Meta Webhook)
               </DialogTitle>
-              <DialogDescription className="text-xs text-[color:var(--color-muted-foreground)]">
+              <DialogDescription className="text-xs text-muted-foreground">
                 بيانات الربط مع بوابة Meta Developers لاستقبال رسائل الواتساب
                 الواردة وحالات التسليم
               </DialogDescription>
@@ -66,7 +66,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
           {/* Callback URL */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-xs">
-              <Label className="font-medium text-[color:var(--color-foreground)]">
+              <Label className="font-medium text-foreground">
                 رابط الويب هوك (Callback URL)
               </Label>
               <span className="text-[10px] text-info dark:text-info font-medium">
@@ -77,14 +77,14 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
               <Input
                 readOnly
                 value={getMetaWebhookUrl()}
-                className="h-10 bg-[color:var(--color-card)] font-mono text-xs select-all text-[color:var(--color-foreground)]"
+                className="h-10 bg-[color:var(--color-card)] font-mono text-xs select-all text-foreground"
                 dir="ltr"
               />
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
-                className="h-10 px-3.5 shrink-0 gap-1.5 rounded-xl border-[color:var(--shell-control-border)]"
+                className="h-10 px-3.5 shrink-0 gap-1.5 rounded-xl border-border/70"
                 onClick={() => {
                   navigator.clipboard.writeText(getMetaWebhookUrl());
                   toast.success("تم نسخ رابط الويب هوك بنجاح");
@@ -99,10 +99,10 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
           {/* Verify Token */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-xs">
-              <Label className="font-medium text-[color:var(--color-foreground)]">
+              <Label className="font-medium text-foreground">
                 رمز التحقق (Verify Token)
               </Label>
-              <span className="text-[10px] text-[color:var(--color-muted-foreground)]">
+              <span className="text-[10px] text-muted-foreground">
                 {webhookDetailsSession
                   ? `جلسة: ${webhookDetailsSession.name}`
                   : "رمز التحقق للربط"}
@@ -112,14 +112,14 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
               <Input
                 readOnly
                 value={activeVerifyToken}
-                className="h-10 bg-[color:var(--color-card)] font-mono text-xs select-all text-[color:var(--color-foreground)]"
+                className="h-10 bg-[color:var(--color-card)] font-mono text-xs select-all text-foreground"
                 dir="ltr"
               />
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
-                className="h-10 px-3.5 shrink-0 gap-1.5 rounded-xl border-[color:var(--shell-control-border)]"
+                className="h-10 px-3.5 shrink-0 gap-1.5 rounded-xl border-border/70"
                 onClick={() => {
                   navigator.clipboard.writeText(activeVerifyToken);
                   toast.success("تم نسخ رمز التحقق بنجاح");
@@ -129,7 +129,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
                 <span className="text-xs">نسخ</span>
               </Button>
             </div>
-            <div className="flex items-center justify-between text-[11px] text-[color:var(--color-muted-foreground)] px-1 pt-0.5">
+            <div className="flex items-center justify-between text-[11px] text-muted-foreground px-1 pt-0.5">
               <span>رمز بديل معتمد (64 محرف):</span>
               <button
                 type="button"
@@ -147,9 +147,9 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
           </div>
 
           {/* Subscribed Fields */}
-          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-3.5 space-y-2 text-xs">
+          <div className="rounded-xl border border-border/70 bg-[color:var(--color-card)] p-3.5 space-y-2 text-xs">
             <div className="flex items-center justify-between">
-              <span className="font-medium text-[color:var(--color-foreground)]">
+              <span className="font-medium text-foreground">
                 الحقول المطلوبة (Webhook fields):
               </span>
               <div className="flex items-center gap-1.5 flex-wrap">
@@ -167,7 +167,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
                 </Badge>
               </div>
             </div>
-            <p className="text-[11px] text-[color:var(--color-muted-foreground)] leading-relaxed">
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
               في لوحة تحكم Meta، اضغط <strong>Manage</strong> في حقل Webhook fields
               واشترك في <strong>messages</strong> وأيضاً <strong>message_template_status_update</strong> لتصلك الرسائل وتحديثات القراءة
               والتسليم وحالات القوالب مباشرة إلى لوحة التحكم.
@@ -175,8 +175,8 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
           </div>
 
           {/* Step Guide */}
-          <div className="rounded-xl border border-info/20 bg-info/5 p-3.5 text-xs text-[color:var(--color-muted-foreground)] space-y-2">
-            <p className="font-semibold text-[color:var(--color-foreground)] flex items-center gap-1.5">
+          <div className="rounded-xl border border-info/20 bg-info/5 p-3.5 text-xs text-muted-foreground space-y-2">
+            <p className="font-semibold text-foreground flex items-center gap-1.5">
               <Info className="size-3.5 text-info" />
               خطوات التثبيت في بوابة Meta Developers:
             </p>
@@ -222,7 +222,7 @@ export const WhatsAppWebhookDialog: React.FC<WhatsAppWebhookDialogProps> = ({
           <Button
             type="button"
             variant="outline"
-            className="w-full rounded-full border-[color:var(--shell-control-border)] h-10 text-xs gap-2 font-medium bg-[color:var(--color-card)] hover:bg-[color:var(--color-muted)]"
+            className="w-full rounded-full border-border/70 h-10 text-xs gap-2 font-medium bg-[color:var(--color-card)] hover:bg-muted"
             onClick={() =>
               window.open("https://developers.facebook.com/apps", "_blank")
             }

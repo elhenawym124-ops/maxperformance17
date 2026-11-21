@@ -64,10 +64,10 @@ export const ChatLocationDialog: React.FC<ChatLocationDialogProps> = ({
     <UiDialog open={open} onOpenChange={onOpenChange}>
       <UiDialogContent
         showCloseButton={false}
-        className="max-w-2xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="max-w-2xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <UiDialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
-          <UiDialogTitle className="flex items-center gap-2 text-lg text-[color:var(--color-foreground)]">
+        <UiDialogHeader className="border-b border-border/70 px-6 py-5">
+          <UiDialogTitle className="flex items-center gap-2 text-lg text-foreground">
             <MapPin className="size-5 text-[color:var(--color-primary)]" />
             <span>إرسال موقع جغرافي</span>
           </UiDialogTitle>
@@ -79,7 +79,7 @@ export const ChatLocationDialog: React.FC<ChatLocationDialogProps> = ({
             <span>استخدام موقعي الحالي</span>
           </UiButton>
 
-          <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+          <p className="text-sm font-semibold text-foreground">
             أو أدخل الإحداثيات يدويًا
           </p>
 
@@ -110,8 +110,8 @@ export const ChatLocationDialog: React.FC<ChatLocationDialogProps> = ({
           />
 
           {locationData.latitude && locationData.longitude ? (
-            <div className="space-y-3 rounded-[24px] border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] p-4">
-              <p className="text-sm text-[color:var(--color-foreground)] tabular-nums font-mono">
+            <div className="space-y-3 rounded-[24px] border border-border/70 bg-[var(--whatsapp-surface)] p-4">
+              <p className="text-sm text-foreground tabular-nums font-mono">
                 الموقع: {locationData.latitude}, {locationData.longitude}
               </p>
               <UiButton asChild variant="outline" size="sm">
@@ -127,7 +127,7 @@ export const ChatLocationDialog: React.FC<ChatLocationDialogProps> = ({
           ) : null}
         </div>
 
-        <UiDialogFooter className="border-t border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)]">
+        <UiDialogFooter className="border-t border-border/70 bg-[var(--whatsapp-surface-overlay)]">
           <UiButton variant="outline" onClick={handleClose}>
             إلغاء
           </UiButton>

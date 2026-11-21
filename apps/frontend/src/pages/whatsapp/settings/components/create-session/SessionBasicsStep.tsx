@@ -56,7 +56,7 @@ export const SessionBasicsStep: React.FC<SessionBasicsStepProps> = ({
               "flex flex-col items-start gap-3 rounded-xl border p-5 text-start transition-all cursor-pointer",
               newSessionProvider === "BAILEYS"
                 ? "border-[color:var(--color-primary)] bg-primary/8 ring-2 ring-[color:var(--color-primary)]"
-                : "border-[color:var(--shell-control-border)] hover:bg-[color:var(--color-muted)]",
+                : "border-border/70 hover:bg-muted",
             )}
           >
             <div
@@ -64,16 +64,16 @@ export const SessionBasicsStep: React.FC<SessionBasicsStepProps> = ({
                 "rounded-full p-2.5",
                 newSessionProvider === "BAILEYS"
                   ? "bg-[color:var(--color-primary)] text-white"
-                  : "bg-[color:var(--color-card)] text-[color:var(--color-muted-foreground)]",
+                  : "bg-[color:var(--color-card)] text-muted-foreground",
               )}
             >
               <Smartphone className="size-5" />
             </div>
             <div>
-              <h4 className="font-semibold text-[color:var(--color-foreground)]">
+              <h4 className="font-semibold text-foreground">
                 {t("whatsappSettings.dialogs.providerBaileysTitle")}
               </h4>
-              <p className="mt-1 text-xs leading-5 text-[color:var(--color-muted-foreground)]">
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">
                 {t("whatsappSettings.dialogs.providerBaileysDesc")}
               </p>
             </div>
@@ -89,7 +89,7 @@ export const SessionBasicsStep: React.FC<SessionBasicsStepProps> = ({
               "flex flex-col items-start gap-3 rounded-xl border p-5 text-start transition-all cursor-pointer",
               newSessionProvider === "META_CLOUD"
                 ? "border-[color:var(--color-primary)] bg-primary/8 ring-2 ring-[color:var(--color-primary)]"
-                : "border-[color:var(--shell-control-border)] hover:bg-[color:var(--color-muted)]",
+                : "border-border/70 hover:bg-muted",
             )}
           >
             <div
@@ -97,16 +97,16 @@ export const SessionBasicsStep: React.FC<SessionBasicsStepProps> = ({
                 "rounded-full p-2.5",
                 newSessionProvider === "META_CLOUD"
                   ? "bg-[color:var(--color-primary)] text-white"
-                  : "bg-[color:var(--color-card)] text-[color:var(--color-muted-foreground)]",
+                  : "bg-[color:var(--color-card)] text-muted-foreground",
               )}
             >
               <Globe className="size-5" />
             </div>
             <div>
-              <h4 className="font-semibold text-[color:var(--color-foreground)]">
+              <h4 className="font-semibold text-foreground">
                 {t("whatsappSettings.dialogs.providerMetaTitle")}
               </h4>
-              <p className="mt-1 text-xs leading-5 text-[color:var(--color-muted-foreground)]">
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">
                 {t("whatsappSettings.dialogs.providerMetaDesc")}
               </p>
             </div>

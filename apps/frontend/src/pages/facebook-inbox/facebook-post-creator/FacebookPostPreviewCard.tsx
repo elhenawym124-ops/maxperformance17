@@ -26,7 +26,7 @@ export const FacebookPostPreviewCard: React.FC<
         style={{
           borderBottom: "1px solid var(--business-card-border)",
           background:
-            "color-mix(in srgb, var(--color-background) 80%, var(--shell-control-bg) 20%)",
+            "color-mix(in srgb, var(--color-background) 80%, var(--color-card) 20%)",
         }}
       >
         <h3 className="font-bold text-sm" style={headingStyle}>
@@ -42,7 +42,7 @@ export const FacebookPostPreviewCard: React.FC<
           style={{
             ...panelStyle,
             background:
-              "color-mix(in srgb, var(--color-background) 88%, var(--shell-control-bg) 12%)",
+              "color-mix(in srgb, var(--color-background) 88%, var(--color-card) 12%)",
           }}
         >
           {/* Fake Header */}
@@ -51,7 +51,7 @@ export const FacebookPostPreviewCard: React.FC<
               className="mr-3 h-10 w-10 rounded-full shrink-0"
               style={{
                 background:
-                  "color-mix(in srgb, var(--shell-control-bg) 78%, var(--color-background) 22%)",
+                  "color-mix(in srgb, var(--color-card) 78%, var(--color-background) 22%)",
               }}
             ></div>
             <div className="flex-1">
@@ -59,14 +59,14 @@ export const FacebookPostPreviewCard: React.FC<
                 className="mb-2 h-4 w-24 rounded"
                 style={{
                   background:
-                    "color-mix(in srgb, var(--shell-control-bg) 78%, var(--color-background) 22%)",
+                    "color-mix(in srgb, var(--color-card) 78%, var(--color-background) 22%)",
                 }}
               ></div>
               <div
                 className="h-3 w-16 rounded"
                 style={{
                   background:
-                    "color-mix(in srgb, var(--shell-control-bg) 84%, var(--color-background) 16%)",
+                    "color-mix(in srgb, var(--color-card) 84%, var(--color-background) 16%)",
                 }}
               ></div>
             </div>
@@ -87,7 +87,7 @@ export const FacebookPostPreviewCard: React.FC<
                 style={{
                   ...panelStyle,
                   background:
-                    "color-mix(in srgb, var(--shell-control-bg) 82%, var(--color-background) 18%)",
+                    "color-mix(in srgb, var(--color-card) 82%, var(--color-background) 18%)",
                 }}
               >
                 <div
@@ -100,7 +100,7 @@ export const FacebookPostPreviewCard: React.FC<
                   className="mt-2 h-20 rounded"
                   style={{
                     background:
-                      "color-mix(in srgb, var(--shell-control-bg) 78%, var(--color-background) 22%)",
+                      "color-mix(in srgb, var(--color-card) 78%, var(--color-background) 22%)",
                   }}
                 ></div>
               </div>

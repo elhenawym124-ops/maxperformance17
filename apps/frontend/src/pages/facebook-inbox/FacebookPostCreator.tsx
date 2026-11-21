@@ -45,7 +45,7 @@ const FacebookPostCreator: React.FC = () => {
       className="w-full min-h-screen space-y-6 p-6"
       style={{
         background:
-          "linear-gradient(180deg, color-mix(in srgb, var(--color-background) 92%, var(--shell-control-bg) 8%) 0%, color-mix(in srgb, var(--shell-control-bg) 84%, var(--color-background) 16%) 100%)",
+          "linear-gradient(180deg, color-mix(in srgb, var(--color-background) 92%, var(--color-card) 8%) 0%, color-mix(in srgb, var(--color-card) 84%, var(--color-background) 16%) 100%)",
       }}
     >
       <FacebookPostCreatorHeader

@@ -43,14 +43,14 @@ export const SessionBaileysStep: React.FC<SessionBaileysStepProps> = ({
           className="h-11 bg-[color:var(--color-card)] font-mono tabular-nums"
           dir="ltr"
         />
-        <p className="text-sm text-[color:var(--color-muted-foreground)]">
+        <p className="text-sm text-muted-foreground">
           {t("whatsappSettings.dialogs.phoneNumberHelper")}
         </p>
       </div>
 
       <label
         htmlFor="session-import-history"
-        className="flex items-start gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-4 cursor-pointer"
+        className="flex items-start gap-3 rounded-xl border border-border/70 bg-[color:var(--color-card)] p-4 cursor-pointer"
       >
         <Checkbox
           id="session-import-history"
@@ -59,10 +59,10 @@ export const SessionBaileysStep: React.FC<SessionBaileysStepProps> = ({
           className="mt-0.5"
         />
         <span className="grid gap-1">
-          <span className="text-sm font-semibold text-[color:var(--color-foreground)]">
+          <span className="text-sm font-semibold text-foreground">
             {t("whatsappSettings.dialogs.importHistory")}
           </span>
-          <span className="text-xs leading-5 text-[color:var(--color-muted-foreground)]">
+          <span className="text-xs leading-5 text-muted-foreground">
             {t("whatsappSettings.dialogs.importHistoryHelper")}
           </span>
         </span>
@@ -70,7 +70,7 @@ export const SessionBaileysStep: React.FC<SessionBaileysStepProps> = ({
 
       <label
         htmlFor="session-keep-history"
-        className="flex items-start gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-4 cursor-pointer"
+        className="flex items-start gap-3 rounded-xl border border-border/70 bg-[color:var(--color-card)] p-4 cursor-pointer"
       >
         <Checkbox
           id="session-keep-history"
@@ -81,16 +81,16 @@ export const SessionBaileysStep: React.FC<SessionBaileysStepProps> = ({
           className="mt-0.5"
         />
         <span className="grid gap-1">
-          <span className="text-sm font-semibold text-[color:var(--color-foreground)]">
+          <span className="text-sm font-semibold text-foreground">
             {t("whatsappSettings.dialogs.keepHistoryOnDelete")}
           </span>
-          <span className="text-xs leading-5 text-[color:var(--color-muted-foreground)]">
+          <span className="text-xs leading-5 text-muted-foreground">
             {t("whatsappSettings.dialogs.keepHistoryOnDeleteHelper")}
           </span>
         </span>
       </label>
 
-      <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+      <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
         <QrCode className="size-4 text-[color:var(--color-primary)]" />
         <AlertTitle>QR Code</AlertTitle>
         <AlertDescription>

@@ -48,7 +48,7 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
   return (
     <Sheet open={!!detailList} onOpenChange={(open) => !open && onClose()}>
       <SheetContent className="w-full overflow-y-auto sm:max-w-2xl">
-        <SheetHeader className="border-b border-[color:var(--shell-control-border)] pb-3">
+        <SheetHeader className="border-b border-border/70 pb-3">
           <div className="flex items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-xl bg-[color:color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] text-[color:var(--color-primary)]">
               <Users className="size-5" />
@@ -65,12 +65,12 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
         <div className="flex flex-col gap-3 py-4">
           <div className="flex items-center gap-2">
             <div className="relative flex-1">
-              <Search className="absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[color:var(--color-muted-foreground)]" />
+              <Search className="absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={memberSearch}
                 onChange={(e) => onMemberSearchChange(e.target.value)}
                 placeholder="ابحث في الأعضاء..."
-                className="h-10 rounded-full border-[color:var(--shell-control-border)] pe-9"
+                className="h-10 rounded-full border-border/70 pe-9"
               />
             </div>
             <Button
@@ -91,14 +91,14 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
               ))}
             </div>
           ) : members.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[color:var(--shell-control-border)] px-6 py-12 text-center">
-              <Users className="size-8 text-[color:var(--color-muted-foreground)] opacity-40" />
-              <p className="text-sm text-[color:var(--color-muted-foreground)]">
+            <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border/70 px-6 py-12 text-center">
+              <Users className="size-8 text-muted-foreground opacity-40" />
+              <p className="text-sm text-muted-foreground">
                 لا يوجد عملاء في هذه القائمة
               </p>
             </div>
           ) : (
-            <div className="rounded-xl border border-[color:var(--shell-control-border)]">
+            <div className="rounded-xl border border-border/70">
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
@@ -121,7 +121,7 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
                           <div className="min-w-0">
                             <p className="truncate text-sm font-medium">{m.name}</p>
                             {m.email ? (
-                              <p className="truncate text-xs text-[color:var(--color-muted-foreground)]" dir="ltr">
+                              <p className="truncate text-xs text-muted-foreground" dir="ltr">
                                 {m.email}
                               </p>
                             ) : null}
@@ -133,7 +133,7 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
                       </TableCell>
                       <TableCell dir="ltr" className="text-sm font-medium tabular-nums font-mono">
                         {(m.totalSpent ?? 0).toLocaleString("ar-EG")}
-                        <span className="me-1 text-xs text-[color:var(--color-muted-foreground)]">ج.م</span>
+                        <span className="me-1 text-xs text-muted-foreground">ج.م</span>
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-col gap-1">
@@ -153,13 +153,13 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
                             );
                           })()}
                           {(m.ordersCount ?? 0) > 0 ? (
-                            <span className="text-[10px] tabular-nums font-mono text-[color:var(--color-muted-foreground)]">
+                            <span className="text-[10px] tabular-nums font-mono text-muted-foreground">
                               {m.ordersCount} طلب
                             </span>
                           ) : null}
                         </div>
                       </TableCell>
-                      <TableCell className="text-xs text-[color:var(--color-muted-foreground)]">
+                      <TableCell className="text-xs text-muted-foreground">
                         {formatDate(m.lastActivity)}
                       </TableCell>
                       <TableCell>
@@ -168,7 +168,7 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
                             "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
                             m.status === "active"
                               ? "bg-[color:color-mix(in_srgb,var(--color-success)_15%,var(--color-card))] text-[color:var(--color-success)]"
-                              : "bg-[color:color-mix(in_srgb,var(--color-muted)_100%,transparent)] text-[color:var(--color-muted-foreground)]",
+                              : "bg-[color:color-mix(in_srgb,var(--color-muted)_100%,transparent)] text-muted-foreground",
                           )}
                         >
                           {m.status === "active" ? <CheckCircle2 className="size-3" /> : <Ban className="size-3" />}
@@ -184,7 +184,7 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
 
           {membersTotal > PER_PAGE && (
             <div className="flex items-center justify-between pt-1">
-              <p className="text-xs tabular-nums font-mono text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs tabular-nums font-mono text-muted-foreground">
                 الصفحة {membersPage} من {Math.ceil(membersTotal / PER_PAGE)}
               </p>
               <div className="flex items-center gap-1">
@@ -211,7 +211,7 @@ export const CustomerListMembersDrawer: React.FC<CustomerListMembersDrawerProps>
           )}
         </div>
 
-        <SheetFooter className="border-t border-[color:var(--shell-control-border)] pt-3">
+        <SheetFooter className="border-t border-border/70 pt-3">
           <Button
             className="w-full rounded-full"
             onClick={() => detailList && onWhatsAppSend(detailList)}

@@ -65,7 +65,7 @@ const WhatsAppMetaTemplates: React.FC<{
               value={ctrl.selectedSessionId}
               onValueChange={(v) => ctrl.setSelectedSessionId(v ?? "")}
             >
-              <SelectTrigger className="h-10 w-full min-w-0 max-w-[200px] rounded-full bg-[color:var(--color-muted)] sm:w-56">
+              <SelectTrigger className="h-10 w-full min-w-0 max-w-[200px] rounded-full bg-muted sm:w-56">
                 <SelectValue placeholder="اختر جلسة">
                   {(value: string | null) => {
                     if (!value) return null;
@@ -284,7 +284,7 @@ const WhatsAppMetaTemplates: React.FC<{
         {/* Mobile bottom sticky action bar */}
         {ctrl.selectedRows.size > 0 ? (
           <div
-            className="fixed inset-x-0 bottom-0 z-30 border-t border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/95 px-3 py-2 shadow-2xl backdrop-blur-md md:hidden"
+            className="fixed inset-x-0 bottom-0 z-30 border-t border-border/70 bg-[color:var(--color-card)]/95 px-3 py-2 shadow-2xl backdrop-blur-md md:hidden"
             role="region"
             aria-label="إجراءات مجمعة"
           >

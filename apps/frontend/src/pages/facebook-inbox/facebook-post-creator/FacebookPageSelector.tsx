@@ -61,14 +61,14 @@ export const FacebookPageSelector: React.FC<FacebookPageSelectorProps> = ({
             className="h-10 rounded"
             style={{
               background:
-                "color-mix(in srgb, var(--shell-control-bg) 82%, var(--color-background) 18%)",
+                "color-mix(in srgb, var(--color-card) 82%, var(--color-background) 18%)",
             }}
           ></div>
           <div
             className="h-10 rounded"
             style={{
               background:
-                "color-mix(in srgb, var(--shell-control-bg) 82%, var(--color-background) 18%)",
+                "color-mix(in srgb, var(--color-card) 82%, var(--color-background) 18%)",
             }}
           ></div>
         </div>

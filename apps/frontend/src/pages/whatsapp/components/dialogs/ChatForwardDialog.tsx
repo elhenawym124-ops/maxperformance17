@@ -68,10 +68,10 @@ export const ChatForwardDialog: React.FC<ChatForwardDialogProps> = ({
     >
       <UiDialogContent
         showCloseButton={false}
-        className="max-w-2xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="max-w-2xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <UiDialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
-          <UiDialogTitle className="text-lg text-[color:var(--color-foreground)]">
+        <UiDialogHeader className="border-b border-border/70 px-6 py-5">
+          <UiDialogTitle className="text-lg text-foreground">
             إعادة توجيه الرسالة إلى...
           </UiDialogTitle>
           <UiDialogDescription>
@@ -93,7 +93,7 @@ export const ChatForwardDialog: React.FC<ChatForwardDialogProps> = ({
                   'flex w-full items-center gap-3 rounded-[22px] border px-3 py-3 text-start transition-all',
                   isSelected
                     ? 'border-[color:var(--color-primary)] bg-primary/10'
-                    : 'border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] hover:bg-[var(--whatsapp-surface-hover)]',
+                    : 'border-border/70 bg-[var(--whatsapp-surface)] hover:bg-[var(--whatsapp-surface-hover)]',
                 )}
               >
                 <UiAvatar className="size-11">
@@ -104,10 +104,10 @@ export const ChatForwardDialog: React.FC<ChatForwardDialogProps> = ({
                 </UiAvatar>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-[color:var(--color-foreground)]">
+                  <p className="truncate text-sm font-medium text-foreground">
                     {contactName}
                   </p>
-                  <p className="truncate text-xs text-[color:var(--color-muted-foreground)] tabular-nums font-mono" dir="ltr">
+                  <p className="truncate text-xs text-muted-foreground tabular-nums font-mono" dir="ltr">
                     {getContactDisplayPhone(contact)}
                   </p>
                 </div>
@@ -118,7 +118,7 @@ export const ChatForwardDialog: React.FC<ChatForwardDialogProps> = ({
           })}
         </div>
 
-        <UiDialogFooter className="border-t border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)]">
+        <UiDialogFooter className="border-t border-border/70 bg-[var(--whatsapp-surface-overlay)]">
           <UiButton variant="outline" onClick={handleClose}>
             إلغاء
           </UiButton>

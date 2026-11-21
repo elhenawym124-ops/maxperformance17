@@ -57,8 +57,8 @@ export const WhatsAppEditSessionDialog: React.FC<
         }
       }}
     >
-      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-3xl">
-        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
+      <DialogContent className="max-w-[calc(100%-1.5rem)] rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-0 sm:max-w-3xl">
+        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>{t("whatsappSettings.dialogs.editSession")}</DialogTitle>
           <DialogDescription>{editingSession?.name}</DialogDescription>
         </DialogHeader>
@@ -86,7 +86,7 @@ export const WhatsAppEditSessionDialog: React.FC<
             <div className="flex flex-wrap gap-2">
               <Badge
                 variant="outline"
-                className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]"
+                className="rounded-full border-border/70 bg-[color:var(--color-card)]"
               >
                 {providerLabels[editingSession.provider || "BAILEYS"]}
               </Badge>
@@ -194,7 +194,7 @@ export const WhatsAppEditSessionDialog: React.FC<
                     )
                   }
                 />
-                <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                <p className="text-xs text-muted-foreground">
                   عند التفعيل، سيتم رفض أي مكالمة صوتية أو فيديو واردة تلقائياً على رقم واتساب وإرسال رد نصي فوري للمتصل.
                 </p>
                 <div className="space-y-1.5 pt-1">
@@ -224,19 +224,19 @@ export const WhatsAppEditSessionDialog: React.FC<
               </div>
             )}
 
-            <div className="space-y-2 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4">
+            <div className="space-y-2 rounded-xl border border-border/70 bg-[color:var(--color-card)] px-4 py-4">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+                  <p className="text-sm font-medium text-foreground">
                     Load balancing weight
                   </p>
-                  <p className="text-sm text-[color:var(--color-muted-foreground)]">
+                  <p className="text-sm text-muted-foreground">
                     Higher numbers route more work to this session.
                   </p>
                 </div>
                 <Badge
                   variant="outline"
-                  className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] font-mono tabular-nums"
+                  className="rounded-full border-border/70 bg-muted font-mono tabular-nums"
                 >
                   {editingSession.loadBalanceWeight || 1}
                 </Badge>
@@ -262,7 +262,7 @@ export const WhatsAppEditSessionDialog: React.FC<
         <DialogFooter className="px-6">
           <Button
             variant="outline"
-            className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
+            className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
             onClick={onClose}
           >
             {t("whatsappSettings.dialogs.cancel")}

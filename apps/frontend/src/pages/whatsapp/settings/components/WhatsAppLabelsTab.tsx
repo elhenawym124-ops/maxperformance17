@@ -61,7 +61,7 @@ export const WhatsAppLabelsTab: React.FC<WhatsAppLabelsTabProps> = ({
           </Button>
           <Button
             variant="outline"
-            className="rounded-full border-[color:var(--shell-control-border)]"
+            className="rounded-full border-border/70"
             onClick={onRestoreDefaultLabels}
             disabled={!scopedSessionId || restoringLabels}
           >
@@ -81,7 +81,7 @@ export const WhatsAppLabelsTab: React.FC<WhatsAppLabelsTabProps> = ({
       ) : loadingLabels ? (
         <Skeleton className="h-72 rounded-xl" />
       ) : labels.length === 0 ? (
-        <Alert className="rounded-xl border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]">
+        <Alert className="rounded-xl border-border/70 bg-[color:var(--color-card)]">
           <AlertCircle className="size-4 text-[color:var(--color-warning)]" />
           <AlertTitle>{t("whatsappSettings.labels")}</AlertTitle>
           <AlertDescription>{t("whatsappSettings.noLabels")}</AlertDescription>
@@ -91,7 +91,7 @@ export const WhatsAppLabelsTab: React.FC<WhatsAppLabelsTabProps> = ({
           {labels.map((label) => (
             <div
               key={label.id}
-              className="group flex items-center justify-between gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-4 shadow-sm transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-primary)_6%,white)]"
+              className="group flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-[color:var(--color-card)] px-4 py-4 shadow-sm transition-colors hover:bg-[color:color-mix(in_srgb,var(--color-primary)_6%,white)]"
             >
               <button
                 type="button"
@@ -103,10 +103,10 @@ export const WhatsAppLabelsTab: React.FC<WhatsAppLabelsTabProps> = ({
                   style={{ backgroundColor: label.color || "#25D366" }}
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-[color:var(--color-foreground)] group-hover:text-[color:var(--color-primary)]">
+                  <p className="truncate text-sm font-medium text-foreground group-hover:text-[color:var(--color-primary)]">
                     {label.name}
                   </p>
-                  <p className="flex items-center gap-1 text-xs text-[color:var(--color-muted-foreground)]">
+                  <p className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Users className="size-3" />
                     <span className="font-mono tabular-nums">{label.chatCount ?? 0}</span> عميل
                     <span className="mx-1">•</span>

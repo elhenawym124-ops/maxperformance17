@@ -38,14 +38,14 @@ export const MessageCorrectionEditor: React.FC<MessageCorrectionEditorProps> = (
         <textarea
           value={correctionText}
           onChange={(e) => setCorrectionText(e.target.value)}
-          className="w-full min-h-[3.5rem] resize-none rounded-lg border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-2 text-sm text-[color:var(--color-foreground)] outline-none focus:border-primary dark:focus:border-primary"
+          className="w-full min-h-[3.5rem] resize-none rounded-lg border border-border/70 bg-[var(--whatsapp-surface-muted)] p-2 text-sm text-foreground outline-none focus:border-primary dark:focus:border-primary"
           placeholder="اكتب الرد الصحيح للعميل هنا..."
         />
         <div className="mt-1.5 flex items-center justify-end gap-2">
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-lg px-3 py-1 text-xs font-medium text-[color:var(--color-muted-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+            className="rounded-lg px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
           >
             إلغاء
           </button>

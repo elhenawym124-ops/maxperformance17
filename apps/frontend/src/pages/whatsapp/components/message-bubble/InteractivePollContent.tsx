@@ -38,17 +38,17 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
           href={mapUrl}
           target="_blank"
           rel="noreferrer"
-          className="block rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-3 transition-colors hover:bg-[var(--whatsapp-surface)]"
+          className="block rounded-xl border border-[color:color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-3 transition-colors hover:bg-[var(--whatsapp-surface)]"
         >
           <div className="flex items-center gap-3">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-info/10 text-info dark:bg-info/40 dark:text-info">
               <MapPin className="size-5" />
             </div>
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+              <p className="text-sm font-semibold text-foreground">
                 {t("whatsapp.window.location")}
               </p>
-              <p className="text-sm text-[color:var(--color-muted-foreground)]">
+              <p className="text-sm text-muted-foreground">
                 {location.address ||
                   location.name ||
                   `${location.latitude}, ${location.longitude}`}
@@ -61,7 +61,7 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
       return (
         <LinkifiedText
           text={message.content ?? ""}
-          className="block whitespace-pre-wrap text-sm leading-[1.45] text-[color:var(--color-foreground)]"
+          className="block whitespace-pre-wrap text-sm leading-[1.45] text-foreground"
         />
       );
     }
@@ -74,7 +74,7 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
         {bodyText ? (
           <LinkifiedText
             text={bodyText}
-            className="block whitespace-pre-wrap text-sm leading-[1.45] text-[color:var(--color-foreground)]"
+            className="block whitespace-pre-wrap text-sm leading-[1.45] text-foreground"
           />
         ) : null}
         {renderButtonsBlock()}
@@ -129,18 +129,18 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-1.5">
             <BarChart3 className="size-4 text-[color:var(--color-primary)]" />
-            <span className="text-xs font-semibold text-[color:var(--color-muted-foreground)]">
+            <span className="text-xs font-semibold text-muted-foreground">
               استطلاع رأي {isMultiple ? "• اختيارات متعددة" : "• اختيار واحد"}
             </span>
           </div>
           {totalVotes > 0 ? (
-            <span className="rounded-full bg-[color:var(--whatsapp-surface-muted)] px-2 py-0.5 text-[10px] font-semibold text-[color:var(--color-muted-foreground)]">
+            <span className="rounded-full bg-[color:var(--whatsapp-surface-muted)] px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
               {totalVotes} {totalVotes === 1 ? "صوت" : totalVotes === 2 ? "صوتان" : "أصوات"}
             </span>
           ) : null}
         </div>
 
-        <h4 className="text-sm font-bold text-[color:var(--color-foreground)]">
+        <h4 className="text-sm font-bold text-foreground">
           {question}
         </h4>
 
@@ -153,7 +153,7 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
             return (
               <div
                 key={idx}
-                className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] p-2.5 transition-all"
+                className="relative overflow-hidden rounded-xl border border-border/70 bg-[var(--whatsapp-surface-muted)] p-2.5 transition-all"
               >
                 {totalVotes > 0 && percentage > 0 ? (
                   <div
@@ -163,13 +163,13 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
                 ) : null}
 
                 <div className="relative flex items-center justify-between gap-2 text-xs">
-                  <div className="flex items-center gap-2 font-medium text-[color:var(--color-foreground)]">
-                    <span className="flex size-4 items-center justify-center rounded-full border border-[color:var(--shell-control-border)] text-[10px] text-[color:var(--color-muted-foreground)]">
+                  <div className="flex items-center gap-2 font-medium text-foreground">
+                    <span className="flex size-4 items-center justify-center rounded-full border border-border/70 text-[10px] text-muted-foreground">
                       {idx + 1}
                     </span>
                     <span>{optName}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[color:var(--color-muted-foreground)]">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground">
                     {totalVotes > 0 ? (
                       <>
                         <span className="tabular-nums font-mono">{percentage}%</span>
@@ -202,20 +202,20 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
     return (
       <div className="min-w-[16rem] max-w-sm space-y-2">
         {title ? (
-          <h4 className="text-sm font-bold text-[color:var(--color-foreground)]">{title}</h4>
+          <h4 className="text-sm font-bold text-foreground">{title}</h4>
         ) : null}
         {body ? (
           <LinkifiedText
             text={body}
-            className="block whitespace-pre-wrap text-sm leading-[1.45] text-[color:var(--color-foreground)]"
+            className="block whitespace-pre-wrap text-sm leading-[1.45] text-foreground"
           />
         ) : null}
         {footer ? (
-          <p className="text-xs text-[color:var(--color-muted-foreground)]">{footer}</p>
+          <p className="text-xs text-muted-foreground">{footer}</p>
         ) : null}
 
         {buttons.length > 0 ? (
-          <div className="mt-2 space-y-1.5 pt-1 border-t border-[color:var(--shell-control-border)]/60">
+          <div className="mt-2 space-y-1.5 pt-1 border-t border-border/70/60">
             {buttons.map((btn, i) => {
               const bType = btn.type || (btn.name ? btn.name.replace("cta_", "") : "quick_reply");
               const displayText = btn.displayText || btn.text || btn.params?.display_text || "زر";
@@ -245,9 +245,9 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
                     href={url || "#"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] px-3 py-2 text-center text-xs font-bold text-[color:var(--color-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-border/70 bg-[var(--whatsapp-surface-muted)] px-3 py-2 text-center text-xs font-bold text-foreground transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
                   >
-                    <ExternalLink className="size-3.5 text-[color:var(--color-muted-foreground)]" />
+                    <ExternalLink className="size-3.5 text-muted-foreground" />
                     <span>{displayText}</span>
                   </a>
                 );
@@ -269,7 +269,7 @@ export const InteractivePollContent: React.FC<InteractivePollContentProps> = ({
               return (
                 <div
                   key={i}
-                  className="flex w-full items-center justify-center rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-muted)] px-3 py-2 text-center text-xs font-bold text-[color:var(--color-foreground)]"
+                  className="flex w-full items-center justify-center rounded-xl border border-border/70 bg-[var(--whatsapp-surface-muted)] px-3 py-2 text-center text-xs font-bold text-foreground"
                 >
                   {displayText}
                 </div>

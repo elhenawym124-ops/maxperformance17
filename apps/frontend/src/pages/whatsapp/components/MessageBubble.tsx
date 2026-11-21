@@ -154,7 +154,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
                     : "opacity-0 group-hover/bubble:opacity-100 focus:opacity-100",
                   myReaction
                     ? "text-amber-600 bg-warning border-warning dark:bg-warning/60 dark:border-warning/80 dark:text-warning"
-                    : "text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)] hover:text-[color:var(--color-foreground)] border-transparent",
+                    : "text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)] hover:text-foreground border-transparent",
                   message.fromMe ? "order-first me-1" : "order-last ms-1"
                 )}
               >
@@ -183,7 +183,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
 
             {message.quotedMessageId ? (
               <div
-                className="mb-2 cursor-pointer rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2 transition-colors hover:bg-primary/8"
+                className="mb-2 cursor-pointer rounded-xl border border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-2 transition-colors hover:bg-primary/8"
                 onClick={(e) => {
                   e.stopPropagation();
                   onQuotedMessageClick?.(message.quotedMessageId!);
@@ -201,7 +201,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-primary)]">
                   {t("whatsapp.window.replyingTo")}
                 </p>
-                <p className="mt-1 truncate text-xs text-[color:var(--color-muted-foreground)]">
+                <p className="mt-1 truncate text-xs text-muted-foreground">
                   {message.quotedContent || t("whatsapp.window.message")}
                 </p>
               </div>
@@ -259,7 +259,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = React.memo(
             />
 
             <div className="mt-1 flex items-center justify-end gap-1.5">
-              <span className="text-[11px] text-[color:var(--color-muted-foreground)]">
+              <span className="text-[11px] text-muted-foreground">
                 {format(new Date(message.timestamp), "HH:mm")}
               </span>
               {message.fromMe ? <MessageStatusIcon status={message.status} /> : null}

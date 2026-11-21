@@ -113,7 +113,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSend, onCancel }) => {
   };
 
   return (
-    <div className="flex w-full items-center gap-2 rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-strong)] px-3 py-2 shadow-md">
+    <div className="flex w-full items-center gap-2 rounded-xl border border-border/70 bg-[var(--whatsapp-surface-strong)] px-3 py-2 shadow-md">
       <Button
         variant="ghost"
         size="icon-sm"
@@ -134,10 +134,10 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSend, onCancel }) => {
         </div>
 
         <div className="min-w-0 flex-1">
-          <div className="text-sm font-semibold text-[color:var(--color-foreground)]">
+          <div className="text-sm font-semibold text-foreground">
             {formatTime(recordingTime)}
           </div>
-          <div className="text-xs text-[color:var(--color-muted-foreground)]">
+          <div className="text-xs text-muted-foreground">
             {error ? (
               <div className="flex items-center gap-2">
                 <span className="text-rose-500 truncate">{getErrorMessage(error)}</span>

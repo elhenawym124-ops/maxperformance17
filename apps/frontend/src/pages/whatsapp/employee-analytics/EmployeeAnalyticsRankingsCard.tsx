@@ -103,7 +103,7 @@ export const EmployeeAnalyticsRankingsCard: React.FC<EmployeeAnalyticsRankingsCa
       {/* Most Active */}
       <motion.div
         variants={reducedMotion ? noMotion : itemSlide}
-        className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl"
+        className="relative overflow-hidden rounded-xl border border-border/70 bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl"
       >
         <div className="pointer-events-none absolute -left-8 -top-8 size-32 rounded-full bg-success/5 blur-3xl" />
         <div className="mb-4 flex items-center justify-between">
@@ -143,7 +143,7 @@ export const EmployeeAnalyticsRankingsCard: React.FC<EmployeeAnalyticsRankingsCa
       {/* Least Active */}
       <motion.div
         variants={reducedMotion ? noMotion : itemSlide}
-        className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl"
+        className="relative overflow-hidden rounded-xl border border-border/70 bg-[color:var(--color-card)]/80 p-5 shadow-sm backdrop-blur-xl sm:rounded-xl"
       >
         <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-destructive/5 blur-3xl" />
         <div className="mb-4 flex items-center justify-between">

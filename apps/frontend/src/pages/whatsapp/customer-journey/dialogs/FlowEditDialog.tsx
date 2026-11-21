@@ -35,8 +35,8 @@ export const FlowEditDialog: React.FC<FlowEditDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[calc(100%-2rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-xl">
-        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
+      <DialogContent className="max-w-[calc(100%-2rem)] rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-0 sm:max-w-xl">
+        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>
             {currentFlow.id
               ? t("whatsappJourney.flows.edit")
@@ -63,13 +63,13 @@ export const FlowEditDialog: React.FC<FlowEditDialogProps> = ({
             />
           </div>
 
-          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 px-4 py-4">
+          <div className="rounded-xl border border-border/70 bg-[color:var(--color-card)]/70 px-4 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+                <p className="text-sm font-medium text-foreground">
                   {t("whatsappJourney.flows.enabled")}
                 </p>
-                <p className="text-sm text-[color:var(--color-muted-foreground)]">
+                <p className="text-sm text-muted-foreground">
                   {t("whatsappJourney.subtitle")}
                 </p>
               </div>
@@ -85,9 +85,9 @@ export const FlowEditDialog: React.FC<FlowEditDialogProps> = ({
             </div>
           </div>
 
-          <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 px-4 py-4">
+          <div className="rounded-xl border border-border/70 bg-[color:var(--color-card)]/70 px-4 py-4">
             <div className="space-y-2">
-              <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+              <p className="text-sm font-medium text-foreground">
                 {t("whatsappJourney.flows.channels")}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -114,7 +114,7 @@ export const FlowEditDialog: React.FC<FlowEditDialogProps> = ({
                       className={`rounded-lg border px-4 py-2 text-sm transition-colors ${
                         active
                           ? "border-[color:var(--color-primary)] bg-[color:color-mix(in_srgb,var(--color-primary)_12%,transparent)] text-[color:var(--color-primary)]"
-                          : "border-[color:var(--shell-control-border)] text-[color:var(--color-muted-foreground)]"
+                          : "border-border/70 text-muted-foreground"
                       }`}
                     >
                       {channel === "WHATSAPP" ? "WhatsApp" : "Messenger"}
@@ -122,7 +122,7 @@ export const FlowEditDialog: React.FC<FlowEditDialogProps> = ({
                   );
                 })}
               </div>
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 {t("whatsappJourney.flows.channelsHint")}
               </p>
             </div>

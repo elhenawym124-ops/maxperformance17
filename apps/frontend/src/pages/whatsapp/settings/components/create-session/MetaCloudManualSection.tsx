@@ -46,10 +46,10 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="border-t border-[color:var(--shell-control-border)] p-4 sm:p-5 space-y-4 bg-[var(--app-panel-bg)] animate-in fade-in-50 duration-200">
+    <div className="border-t border-border/70 p-4 sm:p-5 space-y-4 bg-[var(--app-panel-bg)] animate-in fade-in-50 duration-200">
       {/* Auth Details */}
       <div className="space-y-3">
-        <h5 className="text-xs font-semibold text-[color:var(--color-foreground)] uppercase">
+        <h5 className="text-xs font-semibold text-foreground uppercase">
           {t("whatsappSettings.dialogs.authDetails")}
         </h5>
         <div className="space-y-3">
@@ -107,8 +107,8 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
       </div>
 
       {/* Account Details */}
-      <div className="space-y-3 border-t border-[color:var(--shell-control-border)] pt-3">
-        <h5 className="text-xs font-semibold text-[color:var(--color-foreground)] uppercase">
+      <div className="space-y-3 border-t border-border/70 pt-3">
+        <h5 className="text-xs font-semibold text-foreground uppercase">
           {t("whatsappSettings.dialogs.accountDetails")}
         </h5>
         <div className="grid gap-3 sm:grid-cols-2">
@@ -166,9 +166,9 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
       </div>
 
       {/* Webhook Configuration */}
-      <div className="space-y-3.5 border-t border-[color:var(--shell-control-border)] pt-4">
+      <div className="space-y-3.5 border-t border-border/70 pt-4">
         <div className="flex items-center justify-between">
-          <h5 className="text-xs font-semibold text-[color:var(--color-foreground)] uppercase flex items-center gap-1.5">
+          <h5 className="text-xs font-semibold text-foreground uppercase flex items-center gap-1.5">
             <Globe className="size-3.5 text-info dark:text-info" />
             إعدادات رد الاتصال (Meta Webhook)
           </h5>
@@ -199,13 +199,13 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
               id="meta-webhook-url"
               readOnly
               value={getMetaWebhookUrl()}
-              className="h-10 bg-[color:var(--color-card)] font-mono text-xs select-all text-[color:var(--color-foreground)]"
+              className="h-10 bg-[color:var(--color-card)] font-mono text-xs select-all text-foreground"
               dir="ltr"
             />
             <Button
               type="button"
               variant="outline"
-              className="h-10 px-3 border-[color:var(--shell-control-border)] cursor-pointer shrink-0 gap-1.5"
+              className="h-10 px-3 border-border/70 cursor-pointer shrink-0 gap-1.5"
               onClick={() => {
                 navigator.clipboard.writeText(getMetaWebhookUrl());
                 toast.success("تم نسخ رابط الويب هوك بنجاح");
@@ -227,7 +227,7 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
               {t("whatsappSettings.dialogs.metaWebhookVerifyToken")}
               <span className="text-red-500">*</span>
             </Label>
-            <span className="text-[10px] text-[color:var(--color-muted-foreground)]">
+            <span className="text-[10px] text-muted-foreground">
               ضعه في خانة Verify Token في Meta
             </span>
           </div>
@@ -239,13 +239,13 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
                 setNewMetaWebhookVerifyToken(event.target.value)
               }
               placeholder="verify-token"
-              className="h-10 bg-[color:var(--color-card)] font-mono text-xs text-[color:var(--color-foreground)]"
+              className="h-10 bg-[color:var(--color-card)] font-mono text-xs text-foreground"
               dir="ltr"
             />
             <Button
               type="button"
               variant="outline"
-              className="h-10 px-3 border-[color:var(--shell-control-border)] cursor-pointer shrink-0 gap-1.5"
+              className="h-10 px-3 border-border/70 cursor-pointer shrink-0 gap-1.5"
               onClick={() => {
                 navigator.clipboard.writeText(newMetaWebhookVerifyToken);
                 toast.success("تم نسخ رمز التحقق بنجاح");
@@ -259,7 +259,7 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
               type="button"
               variant="outline"
               onClick={generateRandomVerifyToken}
-              className="h-10 px-3 border-[color:var(--shell-control-border)] cursor-pointer shrink-0"
+              className="h-10 px-3 border-border/70 cursor-pointer shrink-0"
               title="توليد رمز جديد"
             >
               <Shuffle className="size-3.5" />
@@ -268,8 +268,8 @@ export const MetaCloudManualSection: React.FC<MetaCloudManualSectionProps> = ({
         </div>
 
         {/* Quick 3-Step Guide */}
-        <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--app-panel-bg)] p-3 text-[11px] text-[color:var(--color-muted-foreground)] space-y-1.5">
-          <p className="font-semibold text-[color:var(--color-foreground)] flex items-center gap-1.5">
+        <div className="rounded-xl border border-border/70 bg-[color:var(--app-panel-bg)] p-3 text-[11px] text-muted-foreground space-y-1.5">
+          <p className="font-semibold text-foreground flex items-center gap-1.5">
             <Info className="size-3.5 text-info" />
             خطوات الربط في بوابة Meta for Developers:
           </p>

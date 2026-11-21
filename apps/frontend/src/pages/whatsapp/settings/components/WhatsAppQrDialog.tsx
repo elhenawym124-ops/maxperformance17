@@ -38,9 +38,9 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="max-w-[min(calc(100%-2rem),30rem)] overflow-visible rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-[30rem]"
+        className="max-w-[min(calc(100%-2rem),30rem)] overflow-visible rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-0 sm:max-w-[30rem]"
       >
-        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6 sm:px-8 sm:pt-7">
+        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-6 pt-6 sm:px-8 sm:pt-7">
           <DialogTitle>{t("whatsappSettings.dialogs.scanQR")}</DialogTitle>
           <DialogDescription>{t("whatsappSettings.dialogs.scanInstructions")}</DialogDescription>
         </DialogHeader>
@@ -48,8 +48,8 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
         <div className="flex flex-col items-center justify-center gap-5 px-6 pb-7 pt-5 text-center sm:px-8">
           {currentPairingCode ? (
             <div className="w-full space-y-4 animate-in fade-in-50 duration-300">
-              <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-4 py-5">
-                <p className="text-sm text-[color:var(--color-muted-foreground)]">
+              <div className="rounded-xl border border-border/70 bg-[color:var(--color-card)] px-4 py-5">
+                <p className="text-sm text-muted-foreground">
                   افتح واتساب على رقم
                   {currentPairingPhone ? (
                     <span
@@ -62,7 +62,7 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
                   ثم ادخل كود الربط.
                 </p>
                 <p
-                  className="mt-4 select-all text-3xl font-semibold tracking-normal text-[color:var(--color-foreground)] font-mono tabular-nums"
+                  className="mt-4 select-all text-3xl font-semibold tracking-normal text-foreground font-mono tabular-nums"
                   dir="ltr"
                 >
                   {formatPairingCode(currentPairingCode)}
@@ -71,7 +71,7 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
               <Button
                 type="button"
                 variant="outline"
-                className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
+                className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
                 onClick={() =>
                   void navigator.clipboard?.writeText(currentPairingCode)
                 }
@@ -105,10 +105,10 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
                 <QrCode className="size-8 text-[color:var(--color-primary)]" />
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+                <p className="text-sm font-medium text-foreground">
                   {t("whatsappSettings.dialogs.waitingQR")}
                 </p>
-                <p className="text-sm text-[color:var(--color-muted-foreground)]">
+                <p className="text-sm text-muted-foreground">
                   {t("whatsappSettings.dialogs.pairingTakeTime")}
                 </p>
               </div>
@@ -119,7 +119,7 @@ export const WhatsAppQrDialog: React.FC<WhatsAppQrDialogProps> = ({
         <DialogFooter className="px-6">
           <Button
             variant="outline"
-            className="rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
+            className="rounded-full border-border/70 bg-[color:var(--color-card)] hover:bg-[color:var(--color-card)]"
             onClick={onClose}
           >
             {t("whatsappSettings.dialogs.close")}

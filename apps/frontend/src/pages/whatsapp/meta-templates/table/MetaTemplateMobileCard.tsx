@@ -71,7 +71,7 @@ export const MetaTemplateMobileCard: React.FC<
       className={`rounded-xl border bg-[color:var(--color-card)] p-3 transition-all ${
         isSelected
           ? "border-[color:var(--color-primary)] bg-[color:var(--color-primary)]/[0.04] shadow-sm"
-          : "border-[color:var(--shell-control-border)]"
+          : "border-border/70"
       }`}
     >
       <div className="flex items-start gap-3">
@@ -100,18 +100,18 @@ export const MetaTemplateMobileCard: React.FC<
                   <StatusIcon className="ms-1 size-3.5 inline" />
                   {bestStatus}
                 </Badge>
-                <span className="rounded-full bg-[color:var(--color-muted)] px-2 py-0.5 text-[10px] font-medium text-[color:var(--color-muted-foreground)]">
+                <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
                   {groupTemplates[0]?.category}
                 </span>
-                <span className="rounded-full bg-[color:var(--color-muted)] px-2 py-0.5 text-[10px] font-medium text-[color:var(--color-muted-foreground)]">
+                <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
                   {section.label}
                 </span>
               </div>
             </div>
             {isExpanded ? (
-              <ChevronDown className="size-4 shrink-0 text-[color:var(--color-muted-foreground)]" />
+              <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
             ) : (
-              <ChevronRight className="size-4 shrink-0 text-[color:var(--color-muted-foreground)]" />
+              <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
             )}
           </div>
           <div className="mt-1.5 flex items-center gap-1.5">
@@ -119,7 +119,7 @@ export const MetaTemplateMobileCard: React.FC<
               (lang) => (
                 <span
                   key={lang}
-                  className="rounded bg-[color:var(--color-muted)] px-1.5 py-0.5 text-[10px] font-mono text-[color:var(--color-muted-foreground)]"
+                  className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground"
                 >
                   {lang}
                 </span>
@@ -130,7 +130,7 @@ export const MetaTemplateMobileCard: React.FC<
       </div>
 
       {isExpanded ? (
-        <div className="mt-3 space-y-3 border-t border-[color:var(--shell-control-border)] pt-3">
+        <div className="mt-3 space-y-3 border-t border-border/70 pt-3">
           {groupTemplates.map((t) => {
             const headerComp = t.components?.find((c) => c.type === "HEADER");
             const bodyComp = t.components?.find((c) => c.type === "BODY");
@@ -151,7 +151,7 @@ export const MetaTemplateMobileCard: React.FC<
             return (
               <div key={t.id ?? t.language} className="space-y-2">
                 <div className="flex items-center justify-between text-[11px]">
-                  <span className="font-medium text-[color:var(--color-muted-foreground)]">
+                  <span className="font-medium text-muted-foreground">
                     {t.language} · ID: {t.id?.slice(-8) ?? "-"}
                   </span>
                   <Badge

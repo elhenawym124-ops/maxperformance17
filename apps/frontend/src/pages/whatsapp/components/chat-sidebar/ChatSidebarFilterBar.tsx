@@ -21,7 +21,7 @@ const FilterPill: React.FC<FilterPillProps> = ({ active, label, count, onClick }
         'inline-flex h-6 min-w-0 items-center justify-center gap-1 rounded-full border px-2 text-[10px] font-medium transition-colors',
         active
           ? 'border-[color:var(--color-primary)] bg-primary/10 text-[color:var(--color-primary)]'
-          : 'border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)] hover:text-[color:var(--color-foreground)]',
+          : 'border-border/70 bg-[var(--whatsapp-surface)] text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)] hover:text-foreground',
       )}
     >
       <span className="truncate">{label}</span>
@@ -31,7 +31,7 @@ const FilterPill: React.FC<FilterPillProps> = ({ active, label, count, onClick }
             'inline-flex h-3.5 min-w-3.5 shrink-0 items-center justify-center rounded-full px-0.5 text-[8px] font-mono font-semibold tabular-nums leading-none',
             active
               ? 'bg-[color:var(--color-primary)]/12 text-[color:var(--color-primary)]'
-              : 'bg-[var(--whatsapp-surface-muted)] text-[color:var(--color-muted-foreground)]',
+              : 'bg-[var(--whatsapp-surface-muted)] text-muted-foreground',
           )}
         >
           {count}
@@ -73,9 +73,9 @@ export const ChatSidebarFilterBar: React.FC<ChatSidebarFilterBarProps> = ({
   translate,
 }) => {
   return (
-    <div className="wa-glass-search-bar border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_76%,transparent)] px-2 py-2 space-y-2 shrink-0">
+    <div className="wa-glass-search-bar border-b border-[color:color-mix(in_srgb,var(--color-border)_76%,transparent)] px-2 py-2 space-y-2 shrink-0">
       <div className="relative w-full">
-        <Search className="pointer-events-none absolute start-2.5 top-1/2 size-3.5 -translate-y-1/2 text-[color:var(--color-muted-foreground)]" />
+        <Search className="pointer-events-none absolute start-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
         <Input
           value={searchTerm}
           onChange={(event) => onSearchChange(event.target.value)}
@@ -88,7 +88,7 @@ export const ChatSidebarFilterBar: React.FC<ChatSidebarFilterBarProps> = ({
             variant="ghost"
             size="icon-sm"
             onClick={() => onSearchChange('')}
-            className="absolute end-1 top-1/2 -translate-y-1/2 size-6 rounded-md text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+            className="absolute end-1 top-1/2 -translate-y-1/2 size-6 rounded-md text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
           >
             <X className="size-3" />
           </Button>
@@ -101,7 +101,7 @@ export const ChatSidebarFilterBar: React.FC<ChatSidebarFilterBarProps> = ({
               'absolute end-1 top-1/2 -translate-y-1/2 size-6 rounded-md',
               filterType === 'unread'
                 ? 'bg-primary/10 text-[color:var(--color-primary)] hover:bg-primary/12'
-                : 'text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]',
+                : 'text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]',
             )}
             title={translate('whatsapp.sidebar.unread')}
           >

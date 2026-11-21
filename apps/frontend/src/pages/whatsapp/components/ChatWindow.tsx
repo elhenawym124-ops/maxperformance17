@@ -172,18 +172,18 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     return (
       <div
         className={cn(
-          "whatsapp-theme-transition flex h-full min-h-0 flex-1 flex-col items-center justify-center bg-[color:var(--color-muted)]/40 px-space-6 text-center",
+          "whatsapp-theme-transition flex h-full min-h-0 flex-1 flex-col items-center justify-center bg-muted/40 px-space-6 text-center",
           className,
         )}
       >
         <div className="max-w-sm space-y-space-4">
-          <div className="mx-auto flex size-16 items-center justify-center rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] text-[color:var(--color-primary)] shadow-raised">
+          <div className="mx-auto flex size-16 items-center justify-center rounded-xl border border-border/70 bg-[var(--whatsapp-surface)] text-[color:var(--color-primary)] shadow-raised">
             <Send className="size-7" />
           </div>
-          <p className="text-lg font-semibold text-[color:var(--color-foreground)]">
+          <p className="text-lg font-semibold text-foreground">
             {t("whatsapp.window.selectChat")}
           </p>
-          <p className="text-sm leading-6 text-[color:var(--color-muted-foreground)]">
+          <p className="text-sm leading-6 text-muted-foreground">
             اختر محادثة من القائمة لقراءة الرسائل والرد من الجلسة المتصلة.
           </p>
         </div>
@@ -280,7 +280,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      <div className="wa-glass-header flex items-center justify-between gap-space-2 border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-space-3 py-space-1 shrink-0">
+      <div className="wa-glass-header flex items-center justify-between gap-space-2 border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-space-3 py-space-1 shrink-0">
         <div className="flex min-w-0 items-center gap-space-2">
           {onBackToList ? (
             <Button
@@ -304,13 +304,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           </Avatar>
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <p className="truncate text-sm font-semibold text-[color:var(--color-foreground)]">
+              <p className="truncate text-sm font-semibold text-foreground">
                 {getContactName(selectedContact)}
               </p>
               {selectedContact.isGroup ? (
                 <Badge
                   variant="outline"
-                  className="border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] text-[9px] text-[color:var(--color-muted-foreground)] px-1 py-0"
+                  className="border-border/70 bg-[var(--whatsapp-surface-overlay)] text-[9px] text-muted-foreground px-1 py-0"
                 >
                   {t("whatsapp.window.group")}
                 </Badge>
@@ -318,7 +318,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               {selectedContact.isNewsletter ? (
                 <Badge
                   variant="outline"
-                  className="border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] text-[9px] text-[color:var(--color-muted-foreground)] px-1 py-0"
+                  className="border-border/70 bg-[var(--whatsapp-surface-overlay)] text-[9px] text-muted-foreground px-1 py-0"
                 >
                   {t("whatsapp.window.channel")}
                 </Badge>
@@ -328,10 +328,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                   {selectedContact.unreadCount}
                 </Badge>
               ) : null}
-              <span className="hidden text-[11px] text-[color:var(--color-muted-foreground)] sm:inline" dir="ltr">
+              <span className="hidden text-[11px] text-muted-foreground sm:inline" dir="ltr">
                 · {getContactDisplayPhone(selectedContact)}
               </span>
-              {selectedContact.isMuted ? <span className="text-[10px] text-[color:var(--color-muted-foreground)]">مكتوم</span> : null}
+              {selectedContact.isMuted ? <span className="text-[10px] text-muted-foreground">مكتوم</span> : null}
             </div>
           </div>
         </div>
@@ -348,7 +348,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                 "size-8 shrink-0 rounded-full",
                 aiEnabled
                   ? "text-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)]/10"
-                  : "text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+                  : "text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
               )}
               onClick={() => onToggleAi(selectedContact, !aiEnabled)}
               title={aiEnabled ? "إيقاف الرد الآلي" : "تشغيل الرد الآلي"}
@@ -362,7 +362,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           <Button
             variant="ghost"
             size="icon-sm"
-            className="size-8 shrink-0 rounded-full text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+            className="size-8 shrink-0 rounded-full text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
             onClick={onToggleRightPanel}
           >
             {showRightPanel ? <PanelRightClose className="size-4" /> : <PanelRightOpen className="size-4" />}
@@ -372,7 +372,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         <Button
           variant="ghost"
           size="icon-sm"
-          className="size-8 shrink-0 rounded-full text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+          className="size-8 shrink-0 rounded-full text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
           onClick={onOpenContactInfo}
         >
           <Info className="size-4" />
@@ -381,7 +381,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         <Button
           variant="ghost"
           size="icon-sm"
-          className="size-8 shrink-0 rounded-full text-[color:var(--color-muted-foreground)] hover:bg-[var(--whatsapp-surface-hover)]"
+          className="size-8 shrink-0 rounded-full text-muted-foreground hover:bg-[var(--whatsapp-surface-hover)]"
           onClick={handleCopyChatLink}
           title="نسخ رابط المحادثة"
         >
@@ -404,17 +404,17 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           <div className="flex h-full min-h-[18rem] flex-col items-center justify-center gap-4 px-6">
             <AlertTriangle className="size-10 text-destructive" />
             <div className="space-y-1 text-center">
-              <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+              <p className="text-sm font-semibold text-foreground">
                 {t("whatsapp.dialogs.error")}
               </p>
-              <p className="text-sm text-[color:var(--color-muted-foreground)]">
+              <p className="text-sm text-muted-foreground">
                 {t("whatsapp.window.selectChat")}
               </p>
             </div>
             {onRetryMessages ? (
               <Button
                 variant="outline"
-                className="rounded-full border-[color:var(--shell-control-border)]"
+                className="rounded-full border-border/70"
                 onClick={onRetryMessages}
               >
                 <RefreshCw className="size-4 ms-2" />
@@ -425,16 +425,16 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         ) : loadingMessages && messages.length === 0 ? (
           <div className="flex h-full min-h-[18rem] flex-col items-center justify-center gap-3">
             <RefreshCw className="size-6 animate-spin text-[color:var(--color-primary)]" />
-            <p className="text-sm text-[color:var(--color-muted-foreground)]">
+            <p className="text-sm text-muted-foreground">
               {t("common.loading")}
             </p>
           </div>
         ) : !loadingMessages && messages.length === 0 ? (
           <div className="flex h-full min-h-[18rem] flex-col items-center justify-center gap-4 px-6">
-            <div className="mx-auto flex size-14 items-center justify-center rounded-xl border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] text-[color:var(--color-muted-foreground)] shadow-md">
+            <div className="mx-auto flex size-14 items-center justify-center rounded-xl border border-border/70 bg-[var(--whatsapp-surface)] text-muted-foreground shadow-md">
               <Send className="size-6" />
             </div>
-            <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+            <p className="text-sm font-semibold text-foreground">
               {t("conversations.noMessages")}
             </p>
           </div>
@@ -476,14 +476,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
         {typingUsers.size > 0 ? (
           <div className="pointer-events-none absolute bottom-3 left-4 right-4 flex justify-start">
-            <div className="pointer-events-auto rounded-full border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-typing-bg)] px-3 py-1.5 text-xs text-[color:var(--color-muted-foreground)] shadow-sm">
+            <div className="pointer-events-auto rounded-full border border-border/70 bg-[var(--whatsapp-typing-bg)] px-3 py-1.5 text-xs text-muted-foreground shadow-sm">
               {t("whatsapp.window.typing")}
             </div>
           </div>
         ) : null}
       </div>
 
-      <div className="wa-input-bar border-t border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] bg-[color:var(--color-card)] shrink-0">
+      <div className="wa-input-bar border-t border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] bg-[color:var(--color-card)] shrink-0">
         {(selectedContact?.session?.provider === 'META_CLOUD' && selectedContact?.window && !selectedContact.window.isOpen) || isUnresolvedLid ? (
           <div className="px-2 pt-2 sm:px-3 sm:pt-2.5 space-y-2">
             {selectedContact?.session?.provider === 'META_CLOUD' && selectedContact?.window && !selectedContact.window.isOpen ? (

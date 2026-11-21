@@ -26,12 +26,12 @@ export const MetaTemplateVarPlayground: React.FC<
   if (varNumbers.length === 0) return null;
 
   return (
-    <div className="mt-2 rounded-lg border border-dashed border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/40 p-2">
+    <div className="mt-2 rounded-lg border border-dashed border-border/70 bg-muted/40 p-2">
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[color:var(--color-muted-foreground)] hover:text-[color:var(--color-foreground)]"
+        className="inline-flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground hover:text-foreground"
       >
         {isOpen ? (
           <ChevronDown className="size-3" />

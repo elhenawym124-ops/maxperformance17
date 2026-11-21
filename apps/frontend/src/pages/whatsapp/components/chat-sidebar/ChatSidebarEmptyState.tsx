@@ -12,14 +12,14 @@ export const ChatSidebarEmptyState: React.FC<EmptyStateProps> = ({
   description,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] px-5 py-10 text-center">
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/70 bg-[var(--whatsapp-surface-overlay)] px-5 py-10 text-center">
       <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-primary/10 text-[color:var(--color-primary)]">
         <Icon className="size-6" />
       </div>
-      <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+      <p className="text-sm font-semibold text-foreground">
         {title}
       </p>
-      <p className="mt-1 max-w-[20rem] text-xs leading-5 text-[color:var(--color-muted-foreground)]">
+      <p className="mt-1 max-w-[20rem] text-xs leading-5 text-muted-foreground">
         {description}
       </p>
     </div>

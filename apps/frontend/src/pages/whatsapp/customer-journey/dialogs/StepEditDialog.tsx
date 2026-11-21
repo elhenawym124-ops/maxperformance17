@@ -25,14 +25,14 @@ import {
 export function MessagePreview({ content }: { content: string }) {
   return (
     <div
-      className="overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+      className="overflow-hidden rounded-xl border border-border/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
       style={previewBackgroundStyle}
     >
-      <div className="max-w-[22rem] rounded-xl rounded-bl-[6px] bg-[color:color-mix(in_srgb,var(--color-background)_92%,var(--shell-control-bg)_8%)] px-4 py-3 text-start shadow-sm">
-        <p className="whitespace-pre-wrap text-sm leading-6 text-[color:var(--color-foreground)]">
+      <div className="max-w-[22rem] rounded-xl rounded-bl-[6px] bg-[color:color-mix(in_srgb,var(--color-background)_92%,var(--color-card)_8%)] px-4 py-3 text-start shadow-sm">
+        <p className="whitespace-pre-wrap text-sm leading-6 text-foreground">
           {replaceVariables(content)}
         </p>
-        <div className="mt-2 text-end text-[11px] font-mono tabular-nums text-[color:var(--color-muted-foreground)]">
+        <div className="mt-2 text-end text-[11px] font-mono tabular-nums text-muted-foreground">
           12:05 PM
         </div>
       </div>
@@ -65,8 +65,8 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[calc(100%-2rem)] rounded-xl border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0 sm:max-w-4xl">
-        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_72%,transparent)] px-6 pt-6">
+      <DialogContent className="max-w-[calc(100%-2rem)] rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-0 sm:max-w-4xl">
+        <DialogHeader className="border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-6 pt-6">
           <DialogTitle>
             {currentStep.id
               ? t("whatsappJourney.steps.edit")
@@ -101,12 +101,12 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
               />
             </div>
 
-            <div className="space-y-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
+            <div className="space-y-3 rounded-xl border border-border/70 bg-[color:var(--color-card)]/70 p-4">
               <div>
-                <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+                <p className="text-sm font-medium text-foreground">
                   {t("whatsappJourney.steps.variables")}
                 </p>
-                <p className="text-sm text-[color:var(--color-muted-foreground)]">
+                <p className="text-sm text-muted-foreground">
                   {t("whatsappJourney.subtitle")}
                 </p>
               </div>
@@ -116,7 +116,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
                     key={token}
                     variant="outline"
                     size="sm"
-                    className="rounded-full border-[color:var(--shell-control-border)] font-mono text-xs bg-[color:var(--color-card)]/80"
+                    className="rounded-full border-border/70 font-mono text-xs bg-[color:var(--color-card)]/80"
                     onClick={() =>
                       setCurrentStep((previous) => ({
                         ...previous,
@@ -130,13 +130,13 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
               </div>
             </div>
 
-            <div className="space-y-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
+            <div className="space-y-3 rounded-xl border border-border/70 bg-[color:var(--color-card)]/70 p-4">
               <div className="flex items-center justify-between gap-4">
                 <div className="space-y-1">
-                  <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+                  <p className="text-sm font-medium text-foreground">
                     {t("whatsappJourney.steps.expectReply")}
                   </p>
-                  <p className="text-xs text-[color:var(--color-muted-foreground)]">
+                  <p className="text-xs text-muted-foreground">
                     {t("whatsappJourney.steps.expectReplyHint")}
                   </p>
                 </div>
@@ -184,7 +184,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
                             nextStepId: event.target.value || undefined,
                           }))
                         }
-                        className="h-10 w-full rounded-lg border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/75 px-3 text-sm text-[color:var(--color-foreground)]"
+                        className="h-10 w-full rounded-lg border border-border/70 bg-[color:var(--color-card)]/75 px-3 text-sm text-foreground"
                       >
                         <option value="">
                           {t("whatsappJourney.steps.nextStepAuto")}
@@ -258,8 +258,8 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
               <MessagePreview content={currentStep.content || ""} />
             </div>
 
-            <div className="space-y-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/70 p-4">
-              <p className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <div className="space-y-3 rounded-xl border border-border/70 bg-[color:var(--color-card)]/70 p-4">
+              <p className="text-sm font-medium text-foreground">
                 {t("whatsappJourney.steps.buttons")}
               </p>
               <ButtonsEditor

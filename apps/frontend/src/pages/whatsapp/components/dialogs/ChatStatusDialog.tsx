@@ -42,10 +42,10 @@ export const ChatStatusDialog: React.FC<ChatStatusDialogProps> = ({
     <UiDialog open={open} onOpenChange={onOpenChange}>
       <UiDialogContent
         showCloseButton={false}
-        className="max-w-xl gap-0 rounded-[28px] border border-[color:var(--shell-control-border)] bg-[var(--app-panel-bg)] p-0"
+        className="max-w-xl gap-0 rounded-[28px] border border-border/70 bg-[var(--app-panel-bg)] p-0"
       >
-        <UiDialogHeader className="border-b border-[color:var(--shell-control-border)] px-6 py-5">
-          <UiDialogTitle className="flex items-center gap-2 text-lg text-[color:var(--color-foreground)]">
+        <UiDialogHeader className="border-b border-border/70 px-6 py-5">
+          <UiDialogTitle className="flex items-center gap-2 text-lg text-foreground">
             <PlusCircle className="size-5 text-[color:var(--color-primary)]" />
             <span>إضافة حالة جديدة</span>
           </UiDialogTitle>
@@ -63,12 +63,12 @@ export const ChatStatusDialog: React.FC<ChatStatusDialogProps> = ({
             placeholder="ماذا يحدث؟ اكتب محتوى الحالة..."
             className="rounded-[20px] bg-[var(--whatsapp-surface-strong)]"
           />
-          <p className="text-xs text-[color:var(--color-muted-foreground)] tabular-nums font-mono">
+          <p className="text-xs text-muted-foreground tabular-nums font-mono">
             الحالة ستنتهي بعد 24 ساعة
           </p>
         </div>
 
-        <UiDialogFooter className="border-t border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)]">
+        <UiDialogFooter className="border-t border-border/70 bg-[var(--whatsapp-surface-overlay)]">
           <UiButton variant="outline" onClick={handleClose}>
             إلغاء
           </UiButton>

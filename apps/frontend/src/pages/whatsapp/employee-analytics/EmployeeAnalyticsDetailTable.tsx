@@ -42,9 +42,9 @@ export const EmployeeAnalyticsDetailTable: React.FC<EmployeeAnalyticsDetailTable
   return (
     <motion.div
       variants={reducedMotion ? noMotion : itemSlide}
-      className="relative overflow-hidden rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)]/80 shadow-sm backdrop-blur-xl sm:rounded-xl"
+      className="relative overflow-hidden rounded-xl border border-border/70 bg-[color:var(--color-card)]/80 shadow-sm backdrop-blur-xl sm:rounded-xl"
     >
-      <div className="flex items-center justify-between border-b border-[color:var(--shell-control-border)] px-5 py-4">
+      <div className="flex items-center justify-between border-b border-border/70 px-5 py-4">
         <div className="flex items-center gap-2">
           <Users className="size-4 text-primary" />
           <div>

@@ -138,7 +138,7 @@ const ProductCriteriaPicker: React.FC<ProductCriteriaPickerProps> = ({
       <div className="space-y-1.5" ref={containerRef}>
         <Label>اختيار المنتجات</Label>
         <div className="relative">
-          <Search className="absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[color:var(--color-muted-foreground)]" />
+          <Search className="absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={query}
             onChange={(e) => {
@@ -150,13 +150,13 @@ const ProductCriteriaPicker: React.FC<ProductCriteriaPickerProps> = ({
             className="h-10 pe-9 ps-9"
           />
           {loading && (
-            <Loader2 className="absolute left-3 top-1/2 size-4 -translate-y-1/2 animate-spin text-[color:var(--color-muted-foreground)]" />
+            <Loader2 className="absolute left-3 top-1/2 size-4 -translate-y-1/2 animate-spin text-muted-foreground" />
           )}
 
           {dropdownOpen && (
-            <div className="absolute z-50 mt-1 max-h-56 w-full overflow-y-auto rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-1 shadow-lg">
+            <div className="absolute z-50 mt-1 max-h-56 w-full overflow-y-auto rounded-xl border border-border/70 bg-[color:var(--color-card)] p-1 shadow-lg">
               {results.length === 0 ? (
-                <div className="p-3 text-center text-xs text-[color:var(--color-muted-foreground)]">
+                <div className="p-3 text-center text-xs text-muted-foreground">
                   {loading ? "جاري البحث..." : "لا توجد منتجات مطابقة"}
                 </div>
               ) : (
@@ -166,24 +166,24 @@ const ProductCriteriaPicker: React.FC<ProductCriteriaPickerProps> = ({
                     <div
                       key={item.id}
                       onClick={() => handleToggleProduct(item)}
-                      className="flex cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-[color:var(--color-muted)]"
+                      className="flex cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-muted"
                     >
                       <div className="flex min-w-0 items-center gap-2">
                         <div
                           className={`flex size-4 shrink-0 items-center justify-center rounded border ${
                             isSelected
                               ? "border-[color:var(--color-primary)] bg-[color:var(--color-primary)] text-white"
-                              : "border-[color:var(--shell-control-border)]"
+                              : "border-border/70"
                           }`}
                         >
                           {isSelected && <Check className="size-3" />}
                         </div>
-                        <span className="truncate font-medium text-[color:var(--color-foreground)]">
+                        <span className="truncate font-medium text-foreground">
                           {item.name}
                         </span>
                       </div>
                       {item.sku && (
-                        <span className="shrink-0 font-mono text-xs text-[color:var(--color-muted-foreground)]">
+                        <span className="shrink-0 font-mono text-xs text-muted-foreground">
                           ({item.sku})
                         </span>
                       )}
@@ -244,7 +244,7 @@ const ProductCriteriaPicker: React.FC<ProductCriteriaPickerProps> = ({
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
             <Label>خلال آخر (يوم)</Label>
-            <span className="text-[11px] text-[color:var(--color-muted-foreground)]">
+            <span className="text-[11px] text-muted-foreground">
               (اتركه فارغاً = بدون حد زمني)
             </span>
           </div>
@@ -259,7 +259,7 @@ const ProductCriteriaPicker: React.FC<ProductCriteriaPickerProps> = ({
       </div>
 
       {showGuestWarning && (
-        <p className="text-xs text-[color:var(--color-muted-foreground)]">
+        <p className="text-xs text-muted-foreground">
           أوردرات الضيوف (Guest Orders) مش داخلة في الشرط ده — مفيش ربط productId فيها.
         </p>
       )}
@@ -321,7 +321,7 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
   return (
     <>
       {formCriteria.type !== "preset" ? (
-        <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4">
+        <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
           {formCriteriaType === "purchasedProduct" && (
             <ProductCriteriaPicker
               selectedProducts={formCriteria.products || []}
@@ -368,7 +368,7 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
                     {availableTags.map((tag) => (
                       <SelectItem key={tag} value={tag}>
                         <span className="flex items-center gap-1.5">
-                          <Tag className="size-3.5 text-[color:var(--color-muted-foreground)]" />
+                          <Tag className="size-3.5 text-muted-foreground" />
                           {tag}
                         </span>
                       </SelectItem>
@@ -525,7 +525,7 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
             </div>
           )}
           {formCriteriaType === "all" && (
-            <p className="text-sm text-[color:var(--color-muted-foreground)]">
+            <p className="text-sm text-muted-foreground">
               ستشمل هذه القائمة جميع العملاء النشطين.
             </p>
           )}
@@ -541,7 +541,7 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
                 ) : (
                   <Sparkles className="size-4 text-[color:var(--color-primary)]" />
                 )}
-                <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+                <span className="text-sm font-medium text-foreground">
                   {preset ? preset.label : "قالب جاهز"} —{" "}
                   {preset ? preset.hint : "سيتم تطبيق المعايير الذكية تلقائياً"}
                 </span>
@@ -552,11 +552,11 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
       )}
 
       {/* Exclusion window: Contacted recently */}
-      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4">
+      <div className="rounded-xl border border-border/70 bg-muted/30 p-4">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1">
             <Label>استثناء المراسَلين حديثاً</Label>
-            <p className="text-xs text-[color:var(--color-muted-foreground)]">
+            <p className="text-xs text-muted-foreground">
               استبعد العملاء الذين أرسلوا إليك أو أُرسل إليهم خلال آخر (يوم). يمنع إزعاج عملاء تواصلوا مؤخراً.
             </p>
           </div>
@@ -587,13 +587,13 @@ export const CustomerListCriteriaFields: React.FC<CustomerListCriteriaFieldsProp
       </div>
 
       {/* Exclusion window: Product Purchase */}
-      <div className="rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)]/30 p-4 space-y-3">
+      <div className="rounded-xl border border-border/70 bg-muted/30 p-4 space-y-3">
         <div className="space-y-1">
           <Label className="flex items-center gap-2">
             <ShoppingBag className="size-4 text-[color:var(--color-primary)]" />
             <span>استبعاد مشتري منتج</span>
           </Label>
-          <p className="text-xs text-[color:var(--color-muted-foreground)]">
+          <p className="text-xs text-muted-foreground">
             استبعد من القائمة أي عميل اشترى منتجاً أو أكثر بحالة معينة وفترة زمنية اختيارية.
           </p>
         </div>

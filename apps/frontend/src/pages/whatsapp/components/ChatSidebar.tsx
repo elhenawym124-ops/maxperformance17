@@ -195,7 +195,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
       {Array.from({ length: 6 }).map((_, index) => (
         <div
           key={index}
-          className="flex items-center gap-3 border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_50%,transparent)] px-3 py-2.5"
+          className="flex items-center gap-3 border-b border-[color:color-mix(in_srgb,var(--color-border)_50%,transparent)] px-3 py-2.5"
         >
           <Skeleton className="size-10 shrink-0 rounded-full" />
           <div className="min-w-0 flex-1 space-y-2">
@@ -211,7 +211,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
     <aside
       dir={i18n.dir()}
       className={cn(
-        'whatsapp-theme-transition relative flex h-full max-lg:w-full min-w-0 shrink-0 flex-col overflow-hidden border-b border-[color:color-mix(in_srgb,var(--shell-control-border)_82%,transparent)] bg-[var(--app-panel-bg)] lg:min-h-0 lg:w-[390px] lg:min-w-[360px] lg:border-b-0 lg:border-r',
+        'whatsapp-theme-transition relative flex h-full max-lg:w-full min-w-0 shrink-0 flex-col overflow-hidden border-b border-[color:color-mix(in_srgb,var(--color-border)_82%,transparent)] bg-[var(--app-panel-bg)] lg:min-h-0 lg:w-[390px] lg:min-w-[360px] lg:border-b-0 lg:border-r',
         className,
       )}
     >
@@ -291,16 +291,16 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
         ) : conversationsError ? (
           <div className="flex flex-col items-center justify-center px-5 py-10 text-center">
             <AlertTriangle className="mb-4 size-10 text-destructive" />
-            <p className="text-sm font-semibold text-[color:var(--color-foreground)]">
+            <p className="text-sm font-semibold text-foreground">
               {t('whatsapp.dialogs.error')}
             </p>
-            <p className="mt-1 text-sm text-[color:var(--color-muted-foreground)]">
+            <p className="mt-1 text-sm text-muted-foreground">
               {t('whatsapp.window.selectChat')}
             </p>
             {onRetryConversations && (
               <Button
                 variant="outline"
-                className="mt-4 rounded-full border-[color:var(--shell-control-border)]"
+                className="mt-4 rounded-full border-border/70"
                 onClick={onRetryConversations}
               >
                 <RefreshCw className="size-4 ms-2" />
@@ -361,7 +361,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
 
             {isLoadingMoreConversations && (
               <div className="flex items-center justify-center py-2">
-                <Loader2 className="size-4 animate-spin text-[color:var(--color-muted-foreground)]" />
+                <Loader2 className="size-4 animate-spin text-muted-foreground" />
               </div>
             )}
           </div>

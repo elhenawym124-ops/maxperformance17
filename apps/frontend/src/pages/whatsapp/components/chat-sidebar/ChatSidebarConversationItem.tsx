@@ -131,7 +131,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
           onContextMenu(event, contact);
         }}
         className={cn(
-          'wa-conversation-item min-h-[3.25rem] w-full border-b border-t-0 border-x-0 border-[color:color-mix(in_srgb,var(--shell-control-border)_50%,transparent)] px-3 py-1.5 text-start transition-all duration-150 sm:min-h-[3.5rem] sm:py-2 rounded-none',
+          'wa-conversation-item min-h-[3.25rem] w-full border-b border-t-0 border-x-0 border-[color:color-mix(in_srgb,var(--color-border)_50%,transparent)] px-3 py-1.5 text-start transition-all duration-150 sm:min-h-[3.5rem] sm:py-2 rounded-none',
           multiSelectMode && isSelectedInMulti
             ? 'bg-[color:color-mix(in_srgb,var(--color-primary)_12%,var(--color-background))]'
             : !multiSelectMode && isSelected
@@ -149,7 +149,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                 'flex size-4.5 shrink-0 items-center justify-center rounded-md border transition-colors',
                 isSelectedInMulti
                   ? 'border-[color:var(--color-primary)] bg-[color:var(--color-primary)] text-white'
-                  : 'border-[color:var(--shell-control-border)]',
+                  : 'border-border/70',
               )}
             >
               {isSelectedInMulti && <Check className="size-3" />}
@@ -169,7 +169,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                 <div className="flex items-center gap-1.5">
                   <p
                     className={cn(
-                      'truncate text-xs sm:text-sm text-[color:var(--color-foreground)]',
+                      'truncate text-xs sm:text-sm text-foreground',
                       contact.unreadCount > 0 && 'font-semibold',
                     )}
                   >
@@ -178,7 +178,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                   {contact.isGroup && (
                     <Badge
                       variant="outline"
-                      className="border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] px-1 text-[8px] uppercase text-[color:var(--color-muted-foreground)]"
+                      className="border-border/70 bg-[var(--whatsapp-surface-overlay)] px-1 text-[8px] uppercase text-muted-foreground"
                     >
                       G
                     </Badge>
@@ -186,7 +186,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                   {contact.isNewsletter && (
                     <Badge
                       variant="outline"
-                      className="border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-overlay)] px-1 text-[8px] uppercase text-[color:var(--color-muted-foreground)]"
+                      className="border-border/70 bg-[var(--whatsapp-surface-overlay)] px-1 text-[8px] uppercase text-muted-foreground"
                     >
                       {translate('whatsapp.window.channel')}
                     </Badge>
@@ -205,7 +205,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                         ) : null;
                       })}
                       {contact.labels.length > 3 && (
-                        <span className="text-[9px] font-mono leading-none text-[color:var(--color-muted-foreground)]">
+                        <span className="text-[9px] font-mono leading-none text-muted-foreground">
                           +{contact.labels.length - 3}
                         </span>
                       )}
@@ -219,7 +219,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                   'shrink-0 text-[10px] font-mono tabular-nums',
                   contact.unreadCount > 0
                     ? 'font-medium text-[color:var(--color-primary)]'
-                    : 'text-[color:var(--color-muted-foreground)]',
+                    : 'text-muted-foreground',
                 )}
               >
                 {formatTime(contact.lastMessageAt, translate('whatsapp.window.yesterday'))}
@@ -228,9 +228,9 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
 
             <div className="mt-1 flex items-center justify-between gap-1.5">
               <div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden">
-                <p className="line-clamp-1 min-w-0 flex-1 text-xs leading-4 text-[color:var(--color-muted-foreground)]">
+                <p className="line-clamp-1 min-w-0 flex-1 text-xs leading-4 text-muted-foreground">
                   {senderPrefix && (
-                    <span className="font-semibold text-[color:var(--color-foreground)]">
+                    <span className="font-semibold text-foreground">
                       {senderPrefix}:{' '}
                     </span>
                   )}
@@ -244,10 +244,10 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
 
               <div className="flex shrink-0 items-center gap-1">
                 {contact.isPinned && (
-                  <Pin className="size-3 text-[color:var(--color-muted-foreground)]" />
+                  <Pin className="size-3 text-muted-foreground" />
                 )}
                 {contact.isMuted && (
-                  <VolumeX className="size-3 text-[color:var(--color-muted-foreground)]" />
+                  <VolumeX className="size-3 text-muted-foreground" />
                 )}
                 {contact.unreadCount > 0 && (
                   <span className="inline-flex min-w-4.5 items-center justify-center rounded-full bg-[color:var(--color-primary)] px-1 py-0.5 text-[9px] font-mono font-semibold tabular-nums text-white">

@@ -45,7 +45,7 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
           {message.content ? (
             <LinkifiedText
               text={message.content}
-              className="block whitespace-pre-wrap text-sm leading-[1.45] text-[color:var(--color-foreground)]"
+              className="block whitespace-pre-wrap text-sm leading-[1.45] text-foreground"
             />
           ) : null}
         </div>
@@ -72,7 +72,7 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
           {message.content ? (
             <LinkifiedText
               text={message.content}
-              className="mt-1 block whitespace-pre-wrap text-sm leading-[1.45] text-[color:var(--color-foreground)]"
+              className="mt-1 block whitespace-pre-wrap text-sm leading-[1.45] text-foreground"
             />
           ) : null}
         </div>
@@ -88,7 +88,7 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
           {message.content ? (
             <LinkifiedText
               text={message.content}
-              className="block whitespace-pre-wrap text-[13px] leading-[1.35] text-[color:var(--color-foreground)]"
+              className="block whitespace-pre-wrap text-[13px] leading-[1.35] text-foreground"
             />
           ) : null}
         </div>
@@ -105,15 +105,15 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
     case "DOCUMENT":
     case "FILE":
       return (
-        <div className="flex min-w-[14rem] items-center gap-3 rounded-xl border border-[color:color-mix(in_srgb,var(--shell-control-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-3">
+        <div className="flex min-w-[14rem] items-center gap-3 rounded-xl border border-[color:color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[var(--whatsapp-surface-muted)] px-3 py-3">
           <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive">
             <FileText className="size-5" />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-[color:var(--color-foreground)]">
+            <p className="truncate text-sm font-medium text-foreground">
               {message.mediaFileName || "Document"}
             </p>
-            <p className="text-xs text-[color:var(--color-muted-foreground)]">
+            <p className="text-xs text-muted-foreground">
               {t("common.download", "تحميل")}
             </p>
           </div>
@@ -122,7 +122,7 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
             target="_blank"
             rel="noreferrer"
             download
-            className="inline-flex size-9 items-center justify-center rounded-full border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface)] text-[color:var(--color-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+            className="inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-[var(--whatsapp-surface)] text-foreground transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
           >
             <Download className="size-4" />
           </a>
@@ -151,7 +151,7 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
             {message.content ? (
               <LinkifiedText
                 text={message.content}
-                className="block whitespace-pre-wrap text-sm leading-[1.45] text-[color:var(--color-foreground)]"
+                className="block whitespace-pre-wrap text-sm leading-[1.45] text-foreground"
               />
             ) : null}
           </div>
@@ -167,7 +167,7 @@ export const MediaMessageContent: React.FC<MediaMessageContentProps> = ({
             href={fullMediaUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[color:var(--shell-control-border)] bg-[var(--whatsapp-surface-strong)] px-3 py-2 text-sm text-[color:var(--color-foreground)] transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
+            className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-[var(--whatsapp-surface-strong)] px-3 py-2 text-sm text-foreground transition-colors hover:bg-[var(--whatsapp-surface-hover)]"
           >
             <Download className="size-4" />
             {t("common.download", "تحميل")}

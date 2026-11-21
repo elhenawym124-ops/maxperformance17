@@ -47,22 +47,22 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
 }) => {
   if (templates.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-6 py-12 text-center">
+      <div className="rounded-xl border border-dashed border-border/70 bg-muted px-6 py-12 text-center">
         <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-primary/10 text-[color:var(--color-primary)]">
           <FileText className="size-7" />
         </div>
         <div className="mt-4 space-y-2">
-          <h3 className="text-lg font-semibold text-[color:var(--color-foreground)]">
+          <h3 className="text-lg font-semibold text-foreground">
             {isArabic ? "لا توجد قوالب مطابقة" : "No matching templates"}
           </h3>
-          <p className="text-sm text-[color:var(--color-muted-foreground)]">
+          <p className="text-sm text-muted-foreground">
             {isArabic
               ? "جرّب تغيير كلمة البحث أو إعادة ضبط التصنيف الحالي."
               : "Try adjusting the search term or clearing the active category filter."}
           </p>
           <Button
             variant="outline"
-            className="mt-2 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] hover:brightness-95"
+            className="mt-2 rounded-full border-border/70 bg-[color:var(--color-card)] hover:brightness-95"
             onClick={onResetFilters}
           >
             {isArabic ? "إعادة ضبط الفلاتر" : "Reset filters"}
@@ -87,11 +87,11 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
         return (
           <div
             key={itemKey}
-            className="flex h-full flex-col rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-5 shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
+            className="flex h-full flex-col rounded-xl border border-border/70 bg-[color:var(--color-card)] p-5 shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="space-y-2">
-                <h3 className="text-base font-semibold leading-7 text-[color:var(--color-foreground)]">
+                <h3 className="text-base font-semibold leading-7 text-foreground">
                   {eventTitle}
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -108,7 +108,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                   {template.isDefault && !template.id ? (
                     <Badge
                       variant="outline"
-                      className="rounded-full border-dashed border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] text-[color:var(--color-muted-foreground)]"
+                      className="rounded-full border-dashed border-border/70 bg-muted text-muted-foreground"
                     >
                       {isArabic ? "نظامي" : "System"}
                     </Badge>
@@ -131,9 +131,9 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                   </Badge>
                 </div>
                 {triggerText ? (
-                  <div className="mt-2.5 flex items-center gap-1.5 rounded-lg bg-[color:var(--color-muted)] px-2.5 py-1 text-xs text-[color:var(--color-muted-foreground)]">
+                  <div className="mt-2.5 flex items-center gap-1.5 rounded-lg bg-muted px-2.5 py-1 text-xs text-muted-foreground">
                     <Clock className="size-3.5 shrink-0 text-warning" />
-                    <span className="font-medium text-[color:var(--color-foreground)]">
+                    <span className="font-medium text-foreground">
                       {isArabic ? "التشغيل:" : "Trigger:"}
                     </span>
                     <span className="truncate">{triggerText}</span>
@@ -241,7 +241,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
               </p>
             </div>
 
-            <div className="mt-4 flex items-center rounded-xl border border-[color:var(--shell-control-border)] bg-[color:color-mix(in_srgb,var(--color-background)_86%,white)] px-2 py-2">
+            <div className="mt-4 flex items-center rounded-xl border border-border/70 bg-[color:color-mix(in_srgb,var(--color-background)_86%,white)] px-2 py-2">
               <TemplateMetric
                 icon={Send}
                 label={isArabic ? "مرسل" : "Sent"}
@@ -250,7 +250,7 @@ export const TemplateCardsGrid: React.FC<TemplateCardsGridProps> = ({
                     ? template.sentCount
                     : "—"
                 }
-                colorClass="text-[color:var(--color-muted-foreground)]"
+                colorClass="text-muted-foreground"
               />
               <Separator orientation="vertical" className="mx-1 h-6" />
               <TemplateMetric

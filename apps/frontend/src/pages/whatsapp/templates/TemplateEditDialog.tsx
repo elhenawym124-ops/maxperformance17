@@ -107,7 +107,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                     ? "مثال: ترحيب بالعملاء الجدد"
                     : "e.g., New customer welcome"
                 }
-                className="h-12 bg-[color:var(--color-muted)]"
+                className="h-12 bg-muted"
               />
             </div>
 
@@ -129,7 +129,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                   }}
                   disabled={superAdminMode}
                 >
-                  <SelectTrigger className="h-11 bg-[color:var(--color-muted)]">
+                  <SelectTrigger className="h-11 bg-muted">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -152,7 +152,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                     setTemplateForm((prev) => ({ ...prev, eventType: val ?? "" }))
                   }
                 >
-                  <SelectTrigger className="h-11 bg-[color:var(--color-muted)]">
+                  <SelectTrigger className="h-11 bg-muted">
                     <SelectValue
                       placeholder={
                         isArabic ? "اختر الحدث..." : "Select event..."
@@ -182,7 +182,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                     }))
                   }
                 >
-                  <SelectTrigger className="h-11 bg-[color:var(--color-muted)]">
+                  <SelectTrigger className="h-11 bg-muted">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -253,7 +253,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                       ? "استيراد من قوالب ميتا المعتمدة"
                       : "Import from Meta"}
                   </Button>
-                  <div className="flex items-center gap-2 text-sm text-[color:var(--color-muted-foreground)]">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <span>{isArabic ? "تفعيل" : "Active"}</span>
                     <Switch
                       checked={templateForm.isActive}
@@ -267,8 +267,8 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
 
               {/* Clickable Variable Chips */}
               {activeCategoryVars.length > 0 && (
-                <div className="space-y-1.5 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] p-3">
-                  <p className="text-xs font-medium text-[color:var(--color-muted-foreground)]">
+                <div className="space-y-1.5 rounded-xl border border-border/70 bg-[color:var(--color-card)] p-3">
+                  <p className="text-xs font-medium text-muted-foreground">
                     {isArabic
                       ? "المتغيرات المتاحة لهذا الحدث (اضغط للإدراج عند المؤشر):"
                       : "Available variables (click to insert at cursor):"}
@@ -280,12 +280,12 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                         type="button"
                         onClick={() => insertVariable(v.var)}
                         title={v.desc}
-                        className="inline-flex items-center gap-1 rounded-lg border border-[color:var(--shell-control-border)] bg-[color:var(--color-muted)] px-2 py-1 text-xs font-medium text-[color:var(--color-foreground)] transition hover:border-[color:var(--color-primary)] hover:bg-primary/5 active:scale-95"
+                        className="inline-flex items-center gap-1 rounded-lg border border-border/70 bg-muted px-2 py-1 text-xs font-medium text-foreground transition hover:border-[color:var(--color-primary)] hover:bg-primary/5 active:scale-95"
                       >
                         <span className="font-mono font-semibold text-[color:var(--color-primary)]">
                           {v.var}
                         </span>
-                        <span className="text-[10px] text-[color:var(--color-muted-foreground)]">
+                        <span className="text-[10px] text-muted-foreground">
                           ({v.label})
                         </span>
                       </button>
@@ -305,10 +305,10 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
                     ? "اكتب رسالتك هنا...\nيمكنك استخدام المتغيرات مثل {customerName}"
                     : "Type your message here...\nYou can use variables like {customerName}"
                 }
-                className="min-h-[180px] resize-y bg-[color:var(--color-muted)] p-4 leading-7"
+                className="min-h-[180px] resize-y bg-muted p-4 leading-7"
                 dir="auto"
               />
-              <p className="text-xs text-[color:var(--color-muted-foreground)]">
+              <p className="text-xs text-muted-foreground">
                 {isArabic
                   ? "المتغيرات بين الأقواس المعقوفة {variable} سيتم استبدالها تلقائياً ببيانات العميل أو الطلب الحقيقية عند الإرسال."
                   : "Variables in brackets {variable} will be automatically substituted with real customer/order data on dispatch."}
@@ -317,7 +317,7 @@ export const TemplateEditDialog: React.FC<TemplateEditDialogProps> = ({
           </div>
         </div>
 
-        <div className="border-t border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-6 py-5 sm:rounded-b-3xl sm:px-8">
+        <div className="border-t border-border/70 bg-[color:var(--color-card)] px-6 py-5 sm:rounded-b-3xl sm:px-8">
           <DialogFooter className="gap-3 sm:gap-0">
             <Button
               variant="outline"

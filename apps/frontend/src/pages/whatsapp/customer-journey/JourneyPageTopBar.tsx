@@ -34,13 +34,13 @@ export const JourneyPageTopBar: React.FC<JourneyPageTopBarProps> = ({
   addNewFlowLabel,
 }) => {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-xl border border-[color:var(--shell-control-border)] bg-[color:var(--color-card)] px-3 py-2 shadow-soft sm:rounded-xl sm:px-4 sm:py-2.5">
+    <div className="flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-[color:var(--color-card)] px-3 py-2 shadow-soft sm:rounded-xl sm:px-4 sm:py-2.5">
       <Link
         to={backHref}
         aria-label={backLabel}
         className={cn(
           buttonVariants({ variant: "outline", size: "icon-sm" }),
-          "shrink-0 rounded-full border-[color:var(--shell-control-border)] bg-[color:var(--color-background)] text-[color:var(--color-foreground)] hover:bg-[color:var(--color-muted)]",
+          "shrink-0 rounded-full border-border/70 bg-[color:var(--color-background)] text-foreground hover:bg-muted",
         )}
       >
         <ChevronLeft className={cn("size-4", isRtl && "rotate-180")} />
