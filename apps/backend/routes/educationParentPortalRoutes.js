@@ -302,8 +302,9 @@ router.get('/teachers', authenticateParentToken, async (req, res) => {
         id: true,
         name: true,
         phone: true,
-        rating: true,
-        specialties: true
+        bio: true,
+        qualifications: true,
+        avatarUrl: true
       },
       orderBy: { name: 'asc' }
     });
