@@ -1,8 +1,8 @@
 {
   "id": "tpl-013-modest-warehouse-atelier",
-  "name": "Warehouse — Metal (Shopify 1:1 Exact Replica)",
-  "description": "نسخة طبق الأصل 1:1 لثيم Shopify Warehouse (Metal Edition) بجميع أقسامه الـ 21: هيدر الميجا الكحلي #1e2d7d، دروب داون الأقسام، بار البحث وزر البحث السماوي #00badb، السلايدر التفاعلي، كروت العروض الملونة الثلاثية، كروت القيمة لـ JBL، التصنيفات الدائرية، تبويبات المنتجات المميزة، بينتو الصوتيات، كروت الشاشات الجديدة، استعراض JBL Clip 3 التفاعلي، الأعلى تقييماً، المقالات الصوتية، المعارض، الفوتر الرمادي الفاتح، وركائز الثقة.",
-  "direction": "ltr",
+  "name": "Atelier Warehouse — أتيلييه عبايات وأزياء محتشمة",
+  "description": "قالب عبايات وأزياء محتشمة بكثافة كتالوج عالية مستوحى من هيكل Warehouse: هيرو كاسكيد للعروض الحصرية، بينتو الأقسام، شريط خامات الأتيلييه، تبويبات المنتجات، معارض الفروع وصالات القياس، وركائز الثقة.",
+  "direction": "rtl",
   "tokens": {
     "colors": {
       "primary": "231 61% 30%",
@@ -21,10 +21,10 @@
       "ring": "231 61% 30%"
     },
     "typography": {
-      "headingFont": "Plus Jakarta Sans, sans-serif",
-      "bodyFont": "Plus Jakarta Sans, sans-serif",
+      "headingFont": "Cairo, Plus Jakarta Sans, sans-serif",
+      "bodyFont": "Cairo, Plus Jakarta Sans, sans-serif",
       "baseSize": "15px",
-      "direction": "ltr"
+      "direction": "rtl"
     },
     "shape": {
       "borderRadius": "0.75rem",
@@ -40,8 +40,8 @@
     }
   },
   "seo": {
-    "titleTemplate": "%s | WAREHOUSE METAL EDITION",
-    "description": "Warehouse Metal — High-volume consumer electronics, Hi-Fi sound, 4K displays, and audio hardware with verified manufacturer warranties."
+    "titleTemplate": "%s | أتيلييه ويرهاوس — عبايات وأزياء محتشمة",
+    "description": "أتيلييه ويرهاوس — تسوقي أرقى العبايات الملكية، فساتين المحجبات الراقية، والشيلان الحريرية بأسعار المشغل المباشرة مع ضمان الاستبدال والمعاينة قبل الاستلام."
   },
   "preview": {
     "colors": [
@@ -53,52 +53,52 @@
   },
   "header": {
     "variant": "warehouse-mega",
-    "brandName": "WAREHOUSE",
+    "brandName": "أتيلييه ويرهاوس",
     "transparentOnHome": false,
     "showSearch": true,
     "showCart": true,
-    "announcementText": "Free shipping on orders over $80 · 30-day money-back guarantee",
-    "announcementLinkText": "Subscribe & Save",
-    "announcementLinkTo": "/shop",
+    "announcementText": "شحن مجاني للطلبات فوق 500 ج.م · ضمان استرجاع واستبدال 14 يوم · بضاعة أصلية مضمونة من الأتيلييه",
+    "announcementLinkText": "عروض اليوم",
+    "announcementLinkTo": "/shop?filter=deals",
     "navigation": [
       {
-        "label": "All Products",
+        "label": "كل المنتجات",
         "to": "/shop"
       },
       {
-        "label": "New Arrivals",
+        "label": "وصل حديثاً",
         "to": "/shop?sort=new"
       },
       {
-        "label": "Sales",
+        "label": "تخفيضات",
         "to": "/shop?filter=sales"
       },
       {
-        "label": "All Collections",
+        "label": "أقسام الأتيلييه",
         "to": "/collections"
       },
       {
-        "label": "Brands",
+        "label": "الخامات والأقمشة",
         "to": "#brands"
       },
       {
-        "label": "Daily Deals",
+        "label": "عروض اليوم",
         "to": "/shop?filter=deals"
       },
       {
-        "label": "Blog",
+        "label": "المدونة",
         "to": "/blog"
       },
       {
-        "label": "Our Stores",
+        "label": "فروعنا",
         "to": "#stores"
       }
     ]
   },
   "footer": {
     "variant": "warehouse-depot",
-    "description": "Warehouse Metal is a dedicated high-volume depot connecting retail buyers and commercial clients directly with Tier-1 consumer hardware manufacturers.",
-    "copyrightText": "© 2026 WAREHOUSE METAL EDITION · 100% FAITHFUL SHOPIFY REPLICA",
+    "description": "أتيلييه ويرهاوس هو المركز المتخصص في تصميم وإنتاج أرقى العبايات والأزياء المحتشمة بأسعار المشغل المباشرة وجودة خياطة ملكية معتمدة مع شحن لكافة المحافظات.",
+    "copyrightText": "© 2026 أتيلييه ويرهاوس للأزياء والعبايات · جميع الحقوق محفوظة",
     "socialLinks": {
       "instagram": "https://instagram.com",
       "facebook": "https://facebook.com",
@@ -106,55 +106,55 @@
     },
     "navigation": [
       {
-        "title": "Customer Service",
+        "title": "خدمة العملاء",
         "links": [
           {
-            "label": "Track Your Order",
+            "label": "تتبع طلبك",
             "to": "/orders/track"
           },
           {
-            "label": "Shipping & Delivery Rates",
+            "label": "الشحن والتوصيل",
             "to": "/shipping"
           },
           {
-            "label": "30-Day Hassle-Free Returns",
+            "label": "الاستبدال والاسترجاع (14 يوم)",
             "to": "/returns"
           },
           {
-            "label": "Warranty Registration",
-            "to": "/warranty"
+            "label": "دليل المقاسات المعتمد",
+            "to": "/size-guide"
           }
         ]
       },
       {
-        "title": "Popular Departments",
+        "title": "أشهر الأقسام والتشكيلات",
         "links": [
           {
-            "label": "4K HDR Displays & Audio",
-            "to": "/shop?category=tvs"
+            "label": "عبايات كريب ملكية سوداء",
+            "to": "/shop?category=black-abayas"
           },
           {
-            "label": "Flagship Wireless Headphones",
-            "to": "/shop?category=headphones"
+            "label": "فساتين محجبات خروج واستقبال",
+            "to": "/shop?category=modest-dresses"
           },
           {
-            "label": "Smartwatches & Wearables",
-            "to": "/shop?category=wearables"
+            "label": "شيلان وطرح حرير ليزر",
+            "to": "/shop?category=scarves"
           },
           {
-            "label": "Mirrorless Pro Cameras",
-            "to": "/shop?category=cameras"
+            "label": "أطقم بشت وعبايات مناسبات",
+            "to": "/shop?category=bisht-sets"
           }
         ]
       }
     ],
     "legalLinks": [
       {
-        "label": "Privacy Policy",
+        "label": "سياسة الخصوصية",
         "to": "/privacy"
       },
       {
-        "label": "Terms of Service",
+        "label": "الشروط والأحكام",
         "to": "/terms"
       }
     ]
@@ -166,17 +166,17 @@
         {
           "type": "warehouse-hero-cascade",
           "settings": {
-            "badge": "LIMITED TIME EXCLUSIVE",
-            "title": "Introducing: the Headphones Collection",
-            "subtitle": "Discover our curated selection of the best studio-grade and noise-canceling headphones of the year.",
-            "primaryButtonText": "Shop All Headphones",
+            "badge": "تشكيلة أتيلييه 2026 الحصرية",
+            "title": "أناقة محتشمة راقية وتفصيل متقن بالمللي",
+            "subtitle": "اكتشفي تشكيلتنا الفاخرة من العبايات الملكية، فساتين المحجبات الراقية، والشيلان الحريرية بأسعار المشغل المباشرة.",
+            "primaryButtonText": "تصفح تشكيلة العبايات",
             "primaryButtonLink": "/shop",
-            "secondaryButtonText": "Featured Deal",
+            "secondaryButtonText": "عرض اليوم الحصري",
             "secondaryButtonLink": "#featured-product",
-            "flashDealTitle": "Sony XBR-950G BRAVIA 4K HDR Ultra HD TV",
-            "flashDealSubtitle": "Full Array LED with 4K Ultimate Processor",
-            "flashDealPrice": "$1,398.00",
-            "flashDealOriginalPrice": "$2,198.00",
+            "flashDealTitle": "عباية كريب رويال سوداء مطرزة بتطريز يدوي فاخر",
+            "flashDealSubtitle": "كريب كوري ملكي مسامي بارد مع بطانة ناعمة",
+            "flashDealPrice": "1,850 ج.م",
+            "flashDealOriginalPrice": "2,400 ج.م",
             "flashDealStock": 4,
             "flashDealTotal": 20
           }
@@ -190,13 +190,13 @@
         {
           "type": "warehouse-collection-list",
           "settings": {
-            "title": "Our collections"
+            "title": "أقسام وتشكيلات الأتيلييه"
           }
         },
         {
           "type": "warehouse-product-tabs",
           "settings": {
-            "title": "Featured collection"
+            "title": "تشكيلة الأتيلييه المختارة"
           }
         },
         {
@@ -208,7 +208,7 @@
         {
           "type": "warehouse-brands-strip",
           "settings": {
-            "title": "Brands we distribute"
+            "title": "أقمشة وخامات الأتيلييه المعتمدة"
           }
         },
         {
@@ -230,8 +230,8 @@
           "type": "newsletter",
           "variant": "minimal",
           "settings": {
-            "title": "Let's keep in touch!",
-            "subtitle": "Subscribe to our weekly newsletter and receive exclusive clearance offers, private depot drops, and audio guides!"
+            "title": "انضمي لنادي عميلات الأتيلييه",
+            "subtitle": "اشتركي ليصلكِ تنبيه بالموديلات الجديدة وخصومات التصفية الحصرية أولاً بأول!"
           }
         },
         {
@@ -305,10 +305,10 @@
           "type": "cart-items",
           "variant": "standard",
           "settings": {
-            "title": "Shopping Cart",
-            "subtitle": "Review selected hardware before checkout.",
-            "emptyText": "Your cart is currently empty.",
-            "continueLabel": "Continue Shopping"
+            "title": "سلة المشتريات",
+            "subtitle": "راجعي تفاصيل القطع والمقاسات قبل إتمام الطلب.",
+            "emptyText": "سلة مشترياتك فارغة حالياً.",
+            "continueLabel": "متابعة التسوق"
           }
         },
         {
@@ -327,7 +327,7 @@
         {
           "type": "product-grid",
           "settings": {
-            "title": "All Hardware Collections"
+            "title": "جميع أقسام وتشكيلات العبايات"
           }
         },
         {
@@ -342,8 +342,8 @@
         {
           "type": "contact-form",
           "settings": {
-            "title": "Contact Customer Service",
-            "subtitle": "Speak directly with our technical support or procurement specialists."
+            "title": "تواصلي مع خدمة عملاء الأتيلييه",
+            "subtitle": "فريقنا المتخصص متواجد لمساعدتك في اختيار المقاسات والاستفسار عن طلبيات المشاغل والجملة."
           }
         },
         {

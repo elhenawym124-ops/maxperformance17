@@ -1,38 +1,47 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ARTICLES = [
   {
-    title: 'Setup your Surround sound speaker system for maximum acoustic impact',
-    excerpt: 'Step-by-step room calibration, speaker toe-in angles, and subwoofer phase matching for true home cinema immersion.',
-    author: 'Michaël Gallego',
-    date: 'Apr 15, 2019',
-    img: 'https://warehouse-theme-metal.myshopify.com/cdn/shop/articles/old-new-living-space.jpg?width=800',
+    title: 'دليلك الشامل للعناية بأقمشة الكريب الملكي وغسيل العبايات المطرزة',
+    excerpt: 'خطوات عملية مجربة للحفاظ على سواد العباية الداكن ولمعان التطريز اليدوي لسنوات طويلة دون بهتان.',
+    author: 'خبراء الأتيلييه',
+    date: 'موسم 2026',
+    img: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80',
   },
   {
-    title: 'Hook up a receiver for your home theater with zero cable clutter',
-    excerpt: 'Understanding HDMI eARC, Dolby Atmos passthrough, and discrete multi-zone amplification routing.',
-    author: 'Michaël Gallego',
-    date: 'Apr 15, 2019',
-    img: 'https://warehouse-theme-metal.myshopify.com/cdn/shop/articles/dj-board-volume-slider.jpg?width=800',
+    title: 'كيف تختارين قصة العباية الأنسب لقوامك (الكلوش، البشت، والمستقيمة)',
+    excerpt: 'قواعد تنسيق المقاسات والقصات الهندسية التي تمنحك انسيابية وراحة وأناقة محتشمة في كل المناسبات.',
+    author: 'فريق التصميم',
+    date: 'موسم 2026',
+    img: 'https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=800&auto=format&fit=crop&q=80',
   },
   {
-    title: 'Top most comfortable headphones for all-day studio mastering',
-    excerpt: 'We tested clamp pressure, ear-cup breathability, and weight distribution across 20 flagship models.',
-    author: 'Michaël Gallego',
-    date: 'Apr 15, 2019',
-    img: 'https://warehouse-theme-metal.myshopify.com/cdn/shop/articles/headphones-in-an-orange-glow.jpg?width=800',
+    title: 'أحدث صيحات ألوان شيلان الحرير والكتان وطرق تنسيقها اليومية',
+    excerpt: 'أسرار تنسيق درجات ألوان الطرح والشيلان الهادئة مع العباءة السوداء لإطلالة عصرية ومتزنة.',
+    author: 'مستشارة الأناقة',
+    date: 'موسم 2026',
+    img: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&auto=format&fit=crop&q=80',
   },
 ];
 
 export const WarehouseBlogPosts: React.FC = () => {
   return (
-    <section className="py-12 bg-[#f8f9fa] border-b border-[#e1e3e4]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 bg-[#f8f9fa] border-b border-[#e1e3e4]" dir="rtl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-start">
         <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#e1e3e4]">
-          <h2 className="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">Blog posts</h2>
-          <a href="/blog" className="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb]">
-            View all →
-          </a>
+          <div>
+            <h2 className="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">
+              مقالات ومدونة الأتيلييه
+            </h2>
+            <span className="text-xs text-neutral-500">
+              نصائح متخصصة في اختيار وتنسيق ورعاية أقمشة العبايات والأزياء المحتشمة
+            </span>
+          </div>
+          <Link to="/blog" className="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb] flex items-center gap-1">
+            <span>عرض كل المقالات</span>
+            <span className="rtl:rotate-180">←</span>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -47,6 +56,7 @@ export const WarehouseBlogPosts: React.FC = () => {
                     src={art.img}
                     alt={art.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
                   />
                 </div>
                 <div className="p-5">
@@ -62,10 +72,10 @@ export const WarehouseBlogPosts: React.FC = () => {
                 </div>
               </div>
               <div className="px-5 pb-5 pt-0">
-                <a href="/blog" className="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb] flex items-center gap-1">
-                  <span>Read article</span>
-                  <span>→</span>
-                </a>
+                <Link to="/blog" className="text-xs font-bold text-[#1e2d7d] hover:text-[#00badb] flex items-center gap-1">
+                  <span>قراءة المقال</span>
+                  <span className="rtl:rotate-180">←</span>
+                </Link>
               </div>
             </article>
           ))}

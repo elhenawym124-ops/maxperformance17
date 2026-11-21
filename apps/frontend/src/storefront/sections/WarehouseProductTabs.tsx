@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, ShoppingCart, Eye, Flame, ArrowRight } from 'lucide-react';
+import { Star, ShoppingCart, Eye, Flame } from 'lucide-react';
 import { useStorefrontTheme } from '../engine/ThemeProvider';
 import { useProducts, type Product } from '../hooks/useProducts';
+import { useCartStore } from '../cart/cartStore';
 
 export interface WarehouseProductTabsProps {
   section?: {
@@ -18,98 +19,171 @@ export interface WarehouseProductTabsProps {
 
 export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ section, settings: propSettings }) => {
   const { theme } = useStorefrontTheme();
+  const { addItem, setIsOpen } = useCartStore();
   const cfg = { ...section?.settings, ...propSettings };
-  const title = (cfg.title as string) || "Featured Collection";
+  const title = (cfg.title as string) || "تشكيلة الأتيلييه المختارة";
 
   const [activeTab, setActiveTab] = useState<'bestsellers' | 'featured' | 'onsale' | 'trending'>('bestsellers');
 
   // Fetch real store products dynamically from the merchant's database
-  const { products: storeProducts, isLoading } = useProducts({ limit: 16 });
+  const { products: storeProducts } = useProducts({ limit: 16 });
 
-  // Fallback demo electronics if the store has no products or during initial seed
-  const fallbackElectronics = useMemo(() => [
-    {
-      id: "w-01",
-      vendor: "SONY",
-      title: "Sony XBR-65X950G 65\" BRAVIA 4K HDR Ultra HD TV",
-      price: "1,398.00 EGP",
-      comparePrice: "2,198.00 EGP",
-      saveBadge: "Save 36%",
-      rating: 5,
-      reviewCount: 38,
-      stockText: "In stock, 42 units",
-      stockPercentage: 70,
-      image: "https://warehouse-theme-metal.myshopify.com/cdn/shop/products/sonyxbr55front_f72cc8ff-fcd6-4141-b9cc-e1320f867785.jpg?width=600"
-    },
-    {
-      id: "w-02",
-      vendor: "JBL",
-      title: "JBL Flip 4 Waterproof Portable Bluetooth Speaker - Camo",
-      price: "1,299.00 EGP",
-      comparePrice: "1,650.00 EGP",
-      saveBadge: "Save 21%",
-      rating: 5,
-      reviewCount: 94,
-      stockText: "In stock, 76 units",
-      stockPercentage: 85,
-      image: "https://warehouse-theme-metal.myshopify.com/cdn/shop/products/13549_790__2_73a2a189-b3d5-4ec8-a4c3-b506e1beab70.jpg?width=600"
-    },
-    {
-      id: "w-03",
-      vendor: "BOSE",
-      title: "Sony PS-HX500 Hi-Res USB Turntable with Audio Precision",
-      price: "4,890.00 EGP",
-      comparePrice: "5,990.00 EGP",
-      saveBadge: "Save 18%",
-      rating: 5,
-      reviewCount: 62,
-      stockText: "Only 4 units left",
-      stockPercentage: 25,
-      image: "https://warehouse-theme-metal.myshopify.com/cdn/shop/products/11910_163__1_d6abac00-2eb0-4f32-ab5b-40a3b1be2c70.jpg?width=600"
-    },
-    {
-      id: "w-04",
-      vendor: "AUDIO-TECHNICA",
-      title: "Audio-Technica ATH-M50x Professional Studio Headphones",
-      price: "6,499.00 EGP",
-      comparePrice: "7,800.00 EGP",
-      saveBadge: "Save 16%",
-      rating: 5,
-      reviewCount: 112,
-      stockText: "In stock, 19 units",
-      stockPercentage: 60,
-      image: "https://warehouse-theme-metal.myshopify.com/cdn/shop/products/12678_869__1_1500x_b9a505f9-8986-45bf-a73b-5950c9008349.jpg?width=600"
-    }
-  ], []);
+  // Fallback demo modest fashion items if store products are empty
+  const fallbackItems = useMemo(
+    () => [
+      {
+        id: "tab-item-01",
+        vendor: "ATELIER COUTURE",
+        title: "عباية كريب رويال سوداء مطرزة بتطريز يدوي على الأكمام والصدر",
+        rawPrice: 1850,
+        price: "1,850 ج.م",
+        comparePrice: "2,400 ج.م",
+        saveBadge: "وفر 23%",
+        rating: 5,
+        reviewCount: 38,
+        stockText: "متوفر، 42 قطعة",
+        stockPercentage: 70,
+        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600&auto=format&fit=crop&q=80",
+        slug: "abaya-crepe-royal-black"
+      },
+      {
+        id: "tab-item-02",
+        vendor: "MODEST STUDIO",
+        title: "فستان كتان طبيعي بيج مبطن للمحجبات مع حزام قماشي",
+        rawPrice: 1450,
+        price: "1,450 ج.م",
+        comparePrice: "1,900 ج.م",
+        saveBadge: "وفر 24%",
+        rating: 5,
+        reviewCount: 94,
+        stockText: "متوفر، 76 قطعة",
+        stockPercentage: 85,
+        image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&auto=format&fit=crop&q=80",
+        slug: "dress-linen-natural-beige"
+      },
+      {
+        id: "tab-item-03",
+        vendor: "DAR AL-HAYA",
+        title: "عباية حرير كريب كحلي بقصة كلوش واسعة وشيلة متناسقة",
+        rawPrice: 2150,
+        price: "2,150 ج.م",
+        comparePrice: "2,750 ج.م",
+        saveBadge: "وفر 22%",
+        rating: 5,
+        reviewCount: 29,
+        stockText: "متوفر، 18 قطعة",
+        stockPercentage: 45,
+        image: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=600&auto=format&fit=crop&q=80",
+        slug: "abaya-silk-navy-cloche"
+      },
+      {
+        id: "tab-item-04",
+        vendor: "ATELIER NOUR",
+        title: "طقم عباية بشت بيج واسع 3 قطع مع فستان داخلي وطرحة",
+        rawPrice: 1980,
+        price: "1,980 ج.م",
+        comparePrice: "2,450 ج.م",
+        saveBadge: "وفر 19%",
+        rating: 5,
+        reviewCount: 47,
+        stockText: "متوفر، 23 قطعة",
+        stockPercentage: 55,
+        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&auto=format&fit=crop&q=80",
+        slug: "set-bisht-abaya-dress-beige"
+      },
+      {
+        id: "tab-item-05",
+        vendor: "ATELIER COUTURE",
+        title: "عباية مخمل شتوية فاخرة بتطريز خيوط الحرير الذهبية",
+        rawPrice: 2450,
+        price: "2,450 ج.م",
+        comparePrice: "3,100 ج.م",
+        saveBadge: "وفر 21%",
+        rating: 5,
+        reviewCount: 16,
+        stockText: "متبقي 6 قطع فقط",
+        stockPercentage: 30,
+        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600&auto=format&fit=crop&q=80",
+        slug: "abaya-velvet-winter-gold"
+      },
+      {
+        id: "tab-item-06",
+        vendor: "MODEST LUXE",
+        title: "شيلة حرير ليزر ياباني ثابتة باللون الأسود الملكي",
+        rawPrice: 450,
+        price: "450 ج.م",
+        comparePrice: "600 ج.م",
+        saveBadge: "وفر 25%",
+        rating: 5,
+        reviewCount: 112,
+        stockText: "متوفر، 95 قطعة",
+        stockPercentage: 90,
+        image: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=600&auto=format&fit=crop&q=80",
+        slug: "sheila-laser-silk-black"
+      },
+      {
+        id: "tab-item-07",
+        vendor: "DAR AL-HAYA",
+        title: "فستان بليسيه راقي بلون زيتي هادئ مع بطانة كاملة",
+        rawPrice: 1680,
+        price: "1,680 ج.م",
+        comparePrice: null,
+        saveBadge: undefined,
+        rating: 5,
+        reviewCount: 42,
+        stockText: "متوفر، 34 قطعة",
+        stockPercentage: 65,
+        image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&auto=format&fit=crop&q=80",
+        slug: "dress-pleated-olive-modest"
+      },
+      {
+        id: "tab-item-08",
+        vendor: "ATELIER SELECTION",
+        title: "عباية صالونا كريب كلوش مطرزة على الأطراف خياطة يدوية",
+        rawPrice: 2100,
+        price: "2,100 ج.م",
+        comparePrice: "2,650 ج.م",
+        saveBadge: "وفر 20%",
+        rating: 5,
+        reviewCount: 28,
+        stockText: "متوفر، 15 قطعة",
+        stockPercentage: 40,
+        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600&auto=format&fit=crop&q=80",
+        slug: "abaya-salona-crepe-cloche"
+      }
+    ],
+    []
+  );
 
-  // Adapt real store products into Warehouse card schema
+  // Map store products or fallback
   const displayProducts = useMemo(() => {
     if (storeProducts && storeProducts.length > 0) {
       return storeProducts.map((p: Product, idx: number) => {
         const hasDiscount = p.comparePrice && p.comparePrice > p.price;
         const discountPercent = hasDiscount
           ? Math.round(((p.comparePrice! - p.price) / p.comparePrice!) * 100)
-          : 0;
+          : null;
 
         return {
-          id: p.id || `real-p-${idx}`,
-          vendor: p.category?.name || p.brand || (theme.brandName || "STORE"),
-          title: p.name || p.title || "Product",
-          price: `${p.price?.toLocaleString()} EGP`,
-          comparePrice: hasDiscount ? `${p.comparePrice?.toLocaleString()} EGP` : undefined,
-          saveBadge: hasDiscount ? `Save ${discountPercent}%` : undefined,
+          id: p.id || `sp-${idx}`,
+          vendor: p.category?.name || "ATELIER COUTURE",
+          title: p.name,
+          rawPrice: p.price,
+          price: `${p.price?.toLocaleString()} ج.م`,
+          comparePrice: hasDiscount ? `${p.comparePrice?.toLocaleString()} ج.م` : undefined,
+          saveBadge: hasDiscount ? `وفر ${discountPercent}%` : undefined,
           rating: p.rating || 5,
           reviewCount: p.reviewsCount || (idx * 7 + 12),
-          stockText: p.inventory ? `In stock, ${p.inventory} units` : "In stock, verified units",
+          stockText: p.inventory ? `متوفر، ${p.inventory} قطعة` : "متوفر وجاهز للشحن",
           stockPercentage: Math.min(100, Math.max(20, (p.inventory || 50) * 2)),
-          image: p.images?.[0] || p.mainImage || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop",
+          image: p.images?.[0] || fallbackItems[idx % fallbackItems.length].image,
           slug: p.slug || p.id
         };
       });
     }
 
-    return fallbackElectronics;
-  }, [storeProducts, fallbackElectronics, theme.brandName]);
+    return fallbackItems;
+  }, [storeProducts, fallbackItems]);
 
   // Distribute into tabs
   const tabSlices = useMemo(() => {
@@ -124,15 +198,32 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
 
   const currentList = tabSlices[activeTab] || tabSlices.bestsellers;
 
+  const handleAddToCart = (product: any) => {
+    addItem({
+      productId: product.id,
+      name: product.title,
+      price: product.rawPrice || 1500,
+      quantity: 1,
+      image: product.image,
+      metadata: {
+        vendor: product.vendor,
+        slug: product.slug,
+      },
+    });
+    setIsOpen(true);
+  };
+
   return (
-    <section className="py-12 bg-white border-b border-[#e1e3e4]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 bg-white border-b border-[#e1e3e4]" dir="rtl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-start">
         
         {/* Header & Tabs Row */}
         <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 mb-6 border-b border-[#e1e3e4] gap-4">
           <div>
             <h2 className="text-xl sm:text-2xl font-black text-[#1e2d7d] tracking-tight">{title}</h2>
-            <span className="text-xs text-neutral-500">Official catalog items with verified store warranties</span>
+            <span className="text-xs text-neutral-500">
+              تصاميم راقية وخامات أصلية معتمدة من كبرى دور النسيج والأتيلييهات
+            </span>
           </div>
           
           <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
@@ -144,7 +235,7 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
                   : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
               }`}
             >
-              Best Sellers
+              الأكثر طلباً
             </button>
             <button
               onClick={() => setActiveTab('featured')}
@@ -154,7 +245,7 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
                   : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
               }`}
             >
-              Featured
+              المميز والمختار
             </button>
             <button
               onClick={() => setActiveTab('onsale')}
@@ -165,7 +256,7 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
               }`}
             >
               <Flame className="w-3.5 h-3.5" />
-              <span>On Sale</span>
+              <span>تخفيضات الأتيلييه</span>
             </button>
             <button
               onClick={() => setActiveTab('trending')}
@@ -175,7 +266,7 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
                   : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
               }`}
             >
-              Trending
+              الرائج الآن
             </button>
           </div>
         </div>
@@ -185,7 +276,7 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
           {currentList.map((product: any) => (
             <div
               key={product.id}
-              className="group border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] hover:shadow-md transition-all duration-300"
+              className="group border border-[#e1e3e4] rounded-lg p-4 bg-white flex flex-col justify-between hover:border-[#1e2d7d] hover:shadow-md transition-all duration-300 text-start"
             >
               <div>
                 {/* 1:1 Aspect Image with Zoom & Badge */}
@@ -193,14 +284,21 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    className="max-h-full max-w-full object-cover group-hover:scale-105 transition-transform duration-300 rounded"
                     loading="lazy"
                   />
                   {product.saveBadge && (
-                    <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-xs">
+                    <span className="absolute top-2 start-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-xs">
                       {product.saveBadge}
                     </span>
                   )}
+                  <Link
+                    to={product.slug ? `/product/${product.slug}` : `/shop`}
+                    className="absolute bottom-2 end-2 bg-white/90 hover:bg-[#1e2d7d] hover:text-white text-[#1e2d7d] p-1.5 rounded-full shadow-md transition-colors opacity-0 group-hover:opacity-100"
+                    title="معاينة وتفاصيل"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
 
                 {/* Vendor / Category */}
@@ -209,9 +307,12 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
                 </span>
 
                 {/* Product Title */}
-                <h3 className="text-xs sm:text-sm font-semibold text-[#1e2d7d] line-clamp-2 mb-2 leading-snug">
+                <Link
+                  to={product.slug ? `/product/${product.slug}` : `/shop`}
+                  className="text-xs sm:text-sm font-semibold text-[#1e2d7d] line-clamp-2 mb-2 leading-snug hover:text-[#00badb] transition-colors"
+                >
                   {product.title}
-                </h3>
+                </Link>
 
                 {/* Price Display with Tabular Nums */}
                 <div className="flex items-baseline gap-2 mb-2">
@@ -253,13 +354,14 @@ export const WarehouseProductTabs: React.FC<WarehouseProductTabsProps> = ({ sect
               </div>
 
               {/* Add to Cart CTA */}
-              <Link
-                to={product.slug ? `/product/${product.slug}` : `/shop`}
-                className="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2.5 rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+              <button
+                type="button"
+                onClick={() => handleAddToCart(product)}
+                className="w-full bg-[#1e2d7d] hover:bg-[#16225a] text-white text-xs font-bold py-2.5 rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
               >
-                <ShoppingCart className="w-3.5 h-3.5 text-[#00badb]" />
-                <span>View Product</span>
-              </Link>
+                <ShoppingCart className="w-3.5 h-3.5 text-[#ffc220]" />
+                <span>أضف إلى السلة</span>
+              </button>
             </div>
           ))}
         </div>

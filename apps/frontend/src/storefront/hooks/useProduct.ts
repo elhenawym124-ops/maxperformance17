@@ -299,6 +299,30 @@ const executeFetchStorefrontProduct = async (
       return previewProduct;
     }
 
+    if (requestIdOrSlug.startsWith('preview:')) {
+      if (effectivePreviewThemeId) {
+        const { getMarketplacePreviewProducts } = await import(
+          '../preview/marketplaceSampleData'
+        );
+        const sampleProducts = getMarketplacePreviewProducts(
+          { limit: 1 },
+          effectivePreviewThemeId,
+        );
+        if (sampleProducts?.data?.[0]) {
+          return sampleProducts.data[0];
+        }
+      }
+      try {
+        const { fetchStorefrontProducts } = await import('./useProducts');
+        const storeProducts = await fetchStorefrontProducts({ limit: 1 });
+        if (storeProducts?.products?.[0]) {
+          return storeProducts.products[0];
+        }
+      } catch {
+        // fallback continues below
+      }
+    }
+
     try {
       return await fetchPublicStorefrontProduct(requestIdOrSlug, resolvedPresentationSlug);
     } catch (err) {
@@ -315,6 +339,30 @@ const executeFetchStorefrontProduct = async (
         }
       }
       throw err;
+    }
+  }
+
+  if (requestIdOrSlug.startsWith('preview:')) {
+    if (effectivePreviewThemeId) {
+      const { getMarketplacePreviewProducts } = await import(
+        '../preview/marketplaceSampleData'
+      );
+      const sampleProducts = getMarketplacePreviewProducts(
+        { limit: 1 },
+        effectivePreviewThemeId,
+      );
+      if (sampleProducts?.data?.[0]) {
+        return sampleProducts.data[0];
+      }
+    }
+    try {
+      const { fetchStorefrontProducts } = await import('./useProducts');
+      const storeProducts = await fetchStorefrontProducts({ limit: 1 });
+      if (storeProducts?.products?.[0]) {
+        return storeProducts.products[0];
+      }
+    } catch {
+      // ignore
     }
   }
 

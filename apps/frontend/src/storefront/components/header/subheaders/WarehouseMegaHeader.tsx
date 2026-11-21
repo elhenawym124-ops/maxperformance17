@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, ShoppingCart, User, PhoneCall, ChevronDown, Sparkles, Tag } from "lucide-react";
+import { Search, ShoppingCart, User, PhoneCall, ChevronDown, Tag } from "lucide-react";
 import { StorefrontHomeLink } from "../storefrontHeaderHelpers";
 import { StorefrontSearchOverlay } from "./StorefrontSearchOverlay";
 import type { StorefrontHeaderController } from "../storefrontHeaderTypes";
@@ -23,7 +23,6 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
     mobileMenuOpen,
     setMobileMenuOpen,
     showSearch,
-    setSearchOpen,
     navLinks,
     isActive,
     searchOpen,
@@ -34,22 +33,33 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
     settings,
   } = controller;
 
+  const isRtl = theme?.direction !== "ltr";
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const currency = settings?.storefront?.settings?.currency || "EGP";
+  const currency = settings?.storefront?.settings?.currency || (isRtl ? "ج.م" : "EGP");
 
   // Warehouse Categories matching high-density mega search
-  const warehouseCategories = [
-    { id: "all", label: "All Categories / جميع الأقسام" },
-    { id: "featured", label: "Best Sellers / الأكثر مبيعاً" },
-    { id: "new", label: "New Arrivals / وصل حديثاً" },
-    { id: "deals", label: "Deals & Clearance / العروض والتصفيات" },
-    { id: "wholesale", label: "Bulk & Wholesale / باقات الجملة" },
-  ];
+  const warehouseCategories = isRtl
+    ? [
+        { id: "all", label: "جميع الأقسام" },
+        { id: "abayas", label: "عبايات سوداء وملونة" },
+        { id: "dresses", label: "فساتين محجبات" },
+        { id: "scarves", label: "طرح وشيلان حرير" },
+        { id: "deals", label: "عروض وتصفيات" },
+        { id: "wholesale", label: "باقات الجملة للأتيلييه" },
+      ]
+    : [
+        { id: "all", label: "All Categories" },
+        { id: "abayas", label: "Abayas & Cloaks" },
+        { id: "dresses", label: "Modest Dresses" },
+        { id: "scarves", label: "Scarves & Hijabs" },
+        { id: "deals", label: "Deals & Clearance" },
+        { id: "wholesale", label: "Bulk & Wholesale" },
+      ];
 
   return (
     <>
       <header
-        dir={theme.direction}
+        dir={theme?.direction || "rtl"}
         className="sticky top-0 z-50 w-full shadow-md"
       >
         {/* 1. Top Announcement Bar (Darker Navy / Accent) */}
@@ -57,20 +67,22 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
           <div className="mx-auto flex max-w-7xl items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center rounded-xs bg-[#ffc220] px-1.5 py-0.2 text-[10px] font-bold text-[#16225a]">
-                FLASH DEALS
+                {isRtl ? "عروض حصرية" : "FLASH DEALS"}
               </span>
               <span className="text-[#a3afef]">
-                Free shipping on orders over 500 EGP · 14-day return guarantee · Verified authentic stock
+                {isRtl
+                  ? "شحن مجاني للطلبات فوق 500 ج.م · ضمان استرجاع 14 يوم · بضاعة أصلية مضمونة من الأتيلييه"
+                  : "Free shipping on orders over 500 EGP · 14-day return guarantee · Verified authentic atelier stock"}
               </span>
             </div>
             <div className="hidden items-center gap-4 sm:flex text-[11px] text-[#a3afef]">
               <span className="flex items-center gap-1">
                 <PhoneCall className="w-3 h-3 text-[#ffc220]" />
-                <span>Support: 19000</span>
+                <span>{isRtl ? "خدمة العملاء: 19000" : "Support: 19000"}</span>
               </span>
               <span className="opacity-30">|</span>
               <Link to="/contact" className="hover:text-white transition-colors">
-                Order Tracking
+                {isRtl ? "تتبع طلبك" : "Order Tracking"}
               </Link>
             </div>
           </div>
@@ -99,13 +111,13 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
 
               <StorefrontHomeLink
                 {...brandHomeLinkProps}
-                className="group flex flex-col justify-center select-none"
+                className="group flex flex-col justify-center select-none text-start"
               >
                 <span className="font-sans text-2xl font-black tracking-wider text-white uppercase drop-shadow-xs">
-                  {displayStoreName || "WAREHOUSE"}
+                  {displayStoreName || (isRtl ? "أتيلييه ويرهاوس" : "ATELIER WAREHOUSE")}
                 </span>
                 <span className="text-[9px] font-bold tracking-widest text-[#a3afef] -mt-1 uppercase">
-                  DIRECT DEPOT & OUTLET
+                  {isRtl ? "المخزن الرئيسي للأزياء والعبايات" : "DIRECT DEPOT & OUTLET"}
                 </span>
               </StorefrontHomeLink>
             </div>
@@ -137,18 +149,22 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
                   type="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="I'm shopping for... / ابحث عن منتج، كود، أو ماركة"
+                  placeholder={
+                    isRtl
+                      ? "ابحثي عن العبايات، الفساتين، الطرح أو الكود..."
+                      : "I'm shopping for... / Search items, codes..."
+                  }
                   className="flex-1 h-10 px-3.5 text-xs text-neutral-900 placeholder-neutral-400 outline-none"
                 />
 
                 {/* Warehouse Signature Yellow Search Button (#ffc220) */}
                 <button
                   type="submit"
-                  className="flex h-10 items-center justify-center gap-1.5 bg-[#ffc220] hover:bg-[#f0b518] px-5 text-xs font-bold text-[#16225a] transition-colors duration-150 active:scale-[0.98]"
-                  title="Search"
+                  className="flex h-10 items-center justify-center gap-1.5 bg-[#ffc220] hover:bg-[#f0b518] px-5 text-xs font-bold text-[#16225a] transition-colors duration-150 active:scale-[0.98] cursor-pointer"
+                  title={isRtl ? "بحث" : "Search"}
                 >
                   <Search className="h-4 w-4" />
-                  <span className="hidden sm:inline">Search</span>
+                  <span className="hidden sm:inline">{isRtl ? "بحث" : "Search"}</span>
                 </button>
               </form>
             )}
@@ -163,8 +179,10 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
                   <User className="h-4 w-4" />
                 </div>
                 <div className="flex flex-col text-start leading-tight">
-                  <span className="text-[10px] text-[#a3afef]">Sign In</span>
-                  <span className="font-bold">My Account</span>
+                  <span className="text-[10px] text-[#a3afef]">
+                    {isRtl ? "تسجيل الدخول" : "Sign In"}
+                  </span>
+                  <span className="font-bold">{isRtl ? "حسابي" : "My Account"}</span>
                 </div>
               </Link>
 
@@ -172,8 +190,8 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
                 <button
                   type="button"
                   onClick={() => setIsOpen(true)}
-                  className="relative flex items-center gap-2.5 rounded-lg bg-white/10 hover:bg-white/15 px-3 py-2 border border-white/15 transition-all duration-150 active:scale-[0.98]"
-                  aria-label="View Shopping Cart"
+                  className="relative flex items-center gap-2.5 rounded-lg bg-white/10 hover:bg-white/15 px-3 py-2 border border-white/15 transition-all duration-150 active:scale-[0.98] cursor-pointer"
+                  aria-label={isRtl ? "عرض سلة التسوق" : "View Shopping Cart"}
                 >
                   <div className="relative">
                     <ShoppingCart className="h-5 w-5 text-[#ffc220]" />
@@ -184,9 +202,15 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
                     )}
                   </div>
                   <div className="hidden lg:flex flex-col text-start leading-tight">
-                    <span className="text-[10px] text-[#a3afef]">Cart Total</span>
+                    <span className="text-[10px] text-[#a3afef]">
+                      {isRtl ? "سلة التسوق" : "Cart Total"}
+                    </span>
                     <span className="font-bold text-xs text-white">
-                      {totalItems > 0 ? `${totalItems} items` : "0.00 " + currency}
+                      {totalItems > 0
+                        ? isRtl
+                          ? `${totalItems} منتجات`
+                          : `${totalItems} items`
+                        : `0.00 ${currency}`}
                     </span>
                   </div>
                 </button>
@@ -206,7 +230,7 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
                 to="/collections"
                 className="flex items-center gap-1.5 rounded-md bg-[#1e2d7d] hover:bg-[#16225a] px-3.5 py-1.5 text-xs font-bold text-white transition-colors"
               >
-                <span>SHOP BY DEPARTMENT</span>
+                <span>{isRtl ? "تصفح أقسام الأتيلييه" : "SHOP BY DEPARTMENT"}</span>
                 <ChevronDown className="h-3.5 w-3.5 text-[#ffc220]" />
               </Link>
 
@@ -231,17 +255,17 @@ export const WarehouseMegaHeader: React.FC<WarehouseMegaHeaderProps> = ({ contro
                 className="flex items-center gap-1 text-[#d9383a] font-bold hover:underline"
               >
                 <Tag className="w-3.5 h-3.5" />
-                <span>DAILY DEALS / عروض اليوم</span>
+                <span>{isRtl ? "عروض اليوم الحصرية" : "DAILY DEALS"}</span>
                 <span className="rounded-xs bg-[#d9383a] px-1.5 py-0.2 text-[9px] font-bold text-white">
-                  HOT
+                  {isRtl ? "خصومات" : "HOT"}
                 </span>
               </Link>
             </div>
 
             <div className="flex items-center gap-3 text-neutral-500 text-[11px]">
-              <span>Need help buying in bulk?</span>
+              <span>{isRtl ? "هل تبحثين عن طلبات جملة ومشاغل؟" : "Need help buying in bulk?"}</span>
               <Link to="/contact" className="font-bold text-[#1e2d7d] hover:underline">
-                Wholesale Inquiry
+                {isRtl ? "استفسارات الجملة للأتيلييه" : "Wholesale Inquiry"}
               </Link>
             </div>
           </div>

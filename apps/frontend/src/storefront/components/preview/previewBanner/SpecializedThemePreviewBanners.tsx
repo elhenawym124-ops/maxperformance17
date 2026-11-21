@@ -102,7 +102,7 @@ export const MobileViewportPreviewDock: React.FC<{ controller: StorefrontPreview
         : 'border-border bg-background text-foreground hover:border-primary/40 hover:text-primary';
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-24 z-[76] flex justify-end px-3">
+    <div className="pointer-events-none fixed bottom-20 md:bottom-6 start-3 md:start-6 z-[76] flex">
       <div
         className={`pointer-events-auto inline-flex items-center gap-1 rounded-full border p-1.5 shadow-[0_26px_80px_-34px_rgba(17,17,17,0.32)] backdrop-blur-xl ${mobileDockClassName}`}
       >
@@ -224,10 +224,10 @@ export const AdminOriginPreviewDock: React.FC<{ controller: StorefrontPreviewBan
   const { isSoleaFemme, marketplaceThemesUrl } = controller;
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-24 z-[76] flex justify-end px-3 md:px-6">
+    <div className="pointer-events-none fixed bottom-20 md:bottom-6 start-3 md:start-6 z-[76] flex">
       <Link
         to={marketplaceThemesUrl}
-        className={`pointer-events-auto inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-bold shadow-[0_24px_60px_-30px_rgba(17,17,17,0.45)] transition-transform hover:-translate-y-0.5 ${
+        className={`pointer-events-auto inline-flex items-center justify-center rounded-full px-5 py-2.5 text-xs sm:text-sm font-bold shadow-[0_24px_60px_-30px_rgba(17,17,17,0.45)] transition-transform hover:-translate-y-0.5 ${
           isSoleaFemme
             ? 'bg-primary text-primary-foreground'
             : 'bg-amber-600 text-white hover:bg-amber-700'
@@ -245,7 +245,7 @@ export const BiteRushPreviewDock: React.FC<{ controller: StorefrontPreviewBanner
   const { isBiteRush, isCafeDemo, marketplaceThemesUrl, storefrontSettingsUrl } = controller;
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-24 z-[76] flex justify-end px-3 md:px-6">
+    <div className="pointer-events-none fixed bottom-20 md:bottom-6 start-3 md:start-6 z-[76] flex">
       <div
         className={`pointer-events-auto inline-flex items-center gap-1.5 rounded-full border p-1.5 shadow-[0_26px_80px_-34px_rgba(17,17,17,0.72)] backdrop-blur-xl ${
           isBiteRush

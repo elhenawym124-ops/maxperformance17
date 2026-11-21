@@ -20,10 +20,18 @@ export const WarehouseProductCard: React.FC<{ ctrl: ProductCardController }> = (
     handleQuickView,
     finalQuickViewLabel,
     product,
+    isRtl,
+    prefersArabicCopy,
   } = ctrl;
 
+  const isArabic = prefersArabicCopy || isRtl;
+
   // Derive vendor and inventory count for Warehouse Metal fidelity
-  const vendorName = (product as any)?.vendor || (product as any)?.brand || categoryLabel || "WAREHOUSE DEPOT";
+  const vendorName =
+    (product as any)?.vendor ||
+    (product as any)?.brand ||
+    categoryLabel ||
+    (isArabic ? 'أتيلييه كوتور' : 'ATELIER COUTURE');
   const stockCount = ((product.id?.charCodeAt(0) || 7) % 15) + 3;
   const isLowStock = stockCount <= 6;
   const reviewCount = ((product.id?.charCodeAt(1) || 9) % 24) + 3;
@@ -51,18 +59,18 @@ export const WarehouseProductCard: React.FC<{ ctrl: ProductCardController }> = (
 
         {/* Top Badges (Warehouse Metal Save $XX / Discount Pill) */}
         <div className="absolute top-2 inset-x-2 flex items-center justify-between gap-1 pointer-events-none">
-          {discountPercentage > 0 ? (
+          {discountPercentage && discountPercentage > 0 ? (
             <span className="rounded bg-[#d9383a] px-2 py-0.5 text-[10px] font-bold text-white shadow-xs">
-              Save {discountPercentage}%
+              {isArabic ? `خصم ${discountPercentage}%` : `Save ${discountPercentage}%`}
             </span>
           ) : (
             <span className="rounded bg-[#1e2d7d] px-2 py-0.5 text-[10px] font-bold text-white shadow-xs">
-              NEW
+              {isArabic ? 'جديد' : 'NEW'}
             </span>
           )}
 
           <span className="rounded bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200">
-            Verified Stock
+            {isArabic ? 'جاهز للشحن' : 'Verified Stock'}
           </span>
         </div>
 
@@ -71,7 +79,7 @@ export const WarehouseProductCard: React.FC<{ ctrl: ProductCardController }> = (
           type="button"
           onClick={handleQuickView}
           className="absolute bottom-2 end-2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-neutral-800 opacity-0 shadow-md transition-all duration-150 hover:bg-[#1e2d7d] hover:text-white group-hover:opacity-100"
-          title={finalQuickViewLabel || "Quick View"}
+          title={finalQuickViewLabel || (isArabic ? 'معاينة سريعة' : 'Quick View')}
         >
           <Eye className="h-4 w-4" />
         </button>
@@ -110,7 +118,7 @@ export const WarehouseProductCard: React.FC<{ ctrl: ProductCardController }> = (
               ))}
             </div>
             <span className="text-[11px] text-[#677279] font-medium">
-              ({reviewCount} reviews)
+              {isArabic ? `(${reviewCount} تقييم)` : `(${reviewCount} reviews)`}
             </span>
           </div>
 
@@ -118,7 +126,13 @@ export const WarehouseProductCard: React.FC<{ ctrl: ProductCardController }> = (
           <div className="space-y-1 mb-3">
             <div className="flex items-center justify-between text-[11px]">
               <span className={`font-semibold ${isLowStock ? 'text-amber-700' : 'text-emerald-700'}`}>
-                {isLowStock ? `Only ${stockCount} units left in stock` : `In stock, ${stockCount * 5} units`}
+                {isArabic
+                  ? isLowStock
+                    ? `متبقي فقط ${stockCount} قطع في المخزن`
+                    : `متوفر في الأتيلييه، ${stockCount * 5} قطعة`
+                  : isLowStock
+                  ? `Only ${stockCount} units left in stock`
+                  : `In stock, ${stockCount * 5} units`}
               </span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral-100">
@@ -139,7 +153,7 @@ export const WarehouseProductCard: React.FC<{ ctrl: ProductCardController }> = (
           className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-md bg-[#1e2d7d] hover:bg-[#16225a] py-2 text-xs font-bold text-white shadow-xs transition-colors active:scale-[0.98]"
         >
           <ShoppingCart className="h-3.5 w-3.5 text-[#ffc220]" />
-          <span>{actionLabel || "Add to Cart"}</span>
+          <span>{actionLabel || (isArabic ? 'أضف إلى السلة' : 'Add to Cart')}</span>
         </button>
       </div>
     </CardShell>

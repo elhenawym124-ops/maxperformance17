@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface PromoCard {
   title: string;
@@ -14,37 +15,38 @@ interface WarehousePromoMosaicProps {
 
 const DEFAULT_CARDS: PromoCard[] = [
   {
-    title: 'OLED TVs',
-    subtitle: 'Exclusive offers on TVs until Dec 31. $100 off on every purchase',
-    tag: 'LIMITED TIME OFFER',
-    link: '/shop?category=tvs',
-    gradient: 'linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%)',
+    title: 'عبايات كريب ملكية',
+    subtitle: 'عروض حصرية على العبايات الكلاسيكية والكلوش. خصم 200 ج.م على كل قطعة.',
+    tag: 'عرض لفترة محدودة',
+    link: '/shop?category=abayas',
+    gradient: 'linear-gradient(135deg, #1e2d7d 0%, #16225a 100%)',
   },
   {
-    title: 'Speakers',
-    subtitle: 'Explore our range of high-quality speakers & subwoofers.',
-    tag: 'ACOUSTIC MASTERY',
-    link: '/shop?category=speakers',
+    title: 'فساتين محجبات راقية',
+    subtitle: 'قصات محتشمة مريحة من الكتان والشيفون المبطن بتصاميم عصرية.',
+    tag: 'خامات طبيعية فاخرة',
+    link: '/shop?category=dresses',
     gradient: 'linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%)',
   },
   {
-    title: 'Headphones',
-    subtitle: 'Discover our new noise-cancelling headphones. Up to 25% Off!',
-    tag: 'UP TO 25% OFF',
-    link: '/shop?category=headphones',
+    title: 'طرح وشيلان حرير',
+    subtitle: 'تشكيلة شيلان كريب وحرير ليزر ثابتة بألوان الموسم. خصم حتى 25%!',
+    tag: 'خصم حتى 25%',
+    link: '/shop?category=scarves',
     gradient: 'linear-gradient(135deg, #0097a7 0%, #006064 100%)',
   },
 ];
 
 export const WarehousePromoMosaic: React.FC<WarehousePromoMosaicProps> = ({ cards = DEFAULT_CARDS }) => {
   return (
-    <section className="py-6 bg-[#f3f5f6] border-b border-[#e1e3e4]">
+    <section className="py-6 bg-[#f3f5f6] border-b border-[#e1e3e4]" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {cards.map((card, idx) => (
-            <div
+            <Link
               key={idx}
-              className="relative rounded-xl overflow-hidden p-6 text-white flex flex-col justify-between min-h-[190px] shadow-xs group cursor-pointer transition-transform hover:-translate-y-0.5"
+              to={card.link}
+              className="relative rounded-xl overflow-hidden p-6 text-white flex flex-col justify-between min-h-[190px] shadow-xs group cursor-pointer transition-transform hover:-translate-y-0.5 text-start"
               style={{ background: card.gradient }}
             >
               <div>
@@ -52,16 +54,13 @@ export const WarehousePromoMosaic: React.FC<WarehousePromoMosaicProps> = ({ card
                   {card.tag}
                 </span>
                 <h3 className="text-2xl font-black text-white mb-1 tracking-tight">{card.title}</h3>
-                <p className="text-xs text-white/90 max-w-[220px] leading-relaxed">{card.subtitle}</p>
+                <p className="text-xs text-white/90 max-w-[240px] leading-relaxed">{card.subtitle}</p>
               </div>
-              <a
-                href={card.link}
-                className="text-xs font-bold text-white flex items-center gap-1 group-hover:translate-x-1 transition-transform pt-4"
-              >
-                <span>Shop {card.title}</span>
-                <span>→</span>
-              </a>
-            </div>
+              <div className="text-xs font-bold text-white flex items-center gap-1 group-hover:translate-x-[-4px] transition-transform pt-4">
+                <span>تصفحي {card.title}</span>
+                <span className="rtl:rotate-180">←</span>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

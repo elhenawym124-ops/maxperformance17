@@ -4394,6 +4394,13 @@ previewRecommendationIdsByTheme["couture-atelier-eg"] = {
   boughtTogether: { ...COUTURE_ATELIER_EG_RECOMMENDATIONS.boughtTogether },
 };
 previewProductReviewsByTheme["couture-atelier-eg"] = { ...COUTURE_ATELIER_EG_REVIEWS };
+
+previewProductsByTheme["tpl-013-modest-warehouse-atelier"] = COUTURE_ATELIER_EG_PRODUCTS;
+previewRecommendationIdsByTheme["tpl-013-modest-warehouse-atelier"] = {
+  related: { ...COUTURE_ATELIER_EG_RECOMMENDATIONS.related },
+  boughtTogether: { ...COUTURE_ATELIER_EG_RECOMMENDATIONS.boughtTogether },
+};
+previewProductReviewsByTheme["tpl-013-modest-warehouse-atelier"] = { ...COUTURE_ATELIER_EG_REVIEWS };
 previewProductsByTheme["elegant-luxe"] = ELEGANT_LUXE_PRODUCTS;
 previewRecommendationIdsByTheme["elegant-luxe"] = {
   related: { ...ELEGANT_LUXE_RECOMMENDATIONS.related },
