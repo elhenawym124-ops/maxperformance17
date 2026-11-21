@@ -12,7 +12,6 @@ import {
   FileSpreadsheet,
   RefreshCw,
 } from "lucide-react";
-import { Badge } from "../../components/ui/badge";
 import { Button } from "../../components/ui/button";
 
 interface AgingBucket {
@@ -146,9 +145,6 @@ export default function WholesaleDebts() {
             <h1 className="text-xl font-semibold tracking-tight text-foreground">
               مديونيات تجار الجملة وأعمار الديون
             </h1>
-            <Badge variant="outline" className="text-[11px] font-mono border-border/80 bg-muted/30">
-              Debt Aging Matrix
-            </Badge>
           </div>
           <p className="text-xs text-muted-foreground mt-1">
             متابعة الأرصدة المستحقة، فئات التقادم الزمني، والحدود الائتمانية لشبكة الموزعين
@@ -185,40 +181,31 @@ export default function WholesaleDebts() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-warning">إجمالي المديونية القائمة</p>
-            <p className="text-xl font-bold tracking-tight text-warning font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-muted-foreground">إجمالي المديونية القائمة</p>
+            <p className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums mt-0.5">
               {(safeReport.totalOutstanding ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">مستحقات قيد التحصيل</p>
           </div>
-          <div className="size-7 rounded-md bg-warning/10 flex items-center justify-center text-warning border border-warning/20">
-            <Wallet className="size-3.5" />
-          </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-destructive">المتأخرات الحرجة</p>
-            <p className="text-xl font-bold tracking-tight text-destructive font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-muted-foreground">المتأخرات الحرجة</p>
+            <p className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums mt-0.5">
               {(safeReport.totalOverdue ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج.م
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">تجاوزت فترة السداد</p>
           </div>
-          <div className="size-7 rounded-md bg-destructive/10 flex items-center justify-center text-destructive border border-destructive/20">
-            <TrendingDown className="size-3.5" />
-          </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-primary">التجار المدينين حالياً</p>
-            <p className="text-xl font-bold tracking-tight text-primary font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-muted-foreground">التجار المدينين حالياً</p>
+            <p className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums mt-0.5">
               {safeReport.customers.length}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">تاجر عليه رصيد</p>
-          </div>
-          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-            <Users className="size-3.5" />
           </div>
         </div>
       </div>
