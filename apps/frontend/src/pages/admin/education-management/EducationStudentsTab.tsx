@@ -561,6 +561,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
         subjects={subjects}
         packages={packages}
         teachers={teachers}
+        groups={groups}
         enableSubjects={enableSubjects}
         totalStudents={totalCount}
         filteredCount={serverCount}

@@ -28,6 +28,7 @@ export interface EducationStudentsFiltersProps {
   subjects: EducationSubject[];
   packages?: EducationPackage[];
   teachers?: EducationTeacher[];
+  groups?: Array<{ id: string; name: string }>;
   enableSubjects?: boolean;
   totalStudents: number;
   filteredCount: number;
@@ -43,6 +44,7 @@ export const EducationStudentsFilters: React.FC<EducationStudentsFiltersProps> =
   subjects,
   packages = [],
   teachers = [],
+  groups = [],
   enableSubjects = false,
   totalStudents,
   filteredCount,
@@ -190,6 +192,23 @@ export const EducationStudentsFilters: React.FC<EducationStudentsFiltersProps> =
               ))}
             </select>
           )}
+        </div>
+
+        {/* 4b. Group Filter */}
+        <div>
+          <select
+            value={filters.groupId || ""}
+            onChange={(e) => onFilterChange({ groupId: e.target.value })}
+            className="w-full bg-background border border-input rounded-lg px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            aria-label={isEn ? "Group Filter" : "فلتر المجموعة"}
+          >
+            <option value="">{isEn ? "All Groups" : "جميع المجموعات"}</option>
+            {groups.map((grp) => (
+              <option key={grp.id} value={grp.id}>
+                {grp.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* 5. Teacher Filter */}
