@@ -376,7 +376,6 @@ model EducationDemoAttendee {
   attendanceStatus   String   @default("REGISTERED")
   conversionStatus   String   @default("PENDING")
   convertedStudentId String?
-  branchId           String?
   /// تتبّع مصدر التسجيل (يُستخدم عبر raw SQL في DemoDay controller)
   registeredByType   String?  @default("EMPLOYEE")
   registeredByUserId String?
