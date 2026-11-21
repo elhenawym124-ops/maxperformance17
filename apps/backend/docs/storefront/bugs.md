@@ -2,6 +2,21 @@
 
 > Domain-specific bug tracker for all storefront, theme, template, and PDP/Shop/Cart/Checkout issues.
 
+### [FIX] Custom Domains (e.g. hawazin.shop) Returned 401 AUTHENTICATION_REQUIRED on Storefront HTML Pages (2026-11-21)
+- **Description**: Navigating to customer-facing storefront pages like `/thank-you?orderId=...`, `/shop`, `/product/...`, or `/cart` on custom apex domains (e.g. `hawazin.shop`) or www custom domains (e.g. `www.hawazin.shop`) returned a raw JSON error: `{"success":false,"message":"مطلوب تسجيل الدخول للوصول لهذا المورد","code":"AUTHENTICATION_REQUIRED"}` instead of serving the storefront HTML shell.
+- **Root Cause**:
+  1. In `apps/backend/middleware/globalSecurity.js`, `isPublicStorefrontShellRequest()` used `isTenantStorefrontHost()` to decide whether a GET request was visiting an unauthenticated storefront shell.
+  2. `isTenantStorefrontHost()` contained two fatal bugs:
+     - It hard-rejected any domain starting with `www.` via `if (!normalizedHostname || normalizedHostname.startsWith('www.')) return false`, breaking `www.hawazin.shop` and any www alias.
+     - For non-platform domains, it checked `normalizedHostname.split('.').length >= 3`, which only held true for three-level domain names (like `swan.maxp.online` or `shop.brand.com`). Custom apex root domains like `hawazin.shop` have only two segments (`['hawazin', 'shop']`), causing `isTenantStorefrontHost()` to return `false`.
+  3. Consequently, non-token requests on custom domains were blocked by `globalAuthentication` and rejected with `401 AUTHENTICATION_REQUIRED`.
+- **Resolution**:
+  1. Updated `isTenantStorefrontHost()` in `apps/backend/middleware/globalSecurity.js` to align with platform domain definitions (`PLATFORM_BASE_DOMAINS` + `RESERVED_INFRA_SUBDOMAINS`).
+  2. Stripped leading `www.` when evaluating domain equality and subdomains so both apex (`hawazin.shop`) and www (`www.hawazin.shop`) route to the storefront shell.
+  3. Correctly classified any non-platform domain with a valid dot and non-IP format as a tenant custom domain storefront.
+  4. Added regression tests in `apps/backend/tests/integration/storefrontShellSubdomainFallback.test.js`.
+- **Files Modified**: `apps/backend/middleware/globalSecurity.js`, `apps/backend/tests/integration/storefrontShellSubdomainFallback.test.js`
+
 ### [FIX — BACKEND] Post-Purchase Offer Accept — Admin Order & OrderItems Sync Fails Silently (2026-10-09)
 - **Description**: After a customer accepts the post-purchase offer (`/order-offer`), the `GuestOrder` was updated (item + flag + totals) but the primary `Order` record in the admin database never received the item — it didn't appear in "تفاصيل الطلب" and totals stayed unchanged. Reproduced live on orders `ORD-331490-717`, `ORD-251748-226`, and `ORD-511828-979`.
 - **Root Cause**: In `apps/backend/routes/publicOrdersRoutes.js` accept handler (~L3906), the sync called `prisma.order.update` with `finalTotal` and `items` — **neither field exists on the `Order` model** (they exist only on `GuestOrder`). Prisma threw an `Unknown argument` error, which was caught by `catch (orderSyncErr)`, preventing both `prisma.order.update` and subsequent `prisma.orderItem.create` from ever executing.

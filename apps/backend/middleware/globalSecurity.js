@@ -824,6 +824,22 @@ function isExpectedPublicCompanyFallbackRequest(req) {
   return /\/analytics\/track\/(store-visit|product-view|conversion)(?:\?|$)/.test(originalUrl);
 }
 
+const PLATFORM_BASE_DOMAINS = new Set([
+  'maxp.online',
+  'mokhtarelhenawy.online',
+]);
+
+const RESERVED_INFRA_SUBDOMAINS = new Set([
+  'www',
+  'app',
+  'admin',
+  'api',
+  'dashboard',
+  'dev',
+  'staging',
+  'mail',
+]);
+
 const normalizeStorefrontHost = (value) =>
   String(value || '').split(':')[0].trim().toLowerCase();
 
@@ -839,29 +855,59 @@ const isLocalStorefrontHost = (hostname) =>
 
 const isTenantStorefrontHost = (hostname, configuredMainDomain) => {
   const normalizedHostname = normalizeStorefrontHost(hostname);
-  const mainDomain = normalizeStorefrontHost(configuredMainDomain);
-
-  if (!normalizedHostname || normalizedHostname.startsWith('www.')) {
+  if (!normalizedHostname) {
     return false;
   }
 
-  if (mainDomain) {
+  if (isLocalStorefrontHost(normalizedHostname)) {
     if (
-      normalizedHostname === mainDomain ||
-      normalizedHostname === `www.${mainDomain}`
+      (normalizedHostname.endsWith('.localhost') || normalizedHostname.endsWith('.lvh.me')) &&
+      normalizedHostname.split('.').length >= 2
     ) {
-      return false;
+      const devSub = normalizedHostname.split('.')[0];
+      if (!RESERVED_INFRA_SUBDOMAINS.has(devSub)) {
+        return true;
+      }
     }
+    return false;
+  }
 
-    if (normalizedHostname.endsWith(`.${mainDomain}`)) {
-      return true;
+  const baseDomains = new Set(PLATFORM_BASE_DOMAINS);
+  const normalizedMain = normalizeStorefrontHost(configuredMainDomain);
+  if (normalizedMain) {
+    baseDomains.add(normalizedMain);
+  }
+
+  // Strip leading www. if present for domain matching (e.g. www.hawazin.shop -> hawazin.shop, www.maxp.online -> maxp.online)
+  const strippedHost = normalizedHostname.startsWith('www.')
+    ? normalizedHostname.slice(4)
+    : normalizedHostname;
+
+  // Check if strippedHost matches any platform base domain apex (e.g. maxp.online, mokhtarelhenawy.online)
+  for (const domain of baseDomains) {
+    if (strippedHost === domain) {
+      return false; // Platform apex / main landing page, NOT a tenant storefront
     }
   }
 
-  return (
-    normalizedHostname.split('.').length >= 3 &&
-    !isLocalStorefrontHost(normalizedHostname)
-  );
+  // Check if strippedHost is a subdomain on a platform base domain (e.g. swan.maxp.online)
+  for (const domain of baseDomains) {
+    if (strippedHost.endsWith(`.${domain}`)) {
+      const prefix = strippedHost.slice(0, -(domain.length + 1));
+      if (!prefix || RESERVED_INFRA_SUBDOMAINS.has(prefix)) {
+        return false; // e.g. app.maxp.online, admin.maxp.online, api.maxp.online
+      }
+      return true; // e.g. swan.maxp.online, demo.mokhtarelhenawy.online
+    }
+  }
+
+  // Any other valid hostname with a dot (and not IPv4) is a tenant custom domain!
+  // (e.g. hawazin.shop, www.hawazin.shop, store.mybrand.com)
+  if (strippedHost.includes('.') && !/^(\d{1,3}\.){3}\d{1,3}$/.test(strippedHost)) {
+    return true;
+  }
+
+  return false;
 };
 
 function isPublicStorefrontShellRequest(req) {
@@ -1316,6 +1362,7 @@ module.exports = {
   securityLogger,
   isPublicRoute,
   isPublicStorefrontShellRequest,
+  isTenantStorefrontHost,
   isAdminRoute,
   needsCompanyIsolation,
   isExpectedPublicCompanyFallbackRequest,
