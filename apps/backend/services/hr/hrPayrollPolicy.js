@@ -13,7 +13,9 @@
  *   'BOTH'              = الاثنان
  */
 const DEFAULTS = Object.freeze({
-  treatMissingAsAbsent: true,
+  // الافتراضي للشركات الجديدة: عدم اعتبار اليوم الناقص غيابًا (أكثر أمانًا ماليًا).
+  // الشركات القائمة تُثبَّت لها القيمة true مرة واحدة عبر backfill-hr-payroll-policy.
+  treatMissingAsAbsent: false,
   latePenaltyMode: 'DEFICIT',
 });
 

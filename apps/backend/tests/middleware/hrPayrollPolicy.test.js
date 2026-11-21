@@ -11,10 +11,10 @@ const makePrisma = (settings) => ({
 });
 
 describe('hrPayrollPolicy', () => {
-  it('القيم الافتراضية تحفظ السلوك القديم', async () => {
+  it('القيم الافتراضية: الشركات الجديدة لا تُحسب الناقص غيابًا', async () => {
     const prisma = makePrisma(null);
     const p = await policy.getPolicy(prisma, 'c1');
-    expect(p).toEqual({ treatMissingAsAbsent: true, latePenaltyMode: 'DEFICIT' });
+    expect(p).toEqual({ treatMissingAsAbsent: false, latePenaltyMode: 'DEFICIT' });
   });
 
   it('يقرأ السياسة من companies.settings (نص JSON)', async () => {

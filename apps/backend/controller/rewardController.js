@@ -150,6 +150,16 @@ class RewardController {
         }
     }
 
+    async giveReward(req, res) {
+        try {
+            const { companyId } = req.user;
+            const record = await rewardApplicationService.giveReward(companyId, req.params.id, req.user.id);
+            res.status(200).json({ success: true, data: record });
+        } catch (error) {
+            handleHRError(error, req, res);
+        }
+    }
+
     async rejectReward(req, res) {
         try {
             const { companyId } = req.user;

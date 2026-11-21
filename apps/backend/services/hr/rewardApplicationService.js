@@ -199,6 +199,30 @@ class RewardApplicationService {
     }
 
     /**
+     * تسليم مكافأة معتمدة (APPROVED → GIVEN)
+     * Mark an approved reward as delivered
+     */
+    async giveReward(companyId, recordId, givenBy) {
+        const record = await this.prisma.rewardRecord.findFirst({
+            where: { id: recordId, companyId }
+        });
+
+        if (!record) throw new NotFoundError('Reward Record', recordId);
+        if (record.status === 'GIVEN') {
+            const conflict = new ConflictError('تم تسليم هذه المكافأة بالفعل');
+            throw conflict;
+        }
+        if (record.status !== 'APPROVED') {
+            throw new BusinessLogicError('لا يمكن تسليم مكافأة غير معتمدة');
+        }
+
+        return this.prisma.rewardRecord.update({
+            where: { id: recordId },
+            data: { status: 'GIVEN', isLocked: true }
+        });
+    }
+
+    /**
      * رفض مكافأة
      * Reject a reward
      */

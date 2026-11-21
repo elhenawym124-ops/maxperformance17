@@ -32,6 +32,7 @@ router.post('/types/seed', verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMI
 router.post('/apply', verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), rewardController.applyReward);
 router.post('/apply/bulk', verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), rewardController.applyBulkRewards);
 router.patch('/approve/:id', verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), rewardController.approveReward);
+router.patch('/give/:id', verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), rewardController.giveReward);
 router.patch('/reject/:id', verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']), rewardController.rejectReward);
 
 // ⚠️ Voiding requires higher privileges (Admin/Owner only, NOT Manager)
