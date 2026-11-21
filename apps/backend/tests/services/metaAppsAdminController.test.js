@@ -89,4 +89,63 @@ describe('Super Admin Meta Apps Controller', () => {
       })
     );
   });
+
+  test('toggleMetaAppStatus returns 400 with INCOMPLETE_CONFIG when activation is blocked', async () => {
+    const err = new Error('لا يمكن تفعيل تطبيق growth لأن الإعدادات غير مكتملة');
+    err.code = 'INCOMPLETE_CONFIG';
+    err.missingFields = ['configId'];
+
+    jest.spyOn(metaAppRegistry, 'getAllApps').mockResolvedValue([{ key: 'growth' }]);
+    jest.spyOn(metaAppRegistry, 'toggleAppStatus').mockRejectedValue(err);
+
+    const req = {
+      params: { key: 'growth' },
+      body: { isActive: true },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    await superAdminPlatformController.toggleMetaAppStatus(req, res);
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        success: false,
+        code: 'INCOMPLETE_CONFIG',
+        missingFields: ['configId'],
+      })
+    );
+  });
+
+  test('upsertMetaApp returns 400 with INCOMPLETE_CONFIG when saving active with missing fields', async () => {
+    const err = new Error('لا يمكن حفظ تطبيق growth بحالة نشطة مع وجود حقول غير مكتملة');
+    err.code = 'INCOMPLETE_CONFIG';
+    err.missingFields = ['configId'];
+
+    jest.spyOn(metaAppRegistry, 'upsertApp').mockRejectedValue(err);
+
+    const req = {
+      body: {
+        key: 'growth',
+        appId: '123456789',
+        appSecretRef: 'FB_GROWTH_APP_SECRET',
+        isActive: true,
+      },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    await superAdminPlatformController.upsertMetaApp(req, res);
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        success: false,
+        code: 'INCOMPLETE_CONFIG',
+        missingFields: ['configId'],
+      })
+    );
+  });
 });

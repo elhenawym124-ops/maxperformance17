@@ -120,12 +120,20 @@ describe('metaAppRegistryService', () => {
     expect(growthItem.hasSecretConfigured).toBe(true);
   });
 
-  test('upsertApp and toggleAppStatus interact with Prisma correctly', async () => {
+  test('upsertApp and toggleAppStatus interact with Prisma correctly for complete app', async () => {
     const mockUpsert = jest.fn().mockResolvedValue({ key: 'growth', appId: 'new_app_id' });
     const mockUpdate = jest.fn().mockResolvedValue({ key: 'growth', isActive: false });
 
     const mockPrisma = {
       facebookApp: {
+        findUnique: jest.fn().mockResolvedValue({
+          key: 'growth',
+          appId: 'new_app_id',
+          appSecretRef: 'FACEBOOK_GROWTH_APP_SECRET',
+          configId: '2158986791329815',
+          webhookVerifyTokenRef: 'FACEBOOK_GROWTH_WEBHOOK_VERIFY_TOKEN',
+          isActive: false
+        }),
         upsert: mockUpsert,
         update: mockUpdate,
       },
@@ -136,6 +144,8 @@ describe('metaAppRegistryService', () => {
       key: 'growth',
       appId: 'new_app_id',
       appSecretRef: 'FACEBOOK_GROWTH_APP_SECRET',
+      configId: '2158986791329815',
+      webhookVerifyTokenRef: 'FACEBOOK_GROWTH_WEBHOOK_VERIFY_TOKEN',
       isActive: true,
     });
     expect(upserted.key).toBe('growth');
@@ -147,6 +157,136 @@ describe('metaAppRegistryService', () => {
       where: { key: 'growth' },
       data: { isActive: false },
     });
+  });
+
+  test('Case 1 (صف ناقص configId): validateAppConfig flags missing fields and blocks activation', async () => {
+    const incompleteApp = {
+      key: 'growth',
+      appId: 'growth_123',
+      appSecretRef: 'FB_GROWTH_APP_SECRET',
+      configId: '', // EMPTY configId
+      webhookVerifyTokenRef: 'FB_GROWTH_VERIFY_TOKEN'
+    };
+
+    const validation = metaAppRegistry.validateAppConfig(incompleteApp);
+    expect(validation.isValid).toBe(false);
+    expect(validation.missingFields).toContain('configId');
+
+    // upsertApp with isActive=true must throw INCOMPLETE_CONFIG
+    await expect(
+      metaAppRegistry.upsertApp({
+        ...incompleteApp,
+        isActive: true
+      })
+    ).rejects.toMatchObject({
+      code: 'INCOMPLETE_CONFIG',
+      missingFields: expect.arrayContaining(['configId'])
+    });
+
+    // toggleAppStatus to true must be rejected
+    const mockPrisma = {
+      facebookApp: {
+        findUnique: jest.fn().mockResolvedValue(incompleteApp),
+        update: jest.fn()
+      }
+    };
+    jest.spyOn(sharedDatabase, 'getSharedPrismaClient').mockReturnValue(mockPrisma);
+
+    await expect(
+      metaAppRegistry.toggleAppStatus('growth', true)
+    ).rejects.toMatchObject({
+      code: 'INCOMPLETE_CONFIG',
+      missingFields: expect.arrayContaining(['configId'])
+    });
+  });
+
+  test('Case 1 (صف ناقص configId): testAppConnection returns INCOMPLETE_CONFIG and zero fake Granted', async () => {
+    const incompleteApp = {
+      key: 'growth',
+      appId: 'growth_123',
+      appSecretRef: 'FB_GROWTH_APP_SECRET',
+      configId: null, // null configId
+      webhookVerifyTokenRef: 'FB_GROWTH_VERIFY_TOKEN',
+      isActive: false
+    };
+
+    const mockPrisma = {
+      facebookApp: {
+        findMany: jest.fn().mockResolvedValue([incompleteApp])
+      }
+    };
+    jest.spyOn(sharedDatabase, 'getSharedPrismaClient').mockReturnValue(mockPrisma);
+
+    const result = await metaAppRegistry.testAppConnection('growth');
+    expect(result.connected).toBe(false);
+    expect(result.status).toBe('INCOMPLETE_CONFIG');
+    expect(result.code).toBe('INCOMPLETE_CONFIG');
+    expect(result.missingFields).toContain('configId');
+    expect(result.message).toContain('غير مكتملة');
+
+    // Crucial: ALL permissions must be ungranted (not_requested / none), NOT fake Granted/approved
+    expect(result.permissions.length).toBe(22);
+    for (const p of result.permissions) {
+      expect(p.status).toBe('not_requested');
+      expect(p.accessLevel).toBe('none');
+    }
+  });
+
+  test('Case 2 (صف كامل): validateAppConfig passes and allows activation and real connection test', async () => {
+    const completeApp = {
+      key: 'growth',
+      appId: 'growth_999999999',
+      appSecretRef: 'FB_GROWTH_APP_SECRET',
+      configId: '381257910000000',
+      webhookVerifyTokenRef: 'FB_GROWTH_VERIFY_TOKEN',
+      isActive: false
+    };
+
+    const validation = metaAppRegistry.validateAppConfig(completeApp);
+    expect(validation.isValid).toBe(true);
+    expect(validation.missingFields).toHaveLength(0);
+
+    const mockUpdate = jest.fn().mockResolvedValue({ ...completeApp, isActive: true });
+    const mockPrisma = {
+      facebookApp: {
+        findUnique: jest.fn().mockResolvedValue(completeApp),
+        update: mockUpdate,
+        findMany: jest.fn().mockResolvedValue([completeApp])
+      }
+    };
+    jest.spyOn(sharedDatabase, 'getSharedPrismaClient').mockReturnValue(mockPrisma);
+
+    // toggleAppStatus to true succeeds
+    const activated = await metaAppRegistry.toggleAppStatus('growth', true);
+    expect(activated.isActive).toBe(true);
+
+    // testAppConnection does NOT return INCOMPLETE_CONFIG
+    process.env.FB_GROWTH_APP_SECRET = 'valid_secret_hash_value_mock_32';
+    const testRes = await metaAppRegistry.testAppConnection('growth');
+    expect(testRes.status).not.toBe('INCOMPLETE_CONFIG');
+    expect(testRes.missingFields).toBeUndefined();
+  });
+
+  test('getKnownScopesCatalog returns all 22 permissions with name, category, and bilingual descriptions', () => {
+    const catalog = metaAppRegistry.getKnownScopesCatalog();
+    expect(catalog).toHaveLength(22);
+
+    const required22Scopes = [
+      'public_profile', 'email', 'pages_show_list', 'pages_messaging', 'pages_manage_metadata',
+      'pages_read_engagement', 'pages_manage_engagement', 'pages_read_user_content', 'pages_manage_posts',
+      'ads_read', 'ads_management', 'pages_manage_ads', 'business_management', 'read_insights',
+      'leads_retrieval', 'catalog_management', 'instagram_basic', 'instagram_manage_messages',
+      'instagram_manage_comments', 'instagram_content_publish', 'whatsapp_business_messaging', 'whatsapp_business_management'
+    ];
+
+    for (const scope of required22Scopes) {
+      const item = catalog.find((c) => c.permission === scope);
+      expect(item).toBeDefined();
+      expect(item.name).toBe(scope);
+      expect(item.category).toBeTruthy();
+      expect(item.descriptionAr).toBeTruthy();
+      expect(item.descriptionEn).toBeTruthy();
+    }
   });
 
   test('featureRequiresGrowth gates features with Arabic message and REAUTH_REQUIRED', () => {
