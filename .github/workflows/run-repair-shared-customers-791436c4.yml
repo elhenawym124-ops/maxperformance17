@@ -1,0 +1,75 @@
+name: Run Repair Shared Customers (Task 791436c4)
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      company:
+        description: 'Company slug or ID (e.g. swan)'
+        required: true
+        default: 'swan'
+        type: string
+      apply:
+        description: 'Apply changes (false = dry run, true = apply)'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      limit:
+        description: 'Limit number of candidate orders (leave empty for all)'
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  run-repair:
+    name: Execute Repair Shared Customers
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Upload repair script to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || '22' }}
+          source: apps/backend/scripts/repair-shared-customers.js
+          target: /var/www/backend2/scripts/
+          strip_components: 3
+          overwrite: true
+
+      - name: Execute repair script on server
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          COMPANY: ${{ github.event.inputs.company }}
+          APPLY: ${{ github.event.inputs.apply }}
+          LIMIT: ${{ github.event.inputs.limit }}
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || '22' }}
+          script_stop: true
+          envs: COMPANY,APPLY,LIMIT
+          script: |
+            set -euo pipefail
+            cd /var/www/backend2
+            echo "📍 Current dir: $(pwd)"
+            CMD="node scripts/repair-shared-customers.js --company ${COMPANY}"
+            if [ "${APPLY}" = "true" ]; then
+              CMD="${CMD} --apply"
+            fi
+            if [ -n "${LIMIT}" ]; then
+              CMD="${CMD} --limit ${LIMIT}"
+            fi
+            echo "🚀 Executing: ${CMD}"
+            ${CMD}
+            echo "✅ Finished!"

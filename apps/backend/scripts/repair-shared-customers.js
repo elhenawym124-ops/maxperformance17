@@ -90,7 +90,7 @@ async function executeRollback(prisma, rollbackFilePath) {
 async function repairSharedCustomers(options = {}) {
   const prisma = options.prisma || require('../services/sharedDatabase').getSharedPrismaClient();
   const {
-    company: companyId,
+    company: companyInput,
     apply = false,
     rollback: rollbackFile = null,
     limit = null,
@@ -101,8 +101,23 @@ async function repairSharedCustomers(options = {}) {
     return await executeRollback(prisma, rollbackFile);
   }
 
-  if (!companyId) {
+  if (!companyInput) {
     throw new Error('Missing required option: --company <companyId>');
+  }
+
+  let companyId = companyInput;
+  if (prisma.company && typeof prisma.company.findFirst === 'function') {
+    try {
+      const matchedCompany = await prisma.company.findFirst({
+        where: {
+          OR: [{ id: companyInput }, { slug: companyInput }],
+        },
+        select: { id: true, name: true, slug: true },
+      });
+      if (matchedCompany) {
+        companyId = matchedCompany.id;
+      }
+    } catch (_) {}
   }
 
   // 1. Fetch all orders for this company to measure baseline
@@ -125,6 +140,35 @@ async function repairSharedCustomers(options = {}) {
 
   const totalOrdersBefore = allOrders.length;
   const sharedCustomersBefore = countSharedCustomers(allOrders);
+
+  // Measure Order 105102 baseline
+  let order105102Before = null;
+  if (prisma.order && typeof prisma.order.findFirst === 'function') {
+    try {
+      const o105102 = await prisma.order.findFirst({
+        where: { companyId, orderNumber: '105102' },
+        select: {
+          id: true,
+          orderNumber: true,
+          customerId: true,
+          customerPhone: true,
+          status: true,
+        },
+      });
+      if (o105102) {
+        const linkedCount = await prisma.order.count({
+          where: { companyId, customerId: o105102.customerId },
+        });
+        order105102Before = {
+          orderNumber: o105102.orderNumber,
+          customerId: o105102.customerId,
+          customerPhone: o105102.customerPhone,
+          status: o105102.status,
+          ordersLinkedToOldCustomer: linkedCount,
+        };
+      }
+    } catch (_) {}
+  }
 
   // 2. Identify orders whose linked customer's phone != order phone
   let candidateOrders = [];
@@ -253,6 +297,34 @@ async function repairSharedCustomers(options = {}) {
     sharedCustomersAfter = countSharedCustomers(allOrdersAfter);
   }
 
+  let order105102After = null;
+  if (apply && prisma.order && typeof prisma.order.findFirst === 'function') {
+    try {
+      const o105102A = await prisma.order.findFirst({
+        where: { companyId, orderNumber: '105102' },
+        select: {
+          id: true,
+          orderNumber: true,
+          customerId: true,
+          customerPhone: true,
+          status: true,
+        },
+      });
+      if (o105102A) {
+        const linkedCountAfter = await prisma.order.count({
+          where: { companyId, customerId: o105102A.customerId },
+        });
+        order105102After = {
+          orderNumber: o105102A.orderNumber,
+          newCustomerId: o105102A.customerId,
+          customerPhone: o105102A.customerPhone,
+          status: o105102A.status,
+          ordersLinkedToNewCustomer: linkedCountAfter,
+        };
+      }
+    } catch (_) {}
+  }
+
   const report = {
     companyId,
     apply,
@@ -263,6 +335,10 @@ async function repairSharedCustomers(options = {}) {
     ordersMoved,
     newCustomersCreated,
     skipped_no_phone: skippedNoPhone,
+    order105102: {
+      before: order105102Before,
+      after: order105102After,
+    },
     rollbackFile: rollbackPath,
   };
 
