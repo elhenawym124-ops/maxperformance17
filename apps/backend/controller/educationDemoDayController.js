@@ -618,7 +618,7 @@ const registerAttendee = async (req, res) => {
             phone: cleanPhone,
             age: age ? parseInt(age, 10) : null,
           },
-          leadSource: source,
+          leadSource: sourceChannel,
         }).catch((e) => console.warn('[DemoDayWhatsApp] Auto notification warn:', e.message));
       }
     } catch (_) {}
@@ -1256,7 +1256,7 @@ const registerPublicAttendee = async (req, res) => {
           phone: cleanPhone,
           age: age ? parseInt(age, 10) : null,
         },
-        leadSource: source,
+        leadSource: sourceChannel,
       }).catch((e) => console.warn('[DemoDayWhatsApp] Public registration notification error:', e.message));
     } catch (_) {}
 
