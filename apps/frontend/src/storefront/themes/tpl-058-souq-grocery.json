@@ -247,7 +247,8 @@
                 "subtitle": "أرز 5 ك · زيت 3 ل · سكر 2 ك",
                 "link": "/shop?category=pantry",
                 "ctaText": "اعرف أكتر",
-                "stat": "توفير 180"
+                "stat": "توفير 180",
+                "image": "/assets/themes/tpl-058-souq-grocery/aisle-1.jpg"
               },
               {
                 "label": "حملة 2",
@@ -255,7 +256,8 @@
                 "subtitle": "كلور · صابون · منظف أرضيات",
                 "link": "/shop?category=cleaning",
                 "ctaText": "اعرف أكتر",
-                "stat": "توفير 120"
+                "stat": "توفير 120",
+                "image": "/assets/themes/tpl-058-souq-grocery/aisle-2.jpg"
               },
               {
                 "label": "باقة",
@@ -263,7 +265,8 @@
                 "subtitle": "عيش · كرواسون · كيك",
                 "link": "/shop?category=bakery",
                 "ctaText": "اعرف أكتر",
-                "stat": "توفير 60"
+                "stat": "توفير 60",
+                "image": "/assets/themes/tpl-058-souq-grocery/hero.jpg"
               }
             ]
           }

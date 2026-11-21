@@ -286,28 +286,34 @@
             "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
             "cards": [
               {
-                "label": "سلة 1",
-                "title": "سلة الفرد",
-                "subtitle": "بقالة + تنظيف أساسي",
-                "link": "/collections",
+                "label": "عرض البقالة",
+                "title": "باقة البقالة الجافة",
+                "subtitle": "أرز 5 ك · زيت 3 ل · سكر 2 ك",
+                "link": "/shop?category=pantry",
                 "ctaText": "اعرف أكتر",
-                "stat": "1,150 ج.م"
+                "stat": "توفير 180",
+                "tone": "primary",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/aisle-1.jpg"
               },
               {
-                "label": "سلة 2",
-                "title": "سلة العائلة",
-                "subtitle": "4 أفراد · شهر كامل",
-                "link": "/collections",
+                "label": "عرض التنظيف",
+                "title": "باقة التنظيف الشاملة",
+                "subtitle": "كلور · صابون · منظف أرضيات",
+                "link": "/shop?category=cleaning",
                 "ctaText": "اعرف أكتر",
-                "stat": "2,450 ج.م"
+                "stat": "توفير 120",
+                "tone": "accent",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/aisle-2.jpg"
               },
               {
-                "label": "سلة 3",
-                "title": "سلة العيلة",
-                "subtitle": "6 أفراد · شهر كامل",
-                "link": "/collections",
+                "label": "عرض الفطار",
+                "title": "سلة الفطار",
+                "subtitle": "عيش · جبن · بيض · حلاوة",
+                "link": "/shop",
                 "ctaText": "اعرف أكتر",
-                "stat": "3,300 ج.م"
+                "stat": "توفير 60",
+                "tone": "primary",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/hero.jpg"
               }
             ]
           }
