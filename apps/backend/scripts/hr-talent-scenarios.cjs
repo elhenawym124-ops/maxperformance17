@@ -18,7 +18,9 @@ const plus = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
   const emps = (await call('GET', '/hr/employees?limit=50', hr)).d.employees || [];
   const a = emps.find(e => e.email?.includes('agent')) || emps[0];
   const b = emps.find(e => e.email?.includes('hr')) || emps[1];
-  const empId = a.userId || a.id;
+  const uid = a.userId || a.id;
+  const eid = a.employeeRecordId || a.id;
+  const empId = uid;
   const reviewerId = b.userId || b.id;
   const positions = (await call('GET', '/hr/positions', hr)).d.positions || [];
   const stamp = Date.now().toString(36);
@@ -42,7 +44,7 @@ const plus = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
 
   // ── Performance reviews ──
   const review = await call('POST', '/hr/performance-reviews', hr, {
-    employeeId: empId, reviewerId, reviewPeriod: `QA-${stamp}`,
+    employeeId: eid, reviewerId, reviewPeriod: `QA-${stamp}`,
     periodStart: plus(-30), periodEnd: plus(0), overallRating: 4.2,
     ratings: { communication: 4, quality: 4 }, strengths: 'QA', improvements: 'QA',
   });
@@ -62,8 +64,8 @@ const plus = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
 
   // ── Promotions ──
   const promo = await call('POST', '/hr/promotions', hr, {
-    employeeId: empId, toPositionId: positions[0]?.id,
-    promotionDate: plus(0), effectiveDate: plus(7),
+    employeeId: eid, toPositionId: positions[0]?.id,
+    effectiveDate: plus(7),
     reason: `QA ترقية ${stamp}`, newSalary: 15000,
   });
   const promoId = promo.d?.promotion?.id;
@@ -80,7 +82,7 @@ const plus = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
 
   // ── Resignations ──
   const resign = await call('POST', '/hr/resignations', hr, {
-    employeeId: empId, resignationDate: plus(0), lastWorkingDay: plus(30), reason: `QA استقالة ${stamp}`,
+    employeeId: eid, resignationDate: plus(0), lastWorkingDay: plus(30), reason: `QA استقالة ${stamp}`,
   });
   const resignId = resign.d?.resignation?.id;
   rec('P6-RS1', 'إنشاء استقالة', resign.status === 201, `${resign.status} ${resign.d?.error || ''}`);

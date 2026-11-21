@@ -33,10 +33,19 @@ class PromotionService {
    */
   async createPromotion(companyId, data) {
     try {
-      // التحقق من وجود الموظف
-      const employee = await this.prisma.user.findFirst({
+      // التحقق من وجود الموظف (يقبل User.id أو Employee.id)
+      let employee = await this.prisma.user.findFirst({
         where: { id: data.employeeId, companyId }
       });
+
+      if (!employee) {
+        const resolved = await require('./resolveEmployeeIdentity')
+          .findUserByAnyId(this.prisma, companyId, data.employeeId);
+        if (resolved) {
+          employee = resolved;
+          data.employeeId = resolved.id;
+        }
+      }
 
       if (!employee) {
         throw new Error('الموظف غير موجود');
@@ -110,14 +119,16 @@ class PromotionService {
         console.log('✅ [HR] Created new position:', fromPosition.title);
       }
 
-      const promotionDate = parseDateOnly(data.promotionDate);
+      // تاريخ الترقية: يقبل promotionDate أو effectiveDate أو اليوم
+      let promotionDate = parseDateOnly(data.promotionDate || data.effectiveDate);
       if (!promotionDate || Number.isNaN(promotionDate.getTime())) {
-        throw new Error('تاريخ الترقية غير صحيح');
+        promotionDate = new Date();
       }
 
-      const effectiveDate = parseDateOnly(data.effectiveDate);
+      // تاريخ السريان: يقبل effectiveDate أو promotionDate أو اليوم
+      let effectiveDate = parseDateOnly(data.effectiveDate || data.promotionDate);
       if (!effectiveDate || Number.isNaN(effectiveDate.getTime())) {
-        throw new Error('تاريخ السريان غير صحيح');
+        effectiveDate = new Date();
       }
 
       // إنشاء الترقية

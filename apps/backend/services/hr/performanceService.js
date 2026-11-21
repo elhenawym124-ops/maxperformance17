@@ -53,21 +53,33 @@ class PerformanceService {
    */
   async createPerformanceReview(companyId, employeeId, data) {
     try {
-      // التحقق من وجود الموظف (User)
-      const employeeUser = await this.prisma.user.findFirst({
+      // التحقق من وجود الموظف (User) — يقبل Employee.id أيضًا
+      let employeeUser = await this.prisma.user.findFirst({
         where: { id: employeeId, companyId },
         include: { employees: true }
       });
+      if (!employeeUser) {
+        employeeUser = await require('./resolveEmployeeIdentity').findUserByAnyId(
+          this.prisma, companyId, employeeId, { include: { employees: true } }
+        );
+        if (employeeUser) employeeId = employeeUser.id;
+      }
 
       if (!employeeUser) {
         throw new Error('الموظف غير موجود');
       }
 
-      // التحقق من وجود المقيم (User)
-      const reviewerUser = await this.prisma.user.findFirst({
+      // التحقق من وجود المقيم (User) — يقبل Employee.id أيضًا
+      let reviewerUser = await this.prisma.user.findFirst({
         where: { id: data.reviewerId, companyId },
         include: { employees: true }
       });
+      if (!reviewerUser) {
+        reviewerUser = await require('./resolveEmployeeIdentity').findUserByAnyId(
+          this.prisma, companyId, data.reviewerId, { include: { employees: true } }
+        );
+        if (reviewerUser) data.reviewerId = reviewerUser.id;
+      }
 
       if (!reviewerUser) {
         throw new Error('المقيم غير موجود');

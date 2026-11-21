@@ -45,12 +45,19 @@ class ResignationService {
       }
 
       // 0.1. Verify employee exists and belongs to the same company
-      const employee = await this.prisma.user.findFirst({
+      let employee = await this.prisma.user.findFirst({
         where: {
           id: employeeId,
           companyId: companyId
         }
       });
+
+      if (!employee) {
+        // يقبل أيضًا Employee.id (كان يرجع 400 «الموظف غير موجود»)
+        employee = await require('./resolveEmployeeIdentity')
+          .findUserByAnyId(this.prisma, companyId, employeeId);
+        if (employee) employeeId = employee.id;
+      }
 
       console.log('🔍 [Debug] Employee lookup result:', {
         employeeId,
