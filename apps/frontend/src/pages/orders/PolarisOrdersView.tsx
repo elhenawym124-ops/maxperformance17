@@ -23,6 +23,7 @@ import { OrdersStatsBar } from "./components/OrdersStatsBar";
 import type { OrdersToolbarSectionProps } from "./components/OrdersToolbarSection";
 import type { OrdersTableSectionProps } from "./components/OrdersTableSection";
 import type { OrdersModalsContainerProps } from "./components/OrdersModalsContainer";
+import { useOrderTabCounts } from "./hooks/useOrderTabCounts";
 import {
   buildStatusOptions,
   buildPaymentStatusOptions,
@@ -49,6 +50,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [showStats, setShowStats] = React.useState(false);
+  const tabCounts = useOrderTabCounts();
 
   const {
     filters,
@@ -319,6 +321,11 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
                 }`}
               >
                 <span>{tab.label}</span>
+                {typeof tabCounts[tab.key as keyof typeof tabCounts] === "number" && (
+                  <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-mono font-medium tabular-nums text-muted-foreground">
+                    {tabCounts[tab.key as keyof typeof tabCounts]}
+                  </span>
+                )}
               </button>
             );
           })}
