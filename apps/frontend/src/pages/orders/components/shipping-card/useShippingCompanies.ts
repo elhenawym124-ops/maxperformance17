@@ -19,7 +19,7 @@ export function useShippingCompanies() {
         try {
           const res: any = await apiClient.get("/shipping-companies/active-carriers");
           if (res.data?.success && Array.isArray(res.data.data)) {
-            activeOnes = res.data.data;
+            activeOnes = res.data.data.filter((c: ShippingCompany) => c.isActive !== false);
           }
         } catch {
           const fallbackRes: any = await apiClient.get("/shipping-companies?status=active&all=true");
@@ -32,29 +32,22 @@ export function useShippingCompanies() {
         setCompanies(activeOnes);
 
         if (activeOnes.length > 0) {
-          setSelectedCompanyId(activeOnes[0].id);
-          const hasTurbo = activeOnes.some(
-            (c) => c.providerKey === "TURBO" || c.slug === "turbo" || c.name?.toLowerCase().includes("turbo") || c.name?.includes("تربو")
-          );
-          const hasQp = activeOnes.some(
-            (c) => c.providerKey === "QP_EXPRESS" || c.name?.toLowerCase().includes("qp") || c.name?.includes("كيو بي")
-          );
-          const hasBosta = activeOnes.some(
-            (c) => c.providerKey === "BOSTA" || c.name?.toLowerCase().includes("bosta") || c.name?.includes("بوستا")
-          );
+          const first = activeOnes[0];
+          setSelectedCompanyId(first.id);
+          setIsManualCourier(false);
 
-          if (hasTurbo) {
+          const normKey = (first.providerKey || "").toUpperCase();
+          const normSlug = (first.slug || "").toLowerCase();
+          const normName = (first.name || "").toLowerCase();
+
+          if (normKey === "TURBO" || normSlug === "turbo" || normName.includes("turbo") || normName.includes("تربو")) {
             setCourierMode("turbo");
-            setIsManualCourier(false);
-          } else if (hasQp) {
+          } else if (normKey === "QP_EXPRESS" || normSlug === "qp" || normName.includes("qp") || normName.includes("كيو بي")) {
             setCourierMode("qp");
-            setIsManualCourier(false);
-          } else if (hasBosta) {
+          } else if (normKey === "BOSTA" || normSlug === "bosta" || normName.includes("bosta") || normName.includes("بوستا")) {
             setCourierMode("bosta");
-            setIsManualCourier(false);
           } else {
-            setCourierMode("custom");
-            setIsManualCourier(false);
+            setCourierMode(first.id);
           }
         } else {
           setCourierMode("manual");

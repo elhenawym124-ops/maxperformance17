@@ -18,7 +18,7 @@ export interface ShippingAutoError {
   provider: string;
 }
 
-export type CourierMode = "turbo" | "qp" | "bosta" | "custom" | "manual";
+export type CourierMode = "turbo" | "qp" | "bosta" | "custom" | "manual" | string;
 
 export interface UnifiedShippingCardProps {
   order: any;

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useMemo } from "react";
 import { ShippingCompany, CourierMode } from "./shippingCardTypes";
 import { ShippingCarrierTabs } from "./ShippingCarrierTabs";
 import { TurboDirectShipmentCard } from "./TurboDirectShipmentCard";
@@ -16,7 +16,8 @@ export interface ShippingCarrierSelectorProps {
   turboCompany?: ShippingCompany;
   qpCompany?: ShippingCompany;
   bostaCompany?: ShippingCompany;
-  customCompanies: ShippingCompany[];
+  customCompanies?: ShippingCompany[];
+  companies?: ShippingCompany[];
   qpSettings: any;
   qpNotes: string;
   setQpNotes: (notes: string) => void;
@@ -41,7 +42,8 @@ export const ShippingCarrierSelector: React.FC<ShippingCarrierSelectorProps> = (
   turboCompany,
   qpCompany,
   bostaCompany,
-  customCompanies,
+  customCompanies = [],
+  companies,
   qpSettings,
   qpNotes,
   setQpNotes,
@@ -57,6 +59,93 @@ export const ShippingCarrierSelector: React.FC<ShippingCarrierSelectorProps> = (
   onBostaDirectShipment,
   onCreateShipment,
 }) => {
+  const allActiveCompanies = useMemo(() => {
+    let list: ShippingCompany[] = [];
+    if (companies && companies.length > 0) {
+      list = [...companies];
+    } else {
+      if (turboCompany) list.push(turboCompany);
+      if (qpCompany) list.push(qpCompany);
+      if (bostaCompany) list.push(bostaCompany);
+      if (customCompanies && customCompanies.length > 0) {
+        list.push(...customCompanies);
+      }
+    }
+    const seen = new Set<string>();
+    return list.filter((c) => {
+      if (!c || !c.id || seen.has(c.id)) return false;
+      seen.add(c.id);
+      return c.isActive !== false;
+    });
+  }, [companies, turboCompany, qpCompany, bostaCompany, customCompanies]);
+
+  const activeSelectedCompany = useMemo(() => {
+    if (selectedCompanyId) {
+      const found = allActiveCompanies.find((c) => c.id === selectedCompanyId);
+      if (found) return found;
+    }
+    if (courierMode === "turbo") {
+      return (
+        turboCompany ||
+        allActiveCompanies.find((c) => {
+          const k = (c.providerKey || "").toUpperCase();
+          const s = (c.slug || "").toLowerCase();
+          const n = (c.name || "").toLowerCase();
+          return k === "TURBO" || s === "turbo" || n.includes("turbo") || n.includes("تربو");
+        })
+      );
+    }
+    if (courierMode === "qp") {
+      return (
+        qpCompany ||
+        allActiveCompanies.find((c) => {
+          const k = (c.providerKey || "").toUpperCase();
+          const s = (c.slug || "").toLowerCase();
+          const n = (c.name || "").toLowerCase();
+          return k === "QP_EXPRESS" || s === "qp" || n.includes("qp") || n.includes("كيو بي");
+        })
+      );
+    }
+    if (courierMode === "bosta") {
+      return (
+        bostaCompany ||
+        allActiveCompanies.find((c) => {
+          const k = (c.providerKey || "").toUpperCase();
+          const s = (c.slug || "").toLowerCase();
+          const n = (c.name || "").toLowerCase();
+          return k === "BOSTA" || s === "bosta" || n.includes("bosta") || n.includes("بوستا");
+        })
+      );
+    }
+    return allActiveCompanies.find((c) => c.id === courierMode);
+  }, [allActiveCompanies, selectedCompanyId, courierMode, turboCompany, qpCompany, bostaCompany]);
+
+  const isTurboActive =
+    courierMode === "turbo" ||
+    (activeSelectedCompany &&
+      ((activeSelectedCompany.providerKey || "").toUpperCase() === "TURBO" ||
+        (activeSelectedCompany.slug || "").toLowerCase() === "turbo" ||
+        (activeSelectedCompany.name || "").toLowerCase().includes("turbo") ||
+        (activeSelectedCompany.name || "").includes("تربو")));
+
+  const isQpActive =
+    courierMode === "qp" ||
+    (activeSelectedCompany &&
+      ((activeSelectedCompany.providerKey || "").toUpperCase() === "QP_EXPRESS" ||
+        (activeSelectedCompany.slug || "").toLowerCase() === "qp" ||
+        (activeSelectedCompany.name || "").toLowerCase().includes("qp") ||
+        (activeSelectedCompany.name || "").includes("كيو بي")));
+
+  const isBostaActive =
+    courierMode === "bosta" ||
+    (activeSelectedCompany &&
+      ((activeSelectedCompany.providerKey || "").toUpperCase() === "BOSTA" ||
+        (activeSelectedCompany.slug || "").toLowerCase() === "bosta" ||
+        (activeSelectedCompany.name || "").toLowerCase().includes("bosta") ||
+        (activeSelectedCompany.name || "").includes("بوستا")));
+
+  const isManualActive = courierMode === "manual";
+
   return (
     <div className="space-y-4">
       <ShippingCarrierTabs
@@ -67,9 +156,12 @@ export const ShippingCarrierSelector: React.FC<ShippingCarrierSelectorProps> = (
         qpCompany={qpCompany}
         bostaCompany={bostaCompany}
         customCompanies={customCompanies}
+        companies={companies}
+        selectedCompanyId={selectedCompanyId}
+        setSelectedCompanyId={setSelectedCompanyId}
       />
 
-      {courierMode === "turbo" && turboCompany && (
+      {isTurboActive && (
         <TurboDirectShipmentCard
           orderTotal={order?.total || 0}
           loading={loading}
@@ -77,7 +169,7 @@ export const ShippingCarrierSelector: React.FC<ShippingCarrierSelectorProps> = (
         />
       )}
 
-      {courierMode === "qp" && qpCompany && (
+      {isQpActive && (
         <QpExpressDirectShipmentCard
           qpSettings={qpSettings}
           qpNotes={qpNotes}
@@ -87,24 +179,26 @@ export const ShippingCarrierSelector: React.FC<ShippingCarrierSelectorProps> = (
         />
       )}
 
-      {courierMode === "bosta" && bostaCompany && (
+      {isBostaActive && (
         <BostaDirectShipmentCard
           loading={loading}
           onBostaDirectShipment={onBostaDirectShipment}
         />
       )}
 
-      {courierMode === "custom" && customCompanies.length > 0 && (
+      {!isTurboActive && !isQpActive && !isBostaActive && !isManualActive && (
         <CustomCourierShipmentCard
-          customCompanies={customCompanies}
-          selectedCompanyId={selectedCompanyId}
+          customCompanies={allActiveCompanies}
+          selectedCompany={activeSelectedCompany}
+          selectedCompanyId={selectedCompanyId || activeSelectedCompany?.id || ""}
           setSelectedCompanyId={setSelectedCompanyId}
           loading={loading}
           onCreateShipment={onCreateShipment}
+          orderTotal={order?.total || 0}
         />
       )}
 
-      {courierMode === "manual" && (
+      {isManualActive && (
         <ManualCourierShipmentCard
           manualTracking={manualTracking}
           setManualTracking={setManualTracking}

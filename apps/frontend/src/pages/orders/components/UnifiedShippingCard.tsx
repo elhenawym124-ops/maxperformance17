@@ -146,6 +146,7 @@ const UnifiedShippingCard: React.FC<UnifiedShippingCardProps> = ({
             qpCompany={qpCompany}
             bostaCompany={bostaCompany}
             customCompanies={customCompanies}
+            companies={companies}
             qpSettings={qpSettings}
             qpNotes={qpNotes}
             setQpNotes={setQpNotes}

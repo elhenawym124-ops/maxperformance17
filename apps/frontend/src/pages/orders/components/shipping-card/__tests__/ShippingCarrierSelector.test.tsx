@@ -21,9 +21,9 @@ describe("ShippingCarrierSelector", () => {
     courierMode: "turbo" as const,
     setCourierMode: vi.fn(),
     setIsManualCourier: vi.fn(),
-    turboCompany: { id: "c-turbo", name: "Turbo", integrationMode: "DIRECT" },
-    qpCompany: { id: "c-qp", name: "QP Express", integrationMode: "DIRECT" },
-    bostaCompany: { id: "c-bosta", name: "Bosta", integrationMode: "DIRECT" },
+    turboCompany: { id: "c-turbo", name: "Turbo", integrationMode: "DIRECT", isActive: true },
+    qpCompany: { id: "c-qp", name: "QP Express", integrationMode: "DIRECT", isActive: true },
+    bostaCompany: { id: "c-bosta", name: "Bosta", integrationMode: "DIRECT", isActive: true },
     customCompanies: [],
     qpSettings: { customerId: "1234" },
     qpNotes: "",
@@ -82,6 +82,51 @@ describe("ShippingCarrierSelector", () => {
 
     const saveBtn = screen.getByText("حفظ بيانات الشحن اليدوي");
     fireEvent.click(saveBtn);
+
+    expect(defaultProps.onCreateShipment).toHaveBeenCalled();
+  });
+
+  it("renders a dedicated tab for each active company and excludes inactive ones", () => {
+    const companies = [
+      { id: "c-turbo", name: "تربو (Turbo)", providerKey: "TURBO", isActive: true },
+      { id: "c-lg", name: "LG Express", providerKey: "LG_EXPRESS", isActive: true },
+      { id: "c-hashtag", name: "Hashtag Express", providerKey: "HASHTAG", isActive: true },
+      { id: "c-inactive", name: "Inactive Carrier", providerKey: "CUSTOM", isActive: false },
+    ];
+
+    render(
+      <ShippingCarrierSelector
+        {...defaultProps}
+        companies={companies}
+        courierMode="c-lg"
+        selectedCompanyId="c-lg"
+      />
+    );
+
+    expect(screen.getByText("تربو (Turbo)")).toBeInTheDocument();
+    expect(screen.getAllByText("LG Express").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("Hashtag Express")).toBeInTheDocument();
+    expect(screen.queryByText("Inactive Carrier")).not.toBeInTheDocument();
+    expect(screen.getByText("شحن يدوي / خاص")).toBeInTheDocument();
+
+    expect(screen.getByText("شحن الطلب بواسطة LG Express")).toBeInTheDocument();
+  });
+
+  it("triggers onCreateShipment when dispatching from a dedicated company card", () => {
+    const lgCompany = { id: "c-lg", name: "LG Express", providerKey: "LG_EXPRESS", isActive: true };
+    const companies = [lgCompany];
+
+    render(
+      <ShippingCarrierSelector
+        {...defaultProps}
+        companies={companies}
+        courierMode="c-lg"
+        selectedCompanyId="c-lg"
+      />
+    );
+
+    const dispatchBtn = screen.getByText("شحن الطلب بواسطة LG Express");
+    fireEvent.click(dispatchBtn);
 
     expect(defaultProps.onCreateShipment).toHaveBeenCalled();
   });
