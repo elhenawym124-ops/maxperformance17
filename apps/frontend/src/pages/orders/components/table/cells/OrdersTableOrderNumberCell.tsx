@@ -31,7 +31,7 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
   return (
     <td className={cellPadding}>
       <div className="flex flex-col gap-0.5">
-        <div className="flex items-center gap-1.5 whitespace-nowrap">
+        <div className="flex flex-wrap items-center gap-1.5 min-w-0 max-w-[300px] whitespace-nowrap">
           <span
             dir="ltr"
             className="inline-block whitespace-nowrap font-mono text-xs sm:text-[13px] font-bold tabular-nums text-foreground tracking-tight"
