@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { useAuth } from "../../hooks/useAuthSimple";
+import { getRoleLabel } from "../../pages/super-admin/company-details/helpers";
 import {
   Sheet,
   SheetContent,
@@ -17,6 +18,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "../ui/sheet";
+
+const quietScrollbar =
+  "[scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border";
 
 interface CompanySwitcherProps {
   collapsed?: boolean;
@@ -83,28 +87,26 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
         type="button"
         onClick={() => handleSwitchCompany(company.id)}
         disabled={isSwitchingCompany}
-        className={`w-full text-right transition-colors disabled:opacity-50 ${
+        className={`w-full flex items-center justify-between gap-3 text-right rounded-lg transition-colors disabled:opacity-50 ${
           isCurrent
-            ? "bg-primary/10 text-primary"
+            ? "bg-muted/60 text-foreground"
             : "text-foreground hover:bg-muted/50"
-        } ${mobile ? "px-4 py-3" : "px-3.5 py-2.5"}`}
+        } ${mobile ? "px-3 py-2.5" : "px-2.5 py-2"}`}
       >
-        <div className="flex items-center justify-between gap-3">
-          <div className="min-w-0 flex-1">
-            <p className={`truncate font-semibold ${mobile ? "text-sm" : "text-xs"}`}>
-              {company.name}
-            </p>
-            <p className="mt-0.5 text-[11px] text-muted-foreground">
-              {company.role || "شركة"}
-            </p>
-          </div>
-
-          {isCurrent ? (
-            <span className="flex items-center justify-center rounded-full bg-primary text-primary-foreground p-0.5">
-              <Check className="size-3" />
-            </span>
-          ) : null}
+        <div className="min-w-0 flex-1">
+          <p
+            className={`truncate font-medium text-foreground ${
+              mobile ? "text-sm" : "text-[13px]"
+            }`}
+          >
+            {company.name}
+          </p>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">
+            {getRoleLabel(company.role)}
+          </p>
         </div>
+
+        {isCurrent ? <Check className="size-4 shrink-0 text-primary" /> : null}
       </button>
     );
   };
@@ -158,7 +160,9 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
             </SheetDescription>
           </SheetHeader>
 
-          <div className="max-h-[60vh] divide-y divide-border/40 overflow-y-auto">
+          <div
+            className={`max-h-[60vh] overflow-y-auto p-1.5 ${quietScrollbar}`}
+          >
             {companies.map((company) => renderCompanyOption(company, true))}
             {user?.role === 'SUPER_ADMIN' && (
               <div className="border-t border-border/60 p-3">
@@ -188,7 +192,7 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
         aria-haspopup="menu"
         className={`flex w-full items-center gap-2.5 rounded-lg border bg-card px-3 py-2 text-right transition-all disabled:opacity-50 ${
           isOpen
-            ? "border-primary ring-1 ring-primary/40 shadow-xs"
+            ? "border-primary shadow-xs"
             : "border-border/70 hover:border-border hover:bg-muted/30"
         }`}
       >
@@ -216,17 +220,15 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute inset-x-0 top-full z-50 mt-1.5 overflow-hidden rounded-xl border border-border/70 bg-card py-1 shadow-xl animate-in fade-in zoom-in-95 duration-100 divide-y divide-border/40">
-          <div className="px-3.5 py-2 bg-muted/30">
-            <p className="text-[11px] font-semibold text-muted-foreground">
-              اختر الشركة
-            </p>
-          </div>
-          <div className="divide-y divide-border/30 max-h-64 overflow-y-auto">
+        <div className="absolute inset-x-0 top-full z-50 mt-1.5 overflow-hidden rounded-xl border border-border/70 bg-card shadow-lg animate-in fade-in zoom-in-95 duration-100">
+          <p className="px-3 pt-2.5 pb-1.5 text-[11px] font-semibold text-muted-foreground">
+            اختر الشركة
+          </p>
+          <div className={`max-h-64 overflow-y-auto p-1 ${quietScrollbar}`}>
             {companies.map((company) => renderCompanyOption(company))}
           </div>
           {user?.role === 'SUPER_ADMIN' && (
-            <div className="p-2 bg-muted/20">
+            <div className="p-2 border-t border-border/60">
               <Link
                 to="/super-admin/companies-v2"
                 onClick={() => setIsOpen(false)}

@@ -12,9 +12,11 @@ import {
   ArrowRightOnRectangleIcon,
   ShieldCheckIcon,
   BookOpenIcon,
+  CpuChipIcon,
 } from "@heroicons/react/24/outline";
 import { Cpu } from "lucide-react";
 import { MerchantCopilotHost, toggleMerchantCopilot } from "../merchant-copilot";
+import { getRoleLabel } from "../../pages/super-admin/company-details/helpers";
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import { useAuth } from "../../hooks/useAuthSimple";
@@ -601,7 +603,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
         {!isMobile ? (
           <div className="business-shell-profile-text">
             <span>{user?.firstName || t("sidebar.profile")}</span>
-            <small>{user?.role || "Operator"}</small>
+            <small>{getRoleLabel(user?.role || "")}</small>
           </div>
         ) : null}
         {!isMobile ? (
@@ -616,7 +618,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
             onClick={() => setIsProfileMenuOpen(false)}
           />
           <div
-            className={`business-shell-menu absolute mt-2 w-64 max-w-[calc(100vw-1.5rem)] z-50 rounded-2xl shadow-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-900 p-2 ${
+            className={`business-shell-menu absolute mt-2 w-64 max-w-[calc(100vw-1.5rem)] z-50 rounded-xl shadow-xl border border-border/70 bg-card p-1.5 ${
               i18n.dir() === 'rtl' ? 'left-0' : 'right-0'
             }`}
             style={{
@@ -624,20 +626,20 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
               overflowY: 'auto'
             }}
           >
-            <div className="p-3 border-b border-gray-100 dark:border-gray-800 mb-1">
+            <div className="px-3 pt-3 pb-2.5 border-b border-border/60 mb-1">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold text-sm flex items-center justify-center shrink-0 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center shrink-0">
                   {initials || "MP"}
                 </div>
                 <div className="flex flex-col min-w-0">
-                  <p className="text-xs font-bold text-gray-900 dark:text-white truncate">
+                  <p className="text-[13px] font-bold text-foreground truncate">
                     {user?.firstName ? `${user.firstName} ${user?.lastName || ''}`.trim() : (user?.company?.name || "Max P User")}
                   </p>
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400 truncate">
+                  <span className="text-[11px] text-muted-foreground truncate">
                     {user?.email || "operator@company.com"}
                   </span>
                   {user?.company?.name ? (
-                    <span className="inline-block mt-0.5 text-[10px] text-primary-600 dark:text-primary-400 font-semibold truncate">
+                    <span className="inline-block mt-0.5 text-[10px] text-primary font-semibold truncate">
                       {user.company.name}
                     </span>
                   ) : null}
@@ -645,31 +647,31 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
               </div>
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               <Link
                 to="/profile"
-                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors no-underline"
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors no-underline"
                 onClick={() => setIsProfileMenuOpen(false)}
               >
-                <UserCircleIcon className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" />
+                <UserCircleIcon className="h-4 w-4 text-muted-foreground shrink-0" />
                 <span>{t("sidebar.profile")}</span>
               </Link>
               {!isExternalPortalUser ? (
                 <Link
                   to="/settings"
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors no-underline"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors no-underline"
                   onClick={() => setIsProfileMenuOpen(false)}
                 >
-                  <Cog6ToothIcon className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" />
+                  <Cog6ToothIcon className="h-4 w-4 text-muted-foreground shrink-0" />
                   <span>{t("sidebar.settings")}</span>
                 </Link>
               ) : null}
               <Link
                 to="/app-explanations"
-                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors no-underline"
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors no-underline"
                 onClick={() => setIsProfileMenuOpen(false)}
               >
-                <BookOpenIcon className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" />
+                <BookOpenIcon className="h-4 w-4 text-muted-foreground shrink-0" />
                 <span>{t("sidebar.platformExplanations", "شرح المنصة")}</span>
               </Link>
               <button
@@ -678,15 +680,15 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
                   setIsProfileMenuOpen(false);
                   toggleMerchantCopilot();
                 }}
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-start cursor-pointer"
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors text-start cursor-pointer"
               >
-                <Cpu className="h-4 w-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                <CpuChipIcon className="h-4 w-4 text-primary shrink-0" />
                 <span>{t("header.merchantCopilot", "المساعد التنفيذي للمتجر")}</span>
               </button>
               {isSuperAdmin && (
                 <Link
                   to="/super-admin/dashboard"
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition-colors no-underline"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-semibold text-amber-700 dark:text-amber-300 hover:bg-amber-500/10 transition-colors no-underline"
                   onClick={() => setIsProfileMenuOpen(false)}
                 >
                   <ShieldCheckIcon className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
@@ -699,9 +701,9 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
                   setIsProfileMenuOpen(false);
                   handleLogout();
                 }}
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors text-start"
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-semibold text-destructive hover:bg-destructive/10 transition-colors text-start"
               >
-                <ArrowRightOnRectangleIcon className="h-4 w-4 text-red-500 shrink-0" />
+                <ArrowRightOnRectangleIcon className="h-4 w-4 text-destructive shrink-0" />
                 <span>{t("sidebar.logout")}</span>
               </button>
             </div>
