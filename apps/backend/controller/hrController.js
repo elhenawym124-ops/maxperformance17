@@ -1954,7 +1954,7 @@ async function terminateEmployee(req, res) {
   } catch (error) {
     console.error("❌ Error terminating employee:", error);
     res
-      .status(500)
+      .status(error.statusCode || 500)
       .json({ error: error.message || "حدث خطأ أثناء إنهاء الخدمة" });
   }
 }
@@ -2074,9 +2074,16 @@ async function toggleEmployeeUserStatus(req, res) {
       });
     }
 
+    // تعطيل/تفعيل الحساب نفسه — بدونه كان الحساب المجمّد يستطيع الدخول
+    await prisma.user.updateMany({
+      where: { id: targetUserId, companyId },
+      data: { isActive: newActiveState }
+    });
+
+    // EmployeeStatus لا يحتوي INACTIVE — نستخدم SUSPENDED للتجميد
     await prisma.employee.updateMany({
       where: { companyId, OR: [{ userId: targetUserId }, { id: employeeId }] },
-      data: { status: newActiveState ? 'ACTIVE' : 'INACTIVE', updatedAt: new Date() }
+      data: { status: newActiveState ? 'ACTIVE' : 'SUSPENDED', updatedAt: new Date() }
     });
 
     res.json({

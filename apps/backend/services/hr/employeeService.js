@@ -1090,6 +1090,20 @@ class EmployeeService {
       const terminationDate = data.terminationDate ? new Date(data.terminationDate) : new Date();
       const terminationReason = data.terminationReason || data.reason || 'إنهاء خدمة';
 
+      // 🛡️ منع إنهاء الخدمة مرتين لنفس الموظف
+      const currentEmployee = await this.prisma.employee.findFirst({
+        where: {
+          companyId,
+          OR: [{ userId: employeeId }, { id: employeeId }]
+        },
+        select: { id: true, status: true }
+      });
+      if (currentEmployee?.status === 'TERMINATED') {
+        const already = new Error('الموظف منتهي الخدمة بالفعل');
+        already.statusCode = 409;
+        throw already;
+      }
+
       // 1. تحديث سجل hr_employees بحالة TERMINATED وتوثيق التاريخ والسبب
       await this.prisma.employee.updateMany({
         where: {
