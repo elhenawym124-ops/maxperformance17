@@ -48,9 +48,16 @@ const login = async (e) => (await call('POST', '/auth/login', null, { email: e, 
   const empsList = (await call('GET', '/hr/employees?limit=100', hr)).d?.employees || [];
   const agentEmp = empsList.find(e => (e.email || '').includes('agent')) || empsList[0];
   const myRow = rows.find(r => r.userId === agentEmp?.userId);
-  console.log('DEBUG rows=', rows.length, 'agentUserId=', agentEmp?.userId, 'myRow=', Boolean(myRow), 'advField=', myRow && myRow.advancesDeduction);
-  rec('P8-7', 'السلفة تُخصم في المسير', Boolean(myRow) && Number(myRow?.advancesDeduction) > 0,
-    `advancesDeduction=${myRow?.advancesDeduction} net=${myRow?.netSalary}`);
+
+  let advanceInPayroll = 0;
+  try {
+    const d = JSON.parse(myRow?.deductions || '{}');
+    const details = Array.isArray(d.advanceDetails) ? d.advanceDetails : [];
+    advanceInPayroll = details.reduce((s, x) => s + (Number(x.amount) || 0), 0) || Number(d['سلف'] || 0);
+  } catch { advanceInPayroll = 0; }
+
+  rec('P8-7', 'السلفة تُخصم في المسير', Boolean(myRow) && advanceInPayroll > 0,
+    `advanceDeduction=${advanceInPayroll} net=${myRow?.netSalary} totalDeductions=${myRow?.totalDeductions}`);
 
   // reject flow
   const create2 = await call('POST', '/hr/advances', agent, { amount: 400, reason: `QA سلفة مرفوضة ${stamp}`, repaymentType: 'MONTHLY' });
