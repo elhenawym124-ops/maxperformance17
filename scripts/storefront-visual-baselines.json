@@ -918,7 +918,47 @@
       "minFontSize": 16,
       "firstProductScreen": null,
       "updatedAt": "2026-11-11"
+    },
+    "tpl-057-baqala-grocery": {
+      "cls": 0.1,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 3.43,
+      "updatedAt": "2026-11-21"
+    },
+    "tpl-058-souq-grocery": {
+      "cls": 0.034,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 7.65,
+      "updatedAt": "2026-11-21"
+    },
+    "tpl-059-khayr-grocery": {
+      "cls": 0.012,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 1.67,
+      "updatedAt": "2026-11-21"
+    },
+    "tpl-060-makhzan-grocery": {
+      "cls": 0.005,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 10,
+      "minFontSize": 8.5,
+      "firstProductScreen": 2.62,
+      "updatedAt": "2026-11-21"
     }
   },
-  "updatedAt": "2026-11-11"
+  "updatedAt": "2026-11-21"
 }
