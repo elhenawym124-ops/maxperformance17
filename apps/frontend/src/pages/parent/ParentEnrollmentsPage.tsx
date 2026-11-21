@@ -8,17 +8,26 @@ import {
   ShoppingCart,
   BookOpen,
   CheckCircle2,
-  CalendarDays
+  CalendarDays,
+  Users
 } from "lucide-react";
 
 interface Enrollment {
   id: string;
-  remainingHours: number;
+  enrollmentType?: "PACKAGE" | "GROUP";
+  remainingHours?: number;
   totalHours?: number;
-  package: { id: string; name: string; hoursCount: number; price: number };
+  package: { id: string; name: string; hoursCount?: number; price?: number };
   teacher: { name: string } | null;
   subject: { name: string } | null;
   student?: { firstName: string; lastName: string };
+  groupName?: string;
+  groupCode?: string;
+  feeType?: string;
+  feeAmount?: number;
+  status?: string;
+  paymentStatus?: string;
+  amountPaid?: number;
 }
 
 interface Child {
@@ -98,7 +107,7 @@ const ParentEnrollmentsPage: React.FC = () => {
   }, [enrollmentsMap, selectedChildId, children]);
 
   const totalRemainingHours = useMemo(() => {
-    return allEnrollments.reduce((sum, e) => sum + e.remainingHours, 0);
+    return allEnrollments.reduce((sum, e) => sum + (e.remainingHours || 0), 0);
   }, [allEnrollments]);
 
   if (loading) {
@@ -219,8 +228,11 @@ const ParentEnrollmentsPage: React.FC = () => {
         ) : (
           <div className="divide-y divide-border/60">
             {allEnrollments.map((e) => {
+              const isGroup = e.enrollmentType === "GROUP";
               const total = e.package?.hoursCount ?? 0;
-              const pct = total > 0 ? Math.min(100, Math.round((e.remainingHours / total) * 100)) : 0;
+              const remaining = e.remainingHours || 0;
+              const pct = total > 0 ? Math.min(100, Math.round((remaining / total) * 100)) : 0;
+              const price = isGroup ? (e.feeAmount || e.package?.price || 0) : (e.package?.price || 0);
 
               return (
                 <div
@@ -228,18 +240,36 @@ const ParentEnrollmentsPage: React.FC = () => {
                   className="p-5 hover:bg-muted/30 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
-                      <GraduationCap className="w-5 h-5" />
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                      isGroup
+                        ? "bg-blue-500/10 border border-blue-500/20 text-blue-600"
+                        : "bg-primary/10 border border-primary/20 text-primary"
+                    }`}>
+                      {isGroup ? <Users className="w-5 h-5" /> : <GraduationCap className="w-5 h-5" />}
                     </div>
 
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2.5">
                         <h3 className="text-sm font-semibold text-foreground">
-                          {e.package?.name || "باقة تعليمية"}
+                          {e.groupName || e.package?.name || "اشتراك تعليمي"}
                         </h3>
+                        {isGroup ? (
+                          <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-blue-500/10 text-blue-600 border border-blue-500/20">
+                            مجموعة دراسية
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                            باقة ساعات خاصة
+                          </span>
+                        )}
                         <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
-                          نشط
+                          {e.status === "ACTIVE" ? "نشط" : "مفعل"}
                         </span>
+                        {e.paymentStatus === "PAID" && (
+                          <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-green-500/10 text-green-700 border border-green-500/20">
+                            مسدد بالكامل
+                          </span>
+                        )}
                       </div>
 
                       <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
@@ -254,32 +284,45 @@ const ParentEnrollmentsPage: React.FC = () => {
                             </span>
                           </>
                         )}
+                        {isGroup && e.groupCode && (
+                          <>
+                            <span>•</span>
+                            <span className="font-mono text-muted-foreground">كود: {e.groupCode}</span>
+                          </>
+                        )}
                       </div>
 
-                      {/* Progress bar */}
-                      <div className="w-full max-w-xs pt-1 space-y-1">
-                        {total > 0 && (
+                      {/* Progress bar for packages / info for groups */}
+                      {!isGroup && total > 0 ? (
+                        <div className="w-full max-w-xs pt-1 space-y-1">
                           <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden">
                             <div
                               className="h-full bg-primary rounded-full transition-all"
                               style={{ width: `${pct}%` }}
                             />
                           </div>
-                        )}
-                        <div className="flex justify-between text-[11px] font-mono text-muted-foreground">
-                          <span>المتبقي: {e.remainingHours} ساعة</span>
-                          <span>الإجمالي: {total > 0 ? `${total} ساعة` : "—"}</span>
+                          <div className="flex justify-between text-[11px] font-mono text-muted-foreground">
+                            <span>المتبقي: {remaining} ساعة</span>
+                            <span>الإجمالي: {total} ساعة</span>
+                          </div>
                         </div>
-                      </div>
+                      ) : isGroup ? (
+                        <div className="text-[11px] text-muted-foreground flex items-center gap-1.5 pt-0.5">
+                          <Clock className="w-3.5 h-3.5 text-blue-500" />
+                          <span>نظام الرسوم: {e.feeType === "PER_SESSION" ? "رسوم لكل حصة" : "اشتراك دوري منتظم"}</span>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4 self-end md:self-center">
                     <div className="text-left font-mono">
                       <div className="text-base font-bold text-foreground">
-                        {e.package?.price != null ? `${e.package.price.toLocaleString("ar-EG")} ج.م` : "—"}
+                        {price > 0 ? `${price.toLocaleString("ar-EG")} ج.م` : "مجاني"}
                       </div>
-                      <div className="text-[11px] text-muted-foreground">قيمة الباقة</div>
+                      <div className="text-[11px] text-muted-foreground">
+                        {isGroup ? "رسوم المجموعة" : "قيمة الباقة"}
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -204,7 +204,7 @@ router.get('/children/:studentId/enrollments', authenticateParentToken, async (r
           m."groupId",
           m."status",
           m."joinedAt" AS "enrollmentDate",
-          m."feeAmount",
+          g."feeAmount",
           m."paymentStatus",
           m."amountPaid",
           g.name AS "groupName",

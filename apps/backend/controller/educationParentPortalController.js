@@ -166,6 +166,22 @@ const purchasePackage = async (req, res) => {
     });
 
     const studentFullName = `${student.firstName || ''} ${student.lastName || ''}`.trim();
+
+    // 🏛️ Financial Integration: Record Revenue in Treasury & Cash Accounts
+    try {
+      const { recordEducationRevenue } = require('../services/educationFinancialIntegrationService');
+      await recordEducationRevenue({
+        companyId,
+        amount: payable,
+        type: 'PACKAGE',
+        referenceId: result.id,
+        studentName: studentFullName,
+        packageName: pkg.name
+      });
+    } catch (finErr) {
+      console.error('[ParentPurchaseFinancialIntegration] Error:', finErr.message);
+    }
+
     logEducationEvent({
       companyId,
       action: 'PARENT_ENROLL',
