@@ -1758,6 +1758,18 @@ try {
   );
 }
 
+// Start Education notification scheduler (session reminders / balance alerts / demo day reminders)
+try {
+  const { startEducationNotificationScheduler } = require("./cron/educationNotificationCron");
+  startEducationNotificationScheduler();
+  console.log("✅ [EDU-CRON] Education notification scheduler started");
+} catch (error) {
+  console.error(
+    "❌ [EDU-CRON] Failed to start education notification scheduler:",
+    error,
+  );
+}
+
 // Start Manufacturing WhatsApp Notification Overdue Scan Cron Service (T01)
 try {
   const { startManufacturingNotificationCron } = require("./cron/manufacturingNotificationCron");
