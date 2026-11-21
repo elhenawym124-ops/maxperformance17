@@ -376,6 +376,17 @@ model EducationDemoAttendee {
   attendanceStatus   String   @default("REGISTERED")
   conversionStatus   String   @default("PENDING")
   convertedStudentId String?
+  branchId           String?
+  /// تتبّع مصدر التسجيل (يُستخدم عبر raw SQL في DemoDay controller)
+  registeredByType   String?  @default("EMPLOYEE")
+  registeredByUserId String?
+  registeredByName   String?
+  sourceChannel      String?
+  sourceRaw          String?
+  campaignName       String?
+  adRef              String?
+  postRef            String?
+  landingUrl         String?
   notes              String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt

@@ -216,7 +216,7 @@ const plus = (n, h = 10) => { const d = new Date(Date.now() + n * 864e5); d.setH
   if (demoId) created.demoDays.push(demoId);
 
   const att = demoId ? await call('POST', `/education/demo-day/${demoId}/attendees`, owner, {
-    studentName: `مسجل QA ${stamp}`, guardianName: 'ولي أمر QA', phone: '01120000333', age: 9,
+    studentName: `مسجل QA ${stamp}`, guardianName: 'ولي أمر QA', phone: `0112${String(Date.now()).slice(-7)}`, age: 9,
   }) : { status: 0 };
   const attendeeId = att.d?.attendee?.id || att.d?.data?.id;
   rec('H2', 'تسجيل مسجل في يوم التجربة', [200, 201].includes(att.status), `${att.status} ${att.d?.error || ''}`);
