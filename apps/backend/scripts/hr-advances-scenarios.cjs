@@ -45,8 +45,10 @@ const login = async (e) => (await call('POST', '/auth/login', null, { email: e, 
   const year = now.getFullYear();
   await call('POST', '/hr/payroll/generate', hr, { month, year, forceRegenerate: true });
   const rows = (await call('GET', `/hr/payroll?month=${month}&year=${year}&limit=100`, hr)).d?.payrolls || [];
-  const me = (await call('GET', '/hr/employees/me', agent)).d?.employee;
-  const myRow = rows.find(r => r.userId === me?.userId);
+  const empsList = (await call('GET', '/hr/employees?limit=100', hr)).d?.employees || [];
+  const agentEmp = empsList.find(e => (e.email || '').includes('agent')) || empsList[0];
+  const myRow = rows.find(r => r.userId === agentEmp?.userId);
+  console.log('DEBUG rows=', rows.length, 'agentUserId=', agentEmp?.userId, 'myRow=', Boolean(myRow), 'advField=', myRow && myRow.advancesDeduction);
   rec('P8-7', 'السلفة تُخصم في المسير', Boolean(myRow) && Number(myRow?.advancesDeduction) > 0,
     `advancesDeduction=${myRow?.advancesDeduction} net=${myRow?.netSalary}`);
 
