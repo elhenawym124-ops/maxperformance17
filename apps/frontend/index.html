@@ -289,6 +289,39 @@
     ]
   }
   </script>
+
+  <!-- Pre-paint theme bootstrap: mirrors useTheme derivation so the dark class
+       exists before first paint (kills the light-mode flash / FOUC on dark users).
+       Storefront/auth paths force light exactly like useTheme.isStorefront. -->
+  <script>
+    (function () {
+      try {
+        var p = location.pathname;
+        var storefront =
+          p.indexOf("/shop") === 0 ||
+          p.indexOf("/home") === 0 ||
+          p.indexOf("/woodmart-replica") === 0 ||
+          (p.indexOf("/auth") === 0 && p.indexOf("/auth/admin") !== 0) ||
+          p === "/test-minimal" ||
+          p === "/test-public";
+        var theme = localStorage.getItem("theme");
+        var darkStyle = localStorage.getItem("dark-style");
+        var isDark = storefront
+          ? false
+          : theme === "dark" ||
+            (theme === "system" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+        var root = document.documentElement;
+        root.classList.remove("light", "dark");
+        if (isDark) {
+          root.classList.add("dark");
+          if (darkStyle && darkStyle !== "classic") {
+            root.setAttribute("data-dark-style", darkStyle);
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>

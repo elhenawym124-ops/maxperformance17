@@ -65,7 +65,7 @@ const Settings: React.FC = () => {
       </div>
 
       {/* MOB-015: Single-depth rule: no box-in-box under 768px */}
-      <div className="md:rounded-xl md:border md:border-border md:bg-card">
+      <div className={`md:rounded-xl md:border md:border-border md:bg-card ${activeTab === 'profile' || activeTab === 'appearance' ? 'md:max-w-3xl' : ''}`}>
         <ActiveComponent />
       </div>
     </div>

@@ -638,7 +638,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
                   </span>
                   {user?.company?.name ? (
                     <span className="inline-block mt-0.5 text-[10px] text-primary-600 dark:text-primary-400 font-semibold truncate">
-                      🏢 {user.company.name}
+                      {user.company.name}
                     </span>
                   ) : null}
                 </div>
