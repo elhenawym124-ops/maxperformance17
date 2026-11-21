@@ -24,7 +24,7 @@ const GQL_LOGIN = `
   mutation login($input: LoginInput!) {
     login(input: $input) {
       token
-      tokenType
+      expiresAt
     }
   }
 `;
@@ -50,8 +50,8 @@ const GQL_LIST_SERVICES = `
 `;
 
 const GQL_LIST_ZONES = `
-  query listZonesDropdown($parentId: Int) {
-    listZonesDropdown(parentId: $parentId) {
+  query listZonesDropdown($input: ListZonesFilterInput) {
+    listZonesDropdown(input: $input) {
       id
       name
     }
@@ -311,7 +311,7 @@ class LgService {
   // -------------------------------------------------------------------------
   async getZones(parentId = null) {
     const token = await this.ensureToken();
-    const vars = parentId ? { parentId } : {};
+    const vars = parentId ? { input: { parentId: Number(parentId) } } : {};
     const data = await this._gql(GQL_LIST_ZONES, vars, token);
     return data?.listZonesDropdown || [];
   }
@@ -406,7 +406,7 @@ class LgService {
       paymentTypeCode: isCOD ? 'COLC' : 'PAID',
       priceTypeCode: 'INCLD',
       openableCode: 'N',
-      pieces: orderData.pieces || 1,
+      piecesCount: orderData.pieces || 1,
       weight: orderData.weight || 1,
     };
 
