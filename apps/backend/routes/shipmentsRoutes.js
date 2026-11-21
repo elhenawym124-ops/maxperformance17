@@ -712,13 +712,27 @@ router.post('/create', verifyToken.authenticateToken, blockCourierMobileToken, a
         shipment.id,
         { force: true, allowLiveCreate: true },
       );
-      if (!dispatchResult.success && dispatchResult.error) {
+      if (dispatchResult && dispatchResult.success === false && (dispatchResult.error || dispatchResult.reason)) {
         return res.status(dispatchResult.statusCode || 400).json({
           success: false,
-          error: dispatchResult.error,
+          error: dispatchResult.error || dispatchResult.reason,
           reason: dispatchResult.reason,
         });
       }
+
+      let meta = {};
+      try {
+        meta = typeof dispatchResult?.metadata === 'string' ? JSON.parse(dispatchResult.metadata) : (dispatchResult?.metadata || {});
+      } catch (e) {}
+
+      if (meta.providerStatus === 'SKIPPED' && meta.providerSkipReason) {
+        return res.status(400).json({
+          success: false,
+          error: meta.providerSkipReason,
+          reason: meta.providerSkipReason,
+        });
+      }
+
       return res.status(201).json({
         success: true,
         data: dispatchResult,

@@ -57,6 +57,7 @@ export const ShipmentStatementCards: React.FC<ShipmentStatementCardsProps> = ({
     if (c === "BOSTA") return `https://bosta.co/tracking-shipment/?shipmentNumber=${encodeURIComponent(trackingNumber)}`;
     if (c === "QP_EXPRESS" || c === "QPEXPRESS") return `https://qpexpress.net/track/${encodeURIComponent(trackingNumber)}`;
     if (c === "HASHTAG") return `https://tracking.hashtag-express.com/?trackingNumber=${encodeURIComponent(trackingNumber)}`;
+    if (c === "LG_EXPRESS" || c === "LG") return `https://lg.accuratess.com/tracking?code=${encodeURIComponent(trackingNumber)}`;
     return null;
   };
 

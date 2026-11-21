@@ -79,6 +79,10 @@ export function usePreparationCarrierDispatch({
           response = await apiClient.post("/qp-express/bulk/create-shipments", {
             orderIds: selectedOrders,
           });
+        } else if (carrier.providerKey === "LG_EXPRESS") {
+          response = await apiClient.post("/lg/bulk/create-shipments", {
+            orderIds: selectedOrders,
+          });
         } else if (carrier.providerKey === "BOSTA") {
           response = await apiClient.post("/bosta/bulk/create-shipments", {
             orderIds: selectedOrders,

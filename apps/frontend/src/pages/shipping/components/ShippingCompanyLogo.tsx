@@ -70,6 +70,9 @@ const resolveBrandLogo = (company?: ShippingCompanyLogoProps['company']): string
   if (key === 'HASHTAG' || slug.includes('hashtag') || name.includes('hashtag') || name.includes('هاشتاج')) {
     return withVersion('hashtag.svg');
   }
+  if (key === 'LG_EXPRESS' || slug.includes('lg-express') || name.includes('lg express') || name.includes('accurate')) {
+    return withVersion('lg-express.svg');
+  }
   if (key === 'MAXP_NETWORK' || slug.includes('maxp_network') || name.includes('شبكة maxp') || name.includes('شحن على maxp')) {
     return withVersion('maxp_network.svg');
   }

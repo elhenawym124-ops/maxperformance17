@@ -407,6 +407,7 @@ const textGalleryRoutes = require("./routes/textGalleryRoutes");
 const turboRoutes = require("./routes/turboRoutes");
 const bostaRoutes = require("./routes/bostaRoutes");
 const qpExpressRoutes = require("./routes/qpExpressRoutes");
+const lgRoutes = require("./routes/lgRoutes");
 const shippingCompaniesRoutes = require("./routes/shippingCompaniesRoutes");
 const shipmentsRoutes = require("./routes/shipmentsRoutes");
 const shippingPortalRoutes = require("./routes/shippingPortalRoutes");
@@ -1177,6 +1178,7 @@ app.use("/api/v1/woocommerce", wooCommerceRoutes);
 app.use("/api/v1/turbo", turboRoutes);
 app.use("/api/v1/bosta", bostaRoutes);
 app.use("/api/v1/qp-express", qpExpressRoutes);
+app.use("/api/v1/lg", lgRoutes);
 
 // Professional Tools
 app.use("/api/v1/appointments", appointmentsRoutes);

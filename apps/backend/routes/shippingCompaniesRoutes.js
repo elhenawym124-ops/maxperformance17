@@ -192,6 +192,23 @@ const ensureDefaultShippingCompanies = async (prisma, companyId) => {
         },
       }).catch((e) => console.warn('Could not auto-seed Hashtag:', e.message));
     }
+
+    // 5. Ensure LG Express (default inactive)
+    if (!existingKeys.has('LG_EXPRESS') && !existingSlugs.has('lg-express')) {
+      await prisma.shippingCompany.create({
+        data: {
+          companyId,
+          name: 'LG Express (Accurate Logistics)',
+          slug: 'lg-express',
+          providerKey: 'LG_EXPRESS',
+          integrationMode: 'LIVE',
+          website: 'https://accuratess.com',
+          apiUrl: 'https://a2x.lg.accuratess.com:8443/graphql',
+          phone: '',
+          isActive: false,
+        },
+      }).catch((e) => console.warn('Could not auto-seed LG Express:', e.message));
+    }
     if (company?.turboApiKey) {
       await prisma.shippingCompany.updateMany({
         where: {
@@ -1001,6 +1018,36 @@ router.post('/:id/test-connection', verifyToken.authenticateToken, async (req, r
       }
     }
 
+    if (providerKey === 'LG_EXPRESS') {
+      const settings = shippingProviderService.safeJsonParse(company.settings, {});
+      const username = req.body?.username || req.body?.apiName || settings.username || settings.apiName || company.apiKey;
+      const password = req.body?.password || req.body?.apiPassword || settings.password || settings.apiPassword;
+      const apiUrl = req.body?.apiUrl || company.apiUrl || 'https://a2x.lg.accuratess.com:8443/graphql';
+
+      if (!username || !password) {
+        return res.status(400).json({
+          success: false,
+          error: 'يرجى إدخال اسم المستخدم (Username) وكلمة المرور (Password) لـ LG Express',
+        });
+      }
+
+      try {
+        const LgService = require('../services/lgService');
+        const lgService = new LgService({ username, password, apiUrl }, companyId);
+        const result = await lgService.testConnection({ username, password, apiUrl });
+        return res.json({
+          success: true,
+          status: 'CONNECTED',
+          message: result.message || 'تم التحقق من بيانات الاتصال بشركة LG Express بنجاح',
+        });
+      } catch (err) {
+        return res.status(400).json({
+          success: false,
+          error: `فحص الاتصال بـ LG Express: ${err.message}`,
+        });
+      }
+    }
+
     if (!company.apiKey) {
       return res.status(400).json({ success: false, error: 'مفتاح الـ API Key غير مكتمل' });
     }
@@ -1033,8 +1080,8 @@ router.delete('/:id', verifyToken.authenticateToken, async (req, res) => {
     }
 
     // 403 Forbidden for built-in / integrated providers
-    const BUILTIN_PROVIDER_KEYS = new Set(['TURBO', 'BOSTA', 'QP_EXPRESS', 'HASHTAG', 'BOSTA_DEMO', 'MYLERZ_DEMO', 'ARAMEX_DEMO']);
-    const BUILTIN_SLUGS = new Set(['turbo', 'bosta', 'qp-express', 'qp_express', 'hashtag', 'hashtag-express']);
+    const BUILTIN_PROVIDER_KEYS = new Set(['TURBO', 'BOSTA', 'QP_EXPRESS', 'HASHTAG', 'LG_EXPRESS', 'BOSTA_DEMO', 'MYLERZ_DEMO', 'ARAMEX_DEMO']);
+    const BUILTIN_SLUGS = new Set(['turbo', 'bosta', 'qp-express', 'qp_express', 'hashtag', 'hashtag-express', 'lg-express']);
     const normKey = String(existing.providerKey || '').trim().toUpperCase();
     const normSlug = String(existing.slug || '').trim().toLowerCase();
     if (BUILTIN_PROVIDER_KEYS.has(normKey) || BUILTIN_SLUGS.has(normSlug)) {

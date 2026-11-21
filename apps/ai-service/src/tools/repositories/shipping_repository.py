@@ -301,6 +301,23 @@ class ShippingRepository(BaseRepository):
                 val = password.strip()
                 settings_dict["apiPassword"] = val
                 settings_dict["password"] = val
+        elif "lg" in raw_carrier or "accurate" in raw_carrier or "لوجستك" in raw_carrier:
+            provider_key = "LG_EXPRESS"
+            slug = "lg-express"
+            if not carrier_name:
+                carrier_name = "LG Express (Accurate Logistics)"
+            if not website:
+                website = "https://accuratess.com"
+            if not phone:
+                phone = ""
+            api_url = "https://a2x.lg.accuratess.com:8443/graphql"
+            integration_mode = "LIVE"
+            if username or api_key:
+                val = (username or api_key or "").strip()
+                settings_dict["username"] = val
+                settings_dict["apiKey"] = val
+            if password:
+                settings_dict["password"] = password.strip()
         else:
             if not carrier_name:
                 carrier_name = carrier.strip()

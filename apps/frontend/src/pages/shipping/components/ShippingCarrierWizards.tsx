@@ -291,6 +291,88 @@ export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "set
   </div>
 );
 
+export const LgWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFormData" | "editingCompany">> = ({
+  formData,
+  setFormData,
+  editingCompany,
+}) => (
+  <div className="space-y-3.5">
+    <div className="p-3.5 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20 rounded-xl border border-blue-200 dark:border-blue-800/60 space-y-2">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="font-bold text-sm text-blue-700 dark:text-blue-300">
+            LG Express (Accurate Logistics)
+          </span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200 font-bold">
+            ربط GraphQL مباشر (LIVE)
+          </span>
+        </div>
+        {(formData.username || formData.apiKey) && (
+          <span className="text-xs font-mono font-bold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/60 px-2.5 py-0.5 rounded-md">
+            الحساب: {formData.username || formData.apiKey}
+          </span>
+        )}
+      </div>
+
+      <p className="text-xs text-blue-800 dark:text-blue-200 leading-relaxed">
+        <strong>متطلبات الربط:</strong> أدخل <strong>اسم المستخدم (Username)</strong> و <strong>كلمة المرور (Password)</strong> المعطاة لك من Accurate Logistics للربط عبر GraphQL API وإصدار البوالص تلقائياً.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+        <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
+          اسم المستخدم (Username) *
+        </label>
+        <input
+          type="text"
+          required
+          value={formData.username || formData.apiName || formData.apiKey}
+          onChange={(e) => {
+            const val = e.target.value;
+            setFormData((prev) => ({ ...prev, username: val, apiName: val, apiKey: val }));
+          }}
+          placeholder="مثال: client_user"
+          className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono focus:ring-2 focus:ring-blue-500"
+        />
+        <p className="text-[11px] text-muted-foreground mt-0.5">اسم المستخدم الخاص بحسابك في LG Express</p>
+      </div>
+
+      <div>
+        <label className="block text-xs font-semibold text-foreground dark:text-muted-foreground mb-1">
+          كلمة المرور (Password) *
+        </label>
+        <input
+          type="password"
+          required={!editingCompany || (!formData.password && !formData.apiPassword)}
+          value={formData.password || formData.apiPassword}
+          onChange={(e) => {
+            const val = e.target.value;
+            setFormData((prev) => ({ ...prev, password: val, apiPassword: val }));
+          }}
+          placeholder={editingCompany ? "•••••••• (اتركها للإبقاء على الحالية)" : "كلمة المرور من LG Express"}
+          className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground focus:ring-2 focus:ring-blue-500"
+        />
+        <p className="text-[11px] text-muted-foreground mt-0.5">كلمة المرور الخاصة بحسابك</p>
+      </div>
+    </div>
+
+    <div>
+      <label className="block text-xs font-medium text-foreground mb-1">
+        عنوان الـ API (GraphQL Endpoint)
+      </label>
+      <input
+        type="text"
+        value={formData.apiUrl || "https://a2x.lg.accuratess.com:8443/graphql"}
+        onChange={(e) => setFormData((prev) => ({ ...prev, apiUrl: e.target.value }))}
+        placeholder="https://a2x.lg.accuratess.com:8443/graphql"
+        className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono"
+      />
+      <p className="text-[11px] text-muted-foreground mt-0.5">الرابط الافتراضي للـ GraphQL API الخاص بـ LG Express</p>
+    </div>
+  </div>
+);
+
 export const ManualFleetWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "setFormData">> = ({
   formData,
   setFormData,

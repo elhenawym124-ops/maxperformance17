@@ -28,6 +28,8 @@ const getCarrierTrackUrl = (
     return `https://qpexpress.net/track/${trackingNumber}`;
   if (c === "HASHTAG")
     return `https://tracking.hashtag-express.com/?trackingNumber=${encodeURIComponent(trackingNumber)}`;
+  if (c === "LG_EXPRESS" || c === "LG")
+    return `https://lg.accuratess.com/tracking?code=${encodeURIComponent(trackingNumber)}`;
   return null;
 };
 

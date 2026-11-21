@@ -61,6 +61,7 @@ export const BUILTIN_SHIPPING_PROVIDER_KEYS = new Set([
   'BOSTA',
   'QP_EXPRESS',
   'HASHTAG',
+  'LG_EXPRESS',
   'BOSTA_DEMO',
   'MYLERZ_DEMO',
   'ARAMEX_DEMO',
@@ -73,6 +74,7 @@ export const BUILTIN_SHIPPING_SLUGS = new Set([
   'qp_express',
   'hashtag',
   'hashtag-express',
+  'lg-express',
 ]);
 
 export const isBuiltInShippingCompany = (

@@ -10,6 +10,7 @@ const PROVIDER_KEYS = Object.freeze({
   BOSTA: 'BOSTA',
   QP_EXPRESS: 'QP_EXPRESS',
   HASHTAG: 'HASHTAG',
+  LG_EXPRESS: 'LG_EXPRESS',
   BOSTA_DEMO: 'BOSTA_DEMO',
   MYLERZ_DEMO: 'MYLERZ_DEMO',
   ARAMEX_DEMO: 'ARAMEX_DEMO',
@@ -106,6 +107,9 @@ const normalizeProviderKey = (value, carrier = {}) => {
   }
   if (text.includes('hashtag') || text.includes('هاشتاج')) {
     return PROVIDER_KEYS.HASHTAG;
+  }
+  if (text.includes('lg') || text.includes('accurate') || text.includes('لوجستك') || text.includes('اكيوريت')) {
+    return PROVIDER_KEYS.LG_EXPRESS;
   }
   if (text.includes('mylerz') || text.includes('مايلرز')) return PROVIDER_KEYS.MYLERZ_DEMO;
   if (text.includes('aramex') || text.includes('ارامكس') || text.includes('أرامكس')) {
@@ -628,6 +632,54 @@ const createProviderShipment = async (prisma, shipmentOrId, options = {}) => {
         success: false,
         skipped: true,
         reason: `HASHTAG_API_ERROR: ${error.message}`,
+        serviceLevel: provider.serviceLevel,
+      });
+    }
+  }
+
+  if (providerKey === PROVIDER_KEYS.LG_EXPRESS && integrationMode === 'LIVE') {
+    if (!options.allowLiveCreate) {
+      return updateShipmentFromProviderResult(prisma, shipment, provider, {
+        success: false,
+        skipped: true,
+        reason: 'LIVE_CREATE_REQUIRES_EXPLICIT_CONFIRMATION',
+        serviceLevel: provider.serviceLevel,
+      });
+    }
+
+    const LgService = require('./lgService');
+    const lgService = new LgService({
+      username: settings.username || settings.apiName || shippingCompany.apiKey,
+      password: settings.password || settings.apiPassword,
+      apiUrl: shippingCompany.apiUrl || settings.apiUrl,
+      serviceId: settings.serviceId,
+      cachedToken: settings.cachedToken,
+      tokenCachedAt: settings.tokenCachedAt,
+    }, shipment.companyId);
+
+    const formattedOrder = lgService.formatOrderForLG(
+      shipment.order || {},
+      shipment.order?.customer || {},
+      shipment.order?.orderItems || [],
+    );
+
+    try {
+      const result = await lgService.createShipment(formattedOrder);
+      return updateShipmentFromProviderResult(prisma, shipment, provider, {
+        success: true,
+        status: 'CREATED',
+        externalShipmentId: result.externalShipmentId,
+        trackingNumber: result.trackingNumber,
+        labelUrl: result.labelUrl,
+        serviceLevel: provider.serviceLevel || result.serviceLevel,
+        cost: result.cost,
+        data: result.data,
+      });
+    } catch (error) {
+      return updateShipmentFromProviderResult(prisma, shipment, provider, {
+        success: false,
+        skipped: true,
+        reason: `LG_EXPRESS_API_ERROR: ${error.message}`,
         serviceLevel: provider.serviceLevel,
       });
     }

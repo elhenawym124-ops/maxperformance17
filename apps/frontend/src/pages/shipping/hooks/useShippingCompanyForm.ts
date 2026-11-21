@@ -105,6 +105,8 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
           ? 'https://app.bosta.co'
           : company.providerKey === 'HASHTAG'
           ? 'https://hashtag-express.com/app'
+          : company.providerKey === 'LG_EXPRESS'
+          ? 'https://a2x.lg.accuratess.com:8443/graphql'
           : ''),
       providerKey: company.providerKey || 'MANUAL',
       integrationMode: company.integrationMode || 'MANUAL',
@@ -173,6 +175,8 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
           : formData.providerKey === 'TURBO' && formData.apiKey
           ? 'LIVE'
           : formData.providerKey === 'HASHTAG' && (formData.apiName || formData.apiPassword || formData.username || formData.password || formData.apiKey)
+          ? 'LIVE'
+          : formData.providerKey === 'LG_EXPRESS' && (formData.username || formData.password || formData.apiKey)
           ? 'LIVE'
           : formData.integrationMode;
 

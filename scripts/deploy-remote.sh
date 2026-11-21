@@ -823,6 +823,10 @@ if [ "$NEED_DB_PUSH" = "true" ]; then
     echo "📦 Ensuring Hashtag shipping company exists for all companies before db push..."
     "$PRISMA_BIN" db execute --file prisma/migrations/20261121_add_hashtag_shipping_all_companies.sql --schema=prisma/schema || echo "⚠️ Hashtag pre-push migration warning (continuing...)"
   fi
+  if [ -f "prisma/migrations/20261121_add_lg_shipping_all_companies.sql" ]; then
+    echo "📦 Ensuring LG Express shipping company exists for all companies before db push..."
+    "$PRISMA_BIN" db execute --file prisma/migrations/20261121_add_lg_shipping_all_companies.sql --schema=prisma/schema || echo "⚠️ LG Express pre-push migration warning (continuing...)"
+  fi
   echo "🚀 Pushing schema to PostgreSQL..."
   timeout 600 "$PRISMA_BIN" db push --schema=prisma/schema --skip-generate --accept-data-loss || {
       echo "❌ Database synchronization failed"
@@ -953,6 +957,10 @@ if [ -n "$PM2_BIN" ]; then
   if [ -f "scripts/seed_hashtag_all_companies.js" ]; then
     echo "📦 Seeding Hashtag Express shipping company for all accounts..."
     NODE_ENV=production timeout 60 node scripts/seed_hashtag_all_companies.js || echo "⚠️ seed_hashtag_all_companies skipped, continuing..."
+  fi
+  if [ -f "scripts/seed_lg_all_companies.js" ]; then
+    echo "📦 Seeding LG Express shipping company for all accounts..."
+    NODE_ENV=production timeout 60 node scripts/seed_lg_all_companies.js || echo "⚠️ seed_lg_all_companies skipped, continuing..."
   fi
 
   # Capture baseline restart count for maxp-backend

@@ -62,6 +62,7 @@ export const ShippingAdvancedSettings: React.FC<ShippingAdvancedSettingsProps> =
                 <option value="BOSTA">بوستا (Bosta Courier)</option>
                 <option value="TURBO">تربو (Turbo Courier)</option>
                 <option value="HASHTAG">هاشتاج إكسبريس (Hashtag Express)</option>
+                <option value="LG_EXPRESS">LG Express (Accurate Logistics)</option>
                 <option value="MANUAL">أسطول يدوي / مناديب (Manual)</option>
               </select>
             </div>
