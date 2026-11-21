@@ -188,7 +188,14 @@ const remove = async (req, res) => {
     const existing = await getSharedPrismaClient().educationPackage.findFirst({ where: { id, companyId } });
     if (!existing) return res.status(404).json({ success: false, error: 'الباقة غير موجودة' });
 
-    await getSharedPrismaClient().educationPackage.delete({ where: { id } });
+    try {
+      await getSharedPrismaClient().educationPackage.delete({ where: { id } });
+    } catch (deleteError) {
+      if (deleteError.code === 'P2003') {
+        return res.status(409).json({ success: false, error: 'الباقة مرتبطة باشتراكات أو حصص ولا يمكن حذفها' });
+      }
+      throw deleteError;
+    }
 
     logEducationEvent({
       companyId,
