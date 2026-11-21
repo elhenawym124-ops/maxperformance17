@@ -91,7 +91,7 @@ export const SuperAdminSystemHealth: React.FC<SuperAdminSystemHealthProps> = ({
         </span>
         {health.dbStats && (
           <span className="text-muted-foreground tabular-nums">
-            ({health.dbStats.active}/{health.dbStats.queryCount} اتصال)
+            ({Number(health.dbStats.active || 0).toLocaleString("ar-EG")}/{Number(health.dbStats.queryCount || 0).toLocaleString("ar-EG")} اتصال)
           </span>
         )}
       </div>

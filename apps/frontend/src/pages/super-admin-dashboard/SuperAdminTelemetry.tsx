@@ -55,7 +55,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
       </div>
       <div>
         <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
-          {typeof value === "number" ? value.toLocaleString() : value}
+          {typeof value === "number" ? value.toLocaleString("ar-EG") : value}
         </div>
         <div className="flex flex-wrap items-center gap-2 pt-1">
           {subtext && (

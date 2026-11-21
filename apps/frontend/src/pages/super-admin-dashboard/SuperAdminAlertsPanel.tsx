@@ -31,6 +31,11 @@ export const formatAlertCategory = (category?: string): string => {
   return ALERT_CATEGORY_TRANSLATIONS[key] || category;
 };
 
+export const cleanAlertMessage = (msg?: string): string => {
+  if (!msg) return "";
+  return msg.replace(/\s*[-–—]?\s*السبب:\s*0+\b/g, "").trim();
+};
+
 export const SuperAdminAlertsPanel: React.FC<SuperAdminAlertsPanelProps> = ({
   alerts,
 }) => {
@@ -74,7 +79,7 @@ export const SuperAdminAlertsPanel: React.FC<SuperAdminAlertsPanelProps> = ({
             )}
             <div className="min-w-0 flex-1">
               <p className="text-xs font-medium text-foreground truncate">
-                {a.message}
+                {cleanAlertMessage(a.message)}
               </p>
               <p className="text-[10px] font-mono text-muted-foreground mt-0.5 tabular-nums">
                 {formatAlertCategory(a.category)} ·{" "}

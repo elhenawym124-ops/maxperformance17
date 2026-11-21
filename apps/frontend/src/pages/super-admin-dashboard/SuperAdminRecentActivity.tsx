@@ -38,7 +38,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
             <Briefcase className="size-3.5 text-primary" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums mb-1">
-            {recentActivity?.newCompaniesLast30Days || 0}
+            {(recentActivity?.newCompaniesLast30Days || 0).toLocaleString("ar-EG")}
           </div>
           {comparison?.companiesGrowth !== undefined && (
             <p
@@ -61,7 +61,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
             <Users2 className="size-3.5 text-success" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums mb-1">
-            {recentActivity?.newUsersLast30Days || 0}
+            {(recentActivity?.newUsersLast30Days || 0).toLocaleString("ar-EG")}
           </div>
           {comparison?.usersGrowth !== undefined && (
             <p
@@ -84,7 +84,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
             <Users className="size-3.5 text-info" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums mb-1">
-            {recentActivity?.newCustomersLast30Days || 0}
+            {(recentActivity?.newCustomersLast30Days || 0).toLocaleString("ar-EG")}
           </div>
           {comparison?.customersGrowth !== undefined && (
             <p
