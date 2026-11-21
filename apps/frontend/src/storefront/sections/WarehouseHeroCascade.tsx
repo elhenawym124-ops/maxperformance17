@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Clock, ShieldCheck, Truck, RotateCcw, Headphones, Flame } from 'lucide-react';
 import { useStorefrontTheme } from '../engine/ThemeProvider';
 import { useProducts, type Product } from '../hooks/useProducts';
-import { useCartStore } from '../cart/cartStore';
+import { useCartStore } from '../store/useCartStore';
 
 export interface WarehouseHeroCascadeProps {
   section?: {

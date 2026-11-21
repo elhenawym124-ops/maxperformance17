@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShoppingCart, Eye, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useCartStore } from '../cart/cartStore';
+import { useCartStore } from '../store/useCartStore';
 import { useProducts, type Product } from '../hooks/useProducts';
 
 export const WarehouseNewTVs: React.FC = () => {

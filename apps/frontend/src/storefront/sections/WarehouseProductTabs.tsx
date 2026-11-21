@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Star, ShoppingCart, Eye, Flame } from 'lucide-react';
 import { useStorefrontTheme } from '../engine/ThemeProvider';
 import { useProducts, type Product } from '../hooks/useProducts';
-import { useCartStore } from '../cart/cartStore';
+import { useCartStore } from '../store/useCartStore';
 
 export interface WarehouseProductTabsProps {
   section?: {
