@@ -19,6 +19,13 @@ interface Session {
   plannedDuration: number;
   actualDuration: number | null;
   status: "SCHEDULED" | "CONFIRMED" | "COMPLETED" | "CANCELLED" | string;
+  sessionType?: "PRIVATE" | "GROUP";
+  groupName?: string;
+  room?: string;
+  attendanceStatus?: "PRESENT" | "ABSENT" | "EXCUSED" | "SCHEDULED" | "PENDING";
+  topic?: string | null;
+  homework?: string | null;
+  notes?: string | null;
   subject: { name: string };
   teacher: { name: string };
   enrollment?: { remainingHours: number; totalHours: number };
@@ -195,17 +202,26 @@ const ParentChildDetailPage: React.FC = () => {
             sessions.map((s) => (
               <div
                 key={s.id}
-                className="p-5 flex items-center justify-between gap-4 hover:bg-muted/30 transition-colors"
+                className="p-5 flex flex-col sm:flex-row sm:items-start justify-between gap-4 hover:bg-muted/30 transition-colors"
               >
                 <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">
                     <BookOpen className="w-4 h-4" />
                   </div>
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <h4 className="text-sm font-semibold text-foreground">
                         {s.subject?.name || "حصة تدريس"}
                       </h4>
+                      {s.sessionType === "GROUP" ? (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono border bg-purple-500/10 text-purple-600 border-purple-500/20">
+                          مجموعة: {s.groupName}
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono border bg-blue-500/10 text-blue-600 border-blue-500/20">
+                          حصة خاصة
+                        </span>
+                      )}
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-medium border ${
                           s.status === "CONFIRMED"
@@ -217,11 +233,51 @@ const ParentChildDetailPage: React.FC = () => {
                       >
                         {s.status === "CONFIRMED" ? "مؤكدة" : s.status === "COMPLETED" ? "مكتملة" : "مجدولة"}
                       </span>
+                      {s.attendanceStatus === "PRESENT" && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-mono border bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+                          حاضر
+                        </span>
+                      )}
+                      {s.attendanceStatus === "ABSENT" && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-mono border bg-rose-500/10 text-rose-600 border-rose-500/20">
+                          غائب
+                        </span>
+                      )}
+                      {s.attendanceStatus === "EXCUSED" && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-mono border bg-amber-500/10 text-amber-600 border-amber-500/20">
+                          معذور
+                        </span>
+                      )}
                     </div>
                     <p className="text-xs text-muted-foreground">المعلم: {s.teacher?.name || "معلم المادة"}</p>
                     <p className="text-[11px] font-mono text-muted-foreground">
                       {new Date(s.scheduledAt).toLocaleDateString("ar-EG")} • {s.actualDuration || s.plannedDuration} دقيقة
+                      {s.room ? ` • القاعة: ${s.room}` : ""}
                     </p>
+
+                    {/* Topic & Homework Display */}
+                    {(s.topic || s.homework || s.notes) && (
+                      <div className="mt-2 p-2.5 rounded-lg bg-muted/40 border border-border/70 space-y-1.5 text-xs">
+                        {s.topic && (
+                          <div className="font-medium text-foreground">
+                            <span>الدرس: </span>
+                            <span className="text-foreground/90">{s.topic}</span>
+                          </div>
+                        )}
+                        {s.homework && (
+                          <div className="p-1.5 rounded bg-amber-500/10 border border-amber-500/20 text-amber-800 dark:text-amber-300">
+                            <span className="font-bold">الواجب: </span>
+                            <span>{s.homework}</span>
+                          </div>
+                        )}
+                        {s.notes && (
+                          <div className="text-[11px] text-muted-foreground">
+                            <span>ملاحظات: </span>
+                            <span>{s.notes}</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

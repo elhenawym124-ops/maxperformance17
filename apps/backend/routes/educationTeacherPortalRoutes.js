@@ -29,10 +29,21 @@ router.get('/sessions', authenticateTeacherToken, async (req, res) => {
       orderBy: { scheduledAt: 'desc' }
     });
 
-    const mappedPrivate = privateSessions.map(s => ({
-      ...s,
-      sessionType: 'PRIVATE'
-    }));
+    const mappedPrivate = privateSessions.map(s => {
+      let homework = null;
+      let cleanNotes = s.notes;
+      if (cleanNotes && cleanNotes.includes('[الواجب]:')) {
+        const parts = cleanNotes.split('[الواجب]:');
+        cleanNotes = parts[0].trim();
+        homework = parts[1].trim();
+      }
+      return {
+        ...s,
+        homework: homework || null,
+        notes: cleanNotes || s.notes,
+        sessionType: 'PRIVATE'
+      };
+    });
 
     let mappedGroups = [];
     try {
@@ -196,10 +207,21 @@ router.get('/schedule', authenticateTeacherToken, async (req, res) => {
       orderBy: { scheduledAt: 'asc' }
     });
 
-    const mappedPrivate = privateSessions.map(s => ({
-      ...s,
-      sessionType: 'PRIVATE'
-    }));
+    const mappedPrivate = privateSessions.map(s => {
+      let homework = null;
+      let cleanNotes = s.notes;
+      if (cleanNotes && cleanNotes.includes('[الواجب]:')) {
+        const parts = cleanNotes.split('[الواجب]:');
+        cleanNotes = parts[0].trim();
+        homework = parts[1].trim();
+      }
+      return {
+        ...s,
+        homework: homework || null,
+        notes: cleanNotes || s.notes,
+        sessionType: 'PRIVATE'
+      };
+    });
 
     let mappedGroups = [];
     try {
@@ -344,6 +366,311 @@ router.get('/dashboard', authenticateTeacherToken, async (req, res) => {
   } catch (error) {
     console.error('[TeacherPortal] Dashboard error:', error);
     res.status(500).json({ success: false, message: 'حدث خطأ في جلب الإحصائيات' });
+  }
+});
+
+// Teacher completes a session (Private or Group) and records topic, homework, actual duration, and attendance
+router.post('/sessions/:id/complete', authenticateTeacherToken, async (req, res) => {
+  try {
+    const { id: teacherId, companyId } = req.teacher;
+    const { id: sessionId } = req.params;
+    const { actualDuration, topic, homework, notes, attendanceList } = req.body;
+    const prisma = getSharedPrismaClient();
+
+    // 1. Check if private educationSession
+    const privateSession = await prisma.educationSession.findFirst({
+      where: { id: sessionId, teacherId, companyId },
+      include: {
+        enrollment: true,
+        teacher: { include: { subjectRates: true } },
+        student: { select: { id: true, firstName: true, lastName: true } },
+        subject: { select: { id: true, name: true } }
+      }
+    });
+
+    if (privateSession) {
+      if (privateSession.status === 'CANCELLED') {
+        return res.status(400).json({ success: false, message: 'لا يمكن إنهاء أو تأكيد حصة ملغية' });
+      }
+
+      const duration = Number(actualDuration) || privateSession.plannedDuration || 60;
+      const hours = duration / 60;
+
+      const wasAlreadyConfirmed = privateSession.status === 'CONFIRMED' || privateSession.status === 'COMPLETED';
+
+      if (!wasAlreadyConfirmed && hours > (privateSession.enrollment?.remainingHours || 0)) {
+        return res.status(400).json({ success: false, message: 'الساعات المتبقية للطالب غير كافية' });
+      }
+
+      // Build structured notes with homework
+      let combinedNotes = notes ? notes.trim() : '';
+      if (homework && homework.trim()) {
+        combinedNotes = `[الواجب]: ${homework.trim()}${combinedNotes ? `\n${combinedNotes}` : ''}`;
+      }
+
+      // Calculate session payment amount
+      const subjectRate = privateSession.teacher?.subjectRates?.find(sr => sr.subjectId === privateSession.subjectId);
+      const hourlyRate = subjectRate?.hourlyRate || 0;
+      const sessionAmount = Math.round(hours * hourlyRate * 100) / 100;
+
+      const sessionDate = new Date(privateSession.scheduledAt);
+      const periodFrom = new Date(sessionDate.getFullYear(), sessionDate.getMonth(), 1);
+      const periodTo = new Date(sessionDate.getFullYear(), sessionDate.getMonth() + 1, 0, 23, 59, 59);
+
+      const [updated] = await prisma.$transaction(async (tx) => {
+        const upSess = await tx.educationSession.update({
+          where: { id: sessionId },
+          data: {
+            status: 'CONFIRMED',
+            actualDuration: duration,
+            topic: topic || privateSession.topic,
+            notes: combinedNotes || privateSession.notes
+          },
+          include: {
+            student: { select: { id: true, code: true, firstName: true, lastName: true } },
+            teacher: { select: { id: true, name: true } },
+            subject: { select: { id: true, name: true } }
+          }
+        });
+
+        if (!wasAlreadyConfirmed && privateSession.enrollmentId) {
+          await tx.educationEnrollment.update({
+            where: { id: privateSession.enrollmentId },
+            data: { remainingHours: { decrement: hours } }
+          });
+
+          const existingPayment = await tx.educationTeacherPayment.findFirst({
+            where: { companyId, teacherId, periodFrom, periodTo, status: 'PENDING' }
+          });
+
+          if (existingPayment) {
+            await tx.educationTeacherPayment.update({
+              where: { id: existingPayment.id },
+              data: {
+                totalSessions: { increment: 1 },
+                totalHours: { increment: Math.round(hours * 100) / 100 },
+                grossAmount: { increment: sessionAmount },
+                netAmount: { increment: sessionAmount }
+              }
+            });
+          } else {
+            await tx.educationTeacherPayment.create({
+              data: {
+                companyId,
+                teacherId,
+                periodFrom,
+                periodTo,
+                totalSessions: 1,
+                totalHours: Math.round(hours * 100) / 100,
+                hourlyRate,
+                grossAmount: sessionAmount,
+                deductions: 0,
+                netAmount: sessionAmount,
+                status: 'PENDING'
+              }
+            });
+          }
+        }
+
+        return [upSess];
+      });
+
+      // Notify parent
+      try {
+        const educationNotificationService = require('../services/educationNotificationService');
+        educationNotificationService.notifySessionConfirmed(companyId, sessionId).catch(e =>
+          console.warn('[TeacherPortal Complete Notify]', e.message)
+        );
+      } catch (ne) {}
+
+      return res.json({
+        success: true,
+        message: 'تم تسجيل تفاصيل الحصة وتأكيدها بنجاح',
+        data: updated
+      });
+    }
+
+    // 2. Check group session
+    const groupSessionRows = await prisma.$queryRawUnsafe(`
+      SELECT s.*, g.name AS "groupName", g."teacherId" AS "groupTeacherId"
+      FROM "education_group_sessions" s
+      JOIN "education_groups" g ON g.id = s."groupId" AND g."companyId" = s."companyId"
+      WHERE s.id = $1 AND s."companyId" = $2
+        AND (s."teacherId" = $3 OR g."teacherId" = $3)
+    `, sessionId, companyId, teacherId);
+
+    if (!groupSessionRows || groupSessionRows.length === 0) {
+      return res.status(404).json({ success: false, message: 'الحصة غير موجودة أو غير مسندة لك' });
+    }
+
+    const groupSession = groupSessionRows[0];
+
+    await prisma.$executeRawUnsafe(`
+      UPDATE "education_group_sessions"
+      SET 
+        "status" = 'COMPLETED',
+        "topic" = COALESCE($1, "topic"),
+        "homework" = COALESCE($2, "homework"),
+        "notes" = COALESCE($3, "notes")
+      WHERE id = $4 AND "companyId" = $5
+    `, topic || null, homework || null, notes || null, sessionId, companyId);
+
+    if (Array.isArray(attendanceList) && attendanceList.length > 0) {
+      await prisma.$executeRawUnsafe(`
+        DELETE FROM "education_group_attendance" WHERE "sessionId" = $1 AND "companyId" = $2
+      `, sessionId, companyId);
+
+      const crypto = require('crypto');
+      for (const item of attendanceList) {
+        if (!item || !item.studentId) continue;
+        const attId = `att_${crypto.randomBytes(8).toString('hex')}`;
+        await prisma.$executeRawUnsafe(`
+          INSERT INTO "education_group_attendance" (
+            "id", "companyId", "sessionId", "groupId", "studentId", "status", "notes", "createdAt"
+          ) VALUES (
+            $1, $2, $3, $4, $5, $6, $7, NOW()
+          )
+        `, attId, companyId, sessionId, groupSession.groupId, item.studentId, item.status || 'PRESENT', item.notes || null);
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: 'تم تسجيل تفاصيل المحاضرة الجماعية والحضور بنجاح'
+    });
+  } catch (error) {
+    console.error('[TeacherPortal] Complete session error:', error);
+    res.status(500).json({ success: false, message: error.message || 'حدث خطأ في تسجيل الحصة' });
+  }
+});
+
+// Fetch active students in a group (for taking attendance)
+router.get('/groups/:groupId/students', authenticateTeacherToken, async (req, res) => {
+  try {
+    const { id: teacherId, companyId } = req.teacher;
+    const { groupId } = req.params;
+    const prisma = getSharedPrismaClient();
+
+    const group = await prisma.$queryRawUnsafe(`
+      SELECT id, name, "teacherId" FROM "education_groups"
+      WHERE id = $1 AND "companyId" = $2
+    `, groupId, companyId);
+
+    if (!group || group.length === 0) {
+      return res.status(404).json({ success: false, message: 'المجموعة غير موجودة' });
+    }
+
+    const students = await prisma.$queryRawUnsafe(`
+      SELECT 
+        m.id AS "membershipId",
+        m.status AS "membershipStatus",
+        s.id,
+        s.code,
+        s."firstName",
+        s."lastName",
+        s.phone,
+        s.grade
+      FROM "education_group_members" m
+      INNER JOIN "education_students" s ON s.id = m."studentId" AND s."companyId" = m."companyId"
+      WHERE m."groupId" = $1 AND m."companyId" = $2 AND m.status = 'ACTIVE'
+      ORDER BY s."firstName" ASC
+    `, groupId, companyId);
+
+    res.json({ success: true, data: students });
+  } catch (error) {
+    console.error('[TeacherPortal] Group students error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في جلب طلاب المجموعة' });
+  }
+});
+
+// Fetch attendance records for a group session
+router.get('/groups/sessions/:sessionId/attendance', authenticateTeacherToken, async (req, res) => {
+  try {
+    const { companyId } = req.teacher;
+    const { sessionId } = req.params;
+    const prisma = getSharedPrismaClient();
+
+    const attendance = await prisma.$queryRawUnsafe(`
+      SELECT 
+        a.id,
+        a."studentId",
+        a.status,
+        a.notes,
+        s."firstName",
+        s."lastName"
+      FROM "education_group_attendance" a
+      INNER JOIN "education_students" s ON s.id = a."studentId" AND s."companyId" = a."companyId"
+      WHERE a."sessionId" = $1 AND a."companyId" = $2
+    `, sessionId, companyId);
+
+    res.json({ success: true, data: attendance });
+  } catch (error) {
+    console.error('[TeacherPortal] Session attendance error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في جلب سجل الحضور' });
+  }
+});
+
+// Teacher's students list (Both private enrollments and group members)
+router.get('/students', authenticateTeacherToken, async (req, res) => {
+  try {
+    const { id: teacherId, companyId } = req.teacher;
+    const prisma = getSharedPrismaClient();
+
+    const privateEnrollments = await prisma.educationEnrollment.findMany({
+      where: { teacherId, companyId, isActive: true },
+      include: {
+        student: { select: { id: true, code: true, firstName: true, lastName: true, phone: true, grade: true } },
+        package: { select: { id: true, name: true, hoursCount: true } }
+      }
+    });
+
+    const groupStudents = await prisma.$queryRawUnsafe(`
+      SELECT DISTINCT
+        s.id,
+        s.code,
+        s."firstName",
+        s."lastName",
+        s.phone,
+        s.grade,
+        g.name AS "groupName",
+        g.id AS "groupId"
+      FROM "education_group_members" m
+      INNER JOIN "education_groups" g ON g.id = m."groupId" AND g."companyId" = m."companyId"
+      INNER JOIN "education_students" s ON s.id = m."studentId" AND s."companyId" = m."companyId"
+      WHERE (g."teacherId" = $1 OR EXISTS (SELECT 1 FROM "education_group_sessions" gs WHERE gs."groupId" = g.id AND gs."teacherId" = $1))
+        AND m."companyId" = $2 AND m.status = 'ACTIVE'
+    `, teacherId, companyId);
+
+    res.json({
+      success: true,
+      data: {
+        privateStudents: privateEnrollments.map(e => ({
+          studentId: e.student?.id,
+          code: e.student?.code,
+          name: `${e.student?.firstName || ''} ${e.student?.lastName || ''}`.trim(),
+          phone: e.student?.phone,
+          grade: e.student?.grade,
+          packageName: e.package?.name,
+          remainingHours: e.remainingHours,
+          totalHours: e.totalHours,
+          enrollmentId: e.id,
+          type: 'PRIVATE'
+        })),
+        groupStudents: (groupStudents || []).map(g => ({
+          studentId: g.id,
+          code: g.code,
+          name: `${g.firstName || ''} ${g.lastName || ''}`.trim(),
+          phone: g.phone,
+          grade: g.grade,
+          groupName: g.groupName,
+          groupId: g.groupId,
+          type: 'GROUP'
+        }))
+      }
+    });
+  } catch (error) {
+    console.error('[TeacherPortal] Students error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في جلب بيانات الطلاب' });
   }
 });
 

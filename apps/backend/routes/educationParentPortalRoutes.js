@@ -79,11 +79,23 @@ router.get('/children/:studentId/sessions', authenticateParentToken, async (req,
       orderBy: { scheduledAt: 'desc' }
     });
 
-    const formattedPrivate = privateSessions.map((s) => ({
-      ...s,
-      sessionType: 'PRIVATE',
-      attendanceStatus: s.status === 'CONFIRMED' ? 'PRESENT' : (s.status === 'CANCELLED' ? 'CANCELLED' : 'SCHEDULED')
-    }));
+    const formattedPrivate = privateSessions.map((s) => {
+      let homework = null;
+      let cleanNotes = s.notes;
+      if (cleanNotes && cleanNotes.includes('[الواجب]:')) {
+        const parts = cleanNotes.split('[الواجب]:');
+        cleanNotes = parts[0].trim();
+        homework = parts[1].trim();
+      }
+      return {
+        ...s,
+        sessionType: 'PRIVATE',
+        attendanceStatus: s.status === 'CONFIRMED' ? 'PRESENT' : (s.status === 'CANCELLED' ? 'CANCELLED' : 'SCHEDULED'),
+        topic: s.topic || null,
+        homework: homework || null,
+        notes: cleanNotes || s.notes
+      };
+    });
 
     // Query group sessions for this student (attendance records + scheduled group sessions)
     let groupSessions = [];
@@ -94,6 +106,8 @@ router.get('/children/:studentId/sessions', authenticateParentToken, async (req,
           s."groupId",
           s."sessionDate" AS "scheduledAt",
           s."status" AS "sessionStatus",
+          s.topic,
+          s.homework,
           g.name AS "groupName",
           g.room,
           t.name AS "teacherName",
@@ -125,11 +139,14 @@ router.get('/children/:studentId/sessions', authenticateParentToken, async (req,
       groupId: gs.groupId,
       room: gs.room,
       scheduledAt: gs.scheduledAt,
+      plannedDuration: 90,
       status: gs.sessionStatus,
       attendanceStatus: gs.attendanceStatus || (gs.sessionStatus === 'SCHEDULED' ? 'SCHEDULED' : 'PENDING'),
       teacher: gs.teacherName ? { name: gs.teacherName } : null,
       subject: gs.subjectName ? { name: gs.subjectName } : null,
-      notes: gs.attendanceNotes
+      topic: gs.topic || null,
+      homework: gs.homework || null,
+      notes: gs.attendanceNotes || null
     }));
 
     const combined = [...formattedPrivate, ...formattedGroups].sort(
@@ -265,6 +282,156 @@ router.get('/dashboard', authenticateParentToken, async (req, res) => {
   } catch (error) {
     console.error('[ParentPortal] Dashboard error:', error);
     res.status(500).json({ success: false, message: 'حدث خطأ في جلب الإحصائيات' });
+  }
+});
+
+// Get teacher available slots for booking
+router.get('/teachers/:teacherId/availability', authenticateParentToken, async (req, res) => {
+  try {
+    const { teacherId } = req.params;
+    const companyId = req.parent.companyId;
+    const prisma = getSharedPrismaClient();
+
+    const slots = await prisma.educationTeacherAvailability.findMany({
+      where: { teacherId, companyId, isAvailable: true },
+      orderBy: [{ dayOfWeek: 'asc' }, { startTime: 'asc' }]
+    });
+
+    res.json({ success: true, data: slots });
+  } catch (error) {
+    console.error('[ParentPortal] Teacher availability error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في جلب مواعيد المعلم' });
+  }
+});
+
+// Self-service session booking by parent from their remaining hours
+router.post('/sessions/book', authenticateParentToken, async (req, res) => {
+  try {
+    const parentId = req.parent.id;
+    const companyId = req.parent.companyId;
+    const { studentId, enrollmentId, scheduledAt, plannedDuration, notes } = req.body;
+    const prisma = getSharedPrismaClient();
+
+    const student = await prisma.educationStudent.findFirst({
+      where: { id: studentId, customerId: parentId, companyId }
+    });
+    if (!student) return res.status(404).json({ success: false, message: 'الطالب غير موجود' });
+
+    const enrollment = await prisma.educationEnrollment.findFirst({
+      where: { id: enrollmentId, studentId, companyId, isActive: true },
+      include: {
+        package: { select: { id: true, subjectId: true, sessionDuration: true } },
+        teacher: { select: { id: true, name: true } }
+      }
+    });
+
+    if (!enrollment) {
+      return res.status(404).json({ success: false, message: 'الاشتراك / الباقة غير موجودة' });
+    }
+
+    const duration = Number(plannedDuration) || enrollment.package?.sessionDuration || 60;
+    const hours = duration / 60;
+
+    if (hours > enrollment.remainingHours) {
+      return res.status(400).json({
+        success: false,
+        message: `رصيد الساعات المتبقي (${enrollment.remainingHours} ساعة) غير كافٍ لحجز ${duration} دقيقة`
+      });
+    }
+
+    if (!enrollment.teacherId) {
+      return res.status(400).json({
+        success: false,
+        message: 'لم يتم تعيين معلم للباقة بعد، يرجى التواصل مع إدارة المركز'
+      });
+    }
+
+    const newSession = await prisma.educationSession.create({
+      data: {
+        companyId,
+        enrollmentId: enrollment.id,
+        teacherId: enrollment.teacherId,
+        studentId: student.id,
+        subjectId: enrollment.package.subjectId,
+        scheduledAt: new Date(scheduledAt),
+        plannedDuration: duration,
+        status: 'SCHEDULED',
+        sessionType: 'PRIVATE',
+        notes: notes ? `[حجز ذاتي من ولي الأمر]: ${notes}` : '[حجز ذاتي من ولي الأمر]'
+      },
+      include: {
+        student: { select: { firstName: true, lastName: true } },
+        teacher: { select: { name: true } },
+        subject: { select: { name: true } }
+      }
+    });
+
+    try {
+      const educationNotificationService = require('../services/educationNotificationService');
+      educationNotificationService.notifySessionScheduled(companyId, newSession).catch(e =>
+        console.warn('[ParentBookNotify]', e.message)
+      );
+    } catch (ne) {}
+
+    res.json({
+      success: true,
+      message: 'تم حجز الحصة بنجاح وإدراجها في الجدول',
+      data: newSession
+    });
+  } catch (error) {
+    console.error('[ParentPortal] Book session error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في حجز الحصة' });
+  }
+});
+
+// Parent requests rescheduling / excuse for a scheduled session
+router.post('/sessions/:id/request-reschedule', authenticateParentToken, async (req, res) => {
+  try {
+    const parentId = req.parent.id;
+    const companyId = req.parent.companyId;
+    const { id: sessionId } = req.params;
+    const { reason, requestedDate } = req.body;
+    const prisma = getSharedPrismaClient();
+
+    const session = await prisma.educationSession.findFirst({
+      where: {
+        id: sessionId,
+        companyId,
+        student: { customerId: parentId }
+      },
+      include: {
+        student: { select: { firstName: true, lastName: true } },
+        teacher: { select: { id: true, name: true } },
+        subject: { select: { name: true } }
+      }
+    });
+
+    if (!session) {
+      return res.status(404).json({ success: false, message: 'الحصة غير موجودة' });
+    }
+
+    if (session.status === 'CONFIRMED' || session.status === 'COMPLETED') {
+      return res.status(400).json({
+        success: false,
+        message: 'لا يمكن طلب تأجيل حصة تم تأكيدها أو انتهت بالفعل'
+      });
+    }
+
+    const rescheduleNote = `[طلب اعتذار/تأجيل من ولي الأمر]: ${reason || 'غير محدد'}${requestedDate ? ` | الموعد المقترح: ${requestedDate}` : ''}`;
+    const updatedNotes = session.notes ? `${session.notes}\n${rescheduleNote}` : rescheduleNote;
+
+    await prisma.educationSession.update({
+      where: { id: sessionId },
+      data: { notes: updatedNotes }
+    });
+
+    res.json({
+      success: true,
+      message: 'تم إرسال طلب الاعتذار والتأجيل بنجاح، سيتم مراجعته والتواصل معكم لتحديد الموعد البديل'
+    });
+  } catch (error) {
+    console.error('[ParentPortal] Reschedule request error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في تقديم طلب التأجيل' });
   }
 });
 
