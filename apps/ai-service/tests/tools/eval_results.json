@@ -1,0 +1,150 @@
+{
+  "queries": [
+    {
+      "id": "AR-1",
+      "lang": "AR",
+      "query": "سعر الذهب اليوم في مصر عيار 21",
+      "count": 3,
+      "title": "سعر الذهب اليوم في مصر لحظة بلحظة | آي صاغة iSagha",
+      "link": "https://market.isagha.com/prices",
+      "snippet": "تابع سعر الذهب اليوم في مصر لحظة بلحظة. تحديث مباشر لأسعار الذهب عيار 24 و21 و18 مع تحديثات مستمرة على مدار اليوم....",
+      "latency_ms": 690,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "AR-2",
+      "lang": "AR",
+      "query": "أهم المعالم السياحية في القاهرة",
+      "count": 3,
+      "title": "نرشدك خطوة بخطوة في أفضل 19 من الاماكن السياحية في القاهرة",
+      "link": "https://www.propertyfinder.eg/blog/%D8%A3%D9%81%D8%B6%D9%84-%D8%A7%D9%84%D8%A7%D9%85%D8%A7%D9%83%D9%86-%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%AD%D9%8A%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D9%82%D8%A7%D9%87%D8%B1%D8%A9/",
+      "snippet": "في هذا الدليل، ستجد أبرز الاماكن السياحية في القاهرة مع تفاصيل الأسعار والمواقع ، لتخطط زيارتك بسهولة وتستمتع بكل لحظة في واحدة من أكثر مدن ...",
+      "latency_ms": 634,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "AR-3",
+      "lang": "AR",
+      "query": "شروط تأسيس شركة في مصر 2026",
+      "count": 3,
+      "title": "خطوات تأسيس شركة في مصر 2026 | Ecpa",
+      "link": "https://ecpa-eg.com/ar/eg/articles/steps-to-establish-a-company-in-egypt-2026",
+      "snippet": "وتتمثل المراحل الأساسية لتأسيس أي شركة في الآتي: · تحديد الشكل القانوني: بناءً على عدد الشركاء وحجم رأس المال، يتم اختيار نوع الشركة. · استخ...",
+      "latency_ms": 674,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "AR-4",
+      "lang": "AR",
+      "query": "سعر الدولار مقابل الجنيه المصري اليوم في البنك الأهلي",
+      "count": 3,
+      "title": "جنيه مصري",
+      "link": "https://ar.wikipedia.org/wiki/جنيه_مصري",
+      "snippet": "جنيه مصري تعديل - تعديل مصدري - تعديل ويكي بيانات الجنيه المصري هو الوحدة الأساسية الحالية للعملة في مصر الصادرة عن البنك المركزي المصري. يس...",
+      "latency_ms": 1521,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "AR-5",
+      "lang": "AR",
+      "query": "مواصفات وسعر هاتف سامسونج S24 ألترا",
+      "count": 3,
+      "title": "سامسونج جالكسي تاب 4 7.0",
+      "link": "https://ar.wikipedia.org/wiki/سامسونج_جالكسي_تاب_4_7.0",
+      "snippet": "1.4 جيجا هرتز رباعي النواة الذاكرة: 1.5 جيجابايت التخزين: 8 جيجابايت سعر ومواصفات samsung Galaxy Tab 4 7.0 نسخة محفوظة 31 يوليو 2017 على موق...",
+      "latency_ms": 2623,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "EN-1",
+      "lang": "EN",
+      "query": "OpenAI GPT-4o release date and capabilities",
+      "count": 3,
+      "title": "OpenAI o1",
+      "link": "https://en.wikipedia.org/wiki/OpenAI_o1",
+      "snippet": "OpenAI o1 is a generative pre-trained transformer (GPT), the first in OpenAI&#039;s &quot;o&quot; series of reasoning models. A preview of o...",
+      "latency_ms": 882,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "EN-2",
+      "lang": "EN",
+      "query": "Nike Pegasus 41 running shoes specifications",
+      "count": 3,
+      "title": "Varvakeion Athena",
+      "link": "https://en.wikipedia.org/wiki/Varvakeion_Athena",
+      "snippet": "has three crests, the center sporting a sphinx and those on the sides a pegasus. Her left hand rests on the rim of a shield which also bears...",
+      "latency_ms": 2276,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "EN-3",
+      "lang": "EN",
+      "query": "Top e-commerce trends in Middle East 2026",
+      "count": 3,
+      "title": "E-commerce",
+      "link": "https://en.wikipedia.org/wiki/E-commerce",
+      "snippet": "users in the Arab countries has been rapid – 13.1% in 2015. A significant portion of the e-commerce market in the Middle East comprises peop...",
+      "latency_ms": 706,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "EN-4",
+      "lang": "EN",
+      "query": "Python 3.14 new features and performance",
+      "count": 3,
+      "title": "Python (programming language)",
+      "link": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "snippet": "2026[update], the Python Software Foundation supports Python 3.15.2, 3.14.10, 3.13.18, 3.12.16 and 3.11.18 that all were &quot;expedited sec...",
+      "latency_ms": 672,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    },
+    {
+      "id": "EN-5",
+      "lang": "EN",
+      "query": "FastAPI vs Express js performance benchmarks",
+      "count": 3,
+      "title": "Node.js",
+      "link": "https://en.wikipedia.org/wiki/Node.js",
+      "snippet": "Node.js is a cross-platform, open-source JavaScript runtime environment that can run on Windows, Linux, Unix, macOS, and more. Node.js runs ...",
+      "latency_ms": 580,
+      "verdict": "مفيد (Useful)",
+      "provider": "WebSearchEngine"
+    }
+  ],
+  "failure_tests": [
+    {
+      "case": "مزوّد واقع أو غير مستجيب (Provider / Host Timeout)",
+      "input": "https://198.51.100.1:81/test-timeout",
+      "expected_error": "TIMEOUT",
+      "actual_error": "TIMEOUT",
+      "success": true,
+      "message": "Request timed out"
+    },
+    {
+      "case": "استعلام بلا نتائج (Zero Search Results)",
+      "input": "zxvbnmasdfghjklqwertyuiop9876543210...",
+      "expected_count": 0,
+      "actual_count": 0,
+      "success": true,
+      "results_length": 0
+    },
+    {
+      "case": "صفحة محجوبة / اشتراك مدفوع (Paywalled Domain Rejection)",
+      "input": "https://www.wsj.com/articles/markets-today-exclusive-12345",
+      "expected_error": "PAYWALLED_OR_RESTRICTED",
+      "actual_error": "PAYWALLED_OR_RESTRICTED",
+      "success": true,
+      "message": "Domain 'www.wsj.com' is paywalled or restricted."
+    }
+  ]
+}

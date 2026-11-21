@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 try:
@@ -25,6 +25,44 @@ except ImportError:
 
 from src.services.queue_service import QueuePriority, queue_service
 
+# Cairo is UTC+2 (Standard Time)
+CAIRO_OFFSET_HOURS = 2
+
+
+def compute_next_run_at(
+    schedule_type: str = "INTERVAL",
+    interval_minutes: int = 30,
+    target_time: str | None = None,
+    tz_offset_hours: int = CAIRO_OFFSET_HOURS,
+    from_dt: datetime | None = None,
+) -> datetime:
+    """Compute the next run time in UTC.
+    
+    Supports:
+    - DAILY at HH:MM (e.g. 14:00 Africa/Cairo): Computes exact next occurrence.
+    - INTERVAL: Adds interval_minutes to from_dt.
+    """
+    tz = timezone(timedelta(hours=tz_offset_hours))
+    from_dt = from_dt or datetime.now(timezone.utc)
+
+    if schedule_type.upper() == "DAILY" and target_time:
+        try:
+            parts = target_time.strip().split(":")
+            target_h = int(parts[0])
+            target_m = int(parts[1])
+            local_now = from_dt.astimezone(tz)
+            today_target = local_now.replace(hour=target_h, minute=target_m, second=0, microsecond=0)
+            if today_target > local_now:
+                next_run = today_target
+            else:
+                next_run = today_target + timedelta(days=1)
+            return next_run.astimezone(timezone.utc)
+        except Exception as e:
+            logger.warning("target_time_parse_failed", target_time=target_time, error=str(e))
+            return from_dt + timedelta(minutes=interval_minutes)
+    else:
+        return from_dt + timedelta(minutes=max(interval_minutes, 1))
+
 
 async def _ensure_session():
     try:
@@ -42,7 +80,38 @@ async def tick_scheduler(limit: int = 20) -> list[str]:
     token = str(uuid.uuid4())
     enqueued_schedule_ids: list[str] = []
 
-    stmt = text("""
+    # Primary daily-aware statement
+    stmt_daily = text("""
+        WITH due AS (
+          SELECT id FROM ai_agent_schedules
+          WHERE enabled = true AND "nextRunAt" <= now()
+            AND ("lockExpiresAt" IS NULL OR "lockExpiresAt" < now())
+          ORDER BY "nextRunAt" ASC
+          LIMIT :limit
+          FOR UPDATE SKIP LOCKED
+        )
+        UPDATE ai_agent_schedules s
+        SET "lockToken" = :lock_token,
+            "lockExpiresAt" = now() + interval '120 seconds',
+            "nextRunAt" = CASE 
+                WHEN s."scheduleType" = 'DAILY' AND s."targetTime" IS NOT NULL THEN
+                  CASE
+                    WHEN (date_trunc('day', now() AT TIME ZONE coalesce(s.timezone, 'Africa/Cairo')) + (s."targetTime" || ':00')::time) AT TIME ZONE coalesce(s.timezone, 'Africa/Cairo') > now()
+                    THEN (date_trunc('day', now() AT TIME ZONE coalesce(s.timezone, 'Africa/Cairo')) + (s."targetTime" || ':00')::time) AT TIME ZONE coalesce(s.timezone, 'Africa/Cairo')
+                    ELSE (date_trunc('day', now() AT TIME ZONE coalesce(s.timezone, 'Africa/Cairo')) + interval '1 day' + (s."targetTime" || ':00')::time) AT TIME ZONE coalesce(s.timezone, 'Africa/Cairo')
+                  END
+                ELSE
+                  now() + (s."intervalMinutes" || ' minutes')::interval
+            END,
+            "lastRunAt" = now(),
+            "lastStatus" = 'ENQUEUED',
+            "updatedAt" = now()
+        FROM due WHERE s.id = due.id
+        RETURNING s.*;
+    """)
+
+    # Fallback legacy statement (if scheduleType column does not yet exist)
+    stmt_legacy = text("""
         WITH due AS (
           SELECT id FROM ai_agent_schedules
           WHERE enabled = true AND "nextRunAt" <= now()
@@ -62,12 +131,22 @@ async def tick_scheduler(limit: int = 20) -> list[str]:
         RETURNING s.*;
     """)
 
+    rows = []
     try:
         session = await _ensure_session()
         async with session:
-            res = await session.execute(stmt, {"lock_token": token, "limit": limit})
-            rows = res.mappings().all()
-            await session.commit()
+            try:
+                res = await session.execute(stmt_daily, {"lock_token": token, "limit": limit})
+                rows = res.mappings().all()
+                await session.commit()
+            except Exception as e:
+                # If column scheduleType does not exist, retry with legacy
+                if "scheduleType" in str(e):
+                    res = await session.execute(stmt_legacy, {"lock_token": token, "limit": limit})
+                    rows = res.mappings().all()
+                    await session.commit()
+                else:
+                    raise
     except Exception as exc:
         logger.warning("scheduler_claim_query_failed", error=str(exc))
         return []
@@ -77,6 +156,9 @@ async def tick_scheduler(limit: int = 20) -> list[str]:
         company_id = row.get("companyId")
         agent_id = row.get("agentId")
         task_type = row.get("taskType") or "GENERAL"
+        schedule_type = row.get("scheduleType") or "INTERVAL"
+        target_time = row.get("targetTime")
+        tz_name = row.get("timezone") or "Africa/Cairo"
 
         raw_context = row.get("context")
         if isinstance(raw_context, str):
@@ -101,6 +183,9 @@ async def tick_scheduler(limit: int = 20) -> list[str]:
             "agent_id": agent_id,
             "type": task_type,
             "schedule_id": schedule_id,
+            "schedule_type": schedule_type,
+            "target_time": target_time,
+            "timezone": tz_name,
             "task_id": task_id,
             "context": context,
         }

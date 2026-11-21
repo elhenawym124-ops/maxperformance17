@@ -4,7 +4,20 @@ import importlib
 import pkgutil
 from typing import Any
 
-from agent_framework import FunctionInvocationContext, FunctionTool
+try:
+    from agent_framework import FunctionInvocationContext, FunctionTool
+except ImportError:
+    class FunctionInvocationContext:  # type: ignore
+        pass
+
+    class FunctionTool:  # type: ignore
+        def __init__(self, name: str, description: str, func: Any, input_model: Any = None, **kwargs: Any):
+            self.name = name
+            self.description = description
+            self.func = func
+            self.input_model = input_model
+            self.approval_mode = kwargs.get("approval_mode", "never_require")
+
 
 from src.mcp_integration.registry import get_mcp_registry
 from src.skills.integration import SKILL_TOOLS, get_skill_tool_names
@@ -144,6 +157,8 @@ READ_TOOL_NAMES: set[str] = (CORE_TOOL_NAMES | ADVANCED_TOOL_NAMES | {
     "delayed_orders_check",
     "shipment_track",
     "courier_status",
+    "web_search",
+    "web_fetch",
 }) - GATED_CORE_TOOL_NAMES
 
 
@@ -396,8 +411,14 @@ inventory_variant_stock_scan_tool = _registry.resolve("inventory_variant_stock_s
 inventory_burn_rate_forecast_tool = _registry.resolve("inventory_burn_rate_forecast")
 support_ticket_link_tool = _registry.resolve("support_ticket_link")
 help_guide_tool = _registry.resolve("help_guide")
+web_search_tool = _registry.resolve("web_search")
+web_fetch_tool = _registry.resolve("web_fetch")
 
 # Backward-compatible re-exports of Input models from definitions modules.
+from src.tools.definitions.web import (  # noqa: E402 F401
+    WebSearchInput,
+    WebFetchInput,
+)
 from src.tools.definitions.targets import (  # noqa: E402 F401
     OrderTargetSettingsInput,
     OrderTargetProgressInput,

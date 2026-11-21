@@ -950,6 +950,19 @@ async def handle_scheduled_agent_task(job: dict[str, Any]) -> None:
 
     logger.info("executing scheduled agent task", company_id=company_id, type=task_type, job_id=job_id, task_id=task_id)
 
+    # 1. Dedicated Handler for Daily Executive Briefing
+    if task_type in ("DAILY_BRIEFING", "DAILY_REPORT"):
+        from src.services.daily_report_service import DailyReportService
+        res = await DailyReportService.run_daily_briefing(
+            company_id=company_id,
+            schedule_id=schedule_id,
+            agent_id=agent_id,
+            task_id=task_id,
+            context=task_context,
+        )
+        logger.info("daily_briefing_completed", company_id=company_id, status=res.get("status"))
+        return
+
     try:
         from sqlalchemy import select, text
     except ImportError:
@@ -1057,6 +1070,26 @@ async def handle_scheduled_agent_task(job: dict[str, Any]) -> None:
                     "metadata": json.dumps({"jobId": job_id, "action": action, "scheduleId": schedule_id}),
                 },
             )
+
+            # 4. Release schedule lock and update telemetry
+            if schedule_id:
+                try:
+                    await session.execute(
+                        text("""
+                            UPDATE ai_agent_schedules
+                            SET "lastStatus" = :status,
+                                "lastTaskId" = :task_id,
+                                "lockToken" = NULL,
+                                "lockExpiresAt" = NULL,
+                                "successCount" = COALESCE("successCount", 0) + 1,
+                                "updatedAt" = NOW()
+                            WHERE id = :sid
+                        """),
+                        {"status": status, "task_id": task_id, "sid": schedule_id},
+                    )
+                except Exception:
+                    pass
+
             await session.commit()
 
         logger.info("scheduled agent task completed", company_id=company_id, type=task_type, status=status)
@@ -1081,6 +1114,24 @@ async def handle_scheduled_agent_task(job: dict[str, Any]) -> None:
                 error=str(exc),
                 provider_used="scheduled_worker",
             )
+            if schedule_id:
+                try:
+                    await session.execute(
+                        text("""
+                            UPDATE ai_agent_schedules
+                            SET "lastStatus" = 'FAILED',
+                                "lastTaskId" = :task_id,
+                                "lastError" = :err,
+                                "lockToken" = NULL,
+                                "lockExpiresAt" = NULL,
+                                "failureCount" = COALESCE("failureCount", 0) + 1,
+                                "updatedAt" = NOW()
+                            WHERE id = :sid
+                        """),
+                        {"sid": schedule_id, "task_id": task_id, "err": str(exc)[:500]},
+                    )
+                except Exception:
+                    pass
             await session.commit()
 
 

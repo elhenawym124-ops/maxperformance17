@@ -460,13 +460,19 @@ model AiAgentSchedule {
   id              String    @id @default(cuid())
   companyId       String
   agentId         String
-  taskType        String    // SHIPPING | STOCK_TARGET_MONITOR | ...
+  taskType        String    // SHIPPING | STOCK_TARGET_MONITOR | DAILY_BRIEFING | ...
+  scheduleType    String    @default("INTERVAL") // INTERVAL | DAILY | CRON
+  targetTime      String?   // HH:MM e.g. "09:00", "14:00" (Africa/Cairo)
+  cronExpr        String?   // optional cron expression e.g. "0 14 * * *"
   intervalMinutes Int       @default(30)
   enabled         Boolean   @default(false)
   timezone        String    @default("Africa/Cairo")
   nextRunAt       DateTime  @default(now())
   lastRunAt       DateTime?
   lastStatus      String?
+  lastError       String?   @db.Text
+  failureCount    Int       @default(0)
+  successCount    Int       @default(0)
   lastTaskId      String?
   lockToken       String?
   lockExpiresAt   DateTime?

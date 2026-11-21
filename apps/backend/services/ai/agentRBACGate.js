@@ -74,6 +74,20 @@ const TOOL_PERMISSION_MAP = {
     requiresApproval: false,
     description: 'قراءة سياسات الشحن والإرجاع والمواعيد المعتمدة',
   },
+  'web.search': {
+    permissionKey: 'dashboard.view',
+    sideEffects: 'read',
+    riskLevel: 'LOW',
+    requiresApproval: false,
+    description: 'البحث المباشر على الإنترنت عن معلومات وأسعار ومراجع حية',
+  },
+  'web.fetch': {
+    permissionKey: 'dashboard.view',
+    sideEffects: 'read',
+    riskLevel: 'LOW',
+    requiresApproval: false,
+    description: 'قراءة واستخراج محتوى صفحات الويب مع التحقق من الأمان و robots.txt',
+  },
 
   // ── Phase 2 & 3: Guarded Write & Financial Tools (Require Human Sign-Off) ──
   'orders.create_draft': {

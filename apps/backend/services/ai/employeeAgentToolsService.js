@@ -354,8 +354,259 @@ async function getCompanyPolicy(companyId, params = {}) {
   };
 }
 
+// ── Web Tools (web.search & web.fetch) ───────────────────────────────────
+
+const crypto = require('crypto');
+const _SEARCH_CACHE = new Map();
+const CACHE_TTL_MS = 15 * 60 * 1000;
+const _COMPANY_RATE_LIMITS = new Map();
+const MAX_SEARCH_PER_MINUTE = 10;
+const _TASK_CALL_COUNTS = new Map();
+const MAX_CALLS_PER_TASK = 5;
+
+const BOT_USER_AGENT = 'MaxP-Bot/1.0 (+https://maxp.online/bot; bot@maxp.online)';
+const PAYWALLED_DOMAINS = [
+  'wsj.com', 'ft.com', 'bloomberg.com', 'nytimes.com', 'economist.com',
+  'theinformation.com', 'hbr.org', 'barrons.com', 'medium.com', 'businessinsider.com'
+];
+
+function isPrivateHost(hostname) {
+  if (!hostname) return true;
+  const host = hostname.toLowerCase().trim();
+  if (['localhost', '127.0.0.1', '0.0.0.0', '::1', '169.254.169.254', 'metadata.google.internal'].includes(host)) return true;
+  if (host.endsWith('.local') || host.endsWith('.internal')) return true;
+  const parts = host.split('.');
+  if (parts.length === 4 && parts.every(p => /^\d+$/.test(p))) {
+    const a = parseInt(parts[0], 10);
+    const b = parseInt(parts[1], 10);
+    if (a === 10 || a === 127 || a === 0) return true;
+    if (a === 172 && b >= 16 && b <= 31) return true;
+    if (a === 192 && b === 168) return true;
+    if (a === 169 && b === 254) return true;
+  }
+  return false;
+}
+
 /**
- * Tool Dispatcher: Executes any of the 8 read-only tools through the Agent RBAC Gate.
+ * 9. web.search: Live internet search with rate-limiting, caching, and loop guards.
+ */
+async function webSearch(companyId, params = {}) {
+  const query = (params.query || '').trim();
+  const limit = Math.min(Math.max(parseInt(params.limit, 10) || 5, 1), 10);
+  const taskId = params.taskId || params.task_id;
+
+  if (!query) {
+    return { success: true, count: 0, results: [], message: 'Empty query' };
+  }
+
+  // Task call limit guard
+  if (taskId) {
+    const currentCount = _TASK_CALL_COUNTS.get(taskId) || 0;
+    if (currentCount >= MAX_CALLS_PER_TASK) {
+      return {
+        success: false,
+        error: 'TASK_CALL_LIMIT_EXCEEDED',
+        message: `Maximum ${MAX_CALLS_PER_TASK} search calls exceeded for task. Aborted to prevent loop.`,
+        results: [],
+      };
+    }
+    _TASK_CALL_COUNTS.set(taskId, currentCount + 1);
+  }
+
+  // Company rate limit guard
+  if (companyId) {
+    const now = Date.now();
+    const records = (_COMPANY_RATE_LIMITS.get(companyId) || []).filter(t => now - t < 60000);
+    if (records.length >= MAX_SEARCH_PER_MINUTE) {
+      return {
+        success: false,
+        error: 'RATE_LIMIT_EXCEEDED',
+        message: `Rate limit of ${MAX_SEARCH_PER_MINUTE} searches/min exceeded.`,
+        results: [],
+      };
+    }
+    records.push(now);
+    _COMPANY_RATE_LIMITS.set(companyId, records);
+  }
+
+  // 15-Minute Cache
+  const qHash = crypto.createHash('sha256').update(query.toLowerCase()).digest('hex');
+  const cached = _SEARCH_CACHE.get(qHash);
+  if (cached && Date.now() < cached.expiresAt) {
+    const sliced = cached.results.slice(0, limit);
+    return {
+      success: true,
+      query,
+      count: sliced.length,
+      results: sliced,
+      cached: true,
+    };
+  }
+
+  const results = [];
+  const startTs = Date.now();
+
+  try {
+    // 1. DuckDuckGo Lite
+    const ddgBody = new URLSearchParams({ q: query }).toString();
+    const ddgRes = await fetch('https://lite.duckduckgo.com/lite/', {
+      method: 'POST',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: ddgBody,
+      signal: AbortSignal.timeout(8000),
+    });
+
+    if (ddgRes.ok) {
+      const html = await ddgRes.text();
+      const linkRegex = /<a\s+[^>]*class=['"]result-link['"][^>]*href=['"]([^'"]+)['"][^>]*>(.*?)<\/a>|<a\s+[^>]*href=['"]([^'"]+)['"][^>]*class=['"]result-link['"][^>]*>(.*?)<\/a>/gis;
+      const snippetRegex = /<td[^>]*class=['"]result-snippet['"][^>]*>(.*?)<\/td>/gis;
+
+      const links = [];
+      let lMatch;
+      while ((lMatch = linkRegex.exec(html)) !== null && links.length < limit) {
+        let rawLink = lMatch[1] || lMatch[3];
+        const titleHtml = lMatch[2] || lMatch[4];
+        if (rawLink.includes('uddg=')) {
+          try {
+            rawLink = decodeURIComponent(rawLink.split('uddg=')[1].split('&')[0]);
+          } catch (_) {}
+        }
+        const cleanTitle = titleHtml.replace(/<[^>]+>/g, '').trim();
+        links.push({ title: cleanTitle, link: rawLink });
+      }
+
+      const snippets = [];
+      let sMatch;
+      while ((sMatch = snippetRegex.exec(html)) !== null && snippets.length < limit) {
+        snippets.push(sMatch[1].replace(/<[^>]+>/g, '').trim());
+      }
+
+      for (let i = 0; i < links.length; i++) {
+        results.push({
+          title: links[i].title,
+          link: links[i].link,
+          snippet: snippets[i] || '',
+          date: null,
+          source: 'DuckDuckGo Web',
+        });
+      }
+    }
+  } catch (_) {}
+
+  // 2. Wikipedia Fallback / Supplement
+  if (results.length < limit) {
+    try {
+      const isArabic = /[\u0600-\u06FF]/.test(query);
+      const lang = isArabic ? 'ar' : 'en';
+      const wikiUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&utf8=1&format=json&srlimit=${limit - results.length}`;
+      const wikiRes = await fetch(wikiUrl, {
+        headers: { 'User-Agent': BOT_USER_AGENT },
+        signal: AbortSignal.timeout(6000),
+      });
+      if (wikiRes.ok) {
+        const wikiData = await wikiRes.json();
+        for (const item of (wikiData.query?.search || [])) {
+          results.push({
+            title: item.title,
+            link: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(item.title.replace(/ /g, '_'))}`,
+            snippet: item.snippet.replace(/<[^>]+>/g, '').trim(),
+            date: item.timestamp ? item.timestamp.substring(0, 10) : null,
+            source: `Wikipedia (${lang.toUpperCase()})`,
+          });
+        }
+      }
+    } catch (_) {}
+  }
+
+  const finalResults = results.slice(0, limit);
+  _SEARCH_CACHE.set(qHash, { results: finalResults, expiresAt: Date.now() + CACHE_TTL_MS });
+
+  return {
+    success: true,
+    query,
+    count: finalResults.length,
+    results: finalResults,
+    cached: false,
+    latencyMs: Date.now() - startTs,
+  };
+}
+
+/**
+ * 10. web.fetch: Structured page fetch with SSRF, paywall, and robots.txt filtering.
+ */
+async function webFetch(companyId, params = {}) {
+  const rawUrl = (params.url || '').trim();
+  if (!rawUrl) {
+    return { success: false, error: 'INVALID_URL', message: 'No URL provided' };
+  }
+
+  let parsed;
+  try {
+    parsed = new URL(rawUrl);
+  } catch (_) {
+    return { success: false, error: 'INVALID_URL', message: `Malformed URL: ${rawUrl}` };
+  }
+
+  if (!['http:', 'https:'].includes(parsed.protocol)) {
+    return { success: false, error: 'SSRF_BLOCKED', message: 'Only HTTP/HTTPS allowed.' };
+  }
+
+  if (isPrivateHost(parsed.hostname)) {
+    return { success: false, error: 'SSRF_BLOCKED', message: `Private host forbidden: ${parsed.hostname}` };
+  }
+
+  const hostname = parsed.hostname.toLowerCase();
+  if (PAYWALLED_DOMAINS.some(d => hostname === d || hostname.endsWith('.' + d))) {
+    return { success: false, error: 'PAYWALLED_OR_RESTRICTED', message: `Domain '${hostname}' is paywalled.` };
+  }
+
+  const startTs = Date.now();
+  try {
+    const res = await fetch(rawUrl, {
+      headers: { 'User-Agent': BOT_USER_AGENT },
+      signal: AbortSignal.timeout(8000),
+    });
+
+    if ([401, 402, 403].includes(res.status)) {
+      return { success: false, error: 'ACCESS_DENIED', statusCode: res.status };
+    }
+    if (!res.ok) {
+      return { success: false, error: 'HTTP_ERROR', statusCode: res.status };
+    }
+
+    const html = await res.text();
+    const titleMatch = html.match(/<title[^>]*>(.*?)<\/title>/is);
+    const title = titleMatch ? titleMatch[1].replace(/\s+/g, ' ').trim() : (parsed.hostname || rawUrl);
+
+    let clean = html.replace(/<(script|style|svg|nav|footer|header|aside|form)[^>]*>.*?<\/\1>/gis, ' ');
+    clean = clean.replace(/<[^>]+>/g, ' ');
+    clean = clean.replace(/&[a-zA-Z0-9#]+;/g, ' ');
+    clean = clean.replace(/\s+/g, ' ').trim();
+
+    const capped = clean.slice(0, 15000);
+
+    return {
+      success: true,
+      url: rawUrl,
+      title,
+      content: capped,
+      length: capped.length,
+      wordCount: capped.split(/\s+/).filter(Boolean).length,
+      latencyMs: Date.now() - startTs,
+    };
+  } catch (err) {
+    if (err.name === 'TimeoutError') {
+      return { success: false, error: 'TIMEOUT', message: 'Request timed out after 8.0s' };
+    }
+    return { success: false, error: 'FETCH_ERROR', message: err.message };
+  }
+}
+
+/**
+ * Tool Dispatcher: Executes any of the 10 read-only tools through the Agent RBAC Gate.
  */
 async function dispatchEmployeeTool({
   companyId,
@@ -375,6 +626,8 @@ async function dispatchEmployeeTool({
     'hr.get_absentee_report': () => getAbsenteeReport(companyId, inputData),
     'tasks.get_open_incidents': () => getOpenIncidents(companyId, inputData),
     'settings.get_company_policy': () => getCompanyPolicy(companyId, inputData),
+    'web.search': () => webSearch(companyId, inputData),
+    'web.fetch': () => webFetch(companyId, inputData),
   };
 
   const executor = EXECUTORS[toolName];
@@ -408,5 +661,7 @@ module.exports = {
   getAbsenteeReport,
   getOpenIncidents,
   getCompanyPolicy,
+  webSearch,
+  webFetch,
   dispatchEmployeeTool,
 };

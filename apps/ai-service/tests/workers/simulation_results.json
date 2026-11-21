@@ -1,0 +1,65 @@
+{
+  "computation": {
+    "target": "14:00",
+    "next_run_1": "2026-11-21T12:00:00+00:00",
+    "next_run_2": "2026-11-22T12:00:00+00:00"
+  },
+  "run1": {
+    "success": true,
+    "status": "SUCCESS",
+    "date": "2026-11-21",
+    "summary": "📊 *التقرير التنفيذي اليومي — RedLine Store (Test)*\n📅 *التاريخ:* 2026-11-21 (توقيت القاهرة)\n────────────────────────\n• *عدد الطلبات اليوم:* 47 طلب\n• *إجمالي المبيعات:* 32,850.00 ج.م\n• *متوسط قيمة الطلب (AOV):* 698.94 ج.م\n• *الطلبات المسلّمة:* 0 | *قيد المعالجة:* 0\n• *المحادثات والتواصل الجديد:* 0 محادثة\n• *تنبيهات نواقص المخزون:* 0 منتج\n────────────────────────\n📌 *الحالة التشغيلية:* منضبطة وتعمل بكفاءة",
+    "metrics": {
+      "total_orders": 47,
+      "gross_sales": 32850.0,
+      "delivered_orders": 0,
+      "pending_orders": 0,
+      "leads_count": 0,
+      "aov": 698.94
+    },
+    "channel": "INTERNAL",
+    "delivery": {
+      "channel": "INTERNAL",
+      "outbox_id": "ca9c9e6d-646b-4192-9ad7-679c4c5b8ad2",
+      "status": "DELIVERED"
+    },
+    "latency_ms": 3
+  },
+  "run2": {
+    "success": true,
+    "status": "SUCCESS",
+    "date": "2026-11-22",
+    "summary": "📊 *التقرير التنفيذي اليومي — RedLine Store (Test)*\n📅 *التاريخ:* 2026-11-22 (توقيت القاهرة)\n────────────────────────\n• *عدد الطلبات اليوم:* 59 طلب\n• *إجمالي المبيعات:* 41,200.00 ج.م\n• *متوسط قيمة الطلب (AOV):* 698.31 ج.م\n• *الطلبات المسلّمة:* 0 | *قيد المعالجة:* 0\n• *المحادثات والتواصل الجديد:* 0 محادثة\n• *تنبيهات نواقص المخزون:* 0 منتج\n────────────────────────\n📌 *الحالة التشغيلية:* منضبطة وتعمل بكفاءة",
+    "metrics": {
+      "total_orders": 59,
+      "gross_sales": 41200.0,
+      "delivered_orders": 0,
+      "pending_orders": 0,
+      "leads_count": 0,
+      "aov": 698.31
+    },
+    "channel": "INTERNAL",
+    "delivery": {
+      "channel": "INTERNAL",
+      "outbox_id": "e04511f3-4c23-4d4d-a55f-e2f69f7d4be2",
+      "status": "DELIVERED"
+    },
+    "latency_ms": 0
+  },
+  "idempotency": {
+    "success": true,
+    "status": "SKIPPED_ALREADY_SENT",
+    "message": "Daily briefing for 2026-11-21 already sent today.",
+    "company_id": "comp_redline"
+  },
+  "concurrency_lock": {
+    "claimed_jobs": [],
+    "locked": true
+  },
+  "failure_alert": {
+    "success": false,
+    "status": "FAILED",
+    "error": "Database connection timeout during metric aggregation",
+    "company_id": "comp_redline"
+  }
+}
