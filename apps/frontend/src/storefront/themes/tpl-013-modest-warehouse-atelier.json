@@ -257,7 +257,7 @@
           "type": "filters-sidebar"
         },
         {
-          "type": "shop-product-grid",
+          "type": "product-grid",
           "variant": "warehouse-wholesale"
         },
         {
