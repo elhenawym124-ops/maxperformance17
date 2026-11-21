@@ -6165,6 +6165,12 @@ const AppContent = () => {
                 />
                 {/* Wholesale Routes */}
                 <Route
+                  path="/wholesale"
+                  element={
+                    <Navigate to="/wholesale/dashboard" replace />
+                  }
+                />
+                <Route
                   path="/wholesale/dashboard"
                   element={
                     <Layout>
