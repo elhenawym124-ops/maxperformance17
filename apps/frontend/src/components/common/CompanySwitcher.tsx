@@ -78,7 +78,7 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
     }
   };
 
-  const renderCompanyOption = (company: UserCompany, mobile = false) => {
+  const renderCompanyOption = (company: UserCompany) => {
     const isCurrent = company.id === currentCompany?.id || company.isCurrent;
 
     return (
@@ -87,25 +87,10 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
         type="button"
         onClick={() => handleSwitchCompany(company.id)}
         disabled={isSwitchingCompany}
-        className={`w-full flex items-center justify-between gap-3 text-right rounded-lg transition-colors disabled:opacity-50 ${
-          isCurrent
-            ? "bg-muted/60 text-foreground"
-            : "text-foreground hover:bg-muted/50"
-        } ${mobile ? "px-3 py-2.5" : "px-2.5 py-2"}`}
+        title={getRoleLabel(company.role)}
+        className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-start text-[13px] font-medium text-foreground transition-colors hover:bg-muted/60 active:scale-[.985] disabled:opacity-50"
       >
-        <div className="min-w-0 flex-1">
-          <p
-            className={`truncate font-medium text-foreground ${
-              mobile ? "text-sm" : "text-[13px]"
-            }`}
-          >
-            {company.name}
-          </p>
-          <p className="mt-0.5 text-[11px] text-muted-foreground">
-            {getRoleLabel(company.role)}
-          </p>
-        </div>
-
+        <span className="min-w-0 flex-1 truncate">{company.name}</span>
         {isCurrent ? <Check className="size-4 shrink-0 text-primary" /> : null}
       </button>
     );
@@ -163,7 +148,7 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
           <div
             className={`max-h-[60vh] overflow-y-auto p-1.5 ${quietScrollbar}`}
           >
-            {companies.map((company) => renderCompanyOption(company, true))}
+            {companies.map((company) => renderCompanyOption(company))}
             {user?.role === 'SUPER_ADMIN' && (
               <div className="border-t border-border/60 p-3">
                 <Link
@@ -190,21 +175,14 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
         disabled={isSwitchingCompany}
         aria-expanded={isOpen}
         aria-haspopup="menu"
-        className={`flex w-full items-center gap-2.5 rounded-lg border bg-card px-3 py-2 text-right transition-all disabled:opacity-50 ${
-          isOpen
-            ? "border-primary shadow-xs"
-            : "border-border/70 hover:border-border hover:bg-muted/30"
-        }`}
+        aria-label={`تبديل الشركة: ${currentCompany?.name || ""}`}
+        className="flex h-8 w-full items-center gap-1.5 rounded-lg border border-border/70 bg-card px-2 text-right transition-all hover:bg-muted/40 active:scale-[.97] disabled:opacity-50"
       >
-        <span className="flex items-center justify-center rounded-md bg-primary/10 p-1.5 text-primary">
-          <ArrowLeftRight className="size-3.5" />
-        </span>
-
-        <span className="flex-1 truncate text-xs font-semibold text-foreground">
+        <span className="min-w-0 flex-1 truncate text-[12.5px] font-semibold text-foreground">
           {currentCompany?.name || "الشركة"}
         </span>
 
-        <span className="shrink-0 rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground font-mono tabular-nums">
+        <span className="inline-flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-md bg-primary/10 px-1 text-[10.5px] font-semibold text-primary font-mono tabular-nums">
           {companies.length}
         </span>
 
@@ -220,21 +198,18 @@ const CompanySwitcher: React.FC<CompanySwitcherProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute inset-x-0 top-full z-50 mt-1.5 overflow-hidden rounded-xl border border-border/70 bg-card shadow-lg animate-in fade-in zoom-in-95 duration-100">
-          <p className="px-3 pt-2.5 pb-1.5 text-[11px] font-semibold text-muted-foreground">
-            اختر الشركة
-          </p>
-          <div className={`max-h-64 overflow-y-auto p-1 ${quietScrollbar}`}>
+        <div className="absolute start-0 top-full z-50 mt-2 w-[232px] rounded-xl border border-border/70 bg-card p-1.5 shadow-[0_1px_2px_rgba(26,26,26,0.06),0_8px_24px_rgba(26,26,26,0.14)] before:absolute before:-top-1 before:start-[22px] before:h-2 before:w-2 before:-rotate-45 before:border-s before:border-t before:border-border before:bg-card animate-in fade-in zoom-in-95 duration-100">
+          <div className={`flex max-h-[300px] flex-col gap-px overflow-y-auto ${quietScrollbar}`}>
             {companies.map((company) => renderCompanyOption(company))}
           </div>
           {user?.role === 'SUPER_ADMIN' && (
-            <div className="p-2 border-t border-border/60">
+            <div className="mt-1 border-t border-border/60 pt-1">
               <Link
                 to="/super-admin/companies-v2"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-between rounded-lg bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 text-[11px] font-semibold text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 transition-all no-underline"
+                className="flex items-center justify-between rounded-lg bg-amber-500/10 border border-amber-500/20 px-2 py-1.5 text-[11px] font-semibold text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 transition-all no-underline"
               >
-                <span>إدارة جميع شركات المنصة (Super Admin)</span>
+                <span>إدارة جميع شركات المنصة</span>
                 <Zap className="size-3" />
               </Link>
             </div>

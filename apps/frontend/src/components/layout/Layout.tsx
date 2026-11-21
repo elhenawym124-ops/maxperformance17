@@ -2,17 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import {
   Bars3Icon,
-  ChevronDownIcon,
   MagnifyingGlassIcon,
   XMarkIcon,
   UsersIcon,
   BuildingStorefrontIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
-  ArrowRightOnRectangleIcon,
   ShieldCheckIcon,
-  BookOpenIcon,
-  CpuChipIcon,
 } from "@heroicons/react/24/outline";
 import { Cpu } from "lucide-react";
 import { MerchantCopilotHost, toggleMerchantCopilot } from "../merchant-copilot";
@@ -593,22 +587,16 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
         className={`business-shell-profile-button ${
           isMobile ? "business-shell-profile-button--compact" : ""
         }`.trim()}
+        style={{ borderRadius: 8, padding: 4 }}
         aria-label={
           initials
             ? `${t("sidebar.profile")} ${initials}`
             : t("sidebar.profile")
         }
       >
-        <div className="business-shell-avatar">{initials || "MP"}</div>
-        {!isMobile ? (
-          <div className="business-shell-profile-text">
-            <span>{user?.firstName || t("sidebar.profile")}</span>
-            <small>{getRoleLabel(user?.role || "")}</small>
-          </div>
-        ) : null}
-        {!isMobile ? (
-          <ChevronDownIcon className="h-4 w-4 business-shell-chevron" />
-        ) : null}
+        <span className="flex h-[26px] w-[26px] items-center justify-center rounded-lg bg-primary text-[10.5px] font-bold text-primary-foreground">
+          {initials || "MP"}
+        </span>
       </button>
 
       {isProfileMenuOpen ? (
@@ -618,7 +606,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
             onClick={() => setIsProfileMenuOpen(false)}
           />
           <div
-            className={`business-shell-menu absolute mt-2 w-64 max-w-[calc(100vw-1.5rem)] z-50 rounded-xl shadow-xl border border-border/70 bg-card p-1.5 ${
+            className={`business-shell-menu absolute mt-2 w-[232px] max-w-[calc(100vw-1.5rem)] z-50 rounded-xl border border-border/70 bg-card p-1.5 shadow-[0_1px_2px_rgba(26,26,26,0.06),0_8px_24px_rgba(26,26,26,0.14)] before:absolute before:-top-1 before:end-[22px] before:h-2 before:w-2 before:-rotate-45 before:border-s before:border-t before:border-border before:bg-card ${
               i18n.dir() === 'rtl' ? 'left-0' : 'right-0'
             }`}
             style={{
@@ -626,53 +614,49 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
               overflowY: 'auto'
             }}
           >
-            <div className="px-3 pt-3 pb-2.5 border-b border-border/60 mb-1">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center shrink-0">
-                  {initials || "MP"}
-                </div>
-                <div className="flex flex-col min-w-0">
-                  <p className="text-[13px] font-bold text-foreground truncate">
-                    {user?.firstName ? `${user.firstName} ${user?.lastName || ''}`.trim() : (user?.company?.name || "Max P User")}
-                  </p>
-                  <span className="text-[11px] text-muted-foreground truncate">
-                    {user?.email || "operator@company.com"}
+            <div className="flex items-center gap-2.5 px-2 pt-2 pb-2">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-[12px] font-bold text-primary-foreground">
+                {initials || "MP"}
+              </span>
+              <span className="min-w-0">
+                <span className="block truncate text-[13px] font-bold text-foreground">
+                  {user?.firstName ? `${user.firstName} ${user?.lastName || ''}`.trim() : (user?.company?.name || "Max P User")}
+                  {" "}
+                  <span className="text-[11px] font-medium text-muted-foreground">
+                    · {getRoleLabel(user?.role || "")}
                   </span>
-                  {user?.company?.name ? (
-                    <span className="inline-block mt-0.5 text-[10px] text-primary font-semibold truncate">
-                      {user.company.name}
-                    </span>
-                  ) : null}
-                </div>
-              </div>
+                </span>
+                <span className="block truncate text-[11px] text-muted-foreground">
+                  {user?.email || "operator@company.com"}
+                </span>
+              </span>
             </div>
 
-            <div className="space-y-0.5">
+            <div className="-mx-1.5 my-1 h-px bg-border/60" />
+
+            <div className="space-y-px">
               <Link
                 to="/profile"
-                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors no-underline"
+                className="block w-full rounded-lg px-2 py-1.5 text-[13px] text-foreground hover:bg-muted/60 transition-colors no-underline"
                 onClick={() => setIsProfileMenuOpen(false)}
               >
-                <UserCircleIcon className="h-4 w-4 text-muted-foreground shrink-0" />
-                <span>{t("sidebar.profile")}</span>
+                {t("sidebar.profile")}
               </Link>
               {!isExternalPortalUser ? (
                 <Link
                   to="/settings"
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors no-underline"
+                  className="block w-full rounded-lg px-2 py-1.5 text-[13px] text-foreground hover:bg-muted/60 transition-colors no-underline"
                   onClick={() => setIsProfileMenuOpen(false)}
                 >
-                  <Cog6ToothIcon className="h-4 w-4 text-muted-foreground shrink-0" />
-                  <span>{t("sidebar.settings")}</span>
+                  {t("sidebar.settings")}
                 </Link>
               ) : null}
               <Link
                 to="/app-explanations"
-                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors no-underline"
+                className="block w-full rounded-lg px-2 py-1.5 text-[13px] text-foreground hover:bg-muted/60 transition-colors no-underline"
                 onClick={() => setIsProfileMenuOpen(false)}
               >
-                <BookOpenIcon className="h-4 w-4 text-muted-foreground shrink-0" />
-                <span>{t("sidebar.platformExplanations", "شرح المنصة")}</span>
+                {t("sidebar.platformExplanations", "شرح المنصة")}
               </Link>
               <button
                 type="button"
@@ -680,31 +664,38 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
                   setIsProfileMenuOpen(false);
                   toggleMerchantCopilot();
                 }}
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors text-start cursor-pointer"
+                className="flex w-full items-center rounded-lg px-2 py-1.5 text-[13px] text-foreground hover:bg-muted/60 transition-colors text-start cursor-pointer"
               >
-                <CpuChipIcon className="h-4 w-4 text-primary shrink-0" />
-                <span>{t("header.merchantCopilot", "المساعد التنفيذي للمتجر")}</span>
+                <span className="min-w-0 flex-1 truncate">
+                  {t("header.merchantCopilot", "المساعد التنفيذي للمتجر")}
+                </span>
+                <kbd className="ms-2 shrink-0 rounded border border-border/70 px-1 py-px font-mono text-[10.5px] text-muted-foreground">
+                  Ctrl J
+                </kbd>
               </button>
               {isSuperAdmin && (
                 <Link
                   to="/super-admin/dashboard"
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-semibold text-amber-700 dark:text-amber-300 hover:bg-amber-500/10 transition-colors no-underline"
+                  className="block w-full rounded-lg px-2 py-1.5 text-[13px] font-semibold text-amber-700 dark:text-amber-300 hover:bg-amber-500/10 transition-colors no-underline"
                   onClick={() => setIsProfileMenuOpen(false)}
                 >
-                  <ShieldCheckIcon className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
-                  <span>إدارة المنصة (Super Admin)</span>
+                  إدارة المنصة (Super Admin)
                 </Link>
               )}
+            </div>
+
+            <div className="-mx-1.5 my-1 h-px bg-border/60" />
+
+            <div className="space-y-px">
               <button
                 type="button"
                 onClick={() => {
                   setIsProfileMenuOpen(false);
                   handleLogout();
                 }}
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-semibold text-destructive hover:bg-destructive/10 transition-colors text-start"
+                className="w-full rounded-lg px-2 py-1.5 text-[13px] text-destructive hover:bg-destructive/10 transition-colors text-start"
               >
-                <ArrowRightOnRectangleIcon className="h-4 w-4 text-destructive shrink-0" />
-                <span>{t("sidebar.logout")}</span>
+                {t("sidebar.logout")}
               </button>
             </div>
           </div>
