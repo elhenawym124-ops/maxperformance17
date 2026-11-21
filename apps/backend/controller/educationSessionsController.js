@@ -212,6 +212,18 @@ const create = async (req, res) => {
     const sessionStart = new Date(scheduledAt);
     const sessionEnd = new Date(sessionStart.getTime() + (Number(plannedDuration) || 60) * 60000);
 
+    // W5: التحقق من ساعات توفر المدرس (إن كانت مسجّلة)
+    const availability = await require('../utils/educationAvailability').checkTeacherAvailability(
+      getSharedPrismaClient(), companyId, resolvedTeacherId, sessionStart, sessionEnd,
+    );
+    if (!availability.ok) {
+      return res.status(409).json({
+        success: false,
+        error: availability.message,
+        code: availability.code,
+      });
+    }
+
     const conflicting = await getSharedPrismaClient().educationSession.findFirst({
       where: {
         companyId,

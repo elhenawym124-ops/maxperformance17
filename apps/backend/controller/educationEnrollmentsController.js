@@ -405,4 +405,83 @@ const payInstallment = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, remove, payInstallment };
+/**
+ * W8: إلغاء اشتراك مع استرداد اختياري
+ * POST /api/education/enrollments/:id/cancel
+ */
+const cancelEnrollment = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id } = req.params;
+    const { reason, refundAmount } = req.body || {};
+    const prisma = getSharedPrismaClient();
+
+    const enrollment = await prisma.educationEnrollment.findFirst({
+      where: { id, companyId },
+      include: {
+        student: { select: { id: true, firstName: true, lastName: true } },
+        package: { select: { id: true, name: true, price: true } },
+      },
+    });
+    if (!enrollment) return res.status(404).json({ success: false, error: 'التسجيل غير موجود' });
+    if (!enrollment.isActive) return res.status(409).json({ success: false, error: 'الاشتراك ملغى بالفعل' });
+
+    const refund = Math.max(0, Number(refundAmount) || 0);
+    const paid = Number(enrollment.amountPaid) || 0;
+    if (refund > paid) {
+      return res.status(400).json({ success: false, error: `مبلغ الاسترداد أكبر من المدفوع (${paid})` });
+    }
+
+    const now = new Date();
+
+    const cancelledSessions = await prisma.educationSession.updateMany({
+      where: { companyId, enrollmentId: id, status: { not: 'CANCELLED' }, scheduledAt: { gte: now } },
+      data: { status: 'CANCELLED' },
+    });
+
+    const updated = await prisma.educationEnrollment.update({
+      where: { id },
+      data: {
+        isActive: false,
+        remainingHours: 0,
+        ...(refund > 0 ? { paymentStatus: 'REFUNDED' } : {}),
+      },
+      include: { student: true, package: true, teacher: true },
+    });
+
+    if (refund > 0) {
+      try {
+        const educationFinancialService = require('../services/educationFinancialIntegrationService');
+        const studentName = `${enrollment.student?.firstName || ''} ${enrollment.student?.lastName || ''}`.trim();
+        educationFinancialService.recordEducationRefund({
+          companyId,
+          sourceType: 'EDUCATION_ENROLLMENT_REFUND',
+          sourceId: id,
+          studentName,
+          title: `استرداد اشتراك (${enrollment.package?.name || ''})${reason ? ' — ' + reason : ''}`,
+          amount: refund,
+          createdById: req.user?.id,
+        }).catch(e => console.warn('[EnrollmentRefund] warning:', e.message));
+      } catch (fe) {
+        console.warn('[EnrollmentRefund] notice:', fe.message);
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: refund > 0 ? 'تم إلغاء الاشتراك وتسجيل الاسترداد' : 'تم إلغاء الاشتراك',
+      data: {
+        enrollment: updated,
+        refundAmount: refund,
+        cancelledSessions: cancelledSessions.count,
+      },
+    });
+  } catch (error) {
+    console.error('Error cancelling enrollment:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ أثناء إلغاء الاشتراك' });
+  }
+};
+
+module.exports = { getAll, getById, create, update, remove, payInstallment, cancelEnrollment };

@@ -277,6 +277,40 @@ const plus = (n, h = 10) => { const d = new Date(Date.now() + n * 864e5); d.setH
   rec('I2', 'إنشاء فرع', [200, 201].includes(br.status) && Boolean(branchId), `${br.status} ${br.d?.error || ''}`);
   if (branchId) created.branches.push(branchId);
 
+  // ── K. W5 توفر المدرس + W8 استرداد ──
+  const availDate = new Date(Date.now() + 8 * 864e5);
+  const cairoDay = new Date(new Intl.DateTimeFormat('en-US', { timeZone: 'Africa/Cairo', weekday: 'short' }).format(availDate) + ' 00:00:00');
+  const dayShort = new Intl.DateTimeFormat('en-US', { timeZone: 'Africa/Cairo', weekday: 'short' }).format(availDate);
+  const dayIdx = ({ Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 })[dayShort] ?? 0;
+  await call('PUT', '/education/availability', owner, {
+    teacherId: mainTeacherId, slots: [{ dayOfWeek: dayIdx, startTime: '09:00', endTime: '17:00' }],
+  });
+
+  const atHour = (h) => { const d = new Date(availDate); d.setHours(h, 0, 0, 0); return d.toISOString(); };
+
+  const outside = await call('POST', '/education/sessions', owner, {
+    enrollmentId: enrId, teacherId: mainTeacherId, scheduledAt: atHour(20), plannedDuration: 60, topic: 'QA خارج التوفر',
+  });
+  rec('K1', 'منع حصة خارج ساعات توفر المدرس', outside.status === 409, `${outside.status} ${outside.d?.code || outside.d?.error || ''}`);
+
+  const inside = await call('POST', '/education/sessions', owner, {
+    enrollmentId: enrId, teacherId: mainTeacherId, scheduledAt: atHour(10), plannedDuration: 60, topic: 'QA داخل التوفر',
+  });
+  rec('K2', 'قبول حصة داخل ساعات التوفر', [200, 201].includes(inside.status), `${inside.status} ${inside.d?.error || ''}`);
+  if (inside.d?.session?.id) created.sessions.push(inside.d.session.id);
+  else if (inside.d?.data?.id) created.sessions.push(inside.d.data.id);
+
+  const cancelEnr = await call('POST', `/education/enrollments/${enrId}/cancel`, owner, { reason: 'QA استرداد', refundAmount: 200 });
+  const cancelData = cancelEnr.d?.data;
+  rec('K3', 'إلغاء اشتراك مع استرداد', cancelEnr.status === 200 && cancelData?.refundAmount === 200,
+    `${cancelEnr.status} refund=${cancelData?.refundAmount} sessions=${cancelData?.cancelledSessions} status=${cancelData?.enrollment?.paymentStatus}`);
+
+  const cancelAgain = await call('POST', `/education/enrollments/${enrId}/cancel`, owner, { refundAmount: 0 });
+  rec('K4', 'منع إلغاء الاشتراك مرتين', cancelAgain.status === 409, `${cancelAgain.status}`);
+
+  const overRefund = discEnr?.id ? await call('POST', `/education/enrollments/${discEnr.id}/cancel`, owner, { refundAmount: 9999 }) : { status: 0 };
+  rec('K5', 'رفض استرداد أكبر من المدفوع', overRefund.status === 400, `${overRefund.status} ${overRefund.d?.error || ''}`);
+
   // ── cleanup ──
   for (const id of created.sessions) await call('DELETE', `/education/sessions/${id}`, owner).catch(() => { });
   for (const id of created.groups) await call('DELETE', `/education/groups/${id}`, owner).catch(() => { });

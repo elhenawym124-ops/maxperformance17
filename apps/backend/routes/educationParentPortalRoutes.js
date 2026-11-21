@@ -384,6 +384,19 @@ router.post('/sessions/book', authenticateParentToken, async (req, res) => {
       }).catch(e => console.warn('[ParentBookAssignTeacher]', e.message));
     }
 
+    // W5: احترام ساعات توفر المدرس عند الحجز من بوابة ولي الأمر
+    const bookStart = new Date(scheduledAt);
+    if (Number.isNaN(bookStart.getTime())) {
+      return res.status(400).json({ success: false, message: 'موعد الحصة غير صحيح' });
+    }
+    const bookEnd = new Date(bookStart.getTime() + duration * 60000);
+    const availability = await require('../utils/educationAvailability').checkTeacherAvailability(
+      prisma, companyId, targetTeacherId, bookStart, bookEnd,
+    );
+    if (!availability.ok) {
+      return res.status(409).json({ success: false, message: availability.message, code: availability.code });
+    }
+
     const newSession = await prisma.educationSession.create({
       data: {
         companyId,
