@@ -66,6 +66,22 @@ const generateUniqueStudentCode = async (companyId, prismaClient) => {
 };
 
 /**
+ * Removes sensitive credential columns from a student row (or array of rows)
+ * before it leaves the API. `plainPassword` is a stored plaintext copy of the
+ * student's portal password and must never be serialized to the client.
+ * @param {object|Array<object>} rows
+ * @returns {object|Array<object>}
+ */
+const sanitizeStudentRows = (rows) => {
+  const strip = (row) => {
+    if (!row || typeof row !== 'object') return row;
+    const { plainPassword, ...safe } = row;
+    return safe;
+  };
+  return Array.isArray(rows) ? rows.map(strip) : strip(rows);
+};
+
+/**
  * Attaches active groupName to an array of student objects in a single batch query (no N+1).
  * @param {Array<object>} items
  * @param {string} companyId
@@ -232,7 +248,8 @@ const getAll = async (req, res) => {
         const rowMap = new Map(fullRows.map(r => [r.id, r]));
         let ordered = allIds.map(id => rowMap.get(id)).filter(Boolean);
         ordered = await attachStudentGroupNames(ordered, companyId, prisma);
-        return res.json({ success: true, data: ordered, items: ordered, total: ordered.length });
+        const safeOrdered = sanitizeStudentRows(ordered);
+        return res.json({ success: true, data: safeOrdered, items: safeOrdered, total: ordered.length });
       }
 
       const start = (page - 1) * pageSize;
@@ -247,6 +264,7 @@ const getAll = async (req, res) => {
         const rowMap = new Map(fetched.map(r => [r.id, r]));
         items = pageIds.map(id => rowMap.get(id)).filter(Boolean);
         items = await attachStudentGroupNames(items, companyId, prisma);
+        items = sanitizeStudentRows(items);
       }
 
       return res.json({
@@ -270,7 +288,8 @@ const getAll = async (req, res) => {
         orderBy
       });
       data = await attachStudentGroupNames(data, companyId, prisma);
-      return res.json({ success: true, data, items: data, total: data.length });
+      const safeData = sanitizeStudentRows(data);
+      return res.json({ success: true, data: safeData, items: safeData, total: data.length });
     }
 
     const [total, rawItems] = await Promise.all([
@@ -284,7 +303,7 @@ const getAll = async (req, res) => {
       })
     ]);
 
-    const items = await attachStudentGroupNames(rawItems, companyId, prisma);
+    const items = sanitizeStudentRows(await attachStudentGroupNames(rawItems, companyId, prisma));
 
     res.json({
       success: true,
@@ -324,7 +343,7 @@ const getById = async (req, res) => {
       data.customer.hasPassword = !!data.customer.password;
       delete data.customer.password;
     }
-    res.json({ success: true, data });
+    res.json({ success: true, data: sanitizeStudentRows(data) });
   } catch (error) {
     console.error('Error fetching student:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في جلب الطالب' });
@@ -505,7 +524,7 @@ const create = async (req, res) => {
       req,
     }).catch(e => console.error('[StudentAudit]', e.message));
 
-    res.json({ success: true, data });
+    res.json({ success: true, data: sanitizeStudentRows(data) });
   } catch (error) {
     console.error('Error creating student:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في إنشاء الطالب' });
@@ -632,7 +651,7 @@ const update = async (req, res) => {
       req,
     }).catch(e => console.error('[StudentAudit]', e.message));
 
-    res.json({ success: true, data });
+    res.json({ success: true, data: sanitizeStudentRows(data) });
   } catch (error) {
     console.error('Error updating student:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في تحديث الطالب' });
