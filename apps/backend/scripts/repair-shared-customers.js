@@ -7,10 +7,11 @@
  *
  * Batched & Logged:
  * - Scans shared customers (> threshold phones, default 3)
- * - Processes in safe batches (--batch N, default 10 or 25) with real-time progress logging
+ * - Processes in safe batches (--batch N, default 5) with real-time progress logging
  * - Supports --limit N for safe partial testing
  * - Defaults to dry-run (no DB writes); --apply explicitly required to write
- * - Groups orders by phone number for O(1) bulk customer resolution (ultra fast)
+ * - Groups orders by phone number for O(1) bulk customer resolution
+ * - Eliminates redundant sequential lookups using queriedPhones bulk tracking
  * - Idempotent + generates JSON rollback file
  * - Modifies ONLY customerId column on Order
  *
@@ -28,7 +29,7 @@ function parseArgs(argv) {
     apply: false,
     rollback: null,
     limit: null,
-    batch: 10,
+    batch: 5,
     threshold: 3,
   };
 
@@ -109,7 +110,7 @@ async function repairSharedCustomers(options = {}) {
     apply = false,
     rollback: rollbackFile = null,
     limit = null,
-    batch = 10,
+    batch = 5,
     threshold = 3,
     outputDir = __dirname,
   } = options;
@@ -280,7 +281,7 @@ async function repairSharedCustomers(options = {}) {
     console.log(`⏱️ [Repair] Limit applied: will process ${targetCustomerIds.length} of ${candidateSharedCustomerIds.length} shared customers.`);
   }
 
-  const batchSize = Number.isInteger(batch) && batch > 0 ? batch : 10;
+  const batchSize = Number.isInteger(batch) && batch > 0 ? batch : 5;
   const totalBatches = targetCustomerIds.length > 0 ? Math.ceil(targetCustomerIds.length / batchSize) : 0;
   console.log(`🚀 [Repair] Plan: ${targetCustomerIds.length} shared customers to process in ${totalBatches} batch(es) of size ${batchSize}.\n`);
 
@@ -377,11 +378,13 @@ async function repairSharedCustomers(options = {}) {
 
     // Bulk pre-populate customer cache for the distinct phones in this batch
     const phonesToLookup = Array.from(candidateOrdersByPhone.keys()).filter((p) => !localCustomerCache.has(p));
+    const bulkQueriedPhones = new Set();
 
     if (phonesToLookup.length > 0 && prisma.customer && typeof prisma.customer.findMany === 'function') {
       try {
         for (let i = 0; i < phonesToLookup.length; i += 500) {
           const chunk = phonesToLookup.slice(i, i + 500);
+          chunk.forEach((p) => bulkQueriedPhones.add(p));
           const existingCustomers = await prisma.customer.findMany({
             where: {
               companyId,
@@ -406,14 +409,15 @@ async function repairSharedCustomers(options = {}) {
       } catch (_) {}
     }
 
-    // Reassign orders by distinct phone (drastically reduces DB roundtrips)
+    // Reassign orders by distinct phone
     let batchMoved = 0;
     let batchCreated = 0;
 
     for (const [orderPhoneCanonical, ordersForPhone] of candidateOrdersByPhone.entries()) {
       let targetCustomer = localCustomerCache.get(orderPhoneCanonical) || null;
 
-      if (!targetCustomer) {
+      // Only query findFirst if this phone was NOT covered in the bulk findMany
+      if (!targetCustomer && !bulkQueriedPhones.has(orderPhoneCanonical)) {
         if (prisma.customer && typeof prisma.customer.findFirst === 'function') {
           targetCustomer = await prisma.customer.findFirst({
             where: {
