@@ -475,10 +475,10 @@ class PerformanceService {
         };
       }
 
-      // Only count completed/reviewed reviews for stats
+      // تُحتسب التقييمات المُرسلة (SUBMITTED) أيضًا — كانت تُستبعد فيظهر التقرير صفرًا
       const statsWhere = {
         ...where,
-        status: { in: ['COMPLETED', 'REVIEWED'] }
+        status: { in: ['SUBMITTED', 'COMPLETED', 'REVIEWED'] }
       };
 
       const reviews = await this.prisma.performanceReview.findMany({
