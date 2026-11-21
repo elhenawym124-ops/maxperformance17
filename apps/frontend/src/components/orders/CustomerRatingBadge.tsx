@@ -259,6 +259,13 @@ export function computeHealthScore({
       "bg-success/10 text-success border-success/90 dark:bg-success/40 dark:text-success dark:border-success/60";
     iconClass = "text-success dark:text-success";
     barColor = "bg-success";
+  } else if (score >= 7.0) {
+    tier = "medium";
+    tierLabel = "عميل جيد • موثوق";
+    badgeClass =
+      "bg-info/10 text-info border-info/80 dark:bg-info/40 dark:text-info dark:border-info/60";
+    iconClass = "text-info dark:text-info";
+    barColor = "bg-info";
   } else if (score < 5.0) {
     tier = "low";
     tierLabel = "عميل عالي المخاطر • حذر";
