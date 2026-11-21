@@ -202,7 +202,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
         title={t("orders.title") || "الطلبات"}
         badges={
           <span className="px-2 py-0.5 rounded-full text-xs font-mono font-medium bg-muted text-muted-foreground tabular-nums">
-            {totalOrders}
+            {totalOrders.toLocaleString("en-US")}
           </span>
         }
         actions={
@@ -332,7 +332,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
         </div>
 
         {/* Integrated Filter & Search Bar */}
-        <div className="p-2.5 sm:p-3 border-b border-border/70 flex flex-wrap items-center justify-between gap-2 bg-muted/20">
+        <div className="p-2.5 sm:p-3 border-b border-border/70 flex flex-wrap items-center justify-between gap-2">
           <div className="flex-1 min-w-[220px] max-w-md relative">
             <MagnifyingGlassIcon className="absolute top-1/2 start-2.5 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
             <input
@@ -379,7 +379,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
 
         {/* Active Filter Chips */}
         {(advancedFilterCount > 0 || filters.onlyUnseen || filters.onlyPostPurchaseOffer) && (
-          <div className="px-3 py-2 border-b border-border/70 bg-muted/10">
+          <div className="px-3 py-2 border-b border-border/70">
             <FilterChips
               filters={filters}
               filterableOrderStatuses={filterableOrderStatuses}

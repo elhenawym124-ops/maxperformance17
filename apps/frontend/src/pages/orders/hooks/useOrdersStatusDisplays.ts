@@ -90,6 +90,7 @@ export function useOrdersStatusDisplays({
         text,
         labelKey: display.primary.labelKey,
         className: `inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ${display.primary.colorClass}`,
+        dotClass: display.primary.dotClass,
         style: customStyle,
       };
     },
@@ -152,6 +153,17 @@ export function useOrdersStatusDisplays({
         color: configuredColor,
         border: `1px solid ${configuredColor}`,
       };
+    },
+    [paymentStatusMap, normalizeStatusCode],
+  );
+
+  const getPaymentStatusDotStyle = useCallback(
+    (status: string): React.CSSProperties | undefined => {
+      const configuredColor = paymentStatusMap.get(
+        normalizeStatusCode(status),
+      )?.color;
+      if (!configuredColor) return undefined;
+      return { backgroundColor: configuredColor };
     },
     [paymentStatusMap, normalizeStatusCode],
   );
@@ -287,6 +299,7 @@ export function useOrdersStatusDisplays({
     getPaymentStatusColor,
     getPaymentStatusText,
     getPaymentStatusBadgeStyle,
+    getPaymentStatusDotStyle,
     filterableOrderStatuses,
     filterablePaymentStatuses,
     bulkUpdatableStatuses,

@@ -14,6 +14,7 @@ export interface UseOrdersViewHelpersParams {
   getRelativeTime: (dateString: string) => string;
   formatDate: (dateString: string | Date, options?: any) => string;
   getPaymentStatusBadgeStyle: (status: string) => any;
+  getPaymentStatusDotStyle: (status: string) => any;
   getPaymentStatusColor: (status: string) => string;
   getPaymentStatusText: (status: string) => string;
   getUnifiedStatusDisplay: (order: Order) => any;
@@ -34,6 +35,7 @@ export function useOrdersViewHelpers({
   getRelativeTime,
   formatDate,
   getPaymentStatusBadgeStyle,
+  getPaymentStatusDotStyle,
   getPaymentStatusColor,
   getPaymentStatusText,
   getUnifiedStatusDisplay,
@@ -85,6 +87,7 @@ export function useOrdersViewHelpers({
       getRelativeTime,
       formatDate,
       getPaymentStatusBadgeStyle,
+  getPaymentStatusDotStyle,
       getPaymentStatusColor,
       getPaymentStatusText,
       getUnifiedStatusDisplay,
@@ -97,6 +100,7 @@ export function useOrdersViewHelpers({
       getRelativeTime,
       formatDate,
       getPaymentStatusBadgeStyle,
+  getPaymentStatusDotStyle,
       getPaymentStatusColor,
       getPaymentStatusText,
       getUnifiedStatusDisplay,
@@ -110,6 +114,7 @@ export function useOrdersViewHelpers({
       getRelativeTime,
       formatDate,
       getPaymentStatusBadgeStyle,
+  getPaymentStatusDotStyle,
       getPaymentStatusColor,
       getPaymentStatusText,
       getUnifiedStatusDisplay,
@@ -123,6 +128,7 @@ export function useOrdersViewHelpers({
       getRelativeTime,
       formatDate,
       getPaymentStatusBadgeStyle,
+  getPaymentStatusDotStyle,
       getPaymentStatusColor,
       getPaymentStatusText,
       getUnifiedStatusDisplay,

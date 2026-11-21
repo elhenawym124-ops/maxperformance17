@@ -27,10 +27,10 @@ export const OrdersTableStatusCell: React.FC<OrdersTableStatusCellProps> = ({
       <div className="flex flex-col gap-0.5 items-start">
         <div className="flex items-center gap-1.5 whitespace-nowrap">
           <span
-            className={`${unifiedStatus.className} text-xs py-1 px-2.5 rounded-full font-medium`}
-            style={unifiedStatus.style}
+            className="inline-flex items-center gap-1.5 bg-muted text-foreground text-xs py-1 px-2.5 rounded-full font-medium"
             aria-label={unifiedStatus.label}
           >
+            <span className={`h-2 w-2 rounded-full shrink-0 ${unifiedStatus.dotClass || "bg-muted-foreground/50"}`} />
             {unifiedStatus.text}
           </span>
 

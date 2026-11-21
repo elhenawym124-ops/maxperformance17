@@ -38,6 +38,7 @@ export const OrdersTableRow: React.FC<OrdersTableRowProps> = ({
     getRelativeTime,
     formatDate,
     getPaymentStatusBadgeStyle,
+    getPaymentStatusDotStyle,
     getPaymentStatusColor,
     getPaymentStatusText,
   } = helpers;
@@ -178,13 +179,12 @@ export const OrdersTableRow: React.FC<OrdersTableRowProps> = ({
       {columns.includes("payment") && (
         <td className={cellPadding}>
           <span
-            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
-              getPaymentStatusBadgeStyle(order.paymentStatus || "pending")
-                ? ""
-                : getPaymentStatusColor((order.paymentStatus || "pending").toLowerCase())
-            }`}
-            style={getPaymentStatusBadgeStyle(order.paymentStatus || "pending")}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap bg-muted text-foreground"
           >
+            <span
+              className="h-2 w-2 rounded-full shrink-0"
+              style={getPaymentStatusDotStyle(order.paymentStatus || "pending")}
+            />
             {getPaymentStatusText((order.paymentStatus || "pending").toLowerCase())}
           </span>
         </td>

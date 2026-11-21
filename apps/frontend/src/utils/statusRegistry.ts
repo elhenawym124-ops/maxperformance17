@@ -3,6 +3,7 @@ export interface StatusDisplayInfo {
   label: string;
   labelKey: string;
   colorClass: string;
+  dotClass: string;
   source: 'turbo' | 'system';
 }
 
@@ -12,67 +13,67 @@ export interface OrderStatusDisplay {
 }
 
 /** All known system order statuses with display info */
-const SYSTEM_STATUS_DEFS: Record<string, { label: string; labelKey: string; colorClass: string }> = {
-  NEW:                  { label: 'طلب جديد',             labelKey: 'orders.new',               colorClass: 'bg-info/10 text-info dark:bg-info/40 dark:text-info' },
-  IN_PROGRESS:          { label: 'قيد التنفيذ',           labelKey: 'orders.inProgress',        colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  PENDING:              { label: 'قيد الانتظار',         labelKey: 'orders.pending',           colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  DRAFT:                { label: 'مسودة',                labelKey: 'orders.draft',             colorClass: 'bg-muted text-muted-foreground' },
-  CONFIRMED:            { label: 'مؤكد',                 labelKey: 'orders.confirmed',         colorClass: 'bg-info/10 text-info dark:bg-info/40 dark:text-info' },
-  SCHEDULED:            { label: 'طلب مجدول',            labelKey: 'orders.scheduled',         colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  ON_HOLD:              { label: 'معلق',                 labelKey: 'orders.onHold',            colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  PROCESSING:           { label: 'قيد التنفيذ',           labelKey: 'orders.processing',        colorClass: 'bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary' },
-  SHIPPED:              { label: 'تم الشحن',             labelKey: 'orders.shipped',           colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary' },
-  DELIVERED:            { label: 'تم التسليم',           labelKey: 'orders.delivered',         colorClass: 'bg-success/10 text-success dark:bg-success/40 dark:text-success' },
-  CANCELLED:            { label: 'ملغي',                 labelKey: 'orders.cancelled',         colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive' },
-  DUPLICATE_ORDER:      { label: 'طلب مكرر',             labelKey: 'orders.duplicate',         colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  REFUNDED:             { label: 'مسترد',                labelKey: 'orders.refunded',          colorClass: 'bg-muted text-muted-foreground' },
-  PARTIALLY_REFUNDED:   { label: 'مسترد جزئياً',         labelKey: 'orders.partiallyRefunded', colorClass: 'bg-muted text-muted-foreground' },
-  RETURNED:             { label: 'مرتجع',                labelKey: 'orders.returned',          colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive' },
-  PARTIALLY_RETURNED:   { label: 'مرتجع جزئي',           labelKey: 'orders.partiallyReturned', colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive' },
-  PARTIALLY_DELIVERED:  { label: 'تسليم جزئي',           labelKey: 'orders.partiallyDelivered',colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  EXCHANGED:            { label: 'استبدال',              labelKey: 'orders.exchanged',         colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary' },
-  TRASH:                { label: 'سلة المحذوفات',        labelKey: 'orders.trash',             colorClass: 'bg-muted text-muted-foreground' },
-  TRASH_ORDER:          { label: 'سلة المحذوفات',        labelKey: 'orders.trash',             colorClass: 'bg-muted text-muted-foreground' },
-  READY_TO_SHIP:        { label: 'جاهز للشحن',           labelKey: 'orders.readyToShip',       colorClass: 'bg-success/10 text-success dark:bg-success/40 dark:text-success' },
-  OUT_FOR_DELIVERY:     { label: 'خرج للتسليم',          labelKey: 'orders.outForDelivery',    colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary' },
-  LOST:                 { label: 'مفقود',                labelKey: 'orders.lost',              colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive' },
-  INCOMPLETE:           { label: 'غير مكتمل',            labelKey: 'orders.incomplete',        colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  PENDING_PREPARATION:  { label: 'بانتظار التجهيز',      labelKey: 'orders.pendingPreparation',colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  PREPARING:            { label: 'قيد التجهيز',          labelKey: 'orders.preparing',         colorClass: 'bg-info/10 text-info dark:bg-info/40 dark:text-info' },
-  READY:                { label: 'جاهز للشحن',           labelKey: 'orders.ready',              colorClass: 'bg-success/10 text-success dark:bg-success/40 dark:text-success' },
-  QUALITY_CHECK:        { label: 'فحص الجودة',           labelKey: 'orders.qualityCheck',      colorClass: 'bg-secondary/10 text-secondary dark:bg-secondary/40 dark:text-secondary' },
-  PACKAGED:             { label: 'تم التعبئة',           labelKey: 'orders.packaged',          colorClass: 'bg-secondary/10 text-secondary dark:bg-secondary/40 dark:text-secondary' },
-  ON_HOLD_PREP:         { label: 'تجهيز معلق',           labelKey: 'orders.onHoldPrep',        colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning' },
-  NOT_SHIPPED:          { label: 'لم يتم الشحن',         labelKey: 'orders.notShipped',        colorClass: 'bg-muted text-muted-foreground' },
-  REFUNDED_PARTIALLY:   { label: 'مسترد جزئياً',          labelKey: 'orders.partiallyRefunded', colorClass: 'bg-muted text-muted-foreground' },
-  COMPLETED:            { label: 'مدفوع',                labelKey: 'orders.completed',         colorClass: 'bg-success/10 text-success dark:bg-success/40 dark:text-success' },
-  FAILED:               { label: 'فشل الدفع',             labelKey: 'orders.failed',            colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive' },
-  STOCK_SHORTAGE:       { label: 'عجز مخزون',            labelKey: 'orders.stockShortage',     colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive' },
-  SHORTAGE_FAILED:      { label: 'عجز نهائي',            labelKey: 'orders.shortageFailed',    colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary' },
-  WOO_TAGHEZ:           { label: 'Woo Taghez',           labelKey: 'orders.wooTaghez',         colorClass: 'bg-muted text-muted-foreground' },
-  PENDING_CANCELLATION: { label: 'بانتظار الإلغاء',      labelKey: 'orders.pendingCancellation',colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary' },
-  BDONKODTERBO:         { label: 'بدون كود تيربو',       labelKey: 'orders.bdonkodterbo',      colorClass: 'bg-muted text-muted-foreground' },
+const SYSTEM_STATUS_DEFS: Record<string, { label: string; labelKey: string; colorClass: string; dotClass: string }> = {
+  NEW:                  { label: 'طلب جديد',             labelKey: 'orders.new',               colorClass: 'bg-info/10 text-info dark:bg-info/40 dark:text-info', dotClass: 'bg-info' },
+  IN_PROGRESS:          { label: 'قيد التنفيذ',           labelKey: 'orders.inProgress',        colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  PENDING:              { label: 'قيد الانتظار',         labelKey: 'orders.pending',           colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  DRAFT:                { label: 'مسودة',                labelKey: 'orders.draft',             colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  CONFIRMED:            { label: 'مؤكد',                 labelKey: 'orders.confirmed',         colorClass: 'bg-info/10 text-info dark:bg-info/40 dark:text-info', dotClass: 'bg-info' },
+  SCHEDULED:            { label: 'طلب مجدول',            labelKey: 'orders.scheduled',         colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  ON_HOLD:              { label: 'معلق',                 labelKey: 'orders.onHold',            colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  PROCESSING:           { label: 'قيد التنفيذ',           labelKey: 'orders.processing',        colorClass: 'bg-primary/10 text-primary dark:bg-primary/40 dark:text-primary', dotClass: 'bg-primary' },
+  SHIPPED:              { label: 'تم الشحن',             labelKey: 'orders.shipped',           colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary', dotClass: 'bg-tertiary' },
+  DELIVERED:            { label: 'تم التسليم',           labelKey: 'orders.delivered',         colorClass: 'bg-success/10 text-success dark:bg-success/40 dark:text-success', dotClass: 'bg-success' },
+  CANCELLED:            { label: 'ملغي',                 labelKey: 'orders.cancelled',         colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive', dotClass: 'bg-destructive' },
+  DUPLICATE_ORDER:      { label: 'طلب مكرر',             labelKey: 'orders.duplicate',         colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  REFUNDED:             { label: 'مسترد',                labelKey: 'orders.refunded',          colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  PARTIALLY_REFUNDED:   { label: 'مسترد جزئياً',         labelKey: 'orders.partiallyRefunded', colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  RETURNED:             { label: 'مرتجع',                labelKey: 'orders.returned',          colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive', dotClass: 'bg-destructive' },
+  PARTIALLY_RETURNED:   { label: 'مرتجع جزئي',           labelKey: 'orders.partiallyReturned', colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive', dotClass: 'bg-destructive' },
+  PARTIALLY_DELIVERED:  { label: 'تسليم جزئي',           labelKey: 'orders.partiallyDelivered',colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  EXCHANGED:            { label: 'استبدال',              labelKey: 'orders.exchanged',         colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary', dotClass: 'bg-tertiary' },
+  TRASH:                { label: 'سلة المحذوفات',        labelKey: 'orders.trash',             colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  TRASH_ORDER:          { label: 'سلة المحذوفات',        labelKey: 'orders.trash',             colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  READY_TO_SHIP:        { label: 'جاهز للشحن',           labelKey: 'orders.readyToShip',       colorClass: 'bg-success/10 text-success dark:bg-success/40 dark:text-success', dotClass: 'bg-success' },
+  OUT_FOR_DELIVERY:     { label: 'خرج للتسليم',          labelKey: 'orders.outForDelivery',    colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary', dotClass: 'bg-tertiary' },
+  LOST:                 { label: 'مفقود',                labelKey: 'orders.lost',              colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive', dotClass: 'bg-destructive' },
+  INCOMPLETE:           { label: 'غير مكتمل',            labelKey: 'orders.incomplete',        colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  PENDING_PREPARATION:  { label: 'بانتظار التجهيز',      labelKey: 'orders.pendingPreparation',colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  PREPARING:            { label: 'قيد التجهيز',          labelKey: 'orders.preparing',         colorClass: 'bg-info/10 text-info dark:bg-info/40 dark:text-info', dotClass: 'bg-info' },
+  READY:                { label: 'جاهز للشحن',           labelKey: 'orders.ready',              colorClass: 'bg-success/10 text-success dark:bg-success/40 dark:text-success', dotClass: 'bg-success' },
+  QUALITY_CHECK:        { label: 'فحص الجودة',           labelKey: 'orders.qualityCheck',      colorClass: 'bg-secondary/10 text-secondary dark:bg-secondary/40 dark:text-secondary', dotClass: 'bg-secondary' },
+  PACKAGED:             { label: 'تم التعبئة',           labelKey: 'orders.packaged',          colorClass: 'bg-secondary/10 text-secondary dark:bg-secondary/40 dark:text-secondary', dotClass: 'bg-secondary' },
+  ON_HOLD_PREP:         { label: 'تجهيز معلق',           labelKey: 'orders.onHoldPrep',        colorClass: 'bg-warning/10 text-warning dark:bg-warning/40 dark:text-warning', dotClass: 'bg-warning' },
+  NOT_SHIPPED:          { label: 'لم يتم الشحن',         labelKey: 'orders.notShipped',        colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  REFUNDED_PARTIALLY:   { label: 'مسترد جزئياً',          labelKey: 'orders.partiallyRefunded', colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  COMPLETED:            { label: 'مدفوع',                labelKey: 'orders.completed',         colorClass: 'bg-success/10 text-success dark:bg-success/40 dark:text-success', dotClass: 'bg-success' },
+  FAILED:               { label: 'فشل الدفع',             labelKey: 'orders.failed',            colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive', dotClass: 'bg-destructive' },
+  STOCK_SHORTAGE:       { label: 'عجز مخزون',            labelKey: 'orders.stockShortage',     colorClass: 'bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive', dotClass: 'bg-destructive' },
+  SHORTAGE_FAILED:      { label: 'عجز نهائي',            labelKey: 'orders.shortageFailed',    colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary', dotClass: 'bg-tertiary' },
+  WOO_TAGHEZ:           { label: 'Woo Taghez',           labelKey: 'orders.wooTaghez',         colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  PENDING_CANCELLATION: { label: 'بانتظار الإلغاء',      labelKey: 'orders.pendingCancellation',colorClass: 'bg-tertiary/10 text-tertiary dark:bg-tertiary/40 dark:text-tertiary', dotClass: 'bg-tertiary' },
+  BDONKODTERBO:         { label: 'بدون كود تيربو',       labelKey: 'orders.bdonkodterbo',      colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
 };
 
 /** Canonical turbo statuses with display info */
-const TURBO_STATUS_DEFS: Record<string, { label: string; labelKey: string; colorClass: string }> = {
-  turbo_saved:           { label: 'محفوظة قبل الشحن',       labelKey: 'orders.turboSaved',          colorClass: 'bg-info/10 text-info border border-info/30 dark:bg-info/40 dark:text-info dark:border-info/40' },
-  turbo_sent:            { label: 'قيد الانتظار (تربو)',     labelKey: 'orders.turboSent',           colorClass: 'bg-primary/10 text-primary border border-primary/30 dark:bg-primary/40 dark:text-primary dark:border-primary/40' },
-  processing:            { label: 'قيد التنفيذ (بالفرع)',    labelKey: 'orders.turboProcessing',     colorClass: 'bg-tertiary/10 text-tertiary border border-tertiary/30 dark:bg-tertiary/40 dark:text-tertiary dark:border-tertiary/40' },
-  out_for_delivery:      { label: 'مسلمة للمندوب',          labelKey: 'orders.turboOutForDelivery', colorClass: 'bg-warning/10 text-warning border border-warning/30 dark:bg-warning/40 dark:text-warning dark:border-warning/40' },
-  returned_to_company:   { label: 'مرتجعات بالشركة',        labelKey: 'orders.turboReturnedToCompany', colorClass: 'bg-destructive/10 text-destructive border border-destructive/30 dark:bg-destructive/40 dark:text-destructive dark:border-destructive/40' },
-  cancelled:             { label: 'ملغي من الشحن',          labelKey: 'orders.turboCancelled',      colorClass: 'bg-destructive/10 text-destructive border border-destructive/30 dark:bg-destructive/40 dark:text-destructive dark:border-destructive/40' },
-  delivered:             { label: 'تم التسليم',             labelKey: 'orders.turboDelivered',      colorClass: 'bg-success/10 text-success border border-success/30 dark:bg-success/40 dark:text-success dark:border-success/40' },
-  remitted:              { label: 'تم التوريد والتحصيل',    labelKey: 'orders.turboRemitted',       colorClass: 'bg-success/10 text-success border border-success/30 dark:bg-success/40 dark:text-success dark:border-success/40' },
-  archived:              { label: 'شحنة محذوفة',            labelKey: 'orders.turboArchived',       colorClass: 'bg-muted text-muted-foreground' },
-  returned_resent:       { label: 'معاد إرسالها',           labelKey: 'orders.turboReturnedResent', colorClass: 'bg-info/10 text-info border border-info/30 dark:bg-info/40 dark:text-info dark:border-info/40' },
-  returned_missing:      { label: 'مرتجع مفقود',            labelKey: 'orders.turboReturnedMissing',colorClass: 'bg-warning/10 text-warning border border-warning/30 dark:bg-warning/40 dark:text-warning dark:border-warning/40' },
-  returned_destroyed:    { label: 'مرتجع معدوم',            labelKey: 'orders.turboReturnedDestroyed',colorClass: 'bg-destructive/10 text-destructive border border-destructive/30 dark:bg-destructive/40 dark:text-destructive dark:border-destructive/40' },
-  returned_received:     { label: 'مرتجعات وصلتني',          labelKey: 'orders.turboReturnedReceived', colorClass: 'bg-tertiary/10 text-tertiary border border-tertiary/30 dark:bg-tertiary/40 dark:text-tertiary dark:border-tertiary/40' },
-  returned_to_customer:  { label: 'مرتجعة للعميل',            labelKey: 'orders.turboReturnedToCustomer', colorClass: 'bg-tertiary/10 text-tertiary border border-tertiary/30 dark:bg-tertiary/40 dark:text-tertiary dark:border-tertiary/40' },
-  delayed:               { label: 'مؤجلة مع المندوب',       labelKey: 'orders.turboDelayed',        colorClass: 'bg-warning/10 text-warning border border-warning/30 dark:bg-warning/40 dark:text-warning dark:border-warning/40' },
-  incomplete:            { label: 'غير مكتملة',            labelKey: 'orders.turboIncomplete',     colorClass: 'bg-muted text-muted-foreground' },
-  turbo_syncing:         { label: 'شحنة مرتبطة — قيد المزامنة', labelKey: 'orders.turboSyncing', colorClass: 'bg-muted text-muted-foreground' },
+const TURBO_STATUS_DEFS: Record<string, { label: string; labelKey: string; colorClass: string; dotClass: string }> = {
+  turbo_saved:           { label: 'محفوظة قبل الشحن',       labelKey: 'orders.turboSaved',          colorClass: 'bg-info/10 text-info border border-info/30 dark:bg-info/40 dark:text-info dark:border-info/40', dotClass: 'bg-info' },
+  turbo_sent:            { label: 'قيد الانتظار (تربو)',     labelKey: 'orders.turboSent',           colorClass: 'bg-primary/10 text-primary border border-primary/30 dark:bg-primary/40 dark:text-primary dark:border-primary/40', dotClass: 'bg-primary' },
+  processing:            { label: 'قيد التنفيذ (بالفرع)',    labelKey: 'orders.turboProcessing',     colorClass: 'bg-tertiary/10 text-tertiary border border-tertiary/30 dark:bg-tertiary/40 dark:text-tertiary dark:border-tertiary/40', dotClass: 'bg-tertiary' },
+  out_for_delivery:      { label: 'مسلمة للمندوب',          labelKey: 'orders.turboOutForDelivery', colorClass: 'bg-warning/10 text-warning border border-warning/30 dark:bg-warning/40 dark:text-warning dark:border-warning/40', dotClass: 'bg-warning' },
+  returned_to_company:   { label: 'مرتجعات بالشركة',        labelKey: 'orders.turboReturnedToCompany', colorClass: 'bg-destructive/10 text-destructive border border-destructive/30 dark:bg-destructive/40 dark:text-destructive dark:border-destructive/40', dotClass: 'bg-destructive' },
+  cancelled:             { label: 'ملغي من الشحن',          labelKey: 'orders.turboCancelled',      colorClass: 'bg-destructive/10 text-destructive border border-destructive/30 dark:bg-destructive/40 dark:text-destructive dark:border-destructive/40', dotClass: 'bg-destructive' },
+  delivered:             { label: 'تم التسليم',             labelKey: 'orders.turboDelivered',      colorClass: 'bg-success/10 text-success border border-success/30 dark:bg-success/40 dark:text-success dark:border-success/40', dotClass: 'bg-success' },
+  remitted:              { label: 'تم التوريد والتحصيل',    labelKey: 'orders.turboRemitted',       colorClass: 'bg-success/10 text-success border border-success/30 dark:bg-success/40 dark:text-success dark:border-success/40', dotClass: 'bg-success' },
+  archived:              { label: 'شحنة محذوفة',            labelKey: 'orders.turboArchived',       colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  returned_resent:       { label: 'معاد إرسالها',           labelKey: 'orders.turboReturnedResent', colorClass: 'bg-info/10 text-info border border-info/30 dark:bg-info/40 dark:text-info dark:border-info/40', dotClass: 'bg-info' },
+  returned_missing:      { label: 'مرتجع مفقود',            labelKey: 'orders.turboReturnedMissing',colorClass: 'bg-warning/10 text-warning border border-warning/30 dark:bg-warning/40 dark:text-warning dark:border-warning/40', dotClass: 'bg-warning' },
+  returned_destroyed:    { label: 'مرتجع معدوم',            labelKey: 'orders.turboReturnedDestroyed',colorClass: 'bg-destructive/10 text-destructive border border-destructive/30 dark:bg-destructive/40 dark:text-destructive dark:border-destructive/40', dotClass: 'bg-destructive' },
+  returned_received:     { label: 'مرتجعات وصلتني',          labelKey: 'orders.turboReturnedReceived', colorClass: 'bg-tertiary/10 text-tertiary border border-tertiary/30 dark:bg-tertiary/40 dark:text-tertiary dark:border-tertiary/40', dotClass: 'bg-tertiary' },
+  returned_to_customer:  { label: 'مرتجعة للعميل',            labelKey: 'orders.turboReturnedToCustomer', colorClass: 'bg-tertiary/10 text-tertiary border border-tertiary/30 dark:bg-tertiary/40 dark:text-tertiary dark:border-tertiary/40', dotClass: 'bg-tertiary' },
+  delayed:               { label: 'مؤجلة مع المندوب',       labelKey: 'orders.turboDelayed',        colorClass: 'bg-warning/10 text-warning border border-warning/30 dark:bg-warning/40 dark:text-warning dark:border-warning/40', dotClass: 'bg-warning' },
+  incomplete:            { label: 'غير مكتملة',            labelKey: 'orders.turboIncomplete',     colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
+  turbo_syncing:         { label: 'شحنة مرتبطة — قيد المزامنة', labelKey: 'orders.turboSyncing', colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60' },
 };
 
 /** Map any raw turbo alias → canonical code */
@@ -112,7 +113,7 @@ export interface OrderLike {
   turboShipmentId?: string | null;
 }
 
-const CUSTOM_STATUS_DEFS: Record<string, { label: string; labelKey: string; colorClass: string }> = {};
+const CUSTOM_STATUS_DEFS: Record<string, { label: string; labelKey: string; colorClass: string; dotClass: string }> = {};
 
 export function registerCustomStatuses(configs: Array<{ code?: string; name?: string; color?: string }>) {
   if (!Array.isArray(configs)) return;
@@ -122,19 +123,19 @@ export function registerCustomStatuses(configs: Array<{ code?: string; name?: st
     CUSTOM_STATUS_DEFS[key] = {
       label: cfg.name || key.replace(/_/g, ' '),
       labelKey: '',
-      colorClass: 'bg-muted text-muted-foreground',
+      colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60',
     };
   });
 }
 
-function getSystemDef(code: string): { label: string; labelKey: string; colorClass: string } {
+function getSystemDef(code: string): { label: string; labelKey: string; colorClass: string; dotClass: string } {
   let key = (code || 'PENDING').toUpperCase().trim();
   // Normalize: spaces → underscores, lowercase → uppercase (e.g. "Stock Shortage" → "STOCK_SHORTAGE")
   key = key.replace(/\s+/g, '_');
   return SYSTEM_STATUS_DEFS[key] || CUSTOM_STATUS_DEFS[key] || {
     label: key.replace(/_/g, ' '),
     labelKey: '',
-    colorClass: 'bg-muted text-muted-foreground',
+    colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60',
   };
 }
 
@@ -143,7 +144,7 @@ function getTurboCanonical(raw: string): string | undefined {
   return TURBO_ALIASES[key];
 }
 
-function getTurboDef(canonical: string): { label: string; labelKey: string; colorClass: string } | undefined {
+function getTurboDef(canonical: string): { label: string; labelKey: string; colorClass: string; dotClass: string } | undefined {
   return TURBO_STATUS_DEFS[canonical];
 }
 
@@ -159,6 +160,7 @@ export function getOrderStatusDisplay(order: OrderLike): OrderStatusDisplay {
     label: systemDef.label,
     labelKey: systemDef.labelKey,
     colorClass: systemDef.colorClass,
+    dotClass: systemDef.dotClass,
     source: 'system',
   };
 
@@ -174,6 +176,7 @@ export function getOrderStatusDisplay(order: OrderLike): OrderStatusDisplay {
           label: `🚚 ${turboDef.label}`,
           labelKey: turboDef.labelKey,
           colorClass: turboDef.colorClass,
+    dotClass: turboDef.dotClass,
           source: 'turbo',
         };
       }
@@ -184,13 +187,14 @@ export function getOrderStatusDisplay(order: OrderLike): OrderStatusDisplay {
     const neutralDef = getTurboDef('turbo_syncing') || {
       label: 'شحنة مرتبطة — قيد المزامنة',
       labelKey: 'orders.turboSyncing',
-      colorClass: 'bg-muted text-muted-foreground',
+      colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60',
     };
     secondary = {
       code: 'turbo_syncing',
       label: `🚚 ${neutralDef.label}`,
       labelKey: neutralDef.labelKey,
       colorClass: neutralDef.colorClass,
+    dotClass: neutralDef.dotClass,
       source: 'turbo',
     };
   }
@@ -216,6 +220,7 @@ export function getStatusDisplay(statusCode: string): StatusDisplayInfo {
     label: def.label,
     labelKey: def.labelKey,
     colorClass: def.colorClass,
+    dotClass: def.dotClass,
     source: 'system',
   };
 }
@@ -228,13 +233,14 @@ export function getTurboStatusDisplay(statusCode: string): StatusDisplayInfo {
   const def = getTurboDef(canonical) || {
     label: statusCode,
     labelKey: '',
-    colorClass: 'bg-muted text-muted-foreground',
+    colorClass: 'bg-muted text-muted-foreground', dotClass: 'bg-muted-foreground/60',
   };
   return {
     code: canonical,
     label: def.label,
     labelKey: def.labelKey,
     colorClass: def.colorClass,
+    dotClass: def.dotClass,
     source: 'turbo',
   };
 }
