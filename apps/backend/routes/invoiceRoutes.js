@@ -78,13 +78,6 @@ router.get('/', authenticateToken, requireSuperAdmin, async (req, res) => {
                 currency: true
               }
             },
-            subscription: {
-              select: {
-                id: true,
-                planType: true,
-                status: true
-              }
-            },
             invoiceItems: true,
             payments: {
               select: {
@@ -187,7 +180,6 @@ router.get('/:id', authenticateToken, requireSuperAdmin, async (req, res) => {
         where: { id },
         include: {
           company: true,
-          subscription: true,
           invoiceItems: true,
           payments: {
             orderBy: { createdAt: 'desc' }
