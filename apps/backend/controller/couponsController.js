@@ -479,30 +479,24 @@ exports.applyCoupon = async (req, res) => {
       return res.status(400).json({ success: false, error: 'تم استهلاك حد استخدام الكوبون' });
     }
 
-    // تسجيل استخدام الكوبون
+    // تسجيل استخدام الكوبون — interactive transaction لأن الـProxy يعيد عميلاً لكل نداء
     const prisma = getPrisma();
-    await prisma.$transaction([
-      // إضافة سجل الاستخدام
-      prisma.couponUsage.create({
+    await prisma.$transaction(async (tx) => {
+      await tx.couponUsage.create({
         data: {
           couponId,
           companyId,
-          customerId,
-          orderId,
-          orderAmount: parseFloat(orderAmount),
-          discountAmount: parseFloat(discountAmount)
+          customerId: customerId || null,
+          orderId: orderId || null,
+          orderAmount: parseFloat(orderAmount) || 0,
+          discountAmount: parseFloat(discountAmount) || 0
         }
-      }),
-      // تحديث عداد الاستخدام
-      prisma.coupon.update({
+      });
+      await tx.coupon.update({
         where: { id: couponId },
-        data: {
-          usageCount: {
-            increment: 1
-          }
-        }
-      })
-    ]);
+        data: { usageCount: { increment: 1 } }
+      });
+    });
 
     res.json({
       success: true,
