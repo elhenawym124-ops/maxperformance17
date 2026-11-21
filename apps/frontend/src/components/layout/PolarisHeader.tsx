@@ -53,7 +53,7 @@ export const PolarisHeader: React.FC<PolarisHeaderProps> = ({
   };
 
   return (
-    <header className="polaris-top-header h-13 w-full border-b border-border/70 bg-card text-foreground px-3 sm:px-4 lg:px-6 flex items-center justify-between gap-3 select-none flex-shrink-0 z-20">
+    <header className="polaris-top-header h-13 w-full border-b border-border/70 bg-card text-foreground px-3 sm:px-4 lg:px-6 flex items-center justify-between gap-3 select-none flex-shrink-0 z-30">
       {/* Start: Mobile Toggle & Store Switcher */}
       <div className="flex items-center gap-2.5 min-w-0">
         {isMobile && (
