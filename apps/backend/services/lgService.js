@@ -75,6 +75,39 @@ const GQL_TRACK = `
 // ---------------------------------------------------------------------------
 // Zone name → LG zone mapping (Egyptian governorates in Arabic & English)
 // ---------------------------------------------------------------------------
+const LG_GOVERNORATES = [
+  { id: 1, name: 'القاهرة' },
+  { id: 2, name: 'الجيزة' },
+  { id: 3, name: 'الاسكندرية' },
+  { id: 4, name: 'القليوبية' },
+  { id: 5, name: 'المنوفية' },
+  { id: 6, name: 'الغربية' },
+  { id: 7, name: 'الدقهلية' },
+  { id: 8, name: 'كفر الشيخ' },
+  { id: 9, name: 'دمياط' },
+  { id: 10, name: 'بورسعيد' },
+  { id: 11, name: 'الإسماعيلية' },
+  { id: 12, name: 'السويس' },
+  { id: 13, name: 'شرم الشيخ' },
+  { id: 14, name: 'الشرقية' },
+  { id: 15, name: 'البحيرة' },
+  { id: 16, name: 'مرسى مطروح' },
+  { id: 17, name: 'الفيوم' },
+  { id: 18, name: 'بني سويف' },
+  { id: 19, name: 'المنيا' },
+  { id: 20, name: 'أسيوط' },
+  { id: 21, name: 'سوهاج' },
+  { id: 22, name: 'قنا' },
+  { id: 23, name: 'الأقصر' },
+  { id: 24, name: 'أسوان' },
+  { id: 25, name: 'الوادي الجديد' },
+  { id: 26, name: 'الغردقة' },
+  { id: 27, name: 'العين السخنة' },
+  { id: 28, name: 'الساحل الشمالي' },
+  { id: 29, name: 'جنوب سيناء' },
+  { id: 30, name: 'القصر' },
+];
+
 const GOVERNORATE_ALIASES = {
   'القاهرة': ['cairo', 'القاهره', 'قاهره', 'قاهرة'],
   'الجيزة': ['giza', 'الجيزه', 'جيزه', 'جيزة'],
@@ -227,7 +260,15 @@ class LgService {
 
     const { data, errors } = response.data || {};
     if (errors && errors.length > 0) {
-      const msg = errors[0]?.message || 'GraphQL error';
+      const err = errors[0];
+      const validation = err?.extensions?.validation;
+      let msg = err?.message || 'GraphQL error';
+      if (validation && typeof validation === 'object') {
+        const details = Object.entries(validation)
+          .map(([k, v]) => `${k.replace(/^input\./, '')}: ${Array.isArray(v) ? v.join(', ') : v}`)
+          .join(' | ');
+        msg = `${msg}: ${details}`;
+      }
       throw new Error(msg);
     }
     return data;
@@ -317,17 +358,9 @@ class LgService {
   }
 
   async resolveZoneIds(governorate, city) {
-    // Fetch top-level zones once per service instance
-    if (!this._zonesCache) {
-      this._zonesCache = await this.getZones();
-    }
-    const zones = this._zonesCache;
-
+    const zones = LG_GOVERNORATES;
     const govText = governorate || city || '';
-    const zoneMatch = findBestZoneMatch(zones, govText);
-    if (!zoneMatch) {
-      throw new Error(`LG Express: لم يتم التعرف على المحافظة: ${govText}`);
-    }
+    const zoneMatch = findBestZoneMatch(zones, govText) || zones[0]; // fallback Cairo if unmatched
 
     // Fetch subzones for this zone
     let subzones = [];
@@ -337,8 +370,17 @@ class LgService {
 
     const cityText = city && city !== governorate ? city : '';
     let subzoneMatch = cityText ? findBestZoneMatch(subzones, cityText) : null;
-    if (!subzoneMatch && subzones.length > 0) subzoneMatch = subzones[0]; // fallback first subzone
-    if (!subzoneMatch) subzoneMatch = zoneMatch; // last resort: use zone itself
+    if (!subzoneMatch && subzones.length > 0) {
+      // Look for "غير موضح" or matching zone name or first available subzone
+      subzoneMatch =
+        subzones.find((s) => s.name === 'غير موضح' || normalizeArabic(s.name) === normalizeArabic(zoneMatch.name)) ||
+        subzones[0];
+    }
+
+    if (!subzoneMatch) {
+      // Last safety check: if subzone list is empty, query zone 1 subzone
+      subzoneMatch = { id: 307 }; // 307 = "غير موضح" in LG system
+    }
 
     return { zoneId: Number(zoneMatch.id), subzoneId: Number(subzoneMatch.id) };
   }
@@ -395,12 +437,14 @@ class LgService {
 
     const input = {
       serviceId,
-      recipientName: orderData.recipientName,
+      typeCode: 'FDP',
+      refNumber: String(orderData.orderNumber),
+      description: String(orderData.orderNumber),
+      recipientName: orderData.recipientName || 'عميل متجر',
       recipientMobile: orderData.recipientMobile,
       recipientAddress: orderData.recipientAddress,
       recipientZoneId: zoneId,
       recipientSubzoneId: subzoneId,
-      description: orderData.orderNumber,
       notes: orderData.notes || '',
       price: isCOD ? Number(orderData.codAmount) : 0,
       paymentTypeCode: isCOD ? 'COLC' : 'PAID',
@@ -409,6 +453,10 @@ class LgService {
       piecesCount: orderData.pieces || 1,
       weight: orderData.weight || 1,
     };
+
+    if (orderData.recipientPhone && orderData.recipientPhone !== orderData.recipientMobile) {
+      input.recipientPhone = orderData.recipientPhone;
+    }
 
     const tryCreate = async (tok) => {
       const data = await this._gql(GQL_SAVE_SHIPMENT, { input }, tok);
