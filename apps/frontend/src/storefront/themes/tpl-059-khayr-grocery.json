@@ -1,0 +1,418 @@
+{
+  "id": "tpl-059-khayr-grocery",
+  "name": "Khayr — سوبر ماركت",
+  "description": "قالب سوبر ماركت عربي موبايل-أولًا بمنطق السوق المحلي: هيرو حصاد بصور طازة، دوائر أقسام، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، وآراء عملاء، وزر واتساب للطلب السريع. زيتوني وكريمي وذهبي — مبني لمتجر بقالة بيبيع بالواتساب والدفع عند الاستلام.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "88 38% 30%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "44 34% 90%",
+      "secondaryForeground": "88 32% 16%",
+      "accent": "42 74% 46%",
+      "accentForeground": "36 50% 12%",
+      "background": "44 44% 97%",
+      "foreground": "88 22% 12%",
+      "muted": "44 28% 92%",
+      "mutedForeground": "88 10% 36%",
+      "border": "42 20% 84%",
+      "card": "0 0% 100%",
+      "cardForeground": "88 22% 12%",
+      "ring": "42 74% 46%"
+    },
+    "typography": {
+      "headingFont": "IBM Plex Sans Arabic, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.625rem",
+      "buttonRadius": "0.45rem"
+    },
+    "productCard": {
+      "borderRadius": "0.625rem",
+      "boxShadow": "0 6px 22px hsl(150 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(150 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | KHAYR",
+    "description": "قالب سوبر ماركت عربي موبايل-أولًا بمنطق السوق المحلي: هيرو حصاد بصور طازة، دوائر أقسام، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، وآراء عملاء، وزر واتساب للطلب السريع. زيتوني وكريمي وذهبي — مبني لمتجر بقالة بيبيع بالواتساب والدفع عند الاستلام."
+  },
+  "preview": {
+    "colors": [
+      "88 38% 30%",
+      "42 74% 46%",
+      "44 44% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-059-khayr-grocery/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "KHAYR",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "الدفع عند الاستلام في كل المحافظات · اطلب واتساب أو من الموقع",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "السوق",
+        "to": "/shop"
+      },
+      {
+        "label": "الخضار",
+        "to": "/shop?category=produce"
+      },
+      {
+        "label": "الألبان",
+        "to": "/shop?category=dairy"
+      },
+      {
+        "label": "البقالة",
+        "to": "/shop?category=pantry"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "KHAYR — قالب سوبر ماركت عربي موبايل-أولًا بمنطق السوق المحلي.",
+    "copyrightText": "© 2026 KHAYR",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "السوق",
+            "to": "/shop"
+          },
+          {
+            "label": "الخضار",
+            "to": "/shop?category=produce"
+          },
+          {
+            "label": "الألبان",
+            "to": "/shop?category=dairy"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "elessi-organic-harvest",
+          "settings": {
+            "eyebrow": "من السوق",
+            "title": "طازة النهاردة، بسعر النهاردة",
+            "subtitle": "خضار وفاكهة وبيض وألبان من السوق المصري — تطلب بالواتساب أو من الموقع، وتدفع عند الاستلام.",
+            "ctaText": "اطلب من السوق",
+            "ctaLink": "/shop?category=produce",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-059-khayr-grocery/hero.jpg",
+            "panelImage": "/assets/themes/tpl-059-khayr-grocery/hero.jpg",
+            "highlights": [
+              {
+                "label": "دفع",
+                "value": "عند الاستلام"
+              },
+              {
+                "label": "توصيل",
+                "value": "24 ساعة"
+              },
+              {
+                "label": "طازة",
+                "value": "من السوق"
+              }
+            ],
+            "panelEyebrow": "من السوق",
+            "panelTitle": "طازة النهاردة، بسعر النهاردة",
+            "panelSubtitle": "خضار وفاكهة وبيض وألبان من السوق المصري — تطلب بالواتساب أو من الموقع، وتدفع عند الاستلام.",
+            "panelMetricValue": ""
+          }
+        },
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل 24 ساعة",
+            "message": "الطلب قبل 6 المغرب يوصل بكرة — الدفع عند الاستلام",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "easyorders-circles",
+          "settings": {
+            "title": "أقسام السوق",
+            "subtitle": "خضار · ألبان · بيض · بقالة",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "دفع عند الاستلام",
+                "description": "تفتح وتشوف قبل ما تدفع"
+              },
+              {
+                "title": "توصيل 24 ساعة",
+                "description": "القاهرة والجيزة — وباقي المحافظات 48 ساعة"
+              },
+              {
+                "title": "سعر السوق",
+                "description": "بنشتري الصبح ونبيع بسعر النهاردة"
+              },
+              {
+                "title": "واتساب مباشر",
+                "description": "اطلب بصورة أو صوت — بنجهز ونأكد"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "عملاء السوق",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "أم خالد",
+                "text": "طلبت بالواتساب ووصل بكرة الصبح — الخضار طازة.",
+                "rating": 5
+              },
+              {
+                "author": "مصطفى ح.",
+                "text": "البيض والألبان أسعارهم أحسن من السوبر ماركت اللي جنبي.",
+                "rating": 4
+              },
+              {
+                "author": "نهى ع.",
+                "text": "الدفع عند الاستلام خلاني أثق وأطلب تاني.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من سلات العملاء",
+            "subtitle": "صوّر سلتك ووسمنا",
+            "handle": "khayr.souq",
+            "images": [
+              "/assets/themes/tpl-059-khayr-grocery/hero.jpg",
+              "/assets/themes/tpl-059-khayr-grocery/aisle-1.jpg",
+              "/assets/themes/tpl-059-khayr-grocery/aisle-2.jpg"
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "عروض السوق على الواتساب",
+            "subtitle": "رسالة واحدة في الأسبوع بأرخص أسعار الخضار والفاكهة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green",
+          "settings": {
+            "phone": "+201000000000",
+            "message": "مرحبًا، عايز أطلب من السوق",
+            "label": "اطلب على واتساب",
+            "subtitle": "رد سريع خلال دقائق"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "السوق",
+            "subtitle": "كل حاجة طازة — سعر النهاردة",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "menu-quick-order"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "standard"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "quick"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "editorial"
+        },
+        {
+          "type": "related-products",
+          "variant": "list"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "standard",
+          "settings": {
+            "title": "سلة السوق",
+            "subtitle": "حدد المحافظة وطريقة الدفع — الدفع عند الاستلام متاح.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو ميعاد توصيل أو فاتورة — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

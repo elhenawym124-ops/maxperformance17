@@ -1,0 +1,532 @@
+{
+  "id": "tpl-060-makhzan-grocery",
+  "name": "Makhzan — بقالة المنزل",
+  "description": "قالب بقالة أصلي بمنطق «المخزن الشهري»: هيرو لوحة إعلان، مخطّط مخزن حسب عدد الأفراد والميزانية، تبويبات أقسام، باقات يومية، مجلة وصفات تربط المنتج بالوصفة، وشبكة خدمات (تجهيز · توصيل · جملة). تيراكوتا وأخضر غامق وكريمي — مبني لبيت بيشتري مرة في الشهر مش كل يوم.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "22 46% 32%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "40 32% 91%",
+      "secondaryForeground": "22 40% 16%",
+      "accent": "152 30% 30%",
+      "accentForeground": "0 0% 100%",
+      "background": "40 38% 97%",
+      "foreground": "22 16% 12%",
+      "muted": "40 24% 93%",
+      "mutedForeground": "22 10% 38%",
+      "border": "38 18% 85%",
+      "card": "0 0% 100%",
+      "cardForeground": "22 16% 12%",
+      "ring": "152 30% 30%"
+    },
+    "typography": {
+      "headingFont": "Readex Pro, Almarai, sans-serif",
+      "bodyFont": "Readex Pro, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(150 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(150 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | MAKHZAN",
+    "description": "قالب بقالة أصلي بمنطق «المخزن الشهري»: هيرو لوحة إعلان، مخطّط مخزن حسب عدد الأفراد والميزانية، تبويبات أقسام، باقات يومية، مجلة وصفات تربط المنتج بالوصفة، وشبكة خدمات (تجهيز · توصيل · جملة). تيراكوتا وأخضر غامق وكريمي — مبني لبيت بيشتري مرة في الشهر مش كل يوم."
+  },
+  "preview": {
+    "colors": [
+      "22 46% 32%",
+      "152 30% 30%",
+      "40 38% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-060-makhzan-grocery/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "MAKHZAN",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "سلة الشهر بسعر واحد · تجهيز وتوصيل في 3 أيام",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "سلات الشهر",
+        "to": "/collections"
+      },
+      {
+        "label": "البقالة",
+        "to": "/shop?category=pantry"
+      },
+      {
+        "label": "التنظيف",
+        "to": "/shop?category=cleaning"
+      },
+      {
+        "label": "وصفات",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "MAKHZAN — قالب بقالة أصلي بمنطق «المخزن الشهري».",
+    "copyrightText": "© 2026 MAKHZAN",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "سلات الشهر",
+            "to": "/collections"
+          },
+          {
+            "label": "البقالة",
+            "to": "/shop?category=pantry"
+          },
+          {
+            "label": "التنظيف",
+            "to": "/shop?category=cleaning"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "drop-board",
+          "settings": {
+            "eyebrow": "مخزن الشهر",
+            "title": "املأ مخزنك مرة واحدة",
+            "subtitle": "اختار عدد أفراد البيت والميزانية، وإحنا نجهّز سلة شهر كامل: بقالة جافة، تنظيف، ومعلبات — بفاتورة واحدة.",
+            "ctaText": "جهّز المخزن",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-060-makhzan-grocery/hero.jpg",
+            "panelImage": "/assets/themes/tpl-060-makhzan-grocery/hero.jpg",
+            "highlights": [
+              {
+                "label": "سلة",
+                "value": "شهر كامل"
+              },
+              {
+                "label": "توفير",
+                "value": "لحد 18%"
+              },
+              {
+                "label": "تجهيز",
+                "value": "3 أيام"
+              }
+            ],
+            "panelEyebrow": "مخزن الشهر",
+            "panelTitle": "املأ مخزنك مرة واحدة",
+            "panelSubtitle": "اختار عدد أفراد البيت والميزانية، وإحنا نجهّز سلة شهر كامل: بقالة جافة، تنظيف، ومعلبات — بفاتورة واحدة.",
+            "panelMetricValue": ""
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "chips",
+          "settings": {
+            "title": "جهّز سلة الشهر في دقيقة",
+            "subtitle": "عدد الأفراد ← الميزانية",
+            "ctaText": "شوف السلة",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "فرد"
+              },
+              {
+                "label": "فردين"
+              },
+              {
+                "label": "عائلة 4"
+              },
+              {
+                "label": "عائلة 6"
+              }
+            ],
+            "moods": [
+              {
+                "label": "اقتصادي"
+              },
+              {
+                "label": "متوسط"
+              },
+              {
+                "label": "كامل"
+              }
+            ],
+            "looks": [
+              {
+                "title": "سلة الفرد",
+                "subtitle": "بقالة + تنظيف أساسي",
+                "price": "1,150 ج.م",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/aisle-1.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "سلة العائلة",
+                "subtitle": "4 أفراد · شهر كامل",
+                "price": "2,450 ج.م",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/hero.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "سلة العيلة الكبيرة",
+                "subtitle": "6 أفراد · شهر كامل",
+                "price": "3,300 ج.م",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "split",
+          "settings": {
+            "badge": "سلات المخزن",
+            "title": "سلات المخزن",
+            "subtitle": "فرد · فردين · عائلة 4 · عائلة 6",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "اقتصادي",
+                "title": "سلة اقتصادية",
+                "subtitle": "أساسيات الشهر",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/aisle-1.jpg",
+                "link": "/collections"
+              },
+              {
+                "label": "متوسط",
+                "title": "سلة متوسطة",
+                "subtitle": "أساسيات + مخبوزات",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/hero.jpg",
+                "link": "/collections"
+              },
+              {
+                "label": "كامل",
+                "title": "سلة كاملة",
+                "subtitle": "أساسيات + تنظيف + معلبات",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "باقات",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "سلة 1",
+                "title": "سلة الفرد",
+                "subtitle": "بقالة + تنظيف أساسي",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "1,150 ج.م"
+              },
+              {
+                "label": "سلة 2",
+                "title": "سلة العائلة",
+                "subtitle": "4 أفراد · شهر كامل",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "2,450 ج.م"
+              },
+              {
+                "label": "سلة 3",
+                "title": "سلة العيلة",
+                "subtitle": "6 أفراد · شهر كامل",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "3,300 ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "badge": "وصفات",
+            "title": "وصفات من سلة الشهر",
+            "subtitle": "كل وصفة مكوّناتها موجودة في السلة",
+            "items": [
+              {
+                "tag": "وصفة 1",
+                "title": "شكشوكة بصلصة الطماطم",
+                "excerpt": "طماطم · بيض · بصل · زيت — كلها في سلة العائلة.",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/hero.jpg",
+                "link": "/collections"
+              },
+              {
+                "tag": "وصفة 2",
+                "title": "أرز باللبن",
+                "excerpt": "أرز · لبن · سكر — وصفة اقتصادية لفردين.",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/aisle-1.jpg",
+                "link": "/collections"
+              },
+              {
+                "tag": "وصفة 3",
+                "title": "شوربة عدس",
+                "excerpt": "عدس · بصل · جزر · كمون — سلة الشتاء.",
+                "image": "/assets/themes/tpl-060-makhzan-grocery/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "services-grid",
+          "settings": {
+            "badge": "خدمات",
+            "title": "أكتر من بقالة",
+            "subtitle": "تجهيز · توصيل بموعد · جملة · استبدال",
+            "columns": 4,
+            "items": [
+              {
+                "title": "تجهيز السلة",
+                "description": "بنجهّز السلة ونراجع كل صنف قبل الشحن"
+              },
+              {
+                "title": "توصيل بموعد",
+                "description": "بنحدد يوم وموعد التوصيل معاك"
+              },
+              {
+                "title": "شراء بالجملة",
+                "description": "كرتونة أو أكتر بسعر جملة للعائلات الكبيرة"
+              },
+              {
+                "title": "استبدال 14 يوم",
+                "description": "أي صنف مش زي الوصف"
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "سلة بسعر واحد",
+                "description": "السعر النهائي للشهر — من غير مفاجآت في الفاتورة"
+              },
+              {
+                "title": "تجهيز 3 أيام",
+                "description": "بنجهّز ونراجع ونشحن في 3 أيام"
+              },
+              {
+                "title": "توصيل لكل المحافظات",
+                "description": "القاهرة والجيزة في يوم — والباقي 48 ساعة"
+              },
+              {
+                "title": "استبدال 14 يوم",
+                "description": "لو صنف مش مناسب"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "وصفة وسلة كل شهر",
+            "subtitle": "وصفات موسمية مرتبطة بمنتجات السلة — مرة في الشهر.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المخزن",
+            "subtitle": "بقالة · تنظيف · معلبات — للشهر كله",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "decision-deck"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "masonry"
+        },
+        {
+          "type": "product-info",
+          "variant": "bento-specs"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "detailed"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "editorial",
+          "settings": {
+            "title": "سلة المخزن",
+            "subtitle": "راجع أصناف الشهر وميعاد التوصيل.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "command-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو ميعاد توصيل أو فاتورة — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

@@ -3442,7 +3442,7 @@
   },
   {
     "id": "tpl-013-modest-warehouse-atelier",
-    "name": "Atelier Warehouse — عبايات",
+    "name": "Warehouse — Metal (Shopify 1:1 Exact Replica)",
     "description": "قالب عبايات محتشمة بكثافة كتالوج عالية: هيرو كاسكيد، ريل فئات مربعات، شريط عروض، شبكة منتجات كثيفة، وآراء تحريرية. مبني لمنطق متجر يفتح بكتالوج كبير مش بصورة واحدة.",
     "category": "fashion",
     "categoryMeta": {
@@ -3455,20 +3455,20 @@
         "label": "عبايات ومحجبات"
       }
     },
-    "direction": "rtl",
+    "direction": "ltr",
     "previewColors": [
-      "280 24% 24%",
-      "280 14% 90%",
-      "28 62% 52%"
+      "231 61% 30%",
+      "204 8% 96%",
+      "189 100% 43%"
     ],
     "previewImage": "/assets/themes/tpl-013-modest-warehouse-atelier/preview.png",
     "pageStats": {
-      "homeSections": 8,
+      "homeSections": 16,
       "shopSections": 5,
       "checkoutSections": 0,
       "pdpSections": 7,
       "cartSections": 2,
-      "totalSections": 22
+      "totalSections": 30
     }
   },
   {
@@ -4802,6 +4802,130 @@
       "pdpSections": 8,
       "cartSections": 2,
       "totalSections": 25
+    }
+  },
+  {
+    "id": "tpl-057-baqala-grocery",
+    "name": "Baqala — سوبر ماركت",
+    "description": "قالب سوبر ماركت هادي بمنطق الممرات: هيرو واسع بمساحة تنفّس، تبويبات أقسام، شبكة منتجات بالشراء السريع، موزايك سلة الأسبوع، وشريط جودة ومصدر. أخضر غامق وكريمي ولمسة حمضيات — مبني لمتجر بقالة بيبيع بالصورة والتنظيم مش بالخصم.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "grocery",
+        "label": "بقالة وسوبر ماركت"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "152 34% 24%",
+      "42 36% 92%",
+      "36 86% 50%"
+    ],
+    "previewImage": "/assets/themes/tpl-057-baqala-grocery/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-058-souq-grocery",
+    "name": "Souq — سوبر ماركت",
+    "description": "قالب سوبر ماركت كثيف بمنطق العروض: شريط خصم، هيرو بضائع جانبية، عدّاد لعرض الأسبوع، فئات كتالوج، عروض حملات متعددة، وشبكة منتجات واسعة. أحمر طوبي وكريمي وعنبري — مبني لمتجر بيحرّك بالعرض والخصم.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "grocery",
+        "label": "بقالة وسوبر ماركت"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "8 60% 40%",
+      "40 40% 92%",
+      "32 88% 48%"
+    ],
+    "previewImage": "/assets/themes/tpl-058-souq-grocery/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-059-khayr-grocery",
+    "name": "Khayr — سوبر ماركت",
+    "description": "قالب سوبر ماركت عربي موبايل-أولًا بمنطق السوق المحلي: هيرو حصاد بصور طازة، دوائر أقسام، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، وآراء عملاء، وزر واتساب للطلب السريع. زيتوني وكريمي وذهبي — مبني لمتجر بقالة بيبيع بالواتساب والدفع عند الاستلام.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "grocery",
+        "label": "بقالة وسوبر ماركت"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "88 38% 30%",
+      "44 34% 90%",
+      "42 74% 46%"
+    ],
+    "previewImage": "/assets/themes/tpl-059-khayr-grocery/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 24
+    }
+  },
+  {
+    "id": "tpl-060-makhzan-grocery",
+    "name": "Makhzan — بقالة المنزل",
+    "description": "قالب بقالة أصلي بمنطق «المخزن الشهري»: هيرو لوحة إعلان، مخطّط مخزن حسب عدد الأفراد والميزانية، تبويبات أقسام، باقات يومية، مجلة وصفات تربط المنتج بالوصفة، وشبكة خدمات (تجهيز · توصيل · جملة). تيراكوتا وأخضر غامق وكريمي — مبني لبيت بيشتري مرة في الشهر مش كل يوم.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "grocery",
+        "label": "بقالة وسوبر ماركت"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "22 46% 32%",
+      "40 32% 91%",
+      "152 30% 30%"
+    ],
+    "previewImage": "/assets/themes/tpl-060-makhzan-grocery/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 24
     }
   },
   {

@@ -1,0 +1,451 @@
+{
+  "id": "tpl-057-baqala-grocery",
+  "name": "Baqala — سوبر ماركت",
+  "description": "قالب سوبر ماركت هادي بمنطق الممرات: هيرو واسع بمساحة تنفّس، تبويبات أقسام، شبكة منتجات بالشراء السريع، موزايك سلة الأسبوع، وشريط جودة ومصدر. أخضر غامق وكريمي ولمسة حمضيات — مبني لمتجر بقالة بيبيع بالصورة والتنظيم مش بالخصم.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "152 34% 24%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "42 36% 92%",
+      "secondaryForeground": "152 30% 16%",
+      "accent": "36 86% 50%",
+      "accentForeground": "24 40% 12%",
+      "background": "42 42% 98%",
+      "foreground": "152 18% 12%",
+      "muted": "42 26% 94%",
+      "mutedForeground": "152 10% 38%",
+      "border": "42 18% 87%",
+      "card": "0 0% 100%",
+      "cardForeground": "152 18% 12%",
+      "ring": "36 86% 50%"
+    },
+    "typography": {
+      "headingFont": "Tajawal, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.75rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "0.75rem",
+      "boxShadow": "0 6px 22px hsl(150 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(150 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | BAQALA",
+    "description": "قالب سوبر ماركت هادي بمنطق الممرات: هيرو واسع بمساحة تنفّس، تبويبات أقسام، شبكة منتجات بالشراء السريع، موزايك سلة الأسبوع، وشريط جودة ومصدر. أخضر غامق وكريمي ولمسة حمضيات — مبني لمتجر بقالة بيبيع بالصورة والتنظيم مش بالخصم."
+  },
+  "preview": {
+    "colors": [
+      "152 34% 24%",
+      "36 86% 50%",
+      "42 42% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-057-baqala-grocery/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "BAQALA",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "توصيل مجاني فوق 500 ج.م · خضار وفاكهة تُقطف يوميًا",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الخضار",
+        "to": "/shop?category=produce"
+      },
+      {
+        "label": "الألبان",
+        "to": "/shop?category=dairy"
+      },
+      {
+        "label": "البقالة الجافة",
+        "to": "/shop?category=pantry"
+      },
+      {
+        "label": "التنظيف",
+        "to": "/shop?category=cleaning"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "BAQALA — قالب سوبر ماركت هادي بمنطق الممرات.",
+    "copyrightText": "© 2026 BAQALA",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الخضار",
+            "to": "/shop?category=produce"
+          },
+          {
+            "label": "الألبان",
+            "to": "/shop?category=dairy"
+          },
+          {
+            "label": "البقالة الجافة",
+            "to": "/shop?category=pantry"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل مجاني",
+            "message": "على أي طلب فوق 500 ج.م داخل القاهرة والجيزة — والباقي 35 ج.م بس",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "soft-showcase",
+          "settings": {
+            "eyebrow": "بقالة الحيّ",
+            "title": "كل حاجة للبيت، ممر ممر",
+            "subtitle": "خضار وفاكهة طازة، ألبان، بقالة جافة، ومنظفات — الأسعار واضحة والمخزون محدّث كل يوم.",
+            "ctaText": "ابدأ من الممرات",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-057-baqala-grocery/hero.jpg",
+            "panelImage": "/assets/themes/tpl-057-baqala-grocery/hero.jpg",
+            "highlights": [
+              {
+                "label": "توصيل",
+                "value": "نفس اليوم"
+              },
+              {
+                "label": "طازة",
+                "value": "يوميًا"
+              },
+              {
+                "label": "استبدال",
+                "value": "فوري"
+              }
+            ],
+            "panelEyebrow": "بقالة الحيّ",
+            "panelTitle": "كل حاجة للبيت، ممر ممر",
+            "panelSubtitle": "خضار وفاكهة طازة، ألبان، بقالة جافة، ومنظفات — الأسعار واضحة والمخزون محدّث كل يوم.",
+            "panelMetricValue": "توصيل من 35 ج.م"
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الممرات",
+            "title": "الممرات",
+            "subtitle": "اختار القسم وابدأ",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "الخضار",
+                "title": "خضار وفاكهة",
+                "subtitle": "تُقطف يوميًا",
+                "image": "/assets/themes/tpl-057-baqala-grocery/hero.jpg",
+                "link": "/shop?category=produce"
+              },
+              {
+                "label": "الألبان",
+                "title": "ألبان وأجبان",
+                "subtitle": "من مزارع محلية",
+                "image": "/assets/themes/tpl-057-baqala-grocery/aisle-1.jpg",
+                "link": "/shop?category=dairy"
+              },
+              {
+                "label": "البقالة",
+                "title": "بقالة جافة",
+                "subtitle": "أرز · سكر · زيوت",
+                "image": "/assets/themes/tpl-057-baqala-grocery/aisle-2.jpg",
+                "link": "/shop?category=pantry"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "bento",
+          "settings": {
+            "title": "سلات جاهزة زي ما هي",
+            "subtitle": "من طلبات عملاء — مش استوديو",
+            "ctaText": "شوف السلات",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-057-baqala-grocery/aisle-1.jpg",
+                "title": "سلة الأسبوع",
+                "subtitle": "خضار + ألبان + بقالة",
+                "priceLabel": "420 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-057-baqala-grocery/aisle-2.jpg",
+                "title": "سلة التخزين",
+                "subtitle": "أرز · زيت · سكر · معلبات",
+                "priceLabel": "610 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-057-baqala-grocery/hero.jpg",
+                "title": "سلة الفطار",
+                "subtitle": "بيض · جبن · عيش · مربى",
+                "priceLabel": "285 ج.م",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "توصيل نفس اليوم",
+                "description": "الطلبات قبل 1 الظهر توصل قبل 8 بالليل"
+              },
+              {
+                "title": "خضار يومي",
+                "description": "بنشتري من السوق الصبح — مش مخزون أسبوع"
+              },
+              {
+                "title": "أسعار مكتوبة",
+                "description": "سعر الكيلو والوحدة واضح قبل السلة"
+              },
+              {
+                "title": "استبدال فوري",
+                "description": "أي حاجة مش طازة بنستبدلها من غير كلام"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "كلام البقالة",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "منى ع.",
+                "text": "الخضار وصلت طازة فعلًا والتوصيل قبل الميعاد.",
+                "rating": 5
+              },
+              {
+                "author": "أحمد ر.",
+                "text": "الطلب ٤ أكياس وكل حاجة موجودة — مفيش بديل من غير موافقتي.",
+                "rating": 4
+              },
+              {
+                "author": "سارة م.",
+                "text": "أسعار الكيلو مكتوبة زي السوق، وده اللي خلاني أطلب تاني.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "عرض الأسبوع في بريدك",
+            "subtitle": "خضار الموسم وأسعار الأسبوع — رسالة واحدة كل سبت.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "الممرات",
+            "subtitle": "كل قسم بممره — خضار، ألبان، بقالة، تنظيف",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "graceful-bar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "stacked"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "compact"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "stacked"
+        },
+        {
+          "type": "related-products",
+          "variant": "graceful-related"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة المشتريات",
+            "subtitle": "راجع الكميات والأسعار قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "market-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو ميعاد توصيل أو فاتورة — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

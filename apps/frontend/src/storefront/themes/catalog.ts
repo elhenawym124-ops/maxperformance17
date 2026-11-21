@@ -365,6 +365,30 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "housewares",
     "أدوات منزلية",
   ),
+  "tpl-057-baqala-grocery": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "grocery",
+    "بقالة وسوبر ماركت",
+  ),
+  "tpl-058-souq-grocery": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "grocery",
+    "بقالة وسوبر ماركت",
+  ),
+  "tpl-059-khayr-grocery": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "grocery",
+    "بقالة وسوبر ماركت",
+  ),
+  "tpl-060-makhzan-grocery": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "grocery",
+    "بقالة وسوبر ماركت",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -1013,6 +1037,14 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب أدوات منزلية بلدي بمنطق السوق: هيرو بضائع جانبية، فئات بصور، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، ومعرض عملاء. كريمي وزيتوني وقهوي — مناسب لمتجر بيبيع لكل بيت بالدفع عند الاستلام.",
   "tpl-056-beit-housewares":
     "قالب أدوات منزلية أصلي بمنطق الغرفة: هيرو أقسام بصور، مخطّط اختيار حسب الغرفة والميزانية، موزايك مطابخ، فئات معرض، باقات يومية، وآراء. تيراكوتا وأخضر غامق وكريمي — مبني لمتجر بيجهّز البيت غرفة غرفة.",
+  "tpl-057-baqala-grocery":
+    "قالب سوبر ماركت هادي بمنطق الممرات: هيرو واسع بمساحة تنفّس، تبويبات أقسام، شبكة منتجات بالشراء السريع، موزايك سلة الأسبوع، وشريط جودة ومصدر. أخضر غامق وكريمي ولمسة حمضيات — مبني لمتجر بقالة بيبيع بالصورة والتنظيم مش بالخصم.",
+  "tpl-058-souq-grocery":
+    "قالب سوبر ماركت كثيف بمنطق العروض: شريط خصم، هيرو بضائع جانبية، عدّاد لعرض الأسبوع، فئات كتالوج، عروض حملات متعددة، وشبكة منتجات واسعة. أحمر طوبي وكريمي وعنبري — مبني لمتجر بيحرّك بالعرض والخصم.",
+  "tpl-059-khayr-grocery":
+    "قالب سوبر ماركت عربي موبايل-أولًا بمنطق السوق المحلي: هيرو حصاد بصور طازة، دوائر أقسام، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، وآراء عملاء، وزر واتساب للطلب السريع. زيتوني وكريمي وذهبي — مبني لمتجر بقالة بيبيع بالواتساب والدفع عند الاستلام.",
+  "tpl-060-makhzan-grocery":
+    "قالب بقالة أصلي بمنطق «المخزن الشهري»: هيرو لوحة إعلان، مخطّط مخزن حسب عدد الأفراد والميزانية، تبويبات أقسام، باقات يومية، مجلة وصفات تربط المنتج بالوصفة، وشبكة خدمات (تجهيز · توصيل · جملة). تيراكوتا وأخضر غامق وكريمي — مبني لبيت بيشتري مرة في الشهر مش كل يوم.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1270,6 +1302,14 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-055-daralbait-housewares/preview.png",
   "tpl-056-beit-housewares":
     "/assets/themes/tpl-056-beit-housewares/preview.png",
+  "tpl-057-baqala-grocery":
+    "/assets/themes/tpl-057-baqala-grocery/preview.png",
+  "tpl-058-souq-grocery":
+    "/assets/themes/tpl-058-souq-grocery/preview.png",
+  "tpl-059-khayr-grocery":
+    "/assets/themes/tpl-059-khayr-grocery/preview.png",
+  "tpl-060-makhzan-grocery":
+    "/assets/themes/tpl-060-makhzan-grocery/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":

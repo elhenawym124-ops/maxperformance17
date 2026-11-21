@@ -1,0 +1,449 @@
+{
+  "id": "tpl-058-souq-grocery",
+  "name": "Souq — سوبر ماركت",
+  "description": "قالب سوبر ماركت كثيف بمنطق العروض: شريط خصم، هيرو بضائع جانبية، عدّاد لعرض الأسبوع، فئات كتالوج، عروض حملات متعددة، وشبكة منتجات واسعة. أحمر طوبي وكريمي وعنبري — مبني لمتجر بيحرّك بالعرض والخصم.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "8 60% 40%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "40 40% 92%",
+      "secondaryForeground": "8 46% 18%",
+      "accent": "32 88% 48%",
+      "accentForeground": "24 50% 12%",
+      "background": "40 46% 97%",
+      "foreground": "12 22% 12%",
+      "muted": "40 30% 93%",
+      "mutedForeground": "10 12% 38%",
+      "border": "38 20% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "12 22% 12%",
+      "ring": "32 88% 48%"
+    },
+    "typography": {
+      "headingFont": "Alexandria, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.375rem",
+      "buttonRadius": "0.3rem"
+    },
+    "productCard": {
+      "borderRadius": "0.375rem",
+      "boxShadow": "0 6px 22px hsl(150 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(150 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | SOUQ MARKET",
+    "description": "قالب سوبر ماركت كثيف بمنطق العروض: شريط خصم، هيرو بضائع جانبية، عدّاد لعرض الأسبوع، فئات كتالوج، عروض حملات متعددة، وشبكة منتجات واسعة. أحمر طوبي وكريمي وعنبري — مبني لمتجر بيحرّك بالعرض والخصم."
+  },
+  "preview": {
+    "colors": [
+      "8 60% 40%",
+      "32 88% 48%",
+      "40 46% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-058-souq-grocery/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "SOUQ MARKET",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "خصم 35% على البقالة الجافة · شحن مجاني فوق 700 ج.م",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "العروض",
+        "to": "/shop?sort=discount"
+      },
+      {
+        "label": "البقالة",
+        "to": "/shop?category=pantry"
+      },
+      {
+        "label": "المنظفات",
+        "to": "/shop?category=cleaning"
+      },
+      {
+        "label": "المخبوزات",
+        "to": "/shop?category=bakery"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "SOUQ MARKET — قالب سوبر ماركت كثيف بمنطق العروض.",
+    "copyrightText": "© 2026 SOUQ MARKET",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "العروض",
+            "to": "/shop?sort=discount"
+          },
+          {
+            "label": "البقالة",
+            "to": "/shop?category=pantry"
+          },
+          {
+            "label": "المنظفات",
+            "to": "/shop?category=cleaning"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "خصم 35%",
+            "message": "على البقالة الجافة والمنظفات — لحد آخر الأسبوع",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "retail-direct-banner",
+          "settings": {
+            "eyebrow": "عرض الأسبوع",
+            "title": "خصم لحد 35% على البقالة",
+            "subtitle": "أرز وزيت وسكر ومعلبات بأسعار الجملة — العرض ساري لحد آخر الأسبوع أو نفاد الكمية.",
+            "ctaText": "اشتري العرض",
+            "ctaLink": "/shop?sort=discount",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-058-souq-grocery/hero.jpg",
+            "panelImage": "/assets/themes/tpl-058-souq-grocery/hero.jpg",
+            "highlights": [
+              {
+                "label": "خصم",
+                "value": "لحد 35%"
+              },
+              {
+                "label": "شحن",
+                "value": "مجاني 700+"
+              },
+              {
+                "label": "دفع",
+                "value": "عند الاستلام"
+              }
+            ],
+            "panelEyebrow": "عرض الأسبوع",
+            "panelTitle": "خصم لحد 35% على البقالة",
+            "panelSubtitle": "أرز وزيت وسكر ومعلبات بأسعار الجملة — العرض ساري لحد آخر الأسبوع أو نفاد الكمية.",
+            "panelMetricValue": ""
+          }
+        },
+        {
+          "type": "shopping-intents",
+          "settings": {
+            "badge": "ابدأ من احتياجك",
+            "title": "ابدأ من احتياجك",
+            "subtitle": "اختار اللي بتنزله السوق عشانه — وإحنا نطلع لك السلة",
+            "ctaText": "افتح القسم",
+            "items": [
+              {
+                "eyebrow": "سلة الشهر",
+                "title": "بقالة جافة + تنظيف",
+                "subtitle": "أرز · زيت · سكر · منظفات",
+                "link": "/shop?category=pantry"
+              },
+              {
+                "eyebrow": "مطبخ جديد",
+                "title": "أساسيات أول مرة",
+                "subtitle": "بهارات · معلبات · زيوت",
+                "link": "/shop?category=pantry"
+              },
+              {
+                "eyebrow": "مناسبة",
+                "title": "عزومة أو تجمع",
+                "subtitle": "مشروبات · مقبلات · حلويات",
+                "link": "/shop?sort=discount"
+              },
+              {
+                "eyebrow": "أساسيات بس",
+                "title": "أرخص 20 صنف",
+                "subtitle": "خبز · بيض · لبن · طماطم",
+                "link": "/shop"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "أقسام الكتالوج",
+            "subtitle": "بقالة · منظفات · مخبوزات · مشروبات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "campaign-stack",
+          "settings": {
+            "badge": "باقات",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "حملة 1",
+                "title": "باقة الشهر",
+                "subtitle": "أرز 5 ك · زيت 3 ل · سكر 2 ك",
+                "link": "/shop?category=pantry",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 180"
+              },
+              {
+                "label": "حملة 2",
+                "title": "باقة التنظيف",
+                "subtitle": "كلور · صابون · منظف أرضيات",
+                "link": "/shop?category=cleaning",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 120"
+              },
+              {
+                "label": "باقة",
+                "title": "باقة المخبوزات",
+                "subtitle": "عيش · كرواسون · كيك",
+                "link": "/shop?category=bakery",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 60"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "trust-strip",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "دفع عند الاستلام",
+                "description": "في كل المحافظات — بدون رسوم إضافية"
+              },
+              {
+                "title": "شحن مجاني",
+                "description": "على أي طلب فوق 700 ج.م"
+              },
+              {
+                "title": "أسعار جملة",
+                "description": "على الكرتونة والباقة الكبيرة"
+              },
+              {
+                "title": "استبدال 48 ساعة",
+                "description": "أي منتج مش زي الوصف"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من سلات العملاء",
+            "subtitle": "صوّر سلتك ووسمنا",
+            "handle": "souq.market",
+            "images": [
+              "/assets/themes/tpl-058-souq-grocery/hero.jpg",
+              "/assets/themes/tpl-058-souq-grocery/aisle-1.jpg",
+              "/assets/themes/tpl-058-souq-grocery/aisle-2.jpg"
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "split-panel",
+          "settings": {
+            "title": "عروض السوق أول بأول",
+            "subtitle": "كل خميس رسالة بأرخص الأسعار والعروض الجديدة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "الكتالوج",
+            "subtitle": "فلتر بالسعر والماركة والقسم — 200+ منتج",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "marketplace-dense"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "grid"
+        },
+        {
+          "type": "product-info",
+          "variant": "specs-grid"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "سلة العرض",
+            "subtitle": "الخصم بيتحسب على مستوى السلة — راجع قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "minimal"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills"
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو ميعاد توصيل أو فاتورة — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}
