@@ -17,7 +17,6 @@ import {
   Clock,
   ArrowRight,
 } from "lucide-react";
-import { Badge } from "../../components/ui/badge";
 import { Button } from "../../components/ui/button";
 
 interface DashboardStats {
@@ -152,9 +151,6 @@ export default function WholesaleDashboard() {
             <h1 className="text-xl font-semibold tracking-tight text-foreground">
               لوحة قيادة البيع بالجملة والتوزيع
             </h1>
-            <Badge variant="outline" className="text-[11px] font-mono border-border/80 bg-muted/30">
-              B2B Engine v2.4
-            </Badge>
           </div>
           <p className="text-xs text-muted-foreground mt-1">
             متابعة حركة السحب، مديونيات التجار، وقوائم التسعير المخصصة لشركاء التوزيع
