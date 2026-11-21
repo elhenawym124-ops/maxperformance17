@@ -781,7 +781,7 @@ export const getSidebarConfig = (
     const hasMultipleCompanies = (user?.companies?.length ?? 0) > 1;
     const canManageTaskIntegrations = ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER'].includes(user?.role || '');
     const isRadiologyManager = ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER'].includes(user?.role || '');
-    const isEducationOnlyCompany = isAppInstalled('education-app') && !isAnyAppActive(['store-pro', 'ecommerce-pro']);
+    const isEducationOnlyCompany = isAppActive('education-app') && !isAppActive('order-core') && !isStoreActive();
 
     if (user?.role === 'MERCHANT') {
         return [
