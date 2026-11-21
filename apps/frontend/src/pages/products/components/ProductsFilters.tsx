@@ -163,11 +163,8 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
               >
                 <XMarkIcon className="h-4 w-4" />
               </button>
-            ) : (
-              <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono font-medium text-muted-foreground dark:text-muted-foreground bg-muted dark:bg-muted border border-border dark:border-border rounded shadow-2xs select-none">
-                ⌘K
-              </kbd>
-            )}
+            )
+            : null}
           </div>
         </div>
 

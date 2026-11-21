@@ -29,7 +29,7 @@ export const CustomerListHeader: React.FC<CustomerListHeaderProps> = ({
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div>
         <div className="flex items-center gap-2.5 flex-wrap">
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground dark:text-muted-foreground">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
             {t("customers.pageTitle")}
           </h1>
           {totalCount > 0 && (
@@ -38,9 +38,7 @@ export const CustomerListHeader: React.FC<CustomerListHeaderProps> = ({
             </span>
           )}
         </div>
-        <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-0.5">
-          {t("customers.pageSubtitle")}
-        </p>
+
         {availableDiscountCount !== null && availableDiscountCount > 0 && (
           <span className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-success/10 border border-success/20 text-success dark:text-success tabular-nums shadow-2xs">
             <TagIcon className="h-3 w-3" />

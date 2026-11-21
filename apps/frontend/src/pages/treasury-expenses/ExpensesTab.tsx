@@ -252,9 +252,6 @@ export default function ExpensesTab({
         <div className="bg-white dark:bg-muted border border-border dark:border-border rounded-xl p-3.5 shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground dark:text-muted-foreground mb-1">
             <span className="text-xs font-medium">معدل الصرف وفترة الصمود</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-muted dark:bg-muted text-foreground dark:text-muted-foreground">
-              Runway
-            </span>
           </div>
           <div className="text-xl sm:text-2xl font-bold font-mono text-foreground dark:text-muted-foreground tabular-nums">
             {stats?.runwayMonths || 0} <span className="text-xs font-normal text-muted-foreground">شهر صمود</span>

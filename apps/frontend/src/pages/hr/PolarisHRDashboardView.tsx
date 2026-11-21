@@ -44,7 +44,6 @@ export const PolarisHRDashboardView: React.FC<PolarisHRDashboardViewProps> = ({
       {/* Polaris Page Header */}
       <ShopifyPageHeader
         title="لوحة قيادة الموارد البشرية"
-        subtitle="المؤشرات التشغيلية الحية، نسب الحضور والغياب، وإدارة الموافقات والطلبات المعلقة للفرق"
         badges={[
           { label: `${data?.employees?.totalEmployees || 0} موظف`, variant: "default" },
           { label: `${data?.attendance?.present || 0} حاضر اليوم`, variant: "secondary" },

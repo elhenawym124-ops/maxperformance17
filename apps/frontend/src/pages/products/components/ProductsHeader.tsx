@@ -77,11 +77,13 @@ const ProductsHeader: React.FC<ProductsHeaderProps> = ({
             {productsCount} {isEn ? "items" : "منتج"}
           </span>
         </div>
-        <p className="text-xs text-muted-foreground mt-0.5 hidden sm:block">
-          {isMerchant
-            ? (isEn ? "Manage supplier price and stock under your scope; final retail prices are reviewed by the company." : "عدّل سعر المورد والمخزون المسموح لك بإدارته، والشركة تراجع السعر النهائي للعملاء.")
-            : (isEn ? "Track and manage all your products, pricing, and inventory with ease." : "إدارة وتتبع جميع منتجاتك ومخزونك بكل سهولة")}
-        </p>
+        {isMerchant && (
+          <p className="text-xs text-muted-foreground mt-0.5 hidden sm:block">
+            {isEn
+              ? "Manage supplier price and stock under your scope; final retail prices are reviewed by the company."
+              : "عدّل سعر المورد والمخزون المسموح لك بإدارته، والشركة تراجع السعر النهائي للعملاء."}
+          </p>
+        )}
       </div>
 
       {/* Action Buttons Cluster */}

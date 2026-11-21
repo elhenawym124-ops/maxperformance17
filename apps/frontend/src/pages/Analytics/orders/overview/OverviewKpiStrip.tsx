@@ -26,6 +26,8 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
     return delta;
   };
 
+  // One numeral system per surface: ar-EG to match formatPrice output on this Arabic-only strip
+  const arNum = (n: number, opts?: Intl.NumberFormatOptions) => n.toLocaleString("ar-EG", opts);
   const ordersDelta = calcDelta(stats.totalOrders, stats.prevPeriod?.totalOrders);
   const revenueDelta = calcDelta(stats.totalRevenue, stats.prevPeriod?.revenue);
 
@@ -45,7 +47,7 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
           </div>
           <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
             <span className="text-xl sm:text-2xl font-bold tracking-tight text-foreground tabular-nums">
-              {stats.totalOrders.toLocaleString()}
+              {arNum(stats.totalOrders)}
             </span>
             <span className="text-xs text-muted-foreground/80">طلب</span>
           </div>
@@ -66,7 +68,7 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
                 <ArrowTrendingDownIcon className="h-3 w-3" />
               )}
               {ordersDelta >= 0 ? "+" : ""}
-              {ordersDelta.toFixed(1)}%
+              {arNum(ordersDelta, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}٪
             </span>
           ) : (
             <span className="text-muted-foreground/80">الفترة الحالية</span>
@@ -92,17 +94,17 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
           <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
             <span className="text-xl sm:text-2xl font-bold tracking-tight text-success dark:text-success tabular-nums">
               {stats.deliveryRate > 0
-                ? `${stats.deliveryRate.toFixed(1)}%`
+                ? `${arNum(stats.deliveryRate, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}٪`
                 : stats.totalOrders > 0
-                ? `${((stats.completedOrders / stats.totalOrders) * 100).toFixed(1)}%`
-                : "0.0%"}
+                ? `${arNum((stats.completedOrders / stats.totalOrders) * 100, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}٪`
+                : "٠٫٠٪"}
             </span>
           </div>
         </div>
 
         <div className="mt-2.5 pt-2 border-t border-border dark:border-white/5 flex items-center justify-between text-xs">
           <span className="text-muted-foreground tabular-nums text-[11px]">
-            {stats.completedOrders.toLocaleString()} مسلّم بنجاح
+            {arNum(stats.completedOrders)} مسلّم بنجاح
           </span>
           <span className="text-[11px] text-muted-foreground group-hover:text-success dark:group-hover:text-success transition-colors">
             نسب الشحن ↗
@@ -148,7 +150,7 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
               }`}
             >
               {revenueDelta >= 0 ? "+" : ""}
-              {revenueDelta.toFixed(1)}%
+              {arNum(revenueDelta, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}٪
             </span>
           ) : (
             <span className="text-muted-foreground/80">المبيعات المؤكدة</span>
@@ -191,17 +193,17 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
           </div>
           <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
             <span className="text-xl sm:text-2xl font-bold tracking-tight text-foreground tabular-nums">
-              {stats.multiPieceOrders.toLocaleString()}
+              {arNum(stats.multiPieceOrders)}
             </span>
             <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-primary/10 text-primary dark:bg-primary/50 dark:text-primary tabular-nums">
-              {stats.multiPiecePercentage || 0}%
+              {arNum(stats.multiPiecePercentage || 0)}٪
             </span>
           </div>
         </div>
 
         <div className="mt-2.5 pt-2 border-t border-border dark:border-white/5 flex items-center justify-between text-xs text-muted-foreground/80">
           <span className="text-[11px] tabular-nums">
-            {stats.totalPieces > 0 ? `${stats.totalPieces} قطعة مباعة` : "قطعتين أو أكثر"}
+            {stats.totalPieces > 0 ? `${arNum(stats.totalPieces)} قطعة مباعة` : "قطعتين أو أكثر"}
           </span>
         </div>
       </div>
@@ -220,12 +222,12 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
           </div>
           <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
             <span className="text-xl sm:text-2xl font-bold tracking-tight text-destructive dark:text-destructive tabular-nums">
-              {(stats.cancelledOrders + stats.returnedOrders).toLocaleString()}
+              {arNum(stats.cancelledOrders + stats.returnedOrders)}
             </span>
             <span className="text-xs text-muted-foreground/80">
               ({stats.totalOrders > 0
-                ? `${(((stats.cancelledOrders + stats.returnedOrders) / stats.totalOrders) * 100).toFixed(1)}%`
-                : "0%"})
+                ? `${arNum(((stats.cancelledOrders + stats.returnedOrders) / stats.totalOrders) * 100, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}٪`
+                : "٠٪"})
             </span>
           </div>
         </div>
