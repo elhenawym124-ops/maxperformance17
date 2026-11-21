@@ -13048,6 +13048,7 @@
     "late": "متأخر",
     "absent": "غائب",
     "attendanceRate": "نسبة الحضور",
+    "acknowledged": "تم الاستلام",
     "recentCheckins": "آخر تسجيلات الحضور",
     "leavesRequests": "طلبات الإجازات",
     "noPendingRequests": "لا توجد طلبات معلقة",

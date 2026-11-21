@@ -16,7 +16,7 @@ export function DashboardStatusBreakdown({
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-xl border border-border dark:border-border bg-card/50 p-5">
+    <div className="rounded-xl border border-border dark:border-border bg-card p-5">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-foreground">
           {t("dentalLab.dashboard.byStatus")}
@@ -27,7 +27,7 @@ export function DashboardStatusBreakdown({
       </div>
 
       <div
-        className="h-2 rounded-full bg-muted dark:bg-muted overflow-hidden mb-4 flex cursor-pointer"
+        className={`h-2 rounded-full bg-muted dark:bg-muted overflow-hidden mb-4 flex cursor-pointer ${totalCases === 0 ? "invisible" : ""}`}
         title="انقر على أي مرحلة بالأسفل للفلترة"
       >
         {CASE_STATUSES.map((s) => {

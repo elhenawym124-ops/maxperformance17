@@ -1403,7 +1403,6 @@ export const getSidebarConfig = (
                 { to: '/leads/pipeline', icon: Columns3, label: 'كانبان الليدز' },
                 { to: '/customers/segments', icon: Filter, label: isEn ? 'Customer Segments' : (t('sidebar.customerSegments') || 'شرائح وتصنيف العملاء') },
                 { to: '/customers/lists', icon: ListChecks, label: t('sidebar.customerLists') },
-                { to: '/whatsapp/customer-journey', icon: RefreshCcw, label: isEn ? 'Customer Journeys & Re-order' : (t('sidebar.whatsappCustomerJourney') || 'رحلات زيادة الطلب والتكرار') },
                 { to: '/customers/points-center', icon: Trophy, label: isEn ? 'Loyalty Members & Points' : (t('sidebar.customerPointsCenter') || 'أعضاء ونقاط الولاء') },
                 { to: '/customers/customer-notifications', icon: Bell, label: isEn ? 'Customer Notifications & Campaigns' : (t('sidebar.customerNotifications') || 'إشعارات وحملات العملاء') },
                 { to: '/customers/settings', icon: Settings2, label: isEn ? 'Loyalty & Discount Settings' : (t('sidebar.customerLoyaltySettings') || 'إعدادات الولاء والخصم') },

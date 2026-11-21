@@ -6536,30 +6536,12 @@ const AppContent = () => {
                   }
                 />
                 <Route
-                  path="/coupons"
-                  element={
-                    <Layout>
-                      <AppAccessRoute requiredAppSlugs={['coupons-pro', 'store-pro', 'store']}>
-                        <Coupons />
-                      </AppAccessRoute>
-                    </Layout>
-                  }
-                />
-                <Route
                   path="/appointments"
                   element={
                     <Layout>
                       <AppAccessRoute requiredAppSlugs={['booking-app', 'service-request-app']}>
                         <Appointments />
                       </AppAccessRoute>
-                    </Layout>
-                  }
-                />
-                <Route
-                  path="/tasks"
-                  element={
-                    <Layout>
-                      <Tasks />
                     </Layout>
                   }
                 />
@@ -6701,16 +6683,6 @@ const AppContent = () => {
                   }
                 />
                 <Route
-                  path="/pos"
-                  element={
-                    <Layout>
-                      <AppAccessRoute requiredAppSlugs={['pos-pro', 'store-pro']}>
-                        <PosPage />
-                      </AppAccessRoute>
-                    </Layout>
-                  }
-                />
-                <Route
                   path="/treasury-expenses"
                   element={
                     <Layout>
@@ -6820,30 +6792,12 @@ const AppContent = () => {
                   }
                 />
                 <Route
-                  path="/coupons"
-                  element={
-                    <Layout>
-                      <AppAccessRoute requiredAppSlugs={['coupons-pro', 'store-pro', 'store']}>
-                        <Coupons />
-                      </AppAccessRoute>
-                    </Layout>
-                  }
-                />
-                <Route
                   path="/appointments"
                   element={
                     <Layout>
                       <AppAccessRoute requiredAppSlugs={['booking-app', 'service-request-app']}>
                         <Appointments />
                       </AppAccessRoute>
-                    </Layout>
-                  }
-                />
-                <Route
-                  path="/tasks"
-                  element={
-                    <Layout>
-                      <Tasks />
                     </Layout>
                   }
                 />
@@ -6952,16 +6906,6 @@ const AppContent = () => {
                   }
                 />
                 {/* <Route path="/reports/shipping" element={<Layout><ShippingReport /></Layout>} /> */}
-                <Route
-                  path="/pos"
-                  element={
-                    <Layout>
-                      <AppAccessRoute requiredAppSlugs={['pos-pro', 'store-pro']}>
-                        <PosPage />
-                      </AppAccessRoute>
-                    </Layout>
-                  }
-                />
                 <Route
                   path="/payments"
                   element={
@@ -7366,14 +7310,6 @@ const AppContent = () => {
                   element={
                     <Layout>
                       <ReportsPage />
-                    </Layout>
-                  }
-                />
-                <Route
-                  path="/settings"
-                  element={
-                    <Layout>
-                      <Settings />
                     </Layout>
                   }
                 />

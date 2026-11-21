@@ -71,3 +71,12 @@
     --p-shadow-card: none;
   }
 }
+
+/* Shell safety: inside business-shell-main the negative horizontal bleed is
+   always clipped by the shell's overflow-hidden wrapper (zero visual gain)
+   while making every page 24px wider than its clip box — content that touches
+   the content edge (page titles) gets physically cut. Trim it here only;
+   storefront-preview scopes keep the edge-to-edge bleed untouched. */
+.business-shell-main.polaris-track {
+  margin-inline: 0;
+}

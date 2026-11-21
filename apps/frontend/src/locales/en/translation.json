@@ -13048,6 +13048,7 @@
     "late": "Late",
     "absent": "Absent",
     "attendanceRate": "Attendance Rate",
+    "acknowledged": "Acknowledged",
     "recentCheckins": "Recent Check-ins",
     "leavesRequests": "Leave Requests",
     "noPendingRequests": "No pending requests",

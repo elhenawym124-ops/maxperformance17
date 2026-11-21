@@ -123,7 +123,16 @@ export const OverviewKpiStrip: React.FC<OverviewKpiStripProps> = ({
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1">
-            <span className="text-xl sm:text-2xl font-bold tracking-tight text-foreground tabular-nums truncate">
+            <span
+              title={formatPrice(stats.totalRevenue)}
+              className={`font-bold tracking-tight text-foreground tabular-nums truncate ${
+                formatPrice(stats.totalRevenue).length > 14
+                  ? "text-base sm:text-lg"
+                  : formatPrice(stats.totalRevenue).length > 11
+                  ? "text-lg sm:text-xl"
+                  : "text-xl sm:text-2xl"
+              }`}
+            >
               {formatPrice(stats.totalRevenue)}
             </span>
           </div>

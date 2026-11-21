@@ -18,7 +18,7 @@ export function DashboardKpiGrid({ cards }: DashboardKpiGridProps) {
             (e.key === "Enter" || e.key === " ") && c.onClick()
           }
           title={c.tooltip}
-          className="group flex items-center gap-3 rounded-xl border border-border dark:border-border bg-card/50 px-4 py-3 cursor-pointer hover:border-primary dark:hover:border-primary hover:shadow-md transition-all duration-200"
+          className="group flex items-center gap-3 rounded-xl border border-border dark:border-border bg-card px-4 py-3 cursor-pointer hover:border-primary dark:hover:border-primary hover:shadow-md transition-all duration-200"
         >
           <div
             className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${c.bg} ${c.tone} group-hover:scale-105 transition-transform`}

@@ -14,7 +14,7 @@ export function DashboardTopDebtors({
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-xl border border-border dark:border-border bg-card/50 p-5">
+    <div className="rounded-xl border border-border dark:border-border bg-card p-5">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-foreground">
           {t("dentalLab.dashboard.topDebtors")}

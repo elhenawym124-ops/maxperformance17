@@ -4,7 +4,7 @@ export function DashboardQuickActions() {
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-xl border border-border dark:border-border bg-card/50 p-5 flex flex-col justify-between">
+    <div className="rounded-xl border border-border dark:border-border bg-card p-5 flex flex-col justify-between">
       <div>
         <h3 className="font-semibold text-foreground mb-2">
           إجراءات سريعة
