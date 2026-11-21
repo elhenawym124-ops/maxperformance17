@@ -7,6 +7,8 @@ import {
   getStockStatusText,
 } from "./ProductsTypes";
 import {
+  EllipsisHorizontalIcon,
+  PencilSquareIcon,
   CheckCircleIcon,
   XCircleIcon,
   EyeIcon,
@@ -28,6 +30,13 @@ import {
   getWorkflowStatusLabel,
 } from "../utils/workflow";
 import { getImageUrl } from "../../../utils/imageUrl";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "../../../components/ui/dropdown-menu";
 
 type WorkflowAction =
   | "save_draft"
@@ -138,71 +147,65 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
 
   const actionBtn =
     "inline-flex h-8 w-8 items-center justify-center rounded-lg border border-transparent hover:border-border dark:hover:border-border hover:bg-muted dark:hover:bg-muted text-muted-foreground hover:text-foreground dark:hover:text-muted-foreground transition-all duration-150 active:scale-[0.94]";
-  const renderWorkflowActions = () => {
+  const renderWorkflowMenuItems = () => {
     if (canSubmitReviewWorkflow && canSubmitReview(product.workflow)) {
       return (
-        <button
-          onClick={() => onWorkflowAction(product, "submit_review")}
+        <DropdownMenuItem
+          onSelect={() => onWorkflowAction(product, "submit_review")}
           disabled={isWorkflowBusy}
-          className={`${actionBtn} text-warning hover:text-warning disabled:cursor-wait disabled:opacity-50`}
-          aria-label={isEn ? "Submit for review" : "إرسال للمراجعة"}
-          title={isEn ? "Submit for review" : "إرسال للمراجعة"}
+          className="text-warning focus:text-warning"
         >
-          <PaperAirplaneIcon className="h-3.5 w-3.5" />
-        </button>
+          <PaperAirplaneIcon className="h-4 w-4 me-2" />
+          {isEn ? "Submit for review" : "إرسال للمراجعة"}
+        </DropdownMenuItem>
       );
     }
 
     if (canManageWorkflow && (canApprove(product.workflow) || canReject(product.workflow))) {
       return (
         <>
-          <button
-            onClick={() => onWorkflowAction(product, "approve")}
+          <DropdownMenuItem
+            onSelect={() => onWorkflowAction(product, "approve")}
             disabled={isWorkflowBusy}
-            className={`${actionBtn} text-success hover:text-success disabled:cursor-wait disabled:opacity-50`}
-            aria-label={isEn ? "Approve" : "اعتماد"}
-            title={isEn ? "Approve" : "اعتماد"}
+            className="text-success focus:text-success"
           >
-            <CheckCircleIcon className="h-3.5 w-3.5" />
-          </button>
-          <button
-            onClick={() => onWorkflowAction(product, "reject")}
+            <CheckCircleIcon className="h-4 w-4 me-2" />
+            {isEn ? "Approve" : "اعتماد"}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => onWorkflowAction(product, "reject")}
             disabled={isWorkflowBusy}
-            className={`${actionBtn} text-destructive hover:text-destructive disabled:cursor-wait disabled:opacity-50`}
-            aria-label={isEn ? "Reject" : "رفض"}
-            title={isEn ? "Reject" : "رفض"}
+            className="text-destructive focus:text-destructive"
           >
-            <XCircleIcon className="h-3.5 w-3.5" />
-          </button>
+            <XCircleIcon className="h-4 w-4 me-2" />
+            {isEn ? "Reject" : "رفض"}
+          </DropdownMenuItem>
         </>
       );
     }
 
     if (canManageWorkflow && canPublish(product.workflow)) {
       return (
-        <button
-          onClick={() => onWorkflowAction(product, "publish")}
-          disabled={isWorkflowBusy}
-          className={`${actionBtn} text-success hover:text-success disabled:cursor-wait disabled:opacity-50`}
-          aria-label={isEn ? "Publish" : "نشر"}
-          title={isEn ? "Publish" : "نشر"}
+        <DropdownMenuItem
+          onSelect={() => onWorkflowAction(product, "publish")}          disabled={isWorkflowBusy}
+          className="text-success focus:text-success"
         >
-          <CheckCircleIcon className="h-3.5 w-3.5" />
-        </button>
+          <CheckCircleIcon className="h-4 w-4 me-2" />
+          {isEn ? "Publish" : "نشر"}
+        </DropdownMenuItem>
       );
     }
 
     if (canManageWorkflow && canUnpublish(product.workflow)) {
       return (
-        <button
-          onClick={() => onWorkflowAction(product, "unpublish")}
+        <DropdownMenuItem
+          onSelect={() => onWorkflowAction(product, "unpublish")}
           disabled={isWorkflowBusy}
-          className={`${actionBtn} text-warning hover:text-warning disabled:cursor-wait disabled:opacity-50`}
-          aria-label={isEn ? "Unpublish" : "إلغاء النشر"}
-          title={isEn ? "Unpublish" : "إلغاء النشر"}
+          className="text-warning focus:text-warning"
         >
-          <XCircleIcon className="h-3.5 w-3.5" />
-        </button>
+          <XCircleIcon className="h-4 w-4 me-2" />
+          {isEn ? "Unpublish" : "إلغاء النشر"}
+        </DropdownMenuItem>
       );
     }
 
@@ -214,7 +217,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
       className={`hover:bg-zinc-50/70 dark:hover:bg-muted transition-colors ${selected ? "bg-zinc-100/70 dark:bg-muted" : ""}`}
     >
       {canSelect && (
-        <td className="px-4 py-3">
+        <td className="px-4 py-2">
           <input
             type="checkbox"
             checked={selected}
@@ -224,7 +227,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           />
         </td>
       )}
-      <td className="px-4 py-3 whitespace-nowrap">
+      <td className="px-4 py-2 whitespace-nowrap">
         <div className="flex items-center gap-3">
           <a
             href={getStorefrontUrl(product)}
@@ -282,7 +285,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           </div>
         </div>
       </td>
-      <td className="px-4 py-3 whitespace-nowrap">
+      <td className="px-4 py-2 whitespace-nowrap">
         <div className="flex flex-col gap-0.5">
           <span
             className={`inline-flex w-fit items-center rounded-md px-2 py-0.5 text-[11px] font-medium border ${
@@ -300,7 +303,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           )}
         </div>
       </td>
-      <td className="px-4 py-3 whitespace-nowrap">
+      <td className="px-4 py-2 whitespace-nowrap">
         {isEditing ? (
           <input
             type="text"
@@ -316,7 +319,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           </span>
         )}
       </td>
-      <td className="px-4 py-3 whitespace-nowrap">
+      <td className="px-4 py-2 whitespace-nowrap">
         {isEditing ? (
           <input
             type="number"
@@ -333,7 +336,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           </>
         )}
       </td>
-      <td className="px-4 py-3 whitespace-nowrap">
+      <td className="px-4 py-2 whitespace-nowrap">
         {isEditing && canEditStock ? (
           <input
             type="number"
@@ -355,7 +358,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           </div>
         )}
       </td>
-      <td className="px-4 py-3 whitespace-nowrap">
+      <td className="px-4 py-2 whitespace-nowrap">
         <div className="flex flex-col gap-1">
           <span
             className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md w-fit ${getWorkflowStatusColor(
@@ -378,7 +381,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           )}
         </div>
       </td>
-      <td className="px-4 py-3 whitespace-nowrap text-xs">
+      <td className="px-4 py-2 whitespace-nowrap text-xs">
         <div className="flex flex-col">
           <span className="font-medium text-foreground dark:text-muted-foreground truncate max-w-[140px]">
             {product.lastModifiedBy?.userName || "—"}
@@ -388,7 +391,7 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           </span>
         </div>
       </td>
-      <td className="px-4 py-3 whitespace-nowrap text-xs font-medium">
+      <td className="px-4 py-2 whitespace-nowrap text-xs font-medium">
         <div className="flex items-center gap-1">
           {isEditing ? (
             <>
@@ -412,49 +415,54 @@ const ProductTableRow: React.FC<ProductTableRowProps> = ({
           ) : (
             <>
               <button
-                onClick={openStorefront}
-                className={`${actionBtn}`}
-                aria-label={product.isActive ? (isEn ? "View in store" : "عرض في المتجر") : (isEn ? "Preview before publishing" : "معاينة قبل النشر")}
-                title={product.isActive ? (isEn ? "View in store" : "عرض في المتجر") : (isEn ? "Preview before publishing" : "معاينة قبل النشر")}
-              >
-                <EyeIcon className="h-3.5 w-3.5" />
-              </button>
-              <button
                 onClick={() => window.open(`/products/${product.id}/edit`, "_blank", "noopener,noreferrer")}
-                className={`${actionBtn}`}
+                className={`${actionBtn} text-primary hover:text-primary`}
                 aria-label={isEn ? "Edit" : "تعديل"}
                 title={isEn ? "Edit" : "تعديل"}
               >
                 <PencilIcon className="h-3.5 w-3.5" />
               </button>
-              <button
-                onClick={() => onStartQuickEdit(product)}
-                className={`${actionBtn}`}
-                aria-label={isEn ? "Quick Edit" : "تعديل سريع"}
-                title={isEn ? "Quick Edit" : "تعديل سريع"}
-              >
-                <PencilIcon className="h-3.5 w-3.5 text-muted-foreground" />
-              </button>
-              <button
-                onClick={() => onDuplicate(product)}
-                disabled={!!duplicatingProductId}
-                className={`${actionBtn} disabled:opacity-50`}
-                aria-label={duplicatingProductId === product.id ? (isEn ? "Duplicating..." : "جاري النسخ...") : (isEn ? "Duplicate" : "نسخ")}
-                title={duplicatingProductId === product.id ? (isEn ? "Duplicating..." : "جاري النسخ...") : (isEn ? "Duplicate" : "نسخ")}
-              >
-                <DocumentDuplicateIcon className="h-3.5 w-3.5" />
-              </button>
-              {renderWorkflowActions()}
-              {canDelete && (
-                <button
-                  onClick={() => onDelete(product.id)}
-                  className={`${actionBtn} hover:text-destructive`}
-                  aria-label={isEn ? "Delete" : "حذف"}
-                  title={isEn ? "Delete" : "حذف"}
-                >
-                  <TrashIcon className="h-3.5 w-3.5" />
-                </button>
-              )}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    className={`${actionBtn}`}
+                    aria-label={isEn ? "More actions" : "إجراءات أخرى"}
+                    title={isEn ? "More actions" : "إجراءات أخرى"}
+                  >
+                    <EllipsisHorizontalIcon className="h-3.5 w-3.5" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-52">
+                  <DropdownMenuItem onSelect={openStorefront}>
+                    <EyeIcon className="h-4 w-4 me-2 text-muted-foreground" />
+                    {product.isActive ? (isEn ? "View in store" : "عرض في المتجر") : (isEn ? "Preview before publishing" : "معاينة قبل النشر")}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => onStartQuickEdit(product)}>
+                    <PencilSquareIcon className="h-4 w-4 me-2 text-muted-foreground" />
+                    {isEn ? "Quick Edit" : "تعديل سريع"}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onSelect={() => onDuplicate(product)}
+                    disabled={!!duplicatingProductId}
+                  >
+                    <DocumentDuplicateIcon className="h-4 w-4 me-2 text-muted-foreground" />
+                    {duplicatingProductId === product.id ? (isEn ? "Duplicating..." : "جاري النسخ...") : (isEn ? "Duplicate" : "نسخ")}
+                  </DropdownMenuItem>
+                  {renderWorkflowMenuItems()}
+                  {canDelete && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        onSelect={() => onDelete(product.id)}
+                        className="text-destructive focus:text-destructive focus:bg-destructive/10"
+                      >
+                        <TrashIcon className="h-4 w-4 me-2" />
+                        {isEn ? "Delete" : "حذف"}
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           )}
         </div>

@@ -13048,7 +13048,6 @@
     "late": "متأخر",
     "absent": "غائب",
     "attendanceRate": "نسبة الحضور",
-    "acknowledged": "تم الاستلام",
     "recentCheckins": "آخر تسجيلات الحضور",
     "leavesRequests": "طلبات الإجازات",
     "noPendingRequests": "لا توجد طلبات معلقة",
@@ -13091,7 +13090,8 @@
     },
     "errors": {
       "fetchFailed": "فشل تحميل لوحة التحكم"
-    }
+    },
+    "acknowledged": "تم الاستلام"
   },
   "rewards": {
     "title": "المكافآت والحوافز",

@@ -11177,6 +11177,10 @@ declare module 'react-i18next' {
       companyDashboard: {
         title: string;
         welcome: string;
+        tabs: {
+          specialty: string;
+          installedApps: string;
+        };
         status: {
           active: string;
           inactive: string;
@@ -12939,6 +12943,7 @@ declare module 'react-i18next' {
         errors: {
           fetchFailed: string;
         };
+        acknowledged: string;
       };
       rewards: {
         title: string;
@@ -18486,6 +18491,9 @@ declare module 'react-i18next' {
       };
       sidebar: {
         activeUsers: string;
+        instagramMediaLibrary: string;
+        instagramCommentManager: string;
+        instagramPublisher: string;
         agencyInvoices: string;
         quickFunnel: string;
         taskSettings: string;

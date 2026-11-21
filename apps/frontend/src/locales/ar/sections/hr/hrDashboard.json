@@ -54,5 +54,6 @@
   },
   "errors": {
     "fetchFailed": "فشل تحميل لوحة التحكم"
-  }
+  },
+  "acknowledged": "تم الاستلام"
 }
