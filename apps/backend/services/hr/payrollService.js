@@ -82,6 +82,9 @@ class PayrollService {
           totalAllowances: payrollData.totalAllowances,
           deductions: JSON.stringify(payrollData.deductions),
           totalDeductions: payrollData.totalDeductions,
+          advancesDeduction: Array.isArray(payrollData.deductions?.advanceDetails)
+            ? Number(payrollData.deductions.advanceDetails.reduce((s, d) => s + (Number(d.amount) || 0), 0).toFixed(2))
+            : 0,
           attendanceDeduction: payrollData.attendanceDeduction,
           absentDays: payrollData.absentDays,
           latePenalty: payrollData.latePenalty,
@@ -2335,6 +2338,9 @@ class PayrollService {
                 totalAllowances: payrollData.totalAllowances,
                 deductions: JSON.stringify(payrollData.deductions),
                 totalDeductions: payrollData.totalDeductions,
+                advancesDeduction: Array.isArray(payrollData.deductions?.advanceDetails)
+                  ? Number(payrollData.deductions.advanceDetails.reduce((s, d) => s + (Number(d.amount) || 0), 0).toFixed(2))
+                  : 0,
                 attendanceDeduction: payrollData.attendanceDeduction,
                 latePenalty: payrollData.latePenalty,
                 overtimeHours: payrollData.totalOvertimeHours,
@@ -2370,6 +2376,9 @@ class PayrollService {
                 totalAllowances: payrollData.totalAllowances,
                 deductions: JSON.stringify(payrollData.deductions),
                 totalDeductions: payrollData.totalDeductions,
+                advancesDeduction: Array.isArray(payrollData.deductions?.advanceDetails)
+                  ? Number(payrollData.deductions.advanceDetails.reduce((s, d) => s + (Number(d.amount) || 0), 0).toFixed(2))
+                  : 0,
                 attendanceDeduction: payrollData.attendanceDeduction,
                 latePenalty: payrollData.latePenalty,
                 overtimeHours: payrollData.totalOvertimeHours,
