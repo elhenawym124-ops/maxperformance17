@@ -200,21 +200,21 @@ const GovernorateAreaSearch: React.FC<GovernorateAreaSearchProps> = ({
           <span className={`truncate ${value ? "text-foreground font-medium" : "text-muted-foreground"}`}>
             {placeholder}
           </span>
-          <ChevronDown className="size-3.5 text-muted-foreground shrink-0 mr-2" />
+          <ChevronDown className="size-3.5 text-muted-foreground shrink-0 ms-2" />
         </button>
       )}
 
       {open && (
         <div className="absolute z-50 mt-1 w-full bg-card border border-border/70 rounded-xl shadow-xl overflow-hidden divide-y divide-border/40 animate-in fade-in zoom-in-95 duration-100">
           <div className="relative p-2 bg-muted/20">
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
+            <Search className="absolute start-4 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
             <input
               ref={searchRef}
               type="text"
               value={query}
               onChange={(e) => handleQueryChange(e.target.value)}
               placeholder={searchPlaceholder}
-              className="w-full pr-8 pl-7 py-1 text-xs bg-background border border-border/60 rounded-md outline-none text-foreground placeholder:text-muted-foreground focus:border-primary"
+              className="w-full ps-8 pe-7 py-1 text-xs bg-background border border-border/60 rounded-md outline-none text-foreground placeholder:text-muted-foreground focus:border-primary"
             />
             {query && (
               <button
@@ -223,7 +223,7 @@ const GovernorateAreaSearch: React.FC<GovernorateAreaSearchProps> = ({
                   setQuery("");
                   setResults([]);
                 }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-0.5"
+                className="absolute end-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-0.5"
                 aria-label="مسح البحث"
               >
                 <X className="size-3" />
