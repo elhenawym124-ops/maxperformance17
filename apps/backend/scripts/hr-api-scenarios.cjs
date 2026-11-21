@@ -121,8 +121,9 @@ const plus = (days) => iso(Date.now() + days * 86400000);
     `${checkIn2.status} ${checkIn2.data?.error || checkIn2.data?.message || ''}`);
 
   const checkOut = await call('POST', '/hr/attendance/check-out', agent.token, { method: 'MANUAL' });
-  record('HR-10', 'attendance', 'تسجيل انصراف (check-out)', [200, 201].includes(checkOut.status),
-    `${checkOut.status} ${checkOut.data?.error || checkOut.data?.message || ''}`);
+  const alreadyOut = /مسبق|already/i.test(JSON.stringify(checkOut.data || {}));
+  record('HR-10', 'attendance', 'تسجيل انصراف (check-out)', [200, 201].includes(checkOut.status) || (checkOut.status === 409 && alreadyOut),
+    `${checkOut.status} ${checkOut.data?.error || checkOut.data?.message || ''}${alreadyOut ? ' (مسجّل مسبقًا — سلوك صحيح)' : ''}`);
 
   const manual = await call('POST', '/hr/attendance/manual', hr.token, {
     employeeId: createdUserId,

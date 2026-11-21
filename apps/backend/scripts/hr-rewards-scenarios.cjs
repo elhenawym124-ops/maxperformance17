@@ -24,7 +24,7 @@ const plus = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
   let typesCount = Number(seed.d?.count || 0);
   if (typesCount === 0) {
     const t = await call('GET', '/hr/rewards/types', hr);
-    typesCount = (t.d?.types || t.d?.data || []).length;
+    typesCount = (t.d?.items || t.d?.types || t.d?.data || []).length;
   }
   rec('RW1', 'تهيئة أنواع المكافآت الافتراضية', seed.status === 200 && typesCount > 0,
     `${seed.status} count=${typesCount} ${seed.d?.error || ''}`);
