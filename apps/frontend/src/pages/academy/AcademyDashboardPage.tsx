@@ -68,9 +68,6 @@ export default function AcademyDashboardPage() {
             <h1 className="text-xl font-semibold tracking-tight text-foreground">
               أكاديمية ماكس بي التعليمية
             </h1>
-            <Badge variant="outline" className="text-[11px] font-mono border-border/80 bg-muted/30">
-              LMS Platform v2.2
-            </Badge>
           </div>
           <p className="text-xs text-muted-foreground mt-1">
             إدارة وبيع الدورات والمسارات التدريبية المعتمدة مع مساعد الذكاء الاصطناعي التفاعلي
@@ -126,47 +123,47 @@ export default function AcademyDashboardPage() {
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">مسارات ومسودات</p>
           </div>
-          <div className="size-7 rounded-md bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <BookOpen className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-emerald-500">الطلاب المسجلين</p>
-            <p className="text-xl font-bold tracking-tight text-emerald-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-muted-foreground">الطلاب المسجلين</p>
+            <p className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums mt-0.5">
               {totalEnrollments}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">مشترك نشط حالياً</p>
           </div>
-          <div className="size-7 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <Users className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-purple-500">إجمالي الدروس</p>
-            <p className="text-xl font-bold tracking-tight text-purple-500 font-mono tabular-nums mt-0.5">
+            <p className="text-[11px] text-muted-foreground">إجمالي الدروس</p>
+            <p className="text-xl font-bold tracking-tight text-foreground font-mono tabular-nums mt-0.5">
               {totalLessons}
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">فيديوهات وتمارين</p>
           </div>
-          <div className="size-7 rounded-md bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <Layers className="size-3.5" />
           </div>
         </div>
 
         <div className="p-3 rounded-lg border border-border/70 bg-card/60 flex items-center justify-between">
           <div>
-            <p className="text-[11px] text-amber-500">المساعد الذكي</p>
-            <p className="text-sm font-bold tracking-tight text-emerald-500 mt-0.5 font-mono inline-flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <p className="text-[11px] text-muted-foreground">المساعد الذكي</p>
+            <p className="text-sm font-bold tracking-tight text-success mt-0.5 font-mono inline-flex items-center gap-1.5">
+              <span className="size-1.5 rounded-full bg-success animate-pulse" />
               جاهز ومُفعّل
             </p>
             <p className="text-[10px] text-muted-foreground/70 font-mono mt-0.5">إجابات فورية من المنهج</p>
           </div>
-          <div className="size-7 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+          <div className="size-7 rounded-md bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
             <Sparkles className="size-3.5" />
           </div>
         </div>
@@ -248,8 +245,8 @@ export default function AcademyDashboardPage() {
                       <span
                         className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
                           course.isPublished
-                            ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-500 border-amber-500/20"
+                            ? "bg-success/10 text-success border-success/20"
+                            : "bg-warning/10 text-warning border-warning/20"
                         }`}
                       >
                         {course.isPublished ? "منشور ونشط" : "مسودة مؤقتة"}

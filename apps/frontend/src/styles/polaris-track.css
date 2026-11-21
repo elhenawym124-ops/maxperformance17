@@ -5,6 +5,8 @@
    ============================================================ */
 
 .polaris-track {
+  /* Native controls (date/select/scrollbar) follow the active theme */
+  color-scheme: light;
   /* Polaris v13 surfaces */
   --p-canvas: #f1f1f1;
   --p-surface: #ffffff;
@@ -52,6 +54,7 @@
 
 /* Dark mode — Polaris dark schema (platform tokens remapped in-scope) */
 .dark .polaris-track {
+  color-scheme: dark;
   --p-canvas: #1a1a1a;
   --p-surface: #202020;
   --p-text: #e3e3e3;
