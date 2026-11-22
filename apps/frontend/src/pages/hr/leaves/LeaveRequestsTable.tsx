@@ -177,8 +177,8 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                             <Button
                               size="sm"
                               variant="default"
-                              aria-label={t("employee.leaves.approve") || "موافقة"}
-                              title={t("employee.leaves.approve") || "موافقة"}
+                              aria-label={t("employee.leaves.approve", { defaultValue: "موافقة" }) as string}
+                              title={t("employee.leaves.approve", { defaultValue: "موافقة" }) as string}
                               onClick={() => onApprove(request.id)}
                             >
                               <Check className="h-4 w-4" />
@@ -186,8 +186,8 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                             <Button
                               size="sm"
                               variant="destructive"
-                              aria-label={t("employee.leaves.reject") || "رفض"}
-                              title={t("employee.leaves.reject") || "رفض"}
+                              aria-label={t("employee.leaves.reject", { defaultValue: "رفض" }) as string}
+                              title={t("employee.leaves.reject", { defaultValue: "رفض" }) as string}
                               onClick={() => onOpenReject(request)}
                             >
                               <X className="h-4 w-4" />
@@ -245,8 +245,8 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                         <Button
                           size="sm"
                           variant="ghost"
-                          aria-label={t("common.details") || "التفاصيل"}
-                          title={t("common.details") || "التفاصيل"}
+                          aria-label={t("common.details", { defaultValue: "التفاصيل" }) as string}
+                          title={t("common.details", { defaultValue: "التفاصيل" }) as string}
                           onClick={() => onOpenDetails(request)}
                         >
                           <Eye className="h-4 w-4" />
