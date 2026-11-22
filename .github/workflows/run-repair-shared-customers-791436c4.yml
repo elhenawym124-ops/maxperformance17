@@ -20,9 +20,14 @@ on:
           - 'false'
           - 'true'
       limit:
-        description: 'Limit number of candidate orders (leave empty for all)'
+        description: 'Limit number of shared customers to process (leave empty for all)'
         required: false
         default: ''
+        type: string
+      batch:
+        description: 'Batch size for shared customers (default: 25)'
+        required: false
+        default: '25'
         type: string
 
 jobs:
@@ -52,6 +57,7 @@ jobs:
           COMPANY: ${{ github.event.inputs.company }}
           APPLY: ${{ github.event.inputs.apply }}
           LIMIT: ${{ github.event.inputs.limit }}
+          BATCH: ${{ github.event.inputs.batch }}
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -59,7 +65,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT || '22' }}
           command_timeout: 30m
           script_stop: true
-          envs: COMPANY,APPLY,LIMIT
+          envs: COMPANY,APPLY,LIMIT,BATCH
           script: |
             set -euo pipefail
             cd /var/www/backend2
@@ -70,6 +76,9 @@ jobs:
             fi
             if [ -n "${LIMIT}" ]; then
               CMD="${CMD} --limit ${LIMIT}"
+            fi
+            if [ -n "${BATCH}" ]; then
+              CMD="${CMD} --batch ${BATCH}"
             fi
             echo "🚀 Executing: ${CMD}"
             ${CMD}
