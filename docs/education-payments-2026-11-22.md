@@ -54,4 +54,16 @@
 - Receipt delivery: `POST /education/finance/payments/:id/send-receipt` sends the receipt to the parent WhatsApp; ledger rows have a send button.
 - Backfill also carries branch/package metadata from enrollments and groups.
 
+## Phase 4 (part 1) — online wallet top-up via Kashier
+
+- New parent endpoints:
+  - `POST /education/parent-portal/wallet/kashier-session` → creates a pending top-up (`EDUTOP-<companyId>-<ts>`) and a Kashier payment session (card/wallet), returns the redirect URL.
+  - `POST /education/parent-portal/wallet/kashier-verify` → server-side verification with `getSessionStatus`; credits the customer wallet, writes `wallet_transactions` + treasury `DEPOSIT` in one transaction, and is idempotent.
+- Webhook: `POST /api/v1/payment/kashier/webhook` now routes `EDUCATION_TOPUP` payloads to the same service. The handler **always re-verifies with Kashier**; a forged payload cannot credit a wallet.
+- Parent wallet UI: "ادفع أونلاين الآن" starts the checkout; returning with `?topupOrder=...` verifies and shows the credited amount.
+- Config: platform-level Kashier credentials from Super Admin → Payment Settings (`systemSettings: kashier_gateway_settings`) or per-company credentials in storefront settings; no new contract needed per center.
+- Accounting fix: buying a package from the wallet no longer posts a second treasury deposit (the cash entered when the wallet was funded). This removes double-counted revenue.
+- Limits: 10–50,000 EGP per online top-up; partial captures below the requested amount are rejected.
+
+
 

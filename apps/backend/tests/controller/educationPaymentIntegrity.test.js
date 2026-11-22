@@ -356,7 +356,7 @@ describe('enrollment ledger integrity', () => {
 /* ------------------------------------------------------------------ */
 
 describe('parent portal purchase integration', () => {
-  it('posts treasury revenue with the correct source contract and writes a ledger row', async () => {
+  it('writes a wallet ledger row without double-posting treasury revenue', async () => {
     state.students.push({
       id: 'stu-1', companyId: 'comp-1', customerId: 'cust-1',
       firstName: 'سارة', lastName: 'محمد', isActive: true,
@@ -373,14 +373,8 @@ describe('parent portal purchase integration', () => {
     await parentPortal.purchasePackage(req, res);
 
     assert.strictEqual(res.statusCode, 200, JSON.stringify(res.payload));
-    assert.strictEqual(state.revenueCalls.length, 1);
-    const call = state.revenueCalls[0];
-    assert.strictEqual(call.sourceType, 'EDUCATION_PARENT_PACKAGE');
-    assert.strictEqual(call.sourceId, 'enr-created');
-    assert.strictEqual(call.amount, 1000);
-    assert.strictEqual(call.type, undefined);
-    assert.strictEqual(call.packageName, undefined);
-    assert.ok(call.title);
+    // Wallet money was already deposited when the wallet was funded; purchase must not deposit again.
+    assert.strictEqual(state.revenueCalls.length, 0);
 
     assert.strictEqual(state.payments.length, 1);
     assert.strictEqual(state.payments[0].method, 'WALLET');

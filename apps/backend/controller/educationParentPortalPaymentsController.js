@@ -36,6 +36,67 @@ const listPayments = async (req, res) => {
   }
 };
 
+const resolveBaseUrl = (req) => {
+  const origin = String(req.headers?.origin || '').trim();
+  if (/^http:\/\/localhost(:\d+)?$/.test(origin) || /^http:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) {
+    return origin;
+  }
+  return `https://${process.env.MAIN_DOMAIN || 'maxp.online'}`;
+};
+
+const createTopupSession = async (req, res) => {
+  try {
+    const parentId = req.parent?.id;
+    const companyId = req.parent?.companyId;
+    if (!parentId || !companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const amount = Number(req.body?.amount);
+    const prisma = getSharedPrismaClient();
+    const customer = await prisma.customer.findFirst({
+      where: { id: parentId, companyId },
+      select: { firstName: true, lastName: true, phone: true },
+    });
+    if (!customer) return res.status(404).json({ success: false, error: 'ولي الأمر غير موجود' });
+
+    const service = require('../services/educationKashierService');
+    const result = await service.createTopupSession({
+      companyId,
+      customerId: parentId,
+      parentName: `${customer.firstName || ''} ${customer.lastName || ''}`.trim(),
+      parentPhone: customer.phone,
+      amount,
+      baseUrl: resolveBaseUrl(req),
+      webhookUrl: `https://${process.env.MAIN_DOMAIN || 'maxp.online'}/api/v1/payment/kashier/webhook`,
+    });
+
+    res.json({ success: true, data: result });
+  } catch (error) {
+    const status = error.statusCode || 500;
+    if (status >= 500) console.error('[ParentPortal] Kashier session error:', error);
+    res.status(status).json({ success: false, error: error.message || 'تعذر إنشاء جلسة الدفع' });
+  }
+};
+
+const verifyTopup = async (req, res) => {
+  try {
+    const parentId = req.parent?.id;
+    const companyId = req.parent?.companyId;
+    if (!parentId || !companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const orderId = req.body?.orderId || req.query?.orderId;
+    const sessionId = req.body?.sessionId || null;
+    if (!orderId) return res.status(400).json({ success: false, error: 'رقم العملية مطلوب' });
+
+    const service = require('../services/educationKashierService');
+    const result = await service.verifyTopup({ companyId, orderId, sessionId, customerId: parentId });
+    res.json({ success: true, data: result });
+  } catch (error) {
+    const status = error.statusCode || 500;
+    if (status >= 500) console.error('[ParentPortal] Kashier verify error:', error);
+    res.status(status).json({ success: false, error: error.message || 'تعذر التحقق من الدفع' });
+  }
+};
+
 const getReceipt = async (req, res) => {
   try {
     const parentId = req.parent?.id;
@@ -82,4 +143,4 @@ const getReceipt = async (req, res) => {
   }
 };
 
-module.exports = { listPayments, getReceipt };
+module.exports = { listPayments, getReceipt, createTopupSession, verifyTopup };

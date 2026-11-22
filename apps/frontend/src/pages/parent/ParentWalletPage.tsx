@@ -58,6 +58,7 @@ const ParentWalletPage: React.FC = () => {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [payments, setPayments] = useState<ParentPayment[]>([]);
   const [receiptId, setReceiptId] = useState<string | null>(null);
+  const [onlineLoading, setOnlineLoading] = useState(false);
 
   const fetchWallet = async () => {
     try {
@@ -99,6 +100,79 @@ const ParentWalletPage: React.FC = () => {
   useEffect(() => {
     fetchWallet();
   }, []);
+
+  // Returning from the Kashier checkout: verify server-side, then clean the URL.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get("topupOrder");
+    if (!orderId) return;
+
+    let alive = true;
+    const token = localStorage.getItem("parentToken");
+    fetch("/api/v1/education/parent-portal/wallet/kashier-verify", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderId }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (!alive) return;
+        if (json.success && json.data?.paid) {
+          setMessage({
+            type: "success",
+            text: `تم شحن ${Number(json.data.amount || 0).toLocaleString("ar-EG")} ج.م في محفظتك بنجاح`,
+          });
+        } else if (json.success) {
+          setMessage({ type: "error", text: "لم يتم تأكيد الدفع بعد. لو تم الخصم، حدّث الصفحة بعد دقيقة." });
+        } else {
+          setMessage({ type: "error", text: json.error || "تعذر التحقق من الدفع" });
+        }
+        const url = new URL(window.location.href);
+        url.searchParams.delete("topupOrder");
+        window.history.replaceState({}, "", url.toString());
+        fetchWallet();
+      })
+      .catch(() => {
+        if (alive) setMessage({ type: "error", text: "تعذر الاتصال بالخادم للتحقق من الدفع" });
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const handleOnlineTopup = async () => {
+    const amt = parseFloat(amount);
+    if (!amt || amt < 10) {
+      setMessage({ type: "error", text: "أقل مبلغ للدفع الأونلاين 10 ج.م" });
+      return;
+    }
+    try {
+      setOnlineLoading(true);
+      setMessage(null);
+      const token = localStorage.getItem("parentToken");
+      const res = await fetch("/api/v1/education/parent-portal/wallet/kashier-session", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: amt }),
+      });
+      const json = await res.json();
+      if (json.success && json.data?.sessionUrl) {
+        window.location.href = json.data.sessionUrl;
+        return;
+      }
+      setMessage({ type: "error", text: json.error || "تعذر بدء عملية الدفع" });
+    } catch {
+      setMessage({ type: "error", text: "تعذر الاتصال بالخادم لبدء الدفع" });
+    } finally {
+      setOnlineLoading(false);
+    }
+  };
 
   const handleTopup = async () => {
     const amt = parseFloat(amount);
@@ -252,14 +326,28 @@ const ParentWalletPage: React.FC = () => {
               ))}
             </div>
 
-            <button
-              onClick={handleTopup}
-              disabled={saving || !amount}
-              className="px-4 py-2 text-xs font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-all shrink-0"
-            >
-              {saving ? "جاري الشحن..." : "تأكيد الشحن"}
-            </button>
+            <div className="flex flex-col gap-2 shrink-0">
+              <button
+                onClick={handleOnlineTopup}
+                disabled={onlineLoading || !amount}
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-all"
+              >
+                <CreditCard className="w-3.5 h-3.5" />
+                {onlineLoading ? "جاري التحويل..." : "ادفع أونلاين الآن"}
+              </button>
+              <button
+                onClick={handleTopup}
+                disabled={saving || !amount}
+                className="px-4 py-2 text-xs font-medium rounded-lg border border-border bg-background text-foreground hover:bg-muted disabled:opacity-50 transition-all"
+              >
+                {saving ? "جاري الإرسال..." : "تحويل بنكي / طلب شحن يدوي"}
+              </button>
+            </div>
           </div>
+          <p className="text-[11px] text-muted-foreground">
+            الدفع الأونلاين آمن عبر Kashier (بطاقة أو محفظة إلكترونية) ويُضاف الرصيد فور تأكيد الدفع.
+            التحويل اليدوي يظل «بانتظار اعتماد الإدارة».
+          </p>
         </div>
       )}
 

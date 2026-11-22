@@ -36,6 +36,10 @@ router.post('/purchase-package', authenticateParentToken, portalController.purch
 router.get('/payments', authenticateParentToken, parentPaymentsController.listPayments);
 router.get('/payments/:id/receipt', authenticateParentToken, parentPaymentsController.getReceipt);
 
+// Online wallet top-up through Kashier (server-verified)
+router.post('/wallet/kashier-session', authenticateParentToken, parentPaymentsController.createTopupSession);
+router.post('/wallet/kashier-verify', authenticateParentToken, parentPaymentsController.verifyTopup);
+
 // Parent's children
 router.get('/children', authenticateParentToken, async (req, res) => {
   try {

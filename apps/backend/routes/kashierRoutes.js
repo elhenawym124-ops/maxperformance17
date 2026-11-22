@@ -488,6 +488,21 @@ router.post('/kashier/webhook', async (req, res) => {
       null
     );
 
+    // Education parent-wallet top-ups are verified server-side, never trusted from this payload.
+    const isEducationTopup = metaData?.type === 'EDUCATION_TOPUP'
+      || (typeof orderNumber === 'string' && orderNumber.startsWith('EDUTOP-'));
+    if (isEducationTopup) {
+      try {
+        const educationKashier = require('../services/educationKashierService');
+        const result = await educationKashier.handleEducationTopupWebhook({ orderNumber, sessionId, metaData });
+        console.log('[KASHIER-WEBHOOK] Education top-up:', JSON.stringify(result));
+        return res.json({ success: true, education: result });
+      } catch (educationError) {
+        console.error('[KASHIER-WEBHOOK] Education top-up failed:', educationError.message);
+        return res.status(500).json({ success: false, error: 'Education top-up processing failed' });
+      }
+    }
+
     if (!rawStatus && !transactionId && !orderNumber && !sessionId) {
       console.warn('[KASHIER-WEBHOOK] Empty or unrecognizable payload:', JSON.stringify(rawBody));
       return res.status(400).json({ success: false, error: 'Invalid webhook payload' });

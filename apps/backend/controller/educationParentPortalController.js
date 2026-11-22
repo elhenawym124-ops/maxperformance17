@@ -203,21 +203,9 @@ const purchasePackage = async (req, res) => {
 
     const studentFullName = `${student.firstName || ''} ${student.lastName || ''}`.trim();
 
-    // 🏛️ Financial Integration: Record Revenue in Treasury & Cash Accounts
-    try {
-      const { recordEducationRevenue } = require('../services/educationFinancialIntegrationService');
-      await recordEducationRevenue({
-        companyId,
-        sourceType: 'EDUCATION_PARENT_PACKAGE',
-        sourceId: result.id,
-        studentName: studentFullName,
-        title: `شراء باقة من محفظة ولي الأمر (${pkg.name})`,
-        amount: payable,
-        createdById: null
-      });
-    } catch (finErr) {
-      console.error('[ParentPurchaseFinancialIntegration] Error:', finErr.message);
-    }
+    // 🏛️ No treasury posting here: the money already entered the treasury when the
+    // parent wallet was funded (online or approved top-up). Posting a second deposit
+    // on purchase would double-count the same cash.
 
     logEducationEvent({
       companyId,
