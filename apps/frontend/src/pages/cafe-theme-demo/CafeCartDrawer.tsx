@@ -123,7 +123,12 @@ export const CafeCartDrawer: React.FC<CafeCartDrawerProps> = ({
                     </p>
                   )}
                   <p className="text-[#947771] text-sm font-bold mt-1">
-                    ${item.price.toFixed(2)}
+                    ${(item.price * item.quantity).toFixed(2)}
+                    {item.quantity > 1 && (
+                      <span className="text-xs text-gray-400 font-normal ml-1">
+                        (${item.price.toFixed(2)} each)
+                      </span>
+                    )}
                   </p>
                 </div>
                 <div className="flex items-center gap-2 bg-white rounded-full p-1 border border-gray-100 shadow-xs">

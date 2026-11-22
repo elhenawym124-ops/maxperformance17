@@ -549,13 +549,23 @@ const CartDrawer: React.FC = () => {
 
                     <div className="mt-2.5 flex items-center justify-between gap-2 pt-1">
                       <div className="space-y-0.5">
-                        <p className="text-sm font-black text-[#173f31]">
-                          {formatStorefrontCurrency(entry.pricing.effectiveUnitPrice, currency)}
-                        </p>
+                        <div className="flex items-baseline gap-1.5 flex-wrap">
+                          <p className={`text-sm font-black ${isKhemetLuxe ? 'text-[#173f31]' : 'text-foreground'}`}>
+                            {formatStorefrontCurrency(entry.pricing.lineSubtotal, currency)}
+                          </p>
+                          {entry.item.quantity > 1 ? (
+                            <span className={`text-[11px] font-normal ${isKhemetLuxe ? 'text-[#7b6d58]' : 'text-muted-foreground'}`}>
+                              ({formatStorefrontCurrency(entry.pricing.effectiveUnitPrice, currency)} {isRTL ? 'للقطعة' : 'each'})
+                            </span>
+                          ) : null}
+                        </div>
                         {entry.pricing.totalDiscount > 0 ? (
                           <div className="flex items-center gap-1.5 text-xs">
                             <span className="text-muted-foreground line-through text-[11px]">
-                              {formatStorefrontCurrency(entry.pricing.baseUnitPrice, currency)}
+                              {formatStorefrontCurrency(
+                                entry.pricing.baseSubtotal ?? (entry.pricing.baseUnitPrice * entry.item.quantity),
+                                currency
+                              )}
                             </span>
                             <span className="rounded-md bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700">
                               {saveLabel}
