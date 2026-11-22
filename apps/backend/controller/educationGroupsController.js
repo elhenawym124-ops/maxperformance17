@@ -620,54 +620,61 @@ const addMember = async (req, res) => {
     const initialRenewalDate = isMonthlyGroup && initialPaymentStatus === 'PAID'
       ? (() => { const d = new Date(); d.setMonth(d.getMonth() + 1); return d; })()
       : null;
-    await prisma.$executeRawUnsafe(`
-      INSERT INTO "education_group_members" (
-        "id", "companyId", "groupId", "studentId", "status", "paymentStatus", "amountPaid", "nextRenewalDate", "notes", "joinedAt", "updatedAt"
-      ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW()
-      )
-    `,
-      memberId,
-      companyId,
-      groupId,
-      studentId,
-      memberStatus,
-      initialPaymentStatus,
-      initialPaid,
-      initialRenewalDate,
-      notes || null
-    );
 
-    if (isFull) {
-      await prisma.$executeRawUnsafe(`
-        UPDATE "education_groups" SET "status" = 'FULL' WHERE "id" = $1 AND "companyId" = $2 AND "status" = 'OPEN'
-      `, groupId, companyId);
-    }
+    const runInTx = typeof prisma.$transaction === 'function'
+      ? (fn) => prisma.$transaction(fn)
+      : (fn) => fn(prisma);
 
-    // 🏦 Automatic Financial Inflow to Treasury
-    const paidNum = initialPaid;
-    if (paidNum > 0 && (initialPaymentStatus === 'PAID' || initialPaymentStatus === 'PARTIAL')) {
-      try {
-        const studentInfo = await prisma.educationStudent.findUnique({
+    // Member row, capacity flag, ledger entry and treasury deposit commit together.
+    await runInTx(async (tx) => {
+      await tx.$executeRawUnsafe(`
+        INSERT INTO "education_group_members" (
+          "id", "companyId", "groupId", "studentId", "status", "paymentStatus", "amountPaid", "nextRenewalDate", "notes", "joinedAt", "updatedAt"
+        ) VALUES (
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW()
+        )
+      `,
+        memberId,
+        companyId,
+        groupId,
+        studentId,
+        memberStatus,
+        initialPaymentStatus,
+        initialPaid,
+        initialRenewalDate,
+        notes || null
+      );
+
+      if (isFull) {
+        await tx.$executeRawUnsafe(`
+          UPDATE "education_groups" SET "status" = 'FULL' WHERE "id" = $1 AND "companyId" = $2 AND "status" = 'OPEN'
+        `, groupId, companyId);
+      }
+
+      const paidNum = initialPaid;
+      if (paidNum > 0 && (initialPaymentStatus === 'PAID' || initialPaymentStatus === 'PARTIAL')) {
+        const studentInfo = await tx.educationStudent.findUnique({
           where: { id: studentId },
           select: { firstName: true, lastName: true }
         });
         const groupInfo = group.name || 'مجموعة دراسية';
+        const studentName = studentInfo ? `${studentInfo.firstName} ${studentInfo.lastName}`.trim() : 'طالب';
+
         const educationFinancialService = require('../services/educationFinancialIntegrationService');
-        educationFinancialService.recordEducationRevenue({
+        await educationFinancialService.recordEducationRevenueInTx(tx, {
           companyId,
           sourceType: 'EDUCATION_GROUP_FEE',
           sourceId: memberId,
-          studentName: studentInfo ? `${studentInfo.firstName} ${studentInfo.lastName}`.trim() : 'طالب',
+          studentName,
           title: `تحصيل رسوم مجموعة (${groupInfo})`,
           amount: paidNum,
           createdById: req.user?.id
-        }).catch(e => console.warn('[GroupFeePosting] warning:', e.message));
+        });
 
         // 🧾 Unified payment ledger entry
         const now = new Date();
         const prefix = `EDU-PAY-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}-`;
-        const lastPayment = await prisma.educationPayment.findFirst({
+        const lastPayment = await tx.educationPayment.findFirst({
           where: { companyId, paymentNumber: { startsWith: prefix } },
           orderBy: { paymentNumber: 'desc' },
           select: { paymentNumber: true }
@@ -678,7 +685,7 @@ const addMember = async (req, res) => {
           if (!Number.isNaN(parsed)) seq = parsed + 1;
         }
         const paymentNumber = `${prefix}${String(seq).padStart(4, '0')}`;
-        await prisma.educationPayment.create({
+        await tx.educationPayment.create({
           data: {
             companyId,
             paymentNumber,
@@ -697,10 +704,8 @@ const addMember = async (req, res) => {
             cashierName: req.user?.name || [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ') || null
           }
         });
-      } catch (fe) {
-        console.warn('[GroupFeePosting] notice:', fe.message);
       }
-    }
+    });
 
     return res.json({
       success: true,

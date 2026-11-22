@@ -3,7 +3,7 @@ import {
   getCompanyId as getEducationCompanyId,
   getAuthHeaders as getEducationAuthHeaders,
 } from "../education-management/api";
-import { EducationAttributionData, EducationFunnelData, ReportPeriod } from "./types";
+import { EducationAttributionData, EducationFunnelData, FinanceReportData, ReportPeriod } from "./types";
 
 export const getCompanyId = () => getEducationCompanyId();
 export const getAuthHeaders = () => getEducationAuthHeaders();
@@ -45,6 +45,27 @@ export async function fetchFunnelMetrics(period: ReportPeriod): Promise<Educatio
     return d.data?.funnel || d.data || null;
   } catch (err) {
     console.error("Funnel fetch error:", err);
+    return null;
+  }
+}
+
+export async function fetchFinanceReport(months = 6): Promise<FinanceReportData | null> {
+  try {
+    const base = buildApiUrl(`education/finance/reports?months=${months}`);
+    let url: URL;
+    try {
+      url = new URL(base);
+    } catch {
+      url = new URL(base, window.location.origin);
+    }
+    const cid = getCompanyId();
+    if (cid) url.searchParams.set("companyId", cid);
+    const res = await fetch(url.toString(), { headers: getAuthHeaders() });
+    const d = await res.json();
+    if (!d.success) throw new Error(d.error || d.message || "فشل جلب التقرير المالي");
+    return d.data || null;
+  } catch (err) {
+    console.error("Finance report fetch error:", err);
     return null;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -19,6 +19,7 @@ import {
   Sparkles,
   XCircle,
   Eye,
+  Wallet,
 } from "lucide-react";
 import type {
   EducationSession,
@@ -39,6 +40,7 @@ import { StudentModal } from "./StudentModal";
 import { SessionModal } from "./SessionModal";
 import { EnrollmentModal } from "./EnrollmentModal";
 import { TeacherModal } from "./TeacherModal";
+import { api, getAuthHeaders } from "./api";
 
 export interface EducationDashboardTabProps {
   stats: {
@@ -138,6 +140,33 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
 
   // Student filter search
   const [studentSearch, setStudentSearch] = useState("");
+
+  // Live financial snapshot (best-effort: hidden when the user lacks financial access)
+  const [finance, setFinance] = useState<{
+    month: number;
+    outstanding: number;
+    overdue: number;
+    pendingTopups: number;
+  } | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetch(api("finance/payments/summary"), { headers: getAuthHeaders() })
+      .then((res) => res.json())
+      .then((json) => {
+        if (!alive || !json?.success || !json.data) return;
+        setFinance({
+          month: Number(json.data.month?.amount) || 0,
+          outstanding: Number(json.data.outstanding?.amount) || 0,
+          overdue: Number(json.data.overdueInstallments?.amount) || 0,
+          pendingTopups: Number(json.data.pendingTopups) || 0,
+        });
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   // Today ISO Date string YYYY-MM-DD
   const todayStr = useMemo(() => {
@@ -405,6 +434,71 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
           </button>
         ))}
       </div>
+
+      {finance ? (
+        <div className="rounded-xl border border-border/80 bg-card p-3.5 sm:p-4 space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-success" />
+              <h3 className="text-xs font-semibold text-foreground">
+                {isEn ? "Finance & Collections" : "المالية والتحصيل"}
+              </h3>
+            </div>
+            <Link
+              to="/admin/education/payments"
+              className="text-[11px] font-semibold text-primary hover:underline"
+            >
+              {isEn ? "Open payments" : "فتح صفحة المدفوعات"}
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+            {[
+              {
+                label: isEn ? "Collected this month" : "محصّل هذا الشهر",
+                value: finance.month,
+                icon: DollarSign,
+                tone: "text-success",
+              },
+              {
+                label: isEn ? "Outstanding" : "مستحق غير محصل",
+                value: finance.outstanding,
+                icon: Layers,
+                tone: "text-warning",
+              },
+              {
+                label: isEn ? "Overdue installments" : "أقساط متأخرة",
+                value: finance.overdue,
+                icon: AlertTriangle,
+                tone: finance.overdue > 0 ? "text-destructive" : "text-muted-foreground",
+              },
+            ].map((item) => (
+              <div key={item.label} className="rounded-lg border border-border/70 bg-background p-2.5">
+                <div className="flex items-center justify-between gap-1">
+                  <span className="text-[10px] text-muted-foreground">{item.label}</span>
+                  <item.icon className={`w-3.5 h-3.5 ${item.tone}`} />
+                </div>
+                <p className={`text-sm font-bold font-mono tabular-nums mt-1 ${item.tone}`}>
+                  {item.value.toLocaleString("en-EG")} {isEn ? "EGP" : "ج.م"}
+                </p>
+              </div>
+            ))}
+            <Link
+              to="/admin/education/payments"
+              className="rounded-lg border border-border/70 bg-background p-2.5 hover:bg-muted transition-colors"
+            >
+              <div className="flex items-center justify-between gap-1">
+                <span className="text-[10px] text-muted-foreground">
+                  {isEn ? "Pending top-ups" : "طلبات شحن معلقة"}
+                </span>
+                <Wallet className="w-3.5 h-3.5 text-primary" />
+              </div>
+              <p className="text-sm font-bold font-mono tabular-nums mt-1 text-primary">
+                {finance.pendingTopups}
+              </p>
+            </Link>
+          </div>
+        </div>
+      ) : null}
 
       {/* 3. Actionable Smart Alerts Bar */}
       {(lowHoursEnrollments.length > 0 ||

@@ -3,6 +3,15 @@ const assert = require('node:assert');
 
 // Mock sharedDatabase before requiring controllers
 const mockPrisma = {
+  $transaction: async (fn) => fn(mockPrisma),
+  treasuryAccount: {
+    findFirst: async () => ({ id: 'treasury-1', companyId: 'comp-1', balance: 0 }),
+    update: async ({ data }) => ({ id: 'treasury-1', balance: Number(data?.balance?.increment || 0) }),
+  },
+  treasuryTransaction: {
+    findFirst: async () => null,
+    create: async ({ data }) => ({ id: 'ttx-1', ...data }),
+  },
   educationEnrollment: {
     findMany: async () => [],
     findFirst: async () => null,
@@ -185,7 +194,7 @@ describe('Education Enrollment & Student Controllers', () => {
 
     assert.strictEqual(jsonResult.success, true);
     assert.ok(capturedCreateData.expiresAt instanceof Date);
-    assert.strictEqual(capturedCreateData.paymentStatus, 'PENDING');
+    assert.strictEqual(capturedCreateData.paymentStatus, 'COMPLETED');
   });
 
   it('enrollment update safely handles empty string expiresAt and empty teacherId', async () => {
@@ -193,6 +202,8 @@ describe('Education Enrollment & Student Controllers', () => {
       id: 'enr-1',
       companyId: 'comp-1',
       paymentStatus: 'PENDING',
+      amountPaid: 0,
+      finalAmount: 500,
     });
 
     let capturedUpdateData = null;
@@ -205,9 +216,8 @@ describe('Education Enrollment & Student Controllers', () => {
       user: { companyId: 'comp-1' },
       params: { id: 'enr-1' },
       body: {
-        paymentStatus: 'PAID',
+        paymentStatus: 'PENDING',
         expiresAt: '',
-        amountPaid: '250',
         teacherId: '', // unassign teacher
       },
     };
@@ -224,8 +234,8 @@ describe('Education Enrollment & Student Controllers', () => {
 
     assert.strictEqual(jsonResult.success, true);
     assert.strictEqual(capturedUpdateData.expiresAt, null);
-    assert.strictEqual(capturedUpdateData.paymentStatus, 'COMPLETED');
-    assert.strictEqual(capturedUpdateData.amountPaid, 250);
+    assert.strictEqual(capturedUpdateData.paymentStatus, 'PENDING');
+    assert.strictEqual(capturedUpdateData.amountPaid, undefined);
     assert.strictEqual(capturedUpdateData.teacherId, null);
     assert.strictEqual(capturedUpdateData.isActive, undefined); // verified not passed
   });

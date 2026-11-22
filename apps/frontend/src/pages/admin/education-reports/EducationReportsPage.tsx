@@ -10,10 +10,12 @@ import {
   MessageSquare,
   Users,
   ExternalLink,
+  Wallet,
 } from "lucide-react";
 import { fetchAttributionAnalytics, fetchFunnelMetrics } from "./api";
 import { EducationCampaignsTab } from "./EducationCampaignsTab";
 import { EducationFunnelTab } from "./EducationFunnelTab";
+import { EducationFinanceTab } from "./EducationFinanceTab";
 import {
   EducationAttributionData,
   EducationFunnelData,
@@ -28,7 +30,7 @@ export default function EducationReportsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
   const [activeTab, setActiveTab] = useState<ReportTab>(
-    tabParam === "funnel" ? "funnel" : "campaigns"
+    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : "campaigns"
   );
   const [period, setPeriod] = useState<ReportPeriod>("all");
 
@@ -169,6 +171,19 @@ export default function EducationReportsPage() {
               {funnel?.registeredStudents ?? 0} {isEn ? "students" : "طالب"}
             </span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => handleTabChange("finance")}
+            className={`inline-flex items-center gap-2 py-2.5 px-0.5 text-xs font-semibold border-b-2 transition-all ${
+              activeTab === "finance"
+                ? "border-primary text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Wallet className="w-3.5 h-3.5 text-success" />
+            <span>{isEn ? "Collections & Revenue" : "التحصيل والإيرادات"}</span>
+          </button>
         </div>
 
         {/* Error Banner */}
@@ -204,6 +219,9 @@ export default function EducationReportsPage() {
             isEn={isEn}
           />
         )}
+
+        {/* Tab 3: Collections & Revenue */}
+        {activeTab === "finance" && <EducationFinanceTab isEn={isEn} />}
 
         {/* Connected Ecosystem Shortcuts - Sleek Flat Links (No Box inside Box) */}
         <div className="pt-4 border-t border-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-muted-foreground">

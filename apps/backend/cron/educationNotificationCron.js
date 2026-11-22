@@ -32,6 +32,7 @@ const LOW_HOURS_THRESHOLD = 3;
 let sessionRemindersRunning = false;
 let balanceAlertsRunning = false;
 let demoRemindersRunning = false;
+let paymentRemindersRunning = false;
 
 const toHours = (row, fallbackHours) => {
   if (!row) return fallbackHours;
@@ -292,6 +293,174 @@ async function runDemoDayReminders(now = new Date()) {
   }
 }
 
+/** تذكير الأقساط المتأخرة وتجديدات المجموعات — يومياً 11:00. */
+async function runPaymentReminders(now = new Date()) {
+  if (paymentRemindersRunning) return { skipped: true };
+  paymentRemindersRunning = true;
+  try {
+    const prisma = getSharedPrismaClient();
+    const schedules = new Map();
+    let installmentsSent = 0;
+    let renewalsSent = 0;
+
+    const scheduleFor = async (companyId) => {
+      if (!schedules.has(companyId)) {
+        schedules.set(
+          companyId,
+          await loadScheduleMap(prisma, companyId, [
+            'education_installment_due',
+            'education_group_renewal_due',
+          ])
+        );
+      }
+      return schedules.get(companyId);
+    };
+
+    // 1) Unpaid installments that reached their due date
+    const enrollments = await prisma.educationEnrollment.findMany({
+      where: { isActive: true, paymentStatus: { in: ['PENDING', 'PARTIALLY_PAID'] } },
+      select: {
+        id: true,
+        companyId: true,
+        installments: true,
+        package: { select: { name: true } },
+        student: {
+          select: {
+            firstName: true,
+            lastName: true,
+            customerId: true,
+            customer: { select: { firstName: true, lastName: true, phone: true } },
+          },
+        },
+      },
+      take: 2000,
+    });
+
+    for (const enrollment of enrollments) {
+      const phone = enrollment.student?.customer?.phone || null;
+      if (!phone) continue;
+
+      const map = await scheduleFor(enrollment.companyId);
+      const scheduleRow = map.get('education_installment_due');
+      if (scheduleRow && scheduleRow.enabled === false) continue;
+
+      let installments = [];
+      try {
+        installments = Array.isArray(enrollment.installments)
+          ? enrollment.installments
+          : JSON.parse(enrollment.installments || '[]');
+      } catch (_) {
+        installments = [];
+      }
+
+      const overdue = installments
+        .filter((inst) => {
+          if (String(inst?.status || '').toUpperCase() === 'PAID') return false;
+          const due = inst?.dueDate ? new Date(inst.dueDate) : null;
+          return due && !Number.isNaN(due.getTime()) && due.getTime() <= now.getTime();
+        })
+        .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+      const due = overdue[0];
+      if (!due) continue;
+
+      const already = await alreadyNotified(prisma, {
+        companyId: enrollment.companyId,
+        eventType: 'education_installment_due',
+        phone,
+        since: new Date(now.getTime() - 3 * DAY_MS),
+      });
+      if (already) continue;
+
+      const customer = enrollment.student?.customer;
+      const daysLate = Math.max(0, Math.floor((now.getTime() - new Date(due.dueDate).getTime()) / DAY_MS));
+      try {
+        await educationNotificationService.notifyInstallmentDue({
+          companyId: enrollment.companyId,
+          customerId: enrollment.student?.customerId || null,
+          parentName: `${customer?.firstName || ''} ${customer?.lastName || ''}`.trim() || 'وليّ الأمر',
+          parentPhone: phone,
+          studentName: `${enrollment.student?.firstName || ''} ${enrollment.student?.lastName || ''}`.trim(),
+          packageName: enrollment.package?.name || '',
+          amount: due.amount,
+          dueDate: due.dueDate,
+          daysLate,
+        });
+        installmentsSent += 1;
+      } catch (error) {
+        console.warn(`[EDU-CRON] installment reminder failed (${enrollment.id}):`, error.message);
+      }
+    }
+
+    // 2) Group members whose renewal is due or unpaid
+    let members = [];
+    try {
+      members = await prisma.$queryRawUnsafe(`
+        SELECT m."id", m."companyId", m."studentId", m."amountPaid", m."paymentStatus", m."nextRenewalDate",
+               g."name" AS "groupName", g."feeAmount",
+               s."firstName", s."lastName",
+               c."phone" AS "parentPhone", c."firstName" AS "parentFirstName", c."lastName" AS "parentLastName"
+        FROM "education_group_members" m
+        JOIN "education_groups" g ON g."id" = m."groupId" AND g."companyId" = m."companyId"
+        JOIN "education_students" s ON s."id" = m."studentId" AND s."companyId" = m."companyId"
+        LEFT JOIN "customers" c ON c."id" = s."customerId" AND c."companyId" = m."companyId"
+        WHERE m."status" = 'ACTIVE'
+          AND (
+            m."paymentStatus" <> 'PAID'
+            OR (m."nextRenewalDate" IS NOT NULL AND m."nextRenewalDate" <= $1)
+          )
+        LIMIT 2000
+      `, now);
+    } catch (error) {
+      console.warn('[EDU-CRON] payment reminders group query failed:', error.message);
+    }
+
+    for (const member of members || []) {
+      const phone = member.parentPhone || null;
+      if (!phone) continue;
+
+      const map = await scheduleFor(member.companyId);
+      const scheduleRow = map.get('education_group_renewal_due');
+      if (scheduleRow && scheduleRow.enabled === false) continue;
+
+      const already = await alreadyNotified(prisma, {
+        companyId: member.companyId,
+        eventType: 'education_group_renewal_due',
+        phone,
+        since: new Date(now.getTime() - 3 * DAY_MS),
+      });
+      if (already) continue;
+
+      const fee = Number(member.feeAmount) || 0;
+      const paid = Number(member.amountPaid) || 0;
+      const isPaid = String(member.paymentStatus || '').toUpperCase() === 'PAID';
+      const amount = isPaid ? fee : Math.max(0, fee - paid);
+      const daysLate = member.nextRenewalDate
+        ? Math.max(0, Math.floor((now.getTime() - new Date(member.nextRenewalDate).getTime()) / DAY_MS))
+        : 0;
+
+      try {
+        await educationNotificationService.notifyGroupRenewalDue({
+          companyId: member.companyId,
+          parentName: `${member.parentFirstName || ''} ${member.parentLastName || ''}`.trim() || 'وليّ الأمر',
+          parentPhone: phone,
+          studentName: `${member.firstName || ''} ${member.lastName || ''}`.trim(),
+          groupName: member.groupName || '',
+          amount,
+          daysLate,
+        });
+        renewalsSent += 1;
+      } catch (error) {
+        console.warn(`[EDU-CRON] group renewal reminder failed (${member.id}):`, error.message);
+      }
+    }
+
+    return { installmentsSent, renewalsSent };
+  } finally {
+    paymentRemindersRunning = false;
+  }
+}
+
 function startEducationNotificationScheduler() {
   console.log('[EDU-CRON] Registering education notification scheduler...');
   cron.schedule('*/30 * * * *', () => {
@@ -300,16 +469,20 @@ function startEducationNotificationScheduler() {
   cron.schedule('0 10 * * *', () => {
     runBalanceAlerts().catch((error) => console.error('[EDU-CRON] balance alerts job failed:', error.message));
   });
+  cron.schedule('0 11 * * *', () => {
+    runPaymentReminders().catch((error) => console.error('[EDU-CRON] payment reminders job failed:', error.message));
+  });
   cron.schedule('*/15 * * * *', () => {
     runDemoDayReminders().catch((error) => console.error('[EDU-CRON] demo reminders job failed:', error.message));
   });
-  console.log('[EDU-CRON] Education notification scheduler registered (session */30, balance daily 10:00, demo */15).');
+  console.log('[EDU-CRON] Education notification scheduler registered (session */30, balance daily 10:00, payments daily 11:00, demo */15).');
 }
 
 module.exports = {
   startEducationNotificationScheduler,
   runSessionReminders,
   runBalanceAlerts,
+  runPaymentReminders,
   runDemoDayReminders,
   LOW_HOURS_THRESHOLD,
 };

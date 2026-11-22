@@ -86,3 +86,20 @@ export const rejectTopup = (id: string, reason?: string): Promise<unknown> =>
 
 export const fetchReceipt = (id: string): Promise<ReceiptPayload> =>
   fetchJson(api(`finance/payments/${id}/receipt`));
+
+export const downloadPaymentsCsv = async (filters: PaymentsQuery): Promise<void> => {
+  const { page, limit, ...rest } = filters;
+  const res = await fetch(api(`finance/payments/export${query(rest as any)}`), {
+    headers: getAuthHeaders(),
+  });
+  if (!res.ok) throw new Error("فشل تصدير المدفوعات");
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `education-payments-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+};

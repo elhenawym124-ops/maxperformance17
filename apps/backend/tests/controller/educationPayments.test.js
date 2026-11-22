@@ -14,6 +14,7 @@ const state = {
   treasury: null,
   treasuryTx: [],
   audits: [],
+  notifications: [],
   nextEnrollmentUpdate: null,
   rawHandler: null,
 };
@@ -225,18 +226,41 @@ require.cache[auditPath] = {
   },
 };
 
+const notificationPath = require.resolve('../../services/educationNotificationService');
+require.cache[notificationPath] = {
+  id: notificationPath,
+  filename: notificationPath,
+  loaded: true,
+  exports: {
+    notifyWalletTopupDecision: async (payload) => {
+      state.notifications.push(payload);
+      return { success: true };
+    },
+  },
+};
+
 const controller = require('../../controller/educationPaymentsController');
 
 const makeRes = () => {
   const res = {
     statusCode: 200,
     payload: null,
+    headers: {},
+    body: null,
     status(code) {
       this.statusCode = code;
       return this;
     },
     json(body) {
       this.payload = body;
+      return this;
+    },
+    setHeader(key, value) {
+      this.headers[key] = value;
+      return this;
+    },
+    send(body) {
+      this.body = body;
       return this;
     },
   };
@@ -260,6 +284,7 @@ beforeEach(() => {
   state.treasury = { id: 'treasury-1', companyId: 'comp-1', name: 'الخزينة', isDefault: true, isActive: true, balance: 1000 };
   state.treasuryTx = [];
   state.audits = [];
+  state.notifications = [];
   state.rawHandler = null;
   state.nextEnrollmentUpdate = null;
 });
@@ -513,6 +538,10 @@ describe('educationPaymentsController wallet top-ups', () => {
     assert.strictEqual(state.treasury.balance, 1500);
     assert.strictEqual(state.treasuryTx[0].referenceType, 'EDUCATION_WALLET_TOPUP');
     assert.strictEqual(state.audits[0].action, 'RELEASE_WALLET_TOPUP');
+    assert.strictEqual(state.notifications.length, 1);
+    assert.strictEqual(state.notifications[0].approved, true);
+    assert.strictEqual(state.notifications[0].amount, 500);
+    assert.strictEqual(state.notifications[0].parentPhone, '0100');
   });
 
   it('refuses to release twice', async () => {
@@ -537,6 +566,9 @@ describe('educationPaymentsController wallet top-ups', () => {
     assert.strictEqual(state.wallets[0].balance, 100);
     assert.strictEqual(state.treasuryTx.length, 0);
     assert.strictEqual(state.audits[0].action, 'REJECT_WALLET_TOPUP');
+    assert.strictEqual(state.notifications.length, 1);
+    assert.strictEqual(state.notifications[0].approved, false);
+    assert.strictEqual(state.notifications[0].reason, 'إيصال غير واضح');
   });
 
   it('lists pending top-ups only', async () => {
@@ -645,6 +677,43 @@ describe('educationPaymentsController summary & dues', () => {
     assert.strictEqual(res.payload.data.totals.groupRenewalsRemaining, 400);
   });
 
+  it('builds the monthly finance report with breakdowns and top dues', async () => {
+    const now = new Date();
+    const thisMonth = new Date(now.getFullYear(), now.getMonth(), 3).toISOString();
+    const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 5).toISOString();
+    state.payments.push(
+      { id: 'p1', companyId: 'comp-1', amount: 100, status: 'COMPLETED', method: 'CASH', source: 'ADMIN', paidAt: thisMonth },
+      { id: 'p2', companyId: 'comp-1', amount: 300, status: 'COMPLETED', method: 'TRANSFER', source: 'GROUP', paidAt: thisMonth },
+      { id: 'p3', companyId: 'comp-1', amount: 200, status: 'COMPLETED', method: 'CASH', source: 'INSTALLMENT', paidAt: prevMonth },
+      { id: 'p4', companyId: 'comp-1', amount: 999, status: 'REVERSED', method: 'CASH', source: 'ADMIN', paidAt: thisMonth }
+    );
+    state.enrollments.push({
+      id: 'e1', companyId: 'comp-1', isActive: true, studentId: 'stu-1',
+      amountPaid: 100, finalAmount: 500, installments: [], paymentMethod: 'CASH',
+      student: { firstName: 'سارة', lastName: 'محمد', phone: '0111' },
+      package: { name: 'باقة 10' },
+    });
+    state.walletTransactions.push({ id: 't1', status: 'PENDING_RELEASE', wallet: { companyId: 'comp-1' } });
+
+    const res = makeRes();
+    await controller.getReports(makeReq({}, { months: '6' }), res);
+
+    assert.strictEqual(res.statusCode, 200);
+    const data = res.payload.data;
+    assert.strictEqual(data.totals.collected, 600);
+    assert.strictEqual(data.totals.payments, 3);
+    assert.strictEqual(data.monthly.length, 6);
+    const currentKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const currentBucket = data.monthly.find((row) => row.month === currentKey);
+    assert.strictEqual(currentBucket.amount, 400);
+    assert.strictEqual(currentBucket.count, 2);
+    assert.strictEqual(data.byMethod.CASH.amount, 300);
+    assert.strictEqual(data.bySource.GROUP.amount, 300);
+    assert.strictEqual(data.outstanding.amount, 400);
+    assert.strictEqual(data.outstanding.top[0].studentName, 'سارة محمد');
+    assert.strictEqual(data.pendingTopups, 1);
+  });
+
   it('lists payments scoped to the tenant with pagination metadata', async () => {
     state.payments.push(
       { id: 'p1', companyId: 'comp-1', amount: 100, status: 'COMPLETED', method: 'CASH', paymentNumber: 'EDU-PAY-202611-0001' },
@@ -657,6 +726,24 @@ describe('educationPaymentsController summary & dues', () => {
     assert.strictEqual(res.payload.data.length, 1);
     assert.strictEqual(res.payload.pagination.total, 2);
     assert.strictEqual(res.payload.pagination.totalPages, 2);
+  });
+
+  it('exports the filtered ledger as an Excel-friendly CSV', async () => {
+    state.payments.push(
+      { id: 'p1', companyId: 'comp-1', paymentNumber: 'EDU-PAY-202611-0001', receiptNumber: 'RCP-202611-0001', studentName: 'سارة, محمد', amount: 250, method: 'CASH', source: 'ADMIN', status: 'COMPLETED', paidAt: new Date().toISOString(), notes: 'ملاحظة "مهمة"' },
+      { id: 'p2', companyId: 'other', paymentNumber: 'EDU-PAY-202611-0002', amount: 999, status: 'COMPLETED', method: 'CASH' }
+    );
+    const res = makeRes();
+    await controller.exportPayments(makeReq({}, {}), res);
+
+    assert.strictEqual(res.statusCode, 200);
+    assert.match(res.headers['Content-Type'], /text\/csv/);
+    assert.match(res.headers['Content-Disposition'], /attachment/);
+    assert.ok(res.body.startsWith('\uFEFF'));
+    assert.match(res.body, /payment_number,receipt_number,paid_at,student_name/);
+    assert.match(res.body, /"سارة, محمد"/);
+    assert.match(res.body, /"ملاحظة ""مهمة"""/);
+    assert.strictEqual(res.body.includes('999'), false);
   });
 
   it('returns a printable receipt payload', async () => {

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controller/educationParentAuthController');
 const portalController = require('../controller/educationParentPortalController');
+const parentPaymentsController = require('../controller/educationParentPortalPaymentsController');
 const { authenticateParentToken } = require('../utils/verifyParentToken');
 const verifyToken = require('../utils/verifyToken');
 const { extractSubdomainMiddleware } = require('../middleware/subdomainMiddleware');
@@ -30,6 +31,10 @@ router.post('/wallet/topup', authenticateParentToken, portalController.topupWall
 // Package purchase
 router.get('/subjects', authenticateParentToken, portalController.getSubjects);
 router.post('/purchase-package', authenticateParentToken, portalController.purchasePackage);
+
+// Payment history + receipts (parent-scoped)
+router.get('/payments', authenticateParentToken, parentPaymentsController.listPayments);
+router.get('/payments/:id/receipt', authenticateParentToken, parentPaymentsController.getReceipt);
 
 // Parent's children
 router.get('/children', authenticateParentToken, async (req, res) => {

@@ -136,53 +136,58 @@ const create = async (req, res) => {
         ? 'COMPLETED'
         : (paidNow > 0 ? 'PARTIALLY_PAID' : 'PENDING'));
 
-    const data = await getSharedPrismaClient().educationEnrollment.create({
-      data: {
-        companyId,
-        studentId,
-        packageId,
-        teacherId: safeTeacherId,
-        totalHours: Number(pkg.hoursCount) || 0,
-        remainingHours: Number(pkg.hoursCount) || 0,
-        amountPaid: Number(amountPaid) || 0,
-        paymentStatus: statusAlignedToAmount,
-        expiresAt: parsedExpiresAt,
-        paymentMethod: paymentMethod || 'CASH',
-        installmentCount: installmentCount ? parseInt(installmentCount, 10) : 1,
-        installments: safeInstallments,
-        discountType: discountType || 'NONE',
-        discountAmount: discountAmount ? parseFloat(discountAmount) : 0,
-        finalAmount: safeFinalAmount,
-        branchId: branchId || null
-      },
-      include: {
-        student: { select: { id: true, code: true, firstName: true, lastName: true } },
-        package: { include: { subject: { select: { id: true, name: true } } } },
-        teacher: { select: { id: true, name: true } }
-      }
-    });
+    const prisma = getSharedPrismaClient();
+    const runInTx = typeof prisma.$transaction === 'function'
+      ? (fn) => prisma.$transaction(fn)
+      : (fn) => fn(prisma);
 
     const studentName = `${student.firstName} ${student.lastName || ''}`.trim();
     const teacherLabel = teacher ? await getSingularTeacherLabel(companyId, 'ar') : '';
-
-    // 🏦 Automatic Financial Inflow to Treasury (any received amount must hit the treasury)
     const paidAmount = Number(amountPaid) || 0;
-    if (paidAmount > 0 && statusAlignedToAmount !== 'REFUNDED' && statusAlignedToAmount !== 'FAILED') {
-      try {
+
+    // The enrollment row and its treasury inflow commit together or not at all.
+    const data = await runInTx(async (tx) => {
+      const created = await tx.educationEnrollment.create({
+        data: {
+          companyId,
+          studentId,
+          packageId,
+          teacherId: safeTeacherId,
+          totalHours: Number(pkg.hoursCount) || 0,
+          remainingHours: Number(pkg.hoursCount) || 0,
+          amountPaid: Number(amountPaid) || 0,
+          paymentStatus: statusAlignedToAmount,
+          expiresAt: parsedExpiresAt,
+          paymentMethod: paymentMethod || 'CASH',
+          installmentCount: installmentCount ? parseInt(installmentCount, 10) : 1,
+          installments: safeInstallments,
+          discountType: discountType || 'NONE',
+          discountAmount: discountAmount ? parseFloat(discountAmount) : 0,
+          finalAmount: safeFinalAmount,
+          branchId: branchId || null
+        },
+        include: {
+          student: { select: { id: true, code: true, firstName: true, lastName: true } },
+          package: { include: { subject: { select: { id: true, name: true } } } },
+          teacher: { select: { id: true, name: true } }
+        }
+      });
+
+      if (paidAmount > 0 && statusAlignedToAmount !== 'REFUNDED' && statusAlignedToAmount !== 'FAILED') {
         const educationFinancialService = require('../services/educationFinancialIntegrationService');
-        educationFinancialService.recordEducationRevenue({
+        await educationFinancialService.recordEducationRevenueInTx(tx, {
           companyId,
           sourceType: 'EDUCATION_PACKAGE_REVENUE',
-          sourceId: data.id,
+          sourceId: created.id,
           studentName,
           title: `تحصيل باقة تعليمية (${pkg.name})`,
           amount: paidAmount,
           createdById: req.user?.id
-        }).catch(e => console.warn('[EnrollmentRevenuePosting] warning:', e.message));
-      } catch (fe) {
-        console.warn('[EnrollmentRevenuePosting] notice:', fe.message);
+        });
       }
-    }
+
+      return created;
+    });
     logEducationEvent({
       companyId,
       action: 'CREATE_ENROLLMENT',
@@ -358,84 +363,101 @@ const payInstallment = async (req, res) => {
     const { id, installmentNumber } = req.params;
     const num = parseInt(installmentNumber, 10);
     const prisma = getSharedPrismaClient();
+    const runInTx = typeof prisma.$transaction === 'function'
+      ? (fn) => prisma.$transaction(fn)
+      : (fn) => fn(prisma);
 
-    const enrollment = await prisma.educationEnrollment.findFirst({
-      where: { id, companyId },
-      include: { package: true, student: true }
-    });
-    if (!enrollment) return res.status(404).json({ success: false, error: 'التسجيل غير موجود' });
-
-    let currentInstallments = [];
-    try {
-      currentInstallments = Array.isArray(enrollment.installments)
-        ? enrollment.installments
-        : JSON.parse(enrollment.installments || '[]');
-    } catch (_) { currentInstallments = []; }
-
-    let target = currentInstallments.find(i => Number(i.installmentNumber) === num);
-    // توافق: بعض الخطط القديمة لا تحمل installmentNumber — نطابق بالترتيب
-    if (!target && num >= 1 && num <= currentInstallments.length) {
-      target = currentInstallments[num - 1];
-      target.installmentNumber = num;
-    }
-    if (!target) {
-      return res.status(404).json({ success: false, error: 'القسط غير موجود' });
-    }
-    if (String(target.status || '').toUpperCase() === 'PAID') {
-      return res.status(409).json({ success: false, error: 'هذا القسط مسدد بالفعل' });
-    }
-
-    target.status = 'PAID';
-    target.paidAt = new Date().toISOString();
-
-    const newAmountPaid = currentInstallments
-      .filter(i => i.status === 'PAID')
-      .reduce((sum, i) => sum + (Number(i.amount) || 0), 0);
-
-    const targetTotal = enrollment.finalAmount || enrollment.package?.price || 0;
-    const isFullyPaid = newAmountPaid >= targetTotal;
-    const newStatus = isFullyPaid ? 'COMPLETED' : 'PARTIALLY_PAID';
-
-    const updated = await prisma.educationEnrollment.update({
-      where: { id },
-      data: {
-        installments: currentInstallments,
-        amountPaid: newAmountPaid,
-        paymentStatus: newStatus
-      },
-      include: {
-        student: { select: { id: true, code: true, firstName: true, lastName: true } },
-        package: { include: { subject: { select: { id: true, name: true } } } },
-        teacher: { select: { id: true, name: true } }
+    const buildPaymentNumber = async (db, date = new Date()) => {
+      const prefix = `EDU-PAY-${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}-`;
+      const lastPayment = await db.educationPayment.findFirst({
+        where: { companyId, paymentNumber: { startsWith: prefix } },
+        orderBy: { paymentNumber: 'desc' },
+        select: { paymentNumber: true },
+      });
+      let seq = 1;
+      if (lastPayment?.paymentNumber) {
+        const parsed = parseInt(String(lastPayment.paymentNumber).split('-').pop(), 10);
+        if (!Number.isNaN(parsed)) seq = parsed + 1;
       }
-    });
+      return `${prefix}${String(seq).padStart(4, '0')}`;
+    };
 
-    // 🧾 Unified payment ledger entry (treasury is posted below with its own idempotent source id)
-    const instAmount = Number(target.amount) || 0;
-    if (instAmount > 0) {
+    // The installment, its ledger row and its treasury deposit commit together.
+    const { updated, paidAmount: instAmount } = await runInTx(async (tx) => {
+      const enrollment = await tx.educationEnrollment.findFirst({
+        where: { id, companyId },
+        include: { package: true, student: true }
+      });
+      if (!enrollment) {
+        const err = new Error('التسجيل غير موجود');
+        err.statusCode = 404;
+        throw err;
+      }
+
+      let currentInstallments = [];
       try {
-        const now = new Date();
-        const prefix = `EDU-PAY-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}-`;
-        const lastPayment = await prisma.educationPayment.findFirst({
-          where: { companyId, paymentNumber: { startsWith: prefix } },
-          orderBy: { paymentNumber: 'desc' },
-          select: { paymentNumber: true },
-        });
-        let seq = 1;
-        if (lastPayment?.paymentNumber) {
-          const parsed = parseInt(String(lastPayment.paymentNumber).split('-').pop(), 10);
-          if (!Number.isNaN(parsed)) seq = parsed + 1;
+        currentInstallments = Array.isArray(enrollment.installments)
+          ? enrollment.installments
+          : JSON.parse(enrollment.installments || '[]');
+      } catch (_) { currentInstallments = []; }
+
+      let target = currentInstallments.find(i => Number(i.installmentNumber) === num);
+      // توافق: بعض الخطط القديمة لا تحمل installmentNumber — نطابق بالترتيب
+      if (!target && num >= 1 && num <= currentInstallments.length) {
+        target = currentInstallments[num - 1];
+        target.installmentNumber = num;
+      }
+      if (!target) {
+        const err = new Error('القسط غير موجود');
+        err.statusCode = 404;
+        throw err;
+      }
+      if (String(target.status || '').toUpperCase() === 'PAID') {
+        const err = new Error('هذا القسط مسدد بالفعل');
+        err.statusCode = 409;
+        throw err;
+      }
+
+      target.status = 'PAID';
+      target.paidAt = new Date().toISOString();
+
+      const newAmountPaid = currentInstallments
+        .filter(i => i.status === 'PAID')
+        .reduce((sum, i) => sum + (Number(i.amount) || 0), 0);
+
+      const targetTotal = enrollment.finalAmount || enrollment.package?.price || 0;
+      const isFullyPaid = newAmountPaid >= targetTotal;
+      const newStatus = isFullyPaid ? 'COMPLETED' : 'PARTIALLY_PAID';
+
+      const saved = await tx.educationEnrollment.update({
+        where: { id },
+        data: {
+          installments: currentInstallments,
+          amountPaid: newAmountPaid,
+          paymentStatus: newStatus
+        },
+        include: {
+          student: { select: { id: true, code: true, firstName: true, lastName: true } },
+          package: { include: { subject: { select: { id: true, name: true } } } },
+          teacher: { select: { id: true, name: true } }
         }
-        const paymentNumber = `${prefix}${String(seq).padStart(4, '0')}`;
-        await prisma.educationPayment.create({
+      });
+
+      const amount = Number(target.amount) || 0;
+      if (amount > 0) {
+        const now = new Date();
+        const paymentNumber = await buildPaymentNumber(tx, now);
+        const studentName = `${saved.student?.firstName || ''} ${saved.student?.lastName || ''}`.trim();
+
+        await tx.educationPayment.create({
           data: {
             companyId,
             paymentNumber,
             receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
-            studentId: updated.studentId,
-            enrollmentId: updated.id,
-            studentName: `${updated.student?.firstName || ''} ${updated.student?.lastName || ''}`.trim() || null,
-            amount: instAmount,
+            studentId: saved.studentId,
+            enrollmentId: saved.id,
+            studentName: studentName || null,
+            amount,
             method: 'CASH',
             status: 'COMPLETED',
             source: 'INSTALLMENT',
@@ -445,36 +467,31 @@ const payInstallment = async (req, res) => {
             cashierName: req.user?.name || [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ') || null,
           },
         });
-      } catch (ledgerError) {
-        console.warn('[InstallmentLedger] warning:', ledgerError.message);
-      }
-    }
 
-    // 🏦 Automatic Financial Inflow to Treasury for Installment Payment
-    if (instAmount > 0) {
-      try {
         const educationFinancialService = require('../services/educationFinancialIntegrationService');
-        const studentName = `${updated.student?.firstName || ''} ${updated.student?.lastName || ''}`.trim();
-        educationFinancialService.recordEducationRevenue({
+        await educationFinancialService.recordEducationRevenueInTx(tx, {
           companyId,
           sourceType: 'EDUCATION_INSTALLMENT',
           sourceId: `${enrollment.id}_inst_${num}`,
           studentName,
-          title: `تحصيل قسط تعليمي رقم ${num} (${updated.package?.name || ''})`,
-          amount: instAmount,
+          title: `تحصيل قسط تعليمي رقم ${num} (${saved.package?.name || ''})`,
+          amount,
           createdById: req.user?.id
-        }).catch(e => console.warn('[InstallmentRevenuePosting] warning:', e.message));
-      } catch (fe) {
-        console.warn('[InstallmentRevenuePosting] notice:', fe.message);
+        });
       }
-    }
+
+      return { updated: saved, paidAmount: amount };
+    });
 
     res.json({
       success: true,
-      message: `تم سداد القسط رقم ${num} بمبلغ ${target.amount} ج.م بنجاح`,
+      message: `تم سداد القسط رقم ${num} بمبلغ ${instAmount} ج.م بنجاح`,
       data: updated
     });
   } catch (error) {
+    if (error.statusCode) {
+      return res.status(error.statusCode).json({ success: false, error: error.message });
+    }
     console.error('Error paying installment:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ أثناء تحصيل القسط' });
   }

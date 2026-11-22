@@ -8,9 +8,10 @@ import {
   CheckCircle2,
   AlertCircle,
   Receipt,
-  DollarSign,
-  CreditCard
+  CreditCard,
+  Printer
 } from "lucide-react";
+import ParentReceiptModal from "./ParentReceiptModal";
 
 interface WalletData {
   balance: number;
@@ -26,6 +27,17 @@ interface Transaction {
   notes?: string;
   description?: string;
   status?: string;
+}
+
+interface ParentPayment {
+  id: string;
+  paymentNumber: string;
+  receiptNumber?: string | null;
+  studentName?: string | null;
+  amount: number;
+  method: string;
+  status: string;
+  paidAt: string;
 }
 
 const TYPE_CONFIG: Record<string, { label: string; badgeCls: string; isPositive: boolean }> = {
@@ -44,14 +56,21 @@ const ParentWalletPage: React.FC = () => {
   const [amount, setAmount] = useState("");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [payments, setPayments] = useState<ParentPayment[]>([]);
+  const [receiptId, setReceiptId] = useState<string | null>(null);
 
   const fetchWallet = async () => {
     try {
       setRefreshing(true);
       const token = localStorage.getItem("parentToken");
-      const res = await fetch("/api/v1/education/parent-portal/wallet", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const [res, paymentsRes] = await Promise.all([
+        fetch("/api/v1/education/parent-portal/wallet", {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
+        fetch("/api/v1/education/parent-portal/payments", {
+          headers: { Authorization: `Bearer ${token}` }
+        }).catch(() => null),
+      ]);
       const json = await res.json();
       if (json.success && json.data) {
         setWallet(json.data.wallet);
@@ -60,9 +79,17 @@ const ParentWalletPage: React.FC = () => {
         setWallet(null);
         setTransactions([]);
       }
+
+      if (paymentsRes) {
+        const paymentsJson = await paymentsRes.json().catch(() => ({}));
+        setPayments(paymentsJson.success && Array.isArray(paymentsJson.data) ? paymentsJson.data : []);
+      } else {
+        setPayments([]);
+      }
     } catch {
       setWallet(null);
       setTransactions([]);
+      setPayments([]);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -355,6 +382,59 @@ const ParentWalletPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Education payments history + receipts */}
+      <div className="rounded-xl border border-border/70 bg-card text-card-foreground shadow-sm overflow-hidden">
+        <div className="p-4 bg-muted/30 border-b border-border/60 flex items-center justify-between gap-2">
+          <h3 className="text-xs font-semibold text-foreground">سجل المدفوعات والإيصالات</h3>
+          <span className="text-[11px] text-muted-foreground font-mono">{payments.length}</span>
+        </div>
+
+        {payments.length === 0 ? (
+          <div className="text-center py-10 px-4 space-y-2">
+            <Receipt className="w-9 h-9 text-muted-foreground mx-auto stroke-1" />
+            <p className="text-sm font-medium text-foreground">لا توجد مدفوعات مسجلة</p>
+            <p className="text-xs text-muted-foreground">ستظهر هنا كل دفعات الباقات مع إيصال قابل للطباعة</p>
+          </div>
+        ) : (
+          <div className="divide-y divide-border/60">
+            {payments.map((payment) => (
+              <div key={payment.id} className="p-4 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs font-semibold text-foreground">{payment.studentName || "—"}</span>
+                    {payment.status === "REVERSED" ? (
+                      <span className="px-1.5 py-0.2 rounded text-[10px] border bg-destructive/10 text-destructive border-destructive/20">ملغاة</span>
+                    ) : (
+                      <span className="px-1.5 py-0.2 rounded text-[10px] border bg-emerald-500/10 text-emerald-600 border-emerald-500/20">محصلة</span>
+                    )}
+                  </div>
+                  <p className="text-[11px] text-muted-foreground font-mono mt-0.5">
+                    <span dir="ltr">{payment.receiptNumber || payment.paymentNumber}</span>
+                    {" · "}
+                    <span dir="ltr">{new Date(payment.paidAt).toLocaleDateString("ar-EG")}</span>
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="text-sm font-bold font-mono tabular-nums">
+                    {payment.amount.toLocaleString("ar-EG")} ج.م
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setReceiptId(payment.id)}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-border bg-background hover:bg-muted"
+                  >
+                    <Printer className="w-3.5 h-3.5" />
+                    إيصال
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {receiptId ? <ParentReceiptModal paymentId={receiptId} onClose={() => setReceiptId(null)} /> : null}
     </div>
   );
 };

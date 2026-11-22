@@ -135,6 +135,37 @@ const parseDate = (value, fallback) => {
 /* List + KPIs                                                         */
 /* ------------------------------------------------------------------ */
 
+const buildPaymentsWhere = (query, companyId) => {
+  const where = { companyId };
+  if (query.studentId) where.studentId = query.studentId;
+  if (query.enrollmentId) where.enrollmentId = query.enrollmentId;
+  if (query.method && PAYMENT_METHODS.includes(String(query.method).toUpperCase())) {
+    where.method = String(query.method).toUpperCase();
+  }
+  if (query.status && ['COMPLETED', 'REVERSED'].includes(String(query.status).toUpperCase())) {
+    where.status = String(query.status).toUpperCase();
+  }
+  if (query.from || query.to) {
+    where.paidAt = {};
+    if (query.from) where.paidAt.gte = parseDate(query.from, new Date(0));
+    if (query.to) {
+      const to = parseDate(query.to, new Date());
+      to.setHours(23, 59, 59, 999);
+      where.paidAt.lte = to;
+    }
+  }
+  const q = String(query.q || '').trim();
+  if (q) {
+    where.OR = [
+      { studentName: { contains: q, mode: 'insensitive' } },
+      { paymentNumber: { contains: q, mode: 'insensitive' } },
+      { receiptNumber: { contains: q, mode: 'insensitive' } },
+      { reference: { contains: q, mode: 'insensitive' } },
+    ];
+  }
+  return where;
+};
+
 const listPayments = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -143,34 +174,7 @@ const listPayments = async (req, res) => {
     const prisma = getSharedPrismaClient();
     const page = Math.max(1, parseInt(req.query.page, 10) || 1);
     const limit = Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 25));
-
-    const where = { companyId };
-    if (req.query.studentId) where.studentId = req.query.studentId;
-    if (req.query.enrollmentId) where.enrollmentId = req.query.enrollmentId;
-    if (req.query.method && PAYMENT_METHODS.includes(String(req.query.method).toUpperCase())) {
-      where.method = String(req.query.method).toUpperCase();
-    }
-    if (req.query.status && ['COMPLETED', 'REVERSED'].includes(String(req.query.status).toUpperCase())) {
-      where.status = String(req.query.status).toUpperCase();
-    }
-    if (req.query.from || req.query.to) {
-      where.paidAt = {};
-      if (req.query.from) where.paidAt.gte = parseDate(req.query.from, new Date(0));
-      if (req.query.to) {
-        const to = parseDate(req.query.to, new Date());
-        to.setHours(23, 59, 59, 999);
-        where.paidAt.lte = to;
-      }
-    }
-    const q = String(req.query.q || '').trim();
-    if (q) {
-      where.OR = [
-        { studentName: { contains: q, mode: 'insensitive' } },
-        { paymentNumber: { contains: q, mode: 'insensitive' } },
-        { receiptNumber: { contains: q, mode: 'insensitive' } },
-        { reference: { contains: q, mode: 'insensitive' } },
-      ];
-    }
+    const where = buildPaymentsWhere(req.query, companyId);
 
     const [items, total] = await Promise.all([
       prisma.educationPayment.findMany({
@@ -190,6 +194,54 @@ const listPayments = async (req, res) => {
   } catch (error) {
     console.error('Error fetching education payments:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في جلب المدفوعات' });
+  }
+};
+
+const exportPayments = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const where = buildPaymentsWhere(req.query, companyId);
+    const rows = await prisma.educationPayment.findMany({
+      where,
+      orderBy: { paidAt: 'desc' },
+      take: 10000,
+    });
+
+    const header = [
+      'payment_number', 'receipt_number', 'paid_at', 'student_name', 'amount',
+      'method', 'source', 'status', 'cashier', 'reference', 'notes',
+    ];
+    const escapeCsv = (value) => {
+      const text = value === null || value === undefined ? '' : String(value);
+      return `"${text.replace(/"/g, '""')}"`;
+    };
+    const lines = [header.join(',')];
+    for (const row of rows) {
+      lines.push([
+        row.paymentNumber,
+        row.receiptNumber,
+        row.paidAt ? new Date(row.paidAt).toISOString() : '',
+        row.studentName,
+        money(row.amount),
+        row.method,
+        row.source,
+        row.status,
+        row.cashierName,
+        row.reference,
+        row.notes,
+      ].map(escapeCsv).join(','));
+    }
+
+    const stamp = new Date().toISOString().slice(0, 10);
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="education-payments-${stamp}.csv"`);
+    res.send(`\uFEFF${lines.join('\r\n')}`);
+  } catch (error) {
+    console.error('Error exporting education payments:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في تصدير المدفوعات' });
   }
 };
 
@@ -808,7 +860,7 @@ const releaseTopup = async (req, res) => {
             select: {
               id: true,
               customerId: true,
-              customer: { select: { firstName: true, lastName: true } },
+              customer: { select: { firstName: true, lastName: true, phone: true } },
             },
           },
         },
@@ -854,8 +906,32 @@ const releaseTopup = async (req, res) => {
         createdById: req.user?.id,
       });
 
-      return { transaction: released, wallet: updatedWallet, treasuryTx, amount };
+      return {
+        transaction: released,
+        wallet: updatedWallet,
+        treasuryTx,
+        amount,
+        customer: transaction.wallet.customer || null,
+        customerId: transaction.wallet.customerId,
+      };
     });
+
+    const customer = result.customer;
+    const parentName = `${customer?.firstName || ''} ${customer?.lastName || ''}`.trim() || 'وليّ الأمر';
+    try {
+      const notificationService = require('../services/educationNotificationService');
+      notificationService.notifyWalletTopupDecision({
+        companyId,
+        customerId: result.customerId,
+        parentName,
+        parentPhone: customer?.phone || null,
+        amount: result.amount,
+        approved: true,
+        balance: Number(result.wallet?.balance) || 0,
+      }).catch((e) => console.warn('[TopupNotify] warning:', e.message));
+    } catch (notifyError) {
+      console.warn('[TopupNotify] notice:', notifyError.message);
+    }
 
     logEducationEvent({
       companyId,
@@ -890,6 +966,15 @@ const rejectTopup = async (req, res) => {
 
     const transaction = await prisma.walletTransaction.findFirst({
       where: { id, wallet: { companyId } },
+      include: {
+        wallet: {
+          select: {
+            id: true,
+            customerId: true,
+            customer: { select: { firstName: true, lastName: true, phone: true } },
+          },
+        },
+      },
     });
     if (!transaction) return res.status(404).json({ success: false, error: 'طلب الشحن غير موجود' });
     if (transaction.status !== 'PENDING_RELEASE') {
@@ -900,6 +985,23 @@ const rejectTopup = async (req, res) => {
       where: { id: transaction.id },
       data: { status: 'CANCELLED', cancelledAt: new Date() },
     });
+
+    const customer = transaction.wallet?.customer;
+    const parentName = `${customer?.firstName || ''} ${customer?.lastName || ''}`.trim() || 'وليّ الأمر';
+    try {
+      const notificationService = require('../services/educationNotificationService');
+      notificationService.notifyWalletTopupDecision({
+        companyId,
+        customerId: transaction.wallet?.customerId,
+        parentName,
+        parentPhone: customer?.phone || null,
+        amount: money(updated.amount),
+        approved: false,
+        reason,
+      }).catch((e) => console.warn('[TopupNotify] warning:', e.message));
+    } catch (notifyError) {
+      console.warn('[TopupNotify] notice:', notifyError.message);
+    }
 
     logEducationEvent({
       companyId,
@@ -967,9 +1069,142 @@ const getReceipt = async (req, res) => {
   }
 };
 
+/* ------------------------------------------------------------------ */
+/* Financial report                                                    */
+/* ------------------------------------------------------------------ */
+
+const getReports = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const months = Math.min(12, Math.max(1, parseInt(req.query.months, 10) || 6));
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth() - (months - 1), 1);
+
+    const [payments, enrollments, pendingTopups] = await Promise.all([
+      prisma.educationPayment.findMany({
+        where: { companyId, status: 'COMPLETED', paidAt: { gte: start } },
+        select: { amount: true, method: true, source: true, paidAt: true },
+        take: 20000,
+      }),
+      prisma.educationEnrollment.findMany({
+        where: { companyId, isActive: true },
+        select: {
+          id: true, studentId: true, amountPaid: true, finalAmount: true,
+          installments: true, paymentMethod: true,
+          student: { select: { firstName: true, lastName: true, phone: true } },
+          package: { select: { name: true } },
+        },
+        take: 2000,
+      }),
+      prisma.walletTransaction.count({ where: { status: 'PENDING_RELEASE', wallet: { companyId } } }),
+    ]);
+
+    const monthKeys = [];
+    for (let i = 0; i < months; i += 1) {
+      const d = new Date(now.getFullYear(), now.getMonth() - (months - 1 - i), 1);
+      monthKeys.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
+    }
+    const monthlyMap = new Map(monthKeys.map((key) => [key, { month: key, amount: 0, count: 0 }]));
+    const byMethod = {};
+    const bySource = {};
+    let collected = 0;
+
+    for (const payment of payments) {
+      const amount = money(payment.amount);
+      collected = money(collected + amount);
+      const key = `${new Date(payment.paidAt).getFullYear()}-${String(new Date(payment.paidAt).getMonth() + 1).padStart(2, '0')}`;
+      const bucket = monthlyMap.get(key);
+      if (bucket) {
+        bucket.amount = money(bucket.amount + amount);
+        bucket.count += 1;
+      }
+      const method = payment.method || 'OTHER';
+      byMethod[method] = byMethod[method] || { amount: 0, count: 0 };
+      byMethod[method].amount = money(byMethod[method].amount + amount);
+      byMethod[method].count += 1;
+      const source = payment.source || 'ADMIN';
+      bySource[source] = bySource[source] || { amount: 0, count: 0 };
+      bySource[source].amount = money(bySource[source].amount + amount);
+      bySource[source].count += 1;
+    }
+
+    const dayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const dues = [];
+    let overdueCount = 0;
+    let overdueAmount = 0;
+
+    for (const enrollment of enrollments) {
+      const total = money(enrollment.finalAmount);
+      const paid = money(enrollment.amountPaid);
+      const remaining = money(total - paid);
+      let installments = [];
+      try {
+        installments = Array.isArray(enrollment.installments)
+          ? enrollment.installments
+          : JSON.parse(enrollment.installments || '[]');
+      } catch (_) {
+        installments = [];
+      }
+      let enrollmentOverdue = 0;
+      for (const inst of installments) {
+        if (String(inst?.status || '').toUpperCase() === 'PAID') continue;
+        const due = inst?.dueDate ? new Date(inst.dueDate) : null;
+        if (due && !Number.isNaN(due.getTime()) && due.getTime() < dayStart) {
+          overdueCount += 1;
+          enrollmentOverdue += money(inst.amount);
+        }
+      }
+      overdueAmount = money(overdueAmount + enrollmentOverdue);
+
+      if (remaining > 0.009) {
+        dues.push({
+          enrollmentId: enrollment.id,
+          studentName: `${enrollment.student?.firstName || ''} ${enrollment.student?.lastName || ''}`.trim(),
+          phone: enrollment.student?.phone || null,
+          packageName: enrollment.package?.name || null,
+          remaining,
+          overdueAmount: money(enrollmentOverdue),
+        });
+      }
+    }
+
+    dues.sort((a, b) => b.remaining - a.remaining);
+
+    res.json({
+      success: true,
+      data: {
+        period: { from: start, to: now, months },
+        totals: {
+          collected,
+          payments: payments.length,
+          average: payments.length ? money(collected / payments.length) : 0,
+        },
+        monthly: monthKeys.map((key) => monthlyMap.get(key)),
+        byMethod,
+        bySource,
+        outstanding: {
+          amount: money(dues.reduce((sum, item) => sum + item.remaining, 0)),
+          count: dues.length,
+          top: dues.slice(0, 10),
+        },
+        overdueInstallments: { count: overdueCount, amount: overdueAmount },
+        pendingTopups,
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching education finance report:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب التقرير المالي' });
+  }
+};
+
 module.exports = {
   listPayments,
+  exportPayments,
   getSummary,
+  getReports,
   getDues,
   recordPayment,
   reversePayment,

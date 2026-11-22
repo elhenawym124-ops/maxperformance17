@@ -180,64 +180,70 @@ async function recordTeacherSalaryPayout({
 }
 
 /**
- * Records educational fee / package payment inflow into treasury_accounts as DEPOSIT
+ * Transaction-aware revenue posting.
+ * Call this from inside a prisma.$transaction when the money movement and the
+ * business record must commit or roll back together.
  */
-async function recordEducationRevenue({
+async function recordEducationRevenueInTx(tx, {
   companyId,
-  sourceType, // 'EDUCATION_GROUP_FEE' or 'EDUCATION_PACKAGE_REVENUE'
+  sourceType,
   sourceId,
   studentName,
   title,
   amount,
   createdById
 }) {
+  const numAmount = Number(amount);
+  if (!numAmount || numAmount <= 0) return null;
+
+  // Idempotency guard: prevent duplicate postings
+  const existingTx = await tx.treasuryTransaction.findFirst({
+    where: {
+      companyId,
+      referenceType: sourceType,
+      referenceId: String(sourceId)
+    }
+  });
+  if (existingTx) {
+    console.log(`[EducationFinance] Revenue ${sourceType}/${sourceId} already posted`);
+    return existingTx;
+  }
+
+  const treasury = await getOrCreateDefaultTreasury(tx, companyId);
+  const updatedTreasury = await tx.treasuryAccount.update({
+    where: { id: treasury.id },
+    data: { balance: { increment: numAmount } }
+  });
+
+  const transaction = await tx.treasuryTransaction.create({
+    data: {
+      companyId,
+      treasuryAccountId: treasury.id,
+      amount: numAmount,
+      type: 'DEPOSIT',
+      runningBalance: Number(updatedTreasury.balance),
+      referenceType: sourceType,
+      referenceId: String(sourceId),
+      description: `${title} - الطالب: ${studentName || 'طالب'} بمبلغ ${numAmount} ج.م`,
+      createdById: createdById || null,
+      date: new Date()
+    }
+  });
+
+  return { transaction, treasuryBalance: updatedTreasury.balance };
+}
+
+/**
+ * Records educational fee / package payment inflow into treasury_accounts as DEPOSIT
+ * (best-effort fire-and-forget variant, kept for legacy callers)
+ */
+async function recordEducationRevenue(args) {
   try {
-    const numAmount = Number(amount);
+    const numAmount = Number(args?.amount);
     if (!numAmount || numAmount <= 0) return null;
 
     const prisma = getSharedPrismaClient();
-
-    // Idempotency guard: prevent duplicate postings
-    const existingTx = await prisma.treasuryTransaction.findFirst({
-      where: {
-        companyId,
-        referenceType: sourceType,
-        referenceId: String(sourceId)
-      }
-    });
-    if (existingTx) {
-      console.log(`[EducationFinance] Revenue ${sourceType}/${sourceId} already posted`);
-      return existingTx;
-    }
-
-    const treasury = await getOrCreateDefaultTreasury(prisma, companyId);
-
-    return await prisma.$transaction(async (tx) => {
-      // 1. Increment treasury balance
-      const updatedTreasury = await tx.treasuryAccount.update({
-        where: { id: treasury.id },
-        data: { balance: { increment: numAmount } }
-      });
-
-      // 2. Create treasury transaction
-      const transaction = await tx.treasuryTransaction.create({
-        data: {
-          companyId,
-          treasuryAccountId: treasury.id,
-          amount: numAmount,
-          type: 'DEPOSIT',
-          runningBalance: Number(updatedTreasury.balance),
-          referenceType: sourceType,
-          referenceId: String(sourceId),
-          description: `${title} - الطالب: ${studentName || 'طالب'} بمبلغ ${numAmount} ج.م`,
-          createdById: createdById || null,
-          date: new Date()
-        }
-      });
-
-      console.log(`[EducationFinance] Successfully recorded education revenue ${sourceType}/${sourceId} (+${numAmount} EGP)`);
-      return { transaction, treasuryBalance: updatedTreasury.balance };
-    });
+    return await prisma.$transaction((tx) => recordEducationRevenueInTx(tx, args));
   } catch (error) {
     console.error('[EducationFinance] Error recording education revenue:', error);
     return null;
@@ -310,5 +316,6 @@ async function recordEducationRefund({
 module.exports = {
   recordTeacherSalaryPayout,
   recordEducationRevenue,
+  recordEducationRevenueInTx,
   recordEducationRefund
 };

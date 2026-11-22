@@ -61,4 +61,35 @@ export interface EducationFunnelData {
 }
 
 export type ReportPeriod = "all" | "30d" | "7d" | "today";
-export type ReportTab = "campaigns" | "funnel" | "demoday";
+export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance";
+
+export interface FinanceMonthPoint {
+  month: string;
+  amount: number;
+  count: number;
+}
+
+export interface FinanceBreakdownItem {
+  amount: number;
+  count: number;
+}
+
+export interface FinanceTopDue {
+  enrollmentId: string;
+  studentName: string;
+  phone?: string | null;
+  packageName?: string | null;
+  remaining: number;
+  overdueAmount: number;
+}
+
+export interface FinanceReportData {
+  period: { from: string; to: string; months: number };
+  totals: { collected: number; payments: number; average: number };
+  monthly: FinanceMonthPoint[];
+  byMethod: Record<string, FinanceBreakdownItem>;
+  bySource: Record<string, FinanceBreakdownItem>;
+  outstanding: { amount: number; count: number; top: FinanceTopDue[] };
+  overdueInstallments: { count: number; amount: number };
+  pendingTopups: number;
+}

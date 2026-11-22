@@ -8,6 +8,10 @@ const EDUCATION_NOTIFICATION_EVENTS = {
   SESSION_REMINDER: 'education_session_reminder',
   ENROLLMENT_LOW_HOURS: 'education_enrollment_low_hours',
   ENROLLMENT_EXPIRING: 'education_enrollment_expiring',
+  INSTALLMENT_DUE: 'education_installment_due',
+  GROUP_RENEWAL_DUE: 'education_group_renewal_due',
+  WALLET_TOPUP_RELEASED: 'education_wallet_topup_released',
+  WALLET_TOPUP_REJECTED: 'education_wallet_topup_rejected',
   PARENT_ACTIVATED: 'education_parent_activated',
   ABSENCE_ALERT: 'education_absence_alert',
   DEMO_DAY_REGISTERED: 'education_demo_day_registered',
@@ -101,6 +105,44 @@ const NOTIFICATION_TEMPLATES = {
 
 رصيدك المتبقي: {remainingHours} ساعة
 تواصل معنا لتجديد الباقة.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.INSTALLMENT_DUE]: {
+    parent: `تذكير بموعد قسط 💳
+
+أهلاً {parentName}،
+قسط {studentName} في {packageName} بمبلغ {amount} {currency} مستحق في {dueDate}.
+
+{overdueText}
+
+يمكنك السداد من بوابة ولي الأمر أو بالتواصل مع الإدارة.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.GROUP_RENEWAL_DUE]: {
+    parent: `تجديد رسوم المجموعة 📚
+
+أهلاً {parentName}،
+رسوم {studentName} في {groupName} بمبلغ {amount} {currency} مستحقة للتجديد.
+
+{overdueText}
+
+يمكنك السداد من بوابة ولي الأمر أو بالتواصل مع الإدارة.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.WALLET_TOPUP_RELEASED]: {
+    parent: `تم اعتماد شحن المحفظة ✅
+
+أهلاً {parentName}،
+تمت إضافة {amount} {currency} إلى رصيد محفظتك.
+
+الرصيد الحالي: {balance} {currency}
+يمكنك الآن شراء باقة من بوابة ولي الأمر.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.WALLET_TOPUP_REJECTED]: {
+    parent: `لم يتم اعتماد طلب شحن المحفظة ❌
+
+أهلاً {parentName}،
+طلب شحن بقيمة {amount} {currency} لم يُعتمد.
+{reasonText}
+
+يرجى التواصل مع الإدارة لمراجعة التحويل.`,
   },
   [EDUCATION_NOTIFICATION_EVENTS.PARENT_ACTIVATED]: {
     parent: `أهلاً {parentName} 🎉
@@ -620,6 +662,128 @@ async function notifyEnrollmentExpiring(companyId, enrollment) {
   });
 }
 
+async function notifyInstallmentDue({
+  companyId,
+  customerId,
+  parentName,
+  parentPhone,
+  studentName,
+  packageName,
+  amount,
+  dueDate,
+  daysLate = 0,
+}) {
+  if (!companyId || (!customerId && !parentPhone)) return null;
+  const resolvedName = parentName || 'وليّ الأمر';
+  const vars = {
+    parentName: resolvedName,
+    studentName: studentName || '',
+    packageName: packageName || '',
+    amount: Number(amount) || 0,
+    currency: 'ج.م',
+    dueDate: dueDate ? new Date(dueDate).toLocaleDateString('ar-EG') : '',
+    overdueText: daysLate > 0
+      ? `القسط متأخر ${daysLate} يوم.`
+      : 'يرجى السداد في الموعد المحدد.',
+  };
+
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: customerId || null,
+    eventType: EDUCATION_NOTIFICATION_EVENTS.INSTALLMENT_DUE,
+    title: 'تذكير بموعد قسط',
+    templates: NOTIFICATION_TEMPLATES[EDUCATION_NOTIFICATION_EVENTS.INSTALLMENT_DUE].parent,
+    variables: vars,
+    recipientPhone: parentPhone,
+    recipientName: resolvedName,
+    recipientType: 'CUSTOMER',
+    url: '/parent/enrollments',
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
+async function notifyGroupRenewalDue({
+  companyId,
+  customerId,
+  parentName,
+  parentPhone,
+  studentName,
+  groupName,
+  amount,
+  daysLate = 0,
+}) {
+  if (!companyId || (!customerId && !parentPhone)) return null;
+  const resolvedName = parentName || 'وليّ الأمر';
+  const vars = {
+    parentName: resolvedName,
+    studentName: studentName || '',
+    groupName: groupName || '',
+    amount: Number(amount) || 0,
+    currency: 'ج.م',
+    overdueText: daysLate > 0
+      ? `التجديد متأخر ${daysLate} يوم.`
+      : 'يرجى التجديد لاستمرار الحضور.',
+  };
+
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: customerId || null,
+    eventType: EDUCATION_NOTIFICATION_EVENTS.GROUP_RENEWAL_DUE,
+    title: 'تجديد رسوم المجموعة',
+    templates: NOTIFICATION_TEMPLATES[EDUCATION_NOTIFICATION_EVENTS.GROUP_RENEWAL_DUE].parent,
+    variables: vars,
+    recipientPhone: parentPhone,
+    recipientName: resolvedName,
+    recipientType: 'CUSTOMER',
+    url: '/parent/enrollments',
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
+async function notifyWalletTopupDecision({
+  companyId,
+  customerId,
+  parentName,
+  parentPhone,
+  amount,
+  approved,
+  balance,
+  reason,
+}) {
+  if (!companyId || (!customerId && !parentPhone)) return null;
+  const resolvedName = parentName || 'وليّ الأمر';
+  const eventType = approved
+    ? EDUCATION_NOTIFICATION_EVENTS.WALLET_TOPUP_RELEASED
+    : EDUCATION_NOTIFICATION_EVENTS.WALLET_TOPUP_REJECTED;
+  const vars = {
+    parentName: resolvedName,
+    amount: Number(amount) || 0,
+    currency: 'ج.م',
+    balance: Number(balance) || 0,
+    reasonText: reason ? `السبب: ${reason}` : '',
+  };
+
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: customerId || null,
+    eventType,
+    title: approved ? 'تم اعتماد شحن المحفظة' : 'طلب شحن المحفظة لم يُعتمد',
+    templates: NOTIFICATION_TEMPLATES[eventType].parent,
+    variables: vars,
+    recipientPhone: parentPhone,
+    recipientName: resolvedName,
+    recipientType: 'CUSTOMER',
+    url: '/parent/wallet',
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
 async function notifyParentActivated({ companyId, customerId, parentPhone, parentName }) {
   if (!companyId || (!customerId && !parentPhone)) return null;
 
@@ -1061,6 +1225,9 @@ module.exports = {
   notifySessionCancelled,
   notifySessionReminder,
   notifyParentActivated,
+  notifyInstallmentDue,
+  notifyGroupRenewalDue,
+  notifyWalletTopupDecision,
   notifyAbsenceAlert,
   notifyDemoDayRegistered,
   notifyDemoDayReminder,

@@ -18,6 +18,7 @@ const mockApi = vi.hoisted(() => ({
   fetchDues: vi.fn(),
   recordPayment: vi.fn(),
   reversePayment: vi.fn(),
+  downloadPaymentsCsv: vi.fn(),
   fetchTopups: vi.fn(),
   releaseTopup: vi.fn(),
   rejectTopup: vi.fn(),
@@ -197,6 +198,17 @@ describe("EducationPaymentsPage", () => {
     fireEvent.click(screen.getByText("تأكيد التحصيل"));
     expect(await screen.findByText(/المبلغ أكبر من المتبقي/)).toBeInTheDocument();
     expect(mockApi.recordPayment).not.toHaveBeenCalled();
+  });
+
+  it("exports the ledger as CSV with the active filters", async () => {
+    render(<EducationPaymentsPage />);
+    await waitFor(() => expect(screen.getAllByText("سارة محمد").length).toBeGreaterThan(0));
+    fireEvent.click(screen.getByText("تصدير CSV"));
+    await waitFor(() =>
+      expect(mockApi.downloadPaymentsCsv).toHaveBeenCalledWith(
+        expect.objectContaining({ from: expect.any(String), to: expect.any(String), page: 1 })
+      )
+    );
   });
 
   it("reverses a payment after confirmation", async () => {

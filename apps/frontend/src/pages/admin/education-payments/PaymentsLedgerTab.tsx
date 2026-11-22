@@ -4,12 +4,13 @@ import {
   AlertTriangle,
   ChevronLeft,
   ChevronRight,
+  Download,
   Printer,
   RefreshCw,
   RotateCcw,
   Search,
 } from "lucide-react";
-import { fetchPayments, reversePayment } from "./api";
+import { downloadPaymentsCsv, fetchPayments, reversePayment } from "./api";
 import { EmptyState, INPUT_CLS, StatusPill, formatDate, formatDateTime, money, monthStartInput, todayInput } from "./shared";
 import { PAYMENT_METHOD_LABELS, SOURCE_LABELS } from "./types";
 import type { EducationPayment, PaymentsPagination } from "./types";
@@ -191,6 +192,25 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
             className="text-[11px] font-semibold text-primary hover:underline"
           >
             {isEn ? "Reset filters" : "إعادة ضبط الفلاتر"}
+          </button>
+        </div>
+        <div className="flex items-center justify-between gap-2 pt-2">
+          <span className="text-[10px] text-muted-foreground">
+            {isEn ? "CSV keeps the current filters" : "ملف CSV يحترم نفس الفلاتر"}
+          </span>
+          <button
+            type="button"
+            onClick={async () => {
+              try {
+                await downloadPaymentsCsv({ ...filters, page: 1, limit: PAGE_SIZE });
+              } catch (e: any) {
+                setError(e.message || (isEn ? "Export failed" : "فشل التصدير"));
+              }
+            }}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-[11px] font-semibold text-foreground hover:bg-muted"
+          >
+            <Download className="w-3.5 h-3.5" />
+            {isEn ? "Export CSV" : "تصدير CSV"}
           </button>
         </div>
       </div>

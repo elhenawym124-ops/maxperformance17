@@ -29,8 +29,20 @@
 
 ## Verification
 
-- Backend: `node --test tests/controller/educationPayments.test.js tests/controller/educationPaymentIntegrity.test.js` → 34 tests pass.
-- Frontend: `vitest run src/pages/admin/education-payments/__tests__` → 8 tests pass.
+- Backend: `node --test tests/controller/educationPayments.test.js tests/controller/educationPaymentIntegrity.test.js tests/controller/educationParentPortalPayments.test.js tests/services/educationPaymentsBackfill.test.js tests/cron/educationPaymentReminders.test.js` → 56 tests pass.
+- Frontend: `vitest run src/pages/admin/education-payments/__tests__ src/pages/admin/education-reports/__tests__` → 12 tests pass.
 - Prisma: `prisma validate --schema=prisma/schema` valid.
 - Frontend build: `vite build` succeeds.
-- Browser (Playwright, mocked API): ledger, reverse, receipt print, dues collect, top-up approval, 390px mobile with zero horizontal scroll; only console noise is the offline socket connection.
+- Browser (Playwright, mocked API): ledger, reverse, receipt print, dues collect, top-up approval, CSV download, finance report tab, dashboard finance strip, 390px mobile with zero horizontal scroll; only console noise is the offline socket connection.
+
+## Phase 2 additions
+
+- Legacy paths are now atomic: enrollment creation, installment collection and group-member add write the record, ledger row and treasury deposit in one transaction (`recordEducationRevenueInTx`).
+- Backfill: `node scripts/backfill_education_payments.js` (dry-run) / `--apply` creates ledger rows for historical balances without moving treasury money. `services/educationPaymentsBackfill.js` is pure-planner tested.
+- Notifications: wallet top-up approval/rejection notifies the parent; a daily 11:00 cron sends installment and group-renewal reminders with 3-day dedupe and schedule opt-out.
+- Parent portal: `GET /parent-portal/payments` + `/payments/:id/receipt` with family-scoped access; wallet page shows payment history and printable receipts.
+- Reporting: `GET /finance/reports?months=N` and a "Collections & Revenue" tab in education reports (monthly bars, method/source breakdown, top dues).
+- Dashboard: education dashboard shows collected-this-month, outstanding, overdue installments and pending top-ups.
+- CSV export: `GET /finance/payments/export` honors the ledger filters and downloads an Excel-friendly UTF-8 CSV.
+- Refunds: wallet-paid enrollments are credited back to the wallet; cash refunds only hit the treasury.
+

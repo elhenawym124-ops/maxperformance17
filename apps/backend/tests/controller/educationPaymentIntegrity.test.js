@@ -164,6 +164,7 @@ require.cache[financialPath] = {
   id: financialPath, filename: financialPath, loaded: true,
   exports: {
     recordEducationRevenue: async (payload) => { state.revenueCalls.push(payload); return { ok: true }; },
+    recordEducationRevenueInTx: async (_tx, payload) => { state.revenueCalls.push(payload); return { ok: true }; },
     recordEducationRefund: async () => ({ ok: true }),
     recordTeacherSalaryPayout: async () => ({ ok: true }),
   },
