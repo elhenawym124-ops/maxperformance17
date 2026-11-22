@@ -79,6 +79,8 @@ const ParentSessionsPage: React.FC = () => {
   const [bookSubmitting, setBookSubmitting] = useState(false);
   const [bookSuccess, setBookSuccess] = useState<string | null>(null);
   const [bookError, setBookError] = useState<string | null>(null);
+  const [pageNotice, setPageNotice] = useState<string | null>(null);
+  const [slotOptions, setSlotOptions] = useState<Array<{ label: string; value: string }>>([]);
 
   const fetchData = async () => {
     try {
@@ -214,6 +216,46 @@ const ParentSessionsPage: React.FC = () => {
     return selectedChildEnrollments.find(e => e.id === bookEnrollmentId);
   }, [selectedChildEnrollments, bookEnrollmentId]);
 
+  // اقتراح مواعيد متاحة من جدول توفر المدرس (أفضل من إدخال تاريخ حر)
+  useEffect(() => {
+    let active = true;
+    const loadSlots = async () => {
+      const teacherId = selectedEnrollment?.teacher?.id || bookTeacherId;
+      if (!bookModalOpen || !teacherId) { setSlotOptions([]); return; }
+      try {
+        const token = localStorage.getItem("parentToken");
+        const res = await fetch(`/api/v1/education/parent-portal/teachers/${teacherId}/availability`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const json = await res.json();
+        const slots = Array.isArray(json?.data) ? json.data : [];
+        if (!active) return;
+        const pad = (n: number) => String(n).padStart(2, "0");
+        const options: Array<{ label: string; value: string }> = [];
+        const now = new Date();
+        for (let i = 0; i < 10 && options.length < 8; i += 1) {
+          const day = new Date(now.getTime() + i * 864e5);
+          const daySlots = slots.filter((s: any) => Number(s.dayOfWeek) === day.getDay());
+          for (const s of daySlots) {
+            const [hh, mm] = String(s.startTime || "09:00").split(":").map(Number);
+            const dt = new Date(day);
+            dt.setHours(hh || 9, mm || 0, 0, 0);
+            if (dt <= now) continue;
+            const value = `${dt.getFullYear()}-${pad(dt.getMonth() + 1)}-${pad(dt.getDate())}T${pad(dt.getHours())}:${pad(dt.getMinutes())}`;
+            const label = `${dt.toLocaleDateString("ar-EG", { weekday: "long", day: "2-digit", month: "2-digit" })} — ${dt.toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" })}`;
+            options.push({ label, value });
+            if (options.length >= 8) break;
+          }
+        }
+        setSlotOptions(options);
+      } catch {
+        if (active) setSlotOptions([]);
+      }
+    };
+    void loadSlots();
+    return () => { active = false; };
+  }, [bookModalOpen, bookEnrollmentId, bookTeacherId, selectedEnrollment?.teacher?.id]);
+
   const handleSubmitBook = async () => {
     if (!bookChildId || !bookEnrollmentId || !bookDateTime) {
       setBookError("يرجى اختيار الطالب، الباقة، وتحديد موعد الحصة");
@@ -247,11 +289,13 @@ const ParentSessionsPage: React.FC = () => {
       const json = await res.json();
       if (json.success) {
         setBookSuccess(json.message || "تم حجز الحصة بنجاح!");
+        setPageNotice(json.message || "تم حجز الحصة بنجاح!");
         setTimeout(() => {
           setBookModalOpen(false);
           setBookSuccess(null);
           void fetchData();
         }, 1400);
+        setTimeout(() => setPageNotice(null), 5000);
       } else {
         setBookError(json.message || "فشل حجز الحصة");
       }
@@ -664,6 +708,14 @@ const ParentSessionsPage: React.FC = () => {
         </div>
       )}
 
+      {/* Page-level success notice (يبقى ظاهرًا بعد إغلاق المودال) */}
+      {pageNotice && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[60] px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold shadow-lg flex items-center gap-2">
+          <Check className="size-4" />
+          <span>{pageNotice}</span>
+        </div>
+      )}
+
       {/* Quick Booking Modal */}
       {bookModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in" dir="rtl">
@@ -757,6 +809,29 @@ const ParentSessionsPage: React.FC = () => {
                       </option>
                     ))}
                   </select>
+                </div>
+              )}
+
+              {/* Suggested slots from teacher availability */}
+              {slotOptions.length > 0 && (
+                <div className="space-y-1">
+                  <label className="font-semibold text-foreground">مواعيد متاحة من جدول المعلم</label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {slotOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setBookDateTime(opt.value)}
+                        className={`px-2 py-1 rounded-md border text-[11px] transition ${
+                          bookDateTime === opt.value
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background border-border hover:border-primary/60"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
 
