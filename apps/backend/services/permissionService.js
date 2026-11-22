@@ -43,6 +43,9 @@ const PERMISSION_ALIASES = {
   'marketing.broadcast': ['whatsapp.broadcast'],
   // Export aliases
   'orders.export': ['orders.bulk.export', 'bulkOrders.export'],
+  // Education financials: manage implies collect and view (existing tenants keep access before reseeding)
+  'education.financials.collect': ['education.financials.manage'],
+  'education.financials.view': ['education.financials.manage'],
 };
 
 const logAction = async (action, actorId, companyId, details) => {
