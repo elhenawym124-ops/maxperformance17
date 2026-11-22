@@ -871,8 +871,24 @@ fi
 # The SQL is inlined because DEPLOY_STAGING contains only this deploy script, not scripts/.
 # CREATE INDEX ... IF NOT EXISTS is idempotent; CONCURRENTLY avoids locking the inbox tables.
 echo "🚀 Ensuring trigram GIN indexes for inbox search..."
+drop_invalid_index() {
+  local idx="$1" valid
+  valid=$(sudo -u postgres psql -d maxp -tAc "SELECT COALESCE((SELECT indisvalid FROM pg_index WHERE indexrelid = to_regclass('public.$idx')), true);" 2>/dev/null || echo t)
+  if [ "$valid" = "f" ]; then
+    echo "⚠️ Dropping invalid index $idx (previous CONCURRENTLY build failed)"
+    sudo -u postgres psql -d maxp -c "DROP INDEX CONCURRENTLY IF EXISTS $idx" || true
+  fi
+}
+drop_invalid_index idx_customers_first_name_trgm
+drop_invalid_index idx_customers_last_name_trgm
+drop_invalid_index idx_customers_phone_trgm
+drop_invalid_index idx_conversations_last_message_preview_trgm
+drop_invalid_index idx_messages_content_trgm
 sudo -u postgres psql -d maxp -v ON_ERROR_STOP=1 <<'SQL' || echo "⚠️ Trigram index script note"
 \echo 'trgm: ensuring pg_trgm + 5 GIN indexes'
+SET statement_timeout = 0;
+SET lock_timeout = '60s';
+\timing on
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_customers_first_name_trgm ON customers USING gin ("firstName" gin_trgm_ops);
 CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_customers_last_name_trgm ON customers USING gin ("lastName" gin_trgm_ops);
