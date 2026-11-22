@@ -114,6 +114,18 @@ const DEFAULT_EDUCATION_TABS = [
     iconName: "Layers"
   },
   {
+    id: "payments",
+    key: "/admin/education/payments",
+    defaultLabelAr: "المدفوعات والتحصيل",
+    defaultLabelEn: "Payments & Collections",
+    labelAr: "المدفوعات والتحصيل",
+    labelEn: "Payments & Collections",
+    order: 7.5,
+    visible: true,
+    locked: false,
+    iconName: "CreditCard"
+  },
+  {
     id: "sessions",
     key: "/admin/education/sessions",
     defaultLabelAr: "الحصص",

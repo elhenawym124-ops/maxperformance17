@@ -377,6 +377,7 @@ const PERMISSIONS = [
   { key: 'education.sessions.manage', name: 'تسجيل الحصص والغياب والحضور', domain: 'EDUCATION' },
   { key: 'education.packages.manage', name: 'إدارة الباقات والخطط السعرية والاشتراكات', domain: 'EDUCATION' },
   { key: 'education.financials.view', name: 'عرض إيرادات المجموعات وتسويات المعلمين', domain: 'EDUCATION' },
+  { key: 'education.financials.collect', name: 'تحصيل ودفع رسوم الطلاب وأعضاء المجموعات', domain: 'EDUCATION' },
   { key: 'education.financials.manage', name: 'تسجيل الدفعات والأقساط والخصومات وتوريد المعلمين', domain: 'EDUCATION' },
   { key: 'education.teachers.manage', name: 'إدارة وتسكين المعلمين وجداول الأوقات', domain: 'EDUCATION' },
   { key: 'education.demoday.manage', name: 'إدارة فعاليات الديمو داي وتسجيل الحضور وتحويل الليدز', domain: 'EDUCATION' },
@@ -439,7 +440,7 @@ const BUILT_IN_ROLES = {
       'education.view', 'education.students.view', 'education.students.manage',
       'education.groups.view', 'education.groups.manage', 'education.sessions.manage',
       'education.packages.manage', 'education.teachers.manage', 'education.demoday.manage',
-      'education.reports.view',
+      'education.reports.view', 'education.financials.view', 'education.financials.collect',
     ],
   },
   AGENT: {

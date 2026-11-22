@@ -210,6 +210,42 @@ model EducationEnrollment {
   @@map("education_enrollments")
 }
 
+/// Education module - Student payment ledger (student & group collections, reversals)
+/// Scalar-only model by design: payments must survive enrollment/member deletion for auditing.
+model EducationPayment {
+  id             String    @id @default(cuid())
+  companyId      String
+  paymentNumber  String    /// EDU-PAY-YYYYMM-0001
+  studentId      String?
+  enrollmentId   String?
+  groupId        String?
+  groupMemberId  String?
+  studentName    String?
+  amount         Float
+  method         String    @default("CASH") /// CASH, TRANSFER, WALLET, CARD, INSTAPAY, OTHER
+  status         String    @default("COMPLETED") /// COMPLETED, REVERSED
+  source         String    @default("ADMIN") /// ADMIN, PARENT_WALLET, GROUP, SYSTEM
+  receiptNumber  String?
+  reference      String?
+  notes          String?
+  paidAt         DateTime  @default(now())
+  cashierId      String?
+  cashierName    String?
+  reversedAt     DateTime?
+  reversedById   String?
+  reversalReason String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@unique([companyId, paymentNumber])
+  @@index([companyId, paidAt])
+  @@index([companyId, studentId])
+  @@index([companyId, enrollmentId])
+  @@index([companyId, groupMemberId])
+  @@index([companyId, status])
+  @@map("education_payments")
+}
+
 /// Education module - Individual sessions (lessons)
 model EducationSession {
   id              String                  @id @default(cuid())

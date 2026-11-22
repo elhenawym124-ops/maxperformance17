@@ -154,6 +154,41 @@ const purchasePackage = async (req, res) => {
         }
       });
 
+      // 🧾 Unified payment ledger entry (money already captured via wallet debit)
+      try {
+        const now = new Date();
+        const prefix = `EDU-PAY-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}-`;
+        const lastPayment = await tx.educationPayment.findFirst({
+          where: { companyId, paymentNumber: { startsWith: prefix } },
+          orderBy: { paymentNumber: 'desc' },
+          select: { paymentNumber: true },
+        });
+        let seq = 1;
+        if (lastPayment?.paymentNumber) {
+          const parsed = parseInt(String(lastPayment.paymentNumber).split('-').pop(), 10);
+          if (!Number.isNaN(parsed)) seq = parsed + 1;
+        }
+        const paymentNumber = `${prefix}${String(seq).padStart(4, '0')}`;
+        await tx.educationPayment.create({
+          data: {
+            companyId,
+            paymentNumber,
+            receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
+            studentId,
+            enrollmentId: enrollment.id,
+            studentName: `${student.firstName || ''} ${student.lastName || ''}`.trim() || null,
+            amount: payable,
+            method: 'WALLET',
+            status: 'COMPLETED',
+            source: 'PARENT_WALLET',
+            notes: `شراء من محفظة ولي الأمر — باقة ${pkg.name}`,
+            paidAt: now,
+          },
+        });
+      } catch (ledgerError) {
+        console.warn('[ParentPurchaseLedger] warning:', ledgerError.message);
+      }
+
       // ترقية مستوى الطالب ليطابق المستوى المشترى
       if (pkg.levelNumber && (!student.currentLevel || pkg.levelNumber > student.currentLevel)) {
         await tx.educationStudent.updateMany({
@@ -172,11 +207,12 @@ const purchasePackage = async (req, res) => {
       const { recordEducationRevenue } = require('../services/educationFinancialIntegrationService');
       await recordEducationRevenue({
         companyId,
-        amount: payable,
-        type: 'PACKAGE',
-        referenceId: result.id,
+        sourceType: 'EDUCATION_PARENT_PACKAGE',
+        sourceId: result.id,
         studentName: studentFullName,
-        packageName: pkg.name
+        title: `شراء باقة من محفظة ولي الأمر (${pkg.name})`,
+        amount: payable,
+        createdById: null
       });
     } catch (finErr) {
       console.error('[ParentPurchaseFinancialIntegration] Error:', finErr.message);

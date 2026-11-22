@@ -1,0 +1,88 @@
+import { api, getAuthHeaders, fetchJson } from "../education-management/api";
+import type {
+  DuesResponse,
+  EducationPayment,
+  PaymentsPagination,
+  PaymentsSummary,
+  ReceiptPayload,
+  WalletTopup,
+} from "./types";
+
+const query = (params: Record<string, string | number | undefined>) => {
+  const search = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") search.set(key, String(value));
+  });
+  const suffix = search.toString();
+  return suffix ? `?${suffix}` : "";
+};
+
+const post = async (url: string, body?: unknown) => {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(body || {}),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || !json.success) {
+    throw new Error(json.error || json.message || "فشل العملية");
+  }
+  return json.data;
+};
+
+export interface PaymentsQuery {
+  from?: string;
+  to?: string;
+  method?: string;
+  status?: string;
+  q?: string;
+  studentId?: string;
+  page?: number;
+  limit?: number;
+}
+
+export const fetchSummary = (from?: string, to?: string): Promise<PaymentsSummary> =>
+  fetchJson(api(`finance/payments/summary${query({ from, to })}`));
+
+export const fetchPayments = async (
+  filters: PaymentsQuery
+): Promise<{ items: EducationPayment[]; pagination: PaymentsPagination }> => {
+  const res = await fetch(api(`finance/payments${query(filters as any)}`), {
+    headers: getAuthHeaders(),
+  });
+  const json = await res.json();
+  if (!json.success) throw new Error(json.error || "فشل جلب المدفوعات");
+  return {
+    items: json.data || [],
+    pagination: json.pagination || { total: 0, page: 1, limit: 25, totalPages: 1 },
+  };
+};
+
+export const fetchDues = (): Promise<DuesResponse> => fetchJson(api("finance/dues"));
+
+export const recordPayment = (
+  payload: {
+    enrollmentId?: string;
+    groupMemberId?: string;
+    amount: number;
+    method: string;
+    paidAt?: string;
+    reference?: string;
+    notes?: string;
+  }
+): Promise<EducationPayment> => post(api("finance/payments"), payload);
+
+export const reversePayment = (id: string, reason?: string): Promise<EducationPayment> =>
+  post(api(`finance/payments/${id}/reverse`), { reason });
+
+export const fetchTopups = (status = "PENDING_RELEASE"): Promise<WalletTopup[]> =>
+  fetchJson(api(`finance/topups${query({ status })}`));
+
+export const releaseTopup = (id: string): Promise<unknown> =>
+  post(api(`finance/topups/${id}/release`));
+
+export const rejectTopup = (id: string, reason?: string): Promise<unknown> =>
+  post(api(`finance/topups/${id}/reject`), { reason });
+
+export const fetchReceipt = (id: string): Promise<ReceiptPayload> =>
+  fetchJson(api(`finance/payments/${id}/receipt`));

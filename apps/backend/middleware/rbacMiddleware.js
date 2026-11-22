@@ -335,6 +335,7 @@ const PERMISSIONS = {
   'education.sessions.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER', 'MODERATOR'],
   'education.packages.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
   'education.financials.view': ['SUPER_ADMIN', 'COMPANY_ADMIN'],
+  'education.financials.collect': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER', 'MODERATOR'],
   'education.financials.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN'],
   'education.teachers.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],
   'education.demoday.manage': ['SUPER_ADMIN', 'COMPANY_ADMIN', 'TEAM_LEADER'],

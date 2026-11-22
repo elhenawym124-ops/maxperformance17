@@ -587,11 +587,12 @@ const addMember = async (req, res) => {
 
     // Check if group exists and check capacity
     const groupRows = await prisma.$queryRawUnsafe(`
-      SELECT g.id, g.capacity, COALESCE(COUNT(m.id) FILTER (WHERE m.status = 'ACTIVE'), 0) AS active_count
+      SELECT g.id, g."name", g."feeType", g."feeAmount", g.capacity,
+             COALESCE(COUNT(m.id) FILTER (WHERE m.status = 'ACTIVE'), 0) AS active_count
       FROM "education_groups" g
       LEFT JOIN "education_group_members" m ON m."groupId" = g.id AND m."companyId" = g."companyId"
       WHERE g.id = $1 AND g."companyId" = $2
-      GROUP BY g.id, g.capacity
+      GROUP BY g.id, g."name", g."feeType", g."feeAmount", g.capacity
     `, groupId, companyId);
 
     if (!groupRows || groupRows.length === 0) {
@@ -613,11 +614,17 @@ const addMember = async (req, res) => {
     }
 
     const memberId = generateMemberId();
+    const initialPaid = amountPaid ? parseFloat(amountPaid) : 0;
+    const initialPaymentStatus = paymentStatus || 'PAID';
+    const isMonthlyGroup = String(group.feeType || '').toUpperCase() === 'MONTHLY';
+    const initialRenewalDate = isMonthlyGroup && initialPaymentStatus === 'PAID'
+      ? (() => { const d = new Date(); d.setMonth(d.getMonth() + 1); return d; })()
+      : null;
     await prisma.$executeRawUnsafe(`
       INSERT INTO "education_group_members" (
-        "id", "companyId", "groupId", "studentId", "status", "paymentStatus", "amountPaid", "notes", "joinedAt", "updatedAt"
+        "id", "companyId", "groupId", "studentId", "status", "paymentStatus", "amountPaid", "nextRenewalDate", "notes", "joinedAt", "updatedAt"
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, NOW(), NOW()
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW()
       )
     `,
       memberId,
@@ -625,8 +632,9 @@ const addMember = async (req, res) => {
       groupId,
       studentId,
       memberStatus,
-      paymentStatus || 'PAID',
-      amountPaid ? parseFloat(amountPaid) : 0,
+      initialPaymentStatus,
+      initialPaid,
+      initialRenewalDate,
       notes || null
     );
 
@@ -637,14 +645,14 @@ const addMember = async (req, res) => {
     }
 
     // 🏦 Automatic Financial Inflow to Treasury
-    const paidNum = amountPaid ? parseFloat(amountPaid) : 0;
-    if (paidNum > 0 && (paymentStatus === 'PAID' || !paymentStatus)) {
+    const paidNum = initialPaid;
+    if (paidNum > 0 && (initialPaymentStatus === 'PAID' || initialPaymentStatus === 'PARTIAL')) {
       try {
         const studentInfo = await prisma.educationStudent.findUnique({
           where: { id: studentId },
           select: { firstName: true, lastName: true }
         });
-        const groupInfo = groupRows[0]?.name || 'مجموعة دراسية';
+        const groupInfo = group.name || 'مجموعة دراسية';
         const educationFinancialService = require('../services/educationFinancialIntegrationService');
         educationFinancialService.recordEducationRevenue({
           companyId,
@@ -655,6 +663,40 @@ const addMember = async (req, res) => {
           amount: paidNum,
           createdById: req.user?.id
         }).catch(e => console.warn('[GroupFeePosting] warning:', e.message));
+
+        // 🧾 Unified payment ledger entry
+        const now = new Date();
+        const prefix = `EDU-PAY-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}-`;
+        const lastPayment = await prisma.educationPayment.findFirst({
+          where: { companyId, paymentNumber: { startsWith: prefix } },
+          orderBy: { paymentNumber: 'desc' },
+          select: { paymentNumber: true }
+        });
+        let seq = 1;
+        if (lastPayment?.paymentNumber) {
+          const parsed = parseInt(String(lastPayment.paymentNumber).split('-').pop(), 10);
+          if (!Number.isNaN(parsed)) seq = parsed + 1;
+        }
+        const paymentNumber = `${prefix}${String(seq).padStart(4, '0')}`;
+        await prisma.educationPayment.create({
+          data: {
+            companyId,
+            paymentNumber,
+            receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
+            studentId,
+            groupId,
+            groupMemberId: memberId,
+            studentName: studentInfo ? `${studentInfo.firstName} ${studentInfo.lastName}`.trim() : null,
+            amount: paidNum,
+            method: 'CASH',
+            status: 'COMPLETED',
+            source: 'GROUP',
+            notes: `تسجيل عضو جديد في مجموعة ${groupInfo}`,
+            paidAt: now,
+            cashierId: req.user?.id || null,
+            cashierName: req.user?.name || [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ') || null
+          }
+        });
       } catch (fe) {
         console.warn('[GroupFeePosting] notice:', fe.message);
       }

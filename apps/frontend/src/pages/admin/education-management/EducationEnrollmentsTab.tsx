@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { Plus, Pencil, Trash2, AlertTriangle, CreditCard, CheckCircle2, Calendar, Percent, X, Check } from "lucide-react";
 import { toast } from "sonner";
 import { api, getAuthHeaders } from "./api";
@@ -109,14 +110,23 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
         <h2 className="text-base font-bold text-foreground">
           {t("education.enrollments.title", isEn ? "Enrollments & Subscriptions Management" : "إدارة التسجيلات والاشتراكات")}
         </h2>
-        <button
-          type="button"
-          onClick={() => setEnrollmentModal({})}
-          className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground text-xs font-semibold rounded-lg hover:bg-primary/90 shadow-xs shrink-0"
-        >
-          <Plus className="w-3.5 h-3.5" />
-          {t("education.enrollments.addEnrollment", isEn ? "Add New Enrollment" : "إضافة تسجيل جديد")}
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => setEnrollmentModal({})}
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground text-xs font-semibold rounded-lg hover:bg-primary/90 shadow-xs"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            {t("education.enrollments.addEnrollment", isEn ? "Add New Enrollment" : "إضافة تسجيل جديد")}
+          </button>
+          <Link
+            to="/admin/education/payments"
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-background border border-border text-foreground text-xs font-semibold rounded-lg hover:bg-muted"
+          >
+            <CreditCard className="w-3.5 h-3.5" />
+            {isEn ? "Payments & Collections" : "المدفوعات والتحصيل"}
+          </Link>
+        </div>
       </div>
 
       {/* Mobile Cards View */}

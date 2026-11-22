@@ -128,6 +128,14 @@ const create = async (req, res) => {
       ? normalizePaymentStatus(paymentStatus, 'PENDING')
       : (Number(amountPaid) >= safeFinalAmount ? 'COMPLETED' : (Number(amountPaid) > 0 ? 'PARTIALLY_PAID' : 'PENDING'));
 
+    // Ledger integrity: the payment status must always match the recorded amount.
+    const paidNow = Number(amountPaid) || 0;
+    const statusAlignedToAmount = ['REFUNDED', 'FAILED'].includes(safePaymentStatus)
+      ? safePaymentStatus
+      : (paidNow >= safeFinalAmount && safeFinalAmount > 0
+        ? 'COMPLETED'
+        : (paidNow > 0 ? 'PARTIALLY_PAID' : 'PENDING'));
+
     const data = await getSharedPrismaClient().educationEnrollment.create({
       data: {
         companyId,
@@ -137,7 +145,7 @@ const create = async (req, res) => {
         totalHours: Number(pkg.hoursCount) || 0,
         remainingHours: Number(pkg.hoursCount) || 0,
         amountPaid: Number(amountPaid) || 0,
-        paymentStatus: safePaymentStatus,
+        paymentStatus: statusAlignedToAmount,
         expiresAt: parsedExpiresAt,
         paymentMethod: paymentMethod || 'CASH',
         installmentCount: installmentCount ? parseInt(installmentCount, 10) : 1,
@@ -157,9 +165,9 @@ const create = async (req, res) => {
     const studentName = `${student.firstName} ${student.lastName || ''}`.trim();
     const teacherLabel = teacher ? await getSingularTeacherLabel(companyId, 'ar') : '';
 
-    // 🏦 Automatic Financial Inflow to Treasury
+    // 🏦 Automatic Financial Inflow to Treasury (any received amount must hit the treasury)
     const paidAmount = Number(amountPaid) || 0;
-    if (paidAmount > 0 && (safePaymentStatus === 'COMPLETED' || safePaymentStatus === 'PAID' || safePaymentStatus === 'PARTIALLY_PAID')) {
+    if (paidAmount > 0 && statusAlignedToAmount !== 'REFUNDED' && statusAlignedToAmount !== 'FAILED') {
       try {
         const educationFinancialService = require('../services/educationFinancialIntegrationService');
         educationFinancialService.recordEducationRevenue({
@@ -188,7 +196,7 @@ const create = async (req, res) => {
         teacherId: safeTeacherId,
         hours: pkg.hoursCount,
         amountPaid,
-        paymentStatus: safePaymentStatus,
+        paymentStatus: statusAlignedToAmount,
       },
       req,
     }).catch(e => console.error('[EnrollmentAudit]', e.message));
@@ -237,15 +245,40 @@ const update = async (req, res) => {
       ? ((expiresAt && !isNaN(new Date(expiresAt).getTime())) ? new Date(expiresAt) : null)
       : undefined;
 
-    const safePaymentStatus = paymentStatus !== undefined
-      ? normalizePaymentStatus(paymentStatus, existing.paymentStatus)
-      : undefined;
+    // Ledger integrity: money only moves through the payment ledger, never through a plain edit.
+    if (amountPaid !== undefined) {
+      const requested = Number(amountPaid) || 0;
+      const current = Number(existing.amountPaid) || 0;
+      if (Math.abs(requested - current) > 0.009) {
+        return res.status(400).json({
+          success: false,
+          error: 'لا يمكن تغيير المبلغ المدفوع من شاشة التعديل. استخدم صفحة المدفوعات لتسجيل دفعة أو إلغائها',
+        });
+      }
+    }
+
+    let safePaymentStatus;
+    if (paymentStatus !== undefined) {
+      safePaymentStatus = normalizePaymentStatus(paymentStatus, existing.paymentStatus);
+      if (!['REFUNDED', 'FAILED'].includes(safePaymentStatus)) {
+        const total = Number(existing.finalAmount ?? existing.package?.price ?? 0) || 0;
+        const paid = Number(existing.amountPaid) || 0;
+        const aligned = total > 0 && paid >= total - 0.009
+          ? 'COMPLETED'
+          : (paid > 0 ? 'PARTIALLY_PAID' : 'PENDING');
+        if (safePaymentStatus !== aligned) {
+          return res.status(400).json({
+            success: false,
+            error: 'حالة السداد لا تطابق المبلغ المدفوع. سجّل الدفعة من صفحة المدفوعات لتحديث الحالة تلقائياً',
+          });
+        }
+      }
+    }
 
     const data = await getSharedPrismaClient().educationEnrollment.update({
       where: { id },
       data: {
         teacherId: safeTeacherId,
-        amountPaid: amountPaid !== undefined ? Number(amountPaid) || 0 : undefined,
         paymentStatus: safePaymentStatus,
         remainingHours: remainingHours !== undefined ? Number(remainingHours) || 0 : undefined,
         expiresAt: parsedExpiresAt,
@@ -348,6 +381,9 @@ const payInstallment = async (req, res) => {
     if (!target) {
       return res.status(404).json({ success: false, error: 'القسط غير موجود' });
     }
+    if (String(target.status || '').toUpperCase() === 'PAID') {
+      return res.status(409).json({ success: false, error: 'هذا القسط مسدد بالفعل' });
+    }
 
     target.status = 'PAID';
     target.paidAt = new Date().toISOString();
@@ -374,8 +410,47 @@ const payInstallment = async (req, res) => {
       }
     });
 
-    // 🏦 Automatic Financial Inflow to Treasury for Installment Payment
+    // 🧾 Unified payment ledger entry (treasury is posted below with its own idempotent source id)
     const instAmount = Number(target.amount) || 0;
+    if (instAmount > 0) {
+      try {
+        const now = new Date();
+        const prefix = `EDU-PAY-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}-`;
+        const lastPayment = await prisma.educationPayment.findFirst({
+          where: { companyId, paymentNumber: { startsWith: prefix } },
+          orderBy: { paymentNumber: 'desc' },
+          select: { paymentNumber: true },
+        });
+        let seq = 1;
+        if (lastPayment?.paymentNumber) {
+          const parsed = parseInt(String(lastPayment.paymentNumber).split('-').pop(), 10);
+          if (!Number.isNaN(parsed)) seq = parsed + 1;
+        }
+        const paymentNumber = `${prefix}${String(seq).padStart(4, '0')}`;
+        await prisma.educationPayment.create({
+          data: {
+            companyId,
+            paymentNumber,
+            receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
+            studentId: updated.studentId,
+            enrollmentId: updated.id,
+            studentName: `${updated.student?.firstName || ''} ${updated.student?.lastName || ''}`.trim() || null,
+            amount: instAmount,
+            method: 'CASH',
+            status: 'COMPLETED',
+            source: 'INSTALLMENT',
+            notes: `قسط رقم ${num} من ${enrollment.installmentCount || currentInstallments.length}`,
+            paidAt: now,
+            cashierId: req.user?.id || null,
+            cashierName: req.user?.name || [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ') || null,
+          },
+        });
+      } catch (ledgerError) {
+        console.warn('[InstallmentLedger] warning:', ledgerError.message);
+      }
+    }
+
+    // 🏦 Automatic Financial Inflow to Treasury for Installment Payment
     if (instAmount > 0) {
       try {
         const educationFinancialService = require('../services/educationFinancialIntegrationService');
@@ -466,6 +541,44 @@ const cancelEnrollment = async (req, res) => {
         }).catch(e => console.warn('[EnrollmentRefund] warning:', e.message));
       } catch (fe) {
         console.warn('[EnrollmentRefund] notice:', fe.message);
+      }
+
+      // Money that was collected from the parent wallet goes back to that wallet.
+      try {
+        const walletPayment = await prisma.educationPayment.findFirst({
+          where: { companyId, enrollmentId: id, source: 'PARENT_WALLET', status: 'COMPLETED' },
+        });
+        if (walletPayment) {
+          const student = await prisma.educationStudent.findFirst({
+            where: { id: enrollment.studentId, companyId },
+            select: { customerId: true },
+          });
+          if (student?.customerId) {
+            const wallet = await prisma.customerWallet.findFirst({
+              where: { customerId: student.customerId, companyId },
+            });
+            if (wallet) {
+              const updatedWallet = await prisma.customerWallet.update({
+                where: { id: wallet.id },
+                data: { balance: { increment: refund } },
+              });
+              await prisma.walletTransaction.create({
+                data: {
+                  walletId: wallet.id,
+                  type: 'CREDIT',
+                  amount: refund,
+                  balanceBefore: wallet.balance,
+                  balanceAfter: updatedWallet.balance,
+                  status: 'RELEASED',
+                  releasedAt: new Date(),
+                  description: `استرداد اشتراك ملغي (${enrollment.package?.name || ''})${reason ? ' — ' + reason : ''}`,
+                },
+              });
+            }
+          }
+        }
+      } catch (walletError) {
+        console.warn('[EnrollmentRefundWallet] warning:', walletError.message);
       }
     }
 

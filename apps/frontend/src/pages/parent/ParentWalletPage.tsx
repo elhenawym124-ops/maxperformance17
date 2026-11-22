@@ -24,6 +24,8 @@ interface Transaction {
   amount: number;
   createdAt: string;
   notes?: string;
+  description?: string;
+  status?: string;
 }
 
 const TYPE_CONFIG: Record<string, { label: string; badgeCls: string; isPositive: boolean }> = {
@@ -88,7 +90,12 @@ const ParentWalletPage: React.FC = () => {
       });
       const json = await res.json();
       if (json.success) {
-        setMessage({ type: "success", text: `تم شحن ${amt} ج.م في رصيد المحفظة بنجاح` });
+        setMessage({
+          type: "success",
+          text: json.pending
+            ? (json.message || `تم تسجيل طلب شحن ${amt} ج.م. سيُضاف الرصيد بعد مراجعة وتأكيد التحويل من إدارة المركز.`)
+            : `تم شحن ${amt} ج.م في رصيد المحفظة بنجاح`,
+        });
         setAmount("");
         setShowTopup(false);
         fetchWallet();
@@ -290,6 +297,9 @@ const ParentWalletPage: React.FC = () => {
                 month: "short",
                 day: "numeric"
               });
+              const isPending = t.status === "PENDING_RELEASE";
+              const isCancelled = t.status === "CANCELLED";
+              const noteText = t.notes || t.description;
 
               return (
                 <div
@@ -310,11 +320,16 @@ const ParentWalletPage: React.FC = () => {
                           {cfg.label}
                         </span>
                         <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono border ${cfg.badgeCls}`}>
-                          {t.type}
+                          {isPending ? "PENDING" : isCancelled ? "CANCELLED" : t.type}
                         </span>
+                        {isPending && (
+                          <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-warning/10 text-warning border border-warning/20">
+                            بانتظار اعتماد الإدارة
+                          </span>
+                        )}
                       </div>
-                      {t.notes && (
-                        <p className="text-[11px] text-muted-foreground mt-0.5">{t.notes}</p>
+                      {noteText && (
+                        <p className="text-[11px] text-muted-foreground mt-0.5">{noteText}</p>
                       )}
                     </div>
                   </div>
@@ -322,7 +337,11 @@ const ParentWalletPage: React.FC = () => {
                   <div className="text-left font-mono">
                     <div
                       className={`text-sm font-bold ${
-                        cfg.isPositive ? "text-emerald-600" : "text-foreground"
+                        isPending || isCancelled
+                          ? "text-muted-foreground line-through"
+                          : cfg.isPositive
+                          ? "text-emerald-600"
+                          : "text-foreground"
                       }`}
                     >
                       {cfg.isPositive ? "+" : "-"}

@@ -47,6 +47,12 @@ const ACTION_DEFINITIONS = {
   PAY_TEACHER: { label: 'صرف مرتب/استحقاق مدرس/معلم', severity: 'HIGH', entity: 'PAYMENT' },
   CANCEL_PAYMENT: { label: 'إلغاء استحقاق مالي', severity: 'MEDIUM', entity: 'PAYMENT' },
 
+  // Student Payment Ledger
+  RECORD_PAYMENT: { label: 'تحصيل دفعة من طالب', severity: 'MEDIUM', entity: 'PAYMENT' },
+  REVERSE_PAYMENT: { label: 'إلغاء دفعة محصلة', severity: 'HIGH', entity: 'PAYMENT' },
+  RELEASE_WALLET_TOPUP: { label: 'اعتماد شحن محفظة ولي أمر', severity: 'MEDIUM', entity: 'PAYMENT' },
+  REJECT_WALLET_TOPUP: { label: 'رفض طلب شحن محفظة', severity: 'MEDIUM', entity: 'PAYMENT' },
+
   // Portals & Guardians
   PARENT_LOGIN: { label: 'تسجيل دخول ولي أمر', severity: 'LOW', entity: 'PORTAL' },
   PARENT_SESSION_REQUEST: { label: 'طلب حجز حصة من ولي الأمر', severity: 'LOW', entity: 'SESSION' },
