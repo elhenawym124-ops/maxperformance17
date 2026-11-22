@@ -11,31 +11,36 @@ const verifyToken = require("../utils/verifyToken");
 // تطبيق المصادقة على جميع المسارات
 router.use(verifyToken.authenticateToken);
 
+const LOYALTY_ROLES = ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER'];
+// صلاحية احتياطية للأدوار المخصّصة (custom roles): كانت requireRole ترفضها بـ403 رغم امتلاكها customers.view
+const loyaltyRead = () => verifyToken.requireRole(LOYALTY_ROLES, 'customers.view');
+const loyaltyWrite = () => verifyToken.requireRole(LOYALTY_ROLES, 'customers.edit');
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📋 برامج الولاء - Loyalty Programs
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // جلب جميع برامج الولاء
 router.get('/programs',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getPrograms
 );
 
 // جلب برنامج ولاء محدد
 router.get('/programs/:id',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getProgramById
 );
 
 // إنشاء برنامج ولاء جديد
 router.post('/programs',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.createProgram
 );
 
 // تحديث برنامج ولاء
 router.put('/programs/:id',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateProgram
 );
 
@@ -45,13 +50,13 @@ router.put('/programs/:id',
 
 // جلب جميع المستويات
 router.get('/tiers',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getTiers
 );
 
 // إنشاء مستوى جديد
 router.post('/tiers',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.createTier
 );
 
@@ -61,13 +66,13 @@ router.post('/tiers',
 
 // تعديل مستوى
 router.put('/tiers/:id',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateTier
 );
 
 // حذف مستوى
 router.delete('/tiers/:id',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.deleteTier
 );
 
@@ -77,117 +82,117 @@ router.delete('/tiers/:id',
 
 // جلب سجلات ولاء العملاء
 router.get('/customers',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getCustomerRecords
 );
 
 // إضافة عميل إلى برنامج ولاء
 router.post('/enroll',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.enrollCustomer
 );
 
 // إضافة نقاط للعميل
 router.post('/add-points',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.addPoints
 );
 
 // استبدال النقاط
 router.post('/redeem-points',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.redeemPoints
 );
 
 // تعديل النقاط (إضافة/خصم يدوياً)
 router.post('/adjust-points',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.adjustPoints
 );
 
 // إعدادات المستويات (طريقة الحساب + الفئات)
 router.get('/tier-config',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getTierConfig
 );
 
 router.put('/tier-config',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateTierConfig
 );
 
 // نظام الولاء (اختيار: المستويات أو الخصم التلقائي)
 router.get('/system-settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getSystemSettings
 );
 
 router.put('/system-settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateSystemSettings
 );
 
 // 🆕 إعدادات الولاء الموحّدة (مفاتيح تفعيل مستقلة: المستويات / الخصم التلقائي / الكاش باك + وضع دمج الخصم + حد أقصى)
 router.get('/loyalty-config',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getLoyaltyConfig
 );
 
 router.put('/loyalty-config',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateLoyaltyConfig
 );
 
 // معالجة الكوبونات المنتهية (تحويلها لكاش باك) — يدوي
 router.post('/vouchers/process-expired',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.processExpiredVouchers
 );
 
 // تحليلات نظام الولاء الحالي (الخصم التلقائي أو المستويات)
 router.get('/system-analytics',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getSystemAnalytics
 );
 
 // إصدار الكوبونات الناقصة (backfill) للأوردرات المسلّمة القديمة
 router.post('/vouchers/backfill',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.backfillVouchers
 );
 
 // تجاوز عميل (طريقة الحساب + المزايا المخصصة)
 router.get('/customers/:customerId/tier-override',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getCustomerTierOverride
 );
 
 router.put('/customers/:customerId/tier-override',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateCustomerTierOverride
 );
 
 // ملخص بوابة العميل (نقاط / خصومات / كاش باك / بيانات)
 router.get('/customers/:customerId/portal-summary',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getCustomerPortalSummary
 );
 
 // 💳 كارت عضوية العميل (بطاقة مستوى الولاء) — توليد/جلب
 router.get('/customers/:customerId/card',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getCustomerTierCard
 );
 
 // 📤 إرسال كارت العضوية للعميل عبر WhatsApp
 router.post('/customers/:customerId/card/send',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.sendCustomerTierCard
 );
 
 // 🏆 إنشاء مستويات من قالب جاهز (Preset)
 router.post('/tiers/preset',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.createTierPreset
 );
 
@@ -197,13 +202,13 @@ router.post('/tiers/preset',
 
 // جلب جدول الإشعارات
 router.get('/notifications/schedule',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getNotificationSchedule
 );
 
 // تحديث صف من جدول الإشعارات
 router.put('/notifications/schedule',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateNotificationSchedule
 );
 
@@ -212,12 +217,12 @@ router.put('/notifications/schedule',
 // ═══════════════════════════════════════════════════════════════════════════════
 
 router.get('/cashback/settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getCashbackSettings
 );
 
 router.put('/cashback/settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateCashbackSettings
 );
 
@@ -226,46 +231,46 @@ router.put('/cashback/settings',
 // ═══════════════════════════════════════════════════════════════════════════════
 
 router.get('/points/settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getPointsSettings
 );
 
 router.put('/points/settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updatePointsSettings
 );
 
 // 🎯 إعدادات إعادة الاستهداف (حد السكوت + مفاتيح تفعيل الحلقات)
 router.get('/re-engagement/settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getReEngagementSettings
 );
 
 router.put('/re-engagement/settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateReEngagementSettings
 );
 
 // 🎯 عدد العملاء المطابق لحلقات إعادة الاستهداف
 router.get('/re-engagement/counts',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getReEngagementCounts
 );
 
 // 🎯 قائمة العملاء المطابقين (drill-down)
 // 🕐 الرسائل الدورية الثابتة (Retention Cadence): منتج كل 10 أيام / رصيد كل 15 / إحالة كل 30 / مستوى كل 30
 router.get('/retention-cadence/settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getRetentionCadenceSettings
 );
 
 router.put('/retention-cadence/settings',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyWrite(),
   customerLoyaltyController.updateRetentionCadenceSettings
 );
 
 router.get('/re-engagement/customers',
-  verifyToken.requireRole(['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER', 'MANAGER']),
+  loyaltyRead(),
   customerLoyaltyController.getReEngagementCustomers
 );
 

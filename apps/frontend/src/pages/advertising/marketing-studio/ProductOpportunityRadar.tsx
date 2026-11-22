@@ -9,6 +9,7 @@ import {
   X,
 } from "lucide-react";
 import { apiClient } from "../../../services/apiClient";
+import { authService } from "../../../services/authService";
 import type { MarketingProduct } from "./types";
 
 interface ProductOpportunityRadarProps {
@@ -26,10 +27,18 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
 }) => {
   const [products, setProducts] = useState<MarketingProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [denied, setDenied] = useState(false);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState<"ALL" | "TOP_MARGIN" | "READY" | "ALERT">("ALL");
 
   const loadProducts = useCallback(async () => {
+    // الدور بلا صلاحية products.view كان يرسل الطلب ويرجع 403 في الكونسول
+    if (!authService.hasPermission("products.view")) {
+      setDenied(true);
+      setLoading(false);
+      return;
+    }
+    setDenied(false);
     try {
       setLoading(true);
       const res = await apiClient.get<{ success?: boolean; data?: any[] }>("/products", {
@@ -223,6 +232,12 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
             <div className="p-12 text-center text-xs text-muted-foreground">
               <RefreshCw className="w-5 h-5 mx-auto mb-2 animate-spin text-primary" />
               جاري فحص المنتجات ومعدلات الأرباح...
+            </div>
+          ) : denied ? (
+            <div className="p-12 text-center text-xs text-muted-foreground space-y-2">
+              <Package className="w-6 h-6 mx-auto opacity-40" />
+              <p className="font-semibold text-foreground">لا تملك صلاحية عرض منتجات المتجر</p>
+              <p>اطلب من مالك الحساب منحك صلاحية «عرض المنتجات» من إدارة الصلاحيات.</p>
             </div>
           ) : filteredProducts.length === 0 ? (
             <div className="p-12 text-center text-xs text-muted-foreground">
