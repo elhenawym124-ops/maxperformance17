@@ -357,14 +357,29 @@ router.post('/sessions/book', authenticateParentToken, async (req, res) => {
 
     if (!enrollment) {
       // W3: تفريق واضح بين «لا اشتراك» و«اشتراك غير نشط/منتهي»
-      const activeCount = await prisma.educationEnrollment.count({
-        where: { studentId, companyId, isActive: true },
+      const existingEnrollment = enrollmentId
+        ? await prisma.educationEnrollment.findFirst({
+          where: { id: enrollmentId, studentId, companyId },
+          select: { isActive: true, remainingHours: true },
+        })
+        : null;
+
+      if (existingEnrollment) {
+        const exhausted = Number(existingEnrollment.remainingHours || 0) <= 0;
+        return res.status(404).json({
+          success: false,
+          code: 'ENROLLMENT_NOT_ACTIVE',
+          message: exhausted
+            ? 'رصيد ساعات الاشتراك منتهٍ — يرجى تجديد الباقة'
+            : 'الاشتراك المحدد غير نشط أو ملغى — اختر اشتراكًا آخر',
+        });
+      }
+
+      return res.status(404).json({
+        success: false,
+        code: 'NO_ACTIVE_ENROLLMENT',
+        message: 'لا يوجد اشتراك نشط لهذا الطالب — اشترك في باقة أولًا أو تواصل مع المركز',
       });
-      const code = activeCount > 0 ? 'ENROLLMENT_NOT_ACTIVE' : 'NO_ACTIVE_ENROLLMENT';
-      const message = activeCount > 0
-        ? 'الاشتراك المحدد غير نشط أو منتهي — اختر اشتراكًا آخر'
-        : 'لا يوجد اشتراك نشط لهذا الطالب — اشترك في باقة أولًا أو تواصل مع المركز';
-      return res.status(404).json({ success: false, code, message });
     }
 
     const duration = Number(plannedDuration) || enrollment.package?.sessionDuration || 60;
