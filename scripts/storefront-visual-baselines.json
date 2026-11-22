@@ -958,7 +958,47 @@
       "minFontSize": 8.5,
       "firstProductScreen": 2.62,
       "updatedAt": "2026-11-21"
+    },
+    "tpl-061-bustan-produce": {
+      "cls": 0.101,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 5.11,
+      "updatedAt": "2026-11-22"
+    },
+    "tpl-062-khudra-produce": {
+      "cls": 0.041,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 4.75,
+      "updatedAt": "2026-11-22"
+    },
+    "tpl-063-rawda-produce": {
+      "cls": 0.082,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 1.67,
+      "updatedAt": "2026-11-22"
+    },
+    "tpl-064-mazra3a-produce": {
+      "cls": 0.005,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 5.71,
+      "updatedAt": "2026-11-22"
     }
   },
-  "updatedAt": "2026-11-21"
+  "updatedAt": "2026-11-22"
 }

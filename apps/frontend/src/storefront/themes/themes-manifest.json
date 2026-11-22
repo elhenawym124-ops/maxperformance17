@@ -5084,6 +5084,130 @@
     }
   },
   {
+    "id": "tpl-061-bustan-produce",
+    "name": "Bustan — خضار وفاكهة",
+    "description": "قالب خضار وفاكهة بمنطق السرعة: هيرو صورة واسعة، شريط تنقّل أقسام سريع، شبكة منتجات بالكيلو، موزايك سلات جاهزة، وتقييمات مختصرة. أخضر ورقي وحمضي برتقالي وكريمي فاتح — مبني لمتجر خضار بيبيع كل يوم بالكيلو والسعر المكتوب.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "produce",
+        "label": "خضار وفاكهة"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "152 52% 26%",
+      "44 60% 92%",
+      "28 92% 52%"
+    ],
+    "previewImage": "/assets/themes/tpl-061-bustan-produce/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 24
+    }
+  },
+  {
+    "id": "tpl-062-khudra-produce",
+    "name": "Khudra — خضار وفاكهة",
+    "description": "قالب خضار وفاكهة بمنطق الصناديق: شريط عرض، هيرو بضائع جانبية، فئات كتالوج، عروض صناديق بالجملة، شبكة منتجات كثيفة، وشريط خدمات وضمان وزن. زيتوني وطماطمي وكريمي — مبني لمتجر بيبيع صندوق الخضار مش الحبة.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "produce",
+        "label": "خضار وفاكهة"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "92 36% 28%",
+      "40 44% 92%",
+      "6 74% 48%"
+    ],
+    "previewImage": "/assets/themes/tpl-062-khudra-produce/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 6,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 24
+    }
+  },
+  {
+    "id": "tpl-063-rawda-produce",
+    "name": "Rawda — خضار وفاكهة",
+    "description": "قالب خضار وفاكهة عربي موبايل-أولًا بمنطق السوق المحلي: هيرو حصاد، دوائر أقسام، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، معرض صور عملاء، وزر واتساب للطلب السريع. رمّاني وذهبي وكريمي — مبني لمتجر خضار بيبيع بالواتساب والدفع عند الاستلام.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "produce",
+        "label": "خضار وفاكهة"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "348 42% 34%",
+      "40 46% 92%",
+      "40 72% 48%"
+    ],
+    "previewImage": "/assets/themes/tpl-063-rawda-produce/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 24
+    }
+  },
+  {
+    "id": "tpl-064-mazra3a-produce",
+    "name": "Mazra3a — سلة المزرعة",
+    "description": "قالب خضار أصلي بمنطق «سلة المزرعة الأسبوعية»: هيرو لوحة حصاد، مخطّط سلة حسب عدد الأفراد، موزايك من المزرعة، فئات تحريرية، بوكسات أسبوعية، دفتر موسم ووصفات، وشريط خدمات وضمان. تيراكوتا وأخضر وكريمي — مبني لمزرعة أو متجر بيبيع اشتراك خضار أسبوعي.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "produce",
+        "label": "خضار وفاكهة"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "22 48% 32%",
+      "96 26% 90%",
+      "152 36% 34%"
+    ],
+    "previewImage": "/assets/themes/tpl-064-mazra3a-produce/preview.png",
+    "pageStats": {
+      "homeSections": 10,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 8,
+      "cartSections": 2,
+      "totalSections": 25
+    }
+  },
+  {
     "id": "turbo-parts",
     "name": "Turbo Parts",
     "description": "قالب قطع غيار يختصر القرار: بحث بالموديل، باقات صيانة، وضمان واضح يطمن العميل قبل الشراء.",

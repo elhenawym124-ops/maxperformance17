@@ -1,0 +1,489 @@
+{
+  "id": "tpl-062-khudra-produce",
+  "name": "Khudra — خضار وفاكهة",
+  "description": "قالب خضار وفاكهة بمنطق الصناديق: شريط عرض، هيرو بضائع جانبية، فئات كتالوج، عروض صناديق بالجملة، شبكة منتجات كثيفة، وشريط خدمات وضمان وزن. زيتوني وطماطمي وكريمي — مبني لمتجر بيبيع صندوق الخضار مش الحبة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "92 36% 28%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "40 44% 92%",
+      "secondaryForeground": "92 30% 16%",
+      "accent": "6 74% 48%",
+      "accentForeground": "0 0% 100%",
+      "background": "42 34% 97%",
+      "foreground": "92 20% 12%",
+      "muted": "42 24% 93%",
+      "mutedForeground": "92 10% 38%",
+      "border": "40 18% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "92 20% 12%",
+      "ring": "6 74% 48%"
+    },
+    "typography": {
+      "headingFont": "Alexandria, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.875rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "0.875rem",
+      "boxShadow": "0 6px 22px hsl(150 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(150 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | KHUDRA",
+    "description": "قالب خضار وفاكهة بمنطق الصناديق: شريط عرض، هيرو بضائع جانبية، فئات كتالوج، عروض صناديق بالجملة، شبكة منتجات كثيفة، وشريط خدمات وضمان وزن. زيتوني وطماطمي وكريمي — مبني لمتجر بيبيع صندوق الخضار مش الحبة."
+  },
+  "preview": {
+    "colors": [
+      "92 36% 28%",
+      "6 74% 48%",
+      "42 34% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-062-khudra-produce/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "KHUDRA",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "صندوق 5 كيلو بخصم 20% · توصيل القاهرة والجيزة 48 ساعة",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الصناديق",
+        "to": "/shop?sort=discount"
+      },
+      {
+        "label": "الخضار",
+        "to": "/shop?category=vegetables"
+      },
+      {
+        "label": "الفاكهة",
+        "to": "/shop?category=fruits"
+      },
+      {
+        "label": "الجملة",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "KHUDRA — قالب خضار وفاكهة بمنطق الصناديق.",
+    "copyrightText": "© 2026 KHUDRA",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الصناديق",
+            "to": "/shop?sort=discount"
+          },
+          {
+            "label": "الخضار",
+            "to": "/shop?category=vegetables"
+          },
+          {
+            "label": "الفاكهة",
+            "to": "/shop?category=fruits"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "خصم 20%",
+            "message": "على صندوق 5 كيلو خضار — لحد آخر الأسبوع",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "retail-direct-banner",
+          "settings": {
+            "eyebrow": "عرض الموسم",
+            "title": "صندوق خضار بسعر الجملة",
+            "subtitle": "5 كيلو أو 10 كيلو من خضار الموسم — الوزن الصافي مكتوب والخصم بيتحسب في السلة.",
+            "ctaText": "اشتري الصندوق",
+            "ctaLink": "/shop?sort=discount",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-062-khudra-produce/hero.jpg",
+            "panelImage": "/assets/themes/tpl-062-khudra-produce/hero.jpg",
+            "highlights": [
+              {
+                "label": "توفير",
+                "value": "لحد 20%"
+              },
+              {
+                "label": "صندوق",
+                "value": "5 أو 10 ك"
+              },
+              {
+                "label": "توصيل",
+                "value": "48 ساعة"
+              }
+            ],
+            "panelEyebrow": "عرض الموسم",
+            "panelTitle": "صندوق خضار بسعر الجملة",
+            "panelSubtitle": "5 كيلو أو 10 كيلو من خضار الموسم — الوزن الصافي مكتوب والخصم بيتحسب في السلة.",
+            "panelMetricValue": ""
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام الكتالوج",
+            "subtitle": "خضار · فاكهة · صناديق · جملة",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "category-promo",
+          "settings": {
+            "badge": "باقات",
+            "title": "بوكسات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "صندوق 1",
+                "title": "صندوق 5 كيلو خضار",
+                "subtitle": "طماطم · خيار · بطاطس · بصل · جزر",
+                "link": "/shop?sort=discount",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 60"
+              },
+              {
+                "label": "صندوق 2",
+                "title": "صندوق 10 كيلو خضار",
+                "subtitle": "خضار الموسم كاملة — للعيلة",
+                "link": "/shop?sort=discount",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 140"
+              },
+              {
+                "label": "عرض",
+                "title": "صندوق فاكهة 5 كيلو",
+                "subtitle": "تفاح · برتقان · موز · عنب",
+                "link": "/shop?sort=discount",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 90"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "توصيل 48 ساعة",
+                "description": "القاهرة والجيزة في يومين — والباقي 72 ساعة"
+              },
+              {
+                "title": "وزن مضمون",
+                "description": "الوزن الصافي مكتوب على الفاتورة قبل الدفع"
+              },
+              {
+                "title": "دفع عند الاستلام",
+                "description": "متاح لحد 3000 ج.م"
+              },
+              {
+                "title": "استبدال 48 ساعة",
+                "description": "أي صنف مش زي الوصف"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من صناديق العملاء",
+            "subtitle": "صوّر صندوقك ووسمنا",
+            "handle": "khudra.market",
+            "images": [
+              "/assets/themes/tpl-062-khudra-produce/aisle-1.jpg",
+              "/assets/themes/tpl-062-khudra-produce/aisle-2.jpg",
+              "/assets/themes/tpl-062-khudra-produce/hero.jpg"
+            ]
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "badge": "دفتر الموسم",
+            "title": "دفتر الموسم ووصفات السلة",
+            "subtitle": "كل وصفة مكوّناتها موجودة في السلة",
+            "items": [
+              {
+                "tag": "داخل الصندوق",
+                "title": "إيه اللي في صندوق 5 كيلو؟",
+                "excerpt": "طماطم · خيار · بطاطس · بصل · جزر — والأوزان مكتوبة على الفاتورة.",
+                "image": "/assets/themes/tpl-062-khudra-produce/aisle-1.jpg",
+                "link": "/shop?sort=discount"
+              },
+              {
+                "tag": "وصفة",
+                "title": "طاجن خضار بالصينية",
+                "excerpt": "بطاطس · طماطم · بصل · فلفل — كله من الصندوق.",
+                "image": "/assets/themes/tpl-062-khudra-produce/hero.jpg",
+                "link": "/collections"
+              },
+              {
+                "tag": "نصيحة",
+                "title": "تخزين الخضار صح",
+                "excerpt": "البطاطس والبصل بره التلاجة، والورقيات في بلاستيك مثقوب.",
+                "image": "/assets/themes/tpl-062-khudra-produce/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "split-panel",
+          "settings": {
+            "title": "عروض الصناديق أول بأول",
+            "subtitle": "كل خميس: سعر صندوق الأسبوع والكميات المتاحة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "الكتالوج",
+            "subtitle": "فلتر بالقسم والسعر — صناديق ومفرّق",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "marketplace-dense"
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الأقسام",
+            "title": "أقسام الكتالوج",
+            "subtitle": "خضار · فاكهة · صناديق · جملة",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "الخضار",
+                "title": "خضار مفرّقة",
+                "subtitle": "بالكيلو أو بالصندوق",
+                "image": "/assets/themes/tpl-062-khudra-produce/aisle-1.jpg",
+                "link": "/shop?category=vegetables"
+              },
+              {
+                "label": "الفاكهة",
+                "title": "فاكهة الموسم",
+                "subtitle": "تفاح · برتقان · عنب",
+                "image": "/assets/themes/tpl-062-khudra-produce/aisle-2.jpg",
+                "link": "/shop?category=fruits"
+              },
+              {
+                "label": "الصناديق",
+                "title": "صناديق الجملة",
+                "subtitle": "5 كيلو · 10 كيلو",
+                "image": "/assets/themes/tpl-062-khudra-produce/hero.jpg",
+                "link": "/shop?sort=discount"
+              }
+            ]
+          }
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "grid"
+        },
+        {
+          "type": "product-info",
+          "variant": "specs-grid"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "pairing-rail"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "سلة الصندوق",
+            "subtitle": "الخصم بيتحسب على مستوى الصندوق — راجع الوزن الصافي.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "minimal"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام الكتالوج",
+            "subtitle": "خضار · فاكهة · صناديق · جملة",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو ميعاد توصيل أو فاتورة — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

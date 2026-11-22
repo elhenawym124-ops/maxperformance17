@@ -389,6 +389,30 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "grocery",
     "بقالة وسوبر ماركت",
   ),
+  "tpl-061-bustan-produce": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "produce",
+    "خضار وفاكهة",
+  ),
+  "tpl-062-khudra-produce": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "produce",
+    "خضار وفاكهة",
+  ),
+  "tpl-063-rawda-produce": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "produce",
+    "خضار وفاكهة",
+  ),
+  "tpl-064-mazra3a-produce": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "produce",
+    "خضار وفاكهة",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -1075,6 +1099,14 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب سوبر ماركت عربي موبايل-أولًا بمنطق السوق المحلي: هيرو حصاد بصور طازة، دوائر أقسام، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، وآراء عملاء، وزر واتساب للطلب السريع. زيتوني وكريمي وذهبي — مبني لمتجر بقالة بيبيع بالواتساب والدفع عند الاستلام.",
   "tpl-060-makhzan-grocery":
     "قالب بقالة أصلي بمنطق «المخزن الشهري»: هيرو لوحة إعلان، مخطّط مخزن حسب عدد الأفراد والميزانية، تبويبات أقسام، باقات يومية، مجلة وصفات تربط المنتج بالوصفة، وشبكة خدمات (تجهيز · توصيل · جملة). تيراكوتا وأخضر غامق وكريمي — مبني لبيت بيشتري مرة في الشهر مش كل يوم.",
+  "tpl-061-bustan-produce":
+    "قالب خضار وفاكهة بمنطق السرعة: هيرو صورة واسعة، شريط تنقّل أقسام سريع، شبكة منتجات بالكيلو، موزايك سلات جاهزة، وتقييمات مختصرة. أخضر ورقي وحمضي برتقالي وكريمي فاتح — مبني لمتجر خضار بيبيع كل يوم بالكيلو والسعر المكتوب.",
+  "tpl-062-khudra-produce":
+    "قالب خضار وفاكهة بمنطق الصناديق: شريط عرض، هيرو بضائع جانبية، فئات كتالوج، عروض صناديق بالجملة، شبكة منتجات كثيفة، وشريط خدمات وضمان وزن. زيتوني وطماطمي وكريمي — مبني لمتجر بيبيع صندوق الخضار مش الحبة.",
+  "tpl-063-rawda-produce":
+    "قالب خضار وفاكهة عربي موبايل-أولًا بمنطق السوق المحلي: هيرو حصاد، دوائر أقسام، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، معرض صور عملاء، وزر واتساب للطلب السريع. رمّاني وذهبي وكريمي — مبني لمتجر خضار بيبيع بالواتساب والدفع عند الاستلام.",
+  "tpl-064-mazra3a-produce":
+    "قالب خضار أصلي بمنطق «سلة المزرعة الأسبوعية»: هيرو لوحة حصاد، مخطّط سلة حسب عدد الأفراد، موزايك من المزرعة، فئات تحريرية، بوكسات أسبوعية، دفتر موسم ووصفات، وشريط خدمات وضمان. تيراكوتا وأخضر وكريمي — مبني لمزرعة أو متجر بيبيع اشتراك خضار أسبوعي.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1350,6 +1382,14 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-059-khayr-grocery/preview.png",
   "tpl-060-makhzan-grocery":
     "/assets/themes/tpl-060-makhzan-grocery/preview.png",
+  "tpl-061-bustan-produce":
+    "/assets/themes/tpl-061-bustan-produce/preview.png",
+  "tpl-062-khudra-produce":
+    "/assets/themes/tpl-062-khudra-produce/preview.png",
+  "tpl-063-rawda-produce":
+    "/assets/themes/tpl-063-rawda-produce/preview.png",
+  "tpl-064-mazra3a-produce":
+    "/assets/themes/tpl-064-mazra3a-produce/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":

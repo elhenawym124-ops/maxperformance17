@@ -1,0 +1,469 @@
+{
+  "id": "tpl-061-bustan-produce",
+  "name": "Bustan — خضار وفاكهة",
+  "description": "قالب خضار وفاكهة بمنطق السرعة: هيرو صورة واسعة، شريط تنقّل أقسام سريع، شبكة منتجات بالكيلو، موزايك سلات جاهزة، وتقييمات مختصرة. أخضر ورقي وحمضي برتقالي وكريمي فاتح — مبني لمتجر خضار بيبيع كل يوم بالكيلو والسعر المكتوب.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "152 52% 26%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "44 60% 92%",
+      "secondaryForeground": "152 40% 16%",
+      "accent": "28 92% 52%",
+      "accentForeground": "24 60% 12%",
+      "background": "48 42% 98%",
+      "foreground": "152 22% 11%",
+      "muted": "46 28% 94%",
+      "mutedForeground": "152 10% 38%",
+      "border": "46 20% 87%",
+      "card": "0 0% 100%",
+      "cardForeground": "152 22% 11%",
+      "ring": "28 92% 52%"
+    },
+    "typography": {
+      "headingFont": "Cairo, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(150 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(150 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | BUSTAN",
+    "description": "قالب خضار وفاكهة بمنطق السرعة: هيرو صورة واسعة، شريط تنقّل أقسام سريع، شبكة منتجات بالكيلو، موزايك سلات جاهزة، وتقييمات مختصرة. أخضر ورقي وحمضي برتقالي وكريمي فاتح — مبني لمتجر خضار بيبيع كل يوم بالكيلو والسعر المكتوب."
+  },
+  "preview": {
+    "colors": [
+      "152 52% 26%",
+      "28 92% 52%",
+      "48 42% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-061-bustan-produce/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "BUSTAN",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "توصيل مجاني فوق 400 ج.م · قطف يومي من السوق",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الخضار",
+        "to": "/shop?category=vegetables"
+      },
+      {
+        "label": "الفاكهة",
+        "to": "/shop?category=fruits"
+      },
+      {
+        "label": "الأورجانيك",
+        "to": "/shop?category=organic"
+      },
+      {
+        "label": "سلات جاهزة",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "BUSTAN — قالب خضار وفاكهة بمنطق السرعة.",
+    "copyrightText": "© 2026 BUSTAN",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الخضار",
+            "to": "/shop?category=vegetables"
+          },
+          {
+            "label": "الفاكهة",
+            "to": "/shop?category=fruits"
+          },
+          {
+            "label": "الأورجانيك",
+            "to": "/shop?category=organic"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل مجاني",
+            "message": "على أي طلب فوق 400 ج.م — القاهرة والجيزة في نفس اليوم",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "dawn-image-banner",
+          "settings": {
+            "eyebrow": "خضار النهاردة",
+            "title": "مقطوف الصبح، عندك قبل المغرب",
+            "subtitle": "خضار وفاكهة بالكيلو — السعر مكتوب والمخزون محدّث. اطلب في دقيقة واستلم نفس اليوم.",
+            "ctaText": "اطلب دلوقتي",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-061-bustan-produce/hero.jpg",
+            "panelImage": "/assets/themes/tpl-061-bustan-produce/hero.jpg",
+            "highlights": [
+              {
+                "label": "توصيل",
+                "value": "قبل المغرب"
+              },
+              {
+                "label": "قطف",
+                "value": "كل صبح"
+              },
+              {
+                "label": "سعر",
+                "value": "بالكيلو"
+              }
+            ],
+            "panelEyebrow": "خضار النهاردة",
+            "panelTitle": "مقطوف الصبح، عندك قبل المغرب",
+            "panelSubtitle": "خضار وفاكهة بالكيلو — السعر مكتوب والمخزون محدّث. اطلب في دقيقة واستلم نفس اليوم.",
+            "panelMetricValue": "توصيل نفس اليوم"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "الممرات",
+            "subtitle": "خضار · فاكهة · أورجانيك · سلات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "shopping-intents",
+          "settings": {
+            "badge": "ابدأ من احتياجك",
+            "title": "اختار سلتك",
+            "subtitle": "سلات مبنية على استخدامك — مش على المخزون",
+            "ctaText": "افتح السلة",
+            "items": [
+              {
+                "eyebrow": "عزومة",
+                "title": "سلة العزومة",
+                "subtitle": "طماطم · خيار · فلفل · بقدونس",
+                "link": "/collections"
+              },
+              {
+                "eyebrow": "طبخ يومي",
+                "title": "سلة الطبخ",
+                "subtitle": "بصل · بطاطس · جزر · كوسة",
+                "link": "/collections"
+              },
+              {
+                "eyebrow": "سلطة",
+                "title": "سلة السلطة",
+                "subtitle": "خس · جرير · طماطم · خيار",
+                "link": "/collections"
+              },
+              {
+                "eyebrow": "صباح",
+                "title": "سلة الفطار",
+                "subtitle": "موز · تفاح · برتقان · ليمون",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "سلات جاهزة زي ما هي",
+            "subtitle": "من طلبات عملاء — مش استوديو",
+            "ctaText": "شوف السلات",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-061-bustan-produce/aisle-1.jpg",
+                "title": "سلة الخضار الأسبوعية",
+                "subtitle": "طماطم · خيار · كوسة · جرجير",
+                "priceLabel": "185 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-061-bustan-produce/aisle-2.jpg",
+                "title": "سلة الفاكهة",
+                "subtitle": "تفاح · موز · برتقان · عنب",
+                "priceLabel": "240 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-061-bustan-produce/hero.jpg",
+                "title": "سلة السلطة",
+                "subtitle": "خس · طماطم · خيار · جرجير",
+                "priceLabel": "95 ج.م",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "كلام زباين الخضار",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "هشام ص.",
+                "text": "الخضار وصل قبل الميعاد والكوسة كانت أحسن من السوق.",
+                "rating": 5
+              },
+              {
+                "author": "نيرة ف.",
+                "text": "سعر الكيلو مكتوب والصافي مظبوط — مفيش مفاجآت في الفاتورة.",
+                "rating": 5
+              },
+              {
+                "author": "عمرو ع.",
+                "text": "سلة الفاكهة كفّت الأسبوع ووفرت مشوارين.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "توصيل قبل المغرب",
+                "description": "اطلب قبل 12 الضهر — يوصلك نفس اليوم"
+              },
+              {
+                "title": "قطف يومي",
+                "description": "بنشتري من السوق الصبح — مش مخزون أسبوع"
+              },
+              {
+                "title": "سعر الكيلو مكتوب",
+                "description": "السعر النهائي واضح قبل ما تحط في السلة"
+              },
+              {
+                "title": "استبدال فوري",
+                "description": "أي صنف مش طازة بنستبدله من غير كلام"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "خضار الموسم في بريدك",
+            "subtitle": "رسالة واحدة كل سبت: أرخص خضار وفاكهة الأسبوع.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "السوق",
+            "subtitle": "خضار · فاكهة · أورجانيك — بالكيلو",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "minimal-toolbar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "quick"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة الخضار",
+            "subtitle": "راجع الكيلو والسعر قبل الدفع — التوصيل نفس اليوم.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "market-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "الممرات",
+            "subtitle": "خضار · فاكهة · أورجانيك · سلات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو ميعاد توصيل أو فاتورة — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

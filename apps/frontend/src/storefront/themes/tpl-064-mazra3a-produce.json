@@ -1,0 +1,546 @@
+{
+  "id": "tpl-064-mazra3a-produce",
+  "name": "Mazra3a — سلة المزرعة",
+  "description": "قالب خضار أصلي بمنطق «سلة المزرعة الأسبوعية»: هيرو لوحة حصاد، مخطّط سلة حسب عدد الأفراد، موزايك من المزرعة، فئات تحريرية، بوكسات أسبوعية، دفتر موسم ووصفات، وشريط خدمات وضمان. تيراكوتا وأخضر وكريمي — مبني لمزرعة أو متجر بيبيع اشتراك خضار أسبوعي.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "22 48% 32%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "96 26% 90%",
+      "secondaryForeground": "22 40% 16%",
+      "accent": "152 36% 34%",
+      "accentForeground": "0 0% 100%",
+      "background": "44 36% 97%",
+      "foreground": "22 16% 12%",
+      "muted": "44 22% 93%",
+      "mutedForeground": "22 10% 38%",
+      "border": "42 18% 85%",
+      "card": "0 0% 100%",
+      "cardForeground": "22 16% 12%",
+      "ring": "152 36% 34%"
+    },
+    "typography": {
+      "headingFont": "Readex Pro, Almarai, sans-serif",
+      "bodyFont": "Readex Pro, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(150 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(150 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | MAZRA3A",
+    "description": "قالب خضار أصلي بمنطق «سلة المزرعة الأسبوعية»: هيرو لوحة حصاد، مخطّط سلة حسب عدد الأفراد، موزايك من المزرعة، فئات تحريرية، بوكسات أسبوعية، دفتر موسم ووصفات، وشريط خدمات وضمان. تيراكوتا وأخضر وكريمي — مبني لمزرعة أو متجر بيبيع اشتراك خضار أسبوعي."
+  },
+  "preview": {
+    "colors": [
+      "22 48% 32%",
+      "152 36% 34%",
+      "44 36% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-064-mazra3a-produce/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "MAZRA3A",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "اشتراك أسبوعي · وقف أو غيّر السلة في أي وقت",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "سلات الأسبوع",
+        "to": "/collections"
+      },
+      {
+        "label": "الخضار",
+        "to": "/shop?category=vegetables"
+      },
+      {
+        "label": "الفاكهة",
+        "to": "/shop?category=fruits"
+      },
+      {
+        "label": "دفتر الموسم",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "MAZRA3A — قالب خضار أصلي بمنطق «سلة المزرعة الأسبوعية».",
+    "copyrightText": "© 2026 MAZRA3A",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "سلات الأسبوع",
+            "to": "/collections"
+          },
+          {
+            "label": "الخضار",
+            "to": "/shop?category=vegetables"
+          },
+          {
+            "label": "الفاكهة",
+            "to": "/shop?category=fruits"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "drop-board",
+          "settings": {
+            "eyebrow": "سلة المزرعة",
+            "title": "سلة أسبوع من المزرعة لباب البيت",
+            "subtitle": "اختار حجم السلة وعدد أفراد البيت، وإحنا نجهّز خضار وفاكهة الموسم كل أسبوع — بسعر ثابت ومن غير مفاجآت.",
+            "ctaText": "جهّز سلتك",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-064-mazra3a-produce/hero.jpg",
+            "panelImage": "/assets/themes/tpl-064-mazra3a-produce/hero.jpg",
+            "highlights": [
+              {
+                "label": "سلة",
+                "value": "أسبوعية"
+              },
+              {
+                "label": "مصدر",
+                "value": "مزارع مصر"
+              },
+              {
+                "label": "توصيل",
+                "value": "كل أسبوع"
+              }
+            ],
+            "panelEyebrow": "سلة المزرعة",
+            "panelTitle": "سلة أسبوع من المزرعة لباب البيت",
+            "panelSubtitle": "اختار حجم السلة وعدد أفراد البيت، وإحنا نجهّز خضار وفاكهة الموسم كل أسبوع — بسعر ثابت ومن غير مفاجآت.",
+            "panelMetricValue": ""
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "chips",
+          "settings": {
+            "title": "جهّز سلة الأسبوع في دقيقة",
+            "subtitle": "عدد الأفراد ← حجم السلة",
+            "ctaText": "شوف السلة",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "فرد"
+              },
+              {
+                "label": "فردين"
+              },
+              {
+                "label": "عائلة 4"
+              },
+              {
+                "label": "عائلة 6"
+              }
+            ],
+            "moods": [
+              {
+                "label": "أساسية"
+              },
+              {
+                "label": "متوسطة"
+              },
+              {
+                "label": "كاملة"
+              }
+            ],
+            "looks": [
+              {
+                "title": "سلة الفرد",
+                "subtitle": "4 كيلو خضار + 2 كيلو فاكهة",
+                "price": "420 ج.م / أسبوع",
+                "image": "/assets/themes/tpl-064-mazra3a-produce/aisle-1.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "سلة العائلة",
+                "subtitle": "10 كيلو خضار + 5 كيلو فاكهة",
+                "price": "860 ج.م / أسبوع",
+                "image": "/assets/themes/tpl-064-mazra3a-produce/hero.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "سلة العيلة الكبيرة",
+                "subtitle": "15 كيلو خضار + 8 كيلو فاكهة",
+                "price": "1,240 ج.م / أسبوع",
+                "image": "/assets/themes/tpl-064-mazra3a-produce/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "سلات جاهزة زي ما هي",
+            "subtitle": "من طلبات عملاء — مش استوديو",
+            "ctaText": "شوف السلات",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-064-mazra3a-produce/aisle-1.jpg",
+                "title": "من الأرض للبيت",
+                "subtitle": "بنجهّز السلة بعد الحصاد على طول",
+                "priceLabel": "420 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-064-mazra3a-produce/hero.jpg",
+                "title": "حصاد الأسبوع",
+                "subtitle": "خضار الموسم من 3 مزارع",
+                "priceLabel": "860 ج.م",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-064-mazra3a-produce/aisle-2.jpg",
+                "title": "سلة الفاكهة",
+                "subtitle": "فاكهة الموسم كاملة",
+                "priceLabel": "520 ج.م",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "editorial-categories",
+          "settings": {
+            "title": "سلات المزرعة",
+            "subtitle": "فرد · فردين · عائلة 4 · عائلة 6",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "باقات",
+            "title": "بوكسات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "بوكس 1",
+                "title": "بوكس الأسبوع",
+                "subtitle": "خضار + فاكهة لكل البيت",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "860 ج.م"
+              },
+              {
+                "label": "بوكس 2",
+                "title": "بوكس السلطة",
+                "subtitle": "خس · طماطم · خيار · جرجير",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "180 ج.م"
+              },
+              {
+                "label": "بوكس 3",
+                "title": "بوكس العصير",
+                "subtitle": "برتقان · ليمون · جزر · بنجر",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "240 ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "بيوت بتستلم كل أسبوع",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "هالة م.",
+                "text": "السلة بتوصل كل خميس وكل حاجة طازة — وفّرت عليّ مشوار السوق.",
+                "rating": 5
+              },
+              {
+                "author": "كريم ع.",
+                "text": "السعر ثابت والأسبوع اللي مش محتاج بوقّف من غير مشاكل.",
+                "rating": 4
+              },
+              {
+                "author": "سماح ر.",
+                "text": "دفتر الموسم خلاني أعرف أطبخ إيه باللي وصل.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "سعر ثابت",
+                "description": "السعر الأسبوعي متعروف قبل الشحن — مفيش مفاجآت"
+              },
+              {
+                "title": "حصاد الأسبوع",
+                "description": "بنجهّز السلة بعد الحصاد على طول"
+              },
+              {
+                "title": "توصيل بموعد",
+                "description": "بنحدد يوم وموعد التوصيل معاك"
+              },
+              {
+                "title": "وقف في أي وقت",
+                "description": "جمّد أو غيّر حجم السلة من حسابك"
+              }
+            ]
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "badge": "دفتر الموسم",
+            "title": "دفتر الموسم ووصفات السلة",
+            "subtitle": "كل وصفة مكوّناتها موجودة في السلة",
+            "items": [
+              {
+                "tag": "دفتر الموسم",
+                "title": "إيه اللي طالع من الأرض دلوقتي",
+                "excerpt": "خضار الشتاء بدأت: سبانخ، كرنب، فجل — والسعر أقل في أول الموسم.",
+                "image": "/assets/themes/tpl-064-mazra3a-produce/hero.jpg",
+                "link": "/collections"
+              },
+              {
+                "tag": "وصفة",
+                "title": "شوربة خضار السلة",
+                "excerpt": "كوسة · جزر · بطاطس · كرفس — كلها في سلة العائلة.",
+                "image": "/assets/themes/tpl-064-mazra3a-produce/aisle-1.jpg",
+                "link": "/collections"
+              },
+              {
+                "tag": "نصيحة",
+                "title": "إزاي تحافظ على الخضار أسبوع",
+                "excerpt": "الورقيات في بلاستيك مثقوب، والجذور في مكان جاف وبارد.",
+                "image": "/assets/themes/tpl-064-mazra3a-produce/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "دفتر الموسم في بريدك",
+            "subtitle": "إيه اللي طالع من الأرض الشهر ده — مرة واحدة في الشهر.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المزرعة",
+            "subtitle": "خضار · فاكهة · بوكسات الأسبوع",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "default-discovery"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "masonry"
+        },
+        {
+          "type": "product-info",
+          "variant": "bento-specs"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "detailed"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "list"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "editorial",
+          "settings": {
+            "title": "سلة الأسبوع",
+            "subtitle": "راجع حجم السلة وميعاد التوصيل قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "سلات المزرعة",
+            "subtitle": "فرد · فردين · عائلة 4 · عائلة 6",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو ميعاد توصيل أو فاتورة — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}
