@@ -85,7 +85,85 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
             onOpenGenerateDialog={onOpenGenerateDialog}
           />
         ) : (
-          <div className="w-full overflow-x-auto">
+          <>
+          {/* Mobile cards (≤640px) — الجدول العريض 760px غير عملي على الهاتف */}
+          <div className="sm:hidden divide-y divide-border/70">
+            {payrolls.map((payroll) => (
+              <div key={payroll.id} className="p-3 space-y-2">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    {!isMyPayroll && (
+                      <Checkbox
+                        checked={selectedIds.includes(payroll.id)}
+                        onCheckedChange={() => onToggleSelect(payroll.id)}
+                      />
+                    )}
+                    <div className="min-w-0">
+                      <p className="font-medium text-sm truncate">
+                        {isMyPayroll
+                          ? `${months[(payroll.month || selectedMonth) - 1]} ${payroll.year || selectedYear}`
+                          : `${payroll.employee?.firstName || ''} ${payroll.employee?.lastName || ''}`}
+                      </p>
+                      {!isMyPayroll && payroll.employee?.position?.title ? (
+                        <p className="text-[11px] text-muted-foreground truncate">{payroll.employee.position.title}</p>
+                      ) : null}
+                    </div>
+                  </div>
+                  <Badge className={`${statusConfig[payroll.status]?.color} border px-2 py-0.5 rounded-full text-[10px] font-medium shrink-0`}>
+                    {statusConfig[payroll.status]?.label || payroll.status}
+                  </Badge>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="rounded-lg bg-muted/40 py-1.5">
+                    <p className="text-[10px] text-muted-foreground">الأساسي</p>
+                    <p className="text-[11px] font-semibold tabular-nums">{formatCurrency(payroll.fullMonthBaseSalary || payroll.baseSalary)}</p>
+                  </div>
+                  <div className="rounded-lg bg-success/10 py-1.5">
+                    <p className="text-[10px] text-muted-foreground">البدلات</p>
+                    <p className="text-[11px] font-semibold tabular-nums text-success">+{formatCurrency(payroll.totalAllowances)}</p>
+                  </div>
+                  <div className="rounded-lg bg-destructive/10 py-1.5">
+                    <p className="text-[10px] text-muted-foreground">الخصومات</p>
+                    <p className="text-[11px] font-semibold tabular-nums text-destructive">-{formatCurrency(payroll.totalDeductions)}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-xs text-muted-foreground">صافي الراتب</p>
+                  <p className={`text-sm font-bold tabular-nums ${Number(payroll.netSalary) < 0 ? 'text-destructive' : 'text-foreground'}`} dir="ltr">
+                    {formatCurrency(payroll.netSalary)}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+                  <Button size="sm" variant="ghost" className="h-8 text-[11px]" onClick={() => onViewDetails(payroll)}>
+                    <Eye className="w-3.5 h-3.5 me-1" />تفاصيل
+                  </Button>
+                  {!isMyPayroll && payroll.status === 'DRAFT' && (
+                    <Button size="sm" variant="ghost" className="h-8 text-[11px]" onClick={() => onApprove(payroll.id)}>
+                      <Check className="w-3.5 h-3.5 me-1" />اعتماد
+                    </Button>
+                  )}
+                  {!isMyPayroll && payroll.status === 'APPROVED' && (
+                    <Button size="sm" variant="ghost" className="h-8 text-[11px]" onClick={() => onPay(payroll.id)}>
+                      <CreditCard className="w-3.5 h-3.5 me-1" />صرف
+                    </Button>
+                  )}
+                  <Button size="sm" variant="ghost" className="h-8 text-[11px]" onClick={() => onPrint(payroll)}>
+                    <FileText className="w-3.5 h-3.5 me-1" />طباعة
+                  </Button>
+                  {!isMyPayroll && (
+                    <Button size="sm" variant="ghost" className="h-8 text-[11px]" onClick={() => onEdit(payroll)}>
+                      <Edit className="w-3.5 h-3.5 me-1" />تعديل
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden sm:block w-full overflow-x-auto">
             <Table className="min-w-[760px]">
             <TableHeader>
               <TableRow>
@@ -243,6 +321,7 @@ export const PayrollTable: React.FC<PayrollTableProps> = ({
             </TableBody>
           </Table>
           </div>
+          </>
         )}
       </CardContent>
 

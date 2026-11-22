@@ -229,10 +229,12 @@ const getFacebookPages = async (req, res) => {
 
     const accessToken = await getCompanyPageAccessToken(companyId);
     if (!accessToken) {
-      return res.status(400).json({
-        success: false,
-        error:
-          "Facebook Page Access Token not found. Please connect your Facebook account.",
+      // لا يوجد ربط بعد — قائمة فاضية بدل 400 (كانت تلوّث الكونسول وتُظهر «خطأ»)
+      return res.status(200).json({
+        success: true,
+        data: [],
+        meta: { needsConnection: true, reason: "NO_PAGE_TOKEN" },
+        message: "Facebook Page Access Token not found. Please connect your Facebook account.",
       });
     }
 
