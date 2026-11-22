@@ -204,4 +204,121 @@ describe('utils/ipGeoLookup & sessionDetailsHelper', () => {
     assert.strictEqual(history.stats.deliveredCount, 0);
     assert.strictEqual(history.stats.cancelledCount, 1);
   });
+
+  test('Item 1: deduplicates guest order when matching regular order by phone, total and within 60 mins (order 105102)', async () => {
+    const { getCustomerOrderHistory } = require('../../utils/sessionDetailsHelper');
+    const companyId = 'comp-swan-1';
+    const customerId = 'cust-noha-105102';
+
+    const baseDate = new Date('2026-07-16T12:00:00.000Z');
+    const twinDate = new Date('2026-07-16T12:10:00.000Z'); // 10 minutes later
+
+    const mockPrisma = {
+      customer: {
+        findFirst: async () => ({
+          id: customerId,
+          phone: '01153770958',
+          phoneNormalized: '+201153770958',
+          email: 'loliali5555555555@gmail.com',
+          firstName: 'نهى',
+          lastName: 'سامي محمد',
+        }),
+      },
+      order: {
+        findMany: async () => [
+          {
+            id: 'ord-105102',
+            orderNumber: '105102',
+            createdAt: baseDate,
+            status: 'CANCELLED',
+            total: 2360,
+            customerPhone: '01153770958',
+            orderItems: [],
+          },
+        ],
+      },
+      guestOrder: {
+        findMany: async () => [
+          {
+            id: 'guest-twin-105102',
+            orderNumber: 'GUEST-999',
+            createdAt: twinDate,
+            status: 'DELIVERED',
+            total: 2360,
+            guestPhone: '01153770958',
+            items: [],
+          },
+        ],
+      },
+    };
+
+    const history = await getCustomerOrderHistory(mockPrisma, companyId, {
+      customerId,
+      phone: '01153770958',
+      currentOrderNumber: '105102',
+    });
+
+    // Twin guest order is deduplicated: regular order CANCELLED is the original
+    assert.strictEqual(history.stats.totalOrders, 1);
+    assert.strictEqual(history.stats.deliveredCount, 0);
+    assert.strictEqual(history.stats.cancelledCount, 1);
+  });
+
+  test('Item 1: includes guest order when total is different or placed 3 days later', async () => {
+    const { getCustomerOrderHistory } = require('../../utils/sessionDetailsHelper');
+    const companyId = 'comp-swan-1';
+    const customerId = 'cust-noha-105102';
+
+    const baseDate = new Date('2026-07-16T12:00:00.000Z');
+    const threeDaysLater = new Date('2026-07-19T12:00:00.000Z'); // 3 days later
+
+    const mockPrisma = {
+      customer: {
+        findFirst: async () => ({
+          id: customerId,
+          phone: '01153770958',
+          phoneNormalized: '+201153770958',
+          firstName: 'نهى',
+          lastName: 'سامي',
+        }),
+      },
+      order: {
+        findMany: async () => [
+          {
+            id: 'ord-105102',
+            orderNumber: '105102',
+            createdAt: baseDate,
+            status: 'CANCELLED',
+            total: 2360,
+            customerPhone: '01153770958',
+            orderItems: [],
+          },
+        ],
+      },
+      guestOrder: {
+        findMany: async () => [
+          {
+            id: 'guest-later',
+            orderNumber: 'GUEST-888',
+            createdAt: threeDaysLater,
+            status: 'DELIVERED',
+            total: 1500, // different total and 3 days later
+            guestPhone: '01153770958',
+            items: [],
+          },
+        ],
+      },
+    };
+
+    const history = await getCustomerOrderHistory(mockPrisma, companyId, {
+      customerId,
+      phone: '01153770958',
+      currentOrderNumber: '105102',
+    });
+
+    // Not a duplicate -> 2 orders counted (1 cancelled, 1 delivered)
+    assert.strictEqual(history.stats.totalOrders, 2);
+    assert.strictEqual(history.stats.deliveredCount, 1);
+    assert.strictEqual(history.stats.cancelledCount, 1);
+  });
 });

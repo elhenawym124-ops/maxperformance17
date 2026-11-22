@@ -1,4 +1,5 @@
 const { getClientIp, resolveIpLocation } = require('./ipGeoLookup');
+const { toCanonicalE164 } = require('./phoneNormalization');
 
 /**
  * Sanitizes and normalizes incoming storefront session details.
@@ -107,6 +108,8 @@ async function getCustomerFirstOrderInfo(prisma, companyId, { phone, email, cust
               orderNumber: true,
               createdAt: true,
               status: true,
+              total: true,
+              customerPhone: true,
             },
             orderBy: { createdAt: 'asc' },
           })
@@ -119,20 +122,61 @@ async function getCustomerFirstOrderInfo(prisma, companyId, { phone, email, cust
               orderNumber: true,
               createdAt: true,
               status: true,
+              total: true,
+              guestPhone: true,
             },
             orderBy: { createdAt: 'asc' },
           })
         : Promise.resolve([]),
     ]);
 
-    const orderNumberMap = new Map();
-    [...regularOrders, ...guestOrders].forEach((o) => {
-      if (o.orderNumber && !orderNumberMap.has(o.orderNumber)) {
-        orderNumberMap.set(o.orderNumber, o);
-      }
-    });
+    const regularOrderNumbers = new Set();
+    const validRegular = [];
+    const seenRegularKeys = new Set();
 
-    const allOrders = Array.from(orderNumberMap.values()).sort(
+    for (const rOrder of regularOrders) {
+      const key = rOrder.orderNumber || rOrder.id;
+      if (key && seenRegularKeys.has(key)) continue;
+      if (key) seenRegularKeys.add(key);
+      if (rOrder.orderNumber) regularOrderNumbers.add(rOrder.orderNumber);
+      validRegular.push(rOrder);
+    }
+
+    const validGuest = [];
+    const seenGuestKeys = new Set();
+
+    for (const gOrder of guestOrders) {
+      const gKey = gOrder.orderNumber || gOrder.id;
+      if (gKey && seenGuestKeys.has(gKey)) continue;
+      if (gOrder.orderNumber && regularOrderNumbers.has(gOrder.orderNumber)) continue;
+
+      const gPhoneCanonical = toCanonicalE164(gOrder.guestPhone);
+      const gTotal = Number(gOrder.total) || 0;
+      const gTime = gOrder.createdAt ? new Date(gOrder.createdAt).getTime() : 0;
+
+      let isDuplicateTwin = false;
+      if (gPhoneCanonical && gTime) {
+        for (const rOrder of validRegular) {
+          const rPhoneCanonical = toCanonicalE164(rOrder.customerPhone || phone);
+          if (rPhoneCanonical && rPhoneCanonical === gPhoneCanonical) {
+            const rTotal = Number(rOrder.total) || 0;
+            if (Math.abs(gTotal - rTotal) < 0.01) {
+              const rTime = rOrder.createdAt ? new Date(rOrder.createdAt).getTime() : 0;
+              if (rTime && Math.abs(gTime - rTime) <= 60 * 60 * 1000) {
+                isDuplicateTwin = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      if (isDuplicateTwin) continue;
+      if (gKey) seenGuestKeys.add(gKey);
+      validGuest.push(gOrder);
+    }
+
+    const allOrders = [...validRegular, ...validGuest].sort(
       (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     );
 
@@ -400,23 +444,64 @@ async function getCustomerOrderHistory(prisma, companyId, {
         : [],
     ]);
 
-    // Deduplicate by orderNumber (prefer regular order)
-    const orderMap = new Map();
-    const guestMap = new Map();
+    // Deduplicate regular and guest orders: regular orders take absolute precedence.
+    // A guest order is rejected if:
+    // 1) It has the same orderNumber as a regular order.
+    // 2) Or it matches any regular order by: same canonical phone + same total amount + createdAt diff <= 60 minutes.
+    const regularOrderList = [];
+    const regularOrderNumbers = new Set();
+    const seenRegularKeys = new Set();
 
     for (const rOrder of regularOrders) {
-      if (rOrder.orderNumber && !orderMap.has(rOrder.orderNumber)) {
-        orderMap.set(rOrder.orderNumber, { ...rOrder, source: 'order' });
-      }
+      const orderKey = rOrder.orderNumber || rOrder.id;
+      if (orderKey && seenRegularKeys.has(orderKey)) continue;
+      if (orderKey) seenRegularKeys.add(orderKey);
+      if (rOrder.orderNumber) regularOrderNumbers.add(rOrder.orderNumber);
+      regularOrderList.push({ ...rOrder, source: 'order' });
     }
+
+    const guestOrderList = [];
+    const seenGuestKeys = new Set();
 
     for (const gOrder of guestOrders) {
-      if (gOrder.orderNumber && !orderMap.has(gOrder.orderNumber) && !guestMap.has(gOrder.orderNumber)) {
-        guestMap.set(gOrder.orderNumber, { ...gOrder, source: 'guest' });
+      const gOrderKey = gOrder.orderNumber || gOrder.id;
+      if (gOrderKey && seenGuestKeys.has(gOrderKey)) continue;
+
+      // Check duplicate against regular orders
+      if (gOrder.orderNumber && regularOrderNumbers.has(gOrder.orderNumber)) {
+        continue;
       }
+
+      const gPhoneCanonical = toCanonicalE164(gOrder.guestPhone);
+      const gTotal = Number(gOrder.total) || 0;
+      const gTime = gOrder.createdAt ? new Date(gOrder.createdAt).getTime() : 0;
+
+      let isDuplicateTwin = false;
+      if (gPhoneCanonical && gTime) {
+        for (const rOrder of regularOrderList) {
+          const rPhoneCanonical = toCanonicalE164(rOrder.customerPhone || resolvedPhone);
+          if (rPhoneCanonical && rPhoneCanonical === gPhoneCanonical) {
+            const rTotal = Number(rOrder.total) || 0;
+            if (Math.abs(gTotal - rTotal) < 0.01) {
+              const rTime = rOrder.createdAt ? new Date(rOrder.createdAt).getTime() : 0;
+              if (rTime && Math.abs(gTime - rTime) <= 60 * 60 * 1000) {
+                isDuplicateTwin = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      if (isDuplicateTwin) {
+        continue;
+      }
+
+      if (gOrderKey) seenGuestKeys.add(gOrderKey);
+      guestOrderList.push({ ...gOrder, source: 'guest' });
     }
 
-    const unifiedOrders = [...orderMap.values(), ...guestMap.values()];
+    const unifiedOrders = [...regularOrderList, ...guestOrderList];
     unifiedOrders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     const totalOrders = unifiedOrders.length;

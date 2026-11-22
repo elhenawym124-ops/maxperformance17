@@ -79,10 +79,12 @@ async function createCustomerByPhone(prisma, { companyId, phone, data = {} }) {
         const effectivePhone = phone || data.phone;
         const phoneWhere = effectivePhone ? buildPhoneWhere(effectivePhone, companyId) : null;
         let fallbackWhere = null;
+        let isEmailFallback = false;
         if (phoneWhere) {
           fallbackWhere = phoneWhere;
         } else if (data.email) {
           fallbackWhere = { companyId, email: data.email };
+          isEmailFallback = true;
         } else if (data.facebookId) {
           fallbackWhere = { companyId, facebookId: data.facebookId };
         } else if (data.whatsappId) {
@@ -91,7 +93,19 @@ async function createCustomerByPhone(prisma, { companyId, phone, data = {} }) {
 
         if (fallbackWhere) {
           const existing = await prisma.customer.findFirst({ where: fallbackWhere });
-          if (existing) return existing;
+          if (existing) {
+            if (isEmailFallback) {
+              const incomingCanonical = toCanonicalE164(effectivePhone);
+              const existingCanonical = toCanonicalE164(existing.phoneNormalized || existing.phone);
+              // Email fallback must NEVER reuse customer with different phone
+              if (existing.phone || existing.phoneNormalized) {
+                if (!incomingCanonical || existingCanonical !== incomingCanonical) {
+                  throw err;
+                }
+              }
+            }
+            return existing;
+          }
         }
       }
       throw err;
@@ -151,7 +165,19 @@ async function safeCreateCustomer(prisma, createArgs, fallbackWhere) {
   } catch (err) {
     if (err?.code === 'P2002' && fallbackWhere) {
       const existing = await prisma.customer.findFirst({ where: fallbackWhere });
-      if (existing) return existing;
+      if (existing) {
+        if (fallbackWhere.email) {
+          const incomingPhone = normalizedArgs?.data?.phone || normalizedArgs?.data?.phoneNormalized;
+          const incomingCanonical = toCanonicalE164(incomingPhone);
+          const existingCanonical = toCanonicalE164(existing.phoneNormalized || existing.phone);
+          if (existing.phone || existing.phoneNormalized) {
+            if (!incomingCanonical || existingCanonical !== incomingCanonical) {
+              throw err;
+            }
+          }
+        }
+        return existing;
+      }
     }
     throw err;
   }
