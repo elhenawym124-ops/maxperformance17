@@ -863,14 +863,17 @@ if [ "$NEED_DB_PUSH" = "true" ]; then
   rm -f /tmp/maxp_combined_schema.prisma
   echo "✅ Database schema synchronized with PostgreSQL"
 
-  echo "🚀 Ensuring trigram GIN indexes for inbox search..."
-  if [ -f "${DEPLOY_STAGING:-}/scripts/ensure_trgm_indexes.sql" ]; then
-    sudo -u postgres psql -d maxp -f "${DEPLOY_STAGING:-}/scripts/ensure_trgm_indexes.sql" || echo "⚠️ Trigram index script note"
-  elif [ -f "scripts/ensure_trgm_indexes.sql" ]; then
-    sudo -u postgres psql -d maxp -f "scripts/ensure_trgm_indexes.sql" || echo "⚠️ Trigram index script note"
-  fi
 else
   echo "⚡ Prisma schema unchanged — skipping db push and seeding (saved ~2-3 minutes)"
+fi
+
+# Ensure trigram GIN indexes on every deploy — not only when the Prisma schema changes.
+# CREATE INDEX ... IF NOT EXISTS is idempotent; CONCURRENTLY avoids locking the inbox tables.
+echo "🚀 Ensuring trigram GIN indexes for inbox search..."
+if [ -f "${DEPLOY_STAGING:-}/scripts/ensure_trgm_indexes.sql" ]; then
+  sudo -u postgres psql -d maxp -f "${DEPLOY_STAGING:-}/scripts/ensure_trgm_indexes.sql" || echo "⚠️ Trigram index script note"
+elif [ -f "scripts/ensure_trgm_indexes.sql" ]; then
+  sudo -u postgres psql -d maxp -f "scripts/ensure_trgm_indexes.sql" || echo "⚠️ Trigram index script note"
 fi
 
 # Step 7.5: Sync file-defined marketplace apps/bundles into DB before the app boots.
