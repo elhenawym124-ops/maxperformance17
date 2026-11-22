@@ -1,5 +1,6 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuthSimple";
 import { Download, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PolarisLeavesView } from "./PolarisLeavesView";
@@ -16,7 +17,7 @@ import {
   LeaveChangeDecisionDialog,
 } from "./leaves/index";
 
-const Leaves: React.FC = () => {
+const LeavesBoard: React.FC = () => {
   const [searchParams] = useSearchParams();
   const urlLayout = searchParams.get("layout");
   const sessionLayout =
@@ -258,6 +259,20 @@ const Leaves: React.FC = () => {
       />
     </div>
   );
+};
+
+// الموظف العادي يستخدم /my-leaves — إدارة إجازات الشركة ترجع 403 له
+const Leaves: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const { user } = useAuth();
+  const adminRoles = ["SUPER_ADMIN", "COMPANY_ADMIN", "OWNER", "MANAGER"];
+  const canManageLeaves = !user?.role || adminRoles.includes(user.role);
+  // نفس المكوّن يخدم /my-leaves أيضًا — لا نعيد التوجيه منه تجنّبًا للحلقة
+  const isMyLeavesRoute = window.location.pathname.startsWith("/my-leaves");
+  if (!canManageLeaves && !isMyLeavesRoute) {
+    return <Navigate to="/my-leaves" replace />;
+  }
+  return <LeavesBoard />;
 };
 
 export default Leaves;

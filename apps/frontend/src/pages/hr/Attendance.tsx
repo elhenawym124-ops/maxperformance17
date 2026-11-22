@@ -1,7 +1,8 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { Clock, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuthSimple";
 import { PolarisAttendanceView } from "./PolarisAttendanceView";
 import {
   useAttendanceController,
@@ -19,7 +20,7 @@ import {
   AttendanceMissingPunchesSection,
 } from "./attendance/index";
 
-export const Attendance: React.FC = () => {
+const AttendanceBoard: React.FC = () => {
   const {
     loading,
     todayStats,
@@ -327,6 +328,20 @@ export const Attendance: React.FC = () => {
       />
     </div>
   );
+};
+
+/**
+ * الموظف العادي لا يملك صلاحية لوحة الحضور الإدارية (كل الطلبات ترجع 403)
+ * → نوجّهه لصفحة حضوره الذاتية بدل شاشة معطّلة بأزرار لا تعمل.
+ */
+export const Attendance: React.FC = () => {
+  const { user } = useAuth();
+  const adminRoles = ["SUPER_ADMIN", "COMPANY_ADMIN", "OWNER", "MANAGER"];
+  const canManageAttendance = !user?.role || adminRoles.includes(user.role);
+  if (!canManageAttendance) {
+    return <Navigate to="/my-attendance" replace />;
+  }
+  return <AttendanceBoard />;
 };
 
 export default Attendance;

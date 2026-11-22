@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuthSimple';
 import PayrollSimulator from './components/PayrollSimulator';
 import { PolarisPayrollView } from './PolarisPayrollView';
 import {
@@ -15,7 +16,7 @@ import {
   PayrollPaymentModal,
 } from './payroll/index';
 
-const Payroll: React.FC = () => {
+const PayrollBoard: React.FC = () => {
   const {
     isMyPayroll,
     loading,
@@ -286,6 +287,17 @@ const Payroll: React.FC = () => {
       )}
     </div>
   );
+};
+
+// الموظف العادي يستخدم /my-payroll — لوحة رواتب الشركة ترجع 403 له
+const Payroll: React.FC = () => {
+  const { user } = useAuth();
+  const adminRoles = ["SUPER_ADMIN", "COMPANY_ADMIN", "OWNER", "MANAGER"];
+  const canManagePayroll = !user?.role || adminRoles.includes(user.role);
+  if (!canManagePayroll) {
+    return <Navigate to="/my-payroll" replace />;
+  }
+  return <PayrollBoard />;
 };
 
 export default React.memo(Payroll);
