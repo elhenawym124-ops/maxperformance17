@@ -203,7 +203,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
     });
   }, [sessions]);
 
-  // Filtered Instructors (المهندسين)
+  // Filtered Instructors (المدرسين)
   const filteredTeachers = useMemo(() => {
     return teachers.filter((t) => {
       if (!teacherSearch.trim()) return true;
@@ -294,7 +294,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold shadow-xs transition-all active:scale-95"
             >
               <Plus className="w-3.5 h-3.5" />
-              {isEn ? "Add Instructor" : "إضافة مهندس"}
+              {isEn ? "Add Instructor" : "إضافة مدرس"}
             </button>
 
             <div className="h-5 w-[1px] bg-border/80 mx-1 hidden sm:block" />
@@ -304,7 +304,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl border border-border/80 bg-background hover:bg-muted text-xs font-medium text-foreground transition-colors"
             >
               <Calendar className="w-3.5 h-3.5 text-primary" />
-              {isEn ? "Instructor Schedule" : "جدول المهندسين"}
+              {isEn ? "Instructor Schedule" : "جدول المدرسين"}
             </Link>
 
             <Link
@@ -312,7 +312,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl border border-border/80 bg-background hover:bg-muted text-xs font-medium text-foreground transition-colors"
             >
               <DollarSign className="w-3.5 h-3.5 text-success" />
-              {isEn ? "Instructor Payments" : "مرتبات المهندسين"}
+              {isEn ? "Instructor Payments" : "مرتبات المدرسين"}
             </Link>
           </div>
         </div>
@@ -347,7 +347,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
             tab: "students" as TabId,
           },
           {
-            label: isEn ? "Instructors" : "المهندسين",
+            label: isEn ? "Instructors" : "المدرسين",
             value: stats.totalTeachers,
             icon: GraduationCap,
             color: "text-amber-600 dark:text-warning bg-warning/10 border-warning/20",
@@ -472,7 +472,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-warning dark:text-warning flex items-center gap-1.5">
                   <GraduationCap className="w-4 h-4 text-warning shrink-0" />
-                  {isEn ? "Unassigned Instructors" : "اشتراكات بدون مهندس"}
+                  {isEn ? "Unassigned Instructors" : "اشتراكات بدون مدرس"}
                 </span>
                 <span className="font-mono text-xs font-bold bg-warning/20 text-warning dark:text-warning px-2 py-0.5 rounded-full">
                   {unassignedEnrollments.length}
@@ -497,7 +497,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                       }}
                       className="px-2 py-0.5 bg-warning hover:bg-warning text-white rounded text-[10px] font-semibold shrink-0"
                     >
-                      {isEn ? "Assign Instructor" : "تعيين مهندس"}
+                      {isEn ? "Assign Instructor" : "تعيين مدرس"}
                     </button>
                   </div>
                 ))}
@@ -615,7 +615,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                 placeholder={
                   isEn
                     ? "Search by student, instructor, subject, or topic..."
-                    : "بحث باسم الطالب، المهندس، المادة، أو موضوع الحصة..."
+                    : "بحث باسم الطالب، المدرس، المادة، أو موضوع الحصة..."
                 }
                 value={sessionSearch}
                 onChange={(e) => setSessionSearch(e.target.value)}
@@ -712,7 +712,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                             {s.teacher.name}
                           </button>
                         ) : (
-                          <span>{isEn ? "Unassigned Instructor" : "مهندس غير محدد"}</span>
+                          <span>{isEn ? "Unassigned Instructor" : "مدرس غير محدد"}</span>
                         )}
                       </span>
                     </div>
@@ -777,12 +777,12 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
               <GraduationCap className="w-5 h-5 text-warning shrink-0" />
               <div>
                 <h3 className="text-sm font-bold text-foreground">
-                  {isEn ? "Instructors & Workload" : "لوحة المهندسين وساعات العمل"}
+                  {isEn ? "Instructors & Workload" : "لوحة المدرسين وساعات العمل"}
                 </h3>
               </div>
             </div>
 
-            {/* «الجدول الكامل» link removed — duplicates the action-bar «جدول المهندسين» button (same /teacher-schedule destination) */}
+            {/* «الجدول الكامل» link removed — duplicates the action-bar «جدول المدرسين» button (same /teacher-schedule destination) */}
           </div>
 
           {/* Search instructors */}
@@ -791,7 +791,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
             <input
               type="text"
               placeholder={
-                isEn ? "Search instructors by name or subject..." : "بحث باسم المهندس أو المادة..."
+                isEn ? "Search instructors by name or subject..." : "بحث باسم المدرس أو المادة..."
               }
               value={teacherSearch}
               onChange={(e) => setTeacherSearch(e.target.value)}
@@ -864,7 +864,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                         setActiveDrawer({ type: "teacher", id: teacher.id })
                       }
                       className="p-1.5 rounded-lg border border-border/80 bg-background hover:bg-muted text-primary text-xs shrink-0"
-                      aria-label={isEn ? "View instructor drawer" : "معاينة المهندس"} title={isEn ? "View instructor drawer" : "معاينة المهندس"}
+                      aria-label={isEn ? "View instructor drawer" : "معاينة المدرس"} title={isEn ? "View instructor drawer" : "معاينة المدرس"}
                     >
                       <Eye className="w-3.5 h-3.5" />
                     </button>
@@ -884,7 +884,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
                         ))
                       ) : (
                         <span className="text-muted-foreground text-[10px]">
-                          {isEn ? "General Instructor" : "مهندس معتمد"}
+                          {isEn ? "General Instructor" : "مدرس معتمد"}
                         </span>
                       )}
                     </div>
@@ -929,7 +929,7 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
 
             {filteredTeachers.length === 0 && (
               <div className="p-8 text-center border border-dashed border-border/80 rounded-xl space-y-1 text-xs text-muted-foreground">
-                {isEn ? "No instructors found" : "لم يتم العثور على مهندسين"}
+                {isEn ? "No instructors found" : "لم يتم العثور على مدرسين"}
               </div>
             )}
           </div>

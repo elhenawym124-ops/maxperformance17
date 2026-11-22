@@ -185,7 +185,19 @@ export const EducationStudentsTable: React.FC<EducationStudentsTableProps> = ({
               const packagePrice = activeEnrollment?.package?.price ?? 0;
               const amountPaid = activeEnrollment?.amountPaid ?? 0;
               const remainingAmount = Math.max(0, packagePrice - amountPaid);
-              const pStatus = activeEnrollment?.paymentStatus || "PENDING";
+              const pStatus = (() => {
+  const raw = String(activeEnrollment?.paymentStatus || "PENDING").toUpperCase();
+  const paid = Number(activeEnrollment?.amountPaid || 0);
+  const price = Number(activeEnrollment?.package?.price || activeEnrollment?.finalAmount || 0);
+  // المبالغ هي المصدر الأصدق عند توفر السعر
+  if (price > 0) {
+    if (paid >= price) return "PAID";
+    return paid > 0 ? "PARTIAL" : "PENDING";
+  }
+  if (raw === "COMPLETED" || raw === "PAID") return "PAID";
+  if (raw === "PARTIALLY_PAID" || raw === "PARTIAL") return "PARTIAL";
+  return "PENDING";
+})();
               const isSelected = selectedIds.has(s.id);
               const studentSubjects = Array.isArray((s as any).subjects) ? (s as any).subjects : [];
               const groupName = (s as any).groupName;
