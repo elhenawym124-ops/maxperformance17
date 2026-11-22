@@ -47,7 +47,13 @@ export const CompanyProvider: React.FC<{ children: ReactNode }> = ({
 
   // Fetch company data
   const fetchCompany = useCallback(async (bypassCache = false) => {
-    if (!isAuthenticated || !companyId) {
+    // حساب بلا توكن فعلي (صفحة دخول عامة) — كان يرسل طلبًا ويرجع 401 في الكونسول
+    const hasToken =
+      typeof window !== "undefined" &&
+      Boolean(
+        localStorage.getItem("token") || localStorage.getItem("accessToken"),
+      );
+    if (!isAuthenticated || !companyId || !hasToken) {
       setCompany(null);
       setCompanyError(null);
       return;

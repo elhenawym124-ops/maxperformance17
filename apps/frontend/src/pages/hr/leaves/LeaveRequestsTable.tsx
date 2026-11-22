@@ -177,6 +177,8 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                             <Button
                               size="sm"
                               variant="default"
+                              aria-label={t("employee.leaves.approve") || "موافقة"}
+                              title={t("employee.leaves.approve") || "موافقة"}
                               onClick={() => onApprove(request.id)}
                             >
                               <Check className="h-4 w-4" />
@@ -184,6 +186,8 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                             <Button
                               size="sm"
                               variant="destructive"
+                              aria-label={t("employee.leaves.reject") || "رفض"}
+                              title={t("employee.leaves.reject") || "رفض"}
                               onClick={() => onOpenReject(request)}
                             >
                               <X className="h-4 w-4" />
@@ -241,6 +245,8 @@ export const LeaveRequestsTable: React.FC<LeaveRequestsTableProps> = ({
                         <Button
                           size="sm"
                           variant="ghost"
+                          aria-label={t("common.details") || "التفاصيل"}
+                          title={t("common.details") || "التفاصيل"}
                           onClick={() => onOpenDetails(request)}
                         >
                           <Eye className="h-4 w-4" />

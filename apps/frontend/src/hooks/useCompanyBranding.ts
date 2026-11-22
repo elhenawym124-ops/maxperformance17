@@ -183,6 +183,16 @@ export const useCompanyBranding = (
       (!hostSubdomain ||
         resolvedCompanyId.toLowerCase() !== hostSubdomain.toLowerCase());
 
+    // لا يوجد سياق شركة (صفحة دخول عامة) → لا نطلب البراندينج إطلاقًا
+    // كان الطلب يرجع 404 ثم fallback بـ400 ويلوّث الـConsole
+    const hasCompanyContext = Boolean(
+      resolvedCompanyId || hostSubdomain || slugParam || codeParam,
+    );
+    if (!hasCompanyContext) {
+      setBranding((prev) => ({ ...prev, loading: false }));
+      return;
+    }
+
     const queryParams = new URLSearchParams();
     if (shouldSendCompanyId) queryParams.set("companyId", resolvedCompanyId);
     if (slugParam) queryParams.set("slug", slugParam);
