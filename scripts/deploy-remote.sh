@@ -868,13 +868,18 @@ else
 fi
 
 # Ensure trigram GIN indexes on every deploy — not only when the Prisma schema changes.
+# The SQL is inlined because DEPLOY_STAGING contains only this deploy script, not scripts/.
 # CREATE INDEX ... IF NOT EXISTS is idempotent; CONCURRENTLY avoids locking the inbox tables.
 echo "🚀 Ensuring trigram GIN indexes for inbox search..."
-if [ -f "${DEPLOY_STAGING:-}/scripts/ensure_trgm_indexes.sql" ]; then
-  sudo -u postgres psql -d maxp -f "${DEPLOY_STAGING:-}/scripts/ensure_trgm_indexes.sql" || echo "⚠️ Trigram index script note"
-elif [ -f "scripts/ensure_trgm_indexes.sql" ]; then
-  sudo -u postgres psql -d maxp -f "scripts/ensure_trgm_indexes.sql" || echo "⚠️ Trigram index script note"
-fi
+sudo -u postgres psql -d maxp -v ON_ERROR_STOP=1 <<'SQL' || echo "⚠️ Trigram index script note"
+\echo 'trgm: ensuring pg_trgm + 5 GIN indexes'
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_customers_first_name_trgm ON customers USING gin ("firstName" gin_trgm_ops);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_customers_last_name_trgm ON customers USING gin ("lastName" gin_trgm_ops);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_customers_phone_trgm ON customers USING gin (phone gin_trgm_ops);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_conversations_last_message_preview_trgm ON conversations USING gin ("lastMessagePreview" gin_trgm_ops);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_messages_content_trgm ON messages USING gin (content gin_trgm_ops);
+SQL
 
 # Step 7.5: Sync file-defined marketplace apps/bundles into DB before the app boots.
 # This keeps production (CATALOG_SOURCE=db) from hiding newly shipped catalog entries.
