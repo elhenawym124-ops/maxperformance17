@@ -587,12 +587,12 @@ const addMember = async (req, res) => {
 
     // Check if group exists and check capacity
     const groupRows = await prisma.$queryRawUnsafe(`
-      SELECT g.id, g."name", g."feeType", g."feeAmount", g.capacity,
+      SELECT g.id, g."name", g."feeType", g."feeAmount", g."branchId", g.capacity,
              COALESCE(COUNT(m.id) FILTER (WHERE m.status = 'ACTIVE'), 0) AS active_count
       FROM "education_groups" g
       LEFT JOIN "education_group_members" m ON m."groupId" = g.id AND m."companyId" = g."companyId"
       WHERE g.id = $1 AND g."companyId" = $2
-      GROUP BY g.id, g."name", g."feeType", g."feeAmount", g.capacity
+      GROUP BY g.id, g."name", g."feeType", g."feeAmount", g."branchId", g.capacity
     `, groupId, companyId);
 
     if (!groupRows || groupRows.length === 0) {
@@ -693,6 +693,7 @@ const addMember = async (req, res) => {
             studentId,
             groupId,
             groupMemberId: memberId,
+            branchId: group.branchId || null,
             studentName: studentInfo ? `${studentInfo.firstName} ${studentInfo.lastName}`.trim() : null,
             amount: paidNum,
             method: 'CASH',

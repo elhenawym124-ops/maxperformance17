@@ -456,6 +456,8 @@ const payInstallment = async (req, res) => {
             receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
             studentId: saved.studentId,
             enrollmentId: saved.id,
+            branchId: saved.branchId || null,
+            packageId: saved.packageId || null,
             studentName: studentName || null,
             amount,
             method: 'CASH',

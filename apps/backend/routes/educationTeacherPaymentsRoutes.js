@@ -11,5 +11,6 @@ router.get('/', requireDbPermission('education.financials.view'), controller.get
 router.post('/calculate', requireDbPermission('education.financials.view'), controller.calculate);
 router.post('/', requireDbPermission('education.financials.manage'), controller.create);
 router.put('/:id/mark-paid', requireDbPermission('education.financials.manage'), controller.markPaid);
+router.put('/:id/cancel', requireDbPermission('education.financials.manage'), controller.cancelPayment);
 
 module.exports = router;

@@ -220,17 +220,20 @@ model EducationPayment {
   enrollmentId   String?
   groupId        String?
   groupMemberId  String?
+  branchId       String?
+  packageId      String?
   studentName    String?
   amount         Float
   method         String    @default("CASH") /// CASH, TRANSFER, WALLET, CARD, INSTAPAY, OTHER
-  status         String    @default("COMPLETED") /// COMPLETED, REVERSED
-  source         String    @default("ADMIN") /// ADMIN, PARENT_WALLET, GROUP, SYSTEM
+  status         String    @default("COMPLETED") /// COMPLETED, PARTIALLY_REVERSED, REVERSED
+  source         String    @default("ADMIN") /// ADMIN, PARENT_WALLET, GROUP, INSTALLMENT, SYSTEM, BACKFILL
   receiptNumber  String?
   reference      String?
   notes          String?
   paidAt         DateTime  @default(now())
   cashierId      String?
   cashierName    String?
+  reversedAmount Float     @default(0)
   reversedAt     DateTime?
   reversedById   String?
   reversalReason String?
@@ -242,6 +245,8 @@ model EducationPayment {
   @@index([companyId, studentId])
   @@index([companyId, enrollmentId])
   @@index([companyId, groupMemberId])
+  @@index([companyId, branchId])
+  @@index([companyId, packageId])
   @@index([companyId, status])
   @@map("education_payments")
 }

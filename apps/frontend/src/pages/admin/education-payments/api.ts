@@ -37,6 +37,8 @@ export interface PaymentsQuery {
   status?: string;
   q?: string;
   studentId?: string;
+  branchId?: string;
+  packageId?: string;
   page?: number;
   limit?: number;
 }
@@ -72,8 +74,15 @@ export const recordPayment = (
   }
 ): Promise<EducationPayment> => post(api("finance/payments"), payload);
 
-export const reversePayment = (id: string, reason?: string): Promise<EducationPayment> =>
-  post(api(`finance/payments/${id}/reverse`), { reason });
+export const reversePayment = (id: string, amount?: number, reason?: string): Promise<EducationPayment> =>
+  post(api(`finance/payments/${id}/reverse`), { amount, reason });
+
+export const sendPaymentReceipt = (id: string): Promise<{ sent: boolean; phone?: string; reason?: string }> =>
+  post(api(`finance/payments/${id}/send-receipt`));
+
+export const fetchBranches = (): Promise<Array<{ id: string; name: string }>> => fetchJson(api("branches"));
+
+export const fetchPackages = (): Promise<Array<{ id: string; name: string }>> => fetchJson(api("packages"));
 
 export const fetchTopups = (status = "PENDING_RELEASE"): Promise<WalletTopup[]> =>
   fetchJson(api(`finance/topups${query({ status })}`));

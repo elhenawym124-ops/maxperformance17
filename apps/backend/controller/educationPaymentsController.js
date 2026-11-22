@@ -139,10 +139,12 @@ const buildPaymentsWhere = (query, companyId) => {
   const where = { companyId };
   if (query.studentId) where.studentId = query.studentId;
   if (query.enrollmentId) where.enrollmentId = query.enrollmentId;
+  if (query.branchId) where.branchId = query.branchId;
+  if (query.packageId) where.packageId = query.packageId;
   if (query.method && PAYMENT_METHODS.includes(String(query.method).toUpperCase())) {
     where.method = String(query.method).toUpperCase();
   }
-  if (query.status && ['COMPLETED', 'REVERSED'].includes(String(query.status).toUpperCase())) {
+  if (query.status && ['COMPLETED', 'REVERSED', 'PARTIALLY_REVERSED'].includes(String(query.status).toUpperCase())) {
     where.status = String(query.status).toUpperCase();
   }
   if (query.from || query.to) {
@@ -211,8 +213,8 @@ const exportPayments = async (req, res) => {
     });
 
     const header = [
-      'payment_number', 'receipt_number', 'paid_at', 'student_name', 'amount',
-      'method', 'source', 'status', 'cashier', 'reference', 'notes',
+      'payment_number', 'receipt_number', 'paid_at', 'student_name', 'amount', 'reversed_amount',
+      'method', 'source', 'status', 'branch_id', 'package_id', 'cashier', 'reference', 'notes',
     ];
     const escapeCsv = (value) => {
       const text = value === null || value === undefined ? '' : String(value);
@@ -226,9 +228,12 @@ const exportPayments = async (req, res) => {
         row.paidAt ? new Date(row.paidAt).toISOString() : '',
         row.studentName,
         money(row.amount),
+        money(row.reversedAmount),
         row.method,
         row.source,
         row.status,
+        row.branchId,
+        row.packageId,
         row.cashierName,
         row.reference,
         row.notes,
@@ -571,7 +576,7 @@ const recordPayment = async (req, res) => {
       } else {
         const rows = await tx.$queryRawUnsafe(`
           SELECT m."id", m."groupId", m."studentId", m."status", m."paymentStatus", m."amountPaid", m."nextRenewalDate",
-                 g."name" AS "groupName", g."feeAmount", g."feeType",
+                 g."name" AS "groupName", g."feeAmount", g."feeType", g."branchId" AS "groupBranchId",
                  s."firstName", s."lastName"
           FROM "education_group_members" m
           JOIN "education_groups" g ON g."id" = m."groupId" AND g."companyId" = m."companyId"
@@ -646,6 +651,8 @@ const recordPayment = async (req, res) => {
           enrollmentId: enrollment?.id || null,
           groupId: member?.groupId || null,
           groupMemberId: member?.id || null,
+          branchId: enrollment?.branchId || member?.groupBranchId || null,
+          packageId: enrollment?.packageId || null,
           studentName: studentName || null,
           amount: value,
           method: paymentMethod,
@@ -722,12 +729,44 @@ const reversePayment = async (req, res) => {
         throw err;
       }
 
+      const alreadyReversed = money(payment.reversedAmount);
+      const remaining = money(money(payment.amount) - alreadyReversed);
+      if (remaining <= 0.009) {
+        const err = new Error('لا يوجد مبلغ متبقٍ قابل للإلغاء');
+        err.statusCode = 409;
+        throw err;
+      }
+
+      const requested = req.body?.amount === undefined || req.body?.amount === null || req.body?.amount === ''
+        ? remaining
+        : money(req.body.amount);
+      if (requested <= 0) {
+        const err = new Error('مبلغ الإلغاء غير صحيح');
+        err.statusCode = 400;
+        throw err;
+      }
+      if (requested > remaining + 0.009) {
+        const err = new Error(`مبلغ الإلغاء أكبر من المتبقي (${remaining} ج.م)`);
+        err.statusCode = 400;
+        throw err;
+      }
+
+      const reversalRef = `${payment.id}_rev_${alreadyReversed}_${requested}`;
+      const duplicate = await tx.treasuryTransaction.findFirst({
+        where: { companyId, referenceType: 'EDUCATION_PAYMENT_REVERSAL', referenceId: reversalRef },
+      });
+      if (duplicate) {
+        const err = new Error('تم تنفيذ هذا الإلغاء بالفعل');
+        err.statusCode = 409;
+        throw err;
+      }
+
       if (payment.enrollmentId) {
         const enrollment = await tx.educationEnrollment.findFirst({
           where: { id: payment.enrollmentId, companyId },
         });
         if (enrollment) {
-          const newPaid = money(Math.max(0, money(enrollment.amountPaid) - money(payment.amount)));
+          const newPaid = money(Math.max(0, money(enrollment.amountPaid) - requested));
           const total = money(enrollment.finalAmount || 0);
           await tx.educationEnrollment.update({
             where: { id: enrollment.id },
@@ -749,7 +788,7 @@ const reversePayment = async (req, res) => {
         `, payment.groupMemberId, companyId);
         const member = Array.isArray(rows) ? rows[0] : null;
         if (member) {
-          const remainingPaid = money(Math.max(0, money(member.amountPaid) - money(payment.amount)));
+          const remainingPaid = money(Math.max(0, money(member.amountPaid) - requested));
           const fee = money(member.feeAmount);
           const newStatus = remainingPaid <= 0.009 ? 'PENDING' : (fee > 0 && remainingPaid >= fee - 0.009 ? 'PAID' : 'PARTIAL');
           await tx.$executeRawUnsafe(`
@@ -764,17 +803,21 @@ const reversePayment = async (req, res) => {
       await postExpense(tx, {
         companyId,
         treasury,
-        amount: money(payment.amount),
+        amount: requested,
         referenceType: 'EDUCATION_PAYMENT_REVERSAL',
-        referenceId: payment.id,
-        description: `إلغاء تحصيل ${payment.paymentNumber}${reason ? ` — ${reason}` : ''}`,
+        referenceId: reversalRef,
+        description: `إلغاء ${requested} ج.م من تحصيل ${payment.paymentNumber}${reason ? ` — ${reason}` : ''}`,
         createdById: req.user?.id,
       });
+
+      const newReversed = money(alreadyReversed + requested);
+      const fullyReversed = newReversed >= money(payment.amount) - 0.009;
 
       return tx.educationPayment.update({
         where: { id: payment.id },
         data: {
-          status: 'REVERSED',
+          status: fullyReversed ? 'REVERSED' : 'PARTIALLY_REVERSED',
+          reversedAmount: newReversed,
           reversedAt: new Date(),
           reversedById: req.user?.id || null,
           reversalReason: reason,
@@ -1200,6 +1243,67 @@ const getReports = async (req, res) => {
   }
 };
 
+const sendReceipt = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const payment = await prisma.educationPayment.findFirst({
+      where: { id: req.params.id, companyId },
+    });
+    if (!payment) return res.status(404).json({ success: false, error: 'الدفعة غير موجودة' });
+
+    const [student, enrollment] = await Promise.all([
+      payment.studentId
+        ? prisma.educationStudent.findFirst({
+            where: { id: payment.studentId, companyId },
+            select: {
+              id: true, customerId: true,
+              customer: { select: { firstName: true, lastName: true, phone: true } },
+            },
+          })
+        : null,
+      payment.enrollmentId
+        ? prisma.educationEnrollment.findFirst({
+            where: { id: payment.enrollmentId, companyId },
+            include: { package: { select: { name: true } } },
+          })
+        : null,
+    ]);
+
+    const phone = student?.customer?.phone || null;
+    if (!phone) {
+      return res.status(400).json({ success: false, error: 'لا يوجد رقم هاتف لولي الأمر لإرسال الإيصال' });
+    }
+
+    const notificationService = require('../services/educationNotificationService');
+    const result = await notificationService.notifyPaymentReceipt({
+      companyId,
+      customerId: student?.customerId || null,
+      parentName: `${student?.customer?.firstName || ''} ${student?.customer?.lastName || ''}`.trim() || 'وليّ الأمر',
+      parentPhone: phone,
+      studentName: payment.studentName || '',
+      amount: money(payment.amount),
+      receiptNumber: payment.receiptNumber || payment.paymentNumber,
+      paidAt: payment.paidAt,
+      packageName: enrollment?.package?.name || null,
+    });
+
+    res.json({
+      success: true,
+      data: {
+        sent: result?.success !== false,
+        reason: result?.reason || null,
+        phone,
+      },
+    });
+  } catch (error) {
+    console.error('Error sending payment receipt:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في إرسال الإيصال' });
+  }
+};
+
 module.exports = {
   listPayments,
   exportPayments,
@@ -1212,6 +1316,7 @@ module.exports = {
   releaseTopup,
   rejectTopup,
   getReceipt,
+  sendReceipt,
   PAYMENT_METHODS,
   enrollmentStatusAfterPayment,
   nextRenewal,

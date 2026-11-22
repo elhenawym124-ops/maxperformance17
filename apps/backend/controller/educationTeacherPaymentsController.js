@@ -332,4 +332,96 @@ const markPaid = async (req, res) => {
   }
 };
 
-module.exports = { getAll, calculate, create, markPaid };
+const cancelPayment = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id } = req.params;
+    const reason = req.body?.reason ? String(req.body.reason).slice(0, 500) : null;
+    const prisma = getSharedPrismaClient();
+
+    const existing = await prisma.educationTeacherPayment.findFirst({
+      where: { id, companyId },
+      include: { teacher: { select: { id: true, name: true } } }
+    });
+    if (!existing) return res.status(404).json({ success: false, error: 'مسير الرواتب غير موجود' });
+    if (existing.status === 'CANCELLED') {
+      return res.status(409).json({ success: false, error: 'المسير ملغى بالفعل' });
+    }
+
+    const wasPaid = existing.status === 'PAID';
+    const noteLine = `\n[إلغاء ${new Date().toISOString().slice(0, 10)}]${reason ? ` ${reason}` : ''}`;
+
+    const updated = await prisma.$transaction(async (tx) => {
+      const saved = await tx.educationTeacherPayment.update({
+        where: { id },
+        data: {
+          status: 'CANCELLED',
+          paidAt: null,
+          notes: `${existing.notes || ''}${noteLine}`.trim()
+        },
+        include: { teacher: { select: { id: true, name: true } } }
+      });
+
+      if (!wasPaid) return saved;
+
+      const educationFinancialService = require('../services/educationFinancialIntegrationService');
+      const treasury = await educationFinancialService.getOrCreateDefaultTreasury(tx, companyId);
+
+      const existingReversal = await tx.treasuryTransaction.findFirst({
+        where: {
+          companyId,
+          referenceType: 'EDUCATION_TEACHER_PAYMENT_REVERSAL',
+          referenceId: String(id)
+        }
+      });
+      if (!existingReversal) {
+        const updatedTreasury = await tx.treasuryAccount.update({
+          where: { id: treasury.id },
+          data: { balance: { increment: Number(existing.netAmount) || 0 } }
+        });
+        await tx.treasuryTransaction.create({
+          data: {
+            companyId,
+            treasuryAccountId: treasury.id,
+            amount: Number(existing.netAmount) || 0,
+            type: 'DEPOSIT',
+            runningBalance: Number(updatedTreasury.balance),
+            referenceType: 'EDUCATION_TEACHER_PAYMENT_REVERSAL',
+            referenceId: String(id),
+            description: `إلغاء صرف مرتب ${existing.teacher?.name || ''} بمبلغ ${existing.netAmount} ج.م${reason ? ` — ${reason}` : ''}`.trim(),
+            createdById: req.user?.id || null,
+            date: new Date()
+          }
+        });
+      }
+
+      await tx.companyExpense.updateMany({
+        where: { companyId, notes: { contains: `معرف الدفعة: ${id}` } },
+        data: { status: 'CANCELLED' }
+      });
+
+      return saved;
+    });
+
+    logEducationEvent({
+      companyId,
+      action: 'CANCEL_PAYMENT',
+      entityType: 'PAYMENT',
+      entityId: updated.id,
+      entityName: `مسير ${updated.teacher?.name || ''}`,
+      description: `تم إلغاء مسير استحقاق ${updated.teacher?.name || ''} بمبلغ ${updated.netAmount} ج.م${reason ? ` — ${reason}` : ''}`,
+      details: { teacherId: updated.teacherId, netAmount: updated.netAmount, wasPaid, reason },
+      severity: 'HIGH',
+      req,
+    }).catch(e => console.error('[PaymentAudit]', e.message));
+
+    res.json({ success: true, data: updated });
+  } catch (error) {
+    console.error('Error cancelling payment:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في إلغاء الدفعة' });
+  }
+};
+
+module.exports = { getAll, calculate, create, markPaid, cancelPayment };

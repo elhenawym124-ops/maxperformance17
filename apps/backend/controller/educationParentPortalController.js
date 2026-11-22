@@ -176,6 +176,7 @@ const purchasePackage = async (req, res) => {
             receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
             studentId,
             enrollmentId: enrollment.id,
+            packageId,
             studentName: `${student.firstName || ''} ${student.lastName || ''}`.trim() || null,
             amount: payable,
             method: 'WALLET',

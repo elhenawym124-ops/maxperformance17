@@ -9,8 +9,17 @@ import {
   RefreshCw,
   RotateCcw,
   Search,
+  Send,
 } from "lucide-react";
-import { downloadPaymentsCsv, fetchPayments, reversePayment } from "./api";
+import { toast } from "sonner";
+import {
+  downloadPaymentsCsv,
+  fetchBranches,
+  fetchPackages,
+  fetchPayments,
+  reversePayment,
+  sendPaymentReceipt,
+} from "./api";
 import { EmptyState, INPUT_CLS, StatusPill, formatDate, formatDateTime, money, monthStartInput, todayInput } from "./shared";
 import { PAYMENT_METHOD_LABELS, SOURCE_LABELS } from "./types";
 import type { EducationPayment, PaymentsPagination } from "./types";
@@ -36,11 +45,16 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
     to: todayInput(),
     method: "",
     status: "",
+    branchId: "",
+    packageId: "",
     q: "",
   });
+  const [branches, setBranches] = useState<Array<{ id: string; name: string }>>([]);
+  const [packages, setPackages] = useState<Array<{ id: string; name: string }>>([]);
   const [page, setPage] = useState(1);
   const [reverseTarget, setReverseTarget] = useState<EducationPayment | null>(null);
   const [reverseReason, setReverseReason] = useState("");
+  const [reverseAmount, setReverseAmount] = useState<number | "">("");
   const [reversing, setReversing] = useState(false);
   const [reverseError, setReverseError] = useState("");
 
@@ -66,14 +80,39 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
     return cleanup;
   }, [load]);
 
+  useEffect(() => {
+    let alive = true;
+    Promise.allSettled([fetchBranches(), fetchPackages()]).then(([branchResult, packageResult]) => {
+      if (!alive) return;
+      if (branchResult.status === "fulfilled" && Array.isArray(branchResult.value)) setBranches(branchResult.value);
+      if (packageResult.status === "fulfilled" && Array.isArray(packageResult.value)) setPackages(packageResult.value);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
   const submitReverse = async () => {
     if (!reverseTarget) return;
+    const value = Number(reverseAmount);
+    const remaining = Math.max(0, Number(reverseTarget.amount) - Number(reverseTarget.reversedAmount || 0));
+    if (!value || value <= 0) {
+      setReverseError(isEn ? "Enter a valid amount" : "أدخل مبلغاً صحيحاً");
+      return;
+    }
+    if (value > remaining + 0.01) {
+      setReverseError(
+        isEn ? `Amount exceeds the remaining (${money(remaining)} EGP)` : `المبلغ أكبر من المتبقي (${money(remaining)} ج.م)`
+      );
+      return;
+    }
     try {
       setReversing(true);
       setReverseError("");
-      await reversePayment(reverseTarget.id, reverseReason.trim() || undefined);
+      await reversePayment(reverseTarget.id, value, reverseReason.trim() || undefined);
       setReverseTarget(null);
       setReverseReason("");
+      setReverseAmount("");
       onChanged();
       load();
     } catch (e: any) {
@@ -84,14 +123,14 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
   };
 
   const resetFilters = () => {
-    setFilters({ from: monthStartInput(), to: todayInput(), method: "", status: "", q: "" });
+    setFilters({ from: monthStartInput(), to: todayInput(), method: "", status: "", branchId: "", packageId: "", q: "" });
     setPage(1);
   };
 
   return (
     <div className="space-y-4">
       <div className="rounded-xl border border-border/70 bg-card p-3 sm:p-4">
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-2.5">
+        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 gap-2.5">
           <div className="space-y-1">
             <label className="text-[11px] font-medium text-muted-foreground" htmlFor="edu-pay-from">
               {isEn ? "From" : "من تاريخ"}
@@ -158,7 +197,50 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
             >
               <option value="">{isEn ? "All" : "الكل"}</option>
               <option value="COMPLETED">{isEn ? "Completed" : "محصلة"}</option>
+              <option value="PARTIALLY_REVERSED">{isEn ? "Partially reversed" : "ملغاة جزئياً"}</option>
               <option value="REVERSED">{isEn ? "Reversed" : "ملغاة"}</option>
+            </select>
+          </div>
+          <div className="space-y-1">
+            <label className="text-[11px] font-medium text-muted-foreground" htmlFor="edu-pay-branch-filter">
+              {isEn ? "Branch" : "الفرع"}
+            </label>
+            <select
+              id="edu-pay-branch-filter"
+              className={INPUT_CLS}
+              value={filters.branchId}
+              onChange={(e) => {
+                setFilters((prev) => ({ ...prev, branchId: e.target.value }));
+                setPage(1);
+              }}
+            >
+              <option value="">{isEn ? "All branches" : "كل الفروع"}</option>
+              {branches.map((branch) => (
+                <option key={branch.id} value={branch.id}>
+                  {branch.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-1">
+            <label className="text-[11px] font-medium text-muted-foreground" htmlFor="edu-pay-package-filter">
+              {isEn ? "Package" : "الباقة"}
+            </label>
+            <select
+              id="edu-pay-package-filter"
+              className={INPUT_CLS}
+              value={filters.packageId}
+              onChange={(e) => {
+                setFilters((prev) => ({ ...prev, packageId: e.target.value }));
+                setPage(1);
+              }}
+            >
+              <option value="">{isEn ? "All packages" : "كل الباقات"}</option>
+              {packages.map((pkg) => (
+                <option key={pkg.id} value={pkg.id}>
+                  {pkg.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="space-y-1 col-span-2">
@@ -250,7 +332,12 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
               </thead>
               <tbody>
                 {items.map((payment) => {
-                  const reversed = payment.status === "REVERSED";
+                  const fullyReversed = payment.status === "REVERSED";
+                  const partiallyReversed = payment.status === "PARTIALLY_REVERSED";
+                  const remainingToReverse = Math.max(
+                    0,
+                    Number(payment.amount) - Number(payment.reversedAmount || 0)
+                  );
                   const sourceLabel = SOURCE_LABELS[payment.source || "ADMIN"];
                   return (
                     <tr key={payment.id} className="border-t border-border/60 hover:bg-muted/20">
@@ -272,6 +359,11 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                       </td>
                       <td className="px-3 py-2.5 font-mono tabular-nums font-semibold text-foreground">
                         {money(payment.amount)}
+                        {Number(payment.reversedAmount || 0) > 0 ? (
+                          <span className="block text-[10px] font-normal text-destructive">
+                            {isEn ? "reversed" : "ملغى"}: {money(payment.reversedAmount)}
+                          </span>
+                        ) : null}
                       </td>
                       <td className="px-3 py-2.5">
                         {isEn
@@ -281,7 +373,7 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                       <td className="px-3 py-2.5 font-mono text-muted-foreground"><span dir="ltr">{formatDateTime(payment.paidAt)}</span></td>
                       <td className="px-3 py-2.5 text-muted-foreground">{payment.cashierName || "—"}</td>
                       <td className="px-3 py-2.5">
-                        {reversed ? (
+                        {fullyReversed ? (
                           <div className="space-y-0.5">
                             <StatusPill tone="danger">{isEn ? "Reversed" : "ملغاة"}</StatusPill>
                             {payment.reversalReason ? (
@@ -290,6 +382,8 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                               </p>
                             ) : null}
                           </div>
+                        ) : partiallyReversed ? (
+                          <StatusPill tone="warning">{isEn ? "Partially reversed" : "ملغاة جزئياً"}</StatusPill>
                         ) : (
                           <StatusPill tone="success">{isEn ? "Completed" : "محصلة"}</StatusPill>
                         )}
@@ -305,12 +399,33 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                           >
                             <Printer className="w-3.5 h-3.5" />
                           </button>
-                          {!reversed ? (
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              try {
+                                const result = await sendPaymentReceipt(payment.id);
+                                toast.success(
+                                  result.sent
+                                    ? isEn ? `Receipt sent to ${result.phone}` : `تم إرسال الإيصال إلى ${result.phone}`
+                                    : isEn ? "Receipt was not delivered" : "لم يتم تسليم الإيصال"
+                                );
+                              } catch (e: any) {
+                                toast.error(e.message || (isEn ? "Failed to send receipt" : "فشل إرسال الإيصال"));
+                              }
+                            }}
+                            className="p-1.5 rounded-md text-muted-foreground hover:text-success hover:bg-success/10"
+                            aria-label={isEn ? "Send receipt on WhatsApp" : "إرسال الإيصال واتساب"}
+                            title={isEn ? "Send receipt on WhatsApp" : "إرسال الإيصال واتساب"}
+                          >
+                            <Send className="w-3.5 h-3.5" />
+                          </button>
+                          {!fullyReversed ? (
                             <button
                               type="button"
                               onClick={() => {
                                 setReverseTarget(payment);
                                 setReverseReason("");
+                                setReverseAmount(remainingToReverse);
                                 setReverseError("");
                               }}
                               className="p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10"
@@ -331,7 +446,12 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
 
           <div className="md:hidden space-y-2">
             {items.map((payment) => {
-              const reversed = payment.status === "REVERSED";
+              const fullyReversed = payment.status === "REVERSED";
+              const partiallyReversed = payment.status === "PARTIALLY_REVERSED";
+              const remainingToReverse = Math.max(
+                0,
+                Number(payment.amount) - Number(payment.reversedAmount || 0)
+              );
               return (
                 <div key={payment.id} className="rounded-xl border border-border/70 bg-card p-3 space-y-2">
                   <div className="flex items-start justify-between gap-2">
@@ -339,8 +459,10 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                       <p className="text-xs font-semibold text-foreground">{payment.studentName || "—"}</p>
                       <p className="text-[10px] font-mono text-muted-foreground">{payment.paymentNumber}</p>
                     </div>
-                    {reversed ? (
+                    {fullyReversed ? (
                       <StatusPill tone="danger">{isEn ? "Reversed" : "ملغاة"}</StatusPill>
+                    ) : partiallyReversed ? (
+                      <StatusPill tone="warning">{isEn ? "Partially reversed" : "ملغاة جزئياً"}</StatusPill>
                     ) : (
                       <StatusPill tone="success">{isEn ? "Completed" : "محصلة"}</StatusPill>
                     )}
@@ -365,12 +487,32 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                       <Printer className="w-3 h-3" />
                       {isEn ? "Receipt" : "إيصال"}
                     </button>
-                    {!reversed ? (
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          const result = await sendPaymentReceipt(payment.id);
+                          toast.success(
+                            result.sent
+                              ? isEn ? `Receipt sent to ${result.phone}` : `تم إرسال الإيصال إلى ${result.phone}`
+                              : isEn ? "Receipt was not delivered" : "لم يتم تسليم الإيصال"
+                          );
+                        } catch (e: any) {
+                          toast.error(e.message || (isEn ? "Failed to send receipt" : "فشل إرسال الإيصال"));
+                        }
+                      }}
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold bg-success/10 text-success"
+                    >
+                      <Send className="w-3 h-3" />
+                      {isEn ? "Send" : "إرسال"}
+                    </button>
+                    {!fullyReversed ? (
                       <button
                         type="button"
                         onClick={() => {
                           setReverseTarget(payment);
                           setReverseReason("");
+                          setReverseAmount(remainingToReverse);
                           setReverseError("");
                         }}
                         className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold bg-destructive/10 text-destructive"
@@ -434,10 +576,29 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
             </div>
             <p className="text-xs text-muted-foreground">
               {isEn
-                ? `This returns ${money(reverseTarget.amount)} EGP to the student balance and posts an expense to the treasury.`
-                : `سيتم إرجاع ${money(reverseTarget.amount)} ج.م لرصيد الطالب وخصمها من الخزينة.`}
+                ? "The amount is returned to the student balance and deducted from the treasury."
+                : "المبلغ هيرجع لرصيد الطالب ويتخصم من الخزينة."}
             </p>
             <p className="text-[11px] font-mono text-foreground">{reverseTarget.paymentNumber} — {reverseTarget.studentName || "—"}</p>
+            <div className="space-y-1">
+              <label className="text-[11px] font-semibold text-foreground" htmlFor="edu-reverse-amount">
+                {isEn ? "Amount to reverse (EGP)" : "مبلغ الإلغاء (ج.م)"}
+              </label>
+              <input
+                id="edu-reverse-amount"
+                type="number"
+                min={0}
+                step="0.01"
+                className={INPUT_CLS + " font-mono tabular-nums"}
+                value={reverseAmount}
+                onChange={(e) => setReverseAmount(e.target.value === "" ? "" : Number(e.target.value))}
+              />
+              <p className="text-[10px] text-muted-foreground font-mono">
+                {isEn ? "Remaining to reverse: " : "المتبقي للإلغاء: "}
+                {money(Math.max(0, Number(reverseTarget.amount) - Number(reverseTarget.reversedAmount || 0)))}{" "}
+                {isEn ? "EGP" : "ج.م"}
+              </p>
+            </div>
             <input
               className={INPUT_CLS}
               value={reverseReason}

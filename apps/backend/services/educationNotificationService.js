@@ -12,6 +12,7 @@ const EDUCATION_NOTIFICATION_EVENTS = {
   GROUP_RENEWAL_DUE: 'education_group_renewal_due',
   WALLET_TOPUP_RELEASED: 'education_wallet_topup_released',
   WALLET_TOPUP_REJECTED: 'education_wallet_topup_rejected',
+  PAYMENT_RECEIPT: 'education_payment_receipt',
   PARENT_ACTIVATED: 'education_parent_activated',
   ABSENCE_ALERT: 'education_absence_alert',
   DEMO_DAY_REGISTERED: 'education_demo_day_registered',
@@ -143,6 +144,18 @@ const NOTIFICATION_TEMPLATES = {
 {reasonText}
 
 يرجى التواصل مع الإدارة لمراجعة التحويل.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.PAYMENT_RECEIPT]: {
+    parent: `إيصال تحصيل رسوم 🧾
+
+أهلاً {parentName}،
+تم تحصيل {amount} {currency} من {studentName}.
+
+رقم الإيصال: {receiptNumber}
+التاريخ: {paidAt}
+{packageText}
+
+يمكنكم طباعة الإيصال من بوابة ولي الأمر.`,
   },
   [EDUCATION_NOTIFICATION_EVENTS.PARENT_ACTIVATED]: {
     parent: `أهلاً {parentName} 🎉
@@ -744,6 +757,46 @@ async function notifyGroupRenewalDue({
   });
 }
 
+async function notifyPaymentReceipt({
+  companyId,
+  customerId,
+  parentName,
+  parentPhone,
+  studentName,
+  amount,
+  receiptNumber,
+  paidAt,
+  packageName,
+}) {
+  if (!companyId || (!customerId && !parentPhone)) return null;
+  const resolvedName = parentName || 'وليّ الأمر';
+  const vars = {
+    parentName: resolvedName,
+    studentName: studentName || '',
+    amount: Number(amount) || 0,
+    currency: 'ج.م',
+    receiptNumber: receiptNumber || '',
+    paidAt: paidAt ? new Date(paidAt).toLocaleString('ar-EG') : '',
+    packageText: packageName ? `الباقة: ${packageName}` : '',
+  };
+
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: customerId || null,
+    eventType: EDUCATION_NOTIFICATION_EVENTS.PAYMENT_RECEIPT,
+    title: 'إيصال تحصيل رسوم',
+    templates: NOTIFICATION_TEMPLATES[EDUCATION_NOTIFICATION_EVENTS.PAYMENT_RECEIPT].parent,
+    variables: vars,
+    recipientPhone: parentPhone,
+    recipientName: resolvedName,
+    recipientType: 'CUSTOMER',
+    url: '/parent/wallet',
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
 async function notifyWalletTopupDecision({
   companyId,
   customerId,
@@ -1228,6 +1281,7 @@ module.exports = {
   notifyInstallmentDue,
   notifyGroupRenewalDue,
   notifyWalletTopupDecision,
+  notifyPaymentReceipt,
   notifyAbsenceAlert,
   notifyDemoDayRegistered,
   notifyDemoDayReminder,

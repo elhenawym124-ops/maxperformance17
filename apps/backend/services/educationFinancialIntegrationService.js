@@ -314,6 +314,7 @@ async function recordEducationRefund({
 }
 
 module.exports = {
+  getOrCreateDefaultTreasury,
   recordTeacherSalaryPayout,
   recordEducationRevenue,
   recordEducationRevenueInTx,

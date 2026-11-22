@@ -18,6 +18,9 @@ const mockApi = vi.hoisted(() => ({
   fetchDues: vi.fn(),
   recordPayment: vi.fn(),
   reversePayment: vi.fn(),
+  sendPaymentReceipt: vi.fn(),
+  fetchBranches: vi.fn(),
+  fetchPackages: vi.fn(),
   downloadPaymentsCsv: vi.fn(),
   fetchTopups: vi.fn(),
   releaseTopup: vi.fn(),
@@ -120,6 +123,9 @@ beforeEach(() => {
   });
   mockApi.recordPayment.mockResolvedValue({ ...payment, paymentNumber: "EDU-PAY-202611-0002" });
   mockApi.reversePayment.mockResolvedValue({ ...payment, status: "REVERSED" });
+  mockApi.sendPaymentReceipt.mockResolvedValue({ sent: true, phone: "01001234567" });
+  mockApi.fetchBranches.mockResolvedValue([{ id: "branch-1", name: "فرع مدينة نصر" }]);
+  mockApi.fetchPackages.mockResolvedValue([{ id: "pkg-1", name: "باقة 10 ساعات" }]);
   mockApi.releaseTopup.mockResolvedValue({});
   mockApi.rejectTopup.mockResolvedValue({});
   window.print = vi.fn();
@@ -211,14 +217,35 @@ describe("EducationPaymentsPage", () => {
     );
   });
 
+  it("sends the receipt to the parent via WhatsApp", async () => {
+    render(<EducationPaymentsPage />);
+    await waitFor(() => expect(screen.getAllByText("سارة محمد").length).toBeGreaterThan(0));
+    fireEvent.click(screen.getAllByLabelText("إرسال الإيصال واتساب")[0]);
+    await waitFor(() => expect(mockApi.sendPaymentReceipt).toHaveBeenCalledWith("pay-1"));
+  });
+
+  it("filters the ledger by branch and package", async () => {
+    render(<EducationPaymentsPage />);
+    await waitFor(() => expect(mockApi.fetchBranches).toHaveBeenCalled());
+    fireEvent.change(screen.getByLabelText("الفرع"), { target: { value: "branch-1" } });
+    await waitFor(() =>
+      expect(mockApi.fetchPayments).toHaveBeenCalledWith(expect.objectContaining({ branchId: "branch-1" }))
+    );
+    fireEvent.change(screen.getByLabelText("الباقة"), { target: { value: "pkg-1" } });
+    await waitFor(() =>
+      expect(mockApi.fetchPayments).toHaveBeenCalledWith(expect.objectContaining({ branchId: "branch-1", packageId: "pkg-1" }))
+    );
+  });
+
   it("reverses a payment after confirmation", async () => {
     render(<EducationPaymentsPage />);
     await waitFor(() => expect(screen.getAllByText("سارة محمد").length).toBeGreaterThan(0));
     fireEvent.click(screen.getAllByLabelText("إلغاء الدفعة")[0]);
-    expect(await screen.findByText("سيتم إرجاع 250 ج.م لرصيد الطالب وخصمها من الخزينة.")).toBeInTheDocument();
+    expect(await screen.findByText(/المبلغ هيرجع لرصيد الطالب/)).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("مبلغ الإلغاء (ج.م)"), { target: { value: "100" } });
     fireEvent.change(screen.getByPlaceholderText("سبب الإلغاء (اختياري)"), { target: { value: "خطأ إدخال" } });
     fireEvent.click(screen.getByText("تأكيد الإلغاء"));
-    await waitFor(() => expect(mockApi.reversePayment).toHaveBeenCalledWith("pay-1", "خطأ إدخال"));
+    await waitFor(() => expect(mockApi.reversePayment).toHaveBeenCalledWith("pay-1", 100, "خطأ إدخال"));
   });
 
   it("reviews and approves a pending wallet top-up", async () => {

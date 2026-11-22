@@ -11,7 +11,7 @@ describe('educationPaymentsBackfill.planBackfill', () => {
       enrollments: [{
         id: 'enr-1', companyId: 'comp-1', studentId: 'stu-1', amountPaid: 450,
         paymentMethod: 'TRANSFER', paymentStatus: 'PARTIALLY_PAID',
-        enrollmentDate: '2026-10-05T00:00:00.000Z',
+        enrollmentDate: '2026-10-05T00:00:00.000Z', branchId: 'branch-1', packageId: 'pkg-9',
         student: { firstName: 'سارة', lastName: 'محمد' },
       }],
     });
@@ -22,6 +22,8 @@ describe('educationPaymentsBackfill.planBackfill', () => {
     assert.strictEqual(payments[0].status, 'COMPLETED');
     assert.strictEqual(payments[0].source, 'BACKFILL');
     assert.strictEqual(payments[0].studentName, 'سارة محمد');
+    assert.strictEqual(payments[0].branchId, 'branch-1');
+    assert.strictEqual(payments[0].packageId, 'pkg-9');
     assert.match(payments[0].paymentNumber, /^EDU-PAY-202610-0001$/);
     assert.strictEqual(payments[0].receiptNumber, 'RCP-202610-0001');
   });

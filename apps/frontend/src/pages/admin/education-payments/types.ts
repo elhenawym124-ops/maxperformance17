@@ -8,6 +8,8 @@ export interface EducationPayment {
   enrollmentId?: string | null;
   groupId?: string | null;
   groupMemberId?: string | null;
+  branchId?: string | null;
+  packageId?: string | null;
   studentName?: string | null;
   amount: number;
   method: PaymentMethod | string;
@@ -17,6 +19,7 @@ export interface EducationPayment {
   notes?: string | null;
   paidAt: string;
   cashierName?: string | null;
+  reversedAmount?: number;
   reversedAt?: string | null;
   reversalReason?: string | null;
 }

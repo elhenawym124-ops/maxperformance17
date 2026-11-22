@@ -75,6 +75,8 @@ function planBackfill({ enrollments = [], groupMembers = [], existingPayments = 
       receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
       studentId: enrollment.studentId || null,
       enrollmentId: enrollment.id,
+      branchId: enrollment.branchId || null,
+      packageId: enrollment.packageId || null,
       studentName: studentName || null,
       amount,
       method: mapMethod(enrollment.paymentMethod),
@@ -105,6 +107,7 @@ function planBackfill({ enrollments = [], groupMembers = [], existingPayments = 
       studentId: member.studentId || null,
       groupId: member.groupId || null,
       groupMemberId: member.id,
+      branchId: member.groupBranchId || null,
       studentName: studentName || null,
       amount,
       method: 'CASH',
@@ -137,7 +140,7 @@ async function runBackfill(prisma, { companyId = null, apply = false, limit = 50
           where: { companyId: cid, amountPaid: { gt: 0 } },
           select: {
             id: true, companyId: true, studentId: true, enrollmentDate: true, createdAt: true,
-            amountPaid: true, paymentMethod: true, paymentStatus: true,
+            amountPaid: true, paymentMethod: true, paymentStatus: true, branchId: true, packageId: true,
             student: { select: { firstName: true, lastName: true } },
           },
           take: limit,
@@ -152,7 +155,8 @@ async function runBackfill(prisma, { companyId = null, apply = false, limit = 50
       try {
         groupMembers = await prisma.$queryRawUnsafe(`
           SELECT m."id", m."companyId", m."groupId", m."studentId", m."amountPaid", m."joinedAt",
-                 g."name" AS "groupName", s."firstName" AS "studentFirstName", s."lastName" AS "studentLastName"
+                 g."name" AS "groupName", g."branchId" AS "groupBranchId",
+                 s."firstName" AS "studentFirstName", s."lastName" AS "studentLastName"
           FROM "education_group_members" m
           JOIN "education_groups" g ON g."id" = m."groupId" AND g."companyId" = m."companyId"
           LEFT JOIN "education_students" s ON s."id" = m."studentId" AND s."companyId" = m."companyId"

@@ -46,3 +46,12 @@
 - CSV export: `GET /finance/payments/export` honors the ledger filters and downloads an Excel-friendly UTF-8 CSV.
 - Refunds: wallet-paid enrollments are credited back to the wallet; cash refunds only hit the treasury.
 
+## Phase 3 additions
+
+- Ledger rows now store `branchId` and `packageId`; the ledger filters by branch and package, and CSV includes both.
+- Partial reversals: reverse any amount up to the remaining; status becomes `PARTIALLY_REVERSED` and only flips to `REVERSED` when fully reversed. Reversal references are idempotent per amount.
+- Teacher payroll cancellation: `PUT /education/payments/:id/cancel` cancels a pending payroll, or reverses a paid one (treasury deposit + linked expense cancelled) in one transaction.
+- Receipt delivery: `POST /education/finance/payments/:id/send-receipt` sends the receipt to the parent WhatsApp; ledger rows have a send button.
+- Backfill also carries branch/package metadata from enrollments and groups.
+
+

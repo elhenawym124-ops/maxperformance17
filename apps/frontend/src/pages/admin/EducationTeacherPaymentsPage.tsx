@@ -211,6 +211,29 @@ export default function EducationTeacherPaymentsPage() {
     }
   };
 
+  const handleCancel = async (id: string) => {
+    const confirmed = window.confirm(
+      isEn ? "Cancel this payroll? Treasury entries will be reversed." : "إلغاء هذا المسير؟ سيتم عكس قيد الخزينة المرتبط به."
+    );
+    if (!confirmed) return;
+    const reason = window.prompt(isEn ? "Reason (optional)" : "سبب الإلغاء (اختياري)") || "";
+    try {
+      const res = await fetch(api(`payments/${id}/cancel`), {
+        method: "PUT",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ reason }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        fetchPayments();
+      } else {
+        alert(data.error || (isEn ? "Failed to cancel payroll" : "فشل إلغاء المسير"));
+      }
+    } catch {
+      alert(isEn ? "Failed to connect to server. Please try again" : "تعذر الاتصال بالخادم لإلغاء المسير. حاول مرة أخرى");
+    }
+  };
+
   const stats = useMemo(() => {
     const totalPayments = payments.length;
     const paidAmount = payments.filter((p) => p.status === "PAID").reduce((acc, p) => acc + (p.netAmount || 0), 0);
@@ -446,6 +469,15 @@ export default function EducationTeacherPaymentsPage() {
                           {t("education.payments.confirmPayment", isEn ? "Confirm Payment" : "تأكيد الدفع")}
                         </button>
                       )}
+                      {(isPaid || isPending) && (
+                        <button
+                          onClick={() => handleCancel(p.id)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 ms-1.5 bg-destructive/10 text-destructive rounded-lg text-[11px] font-medium hover:bg-destructive/20 transition-colors"
+                        >
+                          <AlertCircle className="w-3 h-3" />
+                          {isEn ? "Cancel" : "إلغاء"}
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );
@@ -497,7 +529,8 @@ export default function EducationTeacherPaymentsPage() {
                     onChange={(e) => {
                       setCalcTeacher(e.target.value);
                       const tObj = teachers.find((t) => t.id === e.target.value);
-                      if (tObj?.subjectRates?.length) setCalcRate(tObj.subjectRates[0].hourlyRate);
+                      const firstRate = tObj?.subjectRates?.[0]?.hourlyRate;
+                      if (firstRate !== undefined) setCalcRate(firstRate);
                     }}
                   >
                     <option value="">

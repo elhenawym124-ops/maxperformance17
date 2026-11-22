@@ -15,6 +15,8 @@ const state = {
   treasuryTx: [],
   audits: [],
   notifications: [],
+  receiptNotifications: [],
+  studentPhone: '01001234567',
   nextEnrollmentUpdate: null,
   rawHandler: null,
 };
@@ -66,10 +68,19 @@ const mockPrisma = {
       let rows = state.payments.filter((p) => !where.companyId || p.companyId === where.companyId);
       if (where.status) rows = rows.filter((p) => p.status === where.status);
       if (where.method) rows = rows.filter((p) => p.method === where.method);
+      if (where.branchId) rows = rows.filter((p) => p.branchId === where.branchId);
+      if (where.packageId) rows = rows.filter((p) => p.packageId === where.packageId);
       return clone(rows.slice(skip, skip + take));
     },
     count: async ({ where = {} }) =>
-      state.payments.filter((p) => (!where.companyId || p.companyId === where.companyId) && (!where.status || p.status === where.status)).length,
+      state.payments.filter((p) => {
+        if (where.companyId && p.companyId !== where.companyId) return false;
+        if (where.status && p.status !== where.status) return false;
+        if (where.method && p.method !== where.method) return false;
+        if (where.branchId && p.branchId !== where.branchId) return false;
+        if (where.packageId && p.packageId !== where.packageId) return false;
+        return true;
+      }).length,
     aggregate: async ({ where = {} }) => {
       const rows = state.payments.filter((p) => {
         if (where.companyId && p.companyId !== where.companyId) return false;
@@ -178,6 +189,7 @@ const mockPrisma = {
     },
   },
   treasuryTransaction: {
+    findFirst: async () => null,
     create: async ({ data }) => {
       const tx = { id: `ttx-${state.treasuryTx.length + 1}`, ...copy(data) };
       state.treasuryTx.push(tx);
@@ -191,7 +203,11 @@ const mockPrisma = {
   educationStudent: {
     findFirst: async ({ where }) =>
       where.id === 'stu-1' && where.companyId === 'comp-1'
-        ? { id: 'stu-1', code: 'S-1', firstName: 'سارة', lastName: 'محمد', phone: '0111' }
+        ? {
+            id: 'stu-1', code: 'S-1', firstName: 'سارة', lastName: 'محمد', phone: '0111',
+            customerId: 'cust-1',
+            customer: { firstName: 'أحمد', lastName: 'علي', phone: state.studentPhone },
+          }
         : null,
   },
 };
@@ -234,6 +250,10 @@ require.cache[notificationPath] = {
   exports: {
     notifyWalletTopupDecision: async (payload) => {
       state.notifications.push(payload);
+      return { success: true };
+    },
+    notifyPaymentReceipt: async (payload) => {
+      state.receiptNotifications.push(payload);
       return { success: true };
     },
   },
@@ -285,6 +305,8 @@ beforeEach(() => {
   state.treasuryTx = [];
   state.audits = [];
   state.notifications = [];
+  state.receiptNotifications = [];
+  state.studentPhone = '01001234567';
   state.rawHandler = null;
   state.nextEnrollmentUpdate = null;
 });
@@ -299,6 +321,8 @@ describe('educationPaymentsController.recordPayment', () => {
       id: 'enr-1',
       companyId: 'comp-1',
       studentId: 'stu-1',
+      branchId: 'branch-1',
+      packageId: 'pkg-1',
       isActive: true,
       amountPaid: 100,
       finalAmount: 500,
@@ -315,6 +339,8 @@ describe('educationPaymentsController.recordPayment', () => {
     assert.strictEqual(res.payload.success, true);
     assert.match(res.payload.data.paymentNumber, /^EDU-PAY-\d{6}-0001$/);
     assert.strictEqual(res.payload.data.method, 'CASH');
+    assert.strictEqual(res.payload.data.branchId, 'branch-1');
+    assert.strictEqual(res.payload.data.packageId, 'pkg-1');
     assert.strictEqual(state.enrollments[0].amountPaid, 300);
     assert.strictEqual(state.enrollments[0].paymentStatus, 'PARTIALLY_PAID');
     assert.strictEqual(state.treasury.balance, 1200);
@@ -479,6 +505,56 @@ describe('educationPaymentsController.reversePayment', () => {
     assert.strictEqual(state.treasuryTx[0].type, 'EXPENSE');
     assert.strictEqual(state.treasuryTx[0].referenceType, 'EDUCATION_PAYMENT_REVERSAL');
     assert.strictEqual(state.audits[0].action, 'REVERSE_PAYMENT');
+  });
+
+  it('reverses a payment partially and keeps the remainder collectable', async () => {
+    state.treasury.balance = 1000;
+    state.enrollments.push({
+      id: 'enr-1', companyId: 'comp-1', studentId: 'stu-1', isActive: true,
+      amountPaid: 300, finalAmount: 500, paymentStatus: 'PARTIALLY_PAID',
+    });
+    state.payments.push({
+      id: 'pay-1', companyId: 'comp-1', paymentNumber: 'EDU-PAY-202611-0001',
+      enrollmentId: 'enr-1', studentId: 'stu-1', studentName: 'سارة محمد',
+      amount: 200, reversedAmount: 0, method: 'CASH', status: 'COMPLETED',
+    });
+
+    const req = makeReq({ amount: 50, reason: 'تخفيض جزئي' }, {}, { id: 'user-2', companyId: 'comp-1', name: 'مدير' });
+    req.params = { id: 'pay-1' };
+    const res = makeRes();
+    await controller.reversePayment(req, res);
+
+    assert.strictEqual(res.statusCode, 200);
+    assert.strictEqual(res.payload.data.status, 'PARTIALLY_REVERSED');
+    assert.strictEqual(res.payload.data.reversedAmount, 50);
+    assert.strictEqual(state.enrollments[0].amountPaid, 250);
+    assert.strictEqual(state.treasury.balance, 950);
+    assert.strictEqual(state.treasuryTx[0].amount, 50);
+
+    // second partial reversal for the remainder completes the reversal
+    const req2 = makeReq({ amount: 150 }, {}, { id: 'user-2', companyId: 'comp-1', name: 'مدير' });
+    req2.params = { id: 'pay-1' };
+    const res2 = makeRes();
+    await controller.reversePayment(req2, res2);
+
+    assert.strictEqual(res2.statusCode, 200);
+    assert.strictEqual(res2.payload.data.status, 'REVERSED');
+    assert.strictEqual(res2.payload.data.reversedAmount, 200);
+    assert.strictEqual(state.enrollments[0].amountPaid, 100);
+    assert.strictEqual(state.treasury.balance, 800);
+  });
+
+  it('rejects a partial reversal above the remaining amount', async () => {
+    state.payments.push({
+      id: 'pay-1', companyId: 'comp-1', paymentNumber: 'X', amount: 200,
+      reversedAmount: 150, method: 'CASH', status: 'PARTIALLY_REVERSED',
+    });
+    const req = makeReq({ amount: 100 }, {}, { companyId: 'comp-1' });
+    req.params = { id: 'pay-1' };
+    const res = makeRes();
+    await controller.reversePayment(req, res);
+    assert.strictEqual(res.statusCode, 400);
+    assert.match(res.payload.error, /أكبر من المتبقي/);
   });
 
   it('refuses double reversal', async () => {
@@ -728,6 +804,23 @@ describe('educationPaymentsController summary & dues', () => {
     assert.strictEqual(res.payload.pagination.totalPages, 2);
   });
 
+  it('filters the ledger by branch and package', async () => {
+    state.payments.push(
+      { id: 'p1', companyId: 'comp-1', amount: 100, status: 'COMPLETED', method: 'CASH', branchId: 'b1', packageId: 'pkg1' },
+      { id: 'p2', companyId: 'comp-1', amount: 200, status: 'COMPLETED', method: 'CASH', branchId: 'b2', packageId: 'pkg1' },
+      { id: 'p3', companyId: 'comp-1', amount: 300, status: 'COMPLETED', method: 'CASH', branchId: 'b1', packageId: 'pkg2' }
+    );
+
+    let res = makeRes();
+    await controller.listPayments(makeReq({}, { branchId: 'b1' }), res);
+    assert.strictEqual(res.payload.pagination.total, 2);
+
+    res = makeRes();
+    await controller.listPayments(makeReq({}, { branchId: 'b1', packageId: 'pkg2' }), res);
+    assert.strictEqual(res.payload.pagination.total, 1);
+    assert.strictEqual(res.payload.data[0].id, 'p3');
+  });
+
   it('exports the filtered ledger as an Excel-friendly CSV', async () => {
     state.payments.push(
       { id: 'p1', companyId: 'comp-1', paymentNumber: 'EDU-PAY-202611-0001', receiptNumber: 'RCP-202611-0001', studentName: 'سارة, محمد', amount: 250, method: 'CASH', source: 'ADMIN', status: 'COMPLETED', paidAt: new Date().toISOString(), notes: 'ملاحظة "مهمة"' },
@@ -744,6 +837,36 @@ describe('educationPaymentsController summary & dues', () => {
     assert.match(res.body, /"سارة, محمد"/);
     assert.match(res.body, /"ملاحظة ""مهمة"""/);
     assert.strictEqual(res.body.includes('999'), false);
+  });
+
+  it('sends the receipt to the parent phone and refuses when no phone exists', async () => {
+    state.payments.push({
+      id: 'pay-1', companyId: 'comp-1', paymentNumber: 'EDU-PAY-202611-0001', receiptNumber: 'RCP-202611-0001',
+      studentId: 'stu-1', enrollmentId: 'enr-1', studentName: 'سارة محمد',
+      amount: 250, method: 'CASH', status: 'COMPLETED', paidAt: new Date().toISOString(),
+    });
+    state.enrollments.push({
+      id: 'enr-1', companyId: 'comp-1', package: { name: 'باقة 10 ساعات' },
+    });
+
+    let req = makeReq({}, {}, { companyId: 'comp-1' });
+    req.params = { id: 'pay-1' };
+    let res = makeRes();
+    await controller.sendReceipt(req, res);
+
+    assert.strictEqual(res.statusCode, 200, JSON.stringify(res.payload));
+    assert.strictEqual(res.payload.data.sent, true);
+    assert.strictEqual(state.receiptNotifications.length, 1);
+    assert.strictEqual(state.receiptNotifications[0].parentPhone, '01001234567');
+    assert.strictEqual(state.receiptNotifications[0].receiptNumber, 'RCP-202611-0001');
+
+    state.studentPhone = null;
+    req = makeReq({}, {}, { companyId: 'comp-1' });
+    req.params = { id: 'pay-1' };
+    res = makeRes();
+    await controller.sendReceipt(req, res);
+    assert.strictEqual(res.statusCode, 400);
+    assert.match(res.payload.error, /رقم هاتف/);
   });
 
   it('returns a printable receipt payload', async () => {
