@@ -6,6 +6,7 @@ const {
   generateAttendeeId
 } = require('../services/educationDemoDayService');
 const { logEducationEvent } = require('../services/educationAuditService');
+const { generateUniqueStudentCode } = require('./educationStudentsController');
 const {
   normalizeSourceChannel,
   normalizeRegisteredByType,
@@ -563,7 +564,7 @@ const registerAttendee = async (req, res) => {
 
     if (!student) {
       const count = await prisma.educationStudent.count({ where: { companyId } });
-      const safeCode = `STU-${1001 + count}`;
+      const safeCode = await generateUniqueStudentCode(companyId, prisma);
       student = await prisma.educationStudent.create({
         data: {
           companyId,
@@ -756,7 +757,7 @@ const convertAttendeeToStudent = async (req, res) => {
 
     if (!student) {
       const count = await prisma.educationStudent.count({ where: { companyId } });
-      const safeCode = `STU-${1001 + count}`;
+      const safeCode = await generateUniqueStudentCode(companyId, prisma);
       student = await prisma.educationStudent.create({
         data: {
           companyId,
@@ -1187,7 +1188,7 @@ const registerPublicAttendee = async (req, res) => {
 
     if (!student) {
       const count = await prisma.educationStudent.count({ where: { companyId } }).catch(() => 0);
-      const safeCode = `STU-${1001 + count}`;
+      const safeCode = await generateUniqueStudentCode(companyId, prisma);
       student = await prisma.educationStudent.create({
         data: {
           companyId,

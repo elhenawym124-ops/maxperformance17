@@ -827,5 +827,6 @@ module.exports = {
   searchGuardians,
   bulkStatus,
   bulkAddToGroup,
-  attachStudentGroupNames
+  attachStudentGroupNames,
+  generateUniqueStudentCode,
 };

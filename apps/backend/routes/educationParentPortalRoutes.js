@@ -356,7 +356,15 @@ router.post('/sessions/book', authenticateParentToken, async (req, res) => {
     });
 
     if (!enrollment) {
-      return res.status(404).json({ success: false, message: 'الاشتراك / الباقة غير موجودة' });
+      // W3: تفريق واضح بين «لا اشتراك» و«اشتراك غير نشط/منتهي»
+      const activeCount = await prisma.educationEnrollment.count({
+        where: { studentId, companyId, isActive: true },
+      });
+      const code = activeCount > 0 ? 'ENROLLMENT_NOT_ACTIVE' : 'NO_ACTIVE_ENROLLMENT';
+      const message = activeCount > 0
+        ? 'الاشتراك المحدد غير نشط أو منتهي — اختر اشتراكًا آخر'
+        : 'لا يوجد اشتراك نشط لهذا الطالب — اشترك في باقة أولًا أو تواصل مع المركز';
+      return res.status(404).json({ success: false, code, message });
     }
 
     const duration = Number(plannedDuration) || enrollment.package?.sessionDuration || 60;

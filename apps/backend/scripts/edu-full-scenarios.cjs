@@ -311,6 +311,56 @@ const plus = (n, h = 10) => { const d = new Date(Date.now() + n * 864e5); d.setH
   const overRefund = discEnr?.id ? await call('POST', `/education/enrollments/${discEnr.id}/cancel`, owner, { refundAmount: 9999 }) : { status: 0 };
   rec('K5', 'رفض استرداد أكبر من المدفوع', overRefund.status === 400, `${overRefund.status} ${overRefund.d?.error || ''}`);
 
+  // ── L. P1: تسلسل أكواد الطلاب + رسائل الحجز ──
+  const mkStudent = async (suffix, phone) => {
+    const r = await call('POST', '/education/students', owner, {
+      firstName: 'طالب', lastName: `كود ${suffix}`, phone,
+      guardianName: `ولي ${suffix}`, guardianPhone: phone,
+    });
+    const id = r.d?.student?.id || r.d?.data?.id;
+    if (id) created.students.push(id);
+    const list = await call('GET', `/education/students?search=${encodeURIComponent(`كود ${suffix}`)}`, owner);
+    const row = (list.d?.students || list.d?.data || []).find(s => s.id === id);
+    return { id, code: row?.code, customerId: row?.customerId || row?.customer?.id, phone };
+  };
+
+  const sA = await mkStudent(`${stamp}a`, '01120001001');
+  const sB = await mkStudent(`${stamp}b`, '01120001002');
+  rec('L1', 'أكواد الطلاب غير متكررة', Boolean(sA.code && sB.code) && sA.code !== sB.code, `${sA.code} / ${sB.code}`);
+
+  if (sA.id) await call('DELETE', `/education/students/${sA.id}`, owner).catch(() => { });
+  const sC = await mkStudent(`${stamp}c`, '01120001003');
+  rec('L2', 'الكود بعد الحذف لا يتعارض مع الموجود', Boolean(sC.code) && sC.code !== sB.code, `${sC.code} vs ${sB.code}`);
+
+  // رسائل الحجز
+  const linkB = sB.customerId ? await call('POST', '/education/parent-portal/activation-link', owner, { customerId: sB.customerId }) : { status: 0 };
+  const tokenB = linkB.d?.data?.url?.split('token=')[1];
+  if (tokenB) await call('POST', '/education/parent-portal/activate', null, { token: tokenB, password: 'Parent@2026' });
+  const loginB = await call('POST', '/education/parent-portal/login', null, { phone: sB.phone, password: 'Parent@2026' });
+  const tokenParentB = loginB.d?.data?.token;
+
+  const bookNoEnr = tokenParentB ? await call('POST', '/education/parent-portal/sessions/book', tokenParentB, {
+    studentId: sB.id, enrollmentId: 'does-not-exist', scheduledAt: plus(9, 10), plannedDuration: 60,
+  }) : { status: 0, d: {} };
+  rec('L3', 'حجز بدون اشتراك → رسالة NO_ACTIVE_ENROLLMENT', bookNoEnr.status === 404 && bookNoEnr.d?.code === 'NO_ACTIVE_ENROLLMENT',
+    `${bookNoEnr.status} ${bookNoEnr.d?.code || ''}`);
+
+  const enrB = packageId ? await call('POST', '/education/enrollments', owner, {
+    studentId: sB.id, packageId, teacherId: mainTeacherId, amountPaid: 850, paymentStatus: 'COMPLETED',
+  }) : { status: 0 };
+  const enrBId = enrB.d?.enrollment?.id || enrB.d?.data?.id;
+  if (enrBId) {
+    created.enrollments.push(enrBId);
+    await call('POST', `/education/enrollments/${enrBId}/cancel`, owner, { refundAmount: 0 });
+    const bookInactive = tokenParentB ? await call('POST', '/education/parent-portal/sessions/book', tokenParentB, {
+      studentId: sB.id, enrollmentId: enrBId, scheduledAt: plus(9, 10), plannedDuration: 60,
+    }) : { status: 0, d: {} };
+    rec('L4', 'حجز باشتراك ملغى → رسالة ENROLLMENT_NOT_ACTIVE', bookInactive.status === 404 && bookInactive.d?.code === 'ENROLLMENT_NOT_ACTIVE',
+      `${bookInactive.status} ${bookInactive.d?.code || ''}`);
+  } else {
+    rec('L4', 'حجز باشتراك ملغى → رسالة ENROLLMENT_NOT_ACTIVE', false, 'لا يوجد اشتراك');
+  }
+
   // ── cleanup ──
   for (const id of created.sessions) await call('DELETE', `/education/sessions/${id}`, owner).catch(() => { });
   for (const id of created.groups) await call('DELETE', `/education/groups/${id}`, owner).catch(() => { });
