@@ -9,7 +9,6 @@ import {
   X,
 } from "lucide-react";
 import { apiClient } from "../../../services/apiClient";
-import { authService } from "../../../services/authService";
 import type { MarketingProduct } from "./types";
 
 interface ProductOpportunityRadarProps {
@@ -32,12 +31,6 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
   const [filterType, setFilterType] = useState<"ALL" | "TOP_MARGIN" | "READY" | "ALERT">("ALL");
 
   const loadProducts = useCallback(async () => {
-    // الدور بلا صلاحية products.view كان يرسل الطلب ويرجع 403 في الكونسول
-    if (!authService.hasPermission("products.view")) {
-      setDenied(true);
-      setLoading(false);
-      return;
-    }
     setDenied(false);
     try {
       setLoading(true);
@@ -81,7 +74,8 @@ export const ProductOpportunityRadar: React.FC<ProductOpportunityRadarProps> = (
           onSelectProduct(mapped[0]);
         }
       }
-    } catch (err) {
+    } catch (err: any) {
+      if (err?.response?.status === 403) setDenied(true);
       console.warn("[ProductOpportunityRadar] Failed to load store products:", err);
     } finally {
       setLoading(false);
