@@ -5,6 +5,12 @@
  */
 
 /**
+ * Hard server-side deadline for the message-content search (the SPA aborts at 30s;
+ * we fail faster with a clear message instead of letting the request hang).
+ */
+const SEARCH_STATEMENT_TIMEOUT_MS = 8000;
+
+/**
  * Extracts tokens eligible for trigram-indexed message content search (length >= 3).
  * @param {string|unknown} rawTerm
  * @returns {string[]}
@@ -125,12 +131,34 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
         LIMIT $${limitParamIdx};
     `;
 
-    const rows = await prisma.$queryRawUnsafe(query, ...params);
+    const rows = await runWithStatementTimeout(prisma, query, params);
     return rows.map(r => r.id);
+}
+
+/**
+ * Runs the raw search with a hard server-side deadline instead of relying on the
+ * pooler/role default (the SPA gives up at 30s). Uses SET LOCAL inside a
+ * transaction when the client supports it; mocks/simple clients fall back to a
+ * plain call.
+ */
+async function runWithStatementTimeout(prisma, query, params, timeoutMs = SEARCH_STATEMENT_TIMEOUT_MS) {
+    if (typeof prisma.$transaction === 'function' && typeof prisma.$executeRawUnsafe === 'function') {
+        try {
+            return await prisma.$transaction(async (tx) => {
+                await tx.$executeRawUnsafe(`SET LOCAL statement_timeout = ${Number(timeoutMs)}`);
+                return tx.$queryRawUnsafe(query, ...params);
+            }, { timeout: timeoutMs + 2000 });
+        } catch (err) {
+            // Keep the original failure shape (the controller maps timeouts by message)
+            throw err;
+        }
+    }
+    return prisma.$queryRawUnsafe(query, ...params);
 }
 
 module.exports = {
     extractContentTokens,
     buildConversationSearchWhere,
     searchMessageConversationIds,
+    SEARCH_STATEMENT_TIMEOUT_MS,
 };

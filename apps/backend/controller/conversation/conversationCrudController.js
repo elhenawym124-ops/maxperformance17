@@ -267,11 +267,17 @@ const getConversations = async (req, res) => {
                 });
             } catch (contentSearchErr) {
                 // A failed content search must never look like "no results".
-                console.error('❌ [GET-CONV] message content search failed:', contentSearchErr.message);
-                return res.status(503).json({
+                // 422 (not 503): the SPA retries 503 six times (apiClient.ts retry
+                // paths) and silences its toast, so the user would wait ~10s and see
+                // a generic axios message instead of the Arabic one below.
+                const timedOut = /statement timeout|timeout|canceling statement/i.test(contentSearchErr.message || '');
+                console.error('❌ [GET-CONV] message content search failed:', contentSearchErr.code || 'SEARCH_ERROR');
+                return res.status(422).json({
                     success: false,
-                    code: 'MESSAGE_SEARCH_UNAVAILABLE',
-                    message: 'البحث في نص الرسايل مش متاح دلوقتي — جرّب تاني بعد شوية، أو ابحث بالاسم أو رقم التليفون',
+                    code: timedOut ? 'MESSAGE_SEARCH_TIMEOUT' : 'MESSAGE_SEARCH_UNAVAILABLE',
+                    message: timedOut
+                        ? 'البحث في نص الرسايل خد وقت أطول من المسموح — جرّب كلمة أقصر أو ابحث بالاسم أو رقم التليفون'
+                        : 'البحث في نص الرسايل مش متاح دلوقتي — جرّب تاني بعد شوية، أو ابحث بالاسم أو رقم التليفون',
                 });
             }
             if (process.env.DEBUG_CONV_SEARCH === 'true') {

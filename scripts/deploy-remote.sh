@@ -895,6 +895,21 @@ CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_customers_last_name_trgm ON customer
 CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_customers_phone_trgm ON customers USING gin (phone gin_trgm_ops);
 CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_conversations_last_message_preview_trgm ON conversations USING gin ("lastMessagePreview" gin_trgm_ops);
 CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_messages_content_trgm ON messages USING gin (content gin_trgm_ops);
+ANALYZE messages;
+DO $$
+DECLARE bad text;
+BEGIN
+  SELECT string_agg(c.relname, ', ') INTO bad
+  FROM pg_index i JOIN pg_class c ON c.oid = i.indexrelid
+  WHERE c.relname IN ('idx_customers_first_name_trgm','idx_customers_last_name_trgm',
+                      'idx_customers_phone_trgm','idx_conversations_last_message_preview_trgm',
+                      'idx_messages_content_trgm')
+    AND NOT i.indisvalid;
+  IF bad IS NOT NULL THEN
+    RAISE EXCEPTION 'trigram indexes still INVALID after build: % (inbox message search will 422 until fixed)', bad;
+  END IF;
+  RAISE NOTICE 'trgm: all 5 indexes valid';
+END $$;
 SQL
 
 # Step 7.5: Sync file-defined marketplace apps/bundles into DB before the app boots.

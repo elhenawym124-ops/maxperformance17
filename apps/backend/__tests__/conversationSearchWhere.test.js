@@ -158,6 +158,23 @@ describe('conversationSearchWhere', () => {
       expect(cte).toContain('ORDER BY m."createdAt" DESC');
     });
 
+    it('sets a server-side statement_timeout when the client supports transactions', async () => {
+      const exec = jest.fn().mockResolvedValue(1);
+      const query = jest.fn().mockResolvedValue([{ id: 'conv-9' }]);
+      const mockPrisma = {
+        $executeRawUnsafe: exec,
+        $queryRawUnsafe: jest.fn(),
+        $transaction: async (cb) => cb({ $executeRawUnsafe: exec, $queryRawUnsafe: query }),
+      };
+
+      const ids = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'سناء' });
+
+      expect(ids).toEqual(['conv-9']);
+      expect(exec).toHaveBeenCalledTimes(1);
+      expect(String(exec.mock.calls[0][0])).toContain('SET LOCAL statement_timeout = 8000');
+      expect(mockPrisma.$queryRawUnsafe).not.toHaveBeenCalled();
+    });
+
     it('propagates database failures instead of returning an empty result', async () => {
       const mockPrisma = {
         $queryRawUnsafe: jest.fn().mockRejectedValue(new Error('DB connection failed')),
