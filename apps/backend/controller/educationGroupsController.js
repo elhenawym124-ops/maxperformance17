@@ -86,7 +86,7 @@ const findGroupScheduleConflicts = async (prisma, companyId, excludeGroupId, can
   if (!hasSchedule || (!hasTeacher && !hasRoom)) return [];
 
   const rows = await prisma.$queryRawUnsafe(`
-    SELECT id, name, "teacherId", room, "classroomId",
+    SELECT id, name, "teacherId", room, "classroomId", "branchId",
            "scheduleDays"::text AS "scheduleDays", "scheduleSlots"::text AS "scheduleSlots",
            "startTime", "endTime"
     FROM "education_groups"
@@ -103,10 +103,13 @@ const findGroupScheduleConflicts = async (prisma, companyId, excludeGroupId, can
 
         const teacherClash =
           hasTeacher && row.teacherId && String(row.teacherId) === String(candidate.teacherId);
+        // اسم القاعة يُقارن داخل نفس الفرع فقط (نفس الاسم ممكن يتكرر في فرعين)
+        const sameBranch =
+          !candidate.branchId || !row.branchId || String(candidate.branchId) === String(row.branchId);
         const sameRoom =
-          (candidate.room && theirs.room && theirs.room.toLowerCase() === candidate.room.toLowerCase()) ||
-          (candidate.room && row.room && String(row.room).trim().toLowerCase() === candidate.room.toLowerCase()) ||
-          (candidate.classroomId && row.classroomId && String(row.classroomId) === String(candidate.classroomId));
+          (candidate.classroomId && row.classroomId && String(candidate.classroomId) === String(row.classroomId)) ||
+          (sameBranch && candidate.room && theirs.room && theirs.room.toLowerCase() === candidate.room.toLowerCase()) ||
+          (sameBranch && candidate.room && row.room && String(row.room).trim().toLowerCase() === candidate.room.toLowerCase());
 
         if (teacherClash) {
           conflicts.push({
@@ -461,6 +464,7 @@ const create = async (req, res) => {
       teacherId: teacherId || null,
       room: room ? String(room).trim() : '',
       classroomId: classroomId || null,
+      branchId: branchId || null,
       slots: requestedSlots
     });
     if (conflicts.length && !allowConflicts) {
@@ -665,6 +669,7 @@ const update = async (req, res) => {
       teacherId: effectiveTeacherId || null,
       room: effectiveRoom,
       classroomId: effectiveClassroomId || null,
+      branchId: branchId || existingGroup.branchId || null,
       slots: effectiveSlots
     });
     if (conflicts.length && !allowConflicts) {
@@ -1376,6 +1381,7 @@ const getLiveRooms = async (req, res) => {
         const roomName = String(room.name || '').trim();
         const roomKey = String(room.id || roomName);
         const assigned = (groupRows || []).filter((g) => {
+          if (g.branchId && String(g.branchId) !== String(branch.id)) return false;
           if (g.classroomId && String(g.classroomId) === roomKey) return true;
           return !g.classroomId && g.room && String(g.room).trim().toLowerCase() === roomName.toLowerCase();
         });
@@ -1417,6 +1423,7 @@ const getLiveRooms = async (req, res) => {
       for (const room of parseJsonArray(branch.classrooms)) {
         const roomName = String(room.name || '').trim().toLowerCase();
         for (const g of groupRows || []) {
+          if (g.branchId && String(g.branchId) !== String(branch.id)) continue;
           if (g.classroomId && String(g.classroomId) === String(room.id)) assignedGroupIds.add(String(g.id));
           else if (!g.classroomId && g.room && String(g.room).trim().toLowerCase() === roomName) assignedGroupIds.add(String(g.id));
         }
