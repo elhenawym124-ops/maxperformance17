@@ -388,15 +388,22 @@ const create = async (req, res) => {
         where: { companyId, name: 'عام' }
       });
       if (!defaultSubject) {
-        defaultSubject = await prisma.educationSubject.create({
-          data: {
-            companyId,
-            name: 'عام',
-            description: 'تصنيف عام للكورسات والمجموعات',
-            color: '#6366f1',
-            isActive: true
-          }
-        });
+        // ملاحظة: EducationSubject لا يحتوي عمود color — تمريره كان يجعل Prisma يرمي
+        // خطأ 500 فيفشل إنشاء أي مجموعة لأي أكاديمية ليس لديها مادة «عام» بعد.
+        try {
+          defaultSubject = await prisma.educationSubject.create({
+            data: {
+              companyId,
+              name: 'عام',
+              description: 'تصنيف عام للكورسات والمجموعات',
+              isActive: true
+            }
+          });
+        } catch (subjectError) {
+          console.warn('[EducationGroups] default subject create failed, reusing existing:', subjectError.message?.slice(0, 120));
+          defaultSubject = await prisma.educationSubject.findFirst({ where: { companyId } });
+          if (!defaultSubject) throw subjectError;
+        }
       }
       resolvedSubjectId = defaultSubject.id;
     } else {
