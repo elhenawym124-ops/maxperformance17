@@ -116,11 +116,24 @@ const ROOM_TYPE_LABELS: Record<string, string> = {
   ONLINE: "أونلاين",
 };
 
-const timeOf = (iso?: string | null) => {
-  if (!iso) return "—";
+const isToday = (iso?: string | null) => {
+  if (!iso) return true;
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "—";
-  return d.toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" });
+  if (Number.isNaN(d.getTime())) return true;
+  return d.toDateString() === new Date().toDateString();
+};
+
+const shortDate = (iso: string | null | undefined, isEn: boolean) => {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString(isEn ? "en-GB" : "ar-EG", { day: "numeric", month: "short" });
+};
+
+const whenLabel = (session: LiveSession, isEn: boolean) => {
+  const day = session.dayLabel || "";
+  const date = isToday(session.startAt) ? "" : shortDate(session.startAt, isEn);
+  return [day, date, session.startTime].filter(Boolean).join(" ");
 };
 
 const EducationRoomsLivePage: React.FC = () => {
@@ -356,9 +369,7 @@ const EducationRoomsLivePage: React.FC = () => {
                   {room.next ? (
                     <>
                       <span className="font-semibold text-foreground">{isEn ? "Next: " : "الجاية: "}</span>
-                      <span className="tabular-nums">
-                        {room.next.dayLabel} {room.next.startTime}
-                      </span>
+                      <span className="tabular-nums">{whenLabel(room.next, isEn)}</span>
                       {" · "}
                       {room.next.groupName}
                       {room.next.teacherName ? ` · ${room.next.teacherName}` : ""}
@@ -397,7 +408,7 @@ const EducationRoomsLivePage: React.FC = () => {
                     {group.current
                       ? `${isEn ? "Now" : "الآن"} ${group.current.startTime}-${group.current.endTime}`
                       : group.next
-                        ? `${isEn ? "Next" : "الجاية"} ${group.next.dayLabel} ${group.next.startTime}`
+                        ? `${isEn ? "Next" : "الجاية"} ${whenLabel(group.next, isEn)}`
                         : isEn
                           ? "No schedule"
                           : "بدون جدول"}
