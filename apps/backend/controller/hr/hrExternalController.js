@@ -13,6 +13,7 @@ const {
   logExternalApiAction
 } = require('../../services/hrIntegrationService');
 const { attendanceService, shiftService, payrollService } = require('../../services/hr');
+const { getEffectiveShiftForDateOrDefault } = require('../../services/hr/shiftAssignmentResolver');
 
 const VALID_EMPLOYEE_STATUSES = [
   'ACTIVE',
