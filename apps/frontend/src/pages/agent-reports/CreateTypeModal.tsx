@@ -60,20 +60,20 @@ export const CreateTypeModal: React.FC<CreateTypeModalProps> = ({ isOpen, onClos
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-150">
       <div
-        className="w-full max-w-md rounded-2xl bg-white shadow-xl border border-slate-200 overflow-hidden"
+        className="w-full max-w-md rounded-2xl bg-card shadow-xl border border-border overflow-hidden"
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 bg-slate-50/50">
+        <div className="flex items-center justify-between border-b border-border/70 px-5 py-4 bg-muted/50">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <FolderPlus className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-semibold text-slate-800">إنشاء نوع تقرير جديد</h3>
+            <h3 className="text-base font-semibold text-foreground">إنشاء نوع تقرير جديد</h3>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            className="rounded-lg p-1 text-muted-foreground/80 hover:text-muted-foreground hover:bg-muted transition-colors"
             aria-label="إغلاق"
           >
             <X className="w-5 h-5" />
@@ -82,7 +82,7 @@ export const CreateTypeModal: React.FC<CreateTypeModalProps> = ({ isOpen, onClos
 
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               اسم النوع <span className="text-rose-500">*</span>
             </label>
             <input
@@ -95,39 +95,39 @@ export const CreateTypeModal: React.FC<CreateTypeModalProps> = ({ isOpen, onClos
                 }
               }}
               placeholder="مثال: إبديت الحملات الإعلانية"
-              className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
               required
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1.5">
-              المعرف اللاتيني (Slug) <span className="text-slate-400 font-normal">(اختياري)</span>
+            <label className="block text-xs font-medium text-foreground mb-1.5">
+              المعرف اللاتيني (Slug) <span className="text-muted-foreground/80 font-normal">(اختياري)</span>
             </label>
             <input
               type="text"
               value={slug}
               onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, '-'))}
               placeholder="ads-update"
-              className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-border font-mono text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1.5">
-              الوصف <span className="text-slate-400 font-normal">(اختياري)</span>
+            <label className="block text-xs font-medium text-foreground mb-1.5">
+              الوصف <span className="text-muted-foreground/80 font-normal">(اختياري)</span>
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="وصف مختصر للغرض من هذا النوع من التقارير"
               rows={2}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1.5">الأيقونة</label>
+            <label className="block text-xs font-medium text-foreground mb-1.5">الأيقونة</label>
             <div className="grid grid-cols-3 gap-2">
               {AVAILABLE_ICONS.map((item) => {
                 const IconComp = item.icon;
@@ -140,7 +140,7 @@ export const CreateTypeModal: React.FC<CreateTypeModalProps> = ({ isOpen, onClos
                     className={`flex items-center gap-2 p-2 rounded-lg border text-xs transition-all ${
                       isSelected
                         ? 'border-primary bg-primary/5 text-primary font-medium'
-                        : 'border-slate-200 hover:border-slate-300 text-slate-600 bg-white'
+                        : 'border-border hover:border-border text-muted-foreground bg-card'
                     }`}
                   >
                     <IconComp className="w-4 h-4 shrink-0" />
@@ -151,12 +151,12 @@ export const CreateTypeModal: React.FC<CreateTypeModalProps> = ({ isOpen, onClos
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-border/70">
             <button
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+              className="px-4 py-2 text-xs font-medium text-muted-foreground hover:bg-muted rounded-lg transition-colors"
             >
               إلغاء
             </button>

@@ -239,7 +239,7 @@ export const AgentReportsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] w-full overflow-hidden bg-slate-100" dir="rtl">
+    <div className="flex flex-col h-[calc(100vh-64px)] w-full overflow-hidden bg-muted" dir="rtl">
       <style>{`
         @media (min-width: 1024px) {
           .ar-mobile-nav {
@@ -283,14 +283,14 @@ export const AgentReportsPage: React.FC = () => {
 
       {/* Mobile Tab Switcher (< lg / < 1024px) */}
       <div
-        className="ar-mobile-nav flex items-center border-b border-slate-200 bg-white px-2 py-1.5 shrink-0"
+        className="ar-mobile-nav flex items-center border-b border-border bg-card px-2 py-1.5 shrink-0"
         style={isDesktop ? { display: 'none' } : { display: 'flex' }}
       >
         <button
           type="button"
           onClick={() => setMobileTab('types')}
           className={`flex-1 py-1.5 text-xs font-medium rounded-lg text-center transition-colors ${
-            mobileTab === 'types' ? 'bg-primary/10 text-primary font-semibold' : 'text-slate-600'
+            mobileTab === 'types' ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground'
           }`}
         >
           الأنواع ({types.length})
@@ -299,7 +299,7 @@ export const AgentReportsPage: React.FC = () => {
           type="button"
           onClick={() => setMobileTab('reports')}
           className={`flex-1 py-1.5 text-xs font-medium rounded-lg text-center transition-colors ${
-            mobileTab === 'reports' ? 'bg-primary/10 text-primary font-semibold' : 'text-slate-600'
+            mobileTab === 'reports' ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground'
           }`}
         >
           التقارير ({reports.length})
@@ -308,7 +308,7 @@ export const AgentReportsPage: React.FC = () => {
           type="button"
           onClick={() => setMobileTab('viewer')}
           className={`flex-1 py-1.5 text-xs font-medium rounded-lg text-center transition-colors ${
-            mobileTab === 'viewer' ? 'bg-primary/10 text-primary font-semibold' : 'text-slate-600'
+            mobileTab === 'viewer' ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground'
           }`}
         >
           عرض التقرير

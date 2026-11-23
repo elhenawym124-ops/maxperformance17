@@ -61,14 +61,14 @@ export const ReportsListColumn: React.FC<ReportsListColumnProps> = ({
   loading,
 }) => {
   return (
-    <div className="flex flex-col h-full bg-slate-50/60 border-l border-slate-200 select-none">
+    <div className="flex flex-col h-full bg-muted/50/60 border-l border-border select-none">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-100 bg-white">
+      <div className="flex items-center justify-between px-4 py-3.5 border-b border-border/70 bg-card">
         <div className="min-w-0">
-          <h2 className="text-xs font-semibold text-slate-800 truncate">
+          <h2 className="text-xs font-semibold text-foreground truncate">
             {selectedType?.name || 'التقارير'}
           </h2>
-          <p className="text-[10px] text-slate-400 truncate">
+          <p className="text-[10px] text-muted-foreground/80 truncate">
             {reports.length} تقرير متاح
           </p>
         </div>
@@ -82,15 +82,15 @@ export const ReportsListColumn: React.FC<ReportsListColumnProps> = ({
       </div>
 
       {/* Search Input */}
-      <div className="p-3 border-b border-slate-200/70 bg-white">
+      <div className="p-3 border-b border-border/70 bg-card">
         <div className="relative">
-          <Search className="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search className="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/80" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="بحث بالعنوان، الفترة، أو الملخص…"
-            className="w-full pr-8 pl-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors bg-slate-50/40"
+            className="w-full pr-8 pl-3 py-1.5 text-xs rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors bg-muted/40"
           />
         </div>
       </div>
@@ -100,18 +100,18 @@ export const ReportsListColumn: React.FC<ReportsListColumnProps> = ({
         {loading && reports.length === 0 ? (
           <div className="space-y-2">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-24 bg-white rounded-xl border border-slate-100 animate-pulse p-3" />
+              <div key={i} className="h-24 bg-card rounded-xl border border-border/70 animate-pulse p-3" />
             ))}
           </div>
         ) : reports.length === 0 ? (
           <div className="py-12 px-4 text-center">
-            <div className="w-10 h-10 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-2">
+            <div className="w-10 h-10 rounded-full bg-muted text-muted-foreground/80 flex items-center justify-center mx-auto mb-2">
               <FileText className="w-5 h-5" />
             </div>
-            <p className="text-xs font-medium text-slate-600 mb-1">
+            <p className="text-xs font-medium text-muted-foreground mb-1">
               {searchQuery ? 'لا توجد نتائج مطابقة للبحث' : 'مفيش تقارير في النوع ده'}
             </p>
-            <p className="text-[11px] text-slate-400 mb-3">
+            <p className="text-[11px] text-muted-foreground/80 mb-3">
               {searchQuery ? 'جرب البحث بكلمات أخرى' : 'يمكنك رفع أول تقرير HTML لهذا النوع الآن'}
             </p>
             {!searchQuery && (
@@ -134,14 +134,14 @@ export const ReportsListColumn: React.FC<ReportsListColumnProps> = ({
                 onClick={() => onSelectReport(report)}
                 className={`group p-3 rounded-xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-white border-primary ring-1 ring-primary/20 shadow-xs'
-                    : 'bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-xs'
+                    ? 'bg-card border-primary ring-1 ring-primary/20 shadow-xs'
+                    : 'bg-card border-border/80 hover:border-border hover:shadow-xs'
                 }`}
               >
                 <div className="flex items-start justify-between gap-2 mb-1.5">
                   <h3
                     className={`text-xs font-semibold line-clamp-1 ${
-                      isSelected ? 'text-primary' : 'text-slate-800'
+                      isSelected ? 'text-primary' : 'text-foreground'
                     }`}
                   >
                     {report.title}
@@ -152,7 +152,7 @@ export const ReportsListColumn: React.FC<ReportsListColumnProps> = ({
                         e.stopPropagation();
                         onCopyLink(report);
                       }}
-                      className="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+                      className="p-1 text-muted-foreground/80 hover:text-foreground hover:bg-muted rounded-md transition-colors"
                       title="نسخ رابط التقرير"
                     >
                       <Copy className="w-3.5 h-3.5" />
@@ -162,7 +162,7 @@ export const ReportsListColumn: React.FC<ReportsListColumnProps> = ({
                         e.stopPropagation();
                         onDownload(report);
                       }}
-                      className="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+                      className="p-1 text-muted-foreground/80 hover:text-foreground hover:bg-muted rounded-md transition-colors"
                       title="تحميل ملف HTML"
                     >
                       <Download className="w-3.5 h-3.5" />
@@ -172,7 +172,7 @@ export const ReportsListColumn: React.FC<ReportsListColumnProps> = ({
                         e.stopPropagation();
                         onDeleteReport(report);
                       }}
-                      className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-colors"
+                      className="p-1 text-muted-foreground/80 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-colors"
                       title="حذف التقرير"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -181,24 +181,24 @@ export const ReportsListColumn: React.FC<ReportsListColumnProps> = ({
                 </div>
 
                 {report.summary && (
-                  <p className="text-[11px] text-slate-500 line-clamp-2 mb-2 leading-relaxed">
+                  <p className="text-[11px] text-muted-foreground line-clamp-2 mb-2 leading-relaxed">
                     {report.summary}
                   </p>
                 )}
 
-                <div className="flex items-center gap-3 text-[10px] text-slate-400 pt-2 border-t border-slate-100">
+                <div className="flex items-center gap-3 text-[10px] text-muted-foreground/80 pt-2 border-t border-border/70">
                   {report.periodLabel && (
-                    <span className="flex items-center gap-1 tabular-nums font-medium text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded">
-                      <Calendar className="w-3 h-3 text-slate-400" />
+                    <span className="flex items-center gap-1 tabular-nums font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                      <Calendar className="w-3 h-3 text-muted-foreground/80" />
                       {report.periodLabel}
                     </span>
                   )}
                   <span className="flex items-center gap-1 tabular-nums">
-                    <HardDrive className="w-3 h-3 text-slate-400" />
+                    <HardDrive className="w-3 h-3 text-muted-foreground/80" />
                     {formatBytes(report.sizeBytes)}
                   </span>
                   <span className="flex items-center gap-1 tabular-nums mr-auto">
-                    <Clock className="w-3 h-3 text-slate-400" />
+                    <Clock className="w-3 h-3 text-muted-foreground/80" />
                     {formatDate(report.createdAt)}
                   </span>
                 </div>

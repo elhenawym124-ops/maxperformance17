@@ -110,23 +110,23 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-150">
       <div
-        className="w-full max-w-xl rounded-2xl bg-white shadow-xl border border-slate-200 overflow-hidden"
+        className="w-full max-w-xl rounded-2xl bg-card shadow-xl border border-border overflow-hidden"
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 bg-slate-50/50">
+        <div className="flex items-center justify-between border-b border-border/70 px-5 py-4 bg-muted/50">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <Upload className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-slate-800">رفع تقرير وكيل جديد</h3>
-              <p className="text-xs text-slate-400">صفحة HTML مكتفية بذاتها (Self-Contained)</p>
+              <h3 className="text-base font-semibold text-foreground">رفع تقرير وكيل جديد</h3>
+              <p className="text-xs text-muted-foreground/80">صفحة HTML مكتفية بذاتها (Self-Contained)</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            className="rounded-lg p-1 text-muted-foreground/80 hover:text-muted-foreground hover:bg-muted transition-colors"
             aria-label="إغلاق"
           >
             <X className="w-5 h-5" />
@@ -135,13 +135,13 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
 
         <form onSubmit={handleSubmit} className="p-5 space-y-4 max-h-[80vh] overflow-y-auto">
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               نوع التقرير <span className="text-rose-500">*</span>
             </label>
             <select
               value={typeId || currentType?.id}
               onChange={(e) => setTypeId(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors bg-white"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors bg-card"
             >
               {types.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -153,7 +153,7 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1.5">
+              <label className="block text-xs font-medium text-foreground mb-1.5">
                 عنوان التقرير <span className="text-rose-500">*</span>
               </label>
               <input
@@ -161,48 +161,48 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="مثال: التقرير اليومي للشحن"
-                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                className="w-full px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1.5">
-                تاريخ أو فترة التقرير <span className="text-slate-400 font-normal">(اختياري)</span>
+              <label className="block text-xs font-medium text-foreground mb-1.5">
+                تاريخ أو فترة التقرير <span className="text-muted-foreground/80 font-normal">(اختياري)</span>
               </label>
               <input
                 type="text"
                 value={periodLabel}
                 onChange={(e) => setPeriodLabel(e.target.value)}
                 placeholder="2026-11-03 أو الأسبوع 44"
-                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                className="w-full px-3 py-2 text-sm rounded-lg border border-border tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1.5">
-              ملخص التقرير <span className="text-slate-400 font-normal">(يظهر في قائمة التقارير)</span>
+            <label className="block text-xs font-medium text-foreground mb-1.5">
+              ملخص التقرير <span className="text-muted-foreground/80 font-normal">(يظهر في قائمة التقارير)</span>
             </label>
             <textarea
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               placeholder="سطرين يوضحان أهم مخرجات هذا التقرير…"
               rows={2}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
             />
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-medium text-slate-700">
+              <label className="text-xs font-medium text-foreground">
                 محتوى الـ HTML <span className="text-rose-500">*</span>
               </label>
-              <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg text-[11px]">
+              <div className="flex items-center gap-1 bg-muted p-0.5 rounded-lg text-[11px]">
                 <button
                   type="button"
                   onClick={() => setMode('file')}
                   className={`px-2.5 py-1 rounded-md transition-colors ${
-                    mode === 'file' ? 'bg-white font-medium text-slate-800 shadow-xs' : 'text-slate-500'
+                    mode === 'file' ? 'bg-card font-medium text-foreground shadow-xs' : 'text-muted-foreground'
                   }`}
                 >
                   رفع ملف (.html)
@@ -211,7 +211,7 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
                   type="button"
                   onClick={() => setMode('text')}
                   className={`px-2.5 py-1 rounded-md transition-colors ${
-                    mode === 'text' ? 'bg-white font-medium text-slate-800 shadow-xs' : 'text-slate-500'
+                    mode === 'text' ? 'bg-card font-medium text-foreground shadow-xs' : 'text-muted-foreground'
                   }`}
                 >
                   لصق كود
@@ -222,7 +222,7 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
             {mode === 'file' ? (
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-slate-200 hover:border-primary/50 hover:bg-slate-50/50 rounded-xl p-6 text-center cursor-pointer transition-all group"
+                className="border-2 border-dashed border-border hover:border-primary/50 hover:bg-muted/50 rounded-xl p-6 text-center cursor-pointer transition-all group"
               >
                 <input
                   ref={fileInputRef}
@@ -231,19 +231,19 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <div className="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-primary/10 text-slate-400 group-hover:text-primary flex items-center justify-center mx-auto mb-2 transition-colors">
+                <div className="w-10 h-10 rounded-full bg-muted group-hover:bg-primary/10 text-muted-foreground/80 group-hover:text-primary flex items-center justify-center mx-auto mb-2 transition-colors">
                   <FileCode className="w-5 h-5" />
                 </div>
                 {fileName ? (
                   <div className="flex items-center justify-center gap-2 text-emerald-600 font-medium text-sm">
                     <Check className="w-4 h-4" />
                     <span>{fileName}</span>
-                    <span className="text-xs text-slate-400 tabular-nums">({sizeKb} KB)</span>
+                    <span className="text-xs text-muted-foreground/80 tabular-nums">({sizeKb} KB)</span>
                   </div>
                 ) : (
                   <>
-                    <p className="text-xs font-medium text-slate-700 mb-0.5">انقر لاختيار ملف .html مكتمل</p>
-                    <p className="text-[11px] text-slate-400">الحد الأقصى للحجم 12 ميجابايت</p>
+                    <p className="text-xs font-medium text-foreground mb-0.5">انقر لاختيار ملف .html مكتمل</p>
+                    <p className="text-[11px] text-muted-foreground/80">الحد الأقصى للحجم 12 ميجابايت</p>
                   </>
                 )}
               </div>
@@ -254,11 +254,11 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
                   onChange={(e) => setHtmlContent(e.target.value)}
                   placeholder="<!DOCTYPE html><html>...</html>"
                   rows={8}
-                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-y"
+                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-y"
                   dir="ltr"
                 />
                 {htmlContent && (
-                  <p className="text-[11px] text-slate-400 mt-1 text-left tabular-nums">
+                  <p className="text-[11px] text-muted-foreground/80 mt-1 text-left tabular-nums">
                     الحجم: {sizeKb} KB
                   </p>
                 )}
@@ -266,12 +266,12 @@ export const UploadReportModal: React.FC<UploadReportModalProps> = ({
             )}
           </div>
 
-          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-border/70">
             <button
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+              className="px-4 py-2 text-xs font-medium text-muted-foreground hover:bg-muted rounded-lg transition-colors"
             >
               إلغاء
             </button>
