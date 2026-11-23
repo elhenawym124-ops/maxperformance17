@@ -161,6 +161,14 @@ exports.upsertMetaApp = async (req, res) => {
       data: updated
     });
   } catch (error) {
+    if (error.code === 'INCOMPLETE_CONFIG') {
+      return res.status(400).json({
+        success: false,
+        code: 'INCOMPLETE_CONFIG',
+        missingFields: error.missingFields || [],
+        message: error.message
+      });
+    }
     console.error('❌ Error upserting meta app:', error);
     return res.status(500).json({
       success: false,
@@ -198,6 +206,14 @@ exports.toggleMetaAppStatus = async (req, res) => {
       data: updated
     });
   } catch (error) {
+    if (error.code === 'INCOMPLETE_CONFIG') {
+      return res.status(400).json({
+        success: false,
+        code: 'INCOMPLETE_CONFIG',
+        missingFields: error.missingFields || [],
+        message: error.message
+      });
+    }
     console.error('❌ Error toggling meta app status:', error);
     return res.status(500).json({
       success: false,

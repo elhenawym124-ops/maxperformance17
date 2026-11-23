@@ -61,6 +61,31 @@ function resolveVerifyTokenFromRef(tokenRef) {
 }
 
 /**
+ * التحقق من اكتمال إعدادات التطبيق للتفعيل واختبار الاتصال
+ * يتطلب وجود configId و appSecretRef و webhookVerifyTokenRef
+ * @param {Object} app
+ * @returns {{ isValid: boolean, missingFields: string[] }}
+ */
+function validateAppConfig(app) {
+  if (!app || typeof app !== 'object') {
+    return { isValid: false, missingFields: ['configId', 'appSecretRef', 'webhookVerifyTokenRef'] };
+  }
+  const missingFields = [];
+  const configId = typeof app.configId === 'string' ? app.configId.trim() : '';
+  const appSecretRef = typeof app.appSecretRef === 'string' ? app.appSecretRef.trim() : '';
+  const webhookVerifyTokenRef = typeof app.webhookVerifyTokenRef === 'string' ? app.webhookVerifyTokenRef.trim() : '';
+
+  if (!configId) missingFields.push('configId');
+  if (!appSecretRef) missingFields.push('appSecretRef');
+  if (!webhookVerifyTokenRef) missingFields.push('webhookVerifyTokenRef');
+
+  return {
+    isValid: missingFields.length === 0,
+    missingFields
+  };
+}
+
+/**
  * جلب قائمة التطبيقات الافتراضية المبنية على متغيرات البيئة والإعدادات الحالية
  * تُستخدم كـ fallback عندما لا تحتوي قاعدة البيانات على صفوف أو عند عدم توفرها.
  * @returns {Array<Object>}
@@ -89,7 +114,7 @@ function getDefaultAppsDefinition() {
       appSecretRef: 'FB_GROWTH_APP_SECRET',
       configId: growthConfigId || '',
       webhookVerifyTokenRef: 'FB_GROWTH_VERIFY_TOKEN',
-      isActive: process.env.META_GROWTH_ACTIVE !== 'false',
+      isActive: Boolean(growthConfigId) && process.env.META_GROWTH_ACTIVE !== 'false',
       label: 'Growth App',
       createdAt: new Date(),
       updatedAt: new Date()
@@ -155,18 +180,21 @@ async function getAllApps() {
 
 /**
  * جلب تطبيق محدد بواسطة المفتاح ('primary' أو 'growth')
- * في حال كان التطبيق غير مفعل أو غير موجود، يرجع fallback للتطبيق الأساسي
+ * في حال كان التطبيق غير مفعل أو غير موجود، يرجع fallback للتطبيق الأساسي إلا إذا طُلب عدم ذلك
  * @param {string} [key='primary']
+ * @param {Object} [options={}]
+ * @param {boolean} [options.allowFallback=true]
  * @returns {Promise<Object>}
  */
-async function getAppByKey(key = PRIMARY_APP_KEY) {
+async function getAppByKey(key = PRIMARY_APP_KEY, options = {}) {
+  const { allowFallback = true } = options;
   const normalizedKey = String(key || PRIMARY_APP_KEY).trim().toLowerCase();
   const apps = await getAllApps();
 
   const found = apps.find((a) => a.key === normalizedKey);
   if (found) {
-    // إذا كان التطبيق معطلاً (isActive === false) وتطلب growth، ارجع fallback الأساسي
-    if (!found.isActive && normalizedKey === GROWTH_APP_KEY) {
+    // إذا كان التطبيق معطلاً (isActive === false) وتطلب growth، ارجع fallback الأساسي إذا كان مسموحاً
+    if (!found.isActive && normalizedKey === GROWTH_APP_KEY && allowFallback) {
       console.warn('⚠️ [META-APP-REGISTRY] تطبيق Growth معطّل، الرجوع للتطبيق الأساسي Primary');
       const primary = apps.find((a) => a.key === PRIMARY_APP_KEY);
       return primary || found;
@@ -175,8 +203,11 @@ async function getAppByKey(key = PRIMARY_APP_KEY) {
   }
 
   // التراجع للتطبيق الأساسي
-  const primary = apps.find((a) => a.key === PRIMARY_APP_KEY);
-  return primary || apps[0] || null;
+  if (allowFallback) {
+    const primary = apps.find((a) => a.key === PRIMARY_APP_KEY);
+    return primary || apps[0] || null;
+  }
+  return null;
 }
 
 /**
@@ -202,20 +233,25 @@ async function getSafeAppsList() {
     defaultSignupKey = null;
   }
 
-  return apps.map((app) => ({
-    id: app.id || `app-${app.key}`,
-    key: app.key,
-    appId: app.appId,
-    configId: app.configId || '',
-    appSecretRef: app.appSecretRef,
-    webhookVerifyTokenRef: app.webhookVerifyTokenRef,
-    isActive: Boolean(app.isActive),
-    isDefaultForSignup: defaultSignupKey ? String(app.key).toLowerCase() === defaultSignupKey : false,
-    hasSecretConfigured: Boolean(app.appSecret && !isPlaceholderFacebookCredential(app.appSecret)),
-    hasVerifyTokenConfigured: Boolean(app.webhookVerifyToken),
-    createdAt: app.createdAt,
-    updatedAt: app.updatedAt
-  }));
+  return apps.map((app) => {
+    const validation = validateAppConfig(app);
+    return {
+      id: app.id || `app-${app.key}`,
+      key: app.key,
+      appId: app.appId,
+      configId: app.configId || '',
+      appSecretRef: app.appSecretRef,
+      webhookVerifyTokenRef: app.webhookVerifyTokenRef,
+      isActive: Boolean(app.isActive),
+      isDefaultForSignup: defaultSignupKey ? String(app.key).toLowerCase() === defaultSignupKey : false,
+      hasSecretConfigured: Boolean(app.appSecret && !isPlaceholderFacebookCredential(app.appSecret)),
+      hasVerifyTokenConfigured: Boolean(app.webhookVerifyToken),
+      isConfigComplete: validation.isValid,
+      missingFields: validation.missingFields,
+      createdAt: app.createdAt,
+      updatedAt: app.updatedAt
+    };
+  });
 }
 
 /**
@@ -229,6 +265,20 @@ async function upsertApp({ key, appId, appSecretRef, configId, webhookVerifyToke
   const normalizedSecretRef = String(appSecretRef || '').trim();
   const normalizedConfigId = configId ? String(configId).trim() : null;
   const normalizedTokenRef = webhookVerifyTokenRef ? String(webhookVerifyTokenRef).trim() : null;
+
+  if (Boolean(isActive)) {
+    const validation = validateAppConfig({
+      configId: normalizedConfigId,
+      appSecretRef: normalizedSecretRef,
+      webhookVerifyTokenRef: normalizedTokenRef
+    });
+    if (!validation.isValid) {
+      const err = new Error(`لا يمكن تفعيل تطبيق ${normalizedKey} لأن الإعدادات غير مكتملة (الحقول الناقصة: ${validation.missingFields.join(', ')}). يجب تعيين configId ومراجع الأسرار أولاً أو حفظه كمعطّل.`);
+      err.code = 'INCOMPLETE_CONFIG';
+      err.missingFields = validation.missingFields;
+      throw err;
+    }
+  }
 
   const prisma = getPrismaClient();
   if (!prisma?.facebookApp?.upsert) {
@@ -259,6 +309,7 @@ async function upsertApp({ key, appId, appSecretRef, configId, webhookVerifyToke
 
 /**
  * تفعيل أو تعطيل تطبيق
+ * يمنع تفعيل تطبيق ذو إعدادات غير مكتملة (مثل غياب configId أو مراجع الأسرار)
  * @param {string} key
  * @param {boolean} isActive
  * @returns {Promise<Object>}
@@ -274,6 +325,25 @@ async function toggleAppStatus(key, isActive) {
     // The registry falls back to env defaults when the table is empty, so a toggle on a
     // fresh install used to 500 ("No record was found for an update"). Seed first.
     await ensureDefaultAppsSeeded();
+
+    if (Boolean(isActive)) {
+      let currentApp = null;
+      try {
+        currentApp = await prisma.facebookApp.findUnique({ where: { key: normalizedKey } });
+      } catch (_) {}
+      if (!currentApp) {
+        currentApp = (await getAllApps()).find((a) => a.key === normalizedKey);
+      }
+
+      const validation = validateAppConfig(currentApp);
+      if (!validation.isValid) {
+        const err = new Error(`لا يمكن تفعيل تطبيق ${normalizedKey} لأن الإعدادات غير مكتملة (الحقول الناقصة: ${validation.missingFields.join(', ')}). يجب تعيين configId ومراجع الأسرار أولاً.`);
+        err.code = 'INCOMPLETE_CONFIG';
+        err.missingFields = validation.missingFields;
+        throw err;
+      }
+    }
+
     const updated = await prisma.facebookApp.update({
       where: { key: normalizedKey },
       data: { isActive: Boolean(isActive) }
@@ -435,157 +505,223 @@ function getKnownScopesCatalog() {
   return [
     {
       permission: 'public_profile',
+      name: 'public_profile',
       category: 'Authentication',
       description: 'الملف الشخصي العام لحساب فيسبوك للمصادقة وتحديد هوية المستخدم',
+      descriptionAr: 'الملف الشخصي العام لحساب فيسبوك للمصادقة وتحديد هوية المستخدم',
+      descriptionEn: 'Public profile for authentication and user identity resolution',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'email',
+      name: 'email',
       category: 'Authentication',
       description: 'البريد الإلكتروني الأساسي للمستخدم للتواصل وتأكيد الحساب',
+      descriptionAr: 'البريد الإلكتروني الأساسي للمستخدم للتواصل وتأكيد الحساب',
+      descriptionEn: 'Primary email address for account confirmation and merchant communication',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'pages_show_list',
+      name: 'pages_show_list',
       category: 'Pages',
       description: 'عرض قائمة الصفحات التي يديرها المستخدم لربطها بالمنصة',
+      descriptionAr: 'عرض قائمة الصفحات التي يديرها المستخدم لربطها بالمنصة',
+      descriptionEn: 'List Facebook pages managed by the user for workspace onboarding',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'pages_messaging',
+      name: 'pages_messaging',
       category: 'Messenger',
       description: 'إرسال واستقبال الرسائل عبر بوت الماسنجر ودعم العملاء الفوري',
+      descriptionAr: 'إرسال واستقبال الرسائل عبر بوت الماسنجر ودعم العملاء الفوري',
+      descriptionEn: 'Send and receive Messenger messages for omnichannel customer support',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'pages_manage_metadata',
+      name: 'pages_manage_metadata',
       category: 'Pages',
       description: 'إدارة وتحديث بيانات واشتراكات ويب هوك الصفحة تلقائياً',
+      descriptionAr: 'إدارة وتحديث بيانات واشتراكات ويب هوك الصفحة تلقائياً',
+      descriptionEn: 'Manage page metadata and automatically subscribe to webhook events',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'pages_read_engagement',
+      name: 'pages_read_engagement',
       category: 'Pages',
       description: 'قراءة التفاعل على المنشورات',
+      descriptionAr: 'قراءة التفاعل على المنشورات',
+      descriptionEn: 'Read engagement metrics on page posts and media',
       defaultAccessLevel: 'standard',
       defaultStatus: 'standard_only',
       note: 'Advanced Access غير معتمد حاليًا — لا يُطلب بالـ OAuth تجنبًا لحجب ظهور الصفحات'
     },
     {
       permission: 'pages_manage_engagement',
+      name: 'pages_manage_engagement',
       category: 'Pages',
       description: 'التفاعل مع التعليقات والمنشورات والردود التلقائية',
+      descriptionAr: 'التفاعل مع التعليقات والمنشورات والردود التلقائية',
+      descriptionEn: 'Moderate and reply automatically to comments and user engagements',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'pages_read_user_content',
+      name: 'pages_read_user_content',
       category: 'Pages',
       description: 'قراءة محتوى وتفاعل المستخدمين على الصفحة وتحليل الاستفسارات',
+      descriptionAr: 'قراءة محتوى وتفاعل المستخدمين على الصفحة وتحليل الاستفسارات',
+      descriptionEn: 'Read user-generated content on pages for query resolution and support',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'pages_manage_posts',
+      name: 'pages_manage_posts',
       category: 'Pages',
       description: 'إنشاء وتعديل وحذف منشورات الصفحة ومزامنة منتجات المتجر',
+      descriptionAr: 'إنشاء وتعديل وحذف منشورات الصفحة ومزامنة منتجات المتجر',
+      descriptionEn: 'Publish, edit, and manage page feed posts and sync catalog products',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'ads_read',
+      name: 'ads_read',
       category: 'Ads',
       description: 'قراءة نتائج وإحصائيات الحسابات والحملات الإعلانية',
+      descriptionAr: 'قراءة نتائج وإحصائيات الحسابات والحملات الإعلانية',
+      descriptionEn: 'Read ad accounts, campaign metrics, spend, and performance insights',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'ads_management',
+      name: 'ads_management',
       category: 'Ads',
       description: 'إنشاء وإدارة الحملات الإعلانية والمجموعات الإعلانية تلقائياً',
+      descriptionAr: 'إنشاء وإدارة الحملات الإعلانية والمجموعات الإعلانية تلقائياً',
+      descriptionEn: 'Create, update, and optimize ad campaigns and ad sets programmatically',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'pages_manage_ads',
+      name: 'pages_manage_ads',
       category: 'Ads',
       description: 'ربط الإعلانات بالصفحات كـ Ad Identity ونشر إعلانات الرسائل',
+      descriptionAr: 'ربط الإعلانات بالصفحات كـ Ad Identity ونشر إعلانات الرسائل',
+      descriptionEn: 'Associate ads with Facebook pages as identity and run click-to-message ads',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'business_management',
+      name: 'business_management',
       category: 'Business',
       description: 'الوصول إلى محافظ الأعمال (Business Portfolios) وصفحات NPE',
+      descriptionAr: 'الوصول إلى محافظ الأعمال (Business Portfolios) وصفحات NPE',
+      descriptionEn: 'Access Meta Business Portfolios, system users, and enterprise assets',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'read_insights',
+      name: 'read_insights',
       category: 'Insights',
       description: 'قراءة إحصائيات وصول الصفحات والمنشورات وتقارير الأداء',
+      descriptionAr: 'قراءة إحصائيات وصول الصفحات والمنشورات وتقارير الأداء',
+      descriptionEn: 'Read page and post aggregated performance metrics and reach insights',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'leads_retrieval',
+      name: 'leads_retrieval',
       category: 'Leads',
       description: 'استرجاع بيانات نماذج العملاء المحتملين (Lead Gen) ومزامنتها فورياً',
+      descriptionAr: 'استرجاع بيانات نماذج العملاء المحتملين (Lead Gen) ومزامنتها فورياً',
+      descriptionEn: 'Retrieve lead generation form submissions in real time for CRM synchronization',
       defaultAccessLevel: 'standard',
       defaultStatus: 'pending_review',
       note: 'يتطلب مراجعة Meta App Review لتفعيل الاسترجاع الفوري'
     },
     {
       permission: 'catalog_management',
+      name: 'catalog_management',
       category: 'Catalog',
       description: 'إدارة كتالوج المنتجات ومزامنتها مع فيسبوك وإنستجرام شوب',
+      descriptionAr: 'إدارة كتالوج المنتجات ومزامنتها مع فيسبوك وإنستجرام شوب',
+      descriptionEn: 'Manage product catalogs and sync inventories to Facebook & Instagram Shops',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'instagram_basic',
+      name: 'instagram_basic',
       category: 'Instagram',
       description: 'قراءة الملف التجاري لحساب إنستجرام والمنشورات والوسائط',
+      descriptionAr: 'قراءة الملف التجاري لحساب إنستجرام والمنشورات والوسائط',
+      descriptionEn: 'Read Instagram professional profile information and media items',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'instagram_manage_messages',
+      name: 'instagram_manage_messages',
       category: 'Instagram',
       description: 'إدارة واستقبال والرد على رسائل الدايركت (IG Direct Messages)',
+      descriptionAr: 'إدارة واستقبال والرد على رسائل الدايركت (IG Direct Messages)',
+      descriptionEn: 'Manage, receive, and reply to Instagram Direct Messages from the unified inbox',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'instagram_manage_comments',
+      name: 'instagram_manage_comments',
       category: 'Instagram',
       description: 'إدارة والرد على تعليقات منشورات إنستجرام تلقائياً',
+      descriptionAr: 'إدارة والرد على تعليقات منشورات إنستجرام تلقائياً',
+      descriptionEn: 'Moderate and reply automatically to comments on Instagram posts',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'instagram_content_publish',
+      name: 'instagram_content_publish',
       category: 'Instagram',
       description: 'نشر الصور والفيديوهات والريلز على إنستجرام من لوحة التحكم',
+      descriptionAr: 'نشر الصور والفيديوهات والريلز على إنستجرام من لوحة التحكم',
+      descriptionEn: 'Publish photos, videos, carousels, and Reels directly to Instagram',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'whatsapp_business_messaging',
+      name: 'whatsapp_business_messaging',
       category: 'WhatsApp',
       description: 'إرسال واستقبال رسائل واتساب عبر Meta Cloud API الرسمية',
+      descriptionAr: 'إرسال واستقبال رسائل واتساب عبر Meta Cloud API الرسمية',
+      descriptionEn: 'Send and receive conversational and template messages via official WhatsApp Cloud API',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     },
     {
       permission: 'whatsapp_business_management',
+      name: 'whatsapp_business_management',
       category: 'WhatsApp',
       description: 'إدارة أرقام واتساب وحسابات WABA وقوالب الرسائل ورصيد المحفظة',
+      descriptionAr: 'إدارة أرقام واتساب وحسابات WABA وقوالب الرسائل ورصيد المحفظة',
+      descriptionEn: 'Manage WABA phone numbers, HSM templates, payment settings, and account assets',
       defaultAccessLevel: 'advanced',
       defaultStatus: 'approved'
     }
@@ -598,12 +734,14 @@ function getKnownScopesCatalog() {
  */
 async function testAppConnection(key = PRIMARY_APP_KEY) {
   const normalizedKey = String(key || PRIMARY_APP_KEY).trim().toLowerCase();
-  const app = await getAppByKey(normalizedKey);
+  const app = await getAppByKey(normalizedKey, { allowFallback: false });
 
   if (!app) {
     return {
       success: false,
       connected: false,
+      status: 'NOT_FOUND',
+      code: 'NOT_FOUND',
       key: normalizedKey,
       appId: '',
       checkedAt: new Date().toISOString(),
@@ -612,11 +750,41 @@ async function testAppConnection(key = PRIMARY_APP_KEY) {
     };
   }
 
+  // فحص اكتمال الإعدادات أولاً لمنع إرجاع Granted كاذب عند غياب configId أو refs
+  const validation = validateAppConfig(app);
+  if (!validation.isValid) {
+    return {
+      success: false,
+      connected: false,
+      status: 'INCOMPLETE_CONFIG',
+      code: 'INCOMPLETE_CONFIG',
+      key: normalizedKey,
+      appId: app.appId || '',
+      appName: normalizedKey === 'growth' ? 'MaxPerformance Growth' : 'MaxPerformance Primary',
+      checkedAt: new Date().toISOString(),
+      missingFields: validation.missingFields,
+      message: `إعدادات تطبيق ${normalizedKey} غير مكتملة (الحقول الناقصة: ${validation.missingFields.join(', ')}). مفقود Login Configuration أو مراجع الأسرار، لا يمكن اختبار الاتصال أو إعطاء حالة Granted كاذبة.`,
+      permissions: getKnownScopesCatalog().map((c) => ({
+        permission: c.permission,
+        name: c.name || c.permission,
+        category: c.category,
+        description: c.description,
+        descriptionAr: c.descriptionAr || c.description,
+        descriptionEn: c.descriptionEn || '',
+        status: 'not_requested',
+        accessLevel: 'none',
+        note: c.note || null
+      }))
+    };
+  }
+
   const secret = app.appSecret || resolveSecretFromRef(app.appSecretRef);
   if (!secret || isPlaceholderFacebookCredential(secret)) {
     return {
       success: false,
       connected: false,
+      status: 'MISSING_SECRET',
+      code: 'MISSING_SECRET',
       key: normalizedKey,
       appId: app.appId,
       appName: normalizedKey === 'growth' ? 'MaxPerformance Growth' : 'MaxPerformance Primary',
@@ -624,8 +792,11 @@ async function testAppConnection(key = PRIMARY_APP_KEY) {
       message: `السر الخاص بالتطبيق (${app.appSecretRef}) غير مهيأ في متغيرات البيئة`,
       permissions: getKnownScopesCatalog().map((c) => ({
         permission: c.permission,
+        name: c.name || c.permission,
         category: c.category,
         description: c.description,
+        descriptionAr: c.descriptionAr || c.description,
+        descriptionEn: c.descriptionEn || '',
         status: c.defaultStatus,
         accessLevel: c.defaultAccessLevel,
         note: c.note || null
@@ -680,8 +851,11 @@ async function testAppConnection(key = PRIMARY_APP_KEY) {
 
       return {
         permission: cat.permission,
+        name: cat.name || cat.permission,
         category: cat.category,
         description: cat.description,
+        descriptionAr: cat.descriptionAr || cat.description,
+        descriptionEn: cat.descriptionEn || '',
         status,
         accessLevel,
         note: cat.note || null
@@ -691,6 +865,8 @@ async function testAppConnection(key = PRIMARY_APP_KEY) {
     return {
       success: true,
       connected: true,
+      status: 'CONNECTED',
+      code: 'CONNECTED',
       key: normalizedKey,
       appId: appData.id || app.appId,
       appName: appData.name || (normalizedKey === 'growth' ? 'MaxPerformance Growth' : 'MaxPerformance Primary'),
@@ -709,6 +885,8 @@ async function testAppConnection(key = PRIMARY_APP_KEY) {
     return {
       success: !isNetworkErr,
       connected: false,
+      status: isNetworkErr ? 'NETWORK_ERROR' : 'API_ERROR',
+      code: isNetworkErr ? 'NETWORK_ERROR' : 'API_ERROR',
       key: normalizedKey,
       appId: app.appId,
       appName: normalizedKey === 'growth' ? 'MaxPerformance Growth' : 'MaxPerformance Primary',
@@ -718,8 +896,11 @@ async function testAppConnection(key = PRIMARY_APP_KEY) {
         : `فشل الاتصال بـ Meta API: ${safeErrorMsg}`,
       permissions: SCOPES_CATALOG.map((c) => ({
         permission: c.permission,
+        name: c.name || c.permission,
         category: c.category,
         description: c.description,
+        descriptionAr: c.descriptionAr || c.description,
+        descriptionEn: c.descriptionEn || '',
         status: c.defaultStatus,
         accessLevel: c.defaultAccessLevel,
         note: c.note || null
@@ -768,6 +949,7 @@ module.exports = {
   getSafeAppsList,
   upsertApp,
   toggleAppStatus,
+  validateAppConfig,
   getDefaultSignupAppKey,
   setDefaultSignupAppKey,
   ensureDefaultAppsSeeded,
