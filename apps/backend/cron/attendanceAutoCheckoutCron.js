@@ -221,8 +221,8 @@ class AttendanceAutoCheckoutCron {
     const isRest = attendanceService.isRestDay(attendance.date || attendance.checkIn, settings, timezone);
 
     const attendanceDayForDb = normalizeDateForDb(attendance.date || attendance.checkIn, timezone);
-    const startTime = shift?.startTime || settings?.workStartTime || '09:00';
-    const endTime = shift?.endTime || settings?.workEndTime || '17:00';
+    const startTime = shift?.startTime || settings?.workStartTime || '10:00';
+    const endTime = shift?.endTime || settings?.workEndTime || '18:00';
     const [startHour, startMinute] = startTime.split(':').map(Number);
     const [endHour, endMinute] = endTime.split(':').map(Number);
     const isOvernightShift =
@@ -316,10 +316,22 @@ class AttendanceAutoCheckoutCron {
       timezone
     );
 
+    // لو الموظف مش متعيّن على شيفت، نرجع لشيفت الشركة الافتراضي.
+    // قبل كده كان يقع على 09:00/17:00 الثابتة ويكتب انصراف 17:00 لمجموعة شيفتها 14:00-21:00.
+    let effectiveShift = shiftAssignment?.shift || null;
+    if (!effectiveShift && typeof prisma.shift?.findFirst === 'function') {
+      effectiveShift = await prisma.shift
+        .findFirst({
+          where: { companyId: attendance.companyId, isActive: true },
+          orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }]
+        })
+        .catch(() => null);
+    }
+
     const attendanceDayForDb = normalizeDateForDb(attendance.date, timezone);
     const currentDayForDb = normalizeDateForDb(now, timezone);
-    const startTime = shiftAssignment?.shift?.startTime || settings?.workStartTime || '09:00';
-    const endTime = shiftAssignment?.shift?.endTime || settings?.workEndTime || '17:00';
+    const startTime = effectiveShift?.startTime || settings?.workStartTime || '10:00';
+    const endTime = effectiveShift?.endTime || settings?.workEndTime || '18:00';
     const [startHour, startMinute] = startTime.split(':').map(Number);
     const [endHour, endMinute] = endTime.split(':').map(Number);
     const isOvernightShift =
@@ -332,6 +344,12 @@ class AttendanceAutoCheckoutCron {
 
     if (isOvernightShift) {
       checkoutTime.setUTCDate(checkoutTime.getUTCDate() + 1);
+    }
+
+    // انصراف تلقائي مستحيل يسبق الحضور
+    const checkInAt = attendance.checkIn ? new Date(attendance.checkIn) : null;
+    if (checkInAt && checkoutTime && !Number.isNaN(checkInAt.getTime()) && checkoutTime.getTime() < checkInAt.getTime()) {
+      checkoutTime = new Date(checkInAt.getTime());
     }
 
     const reminderMinutes = settings?.autoCheckoutReminderMinutes || 30;
@@ -366,7 +384,7 @@ class AttendanceAutoCheckoutCron {
     const metrics = this.calculateAutoCheckoutMetrics({
       attendance,
       checkoutTime,
-      shift: shiftAssignment?.shift,
+      shift: effectiveShift,
       settings,
       latenessRules,
       timezone

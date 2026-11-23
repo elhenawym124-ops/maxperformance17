@@ -101,34 +101,57 @@ async function main() {
 
       let earlyLeaveMinutes = null;
       let overtimeHours = null;
-      if (endTime && row.checkOut) {
-        let workEnd = combineDateAndTime(dayStart, endTime, timezone);
+      let scheduledEnd = null;
+      if (endTime) {
+        scheduledEnd = combineDateAndTime(dayStart, endTime, timezone);
         const [eh, em] = endTime.split(':').map(Number);
         const [sh, sm] = startTime.split(':').map(Number);
         const overnight = eh < sh || (eh === sh && em < sm);
-        if (overnight && workEnd) workEnd = new Date(workEnd.getTime() + 24 * 60 * 60 * 1000);
-        const checkOut = new Date(row.checkOut);
-        const early = minutesBetween(workEnd, checkOut);
+        if (overnight && scheduledEnd) scheduledEnd = new Date(scheduledEnd.getTime() + 24 * 60 * 60 * 1000);
+      }
+
+      const isAutoClosed = String(row.checkOutMethod || '') === 'auto_system';
+      let effectiveCheckOut = row.checkOut ? new Date(row.checkOut) : null;
+
+      // انصراف تلقائي اتكتب على 17:00 الثابتة القديمة بدل نهاية الشيفت الحقيقي
+      if (isAutoClosed && scheduledEnd && effectiveCheckOut &&
+          Math.abs(effectiveCheckOut.getTime() - scheduledEnd.getTime()) > 60000 &&
+          scheduledEnd.getTime() >= checkIn.getTime()) {
+        effectiveCheckOut = scheduledEnd;
+      }
+
+      if (scheduledEnd && effectiveCheckOut) {
+        const early = minutesBetween(scheduledEnd, effectiveCheckOut);
         earlyLeaveMinutes = early > 0 ? early : 0;
         const over = -early / 60;
         overtimeHours = over > 0 ? Math.round(over * 100) / 100 : 0;
       }
 
+      const canCorrectAutoCheckout =
+        isAutoClosed && scheduledEnd && scheduledEnd.getTime() >= checkIn.getTime();
       const invalidCheckout =
-        row.checkOut && new Date(row.checkOut).getTime() < checkIn.getTime();
+        row.checkOut && new Date(row.checkOut).getTime() < checkIn.getTime() && !canCorrectAutoCheckout;
+      const checkoutNeedsFix =
+        effectiveCheckOut && row.checkOut &&
+        Math.abs(effectiveCheckOut.getTime() - new Date(row.checkOut).getTime()) > 60000;
+
+      const workHours = effectiveCheckOut
+        ? Math.max(0, Math.round((minutesBetween(effectiveCheckOut, checkIn) / 60) * 100) / 100)
+        : null;
 
       const diffLate = (row.lateMinutes || 0) !== lateMinutes;
       const diffStatus = row.status !== status;
       const diffEarly = earlyLeaveMinutes !== null && (row.earlyLeaveMinutes || 0) !== earlyLeaveMinutes;
       const diffOvertime = overtimeHours !== null && Number(row.overtimeHours || 0) !== overtimeHours;
-      if (!diffLate && !diffStatus && !diffEarly && !diffOvertime && !invalidCheckout) continue;
+      if (!diffLate && !diffStatus && !diffEarly && !diffOvertime && !invalidCheckout && !checkoutNeedsFix) continue;
 
       const label = `${row.user?.firstName || ''} ${row.user?.lastName || ''}`.trim() || row.userId;
       const day = dayStart.toISOString().slice(0, 10);
       console.log(
         `  ${day} ${label}: شيفت ${startTime}${endTime ? `-${endTime}` : ''} | ` +
         `تأخير ${row.lateMinutes || 0}→${lateMinutes} | ${row.status}→${status}` +
-        `${invalidCheckout ? ' | انصراف غير صالح' : ''}`
+        `${invalidCheckout ? ' | انصراف غير صالح' : ''}` +
+        `${checkoutNeedsFix ? ` | انصراف تلقائي ${new Date(row.checkOut).toISOString().slice(11, 16)}→${effectiveCheckOut.toISOString().slice(11, 16)}Z` : ''}`
       );
 
       if (APPLY) {
@@ -142,6 +165,13 @@ async function main() {
             ? `${row.notes} (أُلغي انصراف تلقائي غير صالح)`
             : 'أُلغي انصراف تلقائي غير صالح';
         } else {
+          if (checkoutNeedsFix) {
+            data.checkOut = effectiveCheckOut;
+            data.workHours = workHours || 0;
+            data.notes = row.notes && !row.notes.includes('صُحّح انصراف')
+              ? `${row.notes} (صُحّح انصراف تلقائي على نهاية الشيفت)`
+              : row.notes || 'صُحّح انصراف تلقائي على نهاية الشيفت';
+          }
           if (earlyLeaveMinutes !== null) data.earlyLeaveMinutes = earlyLeaveMinutes;
           if (overtimeHours !== null) data.overtimeHours = overtimeHours;
         }

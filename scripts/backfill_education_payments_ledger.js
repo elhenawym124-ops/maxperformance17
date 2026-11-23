@@ -77,6 +77,24 @@ async function main() {
       take: 5000,
     });
 
+    // حماية من العد المزدوج: نفس الطالب بنفس المبلغ في نفس اليوم
+    // (رسوم مجموعة + تسجيل باقة) = دفعة واحدة اتسجلت في المكانين.
+    const enrollmentPaidByStudent = new Map();
+    for (const e of enrollments) {
+      const paid = money(e.amountPaid);
+      if (paid <= 0) continue;
+      const key = `${e.studentId}|${paid}`;
+      const list = enrollmentPaidByStudent.get(key) || [];
+      list.push(new Date(e.enrollmentDate || 0).getTime());
+      enrollmentPaidByStudent.set(key, list);
+    }
+    const isDuplicateOfEnrollment = (studentId, amount, when) => {
+      const times = enrollmentPaidByStudent.get(`${studentId}|${money(amount)}`);
+      if (!times || times.length === 0) return false;
+      const ts = new Date(when || 0).getTime();
+      return times.some((t) => Math.abs(t - ts) <= 24 * 60 * 60 * 1000);
+    };
+
     for (const e of enrollments) {
       const paid = money(e.amountPaid);
       if (paid <= 0) continue;
@@ -98,18 +116,23 @@ async function main() {
       });
     }
 
-    const members = await prisma.educationGroupMember.findMany({
-      where: { companyId },
-      select: {
-        id: true, groupId: true, studentId: true, amountPaid: true, joinedAt: true,
-        student: { select: { firstName: true, lastName: true } },
-      },
-      take: 5000,
-    });
+    // مجموعة الأعضاء مسجّلة بـ raw SQL لأن موديل EducationGroupMember غير متاح في Prisma client على الإنتاج
+    const members = await prisma.$queryRawUnsafe(`
+      SELECT m.id, m."groupId", m."studentId", m."amountPaid", m."joinedAt",
+             s."firstName", s."lastName"
+      FROM "education_group_members" m
+      LEFT JOIN "education_students" s ON s.id = m."studentId" AND s."companyId" = m."companyId"
+      WHERE m."companyId" = $1
+      LIMIT 5000
+    `, companyId);
 
-    for (const m of members) {
+    for (const m of members || []) {
       const paid = money(m.amountPaid);
       if (paid <= 0) continue;
+      if (isDuplicateOfEnrollment(m.studentId, paid, m.joinedAt)) {
+        console.log(`  [skip] ${m.firstName || ''} ${m.lastName || ''} — نفس الدفعة مسجلة كتسجيل باقة (منع عد مزدوج)`);
+        continue;
+      }
       const recorded = money(byMember.get(m.id) || 0);
       const delta = money(paid - recorded);
       if (delta <= 0.009) continue;
@@ -121,7 +144,7 @@ async function main() {
           studentId: m.studentId,
           groupId: m.groupId,
           groupMemberId: m.id,
-          studentName: `${m.student?.firstName || ''} ${m.student?.lastName || ''}`.trim() || null,
+          studentName: `${m.firstName || ''} ${m.lastName || ''}`.trim() || null,
           notes: 'ترحيل دفتر المدفوعات — رسوم مجموعة',
         },
       });
