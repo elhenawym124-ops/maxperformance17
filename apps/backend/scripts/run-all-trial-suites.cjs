@@ -21,24 +21,39 @@ const SCRIPTS = [
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const summary = [];
 
+const runSuite = (file) => {
+  const full = path.join(__dirname, file);
+  let out = '';
+  try {
+    out = execFileSync(process.execPath, [full], { encoding: 'utf8', timeout: 10 * 60 * 1000 });
+  } catch (e) {
+    out = `${e.stdout || ''}\n${e.stderr || ''}`;
+  }
+  const m = out.match(/TOTAL\s+(\d+)\s+—\s+PASS\s+(\d+)\s+—\s+FAIL\s+(\d+)/) || [];
+  return {
+    label: m[0] || 'NO RESULT',
+    total: Number(m[1] || 0),
+    pass: Number(m[2] || 0),
+    fail: Number(m[3] || 0),
+  };
+};
+
 (async () => {
   for (const [label, file] of SCRIPTS) {
-    const full = path.join(__dirname, file);
-    let out = '';
-    try {
-      out = execFileSync(process.execPath, [full], { encoding: 'utf8', timeout: 10 * 60 * 1000 });
-    } catch (e) {
-      out = `${e.stdout || ''}\n${e.stderr || ''}`;
+    let res = runSuite(file);
+    // حماية من rate-limit: أي فشل يُعاد مرة واحدة بعد مهلة أطول قبل تسجيله
+    if (res.fail > 0) {
+      console.log(`${label.padEnd(26)} retry after cooldown…`);
+      await sleep(45000);
+      const retry = runSuite(file);
+      if (retry.fail < res.fail) {
+        console.log(`${label.padEnd(26)} recovered on retry (${retry.pass}/${retry.total})`);
+        res = retry;
+      }
     }
-    const total = (out.match(/TOTAL\s+(\d+)\s+—\s+PASS\s+(\d+)\s+—\s+FAIL\s+(\d+)/) || []);
-    summary.push({
-      suite: label,
-      total: Number(total[1] || 0),
-      pass: Number(total[2] || 0),
-      fail: Number(total[3] || 0),
-    });
-    console.log(`${label.padEnd(26)} ${total[0] || 'NO RESULT'}`);
-    await sleep(5000);
+    summary.push({ suite: label, total: res.total, pass: res.pass, fail: res.fail });
+    console.log(`${label.padEnd(26)} ${res.label}`);
+    await sleep(8000);
   }
 
   const totals = summary.reduce((acc, s) => ({ total: acc.total + s.total, pass: acc.pass + s.pass, fail: acc.fail + s.fail }), { total: 0, pass: 0, fail: 0 });

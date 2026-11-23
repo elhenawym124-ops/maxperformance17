@@ -49,6 +49,10 @@ const CURRENT_COMPANY_SELECT = {
   currency: true,
   isActive: true,
   businessSpecialtyId: true,
+  // مؤشر التجربة المجانية للعميل (كان غير متاح للواجهة إطلاقًا)
+  trialModeEnabled: true,
+  trialStartedAt: true,
+  trialEndsAt: true,
   businessSpecialty: {
     select: {
       id: true,
@@ -133,6 +137,17 @@ const getCurrentCompany = async (req, res) => {
         settings: finalSettings,
         createdAt: company.createdAt,
         updatedAt: company.updatedAt,
+        trialModeEnabled: company.trialModeEnabled || false,
+        trialStartedAt: company.trialStartedAt || null,
+        trialEndsAt: company.trialEndsAt || null,
+        trialDaysRemaining: company.trialEndsAt
+          ? Math.max(
+              0,
+              Math.ceil(
+                (new Date(company.trialEndsAt).getTime() - Date.now()) / 86400000,
+              ),
+            )
+          : null,
       },
     });
   } catch (error) {

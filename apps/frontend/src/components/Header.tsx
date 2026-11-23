@@ -22,6 +22,7 @@ import {
 import { buildStoreUrl } from "../utils/storeUrl";
 import { hasStoreApp } from "../utils/storeShortcut";
 import HeaderWalletShortcut from "./wallet/HeaderWalletShortcut";
+import TrialCountdownBadge from "./trial/TrialCountdownBadge";
 import AppUpdateIndicator from "./common/AppUpdateIndicator";
 
 import { useTimer } from "../contexts/TimerContext";
@@ -310,6 +311,9 @@ const Header: React.FC = () => {
 
             {/* Quick Wallet Recharge Shortcut Button with Live Balance */}
             <HeaderWalletShortcut />
+
+            {/* مؤشر الأيام المتبقية في التجربة (يظهر لشركات التجربة فقط) */}
+            <TrialCountdownBadge />
 
             {/* Visit Store Button */}
             {isStoreActive && (

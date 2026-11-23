@@ -16,6 +16,10 @@ interface Company {
   currency: string;
   isActive: boolean;
   settings?: any;
+  trialModeEnabled?: boolean;
+  trialStartedAt?: string | null;
+  trialEndsAt?: string | null;
+  trialDaysRemaining?: number | null;
 }
 
 interface CompanyContextType {
