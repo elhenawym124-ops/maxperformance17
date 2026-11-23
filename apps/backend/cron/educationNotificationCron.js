@@ -33,6 +33,7 @@ let sessionRemindersRunning = false;
 let balanceAlertsRunning = false;
 let demoRemindersRunning = false;
 let paymentRemindersRunning = false;
+let absenceAlertsRunning = false;
 
 const toHours = (row, fallbackHours) => {
   if (!row) return fallbackHours;
@@ -475,7 +476,28 @@ function startEducationNotificationScheduler() {
   cron.schedule('*/15 * * * *', () => {
     runDemoDayReminders().catch((error) => console.error('[EDU-CRON] demo reminders job failed:', error.message));
   });
-  console.log('[EDU-CRON] Education notification scheduler registered (session */30, balance daily 10:00, payments daily 11:00, demo */15).');
+  cron.schedule('0 12 * * *', () => {
+    runAbsenceAlerts().catch((error) => console.error('[EDU-CRON] absence alerts job failed:', error.message));
+  });
+  console.log('[EDU-CRON] Education notification scheduler registered (session */30, balance daily 10:00, payments daily 11:00, demo */15, absences daily 12:00).');
+}
+
+async function runAbsenceAlerts() {
+  if (absenceAlertsRunning) return null;
+  absenceAlertsRunning = true;
+  try {
+    const absenceService = require('../services/educationAbsenceService');
+    const summary = await absenceService.runAbsenceSweep(getSharedPrismaClient(), {
+      threshold: 3,
+      windowDays: 45,
+    });
+    if (summary.sent > 0) {
+      console.log(`[EDU-CRON] absence alerts sent: ${summary.sent} (detected ${summary.detected})`);
+    }
+    return summary;
+  } finally {
+    absenceAlertsRunning = false;
+  }
 }
 
 module.exports = {
@@ -484,5 +506,6 @@ module.exports = {
   runBalanceAlerts,
   runPaymentReminders,
   runDemoDayReminders,
+  runAbsenceAlerts,
   LOW_HOURS_THRESHOLD,
 };

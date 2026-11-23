@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AlertTriangle, RefreshCw, TrendingUp, Users, Wallet } from "lucide-react";
-import { fetchInsights } from "./api";
-import type { InsightsData } from "./types";
+import { fetchAbsenceAlerts, fetchInsights, runAbsenceAlerts } from "./api";
+import type { AbsenceAlert, InsightsData } from "./types";
 
 const money = (value: number) =>
   (Math.round((Number(value) || 0) * 100) / 100).toLocaleString("en-EG", { maximumFractionDigits: 2 });
@@ -51,6 +51,44 @@ export const EducationGrowthTab: React.FC<{ isEn: boolean }> = ({ isEn }) => {
   const [data, setData] = useState<InsightsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [absenceAlerts, setAbsenceAlerts] = useState<AbsenceAlert[]>([]);
+  const [absenceBusy, setAbsenceBusy] = useState(false);
+  const [absenceNotice, setAbsenceNotice] = useState("");
+
+  const loadAbsence = useCallback(() => {
+    let alive = true;
+    fetchAbsenceAlerts(3, 45).then((rows) => {
+      if (alive) setAbsenceAlerts(rows);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const cleanup = loadAbsence();
+    return cleanup;
+  }, [loadAbsence]);
+
+  const handleSendAbsenceAlerts = async () => {
+    setAbsenceBusy(true);
+    setAbsenceNotice("");
+    try {
+      const result = await runAbsenceAlerts(3, 45);
+      if (result) {
+        setAbsenceNotice(
+          isEn
+            ? `Sent ${result.sent} · skipped ${result.skipped} · failed ${result.failed}`
+            : `تم إرسال ${result.sent} · تم تخطي ${result.skipped} · فشل ${result.failed}`
+        );
+      } else {
+        setAbsenceNotice(isEn ? "Failed to send alerts" : "تعذر إرسال التنبيهات");
+      }
+      loadAbsence();
+    } finally {
+      setAbsenceBusy(false);
+    }
+  };
 
   const load = useCallback(() => {
     let alive = true;
@@ -224,6 +262,52 @@ export const EducationGrowthTab: React.FC<{ isEn: boolean }> = ({ isEn }) => {
                 </div>
                 <span className="font-mono tabular-nums font-bold text-warning shrink-0">
                   {money(member.remaining)} {isEn ? "EGP" : "ج.م"}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+        <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className={`w-3.5 h-3.5 ${absenceAlerts.length ? "text-destructive" : "text-muted-foreground"}`} />
+            <h4 className="text-xs font-semibold text-foreground">
+              {isEn ? "Repeated absence" : "غياب متكرر"}
+            </h4>
+            <span className="text-[10px] text-muted-foreground font-mono">{absenceAlerts.length}</span>
+          </div>
+          <button
+            type="button"
+            onClick={handleSendAbsenceAlerts}
+            disabled={absenceBusy || absenceAlerts.length === 0}
+            className="px-2.5 py-1 rounded-lg border border-border/70 text-[11px] font-semibold text-foreground hover:bg-muted disabled:opacity-50"
+          >
+            {absenceBusy ? (isEn ? "Sending..." : "جارٍ الإرسال...") : (isEn ? "Notify parents" : "إشعار أولياء الأمور")}
+          </button>
+        </div>
+        {absenceNotice ? (
+          <p className="px-4 pt-2 text-[10px] text-muted-foreground font-mono">{absenceNotice}</p>
+        ) : null}
+        {absenceAlerts.length === 0 ? (
+          <p className="p-4 text-[11px] text-muted-foreground">
+            {isEn ? "No repeated absence (3 in a row) detected" : "لا يوجد غياب متكرر (3 حصص متتالية)"}
+          </p>
+        ) : (
+          <div className="divide-y divide-border/60">
+            {absenceAlerts.map((alert) => (
+              <div key={`${alert.studentId}-${alert.groupName}`} className="px-4 py-2.5 flex items-center justify-between gap-2 text-[11px]">
+                <div className="min-w-0">
+                  <span className="font-semibold text-foreground">{alert.studentName || "—"}</span>
+                  <span className="text-muted-foreground"> — {alert.groupName || (isEn ? "Group" : "مجموعة")}</span>
+                  <p className="text-[10px] text-muted-foreground font-mono mt-0.5">
+                    {alert.parentPhone || "—"}
+                    {alert.lastSessionAt ? ` · ${formatDate(alert.lastSessionAt)}` : ""}
+                  </p>
+                </div>
+                <span className="shrink-0 px-1.5 py-0.5 rounded border border-destructive/20 bg-destructive/10 text-destructive font-mono tabular-nums">
+                  {alert.streak} {isEn ? "in a row" : "غياب"}
                 </span>
               </div>
             ))}

@@ -52,4 +52,9 @@ router.put('/coupons/:id/toggle', requireDbPermission('education.financials.mana
 router.delete('/coupons/:id', requireDbPermission('education.financials.manage'), couponsController.deleteCoupon);
 router.post('/coupons/validate', requireDbPermission(CAN_VIEW), couponsController.validateCouponPreview);
 
+// Repeated absence monitoring
+const absenceController = require('../controller/educationAbsenceController');
+router.get('/absence-alerts', requireDbPermission(CAN_VIEW), absenceController.listAbsenceAlerts);
+router.post('/absence-alerts/run', requireDbPermission('education.financials.manage'), absenceController.runAbsenceAlerts);
+
 module.exports = router;

@@ -6,7 +6,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 const mockFetchInsights = vi.hoisted(() => vi.fn());
-vi.mock("../api", () => ({ fetchInsights: mockFetchInsights }));
+const mockFetchAbsenceAlerts = vi.hoisted(() => vi.fn());
+const mockRunAbsenceAlerts = vi.hoisted(() => vi.fn());
+vi.mock("../api", () => ({
+  fetchInsights: mockFetchInsights,
+  fetchAbsenceAlerts: mockFetchAbsenceAlerts,
+  runAbsenceAlerts: mockRunAbsenceAlerts,
+}));
 
 import { EducationGrowthTab } from "../EducationGrowthTab";
 
@@ -66,6 +72,10 @@ const insights = {
 beforeEach(() => {
   mockFetchInsights.mockReset();
   mockFetchInsights.mockResolvedValue(insights);
+  mockFetchAbsenceAlerts.mockReset();
+  mockFetchAbsenceAlerts.mockResolvedValue([]);
+  mockRunAbsenceAlerts.mockReset();
+  mockRunAbsenceAlerts.mockResolvedValue({ sent: 1, skipped: 0, failed: 0, detected: 1 });
 });
 
 afterEach(() => cleanup());
@@ -94,6 +104,29 @@ describe("EducationGrowthTab", () => {
     await waitFor(() => expect(mockFetchInsights).toHaveBeenCalledWith(6));
     fireEvent.click(screen.getByText("12 شهور"));
     await waitFor(() => expect(mockFetchInsights).toHaveBeenCalledWith(12));
+  });
+
+  it("sends repeated-absence alerts and refreshes the list", async () => {
+    mockFetchAbsenceAlerts.mockResolvedValue([
+      {
+        companyId: "comp-1",
+        studentId: "stu-9",
+        studentName: "خالد سامي",
+        parentName: "سامي",
+        parentPhone: "01099999999",
+        groupName: "مجموعة ب",
+        streak: 4,
+        lastSessionAt: "2026-11-18",
+      },
+    ]);
+
+    render(<EducationGrowthTab isEn={false} />);
+    expect(await screen.findByText("خالد سامي")).toBeInTheDocument();
+    expect(screen.getByText("4 غياب")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("إشعار أولياء الأمور"));
+    await waitFor(() => expect(mockRunAbsenceAlerts).toHaveBeenCalledWith(3, 45));
+    expect(await screen.findByText(/تم إرسال 1/)).toBeInTheDocument();
   });
 
   it("shows an error with retry", async () => {

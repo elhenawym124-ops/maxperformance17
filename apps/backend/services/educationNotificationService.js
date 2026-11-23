@@ -17,6 +17,7 @@ const EDUCATION_NOTIFICATION_EVENTS = {
   EXAM_RESULT: 'education_exam_result',
   PARENT_ACTIVATED: 'education_parent_activated',
   ABSENCE_ALERT: 'education_absence_alert',
+  REPEATED_ABSENCE: 'education_repeated_absence',
   DEMO_DAY_REGISTERED: 'education_demo_day_registered',
   DEMO_DAY_REMINDER_24H: 'education_demo_day_reminder_24h',
   DEMO_DAY_REMINDER_2H: 'education_demo_day_reminder_2h',
@@ -190,6 +191,15 @@ const NOTIFICATION_TEMPLATES = {
 
 برجاء التواصل مع الإدارة لتحديد موعد بديل.
 شكراً لتعاونكم.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.REPEATED_ABSENCE]: {
+    parent: `غياب متكرر يحتاج متابعة ⚠️
+
+أهلاً {parentName}،
+لاحظنا غياب {studentName} عن {absentCount} حصص متتالية في {groupName}.
+
+نحب نطمن على الطالب ونحدد حصة تعويض مناسبة.
+برجاء التواصل معنا في أقرب وقت.`,
   },
   [EDUCATION_NOTIFICATION_EVENTS.DEMO_DAY_REGISTERED]: {
     parent: `أهلاً {parentName} 🎉
@@ -979,6 +989,40 @@ async function notifyAbsenceAlert({ companyId, studentName, parentName, phone, g
   });
 }
 
+async function notifyRepeatedAbsence({
+  companyId,
+  customerId = null,
+  studentName,
+  parentName,
+  parentPhone,
+  groupName = '',
+  absentCount = 0,
+}) {
+  if (!companyId || (!parentPhone && !customerId)) return null;
+
+  const resolvedParentName = parentName || 'وليّ الأمر';
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: customerId || null,
+    eventType: EDUCATION_NOTIFICATION_EVENTS.REPEATED_ABSENCE,
+    title: 'غياب متكرر — متابعة مطلوبة',
+    templates: NOTIFICATION_TEMPLATES[EDUCATION_NOTIFICATION_EVENTS.REPEATED_ABSENCE].parent,
+    variables: {
+      studentName: studentName || 'الطالب',
+      parentName: resolvedParentName,
+      groupName: groupName || 'المجموعة',
+      absentCount: Number(absentCount) || 0,
+    },
+    recipientPhone: parentPhone,
+    recipientName: resolvedParentName,
+    recipientType: 'CUSTOMER',
+    url: '/parent/sessions',
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
 async function notifySessionScheduled(companyId, session) {
   const full = await getSharedPrismaClient().educationSession.findUnique({
     where: { id: session.id },
@@ -1378,6 +1422,7 @@ module.exports = {
   notifyWaitingListPromoted,
   notifyExamResult,
   notifyAbsenceAlert,
+  notifyRepeatedAbsence,
   notifyDemoDayRegistered,
   notifyDemoDayReminder,
   getFunnelStats,

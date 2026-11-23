@@ -165,3 +165,16 @@ export interface FinanceReportData {
   overdueInstallments: { count: number; amount: number };
   pendingTopups: number;
 }
+
+export interface AbsenceAlert {
+  companyId: string;
+  studentId: string;
+  studentName: string;
+  studentPhone?: string | null;
+  customerId?: string | null;
+  parentName: string;
+  parentPhone?: string | null;
+  groupName: string;
+  streak: number;
+  lastSessionAt?: string | null;
+}

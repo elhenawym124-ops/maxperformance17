@@ -169,6 +169,17 @@
 - Parent preview: `POST /education/parent-portal/coupons/validate` (scoped to the guardian's own child).
 - UI: "أكواد الخصم" tab in `/admin/education/payments` (list, create, enable/disable, delete, usage counters) and a coupon field in the parent buy-package page showing the live discount.
 
+## Phase 4 (part 11) — repeated absence alerts
+
+- `educationAbsenceService` computes each student's **consecutive absence streak** from `education_group_attendance` + group session dates (a present/excused row resets it), within a window (default 45 days, threshold 3).
+- `GET /education/finance/absence-alerts?threshold=3&days=45` lists at-risk students with parent phone and group name.
+- `POST /education/finance/absence-alerts/run` sends the alerts now and returns `{ detected, sent, skipped, failed }`.
+- Cron: daily 12:00 (`runAbsenceAlerts`) sweeps every company that has group attendance.
+- Dedupe: no repeat alert to the same parent within 7 days (`education_repeated_absence` in `whatsAppNotificationLog`), so a family is not spammed.
+- New template `education_repeated_absence` (student, group, streak count) — approve it in WhatsApp settings if Meta requires templates.
+- UI: "غياب متكرر" card in the growth tab with the list and a "إشعار أولياء الأمور" action.
+
+
 
 
 
