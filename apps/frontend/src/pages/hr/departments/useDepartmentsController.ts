@@ -17,9 +17,11 @@ export const useDepartmentsController = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
 
   // Check if user has permission to manage departments
+  // كان الاعتماد على مفتاح الدور فقط، فمدير HR بدور مخصّص (MANAGER) لا يرى زر الإضافة
   const canManage = Boolean(
     user &&
-    ["SUPER_ADMIN", "COMPANY_ADMIN", "HR_MANAGER", "OWNER"].includes(user.role),
+    (["SUPER_ADMIN", "COMPANY_ADMIN", "HR_MANAGER", "OWNER"].includes(user.role) ||
+      (user.permissions || []).includes("hr.employees")),
   );
 
   // Dialog states
