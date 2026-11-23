@@ -42,7 +42,41 @@ export async function fetchFunnelMetrics(period: ReportPeriod): Promise<Educatio
     const res = await fetch(url.toString(), { headers: getAuthHeaders() });
     const d = await res.json();
     if (!d.success) throw new Error(d.error || d.message || "فشل جلب بيانات الفانل");
-    return d.data?.funnel || d.data || null;
+    // الباك-إند يرجع { funnel, conversion, repeat } — الشاشة تتوقع حقولًا مسطّحة
+    // فكانت مرحلتا «المشتركين» و«الحصص المنفذة» تظهران صفرًا دائمًا.
+    const raw = d.data || {};
+    const f = raw.funnel || raw;
+    const conv = raw.conversion || {};
+    const rep = raw.repeat || {};
+    const enrolled = Number(rep.totalEnrolledStudents ?? 0);
+    const multi = Number(rep.studentsWithMultipleEnrollments ?? 0);
+    const num = (v: unknown) => {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    };
+    return {
+      totalCustomers: num(f.totalCustomers),
+      registeredStudents: num(f.totalStudents),
+      packagesEnrollments: num(f.totalEnrollments),
+      scheduledSessions: num(f.scheduledSessions),
+      confirmedSessions: num(f.confirmedSessions),
+      completedSessions: num(f.confirmedSessions),
+      totalDemoAttendees: num(f.totalDemoAttendees),
+      attendedDemoAttendees: num(f.attendedDemoAttendees),
+      convertedDemoAttendees: num(f.convertedDemoAttendees),
+      demoAttendanceRate: num(conv.demoAttendanceRate),
+      demoConversionRate: num(conv.demoConversionRate),
+      rates: {
+        customersToStudents: num(conv.customersToStudents),
+        studentsToEnrollments: num(conv.studentsToEnrollments),
+        completionRate: num(conv.completionRate),
+        repeatRate: enrolled > 0 ? Number(((multi / enrolled) * 100).toFixed(1)) : 0,
+      },
+      repeatStats: {
+        singleEnrollmentStudents: Math.max(0, enrolled - multi),
+        multipleEnrollmentsStudents: multi,
+      },
+    };
   } catch (err) {
     console.error("Funnel fetch error:", err);
     return null;
