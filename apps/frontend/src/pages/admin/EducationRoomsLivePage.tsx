@@ -4,11 +4,8 @@ import {
   Building2,
   Clock,
   DoorOpen,
-  GraduationCap,
-  LayoutGrid,
   MapPin,
   RefreshCw,
-  Rotate3d,
   Users,
 } from "lucide-react";
 import { buildApiUrl } from "../../utils/urlHelper";
@@ -145,7 +142,6 @@ const EducationRoomsLivePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [branchFilter, setBranchFilter] = useState<string>("");
   const [allBranches, setAllBranches] = useState<{ id: string; name: string }[]>([]);
-  const [is3D, setIs3D] = useState(true);
   const [clock, setClock] = useState(() => new Date());
 
   const load = useCallback(async () => {
@@ -196,10 +192,23 @@ const EducationRoomsLivePage: React.FC = () => {
     [payload]
   );
 
-  const roomTone = (room: LiveRoom) => {
-    if (!room.isActive) return "border-border/70 bg-muted/40 text-muted-foreground";
-    if (room.isOccupied) return "border-accent/40 bg-accent/5";
-    return "border-border/70 bg-card";
+  const statusPill = (room: LiveRoom) => {
+    if (!room.isActive) {
+      return { text: isEn ? "Inactive" : "غير مفعّلة", cls: "border-border/70 bg-muted text-muted-foreground" };
+    }
+    return room.isOccupied
+      ? { text: isEn ? "Busy" : "مشغولة الآن", cls: "border-accent/30 bg-accent/10 text-accent" }
+      : { text: isEn ? "Free" : "متاحة", cls: "border-border/70 bg-muted/60 text-muted-foreground" };
+  };
+
+  const sessionLine = (session: LiveSession | null) => {
+    if (!session) return null;
+    return {
+      group: session.groupName,
+      teacher: session.teacherName || (isEn ? "No teacher" : "بدون مدرس"),
+      time: `${session.startTime} - ${session.endTime}`,
+      members: `${session.members}/${session.capacity}`,
+    };
   };
 
   return (
@@ -207,7 +216,7 @@ const EducationRoomsLivePage: React.FC = () => {
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-border/70 pb-3">
         <div className="space-y-1">
           <h1 className="flex items-center gap-2 text-lg font-bold text-foreground sm:text-xl">
-            <Rotate3d className="h-5 w-5 text-accent" />
+            <DoorOpen className="h-5 w-5 text-muted-foreground" />
             {isEn ? "Rooms Live Board" : "القاعات الآن"}
           </h1>
           <p className="text-xs text-muted-foreground">
@@ -236,16 +245,8 @@ const EducationRoomsLivePage: React.FC = () => {
           </select>
           <button
             type="button"
-            onClick={() => setIs3D((v) => !v)}
-            className="inline-flex items-center gap-1 rounded-lg border border-border/70 px-2 py-1.5 text-xs font-medium text-foreground transition active:scale-[0.97] hover:bg-muted"
-          >
-            <LayoutGrid className="h-3.5 w-3.5" />
-            {is3D ? (isEn ? "Flat" : "مسطح") : isEn ? "3D" : "٣د"}
-          </button>
-          <button
-            type="button"
             onClick={load}
-            className="inline-flex items-center gap-1 rounded-lg border border-border/70 px-2 py-1.5 text-xs font-medium text-foreground transition active:scale-[0.97] hover:bg-muted"
+            className="inline-flex items-center gap-1 rounded-lg border border-border/70 px-2 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
             {isEn ? "Refresh" : "تحديث"}
@@ -253,7 +254,7 @@ const EducationRoomsLivePage: React.FC = () => {
         </div>
       </header>
 
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div className="grid grid-cols-2 divide-y divide-border/70 overflow-hidden rounded-lg border border-border/70 bg-card sm:grid-cols-4 sm:divide-x sm:divide-y-0">
         {[
           { label: isEn ? "Total rooms" : "إجمالي القاعات", value: summary.totalRooms, icon: DoorOpen },
           { label: isEn ? "Busy now" : "مشغولة الآن", value: summary.occupiedRooms, icon: Users },
@@ -264,24 +265,24 @@ const EducationRoomsLivePage: React.FC = () => {
             icon: MapPin,
           },
         ].map((card) => (
-          <div key={card.label} className="rounded-xl border border-border/70 bg-card px-3 py-2.5">
+          <div key={card.label} className="px-3 py-2.5">
             <div className="flex items-center justify-between">
               <span className="text-[11px] text-muted-foreground">{card.label}</span>
               <card.icon className="h-3.5 w-3.5 text-muted-foreground" />
             </div>
-            <div className="mt-1 text-xl font-bold tabular-nums text-foreground">{card.value}</div>
+            <div className="mt-1 text-lg font-bold tabular-nums text-foreground">{card.value}</div>
           </div>
         ))}
       </div>
 
       {error && (
-        <div className="rounded-xl border border-destructive/40 bg-destructive/5 px-3 py-2 text-xs text-destructive">
+        <div className="rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-xs text-destructive">
           {error}
         </div>
       )}
 
       {!loading && !error && branches.length === 0 && (
-        <div className="rounded-xl border border-border/70 bg-card px-4 py-6 text-center text-xs text-muted-foreground">
+        <div className="rounded-lg border border-border/70 bg-card px-4 py-6 text-center text-xs text-muted-foreground">
           {isEn
             ? "No branches or classrooms defined yet. Add classrooms from Education Settings → Branches."
             : "لا توجد فروع أو قاعات مسجلة. أضف القاعات من إعدادات التعليم → الفروع والقاعات."}
@@ -294,97 +295,118 @@ const EducationRoomsLivePage: React.FC = () => {
             <h2 className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
               <Building2 className="h-4 w-4 text-muted-foreground" />
               {branch.name}
-              {branch.city ? <span className="text-[11px] font-normal text-muted-foreground">— {branch.city}</span> : null}
+              {branch.city ? (
+                <span className="text-[11px] font-normal text-muted-foreground">— {branch.city}</span>
+              ) : null}
             </h2>
             <span className="text-[11px] tabular-nums text-muted-foreground">
               {branch.occupiedCount} / {branch.totalRooms} {isEn ? "busy" : "مشغولة"}
             </span>
           </div>
 
-          <div
-            className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3"
-            style={is3D ? { perspective: "1400px" } : undefined}
-          >
-            {branch.rooms.map((room) => (
-              <article
-                key={room.id}
-                className={`rounded-xl border p-3 transition-transform duration-300 ${roomTone(room)}`}
-                style={
-                  is3D
-                    ? {
-                      transform: "rotateX(12deg)",
-                      transformStyle: "preserve-3d",
-                      boxShadow: room.isOccupied
-                        ? "0 14px 24px -22px var(--accent, rgba(0,0,0,0.4))"
-                        : "0 10px 20px -24px rgba(0,0,0,0.35)",
-                    }
-                    : undefined
-                }
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="min-w-0">
-                    <div className="truncate text-sm font-semibold text-foreground">{room.name}</div>
-                    <div className="text-[11px] text-muted-foreground">
-                      {ROOM_TYPE_LABELS[room.type] || room.type} · {isEn ? "capacity" : "سعة"} {room.capacity}
-                      {!room.isActive ? (isEn ? " · inactive" : " · غير مفعّلة") : ""}
-                    </div>
-                  </div>
-                  <span
-                    className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-semibold ${
-                      room.isOccupied
-                        ? "border-accent/40 bg-accent/10 text-accent"
-                        : "border-border/70 bg-muted/60 text-muted-foreground"
-                    }`}
-                  >
-                    {room.isOccupied ? (isEn ? "Busy" : "مشغولة") : isEn ? "Free" : "متاحة"}
-                  </span>
-                </div>
+          <div className="overflow-hidden rounded-lg border border-border/70 bg-card">
+            <table className="hidden w-full text-xs sm:table">
+              <thead>
+                <tr className="border-b border-border/70 bg-muted/40 text-[11px] text-muted-foreground">
+                  <th className="px-3 py-2 text-start font-medium">{isEn ? "Room" : "القاعة"}</th>
+                  <th className="px-3 py-2 text-start font-medium">{isEn ? "Status" : "الحالة"}</th>
+                  <th className="px-3 py-2 text-start font-medium">{isEn ? "Current session" : "الحصة الحالية"}</th>
+                  <th className="px-3 py-2 text-start font-medium">{isEn ? "Next session" : "الحصة القادمة"}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {branch.rooms.map((room) => {
+                  const pill = statusPill(room);
+                  const current = sessionLine(room.current);
+                  return (
+                    <tr key={room.id} className="border-t border-border/70 align-top first:border-t-0">
+                      <td className="px-3 py-2">
+                        <div className="font-medium text-foreground">{room.name}</div>
+                        <div className="text-[11px] text-muted-foreground">
+                          {ROOM_TYPE_LABELS[room.type] || room.type} · {isEn ? "capacity" : "سعة"} {room.capacity}
+                        </div>
+                      </td>
+                      <td className="px-3 py-2">
+                        <span className={`inline-flex rounded-md border px-2 py-0.5 text-[10px] font-medium ${pill.cls}`}>
+                          {pill.text}
+                        </span>
+                      </td>
+                      <td className="px-3 py-2">
+                        {current ? (
+                          <>
+                            <div className="font-medium text-foreground">{current.group}</div>
+                            <div className="text-[11px] tabular-nums text-muted-foreground">
+                              {current.time} · {current.teacher} · {current.members}
+                            </div>
+                          </>
+                        ) : (
+                          <span className="text-muted-foreground">—</span>
+                        )}
+                      </td>
+                      <td className="px-3 py-2">
+                        {room.next ? (
+                          <>
+                            <div className="tabular-nums text-foreground">{whenLabel(room.next, isEn)}</div>
+                            <div className="text-[11px] text-muted-foreground">
+                              {room.next.groupName}
+                              {room.next.teacherName ? ` · ${room.next.teacherName}` : ""}
+                            </div>
+                          </>
+                        ) : (
+                          <span className="text-muted-foreground">—</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
 
-                {room.current ? (
-                  <div className="mt-2 space-y-1 border-t border-border/70 pt-2">
-                    <div className="text-xs font-semibold text-foreground">{room.current.groupName}</div>
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-muted-foreground">
-                      <span className="inline-flex items-center gap-1">
-                        <GraduationCap className="h-3 w-3" />
-                        {room.current.teacherName || (isEn ? "No teacher" : "بدون مدرس")}
-                      </span>
-                      <span className="inline-flex items-center gap-1 tabular-nums">
-                        <Clock className="h-3 w-3" />
-                        {room.current.startTime} - {room.current.endTime}
-                      </span>
-                      <span className="inline-flex items-center gap-1 tabular-nums">
-                        <Users className="h-3 w-3" />
-                        {room.current.members}/{room.capacity}
+            <div className="divide-y divide-border/70 sm:hidden">
+              {branch.rooms.map((room) => {
+                const pill = statusPill(room);
+                const current = sessionLine(room.current);
+                return (
+                  <div key={room.id} className="px-3 py-2.5">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <div className="truncate text-xs font-semibold text-foreground">{room.name}</div>
+                        <div className="text-[11px] text-muted-foreground">
+                          {ROOM_TYPE_LABELS[room.type] || room.type} · {isEn ? "capacity" : "سعة"} {room.capacity}
+                        </div>
+                      </div>
+                      <span className={`shrink-0 rounded-md border px-2 py-0.5 text-[10px] font-medium ${pill.cls}`}>
+                        {pill.text}
                       </span>
                     </div>
-                    <div className="h-1 w-full overflow-hidden rounded-full bg-muted">
-                      <div
-                        className="h-full rounded-full bg-accent"
-                        style={{ width: `${Math.max(4, Math.min(100, room.fillPercent))}%` }}
-                      />
+                    {current ? (
+                      <div className="mt-1 text-[11px] text-muted-foreground">
+                        <span className="font-medium text-foreground">{current.group}</span>
+                        {" · "}
+                        <span className="tabular-nums">{current.time}</span>
+                        {" · "}
+                        {current.teacher}
+                        {" · "}
+                        <span className="tabular-nums">{current.members}</span>
+                      </div>
+                    ) : null}
+                    <div className="mt-0.5 text-[11px] text-muted-foreground">
+                      {room.next ? (
+                        <>
+                          {isEn ? "Next: " : "الجاية: "}
+                          <span className="tabular-nums text-foreground">{whenLabel(room.next, isEn)}</span>
+                          {" · "}
+                          {room.next.groupName}
+                          {room.next.teacherName ? ` · ${room.next.teacherName}` : ""}
+                        </>
+                      ) : (
+                        <>{isEn ? "No upcoming class." : "لا توجد حصة قادمة."}</>
+                      )}
                     </div>
                   </div>
-                ) : (
-                  <div className="mt-2 border-t border-border/70 pt-2 text-[11px] text-muted-foreground">
-                    {isEn ? "No class in progress." : "لا توجد حصة جارية حالياً."}
-                  </div>
-                )}
-
-                <div className="mt-2 rounded-lg bg-muted/40 px-2 py-1.5 text-[11px] text-muted-foreground">
-                  {room.next ? (
-                    <>
-                      <span className="font-semibold text-foreground">{isEn ? "Next: " : "الجاية: "}</span>
-                      <span className="tabular-nums">{whenLabel(room.next, isEn)}</span>
-                      {" · "}
-                      {room.next.groupName}
-                      {room.next.teacherName ? ` · ${room.next.teacherName}` : ""}
-                    </>
-                  ) : (
-                    <>{isEn ? "No upcoming class scheduled." : "لا توجد حصة قادمة مجدولة."}</>
-                  )}
-                </div>
-              </article>
-            ))}
+                );
+              })}
+            </div>
           </div>
         </section>
       ))}
@@ -395,7 +417,7 @@ const EducationRoomsLivePage: React.FC = () => {
             <MapPin className="h-4 w-4 text-muted-foreground" />
             {isEn ? "Groups without an assigned room" : "مجموعات بدون قاعة محددة"}
           </h2>
-          <div className="overflow-hidden rounded-xl border border-border/70 bg-card">
+          <div className="overflow-hidden rounded-lg border border-border/70 bg-card">
             {unassigned.map((group) => (
               <div
                 key={group.groupId}
