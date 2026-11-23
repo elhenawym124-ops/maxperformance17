@@ -101,7 +101,12 @@ async function enrichAppsWithDbState(apps, user) {
         unitPrice: true,
         unitName: true,
         ppuBillingMethod: true,
-        trialDays: true
+        trialDays: true,
+        version: true,
+        permissions: true,
+        settingsSchema: true,
+        killSwitch: true,
+        manifest: true
       }
     });
   });
@@ -130,7 +135,11 @@ async function enrichAppsWithDbState(apps, user) {
               select: {
                 slug: true,
                 monthlyPrice: true,
-                pricingModel: true
+                pricingModel: true,
+                version: true,
+                permissions: true,
+                settingsSchema: true,
+                killSwitch: true
               }
             }
           }
@@ -219,6 +228,11 @@ async function enrichAppsWithDbState(apps, user) {
       unitName,
       ppuBillingMethod,
       trialDays,
+      version: dbApp?.version || app.version || '1.0.0',
+      permissions: dbApp?.permissions || app.permissions || [],
+      settingsSchema: dbApp?.settingsSchema || app.settingsSchema || null,
+      killSwitch: dbApp?.killSwitch !== undefined ? dbApp.killSwitch : Boolean(app.killSwitch),
+      manifest: dbApp?.manifest || app.manifest || null,
       installCount,
       rating,
       reviewCount,
@@ -304,6 +318,11 @@ function normalizeMarketplaceAppForApi(app) {
     ...app,
     features: normalizeJsonPayload(app.features, {}),
     requiredApps: normalizeStringArray(app.requiredApps),
+    version: app.version || '1.0.0',
+    permissions: Array.isArray(app.permissions) ? app.permissions : normalizeJsonPayload(app.permissions, []),
+    settingsSchema: normalizeJsonPayload(app.settingsSchema, null),
+    killSwitch: Boolean(app.killSwitch),
+    manifest: normalizeJsonPayload(app.manifest, null),
     ...(app.positioning !== undefined
       ? { positioning: normalizeJsonPayload(app.positioning, null) }
       : {}),
@@ -540,7 +559,12 @@ function buildDbAppPayloadFromCatalog(catalogApp) {
     installCount: Math.max(0, Math.floor(toSafeNumber(catalogApp?.installCount, 0))),
     isPopular: catalogApp?.isPopular === true,
     engineCompatibility: catalogApp?.engineCompatibility || null,
-    icon: catalogApp?.icon || null
+    icon: catalogApp?.icon || null,
+    version: catalogApp?.version || '1.0.0',
+    permissions: catalogApp?.permissions || null,
+    settingsSchema: catalogApp?.settingsSchema || null,
+    killSwitch: catalogApp?.killSwitch === true,
+    manifest: catalogApp?.manifest || null
   };
 }
 
@@ -1165,6 +1189,11 @@ exports.getAppDetails = async (req, res) => {
             icon: dbApp.icon || app.icon,
             coverImage: dbApp.coverImage || app.coverImage,
             logo: dbApp.logo || app.logo,
+            version: dbApp.version || app.version || '1.0.0',
+            permissions: dbApp.permissions || app.permissions || [],
+            settingsSchema: dbApp.settingsSchema || app.settingsSchema || null,
+            killSwitch: dbApp.killSwitch !== undefined ? dbApp.killSwitch : Boolean(app.killSwitch),
+            manifest: dbApp.manifest || app.manifest || null,
             installCount,
             rating,
             reviewCount,
@@ -1646,10 +1675,21 @@ exports.installApp = async (req, res) => {
       });
     }
 
-    if (!app.isActive) {
+    let isKilled = Boolean(app.killSwitch);
+    try {
+      const { appKillSwitchService } = require('../services/appContract/appRegistryService');
+      if (appKillSwitchService?.isKillSwitchActive?.(slug)) {
+        isKilled = true;
+      }
+    } catch (_) {}
+
+    if (!app.isActive || isKilled) {
       return res.status(400).json({
         success: false,
-        message: 'Ù‡Ø°Ù‡ Ø§Ù„Ø£Ø¯Ø§Ø© ØºÙŠØ± Ù…ØªØ§Ø­Ø© Ø­Ø§Ù„ÙŠØ§Ù‹'
+        code: isKilled ? 'APP_KILL_SWITCH_ACTIVE' : 'APP_INACTIVE',
+        message: isKilled
+          ? 'تم إيقاف هذه الأداة مؤقتاً لأسباب أمنية أو صيانة طارئة'
+          : 'هذه الأداة غير متاحة حالياً'
       });
     }
 

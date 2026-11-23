@@ -55,6 +55,11 @@ export type MarketplaceManagementItem = {
   apps?: MarketplaceAppReference[];
   companyId?: string;
   features?: unknown;
+  version?: string;
+  permissions?: string[] | unknown;
+  settingsSchema?: Record<string, unknown> | null;
+  killSwitch?: boolean;
+  manifest?: Record<string, unknown> | null;
   _count?: MarketplaceInstallCounts;
   installCount?: number;
   rating?: number;
@@ -215,10 +220,15 @@ export const createDefaultMarketplaceFormData = (
   yearlyPrice: 0,
   category: "ECOMMERCE",
   isActive: true,
-  isPublic: true,
+  isPublic: false,
   isFeatured: false,
   isPopular: false,
   isAutoInstall: false,
+  version: "1.0.0",
+  permissions: [],
+  settingsSchema: null,
+  killSwitch: false,
+  manifest: null,
   logo: "",
   icon: "",
   coverImage: "",

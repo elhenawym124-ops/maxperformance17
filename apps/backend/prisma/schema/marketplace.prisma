@@ -33,6 +33,14 @@ model MarketplaceApp {
   engineCompatibility String?
   icon          String?
   coverImage    String?
+  
+  // App Contract & Manifest
+  version       String           @default("1.0.0")
+  permissions   Json?
+  settingsSchema Json?
+  killSwitch    Boolean          @default(false)
+  manifest      Json?
+  
   pricingRules  AppPricingRule[]
   reviews       AppReview[]
   installations CompanyApp[]

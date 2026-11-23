@@ -1,5 +1,127 @@
 [
   {
+    "id": "cat-app-hello-app",
+    "slug": "hello-app",
+    "name": "أداة الترحيب والاختبار (Hello App)",
+    "nameEn": "Hello App Test Tool",
+    "description": "أداة اختبار معزولة تثبت عقد التطبيق (App Contract) والتسجيل الذاتي وإنفاذ الصلاحيات بمفاتيح المانيفست",
+    "descriptionEn": "Isolated test tool demonstrating App Contract compliance, self-registration, and manifest-driven settings",
+    "category": "UTILITIES",
+    "pricingModel": "FREE",
+    "monthlyPrice": 0,
+    "yearlyPrice": 0,
+    "unitPrice": null,
+    "unitName": null,
+    "ppuBillingMethod": null,
+    "trialDays": 0,
+    "requiredApps": [],
+    "positioning": {
+      "audience": "المطورون ومديرو النظام لاختبار عقود التطبيقات ومخطط الإعدادات التلقائي.",
+      "surface": "قسم الأدوات التجريبية والضبط الذاتي.",
+      "outcome": "ضمان سلامة عقد التطبيق وإنفاذ الصلاحيات وعزل النطاق الأساسي."
+    },
+    "features": {
+      "autoSync": {
+        "enabled": true,
+        "name": "المزامنة التلقائية",
+        "description": "مزامنة البيانات الدورية كل ساعة",
+        "access": "FREE"
+      },
+      "customGreeting": {
+        "enabled": true,
+        "name": "رسالة الترحيب المخصصة",
+        "description": "تخصيص رسالة الترحيب للمستخدمين",
+        "access": "FREE"
+      }
+    },
+    "isActive": true,
+    "isPublic": true,
+    "isFeatured": false,
+    "isPopular": false,
+    "icon": "👋",
+    "logo": null,
+    "coverImage": null,
+    "mainRoute": "/api/v1/tools/hello-app/ping",
+    "adminRoute": "/api/v1/tools/hello-app/config",
+    "engineCompatibility": null,
+    "version": "1.0.0",
+    "minPlatformVersion": "1.0.0",
+    "permissions": [
+      "dashboard.view",
+      "settings.read"
+    ],
+    "featureFlag": "FEATURE_HELLO_APP",
+    "defaultEnabled": false,
+    "healthCheck": "/api/v1/tools/hello-app/health",
+    "routes": {
+      "prefix": "/api/v1/tools/hello-app",
+      "endpoints": [
+        {
+          "path": "/ping",
+          "method": "GET",
+          "permission": "dashboard.view",
+          "handler": "ping"
+        },
+        {
+          "path": "/data",
+          "method": "GET",
+          "permission": "dashboard.view",
+          "handler": "getData"
+        },
+        {
+          "path": "/config",
+          "method": "POST",
+          "permission": "settings.read",
+          "handler": "saveConfig"
+        }
+      ]
+    },
+    "settingsSchema": {
+      "type": "object",
+      "title": "إعدادات أداة Hello App",
+      "description": "إعدادات الأداة التجريبية المولدة تلقائياً من المانيفست — بدون أي كود واجهة مخصص",
+      "properties": {
+        "welcomeMessage": {
+          "type": "string",
+          "title": "رسالة الترحيب",
+          "description": "الرسالة التي ستظهر للمستخدمين عند تشغيل الأداة",
+          "default": "مرحباً بكم في الأداة الجديدة"
+        },
+        "enableAutoSync": {
+          "type": "boolean",
+          "title": "تفعيل المزامنة التلقائية",
+          "description": "مزامنة البيانات الدورية كل ساعة",
+          "default": false
+        },
+        "syncIntervalMinutes": {
+          "type": "number",
+          "title": "الفترة الزمنية للمزامنة (بالدقائق)",
+          "description": "الوقت بالدقائق بين كل مزامنة",
+          "default": 15,
+          "minimum": 1,
+          "maximum": 1440
+        },
+        "logLevel": {
+          "type": "string",
+          "title": "مستوى السجلات",
+          "description": "حدد مستوى التفاصيل المسجلة",
+          "enum": [
+            "info",
+            "warn",
+            "error"
+          ],
+          "default": "info"
+        }
+      },
+      "required": [
+        "welcomeMessage"
+      ]
+    },
+    "killSwitch": false,
+    "createdAt": "2026-11-19T00:00:00Z",
+    "updatedAt": "2026-11-23T12:00:00Z"
+  },
+  {
     "id": "cat-app-orders-analytics",
     "slug": "orders-analytics",
     "name": "تحليلات الطلبات",

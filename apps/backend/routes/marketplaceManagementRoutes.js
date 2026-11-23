@@ -28,6 +28,12 @@ router.post('/apps', validateCreateApp, marketplaceManagementController.createAp
 router.put('/apps/:id', validateUpdateApp, marketplaceManagementController.updateApp);
 router.delete('/apps/:id', marketplaceManagementController.deleteApp);
 
+// 🚀 App Contract, Manifest & Publishing Gate
+router.post('/apps/validate-manifest', marketplaceManagementController.validateAppManifest);
+router.get('/apps/:id/manifest', marketplaceManagementController.getAppManifest);
+router.post('/apps/:id/publish', marketplaceManagementController.publishApp);
+router.post('/apps/:id/unpublish', marketplaceManagementController.unpublishApp);
+
 // Pricing Rules Management
 router.get('/pricing-rules', marketplaceManagementController.getAllPricingRules);
 router.post('/pricing-rules', validateCreatePricingRule, marketplaceManagementController.createPricingRule);

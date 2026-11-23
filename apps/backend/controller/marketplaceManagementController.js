@@ -1,8 +1,15 @@
 const { getSharedPrismaClient, executeWithRetry } = require('../services/sharedDatabase');
 const { getMarketplaceCatalogDbDiff } = require('../services/catalog/marketplaceCatalogDiffService');
 const { marketplaceCatalogService } = require('../services/catalog/marketplaceCatalogService');
-const { v4: uuidv4 } = require('uuid');
+let uuidv4;
+try {
+  uuidv4 = require('uuid').v4;
+} catch (_) {
+  const crypto = require('crypto');
+  uuidv4 = () => crypto.randomUUID();
+}
 const { buildInstalledMarketplaceAppSettings } = require('../utils/marketplaceAppSettings');
+const { appManifestService } = require('../services/appManifestService');
 
 const ACTIVE_APP_STATUSES = ['ACTIVE', 'TRIAL'];
 const VALID_PRICING_MODELS = new Set(['FREE', 'SUBSCRIPTION', 'PAY_PER_USE']);
@@ -519,6 +526,7 @@ exports.createApp = async (req, res) => {
       'features', 'isActive', 'isPublic', 'isFeatured', 'isPopular',
       'requiredApps', 'trialDays', 'mainRoute', 'adminRoute',
       'category', 'icon', 'coverImage', 'engineCompatibility', 'isAutoInstall',
+      'version', 'permissions', 'settingsSchema', 'killSwitch', 'manifest',
     ];
     const appData = {};
     for (const key of ALLOWED_FIELDS) {
@@ -528,6 +536,26 @@ exports.createApp = async (req, res) => {
     // Generate slug from name if not provided (fallback for non-latin names)
     if (!appData.slug) {
       appData.slug = generateSlug(appData.name);
+    }
+
+    // Publishing Gate: Reject publishing without a compliant manifest
+    if (appData.isPublic === true) {
+      const publishCheck = appManifestService.validatePublishGate(appData);
+      if (!publishCheck.canPublish) {
+        return res.status(422).json({
+          success: false,
+          code: 'PUBLISH_GATE_REJECTED',
+          message: 'بوابة النشر رفضت نشر التطبيق: التطبيق لا يستوفي عقد التطبيق أو تنقصه متطلبات المانيفست',
+          errors: publishCheck.errors,
+          warnings: publishCheck.warnings
+        });
+      }
+      if (publishCheck.manifest) {
+        appData.manifest = publishCheck.manifest;
+        if (!appData.version) appData.version = publishCheck.manifest.version;
+        if (!appData.permissions) appData.permissions = publishCheck.manifest.permissions;
+        if (!appData.settingsSchema) appData.settingsSchema = publishCheck.manifest.settingsSchema;
+      }
     }
 
     // Ensure required non-null model fields have valid values
@@ -581,10 +609,31 @@ exports.updateApp = async (req, res) => {
       'features', 'isActive', 'isPublic', 'isFeatured', 'isPopular',
       'requiredApps', 'trialDays', 'mainRoute', 'adminRoute',
       'category', 'icon', 'coverImage', 'engineCompatibility', 'isAutoInstall',
+      'version', 'permissions', 'settingsSchema', 'killSwitch', 'manifest',
     ];
     const updateData = {};
     for (const key of ALLOWED_FIELDS) {
       if (key in body) updateData[key] = body[key];
+    }
+
+    // Early Publishing Gate check on payload if attempting to publish with explicit invalid manifest/schema
+    if (updateData.isPublic === true) {
+      if (updateData.settingsSchema !== undefined || updateData.permissions !== undefined || updateData.killSwitch === true) {
+        const payloadForGate = {
+          slug: updateData.slug || id.replace(/^cat-app-/, ''),
+          ...updateData
+        };
+        const earlyCheck = appManifestService.validatePublishGate(payloadForGate);
+        if (!earlyCheck.canPublish) {
+          return res.status(422).json({
+            success: false,
+            code: 'PUBLISH_GATE_REJECTED',
+            message: 'بوابة النشر رفضت تحديث/نشر التطبيق: التطبيق لا يستوفي عقد التطبيق أو تنقصه متطلبات المانيفست',
+            errors: earlyCheck.errors,
+            warnings: earlyCheck.warnings
+          });
+        }
+      }
     }
 
     // Ensure numeric fields are correctly typed
@@ -621,12 +670,47 @@ exports.updateApp = async (req, res) => {
       });
     }
 
+    const isEffectivelyPublic = updateData.isPublic === true || (targetApp && targetApp.isPublic === true && updateData.isPublic !== false);
+    const touchesContract = updateData.isPublic === true || updateData.settingsSchema !== undefined || updateData.permissions !== undefined || updateData.version !== undefined || updateData.killSwitch !== undefined || updateData.manifest !== undefined;
+
+    // Publishing Gate: Reject publishing or modifying public app without a compliant manifest
+    if (isEffectivelyPublic && touchesContract) {
+      const mergedForGate = { ...targetApp, ...updateData };
+      const publishCheck = appManifestService.validatePublishGate(mergedForGate, targetApp);
+      if (!publishCheck.canPublish) {
+        return res.status(422).json({
+          success: false,
+          code: 'PUBLISH_GATE_REJECTED',
+          message: 'بوابة النشر رفضت تحديث/نشر التطبيق: التطبيق لا يستوفي عقد التطبيق أو تنقصه متطلبات المانيفست',
+          errors: publishCheck.errors,
+          warnings: publishCheck.warnings
+        });
+      }
+      if (publishCheck.manifest) {
+        updateData.manifest = publishCheck.manifest;
+        if (!updateData.version) updateData.version = publishCheck.manifest.version;
+        if (!updateData.permissions) updateData.permissions = publishCheck.manifest.permissions;
+        if (!updateData.settingsSchema) updateData.settingsSchema = publishCheck.manifest.settingsSchema;
+      }
+    }
+
     const app = await executeWithRetry(async () => {
       return await prisma.marketplaceApp.update({
         where: { id: targetApp.id },
         data: updateData
       });
     });
+
+    if (updateData.killSwitch !== undefined) {
+      try {
+        await appKillSwitchService.setKillSwitch(app.slug, updateData.killSwitch, {
+          reason: 'Updated via Super Admin Marketplace Management',
+          updatedBy: req.user?.id || 'SUPER_ADMIN'
+        });
+      } catch (ksErr) {
+        console.warn('[updateApp] Failed to sync kill switch with in-memory service:', ksErr.message);
+      }
+    }
 
     // Auto-sync price and metadata changes back to file catalog (apps.json)
     let catalogSyncResult = null;
@@ -1051,6 +1135,22 @@ exports.toggleToolKillSwitch = async (req, res) => {
     });
 
     try {
+      const prisma = getSharedPrismaClient();
+      const strippedSlug = slug.replace(/^cat-app-/, '');
+      await prisma.marketplaceApp.updateMany({
+        where: {
+          OR: [
+            { slug },
+            { slug: strippedSlug }
+          ]
+        },
+        data: { killSwitch: active }
+      });
+    } catch (dbErr) {
+      console.warn('[toggleToolKillSwitch] Failed to sync killSwitch with DB:', dbErr.message);
+    }
+
+    try {
       marketplaceCatalogService?.clearCache?.();
     } catch (_) {}
 
@@ -1275,6 +1375,153 @@ exports.toggleCompanyToolAccess = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: 'خطأ في تعديل صلاحية الأداة للشركة',
+      error: error.message
+    });
+  }
+};
+
+/**
+ * @route POST /api/v1/super-admin/marketplace-management/apps/:id/publish
+ * @desc Publish an app after verifying it against the App Contract & Manifest Publishing Gate
+ * @access Super Admin
+ */
+exports.publishApp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const published = await appManifestService.publishApp(id, req.body || {});
+
+    try {
+      if (typeof marketplaceCatalogService?.updateAppFile === 'function') {
+        await marketplaceCatalogService.updateAppFile(published.slug || id, { isPublic: true });
+      }
+      marketplaceCatalogService?.clearCache?.();
+    } catch (_) {}
+
+    return res.json({
+      success: true,
+      message: 'تم نشر الأداة بنجاح بعد اجتياز بوابة النشر والمانيفست',
+      data: published
+    });
+  } catch (error) {
+    if (error.code === 'APP_NOT_FOUND') {
+      return res.status(404).json({ success: false, message: error.message });
+    }
+    if (error.code === 'PUBLISH_GATE_REJECTED') {
+      return res.status(422).json({
+        success: false,
+        code: 'PUBLISH_GATE_REJECTED',
+        message: 'بوابة النشر رفضت نشر التطبيق: التطبيق لا يستوفي عقد التطبيق أو تنقصه متطلبات المانيفست',
+        errors: error.errors || [error.message]
+      });
+    }
+    console.error('Error publishing app:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في نشر الأداة عبر بوابة النشر',
+      error: error.message
+    });
+  }
+};
+
+/**
+ * @route POST /api/v1/super-admin/marketplace-management/apps/:id/unpublish
+ * @desc Unpublish an app (sets isPublic: false)
+ * @access Super Admin
+ */
+exports.unpublishApp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const unpublished = await appManifestService.unpublishApp(id);
+
+    try {
+      if (typeof marketplaceCatalogService?.updateAppFile === 'function') {
+        await marketplaceCatalogService.updateAppFile(unpublished.slug || id, { isPublic: false });
+      }
+      marketplaceCatalogService?.clearCache?.();
+    } catch (_) {}
+
+    return res.json({
+      success: true,
+      message: 'تم إلغاء نشر الأداة بنجاح',
+      data: unpublished
+    });
+  } catch (error) {
+    if (error.code === 'APP_NOT_FOUND') {
+      return res.status(404).json({ success: false, message: error.message });
+    }
+    console.error('Error unpublishing app:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في إلغاء نشر الأداة',
+      error: error.message
+    });
+  }
+};
+
+/**
+ * @route GET /api/v1/super-admin/marketplace-management/apps/:id/manifest
+ * @desc Get app manifest and validation audit status
+ * @access Super Admin
+ */
+exports.getAppManifest = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const manifest = await appManifestService.getAppManifest(id);
+
+    if (!manifest) {
+      return res.status(404).json({
+        success: false,
+        message: `لم يتم العثور على مانيفست للأداة "${id}"`
+      });
+    }
+
+    const validation = appManifestService.validateManifest(manifest);
+    const gateVerdict = appManifestService.validatePublishGate(manifest);
+
+    return res.json({
+      success: true,
+      data: {
+        manifest,
+        validation,
+        canPublish: gateVerdict.canPublish,
+        gateErrors: gateVerdict.errors
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching app manifest:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في جلب مانيفست الأداة',
+      error: error.message
+    });
+  }
+};
+
+/**
+ * @route POST /api/v1/super-admin/marketplace-management/apps/validate-manifest
+ * @desc Audit and validate a manifest payload before publishing
+ * @access Super Admin
+ */
+exports.validateAppManifest = async (req, res) => {
+  try {
+    const manifestPayload = req.body;
+    const validation = appManifestService.validateManifest(manifestPayload);
+    const gateVerdict = appManifestService.validatePublishGate(manifestPayload);
+
+    return res.json({
+      success: true,
+      data: {
+        valid: validation.valid,
+        canPublish: gateVerdict.canPublish,
+        errors: Array.from(new Set([...validation.errors, ...gateVerdict.errors])),
+        warnings: validation.warnings
+      }
+    });
+  } catch (error) {
+    console.error('Error validating manifest payload:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في التحقق من المانيفست',
       error: error.message
     });
   }

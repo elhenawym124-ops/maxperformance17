@@ -27,6 +27,11 @@ const appSchema = z.object({
   ppuBillingMethod: z.enum(['PER_ORDER', 'PER_ITEM', 'PERCENTAGE']).nullish(),
   features: z.union([z.string(), z.array(z.any()), z.record(z.any())]).nullish(),
   requiredApps: z.union([z.array(z.string()), z.string()]).nullish(),
+  version: z.string().max(50).nullish(),
+  permissions: z.union([z.array(z.string()), z.string()]).nullish(),
+  settingsSchema: z.union([z.record(z.any()), z.string()]).nullish(),
+  killSwitch: z.boolean().nullish(),
+  manifest: z.union([z.record(z.any()), z.string()]).nullish(),
 });
 
 const bundleSchema = z.object({

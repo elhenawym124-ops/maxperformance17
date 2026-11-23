@@ -7406,6 +7406,14 @@ model MarketplaceApp {
   // Phase 5: Hardening
   engineCompatibility String?
   icon                String?
+  
+  // App Contract & Manifest
+  version             String           @default("1.0.0")
+  permissions         Json?
+  settingsSchema      Json?
+  killSwitch          Boolean          @default(false)
+  manifest            Json?
+
   pricingRules        AppPricingRule[]
   reviews             AppReview[]
   installations       CompanyApp[]
