@@ -13,7 +13,8 @@ import tokenManager from "../../utils/tokenManager";
 
 const getCompanyId = (): string | null => {
   try {
-    return JSON.parse(localStorage.getItem("user") || "{}").companyId || null;
+    const user = JSON.parse(localStorage.getItem("user") || "{}") as { companyId?: string } | null;
+    return user?.companyId || null;
   } catch {
     return null;
   }
