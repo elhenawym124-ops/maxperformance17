@@ -415,7 +415,7 @@
     "monthPlaceholder": "Month",
     "yearPlaceholder": "Year",
     "printStatement": "Print Statement",
-    "noData": "No data available yet",
+    "noData": "No approved payslips yet — your payslip appears after management approval.",
     "processing": "Processing: Payroll is being prepared for this period by the finance department. Please check back later.",
     "employee": "Employee",
     "distinguished": "Distinguished Employee",

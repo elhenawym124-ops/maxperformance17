@@ -659,6 +659,12 @@ async function getMyPayrollHistory(req, res) {
       result.payrolls = result.payrolls.filter((p) =>
         ["PROCESSED", "PAID"].includes(p.status),
       );
+      // كانت pagination.total تُحسب قبل الفلترة فتعرض «لا توجد بيانات» مع total=1
+      if (result.pagination) {
+        const total = result.payrolls.length;
+        result.pagination.total = total;
+        result.pagination.totalPages = total > 0 ? 1 : 0;
+      }
     }
 
     res.json({ success: true, ...result });
