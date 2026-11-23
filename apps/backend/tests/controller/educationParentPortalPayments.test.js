@@ -47,11 +47,27 @@ require.cache[sharedDbPath] = {
   exports: { getSharedPrismaClient: () => mockPrisma },
 };
 
-const controller = require('../../controller/educationParentPortalPaymentsController');
+const pdfCalls = [];
+const pdfServicePath = require.resolve('../../services/educationReceiptPdfService');
+require.cache[pdfServicePath] = {
+  id: pdfServicePath, filename: pdfServicePath, loaded: true,
+  exports: {
+    getOrCreateReceiptPdf: async (_prisma, args) => {
+      pdfCalls.push(args);
+      if (args.studentIds && !args.studentIds.includes('stu-1')) return null;
+      return { buffer: Buffer.from('%PDF-1.4 parent'), payment: { id: args.paymentId, paymentNumber: 'EDU-PAY-1' } };
+    },
+  },
+};
 
+const controller = require('../../controller/educationParentPortalPaymentsController');
 const makeRes = () => ({
   statusCode: 200,
   payload: null,
+  headers: {},
+  body: null,
+  setHeader(key, value) { this.headers[key] = value; return this; },
+  send(body) { this.body = body; return this; },
   status(code) { this.statusCode = code; return this; },
   json(body) { this.payload = body; return this; },
 });
@@ -113,6 +129,17 @@ describe('parent portal payments', () => {
     assert.strictEqual(res.payload.data.company.name, 'مركز ماكس');
     assert.strictEqual(res.payload.data.student.firstName, 'سارة');
     assert.strictEqual(res.payload.data.package.name, 'باقة 10 ساعات');
+  });
+
+  it('streams a family-scoped receipt PDF', async () => {
+    const req = makeReq(undefined, { id: 'pay-1' });
+    const res = makeRes();
+    await controller.downloadReceiptPdf(req, res);
+
+    assert.strictEqual(res.statusCode, 200);
+    assert.match(res.headers['Content-Type'], /application\/pdf/);
+    assert.strictEqual(res.body.subarray(0, 4).toString(), '%PDF');
+    assert.deepStrictEqual(pdfCalls[0].studentIds, ['stu-1']);
   });
 
   it('rejects requests without parent context', async () => {

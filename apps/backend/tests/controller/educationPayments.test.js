@@ -17,6 +17,7 @@ const state = {
   notifications: [],
   receiptNotifications: [],
   studentPhone: '01001234567',
+  pdfResult: null,
   nextEnrollmentUpdate: null,
   rawHandler: null,
 };
@@ -242,8 +243,7 @@ require.cache[auditPath] = {
   },
 };
 
-const notificationPath = require.resolve('../../services/educationNotificationService');
-require.cache[notificationPath] = {
+const notificationPath = require.resolve('../../services/educationNotificationService');require.cache[notificationPath] = {
   id: notificationPath,
   filename: notificationPath,
   loaded: true,
@@ -257,6 +257,14 @@ require.cache[notificationPath] = {
       return { success: true };
     },
   },
+};
+
+const pdfServicePath = require.resolve('../../services/educationReceiptPdfService');
+require.cache[pdfServicePath] = {
+  id: pdfServicePath,
+  filename: pdfServicePath,
+  loaded: true,
+  exports: { getOrCreateReceiptPdf: async () => state.pdfResult },
 };
 
 const controller = require('../../controller/educationPaymentsController');
@@ -307,6 +315,11 @@ beforeEach(() => {
   state.notifications = [];
   state.receiptNotifications = [];
   state.studentPhone = '01001234567';
+  state.pdfResult = {
+    buffer: Buffer.from('%PDF-1.4 test'),
+    payment: { id: 'pay-1', paymentNumber: 'EDU-PAY-202611-0001' },
+    cached: false,
+  };
   state.rawHandler = null;
   state.nextEnrollmentUpdate = null;
 });
@@ -867,6 +880,26 @@ describe('educationPaymentsController summary & dues', () => {
     await controller.sendReceipt(req, res);
     assert.strictEqual(res.statusCode, 400);
     assert.match(res.payload.error, /رقم هاتف/);
+  });
+
+  it('streams the archived receipt PDF and returns 404 when missing', async () => {
+    let req = makeReq({}, {}, { companyId: 'comp-1' });
+    req.params = { id: 'pay-1' };
+    let res = makeRes();
+    await controller.downloadReceiptPdf(req, res);
+
+    assert.strictEqual(res.statusCode, 200);
+    assert.match(res.headers['Content-Type'], /application\/pdf/);
+    assert.match(res.headers['Content-Disposition'], /inline; filename="EDU-PAY-202611-0001\.pdf"/);
+    assert.ok(Buffer.isBuffer(res.body));
+    assert.strictEqual(res.body.subarray(0, 4).toString(), '%PDF');
+
+    state.pdfResult = null;
+    req = makeReq({}, {}, { companyId: 'comp-1' });
+    req.params = { id: 'pay-404' };
+    res = makeRes();
+    await controller.downloadReceiptPdf(req, res);
+    assert.strictEqual(res.statusCode, 404);
   });
 
   it('returns a printable receipt payload', async () => {

@@ -35,6 +35,7 @@ router.post('/purchase-package', authenticateParentToken, portalController.purch
 // Payment history + receipts (parent-scoped)
 router.get('/payments', authenticateParentToken, parentPaymentsController.listPayments);
 router.get('/payments/:id/receipt', authenticateParentToken, parentPaymentsController.getReceipt);
+router.get('/payments/:id/pdf', authenticateParentToken, parentPaymentsController.downloadReceiptPdf);
 
 // Online wallet top-up through Kashier (server-verified)
 router.post('/wallet/kashier-session', authenticateParentToken, parentPaymentsController.createTopupSession);

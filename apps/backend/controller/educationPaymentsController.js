@@ -1304,6 +1304,30 @@ const sendReceipt = async (req, res) => {
   }
 };
 
+const downloadReceiptPdf = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const service = require('../services/educationReceiptPdfService');
+    const result = await service.getOrCreateReceiptPdf(prisma, {
+      companyId,
+      paymentId: req.params.id,
+      force: req.query.regenerate === '1',
+    });
+    if (!result) return res.status(404).json({ success: false, error: 'الدفعة غير موجودة' });
+
+    const fileName = `${result.payment.paymentNumber || result.payment.id}.pdf`;
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+    res.send(result.buffer);
+  } catch (error) {
+    console.error('Error generating payment PDF:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في إنشاء ملف الإيصال' });
+  }
+};
+
 module.exports = {
   listPayments,
   exportPayments,
@@ -1317,6 +1341,7 @@ module.exports = {
   rejectTopup,
   getReceipt,
   sendReceipt,
+  downloadReceiptPdf,
   PAYMENT_METHODS,
   enrollmentStatusAfterPayment,
   nextRenewal,

@@ -26,6 +26,7 @@ const mockApi = vi.hoisted(() => ({
   openCashierShift: vi.fn(),
   closeCashierShift: vi.fn(),
   downloadPaymentsCsv: vi.fn(),
+  downloadPaymentPdf: vi.fn(),
   fetchTopups: vi.fn(),
   releaseTopup: vi.fn(),
   rejectTopup: vi.fn(),
@@ -128,6 +129,7 @@ beforeEach(() => {
   mockApi.recordPayment.mockResolvedValue({ ...payment, paymentNumber: "EDU-PAY-202611-0002" });
   mockApi.reversePayment.mockResolvedValue({ ...payment, status: "REVERSED" });
   mockApi.sendPaymentReceipt.mockResolvedValue({ sent: true, phone: "01001234567" });
+  mockApi.downloadPaymentPdf.mockResolvedValue(undefined);
   mockApi.fetchBranches.mockResolvedValue([{ id: "branch-1", name: "فرع مدينة نصر" }]);
   mockApi.fetchPackages.mockResolvedValue([{ id: "pkg-1", name: "باقة 10 ساعات" }]);
   mockApi.fetchCurrentShift.mockResolvedValue({ shift: null, live: null });
@@ -225,6 +227,15 @@ describe("EducationPaymentsPage", () => {
       expect(mockApi.downloadPaymentsCsv).toHaveBeenCalledWith(
         expect.objectContaining({ from: expect.any(String), to: expect.any(String), page: 1 })
       )
+    );
+  });
+
+  it("downloads the archived PDF for a payment", async () => {
+    render(<EducationPaymentsPage />);
+    await waitFor(() => expect(screen.getAllByText("سارة محمد").length).toBeGreaterThan(0));
+    fireEvent.click(screen.getAllByLabelText("تحميل PDF")[0]);
+    await waitFor(() =>
+      expect(mockApi.downloadPaymentPdf).toHaveBeenCalledWith("pay-1", "EDU-PAY-202611-0001")
     );
   });
 

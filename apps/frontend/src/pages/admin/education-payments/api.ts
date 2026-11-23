@@ -131,3 +131,17 @@ export const downloadPaymentsCsv = async (filters: PaymentsQuery): Promise<void>
   anchor.remove();
   URL.revokeObjectURL(url);
 };
+
+export const downloadPaymentPdf = async (id: string, paymentNumber?: string): Promise<void> => {
+  const res = await fetch(api(`finance/payments/${id}/pdf`), { headers: getAuthHeaders() });
+  if (!res.ok) throw new Error("فشل تحميل ملف الإيصال");
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `${paymentNumber || id}.pdf`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+};

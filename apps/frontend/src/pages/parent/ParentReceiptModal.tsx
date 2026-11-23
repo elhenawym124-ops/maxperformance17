@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Printer, RefreshCw, X } from "lucide-react";
+import { FileDown, Printer, RefreshCw, X } from "lucide-react";
 
 interface ReceiptPayload {
   payment: {
@@ -34,6 +34,30 @@ const money = (value: number) => (Number(value) || 0).toLocaleString("ar-EG");
 const ParentReceiptModal: React.FC<{ paymentId: string; onClose: () => void }> = ({ paymentId, onClose }) => {
   const [data, setData] = useState<ReceiptPayload | null>(null);
   const [error, setError] = useState("");
+
+  const downloadPdf = async () => {
+    try {
+      const token = localStorage.getItem("parentToken");
+      const res = await fetch(`/api/v1/education/parent-portal/payments/${paymentId}/pdf`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) {
+        setError("فشل تحميل ملف الإيصال");
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `${data?.payment?.paymentNumber || paymentId}.pdf`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      setError("تعذر تحميل ملف الإيصال");
+    }
+  };
 
   useEffect(() => {
     let alive = true;
@@ -77,6 +101,15 @@ const ParentReceiptModal: React.FC<{ paymentId: string; onClose: () => void }> =
         <div className="flex items-center justify-between gap-2 p-4 border-b border-border/70 parent-receipt-no-print">
           <h2 className="text-sm font-bold text-foreground">إيصال دفع</h2>
           <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={downloadPdf}
+              disabled={!data}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-background text-foreground text-xs font-semibold hover:bg-muted disabled:opacity-50"
+            >
+              <FileDown className="w-3.5 h-3.5" />
+              <span>تحميل PDF</span>
+            </button>
             <button
               type="button"
               onClick={() => window.print()}

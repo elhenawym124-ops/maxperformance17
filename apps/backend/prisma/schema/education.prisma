@@ -228,6 +228,8 @@ model EducationPayment {
   status         String    @default("COMPLETED") /// COMPLETED, PARTIALLY_REVERSED, REVERSED
   source         String    @default("ADMIN") /// ADMIN, PARENT_WALLET, GROUP, INSTALLMENT, SYSTEM, BACKFILL
   receiptNumber  String?
+  receiptPdfPath String?
+  receiptPdfGeneratedAt DateTime?
   reference      String?
   notes          String?
   paidAt         DateTime  @default(now())

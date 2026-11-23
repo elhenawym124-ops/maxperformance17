@@ -77,6 +77,16 @@
 - UI: new "شيفت الكاشير" tab in the payments page (open, live drawer totals, close with counted cash and difference, history).
 - Closing with a difference writes a MEDIUM audit event with the exact expected/actual/difference.
 
+## Phase 4 (part 3) — archived PDF receipts
+
+- `EducationPayment` now stores `receiptPdfPath` and `receiptPdfGeneratedAt`.
+- `GET /education/finance/payments/:id/pdf` (admin) and `GET /education/parent-portal/payments/:id/pdf` (parent-scoped) stream the archived PDF; generated on first request, cached afterwards, `?regenerate=1` forces a rebuild.
+- Files live under `uploads/education-receipts/<companyId>/<paymentNumber>.pdf` (`EDUCATION_RECEIPTS_DIR` overrides the root).
+- Rendering uses PDFKit + `NotoSansArabic-Regular.ttf` and `shapeArabic` (no headless browser required); includes company header, receipt number/date, student/package, amount, reversed amount, method, status, cashier, notes and signature/stamp lines.
+- UI: PDF button on every ledger row (desktop + mobile) and "تحميل PDF" in the parent receipt modal.
+- CLI: `node scripts/backfill_education_receipt_pdfs.js` (dry-run) / `--apply` / `--force` / `--company` / `--limit`.
+
+
 
 
 

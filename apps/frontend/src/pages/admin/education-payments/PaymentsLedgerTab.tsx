@@ -5,6 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Download,
+  FileDown,
   Printer,
   RefreshCw,
   RotateCcw,
@@ -14,6 +15,7 @@ import {
 import { toast } from "sonner";
 import {
   downloadPaymentsCsv,
+  downloadPaymentPdf,
   fetchBranches,
   fetchPackages,
   fetchPayments,
@@ -401,6 +403,19 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                           </button>
                           <button
                             type="button"
+                            onClick={() =>
+                              downloadPaymentPdf(payment.id, payment.paymentNumber).catch((e) =>
+                                toast.error(e.message || (isEn ? "Failed to download PDF" : "فشل تحميل PDF"))
+                              )
+                            }
+                            className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10"
+                            aria-label={isEn ? "Download PDF" : "تحميل PDF"}
+                            title={isEn ? "Download PDF" : "تحميل PDF"}
+                          >
+                            <FileDown className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
                             onClick={async () => {
                               try {
                                 const result = await sendPaymentReceipt(payment.id);
@@ -486,6 +501,18 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                     >
                       <Printer className="w-3 h-3" />
                       {isEn ? "Receipt" : "إيصال"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        downloadPaymentPdf(payment.id, payment.paymentNumber).catch((e) =>
+                          toast.error(e.message || (isEn ? "Failed to download PDF" : "فشل تحميل PDF"))
+                        )
+                      }
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold bg-primary/10 text-primary"
+                    >
+                      <FileDown className="w-3 h-3" />
+                      PDF
                     </button>
                     <button
                       type="button"

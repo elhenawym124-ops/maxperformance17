@@ -143,4 +143,32 @@ const getReceipt = async (req, res) => {
   }
 };
 
-module.exports = { listPayments, getReceipt, createTopupSession, verifyTopup };
+const downloadReceiptPdf = async (req, res) => {
+  try {
+    const parentId = req.parent?.id;
+    const companyId = req.parent?.companyId;
+    if (!parentId || !companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const studentIds = await resolveParentStudentIds(prisma, companyId, parentId);
+    if (studentIds.length === 0) return res.status(404).json({ success: false, error: 'الإيصال غير موجود' });
+
+    const service = require('../services/educationReceiptPdfService');
+    const result = await service.getOrCreateReceiptPdf(prisma, {
+      companyId,
+      paymentId: req.params.id,
+      studentIds,
+    });
+    if (!result) return res.status(404).json({ success: false, error: 'الإيصال غير موجود' });
+
+    const fileName = `${result.payment.paymentNumber || result.payment.id}.pdf`;
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+    res.send(result.buffer);
+  } catch (error) {
+    console.error('[ParentPortal] Receipt PDF error:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في إنشاء ملف الإيصال' });
+  }
+};
+
+module.exports = { listPayments, getReceipt, createTopupSession, verifyTopup, downloadReceiptPdf };
