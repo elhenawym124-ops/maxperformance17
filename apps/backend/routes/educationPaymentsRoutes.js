@@ -16,6 +16,7 @@ router.get('/payments', requireDbPermission(CAN_VIEW), controller.listPayments);
 router.get('/payments/export', requireDbPermission(CAN_VIEW), controller.exportPayments);
 router.get('/payments/summary', requireDbPermission(CAN_VIEW), controller.getSummary);
 router.get('/reports', requireDbPermission(CAN_VIEW), controller.getReports);
+router.get('/insights', requireDbPermission(CAN_VIEW), controller.getInsights);
 router.get('/dues', requireDbPermission(CAN_VIEW), controller.getDues);
 router.get('/payments/:id/receipt', requireDbPermission(CAN_VIEW), controller.getReceipt);
 router.get('/payments/:id/pdf', requireDbPermission(CAN_VIEW), controller.downloadReceiptPdf);

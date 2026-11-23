@@ -12,11 +12,13 @@ import {
   ExternalLink,
   Wallet,
   CalendarX,
+  TrendingUp,
 } from "lucide-react";
 import { fetchAttributionAnalytics, fetchFunnelMetrics, fetchMissedSessions } from "./api";
 import { EducationCampaignsTab } from "./EducationCampaignsTab";
 import { EducationFunnelTab } from "./EducationFunnelTab";
 import { EducationFinanceTab } from "./EducationFinanceTab";
+import { EducationGrowthTab } from "./EducationGrowthTab";
 import { EducationMissedSessionsTab } from "./EducationMissedSessionsTab";
 import {
   EducationAttributionData,
@@ -33,7 +35,7 @@ export default function EducationReportsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
   const [activeTab, setActiveTab] = useState<ReportTab>(
-    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : tabParam === "missed" ? "missed" : "campaigns"
+    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : tabParam === "missed" ? "missed" : tabParam === "growth" ? "growth" : "campaigns"
   );
   const [period, setPeriod] = useState<ReportPeriod>("all");
 
@@ -207,6 +209,19 @@ export default function EducationReportsPage() {
               {missed?.total ?? 0}
             </span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => handleTabChange("growth")}
+            className={`inline-flex items-center gap-2 py-2.5 px-0.5 text-xs font-semibold border-b-2 transition-all ${
+              activeTab === "growth"
+                ? "border-primary text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <TrendingUp className="w-3.5 h-3.5 text-success" />
+            <span>{isEn ? "Growth & Retention" : "النمو والاحتفاظ"}</span>
+          </button>
         </div>
 
         {/* Error Banner */}
@@ -245,6 +260,8 @@ export default function EducationReportsPage() {
 
         {/* Tab 3: Collections & Revenue */}
         {activeTab === "finance" && <EducationFinanceTab isEn={isEn} />}
+
+        {activeTab === "growth" && <EducationGrowthTab isEn={isEn} />}
 
         {/* Tab 4: Missed sessions */}
         {activeTab === "missed" && (

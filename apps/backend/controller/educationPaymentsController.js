@@ -1331,10 +1331,27 @@ const downloadReceiptPdf = async (req, res) => {
   }
 };
 
+const getInsights = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const months = Math.min(12, Math.max(1, parseInt(req.query.months, 10) || 6));
+    const inactiveDays = Math.min(90, Math.max(7, parseInt(req.query.inactiveDays, 10) || 21));
+    const service = require('../services/educationInsightsService');
+    const data = await service.buildInsights(getSharedPrismaClient(), companyId, { months, inactiveDays });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building education insights:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب تقرير الاحتفاظ والإيراد' });
+  }
+};
+
 module.exports = {
   listPayments,
   exportPayments,
   getSummary,
+  getInsights,
   getReports,
   getDues,
   recordPayment,

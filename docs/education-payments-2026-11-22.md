@@ -118,6 +118,17 @@
 - UI shows the conflicting group/slot and offers an explicit "enroll/save anyway" confirmation which retries with `allowConflicts`.
 - Waiting-list promotion now notifies the parent (WhatsApp/push) with the student and group name: `education_waiting_list_promoted`.
 
+## Phase 4 (part 7) — growth & retention insights
+
+- `GET /education/finance/insights?months=6&inactiveDays=21`:
+  - Revenue by branch, package, group and teacher (private + group collections).
+  - At-risk students with explicit reasons: low hours, expiring package, overdue installment, no confirmed session for N days.
+  - Group members whose renewal is due or unpaid.
+  - Cohort retention: first-enrollment month, cohort size, repeat buyers and retention rate.
+  - Summary KPIs: revenue, active students, repeat rate, at-risk count, group renewals due.
+- UI: "النمو والاحتفاظ" tab in education reports with window selector (3/6/12 months), revenue tables, at-risk list and cohort table.
+
+
 
 
 

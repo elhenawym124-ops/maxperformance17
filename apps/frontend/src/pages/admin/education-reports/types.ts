@@ -60,8 +60,47 @@ export interface EducationFunnelData {
   };
 }
 
+export interface InsightsData {
+  period: { from: string; to: string; months: number; inactiveDays: number };
+  summary: {
+    revenue: number;
+    payments: number;
+    average: number;
+    activeStudents: number;
+    repeatStudents: number;
+    repeatRate: number;
+    atRisk: number;
+    groupDue: number;
+  };
+  revenueByBranch: Array<{ id: string; name: string; amount: number; count: number }>;
+  revenueByPackage: Array<{ id: string; name: string; amount: number; count: number }>;
+  revenueByGroup: Array<{ id: string; name: string; amount: number; count: number }>;
+  revenueByTeacher: Array<{ id: string; name: string; amount: number; count: number }>;
+  atRisk: Array<{
+    studentId: string;
+    studentName: string;
+    phone?: string | null;
+    packageName?: string | null;
+    teacherName?: string | null;
+    remainingHours: number;
+    expiresAt?: string | null;
+    overdueAmount: number;
+    reasons: Array<{ code: string; label: string }>;
+  }>;
+  groupDue: Array<{
+    studentId: string;
+    studentName: string;
+    phone?: string | null;
+    groupName: string;
+    remaining: number;
+    nextRenewalDate?: string | null;
+    reasons: Array<{ code: string; label: string }>;
+  }>;
+  cohorts: Array<{ month: string; students: number; repeatStudents: number; retentionRate: number }>;
+}
+
 export type ReportPeriod = "all" | "30d" | "7d" | "today";
-export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance" | "missed";
+export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance" | "missed" | "growth";
 
 export interface MissedSessionRow {
   id: string;
