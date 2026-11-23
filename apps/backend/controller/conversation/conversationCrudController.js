@@ -257,14 +257,26 @@ const getConversations = async (req, res) => {
 
         let contentIds = [];
         if (wantsMessageSearch) {
-            contentIds = await searchMessageConversationIds(prisma, {
-                companyId,
-                channel: where.channel,
-                search: search.trim(),
-                days: parseInt(searchDays, 10) || 180,
-                limit: 200,
-            });
-            console.log(`🔍 [GET-CONV] Message search returned ${contentIds.length} conversations`);
+            try {
+                contentIds = await searchMessageConversationIds(prisma, {
+                    companyId,
+                    channel: where.channel,
+                    search: search.trim(),
+                    days: parseInt(searchDays, 10) || 180,
+                    limit: 200,
+                });
+            } catch (contentSearchErr) {
+                // A failed content search must never look like "no results".
+                console.error('❌ [GET-CONV] message content search failed:', contentSearchErr.message);
+                return res.status(503).json({
+                    success: false,
+                    code: 'MESSAGE_SEARCH_UNAVAILABLE',
+                    message: 'البحث في نص الرسايل مش متاح دلوقتي — جرّب تاني بعد شوية، أو ابحث بالاسم أو رقم التليفون',
+                });
+            }
+            if (process.env.DEBUG_CONV_SEARCH === 'true') {
+                console.log(`🔍 [GET-CONV] Message search returned ${contentIds.length} conversations`);
+            }
         }
 
         let queryWhere;

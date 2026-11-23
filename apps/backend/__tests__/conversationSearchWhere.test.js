@@ -139,17 +139,36 @@ describe('conversationSearchWhere', () => {
       expect(limit).toBe(200);
     });
 
-    it('handles query failures gracefully without throwing', async () => {
+    it('applies the tenant filter INSIDE the CTE, before the 1000-row cap', async () => {
+      const mockPrisma = { $queryRawUnsafe: jest.fn().mockResolvedValue([]) };
+
+      await searchMessageConversationIds(mockPrisma, {
+        companyId: 'comp1',
+        channel: 'FACEBOOK',
+        search: 'المقاسات',
+      });
+
+      const [queryStr] = mockPrisma.$queryRawUnsafe.mock.calls[0];
+      const cte = queryStr.split('WITH matched_messages AS (')[1].split(')')[0];
+      expect(cte).toContain('JOIN conversations c2');
+      expect(cte).toContain('c2."companyId" = $');
+      expect(cte).toContain('c2.channel = $');
+      // companyId placeholder must appear before the LIMIT 1000 inside the CTE
+      expect(cte.indexOf('companyId')).toBeLessThan(cte.indexOf('LIMIT 1000'));
+      expect(cte).toContain('ORDER BY m."createdAt" DESC');
+    });
+
+    it('propagates database failures instead of returning an empty result', async () => {
       const mockPrisma = {
         $queryRawUnsafe: jest.fn().mockRejectedValue(new Error('DB connection failed')),
       };
 
-      const result = await searchMessageConversationIds(mockPrisma, {
-        companyId: 'comp1',
-        search: 'error-term',
-      });
-
-      expect(result).toEqual([]);
+      await expect(
+        searchMessageConversationIds(mockPrisma, {
+          companyId: 'comp1',
+          search: 'error-term',
+        })
+      ).rejects.toThrow('DB connection failed');
     });
   });
 });

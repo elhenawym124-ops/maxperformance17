@@ -49,9 +49,15 @@ function buildConversationSearchWhere(rawTerm) {
 }
 
 /**
- * Searches messages for matching content tokens using PostgreSQL GIN trigram index,
- * bounded by a time cutoff (default: 180 days) and a max distinct conversation ceiling.
- * Uses a CTE to ensure the optimizer leverages idx_messages_content_trgm directly.
+ * Searches messages for matching content tokens using the PostgreSQL GIN trigram
+ * index `idx_messages_content_trgm` (created by scripts/ensure_trgm_indexes.sql).
+ * The tenant filter (`companyId`, and `channel` when given) is applied INSIDE the
+ * CTE, before the 1000-row cap, so another tenant's messages can never crowd out
+ * the caller's matches. Rows are capped to the most recent 1000 hits.
+ *
+ * Database failures are propagated to the caller (no silent empty result): the
+ * controller turns them into HTTP 503 so the user never sees "no results" for a
+ * query that actually failed.
  *
  * @param {object} prisma - PrismaClient instance
  * @param {object} params
@@ -61,6 +67,7 @@ function buildConversationSearchWhere(rawTerm) {
  * @param {number|string} [params.days=180] - time limit in days (default: 180 days)
  * @param {number|string} [params.limit=200] - maximum distinct conversation IDs (default: 200)
  * @returns {Promise<string[]>} array of conversation IDs
+ * @throws {Error} when the underlying query fails (timeout, missing index, connection)
  */
 async function searchMessageConversationIds(prisma, { companyId, channel, search, days = 180, limit = 200 }) {
     if (!prisma || !search || !companyId) {
@@ -87,10 +94,12 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
     const companyParamIdx = params.length;
 
     let channelClause = '';
+    let cteChannelClause = '';
     if (channel) {
         params.push(channel);
         const channelParamIdx = params.length;
         channelClause = `AND c.channel = $${channelParamIdx}`;
+        cteChannelClause = `AND c2.channel = $${channelParamIdx}`;
     }
 
     params.push(maxLimit);
@@ -100,8 +109,12 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
         WITH matched_messages AS (
             SELECT m."conversationId"
             FROM messages m
+            JOIN conversations c2 ON c2.id = m."conversationId"
             WHERE ${conditions}
               AND m."createdAt" >= $${dateParamIdx}
+              AND c2."companyId" = $${companyParamIdx}
+              ${cteChannelClause}
+            ORDER BY m."createdAt" DESC
             LIMIT 1000
         )
         SELECT DISTINCT c.id
@@ -112,13 +125,8 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
         LIMIT $${limitParamIdx};
     `;
 
-    try {
-        const rows = await prisma.$queryRawUnsafe(query, ...params);
-        return rows.map(r => r.id);
-    } catch (err) {
-        console.error('⚠️ [searchMessageConversationIds] Raw GIN search error:', err.message);
-        return [];
-    }
+    const rows = await prisma.$queryRawUnsafe(query, ...params);
+    return rows.map(r => r.id);
 }
 
 module.exports = {
