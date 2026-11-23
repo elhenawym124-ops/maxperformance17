@@ -413,6 +413,30 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "produce",
     "خضار وفاكهة",
   ),
+  "tpl-065-qassab-noir": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "meat-shop",
+    "جزارة ولحوم",
+  ),
+  "tpl-066-lahma-fresh": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "meat-shop",
+    "جزارة ولحوم",
+  ),
+  "tpl-067-dahab-meat": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "meat-shop",
+    "جزارة ولحوم",
+  ),
+  "tpl-068-baladi-butchery": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "meat-shop",
+    "جزارة ولحوم",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -1107,6 +1131,14 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب خضار وفاكهة عربي موبايل-أولًا بمنطق السوق المحلي: هيرو حصاد، دوائر أقسام، شبكة منتجات، شريط ثقة بالدفع عند الاستلام، معرض صور عملاء، وزر واتساب للطلب السريع. رمّاني وذهبي وكريمي — مبني لمتجر خضار بيبيع بالواتساب والدفع عند الاستلام.",
   "tpl-064-mazra3a-produce":
     "قالب خضار أصلي بمنطق «سلة المزرعة الأسبوعية»: هيرو لوحة حصاد، مخطّط سلة حسب عدد الأفراد، موزايك من المزرعة، فئات تحريرية، بوكسات أسبوعية، دفتر موسم ووصفات، وشريط خدمات وضمان. تيراكوتا وأخضر وكريمي — مبني لمزرعة أو متجر بيبيع اشتراك خضار أسبوعي.",
+  "tpl-065-qassab-noir":
+    "قالب جزارة Premium داكن بهيرو سينمائي وخريطة تقطيعات ولوحة ضمانات سلسلة تبريد: عنابي ونحاسي على أسود فحمي — لجزارة بتقطع قدام العميل وتأكد الوزن قبل السكين.",
+  "tpl-066-lahma-fresh":
+    "قالب جزارة يومي نظيف بمنطق السوبر ماركت: شريط مزايا، شبكة أقسام سريعة، شبكة تقطيعات بالسعر بالكيلو وشريط توصيل ووزن — أحمر جزارة وأخضر على أبيض دافئ.",
+  "tpl-067-dahab-meat":
+    "قالب جزارة عربي للعزومات: هيرو لوحة جانبية، تبويبات تسوّق حسب الطبخة، بوكسات عزومة جاهزة وشريط ثقة — أخضر داكن وذهبي على كريمي.",
+  "tpl-068-baladi-butchery":
+    "قالب جزارة بلدي أصلي: هيرو صورة واسعة، فئات تحريرية، شبكة تقطيعات، بوكسات البيت، وتقييمات + واتساب للطلب السريع — طوبي وكريمي.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1390,6 +1422,14 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-063-rawda-produce/preview.png",
   "tpl-064-mazra3a-produce":
     "/assets/themes/tpl-064-mazra3a-produce/preview.png",
+  "tpl-065-qassab-noir":
+    "/assets/themes/tpl-065-qassab-noir/preview.png",
+  "tpl-066-lahma-fresh":
+    "/assets/themes/tpl-066-lahma-fresh/preview.png",
+  "tpl-067-dahab-meat":
+    "/assets/themes/tpl-067-dahab-meat/preview.png",
+  "tpl-068-baladi-butchery":
+    "/assets/themes/tpl-068-baladi-butchery/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":

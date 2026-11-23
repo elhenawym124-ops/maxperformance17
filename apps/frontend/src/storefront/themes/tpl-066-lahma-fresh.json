@@ -1,0 +1,469 @@
+{
+  "id": "tpl-066-lahma-fresh",
+  "name": "لحمة فريش — جزارة يومية",
+  "description": "قالب جزارة يومي بمنطق السوبر ماركت: شريط مزايا، هيرو عدّاد جزارة، شبكة أقسام سريعة، شبكة تقطيعات خفيفة، وشريط توصيل ووضوح وزن. أحمر جزارة وأخضر حبق على أبيض دافئ — مبني لجزارة بتخدم طلبات البيت اليومية بالسعر بالكيلو.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "356 62% 42%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "36 30% 94%",
+      "secondaryForeground": "20 15% 18%",
+      "accent": "152 28% 34%",
+      "accentForeground": "0 0% 100%",
+      "background": "40 33% 98%",
+      "foreground": "20 14% 14%",
+      "muted": "36 22% 93%",
+      "mutedForeground": "20 8% 42%",
+      "border": "36 18% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "20 14% 14%",
+      "ring": "356 62% 42%"
+    },
+    "typography": {
+      "headingFont": "Alexandria, Cairo, sans-serif",
+      "bodyFont": "Cairo, Alexandria, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.75rem",
+      "buttonRadius": "0.75rem"
+    },
+    "productCard": {
+      "borderRadius": "0.75rem",
+      "boxShadow": "0 10px 30px -24px rgba(20, 12, 8, .38)",
+      "hoverShadow": "0 20px 44px -26px rgba(20, 12, 8, .46)",
+      "badgeRadius": "999px",
+      "buttonRadius": "0.75rem",
+      "surfaceOpacity": "1"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | لحمة",
+    "description": "قالب جزارة يومي: أقسام سريعة، شبكة تقطيعات بالسعر بالكيلو، توصيل مبرد ووضوح وزن — أحمر جزارة وأخضر على أبيض دافئ."
+  },
+  "preview": {
+    "colors": [
+      "356 62% 42%",
+      "152 28% 34%",
+      "40 33% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-066-lahma-fresh/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "لحمة",
+    "transparentOnHome": false,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "تقطيع مجاني ووزن مظبوط · توصيل مبرد في نفس اليوم",
+    "announcementLinkText": "اطلب",
+    "announcementLinkTo": "/shop",
+    "navigation": [
+      {
+        "label": "لحوم بقري",
+        "to": "/shop?category=beef"
+      },
+      {
+        "label": "ضاني",
+        "to": "/shop?category=lamb"
+      },
+      {
+        "label": "مفروم وسجق",
+        "to": "/shop?category=minced"
+      },
+      {
+        "label": "دواجن",
+        "to": "/shop?category=poultry"
+      },
+      {
+        "label": "عروض الأسبوع",
+        "to": "/collections"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "لحمة — جزارة يومية بتقطيع مجاني ووزن مظبوط وتوصيل مبرد.",
+    "copyrightText": "© 2026 لحمة",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "لحوم بقري",
+            "to": "/shop?category=beef"
+          },
+          {
+            "label": "ضاني",
+            "to": "/shop?category=lamb"
+          },
+          {
+            "label": "مفروم وسجق",
+            "to": "/shop?category=minced"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن والتوصيل",
+            "to": "/contact"
+          },
+          {
+            "label": "الوزن والاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل مبرد",
+            "message": "على أي طلب فوق 500 ج.م — الوزن بالظبط زي ما طلبت ومفيش زيادة على الفاتورة.",
+            "saleLabel": "عروض اليوم",
+            "shippingLabel": "توصيل نفس اليوم",
+            "returnLabel": "وزن مضمون",
+            "ctaText": "اطلب دلوقتي",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "butcher-counter",
+          "settings": {
+            "eyebrow": "جزارة كل يوم · من 7 الصبح",
+            "title": "لحمة طازة تتقطع على طلبك",
+            "subtitle": "اختار القطعية والوزن، والسعر بالكيلو مكتوب قدامك — توصيل مبرد لحد باب البيت.",
+            "ctaText": "اطلب من الكتالوج",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "الأقسام",
+            "secondaryCtaLink": "/collections",
+            "backgroundImage": "/assets/themes/tpl-066-lahma-fresh/hero.jpg",
+            "panelImage": "/assets/themes/tpl-066-lahma-fresh/aisle-2.jpg",
+            "highlights": [
+              {
+                "label": "التقطيع",
+                "value": "مجاني"
+              },
+              {
+                "label": "السعر",
+                "value": "بالكيلو"
+              },
+              {
+                "label": "التوصيل",
+                "value": "نفس اليوم"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "أقسام الجزارة",
+            "subtitle": "بقري · ضاني · مفروم · دواجن · عروض",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "limit": 5,
+            "collections": [
+              {
+                "title": "لحوم بقري",
+                "subtitle": "ستيك ومكعبات وموزة.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/aisle-2.jpg",
+                "link": "/shop?category=beef"
+              },
+              {
+                "title": "ضاني",
+                "subtitle": "ريش وكتف للشوي.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/hero.jpg",
+                "link": "/shop?category=lamb"
+              },
+              {
+                "title": "مفروم",
+                "subtitle": "فرم يومي بنسب دهون واضحة.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/aisle-1.jpg",
+                "link": "/shop?category=minced"
+              },
+              {
+                "title": "دواجن",
+                "subtitle": "دجاج بلدي وصدور.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/aisle-2.jpg",
+                "link": "/shop?category=poultry"
+              },
+              {
+                "title": "عروض الأسبوع",
+                "subtitle": "بوكسات توفير للبيت.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/aisle-1.jpg",
+                "link": "/shop?category=offers"
+              }
+            ]
+          }
+        },
+        {
+          "type": "shopping-intents"
+        },
+        {
+          "type": "product-grid",
+          "variant": "butcher-cut-grid",
+          "settings": {
+            "title": "الأكثر طلبًا",
+            "subtitle": "القطعيات اللي بيطلبها البيت كل يوم — بالكيلو والسعر مكتوب.",
+            "limit": 12,
+            "productsFoundLabel": "قطعية",
+            "emptyTitle": "مفيش نتايج",
+            "emptyText": "جرّب قسم تاني أو امسح الفلاتر."
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "التوصيل والوزن",
+            "subtitle": "من غير مفاجآت: السعر بالكيلو، الوزن مكتوب، والتوصيل مبرد.",
+            "items": [
+              {
+                "icon": "truck",
+                "title": "توصيل مبرد",
+                "description": "شنطة مبردة لكل طلب — القاهرة والجيزة في نفس اليوم."
+              },
+              {
+                "icon": "clock",
+                "title": "تقطيع في نفس اليوم",
+                "description": "طلبات قبل 2 الضهر تتقطع وتخرج في نفس اليوم."
+              },
+              {
+                "icon": "target",
+                "title": "وزن مظبوط",
+                "description": "الوزن النهائي مكتوب على الفاتورة قبل الخروج."
+              },
+              {
+                "icon": "headset",
+                "title": "تعديل قبل التحضير",
+                "description": "تقدر تغيّر التقطيع أو السُمك قبل بدء التحضير."
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات العملاء",
+            "listTitle": "آخر التقييمات",
+            "verifiedLabel": "عميل موثق",
+            "reviewsLabel": "تقييم",
+            "writeReviewText": "اكتب تقييمك",
+            "reviewLimit": 4
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "عروض الجزارة كل أسبوع",
+            "subtitle": "قطعية الأسبوع وعروض البوكسات على إيميلك.",
+            "placeholder": "الإيميل بتاعك",
+            "buttonText": "اشترك"
+          }
+        }
+      ],
+      "pageGoal": "conversion",
+      "layoutHint": "stack"
+    },
+    "shop": {
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "الكتالوج",
+            "subtitle": "لحوم · دواجن · مفروم — السعر بالكيلو",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "minimal-toolbar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ],
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right"
+    },
+    "pdp": {
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion",
+          "settings": {
+            "addToCartText": "أضف للسلة",
+            "buyNowText": "اشترِ الآن",
+            "descriptionTitle": "عن القطعية",
+            "shippingTitle": "التوصيل",
+            "shippingText": "توصيل مبرد في نفس اليوم للقاهرة والجيزة — الوزن النهائي مكتوب قبل الخروج."
+          }
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات العملاء",
+            "listTitle": "آخر التقييمات",
+            "verifiedLabel": "عميل موثق",
+            "reviewsLabel": "تقييم",
+            "writeReviewText": "اكتب تقييمك",
+            "reviewLimit": 4
+          }
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ],
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail"
+    },
+    "cart": {
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة اللحمة",
+            "subtitle": "راجع الكيلو والسعر قبل الدفع — التوصيل في نفس اليوم.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "market-summary"
+        }
+      ],
+      "layoutHint": "sidebar-right"
+    },
+    "collections": {
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام المتجر",
+            "subtitle": "بقري · ضاني · مفروم · دواجن",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop",
+            "limit": 4,
+            "collections": [
+              {
+                "title": "لحوم بقري",
+                "subtitle": "ستيك ومكعبات وموزة.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/aisle-2.jpg",
+                "link": "/shop?category=beef"
+              },
+              {
+                "title": "ضاني",
+                "subtitle": "ريش وكتف للشوي.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/hero.jpg",
+                "link": "/shop?category=lamb"
+              },
+              {
+                "title": "مفروم",
+                "subtitle": "فرم يومي.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/aisle-1.jpg",
+                "link": "/shop?category=minced"
+              },
+              {
+                "title": "دواجن",
+                "subtitle": "دجاج بلدي وصدور.",
+                "image": "/assets/themes/tpl-066-lahma-fresh/aisle-2.jpg",
+                "link": "/shop?category=poultry"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن قطعة أو ميعاد توصيل أو تعديل طلب — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ],
+      "pageGoal": "support"
+    }
+  }
+}

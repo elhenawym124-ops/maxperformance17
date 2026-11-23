@@ -5208,6 +5208,130 @@
     }
   },
   {
+    "id": "tpl-065-qassab-noir",
+    "name": "قصابة نوار — جزارة Premium",
+    "description": "قالب جزارة Premium داكن بهيرو سينمائي وخريطة تقطيعات ولوحة ضمانات سلسلة تبريد: عنابي ونحاسي على أسود فحمي — لجزارة بتقطع قدام العميل وتأكد الوزن قبل السكين.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "meat-shop",
+        "label": "جزارة ولحوم"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "355 55% 30%",
+      "30 10% 16%",
+      "38 45% 58%"
+    ],
+    "previewImage": "/assets/themes/tpl-065-qassab-noir/preview.png",
+    "pageStats": {
+      "homeSections": 7,
+      "shopSections": 2,
+      "checkoutSections": 0,
+      "pdpSections": 6,
+      "cartSections": 2,
+      "totalSections": 17
+    }
+  },
+  {
+    "id": "tpl-066-lahma-fresh",
+    "name": "لحمة فريش — جزارة يومية",
+    "description": "قالب جزارة يومي نظيف بمنطق السوبر ماركت: شريط مزايا، شبكة أقسام سريعة، شبكة تقطيعات بالسعر بالكيلو وشريط توصيل ووزن — أحمر جزارة وأخضر على أبيض دافئ.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "meat-shop",
+        "label": "جزارة ولحوم"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "356 62% 42%",
+      "36 30% 94%",
+      "152 28% 34%"
+    ],
+    "previewImage": "/assets/themes/tpl-066-lahma-fresh/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-067-dahab-meat",
+    "name": "ذهب — جزارة العزومة",
+    "description": "قالب جزارة عربي للعزومات: هيرو لوحة جانبية، تبويبات تسوّق حسب الطبخة، بوكسات عزومة جاهزة وشريط ثقة — أخضر داكن وذهبي على كريمي.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "meat-shop",
+        "label": "جزارة ولحوم"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "150 32% 20%",
+      "42 45% 92%",
+      "42 62% 48%"
+    ],
+    "previewImage": "/assets/themes/tpl-067-dahab-meat/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 2,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 19
+    }
+  },
+  {
+    "id": "tpl-068-baladi-butchery",
+    "name": "جزارة البلد — بلدي على أصوله",
+    "description": "قالب جزارة بلدي أصلي: هيرو صورة واسعة، فئات تحريرية، شبكة تقطيعات، بوكسات البيت، وتقييمات + واتساب للطلب السريع — طوبي وكريمي.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "meat-shop",
+        "label": "جزارة ولحوم"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "12 58% 40%",
+      "38 45% 90%",
+      "32 55% 42%"
+    ],
+    "previewImage": "/assets/themes/tpl-068-baladi-butchery/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
     "id": "turbo-parts",
     "name": "Turbo Parts",
     "description": "قالب قطع غيار يختصر القرار: بحث بالموديل، باقات صيانة، وضمان واضح يطمن العميل قبل الشراء.",

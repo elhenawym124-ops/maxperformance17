@@ -1,0 +1,548 @@
+{
+  "id": "tpl-067-dahab-meat",
+  "name": "ذهب — جزارة العزومة",
+  "description": "قالب جزارة عربي بمنطق العزومة: هيرو لوحة جانبية، تبويبات تسوّق حسب الطبخة، بوكسات عزومة، شبكة قطعيات، وشريط ثقة. أخضر داكن وذهبي على كريمي — مبني لجزارة بتخدم عزومات وبوكسات عائلية وتقبل الطلب بالكيلو أو بالبوكس.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "150 32% 20%",
+      "primaryForeground": "42 60% 94%",
+      "secondary": "42 45% 92%",
+      "secondaryForeground": "150 30% 16%",
+      "accent": "42 62% 48%",
+      "accentForeground": "30 30% 10%",
+      "background": "42 38% 97%",
+      "foreground": "150 20% 12%",
+      "muted": "42 26% 92%",
+      "mutedForeground": "150 10% 40%",
+      "border": "42 22% 85%",
+      "card": "0 0% 100%",
+      "cardForeground": "150 20% 12%",
+      "ring": "42 62% 48%"
+    },
+    "typography": {
+      "headingFont": "Almarai, Cairo, sans-serif",
+      "bodyFont": "Cairo, Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 10px 30px -24px rgba(20, 12, 8, .38)",
+      "hoverShadow": "0 20px 44px -26px rgba(20, 12, 8, .46)",
+      "badgeRadius": "999px",
+      "buttonRadius": "999px",
+      "surfaceOpacity": "1"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | ذهب",
+    "description": "قالب جزارة للعزومات: تبويبات حسب الطبخة، بوكسات عزومة جاهزة، شبكة قطعيات بالسعر بالكيلو — أخضر داكن وذهبي على كريمي."
+  },
+  "preview": {
+    "colors": [
+      "150 32% 20%",
+      "42 62% 48%",
+      "42 38% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-067-dahab-meat/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "ذهب",
+    "transparentOnHome": false,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "بوكس العزومة: خروف كامل أو نص — تقطيع وتغليف مجاني",
+    "announcementLinkText": "شوف البوكسات",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "بوكسات العزومة",
+        "to": "/collections"
+      },
+      {
+        "label": "لحوم بقري",
+        "to": "/shop?category=beef"
+      },
+      {
+        "label": "ضاني",
+        "to": "/shop?category=lamb"
+      },
+      {
+        "label": "مفروم",
+        "to": "/shop?category=minced"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "ذهب — جزارة العزومة: بوكسات جاهزة وتقطيع حسب الطبخة بوزن مكتوب.",
+    "copyrightText": "© 2026 ذهب",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "العزومة",
+        "links": [
+          {
+            "label": "بوكس خروف كامل",
+            "to": "/collections"
+          },
+          {
+            "label": "بوكس نصف خروف",
+            "to": "/collections"
+          },
+          {
+            "label": "تقطيع حسب الطبخة",
+            "to": "/shop"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "التوصيل",
+            "to": "/contact"
+          },
+          {
+            "label": "الوزن والتجهيز",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "standard",
+          "settings": {
+            "badge": "موسم العزومة",
+            "message": "بوكس خروف كامل أو نص مع تقطيع مجاني حسب طبخاتك — والتوصيل مبرد.",
+            "ctaText": "شوف البوكسات",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "split-panel",
+          "settings": {
+            "eyebrow": "جزارة العزومة",
+            "title": "عزومتك تبدأ من هنا",
+            "subtitle": "بوكس خروف كامل أو نص، مقسوم على طبخاتك — كوارع، ريش، موزة، ومفروم — بوزن مكتوب وتغليف مبرد.",
+            "ctaText": "اختار بوكس العزومة",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "تقطيع حسب الطبخة",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-067-dahab-meat/hero.jpg",
+            "panelImage": "/assets/themes/tpl-067-dahab-meat/aisle-1.jpg",
+            "panelEyebrow": "بوكسات جاهزة",
+            "panelTitle": "خروف كامل مقسوم على ٦ طبخات",
+            "panelSubtitle": "ريش للشوي، موزة للتسوية، كوارع، مفروم، سجق، وشوربة — كل حاجة متغلفة ومكتوب عليها.",
+            "panelMetricValue": "٦ طبخات",
+            "panelMetricLabel": "من خروف واحد",
+            "highlights": [
+              {
+                "label": "البوكس",
+                "value": "كامل أو نص"
+              },
+              {
+                "label": "التقطيع",
+                "value": "حسب الطبخة"
+              },
+              {
+                "label": "الوزن",
+                "value": "مكتوب"
+              }
+            ]
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "تسوّق حسب الطبخة",
+            "title": "تسوّق حسب الطبخة",
+            "subtitle": "مشويات، تسوية بطيئة، أو بوكس عزومة كامل — اختار من هنا.",
+            "ctaText": "شوف كل التقطيعات",
+            "ctaLink": "/shop",
+            "columns": 3,
+            "mobileColumns": 2,
+            "tabs": [
+              {
+                "label": "مشويات",
+                "title": "مشويات",
+                "subtitle": "ريش وستيك وريب آي",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-1.jpg",
+                "link": "/shop?category=grill"
+              },
+              {
+                "label": "تسوية بطيئة",
+                "title": "تسوية بطيئة",
+                "subtitle": "موزة وكتف وعظمة",
+                "image": "/assets/themes/tpl-067-dahab-meat/hero.jpg",
+                "link": "/shop?category=slow-cook"
+              },
+              {
+                "label": "بوكس العزومة",
+                "title": "بوكس العزومة",
+                "subtitle": "خروف كامل على ٦ طبخات",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "اختيارات اليوم",
+            "title": "بوكسات العزومة",
+            "subtitle": "بوكسات جاهزة بتقطيع كامل ووزن مكتوب — تختار وتستلم مبرد.",
+            "cards": [
+              {
+                "label": "الأكثر طلبًا",
+                "title": "بوكس خروف كامل",
+                "subtitle": "٦ طبخات · ريش وموزة وكوارع ومفروم وسجق وشوربة",
+                "ctaText": "اطلب البوكس",
+                "link": "/shop?category=boxes",
+                "tone": "primary",
+                "stat": "٦ طبخات",
+                "image": "/assets/themes/tpl-067-dahab-meat/hero.jpg"
+              },
+              {
+                "label": "للعيادة الصغيرة",
+                "title": "نص خروف",
+                "subtitle": "٣ طبخات كاملة مع تقطيع مجاني",
+                "ctaText": "اطلبه",
+                "link": "/shop?category=boxes",
+                "tone": "accent",
+                "stat": "٣ طبخات",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-2.jpg"
+              },
+              {
+                "label": "بوكس الشوي",
+                "title": "بوكس المشويات",
+                "subtitle": "ريش وستيك وريب آي متبلين",
+                "ctaText": "اطلبه",
+                "link": "/shop?category=grill",
+                "tone": "primary",
+                "stat": "٤ كيلو",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-1.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "قطعيات مختارة",
+            "subtitle": "بالكيلو وبالسعر المكتوب — من غير مفاجآت.",
+            "limit": 8,
+            "productsFoundLabel": "قطعية",
+            "emptyTitle": "مفيش قطعيات",
+            "emptyText": "جرّب قسم تاني أو امسح الفلاتر."
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "trust-strip",
+          "settings": {
+            "title": "ليه تطلب من ذهب",
+            "subtitle": "بوكس عزومة بتقطيع كامل، وزن مكتوب، وتوصيل مبرد.",
+            "items": [
+              {
+                "icon": "shield-check",
+                "title": "مصدر واضح",
+                "description": "لحوم من مزارع موثوقة مع درجة جودة معلنة."
+              },
+              {
+                "icon": "target",
+                "title": "وزن مكتوب",
+                "description": "كل بوكس بوزنه وسعر الكيلو مكتوب على الفاتورة."
+              },
+              {
+                "icon": "clipboard",
+                "title": "تقطيع حسب الطبخة",
+                "description": "بنقسم البوكس على طبخاتك: شوي، تسوية، كوارع، مفروم."
+              },
+              {
+                "icon": "truck",
+                "title": "توصيل مبرد",
+                "description": "تغليف مبرد لكل بوكس وتوصيل في نفس اليوم."
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "آراء العزومات",
+            "listTitle": "تقييمات حديثة",
+            "verifiedLabel": "عميل موثق",
+            "reviewsLabel": "تقييم",
+            "writeReviewText": "اكتب تقييمك",
+            "reviewLimit": 4,
+            "mobileReviewLimit": 2
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "عروض العزومة على إيميلك",
+            "subtitle": "بنبعت بوكسات الموسم قبل الكل.",
+            "placeholder": "الإيميل بتاعك",
+            "buttonText": "اشترك"
+          }
+        }
+      ],
+      "pageGoal": "conversion",
+      "layoutHint": "stack"
+    },
+    "shop": {
+      "sections": [
+        {
+          "type": "shop-command-bar",
+          "variant": "butcher-cut-console",
+          "settings": {
+            "title": "ابحث في القطعيات",
+            "subtitle": "ابحث باسم القطعية أو الطبخة، واختار القسم والترتيب.",
+            "searchPlaceholder": "ابحث عن ريش، موزة، مفروم، كوارع",
+            "allCategoriesLabel": "كل الأقسام",
+            "resultsLabel": "قطعية",
+            "clearButtonText": "مسح الفلاتر",
+            "stickyLabel": "قطعيات العزومة",
+            "chipLimit": 8
+          }
+        },
+        {
+          "type": "product-grid",
+          "variant": "butcher-cut-grid",
+          "settings": {
+            "title": "كل القطعيات",
+            "subtitle": "ابحث واختار بالسعر والوزن.",
+            "limit": 12,
+            "productsFoundLabel": "قطعية",
+            "emptyTitle": "مفيش نتايج",
+            "emptyText": "جرّب قسم تاني أو امسح الفلاتر."
+          }
+        }
+      ],
+      "pageGoal": "discovery",
+      "layoutHint": "commerce-3col"
+    },
+    "pdp": {
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "standard",
+          "settings": {
+            "addToCartText": "أضف للسلة",
+            "buyNowText": "اطلب البوكس",
+            "descriptionTitle": "تفاصيل القطعية",
+            "shippingTitle": "التوصيل المبرد",
+            "shippingText": "التجهيز بعد تأكيد الوزن — بوكس مبرد يوصلك في نفس اليوم.",
+            "guaranteesTitle": "ضمانات البوكس",
+            "guaranteesSubtitle": "كل بوكس بيتأكد بالوزن قبل الخروج.",
+            "guaranteeItems": "تأكيد الوزن قبل التجهيز\nتقطيع حسب الطبخة\nتغليف مبرد لكل جزء\nتواصل قبل خروج الطلب\nمصدر واضح\nاقتراح طبخات",
+            "guaranteeStyle": "grid",
+            "fitNote": "اكتب طبخاتك في ملاحظات الطلب وبنقسم البوكس عليها."
+          }
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "bought-together",
+          "variant": "pairing-rail"
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "تقييمات البوكس",
+            "listTitle": "آراء حديثة",
+            "verifiedLabel": "عميل موثق",
+            "reviewsLabel": "تقييم",
+            "writeReviewText": "اكتب تقييمك",
+            "reviewLimit": 4,
+            "mobileReviewLimit": 2
+          }
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial",
+          "settings": {
+            "title": "يكمّل عزومتك",
+            "subtitle": "اقتراحات من نفس الوزن أو الطبخة.",
+            "limit": 4
+          }
+        }
+      ],
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail"
+    },
+    "cart": {
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "standard",
+          "settings": {
+            "title": "سلة العزومة",
+            "subtitle": "راجع البوكسات والكيلو قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted"
+        }
+      ],
+      "layoutHint": "sidebar-right"
+    },
+    "collections": {
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "بوكسات",
+            "title": "بوكسات العزومة",
+            "subtitle": "خروف كامل أو نص — كل بوكس مقسوم على طبخاتك.",
+            "ctaText": "شوف القطعيات",
+            "ctaLink": "/shop",
+            "columns": 3,
+            "mobileColumns": 2,
+            "tabs": [
+              {
+                "label": "خروف كامل",
+                "title": "خروف كامل",
+                "subtitle": "٦ طبخات",
+                "image": "/assets/themes/tpl-067-dahab-meat/hero.jpg",
+                "link": "/shop?category=boxes"
+              },
+              {
+                "label": "نص خروف",
+                "title": "نص خروف",
+                "subtitle": "٣ طبخات",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-2.jpg",
+                "link": "/shop?category=boxes"
+              },
+              {
+                "label": "بوكس المشويات",
+                "title": "بوكس المشويات",
+                "subtitle": "٤ كيلو متبل",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-1.jpg",
+                "link": "/shop?category=grill"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "catalog-pills",
+          "settings": {
+            "title": "أقسام القطعيات",
+            "subtitle": "بقري · ضاني · مفروم · دواجن",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop",
+            "limit": 4,
+            "collections": [
+              {
+                "title": "لحوم بقري",
+                "subtitle": "ستيك ومكعبات.",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-2.jpg",
+                "link": "/shop?category=beef"
+              },
+              {
+                "title": "ضاني",
+                "subtitle": "ريش وكتف.",
+                "image": "/assets/themes/tpl-067-dahab-meat/hero.jpg",
+                "link": "/shop?category=lamb"
+              },
+              {
+                "title": "مفروم",
+                "subtitle": "فرم يومي.",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-1.jpg",
+                "link": "/shop?category=minced"
+              },
+              {
+                "title": "دواجن",
+                "subtitle": "دجاج بلدي.",
+                "image": "/assets/themes/tpl-067-dahab-meat/aisle-2.jpg",
+                "link": "/shop?category=poultry"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل القطعيات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن بوكس عزومة أو تقطيع خاص — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ],
+      "pageGoal": "support"
+    }
+  }
+}

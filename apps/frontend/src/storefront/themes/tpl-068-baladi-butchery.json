@@ -1,0 +1,503 @@
+{
+  "id": "tpl-068-baladi-butchery",
+  "name": "جزارة البلد — بلدي على أصوله",
+  "description": "قالب جزارة بلدي أصلي بمنطق الطلب المباشر: هيرو صورة واسعة، ماركيه ضمانات، فئات تحريرية، شبكة تقطيعات، شريط خدمة، بوكسات عائلية، وتقييمات + واتساب للطلب السريع. طوبي دافئ وكريمي وعسلي — مبني لجزارة بلدية بتشتغل بالكيلو والطلب على الواتساب.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "12 58% 40%",
+      "primaryForeground": "40 45% 97%",
+      "secondary": "38 45% 90%",
+      "secondaryForeground": "12 40% 20%",
+      "accent": "32 55% 42%",
+      "accentForeground": "40 45% 97%",
+      "background": "38 42% 97%",
+      "foreground": "20 22% 13%",
+      "muted": "38 28% 93%",
+      "mutedForeground": "20 12% 42%",
+      "border": "34 22% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "20 22% 13%",
+      "ring": "12 58% 40%"
+    },
+    "typography": {
+      "headingFont": "Tajawal, Cairo, sans-serif",
+      "bodyFont": "Cairo, Tajawal, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.5rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "0.5rem",
+      "boxShadow": "0 10px 30px -24px rgba(20, 12, 8, .38)",
+      "hoverShadow": "0 20px 44px -26px rgba(20, 12, 8, .46)",
+      "badgeRadius": "999px",
+      "buttonRadius": "0.5rem",
+      "surfaceOpacity": "1"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | جزارة البلد",
+    "description": "قالب جزارة بلدي: هيرو صورة واسعة، فئات تحريرية، شبكة تقطيعات بالسعر بالكيلو، بوكسات عائلية، وطلب واتساب سريع — طوبي وكريمي."
+  },
+  "preview": {
+    "colors": [
+      "12 58% 40%",
+      "38 45% 90%",
+      "38 42% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-068-baladi-butchery/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "جزارة البلد",
+    "transparentOnHome": false,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "اطلب من الموقع أو واتساب — التقطيع والوزن من غير زيادة",
+    "announcementLinkText": "اطلب واتساب",
+    "announcementLinkTo": "https://wa.me/201000000000",
+    "navigation": [
+      {
+        "label": "لحوم بلدي",
+        "to": "/shop?category=beef"
+      },
+      {
+        "label": "كوارع وموزة",
+        "to": "/shop?category=slow-cook"
+      },
+      {
+        "label": "مفروم",
+        "to": "/shop?category=minced"
+      },
+      {
+        "label": "سجق بلدي",
+        "to": "/shop?category=sausage"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "جزارة البلد — لحمة بلدي بالسعر بالكيلو، تقطيع على طلبك، وطلب واتساب.",
+    "copyrightText": "© 2026 جزارة البلد",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "القطعيات",
+        "links": [
+          {
+            "label": "لحوم بلدي",
+            "to": "/shop?category=beef"
+          },
+          {
+            "label": "كوارع وموزة",
+            "to": "/shop?category=slow-cook"
+          },
+          {
+            "label": "سجق بلدي",
+            "to": "/shop?category=sausage"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "التوصيل",
+            "to": "/contact"
+          },
+          {
+            "label": "الوزن",
+            "to": "/contact"
+          },
+          {
+            "label": "اطلب واتساب",
+            "to": "https://wa.me/201000000000"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "dawn-image-banner",
+          "settings": {
+            "eyebrow": "جزارة بلدي · من 1985",
+            "title": "لحمة بلدي على أصولها",
+            "subtitle": "لحمة تتقطع على طلبك، تتوزن قدامك، وتوصلك بسرعة — بالسعر بالكيلو ومن غير زيادة.",
+            "ctaText": "اطلب من الموقع",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "اطلب واتساب",
+            "secondaryCtaLink": "https://wa.me/201000000000",
+            "backgroundImage": "/assets/themes/tpl-068-baladi-butchery/hero.jpg",
+            "panelImage": "/assets/themes/tpl-068-baladi-butchery/aisle-1.jpg",
+            "highlights": [
+              {
+                "label": "السعر",
+                "value": "بالكيلو"
+              },
+              {
+                "label": "التقطيع",
+                "value": "على طلبك"
+              },
+              {
+                "label": "الطلب",
+                "value": "واتساب"
+              }
+            ],
+            "panelEyebrow": "جزارة البلد",
+            "panelTitle": "لحمة بلدي طازة النهاردة",
+            "panelSubtitle": "بقري وضاني بلدي، كوارع وموزة للتسوية، ومفروم يتفرم قدامك.",
+            "panelMetricValue": "طازة النهاردة",
+            "panelMetricLabel": "تقطيع وتوزين قدامك"
+          }
+        },
+        {
+          "type": "promo-strip",
+          "variant": "butcher-proof-marquee",
+          "settings": {
+            "badge": "من غير زيادة",
+            "message": "السعر بالكيلو والوزن قدامك — مفيش أي زيادة على الفاتورة، والتقطيع مجاني.",
+            "saleLabel": "تقطيع مجاني",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "وزن قدامك",
+            "ctaText": "اطلب واتساب",
+            "ctaLink": "https://wa.me/201000000000"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "editorial-categories",
+          "settings": {
+            "title": "أقسام الجزارة",
+            "subtitle": "بقري · ضاني · كوارع · مفروم · سجق",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "limit": 4,
+            "collections": [
+              {
+                "title": "لحوم بلدي",
+                "subtitle": "بقري وضاني طازة.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/hero.jpg",
+                "link": "/shop?category=beef"
+              },
+              {
+                "title": "كوارع وموزة",
+                "subtitle": "للتسوية البطيئة والشوربة.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/aisle-2.jpg",
+                "link": "/shop?category=slow-cook"
+              },
+              {
+                "title": "مفروم",
+                "subtitle": "يتفرم قدامك بنسب دهون واضحة.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/aisle-1.jpg",
+                "link": "/shop?category=minced"
+              },
+              {
+                "title": "سجق بلدي",
+                "subtitle": "تتبيلة البلد ومتغطي حسب الطلب.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/aisle-2.jpg",
+                "link": "/shop?category=sausage"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "variant": "butcher-cut-grid",
+          "settings": {
+            "title": "قطعيات النهاردة",
+            "subtitle": "كل قطعة بالسعر بالكيلو — اطلب واتساب أو من الموقع.",
+            "limit": 12,
+            "productsFoundLabel": "قطعية",
+            "emptyTitle": "مفيش قطعيات",
+            "emptyText": "جرّب قسم تاني أو امسح الفلاتر."
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "بنشتغل إزاي",
+            "subtitle": "من غير كلام كتير: تقطيع مجاني، وزن قدامك، وتوصيل سريع.",
+            "items": [
+              {
+                "icon": "clipboard",
+                "title": "تقطيع على طلبك",
+                "description": "مكعبات، شرائح، أو موزة — اكتب اللي تحبه."
+              },
+              {
+                "icon": "target",
+                "title": "وزن قدامك",
+                "description": "بنوزن قدامك والسعر النهائي بالسعر بالكيلو."
+              },
+              {
+                "icon": "truck",
+                "title": "توصيل سريع",
+                "description": "توصيل في نفس اليوم للقاهرة والجيزة."
+              },
+              {
+                "icon": "headset",
+                "title": "طلب واتساب",
+                "description": "مش لازم تتسجل — اطلب واتساب وبنكلمك للتأكيد."
+              }
+            ]
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "بوكسات البيت",
+            "title": "بوكسات البيت",
+            "subtitle": "بوكس أسبوعي بلدي بوزن مكتوب — تختار وتستلم مبرد.",
+            "cards": [
+              {
+                "label": "الأكثر طلبًا",
+                "title": "بوكس البيت الأسبوعي",
+                "subtitle": "٣ كيلو بقري + ٢ كيلو مفروم + كوارع",
+                "ctaText": "اطلب البوكس",
+                "link": "/shop?category=boxes",
+                "tone": "primary",
+                "stat": "٥ كيلو",
+                "image": "/assets/themes/tpl-068-baladi-butchery/hero.jpg"
+              },
+              {
+                "label": "للشوربة",
+                "title": "بوكس الكوارع والموزة",
+                "subtitle": "كوارع وموزة للتسوية البطيئة",
+                "ctaText": "اطلبه",
+                "link": "/shop?category=slow-cook",
+                "tone": "accent",
+                "stat": "٣ كيلو",
+                "image": "/assets/themes/tpl-068-baladi-butchery/aisle-2.jpg"
+              },
+              {
+                "label": "للفطار",
+                "title": "بوكس السجق البلدي",
+                "subtitle": "سجق بلدي متبل جاهز",
+                "ctaText": "اطلبه",
+                "link": "/shop?category=sausage",
+                "tone": "primary",
+                "stat": "٢ كيلو",
+                "image": "/assets/themes/tpl-068-baladi-butchery/aisle-1.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "editorial",
+          "settings": {
+            "title": "كلام أهل البلد",
+            "listTitle": "تقييمات حديثة",
+            "verifiedLabel": "عميل موثق",
+            "reviewsLabel": "تقييم",
+            "writeReviewText": "اكتب تقييمك",
+            "reviewLimit": 4
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ],
+      "pageGoal": "conversion",
+      "layoutHint": "stack"
+    },
+    "shop": {
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "قطعيات النهاردة",
+            "subtitle": "بلدي · كوارع · مفروم · سجق — بالسعر بالكيلو",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "default-discovery"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ],
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right"
+    },
+    "pdp": {
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion",
+          "settings": {
+            "addToCartText": "أضف للسلة",
+            "buyNowText": "اطلب واتساب",
+            "descriptionTitle": "عن القطعية",
+            "shippingTitle": "التوصيل",
+            "shippingText": "توصيل في نفس اليوم — بنكلمك لتأكيد الوزن والتقطيع قبل التحضير."
+          }
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات العملاء",
+            "listTitle": "آخر التقييمات",
+            "verifiedLabel": "عميل موثق",
+            "reviewsLabel": "تقييم",
+            "writeReviewText": "اكتب تقييمك",
+            "reviewLimit": 4
+          }
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ],
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail"
+    },
+    "cart": {
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "standard",
+          "settings": {
+            "title": "سلة البلد",
+            "subtitle": "راجع الكيلو والسعر قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "minimal"
+        }
+      ],
+      "layoutHint": "sidebar-right"
+    },
+    "collections": {
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام الجزارة",
+            "subtitle": "بقري · ضاني · كوارع · مفروم · سجق",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop",
+            "limit": 5,
+            "collections": [
+              {
+                "title": "لحوم بلدي",
+                "subtitle": "بقري وضاني طازة.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/hero.jpg",
+                "link": "/shop?category=beef"
+              },
+              {
+                "title": "كوارع وموزة",
+                "subtitle": "للتسوية والشوربة.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/aisle-2.jpg",
+                "link": "/shop?category=slow-cook"
+              },
+              {
+                "title": "مفروم",
+                "subtitle": "يتفرم قدامك.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/aisle-1.jpg",
+                "link": "/shop?category=minced"
+              },
+              {
+                "title": "سجق بلدي",
+                "subtitle": "تتبيلة البلد.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/aisle-2.jpg",
+                "link": "/shop?category=sausage"
+              },
+              {
+                "title": "بوكسات البيت",
+                "subtitle": "بوكس أسبوعي بوزن مكتوب.",
+                "image": "/assets/themes/tpl-068-baladi-butchery/hero.jpg",
+                "link": "/shop?category=boxes"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "variant": "butcher-cut-grid",
+          "settings": {
+            "title": "كل القطعيات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن قطعة أو ميعاد توصيل — أو اطلب واتساب على طول."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ],
+      "pageGoal": "support"
+    }
+  }
+}

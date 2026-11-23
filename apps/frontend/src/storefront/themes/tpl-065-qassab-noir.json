@@ -1,0 +1,509 @@
+{
+  "id": "tpl-065-qassab-noir",
+  "name": "قصابة نوار — جزارة Premium",
+  "description": "قالب جزارة فاخر بمنطق الأتيليه: هيرو سينمائي داكن، ماركيه ضمانات التقطيع، خريطة تقطيعات بمقاس بانر، شبكة Black Label بأسعار الكيلو، ولوحة ضمانات سلسلة التبريد. عنابي داكن ونحاسي على أسود فحمي — مبني لجزارة بريميوم بتقطع أمام العميل وبتأكد الوزن قبل السكين.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "355 55% 30%",
+      "primaryForeground": "40 50% 96%",
+      "secondary": "30 10% 16%",
+      "secondaryForeground": "40 40% 90%",
+      "accent": "38 45% 58%",
+      "accentForeground": "30 20% 8%",
+      "background": "24 10% 6%",
+      "foreground": "38 30% 92%",
+      "muted": "28 8% 14%",
+      "mutedForeground": "34 10% 68%",
+      "border": "30 10% 22%",
+      "card": "24 10% 9%",
+      "cardForeground": "38 30% 92%",
+      "ring": "38 45% 58%"
+    },
+    "typography": {
+      "headingFont": "\"IBM Plex Sans Arabic\", Cairo, sans-serif",
+      "bodyFont": "Cairo, \"IBM Plex Sans Arabic\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.125rem",
+      "buttonRadius": "0.125rem"
+    },
+    "productCard": {
+      "borderRadius": "0",
+      "boxShadow": "0 24px 70px -52px rgba(0, 0, 0, .86)",
+      "hoverShadow": "0 36px 90px -58px rgba(104, 20, 26, .62)",
+      "badgeRadius": "0",
+      "buttonRadius": "0",
+      "surfaceOpacity": "1"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | قصابة",
+    "description": "قالب جزارة Premium داكن: تقطيع أمام العميل، وزن مؤكد قبل السكين، وخريطة تقطيعات مع لوحة ضمانات سلسلة تبريد — عنابي ونحاسي على أسود."
+  },
+  "preview": {
+    "colors": [
+      "355 55% 30%",
+      "38 45% 58%",
+      "24 10% 6%"
+    ],
+    "imageUrl": "/assets/themes/tpl-065-qassab-noir/preview.png"
+  },
+  "header": {
+    "variant": "butcher-atelier",
+    "brandName": "قصابة",
+    "tagline": "تقطيعات مختارة · تحضير يومي",
+    "railLabel": "معمل التقطيع",
+    "railItems": [
+      "تقطيع أمامك",
+      "وزن مكتوب",
+      "تغليف مبرد",
+      "تسليم نفس اليوم"
+    ],
+    "transparentOnHome": false,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "توصيل مبرد مجاني فوق 1000 ج.م — القاهرة والجيزة في نفس اليوم",
+    "announcementLinkText": "التفاصيل",
+    "announcementLinkTo": "/collections",
+    "actions": [
+      {
+        "label": "اطلب تقطيعك",
+        "to": "/shop",
+        "style": "primary"
+      }
+    ],
+    "navigation": [
+      {
+        "label": "لحوم بقري",
+        "to": "/shop?category=beef"
+      },
+      {
+        "label": "ضاني",
+        "to": "/shop?category=lamb"
+      },
+      {
+        "label": "بتلو",
+        "to": "/shop?category=veal"
+      },
+      {
+        "label": "دواجن",
+        "to": "/shop?category=poultry"
+      },
+      {
+        "label": "عروض الشوي",
+        "to": "/collections"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "قصابة — تقطيعات مختارة بوزن مكتوب وتغليف مبرد يوصلك طازة.",
+    "copyrightText": "© 2026 قصابة",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com",
+      "whatsapp": "https://wa.me/201000000000"
+    },
+    "navigation": [
+      {
+        "title": "التقطيعات",
+        "links": [
+          {
+            "label": "لحوم بقري",
+            "to": "/shop?category=beef"
+          },
+          {
+            "label": "ضاني",
+            "to": "/shop?category=lamb"
+          },
+          {
+            "label": "خريطة التقطيعات",
+            "to": "/collections"
+          }
+        ]
+      },
+      {
+        "title": "الخدمة",
+        "links": [
+          {
+            "label": "التوصيل المبرد",
+            "to": "/contact"
+          },
+          {
+            "label": "سياسة الوزن",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "butcher-proof-marquee",
+          "settings": {
+            "badge": "تحضير يومي",
+            "message": "كل قطعة تتقطع بعد تأكيد الوزن — تشوف السكين والوزن والتغليف قبل ما الطلب يخرج من المعمل.",
+            "saleLabel": "تقطيع مجاني",
+            "shippingLabel": "توصيل مبرد",
+            "returnLabel": "وزن مضمون",
+            "ctaText": "اعرف الطريقة",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "butcher-atelier",
+          "settings": {
+            "eyebrow": "منذ 1983 · تقطيع أمام العميل",
+            "title": "لحمة تتقطع قدامك وتتوزن قبل السكين",
+            "subtitle": "اختر القطعية والسُمك والتتبيل، وشوف الوزن النهائي قبل التحضير — تغليف مبرد يوصلك طازة في نفس اليوم.",
+            "ctaText": "ادخل غرفة التقطيع",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "خريطة التقطيعات",
+            "secondaryCtaLink": "/collections",
+            "backgroundImage": "/assets/themes/tpl-065-qassab-noir/hero.jpg",
+            "panelImage": "/assets/themes/tpl-065-qassab-noir/aisle-1.jpg",
+            "panelEyebrow": "معمل التقطيع",
+            "panelTitle": "قطعيات مختارة النهاردة",
+            "panelSubtitle": "كل صنف بدرجة جودته وطريقة الطهي المناسبة — والوزن مؤكد قبل التحضير.",
+            "panelMetricValue": "وزن مؤكد",
+            "panelMetricLabel": "قبل ما السكين تلمس اللحمة",
+            "highlights": [
+              {
+                "label": "التحضير",
+                "value": "أمام العميل"
+              },
+              {
+                "label": "الوزن",
+                "value": "مكتوب"
+              },
+              {
+                "label": "التغليف",
+                "value": "مبرد أو فاكيوم"
+              },
+              {
+                "label": "المصدر",
+                "value": "مزارع موثوقة"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "butcher-cut-map",
+          "settings": {
+            "title": "خريطة التقطيعات",
+            "subtitle": "اختار حسب طريقة الطبخ أو نوع القطعية اللي محتاجها — كل قسم بمقاس بانر.",
+            "limit": 4,
+            "ctaText": "ادخل القسم",
+            "collections": [
+              {
+                "title": "لحوم بقري",
+                "subtitle": "ستيك، مكعبات، وموزة للتسوية البطيئة.",
+                "image": "/assets/themes/tpl-065-qassab-noir/hero.jpg",
+                "link": "/shop?category=beef"
+              },
+              {
+                "title": "ضاني وشوي",
+                "subtitle": "ريش وريب آي لعزومة على الفحم.",
+                "image": "/assets/themes/tpl-065-qassab-noir/aisle-2.jpg",
+                "link": "/shop?category=lamb"
+              },
+              {
+                "title": "مفروم وسجق",
+                "subtitle": "فرم يومي بنسب دهون مكتوبة.",
+                "image": "/assets/themes/tpl-065-qassab-noir/aisle-1.jpg",
+                "link": "/shop?category=minced"
+              },
+              {
+                "title": "دواجن طازة",
+                "subtitle": "دجاج بلدي وصدور متبلة حسب الطلب.",
+                "image": "/assets/themes/tpl-065-qassab-noir/aisle-2.jpg",
+                "link": "/shop?category=poultry"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "variant": "butcher-atelier-grid",
+          "settings": {
+            "title": "قطعيات النهاردة",
+            "subtitle": "كل صنف بالصورة والوزن والسعر — اختار واطلب قبل ما الكمية تخلص.",
+            "limit": 8,
+            "productsFoundLabel": "قطعية",
+            "emptyTitle": "مفيش قطعيات بالمقاس ده",
+            "emptyText": "جرّب قسم تاني أو امسح الفلاتر وارجع لقائمة التقطيعات."
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "butcher-proof-board",
+          "settings": {
+            "title": "ضمانات التقطيع والتبريد",
+            "subtitle": "أربع خطوات ثابتة من اختيار القطعية لحد باب بيتك — كل خطوة ليها إثبات.",
+            "image": "/assets/themes/tpl-065-qassab-noir/aisle-2.jpg",
+            "imageAlt": "قطعية لحم على لوح تقطيع",
+            "items": [
+              {
+                "icon": "shield",
+                "title": "درجة جودة واضحة",
+                "description": "كل قطعة معاها درجة الجودة واقتراح طريقة الطهي."
+              },
+              {
+                "icon": "target",
+                "title": "وزن قبل السكين",
+                "description": "بنأكد الوزن النهائي معاك قبل بدء التحضير."
+              },
+              {
+                "icon": "clipboard",
+                "title": "ملاحظات التحضير",
+                "description": "اكتب السُمك والتقطيع والتنضيف والتتبيل اللي تحبه."
+              },
+              {
+                "icon": "grid",
+                "title": "تسليم مبرد",
+                "description": "تغليف مبرد أو فاكيوم وتوصيل سريع يحافظ على الطزاجة."
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "editorial",
+          "settings": {
+            "title": "كلام العملاء",
+            "listTitle": "تقييمات من طلبات حقيقية",
+            "verifiedLabel": "عميل موثق",
+            "reviewsLabel": "تقييم",
+            "writeReviewText": "اكتب تقييمك",
+            "reviewLimit": 4
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "عروض الشوي أول بأول",
+            "subtitle": "سيبلنا إيميلك ونبعتلك قطعيات الأسبوع وعروض العزومة قبل الكل.",
+            "placeholder": "الإيميل بتاعك",
+            "buttonText": "اشترك"
+          }
+        }
+      ],
+      "pageGoal": "conversion",
+      "layoutHint": "stack"
+    },
+    "shop": {
+      "sections": [
+        {
+          "type": "shop-command-bar",
+          "variant": "butcher-cut-console",
+          "settings": {
+            "title": "ابحث واختار",
+            "subtitle": "ابحث باسم القطعية أو طريقة الطبخ، واختار القسم والترتيب.",
+            "searchPlaceholder": "ابحث عن ريب آي، موزة، مفروم، ريش",
+            "allCategoriesLabel": "كل التقطيعات",
+            "resultsLabel": "قطعية",
+            "clearButtonText": "مسح الفلاتر",
+            "stickyLabel": "PRIME CUTS",
+            "chipLimit": 8
+          }
+        },
+        {
+          "type": "product-grid",
+          "variant": "butcher-atelier-grid",
+          "settings": {
+            "title": "Prime Cuts",
+            "subtitle": "كل صنف بالصورة والوزن والسعر — اختار واطلب.",
+            "limit": 12,
+            "productsFoundLabel": "قطعية",
+            "emptyTitle": "لا توجد تقطيعات بهذه الفلاتر",
+            "emptyText": "جرّب قسم مختلف أو امسح الفلاتر للرجوع لقائمة التقطيعات."
+          }
+        }
+      ],
+      "pageGoal": "discovery",
+      "layoutHint": "commerce-3col"
+    },
+    "pdp": {
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "standard",
+          "settings": {
+            "addToCartText": "احجز القطعة",
+            "buyNowText": "اطلب تجهيز خاص",
+            "descriptionTitle": "تفاصيل القطعية",
+            "shippingTitle": "التوصيل المبرد",
+            "shippingText": "التجهيز والتغليف بعد تأكيد الوزن — كل صنف في عبوة مبردة مخصصة توصلك طازة.",
+            "guaranteesTitle": "تجربة الجزارة",
+            "guaranteesSubtitle": "ضمانات واضحة قبل تأكيد طلبك.",
+            "guaranteeItems": "تأكيد الوزن قبل التجهيز\nتقطيع حسب طلبك\nتغليف مبرد أو فاكيوم\nتواصل قبل خروج الطلب\nمصدر اللحم واضح\nاقتراح طريقة الطهي",
+            "guaranteeStyle": "grid",
+            "fitNote": "حدد طريقة التقطيع والسُمك والتتبيل في ملاحظات الطلب."
+          }
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "تقييمات القطعية",
+            "listTitle": "آراء حديثة",
+            "verifiedLabel": "عميل موثق",
+            "reviewsLabel": "تقييم",
+            "writeReviewText": "اكتب تقييمك",
+            "reviewLimit": 4,
+            "mobileReviewLimit": 2
+          }
+        },
+        {
+          "type": "related-products",
+          "variant": "luxury",
+          "settings": {
+            "title": "تقطيعات تكمل طلبك",
+            "subtitle": "اقتراحات مناسبة لنفس الطبخة أو العزومة.",
+            "limit": 4
+          }
+        }
+      ],
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail"
+    },
+    "cart": {
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "command-cart",
+          "settings": {
+            "title": "سلة التقطيعات",
+            "subtitle": "راجع القطع والكميات والملاحظات قبل تأكيد الوزن النهائي.",
+            "emptyTitle": "السلة فاضية",
+            "emptyText": "ابدأ من التقطيعات واختار الوزن المناسب.",
+            "continueShoppingText": "ارجع للتقطيعات"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "command-summary",
+          "settings": {
+            "title": "ملخص القطع",
+            "subtitle": "الإجمالي مبدئي حتى تأكيد الوزن والتجهيز.",
+            "shippingHelpText": "رسوم التوصيل والوزن النهائي يتأكدوا قبل تجهيز الطلب.",
+            "couponPlaceholder": "كود خصم",
+            "couponButtonText": "تطبيق",
+            "checkoutButtonText": "تأكيد بيانات الطلب",
+            "totalLabel": "الإجمالي المتوقع",
+            "secureCheckoutText": "طلب محمي",
+            "returnsText": "تواصل قبل التقطيع",
+            "showTrustRow": true
+          }
+        }
+      ],
+      "layoutHint": "sidebar-right"
+    },
+    "collections": {
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "butcher-cut-map",
+          "settings": {
+            "title": "أقسام الجزارة",
+            "subtitle": "اختار حسب القطعية أو طريقة الطبخ.",
+            "limit": 4,
+            "ctaText": "ادخل القسم",
+            "collections": [
+              {
+                "title": "لحوم بقري",
+                "subtitle": "ستيك ومكعبات وموزة.",
+                "image": "/assets/themes/tpl-065-qassab-noir/hero.jpg",
+                "link": "/shop?category=beef"
+              },
+              {
+                "title": "ضاني وشوي",
+                "subtitle": "ريش وريب آي.",
+                "image": "/assets/themes/tpl-065-qassab-noir/aisle-2.jpg",
+                "link": "/shop?category=lamb"
+              },
+              {
+                "title": "مفروم وسجق",
+                "subtitle": "فرم يومي طازج.",
+                "image": "/assets/themes/tpl-065-qassab-noir/aisle-1.jpg",
+                "link": "/shop?category=minced"
+              },
+              {
+                "title": "دواجن طازة",
+                "subtitle": "دجاج بلدي وصدور.",
+                "image": "/assets/themes/tpl-065-qassab-noir/aisle-2.jpg",
+                "link": "/shop?category=poultry"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "variant": "butcher-atelier-grid",
+          "settings": {
+            "title": "كل التقطيعات",
+            "limit": 12,
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن قطعة أو ميعاد توصيل أو تجهيز خاص — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "primary"
+        }
+      ],
+      "pageGoal": "support"
+    }
+  }
+}
