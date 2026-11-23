@@ -191,13 +191,17 @@ describe('Repair Shared Customers Script (Task 791436c4)', () => {
     assert.ok(report.rollbackFile);
     assert.ok(fs.existsSync(report.rollbackFile));
 
-    // Verify rollback file content
+    // Verify rollback file content and createdCustomerIds
     const rawContent = JSON.parse(fs.readFileSync(report.rollbackFile, 'utf8'));
     const rollbackContent = Array.isArray(rawContent) ? rawContent : rawContent.records;
     assert.strictEqual(rollbackContent.length, 2);
     assert.strictEqual(rollbackContent[0].orderId, 'ord_2');
     assert.strictEqual(rollbackContent[0].oldCustomerId, 'cust_shared_1');
     assert.notStrictEqual(rollbackContent[0].newCustomerId, 'cust_shared_1');
+
+    // Item 3: createdCustomerIds present in rollback file
+    assert.ok(Array.isArray(rawContent.createdCustomerIds));
+    assert.strictEqual(rawContent.createdCustomerIds.length, 2);
 
     // Verify orders were updated in DB
     const ord2 = orders.find((o) => o.id === 'ord_2');
@@ -257,6 +261,80 @@ describe('Repair Shared Customers Script (Task 791436c4)', () => {
     // Verify all orders restored
     assert.strictEqual(orders.find((o) => o.id === 'ord_2').customerId, 'cust_shared_1');
     assert.strictEqual(orders.find((o) => o.id === 'ord_3').customerId, 'cust_shared_1');
+  });
+
+  test('Item 3: rollback fails closed when tenant check fails or throws error', async () => {
+    const mockPrisma = createMockPrisma();
+
+    // Force findFirst on order to throw an error for ord_2
+    let updatedOrderIds = [];
+    mockPrisma.order.findFirst = async ({ where }) => {
+      if (where.id === 'ord_2') {
+        throw new Error('Database connection reset during tenant verification');
+      }
+      return orders.find((o) => o.id === where.id) || null;
+    };
+    mockPrisma.order.update = async ({ where, data }) => {
+      updatedOrderIds.push(where.id);
+      return {};
+    };
+
+    const rollbackFile = path.join(tempDir, 'test-rollback-fail-closed.json');
+    fs.writeFileSync(rollbackFile, JSON.stringify({
+      companyId: 'comp-100',
+      records: [
+        { orderId: 'ord_2', oldCustomerId: 'cust_shared_1' },
+        { orderId: 'ord_3', oldCustomerId: 'cust_shared_1' },
+      ],
+      createdCustomerIds: ['new_cust_2'],
+    }));
+
+    const result = await executeRollback(mockPrisma, rollbackFile, 'comp-100');
+
+    // ord_2 check threw -> failed closed (was NOT updated). ord_3 succeeded.
+    assert.strictEqual(result.totalOrdersRestored, 1);
+    assert.ok(!updatedOrderIds.includes('ord_2'));
+    assert.ok(updatedOrderIds.includes('ord_3'));
+  });
+
+  test('Item 4: P2002 on customer.create is handled gracefully and reuses existing customer', async () => {
+    const mockPrisma = createMockPrisma();
+
+    // Pre-seed an existing customer with the phone that will collide
+    customers.push({
+      id: 'existing_cust_ahmed',
+      companyId: 'comp-100',
+      firstName: 'أحمد',
+      lastName: 'شريف',
+      phone: '01222710584',
+      phoneNormalized: '+201222710584',
+    });
+
+    // Simulate unique constraint P2002 on creating a customer with this phone
+    mockPrisma.customer.create = async ({ data }) => {
+      if (data.phoneNormalized === '+201222710584') {
+        const p2002Err = new Error('Unique constraint failed on the fields: (`companyId`,`phoneNormalized`)');
+        p2002Err.code = 'P2002';
+        throw p2002Err;
+      }
+      const newCust = { id: `created_cust_${customers.length + 1}`, ...data };
+      customers.push(newCust);
+      return newCust;
+    };
+
+    const report = await repairSharedCustomers({
+      prisma: mockPrisma,
+      company: 'comp-100',
+      apply: true,
+      confirmApply: true,
+      outDir: tempDir,
+    });
+
+    // Successfully moved without crashing and reused existing customer
+    assert.strictEqual(report.apply, true);
+    assert.strictEqual(report.ordersMoved, 2);
+    const ord3 = orders.find((o) => o.id === 'ord_3');
+    assert.strictEqual(ord3.customerId, 'existing_cust_ahmed');
   });
 
   // ── Item 2: Recalculate customer ratings ──────────────────────────────────
@@ -419,6 +497,24 @@ describe('Repair Shared Customers Script (Task 791436c4)', () => {
     try {
       fs.unlinkSync(report.rollbackFile);
     } catch (_) {}
+  });
+
+  // ── Item 6: --sample-order parameter ──────────────────────────────────────
+  test('Item 6: --sample-order parameter measures specific order before/after', async () => {
+    const mockPrisma = createMockPrisma();
+
+    const report = await repairSharedCustomers({
+      prisma: mockPrisma,
+      company: 'comp-100',
+      apply: true,
+      confirmApply: true,
+      sampleOrder: '105102',
+      outDir: tempDir,
+    });
+
+    assert.ok(report.sampleOrder);
+    assert.strictEqual(report.sampleOrder.before.orderNumber, '105102');
+    assert.strictEqual(report.sampleOrder.after.orderNumber, '105102');
   });
 
   // ── Item 7: sharedCustomersAfter is always number ─────────────────────────

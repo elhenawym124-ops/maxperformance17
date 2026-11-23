@@ -31,6 +31,7 @@
  *   --rollback <file.json>  Restore orders from a previously generated rollback file
  *   --out-dir <dir>         Output directory for rollback and reports (default: apps/backend/_reports)
  *   --limit N               Limit the number of orders to process
+ *   --sample-order N        Optional sample order number to measure before/after
  */
 
 const fs = require('fs');
@@ -47,6 +48,7 @@ function parseArgs(argv) {
     rollback: null,
     limit: null,
     outDir: null,
+    sampleOrder: null,
   };
 
   for (let i = 0; i < argv.length; i++) {
@@ -79,6 +81,10 @@ function parseArgs(argv) {
       options.outDir = arg.split('=')[1];
     } else if (arg === '--out-dir' && i + 1 < argv.length) {
       options.outDir = argv[++i];
+    } else if (arg.startsWith('--sample-order=')) {
+      options.sampleOrder = arg.split('=')[1];
+    } else if (arg === '--sample-order' && i + 1 < argv.length) {
+      options.sampleOrder = argv[++i];
     }
   }
   return options;
@@ -132,6 +138,7 @@ async function executeRollback(prisma, rollbackFilePath, targetCompanyId = null)
   const raw = fs.readFileSync(resolvedPath, 'utf8');
   let records = [];
   let fileCompanyId = null;
+  let createdCustomerIds = [];
 
   try {
     const parsed = JSON.parse(raw);
@@ -140,6 +147,7 @@ async function executeRollback(prisma, rollbackFilePath, targetCompanyId = null)
     } else if (parsed && Array.isArray(parsed.records)) {
       records = parsed.records;
       fileCompanyId = parsed.companyId || null;
+      createdCustomerIds = parsed.createdCustomerIds || [];
     } else {
       throw new Error('Invalid format');
     }
@@ -163,15 +171,22 @@ async function executeRollback(prisma, rollbackFilePath, targetCompanyId = null)
     const { orderId, oldCustomerId } = record;
     if (!orderId || !oldCustomerId) continue;
 
-    // Verify order exists and matches tenant if companyId known
+    // Verify order exists and matches tenant if companyId known (FAIL-CLOSED: do not swallow errors)
     if (effectiveCompanyId && prisma.order && typeof prisma.order.findFirst === 'function') {
+      let existingOrder = null;
       try {
-        const existingOrder = await prisma.order.findFirst({
+        existingOrder = await prisma.order.findFirst({
           where: { id: orderId, companyId: effectiveCompanyId },
           select: { id: true },
         });
-        if (!existingOrder) continue;
-      } catch (_) {}
+      } catch (checkErr) {
+        console.warn(`⚠️ [ROLLBACK] Tenant check failed for order ${orderId}:`, checkErr.message);
+        continue; // Fail closed
+      }
+      if (!existingOrder) {
+        console.warn(`⚠️ [ROLLBACK] Order ${orderId} does not belong to company ${effectiveCompanyId}, skipping.`);
+        continue;
+      }
     }
 
     await prisma.order.update({
@@ -186,6 +201,7 @@ async function executeRollback(prisma, rollbackFilePath, targetCompanyId = null)
     file: resolvedPath,
     companyId: effectiveCompanyId,
     totalOrdersRestored: restoredCount,
+    createdCustomerIds,
   };
 }
 
@@ -201,6 +217,7 @@ async function repairSharedCustomers(options = {}) {
     limit = null,
     outDir = null,
     outputDir: legacyOutputDir = null,
+    sampleOrder = null,
   } = options;
 
   if (rollbackFile) {
@@ -261,12 +278,12 @@ async function repairSharedCustomers(options = {}) {
     } catch (_) {}
   }
 
-  // Measure Order 105102 baseline
-  let order105102Before = null;
-  if (prisma.order && typeof prisma.order.findFirst === 'function') {
+  // Measure optional sample order baseline
+  let sampleOrderBefore = null;
+  if (sampleOrder && prisma.order && typeof prisma.order.findFirst === 'function') {
     try {
-      const o105102 = await prisma.order.findFirst({
-        where: { companyId, orderNumber: '105102' },
+      const sOrder = await prisma.order.findFirst({
+        where: { companyId, orderNumber: String(sampleOrder) },
         select: {
           id: true,
           orderNumber: true,
@@ -275,15 +292,15 @@ async function repairSharedCustomers(options = {}) {
           status: true,
         },
       });
-      if (o105102) {
+      if (sOrder) {
         const linkedCount = typeof prisma.order.count === 'function'
-          ? await prisma.order.count({ where: { companyId, customerId: o105102.customerId } })
+          ? await prisma.order.count({ where: { companyId, customerId: sOrder.customerId } })
           : 0;
-        order105102Before = {
-          orderNumber: o105102.orderNumber,
-          customerId: o105102.customerId,
-          customerPhone: o105102.customerPhone,
-          status: o105102.status,
+        sampleOrderBefore = {
+          orderNumber: sOrder.orderNumber,
+          customerId: sOrder.customerId,
+          customerPhone: sOrder.customerPhone,
+          status: sOrder.status,
           ordersLinkedToOldCustomer: linkedCount,
         };
       }
@@ -294,6 +311,7 @@ async function repairSharedCustomers(options = {}) {
   let skippedNoPhone = 0;
   let sharedCustomersBefore = 0;
   let allOrdersForFallback = null;
+  let rawCandidateOrders = null;
 
   // 2. Identify candidate orders
   // Check if raw SQL is supported (Fast production path on PostgreSQL)
@@ -327,12 +345,12 @@ async function repairSharedCustomers(options = {}) {
         ? candidateSharedRows.map((r) => r.customerId)
         : [];
 
-      if (order105102Before && order105102Before.customerId && !candidateCustomerIds.includes(order105102Before.customerId)) {
-        candidateCustomerIds.push(order105102Before.customerId);
+      if (sampleOrderBefore && sampleOrderBefore.customerId && !candidateCustomerIds.includes(sampleOrderBefore.customerId)) {
+        candidateCustomerIds.push(sampleOrderBefore.customerId);
       }
 
       if (candidateCustomerIds.length > 0) {
-        const rawCandidateOrders = await prisma.order.findMany({
+        rawCandidateOrders = await prisma.order.findMany({
           where: {
             companyId,
             customerId: { in: candidateCustomerIds },
@@ -442,6 +460,7 @@ async function repairSharedCustomers(options = {}) {
 
   let ordersMoved = 0;
   let newCustomersCreated = 0;
+  const createdCustomerIds = [];
   const rollbackRecords = [];
   const localCustomerCache = new Map();
   const affectedCustomerIds = new Set();
@@ -533,17 +552,39 @@ async function repairSharedCustomers(options = {}) {
       const lastName = nameParts.slice(1).join(' ') || '';
 
       if (apply) {
-        targetCustomer = await prisma.customer.create({
-          data: {
-            companyId,
-            firstName,
-            lastName,
-            phone: order.customerPhone,
-            phoneNormalized: orderPhoneCanonical,
-            status: 'ACTIVE',
-            notes: 'فُصل من عميل مشترك 2026-11-17',
-          },
-        });
+        try {
+          targetCustomer = await prisma.customer.create({
+            data: {
+              companyId,
+              firstName,
+              lastName,
+              phone: order.customerPhone,
+              phoneNormalized: orderPhoneCanonical,
+              status: 'ACTIVE',
+              notes: 'فُصل من عميل مشترك 2026-11-17',
+            },
+          });
+          createdCustomerIds.push(targetCustomer.id);
+          newCustomersCreated++;
+        } catch (createErr) {
+          if (createErr?.code === 'P2002') {
+            console.warn(`⚠️ [REPAIR] P2002 unique constraint for phone ${orderPhoneCanonical}: reusing existing customer.`);
+            targetCustomer = await prisma.customer.findFirst({
+              where: {
+                companyId,
+                OR: [
+                  { phoneNormalized: orderPhoneCanonical },
+                  { phone: orderPhoneCanonical },
+                ],
+              },
+            });
+            if (!targetCustomer) {
+              throw createErr;
+            }
+          } else {
+            throw createErr;
+          }
+        }
       } else {
         targetCustomer = {
           id: groupBy === 'name-phone'
@@ -554,8 +595,8 @@ async function repairSharedCustomers(options = {}) {
           phone: order.customerPhone,
           phoneNormalized: orderPhoneCanonical,
         };
+        newCustomersCreated++;
       }
-      newCustomersCreated++;
       localCustomerCache.set(cacheKey, targetCustomer);
     }
 
@@ -613,6 +654,7 @@ async function repairSharedCustomers(options = {}) {
       companyId,
       createdAt: new Date().toISOString(),
       records: rollbackRecords,
+      createdCustomerIds: Array.from(new Set(createdCustomerIds)),
     };
     fs.writeFileSync(rollbackPath, JSON.stringify(rollbackPayload, null, 2), 'utf8');
   }
@@ -621,29 +663,24 @@ async function repairSharedCustomers(options = {}) {
   let sharedCustomersAfter = 0;
   let sharedAfterProjected = 0;
 
-  // Calculate sharedAfterProjected (Item 3)
-  if (allOrdersForFallback) {
-    const projectedPhonesPerCustomer = new Map();
-    const movedMap = new Map(candidateOrders.map((o) => [o.id, o.projectedCustomerId]));
+  // Calculate sharedAfterProjected dynamically across all candidate/fallback orders (Item 2)
+  const ordersToProject = allOrdersForFallback || rawCandidateOrders || candidateOrders;
+  const projectedPhonesPerCustomer = new Map();
+  const movedMap = new Map(candidateOrders.map((o) => [o.id, o.projectedCustomerId]));
 
-    for (const order of allOrdersForFallback) {
-      const custId = movedMap.has(order.id) ? movedMap.get(order.id) : order.customerId;
-      if (!custId) continue;
-      const phone = toCanonicalE164(order.customerPhone);
-      if (!phone) continue;
-      if (!projectedPhonesPerCustomer.has(custId)) {
-        projectedPhonesPerCustomer.set(custId, new Set());
-      }
-      projectedPhonesPerCustomer.get(custId).add(phone);
+  for (const order of ordersToProject) {
+    const custId = movedMap.has(order.id) ? movedMap.get(order.id) : order.customerId;
+    if (!custId) continue;
+    const phone = toCanonicalE164(order.customerPhone);
+    if (!phone) continue;
+    if (!projectedPhonesPerCustomer.has(custId)) {
+      projectedPhonesPerCustomer.set(custId, new Set());
     }
+    projectedPhonesPerCustomer.get(custId).add(phone);
+  }
 
-    for (const phones of projectedPhonesPerCustomer.values()) {
-      if (phones.size > 3) sharedAfterProjected++;
-    }
-  } else {
-    // In raw SQL / production mode, since all candidate orders with foreign phones are cleanly separated,
-    // projected shared customer count is 0
-    sharedAfterProjected = 0;
+  for (const phones of projectedPhonesPerCustomer.values()) {
+    if (phones.size > 3) sharedAfterProjected++;
   }
 
   if (apply) {
@@ -686,11 +723,11 @@ async function repairSharedCustomers(options = {}) {
     sharedCustomersAfter = sharedAfterProjected;
   }
 
-  let order105102After = null;
-  if (apply && prisma.order && typeof prisma.order.findFirst === 'function') {
+  let sampleOrderAfter = null;
+  if (apply && sampleOrder && prisma.order && typeof prisma.order.findFirst === 'function') {
     try {
-      const o105102A = await prisma.order.findFirst({
-        where: { companyId, orderNumber: '105102' },
+      const sOrderA = await prisma.order.findFirst({
+        where: { companyId, orderNumber: String(sampleOrder) },
         select: {
           id: true,
           orderNumber: true,
@@ -699,17 +736,17 @@ async function repairSharedCustomers(options = {}) {
           status: true,
         },
       });
-      if (o105102A) {
+      if (sOrderA) {
         const linkedCountAfter = typeof prisma.order.count === 'function'
           ? await prisma.order.count({
-              where: { companyId, customerId: o105102A.customerId },
+              where: { companyId, customerId: sOrderA.customerId },
             })
           : 1;
-        order105102After = {
-          orderNumber: o105102A.orderNumber,
-          newCustomerId: o105102A.customerId,
-          customerPhone: o105102A.customerPhone,
-          status: o105102A.status,
+        sampleOrderAfter = {
+          orderNumber: sOrderA.orderNumber,
+          newCustomerId: sOrderA.customerId,
+          customerPhone: sOrderA.customerPhone,
+          status: sOrderA.status,
           ordersLinkedToNewCustomer: linkedCountAfter,
         };
       }
@@ -732,10 +769,10 @@ async function repairSharedCustomers(options = {}) {
     customersRecalculated: Number(customersRecalculated),
     recalcFailures: Number(recalcFailures),
     skipped_no_phone: Number(skippedNoPhone),
-    order105102: {
-      before: order105102Before,
-      after: order105102After,
-    },
+    sampleOrder: sampleOrder ? {
+      before: sampleOrderBefore,
+      after: sampleOrderAfter,
+    } : undefined,
     rollbackFile: rollbackPath,
   };
 

@@ -1,16 +1,20 @@
 /**
- * Tests for WooCommerce customer matching logic:
+ * Tests for WooCommerce customer matching logic (Task 791436c4):
  * 1. New customer with unique phone -> creates new customer (doesn't link to shared email customer)
  * 2. Same phone with different formats (+2010... / 2010... / 010...) -> matches SAME customer
  * 3. Two different customers with same shared email -> TWO different customers (regression test)
  * 4. Existing customer with same email and NO phone -> links to that customer
+ *
+ * Uses node:test + node:assert for zero-dependency test runner.
  */
 
+const { describe, it: test, beforeEach } = require('node:test');
+const assert = require('node:assert');
 const {
   findOrCreateCustomer,
   createNewOrderOptimized,
 } = require('../../services/wooCommerceImportService');
-const { toCanonicalE164, getPhoneVariants } = require('../../utils/phoneNormalization');
+const { toCanonicalE164 } = require('../../utils/phoneNormalization');
 
 describe('WooCommerce Customer Matching (Task 791436c4)', () => {
   let customers = [];
@@ -19,7 +23,7 @@ describe('WooCommerce Customer Matching (Task 791436c4)', () => {
   function createMockPrisma() {
     return {
       customer: {
-        findFirst: jest.fn(async ({ where }) => {
+        findFirst: async ({ where }) => {
           return customers.find((c) => {
             if (where.companyId && c.companyId !== where.companyId) return false;
             if (where.id && c.id !== where.id) return false;
@@ -40,8 +44,8 @@ describe('WooCommerce Customer Matching (Task 791436c4)', () => {
             }
             return true;
           }) || null;
-        }),
-        create: jest.fn(async ({ data }) => {
+        },
+        create: async ({ data }) => {
           const newCust = {
             id: `cust_${nextId++}`,
             companyId: data.companyId || data.company?.connect?.id,
@@ -55,17 +59,17 @@ describe('WooCommerce Customer Matching (Task 791436c4)', () => {
           };
           customers.push(newCust);
           return newCust;
-        }),
+        },
       },
       order: {
-        findFirst: jest.fn(async () => null),
-        create: jest.fn(async ({ data }) => ({
+        findFirst: async () => null,
+        create: async ({ data }) => ({
           id: `ord_${nextId++}`,
           ...data,
-        })),
+        }),
       },
       orderStatusHistory: {
-        create: jest.fn(async () => ({})),
+        create: async () => ({}),
       },
     };
   }
@@ -100,11 +104,11 @@ describe('WooCommerce Customer Matching (Task 791436c4)', () => {
 
     const customerId = await findOrCreateCustomer(prisma, companyId, orderData);
 
-    expect(customerId).not.toBe('cust_shared_loliali');
+    assert.notStrictEqual(customerId, 'cust_shared_loliali');
     const newCustomer = customers.find((c) => c.id === customerId);
-    expect(newCustomer).toBeDefined();
-    expect(newCustomer.phoneNormalized).toBe('+201153770958');
-    expect(newCustomer.firstName).toBe('نهى');
+    assert.ok(newCustomer);
+    assert.strictEqual(newCustomer.phoneNormalized, '+201153770958');
+    assert.strictEqual(newCustomer.firstName, 'نهى');
   });
 
   // (٢) نفس التليفون بصيغة مختلفة (+201012345678 / 201012345678 / 01012345678) → نفس العميل
@@ -133,11 +137,11 @@ describe('WooCommerce Customer Matching (Task 791436c4)', () => {
       };
 
       const customerId = await findOrCreateCustomer(prisma, companyId, orderData);
-      expect(customerId).toBe('cust_target_ahmed');
+      assert.strictEqual(customerId, 'cust_target_ahmed');
     }
 
     // No new customer was created
-    expect(customers.length).toBe(1);
+    assert.strictEqual(customers.length, 1);
   });
 
   // (٣) عميل مختلف تمامًا بنفس الإيميل المشترك → عميلين مختلفين (regression للبج)
@@ -161,8 +165,8 @@ describe('WooCommerce Customer Matching (Task 791436c4)', () => {
     const cust1Id = await findOrCreateCustomer(prisma, companyId, order1);
     const cust2Id = await findOrCreateCustomer(prisma, companyId, order2);
 
-    expect(cust1Id).not.toBe(cust2Id);
-    expect(customers.length).toBe(2);
+    assert.notStrictEqual(cust1Id, cust2Id);
+    assert.strictEqual(customers.length, 2);
 
     // Also test batch lookups behavior in createNewOrderOptimized
     const lookups = {
@@ -189,9 +193,9 @@ describe('WooCommerce Customer Matching (Task 791436c4)', () => {
     const res1 = await createNewOrderOptimized(prisma, companyId, batchOrder1, null, 'user', lookups);
     const res2 = await createNewOrderOptimized(prisma, companyId, batchOrder2, null, 'user', lookups);
 
-    expect(res1.order.customerId).toBeDefined();
-    expect(res2.order.customerId).toBeDefined();
-    expect(res1.order.customerId).not.toBe(res2.order.customerId);
+    assert.ok(res1.order.customerId);
+    assert.ok(res2.order.customerId);
+    assert.notStrictEqual(res1.order.customerId, res2.order.customerId);
   });
 
   // (٤) عميل موجود بنفس الإيميل وبلا تليفون → يجوز الربط بيه
@@ -218,7 +222,7 @@ describe('WooCommerce Customer Matching (Task 791436c4)', () => {
 
     const customerId = await findOrCreateCustomer(prisma, companyId, incomingOrder);
 
-    expect(customerId).toBe('cust_email_only');
-    expect(customers.length).toBe(1);
+    assert.strictEqual(customerId, 'cust_email_only');
+    assert.strictEqual(customers.length, 1);
   });
 });
