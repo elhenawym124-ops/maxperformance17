@@ -547,8 +547,11 @@ router.post('/sessions/:id/complete', authenticateTeacherToken, async (req, res)
       `, sessionId, companyId);
 
       const crypto = require('crypto');
+      const deduped = new Map();
       for (const item of attendanceList) {
-        if (!item || !item.studentId) continue;
+        if (item && item.studentId) deduped.set(String(item.studentId), item);
+      }
+      for (const item of deduped.values()) {
         const attId = `att_${crypto.randomBytes(8).toString('hex')}`;
         await prisma.$executeRawUnsafe(`
           INSERT INTO "education_group_attendance" (

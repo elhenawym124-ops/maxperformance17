@@ -236,7 +236,11 @@ export function useEducationManagementController() {
       setLoading(true);
       fetchPackages().finally(() => setLoading(false));
     } else if (activeTab === "students") {
-      setLoading(false);
+      setLoading(true);
+      // شاشة الطلاب محتاجة الباقات عشان سلّم المستويات يتبني من باقات الشركة
+      Promise.all([fetchStudents(), fetchPackages()])
+        .catch((e: any) => setError(e.message || "فشل تحميل البيانات"))
+        .finally(() => setLoading(false));
     } else if (activeTab === "teachers") {
       setLoading(true);
       fetchTeachers().finally(() => setLoading(false));

@@ -1189,6 +1189,11 @@ const recordSession = async (req, res) => {
 
     // Insert attendance records (tenant-verified students only)
     if (Array.isArray(attendanceList) && attendanceList.length > 0) {
+      // منع تكرار نفس الطالب في نفس المحاضرة (سجلين بحالتين مختلفتين)
+      const dedupedAttendance = new Map();
+      for (const item of attendanceList) {
+        if (item && item.studentId) dedupedAttendance.set(String(item.studentId), item);
+      }
       const requestedStudentIds = Array.from(
         new Set(attendanceList.map(it => it && it.studentId).filter(Boolean))
       );
@@ -1200,7 +1205,7 @@ const recordSession = async (req, res) => {
         : [];
       const studentMap = new Map(tenantStudents.map(st => [st.id, st]));
 
-      for (const item of attendanceList) {
+      for (const item of dedupedAttendance.values()) {
         if (!item || !item.studentId || !studentMap.has(item.studentId)) {
           continue;
         }
