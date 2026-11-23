@@ -225,34 +225,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "atelier-editorial-stage"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "utility-rail"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "ضيفيه للروتين",
+            "buyNowText": "اطلبي المنتج الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "الشحن المبرد والتغليف الطبي",
+            "shippingText": "توصيل سريع خلال 48 ساعة في عبوات محكمة تحفظ المكونات النشطة والفعالية من الحرارة والضوء، مع فحص سلامة العبوة قبل الاستلام.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "اطلعي على سياسة التخزين الطبي والشحن.",
+            "shippingModalTitle": "سياسة شحن مستحضرات العناية",
+            "guaranteesTitle": "تركيبة طبية مثبتة الفعالية",
+            "guaranteesSubtitle": "نتائج ملحوظة ونضارة واضحة للبشرة بمكونات طبيعية مختبرة سريرياً.",
+            "guaranteeItems": "[{\"title\": \"نتائج مرئية وملموسة\", \"description\": \"تركيبة متوازنة تحسن مرونة البشرة وتمنحها ترطيباً وإشراقاً مستمراً.\"}, {\"title\": \"آمن لجميع أنواع البشرة\", \"description\": \"خالٍ من البارابين والعطور القاسية ومناسب للبشرة الحساسة.\"}, {\"title\": \"تاريخ إنتاج حديث\", \"description\": \"تصلك عبوات بإنتاج وصلاحية حديثة معقمة ومحكمة الغلق.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض الروتين المتكامل والتوفير",
+            "subtitle": "احصلي على كورس العناية المتكامل بوفر يصل إلى 25% مع شحن مجاني.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكملي بيانات الشحن",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "تأكيد حجز كورس العناية",
+            "subtitle": "اكتبي بياناتك وسيتواصل معكِ فريقنا لتأكيد الشحن — الدفع عند الاستلام.",
+            "emptyStateText": "اختاري العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب العناية بالبشرة الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "compact"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "نتائج وتجارب حقيقية قبل وبعد",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شاركي رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كوني أول واحدة تشاركي رأيك.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "compact"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "منتجات عناية متكاملة لروتينكِ",
+            "subtitle": "سيرومات وكريمات وغسول متناسق لتغذية وحماية بشرتكِ يومياً.",
+            "limit": 4
+          }
         }
       ]
     },

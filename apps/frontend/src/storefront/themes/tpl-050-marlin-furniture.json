@@ -350,38 +350,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "standard"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "specs-grid"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "أضف لبيتك",
+            "buyNowText": "اطلب القطعة الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "الشحن المريح وتوصيل الأثاث للباب",
+            "shippingText": "شحن متخصص بسيارات مجهزة مع عمالة مدربة لتوصيل الأثاث سليم لحد باب بيتك، مع المعاينة والتأكد من الخشب والتشطيب قبل الدفع.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "تعرف على سياسة شحن الأثاث ومعاينة الأخشاب.",
+            "shippingModalTitle": "سياسة شحن وتوصيل الأثاث المنزلي",
+            "guaranteesTitle": "أخشاب طبيعية متينة تدوم عمراً",
+            "guaranteesSubtitle": "دهانات وتشطيبات مقاومة للخدش والرطوبة مع تصميمات عصرية تزيد بيتك فخامة.",
+            "guaranteeItems": "[{\"title\": \"أخشاب متينة وتشطيب فاخر\", \"description\": \"خشب طبيعي زان وأم دي إف معالج بأعلى مواصفات المتانة.\"}, {\"title\": \"معاينة مع المندوب عند التوصيل\", \"description\": \"افحص التشطيب واللون والمقاسات مع السائق قبل دفع الحساب.\"}, {\"title\": \"تغليف كرتوني وبلاستيكي محكم\", \"description\": \"حماية كاملة ضد أي خدوش أو صدمات أثناء الطريق.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض الأطقم والقطع المتناسقة",
+            "subtitle": "اطلب أكثر من قطعة للديكور ووفر في مصاريف الشحن واستفد من خصم الطقم.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل بيانات التوصيل",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "size-guide",
-          "variant": "compact"
-        },
-        {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "تأكيد حجز الأثاث والديكور",
+            "subtitle": "اكتب بياناتك وسيتواصل معك منسق التوصيل لتأكيد الموعد — الدفع عند الاستلام.",
+            "emptyStateText": "اختار العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب الأثاث الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "complete-look"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "صور قطع الأثاث من بيوت عملائنا",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شارك رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كن أول من يشارك رأيه.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "compact"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "قطع ديكور وأثاث تكمل منزلك",
+            "subtitle": "طاولات ووحدات إضاءة ورفوف أنيقة تناسب ذوق بيتك.",
+            "limit": 4
+          }
         }
       ]
     },

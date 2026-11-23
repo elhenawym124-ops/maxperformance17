@@ -232,43 +232,89 @@
     },
     "pdp": {
       "layoutHint": "product-detail",
-      "pageGoal": "conversion",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "fashion-counter-stage"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "style-ledger"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "ضيفيه للسلة",
+            "buyNowText": "اطلبيه الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "التوصيل وتبديل المقاس والمعاينة",
+            "shippingText": "التوصيل لجميع محافظات مصر خلال 48 ساعة، مع حق معاينة الخامة والتأكد من المقاس مع المندوب قبل الدفع، وتبديل مجاني خلال 14 يوم.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "شوفي تفاصيل التوصيل وتبديل المقاس المجاني.",
+            "shippingModalTitle": "سياسة التوصيل وتبديل المقاس",
+            "guaranteesTitle": "خدمة راقية بدون أي قلق",
+            "guaranteesSubtitle": "المقاس والخامة والتفصيل مضمونين بأعلى معايير الجودة.",
+            "guaranteeItems": "[{\"title\": \"معاينة قبل الدفع\", \"description\": \"تقدري تعايني الخامة مع المندوب قبل ما تدفعي أي جنيه.\"}, {\"title\": \"تبديل مقاس مجاني\", \"description\": \"لو المقاس مش مظبوط بنبدلهولك لحد باب البيت مجاناً.\"}, {\"title\": \"أقمشة مستوردة فاخرة\", \"description\": \"خامات مختارة بعناية ومطابقة لصور العرض 100%.\"}]"
+          }
         },
         {
-          "type": "pdp-checkout"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "وفّري مع باقات الأناقة",
+            "subtitle": "اختاري الكمية، وحددي اللون والمقاس لكل قطعة براحتك.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "كمّلي بيانات الطلب",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "quantity-offers"
-        },
-        {
-          "type": "size-guide",
-          "variant": "detailed"
-        },
-        {
-          "type": "delivery-proof"
-        },
-        {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات الشحن السريع",
+            "subtitle": "اكتبي بياناتك وسنجهز طلبك للشحن فوراً — الدفع عند الاستلام بعد المعاينة.",
+            "emptyStateText": "اختار العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلبك الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "pairing-rail"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "آراء العميلات بعد تجربة اللبس",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شارك رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كن أول من يشارك رأيه.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "luxury"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "إطلالات مميزة قد تعجبكِ",
+            "subtitle": "قطع متناسقة بنفس الجودة لتكمل أناقتكِ وتوفري في مصاريف الشحن.",
+            "limit": 4
+          }
         }
       ]
     },

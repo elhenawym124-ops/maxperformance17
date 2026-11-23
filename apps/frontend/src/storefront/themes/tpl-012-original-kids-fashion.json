@@ -238,43 +238,89 @@
     },
     "pdp": {
       "layoutHint": "product-detail",
-      "pageGoal": "conversion",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "atelier-editorial-stage"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "bento-specs"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "ضيفيه للسلة",
+            "buyNowText": "اطلبي لطفلك الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "التوصيل ومعاينة المقاس للأطفال",
+            "shippingText": "توصيل سريع لباب بيتك خلال 48 ساعة، قيسي وعايني مع المندوب قبل الدفع لراحة وأمان طفلك، وتبديل مقاس سهل وسريع.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "شوفي سياسة المقاسات والتوصيل المريح للأطفال.",
+            "shippingModalTitle": "سياسة مقاسات الأطفال والشحن",
+            "guaranteesTitle": "راحة وأمان طفلك أولاً",
+            "guaranteesSubtitle": "خامات قطنية طبيعية معتمدة لطيفة على بشرة الأطفال.",
+            "guaranteeItems": "[{\"title\": \"قطن طبيعي 100%\", \"description\": \"خامات قطنية فائقة النعومة ومضادة للتحسس لبشرة الأطفال.\"}, {\"title\": \"معاينة مع المندوب\", \"description\": \"تأكدي من المقاس والجودة قبل الاستلام والدفع.\"}, {\"title\": \"تبديل مريح وسريع\", \"description\": \"تبديل فوري للمقاس دون أي تعقيد.\"}]"
+          }
         },
         {
-          "type": "pdp-checkout"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "وفّري مع عروض ملابس الأطفال",
+            "subtitle": "اختاري المقاسات والألوان المناسبة لكل طفل بوفر إضافي.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكملي بيانات الطلب",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "quantity-offers"
-        },
-        {
-          "type": "size-guide",
-          "variant": "detailed"
-        },
-        {
-          "type": "delivery-proof"
-        },
-        {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات استلام الطلب",
+            "subtitle": "اكتبي العنوان ورقم الهاتف وسنؤكد الشحن فوراً — الدفع عند الاستلام.",
+            "emptyStateText": "اختاري العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب طفلك الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "voice-notes"
-        },
-        {
-          "type": "bought-together",
-          "variant": "editorial"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "تجارب وتقييمات الأمهات",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شاركي رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كوني أول واحدة تشاركي رأيك.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "editorial"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "تشكيلة أطفال مميزة",
+            "subtitle": "ملابس وإكسسوارات أطفال ناعمة لتكمل طقم طفلك.",
+            "limit": 4
+          }
         }
       ]
     },

@@ -233,34 +233,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "boutique-portrait-stage"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "bento-specs"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "أضف للسلة",
+            "buyNowText": "اطلب العطر الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "التوصيل السريع وتجربة التيستر",
+            "shippingText": "توصيل مأمون ومغلف بإحكام لجميع المحافظات خلال 48 ساعة، مع عينة تجربة (تستر) تتيح لك فحص الثبات والفوحان قبل فتح الزجاجة.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "تعرف على سياسة التيستر وضمان الثبات والفوحان.",
+            "shippingModalTitle": "سياسة التيستر وضمان العطور",
+            "guaranteesTitle": "زيوت عطرية فرنسية أصلية 100%",
+            "guaranteesSubtitle": "تركيز عالي وثبات ممتد على الملابس لأكثر من 24 ساعة.",
+            "guaranteeItems": "[{\"title\": \"تستر مجاني مع كل طلب\", \"description\": \"جرب التيستر أولاً ولو ما عجبكش العطر تقدر ترجعه مع المندوب فوراً.\"}, {\"title\": \"ثبات وفوحان مضمون 24 ساعة\", \"description\": \"خلطة عطرية نقية ونوتات تدوم طويلاً دون أن تتغير.\"}, {\"title\": \"زجاجات فاخرة وتغليف هدايا\", \"description\": \"تصلك بتغليف أنيق جداً مناسب للإهداء والاستخدام الشخصي.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض الباقات العطرية الفاخرة",
+            "subtitle": "اختر زجاجتك المفضلة أو باقة العطرين بوفر يصل إلى 30% مع شحن مجاني.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل بيانات التوصيل",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "حجز وتأكيد طلب العطر",
+            "subtitle": "اكتب بياناتك وسنؤكد الشحن فوراً — الدفع عند الاستلام بعد فحص التيستر.",
+            "emptyStateText": "اختار العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب العطر الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "voice-notes"
-        },
-        {
-          "type": "bought-together",
-          "variant": "pairing-rail"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "آراء وتقييمات عشاق العطور",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شارك رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كن أول من يشارك رأيه.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "scent-circle"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "عطور فاخرة بروائح استثنائية",
+            "subtitle": "نوتات عطرية شرقية وفرنسية مميزة تكمل حضورك وجاذبيتك.",
+            "limit": 4
+          }
         }
       ]
     },

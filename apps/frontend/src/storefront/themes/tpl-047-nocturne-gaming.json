@@ -288,34 +288,80 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
-      "layoutHint": "product-detail",
+      "title": "المنتج",
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "neon-showcase"
-        },
-        {
-          "type": "product-info",
-          "variant": "command-specs"
-        },
-        {
-          "type": "delivery-proof"
-        },
-        {
-          "type": "trusted-badges"
-        },
-        {
-          "type": "reviews",
           "variant": "standard"
         },
         {
-          "type": "bought-together",
-          "variant": "compact"
+          "type": "product-info",
+          "variant": "marketplace-bazaar",
+          "settings": {
+            "descriptionTitle": "وصف ومواصفات المنتج",
+            "shippingTitle": "شحن عتاد الجيمنج والكمبيوتر",
+            "shippingText": "توصيل سريع لجميع المحافظات مع تغليف فوم مضاد للصدمات مخصص لقطع الهاردوير والشاشات والملحقات الحساسة.",
+            "returnsTitle": "ضمان الأداء والاستبدال",
+            "returnsText": "قطع أصلية ومختبرة بأقصى ضغط، ضمان استبدال فوري وخدمة دعم فني متخصصة في الجيمنج.",
+            "deliveryBanner": {
+              "enabled": true,
+              "text": "عتاد أصلي 100% مع ضمان أعلى أداء",
+              "subtext": "توصيل مؤمن وسريع للاعبين في جميع أنحاء مصر"
+            },
+            "shippingMethods": [
+              {
+                "label": "توصيل عادي",
+                "meta": "2-4 أيام",
+                "note": "شحن مجاني فوق 500 ج.م"
+              },
+              {
+                "label": "توصيل سريع",
+                "meta": "1-2 أيام",
+                "note": "رسوم إضافية حسب المحافظة"
+              }
+            ],
+            "shippingWarranty": "ضمان رسمي واختبار استقرار كامل للعتاد",
+            "shippingReturns": "استبدال فوري ودعم فني متخصص للجيمرز"
+          }
+        },
+        {
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض لود آوت الجيمنج والوفر",
+            "subtitle": "اختر القطعة أو باقة الـ Setup الكاملة (ماوس + كيبورد + هيدسيت) بوفر استثنائي.",
+            "placement": "inline-buybox",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل بيانات الشحن"
+          }
+        },
+        {
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات شحن عتاد الجيمنج",
+            "subtitle": "اكتب بياناتك وسنؤكد طلبك ونشحنه فوراً — الدفع عند الاستلام بعد المعاينة.",
+            "submitButtonText": "تأكيد طلب العتاد الآن",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": true,
+            "showOrderSummary": true
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات اللاعبين على الأداء والسرعة",
+            "reviewLimit": 4
+          }
         },
         {
           "type": "related-products",
-          "variant": "command-alternatives"
+          "settings": {
+            "title": "ملحقات وعتاد جيمنج مقترح",
+            "limit": 4
+          }
         }
       ]
     },

@@ -350,58 +350,92 @@
       "layoutHint": "commerce-3col"
     },
     "pdp": {
+      "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "standard"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "standard",
+          "variant": "elessi-care-buybox",
           "settings": {
-            "addToCartText": "احجز القطعة",
-            "buyNowText": "اطلب تجهيز خاص",
-            "descriptionTitle": "تفاصيل القطعية",
-            "shippingTitle": "التوصيل المبرد",
-            "shippingText": "التجهيز والتغليف بعد تأكيد الوزن — كل صنف في عبوة مبردة مخصصة توصلك طازة.",
-            "guaranteesTitle": "تجربة الجزارة",
-            "guaranteesSubtitle": "ضمانات واضحة قبل تأكيد طلبك.",
-            "guaranteeItems": "تأكيد الوزن قبل التجهيز\nتقطيع حسب طلبك\nتغليف مبرد أو فاكيوم\nتواصل قبل خروج الطلب\nمصدر اللحم واضح\nاقتراح طريقة الطهي",
-            "guaranteeStyle": "grid",
-            "fitNote": "حدد طريقة التقطيع والسُمك والتتبيل في ملاحظات الطلب."
+            "addToCartText": "أضف لطلب اللحمة",
+            "buyNowText": "اطلب الذبح البلدي الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "التوصيل المبرد والتغليف المفرغ من الهواء",
+            "shippingText": "ذبح يومي طازج، يُقطع حسب طلبك ويُغلف بأطباق معقمة مسحوبة الهواء (فاكيوم) ويصلك في سيارات مبردة، مع حق فحص لون وطراوة اللحم قبل الاستلام.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "تعرف على معايير الذبح البلدي والفرز والتوصيل المبرد.",
+            "shippingModalTitle": "سياسة الجزارة والذبح البلدي المضمون",
+            "guaranteesTitle": "بلدي مضمون 100% تحت إشراف بيطري",
+            "guaranteesSubtitle": "عجول وضأن بلدي متربية على أعلاف طبيعية، بدون أي مجمدات أو مستورد نهائياً.",
+            "guaranteeItems": "[{\"title\": \"ذبح يومي بلدي ومختوم\", \"description\": \"لحوم بلدية طازة يومياً ومختومة من المجازر الحكومية المعتمدة.\"}, {\"title\": \"تغليف فاكيوم مفرغ من الهواء\", \"description\": \"يحفظ اللحم نقياً وطازجاً في الثلاجة دون أن يغير لونه أو طعمه.\"}, {\"title\": \"تقطيع احترافي حسب رغبتك\", \"description\": \"مفروم، كباب حلة، ستيك، ريش، أو قطع سلق حسب طلبك بالظبط.\"}]"
           }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض بوكسات اللحمة وباقات العزومة",
+            "subtitle": "اختر الكمية أو باقة العزومة المشكلة ووفر مع كل كيلو إضافي وشحن مجاني.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل بيانات التوصيل",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات استلام أوردر الجزارة",
+            "subtitle": "اكتب بياناتك وسنبدأ تقطيع وتجهيز لحمتك طازة فوراً — الدفع عند الاستلام بعد المعاينة.",
+            "emptyStateText": "اختار العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب اللحمة البلدي الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "compact",
+          "variant": "elessi-story-grid",
           "settings": {
-            "title": "تقييمات القطعية",
-            "listTitle": "آراء حديثة",
-            "verifiedLabel": "عميل موثق",
-            "reviewsLabel": "تقييم",
-            "writeReviewText": "اكتب تقييمك",
+            "title": "آراء وتقييمات زبائن الجزارة بعد الطبخ",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شارك رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كن أول من يشارك رأيه.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
             "reviewLimit": 4,
-            "mobileReviewLimit": 2
+            "showMediaFeed": true
           }
         },
         {
           "type": "related-products",
-          "variant": "luxury",
+          "variant": "elessi-complete-set",
           "settings": {
-            "title": "تقطيعات تكمل طلبك",
-            "subtitle": "اقتراحات مناسبة لنفس الطبخة أو العزومة.",
+            "title": "قطبيات ولحوم بلدية مميزة",
+            "subtitle": "كفتة بلدي، سجق متبل، وبرجر صافي مجهز للشوي والطبخ السريع.",
             "limit": 4
           }
         }
-      ],
-      "pageGoal": "conversion",
-      "layoutHint": "product-detail"
+      ]
     },
     "cart": {
       "sections": [

@@ -229,34 +229,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "fashion-counter-stage"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "accordion"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "أضيفي للحقيبة",
+            "buyNowText": "اطلبي العباية الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "الشحن الملكي ومعاينة القماش",
+            "shippingText": "توصيل سريع ومغلف بعناية لجميع المحافظات خلال 48 ساعة، مع حق فحص قماش العباية وتقفيل التطريز قبل الدفع.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "اطلعي على سياسة الشحن الفاخر وتبديل المقاسات.",
+            "shippingModalTitle": "سياسة شحن العبايات والاستبدال",
+            "guaranteesTitle": "تفصيل ملكي وخامات أصلية",
+            "guaranteesSubtitle": "أقمشة كريب وسيراميك كوري فاخر لا يشف ولا يتأثر بالغسيل.",
+            "guaranteeItems": "[{\"title\": \"معاينة القماش والتطريز\", \"description\": \"افحصي جودة التطريز وسقوط القماش مع المندوب قبل الاستلام.\"}, {\"title\": \"قصّات محتشمة وراقية\", \"description\": \"مقاسات مظبوطة توفر لكِ وقاراً وأناقة استثنائية.\"}, {\"title\": \"تبديل مقاس مجاني\", \"description\": \"إمكانية استبدال المقاس بكل سلاسة وسرعة.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض وأطقم العبايات الفاخرة",
+            "subtitle": "اطلبي أكثر من عباية أو طقم كامل واحصلي على خصم فوري وشحن مجاني.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكملي تفاصيل الاستلام",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "تأكيد حجز العباية والشحن",
+            "subtitle": "الاسم ورقم الهاتف والعنوان — الدفع نقداً عند الاستلام بعد المعاينة.",
+            "emptyStateText": "اختاري العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب العباية الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "compact"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "آراء وتجارب عميلاتنا في العبايات",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شاركي رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كوني أول واحدة تشاركي رأيك.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "compact"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "تصاميم عبايات وأزياء محتشمة أخرى",
+            "subtitle": "موديلات إضافية بنفس مستوى الفخامة والستر لتناسب كل مناسباتك.",
+            "limit": 4
+          }
         }
       ]
     },

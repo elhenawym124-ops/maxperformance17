@@ -224,34 +224,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "mirror-carousel"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "bento-specs"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "ضيفيه للسلة",
+            "buyNowText": "اطلبي الميك اب الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "التوصيل والتغليف المحكم والآمن",
+            "shippingText": "شحن سريع خلال 48 ساعة بتغليف فقاعي محكم يضمن وصول المنتجات سليمة تماماً، مع حق فتح البوكس والتأكد من المنتجات قبل الدفع.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "شوفي سياسة التغليف الآمن والأصالة.",
+            "shippingModalTitle": "سياسة شحن الميك اب والأصالة",
+            "guaranteesTitle": "منتجات أصلية وآمنة 100%",
+            "guaranteesSubtitle": "خامات مصرحة طبياً وثابتة طوال اليوم ومناسبة لجميع أنواع البشرة.",
+            "guaranteeItems": "[{\"title\": \"أصلي ومصرح 100%\", \"description\": \"منتجات تخضع لأعلى معايير الأمان والتصريح ولا تسبب أي تحسس.\"}, {\"title\": \"تغليف محمي ضد الكسر\", \"description\": \"نضمن وصول البودر والظلال والأرواج بحالة المصنع المثالية.\"}, {\"title\": \"ثبات وألوان غنية\", \"description\": \"تغطية مريحة تدوم ساعات طويلة بألوان مطابقة للصور تماماً.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض باقات الميك اب والجمال",
+            "subtitle": "اختاري درجاتك المفضلة واستفيدي من خصم الباقة الكاملة.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكملي بيانات الشحن",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات استلام أوردر الجمال",
+            "subtitle": "الاسم ورقم الهاتف والعنوان — الدفع عند الاستلام بعد المعاينة.",
+            "emptyStateText": "اختاري العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب الميك اب الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "compact"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "ريفيوهات وصور من تجارب البنات",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شاركي رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كوني أول واحدة تشاركي رأيك.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "compact"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "منتجات تجميل ومكياج مكملة",
+            "subtitle": "درجات ومستحضرات مميزة تمنحك إطلالة متألقة في كل وقت.",
+            "limit": 4
+          }
         }
       ]
     },

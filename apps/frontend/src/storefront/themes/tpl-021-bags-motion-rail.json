@@ -224,34 +224,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "boutique-portrait-stage"
+          "variant": "elessi-bag-gallery"
         },
         {
           "type": "product-info",
-          "variant": "boutique-ledger"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "أضيفي للحقيبة",
+            "buyNowText": "اطلبي الشنطة الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "التوصيل وفحص الجلود والإكسسوارات",
+            "shippingText": "توصيل سريع ومحمي لجميع المحافظات خلال 48 ساعة، افحصي الجلد والبطانة والسوست مع المندوب قبل الدفع.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "اطلعي على سياسة فحص الجلد والضمان.",
+            "shippingModalTitle": "سياسة معاينة الحقائب والضمان",
+            "guaranteesTitle": "جلود عالية الجودة وتقفيل متقن",
+            "guaranteesSubtitle": "جلد معالج ضد التقشير وسوست معدنية غير قابلة للصدأ.",
+            "guaranteeItems": "[{\"title\": \"معاينة حية مع المندوب\", \"description\": \"تأكدي من نعومة الجلد ومتانة التقفيل والألوان قبل الاستلام.\"}, {\"title\": \"تقفيل يدوي ممتاز\", \"description\": \"خياطة دقيقة وبطانة داخلية واسعة ومنظمة لجميع متعلقاتك.\"}, {\"title\": \"ضمان الجودة والمتانة\", \"description\": \"حقيبة تتحمل الاستخدام اليومي وتحافظ على بريقها.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض الشنط وأطقم المحافظ",
+            "subtitle": "اختاري لونك المفضل أو طقم الشنطة مع المحفظة واستفيدي من السعر الخاص.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكملي بيانات الشحن",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات توصيل الحقيبة",
+            "subtitle": "الاسم ورقم الهاتف والعنوان — الدفع عند الاستلام بعد المعاينة.",
+            "emptyStateText": "اختاري العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب الحقيبة الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "compact"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "صور وتقييمات العميلات للشنطة على الطبيعة",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شاركي رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كوني أول واحدة تشاركي رأيك.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "compact"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "حقائب وإكسسوارات قد تعجبكِ",
+            "subtitle": "تشكيلة شنط يد وكروس وباك بستايلات عصرية ومميزة.",
+            "limit": 4
+          }
         }
       ]
     },

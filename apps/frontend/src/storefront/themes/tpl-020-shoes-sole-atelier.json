@@ -231,34 +231,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "masonry"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "fashion-direct-buybox"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "أضف للسلة",
+            "buyNowText": "اطلب الكوتشي الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "التوصيل والتجربة مع المندوب",
+            "shippingText": "شحن سريع لجميع المحافظات خلال 48 ساعة، مع إمكانية قياس الحذاء والتأكد من الراحة والمقاس مع المندوب قبل الدفع.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "شاهد سياسة قياس الحذاء وتبديل المقاس الفوري.",
+            "shippingModalTitle": "سياسة تجربة الحذاء والمقاسات",
+            "guaranteesTitle": "راحة تامة وثقة في كل خطوة",
+            "guaranteesSubtitle": "نعل طبي ممتص للصدمات وخامات تهوية متينة تدوم طويلاً.",
+            "guaranteeItems": "[{\"title\": \"قيس مع المندوب قبل الدفع\", \"description\": \"جرب المقاس وراحة النعل أثناء وجود المندوب لتطمئن تماماً.\"}, {\"title\": \"تبديل فوري للمقاس\", \"description\": \"لو المقاس مش مظبوط بالمللي بنغيرهولك فوراً بدون أي مشكلة.\"}, {\"title\": \"نعل طبي مريح وخفيف\", \"description\": \"تصميم هندسي مريح للاستخدام اليومي وساعات المشي الطويلة.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "وفّر مع عروض الأحذية والكوتشيات",
+            "subtitle": "اختر مقاس ولون كل كوتشي واستفد من خصم القطعة الثانية والشحن المجاني.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل بيانات التوصيل",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات التوصيل السريع",
+            "subtitle": "اكتب بياناتك وسنؤكد مقاسك ونشحن فوراً — الدفع بعد القياس والمعاينة.",
+            "emptyStateText": "اختار العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب الكوتشي الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "compact"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "تقييمات وتجارب المشترين بعد الاستخدام",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شارك رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كن أول من يشارك رأيه.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "compact"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "أحذية وكوتشيات مشابهة",
+            "subtitle": "موديلات رياضية وكاجوال مميزة توفر لك الراحة نفسها.",
+            "limit": 4
+          }
         }
       ]
     },

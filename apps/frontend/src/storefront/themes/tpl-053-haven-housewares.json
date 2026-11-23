@@ -357,38 +357,80 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
-      "layoutHint": "product-detail",
+      "title": "المنتج",
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "grid"
-        },
-        {
-          "type": "product-info",
-          "variant": "accordion"
-        },
-        {
-          "type": "delivery-proof"
-        },
-        {
-          "type": "size-guide",
-          "variant": "detailed"
-        },
-        {
-          "type": "trusted-badges"
-        },
-        {
-          "type": "reviews",
           "variant": "standard"
         },
         {
-          "type": "bought-together",
-          "variant": "complete-look"
+          "type": "product-info",
+          "variant": "marketplace-bazaar",
+          "settings": {
+            "descriptionTitle": "وصف ومواصفات المنتج",
+            "shippingTitle": "الشحن والتوصيل للأدوات المنزلية",
+            "shippingText": "تجهيز الطلب يتم خلال 24 ساعة، والتوصيل من يوم إلى 3 أيام عمل لجميع المحافظات مع المعاينة الكاملة.",
+            "returnsTitle": "الاسترجاع والاستبدال الفوري",
+            "returnsText": "استرجاع واستبدال مجاني خلال 14-30 يوماً ضد أي عيوب صناعة أو تلف في الشحن.",
+            "deliveryBanner": {
+              "enabled": true,
+              "text": "توصيل سريع خلال 72 ساعة لجميع المحافظات",
+              "subtext": "شحن مؤمَّن ومعاينة وتجربة كاملة قبل الدفع عند الاستلام"
+            },
+            "shippingMethods": [
+              {
+                "label": "توصيل عادي",
+                "meta": "2-4 أيام",
+                "note": "شحن مجاني فوق 500 ج.م"
+              },
+              {
+                "label": "توصيل سريع",
+                "meta": "1-2 أيام",
+                "note": "رسوم إضافية حسب المحافظة"
+              }
+            ],
+            "shippingWarranty": "ضمان رسمي معتمد ضد عيوب الصناعة على أدوات المطبخ",
+            "shippingReturns": "معاينة مع المندوب واستبدال ميسر وسريع"
+          }
+        },
+        {
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض الباقات والمجموعات المنزلية",
+            "subtitle": "اختر الباقة المناسبة ووفر مع الطقم الكامل أو القطعة الإضافية.",
+            "placement": "inline-buybox",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل الطلب الآن"
+          }
+        },
+        {
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات الشحن السريع للمنزل",
+            "subtitle": "اكتب بياناتك وسنؤكد طلبك ونجهزه للشحن فوراً — الدفع عند الاستلام بعد المعاينة.",
+            "submitButtonText": "تأكيد الطلب الآن",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": true,
+            "showOrderSummary": true
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات وتجارب ستات البيوت في المطبخ",
+            "reviewLimit": 4
+          }
         },
         {
           "type": "related-products",
-          "variant": "editorial"
+          "settings": {
+            "title": "أدوات مطبخ وأجهزة منزلية عملية",
+            "limit": 4
+          }
         }
       ]
     },

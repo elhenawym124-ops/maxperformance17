@@ -363,34 +363,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "grid"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "specs-grid"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "أضف للكرتونة",
+            "buyNowText": "اطلب طلبات البيت الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "توصيل البقالة السريع حتى باب الشقة",
+            "shippingText": "توصيل في نفس اليوم أو خلال 24 ساعة في كراتين نظيفة ومحكمة حتى باب شقتك، فتش كرتونتك مع المندوب وتأكد من الصلاحيات والأسعار قبل الدفع.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "تعرف على مواعيد توصيل البقالة والكرتونة.",
+            "shippingModalTitle": "سياسة توصيل السوبرماركت والبقالة",
+            "guaranteesTitle": "منتجات أصلية بصلاحيات حديثة جداً",
+            "guaranteesSubtitle": "تخزين مبرد ونظيف يضمن أعلى جودة لأسرتك بأفضل سعر جملة.",
+            "guaranteeItems": "[{\"title\": \"صلاحيات سارية وحديثة\", \"description\": \"جميع المواد الغذائية مختارة بتواريخ إنتاج حديثة وموثوقة.\"}, {\"title\": \"توصيل لباب الشقة بدون تعب\", \"description\": \"المندوب يوصل كل طلبات البيت الثقيلة حتى باب بيتك.\"}, {\"title\": \"معاينة مع المندوب واسترجاع فوري\", \"description\": \"أي منتج مش عاجبك تقدر ترجعه فوراً وتخصمه من الفاتورة.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض كراتين البقالة والتوفير",
+            "subtitle": "اختر الكمية أو باقة الشهر واستفد من أسعار الجملة والشحن المخفض.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل بيانات التوصيل",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات توصيل مقاضي البيت",
+            "subtitle": "اكتب العنوان بالتفصيل ورقم هاتفك وسنجهز طلباتك فوراً — الدفع عند الاستلام.",
+            "emptyStateText": "اختار العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب البقالة الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "compact"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "تقييمات وتجارب المشترين لخدمة البقالة",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شارك رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كن أول من يشارك رأيه.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "compact"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "أساسيات البيت والسوبرماركت",
+            "subtitle": "زيوت وسكر وأرز ومنظفات لتكمل احتياجات منزلك الشهرية بأفضل سعر.",
+            "limit": 4
+          }
         }
       ]
     },

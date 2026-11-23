@@ -259,34 +259,80 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
-      "layoutHint": "product-detail",
+      "title": "المنتج",
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "stacked"
-        },
-        {
-          "type": "product-info",
-          "variant": "gear-loadout"
-        },
-        {
-          "type": "delivery-proof"
-        },
-        {
-          "type": "trusted-badges"
-        },
-        {
-          "type": "reviews",
           "variant": "standard"
         },
         {
-          "type": "bought-together",
-          "variant": "compact"
+          "type": "product-info",
+          "variant": "marketplace-bazaar",
+          "settings": {
+            "descriptionTitle": "وصف ومواصفات المنتج",
+            "shippingTitle": "شحن الموبايلات والأجهزة الذكية",
+            "shippingText": "شحن مؤمن ومغلق بملصق أمان رسمي، افحص العلبة والملصق والرقم التسلسلي وشغل الجهاز مع المندوب قبل الدفع.",
+            "returnsTitle": "ضمان الوكيل الرسمي",
+            "returnsText": "ضمان محلي معتمد مع إمكانية الاستبدال الفوري ضد أي عيب صناعة خلال أول 14 يوماً.",
+            "deliveryBanner": {
+              "enabled": true,
+              "text": "شحن مؤمن لجميع المحافظات خلال 48 ساعة",
+              "subtext": "فحص وتشغيل الجهاز مع المندوب بضمان الوكيل"
+            },
+            "shippingMethods": [
+              {
+                "label": "توصيل عادي",
+                "meta": "2-4 أيام",
+                "note": "شحن مجاني فوق 500 ج.م"
+              },
+              {
+                "label": "توصيل سريع",
+                "meta": "1-2 أيام",
+                "note": "رسوم إضافية حسب المحافظة"
+              }
+            ],
+            "shippingWarranty": "ضمان محلي معتمد من الوكيل الرسمي",
+            "shippingReturns": "استبدال فوري وضمان شامل للأجهزة الأصلية"
+          }
+        },
+        {
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "باقات الموبايل والإكسسوارات الأصلية",
+            "subtitle": "وفر مع باقة الشاحن السريع والجراب والاسكرينة الأصلية مع الهاتف.",
+            "placement": "inline-buybox",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل بيانات التوصيل"
+          }
+        },
+        {
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "حجز وتأكيد شحن الموبايل",
+            "subtitle": "اكتب بياناتك وسنتواصل لتأكيد الرقم التسلسلي والشحن فوراً — الدفع عند الاستلام.",
+            "submitButtonText": "تأكيد طلب الهاتف الآن",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": true,
+            "showOrderSummary": true
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات المستخدمين لأداء الهاتف",
+            "reviewLimit": 4
+          }
         },
         {
           "type": "related-products",
-          "variant": "playful"
+          "settings": {
+            "title": "هواتف وإكسسوارات مميزة",
+            "limit": 4
+          }
         }
       ]
     },

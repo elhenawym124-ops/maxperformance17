@@ -325,38 +325,90 @@
       ]
     },
     "pdp": {
-      "pageGoal": "conversion",
       "layoutHint": "product-detail",
+      "pageGoal": "trust",
+      "compositionPolicy": {
+        "pageGoal": "trust",
+        "preserveManualOrder": true,
+        "enforceTrustSignals": true
+      },
       "sections": [
         {
           "type": "product-gallery",
-          "variant": "standard"
+          "variant": "elessi-showroom"
         },
         {
           "type": "product-info",
-          "variant": "accordion"
+          "variant": "elessi-care-buybox",
+          "settings": {
+            "addToCartText": "أضف للسلة الخضراء",
+            "buyNowText": "اطلب الخضار الفريش الآن",
+            "descriptionTitle": "تفاصيل ومواصفات المنتج",
+            "shippingTitle": "التوصيل المبرد من المزرعة لبيتك",
+            "shippingText": "يُقطف صباحاً ويُفرز ويُغلف بعناية ويصلك مبرداً في نفس اليوم، عاين نضارة الخضار والفاكهة حبة حبة مع المندوب قبل الدفع.",
+            "shippingInteraction": "modal",
+            "shippingTriggerText": "شاهد سياسة فرز الخضار والفاكهة والتوصيل اليومي.",
+            "shippingModalTitle": "سياسة قطاف وتوصيل الخضار الطازج",
+            "guaranteesTitle": "فرز أول قطفة يومياً طازج 100%",
+            "guaranteesSubtitle": "خضار وفاكهة نقية بدون كيماويات ضارة، مغسولة ومفرزة بأعلى عناية.",
+            "guaranteeItems": "[{\"title\": \"فرز أول ونضارة تامة\", \"description\": \"نختار الحبات السليمة تماماً ونستبعد أي ثمرة غير ممتازة.\"}, {\"title\": \"توصيل يومي مبرد سريع\", \"description\": \"يحافظ على القرمشة والفيتامينات كأنك قطفتها بنفسك الآن.\"}, {\"title\": \"ضمان الرضا التام أو الاستبدال\", \"description\": \"لو أي صنف مش فريش 100% بنبدله أو نرجعه فوراً.\"}]"
+          }
         },
         {
-          "type": "delivery-proof"
+          "type": "quantity-offers",
+          "variant": "selection-rail",
+          "settings": {
+            "title": "عروض بوكسات الخضار والفاكهة الأسبوعية",
+            "subtitle": "وفر مع بوكس العائلة الأسبوعي المشكل من أفضل خضار وفاكهة الموسم.",
+            "decisionMode": "primary",
+            "continueToFormLabel": "أكمل بيانات التوصيل السريع",
+            "placement": "inline-buybox"
+          }
         },
         {
-          "type": "size-guide",
-          "variant": "quick"
-        },
-        {
-          "type": "trusted-badges"
+          "type": "pdp-checkout",
+          "settings": {
+            "title": "بيانات توصيل الخضار والفاكهة",
+            "subtitle": "اكتب بياناتك وسنجهز بوكسك طازة اليوم — الدفع عند الاستلام بعد المعاينة.",
+            "emptyStateText": "اختار العرض أولاً.",
+            "scrollToBuyBoxText": "اختيار العرض",
+            "submitButtonText": "تأكيد طلب الخضار الفريش الآن",
+            "formVariant": "khemet-luxe-eg",
+            "placement": "before-description",
+            "surfaceMode": "merged-buybox",
+            "showQuantity": false,
+            "showAddToCartButton": false,
+            "showOrderSummary": true,
+            "fields": {
+              "alternatePhone": {
+                "enabled": false,
+                "required": false
+              }
+            }
+          }
         },
         {
           "type": "reviews",
-          "variant": "standard"
-        },
-        {
-          "type": "bought-together",
-          "variant": "editorial"
+          "variant": "elessi-story-grid",
+          "settings": {
+            "title": "آراء وتجارب العملاء مع الخضار والفاكهة",
+            "listTitle": "كل التقييمات",
+            "writeReviewText": "شارك رأيك",
+            "emptyText": "لسه ما فيش تقييمات على المنتج ده. كن أول من يشارك رأيه.",
+            "verifiedLabel": "شراء موثق",
+            "reviewsLabel": "تقييمات",
+            "reviewLimit": 4,
+            "showMediaFeed": true
+          }
         },
         {
           "type": "related-products",
-          "variant": "graceful-related"
+          "variant": "elessi-complete-set",
+          "settings": {
+            "title": "أصناف فواكه وخضار موسمية طازجة",
+            "subtitle": "تشكيلة خضار ورقي وفاكهة سكرية طازة تكمل مائدتك الصحية.",
+            "limit": 4
+          }
         }
       ]
     },
