@@ -174,6 +174,62 @@ export const SchemaAppSettingsTab: React.FC<SchemaAppSettingsTabProps> = ({
           </div>
         );
 
+      case 'array': {
+        const arrayVal: string[] = Array.isArray(currentValue) ? currentValue : [];
+        const enumOptions = prop.enum || (prop as any).items?.enum || [];
+        return (
+          <div key={key} className="space-y-2 rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm">
+            <label htmlFor={`field-${key}`} className="block text-sm font-semibold text-foreground">
+              {prop.title || key}
+              {isRequired && <span className="text-red-500 me-1">*</span>}
+            </label>
+            {prop.description && (
+              <p className="text-xs text-muted-foreground mb-2">
+                {prop.description}
+              </p>
+            )}
+            {enumOptions.length > 0 ? (
+              <div className="flex flex-wrap gap-2 pt-1">
+                {enumOptions.map((opt: string) => {
+                  const isSelected = arrayVal.includes(opt);
+                  return (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => {
+                        const next = isSelected
+                          ? arrayVal.filter((x) => x !== opt)
+                          : [...arrayVal, opt];
+                        onChange(key, next);
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                        isSelected
+                          ? 'bg-primary text-primary-foreground font-semibold shadow-sm'
+                          : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      }`}
+                    >
+                      {opt} {isSelected ? '✓' : '+'}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <input
+                id={`field-${key}`}
+                type="text"
+                placeholder="أدخل القيم مفصولة بفواصل"
+                value={arrayVal.join(', ')}
+                onChange={(e) => {
+                  const vals = e.target.value.split(',').map((s) => s.trim()).filter(Boolean);
+                  onChange(key, vals);
+                }}
+                className="w-full rounded-lg border border-border bg-muted dark:bg-muted px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+            )}
+          </div>
+        );
+      }
+
       default:
         return (
           <div key={key} className="space-y-1.5 rounded-xl border border-border dark:border-border bg-card p-4 shadow-sm">

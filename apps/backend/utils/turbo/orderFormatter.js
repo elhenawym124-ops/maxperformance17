@@ -219,12 +219,12 @@ function formatOrderForTurbo(order, customer, items) {
     alternativePhone: resolvedPhone2,
     turboShipmentStatus: order.turboShipmentStatus || null,
     returnAmount: (() => {
+      if (isExchange) return 0;
       const metaRetAmt = parsedMetadata.returnAmount || order.returnAmount || null;
       if (metaRetAmt !== undefined && metaRetAmt !== null && metaRetAmt !== '') return parseFloat(metaRetAmt);
-      if (isExchange) return 0;
       if (isReturn) return totalValue;
       if (isPartial) return shippingFee;
-      return 0;
+      return shippingFee;
     })(),
     returnSummary: (() => {
       if (order.returnSummary) return order.returnSummary;

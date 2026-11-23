@@ -211,10 +211,10 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // تحديث عدد الإشعارات غير المقروءة
+  // تحديث عدد الإشعارات غير المقروءة بما يضمن عدم إغفال العناصر غير المقروءة المحملة
   useEffect(() => {
     const unread = notifications.filter((n) => !n.isRead).length;
-    setUnreadCount(unread);
+    setUnreadCount((prev) => (prev === 0 ? unread : Math.max(prev, unread)));
   }, [notifications]);
 
   const syncNotificationPreferences = useCallback(async () => {
@@ -263,18 +263,25 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
 
       if (response.ok) {
         const data = await response.json();
-        setNotifications(
-          Array.isArray(data.notifications)
-            ? data.notifications.map(normalizeNotificationItem)
-            : [],
-        );
+        const items = Array.isArray(data.notifications)
+          ? data.notifications.map(normalizeNotificationItem)
+          : [];
+        setNotifications(items);
+        if (typeof data.unreadCount === "number") {
+          setUnreadCount(data.unreadCount);
+        } else {
+          setUnreadCount(items.filter((n: any) => !n.isRead).length);
+        }
       } else if (response.status === 401) {
         setNotifications([]);
+        setUnreadCount(0);
       } else {
         setNotifications([]);
+        setUnreadCount(0);
       }
     } catch (error) {
       setNotifications([]);
+      setUnreadCount(0);
     }
   }, [isAuthenticated, user]);
 
@@ -324,6 +331,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
       const newNotification = normalizeNotificationItem(notification);
 
       setNotifications((prev) => [newNotification, ...prev]);
+      setUnreadCount((prev) => prev + 1);
 
       const isCritical =
         (notification as any).requireAlarm === true ||
@@ -392,6 +400,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
         );
         return [orderNotification, ...deduped];
       });
+      setUnreadCount((prev) => prev + 1);
 
       window.dispatchEvent(
         new CustomEvent("show-toast", {
@@ -530,6 +539,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
       setNotifications((prev) =>
         prev.map((n) => (n.id === notificationId ? { ...n, isRead: true } : n)),
       );
+      setUnreadCount((prev) => Math.max(0, prev - 1));
     } catch (error) {
       console.error("Error marking notification as read:", error);
     }
@@ -553,6 +563,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
       setNotifications((prev) =>
         prev.map((notification) => ({ ...notification, isRead: true })),
       );
+      setUnreadCount(0);
     } catch (error) {
       console.error("Error marking all notifications as read:", error);
     }

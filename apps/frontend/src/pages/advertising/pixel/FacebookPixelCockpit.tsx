@@ -254,6 +254,16 @@ export const FacebookPixelCockpit: React.FC = () => {
       return;
     }
 
+    if (
+      settings.facebookConvApiToken &&
+      !settings.facebookConvApiToken.startsWith("****") &&
+      !settings.facebookConvApiToken.includes("...") &&
+      settings.facebookConvApiToken.trim().length < 100
+    ) {
+      toast.error("رمز الوصول (Conversions API Token) غير صالح — يجب أن يكون الرمز الكامل من ميتا (أكثر من 100 حرف)");
+      return;
+    }
+
     try {
       setSaving(true);
       await storefrontSettingsService.updateSettings(settings);
@@ -300,14 +310,35 @@ export const FacebookPixelCockpit: React.FC = () => {
         accessToken: settings.facebookConvApiToken || undefined,
         testEventCode: settings.facebookConvApiTestCode || undefined,
       });
-      if (response?.success && response?.data?.success) {
-        toast.success("تم إرسال حدث اختباري بنجاح إلى Conversions API");
-        setSettings((prev) => ({ ...prev, capiStatus: "active" }));
+      if (response?.success && (response?.data?.success || response?.data?.events_received !== undefined)) {
+        toast.success(response?.message || "تم إرسال حدث اختباري بنجاح إلى Conversions API");
+        setSettings((prev) => ({
+          ...prev,
+          capiStatus: "active",
+          lastCapiTest: new Date().toISOString(),
+          lastCapiError: null,
+          lastCapiErrorCode: null,
+          lastCapiErrorAt: null,
+        }));
+        loadDiagnosticsSilently();
       } else {
-        toast.error(response?.message || "فشل اختبار CAPI");
+        const errorCode = response?.data?.code || response?.code;
+        const errorMsg = response?.data?.message || response?.message || "فشل اختبار CAPI";
+        const fullMsg = errorCode ? `[خطأ ميتا #${errorCode}]: ${errorMsg}` : errorMsg;
+        toast.error(fullMsg);
+        setSettings((prev) => ({
+          ...prev,
+          capiStatus: "error",
+          lastCapiTest: new Date().toISOString(),
+          lastCapiError: errorMsg,
+          lastCapiErrorCode: errorCode || null,
+          lastCapiErrorAt: new Date().toISOString(),
+        }));
+        loadDiagnosticsSilently();
       }
-    } catch (err) {
-      toast.error("تعذر اختبار اتصال السيرفر مع Meta");
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.message || "تعذر اختبار اتصال السيرفر مع Meta";
+      toast.error(msg);
     } finally {
       setIsTestingCapi(false);
     }

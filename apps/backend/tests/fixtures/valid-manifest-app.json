@@ -1,0 +1,40 @@
+{
+  "slug": "custom-shipping-calc",
+  "name": "حاسبة تكلفة الشحن المتقدمة",
+  "description": "أداة ذكية لحساب تسعير الشحن والطرود وفقاً للمناطق الجغرافية",
+  "manifestVersion": "1.0",
+  "appVersion": "1.0.0",
+  "entryRoute": "/app/custom-shipping-calc",
+  "permissions": ["orders.view", "settings.read"],
+  "settingsSchema": {
+    "type": "object",
+    "properties": {
+      "threshold": {
+        "type": "number",
+        "title": "الحد الأدنى للوزن (كجم)",
+        "minimum": 0,
+        "maximum": 1000,
+        "default": 10
+      },
+      "enableExpress": {
+        "type": "boolean",
+        "title": "تفعيل الشحن السريع",
+        "default": true
+      },
+      "rateMode": {
+        "type": "string",
+        "title": "طريقة التسعير",
+        "enum": ["flat", "tiered", "zone"],
+        "default": "tiered"
+      },
+      "supportedRegions": {
+        "type": "array",
+        "title": "المناطق المدعومة",
+        "items": { "type": "string" },
+        "enum": ["القاهرة", "الجيزة", "الإسكندرية", "الدلتا", "الصعيد"],
+        "default": ["القاهرة", "الجيزة"]
+      }
+    },
+    "required": ["threshold", "rateMode"]
+  }
+}

@@ -1885,11 +1885,12 @@ router.get('/', async (req, res) => {
                 description: true,
                 tags: true,
                 sku: true,
+                barcode: true,
                 slug: true,
                 category: { select: { name: true, slug: true } },
                 productVariants: {
                   where: { isActive: true },
-                  select: { name: true, sku: true },
+                  select: { name: true, sku: true, barcode: true },
                 },
               },
             });

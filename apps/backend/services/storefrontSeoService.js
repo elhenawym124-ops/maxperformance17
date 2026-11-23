@@ -736,20 +736,52 @@ const buildStorefrontSeoMetadata = ({
     trimToNull(templateContent?.direction) ||
     "rtl";
 
-  const defaultImage =
+  const storeLogo =
+    resolveAbsoluteUrl(company?.logo, currentUrl) ||
+    resolveAbsoluteUrl(designTokens.logoUrl, currentUrl) ||
+    resolveAbsoluteUrl(designTokens.logo, currentUrl) ||
+    resolveAbsoluteUrl(designTokens?.global?.header?.logoUrl, currentUrl) ||
+    resolveAbsoluteUrl(designTokens?.global?.logo, currentUrl) ||
+    resolveAbsoluteUrl(designTokens?.header?.logoUrl, currentUrl) ||
+    resolveAbsoluteUrl(companySettings?.logo, currentUrl) ||
+    null;
+
+  const storeCustomOgImage =
     resolveAbsoluteUrl(pageSeo.ogImage, currentUrl) ||
+    resolveAbsoluteUrl(pageSeo.image, currentUrl) ||
     resolveAbsoluteUrl(rootSeo.ogImage, currentUrl) ||
+    resolveAbsoluteUrl(rootSeo.image, currentUrl) ||
+    resolveAbsoluteUrl(designTokens?.seo?.ogImage, currentUrl) ||
+    resolveAbsoluteUrl(designTokens?.seo?.image, currentUrl) ||
+    resolveAbsoluteUrl(designTokens?.settings?.seo?.ogImage, currentUrl) ||
+    resolveAbsoluteUrl(designTokens?.settings?.seo?.image, currentUrl) ||
+    resolveAbsoluteUrl(companySettings?.ogImage, currentUrl) ||
+    resolveAbsoluteUrl(companySettings?.socialImage, currentUrl) ||
+    null;
+
+  const fallbackProductImage =
+    (product ? resolveProductImage(product, currentUrl) : null) ||
+    (Array.isArray(products)
+      ? products.map((p) => resolveProductImage(p, currentUrl)).find(Boolean)
+      : null) ||
+    null;
+
+  const defaultImage =
+    storeCustomOgImage ||
+    storeLogo ||
+    fallbackProductImage ||
     resolveAbsoluteUrl(templateSeo.defaultOgImage, currentUrl) ||
     resolveAbsoluteUrl(themePresetSeo.defaultOgImage, currentUrl) ||
-    resolveAbsoluteUrl(company?.logo, currentUrl) ||
     PLATFORM_OG_COVER;
 
   const faviconUrl =
     resolveAbsoluteUrl(pageSeo.faviconUrl, currentUrl) ||
     resolveAbsoluteUrl(rootSeo.faviconUrl, currentUrl) ||
+    resolveAbsoluteUrl(designTokens.faviconUrl, currentUrl) ||
+    resolveAbsoluteUrl(designTokens?.global?.faviconUrl, currentUrl) ||
     resolveAbsoluteUrl(templateSeo.faviconUrl, currentUrl) ||
     resolveAbsoluteUrl(themePresetSeo.faviconUrl, currentUrl) ||
-    resolveAbsoluteUrl(company?.logo, currentUrl) ||
+    storeLogo ||
     null;
 
   const urlObj = new URL(currentUrl);

@@ -321,18 +321,30 @@ const filterActiveCompanyAppSlugs = (installedApps = [], company = null) => {
 const checkAppAccess = (appSlug) => {
   const middleware = async (req, res, next) => {
     try {
-      // 🚨 Emergency Kill Switch Check (instant platform-wide shutoff)
-      let appKillSwitchService = null;
+      // 🚨 Emergency Kill Switch Check (instant platform-wide shutoff <= 5s)
+      let isKilled = false;
       try {
-        appKillSwitchService = require('../services/appContract/appKillSwitchService');
+        const { appManifestService } = require('../services/appManifestService');
+        if (appManifestService && appManifestService.isKillSwitchActive(appSlug)) {
+          isKilled = true;
+        }
       } catch (_) {}
 
-      if (appKillSwitchService && appKillSwitchService.isKillSwitchActive(appSlug)) {
+      if (!isKilled) {
+        try {
+          const appKillSwitchService = require('../services/appContract/appKillSwitchService');
+          if (appKillSwitchService && appKillSwitchService.isKillSwitchActive(appSlug)) {
+            isKilled = true;
+          }
+        } catch (_) {}
+      }
+
+      if (isKilled) {
         return res.status(403).json({
           success: false,
           code: 'APP_KILL_SWITCH_ACTIVE',
           error: 'Emergency Kill Switch Active',
-          message: 'تم إيقاف هذه الأداة فورياً عبر مفتاح الإيقاف الفوري (Kill Switch).'
+          message: 'هذا التطبيق غير متاح مؤقتًا'
         });
       }
 

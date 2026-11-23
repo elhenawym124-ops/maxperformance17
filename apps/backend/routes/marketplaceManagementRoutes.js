@@ -33,6 +33,8 @@ router.post('/apps/validate-manifest', marketplaceManagementController.validateA
 router.get('/apps/:id/manifest', marketplaceManagementController.getAppManifest);
 router.post('/apps/:id/publish', marketplaceManagementController.publishApp);
 router.post('/apps/:id/unpublish', marketplaceManagementController.unpublishApp);
+router.post('/apps/:id/kill', marketplaceManagementController.killApp);
+router.post('/apps/:id/unkill', marketplaceManagementController.unkillApp);
 
 // Pricing Rules Management
 router.get('/pricing-rules', marketplaceManagementController.getAllPricingRules);

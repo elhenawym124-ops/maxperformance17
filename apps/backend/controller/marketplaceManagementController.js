@@ -527,6 +527,7 @@ exports.createApp = async (req, res) => {
       'requiredApps', 'trialDays', 'mainRoute', 'adminRoute',
       'category', 'icon', 'coverImage', 'engineCompatibility', 'isAutoInstall',
       'version', 'permissions', 'settingsSchema', 'killSwitch', 'manifest',
+      'manifestVersion', 'appVersion', 'entryRoute', 'killSwitchReason', 'killSwitchAt'
     ];
     const appData = {};
     for (const key of ALLOWED_FIELDS) {
@@ -539,7 +540,8 @@ exports.createApp = async (req, res) => {
     }
 
     // Publishing Gate: Reject publishing without a compliant manifest
-    if (appData.isPublic === true) {
+    const shouldEnforceManifest = process.env.APP_MANIFEST_ENFORCE === 'true' || appData.isPublic === true;
+    if (shouldEnforceManifest) {
       const publishCheck = appManifestService.validatePublishGate(appData);
       if (!publishCheck.canPublish) {
         return res.status(422).json({
@@ -553,6 +555,9 @@ exports.createApp = async (req, res) => {
       if (publishCheck.manifest) {
         appData.manifest = publishCheck.manifest;
         if (!appData.version) appData.version = publishCheck.manifest.version;
+        if (!appData.manifestVersion) appData.manifestVersion = publishCheck.manifest.manifestVersion || '1.0';
+        if (!appData.appVersion) appData.appVersion = publishCheck.manifest.appVersion || publishCheck.manifest.version;
+        if (!appData.entryRoute) appData.entryRoute = publishCheck.manifest.entryRoute || appData.mainRoute;
         if (!appData.permissions) appData.permissions = publishCheck.manifest.permissions;
         if (!appData.settingsSchema) appData.settingsSchema = publishCheck.manifest.settingsSchema;
       }
@@ -610,6 +615,7 @@ exports.updateApp = async (req, res) => {
       'requiredApps', 'trialDays', 'mainRoute', 'adminRoute',
       'category', 'icon', 'coverImage', 'engineCompatibility', 'isAutoInstall',
       'version', 'permissions', 'settingsSchema', 'killSwitch', 'manifest',
+      'manifestVersion', 'appVersion', 'entryRoute', 'killSwitchReason', 'killSwitchAt'
     ];
     const updateData = {};
     for (const key of ALLOWED_FIELDS) {
@@ -1111,6 +1117,159 @@ exports.deleteBundle = async (req, res) => {
 
 const appKillSwitchService = require('../services/appContract/appKillSwitchService');
 const appRegistryService = require('../services/appContract/appRegistryService');
+
+/**
+ * @route POST /api/v1/super-admin/apps/:id/kill
+ * @desc Instant emergency kill switch for an app
+ * @access Super Admin
+ */
+exports.killApp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { reason } = req.body || {};
+    const effectiveReason = reason || 'Emergency shutoff by Super Admin';
+    const prisma = getSharedPrismaClient();
+
+    const stripped = String(id).replace(/^cat-app-/, '');
+    const app = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [{ id }, { slug: id }, { slug: stripped }]
+      }
+    });
+
+    if (!app) {
+      return res.status(404).json({ success: false, message: `التطبيق "${id}" غير موجود` });
+    }
+
+    const killTime = new Date();
+    await prisma.marketplaceApp.update({
+      where: { id: app.id },
+      data: {
+        killSwitch: true,
+        killSwitchReason: effectiveReason,
+        killSwitchAt: killTime
+      }
+    });
+
+    // Invalidate caches immediately (<= 5s)
+    appManifestService.setKillSwitchCache(app.slug, true, effectiveReason);
+    appManifestService.setKillSwitchCache(app.id, true, effectiveReason);
+    try {
+      await appKillSwitchService.setKillSwitch(app.slug, true, {
+        reason: effectiveReason,
+        updatedBy: req.user?.id || 'SUPER_ADMIN'
+      });
+    } catch (_) {}
+
+    // Emit Audit Row in activityLog
+    try {
+      await prisma.activityLog.create({
+        data: {
+          category: 'marketplace',
+          action: 'APP_KILL_SWITCH_ACTIVATED',
+          description: `Super Admin activated kill switch for app "${app.slug}". Reason: ${effectiveReason}`,
+          userId: req.user?.id || 'SUPER_ADMIN',
+          metadata: {
+            appId: app.id,
+            slug: app.slug,
+            reason: effectiveReason,
+            killedAt: killTime
+          }
+        }
+      });
+    } catch (auditErr) {
+      console.warn('Failed to emit activityLog for kill switch:', auditErr.message);
+    }
+
+    return res.json({
+      success: true,
+      message: `تم تفعيل مفتاح الإيقاف الفوري للتطبيق "${app.slug}" بنجاح`,
+      data: {
+        id: app.id,
+        slug: app.slug,
+        killSwitch: true,
+        killSwitchReason: effectiveReason,
+        killSwitchAt: killTime
+      }
+    });
+  } catch (error) {
+    console.error('Error killing app:', error);
+    return res.status(500).json({ success: false, message: 'خطأ في تفعيل مفتاح الإيقاف الفوري', error: error.message });
+  }
+};
+
+/**
+ * @route POST /api/v1/super-admin/apps/:id/unkill
+ * @desc Deactivate kill switch and restore app
+ * @access Super Admin
+ */
+exports.unkillApp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const prisma = getSharedPrismaClient();
+    const stripped = String(id).replace(/^cat-app-/, '');
+    const app = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [{ id }, { slug: id }, { slug: stripped }]
+      }
+    });
+
+    if (!app) {
+      return res.status(404).json({ success: false, message: `التطبيق "${id}" غير موجود` });
+    }
+
+    await prisma.marketplaceApp.update({
+      where: { id: app.id },
+      data: {
+        killSwitch: false,
+        killSwitchReason: null,
+        killSwitchAt: null
+      }
+    });
+
+    // Invalidate caches immediately
+    appManifestService.invalidateKillSwitchCache(app.slug);
+    appManifestService.invalidateKillSwitchCache(app.id);
+    try {
+      await appKillSwitchService.setKillSwitch(app.slug, false, {
+        reason: 'Restored by Super Admin',
+        updatedBy: req.user?.id || 'SUPER_ADMIN'
+      });
+    } catch (_) {}
+
+    // Emit Audit Row in activityLog
+    try {
+      await prisma.activityLog.create({
+        data: {
+          category: 'marketplace',
+          action: 'APP_KILL_SWITCH_DEACTIVATED',
+          description: `Super Admin deactivated kill switch for app "${app.slug}".`,
+          userId: req.user?.id || 'SUPER_ADMIN',
+          metadata: {
+            appId: app.id,
+            slug: app.slug,
+            unkilledAt: new Date()
+          }
+        }
+      });
+    } catch (auditErr) {
+      console.warn('Failed to emit activityLog for unkill switch:', auditErr.message);
+    }
+
+    return res.json({
+      success: true,
+      message: `تم إلغاء مفتاح الإيقاف واستعادة التطبيق "${app.slug}" بنجاح`,
+      data: {
+        id: app.id,
+        slug: app.slug,
+        killSwitch: false
+      }
+    });
+  } catch (error) {
+    console.error('Error unkilling app:', error);
+    return res.status(500).json({ success: false, message: 'خطأ في إلغاء مفتاح الإيقاف الفوري', error: error.message });
+  }
+};
 
 /**
  * @route POST /api/v1/super-admin/marketplace-management/tools/:slug/kill-switch

@@ -34,12 +34,17 @@ model MarketplaceApp {
   icon          String?
   coverImage    String?
   
-  // App Contract & Manifest
-  version       String           @default("1.0.0")
-  permissions   Json?
-  settingsSchema Json?
-  killSwitch    Boolean          @default(false)
-  manifest      Json?
+  // App Contract & Manifest Specification
+  manifestVersion  String?   @map("manifest_version")
+  appVersion       String?   @map("app_version")
+  permissions      Json?
+  settingsSchema   Json?
+  entryRoute       String?   @map("entry_route")
+  killSwitch       Boolean   @default(false) @map("kill_switch")
+  killSwitchReason String?   @map("kill_switch_reason")
+  killSwitchAt     DateTime? @map("kill_switch_at")
+  version          String?   @default("1.0.0")
+  manifest         Json?
   
   pricingRules  AppPricingRule[]
   reviews       AppReview[]

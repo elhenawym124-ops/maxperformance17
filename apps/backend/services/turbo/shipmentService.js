@@ -333,7 +333,7 @@ class ShipmentService {
         defaultReturnSummary = 'تسليم جزئي';
       } else {
         isOrderVal = 0;
-        returnAmt = parseFloat(orderData.returnAmount || 0);
+        returnAmt = parseFloat(orderData.returnAmount || shippingFeeVal || 0);
         defaultReturnSummary = 'لا يوجد مرتجع';
       }
 
@@ -572,7 +572,7 @@ class ShipmentService {
         defaultReturnSummary = 'تسليم جزئي';
       } else {
         isOrderVal = 0;
-        returnAmt = parseFloat(formattedData.returnAmount || 0);
+        returnAmt = parseFloat(formattedData.returnAmount || shippingFeeVal || 0);
         defaultReturnSummary = 'لا يوجد مرتجع';
       }
 

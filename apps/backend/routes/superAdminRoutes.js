@@ -1734,5 +1734,10 @@ const { getAllTickets } = require("../controller/supportTicketController");
 router.get("/billing/activity", checkPermission("canViewAll"), superAdminController.getBillingActivity);
 router.get("/support/tickets", checkPermission("canViewAll"), getAllTickets);
 
+// 🚨 Marketplace App Kill Switch (§4 App Contract Specification)
+const marketplaceManagementController = require('../controller/marketplaceManagementController');
+router.post('/apps/:id/kill', checkPermission('canManageSettings'), marketplaceManagementController.killApp);
+router.post('/apps/:id/unkill', checkPermission('canManageSettings'), marketplaceManagementController.unkillApp);
+
 module.exports = router;
 

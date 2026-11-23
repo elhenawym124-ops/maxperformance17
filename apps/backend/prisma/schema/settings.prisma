@@ -434,6 +434,9 @@ model StorefrontSettings {
   facebookPixelId                  String?
   gdprCompliant                    Boolean               @default(true)
   hashUserData                     Boolean               @default(true)
+  lastCapiError                    String?
+  lastCapiErrorCode                Int?
+  lastCapiErrorAt                  DateTime?
   lastCapiTest                     DateTime?
   // Orphan columns that exist in production but were never declared here. Prisma
   // migrate diff saw them as drift and emitted DROP COLUMN -> the deploy schema

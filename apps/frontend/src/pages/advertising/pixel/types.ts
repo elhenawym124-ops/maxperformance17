@@ -32,6 +32,9 @@ export interface FacebookPixelSettings {
   capiStatus?: string;
   lastPixelTest?: string;
   lastCapiTest?: string;
+  lastCapiError?: string | null;
+  lastCapiErrorCode?: number | null;
+  lastCapiErrorAt?: string | null;
 }
 
 export interface PixelConfig {
@@ -80,6 +83,9 @@ export interface DiagnosticsData {
     hasToken: boolean;
     tokenStatus: string;
     lastTest: string | null;
+    lastError?: string | null;
+    lastErrorCode?: number | null;
+    lastErrorAt?: string | null;
     issues: Array<{ type: string; code: string; message: string }>;
   };
   events: {

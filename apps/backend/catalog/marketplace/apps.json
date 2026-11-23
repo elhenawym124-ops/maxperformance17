@@ -41,9 +41,12 @@
     "icon": "👋",
     "logo": null,
     "coverImage": null,
+    "entryRoute": "/api/v1/tools/hello-app/ping",
     "mainRoute": "/api/v1/tools/hello-app/ping",
     "adminRoute": "/api/v1/tools/hello-app/config",
     "engineCompatibility": null,
+    "manifestVersion": "1.0",
+    "appVersion": "1.0.0",
     "version": "1.0.0",
     "minPlatformVersion": "1.0.0",
     "permissions": [

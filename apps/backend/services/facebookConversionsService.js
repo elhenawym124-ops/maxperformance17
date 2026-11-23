@@ -475,7 +475,7 @@ class FacebookConversionsService {
         pixelId: this.pixelId,
         eventName: event.event_name,
         accessTokenLength: this.accessToken?.length || 0,
-        accessTokenStarts: this.accessToken?.substring(0, 10) + '...'
+        hasAccessToken: Boolean(this.accessToken)
       });
 
       const response = await axios.post(url, payload);
@@ -503,6 +503,59 @@ class FacebookConversionsService {
   }
 
   /**
+   * تصنيف أخطاء Meta Graph API وتوفير رسائل عربية واضحة
+   * @param {Object|number} errorOrCode - كائن الخطأ أو كود الخطأ
+   * @param {string} rawMessage - الرسالة الأصلية إن وجدت
+   */
+  static classifyMetaError(errorOrCode, rawMessage = '') {
+    let code = null;
+    let subcode = null;
+    let message = '';
+    let fbtrace_id = null;
+
+    if (typeof errorOrCode === 'object' && errorOrCode !== null) {
+      const errData = errorOrCode.response?.data?.error || errorOrCode.error || errorOrCode;
+      code = errData.code || errorOrCode.code || null;
+      subcode = errData.error_subcode || errorOrCode.error_subcode || null;
+      rawMessage = errData.message || errorOrCode.message || rawMessage;
+      fbtrace_id = errData.fbtrace_id || errorOrCode.fbtrace_id || null;
+    } else if (typeof errorOrCode === 'number') {
+      code = errorOrCode;
+    }
+
+    let userFriendlyMessage = 'حدث خطأ غير متوقع أثناء الاتصال مع ميتا';
+    let category = 'unknown';
+
+    if (code === 270) {
+      category = 'meta_app_permission';
+      userFriendlyMessage = 'تطبيق ميتا ينقصه صلاحية ads_management / ads_read أو التطبيق غير مضاف لـ Business Portfolio أو ما زال في وضع التطوير (Development Mode)';
+    } else if (code === 190) {
+      category = 'invalid_token';
+      userFriendlyMessage = 'رمز الوصول (Access Token) غير صالح أو منتهي الصلاحية أو تم إلغاؤه من ميتا';
+    } else if (code === 100) {
+      category = 'invalid_parameters';
+      userFriendlyMessage = 'معرف بكسل غير صالح (Invalid Pixel ID) أو معاملات الحدث غير متوافقة مع متطلبات ميتا';
+    } else if (code === 4 || code === 17) {
+      category = 'rate_limit';
+      userFriendlyMessage = 'تم تجاوز الحد الأقصى للطلبات المسموح بها من ميتا (Rate Limit)';
+    } else if (code) {
+      category = `meta_code_${code}`;
+      userFriendlyMessage = `خطأ من ميتا (كود #${code}): ${rawMessage || 'فشل الاتصال'}`;
+    } else if (rawMessage) {
+      userFriendlyMessage = rawMessage;
+    }
+
+    return {
+      code,
+      subcode,
+      fbtrace_id,
+      category,
+      message: userFriendlyMessage,
+      rawMessage: rawMessage || userFriendlyMessage
+    };
+  }
+
+  /**
    * اختبار الاتصال مع Facebook
    * @returns {Promise<Object>}
    */
@@ -526,11 +579,10 @@ class FacebookConversionsService {
 
       const response = await this.sendEvent(testEvent);
 
-      // التحقق من أن response يحتوي على success
       if (response && response.success) {
         return {
           success: true,
-          message: `✅ الاتصال ناجح! تم استقبال ${response.events_received || 0} حدث`,
+          message: `✅ الاتصال ناجح! تم استقبال ${response.events_received || 0} حدث في Meta CAPI`,
           events_received: response.events_received || 0,
           messages: response.messages || [],
           fbtrace_id: response.fbtrace_id || null
@@ -538,16 +590,24 @@ class FacebookConversionsService {
       } else {
         return {
           success: false,
+          code: null,
+          category: 'unexpected_response',
           message: 'فشل الاتصال: استجابة غير متوقعة من Facebook',
           response
         };
       }
     } catch (error) {
-      console.error('❌ [Facebook CAPI] Test connection error:', error);
+      console.error('❌ [Facebook CAPI] Test connection error:', error.message);
+      const classified = FacebookConversionsService.classifyMetaError(error);
       return {
         success: false,
-        message: error.message || 'فشل الاتصال مع Facebook Conversions API',
-        error: error.response?.data || error.message
+        code: classified.code,
+        subcode: classified.subcode,
+        fbtrace_id: classified.fbtrace_id,
+        category: classified.category,
+        message: classified.message,
+        rawMessage: classified.rawMessage,
+        error: classified.message
       };
     }
   }

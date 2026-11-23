@@ -205,7 +205,7 @@ describe('ShipmentService', () => {
       expect(payload.return_summary).toBe('طلب استبدال');
     });
 
-    test('sets is_order=0, return_amount=0 for normal delivery order without return', async () => {
+    test('sets is_order=0, return_amount=shippingFee for normal delivery order without return', async () => {
       axios.post.mockResolvedValue({
         data: { success: 1, result: { code: 'T_NORM_1', bar_code: 'B_NORM_1', is_order: '0' } },
       });
@@ -214,7 +214,7 @@ describe('ShipmentService', () => {
 
       const payload = axios.post.mock.calls[0][1];
       expect(payload.is_order).toBe(0);
-      expect(payload.return_amount).toBe(0);
+      expect(payload.return_amount).toBe(50);
       expect(payload.return_summary).toBe('لا يوجد مرتجع');
     });
 

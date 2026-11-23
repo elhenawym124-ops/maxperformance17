@@ -1,0 +1,30 @@
+name: App Manifest Contract & Publish Gate CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/backend/catalog/marketplace/**'
+      - 'apps/backend/prisma/schema/marketplace.prisma'
+      - 'apps/backend/services/appManifestService.js'
+      - 'scripts/ci/check-app-manifests.js'
+  pull_request:
+    branches: [main]
+
+jobs:
+  manifest-contract-gate:
+    name: Validate Application Manifests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Run CI Manifest Gate on Fixtures
+        run: |
+          node scripts/ci/validate-app-manifests.js --fixture apps/backend/tests/fixtures/valid-manifest-app.json

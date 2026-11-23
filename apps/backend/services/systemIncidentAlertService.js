@@ -1007,22 +1007,42 @@ class SystemIncidentAlertService {
             whatsapp: false
         };
 
-        // 1. الحفظ في جدول notifications (لكل مسؤولي الشركة حيث userId = null)
+        // 1. الحفظ في جدول notifications لكل مسؤولي الشركة مع ربط userId صريح
         try {
             if (prisma?.notification?.create) {
-                const created = await prisma.notification.create({
-                    data: {
-                        companyId,
-                        userId: null, // إشعار عام للشركة
-                        type: prefTypeId,
-                        title,
-                        message,
-                        data: notificationData,
-                        isRead: false
+                const notificationService = require('./notificationService');
+                const recipientUserIds = await notificationService.resolveCompanyRecipientUserIds(companyId);
+                if (recipientUserIds && recipientUserIds.length > 0) {
+                    for (const uId of recipientUserIds) {
+                        const created = await prisma.notification.create({
+                            data: {
+                                companyId,
+                                userId: uId,
+                                type: prefTypeId,
+                                title,
+                                message,
+                                data: notificationData,
+                                isRead: false
+                            }
+                        });
+                        dispatchResults.db = true;
+                        notificationData.id = created.id;
                     }
-                });
-                dispatchResults.db = true;
-                notificationData.id = created.id;
+                } else {
+                    const created = await prisma.notification.create({
+                        data: {
+                            companyId,
+                            userId: null,
+                            type: prefTypeId,
+                            title,
+                            message,
+                            data: notificationData,
+                            isRead: false
+                        }
+                    });
+                    dispatchResults.db = true;
+                    notificationData.id = created.id;
+                }
             }
         } catch (dbErr) {
             console.error('❌ [SYSTEM-INCIDENT] Failed to save in DB:', dbErr.message);

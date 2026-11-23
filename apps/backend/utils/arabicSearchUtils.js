@@ -239,6 +239,7 @@ function buildNormalizedProductSearchText(product) {
     product.description,
     product.tags,
     product.sku,
+    product.barcode,
     product.slug,
     product.category?.name,
     product.category?.slug,
@@ -249,6 +250,7 @@ function buildNormalizedProductSearchText(product) {
       if (!variant) continue;
       parts.push(variant.name);
       parts.push(variant.sku);
+      parts.push(variant.barcode);
     }
   }
 
@@ -307,6 +309,7 @@ function buildProductSearchFilter(rawSearch) {
       fieldConditions.push({ description: { contains: v, mode: 'insensitive' } });
       fieldConditions.push({ tags: { contains: v, mode: 'insensitive' } });
       fieldConditions.push({ sku: { contains: v, mode: 'insensitive' } });
+      fieldConditions.push({ barcode: { contains: v, mode: 'insensitive' } });
       fieldConditions.push({ slug: { contains: v, mode: 'insensitive' } });
       fieldConditions.push({ category: { name: { contains: v, mode: 'insensitive' } } });
       fieldConditions.push({ category: { slug: { contains: v, mode: 'insensitive' } } });
@@ -315,6 +318,7 @@ function buildProductSearchFilter(rawSearch) {
           some: {
             OR: [
               { sku: { contains: v, mode: 'insensitive' } },
+              { barcode: { contains: v, mode: 'insensitive' } },
               { name: { contains: v, mode: 'insensitive' } },
             ],
           },

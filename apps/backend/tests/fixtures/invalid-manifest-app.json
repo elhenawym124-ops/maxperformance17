@@ -1,0 +1,14 @@
+{
+  "slug": "unmanifested-tool",
+  "name": "Unmanifested Bad Tool",
+  "description": "App that has no manifestVersion and no entryRoute",
+  "permissions": ["non_existent_fake_permission"],
+  "settingsSchema": {
+    "type": "invalid_type",
+    "properties": {
+      "secretKey": {
+        "type": "custom_unsupported_type"
+      }
+    }
+  }
+}

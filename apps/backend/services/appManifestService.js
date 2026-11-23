@@ -1,282 +1,472 @@
 /**
- * App Manifest & Publishing Gate Service
- * 
- * Enforces the strict App Contract and platform security gate for Marketplace apps:
- * - Manifest validation (version, permissions, settingsSchema, routes, healthCheck)
- * - Publishing gate: Rejects app publishing without a compliant manifest
- * - Rejects apps with active killSwitch, empty settingsSchema, or undeclared permissions
- * - Schema-driven settings validation and default value extraction
- * - Direct database integration with MarketplaceApp model
+ * App Manifest Service & Publishing Gate
+ * Enforces the Application Manifest Contract, Settings Schema validation,
+ * Kill Switch enforcement, and Runtime Configuration.
  */
 
-const {
-  validateManifest: internalValidateManifest,
-  assertValidManifest: internalAssertValidManifest,
-  CORE_PROTECTED_DOMAINS,
-  getPlatformPermissions
-} = require('./appContract/appManifestValidator');
-const appKillSwitchService = require('./appContract/appKillSwitchService');
-const { getSharedPrismaClient, executeWithRetry } = require('./sharedDatabase');
+const { getSharedPrismaClient } = require('./sharedDatabase');
+const { isValidPermission } = require('../constants/permissionsRegistry');
+
+// ── Custom Error Classes ──────────────────────────────────────────────────────
+class ManifestInvalidError extends Error {
+  constructor(message, errors = []) {
+    super(message);
+    this.name = 'ManifestInvalidError';
+    this.code = 'PUBLISH_GATE_REJECTED';
+    this.status = 422;
+    this.statusCode = 422;
+    this.errors = errors;
+  }
+}
+
+// ── In-Memory Fast Cache for Kill Switch (30-second TTL) ─────────────────────
+const KILL_SWITCH_CACHE_TTL_MS = 30 * 1000;
+const _killSwitchCache = new Map(); // key -> { active: boolean, expiresAt: number, reason: string }
+
+// ── Allowed Top-Level Manifest Keys ──────────────────────────────────────────
+const ALLOWED_MANIFEST_KEYS = new Set([
+  'manifestVersion',
+  'appVersion',
+  'name',
+  'slug',
+  'description',
+  'entryRoute',
+  'mainRoute',
+  'permissions',
+  'settingsSchema',
+  'version',
+  'minPlatformVersion',
+  'defaultEnabled',
+  'featureFlag',
+  'routes',
+  'healthCheck',
+  'category',
+  'icon',
+  'logo',
+  'pricingModel'
+]);
+
+// ── Disallowed Secret Pattern ────────────────────────────────────────────────
+const SECRET_KEY_PATTERN = /(secret|token|password|auth_key|private_key)/i;
+
+// ── SemVer Regex ─────────────────────────────────────────────────────────────
+const SEMVER_PATTERN = /^\d+\.\d+(\.\d+)?(-[a-zA-Z0-9.]+)?$/;
 
 class AppManifestService {
-  constructor(options = {}) {
-    this.options = options;
-  }
-
   /**
-   * Validates a manifest object against the App Contract rules
-   * @param {Object} manifest - Manifest definition
-   * @param {Object} [options] - Optional validation options
+   * Validates an Application Manifest against the contract specification (§2, §3, Condition 3)
+   * @param {Object|string} manifest
    * @returns {{ valid: boolean, errors: string[], warnings: string[] }}
    */
-  validateManifest(manifest, options = {}) {
-    return internalValidateManifest(manifest, options);
-  }
-
-  /**
-   * Asserts that a manifest is fully valid, throwing if not
-   * @param {Object} manifest 
-   * @param {Object} [options] 
-   */
-  assertValidManifest(manifest, options = {}) {
-    return internalAssertValidManifest(manifest, options.toolDir);
-  }
-
-  /**
-   * Normalizes or compiles a manifest object from app data or partial inputs
-   * @param {Object} appData 
-   * @returns {Object} Compiled manifest
-   */
-  extractOrCompileManifest(appData) {
-    if (!appData || typeof appData !== 'object') {
-      return null;
-    }
-
-    let manifest = appData.manifest;
-    if (typeof manifest === 'string') {
-      try {
-        manifest = JSON.parse(manifest);
-      } catch (_) {
-        manifest = null;
-      }
-    }
-
-    if (manifest && typeof manifest === 'object' && !Array.isArray(manifest)) {
-      return manifest;
-    }
-
-    const slug = String(appData.slug || '').trim().toLowerCase();
-    if (!slug) return null;
-
-    let permissions = [];
-    if (Array.isArray(appData.permissions)) {
-      permissions = appData.permissions.map((p) => String(p).trim()).filter(Boolean);
-    } else if (typeof appData.permissions === 'string') {
-      try {
-        const parsed = JSON.parse(appData.permissions);
-        if (Array.isArray(parsed)) permissions = parsed.map((p) => String(p).trim()).filter(Boolean);
-      } catch (_) {
-        permissions = appData.permissions.split(',').map((p) => p.trim()).filter(Boolean);
-      }
-    }
-
-    let settingsSchema = appData.settingsSchema;
-    if (typeof settingsSchema === 'string') {
-      try {
-        settingsSchema = JSON.parse(settingsSchema);
-      } catch (_) {
-        settingsSchema = null;
-      }
-    }
-
-    const featureFlag = appData.featureFlag || `FEATURE_${slug.toUpperCase().replace(/[^A-Z0-9]/g, '_')}`;
-    const defaultPermission = permissions[0] || 'dashboard.view';
-
-    return {
-      slug,
-      name: String(appData.name || slug).trim(),
-      version: String(appData.version || '1.0.0').trim(),
-      minPlatformVersion: String(appData.minPlatformVersion || '1.0.0').trim(),
-      category: appData.category || 'general',
-      pricingModel: appData.pricingModel || 'SUBSCRIPTION',
-      icon: appData.icon || appData.logo || null,
-      permissions,
-      featureFlag,
-      defaultEnabled: false,
-      routes: appData.routes || {
-        prefix: `/api/v1/tools/${slug}`,
-        endpoints: [
-          {
-            path: '/health',
-            method: 'GET',
-            permission: defaultPermission,
-            handler: 'health'
-          }
-        ]
-      },
-      healthCheck: appData.healthCheck || `/api/v1/tools/${slug}/health`,
-      settingsSchema: settingsSchema || null
-    };
-  }
-
-  /**
-   * Publishing Gate Validator
-   * 
-   * Evaluates whether an app meets all prerequisites to be published (`isPublic: true`).
-   * Rejects publishing if:
-   * 1. No valid manifest is present or compilable
-   * 2. Manifest fails App Contract rules (version, minPlatformVersion, routes, guards, etc.)
-   * 3. KillSwitch is currently active for the app
-   * 4. settingsSchema is missing, not an object, or has 0 properties (rule: zero empty settings pages)
-   * 5. permissions array is missing, empty, or requests undeclared permissions
-   * 6. Slug or routes collide with platform protected domains
-   * 
-   * @param {Object} appOrPayload - The app record or update payload
-   * @param {Object} [existingApp] - Optional existing app record in DB
-   * @returns {{ canPublish: boolean, errors: string[], warnings: string[], manifest?: Object }}
-   */
-  validatePublishGate(appOrPayload, existingApp = null) {
+  validateManifest(manifest) {
     const errors = [];
     const warnings = [];
 
-    if (!appOrPayload || typeof appOrPayload !== 'object') {
-      return {
-        canPublish: false,
-        errors: ['بيانات التطبيق غير صالحة (App data must be a valid object)'],
-        warnings: []
-      };
+    if (!manifest || (typeof manifest !== 'object' && typeof manifest !== 'string')) {
+      return { valid: false, errors: ['المانيفست مطلوب ويجب أن يكون كائناً (Object)'], warnings: [] };
     }
 
-    // Merge existing DB state with update payload if provided
-    const merged = {
-      ...(existingApp || {}),
-      ...appOrPayload
-    };
-
-    const slug = String(merged.slug || '').trim().toLowerCase();
-    if (!slug) {
-      errors.push('معرف التطبيق (slug) مطلوب للتحقق من بوابة النشر');
-      return { canPublish: false, errors, warnings };
-    }
-
-    // 1. KillSwitch Check: Cannot publish an app that is currently killed
-    const isKilled = Boolean(merged.killSwitch) || appKillSwitchService.isKillSwitchActive(slug);
-    if (isKilled) {
-      errors.push(`لا يمكن نشر التطبيق "${slug}" لأن مفتاح الإيقاف الطارئ (Kill Switch) مفعل حالياً.`);
-    }
-
-    // 2. Manifest Existence Check
-    const manifest = this.extractOrCompileManifest(merged);
-    if (!manifest) {
-      errors.push('لا يمكن نشر التطبيق بدون مانيفست صالح (Missing app manifest)');
-      return { canPublish: false, errors, warnings };
-    }
-
-    // 3. Strict Manifest Validation
-    const manifestValidation = this.validateManifest(manifest);
-    if (!manifestValidation.valid) {
-      errors.push(...manifestValidation.errors);
-    }
-    if (manifestValidation.warnings) {
-      warnings.push(...manifestValidation.warnings);
-    }
-
-    // 4. Permissions Strict Validation
-    if (!Array.isArray(manifest.permissions) || manifest.permissions.length === 0) {
-      errors.push('صلاحيات التطبيق (permissions) مطلوبة وغير فارغة لنشر التطبيق');
-    }
-
-    // 5. SettingsSchema Strict Validation (Zero empty settings pages rule)
-    if (!manifest.settingsSchema || typeof manifest.settingsSchema !== 'object' || Array.isArray(manifest.settingsSchema)) {
-      errors.push('مخطط الإعدادات (settingsSchema) مطلوب ويجب أن يكون كائن صالح للنشر');
-    } else {
-      const properties = manifest.settingsSchema.properties;
-      if (!properties || typeof properties !== 'object' || Object.keys(properties).length === 0) {
-        errors.push('مخطط الإعدادات (settingsSchema.properties) يجب أن يحتوي على خاصية واحدة على الأقل لمنع صفحات الإعدادات الفارغة');
+    let parsed = manifest;
+    if (typeof manifest === 'string') {
+      try {
+        parsed = JSON.parse(manifest);
+      } catch (err) {
+        return { valid: false, errors: [`فشل تحليل كائن المانيفست: ${err.message}`], warnings: [] };
       }
     }
 
-    // 6. Versioning check
-    if (!manifest.version || typeof manifest.version !== 'string') {
-      errors.push('إصدار التطبيق (version) مطلوب للنشر');
+    // 1. Payload size check (≤ 32 KB)
+    try {
+      const payloadBytes = Buffer.byteLength(JSON.stringify(parsed), 'utf8');
+      if (payloadBytes > 32768) {
+        errors.push(`حجم حمولة المانيفست (${payloadBytes} bytes) يتجاوز الحد الأقصى المسموح به (32 KB / 32768 bytes)`);
+      }
+    } catch (_) {}
+
+    // 2. Disallowed keys check (no unknown keys at root level)
+    for (const key of Object.keys(parsed)) {
+      if (!ALLOWED_MANIFEST_KEYS.has(key)) {
+        errors.push(`حقل غير مسموح به في المانيفست: "${key}". الحقول المسموحة: [${Array.from(ALLOWED_MANIFEST_KEYS).join(', ')}]`);
+      }
+      if (SECRET_KEY_PATTERN.test(key)) {
+        errors.push(`حظر أمني: المانيفست يحتوي على حقل سري غير مصرح به: "${key}"`);
+      }
+    }
+
+    // 3. Check for embedded secrets in string values
+    const scanForSecrets = (obj, path = '') => {
+      if (!obj || typeof obj !== 'object') return;
+      for (const [k, v] of Object.entries(obj)) {
+        const currentPath = path ? `${path}.${k}` : k;
+        if (SECRET_KEY_PATTERN.test(k)) {
+          errors.push(`حظر أمني: المانيفست يحتوي على مفتاح حساس/سري: "${currentPath}"`);
+        }
+        if (typeof v === 'object') {
+          scanForSecrets(v, currentPath);
+        }
+      }
+    };
+    scanForSecrets(parsed);
+
+    // 4. manifestVersion is semver
+    const manifestVersion = String(parsed.manifestVersion || parsed.version || '').trim();
+    if (!manifestVersion) {
+      errors.push('إصدار المانيفست (manifestVersion / version) مطلوب');
+    } else if (!SEMVER_PATTERN.test(manifestVersion)) {
+      errors.push(`إصدار المانيفست غير صالح (manifestVersion / version): "${manifestVersion}". يجب أن يتبع معيار SemVer مثل "1.0" أو "1.0.0"`);
+    }
+
+    // 5. At least one entryRoute (starts with /)
+    const entryRoute = parsed.entryRoute || parsed.mainRoute || parsed.routes?.prefix || parsed.healthCheck;
+    if (!entryRoute || typeof entryRoute !== 'string' || !entryRoute.trim().startsWith('/')) {
+      errors.push('مسار المدخل (entryRoute) مطلوب ويجب أن يبدأ بـ "/" (مثال: "/app/custom-tool")');
+    }
+
+    // 6. Permissions registry validation
+    if (parsed.permissions !== undefined && parsed.permissions !== null) {
+      if (!Array.isArray(parsed.permissions)) {
+        errors.push('حقل الصلاحيات (permissions) يجب أن يكون مصفوفة من النصوص (Array<string>)');
+      } else {
+        for (const perm of parsed.permissions) {
+          if (!isValidPermission(perm)) {
+            errors.push(`الصلاحية "${perm}" غير مسجلة في سجل صلاحيات المنصة (permissions registry)`);
+          }
+        }
+      }
+    }
+
+    // 7. settingsSchema validation (§2)
+    if (parsed.settingsSchema !== undefined && parsed.settingsSchema !== null) {
+      const schemaErrors = this.validateSettingsSchemaDefinition(parsed.settingsSchema);
+      errors.push(...schemaErrors);
+    } else {
+      errors.push('مخطط الإعدادات (settingsSchema) مطلوب ويجب أن يحتوي على properties غير فارغة');
+    }
+
+    // 8. defaultEnabled must be strictly false
+    if (parsed.defaultEnabled === true) {
+      errors.push('غير مسموح بتفعيل الأداة تلقائياً (defaultEnabled must be false)');
     }
 
     return {
-      canPublish: errors.length === 0,
+      valid: errors.length === 0,
       errors,
-      warnings,
-      manifest
+      warnings
     };
   }
 
   /**
-   * Asserts that an app can be published, throwing a structured error if not
-   * @param {Object} appOrPayload 
-   * @param {Object} [existingApp] 
+   * Validates the structure and types of settingsSchema against the §2 specification
+   * Supported field types ONLY: string, number, boolean, string+enum, array<string>
+   * @param {Object|string} schema
+   * @returns {string[]} errors
    */
-  assertCanPublish(appOrPayload, existingApp = null) {
+  validateSettingsSchemaDefinition(schema) {
+    const errors = [];
+    let parsed = schema;
+    if (typeof schema === 'string') {
+      try { parsed = JSON.parse(schema); } catch (e) {
+        return [`مخطط الإعدادات (settingsSchema) غير صالح كـ JSON: ${e.message}`];
+      }
+    }
+
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      return ['مخطط الإعدادات (settingsSchema) يجب أن يكون كائناً (Object)'];
+    }
+
+    if (parsed.type !== 'object') {
+      errors.push('نوع مخطط الإعدادات الرئيسي (settingsSchema.type) يجب أن يكون "object"');
+    }
+
+    const properties = parsed.properties;
+    if (!properties || typeof properties !== 'object' || Array.isArray(properties) || Object.keys(properties).length === 0) {
+      errors.push('مخطط الإعدادات (settingsSchema) يجب أن يحتوي على خصائص (properties) غير فارغة');
+      return errors;
+    }
+
+    const allowedTypes = new Set(['string', 'number', 'boolean', 'array']);
+
+    for (const [key, prop] of Object.entries(properties)) {
+      if (!prop || typeof prop !== 'object' || Array.isArray(prop)) {
+        errors.push(`خاصية الإعداد "${key}" يجب أن تكون كائناً صالحاً`);
+        continue;
+      }
+
+      // Title is required per property
+      if (!prop.title || typeof prop.title !== 'string' || !prop.title.trim()) {
+        errors.push(`خاصية الإعداد "${key}" تتطلب حقلاً عنواناً (title)`);
+      }
+
+      const type = prop.type;
+      if (!allowedTypes.has(type)) {
+        errors.push(`نوع الخاصية "${key}" (${type}) غير مدعوم. الأنواع المدعومة فقط: string, number, boolean, string+enum, array<string>`);
+        continue;
+      }
+
+      // array must be array<string>
+      if (type === 'array') {
+        if (!prop.items || prop.items.type !== 'string') {
+          errors.push(`خاصية المصفوفة "${key}" يجب أن تكون مصفوفة نصوص حصراً (array<string>) مع items.type = "string"`);
+        }
+      }
+
+      // enum must be array of strings
+      if (prop.enum !== undefined && (!Array.isArray(prop.enum) || prop.enum.some(e => typeof e !== 'string'))) {
+        errors.push(`خيارات enum للخاصية "${key}" يجب أن تكون مصفوفة نصوص`);
+      }
+
+      // number min/max validation
+      if (type === 'number') {
+        if (prop.minimum !== undefined && typeof prop.minimum !== 'number') {
+          errors.push(`الحد الأدنى minimum للخاصية "${key}" يجب أن يكون رقماً`);
+        }
+        if (prop.maximum !== undefined && typeof prop.maximum !== 'number') {
+          errors.push(`الحد الأقصى maximum للخاصية "${key}" يجب أن يكون رقماً`);
+        }
+      }
+    }
+
+    return errors;
+  }
+
+  /**
+   * Asserts that an app can be published; throws ManifestInvalidError if not publishable
+   * @param {string} appId
+   * @returns {Promise<Object>} The valid app with compiled manifest
+   */
+  async assertPublishable(appId) {
+    if (!appId) throw new ManifestInvalidError('معرف التطبيق مطلوب للتحقق من بوابة النشر', ['appId is required']);
+
+    const prisma = getSharedPrismaClient();
+    const stripped = String(appId).replace(/^cat-app-/, '');
+    const app = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [
+          { id: appId },
+          { slug: appId },
+          { slug: stripped }
+        ]
+      }
+    });
+
+    if (!app) {
+      throw new ManifestInvalidError(`التطبيق "${appId}" غير موجود في قاعدة البيانات`, ['App not found']);
+    }
+
+    // Fast-path: Check kill switch
+    if (app.killSwitch || this.isKillSwitchActive(app.slug)) {
+      throw new ManifestInvalidError(`لا يمكن نشر التطبيق "${app.slug}": مفتاح الإيقاف الفوري (Kill Switch) نشط`, [
+        'Kill switch is currently active'
+      ]);
+    }
+
+    const manifestToValidate = app.manifest || {
+      manifestVersion: app.manifestVersion || '1.0',
+      appVersion: app.appVersion || app.version || '1.0.0',
+      entryRoute: app.entryRoute || app.mainRoute,
+      permissions: app.permissions || [],
+      settingsSchema: app.settingsSchema,
+      name: app.name,
+      slug: app.slug
+    };
+
+    const validation = this.validateManifest(manifestToValidate);
+    if (!validation.valid) {
+      throw new ManifestInvalidError(
+        `بوابة النشر رفضت نشر التطبيق "${app.slug}": مخالفة عقد التطبيق`,
+        validation.errors
+      );
+    }
+
+    return {
+      app,
+      manifest: manifestToValidate
+    };
+  }
+
+  /**
+   * Alias for backward compatibility
+   */
+  assertCanPublish(appOrPayload, existingApp) {
     const verdict = this.validatePublishGate(appOrPayload, existingApp);
     if (!verdict.canPublish) {
-      const errorMsg = `بوابة النشر رفضت نشر التطبيق "${appOrPayload?.slug || 'unknown'}":\n- ` + verdict.errors.join('\n- ');
-      const err = new Error(errorMsg);
-      err.code = 'PUBLISH_GATE_REJECTED';
-      err.status = 422;
-      err.errors = verdict.errors;
-      err.details = verdict;
+      const err = new ManifestInvalidError(
+        `بوابة النشر رفضت نشر التطبيق: التطبيق لا يستوفي عقد التطبيق`,
+        verdict.errors
+      );
       throw err;
     }
     return verdict;
   }
 
   /**
-   * Retrieves an app's manifest from Registry, DB, or Catalog
-   * @param {string} slugOrId 
+   * Registers or updates a manifest for an app in the database
+   * @param {string} appId
+   * @param {Object} manifest
+   * @returns {Promise<Object>}
+   */
+  async registerManifest(appId, manifest) {
+    const validation = this.validateManifest(manifest);
+    if (!validation.valid) {
+      throw new ManifestInvalidError('فشل تسجيل المانيفست: البيانات لا تستوفي متطلبات عقد التطبيق', validation.errors);
+    }
+
+    const prisma = getSharedPrismaClient();
+    const stripped = String(appId).replace(/^cat-app-/, '');
+    const app = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [{ id: appId }, { slug: appId }, { slug: stripped }]
+      }
+    });
+
+    if (!app) {
+      throw new ManifestInvalidError(`التطبيق "${appId}" غير موجود`, ['App not found']);
+    }
+
+    const updated = await prisma.marketplaceApp.update({
+      where: { id: app.id },
+      data: {
+        manifestVersion: manifest.manifestVersion || '1.0',
+        appVersion: manifest.appVersion || manifest.version || '1.0.0',
+        entryRoute: manifest.entryRoute,
+        permissions: manifest.permissions || [],
+        settingsSchema: manifest.settingsSchema || null,
+        manifest: manifest,
+        version: manifest.appVersion || manifest.version || '1.0.0'
+      }
+    });
+
+    return updated;
+  }
+
+  /**
+   * Gets runtime configuration for an app: { permissions, settingsSchema, entryRoute, appVersion, killSwitch }
+   * @param {string} appId
    * @returns {Promise<Object|null>}
    */
-  async getAppManifest(slugOrId) {
-    if (!slugOrId) return null;
-    const normalized = String(slugOrId).trim().toLowerCase();
+  async getRuntimeConfig(appId) {
+    if (!appId) return null;
+    const prisma = getSharedPrismaClient();
+    const stripped = String(appId).replace(/^cat-app-/, '');
 
-    // 1. Check tools registry
-    try {
-      const appRegistryService = require('./appContract/appRegistryService');
-      const tool = appRegistryService.getTool(normalized);
-      if (tool?.manifest) {
-        return tool.manifest;
+    const app = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [{ id: appId }, { slug: appId }, { slug: stripped }]
+      },
+      select: {
+        id: true,
+        slug: true,
+        manifestVersion: true,
+        appVersion: true,
+        version: true,
+        permissions: true,
+        settingsSchema: true,
+        entryRoute: true,
+        mainRoute: true,
+        killSwitch: true,
+        manifest: true
       }
-    } catch (_) {}
+    });
 
-    // 2. Check Database MarketplaceApp
-    try {
-      const prisma = getSharedPrismaClient();
-      const stripped = normalized.replace(/^cat-app-/, '');
-      const dbApp = await executeWithRetry(async () => {
-        return await prisma.marketplaceApp.findFirst({
-          where: {
-            OR: [
-              { id: slugOrId },
-              { slug: normalized },
-              { slug: stripped }
-            ]
-          }
-        });
-      });
+    if (!app) return null;
 
-      if (dbApp) {
-        if (dbApp.manifest && typeof dbApp.manifest === 'object') {
-          return dbApp.manifest;
-        }
-        return this.extractOrCompileManifest(dbApp);
+    const isKilled = this.isKillSwitchActive(app.slug) || Boolean(app.killSwitch);
+
+    return {
+      permissions: app.permissions || [],
+      settingsSchema: app.settingsSchema || null,
+      entryRoute: app.entryRoute || app.mainRoute || `/app/${app.slug}`,
+      appVersion: app.appVersion || app.version || '1.0.0',
+      manifestVersion: app.manifestVersion || '1.0',
+      killSwitch: isKilled
+    };
+  }
+
+  /**
+   * Checks if an app is enabled for a specific company (Tenant Isolation)
+   * @param {string} appId
+   * @param {string} companyId
+   * @returns {Promise<boolean>}
+   */
+  async isEnabled(appId, companyId) {
+    if (!appId || !companyId) return false;
+
+    // Fast-path: Check kill switch
+    if (this.isKillSwitchActive(appId)) return false;
+
+    const prisma = getSharedPrismaClient();
+    const stripped = String(appId).replace(/^cat-app-/, '');
+
+    const app = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [{ id: appId }, { slug: appId }, { slug: stripped }]
+      },
+      select: { id: true, slug: true, isActive: true, killSwitch: true }
+    });
+
+    if (!app || !app.isActive || app.killSwitch || this.isKillSwitchActive(app.slug)) {
+      return false;
+    }
+
+    // Check company app installation scoped by companyId
+    const installation = await prisma.companyApp.findFirst({
+      where: {
+        companyId,
+        appId: app.id,
+        status: { in: ['ACTIVE', 'TRIAL', 'active', 'trial'] }
       }
-    } catch (_) {}
+    });
 
-    return null;
+    return Boolean(installation);
+  }
+
+  /**
+   * Fast In-Memory Kill Switch status check (≤ 30s TTL, 0s latency)
+   * @param {string} slugOrId
+   * @returns {boolean}
+   */
+  isKillSwitchActive(slugOrId) {
+    if (!slugOrId) return false;
+    const key = String(slugOrId).toLowerCase().trim();
+    const cached = _killSwitchCache.get(key);
+    if (cached && Date.now() < cached.expiresAt) {
+      return Boolean(cached.active);
+    }
+    return false;
+  }
+
+  /**
+   * Sets or updates kill switch state in cache and memory
+   * @param {string} slugOrId
+   * @param {boolean} active
+   * @param {string} [reason]
+   */
+  setKillSwitchCache(slugOrId, active, reason = '') {
+    if (!slugOrId) return;
+    const key = String(slugOrId).toLowerCase().trim();
+    _killSwitchCache.set(key, {
+      active: Boolean(active),
+      reason,
+      expiresAt: Date.now() + KILL_SWITCH_CACHE_TTL_MS
+    });
+  }
+
+  /**
+   * Invalidates kill switch cache immediately
+   * @param {string} [slugOrId]
+   */
+  invalidateKillSwitchCache(slugOrId) {
+    if (slugOrId) {
+      _killSwitchCache.delete(String(slugOrId).toLowerCase().trim());
+    } else {
+      _killSwitchCache.clear();
+    }
   }
 
   /**
    * Validates user-supplied app settings against a settingsSchema definition
-   * @param {Object} settings - Key-value map of settings
-   * @param {Object} schema - JSON Schema definition
+   * @param {Object} settings
+   * @param {Object|string} schema
    * @returns {{ valid: boolean, errors: string[] }}
    */
   validateSettingsAgainstSchema(settings = {}, schema) {
@@ -299,7 +489,6 @@ class AppManifestService {
     const properties = effectiveSchema.properties || {};
     const requiredKeys = new Set(Array.isArray(effectiveSchema.required) ? effectiveSchema.required : []);
 
-    // Check required fields
     for (const key of requiredKeys) {
       const val = settings[key];
       if (val === undefined || val === null || val === '') {
@@ -307,14 +496,13 @@ class AppManifestService {
       }
     }
 
-    // Type and bounds validation
     for (const [key, prop] of Object.entries(properties)) {
       const val = settings[key];
       if (val === undefined || val === null) continue;
 
       if (prop.type === 'string' && typeof val !== 'string') {
         errors.push(`الحقل "${key}" يجب أن يكون نصاً (string)`);
-      } else if ((prop.type === 'number' || prop.type === 'integer')) {
+      } else if (prop.type === 'number' || prop.type === 'integer') {
         const num = Number(val);
         if (isNaN(num)) {
           errors.push(`الحقل "${key}" يجب أن يكون رقماً (number)`);
@@ -343,7 +531,7 @@ class AppManifestService {
 
   /**
    * Extracts default values from a settingsSchema definition
-   * @param {Object} schema 
+   * @param {Object} schema
    * @returns {Object}
    */
   getDefaultSettingsFromSchema(schema) {
@@ -378,6 +566,123 @@ class AppManifestService {
   }
 
   /**
+   * Compiles or extracts manifest from app payload
+   */
+  extractOrCompileManifest(appData) {
+    if (!appData || typeof appData !== 'object') return null;
+    let manifest = appData.manifest;
+    if (typeof manifest === 'string') {
+      try { manifest = JSON.parse(manifest); } catch (_) { manifest = null; }
+    }
+    if (manifest && typeof manifest === 'object' && !Array.isArray(manifest)) {
+      return manifest;
+    }
+
+    const slug = String(appData.slug || '').trim().toLowerCase();
+    if (!slug) return null;
+
+    let permissions = [];
+    if (Array.isArray(appData.permissions)) {
+      permissions = appData.permissions;
+    }
+
+    const version = appData.version || appData.appVersion || '1.0.0';
+    const entryRoute = appData.entryRoute || appData.mainRoute || `/app/${slug}`;
+
+    return {
+      manifestVersion: appData.manifestVersion || '1.0',
+      appVersion: version,
+      version: version,
+      name: appData.name || slug,
+      slug,
+      description: appData.description || '',
+      entryRoute,
+      permissions,
+      defaultEnabled: false,
+      routes: {
+        prefix: `/api/v1/tools/${slug}`,
+        endpoints: [
+          { path: '/status', method: 'GET', permission: permissions[0] || 'dashboard.view', handler: 'status' }
+        ]
+      },
+      healthCheck: `/api/v1/tools/${slug}/status`,
+      settingsSchema: appData.settingsSchema || null
+    };
+  }
+
+  /**
+   * Validates publishing gate for payloads or DB records
+   * @param {Object} appOrPayload
+   * @param {Object} [existingApp]
+   * @returns {{ canPublish: boolean, errors: string[], manifest?: Object }}
+   */
+  validatePublishGate(appOrPayload, existingApp) {
+    const errors = [];
+    if (!appOrPayload) {
+      return { canPublish: false, errors: ['بيانات التطبيق مطلوبة'] };
+    }
+
+    const merged = { ...(existingApp || {}), ...appOrPayload };
+    const slug = merged.slug || merged.id;
+
+    if (!slug) {
+      return { canPublish: false, errors: ['معرف التطبيق (slug) مطلوب للتحقق من بوابة النشر'] };
+    }
+
+    // Kill switch check
+    let isKilled = Boolean(merged.killSwitch) || this.isKillSwitchActive(slug);
+    if (!isKilled) {
+      try {
+        const appKillSwitchService = require('./appContract/appKillSwitchService');
+        if (appKillSwitchService && appKillSwitchService.isKillSwitchActive(slug)) {
+          isKilled = true;
+        }
+      } catch (_) {}
+    }
+    if (isKilled) {
+      errors.push(`لا يمكن نشر الأداة "${slug}": مفتاح الإيقاف الفوري (Kill Switch) نشط للأداة`);
+    }
+
+    // Permissions check
+    if (!merged.permissions || (Array.isArray(merged.permissions) && merged.permissions.length === 0)) {
+      errors.push(`الأداة "${slug}" لا تحتوي على أي صلاحيات معلنة (permissions array is empty)`);
+    }
+
+    // Schema check
+    if (!merged.settingsSchema || (typeof merged.settingsSchema === 'object' && Object.keys(merged.settingsSchema.properties || {}).length === 0)) {
+      errors.push(`مخطط الإعدادات (settingsSchema) للأداة "${slug}" فارغ أو لا يحتوي على أي حقول (Zero Empty Settings Pages Rule)`);
+    }
+
+    const version = merged.version || merged.appVersion || '1.0.0';
+    const entryRoute = merged.entryRoute || merged.mainRoute || merged.routes?.prefix || merged.healthCheck || (merged.slug ? `/app/${merged.slug}` : null);
+
+    const manifestToValidate = merged.manifest || {
+      manifestVersion: merged.manifestVersion || '1.0',
+      appVersion: version,
+      version,
+      name: merged.name,
+      slug: merged.slug,
+      entryRoute,
+      permissions: merged.permissions,
+      settingsSchema: merged.settingsSchema,
+      routes: merged.routes,
+      healthCheck: merged.healthCheck
+    };
+
+    const manifestResult = this.validateManifest(manifestToValidate);
+    if (!manifestResult.valid) {
+      errors.push(...manifestResult.errors);
+    }
+
+    const uniqueErrors = Array.from(new Set(errors));
+    return {
+      canPublish: uniqueErrors.length === 0,
+      errors: uniqueErrors,
+      manifest: manifestToValidate
+    };
+  }
+
+  /**
    * Publishes an app in the platform through the publishing gate
    * @param {string} idOrSlug - ID or slug of the app
    * @param {Object} [overrides] - Optional overrides to update upon publishing
@@ -388,16 +693,14 @@ class AppManifestService {
 
     const prisma = getSharedPrismaClient();
     const strippedSlug = String(idOrSlug).replace(/^cat-app-/, '');
-    const app = await executeWithRetry(async () => {
-      return await prisma.marketplaceApp.findFirst({
-        where: {
-          OR: [
-            { id: idOrSlug },
-            { slug: idOrSlug },
-            { slug: strippedSlug }
-          ]
-        }
-      });
+    const app = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [
+          { id: idOrSlug },
+          { slug: idOrSlug },
+          { slug: strippedSlug }
+        ]
+      }
     });
 
     if (!app) {
@@ -407,32 +710,26 @@ class AppManifestService {
       throw err;
     }
 
-    const merged = {
-      ...app,
-      ...overrides,
-      isPublic: true
-    };
-
-    // Run publish gate
+    const merged = { ...app, ...overrides, isPublic: true };
     const gateVerdict = this.assertCanPublish(merged, app);
     const manifest = gateVerdict.manifest;
 
-    // Update in DB
-    const updated = await executeWithRetry(async () => {
-      return await prisma.marketplaceApp.update({
-        where: { id: app.id },
-        data: {
-          isPublic: true,
-          isActive: true,
-          version: manifest.version,
-          permissions: manifest.permissions,
-          settingsSchema: manifest.settingsSchema,
-          manifest,
-          killSwitch: false,
-          ...(overrides.name ? { name: overrides.name } : {}),
-          ...(overrides.description ? { description: overrides.description } : {})
-        }
-      });
+    const updated = await prisma.marketplaceApp.update({
+      where: { id: app.id },
+      data: {
+        isPublic: true,
+        isActive: true,
+        version: manifest.appVersion || manifest.version,
+        manifestVersion: manifest.manifestVersion || '1.0',
+        appVersion: manifest.appVersion || manifest.version || '1.0.0',
+        entryRoute: manifest.entryRoute || app.mainRoute,
+        permissions: manifest.permissions,
+        settingsSchema: manifest.settingsSchema,
+        manifest,
+        killSwitch: false,
+        ...(overrides.name ? { name: overrides.name } : {}),
+        ...(overrides.description ? { description: overrides.description } : {})
+      }
     });
 
     return updated;
@@ -440,7 +737,7 @@ class AppManifestService {
 
   /**
    * Unpublishes an app (sets isPublic: false)
-   * @param {string} idOrSlug 
+   * @param {string} idOrSlug
    * @returns {Promise<Object>}
    */
   async unpublishApp(idOrSlug) {
@@ -448,16 +745,14 @@ class AppManifestService {
 
     const prisma = getSharedPrismaClient();
     const strippedSlug = String(idOrSlug).replace(/^cat-app-/, '');
-    const app = await executeWithRetry(async () => {
-      return await prisma.marketplaceApp.findFirst({
-        where: {
-          OR: [
-            { id: idOrSlug },
-            { slug: idOrSlug },
-            { slug: strippedSlug }
-          ]
-        }
-      });
+    const app = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [
+          { id: idOrSlug },
+          { slug: idOrSlug },
+          { slug: strippedSlug }
+        ]
+      }
     });
 
     if (!app) {
@@ -467,14 +762,37 @@ class AppManifestService {
       throw err;
     }
 
-    const updated = await executeWithRetry(async () => {
-      return await prisma.marketplaceApp.update({
-        where: { id: app.id },
-        data: { isPublic: false }
-      });
+    const updated = await prisma.marketplaceApp.update({
+      where: { id: app.id },
+      data: { isPublic: false }
     });
 
     return updated;
+  }
+
+  /**
+   * Gets app manifest
+   * @param {string} slugOrId
+   * @returns {Promise<Object|null>}
+   */
+  async getAppManifest(slugOrId) {
+    if (!slugOrId) return null;
+    const normalized = String(slugOrId).trim().toLowerCase();
+    const stripped = normalized.replace(/^cat-app-/, '');
+
+    const prisma = getSharedPrismaClient();
+    const dbApp = await prisma.marketplaceApp.findFirst({
+      where: {
+        OR: [{ id: slugOrId }, { slug: normalized }, { slug: stripped }]
+      }
+    });
+
+    if (dbApp) {
+      if (dbApp.manifest && typeof dbApp.manifest === 'object') return dbApp.manifest;
+      return this.extractOrCompileManifest(dbApp);
+    }
+
+    return null;
   }
 }
 
@@ -482,5 +800,6 @@ const appManifestService = new AppManifestService();
 
 module.exports = {
   AppManifestService,
-  appManifestService
+  appManifestService,
+  ManifestInvalidError
 };

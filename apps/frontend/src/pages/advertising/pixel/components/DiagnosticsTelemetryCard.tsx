@@ -108,6 +108,24 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
           </div>
         </div>
 
+        {/* CAPI Error Alert in Telemetry */}
+        {diagnostics?.capi?.lastError && (
+          <div className="p-3.5 rounded-lg border border-red-200 dark:border-destructive/60 bg-destructive/40 dark:bg-destructive/20 text-xs">
+            <div className="flex items-center gap-2 font-bold text-destructive mb-1">
+              <XCircleIcon className="w-4 h-4 text-destructive" />
+              <span>
+                {diagnostics.capi.lastErrorCode ? `خطأ ميتا #${diagnostics.capi.lastErrorCode}: ` : "آخر خطأ في CAPI: "}
+                {diagnostics.capi.lastError}
+              </span>
+            </div>
+            {diagnostics.capi.lastErrorAt && (
+              <span className="text-[10px] text-muted-foreground">
+                تاريخ تسجيل الخطأ: {new Date(diagnostics.capi.lastErrorAt).toLocaleString("ar-EG")}
+              </span>
+            )}
+          </div>
+        )}
+
         {/* Token Permissions Result */}
         {tokenPermissions && (
           <div
@@ -144,6 +162,31 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
             )}
           </div>
         )}
+
+        {/* Meta Checklist for Merchant Owner */}
+        <div className="mt-4 p-4 rounded-xl border border-primary/20 bg-primary/5 dark:bg-card">
+          <h3 className="text-xs font-bold text-foreground mb-2 flex items-center gap-1.5">
+            <ShieldCheckIcon className="w-4 h-4 text-primary" />
+            <span>قائمة التحقق المطلوبة من مالك المتجر لدى Meta (Checklist):</span>
+          </h3>
+          <ul className="text-[11px] text-muted-foreground space-y-1.5 list-disc list-inside">
+            <li>
+              <strong>إضافة التطبيق للـ Business Portfolio:</strong> تأكد من ربط تطبيق Facebook بمحفظة الأعمال (Meta Business Suite).
+            </li>
+            <li>
+              <strong>إنشاء System User:</strong> أنشئ مستخدم نظام بصلاحية مسؤول (Admin) داخل Business Settings.
+            </li>
+            <li>
+              <strong>ربط أصل البيكسل (Assign Asset):</strong> عيّن البيكسل للمستخدم النظامي مع منح صلاحية Manage Pixel كاملة.
+            </li>
+            <li>
+              <strong>توليد Token دائم:</strong> استخرج Access Token مع تحديد صلاحية <code className="text-primary font-mono font-bold">ads_management</code> و <code className="text-primary font-mono font-bold">ads_read</code>.
+            </li>
+            <li>
+              <strong>وضع التطبيق (Live Mode / App Review):</strong> في حال ظهور خطأ <code>#270</code>، يعني أن التطبيق في وضع Development ويجب نقله لـ Live أو اعتماد صلاحية الإعلانات عبر App Review.
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   );

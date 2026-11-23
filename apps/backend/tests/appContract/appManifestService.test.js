@@ -41,6 +41,7 @@ describe('App Manifest Service & Publishing Gate', () => {
         },
         theme: {
           type: 'string',
+          title: 'السمة (Theme)',
           enum: ['light', 'dark', 'system'],
           default: 'system'
         }

@@ -309,15 +309,16 @@ async function saveIncomingMessage(payload) {
           messageType
         });
 
-        await getSharedPrismaClient().notification.create({
-          data: {
-            companyId,
-            userId: null,
-            type: 'new_message',
-            title: `رسالة جديدة من ${contactName}`,
-            message: notificationContent,
-            data: notifData
-          }
+        const notificationService = require('../notificationService');
+        const targetUserId = audience.userIds && audience.userIds.length > 0 ? audience.userIds[0] : null;
+        await notificationService.createNotification({
+          companyId,
+          userId: targetUserId,
+          type: 'new_message',
+          title: `رسالة جديدة من ${contactName}`,
+          message: notificationContent,
+          metadata: notifData,
+          windowMinutes: 1,
         });
       } catch (e) {
         console.error('❌ Error creating notification:', e.message);

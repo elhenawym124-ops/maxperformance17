@@ -524,7 +524,7 @@ exports.handleStorefrontShell = async (req, res, next) => {
               return null;
             })
           : Promise.resolve(null),
-        isShopRoute
+        (isShopRoute || isHomepage)
           ? safeQuery(() =>
               prisma.product
                 .findMany({
@@ -534,7 +534,7 @@ exports.handleStorefrontShell = async (req, res, next) => {
                     deletedAt: null,
                     isHidden: false,
                   },
-                  take: 30,
+                  take: isShopRoute ? 30 : 1,
                   orderBy: { createdAt: "desc" },
                   select: {
                     id: true,

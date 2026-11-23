@@ -455,21 +455,20 @@ async function scanOverdueCases(companyId = null) {
           }).catch(() => null);
 
           if (!existingInternal) {
-            await prisma.notification.create({
-              data: {
-                companyId: dentalCase.companyId,
-                title: `⚠️ تأخير حالة معمل: ${cNum}`,
-                message: `الحالة رقم ${cNum} للمريض (${patName}) - د. ${docName} متأخرة ${daysOverdue} يوم عن موعد التسليم.`,
-                type: 'DENTAL_CASE_OVERDUE',
-                data: {
-                  caseId: dentalCase.id,
-                  caseNumber: cNum,
-                  patientName: patName,
-                  doctorName: docName,
-                  dueDate: dentalCase.dueDate,
-                  daysOverdue,
-                  url: `/dental-lab/cases/${dentalCase.id}`,
-                },
+            const notificationService = require('./notificationService');
+            await notificationService.createNotification({
+              companyId: dentalCase.companyId,
+              title: `⚠️ تأخير حالة معمل: ${cNum}`,
+              message: `الحالة رقم ${cNum} للمريض (${patName}) - د. ${docName} متأخرة ${daysOverdue} يوم عن موعد التسليم.`,
+              type: 'DENTAL_CASE_OVERDUE',
+              metadata: {
+                caseId: dentalCase.id,
+                caseNumber: cNum,
+                patientName: patName,
+                doctorName: docName,
+                dueDate: dentalCase.dueDate,
+                daysOverdue,
+                url: `/dental-lab/cases/${dentalCase.id}`,
               },
             });
             internalNotifsCreated++;
@@ -675,20 +674,19 @@ async function scanUninvoicedBillingCycle(companyId = null, options = {}) {
 
         if (!existingNotif) {
           const dayLabel = dayOfGrace === 0 ? 'يوم الفوترة (30 في الشهر)' : `اليوم ${dayOfGrace} من 5 في مهلة الفوترة`;
-          await prisma.notification.create({
-            data: {
-              companyId: cid,
-              title: `📅 دورة الفوترة الشهرية (${dayLabel})`,
-              message: `تنبيه الفوترة: يوجد ${casesCount} حالة غير مفوترة لـ ${doctorsCount} طبيب بقيمة إجمالية ${totalAmount} ج.م بانتظار إصدار الفواتير.`,
-              type: 'DENTAL_MONTHLY_BILLING_REMINDER',
-              data: {
-                uninvoicedCount: casesCount,
-                uninvoicedTotal: totalAmount,
-                doctorsCount,
-                dayOfGrace,
-                maxGraceDays: 5,
-                url: '/dental-lab/invoices?tab=uninvoiced',
-              },
+          const notificationService = require('./notificationService');
+          await notificationService.createNotification({
+            companyId: cid,
+            title: `📅 دورة الفوترة الشهرية (${dayLabel})`,
+            message: `تنبيه الفوترة: يوجد ${casesCount} حالة غير مفوترة لـ ${doctorsCount} طبيب بقيمة إجمالية ${totalAmount} ج.م بانتظار إصدار الفواتير.`,
+            type: 'DENTAL_MONTHLY_BILLING_REMINDER',
+            metadata: {
+              uninvoicedCount: casesCount,
+              uninvoicedTotal: totalAmount,
+              doctorsCount,
+              dayOfGrace,
+              maxGraceDays: 5,
+              url: '/dental-lab/invoices?tab=uninvoiced',
             },
           }).catch((err) => console.error('[DentalNotification] billing notification create error:', err.message));
           internalNotifsCreated++;

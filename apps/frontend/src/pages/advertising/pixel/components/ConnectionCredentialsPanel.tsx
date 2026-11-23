@@ -302,6 +302,53 @@ export const ConnectionCredentialsPanel: React.FC<ConnectionCredentialsPanelProp
               <span>فحص الصلاحيات</span>
             </button>
           </div>
+
+          {/* CAPI Status & Last Error Alert */}
+          {settings.capiStatus && (
+            <div
+              className={`p-3 rounded-lg border text-xs flex flex-col gap-1.5 ${
+                settings.capiStatus === "active"
+                  ? "border-emerald-200 dark:border-success/60 bg-success/40 dark:bg-success/20 text-success dark:text-success"
+                  : "border-red-200 dark:border-destructive/60 bg-destructive/40 dark:bg-destructive/20 text-destructive dark:text-destructive"
+              }`}
+            >
+              <div className="flex items-center justify-between font-bold">
+                <span className="flex items-center gap-1.5">
+                  {settings.capiStatus === "active" ? (
+                    <CheckCircleIcon className="w-4 h-4 text-success" />
+                  ) : (
+                    <ExclamationTriangleIcon className="w-4 h-4 text-destructive" />
+                  )}
+                  <span>
+                    حالة CAPI: {settings.capiStatus === "active" ? "متصل ونشط" : "يوجد خطأ في الاتصال"}
+                  </span>
+                </span>
+                {settings.lastCapiTest && (
+                  <span className="text-[10px] opacity-80">
+                    آخر فحص: {new Date(settings.lastCapiTest).toLocaleTimeString("ar-EG")}
+                  </span>
+                )}
+              </div>
+              {settings.lastCapiError && (
+                <div className="text-[11px] font-medium leading-relaxed bg-white/80 dark:bg-card p-2 rounded border border-border">
+                  <div className="font-bold text-destructive">
+                    {settings.lastCapiErrorCode ? `كود ميتا #${settings.lastCapiErrorCode}: ` : ""}
+                    {settings.lastCapiError}
+                  </div>
+                  {settings.lastCapiErrorCode === 270 && (
+                    <div className="text-muted-foreground mt-1 text-[10px]">
+                      ⚠️ <strong>توضيح:</strong> التطبيق يحتاج لإضافته داخل حساب Meta Business Portfolio ومراجعة صلاحيات ads_management من قبل Meta أو نقل التطبيق من Development Mode إلى Live.
+                    </div>
+                  )}
+                  {settings.lastCapiErrorCode === 190 && (
+                    <div className="text-muted-foreground mt-1 text-[10px]">
+                      ⚠️ <strong>توضيح:</strong> رمز الوصول (Token) غير صالح أو انتهت صلاحيته — يرجى استخراج System User Token جديد.
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>

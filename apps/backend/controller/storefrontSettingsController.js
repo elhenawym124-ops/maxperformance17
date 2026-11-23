@@ -393,6 +393,29 @@ const buildDiagnosticsData = (settings, pixelConfigs = [], company = null) => {
         'فعّل Conversions API وأضف Access Token لتحسين دقة التتبع ومقاومة Ad Blockers.'
       )
     );
+  } else if (settings?.lastCapiError) {
+    capiIssues.push(
+      createIssue(
+        'runtime',
+        settings.lastCapiErrorCode ? `capi_error_${settings.lastCapiErrorCode}` : 'capi_error',
+        `آخر خطأ في CAPI: ${settings.lastCapiError}`
+      )
+    );
+    if (settings.lastCapiErrorCode === 270) {
+      recommendations.push(
+        createRecommendation(
+          'high',
+          'خطأ ميتا #270: أضف التطبيق إلى Meta Business Portfolio واطلب صلاحية ads_management من App Review.'
+        )
+      );
+    } else if (settings.lastCapiErrorCode === 190) {
+      recommendations.push(
+        createRecommendation(
+          'high',
+          'خطأ ميتا #190: رمز الوصول منتهي الصلاحية أو غير صالح — يرجى تجديد الـ Access Token.'
+        )
+      );
+    }
   }
 
   if (!settings?.eventDeduplicationEnabled) {
@@ -436,6 +459,9 @@ const buildDiagnosticsData = (settings, pixelConfigs = [], company = null) => {
       hasToken: Boolean(effectiveCapiToken),
       tokenStatus: effectiveCapiToken ? 'available' : 'missing',
       lastTest: settings?.lastCapiTest || null,
+      lastError: settings?.lastCapiError || null,
+      lastErrorCode: settings?.lastCapiErrorCode || null,
+      lastErrorAt: settings?.lastCapiErrorAt || null,
       issues: capiIssues,
     },
     events: {
@@ -1040,6 +1066,29 @@ const testFacebookCapi = async (req, res) => {
       });
     }
 
+    if (accessToken.length < 100) {
+      const shortTokenError = 'رمز الوصول (Conversions API Token) غير صالح — يجب أن يكون الرمز الكامل من ميتا (أكثر من 100 حرف)';
+      await updateStorefrontSettingsStatus(companyId, {
+        capiStatus: 'error',
+        lastCapiTest: new Date(),
+        lastCapiError: shortTokenError,
+        lastCapiErrorCode: 190,
+        lastCapiErrorAt: new Date(),
+      });
+      return res.json({
+        success: false,
+        code: 190,
+        category: 'invalid_token',
+        message: shortTokenError,
+        data: {
+          success: false,
+          code: 190,
+          category: 'invalid_token',
+          message: shortTokenError,
+        },
+      });
+    }
+
     const testEventCode =
       trimToNull(req.body?.testEventCode) ||
       trimToNull(settings.facebookConvApiTestCode);
@@ -1055,6 +1104,9 @@ const testFacebookCapi = async (req, res) => {
     await updateStorefrontSettingsStatus(companyId, {
       capiStatus: result.success ? 'active' : 'error',
       lastCapiTest: new Date(),
+      lastCapiError: result.success ? null : (result.message || result.rawMessage || 'Failed connection test'),
+      lastCapiErrorCode: result.success ? null : (result.code || null),
+      lastCapiErrorAt: result.success ? null : new Date(),
     });
 
     return res.json({

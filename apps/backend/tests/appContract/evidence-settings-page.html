@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaxPerformance Marketplace - Auto-Generated App Settings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --input-bg: #1e293b;
+      --input-border: #374151;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 32px; direction: rtl; min-height: 100vh; }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--card-border); }
+    .app-title-area { display: flex; align-items: center; gap: 16px; }
+    .app-icon { width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 28px; }
+    .badges { display: flex; gap: 8px; margin-top: 6px; }
+    .badge { font-size: 11px; padding: 3px 10px; border-radius: 9999px; font-weight: 600; text-transform: uppercase; }
+    .badge-contract { background: #1e1b4b; color: #a5b4fc; border: 1px solid #4338ca; }
+    .badge-version { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
+    .badge-status { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+    .grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4); }
+    .section-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .section-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #e5e7eb; }
+    .form-description { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 14px; outline: none; transition: all 0.2s; }
+    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25); }
+    .switch-container { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; }
+    .switch { position: relative; display: inline-block; width: 48px; height: 26px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #4b5563; transition: .3s; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--primary); }
+    input:checked + .slider:before { transform: translateX(22px); }
+    .tags-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; min-height: 48px; }
+    .tag { background: #374151; color: #e5e7eb; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer; border: 1px solid #4b5563; }
+    .tag.active { background: #1e3a8a; color: #93c5fd; border-color: #3b82f6; }
+    .save-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--card-border); }
+    .btn-save { background: var(--primary); color: white; border: none; border-radius: 10px; padding: 10px 24px; font-weight: 700; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+    .btn-save:hover { background: var(--primary-hover); }
+    .save-status { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--success); font-weight: 600; }
+    pre { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #030712; padding: 14px; border-radius: 10px; border: 1px solid #1f2937; overflow-x: auto; color: #38bdf8; direction: ltr; text-align: left; max-height: 420px; }
+    .alert-isolation { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 10px; padding: 12px; font-size: 12px; color: #93c5fd; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="app-title-area">
+        <div class="app-icon">📊</div>
+        <div>
+          <h1 style="font-size: 22px; font-weight: 800;">تحليلات الطلبات المتقدمة (Orders Analytics Pro)</h1>
+          <div class="badges">
+            <span class="badge badge-contract">Manifest Contract v1.0</span>
+            <span class="badge badge-version">App v1.4.2</span>
+            <span class="badge badge-status">مرخص للشركة: MaxPerformance Corp</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span style="font-size: 12px; color: #9ca3af;">المسار: <code style="color: #60a5fa; background: #1e293b; padding: 2px 6px; border-radius: 4px;">/analytics/orders/orders</code></span>
+      </div>
+    </div>
+
+    <div class="alert-isolation">
+      <span>🔒</span>
+      <span><b>عزل متعدد المستأجرين (Tenant Isolation):</b> إعدادات هذا التطبيق مشفرة ومحفوظة حصريًا لنطاق الشركة الحالية (Company ID: <code>comp_prod_9872</code>). لا تتأثر أي شركة أخرى.</span>
+    </div>
+
+    <div class="grid">
+      <!-- Generated Form Column -->
+      <div class="card">
+        <div class="section-title">
+          <span>⚙️</span>
+          <span>نموذج الإعدادات المُولّد تلقائياً (Schema-Driven Settings)</span>
+        </div>
+        <p class="section-subtitle">يتم توليد هذه الواجهة ديناميكياً 100% من <code>settingsSchema</code> بدون كتابة كود React مخصص.</p>
+
+        <!-- String Input -->
+        <div class="form-group">
+          <label class="form-label">عنوان لوحة التحليلات المخصصة (string)</label>
+          <div class="form-description">الاسم الذي يظهر في أعلى لوحة تحكم مديري العمليات</div>
+          <input type="text" class="form-input" value="لوحة مؤشرات الأداء اللوجستي الرئيسية 2026">
+        </div>
+
+        <!-- Number Input with min/max -->
+        <div class="form-group">
+          <label class="form-label">الحد الأدنى لتنبيه نقص المخزون - Threshold (number: 0 - 1000)</label>
+          <div class="form-description">القيمة الحرجة لإطلاق التنبيه الفوري للطلبات المتأخرة</div>
+          <input type="number" class="form-input" min="0" max="1000" step="5" value="25">
+        </div>
+
+        <!-- Boolean Switch -->
+        <div class="form-group">
+          <div class="switch-container">
+            <div>
+              <div class="form-label" style="margin-bottom: 2px;">تفعيل التنبيهات الفورية الفائقة (boolean)</div>
+              <div class="form-description" style="margin-bottom: 0;">إرسال إشعارات فورية عند تجاوز الحد المسموح به</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- String + Enum Select -->
+        <div class="form-group">
+          <label class="form-label">مستوى حساسية التحليل (string + enum)</label>
+          <div class="form-description">تحديد دقة ونطاق معالجة الخوارزميات الذكية</div>
+          <select class="form-input">
+            <option value="standard">قياسي (Standard Analysis)</option>
+            <option value="high" selected>فائق الدقة ومتقدم (High Sensitivity - Realtime)</option>
+            <option value="predictive">تنبؤي يعتمد على الذكاء الاصطناعي (Predictive AI)</option>
+          </select>
+        </div>
+
+        <!-- Array<string> Multi-Select Tags -->
+        <div class="form-group">
+          <label class="form-label">قنوات توزيع التقارير (array&lt;string&gt;)</label>
+          <div class="form-description">اختر المنصات التي يتم إرسال التقرير الدوري إليها تلقائياً</div>
+          <div class="tags-container">
+            <div class="tag active">✓ البريد الإلكتروني (Email)</div>
+            <div class="tag active">✓ رسائل الواتساب (WhatsApp)</div>
+            <div class="tag active">✓ لوحة تحكم الإدارة (Dashboard)</div>
+            <div class="tag">تطبيق تيليجرام (Telegram)</div>
+            <div class="tag">رسائل نصية قصيرة (SMS)</div>
+          </div>
+        </div>
+
+        <div class="save-bar">
+          <div class="save-status">
+            <span>●</span>
+            <span>تم التحقق من المخطط وحفظ الإعدادات بنجاح في قاعدة البيانات</span>
+          </div>
+          <button class="btn-save">
+            <span>💾</span>
+            <span>حفظ إعدادات التطبيق</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Manifest & Schema Inspector -->
+      <div class="card">
+        <div class="section-title">
+          <span>📜</span>
+          <span>عقد المانيفست (Manifest JSON)</span>
+        </div>
+        <p class="section-subtitle">مطابق لمواصفات العقد (Contract Spec v1.0)</p>
+        <pre>{
+  "manifestVersion": "1.0",
+  "appVersion": "1.4.2",
+  "entryRoute": "/analytics/orders/orders",
+  "permissions": [
+    "analytics.read",
+    "orders.read",
+    "reports.export"
+  ],
+  "settingsSchema": {
+    "type": "object",
+    "properties": {
+      "dashboardTitle": {
+        "type": "string",
+        "title": "عنوان اللوحة"
+      },
+      "threshold": {
+        "type": "number",
+        "title": "الحد الأدنى",
+        "minimum": 0,
+        "maximum": 1000,
+        "default": 25
+      },
+      "realtimeAlerts": {
+        "type": "boolean",
+        "title": "تفعيل التنبيهات",
+        "default": true
+      },
+      "sensitivity": {
+        "type": "string",
+        "title": "مستوى الحساسية",
+        "enum": ["standard", "high", "predictive"]
+      },
+      "channels": {
+        "type": "array",
+        "title": "قنوات الإشعار",
+        "items": { "type": "string" }
+      }
+    },
+    "required": ["threshold", "sensitivity"]
+  },
+  "killSwitch": false
+}</pre>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

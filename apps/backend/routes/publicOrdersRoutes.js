@@ -2637,11 +2637,38 @@ router.post('/', async (req, res) => {
         // Send Purchase event
         await fbService.trackPurchase(userData, orderData, eventId);
         console.log('✅ [Facebook CAPI] Purchase event tracked for order:', order.orderNumber);
+
+        try {
+          await prisma.storefrontSettings.update({
+            where: { companyId: company.id },
+            data: {
+              capiStatus: 'active',
+              lastCapiTest: new Date(),
+              lastCapiError: null,
+              lastCapiErrorCode: null,
+              lastCapiErrorAt: null,
+            },
+          });
+        } catch (_) {}
         }
       }
     } catch (capiError) {
       // Don't fail the order creation if CAPI fails
-      console.error('❌ [Facebook CAPI] Error tracking Purchase event:', capiError);
+      console.error('❌ [Facebook CAPI] Error tracking Purchase event:', capiError.message);
+      try {
+        const FacebookConversionsService = require('../services/facebookConversionsService');
+        const classified = FacebookConversionsService.classifyMetaError(capiError);
+        await prisma.storefrontSettings.update({
+          where: { companyId: company.id },
+          data: {
+            capiStatus: 'error',
+            lastCapiTest: new Date(),
+            lastCapiError: classified.message,
+            lastCapiErrorCode: classified.code,
+            lastCapiErrorAt: new Date(),
+          },
+        });
+      } catch (_) {}
     }
 
     // TikTok Events (best-effort, never throws)
@@ -2715,6 +2742,27 @@ router.post('/', async (req, res) => {
       });
     } catch (pushBootstrapError) {
       console.error('❌ [WEB-PUSH] Failed to bootstrap order push:', pushBootstrapError.message || pushBootstrapError);
+    }
+
+    // 🔔 إنشاء إشعار داخل النظام وتحديث جرس الإشعارات لمديري المتجر
+    try {
+      const notificationService = require('../services/notificationService');
+      await notificationService.createOrderNotification({
+        companyId: company.id,
+        order: {
+          id: order.id,
+          orderNumber: order.orderNumber,
+          guestName: order.guestName,
+          guestPhone: order.guestPhone,
+          total: finalTotal,
+          items: cartItems,
+          createdAt: order.createdAt,
+        },
+        source: 'storefront',
+      });
+      console.log('🔔 [NOTIFICATION] In-app notification created for order:', order.orderNumber);
+    } catch (notifBootstrapError) {
+      console.error('❌ [NOTIFICATION] Failed to create order notification:', notifBootstrapError.message);
     }
 
     // 🛒 تصدير تلقائي لـ WooCommerce والأنظمة التابعة (في الخلفية)

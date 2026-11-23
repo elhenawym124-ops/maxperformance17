@@ -93,6 +93,7 @@ async function runAll() {
   console.log('===============================================================\n');
 
   const testFiles = [
+    'appManifestContractSpec.test.js',
     'appManifestService.test.js',
     'appManifestValidator.test.js',
     'appKillSwitch.test.js',
