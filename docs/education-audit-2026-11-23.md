@@ -72,6 +72,26 @@
 - السبب: الرد نصي بدون أي `tool_calls`، وحارس `validate_reply` كان يغطي ادعاءات النجاح فقط ولا يغطي الوعود المستقبلية.
 - الإصلاح: كشف الوعود (`سأرسل/هبلغ/هتواصل + الإدارة/المدير/الفريق`) وعند عدم تنفيذ أداة فعلية يتم إعادة توليد الرد بأدوات مفعّلة لتتحول إلى تنفيذ حقيقي (`escalate_to_human` / `knowledge_ask_merchant` / `agent_handoff_to`)، وإلا يتم تصعيد حقيقي للموظف بدل الوعد الفارغ.
 
+## الاختبارات (2026-11-23)
+
+**Backend — `node --test` (تعليم + HR):**
+- 18 ملف: **139 اختبار ناجح** (students query، cashier shifts، certificates، daily closing، exams، parent academics، parent portal payments، payments 30، teacher payments، multi-tenant، packages، sidebar routes، branches، insights، receipt PDF، receipts backfill، attendance display timezone، HR September edge cases).
+- `educationGroupScheduleConflicts` 3/3، `educationScheduleConflictService` 6/6، `latenessReferenceAndAllowance` 11/11.
+- Kashier / payment integrity / payment reminders / installment online / backfill / rest days: **57/57**.
+- `educationSettings.node.test.js`: **12/12** بعد إضافة mocks للنداءات الجديدة (`educationSession.findMany` و`$queryRawUnsafe`) الخاصة بفحص تعارض الحصص.
+- `educationEnrollmentAndStudent.test.js`: **11/13** بعد إضافة mock لـ`educationPayment` (دفتر المدفوعات). الفشلان الباقيان في توليد بريد ولي الأمر تلقائياً (خارج نطاق هذا العمل).
+
+**Backend — Jest:** `shiftAssignmentResolver` 4/4 (منها حالتا fallback الجديدتان)، `attendanceAutoCheckoutCron` 3/3.
+
+**Frontend — Vitest:** صفحات التعليم/المدفوعات/التقارير **48/48**، وسايدبار التعليم 11/12 (الفشل في `sidebar.educationSettings` موجود قبل تعديلاتنا — أُثبت بإزالة عنصر «القاعات الآن» وإعادة التشغيل).
+
+**TypeScript:** `tsc --noEmit` نظيف للملفات المعدّلة.
+
+### ملاحظات فشل موجودة مسبقاً (غير متعلقة بهذا العمل)
+1. توليد بريد ولي الأمر الافتراضي غير مُفعّل في `educationStudentsController` (اختباران).
+2. `sidebar.educationSettings`: عناصر `education-settings`/`education-logs` تُفلتر بدل أن تُخفى للموظف بلا صلاحية.
+3. `educationDemoDay.test.js`: الاختبارات تنجح لكن العملية لا تنتهي (open handles) فتظهر كـ timeout.
+
 ## تعديلات تشغيلية مطبقة (قابلة للتعديل لاحقاً)
 
 الهدف: تجربة النظام ببيانات حقيقية مترابطة (قاعات/مواعيد/مدرسين/شيفتات) — كل الأرقام قابلة للتغيير من الواجهة.
