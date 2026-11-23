@@ -8,6 +8,8 @@ import type { DuesResponse } from "./types";
 export interface CollectTarget {
   enrollmentId?: string;
   groupMemberId?: string;
+  studentId?: string;
+  packageId?: string;
   label: string;
   remaining: number;
 }
@@ -122,7 +124,9 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
                     onClick={() =>
                       onCollect({
                         enrollmentId: due.enrollmentId,
-                        label: `${due.studentName}${due.packageName ? ` — ${due.packageName}` : ""}`,
+                        studentId: due.studentId,
+                        packageId: due.packageId || undefined,
+                        label: `${due.studentName}${due.packageName ? ` - ${due.packageName}` : ""}`,
                         remaining: due.remaining,
                       })
                     }

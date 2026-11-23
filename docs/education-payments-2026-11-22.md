@@ -190,6 +190,18 @@
   - Audits `CREATE_MAKEUP_SESSION` and notifies the parent with the new session time.
 - UI: a "حصة تعويض" action on confirmed session rows (asks for the new date/time and refreshes the list).
 
+## Phase 4 (part 13) — discount codes at the reception desk
+
+- `POST /education/finance/payments` now accepts `couponCode` for **package (enrollment) collections**:
+  - The code is validated inside the money transaction before anything moves.
+  - The ledger stores the amount **actually collected** (`requested − discount`) and the treasury deposit matches it.
+  - The enrollment's `finalAmount` is reduced by the discount, `discountAmount` accumulates and `discountType=COUPON`, so the remaining balance and dues stay correct: `remaining = (total − discount) − paid`.
+  - The redemption row links the payment and records the discount; a failing usage guard rolls the whole transaction back.
+  - Rejected when the discount would cover the full amount (record a waiver instead) and on group-fee payments (`COUPON_NOT_ALLOWED`, fees are settled in full).
+- Dues payload now includes `packageId` so package-scoped coupons validate correctly at the desk.
+- UI: the record-payment modal shows a "كود الخصم" field for enrollments with live preview (`code: −discount → collected`).
+
+
 
 
 

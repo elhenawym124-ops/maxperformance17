@@ -401,6 +401,7 @@ const getDues = async (req, res) => {
         studentName: `${enrollment.student?.firstName || ''} ${enrollment.student?.lastName || ''}`.trim(),
         studentCode: enrollment.student?.code || null,
         phone: enrollment.student?.phone || null,
+        packageId: enrollment.packageId || null,
         packageName: enrollment.package?.name || null,
         subjectName: enrollment.package?.subject?.name || null,
         total,
@@ -495,6 +496,7 @@ const recordPayment = async (req, res) => {
       paidAt,
       reference,
       notes,
+      couponCode,
     } = req.body || {};
 
     const value = money(amount);
@@ -518,6 +520,19 @@ const recordPayment = async (req, res) => {
       || req.user?.email
       || null;
     const monthPrefix = `EDU-PAY-${paidDate.getFullYear()}${String(paidDate.getMonth() + 1).padStart(2, '0')}-`;
+
+    // 🎟️ كود خصم اختياري (دفعات الباقات فقط)
+    let collected = value;
+    let appliedCoupon = null;
+    let couponDiscount = 0;
+
+    if (couponCode && groupMemberId) {
+      return res.status(400).json({
+        success: false,
+        code: 'COUPON_NOT_ALLOWED',
+        error: 'كود الخصم متاح لدفعات الباقات فقط — رسوم المجموعات تتسدد كاملة',
+      });
+    }
 
     const result = await prisma.$transaction(async (tx) => {
       let enrollment = null;
@@ -560,19 +575,52 @@ const recordPayment = async (req, res) => {
           throw err;
         }
 
+        // 🎟️ كود خصم على دفعة الباقة: يقلل المبلغ المحصّل ويقلل إجمالي المطلوب بنفس القيمة
+        let newTotal = total;
+        if (couponCode) {
+          const couponService = require('../services/educationCouponService');
+          const validation = await couponService.validateCoupon(tx, {
+            companyId,
+            code: couponCode,
+            amount: value,
+            studentId: enrollment.studentId,
+            packageId: enrollment.packageId,
+          });
+          appliedCoupon = validation.coupon;
+          couponDiscount = validation.discountAmount;
+          collected = validation.finalAmount;
+          if (collected <= 0.009) {
+            const err = new Error('الخصم يغطي كامل المبلغ — سجّل إعفاءً بدل دفعة نقدية');
+            err.statusCode = 400;
+            throw err;
+          }
+          newTotal = money(total - couponDiscount);
+        }
+
         student = enrollment.student;
         studentName = `${student?.firstName || ''} ${student?.lastName || ''}`.trim();
-        const newPaid = money(paid + value);
+        const newPaid = money(paid + collected);
         await tx.educationEnrollment.update({
           where: { id: enrollment.id },
           data: {
             amountPaid: newPaid,
-            paymentStatus: enrollmentStatusAfterPayment(total, newPaid),
+            ...(couponDiscount > 0
+              ? {
+                finalAmount: newTotal,
+                discountType: 'COUPON',
+                discountAmount: money(money(enrollment.discountAmount) + couponDiscount),
+              }
+              : {}),
+            paymentStatus: enrollmentStatusAfterPayment(newTotal, newPaid),
           },
         });
         metadata.enrollmentId = enrollment.id;
         metadata.packageName = enrollment.package?.name || null;
         metadata.remainingBefore = remaining;
+        if (couponDiscount > 0) {
+          metadata.couponCode = appliedCoupon?.code || null;
+          metadata.couponDiscount = couponDiscount;
+        }
         referenceType = 'EDUCATION_PAYMENT';
         description = `تحصيل دفعة تعليمية (${enrollment.package?.name || 'باقة'}) - الطالب: ${studentName || 'طالب'}`;
       } else {
@@ -656,22 +704,38 @@ const recordPayment = async (req, res) => {
           branchId: enrollment?.branchId || member?.groupBranchId || null,
           packageId: enrollment?.packageId || null,
           studentName: studentName || null,
-          amount: value,
+          amount: collected,
           method: paymentMethod,
           status: 'COMPLETED',
           source: enrollmentId ? 'ADMIN' : 'GROUP',
           reference: reference || null,
-          notes: notes || null,
+          notes: couponDiscount > 0
+            ? `${notes ? `${notes} — ` : ''}كود خصم ${appliedCoupon?.code || ''} (-${couponDiscount} ج.م)`
+            : (notes || null),
           paidAt: paidDate,
           cashierId,
           cashierName,
         },
       });
 
+      // 🎟️ استهلاك الكود داخل نفس المعاملة
+      if (appliedCoupon) {
+        const couponService = require('../services/educationCouponService');
+        await couponService.redeemCoupon(tx, {
+          companyId,
+          coupon: appliedCoupon,
+          studentId: enrollment?.studentId || member?.studentId || null,
+          customerId: null,
+          enrollmentId: enrollment?.id || null,
+          paymentId: payment.id,
+          discount: couponDiscount,
+        });
+      }
+
       const transaction = await postDeposit(tx, {
         companyId,
         treasury,
-        amount: value,
+        amount: collected,
         referenceType,
         referenceId: payment.id,
         description: `${description} — إيصال ${payment.paymentNumber}`,
@@ -687,10 +751,10 @@ const recordPayment = async (req, res) => {
       entityType: 'PAYMENT',
       entityId: result.payment.id,
       entityName: result.payment.paymentNumber,
-      description: `${result.description} بمبلغ ${value} ج.م (${paymentMethod}) — إيصال ${result.payment.paymentNumber}`,
+      description: `${result.description} بمبلغ ${collected} ج.م (${paymentMethod}) — إيصال ${result.payment.paymentNumber}${couponDiscount > 0 ? ` — خصم ${couponDiscount} ج.م (${appliedCoupon?.code || ''})` : ''}`,
       details: {
         ...result.metadata,
-        amount: value,
+        amount: collected,
         method: paymentMethod,
         receiptNumber: result.payment.receiptNumber,
         reference: reference || null,

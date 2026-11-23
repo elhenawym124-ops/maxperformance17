@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertCircle, CheckCircle2, CreditCard, X } from "lucide-react";
-import { fetchDues, recordPayment } from "./api";
+import { fetchDues, recordPayment, validateCoupon } from "./api";
 import { INPUT_CLS, money, todayInput } from "./shared";
 import { PAYMENT_METHOD_LABELS } from "./types";
 import type { DuesResponse } from "./types";
@@ -9,12 +9,14 @@ import type { DuesResponse } from "./types";
 interface RecordTarget {
   enrollmentId?: string;
   groupMemberId?: string;
+  studentId?: string;
+  packageId?: string | null;
   label: string;
   remaining: number;
 }
 
 interface Props {
-  preset?: { enrollmentId?: string; groupMemberId?: string; label: string; remaining: number } | null;
+  preset?: RecordTarget | null;
   onClose: () => void;
   onSaved: () => void;
 }
@@ -33,6 +35,10 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
   const [paidAt, setPaidAt] = useState(todayInput());
   const [reference, setReference] = useState("");
   const [notes, setNotes] = useState("");
+  const [couponCode, setCouponCode] = useState("");
+  const [couponPreview, setCouponPreview] = useState<{ code: string; discountAmount: number; finalAmount: number } | null>(null);
+  const [couponError, setCouponError] = useState("");
+  const [couponBusy, setCouponBusy] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -67,6 +73,8 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
     if (!dues) return [];
     const enrollmentTargets = dues.enrollments.map((item) => ({
       enrollmentId: item.enrollmentId,
+      studentId: item.studentId,
+      packageId: item.packageId,
       label: `${item.studentName}${item.packageName ? ` — ${item.packageName}` : ""}`,
       remaining: item.remaining,
     }));
@@ -83,6 +91,26 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
       (target.enrollmentId && `E:${target.enrollmentId}` === targetKey) ||
       (target.groupMemberId && `G:${target.groupMemberId}` === targetKey)
   );
+
+  const applyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setCouponBusy(true);
+    setCouponError("");
+    try {
+      const result = await validateCoupon({
+        code: couponCode.trim(),
+        amount: Number(amount) || selectedTarget?.remaining || 0,
+        studentId: selectedTarget?.studentId,
+        packageId: selectedTarget?.packageId || undefined,
+      });
+      setCouponPreview(result);
+    } catch (e: any) {
+      setCouponPreview(null);
+      setCouponError(e.message || (isEn ? "Invalid code" : "كود غير صالح"));
+    } finally {
+      setCouponBusy(false);
+    }
+  };
 
   const submit = async () => {
     setError("");
@@ -114,6 +142,7 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
         paidAt,
         reference: reference.trim() || undefined,
         notes: notes.trim() || undefined,
+        ...(couponPreview && selectedTarget.enrollmentId ? { couponCode: couponPreview.code } : {}),
       });
       setSuccess(
         isEn
@@ -294,6 +323,43 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
               placeholder={isEn ? "Optional" : "اختياري"}
             />
           </div>
+
+          {selectedTarget?.enrollmentId ? (
+            <div className="space-y-1">
+              <label className="text-[11px] font-semibold text-foreground" htmlFor="edu-pay-coupon">
+                {isEn ? "Discount code" : "كود الخصم"}
+              </label>
+              <div className="flex items-center gap-1.5">
+                <input
+                  id="edu-pay-coupon"
+                  className={INPUT_CLS + " flex-1 font-mono uppercase"}
+                  value={couponCode}
+                  onChange={(e) => {
+                    setCouponCode(e.target.value);
+                    setCouponPreview(null);
+                    setCouponError("");
+                  }}
+                  placeholder="EID25"
+                />
+                <button
+                  type="button"
+                  onClick={applyCoupon}
+                  disabled={couponBusy || !couponCode.trim()}
+                  className="px-3 py-2 rounded-lg border border-border text-[11px] font-semibold text-foreground hover:bg-muted disabled:opacity-50"
+                >
+                  {couponBusy ? (isEn ? "Checking..." : "جارٍ التحقق...") : (isEn ? "Apply" : "تطبيق")}
+                </button>
+              </div>
+              {couponPreview ? (
+                <p className="text-[11px] text-success font-mono tabular-nums">
+                  {isEn
+                    ? `${couponPreview.code}: −${money(couponPreview.discountAmount)} → ${money(couponPreview.finalAmount)} EGP`
+                    : `${couponPreview.code}: خصم ${money(couponPreview.discountAmount)} → التحصيل ${money(couponPreview.finalAmount)} ج.م`}
+                </p>
+              ) : null}
+              {couponError ? <p className="text-[11px] text-destructive">{couponError}</p> : null}
+            </div>
+          ) : null}
         </div>
 
         <div className="flex items-center justify-end gap-2 p-4 border-t border-border/70">

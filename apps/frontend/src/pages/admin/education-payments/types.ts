@@ -48,6 +48,7 @@ export interface EnrollmentDue {
   studentName: string;
   studentCode?: string | null;
   phone?: string | null;
+  packageId?: string | null;
   packageName?: string | null;
   subjectName?: string | null;
   total: number;
