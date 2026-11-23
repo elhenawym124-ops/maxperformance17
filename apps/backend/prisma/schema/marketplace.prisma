@@ -43,6 +43,11 @@ model MarketplaceApp {
   killSwitch       Boolean   @default(false) @map("kill_switch")
   killSwitchReason String?   @map("kill_switch_reason")
   killSwitchAt     DateTime? @map("kill_switch_at")
+  // Legacy camelCase column created by apps/backend/migrations/add_app_contract_manifest_to_marketplace_apps.sql
+  // (ADD COLUMN "killSwitch"). It exists in production but is unmanaged: without
+  // this declaration prisma migrate diff emits DROP COLUMN and the deploy SCHEMA
+  // GUARD refuses db push. Kept nullable and unused so nothing is dropped.
+  killSwitchLegacy Boolean?  @map("killSwitch")
   version          String?   @default("1.0.0")
   manifest         Json?
   

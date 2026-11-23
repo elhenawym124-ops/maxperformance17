@@ -435,7 +435,7 @@ model StorefrontSettings {
   gdprCompliant                    Boolean               @default(true)
   hashUserData                     Boolean               @default(true)
   lastCapiError                    String?
-  lastCapiErrorCode                Int?
+  lastCapiErrorCode                String?
   lastCapiErrorAt                  DateTime?
   lastCapiTest                     DateTime?
   lastPixelTest                    DateTime?
