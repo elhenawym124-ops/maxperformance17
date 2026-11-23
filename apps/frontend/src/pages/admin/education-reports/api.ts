@@ -3,7 +3,7 @@ import {
   getCompanyId as getEducationCompanyId,
   getAuthHeaders as getEducationAuthHeaders,
 } from "../education-management/api";
-import { EducationAttributionData, EducationFunnelData, FinanceReportData, ReportPeriod } from "./types";
+import { EducationAttributionData, EducationFunnelData, FinanceReportData, MissedSessionsData, ReportPeriod } from "./types";
 
 export const getCompanyId = () => getEducationCompanyId();
 export const getAuthHeaders = () => getEducationAuthHeaders();
@@ -79,6 +79,26 @@ export async function fetchFunnelMetrics(period: ReportPeriod): Promise<Educatio
     };
   } catch (err) {
     console.error("Funnel fetch error:", err);
+    return null;
+  }
+}
+
+export async function fetchMissedSessions(days = 30): Promise<MissedSessionsData | null> {
+  try {
+    const base = buildApiUrl(`education/sessions/missed?days=${days}`);
+    let url: URL;
+    try {
+      url = new URL(base);
+    } catch {
+      url = new URL(base, window.location.origin);
+    }
+    const cid = getCompanyId();
+    if (cid) url.searchParams.set("companyId", cid);
+    const res = await fetch(url.toString(), { headers: getAuthHeaders() });
+    const d = await res.json();
+    return d.success ? (d.data as MissedSessionsData) : null;
+  } catch (err) {
+    console.warn("Missed sessions fetch error:", err);
     return null;
   }
 }

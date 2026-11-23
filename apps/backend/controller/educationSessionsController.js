@@ -592,4 +592,88 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, confirm, cancel, remove };
+/**
+ * GET /api/v1/education/sessions/missed
+ * الحصص الفائتة: مجدولة/مؤكدة وموعدها مضى بلا تنفيذ.
+ * لا تحتاج أي تغيير في المخطط — تُستنتج من الحالة والوقت.
+ */
+const getMissed = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'لا يوجد سياق شركة' });
+
+    const days = Math.min(365, Math.max(1, Number(req.query.days) || 30));
+    const now = new Date();
+    const since = new Date(now.getTime() - days * 864e5);
+
+    const prisma = getSharedPrismaClient();
+    const rows = await prisma.educationSession.findMany({
+      where: {
+        companyId,
+        scheduledAt: { gte: since, lt: now },
+        status: { in: ['SCHEDULED', 'CONFIRMED'] },
+      },
+      select: {
+        id: true,
+        scheduledAt: true,
+        plannedDuration: true,
+        status: true,
+        topic: true,
+        student: { select: { id: true, code: true, firstName: true, lastName: true } },
+        teacher: { select: { id: true, name: true } },
+        subject: { select: { id: true, name: true } },
+      },
+      orderBy: { scheduledAt: 'desc' },
+      take: 500,
+    });
+
+    const teacherMap = new Map();
+    const studentMap = new Map();
+    for (const r of rows) {
+      const tKey = r.teacher?.id || 'unknown';
+      const t = teacherMap.get(tKey) || {
+        teacherId: tKey,
+        name: r.teacher?.name || 'غير محدد',
+        count: 0,
+      };
+      t.count += 1;
+      teacherMap.set(tKey, t);
+
+      const sKey = r.student?.id || 'unknown';
+      const s = studentMap.get(sKey) || {
+        studentId: sKey,
+        code: r.student?.code || null,
+        name: `${r.student?.firstName || ''} ${r.student?.lastName || ''}`.trim() || 'غير محدد',
+        count: 0,
+      };
+      s.count += 1;
+      studentMap.set(sKey, s);
+    }
+
+    res.json({
+      success: true,
+      data: {
+        days,
+        total: rows.length,
+        byTeacher: [...teacherMap.values()].sort((a, b) => b.count - a.count),
+        byStudent: [...studentMap.values()].sort((a, b) => b.count - a.count),
+        sessions: rows.map((r) => ({
+          id: r.id,
+          scheduledAt: r.scheduledAt,
+          plannedDuration: r.plannedDuration,
+          status: r.status,
+          topic: r.topic,
+          studentName: `${r.student?.firstName || ''} ${r.student?.lastName || ''}`.trim(),
+          studentCode: r.student?.code || null,
+          teacherName: r.teacher?.name || null,
+          subjectName: r.subject?.name || null,
+        })),
+      },
+    });
+  } catch (error) {
+    console.error('[EducationSessions] getMissed error:', error.message);
+    res.status(500).json({ success: false, error: 'تعذر جلب الحصص الفائتة' });
+  }
+};
+
+module.exports = { getAll, getById, create, update, confirm, cancel, remove, getMissed };

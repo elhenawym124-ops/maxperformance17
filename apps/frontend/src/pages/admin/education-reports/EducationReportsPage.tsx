@@ -11,14 +11,17 @@ import {
   Users,
   ExternalLink,
   Wallet,
+  CalendarX,
 } from "lucide-react";
-import { fetchAttributionAnalytics, fetchFunnelMetrics } from "./api";
+import { fetchAttributionAnalytics, fetchFunnelMetrics, fetchMissedSessions } from "./api";
 import { EducationCampaignsTab } from "./EducationCampaignsTab";
 import { EducationFunnelTab } from "./EducationFunnelTab";
 import { EducationFinanceTab } from "./EducationFinanceTab";
+import { EducationMissedSessionsTab } from "./EducationMissedSessionsTab";
 import {
   EducationAttributionData,
   EducationFunnelData,
+  MissedSessionsData,
   ReportPeriod,
   ReportTab,
 } from "./types";
@@ -30,12 +33,13 @@ export default function EducationReportsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
   const [activeTab, setActiveTab] = useState<ReportTab>(
-    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : "campaigns"
+    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : tabParam === "missed" ? "missed" : "campaigns"
   );
   const [period, setPeriod] = useState<ReportPeriod>("all");
 
   const [attribution, setAttribution] = useState<EducationAttributionData | null>(null);
   const [funnel, setFunnel] = useState<EducationFunnelData | null>(null);
+  const [missed, setMissed] = useState<MissedSessionsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,12 +51,15 @@ export default function EducationReportsPage() {
       setError(null);
 
       try {
-        const [attrData, funnelData] = await Promise.all([
+        const days = period === "today" ? 1 : period === "7d" ? 7 : period === "30d" ? 30 : 365;
+        const [attrData, funnelData, missedData] = await Promise.all([
           fetchAttributionAnalytics(period),
           fetchFunnelMetrics(period),
+          fetchMissedSessions(days),
         ]);
         setAttribution(attrData);
         setFunnel(funnelData);
+        setMissed(missedData);
       } catch (err: any) {
         setError(err.message || (isEn ? "Failed to load reports" : "فشل تحميل بيانات التقارير"));
       } finally {
@@ -184,6 +191,22 @@ export default function EducationReportsPage() {
             <Wallet className="w-3.5 h-3.5 text-success" />
             <span>{isEn ? "Collections & Revenue" : "التحصيل والإيرادات"}</span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => handleTabChange("missed")}
+            className={`inline-flex items-center gap-2 py-2.5 px-0.5 text-xs font-semibold border-b-2 transition-all ${
+              activeTab === "missed"
+                ? "border-primary text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <CalendarX className={`w-3.5 h-3.5 ${(missed?.total ?? 0) > 0 ? "text-destructive" : "text-success"}`} />
+            <span>{isEn ? "Missed Sessions" : "الحصص الفائتة"}</span>
+            <span className="px-1.5 py-0.2 rounded text-[10px] bg-muted font-mono font-bold text-foreground">
+              {missed?.total ?? 0}
+            </span>
+          </button>
         </div>
 
         {/* Error Banner */}
@@ -222,6 +245,11 @@ export default function EducationReportsPage() {
 
         {/* Tab 3: Collections & Revenue */}
         {activeTab === "finance" && <EducationFinanceTab isEn={isEn} />}
+
+        {/* Tab 4: Missed sessions */}
+        {activeTab === "missed" && (
+          <EducationMissedSessionsTab data={missed} loading={loading} isEn={isEn} />
+        )}
 
         {/* Connected Ecosystem Shortcuts - Sleek Flat Links (No Box inside Box) */}
         <div className="pt-4 border-t border-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-muted-foreground">

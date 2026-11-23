@@ -61,7 +61,27 @@ export interface EducationFunnelData {
 }
 
 export type ReportPeriod = "all" | "30d" | "7d" | "today";
-export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance";
+export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance" | "missed";
+
+export interface MissedSessionRow {
+  id: string;
+  scheduledAt: string;
+  plannedDuration: number;
+  status: string;
+  topic: string | null;
+  studentName: string;
+  studentCode: string | null;
+  teacherName: string | null;
+  subjectName: string | null;
+}
+
+export interface MissedSessionsData {
+  days: number;
+  total: number;
+  byTeacher: Array<{ teacherId: string; name: string; count: number }>;
+  byStudent: Array<{ studentId: string; code: string | null; name: string; count: number }>;
+  sessions: MissedSessionRow[];
+}
 
 export interface FinanceMonthPoint {
   month: string;
