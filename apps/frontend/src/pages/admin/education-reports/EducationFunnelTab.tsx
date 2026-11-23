@@ -16,7 +16,7 @@ export const EducationFunnelTab: React.FC<EducationFunnelTabProps> = ({
   const totalCustomers = funnel?.totalCustomers ?? 0;
   const demoAttendees = funnel?.totalDemoAttendees ?? 0;
   const demoAttended = funnel?.attendedDemoAttendees ?? 0;
-  const enrolledStudents = funnel?.registeredStudents ?? 0;
+  const enrolledStudents = funnel?.packagesEnrollments ?? funnel?.registeredStudents ?? 0;
   const packageEnrollments = funnel?.packagesEnrollments ?? 0;
   const completedSessions = funnel?.completedSessions ?? 0;
 
