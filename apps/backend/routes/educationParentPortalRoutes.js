@@ -41,6 +41,10 @@ router.get('/payments/:id/pdf', authenticateParentToken, parentPaymentsControlle
 router.post('/wallet/kashier-session', authenticateParentToken, parentPaymentsController.createTopupSession);
 router.post('/wallet/kashier-verify', authenticateParentToken, parentPaymentsController.verifyTopup);
 
+// Online installment payment through Kashier (server-verified)
+router.post('/enrollments/:id/installments/:number/kashier-session', authenticateParentToken, parentPaymentsController.createInstallmentSession);
+router.post('/enrollments/installments/kashier-verify', authenticateParentToken, parentPaymentsController.verifyInstallmentPayment);
+
 // Parent's children
 router.get('/children', authenticateParentToken, async (req, res) => {
   try {

@@ -97,6 +97,52 @@ const verifyTopup = async (req, res) => {
   }
 };
 
+const createInstallmentSession = async (req, res) => {
+  try {
+    const parentId = req.parent?.id;
+    const companyId = req.parent?.companyId;
+    if (!parentId || !companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationInstallmentOnlineService');
+    const result = await service.createInstallmentSession({
+      companyId,
+      customerId: parentId,
+      enrollmentId: req.params.id,
+      installmentNumber: req.params.number,
+      baseUrl: resolveBaseUrl(req),
+      webhookUrl: `https://${process.env.MAIN_DOMAIN || 'maxp.online'}/api/v1/payment/kashier/webhook`,
+    });
+
+    res.json({ success: true, data: result });
+  } catch (error) {
+    const status = error.statusCode || 500;
+    if (status >= 500) console.error('[ParentPortal] Installment session error:', error);
+    res.status(status).json({ success: false, error: error.message || 'تعذر بدء دفع القسط' });
+  }
+};
+
+const verifyInstallmentPayment = async (req, res) => {
+  try {
+    const parentId = req.parent?.id;
+    const companyId = req.parent?.companyId;
+    if (!parentId || !companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const orderId = req.body?.orderId || req.query?.orderId;
+    const sessionId = req.body?.sessionId || null;
+    if (!orderId) return res.status(400).json({ success: false, error: 'رقم العملية مطلوب' });
+
+    const service = require('../services/educationInstallmentOnlineService');
+    const result = await service.verifyInstallmentPayment({
+      companyId, orderId, sessionId, customerId: parentId,
+    });
+    res.json({ success: true, data: result });
+  } catch (error) {
+    const status = error.statusCode || 500;
+    if (status >= 500) console.error('[ParentPortal] Installment verify error:', error);
+    res.status(status).json({ success: false, error: error.message || 'تعذر التحقق من دفع القسط' });
+  }
+};
+
 const getReceipt = async (req, res) => {
   try {
     const parentId = req.parent?.id;
@@ -171,4 +217,12 @@ const downloadReceiptPdf = async (req, res) => {
   }
 };
 
-module.exports = { listPayments, getReceipt, createTopupSession, verifyTopup, downloadReceiptPdf };
+module.exports = {
+  listPayments,
+  getReceipt,
+  createTopupSession,
+  verifyTopup,
+  createInstallmentSession,
+  verifyInstallmentPayment,
+  downloadReceiptPdf,
+};

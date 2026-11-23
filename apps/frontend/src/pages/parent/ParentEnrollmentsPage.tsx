@@ -6,10 +6,10 @@ import {
   User,
   RefreshCw,
   ShoppingCart,
-  BookOpen,
   CheckCircle2,
-  CalendarDays,
-  Users
+  Users,
+  CreditCard,
+  AlertCircle
 } from "lucide-react";
 
 interface Enrollment {
@@ -28,6 +28,14 @@ interface Enrollment {
   status?: string;
   paymentStatus?: string;
   amountPaid?: number;
+  finalAmount?: number;
+  installments?: Array<{
+    installmentNumber: number;
+    amount: number;
+    dueDate?: string;
+    status?: string;
+    paidAt?: string;
+  }>;
 }
 
 interface Child {
@@ -42,6 +50,8 @@ const ParentEnrollmentsPage: React.FC = () => {
   const [selectedChildId, setSelectedChildId] = useState<string>("ALL");
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [payingKey, setPayingKey] = useState<string | null>(null);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const fetchData = async () => {
     try {
@@ -88,6 +98,78 @@ const ParentEnrollmentsPage: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Returning from the Kashier installment checkout: verify server-side, then clean the URL.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get("installmentOrder");
+    if (!orderId) return;
+
+    let alive = true;
+    const token = localStorage.getItem("parentToken");
+    fetch("/api/v1/education/parent-portal/enrollments/installments/kashier-verify", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderId }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (!alive) return;
+        if (json.success && json.data?.paid) {
+          setMessage({
+            type: "success",
+            text: `تم سداد القسط${json.data.installmentNumber ? ` رقم ${json.data.installmentNumber}` : ""} بنجاح`,
+          });
+        } else if (json.success) {
+          setMessage({ type: "error", text: "لم يتم تأكيد الدفع بعد. لو تم الخصم، حدّث الصفحة بعد دقيقة." });
+        } else {
+          setMessage({ type: "error", text: json.error || "تعذر التحقق من دفع القسط" });
+        }
+        const url = new URL(window.location.href);
+        url.searchParams.delete("installmentOrder");
+        window.history.replaceState({}, "", url.toString());
+        fetchData();
+      })
+      .catch(() => {
+        if (alive) setMessage({ type: "error", text: "تعذر الاتصال بالخادم للتحقق من الدفع" });
+      });
+
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const payInstallment = async (enrollmentId: string, installmentNumber: number) => {
+    const key = `${enrollmentId}-${installmentNumber}`;
+    try {
+      setPayingKey(key);
+      setMessage(null);
+      const token = localStorage.getItem("parentToken");
+      const res = await fetch(
+        `/api/v1/education/parent-portal/enrollments/${enrollmentId}/installments/${installmentNumber}/kashier-session`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const json = await res.json();
+      if (json.success && json.data?.sessionUrl) {
+        window.location.href = json.data.sessionUrl;
+        return;
+      }
+      setMessage({ type: "error", text: json.error || "تعذر بدء دفع القسط" });
+    } catch {
+      setMessage({ type: "error", text: "تعذر الاتصال بالخادم لبدء دفع القسط" });
+    } finally {
+      setPayingKey(null);
+    }
+  };
 
   const allEnrollments = useMemo(() => {
     if (selectedChildId === "ALL") {
@@ -156,6 +238,23 @@ const ParentEnrollmentsPage: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      {message ? (
+        <div
+          className={`p-3.5 rounded-lg border text-xs flex items-center gap-2.5 ${
+            message.type === "success"
+              ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
+              : "bg-destructive/10 text-destructive border-destructive/20"
+          }`}
+        >
+          {message.type === "success" ? (
+            <CheckCircle2 className="w-4 h-4 shrink-0" />
+          ) : (
+            <AlertCircle className="w-4 h-4 shrink-0" />
+          )}
+          <span>{message.text}</span>
+        </div>
+      ) : null}
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
@@ -310,6 +409,58 @@ const ParentEnrollmentsPage: React.FC = () => {
                         <div className="text-[11px] text-muted-foreground flex items-center gap-1.5 pt-0.5">
                           <Clock className="w-3.5 h-3.5 text-blue-500" />
                           <span>نظام الرسوم: {e.feeType === "PER_SESSION" ? "رسوم لكل حصة" : "اشتراك دوري منتظم"}</span>
+                        </div>
+                      ) : null}
+
+                      {!isGroup && Array.isArray(e.installments) && e.installments.length > 0 ? (
+                        <div className="w-full max-w-md pt-2 space-y-1.5">
+                          <div className="flex items-center justify-between text-[11px]">
+                            <span className="font-semibold text-foreground">جدول الأقساط</span>
+                            <span className="text-muted-foreground font-mono">
+                              {e.installments.filter((inst) => inst.status === "PAID").length}/{e.installments.length}
+                            </span>
+                          </div>
+                          {e.installments.map((inst) => {
+                            const isPaid = inst.status === "PAID";
+                            const key = `${e.id}-${inst.installmentNumber}`;
+                            return (
+                              <div
+                                key={key}
+                                className="flex items-center justify-between gap-2 rounded-lg border border-border/60 bg-background px-2.5 py-1.5 text-[11px]"
+                              >
+                                <div className="flex items-center gap-2 min-w-0">
+                                  <span
+                                    className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                                      isPaid ? "bg-success/15 text-success" : "bg-warning/15 text-warning"
+                                    }`}
+                                  >
+                                    {inst.installmentNumber}
+                                  </span>
+                                  <span className="text-muted-foreground">
+                                    استحقاق: <span dir="ltr">{inst.dueDate || "—"}</span>
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-2 shrink-0">
+                                  <span className="font-mono font-semibold text-foreground">
+                                    {Number(inst.amount || 0).toLocaleString("ar-EG")} ج.م
+                                  </span>
+                                  {isPaid ? (
+                                    <span className="text-success font-semibold">مسدد</span>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      disabled={payingKey === key}
+                                      onClick={() => payInstallment(e.id, inst.installmentNumber)}
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary/90 disabled:opacity-50"
+                                    >
+                                      <CreditCard className="w-3 h-3" />
+                                      {payingKey === key ? "جارٍ التحويل..." : "ادفع الآن"}
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       ) : null}
                     </div>

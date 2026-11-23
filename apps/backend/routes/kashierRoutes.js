@@ -488,6 +488,21 @@ router.post('/kashier/webhook', async (req, res) => {
       null
     );
 
+    // Education installment payments are verified server-side, never trusted from this payload.
+    const isEducationInstallment = metaData?.type === 'EDUCATION_INSTALLMENT'
+      || (typeof orderNumber === 'string' && orderNumber.startsWith('EDUINST-'));
+    if (isEducationInstallment) {
+      try {
+        const educationInstallments = require('../services/educationInstallmentOnlineService');
+        const result = await educationInstallments.handleWebhook({ orderNumber, sessionId, metaData });
+        console.log('[KASHIER-WEBHOOK] Education installment:', JSON.stringify(result));
+        return res.json({ success: true, education: result });
+      } catch (installmentError) {
+        console.error('[KASHIER-WEBHOOK] Education installment failed:', installmentError.message);
+        return res.status(500).json({ success: false, error: 'Education installment processing failed' });
+      }
+    }
+
     // Education parent-wallet top-ups are verified server-side, never trusted from this payload.
     const isEducationTopup = metaData?.type === 'EDUCATION_TOPUP'
       || (typeof orderNumber === 'string' && orderNumber.startsWith('EDUTOP-'));

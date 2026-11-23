@@ -253,6 +253,28 @@ model EducationPayment {
   @@map("education_payments")
 }
 
+/// Education module - Online payment intents (Kashier sessions awaiting verification)
+model EducationPaymentIntent {
+  id                String    @id @default(cuid())
+  companyId         String
+  customerId        String?
+  enrollmentId      String?
+  installmentNumber Int?
+  amount            Float
+  purpose           String    @default("INSTALLMENT") /// INSTALLMENT
+  referenceId       String    @unique /// gateway order id
+  sessionId         String?
+  status            String    @default("PENDING") /// PENDING | COMPLETED | CANCELLED
+  paymentId         String?
+  completedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([companyId, status])
+  @@index([companyId, customerId])
+  @@map("education_payment_intents")
+}
+
 /// Education module - Cashier shifts for daily cash reconciliation
 model EducationCashierShift {
   id             String    @id @default(cuid())

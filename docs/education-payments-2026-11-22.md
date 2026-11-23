@@ -86,6 +86,16 @@
 - UI: PDF button on every ledger row (desktop + mobile) and "تحميل PDF" in the parent receipt modal.
 - CLI: `node scripts/backfill_education_receipt_pdfs.js` (dry-run) / `--apply` / `--force` / `--company` / `--limit`.
 
+## Phase 4 (part 4) — online installment payments
+
+- New table `education_payment_intents` tracks gateway orders until server-side verification.
+- `POST /education/parent-portal/enrollments/:id/installments/:number/kashier-session` → validates ownership + unpaid installment, creates an intent (`EDUINST-<companyId>-<enrollmentId>-<n>-<ts>`) and a Kashier session.
+- `POST /education/parent-portal/enrollments/installments/kashier-verify` → verifies via `getSessionStatus`, then in one transaction: marks the installment paid, recomputes `amountPaid`/`paymentStatus`, writes an `education_payments` row (`method=CARD`, `source=ONLINE`) and posts treasury revenue (`EDUCATION_INSTALLMENT_ONLINE`).
+- Idempotent by intent status + gateway reference; partial captures below the installment amount are rejected.
+- Kashier webhook routes `EDUCATION_INSTALLMENT` payloads through the same verification (a forged payload cannot settle an installment).
+- Parent UI: installment schedule with "ادفع الآن" per unpaid installment; return from checkout verifies, shows the result and refreshes.
+
+
 
 
 
