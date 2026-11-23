@@ -435,6 +435,13 @@ model StorefrontSettings {
   gdprCompliant                    Boolean               @default(true)
   hashUserData                     Boolean               @default(true)
   lastCapiTest                     DateTime?
+  // Orphan columns that exist in production but were never declared here. Prisma
+  // migrate diff saw them as drift and emitted DROP COLUMN -> the deploy schema
+  // guard refused db push on 2026-11-23 12:11..13:12 (all deploys red). Declared as
+  // nullable to keep the data and make the drift non-destructive.
+  lastCapiError                    String?
+  lastCapiErrorAt                  DateTime?
+  lastCapiErrorCode                String?
   lastPixelTest                    DateTime?
   pixelStatus                      String?               @default("not_configured")
   pixelTrackAddToCart              Boolean               @default(true)
