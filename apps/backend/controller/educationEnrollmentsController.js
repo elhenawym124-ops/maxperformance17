@@ -13,6 +13,52 @@ const normalizePaymentStatus = (status, fallback = 'PENDING') => {
   return fallback;
 };
 
+const nextEducationPaymentNumber = async (db, companyId, date = new Date()) => {
+  const prefix = `EDU-PAY-${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}-`;
+  const last = await db.educationPayment.findFirst({
+    where: { companyId, paymentNumber: { startsWith: prefix } },
+    orderBy: { paymentNumber: 'desc' },
+    select: { paymentNumber: true },
+  });
+  let seq = 1;
+  if (last?.paymentNumber) {
+    const parsed = parseInt(String(last.paymentNumber).split('-').pop(), 10);
+    if (!Number.isNaN(parsed)) seq = parsed + 1;
+  }
+  return `${prefix}${String(seq).padStart(4, '0')}`;
+};
+
+/**
+ * كل تحصيل تعليمي لازم يظهر في دفتر المدفوعات (education_payments)،
+ * وإلا تقارير الحسابات والتسوية تطلع فاضية رغم إن الفلوس اتقبضت.
+ */
+const createEducationLedgerEntry = async (db, payload) => {
+  const now = payload.paidAt || new Date();
+  const paymentNumber = await nextEducationPaymentNumber(db, payload.companyId, now);
+  return db.educationPayment.create({
+    data: {
+      companyId: payload.companyId,
+      paymentNumber,
+      receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
+      studentId: payload.studentId || null,
+      enrollmentId: payload.enrollmentId || null,
+      groupId: payload.groupId || null,
+      groupMemberId: payload.groupMemberId || null,
+      branchId: payload.branchId || null,
+      packageId: payload.packageId || null,
+      studentName: payload.studentName || null,
+      amount: payload.amount,
+      method: payload.method || 'CASH',
+      status: 'COMPLETED',
+      source: payload.source || 'ADMIN',
+      notes: payload.notes || null,
+      paidAt: now,
+      cashierId: payload.cashierId || null,
+      cashierName: payload.cashierName || null,
+    },
+  });
+};
+
 const getAll = async (req, res) => {
   try {
     const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
@@ -183,6 +229,21 @@ const create = async (req, res) => {
           title: `تحصيل باقة تعليمية (${pkg.name})`,
           amount: paidAmount,
           createdById: req.user?.id
+        });
+
+        await createEducationLedgerEntry(tx, {
+          companyId,
+          studentId,
+          enrollmentId: created.id,
+          branchId: branchId || null,
+          packageId,
+          studentName,
+          amount: paidAmount,
+          method: 'CASH',
+          source: 'ADMIN',
+          notes: `دفعة عند تسجيل باقة ${pkg.name}`,
+          cashierId: req.user?.id || null,
+          cashierName: req.user?.name || [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ') || null,
         });
       }
 

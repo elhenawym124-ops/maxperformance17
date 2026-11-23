@@ -63,6 +63,20 @@ export interface GroupScheduleSlot {
   room?: string;
 }
 
+export interface BranchClassroom {
+  id: string;
+  name: string;
+  capacity?: number;
+  type?: string;
+  isActive?: boolean;
+}
+
+export interface BranchWithClassrooms {
+  id: string;
+  name: string;
+  classrooms?: BranchClassroom[];
+}
+
 export interface EducationGroup {
   id: string;
   name: string;
@@ -89,6 +103,7 @@ export interface EducationGroup {
   startTime?: string | null;
   endTime?: string | null;
   room?: string | null;
+  classroomId?: string | null;
   status: "OPEN" | "FULL" | "IN_PROGRESS" | "COMPLETED" | "ARCHIVED";
   startDate?: string | null;
   endDate?: string | null;
@@ -175,7 +190,7 @@ export default function EducationGroupsPage({
   const [groups, setGroups] = useState<EducationGroup[]>([]);
   const [subjects, setSubjects] = useState<{ id: string; name: string }[]>([]);
   const [teachers, setTeachers] = useState<{ id: string; name: string }[]>([]);
-  const [branches, setBranches] = useState<{ id: string; name: string }[]>([]);
+  const [branches, setBranches] = useState<BranchWithClassrooms[]>([]);
   const [allStudents, setAllStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -396,6 +411,8 @@ export default function EducationGroupsPage({
       name: "",
       code: `GRP-${101 + groups.length}`,
       capacity: 15,
+      classroomId: null,
+      room: "",
       feeType: "MONTHLY",
       feeAmount: 0,
       teacherRateType: "PERCENTAGE",
@@ -1769,6 +1786,52 @@ export default function EducationGroupsPage({
                       </option>
                     ))}
                   </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-semibold text-foreground">
+                    {isEn ? "Classroom" : "القاعة"}
+                  </label>
+                  <select
+                    value={editingGroup.classroomId || ""}
+                    onChange={(e) => {
+                      const roomId = e.target.value || null;
+                      const room = (branches.find((b) => b.id === editingGroup.branchId)?.classrooms || []).find(
+                        (c) => c.id === roomId
+                      );
+                      setEditingGroup({
+                        ...editingGroup,
+                        classroomId: roomId,
+                        room: room ? room.name : editingGroup.room,
+                        capacity:
+                          room && room.capacity
+                            ? Math.min(editingGroup.capacity || room.capacity, room.capacity)
+                            : editingGroup.capacity,
+                        scheduleSlots: (editingGroup.scheduleSlots || []).map((s) => ({
+                          ...s,
+                          room: room ? room.name : s.room,
+                        })),
+                      });
+                    }}
+                    className="w-full bg-background border border-input rounded-xl px-3 py-2 text-xs text-foreground focus:ring-1 focus:ring-primary"
+                  >
+                    <option value="">
+                      {isEn ? "-- No specific classroom (manual room text) --" : "-- بدون قاعة محددة (اسم القاعة يدوياً) --"}
+                    </option>
+                    {(branches.find((b) => b.id === editingGroup.branchId)?.classrooms || [])
+                      .filter((c) => c.isActive !== false)
+                      .map((c) => (
+                        <option key={c.id} value={c.id}>
+                          {c.name}
+                          {c.capacity ? ` — ${c.capacity} ${isEn ? "seats" : "مقعد"}` : ""}
+                        </option>
+                      ))}
+                  </select>
+                  {!editingGroup.branchId && (
+                    <p className="text-[10px] text-muted-foreground">
+                      {isEn ? "Select a branch first to list its classrooms." : "اختر الفرع أولاً لعرض قاعاته."}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-1">

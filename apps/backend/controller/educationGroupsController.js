@@ -23,6 +23,149 @@ const getCompanyId = (req) => {
   return req.user?.companyId || req.user?.effectiveCompanyId || req.user?.userCompanies?.[0]?.companyId || null;
 };
 
+// ── Schedule conflict guards (teacher double-booking / room double-booking) ──
+const minutesOfDay = (value) => {
+  const [h, m] = String(value || '').split(':').map((n) => parseInt(n, 10) || 0);
+  return h * 60 + m;
+};
+
+const dayIndexOf = (value) => {
+  const raw = String(value || '').trim().toUpperCase();
+  if (!raw) return null;
+  if (DAY_NAME_TO_INDEX[raw] !== undefined) return DAY_NAME_TO_INDEX[raw];
+  const asNum = parseInt(raw, 10);
+  return Number.isNaN(asNum) ? null : asNum;
+};
+
+const parseJsonArray = (value) => {
+  if (Array.isArray(value)) return value;
+  if (typeof value === 'string' && value.trim()) {
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (_) {
+      return [];
+    }
+  }
+  return [];
+};
+
+const normalizeGroupSlots = (row) => {
+  const slots = parseJsonArray(row.scheduleSlots);
+  const fallbackStart = row.startTime || '17:00';
+  const fallbackEnd = row.endTime || '18:30';
+  if (slots.length) {
+    return slots
+      .map((slot) => ({
+        dayIdx: dayIndexOf(slot.dayOfWeek ?? slot.day),
+        start: minutesOfDay(slot.startTime || fallbackStart),
+        end: minutesOfDay(slot.endTime || fallbackEnd),
+        room: String(slot.room || row.room || '').trim()
+      }))
+      .filter((slot) => slot.dayIdx !== null);
+  }
+  const days = parseJsonArray(row.scheduleDays);
+  return days
+    .map((day) => ({
+      dayIdx: dayIndexOf(day),
+      start: minutesOfDay(fallbackStart),
+      end: minutesOfDay(fallbackEnd),
+      room: String(row.room || '').trim()
+    }))
+    .filter((slot) => slot.dayIdx !== null);
+};
+
+/**
+ * يرجع تعارضات المدرس/القاعة بين مجموعة معينة وباقي مجموعات الشركة.
+ * كان الإنشاء والتعديل يسمحان بمجموعتين لنفس المدرس أو نفس القاعة في نفس الموعد.
+ */
+const findGroupScheduleConflicts = async (prisma, companyId, excludeGroupId, candidate) => {
+  const hasSchedule = candidate.slots.length > 0;
+  const hasTeacher = Boolean(candidate.teacherId);
+  const hasRoom = Boolean(candidate.room) || Boolean(candidate.classroomId);
+  if (!hasSchedule || (!hasTeacher && !hasRoom)) return [];
+
+  const rows = await prisma.$queryRawUnsafe(`
+    SELECT id, name, "teacherId", room, "classroomId",
+           "scheduleDays"::text AS "scheduleDays", "scheduleSlots"::text AS "scheduleSlots",
+           "startTime", "endTime"
+    FROM "education_groups"
+    WHERE "companyId" = $1 AND id <> $2 AND COALESCE(status, 'OPEN') <> 'CANCELLED'
+  `, companyId, excludeGroupId || '');
+
+  const conflicts = [];
+  for (const row of rows || []) {
+    const otherSlots = normalizeGroupSlots(row);
+    for (const mine of candidate.slots) {
+      for (const theirs of otherSlots) {
+        if (mine.dayIdx !== theirs.dayIdx) continue;
+        if (!(mine.start < theirs.end && theirs.start < mine.end)) continue;
+
+        const teacherClash =
+          hasTeacher && row.teacherId && String(row.teacherId) === String(candidate.teacherId);
+        const sameRoom =
+          (candidate.room && theirs.room && theirs.room.toLowerCase() === candidate.room.toLowerCase()) ||
+          (candidate.room && row.room && String(row.room).trim().toLowerCase() === candidate.room.toLowerCase()) ||
+          (candidate.classroomId && row.classroomId && String(row.classroomId) === String(candidate.classroomId));
+
+        if (teacherClash) {
+          conflicts.push({
+            type: 'TEACHER',
+            groupId: row.id,
+            groupName: row.name,
+            dayIdx: mine.dayIdx,
+            startTime: `${String(Math.floor(theirs.start / 60)).padStart(2, '0')}:${String(theirs.start % 60).padStart(2, '0')}`,
+            endTime: `${String(Math.floor(theirs.end / 60)).padStart(2, '0')}:${String(theirs.end % 60).padStart(2, '0')}`
+          });
+        }
+        if (sameRoom) {
+          conflicts.push({
+            type: 'ROOM',
+            groupId: row.id,
+            groupName: row.name,
+            room: candidate.room || row.room || null,
+            dayIdx: mine.dayIdx,
+            startTime: `${String(Math.floor(theirs.start / 60)).padStart(2, '0')}:${String(theirs.start % 60).padStart(2, '0')}`,
+            endTime: `${String(Math.floor(theirs.end / 60)).padStart(2, '0')}:${String(theirs.end % 60).padStart(2, '0')}`
+          });
+        }
+      }
+    }
+  }
+  return conflicts.slice(0, 10);
+};
+
+const DAY_LABELS_AR = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+
+const describeConflicts = (conflicts) =>
+  conflicts
+    .map((c) => {
+      const day = DAY_LABELS_AR[c.dayIdx] || `يوم ${c.dayIdx}`;
+      const slot = `${c.startTime} - ${c.endTime}`;
+      return c.type === 'TEACHER'
+        ? `المدرس محجوز في «${c.groupName}» ${day} ${slot}`
+        : `القاعة «${c.room || '—'}» مشغولة في «${c.groupName}» ${day} ${slot}`;
+    })
+    .join(' • ');
+
+/** سعة القاعة من بيانات الفرع (classrooms JSON) */
+const getClassroomCapacity = async (prisma, companyId, branchId, classroomId) => {
+  if (!classroomId) return null;
+  const rows = await prisma.$queryRawUnsafe(
+    `SELECT classrooms::text AS classrooms FROM branches WHERE "companyId" = $1 AND ($2::text IS NULL OR id = $2) LIMIT 5`,
+    companyId,
+    branchId || null
+  ).catch(() => []);
+  for (const row of rows || []) {
+    const found = parseJsonArray(row.classrooms).find((room) => String(room.id) === String(classroomId));
+    if (found) {
+      const cap = parseInt(found.capacity, 10);
+      return Number.isNaN(cap) ? null : { name: found.name, capacity: cap };
+    }
+  }
+  return null;
+};
+
 const getAll = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -285,11 +428,49 @@ const create = async (req, res) => {
         endTime: endTime || '18:30'
       }));
     }
-    const derivedDays = safeSlots.length ? [...new Set(safeSlots.map(s => s.day).filter(Boolean))] : (Array.isArray(scheduleDays) ? scheduleDays : []);
+    const derivedDays = safeSlots.length ? [...new Set(safeSlots.map(s => s.dayOfWeek || s.day).filter(Boolean))] : (Array.isArray(scheduleDays) ? scheduleDays : []);
     const daysJson = JSON.stringify(derivedDays);
     const slotsJson = JSON.stringify(safeSlots);
     const primaryStartTime = safeSlots[0]?.startTime || startTime || '17:00';
     const primaryEndTime = safeSlots[0]?.endTime || endTime || '18:30';
+
+    // ── Capacity + schedule conflict guards ──
+    const allowConflicts = req.body.allowConflicts === true;
+    const requestedSlots = normalizeGroupSlots({
+      scheduleSlots: safeSlots,
+      startTime: primaryStartTime,
+      endTime: primaryEndTime,
+      room: room || ''
+    });
+
+    let resolvedCapacity = capacity ? parseInt(capacity, 10) : 15;
+    const classroom = await getClassroomCapacity(prisma, companyId, branchId, classroomId);
+    if (classroom) {
+      const requested = capacity ? parseInt(capacity, 10) : 0;
+      if (requested && requested > classroom.capacity) {
+        return res.status(400).json({
+          success: false,
+          code: 'CLASSROOM_CAPACITY_EXCEEDED',
+          error: `سعة القاعة «${classroom.name}» هي ${classroom.capacity} طالب فقط — لا يمكن ضبط سعة أكبر`
+        });
+      }
+      if (!requested) resolvedCapacity = classroom.capacity;
+    }
+
+    const conflicts = await findGroupScheduleConflicts(prisma, companyId, null, {
+      teacherId: teacherId || null,
+      room: room ? String(room).trim() : '',
+      classroomId: classroomId || null,
+      slots: requestedSlots
+    });
+    if (conflicts.length && !allowConflicts) {
+      return res.status(409).json({
+        success: false,
+        code: 'GROUP_SCHEDULE_CONFLICT',
+        error: `تعارض في المواعيد: ${describeConflicts(conflicts)}`,
+        conflicts
+      });
+    }
 
     await prisma.$executeRawUnsafe(`
       INSERT INTO "education_groups" (
@@ -311,7 +492,7 @@ const create = async (req, res) => {
       resolvedSubjectId,
       teacherId || null,
       level || null,
-      capacity ? parseInt(capacity, 10) : 15,
+      resolvedCapacity,
       feeType || 'MONTHLY',
       feeAmount ? parseFloat(feeAmount) : 0,
       teacherRateType || 'PERCENTAGE',
@@ -416,7 +597,7 @@ const update = async (req, res) => {
         endTime: endTime || '18:30'
       }));
     }
-    const derivedDays = safeSlots.length ? [...new Set(safeSlots.map(s => s.day).filter(Boolean))] : (Array.isArray(scheduleDays) ? scheduleDays : []);
+    const derivedDays = safeSlots.length ? [...new Set(safeSlots.map(s => s.dayOfWeek || s.day).filter(Boolean))] : (Array.isArray(scheduleDays) ? scheduleDays : []);
     const daysJson = JSON.stringify(derivedDays);
     const slotsJson = JSON.stringify(safeSlots);
     const primaryStartTime = safeSlots[0]?.startTime || startTime || null;
@@ -439,6 +620,60 @@ const update = async (req, res) => {
       if (!validTeacher) {
         return res.status(400).json({ success: false, error: 'المدرب المحدد غير صالح أو غير تابع لهذه الشركة' });
       }
+    }
+
+    // ── Capacity + schedule conflict guards (excluding this group) ──
+    const existingRows = await prisma.$queryRawUnsafe(`
+      SELECT id, "teacherId", room, "classroomId", capacity, "branchId",
+             "scheduleDays"::text AS "scheduleDays", "scheduleSlots"::text AS "scheduleSlots",
+             "startTime", "endTime"
+      FROM "education_groups" WHERE id = $1 AND "companyId" = $2 LIMIT 1
+    `, id, companyId);
+    if (!existingRows || existingRows.length === 0) {
+      return res.status(404).json({ success: false, error: 'المجموعة غير موجودة' });
+    }
+    const existingGroup = existingRows[0];
+    const effectiveTeacherId = teacherId !== undefined ? teacherId : existingGroup.teacherId;
+    const effectiveRoom = room !== undefined ? String(room || '').trim() : String(existingGroup.room || '').trim();
+    const effectiveClassroomId = classroomId !== undefined ? classroomId : existingGroup.classroomId;
+    const effectiveSlots = safeSlots.length
+      ? normalizeGroupSlots({
+        scheduleSlots: safeSlots,
+        startTime: primaryStartTime || existingGroup.startTime,
+        endTime: primaryEndTime || existingGroup.endTime,
+        room: effectiveRoom
+      })
+      : normalizeGroupSlots(existingGroup);
+
+    const allowConflicts = req.body.allowConflicts === true;
+    const classroom = await getClassroomCapacity(
+      prisma,
+      companyId,
+      branchId || existingGroup.branchId,
+      effectiveClassroomId
+    );
+    const requestedCapacity = capacity !== undefined ? parseInt(capacity, 10) : parseInt(existingGroup.capacity, 10);
+    if (classroom && requestedCapacity && requestedCapacity > classroom.capacity) {
+      return res.status(400).json({
+        success: false,
+        code: 'CLASSROOM_CAPACITY_EXCEEDED',
+        error: `سعة القاعة «${classroom.name}» هي ${classroom.capacity} طالب فقط — لا يمكن ضبط سعة أكبر`
+      });
+    }
+
+    const conflicts = await findGroupScheduleConflicts(prisma, companyId, id, {
+      teacherId: effectiveTeacherId || null,
+      room: effectiveRoom,
+      classroomId: effectiveClassroomId || null,
+      slots: effectiveSlots
+    });
+    if (conflicts.length && !allowConflicts) {
+      return res.status(409).json({
+        success: false,
+        code: 'GROUP_SCHEDULE_CONFLICT',
+        error: `تعارض في المواعيد: ${describeConflicts(conflicts)}`,
+        conflicts
+      });
     }
 
     await prisma.$executeRawUnsafe(`
@@ -1018,8 +1253,217 @@ const recordSession = async (req, res) => {
   }
 };
 
-const getFinancials = async (req, res) => {
+const getLiveRooms = async (req, res) => {
   try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    await ensureTablesExist(prisma);
+
+    const requestedAt = req.query.at ? new Date(req.query.at) : new Date();
+    const at = Number.isNaN(requestedAt.getTime()) ? new Date() : requestedAt;
+    const branchFilter = req.query.branchId ? String(req.query.branchId) : null;
+
+    const branchRows = await prisma.$queryRawUnsafe(`
+      SELECT id, name, city, address, classrooms::text AS classrooms
+      FROM branches
+      WHERE "companyId" = $1 ${branchFilter ? 'AND id = $2' : ''}
+      ORDER BY name
+    `, ...(branchFilter ? [companyId, branchFilter] : [companyId]));
+
+    const groupRows = await prisma.$queryRawUnsafe(`
+      SELECT g.id, g.name, g."teacherId", g.room, g."classroomId", g.capacity, g."branchId",
+             g."scheduleDays"::text AS "scheduleDays", g."scheduleSlots"::text AS "scheduleSlots",
+             g."startTime", g."endTime", g.status,
+             t.name AS "teacherName", s.name AS "subjectName",
+             (SELECT COUNT(*) FROM "education_group_members" m
+               WHERE m."groupId" = g.id AND m."companyId" = g."companyId" AND m.status = 'ACTIVE') AS members
+      FROM "education_groups" g
+      LEFT JOIN "education_teachers" t ON t.id = g."teacherId" AND t."companyId" = g."companyId"
+      LEFT JOIN "education_subjects" s ON s.id = g."subjectId" AND s."companyId" = g."companyId"
+      WHERE g."companyId" = $1 AND COALESCE(g.status, 'OPEN') <> 'CANCELLED'
+    `, companyId);
+
+    const dayStart = new Date(at);
+    dayStart.setHours(0, 0, 0, 0);
+    const dayEnd = new Date(dayStart);
+    dayEnd.setDate(dayEnd.getDate() + 1);
+
+    const sessionRows = await prisma.$queryRawUnsafe(`
+      SELECT id, "groupId", "sessionDate", status, topic, notes
+      FROM "education_group_sessions"
+      WHERE "companyId" = $1 AND "sessionDate" >= $2 AND "sessionDate" < $3
+    `, companyId, dayStart, dayEnd).catch(() => []);
+
+    const sessionsByGroup = new Map();
+    for (const row of sessionRows || []) {
+      const key = String(row.groupId);
+      if (!sessionsByGroup.has(key)) sessionsByGroup.set(key, []);
+      sessionsByGroup.get(key).push(row);
+    }
+
+    const hhmm = (minutes) =>
+      `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+
+    const dateAtMinutes = (baseDate, minutes) => {
+      const d = new Date(baseDate);
+      d.setHours(0, 0, 0, 0);
+      d.setMinutes(minutes);
+      return d;
+    };
+
+    // الحصة الحالية والقادمة لمجموعة معينة (اعتماداً على جدولها الأسبوعي)
+    const resolveGroupTimeline = (group) => {
+      const slots = normalizeGroupSlots(group);
+      if (!slots.length) return { current: null, next: null };
+
+      let current = null;
+      let next = null;
+      for (let offset = 0; offset <= 14; offset += 1) {
+        if (current && next) break;
+        const day = new Date(at);
+        day.setDate(day.getDate() + offset);
+        const dayIdx = day.getDay();
+        for (const slot of slots.filter((s) => s.dayIdx === dayIdx)) {
+          const startAt = dateAtMinutes(day, slot.start);
+          const endAt = dateAtMinutes(day, Math.max(slot.end, slot.start + 1));
+          const todaysSessions = sessionsByGroup.get(String(group.id)) || [];
+          const matched = todaysSessions.find((s) => {
+            const sStart = new Date(s.sessionDate);
+            return Math.abs(sStart.getTime() - startAt.getTime()) <= 15 * 60000;
+          });
+          const cancelled = matched && String(matched.status).toUpperCase() === 'CANCELLED';
+          if (cancelled) continue;
+
+          const payload = {
+            groupId: group.id,
+            groupName: group.name,
+            teacherId: group.teacherId || null,
+            teacherName: group.teacherName || null,
+            subjectName: group.subjectName || null,
+            room: slot.room || group.room || null,
+            members: Number(group.members || 0),
+            capacity: Number(group.capacity || 0),
+            startAt,
+            endAt,
+            startTime: hhmm(slot.start),
+            endTime: hhmm(slot.end),
+            dayLabel: DAY_LABELS_AR[dayIdx] || '',
+            sessionId: matched?.id || null,
+            topic: matched?.topic || null,
+            status: matched?.status || 'SCHEDULED'
+          };
+
+          if (at >= startAt && at < endAt && !current) {
+            current = payload;
+          } else if (startAt > at && !next) {
+            next = payload;
+          }
+        }
+      }
+      return { current, next };
+    };
+
+    const timelines = new Map();
+    for (const group of groupRows || []) {
+      timelines.set(String(group.id), resolveGroupTimeline(group));
+    }
+
+    const branches = (branchRows || []).map((branch) => {
+      const classrooms = parseJsonArray(branch.classrooms);
+      const rooms = classrooms.map((room) => {
+        const roomName = String(room.name || '').trim();
+        const roomKey = String(room.id || roomName);
+        const assigned = (groupRows || []).filter((g) => {
+          if (g.classroomId && String(g.classroomId) === roomKey) return true;
+          return !g.classroomId && g.room && String(g.room).trim().toLowerCase() === roomName.toLowerCase();
+        });
+        const roomTimelines = assigned.map((g) => timelines.get(String(g.id))).filter(Boolean);
+        const current = roomTimelines.map((t) => t.current).find(Boolean) || null;
+        const next = roomTimelines
+          .map((t) => t.next)
+          .filter(Boolean)
+          .sort((a, b) => new Date(a.startAt) - new Date(b.startAt))[0] || null;
+        const capacity = parseInt(room.capacity, 10) || 0;
+        return {
+          id: roomKey,
+          name: roomName || 'قاعة',
+          type: room.type || 'THEORY',
+          capacity,
+          isActive: room.isActive !== false,
+          groupsCount: assigned.length,
+          isOccupied: Boolean(current),
+          current,
+          next,
+          fillPercent: capacity && current ? Math.min(100, Math.round((current.members / capacity) * 100)) : 0
+        };
+      });
+
+      return {
+        id: branch.id,
+        name: branch.name,
+        city: branch.city || null,
+        address: branch.address || null,
+        rooms,
+        occupiedCount: rooms.filter((r) => r.isOccupied).length,
+        totalRooms: rooms.length
+      };
+    });
+
+    // مجموعات بدون قاعة محددة (تظهر كصفوف غير موزعة)
+    const assignedGroupIds = new Set();
+    for (const branch of branchRows || []) {
+      for (const room of parseJsonArray(branch.classrooms)) {
+        const roomName = String(room.name || '').trim().toLowerCase();
+        for (const g of groupRows || []) {
+          if (g.classroomId && String(g.classroomId) === String(room.id)) assignedGroupIds.add(String(g.id));
+          else if (!g.classroomId && g.room && String(g.room).trim().toLowerCase() === roomName) assignedGroupIds.add(String(g.id));
+        }
+      }
+    }
+    const unassigned = (groupRows || [])
+      .filter((g) => !assignedGroupIds.has(String(g.id)))
+      .map((g) => {
+        const t = timelines.get(String(g.id)) || {};
+        return {
+          groupId: g.id,
+          groupName: g.name,
+          teacherName: g.teacherName || null,
+          subjectName: g.subjectName || null,
+          room: g.room || null,
+          branchId: g.branchId || null,
+          members: Number(g.members || 0),
+          capacity: Number(g.capacity || 0),
+          current: t.current || null,
+          next: t.next || null
+        };
+      });
+
+    const allRooms = branches.flatMap((b) => b.rooms);
+    res.json({
+      success: true,
+      data: {
+        generatedAt: new Date().toISOString(),
+        at: at.toISOString(),
+        serverNow: new Date().toISOString(),
+        summary: {
+          totalRooms: allRooms.length,
+          occupiedRooms: allRooms.filter((r) => r.isOccupied).length,
+          freeRooms: allRooms.filter((r) => !r.isOccupied && r.isActive).length,
+          unassignedGroups: unassigned.length
+        },
+        branches,
+        unassigned
+      }
+    });
+  } catch (err) {
+    console.error('[EducationGroups] getLiveRooms error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+const getFinancials = async (req, res) => {  try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -1406,6 +1850,7 @@ module.exports = {
   removeMember,
   transferMember,
   recordSession,
+  getLiveRooms,
   getFinancials,
   generateSessions,
   generateGroupSessionsInternal

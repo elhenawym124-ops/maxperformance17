@@ -69,6 +69,7 @@ from src.llm.model_capabilities import (
 from src.mcp_integration.registry import get_mcp_registry
 from src.pipeline.context import DISABLE_EXTERNAL_EMBEDDING_RETRIEVAL, PipelineContext
 from src.pipeline.runner import execute_pipeline
+from src.pipeline.stages.retrieve_knowledge import retrieve_knowledge
 from src.pipeline.stages.skills_pipeline import process_with_skills
 from src.pipeline.stages.validate_reply import validate_reply
 from src.pipeline.stages.visual_match import match_product_by_image
@@ -1039,6 +1040,7 @@ class BaseAgent:
             ctx,
             [
                 match_product_by_image,
+                retrieve_knowledge,
                 process_with_skills,
                 validate_reply,
             ],
@@ -1282,6 +1284,7 @@ class BaseAgent:
 
             for stage in (
                 match_product_by_image,
+                retrieve_knowledge,
                 process_with_skills,
                 validate_reply,
             ):

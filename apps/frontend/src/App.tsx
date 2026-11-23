@@ -1342,6 +1342,9 @@ const EducationTeacherSchedulePage = React.lazy(
 const EducationGroupsPage = React.lazy(
   () => import("./pages/admin/EducationGroupsPage"),
 );
+const EducationRoomsLivePage = React.lazy(
+  () => import("./pages/admin/EducationRoomsLivePage"),
+);
 const EducationTeacherPaymentsPage = React.lazy(
   () => import("./pages/admin/EducationTeacherPaymentsPage"),
 );
@@ -9643,6 +9646,16 @@ const AppContent = () => {
                     <Layout fullWidth>
                       <AppAccessRoute requiredAppSlugs={['education-app']}>
                         <EducationGroupsPage />
+                      </AppAccessRoute>
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/admin/education/rooms"
+                  element={
+                    <Layout fullWidth>
+                      <AppAccessRoute requiredAppSlugs={['education-app']}>
+                        <EducationRoomsLivePage />
                       </AppAccessRoute>
                     </Layout>
                   }

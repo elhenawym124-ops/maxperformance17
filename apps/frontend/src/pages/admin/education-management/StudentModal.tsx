@@ -14,6 +14,7 @@ export interface StudentModalProps {
   customers: Customer[];
   customerResults: Customer[];
   branches?: { id: string; name: string }[];
+  packages?: Array<{ id: string; name: string; levelNumber?: number | null; ageFrom?: number | null; ageTo?: number | null }>;
   onCustomerSearch: (q: string) => void;
   onClose: () => void;
   onSave: (d: Partial<EducationStudent>) => Promise<EducationStudent | null | void>;
@@ -26,6 +27,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
   customers,
   customerResults,
   branches = [],
+  packages = [],
   onCustomerSearch,
   onClose,
   onSave,
@@ -99,7 +101,7 @@ export const StudentModal: React.FC<StudentModalProps> = ({
     toast.success(isEn ? "Credentials copied to clipboard!" : "تم نسخ بيانات الدخول إلى الحافظة!");
   };
 
-  const ageLevelsData = getLevelsForAge(form.age);
+  const ageLevelsData = getLevelsForAge(form.age, packages);
 
   const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>(() => {
     if (!student?.subjects) return [];

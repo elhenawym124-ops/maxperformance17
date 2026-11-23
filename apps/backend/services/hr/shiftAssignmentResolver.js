@@ -51,7 +51,23 @@ async function getEffectiveShiftForDate(prisma, companyId, userId, date, timezon
   return assignment?.shift || null;
 }
 
+/**
+ * المناوبة السارية للموظف، وإن لم يوجد أي تعيين نرجع المناوبة الافتراضية للشركة.
+ * بدون هذا السقوط كان احتساب التأخير يستخدم وقتاً ثابتاً (10:00) بدل مناوبة الفرع،
+ * فيظهر كل موظف متأخذاً بساعات رغم حضوره في موعده.
+ */
+async function getEffectiveShiftForDateOrDefault(prisma, companyId, userId, date, timezone = 'Africa/Cairo') {
+  const assigned = await getEffectiveShiftForDate(prisma, companyId, userId, date, timezone);
+  if (assigned) return assigned;
+
+  return prisma.shift.findFirst({
+    where: { companyId, isActive: true },
+    orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }]
+  }).catch(() => null);
+}
+
 module.exports = {
   getEffectiveShiftAssignmentForDate,
-  getEffectiveShiftForDate
+  getEffectiveShiftForDate,
+  getEffectiveShiftForDateOrDefault
 };

@@ -8,6 +8,7 @@ jest.mock("../../utils/dateUtils", () => ({
 const {
   getEffectiveShiftAssignmentForDate,
   getEffectiveShiftForDate,
+  getEffectiveShiftForDateOrDefault,
 } = require("../../services/hr/shiftAssignmentResolver");
 
 describe("shiftAssignmentResolver", () => {
@@ -91,5 +92,52 @@ describe("shiftAssignmentResolver", () => {
       })
     );
     expect(shift?.startTime).toBe("10:00");
+  });
+
+  test("falls back to the company default active shift when the employee has no assignment", async () => {
+    const prisma = {
+      shiftAssignment: {
+        findFirst: jest.fn().mockResolvedValue(null),
+      },
+      shift: {
+        findFirst: jest.fn().mockResolvedValue({
+          id: "shift-default",
+          startTime: "14:00",
+          endTime: "21:00",
+        }),
+      },
+    };
+
+    const shift = await getEffectiveShiftForDateOrDefault(
+      prisma,
+      "company-1",
+      "user-1",
+      new Date("2026-04-07T11:26:00.000Z"),
+      "Africa/Cairo"
+    );
+
+    expect(shift?.startTime).toBe("14:00");
+    expect(prisma.shift.findFirst).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { companyId: "company-1", isActive: true },
+      })
+    );
+  });
+
+  test("returns null when neither an assignment nor a company shift exists", async () => {
+    const prisma = {
+      shiftAssignment: { findFirst: jest.fn().mockResolvedValue(null) },
+      shift: { findFirst: jest.fn().mockResolvedValue(null) },
+    };
+
+    const shift = await getEffectiveShiftForDateOrDefault(
+      prisma,
+      "company-1",
+      "user-1",
+      new Date("2026-04-07T11:26:00.000Z"),
+      "Africa/Cairo"
+    );
+
+    expect(shift).toBeNull();
   });
 });

@@ -743,15 +743,26 @@ const recordPunchesBatch = async (req, res) => {
         const hrSettings = await prisma.hRSettings.findUnique({
           where: { companyId }
         });
-        const shift = await attendanceService.getEmployeeShiftForDate(
+        // مناوبة الموظف تُحل بـ userId (لا بـ employee.id) ثم مناوبة الشركة الافتراضية.
+        // بدون ذلك كان يقع على '10:00' الثابتة فيظهر الجميع متأخرين.
+        const shift = await getEffectiveShiftForDateOrDefault(
+          prisma,
           companyId,
-          employee.id,
+          employee.userId,
           punchDate,
           timezone
         );
+        const latenessRules = await prisma.latenessRules
+          ?.findUnique({ where: { companyId } })
+          .catch(() => null);
+        const shiftConfig = attendanceService.resolveShiftAndLatenessRules(
+          shift,
+          latenessRules,
+          hrSettings
+        );
 
         const isRest = attendanceService.isRestDay(punchDate, hrSettings, timezone);
-        const workStartTime = shift?.startTime || hrSettings?.workStartTime || '10:00';
+        const workStartTime = shiftConfig.workStartTime;
         const workEndTime = shift?.endTime || hrSettings?.workEndTime || '18:00';
         const workStart = combineDateAndTime(dayStart, workStartTime, timezone);
         const workEnd = combineDateAndTime(dayStart, workEndTime, timezone);
@@ -777,10 +788,9 @@ const recordPunchesBatch = async (req, res) => {
               updateData.status = 'WEEKEND';
               updateData.lateMinutes = 0;
             } else {
-              const gracePeriod = hrSettings?.lateGracePeriod || hrSettings?.lateThresholdMinutes || 10;
-              const graceTime = new Date(workStart.getTime() + gracePeriod * 60000);
+              const graceTime = new Date(workStart.getTime() + shiftConfig.allowanceMinutes * 60000);
               if (punchDate > graceTime) {
-                updateData.lateMinutes = Math.floor((punchDate - workStart) / 60000);
+                updateData.lateMinutes = Math.floor((punchDate - graceTime) / 60000);
                 updateData.status = 'LATE';
               } else {
                 updateData.lateMinutes = 0;
@@ -853,10 +863,9 @@ const recordPunchesBatch = async (req, res) => {
           if (isRest) {
             status = 'WEEKEND';
           } else if (isCheckIn) {
-            const gracePeriod = hrSettings?.lateGracePeriod || hrSettings?.lateThresholdMinutes || 10;
-            const graceTime = new Date(workStart.getTime() + gracePeriod * 60000);
+            const graceTime = new Date(workStart.getTime() + shiftConfig.allowanceMinutes * 60000);
             if (punchDate > graceTime) {
-              lateMinutes = Math.floor((punchDate - workStart) / 60000);
+              lateMinutes = Math.floor((punchDate - graceTime) / 60000);
               status = 'LATE';
             }
           } else {

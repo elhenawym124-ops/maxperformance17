@@ -768,6 +768,84 @@ router.get('/groups/sessions/:sessionId/attendance', authenticateTeacherToken, a
   }
 });
 
+// Save attendance for a group session (teacher-side ثبت الحضور والغياب)
+router.post('/groups/sessions/:sessionId/attendance', authenticateTeacherToken, async (req, res) => {
+  try {
+    const { id: teacherId, companyId } = req.teacher;
+    const { sessionId } = req.params;
+    const prisma = getSharedPrismaClient();
+
+    const sessionRows = await prisma.$queryRawUnsafe(`
+      SELECT gs.id, gs."groupId", gs."teacherId" AS "sessionTeacherId", g."teacherId" AS "groupTeacherId", gs.status
+      FROM "education_group_sessions" gs
+      INNER JOIN "education_groups" g ON g.id = gs."groupId" AND g."companyId" = gs."companyId"
+      WHERE gs.id = $1 AND gs."companyId" = $2
+      LIMIT 1
+    `, sessionId, companyId);
+
+    if (!sessionRows || sessionRows.length === 0) {
+      return res.status(404).json({ success: false, message: 'الحصة غير موجودة' });
+    }
+    const session = sessionRows[0];
+    if (String(session.sessionTeacherId || '') !== String(teacherId) &&
+        String(session.groupTeacherId || '') !== String(teacherId)) {
+      return res.status(403).json({ success: false, message: 'هذه الحصة ليست من حصصك' });
+    }
+
+    const body = req.body || {};
+    const list = Array.isArray(body.attendance) ? body.attendance
+      : (Array.isArray(body.attendanceList) ? body.attendanceList : null);
+    if (!list) {
+      return res.status(400).json({ success: false, message: 'قائمة الحضور مطلوبة' });
+    }
+
+    const allowed = new Set(['PRESENT', 'ABSENT', 'LATE', 'EXCUSED']);
+    const members = await prisma.$queryRawUnsafe(`
+      SELECT m."studentId"
+      FROM "education_group_members" m
+      WHERE m."groupId" = $1 AND m."companyId" = $2 AND m.status = 'ACTIVE'
+    `, session.groupId, companyId);
+    const memberIds = new Set((members || []).map((m) => String(m.studentId)));
+
+    const { generateAttId } = require('../services/educationGroupsService');
+
+    await prisma.$executeRawUnsafe(`
+      DELETE FROM "education_group_attendance" WHERE "sessionId" = $1 AND "companyId" = $2
+    `, sessionId, companyId);
+
+    let saved = 0;
+    for (const item of list) {
+      const studentId = item && item.studentId ? String(item.studentId) : null;
+      if (!studentId || !memberIds.has(studentId)) continue;
+      const status = String(item.status || 'PRESENT').toUpperCase();
+      if (!allowed.has(status)) continue;
+      await prisma.$executeRawUnsafe(`
+        INSERT INTO "education_group_attendance" (
+          "id", "companyId", "sessionId", "groupId", "studentId", "status", "notes", "notifiedParentAt", "createdAt"
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, NULL, NOW())
+      `, generateAttId(), companyId, sessionId, session.groupId, studentId, status, item.notes || null);
+      saved += 1;
+    }
+
+    await prisma.$executeRawUnsafe(`
+      UPDATE "education_group_sessions"
+      SET "status" = 'COMPLETED',
+          "teacherId" = COALESCE($1, "teacherId"),
+          "topic" = COALESCE($2, "topic"),
+          "homework" = COALESCE($3, "homework")
+      WHERE id = $4 AND "companyId" = $5
+    `, teacherId, body.topic || null, body.homework || null, sessionId, companyId);
+
+    res.json({
+      success: true,
+      data: { sessionId, saved, message: 'تم تسجيل الحضور والغياب بنجاح' }
+    });
+  } catch (error) {
+    console.error('[TeacherPortal] Save group attendance error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في تسجيل الحضور' });
+  }
+});
+
 // Teacher's students list (Both private enrollments and group members)
 router.get('/students', authenticateTeacherToken, async (req, res) => {
   try {

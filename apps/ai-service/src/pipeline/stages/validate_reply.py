@@ -104,6 +104,109 @@ _DATA_AUDIT_FALLBACK = (
     "تحب أفحص المبيعات أو المنتجات دلوقتي؟"
 )
 
+# ─────────────────────────────────────────────────────────────────────
+# Promise-without-action guard
+# ─────────────────────────────────────────────────────────────────────
+# «هبعت للإدارة» / «سأتواصل مع المدير» / "I'll escalate to the team" بدون
+# تنفيذ أداة فعلية = وعد فارغ. كان الرد يخرج كما هو ولا يصل شيء للإدارة.
+_PROMISE_VERB_PATTERNS = [
+    re.compile(
+        r"(?:سأ|سوف|هبعت|هبلغ|هتواصل|هكلم|هتابع|هرجعلك|هتصرف|هحول|هرفع|سأبلغ|سأرسل|سأتواصل|سأتابع|سأكلم|سأتصرف|هبعتلك)",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:i|we)(?:'|’)?ll\s+(?:send|escalate|forward|follow\s*up|check\s+with|inform|notify|contact|ask)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:i|we)\s+will\s+(?:send|escalate|forward|follow\s*up|inform|notify|contact)\b",
+        re.IGNORECASE,
+    ),
+]
+
+_PROMISE_TARGET_PATTERNS = [
+    re.compile(
+        r"الإدارة|الادار(?:ة|ه)|المدير(?:ة)?|الإداريين|للفريق|الفريق|الدعم|المسؤول|"
+        r"management|admin|supervisor|\bowner\b|service\s+team",
+        re.IGNORECASE,
+    ),
+]
+
+_ACTION_TOOL_NAMES = {
+    "escalate_to_human",
+    "knowledge_ask_merchant",
+    "agent_handoff_to",
+    "message_broadcast",
+    "notify_management",
+    "flag_human",
+    "agent_reports_create",
+}
+
+_APPROVAL_PENDING_MARKERS = (
+    "مستني موافقتك",
+    "مستنية موافقتك",
+    "بانتظار موافقتك",
+    "محتاج موافقتك",
+    "اترفع للاعتماد",
+    "رفعت الطلب للاعتماد",
+    "awaiting your approval",
+    "pending your approval",
+)
+
+
+def _has_unsupported_action_promise(text: str, executed_tools: list[dict[str, Any]]) -> bool:
+    """True when the reply promises to send/escalate something to management
+    but no action tool actually ran in this turn.
+
+    A promise is fine when the matching tool succeeded, or when the reply
+    already tells the customer the action is waiting for approval.
+    """
+    if not text:
+        return False
+    lowered = text.lower()
+    if any(marker in lowered for marker in _APPROVAL_PENDING_MARKERS):
+        return False
+    has_verb = any(p.search(text) for p in _PROMISE_VERB_PATTERNS)
+    has_target = any(p.search(text) for p in _PROMISE_TARGET_PATTERNS)
+    if not (has_verb and has_target):
+        return False
+    for item in executed_tools or []:
+        if (
+            isinstance(item, dict)
+            and item.get("tool") in _ACTION_TOOL_NAMES
+            and item.get("status") == "success"
+        ):
+            return False
+    return True
+
+
+def _build_promise_correction(
+    ctx: PipelineContext, promised_reply: str
+) -> list[dict[str, Any]]:
+    """Re-prompt so a promised escalation becomes a real tool call."""
+    evidence_text = _summarize_evidence(ctx.tool_evidence)
+    executed_names = [
+        item.get("tool", "") for item in (ctx.executed_tools or []) if isinstance(item, dict)
+    ]
+    return [
+        {
+            "role": "user",
+            "content": (
+                f"ردك السابق كان: \n\"{promised_reply[:400]}\"\n\n"
+                "⚠️ وعدت العميل إنك هتبعت/هتوصل/هتبلغ الإدارة، لكنك ما استدعيتش "
+                "أي أداة تنفيذ فعلاً، فمفيش أي حاجة وصلت للإدارة. الوعد بدون تنفيذ ممنوع.\n\n"
+                f"الأدوات اللي اتنادت في الـ turn ده: {executed_names}\n"
+                f"نتائج الأدوات: {evidence_text or '(لا توجد)'}\n\n"
+                "نفّذ الإجراء دلوقتي بأداة فعلية (escalate_to_human أو knowledge_ask_merchant "
+                "أو agent_handoff_to حسب المتاح) واستنى نتيجتها. لو الأداة رجعت success → "
+                "قول للعميل إن الطلب اترفع فعلاً. لو الإجراء محتاج اعتماد → قول بالحرف إنه "
+                "«جاهز ومستني موافقتك». لو مفيش أداة متاحة → قول الحقيقة واطلب منه يبعت "
+                "التفاصيل أو يتواصل مع الإدارة، ومن غير أي وعد مستقبلي."
+            ),
+        }
+    ]
+
+
 
 def _enforce_honesty_gate(text: str, executed_tools: list[dict[str, Any]]) -> str:
     """Enforce grounding honesty (BUG-4 / OWASP LLM06 / cases.json H1 & H2):
@@ -982,9 +1085,13 @@ async def validate_reply(ctx: PipelineContext) -> PipelineContext:
     # to call the right tool and respond honestly based on the actual result.
     if not reply and ctx.final_reply:
         ctx.final_reply = _enforce_honesty_gate(ctx.final_reply or "", ctx.executed_tools or [])
-        if _has_hallucinated_success_claim(
+        has_false_success = _has_hallucinated_success_claim(
             ctx.final_reply or "", ctx.executed_tools or []
-        ):
+        )
+        has_empty_promise = _has_unsupported_action_promise(
+            ctx.final_reply or "", ctx.executed_tools or []
+        )
+        if has_false_success or has_empty_promise:
             agent_slug = str(
                 getattr(ctx.agent, "template_slug", None)
                 or getattr(ctx.agent, "slug", None)
@@ -1000,10 +1107,15 @@ async def validate_reply(ctx: PipelineContext) -> PipelineContext:
                 agent_slug=agent_slug,
                 original_reply=(ctx.final_reply or "")[:200],
                 executed_tools=executed_names,
+                reason="promise" if has_empty_promise else "false_success",
             )
             # Re-prompt the LLM with tools enabled so it can actually call
             # the state-changing tool and verify success.
-            correction_messages = _build_hallucination_correction(ctx, ctx.final_reply or "")
+            correction_messages = (
+                _build_promise_correction(ctx, ctx.final_reply or "")
+                if has_empty_promise
+                else _build_hallucination_correction(ctx, ctx.final_reply or "")
+            )
             corrected = await _raw_llm_call_with_tools(ctx, correction_messages)
             if corrected and corrected.strip():
                 ctx.final_reply = _strip_internal_tags(corrected)
@@ -1115,6 +1227,8 @@ async def validate_reply(ctx: PipelineContext) -> PipelineContext:
             # the tool result before responding. No lying fallback.
             if _has_hallucinated_success_claim(
                 ctx.final_reply or "", ctx.executed_tools or []
+            ) or _has_unsupported_action_promise(
+                ctx.final_reply or "", ctx.executed_tools or []
             ):
                 agent_slug = str(
                     getattr(ctx.agent, "template_slug", None)
@@ -1137,8 +1251,12 @@ async def validate_reply(ctx: PipelineContext) -> PipelineContext:
                     # Re-prompt: give the LLM another chance to actually
                     # call the tool. Build correction context and reset
                     # reply so the next LLM call uses the correction.
-                    correction_messages = _build_hallucination_correction(
-                        ctx, ctx.final_reply or ""
+                    correction_messages = (
+                        _build_promise_correction(ctx, ctx.final_reply or "")
+                        if _has_unsupported_action_promise(
+                            ctx.final_reply or "", ctx.executed_tools or []
+                        )
+                        else _build_hallucination_correction(ctx, ctx.final_reply or "")
                     )
                     corrected = await _raw_llm_call_with_tools(
                         ctx, correction_messages

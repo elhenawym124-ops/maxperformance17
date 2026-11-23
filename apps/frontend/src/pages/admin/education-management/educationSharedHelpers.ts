@@ -71,7 +71,57 @@ export const AGE_BRACKETS: AgeBracket[] = [
   },
 ];
 
-export function getLevelsForAge(age?: number | string | null): AgeLevelsResult {
+export function getLevelsForAge(
+  age?: number | string | null,
+  packages?: Array<{ id: string; name: string; levelNumber?: number | null; ageFrom?: number | null; ageTo?: number | null }>
+): AgeLevelsResult {
+  // المسار الحقيقي للمركز هو الباقات المسجلة (كل باقة = مستوى برقم ومدى سن).
+  // القائمة الثابتة تحت كانت تخالف باقات المركز الفعلية، فكانت شاشة الطالب
+  // تعرض مستويات لا وجود لها في الباقات.
+  const companyLevels = (packages || [])
+    .filter((pkg) => pkg && Number(pkg.levelNumber) > 0)
+    .map((pkg) => ({
+      id: pkg.id,
+      name: pkg.name,
+      code: pkg.id,
+      levelNumber: Number(pkg.levelNumber),
+      ageFrom: pkg.ageFrom ?? undefined,
+      ageTo: pkg.ageTo ?? undefined,
+      bracketLabel: undefined,
+      ageRange: undefined,
+    }))
+    .sort((a, b) => a.levelNumber - b.levelNumber);
+
+  if (companyLevels.length > 0) {
+    const num = Number(age);
+    const hasAge = Boolean(age) && !Number.isNaN(num);
+    const matching = hasAge
+      ? companyLevels.filter(
+        (lvl) =>
+          (lvl.ageFrom === undefined || num >= Number(lvl.ageFrom)) &&
+          (lvl.ageTo === undefined || num <= Number(lvl.ageTo))
+      )
+      : companyLevels;
+    const levels = (matching.length > 0 ? matching : companyLevels).map((lvl) => {
+      const range =
+        lvl.ageFrom !== undefined && lvl.ageTo !== undefined
+          ? `${lvl.ageFrom}-${lvl.ageTo} سنة`
+          : undefined;
+      return {
+        id: lvl.id,
+        name: lvl.name,
+        code: lvl.code,
+        levelNumber: lvl.levelNumber,
+        bracketLabel: range,
+        ageRange: range,
+      } as AgeLevel;
+    });
+    const result = [...levels] as AgeLevelsResult;
+    result.bracket = null;
+    result.levels = levels;
+    return result;
+  }
+
   let bracket: AgeBracket | null = null;
   let levels: AgeLevel[] = [];
 

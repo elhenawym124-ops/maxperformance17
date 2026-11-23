@@ -742,6 +742,7 @@ export const EducationStudentsTab: React.FC<EducationStudentsTabProps> = ({
           enableSubjects={enableSubjects}
           customers={customers}
           customerResults={customerResults}
+          packages={packages}
           onCustomerSearch={searchCustomers}
           onClose={() => setStudentModal(undefined)}
           onSave={handleSaveStudent}
