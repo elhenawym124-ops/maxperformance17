@@ -179,6 +179,18 @@
 - New template `education_repeated_absence` (student, group, streak count) — approve it in WhatsApp settings if Meta requires templates.
 - UI: "غياب متكرر" card in the growth tab with the list and a "إشعار أولياء الأمور" action.
 
+## Phase 4 (part 12) — make-up sessions
+
+- New column `education_sessions.makeupForSessionId` (+ index) links a make-up to the missed lesson.
+- `POST /education/sessions/:id/makeup` `{ scheduledAt, plannedDuration?, teacherId?, topic?, notes? }`:
+  - Only for a **CONFIRMED** private session linked to an enrollment (cancelled sessions never consumed hours, so no make-up is needed).
+  - Credits the consumed hours back to the enrollment (capped at `totalHours`) and creates a `SCHEDULED` session with the same student/teacher/subject/enrollment flagged `makeupForSessionId`.
+  - The make-up itself deducts the hour when confirmed → **net one hour for one delivered lesson**.
+  - Rejects a second make-up for the same session (`409 MAKEUP_ALREADY_SCHEDULED`) and rolls the whole transaction back on failure.
+  - Audits `CREATE_MAKEUP_SESSION` and notifies the parent with the new session time.
+- UI: a "حصة تعويض" action on confirmed session rows (asks for the new date/time and refreshes the list).
+
+
 
 
 

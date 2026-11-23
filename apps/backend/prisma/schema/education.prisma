@@ -467,6 +467,7 @@ model EducationSession {
   actualDuration  Int?                    /// Actual minutes (teacher confirms after session)
   status          EducationSessionStatus  @default(SCHEDULED)
   sessionType     String?                 @default("PRIVATE") /// PRIVATE, GROUP
+  makeupForSessionId String?              /// Link to the missed session this one compensates
   topic           String?
   notes           String?
   createdAt       DateTime                @default(now())
@@ -483,6 +484,7 @@ model EducationSession {
   @@index([teacherId])
   @@index([scheduledAt])
   @@index([status])
+  @@index([makeupForSessionId])
   @@map("education_sessions")
 }
 

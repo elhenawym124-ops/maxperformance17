@@ -15,6 +15,7 @@ router.post('/', requireDbPermission('education.sessions.manage'), controller.cr
 router.put('/:id', requireDbPermission('education.sessions.manage'), controller.update);
 router.put('/:id/confirm', requireDbPermission('education.sessions.manage'), controller.confirm);
 router.put('/:id/cancel', requireDbPermission('education.sessions.manage'), controller.cancel);
+router.post('/:id/makeup', requireDbPermission('education.sessions.manage'), controller.createMakeup);
 router.delete('/:id', requireDbPermission('education.sessions.manage'), controller.remove);
 
 module.exports = router;

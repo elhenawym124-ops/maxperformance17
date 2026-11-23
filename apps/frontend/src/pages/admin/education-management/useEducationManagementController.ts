@@ -491,6 +491,27 @@ export function useEducationManagementController() {
     }
     fetchSessions();
   };
+  const handleScheduleMakeup = async (id: string) => {
+    const input = window.prompt("موعد حصة التعويض (YYYY-MM-DD HH:mm)");
+    if (!input) return;
+    const normalized = input.trim().replace(" ", "T");
+    const scheduledAt = new Date(normalized);
+    if (Number.isNaN(scheduledAt.getTime())) {
+      alert("صيغة الموعد غير صحيحة");
+      return;
+    }
+    const res = await fetch(api(`sessions/${id}/makeup`), {
+      method: "POST",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ scheduledAt: scheduledAt.toISOString() }),
+    });
+    const data = await res.json();
+    if (!data.success) {
+      alert(data.error || "فشل جدولة حصة التعويض");
+      return;
+    }
+    fetchSessions();
+  };
 
   // Stats
   const todayStr = useMemo(() => {
@@ -583,5 +604,6 @@ export function useEducationManagementController() {
     handleSaveSession,
     handleConfirmSession,
     handleCancelSession,
+    handleScheduleMakeup,
   };
 }

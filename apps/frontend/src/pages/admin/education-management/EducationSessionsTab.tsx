@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Plus, Check, X, Pencil, Clock, BookOpen, User } from "lucide-react";
+import { Plus, Check, X, Pencil, Clock, BookOpen, User, CalendarPlus } from "lucide-react";
 import type {
   EducationSession,
   EducationTeacher,
@@ -40,6 +40,7 @@ export interface EducationSessionsTabProps {
     actualDuration?: number
   ) => Promise<void>;
   handleCancelSession: (id: string) => Promise<void>;
+  onScheduleMakeup?: (id: string) => void;
 }
 
 export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
@@ -55,6 +56,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
   handleSaveSession,
   handleConfirmSession,
   handleCancelSession,
+  onScheduleMakeup,
 }) => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
@@ -387,6 +389,17 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                             <X className="w-3.5 h-3.5" />
                           </button>
                         </>
+                      )}
+                      {s.status === "CONFIRMED" && typeof onScheduleMakeup === "function" && (
+                        <button
+                          type="button"
+                          onClick={() => onScheduleMakeup(s.id)}
+                          className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
+                          aria-label={isEn ? "Schedule make-up" : "حصة تعويض"}
+                          title={isEn ? "Schedule make-up" : "حصة تعويض"}
+                        >
+                          <CalendarPlus className="w-3.5 h-3.5" />
+                        </button>
                       )}
                       <button
                         type="button"

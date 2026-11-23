@@ -82,6 +82,7 @@ export default function EducationManagementPage() {
     handleSaveSession,
     handleConfirmSession,
     handleCancelSession,
+    handleScheduleMakeup,
   } = useEducationManagementController();
 
   const { t, i18n } = useTranslation();
@@ -310,6 +311,7 @@ export default function EducationManagementPage() {
               handleSaveSession={handleSaveSession}
               handleConfirmSession={handleConfirmSession}
               handleCancelSession={handleCancelSession}
+              onScheduleMakeup={handleScheduleMakeup}
             />
           )}
           {activeTab === "exams" && <EducationExamsTab />}

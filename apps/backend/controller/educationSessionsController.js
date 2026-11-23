@@ -706,4 +706,131 @@ const getMissed = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, confirm, cancel, remove, getMissed };
+/**
+ * Creates a makeup session for an already-consumed session.
+ *
+ * Hours accounting: a confirmed session already deducted its hours. The makeup
+ * credits those hours back to the enrollment, and the makeup session itself
+ * deducts them again when confirmed → the student is charged exactly one hour
+ * for one delivered lesson.
+ */
+const createMakeup = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const original = await prisma.educationSession.findFirst({
+      where: { id: req.params.id, companyId },
+      include: {
+        student: { select: { id: true, firstName: true, lastName: true } },
+        teacher: { select: { id: true, name: true } },
+        subject: { select: { id: true, name: true } },
+        enrollment: { select: { id: true, remainingHours: true, totalHours: true } },
+      },
+    });
+    if (!original) return res.status(404).json({ success: false, error: 'الحصة غير موجودة' });
+    if (!original.enrollmentId) {
+      return res.status(400).json({ success: false, error: 'الحصة غير مرتبطة بباقة — لا يمكن جدولة تعويض' });
+    }
+    if (original.status === 'CANCELLED') {
+      return res.status(409).json({ success: false, error: 'الحصة ملغاة ولم تُخصم من الرصيد — لا تحتاج تعويضًا' });
+    }
+    if (original.status !== 'CONFIRMED') {
+      return res.status(409).json({ success: false, error: 'لا يمكن التعويض قبل تأكيد الحصة الأصلية' });
+    }
+
+    const scheduledAt = req.body?.scheduledAt ? new Date(req.body.scheduledAt) : null;
+    if (!scheduledAt || Number.isNaN(scheduledAt.getTime())) {
+      return res.status(400).json({ success: false, error: 'موعد حصة التعويض مطلوب' });
+    }
+
+    const existingMakeup = await prisma.educationSession.findFirst({
+      where: { companyId, makeupForSessionId: original.id },
+      select: { id: true, scheduledAt: true },
+    });
+    if (existingMakeup) {
+      return res.status(409).json({
+        success: false,
+        code: 'MAKEUP_ALREADY_SCHEDULED',
+        error: 'توجد حصة تعويض مجدولة بالفعل لهذه الحصة',
+        makeupSessionId: existingMakeup.id,
+      });
+    }
+
+    const hours = (original.actualDuration || original.plannedDuration || 60) / 60;
+    const plannedDuration = Number(req.body?.plannedDuration) || original.plannedDuration || 60;
+    const teacherId = req.body?.teacherId || original.teacherId;
+
+    const makeup = await prisma.$transaction(async (tx) => {
+      const enrollment = await tx.educationEnrollment.findFirst({
+        where: { id: original.enrollmentId, companyId },
+        select: { id: true, remainingHours: true, totalHours: true },
+      });
+      if (!enrollment) {
+        const error = new Error('التسجيل غير موجود');
+        error.statusCode = 400;
+        throw error;
+      }
+
+      const restored = Math.round((Number(enrollment.remainingHours) + hours) * 100) / 100;
+      const capped = enrollment.totalHours
+        ? Math.min(restored, Number(enrollment.totalHours))
+        : restored;
+      await tx.educationEnrollment.update({
+        where: { id: enrollment.id },
+        data: { remainingHours: capped },
+      });
+
+      return tx.educationSession.create({
+        data: {
+          companyId,
+          enrollmentId: original.enrollmentId,
+          teacherId,
+          studentId: original.studentId,
+          subjectId: original.subjectId,
+          scheduledAt,
+          plannedDuration,
+          status: 'SCHEDULED',
+          sessionType: original.sessionType || 'PRIVATE',
+          topic: req.body?.topic || original.topic || null,
+          notes: req.body?.notes || 'حصة تعويض',
+          makeupForSessionId: original.id,
+        },
+      });
+    });
+
+    logEducationEvent({
+      companyId,
+      action: 'CREATE_MAKEUP_SESSION',
+      entityType: 'SESSION',
+      entityId: makeup.id,
+      entityName: `${original.subject?.name || 'حصة'} - ${original.student?.firstName || ''} ${original.student?.lastName || ''}`.trim(),
+      description: `تم جدولة حصة تعويض للطالب ${original.student?.firstName || ''} ${original.student?.lastName || ''} عن حصة ${new Date(original.scheduledAt).toISOString().slice(0, 10)}`,
+      details: {
+        originalSessionId: original.id,
+        makeupSessionId: makeup.id,
+        hoursRestored: hours,
+        scheduledAt,
+      },
+      severity: 'LOW',
+      req,
+    }).catch(() => {});
+
+    try {
+      require('../services/educationNotificationService')
+        .notifySessionScheduled(companyId, makeup)
+        .catch(() => {});
+    } catch (_) {}
+
+    res.json({ success: true, data: makeup });
+  } catch (error) {
+    if (error.statusCode) {
+      return res.status(error.statusCode).json({ success: false, error: error.message });
+    }
+    console.error('Error creating makeup session:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جدولة حصة التعويض' });
+  }
+};
+
+module.exports = { getAll, getById, create, update, confirm, cancel, remove, getMissed, createMakeup };

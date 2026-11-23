@@ -40,6 +40,7 @@ const ACTION_DEFINITIONS = {
   UPDATE_SESSION: { label: 'تعديل موعد/بيانات حصة', severity: 'LOW', entity: 'SESSION' },
   CONFIRM_SESSION: { label: 'تأكيد إتمام الحصة', severity: 'MEDIUM', entity: 'SESSION' },
   CANCEL_SESSION: { label: 'إلغاء حصة دراسية', severity: 'MEDIUM', entity: 'SESSION' },
+  CREATE_MAKEUP_SESSION: { label: 'جدولة حصة تعويض', severity: 'LOW', entity: 'SESSION' },
   DELETE_SESSION: { label: 'حذف حصة دراسية', severity: 'HIGH', entity: 'SESSION' },
 
   // Teacher Payments / Salaries
