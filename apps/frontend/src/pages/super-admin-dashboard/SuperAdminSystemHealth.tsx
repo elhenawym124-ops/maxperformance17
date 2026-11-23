@@ -2,6 +2,7 @@ import React from "react";
 import { Database, HardDrive, Server, Wifi } from "lucide-react";
 
 import { cn } from "../../lib/utils";
+import { formatNumber } from "../../utils/formatNumber";
 import { DashboardData } from "./types";
 
 interface SuperAdminSystemHealthProps {
@@ -10,25 +11,24 @@ interface SuperAdminSystemHealthProps {
 
 export const formatUptime = (seconds?: number): string => {
   if (seconds === undefined || seconds === null || isNaN(seconds)) {
-    return "٠ يوم ٠ ساعة";
+    return `${formatNumber(0)} يوم ${formatNumber(0)} ساعة`;
   }
   const days = Math.floor(seconds / 86400);
   const hours = Math.floor((seconds % 86400) / 3600);
-  const toArabic = (n: number) => new Intl.NumberFormat("ar-EG").format(n);
-  return `${toArabic(days)} يوم ${toArabic(hours)} ساعة`;
+  return `${formatNumber(days)} يوم ${formatNumber(hours)} ساعة`;
 };
 
 export const formatLatency = (ms?: number | null): string => {
   if (ms === undefined || ms === null || isNaN(ms)) return "—";
   if (ms >= 1000) {
     const seconds = ms / 1000;
-    const formatted = new Intl.NumberFormat("ar-EG", {
+    const formatted = formatNumber(seconds, {
       maximumFractionDigits: 1,
       minimumFractionDigits: 1,
-    }).format(seconds);
+    });
     return `${formatted} ثانية`;
   }
-  const formatted = new Intl.NumberFormat("ar-EG").format(Math.round(ms));
+  const formatted = formatNumber(Math.round(ms));
   return `${formatted} مللي ثانية`;
 };
 
@@ -91,7 +91,7 @@ export const SuperAdminSystemHealth: React.FC<SuperAdminSystemHealthProps> = ({
         </span>
         {health.dbStats && (
           <span className="text-muted-foreground tabular-nums">
-            ({Number(health.dbStats.active || 0).toLocaleString("ar-EG")}/{Number(health.dbStats.queryCount || 0).toLocaleString("ar-EG")} اتصال)
+            ({formatNumber(health.dbStats.active || 0)}/{formatNumber(health.dbStats.queryCount || 0)} اتصال)
           </span>
         )}
       </div>

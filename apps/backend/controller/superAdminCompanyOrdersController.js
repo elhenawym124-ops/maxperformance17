@@ -619,10 +619,11 @@ const getOperationsPulse = async (req, res) => {
 
     const cartsCountToday = todayCartsAgg._count.id || 0;
     const cartsValueToday = Math.round(parseFloat(todayCartsAgg._sum.total || 0));
-    const recoveryRate =
+    const rawRecoveryRate =
       cartsCountToday > 0
         ? Math.round((todayRecoveredCount / cartsCountToday) * 1000) / 10
         : 0;
+    const recoveryRate = Math.min(100, Math.max(0, rawRecoveryRate));
 
     return res.json({
       success: true,

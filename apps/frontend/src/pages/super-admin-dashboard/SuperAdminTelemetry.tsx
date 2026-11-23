@@ -2,6 +2,7 @@ import React from "react";
 import { Building2, MessageSquare, Users, Users2 } from "lucide-react";
 
 import { cn } from "../../lib/utils";
+import { formatNumber } from "../../utils/formatNumber";
 import { DashboardData } from "./types";
 
 interface MetricCardProps {
@@ -55,7 +56,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
       </div>
       <div>
         <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums">
-          {typeof value === "number" ? value.toLocaleString("ar-EG") : value}
+          {typeof value === "number" ? formatNumber(value) : value}
         </div>
         <div className="flex flex-wrap items-center gap-2 pt-1">
           {subtext && (
@@ -75,7 +76,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
               )}
             >
               {isPositive ? "+" : ""}
-              {growth?.toFixed(1)}%
+              {formatNumber(growth, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%
             </span>
           )}
         </div>
@@ -100,7 +101,7 @@ export const SuperAdminTelemetry: React.FC<SuperAdminTelemetryProps> = ({
         value={overview?.totalCompanies || 0}
         icon={Building2}
         color="indigo"
-        subtext={`نشطة: ${overview?.activeCompanies || 0}`}
+        subtext={`نشطة: ${formatNumber(overview?.activeCompanies || 0)}`}
         growth={comparison?.companiesGrowth}
       />
       <MetricCard

@@ -16,6 +16,7 @@ import {
 import { apiClient } from "../../../services/apiClient";
 import { Button } from "../../../components/ui/button";
 import { cn } from "@/lib/utils";
+import { formatNumber, formatPercent } from "../../../utils/formatNumber";
 
 interface OperationsPulseData {
   orders: {
@@ -69,13 +70,13 @@ const formatLatency = (ms?: number | null): string => {
   if (ms === undefined || ms === null || isNaN(ms)) return "—";
   if (ms >= 1000) {
     const seconds = ms / 1000;
-    const formatted = new Intl.NumberFormat("ar-EG", {
+    const formatted = formatNumber(seconds, {
       maximumFractionDigits: 1,
       minimumFractionDigits: 1,
-    }).format(seconds);
+    });
     return `${formatted} ثانية`;
   }
-  const formatted = new Intl.NumberFormat("ar-EG").format(Math.round(ms));
+  const formatted = formatNumber(Math.round(ms));
   return `${formatted} مللي ثانية`;
 };
 
@@ -174,14 +175,14 @@ export const PlatformOperationsPulse: React.FC = () => {
           <div className="mt-2.5">
             <div className="flex items-baseline gap-1.5">
               <span className="text-2xl font-bold tabular-nums text-foreground">
-                {pulse.orders.todayOrders.toLocaleString("ar-EG")}
+                {formatNumber(pulse.orders.todayOrders)}
               </span>
               <span className="text-xs text-muted-foreground">طلب اليوم</span>
             </div>
             <p className="mt-1 text-xs text-success dark:text-success font-semibold tabular-nums">
-              {pulse.orders.todayGMV.toLocaleString("ar-EG")} ج.م
+              {formatNumber(pulse.orders.todayGMV)} ج.م
               <span className="text-[10px] text-muted-foreground me-1 font-normal">
-                {" "}(متوسط {pulse.orders.avgOrderValue.toLocaleString("ar-EG")} ج.م)
+                {" "}(متوسط {formatNumber(pulse.orders.avgOrderValue)} ج.م)
               </span>
             </p>
           </div>
@@ -191,7 +192,7 @@ export const PlatformOperationsPulse: React.FC = () => {
                 الأعلى: {pulse.orders.topMerchant.name}
               </span>
               <span className="font-semibold tabular-nums text-foreground">
-                {pulse.orders.topMerchant.ordersCount.toLocaleString("ar-EG")} طلب
+                {formatNumber(pulse.orders.topMerchant.ordersCount)} طلب
               </span>
             </div>
           )}
@@ -217,17 +218,17 @@ export const PlatformOperationsPulse: React.FC = () => {
           <div className="mt-2.5">
             <div className="flex items-baseline gap-1.5">
               <span className="text-2xl font-bold tabular-nums text-foreground">
-                {pulse.whatsapp.connected.toLocaleString("ar-EG")}
+                {formatNumber(pulse.whatsapp.connected)}
               </span>
               <span className="text-xs text-muted-foreground tabular-nums">
-                / {pulse.whatsapp.totalSessions.toLocaleString("ar-EG")} جهاز متصل
+                / {formatNumber(pulse.whatsapp.totalSessions)} جهاز متصل
               </span>
             </div>
 
             {pulse.whatsapp.hasDisconnectedAlert ? (
               <div className="mt-1 flex items-center gap-1 text-xs text-warning dark:text-warning font-medium">
                 <AlertTriangle className="size-3 shrink-0" />
-                <span>{pulse.whatsapp.disconnected.toLocaleString("ar-EG")} أرقام مفصولة تحتاج فحص</span>
+                <span>{formatNumber(pulse.whatsapp.disconnected)} أرقام مفصولة تحتاج فحص</span>
               </div>
             ) : (
               <div className="mt-1 flex items-center gap-1 text-xs text-success dark:text-success font-medium">
@@ -252,23 +253,21 @@ export const PlatformOperationsPulse: React.FC = () => {
           <div className="mt-2.5">
             <div className="flex items-baseline gap-1.5">
               <span className="text-2xl font-bold tabular-nums text-foreground">
-                {pulse.abandonedCarts.todayCount.toLocaleString("ar-EG")}
+                {formatNumber(pulse.abandonedCarts.todayCount)}
               </span>
               <span className="text-xs text-muted-foreground">سلة متروكة</span>
             </div>
             <p className="mt-1 text-xs text-muted-foreground font-medium tabular-nums">
               بقيمة تقديرية:{" "}
               <span className="text-foreground font-semibold">
-                {pulse.abandonedCarts.todayValue.toLocaleString("ar-EG")} ج.م
+                {formatNumber(pulse.abandonedCarts.todayValue)} ج.م
               </span>
             </p>
           </div>
           <div className="mt-2 pt-2 border-t border-border/40 text-[11px] flex items-center justify-between text-muted-foreground">
             <span>تم استردادها:</span>
             <span className="text-emerald-600 dark:text-success font-semibold tabular-nums">
-              {pulse.abandonedCarts.recoveryRatePercent > 100
-                ? `${pulse.abandonedCarts.todayRecovered.toLocaleString("ar-EG")} من ${pulse.abandonedCarts.todayCount.toLocaleString("ar-EG")} سلة`
-                : `${pulse.abandonedCarts.todayRecovered.toLocaleString("ar-EG")} سلة (${pulse.abandonedCarts.recoveryRatePercent.toLocaleString("ar-EG")}%)`}
+              {formatNumber(pulse.abandonedCarts.todayRecovered)} سلة ({formatPercent(pulse.abandonedCarts.recoveryRatePercent, 1)})
             </span>
           </div>
         </div>
@@ -286,7 +285,7 @@ export const PlatformOperationsPulse: React.FC = () => {
           <div className="mt-2.5">
             <div className="flex items-baseline gap-1.5">
               <span className="text-2xl font-bold tabular-nums text-foreground">
-                {pulse.aiActivity.todayInteractions.toLocaleString("ar-EG")}
+                {formatNumber(pulse.aiActivity.todayInteractions)}
               </span>
               <span className="text-xs text-muted-foreground">طلب وكلاء</span>
             </div>
@@ -318,12 +317,12 @@ export const PlatformOperationsPulse: React.FC = () => {
               <strong>تنبيه تشغيلي مباشر:</strong>{" "}
               {pulse.whatsapp.hasDisconnectedAlert && (
                 <span>
-                  هناك {pulse.whatsapp.disconnected} أجهزة واتساب مفصولة أو بانتظار مسح QR.{" "}
+                  هناك {formatNumber(pulse.whatsapp.disconnected)} أجهزة واتساب مفصولة أو بانتظار مسح QR.{" "}
                 </span>
               )}
               {pulse.trials.hasExpiringAlert && (
                 <span>
-                  هناك {pulse.trials.expiringCount} شركات توشك مهلتها التجريبية على الانتهاء خلال 48 ساعة.
+                  هناك {formatNumber(pulse.trials.expiringCount)} شركات توشك مهلتها التجريبية على الانتهاء خلال 48 ساعة.
                 </span>
               )}
             </span>

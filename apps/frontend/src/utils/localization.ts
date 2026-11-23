@@ -42,4 +42,11 @@ export function getLocalizedDateTime(dateStr: string): string {
   });
 }
 
-export default { assertArabic, validateTranslations, getLocalizedDate, getLocalizedDateTime };
+export { formatNumber, formatPercent, clampPercent } from './formatNumber';
+
+export default {
+  assertArabic,
+  validateTranslations,
+  getLocalizedDate,
+  getLocalizedDateTime,
+};

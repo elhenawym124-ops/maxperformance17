@@ -12,6 +12,7 @@ import {
 } from "recharts";
 
 import { useTheme } from "../../hooks/useTheme";
+import { formatNumber } from "../../utils/formatNumber";
 import { DashboardData } from "./types";
 
 interface SuperAdminTrendChartProps {
@@ -60,7 +61,7 @@ export const SuperAdminTrendChart: React.FC<SuperAdminTrendChartProps> = ({
                 : entry.name === "users"
                   ? "مستخدمين"
                   : "عملاء"}
-              : {typeof entry.value === "number" ? entry.value.toLocaleString("ar-EG") : entry.value}
+              : {typeof entry.value === "number" ? formatNumber(entry.value) : entry.value}
             </span>
           </div>
         ))}
@@ -126,7 +127,7 @@ export const SuperAdminTrendChart: React.FC<SuperAdminTrendChartProps> = ({
             />
             <YAxis
               tick={{ fontSize: 10 }}
-              tickFormatter={(val) => Number(val).toLocaleString("ar-EG")}
+              tickFormatter={(val) => formatNumber(val)}
               stroke={
                 isDark ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)"
               }

@@ -2,6 +2,7 @@ import React from "react";
 import { Briefcase, TrendingUp, Users, Users2 } from "lucide-react";
 
 import { cn } from "../../lib/utils";
+import { formatNumber } from "../../utils/formatNumber";
 import { DashboardData } from "./types";
 
 interface SuperAdminRecentActivityProps {
@@ -38,7 +39,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
             <Briefcase className="size-3.5 text-primary" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums mb-1">
-            {(recentActivity?.newCompaniesLast30Days || 0).toLocaleString("ar-EG")}
+            {formatNumber(recentActivity?.newCompaniesLast30Days || 0)}
           </div>
           {comparison?.companiesGrowth !== undefined && (
             <p
@@ -50,7 +51,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
               )}
             >
               {comparison.companiesGrowth >= 0 ? "↑" : "↓"}{" "}
-              {Math.abs(comparison.companiesGrowth).toFixed(1)}% عن الشهر الماضي
+              {formatNumber(Math.abs(comparison.companiesGrowth), { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% عن الشهر الماضي
             </p>
           )}
         </div>
@@ -61,7 +62,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
             <Users2 className="size-3.5 text-success" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums mb-1">
-            {(recentActivity?.newUsersLast30Days || 0).toLocaleString("ar-EG")}
+            {formatNumber(recentActivity?.newUsersLast30Days || 0)}
           </div>
           {comparison?.usersGrowth !== undefined && (
             <p
@@ -73,7 +74,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
               )}
             >
               {comparison.usersGrowth >= 0 ? "↑" : "↓"}{" "}
-              {Math.abs(comparison.usersGrowth).toFixed(1)}% عن الشهر الماضي
+              {formatNumber(Math.abs(comparison.usersGrowth), { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% عن الشهر الماضي
             </p>
           )}
         </div>
@@ -84,7 +85,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
             <Users className="size-3.5 text-info" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-foreground font-mono tabular-nums mb-1">
-            {(recentActivity?.newCustomersLast30Days || 0).toLocaleString("ar-EG")}
+            {formatNumber(recentActivity?.newCustomersLast30Days || 0)}
           </div>
           {comparison?.customersGrowth !== undefined && (
             <p
@@ -96,7 +97,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
               )}
             >
               {comparison.customersGrowth >= 0 ? "↑" : "↓"}{" "}
-              {Math.abs(comparison.customersGrowth).toFixed(1)}% عن الشهر الماضي
+              {formatNumber(Math.abs(comparison.customersGrowth), { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% عن الشهر الماضي
             </p>
           )}
         </div>
