@@ -38,6 +38,7 @@ import TemplateSlot from "../../templates/TemplateSlot";
 import { buildStoreUrl } from "../../utils/storeUrl";
 import { hasStoreApp } from "../../utils/storeShortcut";
 import HeaderWalletShortcut from "../wallet/HeaderWalletShortcut";
+import TrialCountdownBadge from "../trial/TrialCountdownBadge";
 import AppUpdateIndicator from "../common/AppUpdateIndicator";
 import RouteErrorBoundary from "../common/RouteErrorBoundary";
 import { CompanyLogo } from "../ui/CompanyLogo";
@@ -809,6 +810,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
           <div className="business-shell-utility-row flex items-center gap-1.5">
             <div className="hidden sm:flex items-center gap-1.5">
               <HeaderWalletShortcut />
+              <TrialCountdownBadge />
               {showSearchInHeader && (
                 <div className="relative flex items-center">
                   {isOrderSearchOpen ? (
