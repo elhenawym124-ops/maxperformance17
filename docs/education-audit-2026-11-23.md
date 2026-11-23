@@ -75,7 +75,7 @@
 ## الاختبارات (2026-11-23)
 
 **Backend — `node --test` (تعليم + HR):**
-- 18 ملف: **139 اختبار ناجح** (students query، cashier shifts، certificates، daily closing، exams، parent academics، parent portal payments، payments 30، teacher payments، multi-tenant، packages، sidebar routes، branches، insights، receipt PDF، receipts backfill، attendance display timezone، HR September edge cases).
+- 18 ملف: **125 اختبار ناجح** (students query، cashier shifts، certificates، daily closing، exams، parent academics، parent portal payments، payments 30، teacher payments، multi-tenant، packages، sidebar routes، branches، insights، receipt PDF، receipts backfill، attendance display timezone، HR September edge cases).
 - `educationGroupScheduleConflicts` 3/3، `educationScheduleConflictService` 6/6، `latenessReferenceAndAllowance` 11/11.
 - Kashier / payment integrity / payment reminders / installment online / backfill / rest days: **57/57**.
 - `educationSettings.node.test.js`: **12/12** بعد إضافة mocks للنداءات الجديدة (`educationSession.findMany` و`$queryRawUnsafe`) الخاصة بفحص تعارض الحصص.
