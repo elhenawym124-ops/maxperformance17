@@ -148,3 +148,15 @@ procurement → wholesale → invoices/payments (سوبر أدمن) → باقي
 - التحقق: badgeGone=true · mutedLabels=oklch(0.505) · iconChips=0 — **الأناتومي حية على الإنتاج**
 
 **درس تشغيلي جديد:** سيرفر /opt/maxp-repo ممكن يترجع لحالة قديمة بجلسات موازية — أي بناء يبدأ بـ`git log HEAD -1` للتحقق أن HEAD = آخر origin/main، وأي فشل npm ci متكرر = node_modules مسخ، علاجه rm -rf + بناء نظيف وليس إعادة المحاولة.
+
+## ✅✅ agent-reports — إصلاح الانقسام الليلي + توكنز شاملة (`f79d4958c` + ديبلوي 01:21 UTC)
+
+**المشكلة التي أبلغ عنها مختار:** الصفحة في الوضع الليلي كانت **منقسمة** — الشِل داكن ومنطقة المحتوى بيضاء بالكامل.
+
+**الجذر:** نطاق `agent-reports` كله (6 ملفات ×424+ سطر) مبني بأنماط light مضمّنة (bg-white + slate-*) ولم يدخل **أي** موجة ترميز — كانت خارج كل قوائم scopes السابقة.
+
+**الإصلاح:** ترميز شامل **151 استبدالًا** عبر 6 ملفات — bg-white→bg-card · slate borders→border-border · slate text→foreground/muted-foreground · canvas→muted. الأناتومي الموجودة (3 أعمدة cockpit + تبويبات موبايل 3-tab) كانت ممتازة أصلًا — توكنز فقط.
+
+**التحقق الإنتاجي:** dark desktop كامل متناسق ✓ · موبايل 390 dark: تبويبات (الأنواع/التقارير/عرض التقرير) تعمل + BottomNav + صفر overflow ✓ · فشل vitest الـsuite = baseline بيئة (window not defined في node-env).
+
+**⭐ الدرس التشغيلي:** سيرفر /opt/maxp-repo انحرف لحالة قديمة بين الديبلويات (جلسات موازية بترجعه) + node_modules مسخ من بناء متزامن — العلاج المضمون: `git reset --hard origin/main` + `rm -rf node_modules` + بناء نظيف. أي تحقق بعد ديبلوي: cache-bust مزدوج + grep الباندل الجديد (chunk hash جديد).
