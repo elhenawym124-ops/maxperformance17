@@ -36,18 +36,18 @@ const statusConfig: Record<CompetitorStatus, {
     hoverBg: 'hover:bg-primary/15',
   },
   FOLLOWING: {
-    bg: 'bg-amber-500/10',
-    text: 'text-amber-600 dark:text-amber-400',
-    dotColor: 'bg-amber-500',
-    border: 'border-amber-500/25',
-    hoverBg: 'hover:bg-amber-500/15',
+    bg: 'bg-warning/10',
+    text: 'text-warning',
+    dotColor: 'bg-warning',
+    border: 'border-warning/25',
+    hoverBg: 'hover:bg-warning/15',
   },
   COMPLETED: {
-    bg: 'bg-emerald-500/10',
-    text: 'text-emerald-600 dark:text-emerald-400',
-    dotColor: 'bg-emerald-500',
-    border: 'border-emerald-500/25',
-    hoverBg: 'hover:bg-emerald-500/15',
+    bg: 'bg-success/10',
+    text: 'text-success',
+    dotColor: 'bg-success',
+    border: 'border-success/25',
+    hoverBg: 'hover:bg-success/15',
   },
 };
 
