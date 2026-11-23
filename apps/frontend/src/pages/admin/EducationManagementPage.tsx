@@ -16,6 +16,7 @@ import {
 } from "./education-management";
 import { api, fetchJson } from "./education-management/api";
 import EducationGroupsPage from "./EducationGroupsPage";
+import { EducationExamsTab } from "./education-management/EducationExamsTab";
 
 export default function EducationManagementPage() {
   const {
@@ -311,6 +312,7 @@ export default function EducationManagementPage() {
               handleCancelSession={handleCancelSession}
             />
           )}
+          {activeTab === "exams" && <EducationExamsTab />}
         </>
       )}
     </div>

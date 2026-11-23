@@ -46,6 +46,7 @@ const PERMISSION_ALIASES = {
   // Education financials: manage implies collect and view (existing tenants keep access before reseeding)
   'education.financials.collect': ['education.financials.manage'],
   'education.financials.view': ['education.financials.manage'],
+  'education.exams.manage': ['education.sessions.manage'],
 };
 
 const logAction = async (action, actorId, companyId, details) => {

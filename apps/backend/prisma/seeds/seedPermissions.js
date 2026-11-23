@@ -375,6 +375,7 @@ const PERMISSIONS = [
   { key: 'education.groups.view', name: 'عرض المجموعات والمواعيد الدراسية', domain: 'EDUCATION' },
   { key: 'education.groups.manage', name: 'إدارة وتسكين المجموعات ونقل الطلاب', domain: 'EDUCATION' },
   { key: 'education.sessions.manage', name: 'تسجيل الحصص والغياب والحضور', domain: 'EDUCATION' },
+  { key: 'education.exams.manage', name: 'إدارة الامتحانات والدرجات وإصدار الشهادات', domain: 'EDUCATION' },
   { key: 'education.packages.manage', name: 'إدارة الباقات والخطط السعرية والاشتراكات', domain: 'EDUCATION' },
   { key: 'education.financials.view', name: 'عرض إيرادات المجموعات وتسويات المعلمين', domain: 'EDUCATION' },
   { key: 'education.financials.collect', name: 'تحصيل ودفع رسوم الطلاب وأعضاء المجموعات', domain: 'EDUCATION' },

@@ -14,6 +14,7 @@ const EDUCATION_NOTIFICATION_EVENTS = {
   WALLET_TOPUP_REJECTED: 'education_wallet_topup_rejected',
   PAYMENT_RECEIPT: 'education_payment_receipt',
   WAITING_LIST_PROMOTED: 'education_waiting_list_promoted',
+  EXAM_RESULT: 'education_exam_result',
   PARENT_ACTIVATED: 'education_parent_activated',
   ABSENCE_ALERT: 'education_absence_alert',
   DEMO_DAY_REGISTERED: 'education_demo_day_registered',
@@ -165,6 +166,17 @@ const NOTIFICATION_TEMPLATES = {
 تم تسكين {studentName} في مجموعة {groupName} ✅
 
 يرجى متابعة مواعيد الحضور من بوابة ولي الأمر.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.EXAM_RESULT]: {
+    parent: `نتيجة امتحان جديدة 📊
+
+أهلاً {parentName}،
+ظهرت نتيجة {studentName} في «{examTitle}»:
+
+الدرجة: {score} من {maxScore}
+التقدير: {grade}
+
+يمكنكم مراجعة التفاصيل من بوابة ولي الأمر.`,
   },
   [EDUCATION_NOTIFICATION_EVENTS.PARENT_ACTIVATED]: {
     parent: `أهلاً {parentName} 🎉
@@ -766,6 +778,45 @@ async function notifyGroupRenewalDue({
   });
 }
 
+async function notifyExamResult({
+  companyId,
+  customerId,
+  parentName,
+  parentPhone,
+  studentName,
+  examTitle,
+  score,
+  maxScore,
+  grade,
+}) {
+  if (!companyId || (!customerId && !parentPhone)) return null;
+  const resolvedName = parentName || 'وليّ الأمر';
+  const vars = {
+    parentName: resolvedName,
+    studentName: studentName || '',
+    examTitle: examTitle || '',
+    score: Number(score) || 0,
+    maxScore: Number(maxScore) || 0,
+    grade: grade || '—',
+  };
+
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: customerId || null,
+    eventType: EDUCATION_NOTIFICATION_EVENTS.EXAM_RESULT,
+    title: 'نتيجة امتحان جديدة',
+    templates: NOTIFICATION_TEMPLATES[EDUCATION_NOTIFICATION_EVENTS.EXAM_RESULT].parent,
+    variables: vars,
+    recipientPhone: parentPhone,
+    recipientName: resolvedName,
+    recipientType: 'CUSTOMER',
+    url: '/parent/children',
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
 async function notifyWaitingListPromoted({
   companyId,
   customerId,
@@ -1325,6 +1376,7 @@ module.exports = {
   notifyWalletTopupDecision,
   notifyPaymentReceipt,
   notifyWaitingListPromoted,
+  notifyExamResult,
   notifyAbsenceAlert,
   notifyDemoDayRegistered,
   notifyDemoDayReminder,

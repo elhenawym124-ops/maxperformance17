@@ -155,3 +155,78 @@ export const getEducationLogsExportUrl = (params: Record<string, any> = {}): str
   });
   return url.toString();
 };
+
+const buildQueryUrl = (path: string, params: Record<string, any> = {}): string => {
+  const url = new URL(api(path));
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null && v !== "" && v !== "ALL") {
+      url.searchParams.set(k, String(v));
+    }
+  });
+  return url.toString();
+};
+
+export const fetchExamsApi = async (params: Record<string, any> = {}): Promise<{
+  exams: any[];
+  pagination: { total: number; page: number; limit: number; totalPages: number };
+}> => {
+  const res = await fetch(buildQueryUrl("exams", params), { headers: getAuthHeaders() });
+  const data = await res.json();
+  if (!data.success) throw new Error(data.error || "فشل جلب الامتحانات");
+  return {
+    exams: data.data || [],
+    pagination: data.pagination || { total: 0, page: 1, limit: 25, totalPages: 1 },
+  };
+};
+
+export const fetchExamDetailApi = async (examId: string): Promise<any> =>
+  await fetchJson(api(`exams/${examId}`));
+
+export const createExamApi = async (payload: Record<string, any>): Promise<any> =>
+  await fetchJson(api("exams"), {
+    method: "POST",
+    headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+export const saveExamResultsApi = async (examId: string, results: any[]): Promise<any> =>
+  await fetchJson(api(`exams/${examId}/results`), {
+    method: "PUT",
+    headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+    body: JSON.stringify({ results }),
+  });
+
+export const publishExamApi = async (examId: string): Promise<any> =>
+  await fetchJson(api(`exams/${examId}/publish`), { method: "PUT" });
+
+export const closeExamApi = async (examId: string): Promise<any> =>
+  await fetchJson(api(`exams/${examId}/close`), { method: "PUT" });
+
+export const deleteExamApi = async (examId: string): Promise<any> =>
+  await fetchJson(api(`exams/${examId}`), { method: "DELETE" });
+
+export const fetchCertificatesApi = async (params: Record<string, any> = {}): Promise<{
+  certificates: any[];
+  pagination: { total: number; page: number; limit: number; totalPages: number };
+}> => {
+  const res = await fetch(buildQueryUrl("certificates", params), { headers: getAuthHeaders() });
+  const data = await res.json();
+  if (!data.success) throw new Error(data.error || "فشل جلب الشهادات");
+  return {
+    certificates: data.data || [],
+    pagination: data.pagination || { total: 0, page: 1, limit: 25, totalPages: 1 },
+  };
+};
+
+export const issueCertificateApi = async (payload: Record<string, any>): Promise<any> =>
+  await fetchJson(api("certificates"), {
+    method: "POST",
+    headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+export const deleteCertificateApi = async (certificateId: string): Promise<any> =>
+  await fetchJson(api(`certificates/${certificateId}`), { method: "DELETE" });
+
+export const certificatePdfUrl = (certificateId: string): string =>
+  api(`certificates/${certificateId}/pdf`);

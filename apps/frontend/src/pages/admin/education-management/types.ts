@@ -10,6 +10,7 @@ import {
   Settings,
   History,
   Presentation,
+  Award,
 } from "lucide-react";
 
 export interface EducationSubject {
@@ -146,6 +147,7 @@ export type TabId =
   | "teachers"
   | "enrollments"
   | "sessions"
+  | "exams"
   | "demo-day"
   | "settings"
   | "logs";
@@ -159,6 +161,7 @@ export const TABS: { id: TabId; label: string; icon: React.ComponentType<{ class
   { id: "teachers", label: "المدرسين", icon: GraduationCap },
   { id: "enrollments", label: "التسجيلات", icon: Layers },
   { id: "sessions", label: "الحصص", icon: Clock },
+  { id: "exams", label: "الامتحانات والشهادات", icon: Award },
   { id: "demo-day", label: "الديمو داي", icon: Presentation },
   { id: "settings", label: "الإعدادات", icon: Settings },
   { id: "logs", label: "سجلات النظام التعليمي", icon: History },

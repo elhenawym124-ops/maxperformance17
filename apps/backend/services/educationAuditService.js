@@ -57,6 +57,13 @@ const ACTION_DEFINITIONS = {
   CLOSE_DAILY: { label: 'إغلاق يومي (Z-Report)', severity: 'MEDIUM', entity: 'PAYMENT' },
   REOPEN_DAILY: { label: 'إعادة فتح يوم مغلق', severity: 'HIGH', entity: 'PAYMENT' },
 
+  // Exams & Certificates
+  CREATE_EXAM: { label: 'إنشاء امتحان', severity: 'LOW', entity: 'EXAM' },
+  SAVE_EXAM_RESULTS: { label: 'حفظ درجات امتحان', severity: 'LOW', entity: 'EXAM' },
+  PUBLISH_EXAM: { label: 'نشر نتيجة امتحان', severity: 'MEDIUM', entity: 'EXAM' },
+  DELETE_EXAM: { label: 'حذف امتحان', severity: 'MEDIUM', entity: 'EXAM' },
+  ISSUE_CERTIFICATE: { label: 'إصدار شهادة', severity: 'LOW', entity: 'EXAM' },
+
   // Portals & Guardians
   PARENT_LOGIN: { label: 'تسجيل دخول ولي أمر', severity: 'LOW', entity: 'PORTAL' },
   PARENT_SESSION_REQUEST: { label: 'طلب حجز حصة من ولي الأمر', severity: 'LOW', entity: 'SESSION' },

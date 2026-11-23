@@ -128,6 +128,22 @@
   - Summary KPIs: revenue, active students, repeat rate, at-risk count, group renewals due.
 - UI: "النمو والاحتفاظ" tab in education reports with window selector (3/6/12 months), revenue tables, at-risk list and cohort table.
 
+## Phase 4 (part 8) — exams, grades and certificates
+
+- New tables (auto-applied by `prisma db push`): `education_exams`, `education_exam_results`, `education_certificates`.
+- Admin API `/api/v1/education/exams`:
+  - Create exam (title, type QUIZ/EXAM/ASSESSMENT, max score, optional group/package/teacher/subject, schedule).
+  - Grade sheet: resolves candidates from the group's active members, the package's active enrollments, or all active students.
+  - Save grades with automatic letter grade (A ≥ 90%, B ≥ 80%, C ≥ 70%, D ≥ 60%, else F), rejects scores outside `0..maxScore`.
+  - Publish → stamps `publishedAt` on graded results and notifies each parent by WhatsApp/push (`education_exam_result`).
+  - Close locks the result sheet; delete removes results first.
+- Admin API `/api/v1/education/certificates`: issue (serial `CERT-YYYYMM-####`), list, delete, and `GET /:id/pdf`.
+- Certificates are archived PDFs (landscape A4, Arabic-shaped with NotoSansArabic) stored in `uploads/education-certificates/<companyId>/<serial>.pdf` (`EDUCATION_CERTIFICATES_DIR` override), cached on the row in `pdfPath`.
+- UI: "الامتحانات والشهادات" tab in education management — exam list/KPIs, grade entry sheet, publish/close, certificate issue per student and PDF download.
+- Parent portal: `GET /children/:studentId/exams` (published only), `GET /children/:studentId/certificates`, `GET /certificates/:id/pdf` (scoped to the guardian's children), plus a "الدرجات والشهادات" tab in the child detail page.
+- Permissions: `education.exams.manage` (implied by `education.sessions.manage`), seeded for admin/team leader/moderator.
+
+
 
 
 

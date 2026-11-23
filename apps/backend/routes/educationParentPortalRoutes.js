@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require('../controller/educationParentAuthController');
 const portalController = require('../controller/educationParentPortalController');
 const parentPaymentsController = require('../controller/educationParentPortalPaymentsController');
+const parentAcademicsController = require('../controller/educationParentAcademicsController');
 const { authenticateParentToken } = require('../utils/verifyParentToken');
 const verifyToken = require('../utils/verifyToken');
 const { extractSubdomainMiddleware } = require('../middleware/subdomainMiddleware');
@@ -44,6 +45,11 @@ router.post('/wallet/kashier-verify', authenticateParentToken, parentPaymentsCon
 // Online installment payment through Kashier (server-verified)
 router.post('/enrollments/:id/installments/:number/kashier-session', authenticateParentToken, parentPaymentsController.createInstallmentSession);
 router.post('/enrollments/installments/kashier-verify', authenticateParentToken, parentPaymentsController.verifyInstallmentPayment);
+
+// Grades & certificates (published results only)
+router.get('/children/:studentId/exams', authenticateParentToken, parentAcademicsController.getChildExams);
+router.get('/children/:studentId/certificates', authenticateParentToken, parentAcademicsController.getChildCertificates);
+router.get('/certificates/:id/pdf', authenticateParentToken, parentAcademicsController.downloadCertificatePdf);
 
 // Parent's children
 router.get('/children', authenticateParentToken, async (req, res) => {

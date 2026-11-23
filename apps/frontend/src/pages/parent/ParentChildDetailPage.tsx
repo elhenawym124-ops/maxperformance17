@@ -47,11 +47,35 @@ interface Enrollment {
   status?: string;
 }
 
+interface ExamResult {
+  id: string;
+  examId: string;
+  examTitle: string;
+  examType: string;
+  score: number | null;
+  maxScore: number;
+  grade?: string | null;
+  notes?: string | null;
+  publishedAt?: string | null;
+  scheduledAt?: string | null;
+}
+
+interface Certificate {
+  id: string;
+  title: string;
+  type: string;
+  level?: string | null;
+  serialNumber: string;
+  issuedAt: string;
+}
+
 const ParentChildDetailPage: React.FC = () => {
   const { studentId } = useParams();
   const [sessions, setSessions] = useState<Session[]>([]);
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
-  const [activeTab, setActiveTab] = useState<"sessions" | "enrollments">("sessions");
+  const [examResults, setExamResults] = useState<ExamResult[]>([]);
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
+  const [activeTab, setActiveTab] = useState<"sessions" | "enrollments" | "academics">("sessions");
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -59,14 +83,23 @@ const ParentChildDetailPage: React.FC = () => {
     try {
       setRefreshing(true);
       const token = localStorage.getItem("parentToken");
-      const [sessRes, enrRes] = await Promise.all([
+      const [sessRes, enrRes, examRes, certRes] = await Promise.all([
         fetch(`/api/v1/education/parent-portal/children/${studentId}/sessions`, {
           headers: { Authorization: `Bearer ${token}` }
         }).then((r) => r.json()).catch(() => ({ success: false })),
         fetch(`/api/v1/education/parent-portal/children/${studentId}/enrollments`, {
           headers: { Authorization: `Bearer ${token}` }
+        }).then((r) => r.json()).catch(() => ({ success: false })),
+        fetch(`/api/v1/education/parent-portal/children/${studentId}/exams`, {
+          headers: { Authorization: `Bearer ${token}` }
+        }).then((r) => r.json()).catch(() => ({ success: false })),
+        fetch(`/api/v1/education/parent-portal/children/${studentId}/certificates`, {
+          headers: { Authorization: `Bearer ${token}` }
         }).then((r) => r.json()).catch(() => ({ success: false }))
       ]);
+
+      setExamResults(examRes.success && Array.isArray(examRes.data) ? examRes.data : []);
+      setCertificates(certRes.success && Array.isArray(certRes.data) ? certRes.data : []);
 
       if (sessRes.success && Array.isArray(sessRes.data) && sessRes.data.length > 0) {
         setSessions(sessRes.data);
@@ -95,6 +128,25 @@ const ParentChildDetailPage: React.FC = () => {
   const totalRemainingHours = useMemo(() => {
     return enrollments.reduce((sum, e) => sum + (e.remainingHours || 0), 0);
   }, [enrollments]);
+
+  const downloadCertificate = async (certificateId: string, serialNumber: string) => {
+    try {
+      const token = localStorage.getItem("parentToken");
+      const res = await fetch(`/api/v1/education/parent-portal/certificates/${certificateId}/pdf`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!res.ok) throw new Error("تعذر تحميل الشهادة");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${serialNumber || certificateId}.pdf`;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Certificate download failed:", err);
+    }
+  };
 
   if (loading) {
     return (
@@ -195,6 +247,16 @@ const ParentChildDetailPage: React.FC = () => {
           }`}
         >
           الباقات والتسجيلات ({enrollments.length})
+        </button>
+        <button
+          onClick={() => setActiveTab("academics")}
+          className={`px-3.5 py-1.5 rounded-md font-medium transition-all ${
+            activeTab === "academics"
+              ? "bg-background text-foreground shadow-xs border border-border/60"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          الدرجات والشهادات ({examResults.length + certificates.length})
         </button>
       </div>
 
@@ -364,6 +426,81 @@ const ParentChildDetailPage: React.FC = () => {
               );
             })
           )}
+        </div>
+      )}
+
+      {/* Tab 3: Grades & certificates */}
+      {activeTab === "academics" && (
+        <div className="space-y-4">
+          <div className="rounded-xl border border-border/70 bg-card text-card-foreground shadow-sm overflow-hidden">
+            <div className="px-5 py-3 border-b border-border/70 flex items-center justify-between">
+              <h3 className="text-xs font-semibold text-foreground">نتائج الامتحانات</h3>
+              <span className="text-[10px] text-muted-foreground font-mono">{examResults.length}</span>
+            </div>
+            {examResults.length === 0 ? (
+              <div className="text-center py-10 px-4 text-xs text-muted-foreground">
+                لا توجد نتائج منشورة بعد
+              </div>
+            ) : (
+              <div className="divide-y divide-border/60">
+                {examResults.map((result) => (
+                  <div key={result.id} className="px-5 py-3 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-foreground truncate">{result.examTitle}</p>
+                      <p className="text-[11px] text-muted-foreground font-mono mt-0.5">
+                        {result.publishedAt ? new Date(result.publishedAt).toLocaleDateString("ar-EG") : "—"}
+                      </p>
+                      {result.notes ? (
+                        <p className="text-[11px] text-muted-foreground mt-1">{result.notes}</p>
+                      ) : null}
+                    </div>
+                    <div className="text-left shrink-0 font-mono tabular-nums">
+                      <div className="text-sm font-bold text-foreground">
+                        {result.score === null || result.score === undefined ? "—" : result.score} / {result.maxScore}
+                      </div>
+                      {result.grade ? (
+                        <span className="inline-block mt-0.5 px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[10px] font-bold">
+                          {result.grade}
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-xl border border-border/70 bg-card text-card-foreground shadow-sm overflow-hidden">
+            <div className="px-5 py-3 border-b border-border/70 flex items-center justify-between">
+              <h3 className="text-xs font-semibold text-foreground">الشهادات</h3>
+              <span className="text-[10px] text-muted-foreground font-mono">{certificates.length}</span>
+            </div>
+            {certificates.length === 0 ? (
+              <div className="text-center py-10 px-4 text-xs text-muted-foreground">
+                لا توجد شهادات صادرة بعد
+              </div>
+            ) : (
+              <div className="divide-y divide-border/60">
+                {certificates.map((certificate) => (
+                  <div key={certificate.id} className="px-5 py-3 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-foreground truncate">{certificate.title}</p>
+                      <p className="text-[11px] text-muted-foreground font-mono mt-0.5">
+                        {certificate.serialNumber} · {new Date(certificate.issuedAt).toLocaleDateString("ar-EG")}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => downloadCertificate(certificate.id, certificate.serialNumber)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 text-[11px] font-semibold text-foreground hover:bg-muted shrink-0"
+                    >
+                      تحميل PDF
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

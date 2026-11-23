@@ -275,6 +275,79 @@ model EducationPaymentIntent {
   @@map("education_payment_intents")
 }
 
+/// Education module - Exams / assessments
+model EducationExam {
+  id          String    @id @default(cuid())
+  companyId   String
+  groupId     String?
+  packageId   String?
+  subjectId   String?
+  teacherId   String?
+  title       String
+  type        String    @default("QUIZ") /// QUIZ | EXAM | ASSESSMENT
+  maxScore    Float     @default(100)
+  weight      Float?
+  scheduledAt DateTime?
+  status      String    @default("DRAFT") /// DRAFT | PUBLISHED | CLOSED
+  notes       String?
+  createdById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([companyId, status])
+  @@index([companyId, groupId])
+  @@index([companyId, teacherId])
+  @@map("education_exams")
+}
+
+/// Education module - Student results per exam
+model EducationExamResult {
+  id          String    @id @default(cuid())
+  companyId   String
+  examId      String
+  studentId   String
+  enrollmentId String?
+  score       Float?
+  maxScore    Float     @default(100)
+  grade       String?
+  notes       String?
+  gradedById  String?
+  gradedAt    DateTime?
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([examId, studentId])
+  @@index([companyId, studentId])
+  @@index([companyId, examId])
+  @@map("education_exam_results")
+}
+
+/// Education module - Issued certificates
+model EducationCertificate {
+  id              String    @id @default(cuid())
+  companyId       String
+  studentId       String
+  enrollmentId    String?
+  examId          String?
+  type            String    @default("ACHIEVEMENT") /// LEVEL | COURSE | ACHIEVEMENT
+  title           String
+  level           String?
+  serialNumber    String
+  issuedAt        DateTime  @default(now())
+  issuedById      String?
+  notes           String?
+  pdfPath         String?
+  pdfGeneratedAt  DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([companyId, serialNumber])
+  @@index([companyId, studentId])
+  @@index([companyId, issuedAt])
+  @@map("education_certificates")
+}
+
 /// Education module - Daily closing snapshot (Z-report lock per day)
 model EducationDailyClosing {
   id                 String    @id @default(cuid())
