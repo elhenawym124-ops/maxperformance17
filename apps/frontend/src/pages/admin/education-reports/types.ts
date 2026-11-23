@@ -97,6 +97,19 @@ export interface InsightsData {
     reasons: Array<{ code: string; label: string }>;
   }>;
   cohorts: Array<{ month: string; students: number; repeatStudents: number; retentionRate: number }>;
+  teacherPerformance?: Array<{
+    teacherId: string;
+    name: string;
+    privateSessions: number;
+    groupSessions: number;
+    sessions: number;
+    cancelledSessions: number;
+    hoursTaught: number;
+    attendanceRate: number | null;
+    absentCount: number;
+    students: number;
+    revenue: number;
+  }>;
 }
 
 export type ReportPeriod = "all" | "30d" | "7d" | "today";

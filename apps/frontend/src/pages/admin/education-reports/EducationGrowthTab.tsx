@@ -232,6 +232,54 @@ export const EducationGrowthTab: React.FC<{ isEn: boolean }> = ({ isEn }) => {
       </div>
 
       <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+        <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between">
+          <h4 className="text-xs font-semibold text-foreground">{isEn ? "Teacher performance" : "أداء المدرّسين"}</h4>
+          <span className="text-[10px] text-muted-foreground font-mono">{data?.teacherPerformance?.length || 0}</span>
+        </div>
+        {(data?.teacherPerformance?.length || 0) === 0 ? (
+          <p className="p-4 text-[11px] text-muted-foreground">{isEn ? "No teacher activity in this period" : "لا يوجد نشاط مدرّسين في هذه الفترة"}</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-[11px]">
+              <thead className="bg-muted/40 text-muted-foreground">
+                <tr>
+                  <th className="text-start px-4 py-2 font-medium">{isEn ? "Teacher" : "المدرّس"}</th>
+                  <th className="text-start px-3 py-2 font-medium">{isEn ? "Sessions" : "حصص"}</th>
+                  <th className="text-start px-3 py-2 font-medium">{isEn ? "Cancelled" : "ملغية"}</th>
+                  <th className="text-start px-3 py-2 font-medium">{isEn ? "Hours" : "ساعات"}</th>
+                  <th className="text-start px-3 py-2 font-medium">{isEn ? "Attendance" : "الحضور"}</th>
+                  <th className="text-start px-3 py-2 font-medium">{isEn ? "Students" : "طلاب"}</th>
+                  <th className="text-start px-3 py-2 font-medium">{isEn ? "Revenue" : "الإيراد"}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.teacherPerformance?.map((teacher) => (
+                  <tr key={teacher.teacherId} className="border-t border-border/60">
+                    <td className="px-4 py-2 font-semibold text-foreground">{teacher.name}</td>
+                    <td className="px-3 py-2 font-mono tabular-nums">
+                      {teacher.sessions}
+                      <span className="text-muted-foreground"> ({teacher.privateSessions}+{teacher.groupSessions})</span>
+                    </td>
+                    <td className={`px-3 py-2 font-mono tabular-nums ${teacher.cancelledSessions > 0 ? "text-destructive" : "text-muted-foreground"}`}>
+                      {teacher.cancelledSessions}
+                    </td>
+                    <td className="px-3 py-2 font-mono tabular-nums">{teacher.hoursTaught}</td>
+                    <td className="px-3 py-2 font-mono tabular-nums">
+                      {teacher.attendanceRate === null ? "—" : `${teacher.attendanceRate}%`}
+                    </td>
+                    <td className="px-3 py-2 font-mono tabular-nums">{teacher.students}</td>
+                    <td className="px-3 py-2 font-mono tabular-nums font-semibold text-success">
+                      {money(teacher.revenue)} {isEn ? "EGP" : "ج.م"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
         <div className="px-4 py-3 border-b border-border/70">
           <h4 className="text-xs font-semibold text-foreground">{isEn ? "Cohort retention" : "احتفاظ الدفعات (Cohort)"}</h4>
         </div>

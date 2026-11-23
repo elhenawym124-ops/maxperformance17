@@ -43,7 +43,19 @@ const enrollments = [
 const prisma = {
   educationPayment: { findMany: async () => payments },
   educationEnrollment: { findMany: async () => enrollments },
-  educationSession: { findMany: async () => [{ studentId: 's2' }] },
+  educationSession: {
+    findMany: async ({ where }) => {
+      if (where?.status === 'CONFIRMED') return [{ studentId: 's2' }];
+      return [
+        { teacherId: 't1', studentId: 's1', status: 'CONFIRMED', actualDuration: 90, plannedDuration: 60, sessionType: 'PRIVATE' },
+        { teacherId: 't1', studentId: 's3', status: 'CONFIRMED', actualDuration: 60, plannedDuration: 60, sessionType: 'PRIVATE' },
+        { teacherId: 't2', studentId: 's2', status: 'CANCELLED', actualDuration: null, plannedDuration: 60, sessionType: 'PRIVATE' },
+      ];
+    },
+  },
+  educationTeacher: {
+    findMany: async () => [{ id: 't1', name: 'أحمد' }, { id: 't2', name: 'منى' }],
+  },
   educationPackage: { findMany: async () => [{ id: 'p1', name: 'باقة 10' }, { id: 'p2', name: 'باقة 8' }] },
   $queryRawUnsafe: async (sql) => {
     if (/FROM "branches"/i.test(sql)) {
@@ -58,6 +70,12 @@ const prisma = {
         groupId: 'g1', groupName: 'مجموعة أ', feeAmount: 400,
         firstName: 'ليلى', lastName: 'حسن', phone: '0122',
       }];
+    }
+    if (/FROM "education_group_sessions" gs/i.test(sql) && /"teacherId"/i.test(sql) && /COUNT\(\*\)/i.test(sql)) {
+      return [{ teacherId: 't1', sessions: 4, cancelled: 1, groups: 1 }];
+    }
+    if (/FROM "education_group_attendance" a/i.test(sql)) {
+      return [{ teacherId: 't1', present: 18, absent: 2, students: 5 }];
     }
     return [];
   },
@@ -96,13 +114,36 @@ describe('educationInsightsService', () => {
     assert.strictEqual(insights.groupDue[0].remaining, 300);
   });
 
-  it('builds cohort retention from first enrollment month', async () => {
-    const insights = await buildInsights(prisma, 'comp-1', { months: 6 });
+  it('builds cohort retention from first enrollment month', async () => {    const insights = await buildInsights(prisma, 'comp-1', { months: 6 });
     const totalStudents = insights.cohorts.reduce((sum, cohort) => sum + cohort.students, 0);
     const totalRepeat = insights.cohorts.reduce((sum, cohort) => sum + cohort.repeatStudents, 0);
     assert.strictEqual(totalStudents, 2);
     assert.strictEqual(totalRepeat, 1);
     assert.strictEqual(insights.summary.repeatStudents, 1);
     assert.ok(insights.cohorts.every((cohort) => cohort.retentionRate >= 0 && cohort.retentionRate <= 100));
+  });
+
+  it('computes teacher performance: sessions, cancellations, hours and attendance', async () => {
+    const insights = await buildInsights(prisma, 'comp-1', { months: 6 });
+
+    const t1 = insights.teacherPerformance.find((row) => row.teacherId === 't1');
+    const t2 = insights.teacherPerformance.find((row) => row.teacherId === 't2');
+
+    assert.strictEqual(t1.name, 'أحمد');
+    assert.strictEqual(t1.privateSessions, 2);
+    assert.strictEqual(t1.groupSessions, 4);
+    assert.strictEqual(t1.sessions, 6);
+    assert.strictEqual(t1.cancelledSessions, 1);
+    // 90 + 60 minutes = 2.5 hours
+    assert.strictEqual(t1.hoursTaught, 2.5);
+    // 18 present out of 18+2
+    assert.strictEqual(t1.attendanceRate, 90);
+    assert.strictEqual(t1.absentCount, 2);
+    assert.strictEqual(t1.students, 5);
+    assert.strictEqual(t1.revenue, 800);
+
+    assert.strictEqual(t2.cancelledSessions, 1);
+    assert.strictEqual(t2.sessions, 0);
+    assert.strictEqual(t2.attendanceRate, null);
   });
 });

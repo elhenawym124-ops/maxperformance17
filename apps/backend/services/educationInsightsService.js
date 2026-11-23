@@ -35,7 +35,7 @@ async function buildInsights(prisma, companyId, {
   const now = new Date();
   const rangeStart = new Date(now.getFullYear(), now.getMonth() - (months - 1), 1);
 
-  const [payments, enrollments, recentSessions, packages, branchRows, groupRows] = await Promise.all([
+  const [payments, enrollments, recentSessions, packages, branchRows, groupRows, teacherSessions, teachers, groupSessionRows, attendanceRows] = await Promise.all([
     prisma.educationPayment.findMany({
       where: { companyId, status: 'COMPLETED', paidAt: { gte: rangeStart } },
       select: {
@@ -78,6 +78,36 @@ async function buildInsights(prisma, companyId, {
       WHERE g."companyId" = $1
       GROUP BY g.id, g."name", g."teacherId", g."branchId", g."feeAmount"
     `, companyId).catch(() => []),
+    prisma.educationSession.findMany({
+      where: { companyId, scheduledAt: { gte: rangeStart } },
+      select: {
+        teacherId: true, studentId: true, status: true,
+        actualDuration: true, plannedDuration: true, sessionType: true,
+      },
+      take: 50000,
+    }).catch(() => []),
+    prisma.educationTeacher.findMany({
+      where: { companyId },
+      select: { id: true, name: true },
+    }).catch(() => []),
+    prisma.$queryRawUnsafe(`
+      SELECT gs."teacherId", COUNT(*)::int AS sessions,
+             COUNT(*) FILTER (WHERE gs."status" = 'CANCELLED')::int AS cancelled,
+             COUNT(DISTINCT gs."groupId")::int AS groups
+      FROM "education_group_sessions" gs
+      WHERE gs."companyId" = $1 AND gs."sessionDate" >= $2 AND gs."teacherId" IS NOT NULL
+      GROUP BY gs."teacherId"
+    `, companyId, rangeStart).catch(() => []),
+    prisma.$queryRawUnsafe(`
+      SELECT gs."teacherId",
+             COUNT(*) FILTER (WHERE a."status" = 'PRESENT')::int AS present,
+             COUNT(*) FILTER (WHERE a."status" = 'ABSENT')::int AS absent,
+             COUNT(DISTINCT a."studentId")::int AS students
+      FROM "education_group_attendance" a
+      JOIN "education_group_sessions" gs ON gs.id = a."sessionId" AND gs."companyId" = a."companyId"
+      WHERE a."companyId" = $1 AND gs."sessionDate" >= $2 AND gs."teacherId" IS NOT NULL
+      GROUP BY gs."teacherId"
+    `, companyId, rangeStart).catch(() => []),
   ]);
 
   const packageNames = new Map((packages || []).map((pkg) => [pkg.id, pkg.name]));
@@ -144,6 +174,81 @@ async function buildInsights(prisma, companyId, {
       const teacherEnrollment = enrollments.find((e) => e.teacherId === row.id);
       return { ...row, name: teacherEnrollment?.teacher?.name || row.id };
     });
+
+  // Teacher performance: sessions delivered, cancellations, hours, attendance
+  const teacherNameMap = new Map((teachers || []).map((teacher) => [teacher.id, teacher.name]));
+  const groupSessionMap = new Map((groupSessionRows || []).map((row) => [row.teacherId, row]));
+  const attendanceMap = new Map((attendanceRows || []).map((row) => [row.teacherId, row]));
+  const performanceMap = new Map();
+  const baseRow = (teacherId) => {
+    if (!performanceMap.has(teacherId)) {
+      performanceMap.set(teacherId, {
+        teacherId,
+        name: teacherNameMap.get(teacherId) || null,
+        privateSessions: 0,
+        groupSessions: 0,
+        cancelledSessions: 0,
+        hoursTaught: 0,
+        presentCount: 0,
+        absentCount: 0,
+        students: new Set(),
+        revenue: 0,
+      });
+    }
+    return performanceMap.get(teacherId);
+  };
+
+  for (const session of teacherSessions || []) {
+    if (!session.teacherId) continue;
+    const row = baseRow(session.teacherId);
+    if (session.status === 'CANCELLED') {
+      row.cancelledSessions += 1;
+      continue;
+    }
+    if (session.status === 'CONFIRMED' || session.status === 'COMPLETED') {
+      row.privateSessions += 1;
+      const minutes = Number(session.actualDuration) || Number(session.plannedDuration) || 0;
+      row.hoursTaught += minutes / 60;
+      if (session.studentId) row.students.add(session.studentId);
+    }
+  }
+
+  for (const group of groupSessionRows || []) {
+    const row = baseRow(group.teacherId);
+    row.groupSessions += Number(group.sessions) || 0;
+    row.cancelledSessions += Number(group.cancelled) || 0;
+  }
+
+  for (const attendance of attendanceRows || []) {
+    const row = baseRow(attendance.teacherId);
+    row.presentCount += Number(attendance.present) || 0;
+    row.absentCount += Number(attendance.absent) || 0;
+    row.studentsCount = Number(attendance.students) || 0;
+  }
+
+  for (const revenueRow of revenueByTeacher) {
+    baseRow(revenueRow.id).revenue = revenueRow.amount;
+  }
+
+  const teacherPerformance = [...performanceMap.values()]
+    .map((row) => {
+      const attended = row.presentCount + row.absentCount;
+      return {
+        teacherId: row.teacherId,
+        name: row.name || revenueByTeacher.find((entry) => entry.id === row.teacherId)?.name || row.teacherId,
+        privateSessions: row.privateSessions,
+        groupSessions: row.groupSessions,
+        sessions: row.privateSessions + row.groupSessions,
+        cancelledSessions: row.cancelledSessions,
+        hoursTaught: Math.round(row.hoursTaught * 10) / 10,
+        attendanceRate: attended > 0 ? Math.round((row.presentCount / attended) * 1000) / 10 : null,
+        absentCount: row.absentCount,
+        students: Math.max(row.students.size, row.studentsCount || 0),
+        revenue: money(row.revenue),
+      };
+    })
+    .filter((row) => row.sessions > 0 || row.cancelledSessions > 0 || row.revenue > 0)
+    .sort((a, b) => (b.revenue - a.revenue) || (b.sessions - a.sessions));
 
   // Cohort retention: first enrollment month + repeat purchases
   const studentStats = new Map();
@@ -274,6 +379,7 @@ async function buildInsights(prisma, companyId, {
     revenueByPackage,
     revenueByGroup,
     revenueByTeacher,
+    teacherPerformance,
     atRisk,
     groupDue: groupDueItems,
     cohorts,

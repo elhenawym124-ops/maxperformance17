@@ -46,6 +46,21 @@ const insights = {
     },
   ],
   cohorts: [{ month: "2026-10", students: 5, repeatStudents: 2, retentionRate: 40 }],
+  teacherPerformance: [
+    {
+      teacherId: "t1",
+      name: "أحمد",
+      privateSessions: 6,
+      groupSessions: 4,
+      sessions: 10,
+      cancelledSessions: 1,
+      hoursTaught: 12.5,
+      attendanceRate: 92.5,
+      absentCount: 3,
+      students: 8,
+      revenue: 2500,
+    },
+  ],
 };
 
 beforeEach(() => {
@@ -69,6 +84,9 @@ describe("EducationGrowthTab", () => {
     expect(screen.getByText("رصيد ساعات منخفض")).toBeInTheDocument();
     expect(screen.getByText("ليلى حسن")).toBeInTheDocument();
     expect(screen.getByText("40%")).toBeInTheDocument();
+    expect(screen.getByText("أداء المدرّسين")).toBeInTheDocument();
+    expect(screen.getByText("92.5%")).toBeInTheDocument();
+    expect(screen.getByText("12.5")).toBeInTheDocument();
   });
 
   it("refetches with the selected window", async () => {

@@ -143,6 +143,18 @@
 - Parent portal: `GET /children/:studentId/exams` (published only), `GET /children/:studentId/certificates`, `GET /certificates/:id/pdf` (scoped to the guardian's children), plus a "الدرجات والشهادات" tab in the child detail page.
 - Permissions: `education.exams.manage` (implied by `education.sessions.manage`), seeded for admin/team leader/moderator.
 
+## Phase 4 (part 9) — teacher performance inside growth insights
+
+- `GET /education/finance/insights` now also returns `teacherPerformance`, per teacher over the selected window:
+  - Private sessions delivered + group sessions held (shown separately), cancellations.
+  - Hours taught (actual duration, falls back to planned).
+  - Group attendance rate (present / present+absent) and absence count.
+  - Distinct students served and revenue attributed to the teacher.
+- Sources: `education_sessions` for private, `education_group_sessions` + `education_group_attendance` for groups, plus the existing per-teacher payment attribution.
+- UI: "أداء المدرّسين" table in the growth tab (sessions, cancelled, hours, attendance %, students, revenue).
+- Note: attendance rate is `null` when a teacher has no group attendance yet (no fake 100%).
+
+
 
 
 
