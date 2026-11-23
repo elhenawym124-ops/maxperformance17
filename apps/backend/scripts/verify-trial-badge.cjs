@@ -1,6 +1,11 @@
 const { chromium } = require('playwright');
 const BASE = 'https://maxp.online';
 
+const readBadge = () =>
+  [...document.querySelectorAll('a[href="/subscription"]')]
+    .map((a) => (a.textContent || '').replace(/\s+/g, ' ').trim())
+    .find((t) => t.includes('التجربة')) || null;
+
 (async () => {
   const browser = await chromium.launch({
     executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
@@ -12,28 +17,27 @@ const BASE = 'https://maxp.online';
   await page.fill('#password', 'Maxp@2026');
   await page.click('button[type="submit"]');
   await page.waitForURL(/\/apps|company-dashboard/, { timeout: 60000 });
-  await page.waitForTimeout(7000);
+  await page.waitForTimeout(6000);
 
-  const info = await page.evaluate(async () => {
-    const token = localStorage.getItem('token') || localStorage.getItem('accessToken');
-    const res = await fetch('/api/v1/companies/current?_ts=' + Date.now(), {
-      headers: { Authorization: 'Bearer ' + token },
-    });
-    const j = await res.json();
-    const text = (document.body.innerText || '').replace(/\s+/g, ' ');
-    return {
-      header: /شحن المحفظة/.test(text),
-      subscribeLinks: [...document.querySelectorAll('a[href="/subscription"]')].length,
-      trialWords: (text.match(/التجربة[^|]{0,20}/g) || []).slice(0, 3),
-      api: {
-        trialEndsAt: j?.data?.trialEndsAt,
-        days: j?.data?.trialDaysRemaining,
-        mode: j?.data?.trialModeEnabled,
-      },
-    };
-  });
+  const results = {};
+  for (const [path, shot] of [
+    ['/apps', 'docs/qa/trial-14d/evidence/42-day1-trial-badge.png'],
+    ['/hr', 'docs/qa/trial-14d/evidence/43-trial-badge-hr.png'],
+  ]) {
+    await page.goto(BASE + path, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.waitForTimeout(6000);
+    results[path] = await page.evaluate(readBadge);
+    await page.screenshot({ path: shot });
+  }
 
-  console.log(JSON.stringify(info, null, 1));
+  // موبايل: الشارة مخفية تحت sm (توفير مساحة) — نتأكد فقط لا يوجد تمرير أفقي
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(2500);
+  results.mobileOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth > window.innerWidth + 2,
+  );
+
+  console.log(JSON.stringify(results, null, 1));
   await browser.close();
 })().catch((e) => {
   console.error('FAILED:', e.message);
