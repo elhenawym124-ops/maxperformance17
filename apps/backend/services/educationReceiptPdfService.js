@@ -30,6 +30,13 @@ const statusLabel = (status) => {
   return 'محصلة';
 };
 
+const formatDateTime = (value) => {
+  const date = value ? new Date(value) : null;
+  if (!date || Number.isNaN(date.getTime())) return '';
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+};
+
 const receiptsRoot = () =>
   process.env.EDUCATION_RECEIPTS_DIR
   || path.join(process.cwd(), 'uploads', 'education-receipts');
@@ -88,7 +95,7 @@ const buildReceiptPdf = (context) => new Promise((resolve, reject) => {
     y += 16;
   };
 
-  const paidAt = payment.paidAt ? new Date(payment.paidAt).toLocaleString('ar-EG') : '';
+  const paidAt = payment.paidAt ? formatDateTime(payment.paidAt) : '';
   const studentName = payment.studentName
     || `${student?.firstName || ''} ${student?.lastName || ''}`.trim()
     || '—';
@@ -130,7 +137,8 @@ const buildReceiptPdf = (context) => new Promise((resolve, reject) => {
     y += 14;
   }
 
-  const footerY = pageH - 52;
+  const footerY = pageH - 78;
+  doc.moveTo(left, footerY - 10).lineTo(right, footerY - 10).lineWidth(0.5).strokeColor('#cccccc').stroke();
   doc.fontSize(8).fillColor('#666666')
     .text(shapeArabic('توقيع الكاشير'), left, footerY, { width: contentW / 2, align: 'right' })
     .text(shapeArabic('ختم المركز'), left + contentW / 2, footerY, { width: contentW / 2, align: 'left' })
