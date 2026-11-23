@@ -13,6 +13,7 @@ const EDUCATION_NOTIFICATION_EVENTS = {
   WALLET_TOPUP_RELEASED: 'education_wallet_topup_released',
   WALLET_TOPUP_REJECTED: 'education_wallet_topup_rejected',
   PAYMENT_RECEIPT: 'education_payment_receipt',
+  WAITING_LIST_PROMOTED: 'education_waiting_list_promoted',
   PARENT_ACTIVATED: 'education_parent_activated',
   ABSENCE_ALERT: 'education_absence_alert',
   DEMO_DAY_REGISTERED: 'education_demo_day_registered',
@@ -156,6 +157,14 @@ const NOTIFICATION_TEMPLATES = {
 {packageText}
 
 يمكنكم طباعة الإيصال من بوابة ولي الأمر.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.WAITING_LIST_PROMOTED]: {
+    parent: `تم ترقية {studentName} من قائمة الانتظار 🎉
+
+أهلاً {parentName}،
+تم تسكين {studentName} في مجموعة {groupName} ✅
+
+يرجى متابعة مواعيد الحضور من بوابة ولي الأمر.`,
   },
   [EDUCATION_NOTIFICATION_EVENTS.PARENT_ACTIVATED]: {
     parent: `أهلاً {parentName} 🎉
@@ -757,6 +766,39 @@ async function notifyGroupRenewalDue({
   });
 }
 
+async function notifyWaitingListPromoted({
+  companyId,
+  customerId,
+  parentName,
+  parentPhone,
+  studentName,
+  groupName,
+}) {
+  if (!companyId || (!customerId && !parentPhone)) return null;
+  const resolvedName = parentName || 'وليّ الأمر';
+  const vars = {
+    parentName: resolvedName,
+    studentName: studentName || '',
+    groupName: groupName || '',
+  };
+
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: customerId || null,
+    eventType: EDUCATION_NOTIFICATION_EVENTS.WAITING_LIST_PROMOTED,
+    title: 'تم ترقية الطالب من قائمة الانتظار',
+    templates: NOTIFICATION_TEMPLATES[EDUCATION_NOTIFICATION_EVENTS.WAITING_LIST_PROMOTED].parent,
+    variables: vars,
+    recipientPhone: parentPhone,
+    recipientName: resolvedName,
+    recipientType: 'CUSTOMER',
+    url: '/parent/enrollments',
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
 async function notifyPaymentReceipt({
   companyId,
   customerId,
@@ -1282,6 +1324,7 @@ module.exports = {
   notifyGroupRenewalDue,
   notifyWalletTopupDecision,
   notifyPaymentReceipt,
+  notifyWaitingListPromoted,
   notifyAbsenceAlert,
   notifyDemoDayRegistered,
   notifyDemoDayReminder,

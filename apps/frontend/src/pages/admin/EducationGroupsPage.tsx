@@ -358,7 +358,26 @@ export default function EducationGroupsPage({
         headers: getAuthHeaders(),
         body: JSON.stringify(editingGroup),
       });
-      const data = await res.json();
+      let data = await res.json();
+
+      if (!data.success && data.code === 'STUDENT_SCHEDULE_CONFLICT') {
+        const names = (data.conflicts || [])
+          .map((c: any) => c.studentName)
+          .filter(Boolean)
+          .slice(0, 5)
+          .join("، ");
+        const force = window.confirm(
+          `${data.error || ""}${names ? `\n${names}` : ""}\n\n${isEn ? "Save anyway?" : "هل تريد الحفظ رغم التعارض؟"}`
+        );
+        if (force) {
+          const retry = await fetch(url, {
+            method,
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ ...editingGroup, allowConflicts: true }),
+          });
+          data = await retry.json();
+        }
+      }
 
       if (data.success) {
         toast.success(
@@ -369,7 +388,7 @@ export default function EducationGroupsPage({
         setGroupModalOpen(false);
         setEditingGroup(null);
         fetchData();
-        if (activeGroup?.id === editingGroup.id) {
+        if (editingGroup.id && activeGroup?.id === editingGroup.id) {
           fetchGroupDetails(editingGroup.id);
         }
       } else {
@@ -467,7 +486,31 @@ export default function EducationGroupsPage({
           amountPaid: enrollAmountPaid || (enrollPaymentStatus === "PAID" ? (activeGroup.feeAmount || 0) : 0),
         }),
       });
-      const data = await res.json();
+      let data = await res.json();
+
+      if (!data.success && data.code === 'STUDENT_SCHEDULE_CONFLICT') {
+        const conflicts = (data.conflicts || [])
+          .map((c: any) => (c.groupName ? `${c.groupName} ${c.startTime || ""}-${c.endTime || ""}` : c.subjectName || "حصة خاصة"))
+          .filter(Boolean)
+          .slice(0, 5)
+          .join("\n");
+        const force = window.confirm(
+          `${data.error || ""}${conflicts ? `\n${conflicts}` : ""}\n\n${isEn ? "Enroll anyway?" : "هل تريد تسجيل الطالب رغم التعارض؟"}`
+        );
+        if (force) {
+          const retry = await fetch(api(`groups/${activeGroup.id}/members`), {
+            method: "POST",
+            headers: getAuthHeaders(),
+            body: JSON.stringify({
+              studentId: enrollStudentId,
+              paymentStatus: enrollPaymentStatus,
+              amountPaid: enrollAmountPaid || (enrollPaymentStatus === "PAID" ? (activeGroup.feeAmount || 0) : 0),
+              allowConflicts: true,
+            }),
+          });
+          data = await retry.json();
+        }
+      }
       if (data.success) {
         toast.success(data.data?.message || (isEn ? "Student enrolled successfully" : "تم تسجيل الطالب بنجاح"));
         setEnrollModalOpen(false);

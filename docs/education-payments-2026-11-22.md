@@ -109,6 +109,16 @@
 - The day is enforced: recording a payment, reversing one, collecting an installment, settling an online installment, approving a wallet top-up, creating a paid enrollment or adding a paid group member to a closed day returns 409 with "أعد فتحه".
 - UI: new "الإغلاق اليومي" tab with KPI strip, method/source/treasury breakdowns, cashier shifts, warnings, close/reopen actions and closing history.
 
+## Phase 4 (part 6) — student schedule conflicts & waitlist notification
+
+- Student-level guards (not only teacher/room):
+  - Adding/transferring a student to a group checks other active groups and upcoming private sessions; returns `409 STUDENT_SCHEDULE_CONFLICT` with details unless `allowConflicts=true`.
+  - Editing a group's schedule checks every active member against their other groups.
+  - Creating a private session checks the student's other private sessions and active group schedules.
+- UI shows the conflicting group/slot and offers an explicit "enroll/save anyway" confirmation which retries with `allowConflicts`.
+- Waiting-list promotion now notifies the parent (WhatsApp/push) with the student and group name: `education_waiting_list_promoted`.
+
+
 
 
 

@@ -681,6 +681,23 @@ const update = async (req, res) => {
       });
     }
 
+    if (!allowConflicts && effectiveSlots.length) {
+      const scheduleConflicts = require('../services/educationScheduleConflictService');
+      const memberConflicts = await scheduleConflicts.findGroupMembersOverlapConflicts(prisma, {
+        companyId,
+        groupId: id,
+        targetSlots: effectiveSlots,
+      });
+      if (memberConflicts.length > 0) {
+        return res.status(409).json({
+          success: false,
+          code: 'STUDENT_SCHEDULE_CONFLICT',
+          error: `تغيير المواعيد يتعارض مع مواعيد ${memberConflicts.length} طالب في مجموعات أخرى`,
+          conflicts: memberConflicts,
+        });
+      }
+    }
+
     await prisma.$executeRawUnsafe(`
       UPDATE "education_groups" SET
         "name" = COALESCE($1, "name"),
@@ -801,6 +818,34 @@ const remove = async (req, res) => {
 };
 
 // Member management
+const notifyPromotedStudent = async (prisma, { companyId, memberId }) => {
+  try {
+    const rows = await prisma.$queryRawUnsafe(`
+      SELECT m."studentId", s."firstName", s."lastName", c."phone", c."id" AS "customerId",
+             g."name" AS "groupName"
+      FROM "education_group_members" m
+      JOIN "education_students" s ON s.id = m."studentId" AND s."companyId" = m."companyId"
+      LEFT JOIN "customers" c ON c.id = s."customerId"
+      LEFT JOIN "education_groups" g ON g.id = m."groupId" AND g."companyId" = m."companyId"
+      WHERE m."id" = $1 AND m."companyId" = $2
+      LIMIT 1
+    `, memberId, companyId);
+    const row = rows?.[0];
+    if (!row?.phone) return;
+    const notificationService = require('../services/educationNotificationService');
+    await notificationService.notifyWaitingListPromoted({
+      companyId,
+      customerId: row.customerId || null,
+      parentName: 'وليّ الأمر',
+      parentPhone: row.phone,
+      studentName: `${row.firstName || ''} ${row.lastName || ''}`.trim(),
+      groupName: row.groupName || '',
+    });
+  } catch (error) {
+    console.warn('[WaitingListNotify] warning:', error.message);
+  }
+};
+
 const addMember = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -828,11 +873,14 @@ const addMember = async (req, res) => {
     // Check if group exists and check capacity
     const groupRows = await prisma.$queryRawUnsafe(`
       SELECT g.id, g."name", g."feeType", g."feeAmount", g."branchId", g.capacity,
+             g."scheduleDays"::text AS "scheduleDays", g."scheduleSlots"::text AS "scheduleSlots",
+             g."startTime", g."endTime",
              COALESCE(COUNT(m.id) FILTER (WHERE m.status = 'ACTIVE'), 0) AS active_count
       FROM "education_groups" g
       LEFT JOIN "education_group_members" m ON m."groupId" = g.id AND m."companyId" = g."companyId"
       WHERE g.id = $1 AND g."companyId" = $2
-      GROUP BY g.id, g."name", g."feeType", g."feeAmount", g."branchId", g.capacity
+      GROUP BY g.id, g."name", g."feeType", g."feeAmount", g."branchId", g.capacity,
+               g."scheduleDays", g."scheduleSlots", g."startTime", g."endTime"
     `, groupId, companyId);
 
     if (!groupRows || groupRows.length === 0) {
@@ -851,6 +899,32 @@ const addMember = async (req, res) => {
 
     if (existing && existing.length > 0) {
       return res.status(400).json({ success: false, error: 'الطالب مسجل بالفعل في هذه المجموعة' });
+    }
+
+    // Student-level schedule guard: no two overlapping groups / private sessions.
+    const allowConflicts = req.body?.allowConflicts === true;
+    if (!allowConflicts) {
+      const scheduleConflicts = require('../services/educationScheduleConflictService');
+      const targetSlots = scheduleConflicts.normalizeGroupSlots(group);
+      if (targetSlots.length > 0) {
+        const [groupConflicts, privateConflicts] = await Promise.all([
+          scheduleConflicts.findStudentGroupConflicts(prisma, {
+            companyId, studentId, targetSlots, excludeGroupId: groupId,
+          }),
+          scheduleConflicts.findStudentPrivateSlotConflicts(prisma, {
+            companyId, studentId, targetSlots,
+          }),
+        ]);
+        const conflicts = [...groupConflicts, ...privateConflicts];
+        if (conflicts.length > 0) {
+          return res.status(409).json({
+            success: false,
+            error: 'الطالب لديه موعد آخر متعارض مع مواعيد هذه المجموعة',
+            code: 'STUDENT_SCHEDULE_CONFLICT',
+            conflicts,
+          });
+        }
+      }
     }
 
     const memberId = generateMemberId();
@@ -999,6 +1073,7 @@ const removeMember = async (req, res) => {
           "updatedAt" = NOW()
         WHERE "id" = $1 AND "companyId" = $2
       `, waitingStudent[0].id, companyId);
+      await notifyPromotedStudent(prisma, { companyId, memberId: waitingStudent[0].id });
     } else {
       await prisma.$executeRawUnsafe(`
         UPDATE "education_groups" SET "status" = 'OPEN' WHERE "id" = $1 AND "companyId" = $2 AND "status" = 'FULL'
@@ -1062,15 +1137,18 @@ const transferMember = async (req, res) => {
           "updatedAt" = NOW()
         WHERE "id" = $1 AND "companyId" = $2
       `, waitingStudent[0].id, companyId);
+      await notifyPromotedStudent(prisma, { companyId, memberId: waitingStudent[0].id });
     }
 
     // Check target group exists in same tenant and check capacity
     const targetGroupRows = await prisma.$queryRawUnsafe(`
-      SELECT g.id, g.capacity, COALESCE(COUNT(m.id) FILTER (WHERE m.status = 'ACTIVE'), 0) AS active_count
+      SELECT g.id, g."name", g.capacity, g."scheduleDays"::text AS "scheduleDays",
+             g."scheduleSlots"::text AS "scheduleSlots", g."startTime", g."endTime",
+             COALESCE(COUNT(m.id) FILTER (WHERE m.status = 'ACTIVE'), 0) AS active_count
       FROM "education_groups" g
       LEFT JOIN "education_group_members" m ON m."groupId" = g.id AND m."companyId" = g."companyId"
       WHERE g.id = $1 AND g."companyId" = $2
-      GROUP BY g.id, g.capacity
+      GROUP BY g.id, g."name", g.capacity, g."scheduleDays", g."scheduleSlots", g."startTime", g."endTime"
     `, targetGroupId, companyId);
 
     if (!targetGroupRows || targetGroupRows.length === 0) {
@@ -1079,6 +1157,32 @@ const transferMember = async (req, res) => {
 
     const isTargetFull = Number(targetGroupRows[0].active_count) >= Number(targetGroupRows[0].capacity);
     const targetStatus = isTargetFull ? 'WAITING_LIST' : 'ACTIVE';
+
+    // Student-level schedule guard for the target group (source group is excluded).
+    const allowConflicts = req.body?.allowConflicts === true;
+    if (!allowConflicts) {
+      const scheduleConflicts = require('../services/educationScheduleConflictService');
+      const targetSlots = scheduleConflicts.normalizeGroupSlots(targetGroupRows[0]);
+      if (targetSlots.length > 0) {
+        const [groupConflicts, privateConflicts] = await Promise.all([
+          scheduleConflicts.findStudentGroupConflicts(prisma, {
+            companyId, studentId, targetSlots, excludeGroupId: fromGroupId,
+          }),
+          scheduleConflicts.findStudentPrivateSlotConflicts(prisma, {
+            companyId, studentId, targetSlots,
+          }),
+        ]);
+        const conflicts = [...groupConflicts, ...privateConflicts];
+        if (conflicts.length > 0) {
+          return res.status(409).json({
+            success: false,
+            error: 'الطالب لديه موعد آخر متعارض مع مواعيد المجموعة المستهدفة',
+            code: 'STUDENT_SCHEDULE_CONFLICT',
+            conflicts,
+          });
+        }
+      }
+    }
 
     // Add into target group with carried over payment
     const newMemberId = generateMemberId();

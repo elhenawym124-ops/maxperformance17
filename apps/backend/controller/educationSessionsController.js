@@ -260,6 +260,36 @@ const create = async (req, res) => {
       }
     }
 
+    // Student-level schedule guard: private session must not clash with another
+    // private session or with any active group schedule.
+    {
+      const scheduleConflicts = require('../services/educationScheduleConflictService');
+      const prisma = getSharedPrismaClient();
+      const [privateConflicts, groupConflicts] = await Promise.all([
+        scheduleConflicts.findStudentPrivateConflicts(prisma, {
+          companyId,
+          studentId: enrollment.studentId,
+          start: sessionStart,
+          end: sessionEnd,
+        }),
+        scheduleConflicts.findStudentGroupConflictAtTime(prisma, {
+          companyId,
+          studentId: enrollment.studentId,
+          start: sessionStart,
+          end: sessionEnd,
+        }),
+      ]);
+      const conflicts = [...privateConflicts, ...groupConflicts];
+      if (conflicts.length > 0) {
+        return res.status(409).json({
+          success: false,
+          error: 'الطالب لديه موعد آخر متعارض في نفس الوقت',
+          code: 'STUDENT_SCHEDULE_CONFLICT',
+          conflicts,
+        });
+      }
+    }
+
     const data = await getSharedPrismaClient().educationSession.create({
       data: {
         companyId,
