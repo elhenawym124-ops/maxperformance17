@@ -141,6 +141,13 @@ export const SessionModal: React.FC<SessionModalProps> = ({
         className={MODAL_CLS + " max-h-[92vh] overflow-y-auto"}
         onClick={(e) => e.stopPropagation()}
         dir={isEn ? "ltr" : "rtl"}
+        role="dialog"
+        aria-modal="true"
+        aria-label={
+          isEdit
+            ? t("education.sessions.modalTitleEdit", isEn ? "Session Details & Information" : "تفاصيل وبيانات الحصة")
+            : t("education.sessions.modalTitleNew", isEn ? "Schedule New Session" : "جدولة حصة جديدة")
+        }
       >
         <div className="flex items-center justify-between pb-3 border-b border-border/80">
           <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
