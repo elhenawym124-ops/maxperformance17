@@ -275,6 +275,43 @@ model EducationPaymentIntent {
   @@map("education_payment_intents")
 }
 
+/// Education module - Daily closing snapshot (Z-report lock per day)
+model EducationDailyClosing {
+  id                 String    @id @default(cuid())
+  companyId          String
+  date               DateTime  @db.Date
+  status             String    @default("CLOSED") /// CLOSED | REOPENED
+  snapshot           Json?
+  cashTotal          Float     @default(0)
+  cardTotal          Float     @default(0)
+  transferTotal      Float     @default(0)
+  walletTotal        Float     @default(0)
+  otherTotal         Float     @default(0)
+  totalGross         Float     @default(0)
+  totalNet           Float     @default(0)
+  reversedTotal      Float     @default(0)
+  walletTopupsTotal  Float     @default(0)
+  treasuryDeposits   Float     @default(0)
+  treasuryExpenses   Float     @default(0)
+  treasuryNet        Float     @default(0)
+  cashierExpected    Float     @default(0)
+  cashierActual      Float     @default(0)
+  cashierDifference  Float     @default(0)
+  closedById         String?
+  closedByName       String?
+  closedAt           DateTime  @default(now())
+  reopenedAt         DateTime?
+  reopenedById       String?
+  reopenReason       String?
+  notes              String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@unique([companyId, date])
+  @@index([companyId, date])
+  @@map("education_daily_closings")
+}
+
 /// Education module - Cashier shifts for daily cash reconciliation
 model EducationCashierShift {
   id             String    @id @default(cuid())

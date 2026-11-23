@@ -190,6 +190,10 @@ const create = async (req, res) => {
     const studentName = `${student.firstName} ${student.lastName || ''}`.trim();
     const teacherLabel = teacher ? await getSingularTeacherLabel(companyId, 'ar') : '';
     const paidAmount = Number(amountPaid) || 0;
+    if (paidAmount > 0) {
+      const { assertDayOpen } = require('../services/educationDailyClosingService');
+      await assertDayOpen(prisma, companyId, new Date());
+    }
 
     // The enrollment row and its treasury inflow commit together or not at all.
     const data = await runInTx(async (tx) => {
@@ -273,6 +277,9 @@ const create = async (req, res) => {
     res.json({ success: true, data });
   } catch (error) {
     console.error('Error creating enrollment:', error);
+    if (error.statusCode) {
+      return res.status(error.statusCode).json({ success: false, error: error.message });
+    }
     res.status(500).json({ success: false, error: 'حدث خطأ في إنشاء التسجيل' });
   }
 };
@@ -424,6 +431,8 @@ const payInstallment = async (req, res) => {
     const { id, installmentNumber } = req.params;
     const num = parseInt(installmentNumber, 10);
     const prisma = getSharedPrismaClient();
+    const { assertDayOpen } = require('../services/educationDailyClosingService');
+    await assertDayOpen(prisma, companyId, new Date());
     const runInTx = typeof prisma.$transaction === 'function'
       ? (fn) => prisma.$transaction(fn)
       : (fn) => fn(prisma);

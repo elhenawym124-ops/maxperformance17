@@ -95,6 +95,21 @@
 - Kashier webhook routes `EDUCATION_INSTALLMENT` payloads through the same verification (a forged payload cannot settle an installment).
 - Parent UI: installment schedule with "ادفع الآن" per unpaid installment; return from checkout verifies, shows the result and refreshes.
 
+## Phase 4 (part 5) — daily closing / Z-report
+
+- New table `education_daily_closings` (one row per company/day).
+- `GET /education/finance/daily-closing?date=YYYY-MM-DD`:
+  - Payments: gross, net after reversals, by method, by source.
+  - Wallet top-ups released that day + wallet-funded purchases (informational).
+  - Treasury: education deposits, expenses (reversals/refunds/payroll), net.
+  - Cashier: per-shift expected/actual/difference + open shifts count.
+  - Warnings for open shifts and drawer differences.
+- `POST /education/finance/daily-closing/close` snapshots the report, stores totals and locks the day; `POST /daily-closing/:id/reopen` unlocks it with an audited reason.
+- Closed days return the stored snapshot (the Z-report does not change after closing).
+- The day is enforced: recording a payment, reversing one, collecting an installment, settling an online installment, approving a wallet top-up, creating a paid enrollment or adding a paid group member to a closed day returns 409 with "أعد فتحه".
+- UI: new "الإغلاق اليومي" tab with KPI strip, method/source/treasury breakdowns, cashier shifts, warnings, close/reopen actions and closing history.
+
+
 
 
 

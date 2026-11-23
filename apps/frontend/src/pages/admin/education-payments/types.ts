@@ -129,6 +129,70 @@ export interface CurrentShiftPayload {
   live: { collected: number; reversed: number; net: number; expected: number } | null;
 }
 
+export interface DailyClosingReport {
+  date: string;
+  status: "OPEN" | "CLOSED" | "REOPENED";
+  closing: {
+    id: string;
+    status: string;
+    closedAt?: string | null;
+    closedByName?: string | null;
+    notes?: string | null;
+    reopenedAt?: string | null;
+    reopenReason?: string | null;
+  } | null;
+  payments: {
+    count: number;
+    gross: number;
+    net: number;
+    reversed: number;
+    byMethod: Record<string, { amount: number; count: number }>;
+    bySource: Record<string, { amount: number; count: number }>;
+  };
+  walletTopups: { count: number; total: number };
+  treasury: { deposits: number; expenses: number; net: number };
+  cashier: {
+    shifts: Array<{
+      id: string;
+      cashierName: string;
+      status: string;
+      openedAt: string;
+      closedAt?: string | null;
+      openingBalance: number;
+      collected: number;
+      reversed: number;
+      expected: number;
+      actual: number | null;
+      difference: number | null;
+    }>;
+    expected: number;
+    actual: number;
+    difference: number;
+    openShifts: number;
+  };
+  walletPurchases: number;
+  warnings: string[];
+}
+
+export interface DailyClosingHistoryRow {
+  id: string;
+  date: string;
+  status: string;
+  totalGross: number;
+  totalNet: number;
+  cashTotal: number;
+  cardTotal: number;
+  treasuryNet: number;
+  cashierExpected: number;
+  cashierActual: number;
+  cashierDifference: number;
+  closedAt?: string | null;
+  closedByName?: string | null;
+  reopenedAt?: string | null;
+  reopenReason?: string | null;
+  notes?: string | null;
+}
+
 export const PAYMENT_METHOD_LABELS: Record<string, { ar: string; en: string }> = {
   CASH: { ar: "نقدي", en: "Cash" },
   TRANSFER: { ar: "تحويل بنكي", en: "Bank transfer" },

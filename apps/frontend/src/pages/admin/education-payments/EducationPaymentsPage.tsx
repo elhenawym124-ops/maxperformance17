@@ -7,11 +7,12 @@ import PaymentsLedgerTab from "./PaymentsLedgerTab";
 import DuesTab, { CollectTarget } from "./DuesTab";
 import TopupsTab from "./TopupsTab";
 import CashierShiftTab from "./CashierShiftTab";
+import DailyClosingTab from "./DailyClosingTab";
 import RecordPaymentModal from "./RecordPaymentModal";
 import ReceiptModal from "./ReceiptModal";
 import type { PaymentsSummary } from "./types";
 
-type TabKey = "ledger" | "dues" | "topups" | "shift";
+type TabKey = "ledger" | "dues" | "topups" | "shift" | "closing";
 
 const EducationPaymentsPage: React.FC = () => {
   const { i18n } = useTranslation();
@@ -60,6 +61,7 @@ const EducationPaymentsPage: React.FC = () => {
       count: summary?.pendingTopups,
     },
     { key: "shift", label: isEn ? "Cashier shift" : "شيفت الكاشير" },
+    { key: "closing", label: isEn ? "Daily closing" : "الإغلاق اليومي" },
   ];
 
   return (
@@ -183,6 +185,7 @@ const EducationPaymentsPage: React.FC = () => {
       {tab === "dues" ? <DuesTab reloadKey={reloadKey} onCollect={openRecord} /> : null}
       {tab === "topups" ? <TopupsTab reloadKey={reloadKey} onChanged={refreshAll} /> : null}
       {tab === "shift" ? <CashierShiftTab reloadKey={reloadKey} onChanged={refreshAll} /> : null}
+      {tab === "closing" ? <DailyClosingTab reloadKey={reloadKey} onChanged={refreshAll} /> : null}
 
       {recordOpen ? (
         <RecordPaymentModal

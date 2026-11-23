@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controller/educationPaymentsController');
 const shiftsController = require('../controller/educationCashierShiftsController');
+const closingController = require('../controller/educationDailyClosingController');
 const verifyToken = require('../utils/verifyToken');
 const requireEducationAppInstalled = require('../middleware/requireEducationAppInstalled');
 const { requireDbPermission } = require('../middleware/rbacMiddleware');
@@ -35,5 +36,11 @@ router.get('/shifts/current', requireDbPermission(CAN_VIEW), shiftsController.ge
 router.get('/shifts/:id', requireDbPermission(CAN_VIEW), shiftsController.getShiftById);
 router.post('/shifts/open', requireDbPermission('education.financials.collect'), shiftsController.openShift);
 router.post('/shifts/:id/close', requireDbPermission('education.financials.collect'), shiftsController.closeShift);
+
+// Daily closing / Z-report
+router.get('/daily-closing', requireDbPermission(CAN_VIEW), closingController.getDailyClosing);
+router.get('/daily-closing/history', requireDbPermission(CAN_VIEW), closingController.listClosings);
+router.post('/daily-closing/close', requireDbPermission('education.financials.manage'), closingController.closeDay);
+router.post('/daily-closing/:id/reopen', requireDbPermission('education.financials.manage'), closingController.reopenDay);
 
 module.exports = router;

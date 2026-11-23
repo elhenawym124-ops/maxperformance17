@@ -861,6 +861,11 @@ const addMember = async (req, res) => {
       ? (() => { const d = new Date(); d.setMonth(d.getMonth() + 1); return d; })()
       : null;
 
+    if (initialPaid > 0) {
+      const { assertDayOpen } = require('../services/educationDailyClosingService');
+      await assertDayOpen(prisma, companyId, new Date());
+    }
+
     const runInTx = typeof prisma.$transaction === 'function'
       ? (fn) => prisma.$transaction(fn)
       : (fn) => fn(prisma);
@@ -960,6 +965,7 @@ const addMember = async (req, res) => {
     });
   } catch (err) {
     console.error('[EducationGroups] addMember error:', err);
+    if (err.statusCode) return res.status(err.statusCode).json({ success: false, error: err.message });
     return res.status(500).json({ success: false, error: err.message });
   }
 };

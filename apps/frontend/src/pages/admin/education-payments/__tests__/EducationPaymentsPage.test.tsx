@@ -3,7 +3,7 @@
 import "@testing-library/jest-dom/vitest";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -25,6 +25,10 @@ const mockApi = vi.hoisted(() => ({
   fetchCashierShifts: vi.fn(),
   openCashierShift: vi.fn(),
   closeCashierShift: vi.fn(),
+  fetchDailyClosing: vi.fn(),
+  fetchDailyClosingHistory: vi.fn(),
+  closeDailyClosing: vi.fn(),
+  reopenDailyClosing: vi.fn(),
   downloadPaymentsCsv: vi.fn(),
   downloadPaymentPdf: vi.fn(),
   fetchTopups: vi.fn(),
@@ -111,6 +115,45 @@ const pendingTopup = {
   wallet: { id: "w-1", customerId: "cust-1", customer: { id: "cust-1", firstName: "أحمد", lastName: "علي", phone: "0100" } },
 };
 
+const dailyReport = {
+  date: "2026-11-23",
+  status: "OPEN",
+  closing: null,
+  payments: {
+    count: 3,
+    gross: 1000,
+    net: 950,
+    reversed: 50,
+    byMethod: { CASH: { amount: 500, count: 2 }, CARD: { amount: 500, count: 1 } },
+    bySource: { ADMIN: { amount: 700, count: 2 }, ONLINE: { amount: 300, count: 1 } },
+  },
+  walletTopups: { count: 1, total: 300 },
+  treasury: { deposits: 1300, expenses: 50, net: 1250 },
+  cashier: {
+    shifts: [
+      {
+        id: "shift-1",
+        cashierName: "منى",
+        status: "CLOSED",
+        openedAt: new Date().toISOString(),
+        closedAt: new Date().toISOString(),
+        openingBalance: 100,
+        collected: 400,
+        reversed: 0,
+        expected: 500,
+        actual: 480,
+        difference: -20,
+      },
+    ],
+    expected: 500,
+    actual: 480,
+    difference: -20,
+    openShifts: 0,
+  },
+  walletPurchases: 0,
+  warnings: [],
+};
+
 beforeEach(() => {
   Object.values(mockApi).forEach((fn) => fn.mockReset());
   mockApi.fetchSummary.mockResolvedValue(summary);
@@ -139,6 +182,10 @@ beforeEach(() => {
   });
   mockApi.openCashierShift.mockResolvedValue({ id: "shift-1", status: "OPEN", openingBalance: 100 });
   mockApi.closeCashierShift.mockResolvedValue({ id: "shift-1", status: "CLOSED", difference: 0 });
+  mockApi.fetchDailyClosing.mockResolvedValue(dailyReport);
+  mockApi.fetchDailyClosingHistory.mockResolvedValue([]);
+  mockApi.closeDailyClosing.mockResolvedValue({});
+  mockApi.reopenDailyClosing.mockResolvedValue({});
   mockApi.releaseTopup.mockResolvedValue({});
   mockApi.rejectTopup.mockResolvedValue({});
   window.print = vi.fn();
@@ -290,6 +337,43 @@ describe("EducationPaymentsPage", () => {
     expect(await screen.findByText(/الفرق:/)).toBeInTheDocument();
     fireEvent.click(screen.getByText("إغلاق الشيفت"));
     await waitFor(() => expect(mockApi.closeCashierShift).toHaveBeenCalledWith("shift-1", 480, undefined));
+  });
+
+  it("renders the daily closing report and closes the day", async () => {
+    render(<EducationPaymentsPage />);
+    fireEvent.click(screen.getByRole("button", { name: "الإغلاق اليومي" }));
+
+    expect(await screen.findByText("الإغلاق اليومي (Z-Report)")).toBeInTheDocument();
+    expect(screen.getByText("المحصل الإجمالي")).toBeInTheDocument();
+    expect(screen.getByText("1,000 ج.م")).toBeInTheDocument();
+    expect(screen.getByText("فرق الدرج")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("إغلاق اليوم"));
+    expect(await screen.findByText("منى")).toBeInTheDocument();
+    const dialog = await screen.findByRole("dialog", { name: "إغلاق اليوم" });
+    fireEvent.change(within(dialog).getByPlaceholderText("ملاحظات (اختياري)"), { target: { value: "إغلاق تجريبي" } });
+    fireEvent.click(within(dialog).getByText("تأكيد"));
+
+    await waitFor(() => expect(mockApi.closeDailyClosing).toHaveBeenCalledWith("2026-11-23", "إغلاق تجريبي"));
+  });
+
+  it("reopens a closed day with a reason", async () => {
+    mockApi.fetchDailyClosing.mockResolvedValue({
+      ...dailyReport,
+      status: "CLOSED",
+      closing: { id: "close-1", status: "CLOSED", closedAt: new Date().toISOString(), closedByName: "مدير" },
+    });
+
+    render(<EducationPaymentsPage />);
+    fireEvent.click(screen.getByRole("button", { name: "الإغلاق اليومي" }));
+    expect((await screen.findAllByText("مغلق")).length).toBeGreaterThan(0);
+
+    fireEvent.click(screen.getByText("إعادة فتح"));
+    const dialog = await screen.findByRole("dialog", { name: "إعادة فتح اليوم" });
+    fireEvent.change(within(dialog).getByPlaceholderText("سبب إعادة الفتح (اختياري)"), { target: { value: "تصحيح دفعة" } });
+    fireEvent.click(within(dialog).getByText("تأكيد"));
+
+    await waitFor(() => expect(mockApi.reopenDailyClosing).toHaveBeenCalledWith("close-1", "تصحيح دفعة"));
   });
 
   it("reverses a payment after confirmation", async () => {

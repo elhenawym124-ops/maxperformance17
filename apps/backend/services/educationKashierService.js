@@ -233,6 +233,9 @@ async function verifyTopup({ companyId, orderId, sessionId = null, customerId = 
     throw httpError(`المبلغ المحصل أقل من المطلوب (${captured} من ${money(tx.amount)})`, 409);
   }
 
+  const { assertDayOpen } = require('./educationDailyClosingService');
+  await assertDayOpen(prisma, companyId, new Date());
+
   const result = await releaseVerifiedTopup(prisma, tx.id, { companyId, sessionId: effectiveSessionId });
 
   if (result.released) {

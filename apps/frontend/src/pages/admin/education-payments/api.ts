@@ -103,6 +103,18 @@ export const fetchCashierShifts = async (params: { page?: number; limit?: number
   };
 };
 
+export const fetchDailyClosing = (date: string): Promise<import("./types").DailyClosingReport> =>
+  fetchJson(api(`finance/daily-closing${query({ date })}`));
+
+export const closeDailyClosing = (date: string, notes?: string) =>
+  post(api("finance/daily-closing/close"), { date, notes });
+
+export const reopenDailyClosing = (id: string, reason?: string) =>
+  post(api(`finance/daily-closing/${id}/reopen`), { reason });
+
+export const fetchDailyClosingHistory = (limit = 14): Promise<import("./types").DailyClosingHistoryRow[]> =>
+  fetchJson(api(`finance/daily-closing/history${query({ limit })}`));
+
 export const fetchTopups = (status = "PENDING_RELEASE"): Promise<WalletTopup[]> =>
   fetchJson(api(`finance/topups${query({ status })}`));
 

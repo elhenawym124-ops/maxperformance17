@@ -190,6 +190,9 @@ async function verifyInstallmentPayment({ companyId, orderId, sessionId = null, 
     throw httpError(`المبلغ المحصل أقل من قيمة القسط (${captured} من ${money(intent.amount)})`, 409);
   }
 
+  const { assertDayOpen } = require('./educationDailyClosingService');
+  await assertDayOpen(prisma, companyId, new Date());
+
   const result = await prisma.$transaction(async (tx) => {
     const freshIntent = await tx.educationPaymentIntent.findFirst({
       where: { id: intent.id, status: 'PENDING' },

@@ -12,6 +12,7 @@
  */
 const { getSharedPrismaClient } = require('../services/sharedDatabase');
 const { logEducationEvent } = require('../services/educationAuditService');
+const { assertDayOpen } = require('../services/educationDailyClosingService');
 
 const PAYMENT_METHODS = ['CASH', 'TRANSFER', 'WALLET', 'CARD', 'INSTAPAY', 'OTHER'];
 const money = (value) => Math.round((Number(value) || 0) * 100) / 100;
@@ -510,6 +511,7 @@ const recordPayment = async (req, res) => {
 
     const prisma = getSharedPrismaClient();
     const paidDate = parseDate(paidAt, new Date());
+    await assertDayOpen(prisma, companyId, paidDate);
     const cashierId = req.user?.id || null;
     const cashierName = req.user?.name
       || [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ')
@@ -715,6 +717,7 @@ const reversePayment = async (req, res) => {
     const { id } = req.params;
     const reason = req.body?.reason ? String(req.body.reason).slice(0, 500) : null;
     const prisma = getSharedPrismaClient();
+    await assertDayOpen(prisma, companyId, new Date());
 
     const result = await prisma.$transaction(async (tx) => {
       const payment = await tx.educationPayment.findFirst({ where: { id, companyId } });

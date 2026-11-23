@@ -54,6 +54,8 @@ const ACTION_DEFINITIONS = {
   REJECT_WALLET_TOPUP: { label: 'رفض طلب شحن محفظة', severity: 'MEDIUM', entity: 'PAYMENT' },
   OPEN_CASHIER_SHIFT: { label: 'فتح شيفت كاشير', severity: 'LOW', entity: 'PAYMENT' },
   CLOSE_CASHIER_SHIFT: { label: 'إغلاق شيفت كاشير', severity: 'MEDIUM', entity: 'PAYMENT' },
+  CLOSE_DAILY: { label: 'إغلاق يومي (Z-Report)', severity: 'MEDIUM', entity: 'PAYMENT' },
+  REOPEN_DAILY: { label: 'إعادة فتح يوم مغلق', severity: 'HIGH', entity: 'PAYMENT' },
 
   // Portals & Guardians
   PARENT_LOGIN: { label: 'تسجيل دخول ولي أمر', severity: 'LOW', entity: 'PORTAL' },
