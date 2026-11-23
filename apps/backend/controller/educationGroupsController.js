@@ -139,6 +139,7 @@ const findGroupScheduleConflicts = async (prisma, companyId, excludeGroupId, can
 };
 
 const DAY_LABELS_AR = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+const DAY_KEYS_EN = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
 const describeConflicts = (conflicts) =>
   conflicts
@@ -1373,6 +1374,184 @@ const recordSession = async (req, res) => {
   }
 };
 
+const AVAILABILITY_START_MIN = 8 * 60;
+const AVAILABILITY_END_MIN = 23 * 60;
+
+const minutesToHHMM = (minutes) =>
+  `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+
+/**
+ * المواعيد المتاحة/المشغولة لمدرس أو قاعة على مدى أيام قادمة.
+ * بيرجّع الفترات المشغولة (ومين شاغلها) والفترات المتاحة القابلة لحجز مجموعة جديدة.
+ */
+const getAvailability = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    await ensureTablesExist(prisma);
+
+    const teacherId = req.query.teacherId ? String(req.query.teacherId).trim() : null;
+    const classroomId = req.query.classroomId ? String(req.query.classroomId).trim() : null;
+    const roomQuery = req.query.room ? String(req.query.room).trim() : '';
+    const branchId = req.query.branchId ? String(req.query.branchId).trim() : null;
+    const excludeGroupId = req.query.groupId ? String(req.query.groupId).trim() : '';
+    const daysCount = Math.min(14, Math.max(1, parseInt(req.query.days, 10) || 7));
+
+    if (!teacherId && !classroomId && !roomQuery) {
+      return res.status(400).json({
+        success: false,
+        code: 'MISSING_FILTER',
+        error: 'اختر المدرس أو القاعة أولاً لعرض المواعيد المتاحة'
+      });
+    }
+
+    let targetRoom = roomQuery;
+    if (!targetRoom && classroomId) {
+      const branchRows = await prisma.$queryRawUnsafe(
+        `SELECT classrooms::text AS classrooms FROM branches WHERE "companyId" = $1 ${branchId ? 'AND id = $2' : ''} LIMIT 5`,
+        ...(branchId ? [companyId, branchId] : [companyId])
+      ).catch(() => []);
+      for (const branch of branchRows || []) {
+        const found = parseJsonArray(branch.classrooms).find((c) => String(c.id) === classroomId);
+        if (found) {
+          targetRoom = String(found.name || '').trim();
+          break;
+        }
+      }
+    }
+
+    const fromParam = req.query.from ? new Date(req.query.from) : new Date();
+    const from = Number.isNaN(fromParam.getTime()) ? new Date() : fromParam;
+    from.setHours(0, 0, 0, 0);
+
+    const groupRows = await prisma.$queryRawUnsafe(`
+      SELECT g.id, g.name, g."teacherId", g.room, g."classroomId", g."branchId",
+             g."scheduleDays"::text AS "scheduleDays", g."scheduleSlots"::text AS "scheduleSlots",
+             g."startTime", g."endTime", t.name AS "teacherName"
+      FROM "education_groups" g
+      LEFT JOIN "education_teachers" t ON t.id = g."teacherId" AND t."companyId" = g."companyId"
+      WHERE g."companyId" = $1 AND COALESCE(g.status, 'OPEN') <> 'CANCELLED'
+        ${excludeGroupId ? 'AND g.id <> $2' : ''}
+    `, ...(excludeGroupId ? [companyId, excludeGroupId] : [companyId]));
+
+    const recurringByDay = new Map();
+    for (const row of groupRows || []) {
+      const teacherClash = Boolean(teacherId) && row.teacherId && String(row.teacherId) === teacherId;
+      const sameBranch = !branchId || !row.branchId || String(row.branchId) === branchId;
+      const roomClash = Boolean(targetRoom) && sameBranch && (
+        (classroomId && row.classroomId && String(row.classroomId) === classroomId) ||
+        (row.room && String(row.room).trim().toLowerCase() === targetRoom.toLowerCase())
+      );
+      if (!teacherClash && !roomClash) continue;
+      for (const slot of normalizeGroupSlots(row)) {
+        if (!recurringByDay.has(slot.dayIdx)) recurringByDay.set(slot.dayIdx, []);
+        recurringByDay.get(slot.dayIdx).push({
+          startMin: slot.start,
+          endMin: slot.end,
+          type: teacherClash ? 'TEACHER' : 'ROOM',
+          groupId: row.id,
+          groupName: row.name,
+          teacherName: row.teacherName || null,
+          room: row.room || null
+        });
+      }
+    }
+
+    const privateByDate = new Map();
+    if (teacherId) {
+      const to = new Date(from);
+      to.setDate(to.getDate() + daysCount);
+      const privateRows = await prisma.$queryRawUnsafe(`
+        SELECT s.id, s."scheduledAt", s."plannedDuration",
+               st."firstName" AS "studentFirstName", st."lastName" AS "studentLastName"
+        FROM "education_sessions" s
+        LEFT JOIN "education_students" st ON st.id = s."studentId"
+        WHERE s."companyId" = $1 AND s."teacherId" = $2
+          AND s.status <> 'CANCELLED'
+          AND s."scheduledAt" >= $3 AND s."scheduledAt" < $4
+      `, companyId, teacherId, from, to).catch(() => []);
+      for (const row of privateRows || []) {
+        const when = new Date(row.scheduledAt);
+        const key = `${when.getFullYear()}-${String(when.getMonth() + 1).padStart(2, '0')}-${String(when.getDate()).padStart(2, '0')}`;
+        const startMin = when.getHours() * 60 + when.getMinutes();
+        if (!privateByDate.has(key)) privateByDate.set(key, []);
+        privateByDate.get(key).push({
+          startMin,
+          endMin: startMin + (Number(row.plannedDuration) || 60),
+          type: 'PRIVATE',
+          groupId: null,
+          groupName: null,
+          studentName: `${row.studentFirstName || ''} ${row.studentLastName || ''}`.trim() || null,
+          teacherName: null,
+          room: null
+        });
+      }
+    }
+
+    const days = [];
+    for (let i = 0; i < daysCount; i += 1) {
+      const date = new Date(from);
+      date.setDate(date.getDate() + i);
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const dayIdx = date.getDay();
+
+      const busy = [
+        ...(recurringByDay.get(dayIdx) || []),
+        ...(privateByDate.get(key) || [])
+      ]
+        .map((item) => ({
+          ...item,
+          startMin: Math.max(AVAILABILITY_START_MIN, Number(item.startMin)),
+          endMin: Math.min(AVAILABILITY_END_MIN, Number(item.endMin))
+        }))
+        .filter((item) => item.endMin > item.startMin)
+        .sort((a, b) => a.startMin - b.startMin);
+
+      const free = [];
+      let cursor = AVAILABILITY_START_MIN;
+      for (const item of busy) {
+        if (item.startMin > cursor) free.push({ startMin: cursor, endMin: item.startMin });
+        cursor = Math.max(cursor, item.endMin);
+      }
+      if (cursor < AVAILABILITY_END_MIN) free.push({ startMin: cursor, endMin: AVAILABILITY_END_MIN });
+
+      const describe = (item) => ({
+        ...item,
+        start: minutesToHHMM(item.startMin),
+        end: minutesToHHMM(item.endMin),
+        label: item.type === 'PRIVATE'
+          ? `حصة خاصة${item.studentName ? ` — ${item.studentName}` : ''}`
+          : `${item.groupName || 'مجموعة'}${item.teacherName ? ` — ${item.teacherName}` : ''}`
+      });
+
+      days.push({
+        dateISO: key,
+        dayIdx,
+        dayLabel: DAY_LABELS_AR[dayIdx] || '',
+        dayKey: DAY_KEYS_EN[dayIdx] || '',
+        busy: busy.map(describe),
+        free: free.filter((slot) => slot.endMin - slot.startMin >= 30).map(describe)
+      });
+    }
+
+    return res.json({
+      success: true,
+      data: {
+        window: { start: minutesToHHMM(AVAILABILITY_START_MIN), end: minutesToHHMM(AVAILABILITY_END_MIN) },
+        teacherId,
+        classroomId: classroomId || null,
+        room: targetRoom || null,
+        days
+      }
+    });
+  } catch (err) {
+    console.error('[EducationGroups] getAvailability error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+
 const getLiveRooms = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -1972,6 +2151,7 @@ module.exports = {
   removeMember,
   transferMember,
   recordSession,
+  getAvailability,
   getLiveRooms,
   getFinancials,
   generateSessions,

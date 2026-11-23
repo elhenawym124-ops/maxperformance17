@@ -27,6 +27,7 @@ import {
 import { toast } from "sonner";
 import { buildApiUrl } from "../../utils/urlHelper";
 import tokenManager from "../../utils/tokenManager";
+import { GroupAvailabilityPanel } from "./GroupAvailabilityPanel";
 
 const getCompanyId = (): string | null => {
   try {
@@ -335,6 +336,24 @@ export default function EducationGroupsPage({
     setActiveGroup(group);
     setDrawerTab(tab);
     fetchGroupDetails(group.id);
+  };
+
+  const handlePickAvailabilitySlot = (slot: { dayOfWeek: string; startTime: string; endTime: string }) => {
+    if (!editingGroup) return;
+    const current = editingGroup.scheduleSlots || [];
+    const exists = current.some((s) => s.dayOfWeek === slot.dayOfWeek && s.startTime === slot.startTime);
+    if (exists) {
+      toast(isEn ? "This slot is already in the schedule" : "الموعد ده مضاف بالفعل في جدول المجموعة");
+      return;
+    }
+    const next = [...current, { ...slot, room: editingGroup.room || "" }];
+    setEditingGroup({
+      ...editingGroup,
+      scheduleSlots: next,
+      scheduleDays: [...new Set(next.map((s) => s.dayOfWeek))],
+      startTime: next[0]?.startTime || editingGroup.startTime || "17:00",
+      endTime: next[0]?.endTime || editingGroup.endTime || "18:30",
+    });
   };
 
   const handleSaveGroup = async (e: React.FormEvent) => {
@@ -2091,6 +2110,17 @@ export default function EducationGroupsPage({
                   ))}
                 </div>
               </div>
+
+              {/* Available / busy times for the chosen teacher or classroom */}
+              <GroupAvailabilityPanel
+                teacherId={editingGroup.teacherId || null}
+                classroomId={editingGroup.classroomId || null}
+                room={editingGroup.room || null}
+                branchId={editingGroup.branchId || null}
+                excludeGroupId={editingGroup.id || null}
+                isEn={isEn}
+                onPickSlot={handlePickAvailabilitySlot}
+              />
 
               {/* Location / Room */}
               <div className="space-y-1">
