@@ -90,7 +90,19 @@ export const useMyPayrollController = () => {
   }, [month, year]);
 
   const allowances = parseComponents(payrollData?.allowances || null);
-  const deductionsRaw = parseComponents(payrollData?.deductions || null);
+  // حقول JSON الوصفية لا تُعرض كبنود خصم (كانت تظهر: details / absenceDetails / deficitAmount …)
+  const DEDUCTION_META_KEYS = new Set([
+    "details",
+    "absenceDetails",
+    "deficitDetails",
+    "absenceAmount",
+    "deficitAmount",
+    "notes",
+    "reason",
+  ]);
+  const deductionsRaw = parseComponents(payrollData?.deductions || null).filter(
+    (item) => !DEDUCTION_META_KEYS.has(String(item.name || "").trim()),
+  );
   const originalBaseSalary = Number(
     payrollData?.employee?.baseSalary || payrollData?.baseSalary || 0,
   );
@@ -125,7 +137,14 @@ export const useMyPayrollController = () => {
           },
         ]
       : []),
-    ...deductionsRaw,
+    // نتجنّب تكرار «غياب وتأخير» لأنه مضاف أصلًا كـ attendanceDeduction
+    ...deductionsRaw.filter(
+      (item) =>
+        !(
+          payrollData?.attendanceDeduction &&
+          Math.abs(Number(item.amount) - Number(payrollData.attendanceDeduction)) < 0.01
+        ),
+    ),
   ];
 
   const handlePrint = () => {

@@ -103,9 +103,10 @@ const mainText = (page) =>
   const slipText = await mainText(emp.page);
   record(
     'D4-4',
-    'كشف الراتب يعرض المكوّنات (أساسي/بدلات/خصومات/صافي)',
-    /أساسي|بدلات|خصم/.test(slipText) && /صافي/.test(slipText),
-    slipText.slice(0, 130),
+    'كشف الراتب يعرض المكوّنات بلا مفاتيح خام',
+    /أساسي/.test(slipText) && /إجمالي/.test(slipText) && /استقطاع/.test(slipText) &&
+      !/myPayroll\.|employee\.payroll\.|absenceDetails|deficitAmount/.test(slipText),
+    slipText.slice(0, 140),
   );
   await emp.page.screenshot({ path: 'docs/qa/trial-14d/evidence/50-day4-my-payroll.png' });
   await emp.ctx.close();
@@ -117,7 +118,8 @@ const mainText = (page) =>
   const rows = json.payrolls || json.data || [];
   const bad = [];
   rows.forEach((p) => {
-    const base = Number(p.fullMonthBaseSalary || p.baseSalary || 0);
+    // نستخدم baseSalary (المحتسب فعليًا) لا fullMonthBaseSalary — للكشوف الجزئية
+    const base = Number(p.baseSalary || 0);
     const allow = Number(p.totalAllowances || 0);
     const ot = Number(p.overtimeAmount || 0);
     const deduct = Number(p.totalDeductions || 0);

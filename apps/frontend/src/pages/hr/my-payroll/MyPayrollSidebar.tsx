@@ -65,7 +65,7 @@ export const MyPayrollSidebar: React.FC<MyPayrollSidebarProps> = ({
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">
-                  {t("employee.payroll.transferSpeed")}
+                  {t("employee.payroll.transferSpeed", { defaultValue: "سرعة التحويل" })}
                 </span>
                 <span className="font-bold text-success font-mono tabular-nums">100%</span>
               </div>

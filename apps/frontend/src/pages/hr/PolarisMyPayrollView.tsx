@@ -60,7 +60,7 @@ export const PolarisMyPayrollView: React.FC<PolarisMyPayrollViewProps> = ({
     >
       {/* 1. Authentic Shopify Polaris Page Header */}
       <ShopifyPageHeader
-        title={t("myPayroll.title") || "قسيمة راتبي الشهرية"}
+        title={t("myPayroll.title", { defaultValue: "قسيمة راتبي الشهرية" })}
         subtitle={`استعراض مفردات المرتب، البدلات، والاستقطاعات لشهر ${month}/${year}`}
         badges={
           payrollData?.status && (
