@@ -51,7 +51,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
               )}
             >
               {comparison.companiesGrowth >= 0 ? "↑" : "↓"}{" "}
-              {formatNumber(Math.abs(comparison.companiesGrowth), { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% عن الشهر الماضي
+              {formatNumber(Math.abs(comparison.companiesGrowth), { maxFractionDigits: 1 })}% عن الشهر الماضي
             </p>
           )}
         </div>
@@ -74,7 +74,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
               )}
             >
               {comparison.usersGrowth >= 0 ? "↑" : "↓"}{" "}
-              {formatNumber(Math.abs(comparison.usersGrowth), { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% عن الشهر الماضي
+              {formatNumber(Math.abs(comparison.usersGrowth), { maxFractionDigits: 1 })}% عن الشهر الماضي
             </p>
           )}
         </div>
@@ -97,7 +97,7 @@ export const SuperAdminRecentActivity: React.FC<SuperAdminRecentActivityProps> =
               )}
             >
               {comparison.customersGrowth >= 0 ? "↑" : "↓"}{" "}
-              {formatNumber(Math.abs(comparison.customersGrowth), { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% عن الشهر الماضي
+              {formatNumber(Math.abs(comparison.customersGrowth), { maxFractionDigits: 1 })}% عن الشهر الماضي
             </p>
           )}
         </div>

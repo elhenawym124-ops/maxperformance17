@@ -23,8 +23,7 @@ export const formatLatency = (ms?: number | null): string => {
   if (ms >= 1000) {
     const seconds = ms / 1000;
     const formatted = formatNumber(seconds, {
-      maximumFractionDigits: 1,
-      minimumFractionDigits: 1,
+      maxFractionDigits: 1,
     });
     return `${formatted} ثانية`;
   }

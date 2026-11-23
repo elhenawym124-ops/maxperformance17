@@ -16,7 +16,11 @@ import {
 import { apiClient } from "../../../services/apiClient";
 import { Button } from "../../../components/ui/button";
 import { cn } from "@/lib/utils";
-import { formatNumber, formatPercent } from "../../../utils/formatNumber";
+import {
+  formatNumber,
+  formatCurrency,
+  formatRatio,
+} from "../../../utils/formatNumber";
 
 interface OperationsPulseData {
   orders: {
@@ -71,8 +75,7 @@ const formatLatency = (ms?: number | null): string => {
   if (ms >= 1000) {
     const seconds = ms / 1000;
     const formatted = formatNumber(seconds, {
-      maximumFractionDigits: 1,
-      minimumFractionDigits: 1,
+      maxFractionDigits: 1,
     });
     return `${formatted} ثانية`;
   }
@@ -180,9 +183,9 @@ export const PlatformOperationsPulse: React.FC = () => {
               <span className="text-xs text-muted-foreground">طلب اليوم</span>
             </div>
             <p className="mt-1 text-xs text-success dark:text-success font-semibold tabular-nums">
-              {formatNumber(pulse.orders.todayGMV)} ج.م
+              {formatCurrency(pulse.orders.todayGMV)}
               <span className="text-[10px] text-muted-foreground me-1 font-normal">
-                {" "}(متوسط {formatNumber(pulse.orders.avgOrderValue)} ج.م)
+                {" "}(متوسط {formatCurrency(pulse.orders.avgOrderValue)})
               </span>
             </p>
           </div>
@@ -260,14 +263,14 @@ export const PlatformOperationsPulse: React.FC = () => {
             <p className="mt-1 text-xs text-muted-foreground font-medium tabular-nums">
               بقيمة تقديرية:{" "}
               <span className="text-foreground font-semibold">
-                {formatNumber(pulse.abandonedCarts.todayValue)} ج.م
+                {formatCurrency(pulse.abandonedCarts.todayValue)}
               </span>
             </p>
           </div>
           <div className="mt-2 pt-2 border-t border-border/40 text-[11px] flex items-center justify-between text-muted-foreground">
             <span>تم استردادها:</span>
             <span className="text-emerald-600 dark:text-success font-semibold tabular-nums">
-              {formatNumber(pulse.abandonedCarts.todayRecovered)} سلة ({formatPercent(pulse.abandonedCarts.recoveryRatePercent, 1)})
+              {formatRatio(pulse.abandonedCarts.todayRecovered, pulse.abandonedCarts.todayCount)}
             </span>
           </div>
         </div>

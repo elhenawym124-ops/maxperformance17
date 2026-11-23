@@ -42,7 +42,7 @@ export function getLocalizedDateTime(dateStr: string): string {
   });
 }
 
-export { formatNumber, formatPercent, clampPercent } from './formatNumber';
+export { formatNumber, formatCurrency, formatRatio, formatPercent } from './formatNumber';
 
 export default {
   assertArabic,

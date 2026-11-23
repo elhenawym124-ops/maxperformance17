@@ -76,7 +76,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
               )}
             >
               {isPositive ? "+" : ""}
-              {formatNumber(growth, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%
+              {formatNumber(growth, { maxFractionDigits: 1 })}%
             </span>
           )}
         </div>
