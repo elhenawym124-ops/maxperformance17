@@ -30,6 +30,11 @@ const mockPrisma = {
   educationTeacher: {
     findFirst: async () => null,
   },
+  educationPayment: {
+    // دفتر المدفوعات — التسجيل بيتسجل فيه عند إنشاء تسجيل باقة
+    findFirst: async () => null,
+    create: async ({ data }) => ({ id: 'pay-mock-1', ...data }),
+  },
   customer: {
     findFirst: async () => null,
     create: async ({ data }) => ({ id: 'cust-mock-1', ...data }),

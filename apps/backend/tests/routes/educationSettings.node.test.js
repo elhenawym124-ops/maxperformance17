@@ -576,8 +576,11 @@ test('educationSettingsController unit test', async (t) => {
     mockPrisma.educationTeacher = {
       findFirst: async () => ({ id: 'tch-1', companyId: 'comp-sess-custom', name: 'خالد' })
     };
+    mockPrisma.$queryRawUnsafe = async () => [];
     mockPrisma.educationSession = {
       findFirst: async () => null,
+      // فحص تعارض مواعيد الطالب عند إنشاء حصة يعتمد على findMany / raw SQL
+      findMany: async () => [],
       create: async () => ({
         id: 'sess-1',
         scheduledAt: new Date('2026-11-15T10:00:00Z'),
