@@ -144,6 +144,7 @@ const EducationRoomsLivePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [branchFilter, setBranchFilter] = useState<string>("");
+  const [allBranches, setAllBranches] = useState<{ id: string; name: string }[]>([]);
   const [is3D, setIs3D] = useState(true);
   const [clock, setClock] = useState(() => new Date());
 
@@ -158,6 +159,10 @@ const EducationRoomsLivePage: React.FC = () => {
         return;
       }
       setPayload(data.data as LiveRoomsPayload);
+      if (!branchFilter) {
+        const list = (data.data?.branches || []).map((b: LiveBranch) => ({ id: b.id, name: b.name }));
+        setAllBranches(list);
+      }
     } catch (err: any) {
       setError(err?.message || (isEn ? "Failed to load rooms" : "تعذّر تحميل حالة القاعات"));
     } finally {
@@ -223,7 +228,7 @@ const EducationRoomsLivePage: React.FC = () => {
             className="rounded-lg border border-input bg-background px-2 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
           >
             <option value="">{isEn ? "All branches" : "كل الفروع"}</option>
-            {branches.map((b) => (
+            {allBranches.map((b) => (
               <option key={b.id} value={b.id}>
                 {b.name}
               </option>
