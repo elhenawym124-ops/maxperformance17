@@ -106,7 +106,7 @@ function formatOrderForTurbo(order, customer, items) {
   const resolvedPhone2 = resolvedPhones.secondaryPhone || null;
 
   const totalValue = parseFloat(order.total || order.finalTotal || order.totalAmount || order.grandTotal || 0);
-  const shippingFee = parseFloat(order.shipping || order.shippingCost || order.deliveryFee || 0);
+  const shippingFee = parseFloat(order.shipping || order.shippingFee || order.shippingCost || order.deliveryFee || 0);
   const subtotalValue = parseFloat(order.subtotal || order.subTotal || (totalValue > 0 ? (totalValue - shippingFee) : 0));
 
   const rawItems = items || order.orderItems || order.items || [];
