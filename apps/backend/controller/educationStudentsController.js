@@ -17,6 +17,7 @@ const hashPassword = async (pwd) => {
 const { getSharedPrismaClient } = require('../services/sharedDatabase');
 const { logEducationEvent } = require('../services/educationAuditService');
 const { buildStudentsWhere } = require('../utils/educationStudentsQuery');
+const { generateGuardianDefaultEmail } = require('../services/educationAgeLevelService');
 
 const normalizeGender = (g) => {
   if (!g) return null;
@@ -51,12 +52,19 @@ const generateUniqueStudentCode = async (companyId, prismaClient) => {
     let exists = await prisma.educationStudent.findFirst({
       where: { companyId, code: candidate }
     });
-    while (exists) {
+    // حماية من حلقة لا نهائية: لو الاستعلام رجّع صفاً دائماً (أو الكودات كلها مشغولة)
+    // نتوقف بعد حد أقصى ونرجع كوداً زمنياً فريداً بدل تعليق العملية.
+    let attempts = 0;
+    while (exists && attempts < 1000) {
+      attempts += 1;
       nextNumber++;
       candidate = `STU-${nextNumber}`;
       exists = await prisma.educationStudent.findFirst({
         where: { companyId, code: candidate }
       });
+    }
+    if (exists) {
+      return `STU-${Date.now().toString().slice(-6)}`;
     }
     return candidate;
   } catch (err) {
@@ -398,12 +406,19 @@ const create = async (req, res) => {
     }
     const safeGrade = (grade && typeof grade === 'string' && grade.trim()) ? grade.trim() : null;
     const safeNotes = (notes && typeof notes === 'string' && notes.trim()) ? notes.trim() : null;
-    const safeGuardianEmail = (guardianEmail && typeof guardianEmail === 'string' && guardianEmail.trim())
+    // بريد ولي الأمر: لو المستخدم ساب الحقل فاضي أو بعت placeholder مقطوع مثل
+    // «@student.maxp.online» نولّد بريداً صالحاً من رقم الهاتف بدل ما نحفظ بريداً مكسوراً.
+    const rawGuardianEmail = (guardianEmail && typeof guardianEmail === 'string')
       ? guardianEmail.trim().toLowerCase()
-      : null;
+      : '';
+    const isBrokenGuardianEmail = !rawGuardianEmail
+      || rawGuardianEmail.startsWith('@')
+      || /@student\.maxp\.online$/i.test(rawGuardianEmail);
+    const safeGuardianEmail = isBrokenGuardianEmail ? null : rawGuardianEmail;
     if (safeGuardianEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(safeGuardianEmail)) {
       return res.status(400).json({ success: false, error: 'صيغة البريد الإلكتروني لولي الأمر غير صحيحة' });
     }
+    let effectiveGuardianEmail = safeGuardianEmail;
 
     if (guardianPassword && typeof guardianPassword === 'string' && guardianPassword.trim()) {
       if (guardianPassword.trim().length < 6) {
@@ -447,6 +462,14 @@ const create = async (req, res) => {
         gLastName = safeLastName;
       }
 
+      if (!effectiveGuardianEmail) {
+        effectiveGuardianEmail = generateGuardianDefaultEmail({
+          phone: gPhone,
+          name: typedGuardianName || firstName,
+          code: safeCode
+        });
+      }
+
       let customer = null;
       if (gPhone) {
         customer = await getSharedPrismaClient().customer.findFirst({
@@ -463,14 +486,14 @@ const create = async (req, res) => {
             phone: gPhone,
             phone2: safeGuardianPhone2,
             status: 'ACTIVE',
-            email: safeGuardianEmail,
+            email: effectiveGuardianEmail,
             password: safeHashedPassword
           }
         });
       }
-      else if (safeGuardianEmail || safeHashedPassword || safeGuardianPhone2) {
+      else if (effectiveGuardianEmail || safeHashedPassword || safeGuardianPhone2) {
         const custUpdate = {};
-        if (safeGuardianEmail) custUpdate.email = safeGuardianEmail;
+        if (effectiveGuardianEmail) custUpdate.email = effectiveGuardianEmail;
         if (safeHashedPassword) custUpdate.password = safeHashedPassword;
         if (safeGuardianPhone2) custUpdate.phone2 = safeGuardianPhone2;
         customer = await getSharedPrismaClient().customer.update({
@@ -482,9 +505,13 @@ const create = async (req, res) => {
     } else {
       let customer = await getSharedPrismaClient().customer.findFirst({ where: { id: customerId, companyId } });
       if (!customer) return res.status(400).json({ success: false, error: 'ولي الأمر غير موجود' });
-      if (safeGuardianEmail || safeHashedPassword || safeGuardianPhone2) {
+      if (!effectiveGuardianEmail) {
+        effectiveGuardianEmail = customer.email
+          || generateGuardianDefaultEmail({ phone: customer.phone, name: customer.firstName, code: safeCode });
+      }
+      if (effectiveGuardianEmail || safeHashedPassword || safeGuardianPhone2) {
         const custUpdate = {};
-        if (safeGuardianEmail) custUpdate.email = safeGuardianEmail;
+        if (effectiveGuardianEmail) custUpdate.email = effectiveGuardianEmail;
         if (safeHashedPassword) custUpdate.password = safeHashedPassword;
         if (safeGuardianPhone2) custUpdate.phone2 = safeGuardianPhone2;
         await getSharedPrismaClient().customer.update({
@@ -531,7 +558,14 @@ const create = async (req, res) => {
       req,
     }).catch(e => console.error('[StudentAudit]', e.message));
 
-    res.json({ success: true, data: sanitizeStudentRows(data) });
+    const safeCreated = sanitizeStudentRows(data);
+    res.json({
+      success: true,
+      data: {
+        ...safeCreated,
+        credentials: { email: effectiveGuardianEmail || null }
+      }
+    });
   } catch (error) {
     console.error('Error creating student:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في إنشاء الطالب' });

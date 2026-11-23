@@ -159,7 +159,7 @@ const DOMAIN_PERMISSIONS: Record<string, string[]> = {
     'accounting': ['accounting.view', 'accounting.coa.manage', 'accounting.reports.view'],
     'manufacturing': ['manufacturing.view', 'manufacturing.orders.manage', 'manufacturing.boms.manage'],
     'academy': ['academy.view', 'academy.courses.manage', 'academy.students.manage'],
-    'education': ['academy.view', 'education.settings.manage', 'settings.manage'],
+    'education': ['academy.view', 'education.view', 'education.settings.manage', 'settings.manage'],
     'radiology': ['radiology.view', 'radiology.queue.manage', 'radiology.reports.manage'],
     'hotel': ['hotel.view'],
     'forms': ['forms.view', 'forms.manage'],

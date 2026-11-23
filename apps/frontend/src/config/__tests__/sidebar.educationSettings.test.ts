@@ -96,9 +96,11 @@ describe("sidebar dynamic education-settings integration", () => {
     expect(configA.find((s) => s.id === "education")?.items.find((i) => i.itemId === "education-teachers")?.label).toBe("المحاضرين");
     expect(configB.find((s) => s.id === "education")?.items.find((i) => i.itemId === "education-teachers")?.label).toBe("المدرسين");
 
-    // Non-admin employee without settings permission cannot see education-settings or education-logs
-    const empConfig = getSidebarConfig(arT as any, makeUser("EMPLOYEE", ["education-app"], []), undefined, undefined, undefined, companyAEdu);
+    // Non-admin employee with only the base view permission: the section shows,
+    // but admin-only items (settings/logs) stay hidden instead of being exposed.
+    const empConfig = getSidebarConfig(arT as any, makeUser("EMPLOYEE", ["education-app"], ["education.view"]), undefined, undefined, undefined, companyAEdu);
     const eduEmp = empConfig.find((s) => s.id === "education");
+    expect(eduEmp).toBeTruthy();
     expect(eduEmp?.items.find((i) => i.itemId === "education-settings")?.hidden).toBe(true);
     expect(eduEmp?.items.find((i) => i.itemId === "education-logs")?.hidden).toBe(true);
   });
