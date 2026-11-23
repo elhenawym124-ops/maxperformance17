@@ -1,0 +1,24 @@
+﻿const { chromium } = require("playwright");
+const BASE = "https://maxp.online";
+const CHROME = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+(async () => {
+  const browser = await chromium.launch({ executablePath: CHROME });
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  await page.goto(BASE + "/login", { waitUntil: "domcontentloaded" });
+  await page.fill("#email", "trial.hr@maxp.test");
+  await page.fill("#password", "Maxp@2026");
+  await page.click('button[type="submit"]');
+  await page.waitForTimeout(9000);
+  await page.goto(BASE + "/hr/employees", { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(4500);
+  await page.locator('main button:has-text("إضافة موظف")').first().click();
+  await page.waitForTimeout(2000);
+  const dlg = page.locator('[role="dialog"]').first();
+  const before = await page.evaluate(() => [...document.querySelectorAll('[role="dialog"] input')].map((e,i)=>({i,type:e.type,ph:e.placeholder,v:e.value,vis:Boolean(e.offsetParent)})));
+  await dlg.locator('input[type="text"]').nth(0).fill("سلمى");
+  await dlg.locator('input[type="text"]').nth(1).fill("تجربة");
+  const after = await page.evaluate(() => [...document.querySelectorAll('[role="dialog"] input')].map((e,i)=>({i,type:e.type,ph:e.placeholder,v:e.value})));
+  console.log(JSON.stringify({before, after}, null, 1).slice(0, 2200));
+  await browser.close();
+})().catch(e => { console.error("FAILED:", e.message); process.exit(1); });
