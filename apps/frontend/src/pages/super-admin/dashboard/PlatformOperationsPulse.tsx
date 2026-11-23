@@ -74,9 +74,7 @@ const formatLatency = (ms?: number | null): string => {
   if (ms === undefined || ms === null || isNaN(ms)) return "—";
   if (ms >= 1000) {
     const seconds = ms / 1000;
-    const formatted = formatNumber(seconds, {
-      maxFractionDigits: 1,
-    });
+    const formatted = formatNumber(seconds, 1);
     return `${formatted} ثانية`;
   }
   const formatted = formatNumber(Math.round(ms));
@@ -270,7 +268,7 @@ export const PlatformOperationsPulse: React.FC = () => {
           <div className="mt-2 pt-2 border-t border-border/40 text-[11px] flex items-center justify-between text-muted-foreground">
             <span>تم استردادها:</span>
             <span className="text-emerald-600 dark:text-success font-semibold tabular-nums">
-              {formatRatio(pulse.abandonedCarts.todayRecovered, pulse.abandonedCarts.todayCount)}
+              {formatNumber(pulse.abandonedCarts.todayRecovered)} سلة ({formatRatio(pulse.abandonedCarts.todayRecovered, pulse.abandonedCarts.todayCount)})
             </span>
           </div>
         </div>

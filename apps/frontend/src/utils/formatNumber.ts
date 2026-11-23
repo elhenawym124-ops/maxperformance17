@@ -2,7 +2,15 @@ export const NUMBER_LOCALE = 'ar-EG';
 
 export function formatNumber(
   v: number | null | undefined,
-  opts?: { maxFractionDigits?: number },
+  maxFractionDigits?: number,
+): string;
+export function formatNumber(
+  v: number | null | undefined,
+  opts: { maxFractionDigits?: number },
+): string;
+export function formatNumber(
+  v: number | null | undefined,
+  maxFractionDigitsOrOpts: number | { maxFractionDigits?: number } = 0,
 ): string {
   if (v === null || v === undefined || (typeof v === 'number' && isNaN(v))) {
     return '—';
@@ -11,8 +19,13 @@ export function formatNumber(
   if (isNaN(num)) {
     return '—';
   }
+  const maxFractionDigits =
+    typeof maxFractionDigitsOrOpts === 'number'
+      ? maxFractionDigitsOrOpts
+      : (maxFractionDigitsOrOpts?.maxFractionDigits ?? 0);
+
   return new Intl.NumberFormat(NUMBER_LOCALE, {
-    maximumFractionDigits: opts?.maxFractionDigits ?? 0,
+    maximumFractionDigits: maxFractionDigits,
   }).format(num);
 }
 
@@ -38,8 +51,8 @@ export function formatPercent(v: number | null | undefined): string {
   if (isNaN(num)) {
     return '—';
   }
-  const maxFractionDigits = Number.isInteger(num) ? 0 : 1;
-  return `${formatNumber(num, { maxFractionDigits })}%`;
+  const clamped = Math.min(100, Math.max(0, num));
+  return `${new Intl.NumberFormat(NUMBER_LOCALE, { maximumFractionDigits: 1 }).format(clamped)}٪`;
 }
 
 export function formatRatio(numerator: number, denominator: number): string {
@@ -54,8 +67,11 @@ export function formatRatio(numerator: number, denominator: number): string {
   if (numerator === null || numerator === undefined || isNaN(numerator)) {
     return '—';
   }
-  if (numerator > denominator) {
-    return `${formatNumber(numerator)} من ${formatNumber(denominator)}`;
+  if (numerator < 0) {
+    return formatPercent(0);
   }
-  return formatPercent(Math.round((numerator / denominator) * 1000) / 10);
+  if (numerator > denominator) {
+    return formatPercent(100);
+  }
+  return formatPercent((numerator / denominator) * 100);
 }

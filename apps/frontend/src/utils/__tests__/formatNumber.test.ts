@@ -31,7 +31,12 @@ describe("formatNumber utility", () => {
       expect(formatNumber(NaN)).toBe("—");
     });
 
-    it("supports maxFractionDigits", () => {
+    it("supports maxFractionDigits as number", () => {
+      expect(formatNumber(12.3456, 1)).toBe("١٢٫٣");
+      expect(formatNumber(12.3456, 2)).toBe("١٢٫٣٥");
+    });
+
+    it("supports maxFractionDigits as options object", () => {
       expect(formatNumber(12.3456, { maxFractionDigits: 1 })).toBe("١٢٫٣");
       expect(formatNumber(12.3456, { maxFractionDigits: 2 })).toBe("١٢٫٣٥");
     });
@@ -54,9 +59,13 @@ describe("formatNumber utility", () => {
   });
 
   describe("formatPercent", () => {
-    it("formats percentage with % suffix", () => {
-      expect(formatPercent(75)).toBe("٧٥%");
-      expect(formatPercent(33.3)).toBe("٣٣٫٣%");
+    it("formats percentage with Arabic percent ٪ suffix and clamps", () => {
+      expect(formatPercent(75)).toBe("٧٥٪");
+      expect(formatPercent(33.3)).toBe("٣٣٫٣٪");
+      expect(formatPercent(100)).toBe("١٠٠٪");
+      expect(formatPercent(143)).toBe("١٠٠٪");
+      expect(formatPercent(0)).toBe("٠٪");
+      expect(formatPercent(-5)).toBe("٠٪");
     });
 
     it("returns '—' for null, undefined, or NaN", () => {
@@ -67,20 +76,15 @@ describe("formatNumber utility", () => {
   });
 
   describe("formatRatio", () => {
-    it("returns '١٤٣ من ١٠٠' when numerator > denominator (143, 100)", () => {
-      expect(formatRatio(143, 100)).toBe("١٤٣ من ١٠٠");
-    });
-
-    it("returns '—' when denominator <= 0 (5, 0)", () => {
+    it("satisfies exact prompt specification", () => {
+      expect(formatRatio(143, 100)).toBe("١٠٠٪");
       expect(formatRatio(5, 0)).toBe("—");
+      expect(formatRatio(3, 4)).toBe("٧٥٪");
+      expect(formatRatio(-2, 10)).toBe("٠٪");
+    });
+
+    it("handles edge cases and negative denominators", () => {
       expect(formatRatio(5, -1)).toBe("—");
-    });
-
-    it("returns formatted percentage when numerator <= denominator (3, 4)", () => {
-      expect(formatRatio(3, 4)).toBe("٧٥%");
-    });
-
-    it("returns '—' for invalid or null inputs", () => {
       expect(formatRatio(null as any, 100)).toBe("—");
       expect(formatRatio(50, null as any)).toBe("—");
       expect(formatRatio(NaN, 100)).toBe("—");
