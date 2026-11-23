@@ -65,5 +65,18 @@
 - Accounting fix: buying a package from the wallet no longer posts a second treasury deposit (the cash entered when the wallet was funded). This removes double-counted revenue.
 - Limits: 10–50,000 EGP per online top-up; partial captures below the requested amount are rejected.
 
+## Phase 4 (part 2) — education cashier shifts
+
+- New table `education_cashier_shifts` (per cashier: opening balance, closed time, collected/reversed cash, expected, actual, difference, status).
+- Endpoints:
+  - `GET /education/finance/shifts/current` → open shift + live expected.
+  - `GET /education/finance/shifts` (+ `/:id`) → history/details with cash payments.
+  - `POST /education/finance/shifts/open` → one open shift per cashier.
+  - `POST /education/finance/shifts/:id/close` → stores expected, actual counted cash and the difference.
+- Expected cash = opening balance + cash payments in the shift window − reversal amounts whose `reversedAt` falls in the window.
+- UI: new "شيفت الكاشير" tab in the payments page (open, live drawer totals, close with counted cash and difference, history).
+- Closing with a difference writes a MEDIUM audit event with the exact expected/actual/difference.
+
+
 
 

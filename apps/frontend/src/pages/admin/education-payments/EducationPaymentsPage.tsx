@@ -6,11 +6,12 @@ import { KpiCard, money } from "./shared";
 import PaymentsLedgerTab from "./PaymentsLedgerTab";
 import DuesTab, { CollectTarget } from "./DuesTab";
 import TopupsTab from "./TopupsTab";
+import CashierShiftTab from "./CashierShiftTab";
 import RecordPaymentModal from "./RecordPaymentModal";
 import ReceiptModal from "./ReceiptModal";
 import type { PaymentsSummary } from "./types";
 
-type TabKey = "ledger" | "dues" | "topups";
+type TabKey = "ledger" | "dues" | "topups" | "shift";
 
 const EducationPaymentsPage: React.FC = () => {
   const { i18n } = useTranslation();
@@ -58,6 +59,7 @@ const EducationPaymentsPage: React.FC = () => {
       label: isEn ? "Wallet top-ups" : "طلبات شحن المحفظة",
       count: summary?.pendingTopups,
     },
+    { key: "shift", label: isEn ? "Cashier shift" : "شيفت الكاشير" },
   ];
 
   return (
@@ -180,6 +182,7 @@ const EducationPaymentsPage: React.FC = () => {
       ) : null}
       {tab === "dues" ? <DuesTab reloadKey={reloadKey} onCollect={openRecord} /> : null}
       {tab === "topups" ? <TopupsTab reloadKey={reloadKey} onChanged={refreshAll} /> : null}
+      {tab === "shift" ? <CashierShiftTab reloadKey={reloadKey} onChanged={refreshAll} /> : null}
 
       {recordOpen ? (
         <RecordPaymentModal

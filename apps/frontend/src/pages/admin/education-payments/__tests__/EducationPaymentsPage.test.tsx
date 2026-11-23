@@ -21,6 +21,10 @@ const mockApi = vi.hoisted(() => ({
   sendPaymentReceipt: vi.fn(),
   fetchBranches: vi.fn(),
   fetchPackages: vi.fn(),
+  fetchCurrentShift: vi.fn(),
+  fetchCashierShifts: vi.fn(),
+  openCashierShift: vi.fn(),
+  closeCashierShift: vi.fn(),
   downloadPaymentsCsv: vi.fn(),
   fetchTopups: vi.fn(),
   releaseTopup: vi.fn(),
@@ -126,6 +130,13 @@ beforeEach(() => {
   mockApi.sendPaymentReceipt.mockResolvedValue({ sent: true, phone: "01001234567" });
   mockApi.fetchBranches.mockResolvedValue([{ id: "branch-1", name: "فرع مدينة نصر" }]);
   mockApi.fetchPackages.mockResolvedValue([{ id: "pkg-1", name: "باقة 10 ساعات" }]);
+  mockApi.fetchCurrentShift.mockResolvedValue({ shift: null, live: null });
+  mockApi.fetchCashierShifts.mockResolvedValue({
+    items: [],
+    pagination: { total: 0, page: 1, limit: 20, totalPages: 1 },
+  });
+  mockApi.openCashierShift.mockResolvedValue({ id: "shift-1", status: "OPEN", openingBalance: 100 });
+  mockApi.closeCashierShift.mockResolvedValue({ id: "shift-1", status: "CLOSED", difference: 0 });
   mockApi.releaseTopup.mockResolvedValue({});
   mockApi.rejectTopup.mockResolvedValue({});
   window.print = vi.fn();
@@ -235,6 +246,39 @@ describe("EducationPaymentsPage", () => {
     await waitFor(() =>
       expect(mockApi.fetchPayments).toHaveBeenCalledWith(expect.objectContaining({ branchId: "branch-1", packageId: "pkg-1" }))
     );
+  });
+
+  it("opens a cashier shift with the opening balance", async () => {
+    render(<EducationPaymentsPage />);
+    fireEvent.click(screen.getByRole("button", { name: "شيفت الكاشير" }));
+    expect(await screen.findByText("لا يوجد شيفت كاشير مفتوح")).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("رصيد الافتتاح (ج.م)"), { target: { value: "100" } });
+    fireEvent.click(screen.getByText("فتح الشيفت"));
+    await waitFor(() => expect(mockApi.openCashierShift).toHaveBeenCalledWith(100));
+  });
+
+  it("closes an open shift with the counted cash and shows the difference", async () => {
+    mockApi.fetchCurrentShift.mockResolvedValue({
+      shift: {
+        id: "shift-1",
+        cashierName: "منى",
+        openedAt: new Date().toISOString(),
+        openingBalance: 100,
+        cashCollected: 400,
+        cashReversed: 0,
+        expectedCash: 500,
+        status: "OPEN",
+      },
+      live: { collected: 400, reversed: 0, net: 400, expected: 500 },
+    });
+
+    render(<EducationPaymentsPage />);
+    fireEvent.click(screen.getByRole("button", { name: "شيفت الكاشير" }));
+    expect(await screen.findByText("شيفت مفتوح")).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("النقد الفعلي في الدرج (ج.م)"), { target: { value: "480" } });
+    expect(await screen.findByText(/الفرق:/)).toBeInTheDocument();
+    fireEvent.click(screen.getByText("إغلاق الشيفت"));
+    await waitFor(() => expect(mockApi.closeCashierShift).toHaveBeenCalledWith("shift-1", 480, undefined));
   });
 
   it("reverses a payment after confirmation", async () => {

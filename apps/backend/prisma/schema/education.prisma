@@ -251,6 +251,30 @@ model EducationPayment {
   @@map("education_payments")
 }
 
+/// Education module - Cashier shifts for daily cash reconciliation
+model EducationCashierShift {
+  id             String    @id @default(cuid())
+  companyId      String
+  cashierId      String
+  cashierName    String
+  openedAt       DateTime  @default(now())
+  closedAt       DateTime?
+  openingBalance Float     @default(0)
+  closingBalance Float?
+  cashCollected  Float     @default(0)
+  cashReversed   Float     @default(0)
+  expectedCash   Float     @default(0)
+  difference     Float?
+  status         String    @default("OPEN") /// OPEN | CLOSED
+  notes          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([companyId, status], map: "idx_edu_cashier_shift_status")
+  @@index([companyId, openedAt], map: "idx_edu_cashier_shift_opened")
+  @@map("education_cashier_shifts")
+}
+
 /// Education module - Individual sessions (lessons)
 model EducationSession {
   id              String                  @id @default(cuid())

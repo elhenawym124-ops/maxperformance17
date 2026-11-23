@@ -52,6 +52,8 @@ const ACTION_DEFINITIONS = {
   REVERSE_PAYMENT: { label: 'إلغاء دفعة محصلة', severity: 'HIGH', entity: 'PAYMENT' },
   RELEASE_WALLET_TOPUP: { label: 'اعتماد شحن محفظة ولي أمر', severity: 'MEDIUM', entity: 'PAYMENT' },
   REJECT_WALLET_TOPUP: { label: 'رفض طلب شحن محفظة', severity: 'MEDIUM', entity: 'PAYMENT' },
+  OPEN_CASHIER_SHIFT: { label: 'فتح شيفت كاشير', severity: 'LOW', entity: 'PAYMENT' },
+  CLOSE_CASHIER_SHIFT: { label: 'إغلاق شيفت كاشير', severity: 'MEDIUM', entity: 'PAYMENT' },
 
   // Portals & Guardians
   PARENT_LOGIN: { label: 'تسجيل دخول ولي أمر', severity: 'LOW', entity: 'PORTAL' },

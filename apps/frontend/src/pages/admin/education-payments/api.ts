@@ -84,6 +84,25 @@ export const fetchBranches = (): Promise<Array<{ id: string; name: string }>> =>
 
 export const fetchPackages = (): Promise<Array<{ id: string; name: string }>> => fetchJson(api("packages"));
 
+export const fetchCurrentShift = (): Promise<import("./types").CurrentShiftPayload> =>
+  fetchJson(api("finance/shifts/current"));
+
+export const openCashierShift = (openingBalance: number) =>
+  post(api("finance/shifts/open"), { openingBalance });
+
+export const closeCashierShift = (id: string, closingBalance: number, notes?: string) =>
+  post(api(`finance/shifts/${id}/close`), { closingBalance, notes });
+
+export const fetchCashierShifts = async (params: { page?: number; limit?: number; status?: string } = {}) => {
+  const res = await fetch(api(`finance/shifts${query(params as any)}`), { headers: getAuthHeaders() });
+  const json = await res.json();
+  if (!json.success) throw new Error(json.error || "فشل جلب الشيفتات");
+  return {
+    items: (json.data || []) as import("./types").CashierShiftRecord[],
+    pagination: json.pagination || { total: 0, page: 1, limit: 20, totalPages: 1 },
+  };
+};
+
 export const fetchTopups = (status = "PENDING_RELEASE"): Promise<WalletTopup[]> =>
   fetchJson(api(`finance/topups${query({ status })}`));
 

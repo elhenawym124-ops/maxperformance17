@@ -109,6 +109,26 @@ export interface ReceiptPayload {
   package?: { name: string; hoursCount: number } | null;
 }
 
+export interface CashierShiftRecord {
+  id: string;
+  cashierName: string;
+  openedAt: string;
+  closedAt?: string | null;
+  openingBalance: number;
+  closingBalance?: number | null;
+  cashCollected: number;
+  cashReversed: number;
+  expectedCash: number;
+  difference?: number | null;
+  status: "OPEN" | "CLOSED";
+  notes?: string | null;
+}
+
+export interface CurrentShiftPayload {
+  shift: CashierShiftRecord | null;
+  live: { collected: number; reversed: number; net: number; expected: number } | null;
+}
+
 export const PAYMENT_METHOD_LABELS: Record<string, { ar: string; en: string }> = {
   CASH: { ar: "نقدي", en: "Cash" },
   TRANSFER: { ar: "تحويل بنكي", en: "Bank transfer" },

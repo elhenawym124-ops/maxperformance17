@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controller/educationPaymentsController');
+const shiftsController = require('../controller/educationCashierShiftsController');
 const verifyToken = require('../utils/verifyToken');
 const requireEducationAppInstalled = require('../middleware/requireEducationAppInstalled');
 const { requireDbPermission } = require('../middleware/rbacMiddleware');
@@ -26,5 +27,12 @@ router.post('/payments/:id/reverse', requireDbPermission('education.financials.m
 router.get('/topups', requireDbPermission(CAN_VIEW), controller.listPendingTopups);
 router.post('/topups/:id/release', requireDbPermission('education.financials.manage'), controller.releaseTopup);
 router.post('/topups/:id/reject', requireDbPermission('education.financials.manage'), controller.rejectTopup);
+
+// Cashier shifts (daily cash reconciliation)
+router.get('/shifts', requireDbPermission(CAN_VIEW), shiftsController.listShifts);
+router.get('/shifts/current', requireDbPermission(CAN_VIEW), shiftsController.getCurrentShift);
+router.get('/shifts/:id', requireDbPermission(CAN_VIEW), shiftsController.getShiftById);
+router.post('/shifts/open', requireDbPermission('education.financials.collect'), shiftsController.openShift);
+router.post('/shifts/:id/close', requireDbPermission('education.financials.collect'), shiftsController.closeShift);
 
 module.exports = router;
