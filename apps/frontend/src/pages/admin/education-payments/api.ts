@@ -1,5 +1,6 @@
 import { api, getAuthHeaders, fetchJson } from "../education-management/api";
 import type {
+  Coupon,
   DuesResponse,
   EducationPayment,
   PaymentsPagination,
@@ -126,6 +127,43 @@ export const rejectTopup = (id: string, reason?: string): Promise<unknown> =>
 
 export const fetchReceipt = (id: string): Promise<ReceiptPayload> =>
   fetchJson(api(`finance/payments/${id}/receipt`));
+
+const sendJson = async (url: string, method: "PUT" | "POST" | "DELETE", body?: unknown) => {
+  const res = await fetch(url, {
+    method,
+    headers: getAuthHeaders(),
+    ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || !json.success) {
+    throw new Error(json.error || json.message || "فشل العملية");
+  }
+  return json.data;
+};
+
+export const fetchCoupons = (active?: "0" | "1"): Promise<Coupon[]> =>
+  fetchJson(api(`finance/coupons${query({ active })}`));
+
+export const createCoupon = (payload: Partial<Coupon> & { code: string; value: number }): Promise<Coupon> =>
+  sendJson(api("finance/coupons"), "POST", payload);
+
+export const updateCoupon = (id: string, payload: Partial<Coupon>): Promise<Coupon> =>
+  sendJson(api(`finance/coupons/${id}`), "PUT", payload);
+
+export const toggleCoupon = (id: string, isActive: boolean): Promise<Coupon> =>
+  sendJson(api(`finance/coupons/${id}/toggle`), "PUT", { isActive });
+
+export const deleteCoupon = (id: string): Promise<unknown> =>
+  sendJson(api(`finance/coupons/${id}`), "DELETE");
+
+export const validateCoupon = (payload: {
+  code: string;
+  amount: number;
+  studentId?: string;
+  packageId?: string;
+  groupId?: string;
+}): Promise<{ code: string; type: string; discountAmount: number; finalAmount: number }> =>
+  sendJson(api("finance/coupons/validate"), "POST", payload);
 
 export const downloadPaymentsCsv = async (filters: PaymentsQuery): Promise<void> => {
   const { page, limit, ...rest } = filters;

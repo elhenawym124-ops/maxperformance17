@@ -348,6 +348,51 @@ model EducationCertificate {
   @@map("education_certificates")
 }
 
+/// Education module - Coupon codes (discount engine)
+model EducationCoupon {
+  id              String    @id @default(cuid())
+  companyId       String
+  code            String
+  type            String    @default("PERCENT") /// PERCENT | AMOUNT
+  value           Float
+  minAmount       Float?
+  maxDiscount     Float?
+  scope           String    @default("ALL") /// ALL | PACKAGE | GROUP
+  packageId       String?
+  groupId         String?
+  maxUses         Int?
+  usedCount       Int       @default(0)
+  perStudentLimit Int?
+  validFrom       DateTime?
+  validUntil      DateTime?
+  isActive        Boolean   @default(true)
+  notes           String?
+  createdById     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([companyId, code])
+  @@index([companyId, isActive])
+  @@map("education_coupons")
+}
+
+/// Education module - Coupon redemptions (audit + per-student limit)
+model EducationCouponRedemption {
+  id           String   @id @default(cuid())
+  companyId    String
+  couponId     String
+  studentId    String?
+  customerId   String?
+  enrollmentId String?
+  paymentId    String?
+  discount     Float    @default(0)
+  createdAt    DateTime @default(now())
+
+  @@index([companyId, couponId])
+  @@index([couponId, studentId])
+  @@map("education_coupon_redemptions")
+}
+
 /// Education module - Daily closing snapshot (Z-report lock per day)
 model EducationDailyClosing {
   id                 String    @id @default(cuid())

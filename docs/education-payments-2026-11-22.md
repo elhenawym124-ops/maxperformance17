@@ -154,6 +154,22 @@
 - UI: "أداء المدرّسين" table in the growth tab (sessions, cancelled, hours, attendance %, students, revenue).
 - Note: attendance rate is `null` when a teacher has no group attendance yet (no fake 100%).
 
+## Phase 4 (part 10) — discount codes (coupon engine)
+
+- New tables: `education_coupons`, `education_coupon_redemptions`.
+- Admin API `/education/finance/coupons`: list, create, update, toggle, delete, and `POST /coupons/validate` (preview).
+  - Types: `PERCENT` / `AMOUNT`, with optional `minAmount`, `maxDiscount` cap, `scope` (ALL / PACKAGE / GROUP), `maxUses`, `perStudentLimit`, validity window.
+  - Codes are stored uppercase and unique per company; a used coupon cannot be deleted (deactivate instead) so the discount history stays intact.
+  - Deleting an unused coupon is allowed.
+- Redemption is atomic: `usedCount` is incremented with a `usedCount < maxUses` guard inside the money transaction, and a redemption row records student, customer, enrollment, payment and the discount amount.
+- Applied on parent package purchase (`POST /education/parent-portal/purchase-package` with `couponCode`):
+  - Coupon is validated **before** any wallet debit; invalid/expired/exhausted returns the mapped error code.
+  - Discount applies after the sibling discount; the wallet is debited the final amount only.
+  - Payment note, enrollment `discountType=COUPON`/`discountAmount` and audit log all record the code.
+- Parent preview: `POST /education/parent-portal/coupons/validate` (scoped to the guardian's own child).
+- UI: "أكواد الخصم" tab in `/admin/education/payments` (list, create, enable/disable, delete, usage counters) and a coupon field in the parent buy-package page showing the live discount.
+
+
 
 
 

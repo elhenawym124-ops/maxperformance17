@@ -103,13 +103,51 @@ const ParentBuyPackagePage: React.FC = () => {
   const priceAfterDiscount = (p: number) =>
     Math.round(p * (1 - siblingDiscountRate) * 100) / 100;
   const payable = selectedPkg ? priceAfterDiscount(selectedPkg.price) : 0;
+  const [couponCode, setCouponCode] = useState("");
+  const [coupon, setCoupon] = useState<{ code: string; discountAmount: number; finalAmount: number } | null>(null);
+  const [couponBusy, setCouponBusy] = useState(false);
+  const [couponError, setCouponError] = useState("");
+  const totalPayable = coupon && selectedPkg ? coupon.finalAmount : payable;
   const canPurchase = Boolean(
     hasCatalog &&
       selectedStudent &&
       selectedPackage &&
       selectedPkg &&
-      userBalance >= payable
+      userBalance >= totalPayable
   );
+
+  const applyCoupon = async () => {
+    if (!couponCode.trim() || !selectedPkg) return;
+    setCouponBusy(true);
+    setCouponError("");
+    try {
+      const token = localStorage.getItem("parentToken");
+      const res = await fetch("/api/v1/education/parent-portal/coupons/validate", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          code: couponCode.trim(),
+          amount: payable,
+          studentId: selectedStudent,
+          packageId: selectedPackage
+        })
+      });
+      const json = await res.json();
+      if (json.success) {
+        setCoupon(json.data);
+      } else {
+        setCoupon(null);
+        setCouponError(json.message || json.error || "كود الخصم غير صالح");
+      }
+    } catch {
+      setCouponError("تعذر التحقق من كود الخصم");
+    } finally {
+      setCouponBusy(false);
+    }
+  };
 
   const handlePurchase = async () => {
     if (!canPurchase || !selectedPkg) return;
@@ -123,13 +161,17 @@ const ParentBuyPackagePage: React.FC = () => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ studentId: selectedStudent, packageId: selectedPackage })
+        body: JSON.stringify({
+          studentId: selectedStudent,
+          packageId: selectedPackage,
+          ...(coupon ? { couponCode: coupon.code } : {})
+        })
       });
       const json = await res.json();
       if (json.success) {
         setMessage({
           type: "success",
-          text: `تم شراء "${selectedPkg.name}" بنجاح وخصم ${selectedPkg.price} ج.م من المحفظة!`
+          text: `تم شراء "${selectedPkg.name}" بنجاح وخصم ${totalPayable} ج.م من المحفظة!`
         });
         setTimeout(() => navigate("/parent/enrollments"), 1500);
       } else {
@@ -396,15 +438,48 @@ const ParentBuyPackagePage: React.FC = () => {
               <div className="flex justify-between py-2 text-sm font-bold">
                 <span className="text-foreground">المبلغ الإجمالي:</span>
                 <span className="font-mono tabular-nums text-primary">
-                  {selectedPkg ? `${payable.toLocaleString("ar-EG")} ج.م` : "—"}
+                  {selectedPkg ? `${totalPayable.toLocaleString("ar-EG")} ج.م` : "—"}
                 </span>
               </div>
             </div>
 
-            {selectedPkg && userBalance < payable && (
+            <div className="pt-2 border-t border-border/40 space-y-2">
+              <label className="block text-[11px] text-muted-foreground">
+                كود الخصم
+                <div className="flex items-center gap-1.5 mt-1">
+                  <input
+                    value={couponCode}
+                    onChange={(e) => {
+                      setCouponCode(e.target.value);
+                      setCoupon(null);
+                      setCouponError("");
+                    }}
+                    placeholder="EID25"
+                    className="flex-1 rounded-lg border border-border/70 bg-background px-2.5 py-1.5 text-xs text-foreground font-mono uppercase"
+                  />
+                  <button
+                    type="button"
+                    onClick={applyCoupon}
+                    disabled={couponBusy || !couponCode.trim()}
+                    className="px-3 py-1.5 rounded-lg border border-border/70 text-[11px] font-semibold text-foreground hover:bg-muted disabled:opacity-50"
+                  >
+                    {couponBusy ? "جارٍ..." : "تطبيق"}
+                  </button>
+                </div>
+              </label>
+              {coupon && (
+                <div className="flex items-center justify-between text-[11px] text-emerald-600">
+                  <span>تم تطبيق {coupon.code}</span>
+                  <span className="font-mono tabular-nums">− {coupon.discountAmount.toLocaleString("ar-EG")} ج.م</span>
+                </div>
+              )}
+              {couponError && <p className="text-[11px] text-destructive">{couponError}</p>}
+            </div>
+
+            {selectedPkg && userBalance < totalPayable && (
               <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 space-y-1">
                 <p className="font-semibold">رصيد المحفظة غير كافٍ</p>
-                <p className="text-[11px]">المتبقي المطلوب: {payable - userBalance} ج.م</p>
+                <p className="text-[11px]">المتبقي المطلوب: {totalPayable - userBalance} ج.م</p>
                 <Link to="/parent/wallet" className="text-primary hover:underline font-bold inline-block pt-1">
                   شحن المحفظة الآن ←
                 </Link>

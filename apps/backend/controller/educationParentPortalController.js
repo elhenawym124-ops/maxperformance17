@@ -84,8 +84,68 @@ const getSubjects = async (req, res) => {
   }
 };
 
-const purchasePackage = async (req, res) => {
+/**
+ * Preview a discount code for the parent before paying.
+ * Only validates: nothing is consumed here.
+ */
+const validateCouponForParent = async (req, res) => {
   try {
+    const companyId = req.parent?.companyId;
+    const parentId = req.parent?.id;
+    if (!companyId || !parentId) {
+      return res.status(403).json({ success: false, message: 'غير مصرح' });
+    }
+
+    const { code, amount, studentId, packageId } = req.body || {};
+    const prisma = getSharedPrismaClient();
+
+    if (studentId) {
+      const student = await prisma.educationStudent.findFirst({
+        where: { id: studentId, customerId: parentId, companyId },
+        select: { id: true }
+      });
+      if (!student) return res.status(404).json({ success: false, message: 'الطالب غير موجود' });
+    }
+
+    const couponService = require('../services/educationCouponService');
+    const result = await couponService.validateCoupon(prisma, {
+      companyId,
+      code,
+      amount: Number(amount) || 0,
+      studentId: studentId || null,
+      packageId: packageId || null
+    });
+
+    res.json({
+      success: true,
+      data: {
+        code: result.code,
+        type: result.type,
+        discountAmount: result.discountAmount,
+        finalAmount: result.finalAmount
+      }
+    });
+  } catch (error) {
+    if (error && error.name === 'CouponError') {
+      return res.status(error.statusCode || 400).json({
+        success: false,
+        code: error.code,
+        message: error.message
+      });
+    }
+    if (error && error.code && String(error.code).startsWith('COUPON_')) {
+      return res.status(error.statusCode || 400).json({
+        success: false,
+        code: error.code,
+        message: error.message
+      });
+    }
+    console.error('[ParentPortal] Coupon validate error:', error);
+    res.status(500).json({ success: false, message: 'حدث خطأ في التحقق من كود الخصم' });
+  }
+};
+
+const purchasePackage = async (req, res) => {  try {
     const parentId = req.parent.id;
     const companyId = req.parent.companyId;
     const { studentId, packageId } = req.body;
@@ -110,7 +170,35 @@ const purchasePackage = async (req, res) => {
       where: { companyId, customerId: parentId, isActive: true }
     });
     const pricing = computePackagePrice({ basePrice: pkg.price, siblingCount });
-    const payable = pricing.finalPrice;
+
+    // 🎟️ كود خصم (يُطبّق بعد خصم الأخوات، ويتحقق قبل خصم أي مال)
+    let coupon = null;
+    let couponDiscount = 0;
+    let payable = pricing.finalPrice;
+    if (req.body?.couponCode) {
+      const couponService = require('../services/educationCouponService');
+      try {
+        const validation = await couponService.validateCoupon(prisma, {
+          companyId,
+          code: req.body.couponCode,
+          amount: payable,
+          studentId,
+          packageId,
+        });
+        coupon = validation.coupon;
+        couponDiscount = validation.discountAmount;
+        payable = validation.finalAmount;
+      } catch (couponError) {
+        if (couponError instanceof couponService.CouponError) {
+          return res.status(couponError.statusCode || 400).json({
+            success: false,
+            code: couponError.code,
+            message: couponError.message,
+          });
+        }
+        throw couponError;
+      }
+    }
 
     let wallet = await prisma.customerWallet.findFirst({ where: { customerId: parentId, companyId } });
     if (!wallet) return res.status(400).json({ success: false, message: 'لا توجد محفظة. قم بشحن المحفظة أولاً' });
@@ -138,6 +226,7 @@ const purchasePackage = async (req, res) => {
           companyId, studentId, packageId,
           remainingHours: pkg.hoursCount, totalHours: pkg.hoursCount,
           amountPaid: payable, paymentStatus: 'COMPLETED',
+          ...(coupon ? { discountType: 'COUPON', discountAmount: couponDiscount, finalAmount: payable } : {}),
           enrollmentDate: new Date()
         },
         include: {
@@ -155,6 +244,7 @@ const purchasePackage = async (req, res) => {
       });
 
       // 🧾 Unified payment ledger entry (money already captured via wallet debit)
+      let createdPayment = null;
       try {
         const now = new Date();
         const prefix = `EDU-PAY-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}-`;
@@ -169,7 +259,7 @@ const purchasePackage = async (req, res) => {
           if (!Number.isNaN(parsed)) seq = parsed + 1;
         }
         const paymentNumber = `${prefix}${String(seq).padStart(4, '0')}`;
-        await tx.educationPayment.create({
+        createdPayment = await tx.educationPayment.create({
           data: {
             companyId,
             paymentNumber,
@@ -182,12 +272,28 @@ const purchasePackage = async (req, res) => {
             method: 'WALLET',
             status: 'COMPLETED',
             source: 'PARENT_WALLET',
-            notes: `شراء من محفظة ولي الأمر — باقة ${pkg.name}`,
+            notes: coupon
+              ? `شراء من محفظة ولي الأمر — باقة ${pkg.name} — كود خصم ${coupon.code} (-${couponDiscount} ج.م)`
+              : `شراء من محفظة ولي الأمر — باقة ${pkg.name}`,
             paidAt: now,
           },
         });
       } catch (ledgerError) {
         console.warn('[ParentPurchaseLedger] warning:', ledgerError.message);
+      }
+
+      // 🎟️ استهلاك كود الخصم داخل نفس المعاملة (فشله يرجّع كل شيء)
+      if (coupon) {
+        const couponService = require('../services/educationCouponService');
+        await couponService.redeemCoupon(tx, {
+          companyId,
+          coupon,
+          studentId,
+          customerId: parentId,
+          enrollmentId: enrollment.id,
+          paymentId: createdPayment?.id || null,
+          discount: couponDiscount,
+        });
       }
 
       // ترقية مستوى الطالب ليطابق المستوى المشترى
@@ -224,6 +330,8 @@ const purchasePackage = async (req, res) => {
         basePrice: pricing.basePrice,
         discountAmount: pricing.discountAmount,
         discountReason: pricing.reason,
+        couponCode: coupon?.code || null,
+        couponDiscount,
         hours: pkg.hoursCount,
       },
       severity: 'MEDIUM',
@@ -248,4 +356,4 @@ const purchasePackage = async (req, res) => {
   }
 };
 
-module.exports = { getWallet, topupWallet, getSubjects, purchasePackage };
+module.exports = { getWallet, topupWallet, getSubjects, purchasePackage, validateCouponForParent };

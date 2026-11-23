@@ -31,6 +31,8 @@ router.post('/wallet/topup', authenticateParentToken, portalController.topupWall
 
 // Package purchase
 router.get('/subjects', authenticateParentToken, portalController.getSubjects);
+// Discount codes (preview only — consumption happens inside the purchase transaction)
+router.post('/coupons/validate', authenticateParentToken, portalController.validateCouponForParent);
 router.post('/purchase-package', authenticateParentToken, portalController.purchasePackage);
 
 // Payment history + receipts (parent-scoped)

@@ -27,8 +27,7 @@ router.post('/payments', requireDbPermission('education.financials.collect'), co
 router.post('/payments/:id/reverse', requireDbPermission('education.financials.manage'), controller.reversePayment);
 
 // Parent wallet top-up requests
-router.get('/topups', requireDbPermission(CAN_VIEW), controller.listPendingTopups);
-router.post('/topups/:id/release', requireDbPermission('education.financials.manage'), controller.releaseTopup);
+router.get('/topups', requireDbPermission(CAN_VIEW), controller.listPendingTopups);router.post('/topups/:id/release', requireDbPermission('education.financials.manage'), controller.releaseTopup);
 router.post('/topups/:id/reject', requireDbPermission('education.financials.manage'), controller.rejectTopup);
 
 // Cashier shifts (daily cash reconciliation)
@@ -43,5 +42,14 @@ router.get('/daily-closing', requireDbPermission(CAN_VIEW), closingController.ge
 router.get('/daily-closing/history', requireDbPermission(CAN_VIEW), closingController.listClosings);
 router.post('/daily-closing/close', requireDbPermission('education.financials.manage'), closingController.closeDay);
 router.post('/daily-closing/:id/reopen', requireDbPermission('education.financials.manage'), closingController.reopenDay);
+
+// Coupons (discount engine)
+const couponsController = require('../controller/educationCouponsController');
+router.get('/coupons', requireDbPermission(CAN_VIEW), couponsController.listCoupons);
+router.post('/coupons', requireDbPermission('education.financials.manage'), couponsController.createCoupon);
+router.put('/coupons/:id', requireDbPermission('education.financials.manage'), couponsController.updateCoupon);
+router.put('/coupons/:id/toggle', requireDbPermission('education.financials.manage'), couponsController.toggleCoupon);
+router.delete('/coupons/:id', requireDbPermission('education.financials.manage'), couponsController.deleteCoupon);
+router.post('/coupons/validate', requireDbPermission(CAN_VIEW), couponsController.validateCouponPreview);
 
 module.exports = router;

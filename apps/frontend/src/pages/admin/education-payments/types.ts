@@ -209,3 +209,23 @@ export const SOURCE_LABELS: Record<string, { ar: string; en: string }> = {
   PARENT_WALLET: { ar: "محفظة ولي الأمر", en: "Parent wallet" },
   SYSTEM: { ar: "النظام", en: "System" },
 };
+
+export interface Coupon {
+  id: string;
+  code: string;
+  type: "PERCENT" | "AMOUNT" | string;
+  value: number;
+  minAmount?: number | null;
+  maxDiscount?: number | null;
+  scope?: "ALL" | "PACKAGE" | "GROUP" | string;
+  packageId?: string | null;
+  groupId?: string | null;
+  maxUses?: number | null;
+  usedCount: number;
+  perStudentLimit?: number | null;
+  validFrom?: string | null;
+  validUntil?: string | null;
+  isActive: boolean;
+  notes?: string | null;
+  createdAt?: string;
+}
