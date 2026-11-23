@@ -421,6 +421,7 @@ const getDues = async (req, res) => {
     try {
       const rows = await prisma.$queryRawUnsafe(`
         SELECT m."id", m."groupId", m."studentId", m."paymentStatus", m."amountPaid", m."nextRenewalDate",
+               COALESCE(m."discountAmount", 0) AS "discountAmount",
                g."name" AS "groupName", g."feeAmount", g."feeType",
                s."firstName", s."lastName", s."phone"
         FROM "education_group_members" m
@@ -438,6 +439,8 @@ const getDues = async (req, res) => {
       groupRenewals = (rows || []).map((row) => {
         const fee = money(row.feeAmount);
         const paid = money(row.amountPaid);
+        const discount = money(row.discountAmount);
+        const effectiveFee = money(Math.max(0, fee - discount));
         const fullyPaid = String(row.paymentStatus || '').toUpperCase() === 'PAID';
         return {
           kind: 'GROUP',
@@ -448,10 +451,11 @@ const getDues = async (req, res) => {
           studentName: `${row.firstName || ''} ${row.lastName || ''}`.trim(),
           phone: row.phone || null,
           feeAmount: fee,
+          discountAmount: discount,
           feeType: row.feeType,
           paid,
           // A paid member whose renewal date passed owes a full new cycle.
-          remaining: fullyPaid ? fee : money(Math.max(0, fee - paid)),
+          remaining: fullyPaid ? effectiveFee : money(Math.max(0, effectiveFee - paid)),
           paymentStatus: row.paymentStatus,
           nextRenewalDate: row.nextRenewalDate,
         };
@@ -521,18 +525,10 @@ const recordPayment = async (req, res) => {
       || null;
     const monthPrefix = `EDU-PAY-${paidDate.getFullYear()}${String(paidDate.getMonth() + 1).padStart(2, '0')}-`;
 
-    // 🎟️ كود خصم اختياري (دفعات الباقات فقط)
+    // 🎟️ كود خصم اختياري (دفعات الباقات ورسوم المجموعات)
     let collected = value;
     let appliedCoupon = null;
     let couponDiscount = 0;
-
-    if (couponCode && groupMemberId) {
-      return res.status(400).json({
-        success: false,
-        code: 'COUPON_NOT_ALLOWED',
-        error: 'كود الخصم متاح لدفعات الباقات فقط — رسوم المجموعات تتسدد كاملة',
-      });
-    }
 
     const result = await prisma.$transaction(async (tx) => {
       let enrollment = null;
@@ -625,7 +621,8 @@ const recordPayment = async (req, res) => {
         description = `تحصيل دفعة تعليمية (${enrollment.package?.name || 'باقة'}) - الطالب: ${studentName || 'طالب'}`;
       } else {
         const rows = await tx.$queryRawUnsafe(`
-          SELECT m."id", m."groupId", m."studentId", m."status", m."paymentStatus", m."amountPaid", m."nextRenewalDate",
+          SELECT m."id", m."groupId", m."studentId", m."status", m."paymentStatus", m."amountPaid",
+                 m."nextRenewalDate", COALESCE(m."discountAmount", 0) AS "discountAmount",
                  g."name" AS "groupName", g."feeAmount", g."feeType", g."branchId" AS "groupBranchId",
                  s."firstName", s."lastName"
           FROM "education_group_members" m
@@ -643,6 +640,8 @@ const recordPayment = async (req, res) => {
 
         const fee = money(member.feeAmount);
         const alreadyPaid = money(member.amountPaid);
+        const priorDiscount = money(member.discountAmount);
+        const effectiveFee = money(Math.max(0, fee - priorDiscount));
         const isPaid = String(member.paymentStatus || '').toUpperCase() === 'PAID';
         const renewalDate = member.nextRenewalDate ? new Date(member.nextRenewalDate) : null;
         const renewalDue = !renewalDate || renewalDate.getTime() <= Date.now();
@@ -653,27 +652,51 @@ const recordPayment = async (req, res) => {
           throw err;
         }
 
-        if (fee > 0 && value > fee + 0.009) {
-          const err = new Error(`المبلغ أكبر من رسوم المجموعة (${fee} ج.م)`);
+        if (effectiveFee > 0 && value > effectiveFee + 0.009) {
+          const err = new Error(`المبلغ أكبر من المتبقي على رسوم المجموعة (${effectiveFee} ج.م)`);
           err.statusCode = 400;
           throw err;
         }
 
+        // 🎟️ كود خصم على رسوم العضو: يقلل المحصّل ويزيد خصم العضو (نفس معادلة المتبقي)
+        if (couponCode) {
+          const couponService = require('../services/educationCouponService');
+          const validation = await couponService.validateCoupon(tx, {
+            companyId,
+            code: couponCode,
+            amount: value,
+            studentId: member.studentId,
+            groupId: member.groupId,
+          });
+          appliedCoupon = validation.coupon;
+          couponDiscount = validation.discountAmount;
+          collected = validation.finalAmount;
+          if (collected <= 0.009) {
+            const err = new Error('الخصم يغطي كامل المبلغ — سجّل إعفاءً بدل دفعة نقدية');
+            err.statusCode = 400;
+            throw err;
+          }
+        }
+
         const basePaid = isPaid ? 0 : alreadyPaid;
-        const newPaid = money(basePaid + value);
-        const fullyPaid = fee > 0 ? newPaid >= fee - 0.009 : true;
+        const newPaid = money(basePaid + collected);
+        const newDiscount = money(priorDiscount + couponDiscount);
+        const settled = money(basePaid + value);
+        const fullyPaid = effectiveFee > 0 ? settled >= effectiveFee - 0.009 : true;
         const newStatus = fullyPaid ? 'PAID' : (newPaid > 0 ? 'PARTIAL' : 'PENDING');
         const newRenewalDate = fullyPaid ? nextRenewal(member.feeType) : renewalDate;
 
         await tx.$executeRawUnsafe(`
           UPDATE "education_group_members"
           SET "amountPaid" = $1,
-              "paymentStatus" = $2,
-              "nextRenewalDate" = $3,
+              "discountAmount" = $2,
+              "paymentStatus" = $3,
+              "nextRenewalDate" = $4,
               "updatedAt" = NOW()
-          WHERE "id" = $4 AND "companyId" = $5
+          WHERE "id" = $5 AND "companyId" = $6
         `,
-          fullyPaid ? fee : newPaid,
+          newPaid,
+          newDiscount,
           newStatus,
           newRenewalDate,
           member.id,
@@ -685,6 +708,13 @@ const recordPayment = async (req, res) => {
         metadata.groupId = member.groupId;
         metadata.groupName = member.groupName;
         metadata.feeAmount = fee;
+        if (priorDiscount || couponDiscount) {
+          metadata.memberDiscount = newDiscount;
+        }
+        if (couponDiscount > 0) {
+          metadata.couponCode = appliedCoupon?.code || null;
+          metadata.couponDiscount = couponDiscount;
+        }
         referenceType = 'EDUCATION_GROUP_PAYMENT';
         description = `تحصيل رسوم مجموعة (${member.groupName || 'مجموعة'}) - الطالب: ${studentName || 'طالب'}`;
       }
@@ -773,8 +803,87 @@ const recordPayment = async (req, res) => {
   }
 };
 
-const reversePayment = async (req, res) => {
+/**
+ * Standing discount on a single group member (sibling/employee waivers …).
+ * Reduces that member's cycle due without touching the shared group fee.
+ */
+const setMemberDiscount = async (req, res) => {
   try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const rows = await prisma.$queryRawUnsafe(`
+      SELECT m."id", m."paymentStatus", m."amountPaid", m."groupId",
+             g."feeAmount",
+             s."firstName", s."lastName"
+      FROM "education_group_members" m
+      JOIN "education_groups" g ON g."id" = m."groupId" AND g."companyId" = m."companyId"
+      JOIN "education_students" s ON s."id" = m."studentId" AND s."companyId" = m."companyId"
+      WHERE m."id" = $1 AND m."companyId" = $2
+      LIMIT 1
+    `, req.params.id, companyId);
+
+    const member = Array.isArray(rows) ? rows[0] : null;
+    if (!member) return res.status(404).json({ success: false, error: 'عضو المجموعة غير موجود' });
+
+    const fee = money(member.feeAmount);
+    const rawAmount = req.body?.amount;
+    const numericAmount = Number(rawAmount);
+    if (rawAmount === undefined || rawAmount === null || rawAmount === ''
+      || !Number.isFinite(numericAmount) || numericAmount < 0) {
+      return res.status(400).json({ success: false, error: 'قيمة الخصم غير صحيحة' });
+    }
+    const amount = money(numericAmount);
+    if (amount > fee + 0.009) {
+      return res.status(400).json({ success: false, error: `الخصم أكبر من رسوم المجموعة (${fee} ج.م)` });
+    }
+
+    const reason = req.body?.reason ? String(req.body.reason).slice(0, 300) : null;
+    const paid = money(member.amountPaid);
+    const settled = money(paid + amount);
+    const fullyPaid = fee - amount <= 0.009 ? true : settled >= fee - 0.009;
+    const status = fullyPaid ? 'PAID' : (paid > 0 ? 'PARTIAL' : 'PENDING');
+
+    await prisma.$executeRawUnsafe(`
+      UPDATE "education_group_members"
+      SET "discountAmount" = $1,
+          "discountReason" = $2,
+          "paymentStatus" = $3,
+          "updatedAt" = NOW()
+      WHERE "id" = $4 AND "companyId" = $5
+    `, amount, reason, status, member.id, companyId);
+
+    logEducationEvent({
+      companyId,
+      action: 'MANUAL_DISCOUNT',
+      entityType: 'PAYMENT',
+      entityId: member.id,
+      entityName: `${member.firstName || ''} ${member.lastName || ''}`.trim(),
+      description: `تم تطبيق خصم ${amount} ج.م على رسوم عضو المجموعة ${member.firstName || ''} ${member.lastName || ''}`.trim(),
+      details: { groupMemberId: member.id, feeAmount: fee, discountAmount: amount, reason },
+      severity: 'MEDIUM',
+      req,
+    }).catch(() => {});
+
+    res.json({
+      success: true,
+      data: {
+        groupMemberId: member.id,
+        discountAmount: amount,
+        reason,
+        feeAmount: fee,
+        effectiveFee: money(Math.max(0, fee - amount)),
+        paymentStatus: status,
+      },
+    });
+  } catch (error) {
+    console.error('Error setting member discount:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في تطبيق الخصم' });
+  }
+};
+
+const reversePayment = async (req, res) => {  try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -1419,6 +1528,7 @@ module.exports = {
   getReports,
   getDues,
   recordPayment,
+  setMemberDiscount,
   reversePayment,
   listPendingTopups,
   releaseTopup,

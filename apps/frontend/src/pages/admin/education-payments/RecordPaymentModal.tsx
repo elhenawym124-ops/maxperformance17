@@ -11,6 +11,7 @@ interface RecordTarget {
   groupMemberId?: string;
   studentId?: string;
   packageId?: string | null;
+  groupId?: string;
   label: string;
   remaining: number;
 }
@@ -80,6 +81,8 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
     }));
     const groupTargets = dues.groupRenewals.map((item) => ({
       groupMemberId: item.groupMemberId,
+      studentId: item.studentId,
+      groupId: item.groupId,
       label: `${item.studentName} — ${item.groupName}`,
       remaining: Math.max(0, item.remaining),
     }));
@@ -102,6 +105,7 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
         amount: Number(amount) || selectedTarget?.remaining || 0,
         studentId: selectedTarget?.studentId,
         packageId: selectedTarget?.packageId || undefined,
+        groupId: selectedTarget?.groupId,
       });
       setCouponPreview(result);
     } catch (e: any) {
@@ -142,7 +146,7 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
         paidAt,
         reference: reference.trim() || undefined,
         notes: notes.trim() || undefined,
-        ...(couponPreview && selectedTarget.enrollmentId ? { couponCode: couponPreview.code } : {}),
+        ...(couponPreview ? { couponCode: couponPreview.code } : {}),
       });
       setSuccess(
         isEn
@@ -324,7 +328,7 @@ const RecordPaymentModal: React.FC<Props> = ({ preset, onClose, onSaved }) => {
             />
           </div>
 
-          {selectedTarget?.enrollmentId ? (
+          {selectedTarget ? (
             <div className="space-y-1">
               <label className="text-[11px] font-semibold text-foreground" htmlFor="edu-pay-coupon">
                 {isEn ? "Discount code" : "كود الخصم"}

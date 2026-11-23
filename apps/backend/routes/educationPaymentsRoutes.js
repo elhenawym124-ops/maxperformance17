@@ -24,6 +24,7 @@ router.post('/payments/:id/send-receipt', requireDbPermission(CAN_VIEW), control
 
 // Collections
 router.post('/payments', requireDbPermission('education.financials.collect'), controller.recordPayment);
+router.post('/group-members/:id/discount', requireDbPermission('education.financials.manage'), controller.setMemberDiscount);
 router.post('/payments/:id/reverse', requireDbPermission('education.financials.manage'), controller.reversePayment);
 
 // Parent wallet top-up requests

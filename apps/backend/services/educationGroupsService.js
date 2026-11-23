@@ -82,6 +82,8 @@ const STATEMENTS = [
   `ALTER TABLE "education_groups" ADD COLUMN IF NOT EXISTS "scheduleSlots" JSONB DEFAULT '[]'::jsonb;`,
   `ALTER TABLE "education_groups" ADD COLUMN IF NOT EXISTS "ageFrom" INTEGER;`,
   `ALTER TABLE "education_groups" ADD COLUMN IF NOT EXISTS "ageTo" INTEGER;`,
+  `ALTER TABLE "education_group_members" ADD COLUMN IF NOT EXISTS "discountAmount" DOUBLE PRECISION DEFAULT 0;`,
+  `ALTER TABLE "education_group_members" ADD COLUMN IF NOT EXISTS "discountReason" TEXT;`,
   `CREATE INDEX IF NOT EXISTS "idx_edu_group_sessions_teacher" ON "education_group_sessions"("teacherId");`,
   `CREATE INDEX IF NOT EXISTS "idx_edu_group_sessions_date" ON "education_group_sessions"("sessionDate");`
 ];

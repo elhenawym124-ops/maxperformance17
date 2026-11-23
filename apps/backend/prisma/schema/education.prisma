@@ -534,6 +534,8 @@ model EducationGroupMember {
   joinedAt        DateTime  @default(now())
   paymentStatus   String    @default("PAID")
   amountPaid      Float     @default(0)
+  discountAmount  Float     @default(0)
+  discountReason  String?
   nextRenewalDate DateTime?
   notes           String?
   createdAt       DateTime  @default(now())

@@ -170,15 +170,55 @@ describe('recordPayment with a discount code', () => {
     assert.strictEqual(state.enrollments[0].amountPaid, 0);
   });
 
-  it('refuses codes on group fee payments', async () => {
+  it('applies a code to a group member fee and settles the cycle', async () => {
+    const executions = [];
+    mockPrisma.$queryRawUnsafe = async (sql, ...params) => {
+      if (/FROM "education_group_members"/i.test(sql)) {
+        assert.deepStrictEqual(params, ['gm-1', 'comp-1']);
+        return [{
+          id: 'gm-1', companyId: 'comp-1', groupId: 'grp-1', studentId: 'stu-1',
+          status: 'ACTIVE', paymentStatus: 'PENDING', amountPaid: 0, discountAmount: 0,
+          nextRenewalDate: null, groupName: 'مجموعة أ', feeAmount: 400, feeType: 'MONTHLY',
+          groupBranchId: null, firstName: 'ليلى', lastName: 'حسن',
+        }];
+      }
+      return [];
+    };
+    mockPrisma.$executeRawUnsafe = async (sql, ...params) => {
+      executions.push(params);
+      return 1;
+    };
+
     const res = makeRes();
     await controller.recordPayment(
-      makeReq({ groupMemberId: 'member-1', amount: 400, couponCode: 'EID25' }),
+      makeReq({ groupMemberId: 'gm-1', amount: 400, method: 'CASH', couponCode: 'EID25' }),
       res
     );
 
+    assert.strictEqual(res.statusCode, 200);
+    assert.strictEqual(res.payload.data.amount, 300);
+    // amountPaid = cash, discountAmount = 100 → cycle settled (400)
+    assert.strictEqual(executions[0][0], 300);
+    assert.strictEqual(executions[0][1], 100);
+    assert.strictEqual(executions[0][2], 'PAID');
+    assert.ok(executions[0][3]);
+    assert.strictEqual(state.redemptions.length, 1);
+    assert.strictEqual(state.redemptions[0].discount, 100);
+  });
+
+  it('rejects a group fee payment above the discounted remainder', async () => {
+    mockPrisma.$queryRawUnsafe = async () => ([{
+      id: 'gm-1', companyId: 'comp-1', groupId: 'grp-1', studentId: 'stu-1',
+      status: 'ACTIVE', paymentStatus: 'PENDING', amountPaid: 0, discountAmount: 100,
+      nextRenewalDate: null, groupName: 'مجموعة أ', feeAmount: 400, feeType: 'MONTHLY',
+      groupBranchId: null, firstName: 'ليلى', lastName: 'حسن',
+    }]);
+    mockPrisma.$executeRawUnsafe = async () => 1;
+
+    const res = makeRes();
+    await controller.recordPayment(makeReq({ groupMemberId: 'gm-1', amount: 350 }), res);
+
     assert.strictEqual(res.statusCode, 400);
-    assert.strictEqual(res.payload.code, 'COUPON_NOT_ALLOWED');
     assert.strictEqual(state.payments.length, 0);
   });
 

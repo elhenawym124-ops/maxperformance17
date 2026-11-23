@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle, CalendarClock, RefreshCw, Wallet } from "lucide-react";
-import { fetchDues } from "./api";
+import { fetchDues, setMemberDiscount } from "./api";
 import { EmptyState, StatusPill, formatDate, money } from "./shared";
 import type { DuesResponse } from "./types";
 
@@ -171,6 +171,7 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
                   </div>
                   <p className="text-[11px] text-muted-foreground font-mono">
                     {isEn ? "Fee" : "الرسوم"}: {money(due.feeAmount)} · {isEn ? "Paid" : "المدفوع"}: {money(due.paid)}
+                    {due.discountAmount ? ` · ${isEn ? "Discount" : "خصم"}: ${money(due.discountAmount)}` : ""}
                     {due.nextRenewalDate ? ` · ${isEn ? "renew" : "التجديد"}: ` : ""}
                     {due.nextRenewalDate ? <span dir="ltr">{formatDate(due.nextRenewalDate)}</span> : null}
                   </p>
@@ -182,6 +183,30 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
                       {money(due.remaining)} {isEn ? "EGP" : "ج.م"}
                     </p>
                   </div>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const input = window.prompt(
+                        isEn ? "Standing discount on this member (EGP)" : "خصم دائم على هذا العضو (ج.م)",
+                        String(due.discountAmount || 0)
+                      );
+                      if (input === null) return;
+                      const amount = Number(input);
+                      if (!Number.isFinite(amount) || amount < 0) {
+                        window.alert(isEn ? "Invalid amount" : "قيمة غير صحيحة");
+                        return;
+                      }
+                      try {
+                        await setMemberDiscount(due.groupMemberId, amount);
+                        load();
+                      } catch (e: any) {
+                        window.alert(e.message || (isEn ? "Failed to apply discount" : "فشل تطبيق الخصم"));
+                      }
+                    }}
+                    className="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-border text-muted-foreground hover:bg-muted"
+                  >
+                    {isEn ? "Discount" : "خصم"}
+                  </button>
                   <button
                     type="button"
                     onClick={() =>

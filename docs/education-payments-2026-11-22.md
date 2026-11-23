@@ -201,6 +201,21 @@
 - Dues payload now includes `packageId` so package-scoped coupons validate correctly at the desk.
 - UI: the record-payment modal shows a "كود الخصم" field for enrollments with live preview (`code: −discount → collected`).
 
+## Phase 4 (part 14) — group member discounts (per-member waiver + codes)
+
+- New columns on `education_group_members`: `discountAmount` (default 0) and `discountReason` (auto-added by `ensureTablesExist`, no downtime).
+- `POST /education/finance/group-members/:id/discount` `{ amount, reason? }`: a **standing discount for one member** that does not touch the shared group fee.
+  - Clamped to `0 … feeAmount`, rejects non-numeric input, 404 when the member is outside the company.
+  - Recomputes `paymentStatus`: `PAID` when `paid + discount >= fee`, `PARTIAL` when something was paid, else `PENDING`.
+  - Audited as `MANUAL_DISCOUNT`.
+- Group collections now accept `couponCode` too:
+  - Effective due = `fee − discountAmount`; overpayment is validated against it.
+  - `amountPaid` stores the **cash actually collected**, `discountAmount` accumulates the coupon value, and `paymentStatus` counts `paid + discount` against the fee → the cycle settles correctly and dues stay at zero.
+  - Redemption rows are still recorded; a failed usage guard rolls back.
+- Dues payload adds `discountAmount` and computes the remaining after the waiver, so the desk and reports agree.
+- UI: group rows in the dues tab show the discount and a "خصم" action (prompts for the standing amount), and the record-payment modal offers the coupon field for group fees as well.
+
+
 
 
 

@@ -37,10 +37,12 @@ const mockPrisma = {
   },
   $executeRawUnsafe: async (sql, ...params) => {
     if (/UPDATE "education_group_members"/i.test(sql)) {
-      const [amountPaid, paymentStatus, nextRenewalDate, id] = params;
+      // amountPaid, discountAmount, paymentStatus, nextRenewalDate, id, companyId
+      const [amountPaid, discountAmount, paymentStatus, nextRenewalDate, id] = params;
       const member = state.groupMembers.find((item) => item.id === id);
       if (member) {
         member.amountPaid = amountPaid;
+        member.discountAmount = discountAmount;
         member.paymentStatus = paymentStatus;
         member.nextRenewalDate = nextRenewalDate;
       }

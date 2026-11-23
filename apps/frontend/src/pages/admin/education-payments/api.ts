@@ -156,6 +156,9 @@ export const toggleCoupon = (id: string, isActive: boolean): Promise<Coupon> =>
 export const deleteCoupon = (id: string): Promise<unknown> =>
   sendJson(api(`finance/coupons/${id}`), "DELETE");
 
+export const setMemberDiscount = (groupMemberId: string, amount: number, reason?: string): Promise<unknown> =>
+  sendJson(api(`finance/group-members/${groupMemberId}/discount`), "POST", { amount, reason });
+
 export const validateCoupon = (payload: {
   code: string;
   amount: number;

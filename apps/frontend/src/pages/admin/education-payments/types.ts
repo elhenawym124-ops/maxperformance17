@@ -70,6 +70,7 @@ export interface GroupRenewalDue {
   studentName: string;
   phone?: string | null;
   feeAmount: number;
+  discountAmount?: number;
   feeType?: string | null;
   paid: number;
   remaining: number;
