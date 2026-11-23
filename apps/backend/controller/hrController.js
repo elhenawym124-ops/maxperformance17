@@ -464,10 +464,12 @@ async function getMyLeavesHistory(req, res) {
       });
     }
 
-    // Reuse generic getLeaveRequests but force employeeId
+    // Reuse generic getLeaveRequests but force the current user's leaves.
+    // ملاحظة: getLeaveRequests يتعامل مع employeeId كـ User.id (يفلتر على where.userId)،
+    // فتمرير Employee.id كان يُرجع قائمة فاضية دائمًا لصفحة «إجازاتي».
     const result = await leaveService.getLeaveRequests(companyId, {
       ...req.query,
-      employeeId: employee.id, // FORCE employeeId
+      employeeId: employee.userId || userId,
     });
 
     res.json({ success: true, ...result });
