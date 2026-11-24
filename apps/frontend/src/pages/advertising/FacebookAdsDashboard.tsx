@@ -233,6 +233,9 @@ const FacebookAdsDashboard: React.FC = () => {
 
     if (selectedAdAccountId) {
       loadCampaigns(selectedAdAccountId);
+    } else {
+      // لا يوجد حساب مختار — نحمّل الحملات المحلية لعرضها في حالة «لا يوجد حساب»
+      loadCampaigns(undefined as any);
     }
   }, [
     accountContext.requiresAdAccountSelection,
