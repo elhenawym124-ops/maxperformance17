@@ -136,6 +136,12 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
           ? `${s.student.firstName} ${s.student.lastName || ""}`.trim()
           : "";
       const when = new Date(s.scheduledAt);
+      const pad2 = (n: number) => String(n).padStart(2, "0");
+      const whenText = Number.isNaN(when.getTime())
+        ? ""
+        : `${when.getFullYear()}-${pad2(when.getMonth() + 1)}-${pad2(when.getDate())} ${pad2(
+            when.getHours(),
+          )}:${pad2(when.getMinutes())}`;
       lines.push(
         [
           isGroup ? (isEn ? "Group" : "مجموعة") : isEn ? "Private" : "برايفت",
@@ -145,7 +151,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
           s.subject?.name || "",
           s.topic || "",
           s.room || "",
-          Number.isNaN(when.getTime()) ? "" : when.toLocaleString(isEn ? "en-GB" : "ar-EG"),
+          whenText,
           s.actualDuration || s.plannedDuration || "",
           getSessionStatus(s.status, isEn).label,
           isGroup ? s.presentCount ?? "" : "",
