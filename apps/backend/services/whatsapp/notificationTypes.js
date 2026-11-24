@@ -69,8 +69,21 @@ function isOrderCategory(category, eventType) {
   );
 }
 const PERSISTED_CATEGORY_FALLBACKS = {
-  TASKS: 'HR'
+  TASKS: 'HR',
+  EDUCATION: 'GENERAL',
+  BOOKING: 'GENERAL',
+  PLATFORM: 'GENERAL',
+  INQUIRY: 'GENERAL',
+  OTHER: 'GENERAL',
+  AFFILIATE_ORDER_REQUEST: 'GENERAL',
+  OCCASION: 'GENERAL',
 };
+// 🛡️ قيم enum `whatsapp_notification_queue_category` الفعلية — أي category خارجها
+// كانت بتكسر إنشاء سجل/طابور الإشعار (Prisma enum error) والإرسال كله يفشل.
+const VALID_PERSISTED_CATEGORIES = new Set([
+  'ORDER', 'ORDERS', 'PAYMENT', 'DELIVERY', 'CUSTOMER', 'MARKETING',
+  'PRODUCTS', 'ABANDONED_CART', 'HR', 'SYSTEM', 'GENERAL',
+]);
 const VALID_PERSISTED_RECIPIENT_TYPES = new Set(['CUSTOMER', 'EMPLOYEE', 'ADMIN']);
 
 // 🛡️ PRODUCTION-FIX (custom-status-enum): قيم enum `whatsapp_notification_logs_eventType` الصالحة.
@@ -145,12 +158,13 @@ function getPersistedNotificationEventType(eventType) {
 
 function getPersistedNotificationCategory(category, eventType) {
   const normalizedCategory = String(category || '').toUpperCase();
-  if (PERSISTED_CATEGORY_FALLBACKS[normalizedCategory]) {
-    return PERSISTED_CATEGORY_FALLBACKS[normalizedCategory];
+  const mapped = PERSISTED_CATEGORY_FALLBACKS[normalizedCategory] || normalizedCategory;
+  if (VALID_PERSISTED_CATEGORIES.has(mapped)) {
+    return mapped;
   }
 
-  if (normalizedCategory) {
-    return normalizedCategory;
+  if (mapped) {
+    console.warn(`⚠️ [NOTIFY-TYPES] Unknown notification category "${mapped}" → GENERAL (enum safety)`);
   }
 
   if (String(eventType || '').toUpperCase().startsWith('TASK_')) {

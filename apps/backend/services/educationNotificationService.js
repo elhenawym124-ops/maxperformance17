@@ -373,7 +373,7 @@ async function sendEducationNotification({
       recipientPhone,
       recipientName: recipientName || variables.parentName || variables.studentName || 'عميلنا',
       recipientType,
-      category: 'education',
+      category: 'GENERAL',
       eventType: resolvedEventType,
       rawEventType: eventType,
       contentOverride: content,
