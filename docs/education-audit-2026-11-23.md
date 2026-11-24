@@ -174,6 +174,24 @@
   - تحقق حي: مجموعة مغطاة → «لا يوجد أعضاء مستحقون»؛ بعد جعل دورة عضو منتهية → `requested 1, sent 0` والسبب الظاهر للمستخدم: **«مفيش قالب واتساب معتمد لتنبيه التجديد — اربطه من صفحة القوالب»**.
   - ⚠️ **فجوة إعداد (ميتا):** `education_group_renewal_due` و`education_installment_due` **مفيش لهم قوالب معتمدة** على الشركة، فالإرسال بيتوقف عند التحقق (مش خطأ كود). لازم إنشاء القالب + اعتماده من ميتا ثم ربطه.
 
+### قوالب ميتا الناقصة — اتجهزت واتقدمت للاعتماد (2026-11-24)
+اتعمل إنشاء محلي + **تقديم لميتا** (فئة UTILITY، لغة ar) لـ9 أحداث كانت بدون قالب:
+
+| الحدث | اسم قالب ميتا | الحالة |
+|---|---|---|
+| `education_installment_due` | `education_installment_duemwuowbsa` | PENDING |
+| `education_group_renewal_due` | `education_group_renewal_duemwuowgnz` | PENDING |
+| `education_payment_receipt` | `education_payment_receiptmwuowlw1` | PENDING |
+| `education_wallet_topup_released` | `education_wallet_topup_releasedmwuowqa5` | PENDING |
+| `education_wallet_topup_rejected` | `education_wallet_topup_rejectedmwuowugg` | PENDING |
+| `education_waiting_list_promoted` | `education_waiting_list_promotedmwuowzvc` | PENDING |
+| `education_exam_result` | `education_exam_resultmwuox3cx` | PENDING |
+| `education_repeated_absence` | `education_repeated_absencemwuox7qz` | PENDING |
+| `education_statement_due` | `education_statement_duemwuoxd1c` | PENDING |
+
+- كل قالب مربوط بـ`metaTemplateId` ومتغيراته مسمّاة بنفس أسماء `variables` اللي الخدمة بتبعتها (parentName / studentName / amount / currency …).
+- **بعد موافقة ميتا** بيتحول لحالة APPROVED تلقائيًا (webhook/refresh) وبيبدأ الإرسال فورًا **بدون أي تعديل كود** — زر «تذكير المستحقين» هيشتغل على طول.
+
 ## الاختبارات (2026-11-23)
 
 **Backend — `node --test` (تعليم + HR):**
