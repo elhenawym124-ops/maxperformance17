@@ -104,6 +104,8 @@ export interface EducationEnrollment {
   package?: { id: string; name: string; price?: number; subject?: { id: string; name: string } };
   teacher?: { id: string; name: string };
   branch?: { id: string; name: string };
+  groups?: { id: string; name: string; teacherId?: string | null }[];
+  groupId?: string | null;
 }
 
 export interface EducationSession {
@@ -159,7 +161,7 @@ export const TABS: { id: TabId; label: string; icon: React.ComponentType<{ class
   { id: "groups", label: "المجموعات (الجروبات)", icon: Users },
   { id: "students", label: "الطلاب", icon: Users },
   { id: "teachers", label: "المدرسين", icon: GraduationCap },
-  { id: "enrollments", label: "التسجيلات", icon: Layers },
+  { id: "enrollments", label: "الاشتراكات", icon: Layers },
   { id: "sessions", label: "الحصص", icon: Clock },
   { id: "exams", label: "الامتحانات والشهادات", icon: Award },
   { id: "demo-day", label: "الديمو داي", icon: Presentation },

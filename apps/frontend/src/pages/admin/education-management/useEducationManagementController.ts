@@ -54,6 +54,16 @@ export function useEducationManagementController() {
   const [studentsTotalPages, setStudentsTotalPages] = useState<number>(1);
   const [studentsLoading, setStudentsLoading] = useState<boolean>(false);
   const [teachers, setTeachers] = useState<EducationTeacher[]>([]);
+  const [groups, setGroups] = useState<Array<{
+    id: string;
+    name: string;
+    teacherId?: string | null;
+    teacherName?: string | null;
+    subjectId?: string;
+    branchId?: string | null;
+    capacity?: number;
+    activeMembers?: number;
+  }>>([]);
   const [enrollments, setEnrollments] = useState<EducationEnrollment[]>([]);
   const [sessions, setSessions] = useState<EducationSession[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -184,6 +194,14 @@ export function useEducationManagementController() {
     }
   };
 
+  const fetchGroups = async () => {
+    try {
+      setGroups(await fetchJson(api("groups")));
+    } catch (e: any) {
+      throw e;
+    }
+  };
+
   const fetchSessions = async () => {
     const params = new URLSearchParams();
     if (sessionFilters.status) params.append("status", sessionFilters.status);
@@ -251,6 +269,7 @@ export function useEducationManagementController() {
         fetchStudents(),
         fetchPackages(),
         fetchTeachers(),
+        fetchGroups()
       ])
         .catch((e: any) => setError(e.message || "فشل تحميل البيانات"))
         .finally(() => setLoading(false));
@@ -553,6 +572,7 @@ export function useEducationManagementController() {
     },
     fetchStudents,
     teachers,
+    groups,
     enrollments,
     sessions,
     customers,

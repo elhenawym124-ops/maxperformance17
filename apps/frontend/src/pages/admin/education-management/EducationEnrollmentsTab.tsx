@@ -19,6 +19,16 @@ export interface EducationEnrollmentsTabProps {
   students: EducationStudent[];
   packages: EducationPackage[];
   teachers: EducationTeacher[];
+  groups?: Array<{
+    id: string;
+    name: string;
+    teacherId?: string | null;
+    teacherName?: string | null;
+    subjectId?: string;
+    branchId?: string | null;
+    capacity?: number;
+    activeMembers?: number;
+  }>;
   subjects: EducationSubject[];
   enableSubjects?: boolean;
   enrollmentModal: Partial<EducationEnrollment> | null | undefined;
@@ -36,6 +46,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
   students,
   packages,
   teachers,
+  groups = [],
   subjects,
   enableSubjects = false,
   enrollmentModal,
@@ -108,7 +119,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
     <div className="space-y-4" dir={isEn ? "ltr" : "rtl"}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <h2 className="text-base font-bold text-foreground">
-          {t("education.enrollments.title", isEn ? "Enrollments & Subscriptions Management" : "إدارة التسجيلات والاشتراكات")}
+          {t("education.enrollments.title", isEn ? "Subscriptions Management" : "إدارة الاشتراكات")}
         </h2>
         <div className="flex items-center gap-2 shrink-0">
           <button
@@ -159,6 +170,12 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                   <div className="text-xs text-muted-foreground truncate">
                     {e.package?.name} {enableSubjects && e.package?.subject?.name ? `• ${e.package.subject.name}` : ""}
                   </div>
+                  {e.groups && e.groups.length > 0 && (
+                    <div className="text-[11px] text-muted-foreground/80 truncate">
+                      {isEn ? "Group: " : "المجموعة: "}
+                      {e.groups.map((g) => g.name).join(isEn ? ", " : "، ")}
+                    </div>
+                  )}
                 </div>
                 <span
                   className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border shrink-0 ${
@@ -327,7 +344,12 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                       </div>
                     </td>
                     <td className={CELL_CLS + " text-muted-foreground"}>
-                      {e.package?.name || "—"}
+                      <div>{e.package?.name || "—"}</div>
+                      {e.groups && e.groups.length > 0 && (
+                        <div className="text-[10px] text-muted-foreground/80">
+                          {e.groups.map((g) => g.name).join(isEn ? ", " : "، ")}
+                        </div>
+                      )}
                     </td>
                     {enableSubjects && (
                       <td className={CELL_CLS + " text-muted-foreground"}>
@@ -491,6 +513,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
           students={students}
           packages={packages}
           teachers={teachers}
+          groups={groups}
           subjects={subjects}
           enableSubjects={enableSubjects}
           onClose={() => setEnrollmentModal(undefined)}

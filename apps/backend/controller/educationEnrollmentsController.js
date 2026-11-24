@@ -79,7 +79,32 @@ const getAll = async (req, res) => {
       },
       orderBy: { enrollmentDate: 'desc' }
     });
-    res.json({ success: true, data });
+
+    // تناغم الاشتراك مع المجموعات: نرفق المجموعة/المجموعات النشطة لكل طالب
+    let groupsByStudent = new Map();
+    try {
+      const memberRows = await getSharedPrismaClient().$queryRawUnsafe(`
+        SELECT m."studentId", g.id AS "groupId", g.name AS "groupName", g."teacherId"
+        FROM "education_group_members" m
+        JOIN "education_groups" g ON g.id = m."groupId" AND g."companyId" = m."companyId"
+        WHERE m."companyId" = $1 AND m.status = 'ACTIVE'
+      `, companyId);
+      for (const row of memberRows || []) {
+        const key = String(row.studentId);
+        if (!groupsByStudent.has(key)) groupsByStudent.set(key, []);
+        groupsByStudent.get(key).push({ id: row.groupId, name: row.groupName, teacherId: row.teacherId || null });
+      }
+    } catch (_) {
+      groupsByStudent = new Map();
+    }
+
+    res.json({
+      success: true,
+      data: data.map((row) => ({
+        ...row,
+        groups: groupsByStudent.get(String(row.studentId)) || []
+      }))
+    });
   } catch (error) {
     console.error('Error fetching enrollments:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في جلب التسجيلات' });
@@ -127,7 +152,8 @@ const create = async (req, res) => {
       discountType,
       discountAmount,
       finalAmount,
-      branchId
+      branchId,
+      groupId
     } = req.body;
     if (!studentId) return res.status(400).json({ success: false, error: 'الطالب مطلوب' });
     if (!packageId) return res.status(400).json({ success: false, error: 'الباقة مطلوبة' });
@@ -146,7 +172,7 @@ const create = async (req, res) => {
     if (!pkg) return res.status(400).json({ success: false, error: 'الباقة غير موجودة' });
 
     // Multi-tenant validation: ensure teacher belongs to company if assigned
-    const safeTeacherId = teacherId || null;
+    let safeTeacherId = teacherId || null;
     let teacher = null;
     if (safeTeacherId) {
       teacher = await getSharedPrismaClient().educationTeacher.findFirst({
@@ -154,6 +180,40 @@ const create = async (req, res) => {
       });
       if (!teacher) return res.status(400).json({ success: false, error: 'المدرس المعين غير موجود' });
     }
+
+    // ربط الاشتراك بالمجموعة: المدرس والفرع يتبعان المجموعة تلقائياً
+    // (كان الاشتراك بيختار مدرس يدوي منفصل عن المجموعة الفعلية)
+    let group = null;
+    const safeGroupId = groupId ? String(groupId).trim() : null;
+    if (safeGroupId) {
+      const groupRows = await getSharedPrismaClient().$queryRawUnsafe(`
+        SELECT g.id, g.name, g."teacherId", g."subjectId", g."branchId", g.capacity,
+               (SELECT COUNT(*) FROM "education_group_members" m
+                 WHERE m."groupId" = g.id AND m."companyId" = g."companyId" AND m.status = 'ACTIVE') AS active_count
+        FROM "education_groups" g
+        WHERE g.id = $1 AND g."companyId" = $2
+        LIMIT 1
+      `, safeGroupId, companyId);
+      group = groupRows?.[0] || null;
+      if (!group) {
+        return res.status(400).json({ success: false, error: 'المجموعة غير موجودة أو لا تتبع هذه الشركة' });
+      }
+      if (pkg.subjectId && group.subjectId && String(pkg.subjectId) !== String(group.subjectId)) {
+        return res.status(400).json({ success: false, error: 'المجموعة لا تتبع نفس مسار الباقة' });
+      }
+      if (group.teacherId) {
+        const groupTeacher = await getSharedPrismaClient().educationTeacher.findFirst({
+          where: { id: group.teacherId, companyId },
+          select: { id: true, name: true }
+        });
+        if (groupTeacher) {
+          teacher = groupTeacher;
+          safeTeacherId = groupTeacher.id;
+        }
+      }
+    }
+
+    const resolvedBranchId = branchId || group?.branchId || null;
 
     const parsedExpiresAt = (expiresAt && !isNaN(new Date(expiresAt).getTime()))
       ? new Date(expiresAt)
@@ -214,7 +274,7 @@ const create = async (req, res) => {
           discountType: discountType || 'NONE',
           discountAmount: discountAmount ? parseFloat(discountAmount) : 0,
           finalAmount: safeFinalAmount,
-          branchId: branchId || null
+          branchId: resolvedBranchId
         },
         include: {
           student: { select: { id: true, code: true, firstName: true, lastName: true } },
@@ -239,7 +299,7 @@ const create = async (req, res) => {
           companyId,
           studentId,
           enrollmentId: created.id,
-          branchId: branchId || null,
+          branchId: resolvedBranchId,
           packageId,
           studentName,
           amount: paidAmount,
@@ -249,6 +309,36 @@ const create = async (req, res) => {
           cashierId: req.user?.id || null,
           cashierName: req.user?.name || [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ') || null,
         });
+      }
+
+      // إضافة الطالب لعضوية المجموعة بدون أي قيد مالي إضافي
+      // (الفلوس اتسجلت مرة واحدة في دفتر المدفوعات فوق — منع العد المزدوج)
+      if (group) {
+        const existingMember = await tx.$queryRawUnsafe(`
+          SELECT id FROM "education_group_members"
+          WHERE "groupId" = $1 AND "studentId" = $2 AND "companyId" = $3
+            AND status IN ('ACTIVE', 'WAITING_LIST')
+          LIMIT 1
+        `, group.id, studentId, companyId);
+        if (!existingMember || existingMember.length === 0) {
+          const { generateMemberId } = require('../services/educationGroupsService');
+          const isFullGroup = Number(group.active_count || 0) >= Number(group.capacity || 0);
+          await tx.$executeRawUnsafe(`
+            INSERT INTO "education_group_members" (
+              "id", "companyId", "groupId", "studentId", "status", "paymentStatus",
+              "amountPaid", "nextRenewalDate", "notes", "joinedAt", "updatedAt"
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, NULL, $8, NOW(), NOW())
+          `,
+            generateMemberId(),
+            companyId,
+            group.id,
+            studentId,
+            isFullGroup ? 'WAITING_LIST' : 'ACTIVE',
+            paidAmount > 0 ? 'PAID' : 'PENDING',
+            paidAmount,
+            `اشتراك باقة: ${pkg.name}`
+          );
+        }
       }
 
       return created;
@@ -274,7 +364,13 @@ const create = async (req, res) => {
     educationNotificationService.notifyEnrollmentCreated(companyId, data).catch(e =>
       console.error('[EnrollmentNotify]', e.message)
     );
-    res.json({ success: true, data });
+    res.json({
+      success: true,
+      data: {
+        ...data,
+        group: group ? { id: group.id, name: group.name, teacherId: group.teacherId || null } : null
+      }
+    });
   } catch (error) {
     console.error('Error creating enrollment:', error);
     if (error.statusCode) {

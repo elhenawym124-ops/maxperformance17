@@ -23,6 +23,16 @@ export interface EnrollmentModalProps {
   students: EducationStudent[];
   packages: EducationPackage[];
   teachers: EducationTeacher[];
+  groups?: Array<{
+    id: string;
+    name: string;
+    teacherId?: string | null;
+    teacherName?: string | null;
+    subjectId?: string;
+    branchId?: string | null;
+    capacity?: number;
+    activeMembers?: number;
+  }>;
   subjects: EducationSubject[];
   enableSubjects?: boolean;
   customDiscounts?: EducationCustomDiscount[];
@@ -36,6 +46,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
   students,
   packages,
   teachers,
+  groups = [],
   enableSubjects = false,
   customDiscounts: initialCustomDiscounts,
   onClose,
@@ -67,6 +78,10 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
         });
     }
   }, [initialCustomDiscounts]);
+
+  const [groupId, setGroupId] = useState<string>(
+    String((enrollment as any)?.groupId || "")
+  );
 
   const [form, setForm] = useState({
     studentId: "",
@@ -172,6 +187,10 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
 
   const selectedPackage = packages.find((p) => p.id === form.packageId);
   const basePrice = selectedPackage?.price || 0;
+  const isGroupPackage = (selectedPackage?.packageType || "GROUP") === "GROUP";
+  const availableGroups = groups.filter(
+    (g) => !selectedPackage?.subjectId || !g.subjectId || String(g.subjectId) === String(selectedPackage.subjectId)
+  );
 
   const selectedStudent = localStudents.find((s) => s.id === form.studentId);
   const studentSiblingCount = useMemo(() => {
@@ -276,8 +295,8 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
         <div className="flex items-center justify-between pb-3 border-b border-border/80">
           <h3 className="text-sm font-bold text-foreground">
             {enrollment?.id
-              ? t("education.enrollments.modalTitleEdit", isEn ? "Edit Enrollment" : "تعديل التسجيل")
-              : t("education.enrollments.modalTitleNew", isEn ? "Add New Enrollment" : "إضافة تسجيل جديد")}
+              ? t("education.enrollments.modalTitleEdit", isEn ? "Edit Subscription" : "تعديل الاشتراك")
+              : t("education.enrollments.modalTitleNew", isEn ? "Add New Subscription" : "إضافة اشتراك جديد")}
           </h3>
           <button
             type="button"
@@ -456,6 +475,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                   packageId: e.target.value,
                   teacherId: "",
                 });
+                setGroupId("");
               }}
               disabled={!!enrollment?.id}
             >
@@ -470,6 +490,47 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             </select>
           </div>
 
+          {/* Group Selection — the teacher and branch come from the group */}
+          {isGroupPackage && (
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-foreground">
+                {isEn ? "Group" : "المجموعة"}{" "}
+                <span className="text-[11px] font-normal text-muted-foreground">
+                  {isEn ? "(teacher & branch come from the group)" : "(المدرس والفرع يتبعان المجموعة)"}
+                </span>
+              </label>
+              <select
+                className={INPUT_CLS}
+                value={groupId}
+                onChange={(e) => {
+                  const nextId = e.target.value;
+                  const picked = availableGroups.find((g) => g.id === nextId);
+                  setGroupId(nextId);
+                  setForm((prev) => ({ ...prev, teacherId: picked?.teacherId || "" }));
+                }}
+                disabled={!!enrollment?.id}
+              >
+                <option value="">{isEn ? "-- No group --" : "-- بدون مجموعة --"}</option>
+                {availableGroups.map((g) => (
+                  <option key={g.id} value={g.id}>
+                    {g.name}
+                    {g.teacherName ? ` — ${g.teacherName}` : ""}
+                    {typeof g.activeMembers === "number" && typeof g.capacity === "number"
+                      ? ` (${g.activeMembers}/${g.capacity})`
+                      : ""}
+                  </option>
+                ))}
+              </select>
+              {availableGroups.length === 0 ? (
+                <p className="text-[11px] text-muted-foreground mt-1">
+                  {isEn
+                    ? "No groups on this track yet. Create a group first, or save without a group."
+                    : "لا توجد مجموعات على نفس المسار. أنشئ مجموعة أولاً أو احفظ بدون مجموعة."}
+                </p>
+              ) : null}
+            </div>
+          )}
+
           {/* Teacher Selection */}
           <div className="space-y-1">
             <label className="text-xs font-medium text-foreground">
@@ -483,6 +544,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
             <select
               className={INPUT_CLS}
               value={form.teacherId || ""}
+              disabled={Boolean(groupId)}
               onChange={(e) =>
                 setForm({ ...form, teacherId: e.target.value || "" })
               }
@@ -778,6 +840,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                   discountAmount: financial.discountAmount,
                   finalAmount: financial.finalAmount,
                   teacherId: form.teacherId || null,
+                  groupId: groupId || null,
                   expiresAt: form.expiresAt ? form.expiresAt : null,
                 })
               }

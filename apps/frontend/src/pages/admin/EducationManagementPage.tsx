@@ -31,6 +31,7 @@ export default function EducationManagementPage() {
     studentsLoading,
     fetchStudents,
     teachers,
+    groups,
     enrollments,
     sessions,
     customers,
@@ -288,6 +289,7 @@ export default function EducationManagementPage() {
               students={students}
               packages={packages}
               teachers={teachers}
+              groups={groups}
               subjects={subjects}
               enableSubjects={enableSubjects}
               enrollmentModal={enrollmentModal}
