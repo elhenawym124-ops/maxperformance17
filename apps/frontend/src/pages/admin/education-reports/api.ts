@@ -3,7 +3,7 @@ import {
   getCompanyId as getEducationCompanyId,
   getAuthHeaders as getEducationAuthHeaders,
 } from "../education-management/api";
-import { AbsenceAlert, AttendanceReport, EducationAttributionData, EducationFunnelData, FinanceReportData, GroupPnlReport, InsightsData, MissedSessionsData, ReportPeriod } from "./types";
+import { AbsenceAlert, AttendanceReport, EducationAttributionData, EducationFunnelData, FinanceReportData, GroupAlert, GroupPnlReport, InsightsData, MissedSessionsData, ReportPeriod } from "./types";
 
 export const getCompanyId = () => getEducationCompanyId();
 export const getAuthHeaders = () => getEducationAuthHeaders();
@@ -104,8 +104,67 @@ export async function fetchInsights(months = 6, inactiveDays = 21): Promise<Insi
   }
 }
 
-export async function fetchGroupPnl(months = 3): Promise<GroupPnlReport | null> {
+async function fetchEducationJson(path: string, params: Record<string, string | number | undefined> = {}) {
+  const base = buildApiUrl(path);
+  let url: URL;
   try {
+    url = new URL(base);
+  } catch {
+    url = new URL(base, window.location.origin);
+  }
+  const cid = getCompanyId();
+  if (cid) url.searchParams.set("companyId", cid);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, String(value));
+  });
+  const res = await fetch(url.toString(), { headers: getAuthHeaders() });
+  const data = await res.json();
+  if (!data.success) throw new Error(data.error || data.message || "فشل العملية");
+  return data.data;
+}
+
+export async function fetchGroupAlerts(status = "OPEN"): Promise<GroupAlert[]> {
+  try {
+    return await fetchEducationJson("education/finance/group-alerts", { status });
+  } catch (err) {
+    console.error("Group alerts error:", err);
+    return [];
+  }
+}
+
+export async function syncGroupAlerts(months = 3): Promise<{ detected: number; created: number; skipped: number } | null> {
+  try {
+    const res = await fetch(buildApiUrl("education/finance/group-alerts/sync"), {
+      method: "POST",
+      headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+      body: JSON.stringify({ months }),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || "فشل تحديث التنبيهات");
+    return data.data;
+  } catch (err) {
+    console.error("Group alerts sync error:", err);
+    return null;
+  }
+}
+
+export async function resolveGroupAlert(id: string): Promise<unknown> {
+  try {
+    const res = await fetch(buildApiUrl(`education/finance/group-alerts/${id}/resolve`), {
+      method: "POST",
+      headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+      body: JSON.stringify({ status: "RESOLVED" }),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || "فشل تحديث التنبيه");
+    return data.data;
+  } catch (err) {
+    console.error("Group alert resolve error:", err);
+    return null;
+  }
+}
+
+export async function fetchGroupPnl(months = 3): Promise<GroupPnlReport | null> {  try {
     const base = buildApiUrl(`education/finance/group-pnl?months=${months}`);
     let url: URL;
     try {

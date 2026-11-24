@@ -372,6 +372,20 @@
 - Percentages return `null` when the denominator is zero (no revenue, no capacity).
 - UI: "ربحية المجموعات" tab in education reports with a 1/3/6-month selector, KPI strip, a loss warning and a table (members/capacity, collected, dues, teacher, net).
 
+## Phase 4 (part 29) — weekly group alerts with suggestions
+
+- New table `education_group_alerts` with a unique key `(companyId, groupId, type, weekKey)` so a group is nudged at most once per ISO week per issue.
+- Rules (evaluated from the P&L snapshot):
+  - `LOSS` — net < 0 (HIGH beyond −1000).
+  - `LOW_OCCUPANCY` — below 50% (HIGH below 30%).
+  - `HIGH_DUES` — dues exceed half the collected revenue.
+  - `HIGH_TEACHER_COST` — teacher cost over 60% of collected.
+- Suggestions are contextual: merge sessions / reprice / renegotiate the teacher share / push a marketing campaign / collect arrears first.
+- `GET /education/finance/group-alerts?status=OPEN`, `POST /group-alerts/sync`, `POST /group-alerts/:id/resolve`.
+- Cron: **Monday 08:00** weekly sweep across every company with groups.
+- UI: "تنبيهات المجموعات" card inside the profitability tab — severity chips, message, suggestion, a "معالجة" action and a "فحص الآن" button.
+
+
 
 
 

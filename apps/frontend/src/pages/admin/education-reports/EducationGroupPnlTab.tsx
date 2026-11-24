@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Loader2, RefreshCw, Wallet } from "lucide-react";
-import { fetchGroupPnl } from "./api";
-import type { GroupPnlReport } from "./types";
+import { fetchGroupAlerts, fetchGroupPnl, resolveGroupAlert, syncGroupAlerts } from "./api";
+import type { GroupAlert, GroupPnlReport } from "./types";
 
 const money = (value: number) =>
   (Math.round((Number(value) || 0) * 100) / 100).toLocaleString("en-EG", { maximumFractionDigits: 2 });
@@ -9,6 +9,8 @@ const money = (value: number) =>
 export const EducationGroupPnlTab: React.FC<{ isEn: boolean }> = ({ isEn }) => {
   const [months, setMonths] = useState(3);
   const [data, setData] = useState<GroupPnlReport | null>(null);
+  const [alerts, setAlerts] = useState<GroupAlert[]>([]);
+  const [alertsBusy, setAlertsBusy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -20,10 +22,28 @@ export const EducationGroupPnlTab: React.FC<{ isEn: boolean }> = ({ isEn }) => {
       .then((payload) => alive && setData(payload))
       .catch((err) => alive && setError(err.message || (isEn ? "Failed to load" : "فشل التحميل")))
       .finally(() => alive && setLoading(false));
+    fetchGroupAlerts("OPEN")
+      .then((rows) => alive && setAlerts(rows))
+      .catch(() => {});
     return () => {
       alive = false;
     };
   }, [months, isEn]);
+
+  const handleSyncAlerts = async () => {
+    setAlertsBusy(true);
+    try {
+      await syncGroupAlerts(months);
+      setAlerts(await fetchGroupAlerts("OPEN"));
+    } finally {
+      setAlertsBusy(false);
+    }
+  };
+
+  const handleResolveAlert = async (id: string) => {
+    await resolveGroupAlert(id);
+    setAlerts((rows) => rows.filter((row) => row.id !== id));
+  };
 
   useEffect(() => {
     const cleanup = load();
@@ -105,6 +125,62 @@ export const EducationGroupPnlTab: React.FC<{ isEn: boolean }> = ({ isEn }) => {
                 : `${summary.lossMaking} مجموعة تعمل بخسارة`}
             </p>
           ) : null}
+
+          <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+            <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <h4 className="text-xs font-semibold text-foreground">{isEn ? "Group alerts" : "تنبيهات المجموعات"}</h4>
+                <span className="text-[10px] text-muted-foreground font-mono">{alerts.length}</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleSyncAlerts}
+                disabled={alertsBusy}
+                className="px-2.5 py-1 rounded-lg border border-border/70 text-[11px] font-semibold text-foreground hover:bg-muted disabled:opacity-50"
+              >
+                {alertsBusy ? (isEn ? "Checking..." : "جارٍ الفحص...") : (isEn ? "Re-check" : "فحص الآن")}
+              </button>
+            </div>
+            {alerts.length === 0 ? (
+              <p className="p-4 text-[11px] text-success">
+                {isEn ? "No group alerts — portfolio looks healthy" : "لا توجد تنبيهات — المحفظة سليمة"}
+              </p>
+            ) : (
+              <div className="divide-y divide-border/60 max-h-64 overflow-y-auto">
+                {alerts.slice(0, 10).map((alert) => (
+                  <div key={alert.id} className="px-4 py-2 flex items-start justify-between gap-2 text-[11px]">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-semibold text-foreground truncate">{alert.groupName || "—"}</span>
+                        <span
+                          className={`px-1 py-0.5 rounded border text-[9px] font-mono ${
+                            alert.severity === "HIGH"
+                              ? "border-destructive/20 bg-destructive/10 text-destructive"
+                              : alert.severity === "MEDIUM"
+                                ? "border-warning/20 bg-warning/10 text-warning"
+                                : "border-border/70 bg-muted/40 text-muted-foreground"
+                          }`}
+                        >
+                          {alert.type}
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">{alert.message}</p>
+                      {alert.suggestion ? (
+                        <p className="text-[10px] text-primary mt-0.5">{alert.suggestion}</p>
+                      ) : null}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleResolveAlert(alert.id)}
+                      className="shrink-0 px-2 py-1 rounded-lg border border-border/70 text-[10px] font-semibold text-success hover:bg-success/10"
+                    >
+                      {isEn ? "Resolve" : "معالجة"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
             <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between">

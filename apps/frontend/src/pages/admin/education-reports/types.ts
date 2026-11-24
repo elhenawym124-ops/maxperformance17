@@ -260,3 +260,17 @@ export interface GroupPnlReport {
     margin: number | null;
   }>;
 }
+
+export interface GroupAlert {
+  id: string;
+  groupId: string;
+  groupName?: string | null;
+  type: "LOSS" | "LOW_OCCUPANCY" | "HIGH_DUES" | "HIGH_TEACHER_COST" | string;
+  severity: "LOW" | "MEDIUM" | "HIGH" | string;
+  message: string;
+  suggestion?: string | null;
+  metrics?: Record<string, unknown> | null;
+  weekKey: string;
+  status: string;
+  createdAt?: string;
+}

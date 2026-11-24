@@ -36,6 +36,7 @@ let paymentRemindersRunning = false;
 let absenceAlertsRunning = false;
 let statementRemindersRunning = false;
 let winbackRunning = false;
+let groupAlertsRunning = false;
 
 const toHours = (row, fallbackHours) => {
   if (!row) return fallbackHours;
@@ -487,7 +488,25 @@ function startEducationNotificationScheduler() {
   cron.schedule('0 9 * * *', () => {
     runWinbackSync().catch((error) => console.error('[EDU-CRON] winback sync job failed:', error.message));
   });
-  console.log('[EDU-CRON] Education notification scheduler registered (session */30, balance daily 10:00, payments daily 11:00, demo */15, absences daily 12:00, statements daily 13:00, winback daily 09:00).');
+  cron.schedule('0 8 * * 1', () => {
+    runGroupAlerts().catch((error) => console.error('[EDU-CRON] group alerts job failed:', error.message));
+  });
+  console.log('[EDU-CRON] Education notification scheduler registered (session */30, balance daily 10:00, payments daily 11:00, demo */15, absences daily 12:00, statements daily 13:00, winback daily 09:00, group alerts Mon 08:00).');
+}
+
+async function runGroupAlerts() {
+  if (groupAlertsRunning) return null;
+  groupAlertsRunning = true;
+  try {
+    const service = require('../services/educationGroupAlertsService');
+    const summary = await service.runWeeklyGroupAlerts(getSharedPrismaClient(), { months: 3 });
+    if (summary.created > 0) {
+      console.log(`[EDU-CRON] group alerts created: ${summary.created} (${summary.weekKey})`);
+    }
+    return summary;
+  } finally {
+    groupAlertsRunning = false;
+  }
 }
 
 async function runWinbackSync() {
@@ -547,5 +566,6 @@ module.exports = {
   runAbsenceAlerts,
   runStatementReminders,
   runWinbackSync,
+  runGroupAlerts,
   LOW_HOURS_THRESHOLD,
 };

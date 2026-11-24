@@ -45,6 +45,12 @@ router.get('/winback', requireDbPermission(CAN_VIEW), winbackController.listWinb
 router.get('/winback/performance', requireDbPermission(CAN_VIEW), winbackController.getWinbackPerformance);
 router.post('/winback/sync', requireDbPermission('education.financials.manage'), winbackController.syncWinback);
 router.post('/winback/:id/complete', requireDbPermission('education.financials.collect'), winbackController.completeWinback);
+
+// Weekly group alerts (loss / occupancy / dues / teacher cost)
+const groupAlertsController = require('../controller/educationGroupAlertsController');
+router.get('/group-alerts', requireDbPermission(CAN_VIEW), groupAlertsController.listGroupAlerts);
+router.post('/group-alerts/sync', requireDbPermission('education.financials.manage'), groupAlertsController.syncGroupAlerts);
+router.post('/group-alerts/:id/resolve', requireDbPermission('education.financials.manage'), groupAlertsController.resolveGroupAlert);
 router.get('/payments/:id/receipt', requireDbPermission(CAN_VIEW), controller.getReceipt);
 router.get('/payments/:id/pdf', requireDbPermission(CAN_VIEW), controller.downloadReceiptPdf);
 router.post('/payments/:id/send-receipt', requireDbPermission(CAN_VIEW), controller.sendReceipt);

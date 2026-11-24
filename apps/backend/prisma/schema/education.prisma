@@ -350,6 +350,29 @@ model EducationCertificate {
   @@map("education_certificates")
 }
 
+/// Education module - Weekly group alerts (loss / low occupancy)
+model EducationGroupAlert {
+  id          String    @id @default(cuid())
+  companyId   String
+  groupId     String
+  groupName   String?
+  type        String    /// LOSS | LOW_OCCUPANCY | HIGH_DUES | HIGH_TEACHER_COST
+  severity    String    @default("MEDIUM") /// LOW | MEDIUM | HIGH
+  message     String
+  suggestion  String?
+  metrics     Json?
+  weekKey     String    /// YYYY-Www so the same group is not re-alerted twice a week
+  status      String    @default("OPEN") /// OPEN | RESOLVED | IGNORED
+  resolvedAt  DateTime?
+  resolvedBy  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([companyId, groupId, type, weekKey])
+  @@index([companyId, status])
+  @@map("education_group_alerts")
+}
+
 /// Education module - Win-back worklist for at-risk students
 model EducationWinbackAction {
   id             String    @id @default(cuid())

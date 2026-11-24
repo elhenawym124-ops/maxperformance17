@@ -5,7 +5,12 @@ import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-const api = vi.hoisted(() => ({ fetchGroupPnl: vi.fn() }));
+const api = vi.hoisted(() => ({
+  fetchGroupPnl: vi.fn(),
+  fetchGroupAlerts: vi.fn(),
+  syncGroupAlerts: vi.fn(),
+  resolveGroupAlert: vi.fn(),
+}));
 vi.mock("../api", () => api);
 
 import { EducationGroupPnlTab } from "../EducationGroupPnlTab";
@@ -41,6 +46,19 @@ const report = {
 beforeEach(() => {
   api.fetchGroupPnl.mockReset();
   api.fetchGroupPnl.mockResolvedValue(report);
+  api.fetchGroupAlerts.mockReset();
+  api.fetchGroupAlerts.mockResolvedValue([
+    {
+      id: "al-1", groupId: "grp-2", groupName: "مجموعة ب", type: "LOSS", severity: "MEDIUM",
+      message: "المجموعة تعمل بخسارة 100 ج.م في الفترة",
+      suggestion: "دمج المجموعة مع مجموعة أخرى أو تخفيض عدد الحصص",
+      weekKey: "2026-W48", status: "OPEN",
+    },
+  ]);
+  api.syncGroupAlerts.mockReset();
+  api.syncGroupAlerts.mockResolvedValue({ detected: 1, created: 1, skipped: 0 });
+  api.resolveGroupAlert.mockReset();
+  api.resolveGroupAlert.mockResolvedValue({ id: "al-1", status: "RESOLVED" });
 });
 
 afterEach(() => cleanup());
@@ -62,7 +80,7 @@ describe("EducationGroupPnlTab", () => {
     await screen.findByText("حسب المجموعة");
 
     expect(screen.getByText("1 مجموعة تعمل بخسارة")).toBeInTheDocument();
-    expect(screen.getByText("مجموعة ب")).toBeInTheDocument();
+    expect(screen.getAllByText("مجموعة ب").length).toBeGreaterThan(0);
     expect(screen.getByText("-100")).toBeInTheDocument();
     expect(screen.getByText("مجموعة أ")).toBeInTheDocument();
     expect(screen.getByText(/\(80%\)/)).toBeInTheDocument();
@@ -74,5 +92,26 @@ describe("EducationGroupPnlTab", () => {
 
     fireEvent.click(screen.getByText("6 شهر"));
     await waitFor(() => expect(api.fetchGroupPnl).toHaveBeenCalledWith(6));
+  });
+
+  it("shows group alerts with suggestions and resolves them", async () => {
+    render(<EducationGroupPnlTab isEn={false} />);
+
+    expect(await screen.findByText("تنبيهات المجموعات")).toBeInTheDocument();
+    expect(screen.getByText("LOSS")).toBeInTheDocument();
+    expect(screen.getByText(/دمج المجموعة/)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("معالجة"));
+    await waitFor(() => expect(api.resolveGroupAlert).toHaveBeenCalledWith("al-1"));
+    await waitFor(() => expect(screen.queryByText("LOSS")).not.toBeInTheDocument());
+  });
+
+  it("re-checks alerts on demand", async () => {
+    render(<EducationGroupPnlTab isEn={false} />);
+    await screen.findByText("تنبيهات المجموعات");
+
+    fireEvent.click(screen.getByText("فحص الآن"));
+    await waitFor(() => expect(api.syncGroupAlerts).toHaveBeenCalledWith(3));
+    await waitFor(() => expect(api.fetchGroupAlerts).toHaveBeenCalledTimes(2));
   });
 });
