@@ -126,6 +126,7 @@ export interface GroupMember {
   paymentStatus: "PAID" | "PARTIAL" | "PENDING" | "OVERDUE";
   amountPaid: number;
   joinedAt: string;
+  nextRenewalDate?: string | null;
   notes?: string;
 }
 
@@ -1481,6 +1482,11 @@ export default function EducationGroupsPage({
                             <div className="text-muted-foreground text-[11px] flex items-center gap-3">
                               {member.studentPhone && <span>{t("education.common.phone", isEn ? "Phone" : "هاتف")}: {member.studentPhone}</span>}
                               {member.guardianName && <span>{t("education.common.guardian", isEn ? "Guardian" : "ولي الأمر")}: {member.guardianName}</span>}
+                              {member.nextRenewalDate && (
+                                <span className="font-mono tabular-nums text-[10px]">
+                                  {isEn ? "Renews" : "التجديد"}: {String(member.nextRenewalDate).slice(0, 10)}
+                                </span>
+                              )}
                             </div>
                           </div>
 
@@ -1489,12 +1495,16 @@ export default function EducationGroupsPage({
                               className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
                                 member.paymentStatus === "PAID"
                                   ? "bg-emerald-500/10 text-success"
-                                  : "bg-red-500/10 text-destructive"
+                                  : member.paymentStatus === "PARTIAL"
+                                    ? "bg-amber-500/10 text-amber-600"
+                                    : "bg-red-500/10 text-destructive"
                               }`}
                             >
                               {member.paymentStatus === "PAID"
                                 ? (isEn ? "Paid" : "تم السداد")
-                                : (isEn ? "Unpaid" : "غير مسدد")}
+                                : member.paymentStatus === "PARTIAL"
+                                  ? `${isEn ? "Partial" : "جزئي"} ${Number(member.amountPaid || 0).toLocaleString()}`
+                                  : (isEn ? "Unpaid" : "غير مسدد")}
                             </span>
 
                             {activeGroup.feeType === "MONTHLY" && (
