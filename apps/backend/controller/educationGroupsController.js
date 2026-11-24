@@ -1869,6 +1869,85 @@ const collectDueFees = async (req, res) => {
   }
 };
 
+/**
+ * لوحة التحصيل الشهري لكل المجموعات: مين مغطى/مستحق/متأخر وإجمالي المحصّل هذا الشهر.
+ * GET /education/groups/collection-board
+ */
+const getCollectionBoard = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+
+    const rows = await prisma.$queryRawUnsafe(`
+      SELECT g."id", g."name", g."feeType",
+             COALESCE(g."feeAmount", 0)::float AS "feeAmount",
+             COUNT(m."id") FILTER (WHERE m."status" = 'ACTIVE')::int AS "activeMembers",
+             COUNT(m."id") FILTER (
+               WHERE m."status" = 'ACTIVE' AND m."nextRenewalDate" IS NOT NULL AND m."nextRenewalDate" > NOW()
+             )::int AS "coveredMembers",
+             COUNT(m."id") FILTER (
+               WHERE m."status" = 'ACTIVE'
+                 AND (m."nextRenewalDate" IS NULL OR m."nextRenewalDate" <= NOW())
+                 AND COALESCE(m."paymentStatus", 'PENDING') <> 'PAID'
+             )::int AS "dueMembers",
+             COALESCE(SUM(m."amountPaid") FILTER (WHERE m."status" = 'ACTIVE'), 0)::float AS "memberCollected"
+      FROM "education_groups" g
+      LEFT JOIN "education_group_members" m ON m."groupId" = g."id" AND m."companyId" = g."companyId"
+      WHERE g."companyId" = $1 AND COALESCE(g."status", 'OPEN') <> 'CANCELLED'
+      GROUP BY g."id", g."name", g."feeType", g."feeAmount"
+      ORDER BY g."name" ASC
+    `, companyId);
+
+    const monthCollected = await prisma.$queryRawUnsafe(`
+      SELECT COALESCE("groupId", '') AS "groupId", COALESCE(SUM(amount), 0)::float AS amount, COUNT(*)::int AS payments
+      FROM "education_payments"
+      WHERE "companyId" = $1 AND status = 'COMPLETED'
+        AND "paidAt" >= date_trunc('month', NOW())
+      GROUP BY "groupId"
+    `, companyId);
+    const monthMap = new Map(monthCollected.map((r) => [r.groupId || '', r]));
+
+    const board = rows.map((r) => {
+      const fee = Number(r.feeAmount) || 0;
+      const active = Number(r.activeMembers) || 0;
+      const due = Number(r.dueMembers) || 0;
+      const month = monthMap.get(r.id);
+      return {
+        groupId: r.id,
+        name: r.name,
+        feeType: r.feeType,
+        feeAmount: fee,
+        activeMembers: active,
+        coveredMembers: Number(r.coveredMembers) || 0,
+        dueMembers: due,
+        expectedMonthly: fee * active,
+        collectedFromMembers: Number(r.memberCollected) || 0,
+        collectedThisMonth: Number(month?.amount || 0),
+        paymentsThisMonth: Number(month?.payments || 0),
+      };
+    });
+
+    res.json({
+      success: true,
+      data: {
+        monthStart: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10),
+        totals: {
+          expectedMonthly: board.reduce((s, r) => s + r.expectedMonthly, 0),
+          collectedThisMonth: board.reduce((s, r) => s + r.collectedThisMonth, 0),
+          dueMembers: board.reduce((s, r) => s + r.dueMembers, 0),
+          groupsNeedingFollowUp: board.filter((r) => r.dueMembers > 0).length,
+        },
+        groups: board,
+      },
+    });
+  } catch (err) {
+    console.error('[EducationGroups] getCollectionBoard error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+
 const getFinancials = async (req, res) => {  try {    const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -2317,6 +2396,7 @@ module.exports = {
   getLiveRooms,
   getFinancials,
   collectDueFees,
+  getCollectionBoard,
   generateSessions,
   cancelGroupSession,
   generateGroupSessionsInternal

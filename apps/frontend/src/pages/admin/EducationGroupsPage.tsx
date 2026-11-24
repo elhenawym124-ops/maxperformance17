@@ -22,7 +22,8 @@ import {
   UserCheck,
   LayoutGrid,
   List,
-  FileText
+  FileText,
+  Wallet
 } from "lucide-react";
 import { toast } from "sonner";
 import { buildApiUrl } from "../../utils/urlHelper";
@@ -587,8 +588,36 @@ export default function EducationGroupsPage({
     }
   };
 
-  // تحصيل جماعي: كل الأعضاء المستحقين (غير مسدد أو انتهت دورتهم) بضغطة واحدة
-  const [collectingAllDue, setCollectingAllDue] = useState(false);
+  // لوحة التحصيل الشهري لكل المجموعات
+  const [showCollectionBoard, setShowCollectionBoard] = useState(false);
+  const [collectionBoard, setCollectionBoard] = useState<{
+    totals: { expectedMonthly: number; collectedThisMonth: number; dueMembers: number; groupsNeedingFollowUp: number };
+    groups: Array<{
+      groupId: string; name: string; feeAmount: number; activeMembers: number;
+      coveredMembers: number; dueMembers: number; expectedMonthly: number; collectedThisMonth: number;
+    }>;
+  } | null>(null);
+  const [boardLoading, setBoardLoading] = useState(false);
+
+  useEffect(() => {
+    if (!showCollectionBoard) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        setBoardLoading(true);
+        const res = await fetch(api("groups/collection-board"), { headers: getAuthHeaders() });
+        const data = await res.json();
+        if (!cancelled && data.success) setCollectionBoard(data.data);
+      } catch {
+        /* لوحة تحسينية — تتجاهل الفشل بدون تعطيل الصفحة */
+      } finally {
+        if (!cancelled) setBoardLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [showCollectionBoard, groups.length]);
+
+  // تحصيل جماعي: كل الأعضاء المستحقين (غير مسدد أو انتهت دورتهم) بضغطة واحدة  const [collectingAllDue, setCollectingAllDue] = useState(false);
   const dueMembersCount =
     activeGroup?.feeType === "MONTHLY"
       ? (groupDetails?.members || []).filter(
@@ -865,6 +894,20 @@ export default function EducationGroupsPage({
         <div className="flex items-center gap-2.5">
           <button
             type="button"
+            onClick={() => { setShowCollectionBoard((v) => !v); }}
+            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-semibold transition-colors ${
+              showCollectionBoard
+                ? "bg-primary text-primary-foreground border-primary"
+                : "border-border/70 text-muted-foreground hover:text-foreground hover:bg-muted"
+            }`}
+            title={isEn ? "Monthly collection board" : "لوحة التحصيل الشهري"}
+          >
+            <Wallet className="w-4 h-4" />
+            {isEn ? "Collection board" : "لوحة التحصيل"}
+          </button>
+
+          <button
+            type="button"
             onClick={fetchData}
             aria-label={t("education.common.refresh", isEn ? "Refresh Data" : "تحديث البيانات")} title={t("education.common.refresh", isEn ? "Refresh Data" : "تحديث البيانات")}
             className="p-2.5 rounded-xl border border-border/70 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
@@ -1016,6 +1059,90 @@ export default function EducationGroupsPage({
           </button>
         </div>
       </div>
+
+      {/* Monthly collection board */}
+      {showCollectionBoard && (
+        <div className="bg-card border border-border/70 rounded-xl overflow-hidden">
+          <div className="flex items-center justify-between gap-2 px-4 py-2.5 border-b border-border/70">
+            <div className="text-xs font-bold text-foreground">
+              {isEn ? "Monthly collection board" : "لوحة التحصيل الشهري"}
+            </div>
+            {collectionBoard && (
+              <div className="flex items-center gap-3 text-[11px] text-muted-foreground overflow-x-auto scrollbar-none">
+                <span>
+                  {isEn ? "Expected" : "المتوقع"}:{" "}
+                  <span className="font-mono tabular-nums text-foreground">{collectionBoard.totals.expectedMonthly.toLocaleString()}</span>
+                </span>
+                <span>
+                  {isEn ? "Collected" : "المحصّل"}:{" "}
+                  <span className="font-mono tabular-nums text-success">{collectionBoard.totals.collectedThisMonth.toLocaleString()}</span>
+                </span>
+                <span>
+                  {isEn ? "Due students" : "مستحقين"}:{" "}
+                  <span className="font-mono tabular-nums text-warning">{collectionBoard.totals.dueMembers}</span>
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[620px] text-xs">
+              <thead>
+                <tr className="border-b border-border/70 bg-muted/40 text-muted-foreground">
+                  <th className={`py-2 px-3 font-semibold ${isEn ? "text-left" : "text-right"}`}>{isEn ? "Group" : "المجموعة"}</th>
+                  <th className="py-2 px-3 font-semibold">{isEn ? "Fee" : "الرسوم"}</th>
+                  <th className="py-2 px-3 font-semibold">{isEn ? "Active" : "منتظم"}</th>
+                  <th className="py-2 px-3 font-semibold">{isEn ? "Covered" : "مغطى"}</th>
+                  <th className="py-2 px-3 font-semibold">{isEn ? "Due" : "مستحق"}</th>
+                  <th className="py-2 px-3 font-semibold">{isEn ? "Collected this month" : "محصّل الشهر"}</th>
+                  <th className="py-2 px-3 font-semibold">{isEn ? "Expected" : "المتوقع"}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border/60">
+                {boardLoading && !collectionBoard && (
+                  <tr>
+                    <td colSpan={7} className="py-6 text-center text-muted-foreground">
+                      {isEn ? "Loading..." : "جاري التحميل..."}
+                    </td>
+                  </tr>
+                )}
+                {(collectionBoard?.groups || []).map((row) => (
+                  <tr key={row.groupId} className={row.dueMembers > 0 ? "bg-warning/5" : ""}>
+                    <td className={`py-2 px-3 font-semibold text-foreground ${isEn ? "text-left" : "text-right"}`}>
+                      {row.name}
+                      {row.dueMembers > 0 && (
+                        <span className="ms-1.5 text-[10px] px-1.5 py-0.5 rounded-full bg-warning/15 text-warning font-bold">
+                          {isEn ? `${row.dueMembers} due` : `${row.dueMembers} مستحق`}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-2 px-3 text-center font-mono tabular-nums text-muted-foreground">
+                      {row.feeAmount.toLocaleString()}
+                    </td>
+                    <td className="py-2 px-3 text-center font-mono tabular-nums">{row.activeMembers}</td>
+                    <td className="py-2 px-3 text-center font-mono tabular-nums text-success">{row.coveredMembers}</td>
+                    <td className={`py-2 px-3 text-center font-mono tabular-nums ${row.dueMembers > 0 ? "text-warning font-bold" : "text-muted-foreground"}`}>
+                      {row.dueMembers}
+                    </td>
+                    <td className="py-2 px-3 text-center font-mono tabular-nums text-foreground">
+                      {row.collectedThisMonth.toLocaleString()}
+                    </td>
+                    <td className="py-2 px-3 text-center font-mono tabular-nums text-muted-foreground">
+                      {row.expectedMonthly.toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+                {collectionBoard && collectionBoard.groups.length === 0 && (
+                  <tr>
+                    <td colSpan={7} className="py-6 text-center text-muted-foreground">
+                      {isEn ? "No groups yet" : "لا توجد مجموعات"}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* Main Content */}
       {loading ? (
