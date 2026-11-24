@@ -454,6 +454,13 @@ const create = async (req, res) => {
           error: 'رقم هاتف ولي الأمر مطلوب — من غيره مش هنقدر نتواصل معاه'
         });
       }
+      // تحقق من صيغة هاتف ولي الأمر أيضًا (كان يُقبل أي رقم)
+      if (!isValidEgyptianPhone(gPhone)) {
+        return res.status(400).json({
+          success: false,
+          error: 'رقم هاتف ولي الأمر غير صالح — يجب أن يكون 11 رقمًا يبدأ بـ 010/011/012/015'
+        });
+      }
 
       let gFirstName;
       let gLastName;
