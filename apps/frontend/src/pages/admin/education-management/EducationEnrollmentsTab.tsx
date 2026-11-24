@@ -128,7 +128,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
             className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground text-xs font-semibold rounded-lg hover:bg-primary/90 shadow-xs"
           >
             <Plus className="w-3.5 h-3.5" />
-            {t("education.enrollments.addEnrollment", isEn ? "Add New Enrollment" : "إضافة تسجيل جديد")}
+            {t("education.enrollments.addEnrollment", isEn ? "Add New Subscription" : "إضافة اشتراك جديد")}
           </button>
           <Link
             to="/admin/education/payments"
