@@ -617,7 +617,8 @@ export default function EducationGroupsPage({
     return () => { cancelled = true; };
   }, [showCollectionBoard, groups.length]);
 
-  // تحصيل جماعي: كل الأعضاء المستحقين (غير مسدد أو انتهت دورتهم) بضغطة واحدة  const [collectingAllDue, setCollectingAllDue] = useState(false);
+  // تحصيل جماعي: كل الأعضاء المستحقين (غير مسدد أو انتهت دورتهم) بضغطة واحدة
+  const [collectingAllDue, setCollectingAllDue] = useState(false);
   const dueMembersCount =
     activeGroup?.feeType === "MONTHLY"
       ? (groupDetails?.members || []).filter(
