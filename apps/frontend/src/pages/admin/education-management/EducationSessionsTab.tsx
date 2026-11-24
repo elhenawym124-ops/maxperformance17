@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Plus, Check, X, Pencil, Clock, BookOpen, User, CalendarPlus, UserX, Trash2, Users } from "lucide-react";
+import { Plus, Check, X, Pencil, Clock, BookOpen, User, CalendarPlus, UserX, Trash2, Users, Download } from "lucide-react";
 import type {
   EducationSession,
   EducationTeacher,
@@ -113,6 +113,60 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
   }, [filtered, searchQuery]);
 
   const visible = searched.slice(0, visibleCount);
+
+  const handleExportCsv = () => {
+    const rowsToExport = searched;
+    if (rowsToExport.length === 0) return;
+
+    const headers = isEn
+      ? ["Type", "Student / Group", "Code", "Teacher", "Subject", "Topic", "Room", "Date & Time", "Duration (min)", "Status", "Present", "Absent"]
+      : ["النوع", "الطالب / الجروب", "الكود", "المدرس", "المادة", "التوبيك", "القاعة", "التاريخ والوقت", "المدة (دقيقة)", "الحالة", "حاضر", "غائب"];
+
+    const escapeCell = (value: unknown) => {
+      const text = value === null || value === undefined ? "" : String(value);
+      return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+    };
+
+    const lines = [headers.map(escapeCell).join(",")];
+    for (const s of rowsToExport) {
+      const isGroup = isGroupSession(s);
+      const who = isGroup
+        ? s.groupName || ""
+        : s.student
+          ? `${s.student.firstName} ${s.student.lastName || ""}`.trim()
+          : "";
+      const when = new Date(s.scheduledAt);
+      lines.push(
+        [
+          isGroup ? (isEn ? "Group" : "مجموعة") : isEn ? "Private" : "برايفت",
+          who,
+          isGroup ? s.groupCode || "" : s.student?.code || "",
+          s.teacher?.name || "",
+          s.subject?.name || "",
+          s.topic || "",
+          s.room || "",
+          Number.isNaN(when.getTime()) ? "" : when.toLocaleString(isEn ? "en-GB" : "ar-EG"),
+          s.actualDuration || s.plannedDuration || "",
+          getSessionStatus(s.status, isEn).label,
+          isGroup ? s.presentCount ?? "" : "",
+          isGroup ? s.absentCount ?? "" : "",
+        ]
+          .map(escapeCell)
+          .join(","),
+      );
+    }
+
+    const blob = new Blob([`\uFEFF${lines.join("\r\n")}`], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const stamp = new Date().toISOString().slice(0, 10);
+    link.href = url;
+    link.download = `education-sessions-${stamp}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+  };
 
   return (
     <div className="space-y-4" dir={isEn ? "ltr" : "rtl"}>
@@ -226,6 +280,17 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
           >
             <Plus className="w-3.5 h-3.5" />
             {t("education.sessions.scheduleSession", isEn ? "Schedule Session" : "إضافة حصة")}
+          </button>
+          <button
+            type="button"
+            onClick={handleExportCsv}
+            disabled={searched.length === 0}
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-card text-foreground text-xs font-semibold rounded-lg border border-border/70 hover:bg-muted shadow-xs shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label={isEn ? "Export filtered sessions to CSV" : "تصدير الحصص المفلترة CSV"}
+            title={isEn ? "Export filtered sessions to CSV" : "تصدير الحصص المفلترة CSV"}
+          >
+            <Download className="w-3.5 h-3.5" />
+            {isEn ? "CSV" : "تصدير CSV"}
           </button>
         </div>
       </div>

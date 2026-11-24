@@ -31,7 +31,7 @@ import type {
   Customer,
   TabId,
 } from "./types";
-import { SESSION_STATUS } from "./types";
+import { getSessionStatus } from "./types";
 import {
   EducationDetailDrawer,
   DrawerTarget,
@@ -776,10 +776,10 @@ export const EducationDashboardTab: React.FC<EducationDashboardTabProps> = ({
 
                     <span
                       className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold border shrink-0 ${
-                        SESSION_STATUS[s.status]?.color || ""
+                        getSessionStatus(s.status, isEn).color
                       }`}
                     >
-                      {SESSION_STATUS[s.status]?.label || s.status}
+                      {getSessionStatus(s.status, isEn).label}
                     </span>
                   </div>
 

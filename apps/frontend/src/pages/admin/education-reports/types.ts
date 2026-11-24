@@ -130,6 +130,7 @@ export interface MissedSessionRow {
 export interface MissedSessionsData {
   days: number;
   total: number;
+  noShowCount?: number;
   byTeacher: Array<{ teacherId: string; name: string; count: number }>;
   byStudent: Array<{ studentId: string; code: string | null; name: string; count: number }>;
   sessions: MissedSessionRow[];

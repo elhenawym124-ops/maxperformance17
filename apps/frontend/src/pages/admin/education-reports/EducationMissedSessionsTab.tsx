@@ -11,6 +11,9 @@ interface EducationMissedSessionsTabProps {
 const statusLabel = (status: string, isEn: boolean) => {
   if (status === "CONFIRMED") return isEn ? "Confirmed" : "مؤكدة";
   if (status === "SCHEDULED") return isEn ? "Scheduled" : "مجدولة";
+  if (status === "COMPLETED") return isEn ? "Completed" : "مكتملة";
+  if (status === "CANCELLED") return isEn ? "Cancelled" : "ملغية";
+  if (status === "NO_SHOW") return isEn ? "No-show" : "غياب الطالب";
   return status;
 };
 
@@ -20,6 +23,7 @@ export const EducationMissedSessionsTab: React.FC<EducationMissedSessionsTabProp
   isEn,
 }) => {
   const total = data?.total ?? 0;
+  const noShowCount = data?.noShowCount ?? 0;
   const sessions = data?.sessions ?? [];
   const byTeacher = data?.byTeacher ?? [];
   const byStudent = data?.byStudent ?? [];
@@ -38,22 +42,33 @@ export const EducationMissedSessionsTab: React.FC<EducationMissedSessionsTabProp
       {/* KPI strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="rounded-xl border border-border/70 bg-card p-3">
-          <p className="text-[11px] text-muted-foreground">إجمالي الحصص الفائتة</p>
+          <p className="text-[11px] text-muted-foreground">
+            {isEn ? "Missed sessions" : "إجمالي الحصص الفائتة"}
+          </p>
           <p className="text-xl font-bold tabular-nums text-destructive">{total}</p>
           <p className="text-[10px] text-muted-foreground">
             {isEn ? `last ${days} days` : `خلال ${days} يومًا`}
+            {noShowCount > 0 && (
+              <span className="ms-1 text-warning">
+                {isEn ? `· ${noShowCount} no-show logged` : `· منها ${noShowCount} غياب مسجّل`}
+              </span>
+            )}
           </p>
         </div>
         <div className="rounded-xl border border-border/70 bg-card p-3">
-          <p className="text-[11px] text-muted-foreground">مدرسون متأثرون</p>
+          <p className="text-[11px] text-muted-foreground">
+            {isEn ? "Affected teachers" : "مدرسون متأثرون"}
+          </p>
           <p className="text-xl font-bold tabular-nums">{byTeacher.length}</p>
         </div>
         <div className="rounded-xl border border-border/70 bg-card p-3">
-          <p className="text-[11px] text-muted-foreground">طلاب متأثرون</p>
+          <p className="text-[11px] text-muted-foreground">
+            {isEn ? "Affected students" : "طلاب متأثرون"}
+          </p>
           <p className="text-xl font-bold tabular-nums">{byStudent.length}</p>
         </div>
         <div className="rounded-xl border border-border/70 bg-card p-3">
-          <p className="text-[11px] text-muted-foreground">أعلى تكرار</p>
+          <p className="text-[11px] text-muted-foreground">{isEn ? "Top offender" : "أعلى تكرار"}</p>
           <p className="text-sm font-bold truncate">
             {byTeacher[0] ? `${byTeacher[0].name} (${byTeacher[0].count})` : "—"}
           </p>
@@ -79,7 +94,7 @@ export const EducationMissedSessionsTab: React.FC<EducationMissedSessionsTabProp
             <div>
               <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5 pb-2 border-b border-border/60">
                 <UserX className="w-3.5 h-3.5 text-destructive" />
-                حسب المدرس
+                {isEn ? "By teacher" : "حسب المدرس"}
               </h3>
               <ul className="pt-2 space-y-1.5">
                 {byTeacher.map((t) => (
@@ -95,7 +110,7 @@ export const EducationMissedSessionsTab: React.FC<EducationMissedSessionsTabProp
             <div>
               <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5 pb-2 border-b border-border/60">
                 <GraduationCap className="w-3.5 h-3.5 text-warning" />
-                حسب الطالب
+                {isEn ? "By student" : "حسب الطالب"}
               </h3>
               <ul className="pt-2 space-y-1.5">
                 {byStudent.slice(0, 8).map((s) => (
@@ -115,27 +130,29 @@ export const EducationMissedSessionsTab: React.FC<EducationMissedSessionsTabProp
           <div className="lg:col-span-8 lg:ps-6">
             <div className="flex items-center gap-2 pb-2 border-b border-border/60">
               <AlertTriangle className="w-3.5 h-3.5 text-warning" />
-              <h3 className="text-xs font-bold text-foreground">تفصيل الحصص</h3>
-              <span className="text-[10px] text-muted-foreground">أحدث {Math.min(sessions.length, 100)}</span>
+              <h3 className="text-xs font-bold text-foreground">{isEn ? "Session breakdown" : "تفصيل الحصص"}</h3>
+              <span className="text-[10px] text-muted-foreground">
+                {isEn ? `latest ${Math.min(sessions.length, 100)}` : `أحدث ${Math.min(sessions.length, 100)}`}
+              </span>
             </div>
             <div className="pt-2 overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
                   <tr className="text-muted-foreground border-b border-border/50">
-                    <th className="text-start font-medium py-2">التاريخ</th>
-                    <th className="text-start font-medium py-2">الطالب</th>
-                    <th className="text-start font-medium py-2">المدرس</th>
-                    <th className="text-start font-medium py-2">المادة</th>
-                    <th className="text-start font-medium py-2">الحالة</th>
+                    <th className="text-start font-medium py-2">{isEn ? "Date" : "التاريخ"}</th>
+                    <th className="text-start font-medium py-2">{isEn ? "Student" : "الطالب"}</th>
+                    <th className="text-start font-medium py-2">{isEn ? "Teacher" : "المدرس"}</th>
+                    <th className="text-start font-medium py-2">{isEn ? "Subject" : "المادة"}</th>
+                    <th className="text-start font-medium py-2">{isEn ? "Status" : "الحالة"}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {sessions.slice(0, 100).map((s) => (
                     <tr key={s.id} className="border-b border-border/40 last:border-0">
                       <td className="py-2 font-mono tabular-nums text-foreground whitespace-nowrap">
-                        {new Date(s.scheduledAt).toLocaleDateString("ar-EG")}
+                        {new Date(s.scheduledAt).toLocaleDateString(isEn ? "en-GB" : "ar-EG")}
                         <span className="text-muted-foreground ms-1">
-                          {new Date(s.scheduledAt).toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" })}
+                          {new Date(s.scheduledAt).toLocaleTimeString(isEn ? "en-GB" : "ar-EG", { hour: "2-digit", minute: "2-digit" })}
                         </span>
                       </td>
                       <td className="py-2 truncate max-w-[140px]">{s.studentName || "—"}</td>
