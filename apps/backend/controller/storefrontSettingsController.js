@@ -1021,6 +1021,32 @@ const testFacebookPixel = async (req, res) => {
 
     const accessToken = getPrimaryManagementToken({ company, settings });
 
+    // توكن CAPI وحده لا يملك صلاحية قراءة البيكسل (ads_management) —
+    // لا نعتبره "توكن غير صالح" ولا نرمي خطأ يخيف التاجر
+    const dedicatedManagementToken =
+      trimToNull(company?.facebookPixelAccessToken) ||
+      trimToNull(company?.facebookAdsAccessToken) ||
+      trimToNull(company?.facebookUserAccessToken);
+
+    if (
+      accessToken &&
+      !dedicatedManagementToken &&
+      trimToNull(settings?.facebookConvApiToken) &&
+      trimToNull(settings?.facebookConvApiToken) === accessToken
+    ) {
+      await updateStorefrontSettingsStatus(companyId, {
+        pixelStatus: 'configured',
+        lastPixelTest: new Date(),
+      });
+
+      return res.json({
+        success: false,
+        needsAuth: false,
+        message:
+          'Pixel ID محفوظ. التحقق الكامل من ملكية البيكسل يحتاج توكن إدارة (ads_management)، لكن إرسال أحداث CAPI يعمل بالتوكن الحالي — استخدم «فحص CAPI».',
+      });
+    }
+
     if (!accessToken) {
       await updateStorefrontSettingsStatus(companyId, {
         pixelStatus: 'configured',
