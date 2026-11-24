@@ -250,7 +250,9 @@ function buildNormalizedProductSearchText(product) {
       if (!variant) continue;
       parts.push(variant.name);
       parts.push(variant.sku);
-      parts.push(variant.barcode);
+      if (variant.barcode) {
+        parts.push(variant.barcode);
+      }
     }
   }
 
@@ -318,7 +320,6 @@ function buildProductSearchFilter(rawSearch) {
           some: {
             OR: [
               { sku: { contains: v, mode: 'insensitive' } },
-              { barcode: { contains: v, mode: 'insensitive' } },
               { name: { contains: v, mode: 'insensitive' } },
             ],
           },

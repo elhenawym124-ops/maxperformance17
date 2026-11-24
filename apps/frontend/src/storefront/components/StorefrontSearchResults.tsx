@@ -44,17 +44,27 @@ export const StorefrontSearchResults: React.FC<StorefrontSearchResultsProps> = (
 
   return (
     <div className="grid gap-2">
-      {results.map((product) => (
-        <Link
-          key={product.id}
-          to={buildStorefrontPath(
-            location.pathname,
-            /product/,
-            location.search,
-          )}
-          onClick={close}
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-muted transition-colors group"
-        >
+            {results.map((product) => {
+        const rawSlug = typeof product.slug === "string" ? product.slug.trim() : "";
+        const rawId = typeof product.id === "string" ? product.id.trim() : "";
+        const productKey = rawSlug || rawId;
+        const targetRoute = productKey
+          ? `/product/${encodeURIComponent(productKey)}`
+          : "/shop";
+
+        return (
+          <Link
+            key={product.id}
+            to={buildStorefrontPath(
+              location.pathname,
+              targetRoute,
+              location.search,
+            )}
+            onClick={close}
+            data-testid={`search-result-${product.id}`}
+            data-product-slug={product.slug || ""}
+            className="flex items-center gap-4 p-2 rounded-lg hover:bg-muted transition-colors group"
+          >
           <div className="w-12 h-12 rounded bg-muted overflow-hidden flex-shrink-0">
             <StorefrontProductImage
               candidates={getProductImageCandidates(product)}
@@ -107,7 +117,8 @@ export const StorefrontSearchResults: React.FC<StorefrontSearchResultsProps> = (
             <path d="m9 18 6-6-6-6" />
           </svg>
         </Link>
-      ))}
+        );
+      })}
     </div>
   );
 };
