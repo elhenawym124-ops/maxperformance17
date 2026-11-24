@@ -117,7 +117,7 @@ export const StandardBuybox: React.FC<StandardBuyboxProps> = ({ ctrl }) => {
         </div>
 
         {/* Size Guide Note / Link */}
-        {rawSizeGuideHref ? (
+        {canOpenSizeGuide && rawSizeGuideHref ? (
           <div className="rounded-xl border border-border bg-secondary/30 p-4">
             <div className="flex items-center justify-between gap-3">
               <span className="text-sm font-bold text-foreground">
@@ -194,6 +194,12 @@ export const StandardBuybox: React.FC<StandardBuyboxProps> = ({ ctrl }) => {
           ) : null}
         </div>
 
+        {mergedInlinePdpQuickOrder ? (
+          <div className="pt-4 border-t border-border">
+            {mergedInlinePdpQuickOrder}
+          </div>
+        ) : null}
+
         {/* Description Accordion */}
         <div id={STOREFRONT_PRODUCT_DESCRIPTION_ID} className="space-y-3 pt-4 border-t border-border">
           <Accordion title={descriptionTitle} defaultOpen={true}>
@@ -208,18 +214,12 @@ export const StandardBuybox: React.FC<StandardBuyboxProps> = ({ ctrl }) => {
           </Accordion>
         </div>
 
-        {mergedInlinePdpQuickOrder ? (
-          <div className="pt-4 border-t border-border">
-            {mergedInlinePdpQuickOrder}
-          </div>
-        ) : null}
-
         {/* Trust Badges */}
         <div className="pt-2">
           <ConfigurableTrustBadges
             title={guaranteesTitle}
             subtitle={guaranteesSubtitle}
-            items={guaranteeItems.length ? guaranteeItems : undefined}
+            items={guaranteeItems?.length ? guaranteeItems : undefined}
             variant={guaranteeStyle}
           />
         </div>

@@ -6,6 +6,9 @@ const {
   parseQuantityRange,
   detectQuantityTierVariants,
   findMatchingTierVariant,
+  isAhmedGadStore,
+  AHMED_GAD_COMPANY_ID,
+  AHMED_GAD_SLUG,
 } = require('../../utils/quantityTierVariants');
 
 describe('Quantity Tier Variants and Deduplication', () => {
@@ -63,5 +66,13 @@ describe('Quantity Tier Variants and Deduplication', () => {
       : `order_${orderNumber}_1700000000`;
 
     assert.match(fallbackEventId, /^order_ORD-12345_/);
+  });
+
+  it('correctly identifies Ahmed Gad store for isolation without ambient storage leakage', () => {
+    assert.equal(isAhmedGadStore(AHMED_GAD_COMPANY_ID), true);
+    assert.equal(isAhmedGadStore(null, AHMED_GAD_SLUG), true);
+    assert.equal(isAhmedGadStore('other_store_id'), false);
+    assert.equal(isAhmedGadStore(null, 'other_slug'), false);
+    assert.equal(isAhmedGadStore(null, null), false);
   });
 });

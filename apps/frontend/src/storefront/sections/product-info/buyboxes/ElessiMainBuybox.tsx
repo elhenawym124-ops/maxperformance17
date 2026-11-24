@@ -158,26 +158,31 @@ export const ElessiMainBuybox: React.FC<ElessiMainBuyboxProps> = ({ ctrl }) => {
                 </div>
               ) : null}
 
-              <div
-                className={`mt-3.5 flex flex-wrap items-center justify-around gap-2 rounded-xl border px-3 py-2.5 text-[11px] font-bold sm:text-xs ${
-                  isRedlineAuto
-                    ? 'border-slate-200 bg-slate-50/80 text-slate-700 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300'
-                    : 'border-[#ead8ca]/70 bg-[#fffdfa] text-[#6f5a54]'
-                }`}
-              >
-                <div className="flex items-center gap-1.5">
-                  <Truck className={`h-3.5 w-3.5 ${isRedlineAuto ? 'text-red-600' : 'text-[#8f5c44]'}`} />
-                  <span>{prefersArabicCopy ? 'شحن 48 ساعة' : '48h Shipping'}</span>
+              {(!ctrl.isAhmedGad &&
+                ctrl.sectionSettings?.showTrustStrip !== false &&
+                ctrl.sectionSettings?.showShippingBadges !== false &&
+                ctrl.sectionSettings?.showDeliveryHighlights !== false) ? (
+                <div
+                  className={`mt-3.5 flex flex-wrap items-center justify-around gap-2 rounded-xl border px-3 py-2.5 text-[11px] font-bold sm:text-xs ${
+                    isRedlineAuto
+                      ? 'border-slate-200 bg-slate-50/80 text-slate-700 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300'
+                      : 'border-[#ead8ca]/70 bg-[#fffdfa] text-[#6f5a54]'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <Truck className={`h-3.5 w-3.5 ${isRedlineAuto ? 'text-red-600' : 'text-[#8f5c44]'}`} />
+                    <span>{prefersArabicCopy ? 'شحن 48 ساعة' : '48h Shipping'}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className={`h-3.5 w-3.5 ${isRedlineAuto ? 'text-red-600' : 'text-[#8f5c44]'}`} />
+                    <span>{prefersArabicCopy ? 'معاينة وقياس مع المندوب' : 'Inspect before paying'}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <RotateCcw className={`h-3.5 w-3.5 ${isRedlineAuto ? 'text-red-600' : 'text-[#8f5c44]'}`} />
+                    <span>{prefersArabicCopy ? 'استبدال 14 يوم' : '14-Day Exchange'}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className={`h-3.5 w-3.5 ${isRedlineAuto ? 'text-red-600' : 'text-[#8f5c44]'}`} />
-                  <span>{prefersArabicCopy ? 'معاينة وقياس مع المندوب' : 'Inspect before paying'}</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <RotateCcw className={`h-3.5 w-3.5 ${isRedlineAuto ? 'text-red-600' : 'text-[#8f5c44]'}`} />
-                  <span>{prefersArabicCopy ? 'استبدال 14 يوم' : '14-Day Exchange'}</span>
-                </div>
-              </div>
+              ) : null}
             </div>
           </div>
         </div>

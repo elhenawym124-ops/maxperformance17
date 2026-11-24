@@ -156,7 +156,19 @@ const findMatchingTierVariant = (tiers, quantity) => {
   return tiers[0];
 };
 
+const AHMED_GAD_COMPANY_ID = 'cmttxw3hg1wq4ju430g8muja0';
+const AHMED_GAD_SLUG = 'ahmedgad';
+
+const isAhmedGadStore = (companyId, companySlug) => {
+  if (companyId) return companyId === AHMED_GAD_COMPANY_ID;
+  if (companySlug) return companySlug === AHMED_GAD_SLUG;
+  return false;
+};
+
 module.exports = {
+  AHMED_GAD_COMPANY_ID,
+  AHMED_GAD_SLUG,
+  isAhmedGadStore,
   normalizeArabicNumerals,
   parseQuantityRange,
   detectQuantityTierVariants,

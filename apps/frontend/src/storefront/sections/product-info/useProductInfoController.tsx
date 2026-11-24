@@ -28,6 +28,10 @@ import { isProductPageCheckoutEnabledForProduct } from '../../../utils/productPa
 import PdpQuickOrderPanel from '../PdpQuickOrderPanel';
 import QuantityOffersSection from '../QuantityOffersSection';
 import { Ruler } from 'lucide-react';
+import {
+  isAhmedGadStore,
+  getVariantQuantityRange,
+} from '../../utils/quantityTierVariants';
 
 import type { ProductInfoProps, ProductInfoController } from './productInfoTypes';
 import {
@@ -656,6 +660,7 @@ export const useProductInfoController = ({
       quantity: effectiveQty,
       minQuantity: quantityTierRange?.min,
       maxQuantity: quantityTierRange?.max,
+      quantityTiers: quantityTierScheme?.isTierScheme ? quantityTierScheme.tiers : undefined,
       companyId: storefrontSettings?.company?.id,
       image: product.images?.[0] || '',
       attributes: selectedAttributes,
@@ -880,10 +885,16 @@ export const useProductInfoController = ({
   const guaranteeStyle = (sectionSettings?.guaranteeStyle as any) || 'minimal';
   const showGuarantees = sectionSettings?.showGuarantees !== false;
 
-  const rawSizeGuideHref = sectionSettings?.sizeGuideLink || '';
+  const isAhmedGad = isAhmedGadStore(
+    storefrontSettings?.company?.id,
+    storefrontSettings?.company?.slug
+  );
+  const showSizeGuideSetting = sectionSettings?.showSizeGuide !== false;
+  const hasProductSizeGuide = Boolean(product?.['sizeGuide'] && String(product?.['sizeGuide']).trim());
+  const rawSizeGuideHref = (!isAhmedGad && showSizeGuideSetting) ? (sectionSettings?.sizeGuideLink || '') : '';
   const isExternalSizeGuideHref = isExternalHref(rawSizeGuideHref);
   const sizeGuideText = sectionSettings?.sizeGuideText || (prefersArabicCopy ? 'دليل المقاسات' : 'Size guide');
-  const canOpenSizeGuide = Boolean(rawSizeGuideHref || product?.['sizeGuide']);
+  const canOpenSizeGuide = !isAhmedGad && showSizeGuideSetting && Boolean(rawSizeGuideHref || hasProductSizeGuide);
 
   const variantSettings = parseVariantSettings(product?.metadata);
   const externalProductConfig = resolveExternalProductConfig(product as any);
@@ -1120,6 +1131,7 @@ export const useProductInfoController = ({
     guaranteeItems,
     guaranteeStyle,
     showGuarantees,
+    isAhmedGad,
     canOpenSizeGuide,
     sizeGuideText,
     rawSizeGuideHref,

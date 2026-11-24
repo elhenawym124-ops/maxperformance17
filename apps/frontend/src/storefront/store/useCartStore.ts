@@ -243,6 +243,9 @@ export const useCartStore = create<CartState>()(
                 const match = findMatchingTierVariant(item.quantityTiers, newQuantity);
                 if (match) {
                   updatedItem.price = match.price;
+                  updatedItem.basePrice = match.price;
+                  if (match.range?.min !== undefined) updatedItem.minQuantity = match.range.min;
+                  if (match.range?.max !== undefined) updatedItem.maxQuantity = match.range.max;
                   if (match.variantId) updatedItem.variantId = match.variantId;
                   if (match.attributeKey && match.attributeVal) {
                     updatedItem.attributes = {

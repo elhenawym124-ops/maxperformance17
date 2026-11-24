@@ -89,6 +89,7 @@ export interface ProductInfoController {
   guaranteeItems: any[];
   guaranteeStyle: 'strip' | 'grid' | 'minimal';
   showGuarantees: boolean;
+  isAhmedGad?: boolean;
   canOpenSizeGuide: boolean;
   sizeGuideText: string;
   rawSizeGuideHref: string;
