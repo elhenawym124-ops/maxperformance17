@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { Loader2, RefreshCw, TrendingUp } from "lucide-react";
-import { fetchCollectionReport } from "./api";
+import { fetchCollectionReport, fetchMethodReport } from "./api";
 import { money } from "./shared";
-import type { CollectionReport } from "./types";
+import type { CollectionReport, MethodReport } from "./types";
 
 const rateTone = (value: number | null) => {
   if (value === null) return "text-muted-foreground";
@@ -14,6 +14,7 @@ const rateTone = (value: number | null) => {
 export const CollectionRateTab: React.FC<{ isEn: boolean; reloadKey?: number }> = ({ isEn, reloadKey }) => {
   const [months, setMonths] = useState(6);
   const [data, setData] = useState<CollectionReport | null>(null);
+  const [methods, setMethods] = useState<MethodReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -25,6 +26,9 @@ export const CollectionRateTab: React.FC<{ isEn: boolean; reloadKey?: number }> 
       .then((report) => alive && setData(report))
       .catch((err) => alive && setError(err.message || (isEn ? "Failed to load" : "فشل التحميل")))
       .finally(() => alive && setLoading(false));
+    fetchMethodReport(months)
+      .then((report) => alive && setMethods(report))
+      .catch(() => {});
     return () => {
       alive = false;
     };
@@ -167,6 +171,68 @@ export const CollectionRateTab: React.FC<{ isEn: boolean; reloadKey?: number }> 
               </div>
             )}
           </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+            <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+              <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between">
+                <h4 className="text-xs font-semibold text-foreground">{isEn ? "By payment method" : "حسب طريقة الدفع"}</h4>
+                <span className="text-[10px] text-muted-foreground font-mono">
+                  {isEn ? "net" : "الصافي"}: {money(methods?.summary.net || 0)}
+                </span>
+              </div>
+              {(methods?.byMethod.length || 0) === 0 ? (
+                <p className="p-4 text-[11px] text-muted-foreground">{isEn ? "No collections" : "لا يوجد تحصيل"}</p>
+              ) : (
+                <div className="divide-y divide-border/60">
+                  {methods?.byMethod.map((row) => (
+                    <div key={row.method} className="px-4 py-2 flex items-center justify-between gap-3 text-[11px]">
+                      <span className="font-semibold text-foreground">{row.label}</span>
+                      <div className="flex items-center gap-3 shrink-0 font-mono tabular-nums">
+                        <span className="text-muted-foreground">{row.count}×</span>
+                        <span className="text-foreground">{money(row.amount)}</span>
+                        <span className="text-primary font-semibold">{row.share}%</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+              <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between">
+                <h4 className="text-xs font-semibold text-foreground">{isEn ? "By treasury" : "حسب الخزينة"}</h4>
+                <span className="text-[10px] text-muted-foreground font-mono">
+                  {isEn ? "net" : "الصافي"}: {money(methods?.treasuryNet || 0)}
+                </span>
+              </div>
+              {(methods?.byTreasury.length || 0) === 0 ? (
+                <p className="p-4 text-[11px] text-muted-foreground">{isEn ? "No treasury entries" : "لا توجد حركات خزينة"}</p>
+              ) : (
+                <div className="divide-y divide-border/60">
+                  {methods?.byTreasury.map((row) => (
+                    <div key={row.id} className="px-4 py-2 flex items-center justify-between gap-3 text-[11px]">
+                      <span className="font-semibold text-foreground truncate">{row.name}</span>
+                      <div className="flex items-center gap-3 shrink-0 font-mono tabular-nums">
+                        <span className="text-success">+{money(row.inflow)}</span>
+                        {row.outflow > 0 ? <span className="text-destructive">−{money(row.outflow)}</span> : null}
+                        <span className={`font-semibold ${row.net >= 0 ? "text-foreground" : "text-destructive"}`}>
+                          {money(row.net)}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {methods?.summary.refunded ? (
+            <p className="text-[10px] text-muted-foreground font-mono">
+              {isEn ? "Refunded in period" : "مردودات في الفترة"}: {money(methods.summary.refunded)}{" "}
+              {isEn ? "EGP" : "ج.م"} · {isEn ? "gross" : "الإجمالي"}: {money(methods.summary.gross)}{" "}
+              {isEn ? "EGP" : "ج.م"}
+            </p>
+          ) : null}
         </>
       )}
     </div>

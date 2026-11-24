@@ -5,6 +5,7 @@ import type {
   DiscountReport,
   DuesResponse,
   EducationPayment,
+  MethodReport,
   PaymentsPagination,
   PaymentsSummary,
   ReceiptPayload,
@@ -166,6 +167,9 @@ export const fetchDiscountReport = (months = 6): Promise<DiscountReport> =>
 
 export const fetchCollectionReport = (months = 6): Promise<CollectionReport> =>
   fetchJson(api(`finance/collections${query({ months })}`));
+
+export const fetchMethodReport = (months = 6): Promise<MethodReport> =>
+  fetchJson(api(`finance/methods${query({ months })}`));
 
 export const validateCoupon = (payload: {
   code: string;

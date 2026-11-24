@@ -238,6 +238,18 @@
 - UI: "نسبة التحصيل" tab in `/admin/education/payments` with 3/6/12-month selector, KPI strip, monthly table and per-branch list.
 - Caveat: group fees are recurring, so the historical "billed" side uses datable enrollment charges; current group obligations appear in `openDues`.
 
+## Phase 4 (part 17) — collected money by method and treasury
+
+- `GET /education/finance/methods?months=6`:
+  - `summary`: `gross` (all non-cancelled payments), `refunded` (reversed amounts, including fully reversed rows), `net`, `payments`.
+  - `byMethod`: CASH / TRANSFER / WALLET / CARD / INSTAPAY / … with count and share of net.
+  - `byBranch`: net per branch and an explicit "بدون فرع" bucket.
+  - `byTreasury`: deposits vs withdrawals per treasury account, restricted to education reference types (`EDUCATION_PAYMENT`, `EDUCATION_GROUP_PAYMENT`, `EDUCATION_REFUND`, `EDUCATION_WALLET_TOPUP`) so the desk cash matches the treasury.
+  - `treasuryNet` across accounts.
+- Partial reversals are netted per payment; fully reversed and failed payments never inflate the method split.
+- UI: the collection-rate tab now also shows "حسب طريقة الدفع" and "حسب الخزينة" panels plus a refunded/gross footnote.
+
+
 
 
 

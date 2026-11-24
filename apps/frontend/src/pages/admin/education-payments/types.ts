@@ -277,3 +277,12 @@ export interface CollectionReport {
   byMonth: Array<{ month: string; billed: number; collected: number; rate: number | null }>;
   byBranch: Array<{ id: string; name: string; billed: number; collected: number; rate: number | null }>;
 }
+
+export interface MethodReport {
+  period: { from: string; to: string; months: number };
+  summary: { gross: number; refunded: number; net: number; payments: number; methods: number };
+  byMethod: Array<{ method: string; label: string; amount: number; count: number; share: number }>;
+  byBranch: Array<{ id: string; name: string; amount: number; count: number }>;
+  byTreasury: Array<{ id: string; name: string; inflow: number; outflow: number; net: number; entries: number }>;
+  treasuryNet: number;
+}

@@ -803,6 +803,22 @@ const recordPayment = async (req, res) => {
   }
 };
 
+const getMethodReport = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationMethodReportService');
+    const data = await service.buildMethodReport(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building method report:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب توزيع المحصّل' });
+  }
+};
+
 const getCollectionReport = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -1560,6 +1576,7 @@ module.exports = {
   getReports,
   getDues,
   getCollectionReport,
+  getMethodReport,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

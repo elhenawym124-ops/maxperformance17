@@ -5,7 +5,7 @@ import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-const api = vi.hoisted(() => ({ fetchCollectionReport: vi.fn() }));
+const api = vi.hoisted(() => ({ fetchCollectionReport: vi.fn(), fetchMethodReport: vi.fn() }));
 vi.mock("../api", () => api);
 
 import { CollectionRateTab } from "../CollectionRateTab";
@@ -36,6 +36,19 @@ const report = {
 beforeEach(() => {
   api.fetchCollectionReport.mockReset();
   api.fetchCollectionReport.mockResolvedValue(report);
+  api.fetchMethodReport.mockReset();
+  api.fetchMethodReport.mockResolvedValue({
+    period: { from: "2026-06-01", to: "2026-11-24", months: 6 },
+    summary: { gross: 1500, refunded: 300, net: 1200, payments: 3, methods: 3 },
+    byMethod: [
+      { method: "CASH", label: "نقدي", amount: 400, count: 1, share: 33.3 },
+      { method: "WALLET", label: "محفظة", amount: 600, count: 1, share: 45.5 },
+      { method: "TRANSFER", label: "تحويل بنكي", amount: 200, count: 1, share: 21.2 },
+    ],
+    byBranch: [],
+    byTreasury: [{ id: "t1", name: "الخزينة الرئيسية", inflow: 700, outflow: 100, net: 600, entries: 4 }],
+    treasuryNet: 600,
+  });
 });
 
 afterEach(() => cleanup());
@@ -76,5 +89,18 @@ describe("CollectionRateTab", () => {
     render(<CollectionRateTab isEn={false} />);
 
     expect(await screen.findByText("فشل التحميل")).toBeInTheDocument();
+  });
+
+  it("breaks collections down by method and treasury", async () => {
+    render(<CollectionRateTab isEn={false} />);
+
+    expect(await screen.findByText("حسب طريقة الدفع")).toBeInTheDocument();
+    expect(screen.getByText("نقدي")).toBeInTheDocument();
+    expect(screen.getByText("محفظة")).toBeInTheDocument();
+    expect(screen.getByText("45.5%")).toBeInTheDocument();
+    expect(screen.getByText("الخزينة الرئيسية")).toBeInTheDocument();
+    expect(screen.getByText("+700")).toBeInTheDocument();
+    expect(screen.getByText("−100")).toBeInTheDocument();
+    expect(api.fetchMethodReport).toHaveBeenCalledWith(6);
   });
 });
