@@ -32,45 +32,41 @@ const normalizeGender = (g) => {
 const generateUniqueStudentCode = async (companyId, prismaClient) => {
   const prisma = prismaClient || getSharedPrismaClient();
   try {
-    const lastStudentWithCode = await prisma.educationStudent.findFirst({
+    // نوحّد الصيغة على ST-### (مطابقة للبيانات الأصلية) بدل STU-#### الذي كان ينتج أرقامًا غير متسقة
+    const allCodes = await prisma.educationStudent.findMany({
       where: { companyId, code: { not: null } },
-      orderBy: { createdAt: 'desc' },
-      select: { code: true }
+      select: { code: true },
     });
-
-    let nextNumber = 1001;
-    if (lastStudentWithCode?.code) {
-      const match = lastStudentWithCode.code.match(/(\d+)$/);
+    let maxNumber = 0;
+    for (const row of allCodes) {
+      const match = String(row.code || '').match(/(\d+)\s*$/);
       if (match) {
-        nextNumber = parseInt(match[1], 10) + 1;
+        const n = parseInt(match[1], 10);
+        if (Number.isFinite(n) && n > maxNumber) maxNumber = n;
       }
-    } else {
-      const count = await prisma.educationStudent.count({ where: { companyId } });
-      nextNumber = 1001 + count;
     }
 
-    let candidate = `STU-${nextNumber}`;
+    let nextNumber = maxNumber + 1;
+    let candidate = `ST-${String(nextNumber).padStart(3, '0')}`;
     let exists = await prisma.educationStudent.findFirst({
       where: { companyId, code: candidate }
     });
-    // حماية من حلقة لا نهائية: لو الاستعلام رجّع صفاً دائماً (أو الكودات كلها مشغولة)
-    // نتوقف بعد حد أقصى ونرجع كوداً زمنياً فريداً بدل تعليق العملية.
     let attempts = 0;
     while (exists && attempts < 1000) {
       attempts += 1;
       nextNumber++;
-      candidate = `STU-${nextNumber}`;
+      candidate = `ST-${String(nextNumber).padStart(3, '0')}`;
       exists = await prisma.educationStudent.findFirst({
         where: { companyId, code: candidate }
       });
     }
     if (exists) {
-      return `STU-${Date.now().toString().slice(-6)}`;
+      return `ST-${Date.now().toString().slice(-6)}`;
     }
     return candidate;
   } catch (err) {
     console.error('[StudentCode] Error generating student code:', err);
-    return `STU-${Date.now().toString().slice(-4)}`;
+    return `ST-${Date.now().toString().slice(-4)}`;
   }
 };
 
