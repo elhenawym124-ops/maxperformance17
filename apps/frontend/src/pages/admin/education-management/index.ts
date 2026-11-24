@@ -18,6 +18,7 @@ export * from "./EducationStudentsPagination";
 export * from "./EducationTeachersTab";
 export * from "./EducationEnrollmentsTab";
 export * from "./EducationSessionsTab";
+export * from "./MakeupSessionModal";
 export * from "./EducationDetailDrawer";
 export * from "./EducationSettingsTab";
 export * from "./EducationLogsTab";

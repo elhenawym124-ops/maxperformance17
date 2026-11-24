@@ -87,6 +87,9 @@ export function useEducationManagementController() {
   const [sessionModal, setSessionModal] = useState<
     Partial<EducationSession> | null | undefined
   >(undefined);
+  const [makeupModal, setMakeupModal] = useState<
+    { id: string; session?: EducationSession } | null | undefined
+  >(undefined);
   const [enrollmentModal, setEnrollmentModal] = useState<
     Partial<EducationEnrollment> | null | undefined
   >(undefined);
@@ -553,26 +556,32 @@ export function useEducationManagementController() {
     }
     fetchSessions();
   };
-  const handleScheduleMakeup = async (id: string) => {
-    const input = window.prompt("موعد حصة التعويض (YYYY-MM-DD HH:mm)");
-    if (!input) return;
-    const normalized = input.trim().replace(" ", "T");
-    const scheduledAt = new Date(normalized);
-    if (Number.isNaN(scheduledAt.getTime())) {
-      alert("صيغة الموعد غير صحيحة");
-      return;
+  const handleScheduleMakeup = (id: string) => {
+    const target = sessions.find((s) => s.id === id);
+    setMakeupModal({ id, session: target });
+  };
+  const handleSubmitMakeup = async (payload: {
+    scheduledAt: string;
+    plannedDuration?: number;
+    teacherId?: string;
+    topic?: string;
+    notes?: string;
+  }): Promise<string | null> => {
+    if (!makeupModal?.id) return "لم يتم تحديد الحصة الأصلية";
+    try {
+      const res = await fetch(api(`sessions/${makeupModal.id}/makeup`), {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!data.success) return data.error || "فشل جدولة حصة التعويض";
+      setMakeupModal(undefined);
+      fetchSessions();
+      return null;
+    } catch (e: any) {
+      return e?.message || "فشل جدولة حصة التعويض";
     }
-    const res = await fetch(api(`sessions/${id}/makeup`), {
-      method: "POST",
-      headers: getAuthHeaders(),
-      body: JSON.stringify({ scheduledAt: scheduledAt.toISOString() }),
-    });
-    const data = await res.json();
-    if (!data.success) {
-      alert(data.error || "فشل جدولة حصة التعويض");
-      return;
-    }
-    fetchSessions();
   };
 
   // Stats
@@ -633,6 +642,8 @@ export function useEducationManagementController() {
     setTeacherModal,
     sessionModal,
     setSessionModal,
+    makeupModal,
+    setMakeupModal,
     enrollmentModal,
     setEnrollmentModal,
     // Filters
@@ -671,5 +682,6 @@ export function useEducationManagementController() {
     handleDeleteSession,
     handleCancelGroupSession,
     handleScheduleMakeup,
+    handleSubmitMakeup,
   };
 }

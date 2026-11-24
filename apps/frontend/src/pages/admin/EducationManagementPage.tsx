@@ -15,6 +15,7 @@ import {
   EducationSettingsData,
 } from "./education-management";
 import { api, fetchJson } from "./education-management/api";
+import { MakeupSessionModal } from "./education-management/MakeupSessionModal";
 import EducationGroupsPage from "./EducationGroupsPage";
 import { EducationExamsTab } from "./education-management/EducationExamsTab";
 
@@ -49,6 +50,8 @@ export default function EducationManagementPage() {
     setTeacherModal,
     sessionModal,
     setSessionModal,
+    makeupModal,
+    setMakeupModal,
     enrollmentModal,
     setEnrollmentModal,
     // Filters
@@ -87,6 +90,7 @@ export default function EducationManagementPage() {
     handleDeleteSession,
     handleCancelGroupSession,
     handleScheduleMakeup,
+    handleSubmitMakeup,
   } = useEducationManagementController();
 
   const { t, i18n } = useTranslation();
@@ -320,6 +324,14 @@ export default function EducationManagementPage() {
               handleDeleteSession={handleDeleteSession}
               handleCancelGroupSession={handleCancelGroupSession}
               onScheduleMakeup={handleScheduleMakeup}
+            />
+          )}
+          {activeTab === "sessions" && makeupModal && (
+            <MakeupSessionModal
+              session={makeupModal.session || { id: makeupModal.id }}
+              teachers={teachers}
+              onClose={() => setMakeupModal(undefined)}
+              onSave={handleSubmitMakeup}
             />
           )}
           {activeTab === "exams" && <EducationExamsTab />}
