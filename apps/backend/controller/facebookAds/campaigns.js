@@ -158,13 +158,22 @@ const getCampaigns = async (req, res) => {
     );
 
     if (!adAccountScope) {
+      // لا يوجد حساب Meta مربوط: نعرض الحملات المحلية (غير المرتبطة بحساب)
+      // بدل إرجاع قائمة فاضية تُخفي حملات العميل المُدخلة يدويًا.
+      const localCampaigns = await getSharedPrismaClient().facebookCampaign.findMany({
+        where: { companyId, adAccountId: null },
+        orderBy: { createdAt: 'desc' },
+        take: 50,
+      });
       return res.json({
         success: true,
-        data: [],
-        count: 0,
+        data: localCampaigns,
+        count: localCampaigns.length,
         meta: {
-          accountScoped: true,
+          accountScoped: false,
           adAccount: null,
+          localOnly: true,
+          hint: 'لا يوجد حساب إعلاني مربوط — تُعرض الحملات المحلية فقط.',
         },
       });
     }
