@@ -437,6 +437,30 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "meat-shop",
     "جزارة ولحوم",
   ),
+  "tpl-069-noor-pharmacy": createThemeCategoryMeta(
+    "medical",
+    "طبي وصحي",
+    "pharmacy",
+    "صيدلية",
+  ),
+  "tpl-070-afia-pharmacy": createThemeCategoryMeta(
+    "medical",
+    "طبي وصحي",
+    "pharmacy",
+    "صيدلية",
+  ),
+  "tpl-071-salama-pharmacy": createThemeCategoryMeta(
+    "medical",
+    "طبي وصحي",
+    "pharmacy",
+    "صيدلية",
+  ),
+  "tpl-072-sehaty-pharmacy": createThemeCategoryMeta(
+    "medical",
+    "طبي وصحي",
+    "pharmacy",
+    "صيدلية",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -1139,6 +1163,14 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب جزارة عربي للعزومات: هيرو لوحة جانبية، تبويبات تسوّق حسب الطبخة، بوكسات عزومة جاهزة وشريط ثقة — أخضر داكن وذهبي على كريمي.",
   "tpl-068-baladi-butchery":
     "قالب جزارة بلدي أصلي: هيرو صورة واسعة، فئات تحريرية، شبكة تقطيعات، بوكسات البيت، وتقييمات + واتساب للطلب السريع — طوبي وكريمي.",
+  "tpl-069-noor-pharmacy":
+    "قالب صيدلية بمنطق الطلب السريع: هيرو صورة واسعة بزر رفع روشتة، شريط تنقّل أقسام، شبكة أصناف، موزايك «الأكثر طلبًا»، تقييمات مختصرة وشريط توصيل. أخضر طبي وأصفر صيدلية على أبيض بارد — مبني لصيدلية بتوصّل الدوا في ساعتين.",
+  "tpl-070-afia-pharmacy":
+    "قالب صيدلية بمنطق كتالوج العافية: شريط عرض، هيرو نصفين بعرض الشهر، فئات كتالوج، باقات فيتامينات، شبكة أصناف كثيفة، شريط خدمات، صور عملاء، ومجلة نصائح صحية. أزرق طبي وأخضر مائي على أبيض — مبني لصيدلية بتبيع فيتامينات ومستحضرات العناية أكتر من الدوا.",
+  "tpl-071-salama-pharmacy":
+    "قالب صيدلية عربي موبايل-أولًا بمنطق الواتساب: هيرو صيدلية، دوائر أقسام، شبكة أصناف، شريط ثقة بالدفع عند الاستلام، صور عملاء، وتقييمات وزر واتساب لرفع الروشتة. أخضر زمردي وذهبي على كريمي — مبني لصيدلية بتستقبل الروشتة على واتساب وبتوصّل بالدفع عند الاستلام.",
+  "tpl-072-sehaty-pharmacy":
+    "قالب صيدلية أصلي بمنطق «اشتراك الدوا الشهري»: هيرو لوحة اشتراك، مخطّط مدة وعدد الأدوية، بوكسات شهرية، فئات تحريرية، تذكير قبل الميعاد، ودفتر نصائح للمرض المزمن. نيلي ومرجاني على أبيض بارد — مبني لصيدلية بتشتغل على الرفيل الشهري والروشتة الواحدة.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1430,6 +1462,14 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-067-dahab-meat/preview.png",
   "tpl-068-baladi-butchery":
     "/assets/themes/tpl-068-baladi-butchery/preview.png",
+  "tpl-069-noor-pharmacy":
+    "/assets/themes/tpl-069-noor-pharmacy/preview.png",
+  "tpl-070-afia-pharmacy":
+    "/assets/themes/tpl-070-afia-pharmacy/preview.png",
+  "tpl-071-salama-pharmacy":
+    "/assets/themes/tpl-071-salama-pharmacy/preview.png",
+  "tpl-072-sehaty-pharmacy":
+    "/assets/themes/tpl-072-sehaty-pharmacy/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":

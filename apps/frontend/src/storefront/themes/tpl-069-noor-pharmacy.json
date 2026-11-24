@@ -1,0 +1,539 @@
+{
+  "id": "tpl-069-noor-pharmacy",
+  "name": "Noor — صيدلية",
+  "description": "قالب صيدلية بمنطق الطلب السريع: هيرو صورة واسعة بزر رفع روشتة، شريط تنقّل أقسام، شبكة أصناف، موزايك «الأكثر طلبًا»، تقييمات مختصرة وشريط توصيل. أخضر طبي وأصفر صيدلية على أبيض بارد — مبني لصيدلية بتوصّل الدوا في ساعتين.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "174 62% 24%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "174 40% 92%",
+      "secondaryForeground": "174 50% 14%",
+      "accent": "38 94% 52%",
+      "accentForeground": "30 60% 12%",
+      "background": "180 34% 98%",
+      "foreground": "176 26% 10%",
+      "muted": "180 26% 94%",
+      "mutedForeground": "176 10% 38%",
+      "border": "180 16% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "176 26% 10%",
+      "ring": "38 94% 52%"
+    },
+    "typography": {
+      "headingFont": "Cairo, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(210 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(210 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | NOOR",
+    "description": "قالب صيدلية بمنطق الطلب السريع: هيرو صورة واسعة بزر رفع روشتة، شريط تنقّل أقسام، شبكة أصناف، موزايك «الأكثر طلبًا»، تقييمات مختصرة وشريط توصيل. أخضر طبي وأصفر صيدلية على أبيض بارد — مبني لصيدلية بتوصّل الدوا في ساعتين."
+  },
+  "preview": {
+    "colors": [
+      "174 62% 24%",
+      "38 94% 52%",
+      "180 34% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-069-noor-pharmacy/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "NOOR",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "توصيل في ساعتين · صيدلي مرخّص بيراجع كل طلب · دفع عند الاستلام",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الأدوية",
+        "to": "/shop?category=medicine"
+      },
+      {
+        "label": "فيتامينات",
+        "to": "/shop?category=vitamins"
+      },
+      {
+        "label": "العناية",
+        "to": "/shop?category=care"
+      },
+      {
+        "label": "الروشتة",
+        "to": "/contact"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "NOOR — قالب صيدلية بمنطق الطلب السريع.",
+    "copyrightText": "© 2026 NOOR",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الأدوية",
+            "to": "/shop?category=medicine"
+          },
+          {
+            "label": "فيتامينات",
+            "to": "/shop?category=vitamins"
+          },
+          {
+            "label": "العناية",
+            "to": "/shop?category=care"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل ساعتين",
+            "message": "أي طلب قبل ٨ بالليل يوصلك نفس اليوم — القاهرة والجيزة",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "dawn-image-banner",
+          "settings": {
+            "eyebrow": "صيدلية مرخّصة",
+            "title": "الدوا بتاعك يوصلك في ساعتين",
+            "subtitle": "أكتر من ٦٠٠٠ صنف دواء ومستحضرات — كل طلب بيراجعه صيدلي مرخّص، والسعر مكتوب قبل الدفع.",
+            "ctaText": "ارفع الروشتة",
+            "ctaLink": "/contact",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-069-noor-pharmacy/hero.jpg",
+            "panelImage": "/assets/themes/tpl-069-noor-pharmacy/hero.jpg",
+            "highlights": [
+              {
+                "label": "توصيل",
+                "value": "ساعتين"
+              },
+              {
+                "label": "صيدلي",
+                "value": "مرخّص"
+              },
+              {
+                "label": "الدفع",
+                "value": "عند الاستلام"
+              }
+            ],
+            "panelEyebrow": "صيدلية مرخّصة",
+            "panelTitle": "الدوا بتاعك يوصلك في ساعتين",
+            "panelSubtitle": "أكتر من ٦٠٠٠ صنف دواء ومستحضرات — كل طلب بيراجعه صيدلي مرخّص، والسعر مكتوب قبل الدفع.",
+            "panelMetricValue": "صيدلي مرخّص"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "أقسام الصيدلية",
+            "subtitle": "أدوية · فيتامينات · عناية · أم وطفل",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "shopping-intents",
+          "settings": {
+            "badge": "ابدأ من احتياجك",
+            "title": "عندك إيه؟",
+            "subtitle": "اختار من الأعراض — وإحنا نوصلك اللي محتاجه",
+            "ctaText": "افتح القسم",
+            "items": [
+              {
+                "eyebrow": "صداع",
+                "title": "مسكّنات الصداع",
+                "subtitle": "باراسيتامول · إيبوبروفين",
+                "link": "/shop?category=medicine"
+              },
+              {
+                "eyebrow": "برد",
+                "title": "البرد والأنفلونزا",
+                "subtitle": "خافض حرارة · فيتامين سي",
+                "link": "/shop?category=medicine"
+              },
+              {
+                "eyebrow": "معدة",
+                "title": "المعدة والهضم",
+                "subtitle": "مضاد حموضة · إنزيمات",
+                "link": "/shop?category=medicine"
+              },
+              {
+                "eyebrow": "حساسية",
+                "title": "الحساسية",
+                "subtitle": "مضاد هيستامين · بخاخات",
+                "link": "/shop?category=medicine"
+              }
+            ]
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الأقسام",
+            "title": "أقسام الصيدلية",
+            "subtitle": "اختار القسم وابدأ",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "أدوية",
+                "title": "أدوية بدون روشتة",
+                "subtitle": "مسكّنات · برد · معدة",
+                "image": "/assets/themes/tpl-069-noor-pharmacy/aisle-1.jpg",
+                "link": "/shop?category=medicine"
+              },
+              {
+                "label": "فيتامينات",
+                "title": "فيتامينات ومكمّلات",
+                "subtitle": "د · ب١٢ · حديد · زنك",
+                "image": "/assets/themes/tpl-069-noor-pharmacy/aisle-2.jpg",
+                "link": "/shop?category=vitamins"
+              },
+              {
+                "label": "عناية",
+                "title": "عناية وأم وطفل",
+                "subtitle": "بشرة · شعر · حفاضات",
+                "image": "/assets/themes/tpl-069-noor-pharmacy/hero.jpg",
+                "link": "/shop?category=care"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "الأصناف الأكثر طلبًا",
+            "subtitle": "من طلبات العملاء — مش استوديو",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-069-noor-pharmacy/aisle-1.jpg",
+                "title": "الأكثر طلبًا",
+                "subtitle": "مسكّنات وبرد — بتتطلب كل يوم",
+                "priceLabel": "45 ج.م",
+                "link": "/shop?category=medicine"
+              },
+              {
+                "image": "/assets/themes/tpl-069-noor-pharmacy/aisle-2.jpg",
+                "title": "الفيتامينات",
+                "subtitle": "د · ب١٢ · حديد — كورس شهر",
+                "priceLabel": "180 ج.م",
+                "link": "/shop?category=vitamins"
+              },
+              {
+                "image": "/assets/themes/tpl-069-noor-pharmacy/hero.jpg",
+                "title": "العناية",
+                "subtitle": "بشرة وحساسية — براندات صيدلية",
+                "priceLabel": "220 ج.م",
+                "link": "/shop?category=care"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "تقييمات العملاء",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "منى ع.",
+                "text": "الروشتة اترفعت الساعة ٩ ووصلت ١١ — الصيدلي كلّمني يأكد الجرعة.",
+                "rating": 5
+              },
+              {
+                "author": "أحمد س.",
+                "text": "السعر مكتوب والبديل أرخص اتعرض عليّ قبل ما أدفع.",
+                "rating": 5
+              },
+              {
+                "author": "سارة م.",
+                "text": "الفيتامينات أصلية وتاريخ الصلاحية واضح على العبوة.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "توصيل ساعتين",
+                "description": "القاهرة والجيزة نفس اليوم — باقي المحافظات ٢٤ ساعة"
+              },
+              {
+                "title": "صيدلي مرخّص",
+                "description": "كل طلب بيتشاف قبل ما يتعبّى — والروشتة بتتراجع"
+              },
+              {
+                "title": "منتجات أصلية",
+                "description": "موردين معتمدين وتاريخ صلاحية مكتوب على الفاتورة"
+              },
+              {
+                "title": "دفع عند الاستلام",
+                "description": "متاح لحد ٣٠٠٠ ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "عروض الصيدلية في بريدك",
+            "subtitle": "رسالة واحدة كل أسبوع: عروض الفيتامينات والعناية.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "الصيدلية",
+            "subtitle": "أدوية · فيتامينات · عناية — سعر مكتوب",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "minimal-toolbar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "quick"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة الصيدلية",
+            "subtitle": "راجع الأصناف والجرعة قبل الدفع — التوصيل في ساعتين.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "market-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام الصيدلية",
+            "subtitle": "أدوية · فيتامينات · عناية · أم وطفل",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الأقسام",
+            "title": "أقسام الصيدلية",
+            "subtitle": "اختار القسم وابدأ",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "أدوية",
+                "title": "أدوية بدون روشتة",
+                "subtitle": "مسكّنات · برد · معدة",
+                "image": "/assets/themes/tpl-069-noor-pharmacy/aisle-1.jpg",
+                "link": "/shop?category=medicine"
+              },
+              {
+                "label": "فيتامينات",
+                "title": "فيتامينات ومكمّلات",
+                "subtitle": "د · ب١٢ · حديد · زنك",
+                "image": "/assets/themes/tpl-069-noor-pharmacy/aisle-2.jpg",
+                "link": "/shop?category=vitamins"
+              },
+              {
+                "label": "عناية",
+                "title": "عناية وأم وطفل",
+                "subtitle": "بشرة · شعر · حفاضات",
+                "image": "/assets/themes/tpl-069-noor-pharmacy/hero.jpg",
+                "link": "/shop?category=care"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو روشتة أو ميعاد توصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

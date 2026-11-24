@@ -1,0 +1,543 @@
+{
+  "id": "tpl-072-sehaty-pharmacy",
+  "name": "Sehaty — صيدلية الاشتراك",
+  "description": "قالب صيدلية أصلي بمنطق «اشتراك الدوا الشهري»: هيرو لوحة اشتراك، مخطّط مدة وعدد الأدوية، بوكسات شهرية، فئات تحريرية، تذكير قبل الميعاد، ودفتر نصائح للمرض المزمن. نيلي ومرجاني على أبيض بارد — مبني لصيدلية بتشتغل على الرفيل الشهري والروشتة الواحدة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "222 48% 30%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "200 40% 93%",
+      "secondaryForeground": "222 40% 16%",
+      "accent": "12 76% 52%",
+      "accentForeground": "0 0% 100%",
+      "background": "210 36% 98%",
+      "foreground": "222 26% 12%",
+      "muted": "210 26% 94%",
+      "mutedForeground": "222 10% 38%",
+      "border": "214 18% 87%",
+      "card": "0 0% 100%",
+      "cardForeground": "222 26% 12%",
+      "ring": "12 76% 52%"
+    },
+    "typography": {
+      "headingFont": "Readex Pro, Almarai, sans-serif",
+      "bodyFont": "Readex Pro, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(210 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(210 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | SEHATY",
+    "description": "قالب صيدلية أصلي بمنطق «اشتراك الدوا الشهري»: هيرو لوحة اشتراك، مخطّط مدة وعدد الأدوية، بوكسات شهرية، فئات تحريرية، تذكير قبل الميعاد، ودفتر نصائح للمرض المزمن. نيلي ومرجاني على أبيض بارد — مبني لصيدلية بتشتغل على الرفيل الشهري والروشتة الواحدة."
+  },
+  "preview": {
+    "colors": [
+      "222 48% 30%",
+      "12 76% 52%",
+      "210 36% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-072-sehaty-pharmacy/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "SEHATY",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "اشتراك شهري للأدوية المزمنة · تذكير ٣ أيام قبل الميعاد · إيقاف في أي وقت",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الاشتراكات",
+        "to": "/collections"
+      },
+      {
+        "label": "أدوية",
+        "to": "/shop?category=medicine"
+      },
+      {
+        "label": "فيتامينات",
+        "to": "/shop?category=vitamins"
+      },
+      {
+        "label": "الدفتر",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "SEHATY — قالب صيدلية أصلي بمنطق «اشتراك الدوا الشهري».",
+    "copyrightText": "© 2026 SEHATY",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الاشتراكات",
+            "to": "/collections"
+          },
+          {
+            "label": "أدوية",
+            "to": "/shop?category=medicine"
+          },
+          {
+            "label": "فيتامينات",
+            "to": "/shop?category=vitamins"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "drop-board",
+          "settings": {
+            "eyebrow": "اشتراك الدوا الشهري",
+            "title": "دواك الشهري بيوصلك قبل ما يخلص",
+            "subtitle": "ارفع الروشتة مرة واحدة، الصيدلي يراجعها، وإحنا نجهّز ونبعت الدوا كل شهر — وتقدر توقف أو تعدّل في أي وقت.",
+            "ctaText": "جهّز اشتراكك",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-072-sehaty-pharmacy/hero.jpg",
+            "panelImage": "/assets/themes/tpl-072-sehaty-pharmacy/hero.jpg",
+            "highlights": [
+              {
+                "label": "اشتراك",
+                "value": "شهري"
+              },
+              {
+                "label": "تذكير",
+                "value": "٣ أيام"
+              },
+              {
+                "label": "إيقاف",
+                "value": "في أي وقت"
+              }
+            ],
+            "panelEyebrow": "اشتراك الدوا الشهري",
+            "panelTitle": "دواك الشهري بيوصلك قبل ما يخلص",
+            "panelSubtitle": "ارفع الروشتة مرة واحدة، الصيدلي يراجعها، وإحنا نجهّز ونبعت الدوا كل شهر — وتقدر توقف أو تعدّل في أي وقت.",
+            "panelMetricValue": ""
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "chips",
+          "settings": {
+            "title": "جهّز اشتراكك في دقيقة",
+            "subtitle": "مدة الاشتراك ← عدد الأدوية",
+            "ctaText": "شوف الاشتراك",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "شهر"
+              },
+              {
+                "label": "٣ شهور"
+              },
+              {
+                "label": "٦ شهور"
+              }
+            ],
+            "moods": [
+              {
+                "label": "دوا واحد"
+              },
+              {
+                "label": "دواين"
+              },
+              {
+                "label": "٣ أدوية وأكتر"
+              }
+            ],
+            "looks": [
+              {
+                "title": "اشتراك شهر",
+                "subtitle": "دوا واحد · تذكير قبل الميعاد",
+                "price": "بسعر الصيدلية",
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/aisle-1.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "اشتراك ٣ شهور",
+                "subtitle": "توفير ٨% + توصيل مجاني",
+                "price": "توفير ٨%",
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/hero.jpg",
+                "link": "/collections"
+              },
+              {
+                "title": "اشتراك ٦ شهور",
+                "subtitle": "توفير ١٥% + متابعة صيدلي",
+                "price": "توفير ١٥%",
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "الأصناف الأكثر طلبًا",
+            "subtitle": "من طلبات العملاء — مش استوديو",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/aisle-1.jpg",
+                "title": "دوا الضغط",
+                "subtitle": "شهر واحد · تذكير قبل الميعاد",
+                "priceLabel": "بسعر الصيدلية",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/hero.jpg",
+                "title": "دوا السكر",
+                "subtitle": "٣ شهور · توفير ٨%",
+                "priceLabel": "توفير ٨%",
+                "link": "/collections"
+              },
+              {
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/aisle-2.jpg",
+                "title": "فيتامينات مزمنة",
+                "subtitle": "٦ شهور · توفير ١٥%",
+                "priceLabel": "توفير ١٥%",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "اشتراكات الصيدلية",
+            "subtitle": "شهر · ٣ شهور · ٦ شهور",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "باقات",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "اشتراك 1",
+                "title": "اشتراك الشهر",
+                "subtitle": "دوا واحد أو أكتر مع تذكير",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "بسعر الصيدلية"
+              },
+              {
+                "label": "اشتراك 2",
+                "title": "اشتراك ٣ شهور",
+                "subtitle": "توفير ٨% وتوصيل مجاني",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير ٨%"
+              },
+              {
+                "label": "اشتراك 3",
+                "title": "اشتراك ٦ شهور",
+                "subtitle": "توفير ١٥% ومتابعة صيدلي",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير ١٥%"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "مرضى بيستلموا كل شهر",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "حسن ع.",
+                "text": "دوا الضغط بقى يوصلني قبل ما يخلص بـ٣ أيام — مش محتاج أفكر.",
+                "rating": 5
+              },
+              {
+                "author": "نادية ف.",
+                "text": "الصيدلي راجع أدويتي وقالي فيه تعارض بين اتنين.",
+                "rating": 5
+              },
+              {
+                "author": "رمضان ص.",
+                "text": "وقفت الاشتراك شهر ورشّحته تاني من غير مشاكل.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "سعر ثابت",
+                "description": "سعر الاشتراك متعروف قبل الشحن — مفيش مفاجآت"
+              },
+              {
+                "title": "تذكير قبل الميعاد",
+                "description": "بنبعتلك ٣ أيام قبل ما الدوا يخلص"
+              },
+              {
+                "title": "مراجعة صيدلي",
+                "description": "كل روشتة بتتراجع وبنكلمك لو فيه تعارض"
+              },
+              {
+                "title": "إيقاف في أي وقت",
+                "description": "جمّد أو غيّر الاشتراك من حسابك"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "دفتر الصحة في بريدك",
+            "subtitle": "رسالة واحدة في الشهر: نصيحة للمرض المزمن وتنبيهات الأدوية.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "badge": "المجلة",
+            "title": "نصائح صحية من الصيدلي",
+            "subtitle": "كل نصيحة مربوطة بصنف في الصيدلية",
+            "items": [
+              {
+                "tag": "دفتر الصحة",
+                "title": "إزاي تخزّن دواك صح",
+                "excerpt": "بعيد عن الحمام والحرارة — والعبوة الأصلية بتحمي من الشمس.",
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/hero.jpg",
+                "link": "/collections"
+              },
+              {
+                "tag": "تنبيه",
+                "title": "أدوية مينفعش تتاخد مع بعض",
+                "excerpt": "قبل أي مسكّن جديد، ابعت قايمة أدويتك للصيدلي يراجعها.",
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/aisle-1.jpg",
+                "link": "/contact"
+              },
+              {
+                "tag": "نصيحة",
+                "title": "إزاي متنساش جرعة",
+                "excerpt": "اربط الدوا بروتين يومي ثابت — والتذكير بيفرق.",
+                "image": "/assets/themes/tpl-072-sehaty-pharmacy/aisle-2.jpg",
+                "link": "/collections"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "الصيدلية",
+            "subtitle": "أدوية · فيتامينات · اشتراكات",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "default-discovery"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "masonry"
+        },
+        {
+          "type": "product-info",
+          "variant": "bento-specs"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "detailed"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "complete-look"
+        },
+        {
+          "type": "related-products",
+          "variant": "list"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "editorial",
+          "settings": {
+            "title": "سلة الاشتراك",
+            "subtitle": "راجع مدة الاشتراك وموعد التوصيل قبل الدفع.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "اشتراكات الصيدلية",
+            "subtitle": "شهر · ٣ شهور · ٦ شهور",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو روشتة أو ميعاد توصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

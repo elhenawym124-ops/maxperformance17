@@ -1,0 +1,426 @@
+{
+  "id": "tpl-071-salama-pharmacy",
+  "name": "Salama — صيدلية السلامة",
+  "description": "قالب صيدلية عربي موبايل-أولًا بمنطق الواتساب: هيرو صيدلية، دوائر أقسام، شبكة أصناف، شريط ثقة بالدفع عند الاستلام، صور عملاء، وتقييمات وزر واتساب لرفع الروشتة. أخضر زمردي وذهبي على كريمي — مبني لصيدلية بتستقبل الروشتة على واتساب وبتوصّل بالدفع عند الاستلام.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "158 44% 26%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "42 52% 92%",
+      "secondaryForeground": "158 40% 16%",
+      "accent": "42 70% 50%",
+      "accentForeground": "36 60% 12%",
+      "background": "44 42% 98%",
+      "foreground": "158 20% 11%",
+      "muted": "44 30% 94%",
+      "mutedForeground": "158 10% 38%",
+      "border": "42 22% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "158 20% 11%",
+      "ring": "42 70% 50%"
+    },
+    "typography": {
+      "headingFont": "IBM Plex Sans Arabic, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1.25rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1.25rem",
+      "boxShadow": "0 6px 22px hsl(210 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(210 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | SALAMA",
+    "description": "قالب صيدلية عربي موبايل-أولًا بمنطق الواتساب: هيرو صيدلية، دوائر أقسام، شبكة أصناف، شريط ثقة بالدفع عند الاستلام، صور عملاء، وتقييمات وزر واتساب لرفع الروشتة. أخضر زمردي وذهبي على كريمي — مبني لصيدلية بتستقبل الروشتة على واتساب وبتوصّل بالدفع عند الاستلام."
+  },
+  "preview": {
+    "colors": [
+      "158 44% 26%",
+      "42 70% 50%",
+      "44 42% 98%"
+    ],
+    "imageUrl": "/assets/themes/tpl-071-salama-pharmacy/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "SALAMA",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "الدفع عند الاستلام في كل المحافظات · روشتتك على واتساب · توصيل ٢٤ ساعة",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "الصيدلية",
+        "to": "/shop"
+      },
+      {
+        "label": "أدوية",
+        "to": "/shop?category=medicine"
+      },
+      {
+        "label": "فيتامينات",
+        "to": "/shop?category=vitamins"
+      },
+      {
+        "label": "عناية",
+        "to": "/shop?category=care"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "SALAMA — قالب صيدلية عربي موبايل-أولًا بمنطق الواتساب.",
+    "copyrightText": "© 2026 SALAMA",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "الصيدلية",
+            "to": "/shop"
+          },
+          {
+            "label": "أدوية",
+            "to": "/shop?category=medicine"
+          },
+          {
+            "label": "فيتامينات",
+            "to": "/shop?category=vitamins"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل ٢٤ ساعة",
+            "message": "الطلب قبل ٦ المغرب يوصل بكرة — والدفع عند الاستلام",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "elessi-organic-harvest",
+          "settings": {
+            "eyebrow": "من الصيدلية",
+            "title": "روشتتك على واتساب وتوصلك لباب البيت",
+            "subtitle": "ابعت صورة الروشتة، الصيدلي يراجعها ويأكد السعر، وإنت تدفع عند الاستلام.",
+            "ctaText": "ابعت الروشتة",
+            "ctaLink": "/contact",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-071-salama-pharmacy/hero.jpg",
+            "panelImage": "/assets/themes/tpl-071-salama-pharmacy/hero.jpg",
+            "highlights": [
+              {
+                "label": "دفع",
+                "value": "عند الاستلام"
+              },
+              {
+                "label": "توصيل",
+                "value": "٢٤ ساعة"
+              },
+              {
+                "label": "روشتة",
+                "value": "واتساب"
+              }
+            ],
+            "panelEyebrow": "من الصيدلية",
+            "panelTitle": "روشتتك على واتساب وتوصلك لباب البيت",
+            "panelSubtitle": "ابعت صورة الروشتة، الصيدلي يراجعها ويأكد السعر، وإنت تدفع عند الاستلام.",
+            "panelMetricValue": ""
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "easyorders-circles",
+          "settings": {
+            "title": "أقسام الصيدلية",
+            "subtitle": "أدوية · فيتامينات · عناية · أم وطفل",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "الدفع عند الاستلام",
+                "description": "تفتح وتشوف قبل ما تدفع"
+              },
+              {
+                "title": "روشتة على واتساب",
+                "description": "ابعت صورة الروشتة — الصيدلي يرد ويأكد"
+              },
+              {
+                "title": "توصيل ٢٤ ساعة",
+                "description": "القاهرة والجيزة — وباقي المحافظات ٤٨ ساعة"
+              },
+              {
+                "title": "سعر مكتوب",
+                "description": "السعر والبديل الأرخص بيظهر قبل الدفع"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من عملاء الصيدلية",
+            "subtitle": "صوّر طلبك ووسمنا",
+            "handle": "salama.pharmacy",
+            "images": [
+              "/assets/themes/tpl-071-salama-pharmacy/hero.jpg",
+              "/assets/themes/tpl-071-salama-pharmacy/aisle-1.jpg",
+              "/assets/themes/tpl-071-salama-pharmacy/aisle-2.jpg"
+            ]
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green",
+          "settings": {
+            "phone": "+201****0000",
+            "message": "مرحبًا، عايز أرفع روشتة وأطلب من الصيدلية",
+            "label": "ابعت الروشتة على واتساب",
+            "subtitle": "الصيدلي بيرد خلال دقائق"
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "standard",
+          "settings": {
+            "title": "عملاء الصيدلية",
+            "intro": "تقييمات موثقة من طلبات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "أم يوسف",
+                "text": "بعت الروشتة على واتساب ووصلني الطلب تاني يوم — الدفع عند الاستلام.",
+                "rating": 5
+              },
+              {
+                "author": "محمود ر.",
+                "text": "الصيدلي اقترح بديل أرخص بنفس المادة الفعالة.",
+                "rating": 4
+              },
+              {
+                "author": "إيمان ع.",
+                "text": "الفيتامينات أصلية والسعر أقل من صيدلية الشارع.",
+                "rating": 5
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "عروض الصيدلية على الواتساب",
+            "subtitle": "رسالة واحدة في الأسبوع بأرخص الفيتامينات وأهم التنبيهات.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "الصيدلية",
+            "subtitle": "أدوية · فيتامينات · عناية — سعر النهاردة",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "elessi-organic-toolbar"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "size-guide",
+          "variant": "quick"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "editorial"
+        },
+        {
+          "type": "related-products",
+          "variant": "graceful-related"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "nature-cart",
+          "settings": {
+            "title": "سلة الصيدلية",
+            "subtitle": "حدد المحافظة وطريقة الدفع — الدفع عند الاستلام متاح.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "nature-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام الصيدلية",
+            "subtitle": "أدوية · فيتامينات · عناية · أم وطفل",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو روشتة أو ميعاد توصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

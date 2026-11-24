@@ -64,7 +64,7 @@ export const MARKETPLACE_SUBCATEGORY_ORDER: Record<string, string[]> = {
   electronics: ["mobile-store", "tech-store", "gaming-store"],
   home: ["furniture-decor", "housewares"],
   automotive: ["car-accessories"],
-  medical: ["dental-lab"],
+  medical: ["dental-lab", "pharmacy"],
   kids: ["toys"],
   digital: ["web3"],
   "education": ["kids-academy"],

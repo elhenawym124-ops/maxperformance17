@@ -1,0 +1,559 @@
+{
+  "id": "tpl-070-afia-pharmacy",
+  "name": "Afia — صيدلية العافية",
+  "description": "قالب صيدلية بمنطق كتالوج العافية: شريط عرض، هيرو نصفين بعرض الشهر، فئات كتالوج، باقات فيتامينات، شبكة أصناف كثيفة، شريط خدمات، صور عملاء، ومجلة نصائح صحية. أزرق طبي وأخضر مائي على أبيض — مبني لصيدلية بتبيع فيتامينات ومستحضرات العناية أكتر من الدوا.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "214 56% 32%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "168 46% 92%",
+      "secondaryForeground": "168 40% 16%",
+      "accent": "168 56% 38%",
+      "accentForeground": "0 0% 100%",
+      "background": "210 44% 99%",
+      "foreground": "214 30% 12%",
+      "muted": "210 30% 95%",
+      "mutedForeground": "214 12% 42%",
+      "border": "210 22% 88%",
+      "card": "0 0% 100%",
+      "cardForeground": "214 30% 12%",
+      "ring": "168 56% 38%"
+    },
+    "typography": {
+      "headingFont": "Alexandria, Almarai, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.75rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "0.75rem",
+      "boxShadow": "0 6px 22px hsl(210 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(210 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | AFIA",
+    "description": "قالب صيدلية بمنطق كتالوج العافية: شريط عرض، هيرو نصفين بعرض الشهر، فئات كتالوج، باقات فيتامينات، شبكة أصناف كثيفة، شريط خدمات، صور عملاء، ومجلة نصائح صحية. أزرق طبي وأخضر مائي على أبيض — مبني لصيدلية بتبيع فيتامينات ومستحضرات العناية أكتر من الدوا."
+  },
+  "preview": {
+    "colors": [
+      "214 56% 32%",
+      "168 56% 38%",
+      "210 44% 99%"
+    ],
+    "imageUrl": "/assets/themes/tpl-070-afia-pharmacy/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "AFIA",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "خصم ٢٥% على الفيتامينات · توصيل مجاني فوق ٥٠٠ ج.م · استبدال ١٤ يوم",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "العروض",
+        "to": "/shop?sort=discount"
+      },
+      {
+        "label": "فيتامينات",
+        "to": "/shop?category=vitamins"
+      },
+      {
+        "label": "عناية",
+        "to": "/shop?category=care"
+      },
+      {
+        "label": "أم وطفل",
+        "to": "/shop?category=care"
+      },
+      {
+        "label": "المجلة",
+        "to": "/collections"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "AFIA — قالب صيدلية بمنطق كتالوج العافية.",
+    "copyrightText": "© 2026 AFIA",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "العروض",
+            "to": "/shop?sort=discount"
+          },
+          {
+            "label": "فيتامينات",
+            "to": "/shop?category=vitamins"
+          },
+          {
+            "label": "عناية",
+            "to": "/shop?category=care"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "خصم ٢٥%",
+            "message": "على باقات الفيتامينات — لحد آخر الأسبوع",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "split-panel",
+          "settings": {
+            "eyebrow": "عرض الشهر",
+            "title": "فيتامينات ومكمّلات بخصم لحد ٢٥%",
+            "subtitle": "براندات أصلية وتاريخ صلاحية مكتوب على كل عبوة — وتوصيل مجاني فوق ٥٠٠ ج.م.",
+            "ctaText": "شوف العروض",
+            "ctaLink": "/shop?sort=discount",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-070-afia-pharmacy/hero.jpg",
+            "panelImage": "/assets/themes/tpl-070-afia-pharmacy/hero.jpg",
+            "highlights": [
+              {
+                "label": "خصم",
+                "value": "لحد ٢٥%"
+              },
+              {
+                "label": "توصيل",
+                "value": "مجاني +٥٠٠"
+              },
+              {
+                "label": "استبدال",
+                "value": "١٤ يوم"
+              }
+            ],
+            "panelEyebrow": "عرض الشهر",
+            "panelTitle": "فيتامينات ومكمّلات بخصم لحد ٢٥%",
+            "panelSubtitle": "براندات أصلية وتاريخ صلاحية مكتوب على كل عبوة — وتوصيل مجاني فوق ٥٠٠ ج.م.",
+            "panelMetricValue": ""
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام الكتالوج",
+            "subtitle": "فيتامينات · عناية · أم وطفل · عروض",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الفيتامينات",
+            "title": "أقسام العافية",
+            "subtitle": "فيتامينات · عناية · أم وطفل",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "فيتامينات",
+                "title": "فيتامينات ومكمّلات",
+                "subtitle": "د · ب١٢ · أوميجا · زنك",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/aisle-1.jpg",
+                "link": "/shop?category=vitamins"
+              },
+              {
+                "label": "عناية",
+                "title": "العناية بالبشرة",
+                "subtitle": "غسول · مرطب · صن بلوك",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/aisle-2.jpg",
+                "link": "/shop?category=care"
+              },
+              {
+                "label": "أم وطفل",
+                "title": "أم وطفل",
+                "subtitle": "حفاضات · ألبان · فيتامينات أطفال",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/hero.jpg",
+                "link": "/shop?category=care"
+              }
+            ]
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "category-promo",
+          "settings": {
+            "badge": "باقات",
+            "title": "باقات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "باقة 1",
+                "title": "باقة الطاقة اليومية",
+                "subtitle": "فيتامين د · ب١٢ · حديد · زنك",
+                "link": "/shop?category=vitamins",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 90"
+              },
+              {
+                "label": "باقة 2",
+                "title": "باقة المناعة",
+                "subtitle": "فيتامين سي · زنك · أوميجا 3",
+                "link": "/shop?category=vitamins",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 120"
+              },
+              {
+                "label": "باقة 3",
+                "title": "باقة العناية",
+                "subtitle": "غسول · مرطب · صن بلوك",
+                "link": "/shop?category=care",
+                "ctaText": "اعرف أكتر",
+                "stat": "توفير 75"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختارة لك",
+            "title": "أصناف بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه تشتري مننا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "توصيل مجاني",
+                "description": "على أي طلب فوق ٥٠٠ ج.م — القاهرة والجيزة ٢٤ ساعة"
+              },
+              {
+                "title": "منتجات أصلية",
+                "description": "موردين معتمدين وفاتورة بتاريخ صلاحية"
+              },
+              {
+                "title": "دفع عند الاستلام",
+                "description": "متاح لحد ٣٠٠٠ ج.م"
+              },
+              {
+                "title": "استبدال ١٤ يوم",
+                "description": "أي عبوة مقفولة مش زي الوصف"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "من عملاء الصيدلية",
+            "subtitle": "صوّر روتينك ووسمنا",
+            "handle": "afia.pharmacy",
+            "images": [
+              "/assets/themes/tpl-070-afia-pharmacy/aisle-1.jpg",
+              "/assets/themes/tpl-070-afia-pharmacy/aisle-2.jpg",
+              "/assets/themes/tpl-070-afia-pharmacy/hero.jpg"
+            ]
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "badge": "المجلة",
+            "title": "نصائح صحية من الصيدلي",
+            "subtitle": "كل نصيحة مربوطة بصنف في الصيدلية",
+            "items": [
+              {
+                "tag": "نصيحة",
+                "title": "فيتامين د: إمتى تحتاجه فعلاً؟",
+                "excerpt": "الشمس مش كفاية في الشتا — اعرف علامات النقص وإمتى تعمل تحليل.",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/aisle-1.jpg",
+                "link": "/shop?category=vitamins"
+              },
+              {
+                "tag": "دليل",
+                "title": "إزاي تقرا تاريخ الصلاحية صح",
+                "excerpt": "الشهر/السنة على العبوة، وتخزين بعيد عن الحمام والمطبخ.",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/hero.jpg",
+                "link": "/shop?category=medicine"
+              },
+              {
+                "tag": "عناية",
+                "title": "روتين بشرة بسيط ٣ خطوات",
+                "excerpt": "غسول · مرطب · صن بلوك — من غير خلط منتجات كتير.",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/aisle-2.jpg",
+                "link": "/shop?category=care"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "split-panel",
+          "settings": {
+            "title": "عروض العافية أول بأول",
+            "subtitle": "كل خميس: عروض الفيتامينات والعناية والجديد.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "الكتالوج",
+            "subtitle": "فلتر بالقسم والسعر — فيتامينات وعناية",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "marketplace-dense"
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الفيتامينات",
+            "title": "أقسام العافية",
+            "subtitle": "فيتامينات · عناية · أم وطفل",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "فيتامينات",
+                "title": "فيتامينات ومكمّلات",
+                "subtitle": "د · ب١٢ · أوميجا · زنك",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/aisle-1.jpg",
+                "link": "/shop?category=vitamins"
+              },
+              {
+                "label": "عناية",
+                "title": "العناية بالبشرة",
+                "subtitle": "غسول · مرطب · صن بلوك",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/aisle-2.jpg",
+                "link": "/shop?category=care"
+              },
+              {
+                "label": "أم وطفل",
+                "title": "أم وطفل",
+                "subtitle": "حفاضات · ألبان · فيتامينات أطفال",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/hero.jpg",
+                "link": "/shop?category=care"
+              }
+            ]
+          }
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "grid"
+        },
+        {
+          "type": "product-info",
+          "variant": "specs-grid"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "pairing-rail"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "سلة العافية",
+            "subtitle": "راجع الباقات والخصم قبل الدفع — التوصيل مجاني فوق ٥٠٠ ج.م.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "minimal"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام الكتالوج",
+            "subtitle": "فيتامينات · عناية · أم وطفل · عروض",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الفيتامينات",
+            "title": "أقسام العافية",
+            "subtitle": "فيتامينات · عناية · أم وطفل",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "فيتامينات",
+                "title": "فيتامينات ومكمّلات",
+                "subtitle": "د · ب١٢ · أوميجا · زنك",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/aisle-1.jpg",
+                "link": "/shop?category=vitamins"
+              },
+              {
+                "label": "عناية",
+                "title": "العناية بالبشرة",
+                "subtitle": "غسول · مرطب · صن بلوك",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/aisle-2.jpg",
+                "link": "/shop?category=care"
+              },
+              {
+                "label": "أم وطفل",
+                "title": "أم وطفل",
+                "subtitle": "حفاضات · ألبان · فيتامينات أطفال",
+                "image": "/assets/themes/tpl-070-afia-pharmacy/hero.jpg",
+                "link": "/shop?category=care"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن صنف أو روشتة أو ميعاد توصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}
