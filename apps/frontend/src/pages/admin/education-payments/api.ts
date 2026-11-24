@@ -14,6 +14,7 @@ import type {
   ReceiptPayload,
   VarianceReport,
   WalletTopup,
+  WinbackAction,
 } from "./types";
 
 const query = (params: Record<string, string | number | undefined>) => {
@@ -119,6 +120,15 @@ export const fetchEngagement = (months = 3): Promise<EngagementReport> =>
 
 export const fetchAttendanceLink = (months = 3): Promise<AttendanceLinkReport> =>
   fetchJson(api(`finance/attendance-link${query({ months })}`));
+
+export const fetchWinback = (status = "OPEN"): Promise<WinbackAction[]> =>
+  fetchJson(api(`finance/winback${query({ status })}`));
+
+export const syncWinback = (months = 3): Promise<{ detected: number; created: number; skipped: number }> =>
+  sendJson(api("finance/winback/sync"), "POST", { months });
+
+export const completeWinback = (id: string, status: "DONE" | "IGNORED" | "OPEN" = "DONE", notes?: string) =>
+  sendJson(api(`finance/winback/${id}/complete`), "POST", { status, notes });
 
 export const fetchStatementDue = (months = 12): Promise<Array<{
   studentId: string;

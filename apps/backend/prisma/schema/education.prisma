@@ -349,6 +349,30 @@ model EducationCertificate {
   @@map("education_certificates")
 }
 
+/// Education module - Win-back worklist for at-risk students
+model EducationWinbackAction {
+  id             String    @id @default(cuid())
+  companyId      String
+  studentId      String
+  studentName    String?
+  phone          String?
+  status         String    @default("OPEN") /// OPEN | DONE | IGNORED
+  priority       Int       @default(0)
+  attendanceRate Float?
+  dues           Float     @default(0)
+  overdue        Float     @default(0)
+  reasons        Json?
+  handledAt      DateTime?
+  handledBy      String?
+  notes          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([companyId, status])
+  @@index([companyId, studentId])
+  @@map("education_winback_actions")
+}
+
 /// Education module - Coupon codes (discount engine)
 model EducationCoupon {
   id              String    @id @default(cuid())

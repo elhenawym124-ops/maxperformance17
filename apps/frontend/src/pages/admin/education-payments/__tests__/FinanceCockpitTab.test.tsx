@@ -5,7 +5,13 @@ import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-const api = vi.hoisted(() => ({ fetchCockpit: vi.fn(), fetchAttendanceLink: vi.fn() }));
+const api = vi.hoisted(() => ({
+  fetchCockpit: vi.fn(),
+  fetchAttendanceLink: vi.fn(),
+  fetchWinback: vi.fn(),
+  syncWinback: vi.fn(),
+  completeWinback: vi.fn(),
+}));
 vi.mock("../api", () => api);
 
 import { FinanceCockpitTab } from "../FinanceCockpitTab";
@@ -39,7 +45,6 @@ const cockpit = {
 beforeEach(() => {
   api.fetchCockpit.mockReset();
   api.fetchCockpit.mockResolvedValue(cockpit);
-  api.fetchAttendanceLink.mockReset();
   api.fetchAttendanceLink.mockResolvedValue({
     period: { from: "2026-09-01", to: "2026-11-24", months: 3 },
     summary: {
@@ -51,6 +56,18 @@ beforeEach(() => {
       { studentId: "stu-1", studentName: "سارة محمد", phone: "0100", attendanceRate: 40, absent: 6, totalSessions: 10, dues: 800, overdue: 400 },
     ],
   });
+  api.fetchWinback.mockReset();
+  api.fetchWinback.mockResolvedValue([
+    {
+      id: "wb-1", companyId: "comp-1", studentId: "stu-1", studentName: "سارة محمد",
+      phone: "0100", status: "OPEN", priority: 60, attendanceRate: 40, dues: 800, overdue: 400,
+      reasons: ["LOW_ATTENDANCE", "OVERDUE"],
+    },
+  ]);
+  api.syncWinback.mockReset();
+  api.syncWinback.mockResolvedValue({ detected: 1, created: 1, skipped: 0 });
+  api.completeWinback.mockReset();
+  api.completeWinback.mockResolvedValue({ id: "wb-1", status: "DONE" });
 });
 
 afterEach(() => cleanup());
@@ -81,9 +98,29 @@ describe("FinanceCockpitTab", () => {
     render(<FinanceCockpitTab isEn={false} />);
 
     expect(await screen.findByText("الغياب × التحصيل")).toBeInTheDocument();
-    expect(screen.getByText("سارة محمد")).toBeInTheDocument();
+    expect(screen.getAllByText("سارة محمد").length).toBeGreaterThan(0);
     expect(screen.getByText(/40% · 6\/10/)).toBeInTheDocument();
     expect(api.fetchAttendanceLink).toHaveBeenCalledWith(3);
+  });
+
+  it("renders the win-back worklist and completes an action", async () => {
+    render(<FinanceCockpitTab isEn={false} />);
+
+    expect(await screen.findByText("قائمة الاسترجاع")).toBeInTheDocument();
+    expect(screen.getByText("LOW_ATTENDANCE")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("تم"));
+    await waitFor(() => expect(api.completeWinback).toHaveBeenCalledWith("wb-1", "DONE"));
+    await waitFor(() => expect(screen.queryByText("LOW_ATTENDANCE")).not.toBeInTheDocument());
+  });
+
+  it("refreshes the win-back list on demand", async () => {
+    render(<FinanceCockpitTab isEn={false} />);
+    await screen.findByText("قائمة الاسترجاع");
+
+    fireEvent.click(screen.getByText("تحديث القائمة"));
+    await waitFor(() => expect(api.syncWinback).toHaveBeenCalledWith(3));
+    await waitFor(() => expect(api.fetchWinback).toHaveBeenCalledTimes(2));
   });
 
   it("shows the all-clear state and refetches on window change", async () => {

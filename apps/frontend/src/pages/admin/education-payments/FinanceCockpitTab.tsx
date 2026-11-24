@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { AlertTriangle, Loader2, RefreshCw, ShieldCheck } from "lucide-react";
-import { fetchAttendanceLink, fetchCockpit } from "./api";
+import { completeWinback, fetchAttendanceLink, fetchCockpit, fetchWinback, syncWinback } from "./api";
 import { money } from "./shared";
-import type { AttendanceLinkReport, FinanceCockpit } from "./types";
+import type { AttendanceLinkReport, FinanceCockpit, WinbackAction } from "./types";
 
 const severityTone = (severity: string) => {
   if (severity === "HIGH") return "border-destructive/30 bg-destructive/10 text-destructive";
@@ -14,6 +14,8 @@ export const FinanceCockpitTab: React.FC<{ isEn: boolean; reloadKey?: number }> 
   const [months, setMonths] = useState(6);
   const [data, setData] = useState<FinanceCockpit | null>(null);
   const [link, setLink] = useState<AttendanceLinkReport | null>(null);
+  const [winback, setWinback] = useState<WinbackAction[]>([]);
+  const [winbackBusy, setWinbackBusy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -28,10 +30,35 @@ export const FinanceCockpitTab: React.FC<{ isEn: boolean; reloadKey?: number }> 
     fetchAttendanceLink(3)
       .then((payload) => alive && setLink(payload))
       .catch(() => {});
+    fetchWinback("OPEN")
+      .then((rows) => alive && setWinback(rows))
+      .catch(() => {});
     return () => {
       alive = false;
     };
   }, [months, isEn]);
+
+  const handleSyncWinback = async () => {
+    setWinbackBusy(true);
+    try {
+      await syncWinback(3);
+      const rows = await fetchWinback("OPEN");
+      setWinback(rows);
+    } catch {
+      /* silent: the card simply keeps its previous list */
+    } finally {
+      setWinbackBusy(false);
+    }
+  };
+
+  const handleCompleteWinback = async (id: string) => {
+    try {
+      await completeWinback(id, "DONE");
+      setWinback((rows) => rows.filter((row) => row.id !== id));
+    } catch {
+      /* keep the row so the user can retry */
+    }
+  };
 
   useEffect(() => {
     const cleanup = load();
@@ -186,6 +213,56 @@ export const FinanceCockpitTab: React.FC<{ isEn: boolean; reloadKey?: number }> 
                   </div>
                 ) : null}
               </>
+            )}
+          </div>
+
+          <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+            <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <h4 className="text-xs font-semibold text-foreground">{isEn ? "Win-back worklist" : "قائمة الاسترجاع"}</h4>
+                <span className="text-[10px] text-muted-foreground font-mono">{winback.length}</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleSyncWinback}
+                disabled={winbackBusy}
+                className="px-2.5 py-1 rounded-lg border border-border/70 text-[11px] font-semibold text-foreground hover:bg-muted disabled:opacity-50"
+              >
+                {winbackBusy ? (isEn ? "Syncing..." : "جارٍ التحديث...") : (isEn ? "Refresh list" : "تحديث القائمة")}
+              </button>
+            </div>
+            {winback.length === 0 ? (
+              <p className="p-4 text-[11px] text-muted-foreground">
+                {isEn ? "No at-risk students queued" : "لا يوجد طلاب معرّضون في القائمة"}
+              </p>
+            ) : (
+              <div className="divide-y divide-border/60 max-h-64 overflow-y-auto">
+                {winback.slice(0, 10).map((action) => (
+                  <div key={action.id} className="px-4 py-2 flex items-center justify-between gap-2 text-[11px]">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-semibold text-foreground truncate">{action.studentName || "—"}</span>
+                        {(action.reasons || []).slice(0, 3).map((reason) => (
+                          <span key={reason} className="px-1 py-0.5 rounded border border-warning/20 bg-warning/10 text-warning text-[9px] font-mono">
+                            {reason}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-[10px] text-muted-foreground font-mono mt-0.5">
+                        {action.attendanceRate ?? "—"}% · {money(action.dues)}
+                        {action.phone ? ` · ${action.phone}` : ""}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleCompleteWinback(action.id)}
+                      className="shrink-0 px-2 py-1 rounded-lg border border-border/70 text-[10px] font-semibold text-success hover:bg-success/10"
+                    >
+                      {isEn ? "Done" : "تم"}
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 

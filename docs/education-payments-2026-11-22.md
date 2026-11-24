@@ -339,6 +339,20 @@
 - Students without attendance rows are excluded so the averages are not diluted.
 - UI: "الغياب × التحصيل" card in the finance cockpit (fixed 3-month window) with three KPIs, the average-dues comparison and the top risky students.
 
+## Phase 4 (part 26) — win-back worklist for at-risk students
+
+- New table `education_winback_actions` (one OPEN row per student).
+- `GET /education/finance/winback?status=OPEN` lists the worklist; `POST /winback/sync` refreshes it; `POST /winback/:id/complete` closes a case (`DONE` / `IGNORED` / back to `OPEN`).
+- Risk detection combines four signals from real data:
+  - `LOW_ATTENDANCE` (<70% with at least 3 records),
+  - `OPEN_DUES`, `OVERDUE` (installment past its due date),
+  - `INACTIVE` (no group session for N days, default 21).
+- Priority weighs money at risk first (dues/10) then attendance, overdue and inactivity, capped at 100 — so a paying-but-absent student stays visible without outranking a large debt.
+- Dedupe: a student already `OPEN` is skipped, so the daily job never duplicates the queue.
+- Cron: daily 09:00 sweep across every company with group attendance.
+- UI: "قائمة الاسترجاع" card in the finance cockpit — reason chips, attendance, balance, phone, a "تم" button per case and a "تحديث القائمة" action.
+
+
 
 
 

@@ -37,6 +37,12 @@ router.get('/engagement', requireDbPermission(CAN_VIEW), controller.getEngagemen
 
 // Attendance × collection correlation
 router.get('/attendance-link', requireDbPermission(CAN_VIEW), controller.getAttendancePaymentLink);
+
+// Win-back worklist for at-risk students
+const winbackController = require('../controller/educationWinbackController');
+router.get('/winback', requireDbPermission(CAN_VIEW), winbackController.listWinback);
+router.post('/winback/sync', requireDbPermission('education.financials.manage'), winbackController.syncWinback);
+router.post('/winback/:id/complete', requireDbPermission('education.financials.collect'), winbackController.completeWinback);
 router.get('/payments/:id/receipt', requireDbPermission(CAN_VIEW), controller.getReceipt);
 router.get('/payments/:id/pdf', requireDbPermission(CAN_VIEW), controller.downloadReceiptPdf);
 router.post('/payments/:id/send-receipt', requireDbPermission(CAN_VIEW), controller.sendReceipt);

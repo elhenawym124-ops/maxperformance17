@@ -35,6 +35,7 @@ let demoRemindersRunning = false;
 let paymentRemindersRunning = false;
 let absenceAlertsRunning = false;
 let statementRemindersRunning = false;
+let winbackRunning = false;
 
 const toHours = (row, fallbackHours) => {
   if (!row) return fallbackHours;
@@ -483,7 +484,25 @@ function startEducationNotificationScheduler() {
   cron.schedule('0 13 * * *', () => {
     runStatementReminders().catch((error) => console.error('[EDU-CRON] statement reminders job failed:', error.message));
   });
-  console.log('[EDU-CRON] Education notification scheduler registered (session */30, balance daily 10:00, payments daily 11:00, demo */15, absences daily 12:00, statements daily 13:00).');
+  cron.schedule('0 9 * * *', () => {
+    runWinbackSync().catch((error) => console.error('[EDU-CRON] winback sync job failed:', error.message));
+  });
+  console.log('[EDU-CRON] Education notification scheduler registered (session */30, balance daily 10:00, payments daily 11:00, demo */15, absences daily 12:00, statements daily 13:00, winback daily 09:00).');
+}
+
+async function runWinbackSync() {
+  if (winbackRunning) return null;
+  winbackRunning = true;
+  try {
+    const service = require('../services/educationWinbackService');
+    const summary = await service.runWinbackSync(getSharedPrismaClient(), { months: 3 });
+    if (summary.created > 0) {
+      console.log(`[EDU-CRON] winback actions created: ${summary.created} (detected ${summary.detected})`);
+    }
+    return summary;
+  } finally {
+    winbackRunning = false;
+  }
 }
 
 async function runStatementReminders() {
@@ -527,5 +546,6 @@ module.exports = {
   runDemoDayReminders,
   runAbsenceAlerts,
   runStatementReminders,
+  runWinbackSync,
   LOW_HOURS_THRESHOLD,
 };

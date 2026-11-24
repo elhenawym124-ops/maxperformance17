@@ -421,3 +421,21 @@ export interface AttendanceLinkReport {
     overdue: number;
   }>;
 }
+
+export interface WinbackAction {
+  id: string;
+  companyId: string;
+  studentId: string;
+  studentName?: string | null;
+  phone?: string | null;
+  status: "OPEN" | "DONE" | "IGNORED" | string;
+  priority: number;
+  attendanceRate?: number | null;
+  dues: number;
+  overdue: number;
+  reasons?: string[] | null;
+  handledAt?: string | null;
+  handledBy?: string | null;
+  notes?: string | null;
+  createdAt?: string;
+}
