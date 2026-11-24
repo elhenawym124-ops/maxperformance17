@@ -260,3 +260,20 @@ export interface DiscountReport {
   byStaff: Array<{ userId: string | null; count: number; amount: number }>;
   items: DiscountReportItem[];
 }
+
+export interface CollectionReport {
+  period: { from: string; to: string; months: number };
+  summary: {
+    billed: number;
+    collected: number;
+    gap: number;
+    rate: number | null;
+    openDues: number;
+    openPackageDues: number;
+    openGroupDues: number;
+    payments: number;
+    enrollments: number;
+  };
+  byMonth: Array<{ month: string; billed: number; collected: number; rate: number | null }>;
+  byBranch: Array<{ id: string; name: string; billed: number; collected: number; rate: number | null }>;
+}

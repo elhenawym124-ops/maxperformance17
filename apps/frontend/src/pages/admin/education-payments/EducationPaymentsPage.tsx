@@ -9,11 +9,12 @@ import TopupsTab from "./TopupsTab";
 import CashierShiftTab from "./CashierShiftTab";
 import DailyClosingTab from "./DailyClosingTab";
 import CouponsTab from "./CouponsTab";
+import CollectionRateTab from "./CollectionRateTab";
 import RecordPaymentModal from "./RecordPaymentModal";
 import ReceiptModal from "./ReceiptModal";
 import type { PaymentsSummary } from "./types";
 
-type TabKey = "ledger" | "dues" | "topups" | "shift" | "closing" | "coupons";
+type TabKey = "ledger" | "dues" | "topups" | "shift" | "closing" | "coupons" | "collections";
 
 const EducationPaymentsPage: React.FC = () => {
   const { i18n } = useTranslation();
@@ -64,6 +65,7 @@ const EducationPaymentsPage: React.FC = () => {
     { key: "shift", label: isEn ? "Cashier shift" : "شيفت الكاشير" },
     { key: "closing", label: isEn ? "Daily closing" : "الإغلاق اليومي" },
     { key: "coupons", label: isEn ? "Discount codes" : "أكواد الخصم" },
+    { key: "collections", label: isEn ? "Collection rate" : "نسبة التحصيل" },
   ];
 
   return (
@@ -189,6 +191,7 @@ const EducationPaymentsPage: React.FC = () => {
       {tab === "shift" ? <CashierShiftTab reloadKey={reloadKey} onChanged={refreshAll} /> : null}
       {tab === "closing" ? <DailyClosingTab reloadKey={reloadKey} onChanged={refreshAll} /> : null}
       {tab === "coupons" ? <CouponsTab isEn={isEn} reloadKey={reloadKey} onChanged={refreshAll} /> : null}
+      {tab === "collections" ? <CollectionRateTab isEn={isEn} reloadKey={reloadKey} /> : null}
 
       {recordOpen ? (
         <RecordPaymentModal

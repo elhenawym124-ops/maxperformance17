@@ -803,6 +803,22 @@ const recordPayment = async (req, res) => {
   }
 };
 
+const getCollectionReport = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationCollectionReportService');
+    const data = await service.buildCollectionReport(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building collection report:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب تقرير التحصيل' });
+  }
+};
+
 const getDiscountReport = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -1543,6 +1559,7 @@ module.exports = {
   getInsights,
   getReports,
   getDues,
+  getCollectionReport,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

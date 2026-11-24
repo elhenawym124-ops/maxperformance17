@@ -227,6 +227,18 @@
 - Every source degrades to an empty section instead of failing the report.
 - UI: KPI strip + "آخر الخصومات" list inside the "أكواد الخصم" tab.
 
+## Phase 4 (part 16) — collection rate (billed vs collected)
+
+- `GET /education/finance/collections?months=6`:
+  - `billed`: enrollment value (`finalAmount`, falling back to the package price) for enrollments created inside the window — a datable charge event.
+  - `collected`: COMPLETED payments with `paidAt` inside the window.
+  - `gap` (billed − collected), `rate` (collected ÷ billed, may exceed 100% when collecting older dues, `null` when nothing was billed).
+  - `openDues` live snapshot: unpaid package balances + unpaid group cycles (after member discounts).
+  - `byMonth` and `byBranch` breakdowns, each with its own rate.
+- UI: "نسبة التحصيل" tab in `/admin/education/payments` with 3/6/12-month selector, KPI strip, monthly table and per-branch list.
+- Caveat: group fees are recurring, so the historical "billed" side uses datable enrollment charges; current group obligations appear in `openDues`.
+
+
 
 
 
