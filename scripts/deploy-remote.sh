@@ -884,7 +884,7 @@ drop_invalid_index idx_customers_last_name_trgm
 drop_invalid_index idx_customers_phone_trgm
 drop_invalid_index idx_conversations_last_message_preview_trgm
 drop_invalid_index idx_messages_content_trgm
-sudo -u postgres psql -d maxp -v ON_ERROR_STOP=1 <<'SQL' || echo "⚠️ Trigram index script note"
+sudo -u postgres psql -d maxp -v ON_ERROR_STOP=1 <<'SQL' || { echo "❌ Trigram index build/validation FAILED — deploy aborted (inbox message search would 422 on production)"; exit 1; }
 \echo 'trgm: ensuring pg_trgm + 5 GIN indexes'
 SET statement_timeout = 0;
 SET lock_timeout = '60s';
@@ -897,8 +897,16 @@ CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_conversations_last_message_preview_t
 CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_messages_content_trgm ON messages USING gin (content gin_trgm_ops);
 ANALYZE messages;
 DO $$
-DECLARE bad text;
+DECLARE missing text; bad text;
 BEGIN
+  SELECT string_agg(expected.name, ', ') INTO missing
+  FROM unnest(ARRAY['idx_customers_first_name_trgm','idx_customers_last_name_trgm',
+                    'idx_customers_phone_trgm','idx_conversations_last_message_preview_trgm',
+                    'idx_messages_content_trgm']) AS expected(name)
+  WHERE to_regclass('public.' || expected.name) IS NULL;
+  IF missing IS NOT NULL THEN
+    RAISE EXCEPTION 'trigram indexes MISSING after build: % (inbox message search will 422 until fixed)', missing;
+  END IF;
   SELECT string_agg(c.relname, ', ') INTO bad
   FROM pg_index i JOIN pg_class c ON c.oid = i.indexrelid
   WHERE c.relname IN ('idx_customers_first_name_trgm','idx_customers_last_name_trgm',
@@ -908,7 +916,7 @@ BEGIN
   IF bad IS NOT NULL THEN
     RAISE EXCEPTION 'trigram indexes still INVALID after build: % (inbox message search will 422 until fixed)', bad;
   END IF;
-  RAISE NOTICE 'trgm: all 5 indexes valid';
+  RAISE NOTICE 'trgm: all 5 indexes present and valid';
 END $$;
 SQL
 

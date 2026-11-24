@@ -7,8 +7,9 @@
 /**
  * Hard server-side deadline for the message-content search (the SPA aborts at 30s;
  * we fail faster with a clear message instead of letting the request hang).
+ * Must stay at or below the 5s acceptance target for message search.
  */
-const SEARCH_STATEMENT_TIMEOUT_MS = 8000;
+const SEARCH_STATEMENT_TIMEOUT_MS = 5000;
 
 /**
  * Extracts tokens eligible for trigram-indexed message content search (length >= 3).
@@ -62,8 +63,8 @@ function buildConversationSearchWhere(rawTerm) {
  * the caller's matches. Rows are capped to the most recent 1000 hits.
  *
  * Database failures are propagated to the caller (no silent empty result): the
- * controller turns them into HTTP 503 so the user never sees "no results" for a
- * query that actually failed.
+ * controller turns them into HTTP 422 (`MESSAGE_SEARCH_TIMEOUT`/`MESSAGE_SEARCH_FAILED`)
+ * so the user never sees "no results" for a query that actually failed.
  *
  * @param {object} prisma - PrismaClient instance
  * @param {object} params
@@ -137,21 +138,22 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
 
 /**
  * Runs the raw search with a hard server-side deadline instead of relying on the
- * pooler/role default (the SPA gives up at 30s). Uses SET LOCAL inside a
- * transaction when the client supports it; mocks/simple clients fall back to a
- * plain call.
+ * pooler/role default (the SPA gives up at 30s).
+ *
+ * Uses a single pipelined (array-form) transaction: BEGIN + SET LOCAL + query are
+ * sent as one batch to the pooler, so the pooled server connection is held only for
+ * that round trip. The callback form (`$transaction(async tx => ...)`) is avoided on
+ * purpose: this repo's PgBouncer hardening removed interactive transactions because
+ * they held pool connections and produced 30s `query_wait_timeout` errors.
+ * Simple/mock clients without `$transaction` fall back to a plain call.
  */
 async function runWithStatementTimeout(prisma, query, params, timeoutMs = SEARCH_STATEMENT_TIMEOUT_MS) {
     if (typeof prisma.$transaction === 'function' && typeof prisma.$executeRawUnsafe === 'function') {
-        try {
-            return await prisma.$transaction(async (tx) => {
-                await tx.$executeRawUnsafe(`SET LOCAL statement_timeout = ${Number(timeoutMs)}`);
-                return tx.$queryRawUnsafe(query, ...params);
-            }, { timeout: timeoutMs + 2000 });
-        } catch (err) {
-            // Keep the original failure shape (the controller maps timeouts by message)
-            throw err;
-        }
+        const [, rows] = await prisma.$transaction([
+            prisma.$executeRawUnsafe(`SET LOCAL statement_timeout = ${Number(timeoutMs)}`),
+            prisma.$queryRawUnsafe(query, ...params),
+        ], { timeout: timeoutMs + 2000 });
+        return rows;
     }
     return prisma.$queryRawUnsafe(query, ...params);
 }

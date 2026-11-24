@@ -2,6 +2,7 @@ const {
   extractContentTokens,
   buildConversationSearchWhere,
   searchMessageConversationIds,
+  SEARCH_STATEMENT_TIMEOUT_MS,
 } = require('../controller/conversation/conversationSearchWhere');
 
 describe('conversationSearchWhere', () => {
@@ -158,21 +159,31 @@ describe('conversationSearchWhere', () => {
       expect(cte).toContain('ORDER BY m."createdAt" DESC');
     });
 
-    it('sets a server-side statement_timeout when the client supports transactions', async () => {
+    it('sets a server-side statement_timeout in a pipelined (array-form) transaction', async () => {
       const exec = jest.fn().mockResolvedValue(1);
       const query = jest.fn().mockResolvedValue([{ id: 'conv-9' }]);
+      const tx = jest.fn().mockResolvedValue([1, [{ id: 'conv-9' }]]);
       const mockPrisma = {
         $executeRawUnsafe: exec,
-        $queryRawUnsafe: jest.fn(),
-        $transaction: async (cb) => cb({ $executeRawUnsafe: exec, $queryRawUnsafe: query }),
+        $queryRawUnsafe: query,
+        $transaction: tx,
       };
 
       const ids = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'سناء' });
 
       expect(ids).toEqual(['conv-9']);
+      // Array form only: a callback transaction would hold a pooled connection
+      // (PgBouncer hardening removed interactive transactions).
+      expect(Array.isArray(tx.mock.calls[0][0])).toBe(true);
+      expect(tx.mock.calls[0][0]).toHaveLength(2);
       expect(exec).toHaveBeenCalledTimes(1);
-      expect(String(exec.mock.calls[0][0])).toContain('SET LOCAL statement_timeout = 8000');
-      expect(mockPrisma.$queryRawUnsafe).not.toHaveBeenCalled();
+      expect(String(exec.mock.calls[0][0])).toContain('SET LOCAL statement_timeout = 5000');
+      expect(query).toHaveBeenCalledTimes(1);
+      expect(query.mock.calls[0][0]).toContain('WITH matched_messages AS');
+    });
+
+    it('keeps the server deadline at or below the 5s acceptance target', () => {
+      expect(SEARCH_STATEMENT_TIMEOUT_MS).toBeLessThanOrEqual(5000);
     });
 
     it('propagates database failures instead of returning an empty result', async () => {
