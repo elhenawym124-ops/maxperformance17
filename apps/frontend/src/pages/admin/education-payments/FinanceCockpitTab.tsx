@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { AlertTriangle, Loader2, RefreshCw, ShieldCheck } from "lucide-react";
-import { completeWinback, fetchAttendanceLink, fetchCockpit, fetchWinback, syncWinback } from "./api";
+import { completeWinback, fetchAttendanceLink, fetchCockpit, fetchWinback, fetchWinbackPerformance, syncWinback } from "./api";
 import { money } from "./shared";
-import type { AttendanceLinkReport, FinanceCockpit, WinbackAction } from "./types";
+import type { AttendanceLinkReport, FinanceCockpit, WinbackAction, WinbackPerformance } from "./types";
 
 const severityTone = (severity: string) => {
   if (severity === "HIGH") return "border-destructive/30 bg-destructive/10 text-destructive";
@@ -15,6 +15,7 @@ export const FinanceCockpitTab: React.FC<{ isEn: boolean; reloadKey?: number }> 
   const [data, setData] = useState<FinanceCockpit | null>(null);
   const [link, setLink] = useState<AttendanceLinkReport | null>(null);
   const [winback, setWinback] = useState<WinbackAction[]>([]);
+  const [winbackPerf, setWinbackPerf] = useState<WinbackPerformance | null>(null);
   const [winbackBusy, setWinbackBusy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -32,6 +33,9 @@ export const FinanceCockpitTab: React.FC<{ isEn: boolean; reloadKey?: number }> 
       .catch(() => {});
     fetchWinback("OPEN")
       .then((rows) => alive && setWinback(rows))
+      .catch(() => {});
+    fetchWinbackPerformance(3)
+      .then((payload) => alive && setWinbackPerf(payload))
       .catch(() => {});
     return () => {
       alive = false;
@@ -263,6 +267,66 @@ export const FinanceCockpitTab: React.FC<{ isEn: boolean; reloadKey?: number }> 
                   </div>
                 ))}
               </div>
+            )}
+          </div>
+
+          <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+            <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between">
+              <h4 className="text-xs font-semibold text-foreground">{isEn ? "Follow-up performance" : "أداء المتابعة"}</h4>
+              <span className="text-[10px] text-muted-foreground font-mono">
+                {isEn ? "last 3 months" : "آخر 3 شهور"}
+              </span>
+            </div>
+            {(winbackPerf?.summary.created || 0) === 0 ? (
+              <p className="p-4 text-[11px] text-muted-foreground">
+                {isEn ? "No follow-up cases yet" : "لا توجد حالات متابعة بعد"}
+              </p>
+            ) : (
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-border/60 border-b border-border/60 text-center">
+                  {[
+                    { label: isEn ? "Closed" : "مغلقة", value: `${winbackPerf?.summary.closed || 0}`, tone: "text-foreground" },
+                    {
+                      label: isEn ? "Close rate" : "نسبة الإغلاق",
+                      value: winbackPerf?.summary.closedRate === null || winbackPerf?.summary.closedRate === undefined ? "—" : `${winbackPerf.summary.closedRate}%`,
+                      tone: "text-primary",
+                    },
+                    {
+                      label: isEn ? "Avg hours" : "متوسط الساعات",
+                      value: winbackPerf?.summary.avgCloseHours === null || winbackPerf?.summary.avgCloseHours === undefined ? "—" : String(winbackPerf.summary.avgCloseHours),
+                      tone: "text-muted-foreground",
+                    },
+                    {
+                      label: isEn ? "Recovered" : "مبالغ مستردة",
+                      value: money(winbackPerf?.summary.revenueRecovered || 0),
+                      tone: "text-success",
+                    },
+                  ].map((item) => (
+                    <div key={item.label} className="p-2.5">
+                      <p className="text-[10px] text-muted-foreground">{item.label}</p>
+                      <p className={`text-xs font-bold font-mono tabular-nums mt-0.5 ${item.tone}`}>{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+                {(winbackPerf?.byStaff.length || 0) === 0 ? (
+                  <p className="p-4 text-[11px] text-muted-foreground">{isEn ? "No staff attribution yet" : "لا يوجد إسناد لموظف بعد"}</p>
+                ) : (
+                  <div className="divide-y divide-border/60">
+                    {winbackPerf?.byStaff.slice(0, 6).map((row) => (
+                      <div key={row.staff} className="px-4 py-2 flex items-center justify-between gap-3 text-[11px]">
+                        <span className="font-semibold text-foreground truncate">{row.staff}</span>
+                        <div className="flex items-center gap-3 shrink-0 font-mono tabular-nums">
+                          <span className="text-muted-foreground">{row.closed}</span>
+                          <span className="text-muted-foreground">
+                            {row.conversionRate === null ? "—" : `${row.conversionRate}%`}
+                          </span>
+                          <span className="text-success font-semibold">{money(row.revenue)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </div>
 

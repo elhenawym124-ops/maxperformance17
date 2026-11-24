@@ -54,8 +54,23 @@ const syncWinback = async (req, res) => {
   }
 };
 
-const completeWinback = async (req, res) => {
+const getWinbackPerformance = async (req, res) => {
   try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationWinbackPerformanceService');
+    const data = await service.buildWinbackPerformance(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building winback performance:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب أداء المتابعة' });
+  }
+};
+
+const completeWinback = async (req, res) => {  try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -74,4 +89,4 @@ const completeWinback = async (req, res) => {
   }
 };
 
-module.exports = { listWinback, syncWinback, completeWinback };
+module.exports = { listWinback, syncWinback, completeWinback, getWinbackPerformance };

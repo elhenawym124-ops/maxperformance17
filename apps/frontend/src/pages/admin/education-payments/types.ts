@@ -439,3 +439,34 @@ export interface WinbackAction {
   notes?: string | null;
   createdAt?: string;
 }
+
+export interface WinbackPerformance {
+  period: { from: string; to: string; months: number };
+  summary: {
+    created: number;
+    closed: number;
+    open: number;
+    closedRate: number | null;
+    avgCloseHours: number | null;
+    reactivated: number;
+    reactivationRate: number | null;
+    revenueRecovered: number;
+  };
+  byStaff: Array<{
+    staff: string;
+    closed: number;
+    done: number;
+    ignored: number;
+    avgCloseHours: number | null;
+    reactivated: number;
+    revenue: number;
+    conversionRate: number | null;
+  }>;
+  byReason: Array<{
+    reason: string;
+    total: number;
+    reactivated: number;
+    revenue: number;
+    conversionRate: number | null;
+  }>;
+}

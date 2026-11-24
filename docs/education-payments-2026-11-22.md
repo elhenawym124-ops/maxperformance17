@@ -352,6 +352,17 @@
 - Cron: daily 09:00 sweep across every company with group attendance.
 - UI: "قائمة الاسترجاع" card in the finance cockpit — reason chips, attendance, balance, phone, a "تم" button per case and a "تحديث القائمة" action.
 
+## Phase 4 (part 27) — follow-up performance
+
+- `GET /education/finance/winback/performance?months=3`:
+  - Summary: created, closed, open, `closedRate`, `avgCloseHours`, `reactivated`, `reactivationRate`, `revenueRecovered`.
+  - Reactivation = the student made a COMPLETED payment **after** the case was created — the only honest proof the follow-up produced money.
+  - `byStaff`: closed/done/ignored, average close time, reactivations, recovered revenue and conversion rate, ranked by revenue. Cases without a handler are grouped as "غير محدد" so they are not silently dropped.
+  - `byReason`: which risk reason actually converts best.
+- Rates return `null` when nothing was opened in the window.
+- UI: "أداء المتابعة" card in the finance cockpit (closed, close rate, average hours, recovered) with the staff leaderboard.
+
+
 
 
 

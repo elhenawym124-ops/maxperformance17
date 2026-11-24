@@ -41,6 +41,7 @@ router.get('/attendance-link', requireDbPermission(CAN_VIEW), controller.getAtte
 // Win-back worklist for at-risk students
 const winbackController = require('../controller/educationWinbackController');
 router.get('/winback', requireDbPermission(CAN_VIEW), winbackController.listWinback);
+router.get('/winback/performance', requireDbPermission(CAN_VIEW), winbackController.getWinbackPerformance);
 router.post('/winback/sync', requireDbPermission('education.financials.manage'), winbackController.syncWinback);
 router.post('/winback/:id/complete', requireDbPermission('education.financials.collect'), winbackController.completeWinback);
 router.get('/payments/:id/receipt', requireDbPermission(CAN_VIEW), controller.getReceipt);

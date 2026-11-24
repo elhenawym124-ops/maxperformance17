@@ -11,6 +11,7 @@ const api = vi.hoisted(() => ({
   fetchWinback: vi.fn(),
   syncWinback: vi.fn(),
   completeWinback: vi.fn(),
+  fetchWinbackPerformance: vi.fn(),
 }));
 vi.mock("../api", () => api);
 
@@ -68,6 +69,18 @@ beforeEach(() => {
   api.syncWinback.mockResolvedValue({ detected: 1, created: 1, skipped: 0 });
   api.completeWinback.mockReset();
   api.completeWinback.mockResolvedValue({ id: "wb-1", status: "DONE" });
+  api.fetchWinbackPerformance.mockReset();
+  api.fetchWinbackPerformance.mockResolvedValue({
+    period: { from: "2026-09-01", to: "2026-11-24", months: 3 },
+    summary: {
+      created: 3, closed: 2, open: 1, closedRate: 66.7,
+      avgCloseHours: 36, reactivated: 2, reactivationRate: 66.7, revenueRecovered: 800,
+    },
+    byStaff: [
+      { staff: "هدى", closed: 2, done: 1, ignored: 1, avgCloseHours: 36, reactivated: 1, revenue: 500, conversionRate: 50 },
+    ],
+    byReason: [],
+  });
 });
 
 afterEach(() => cleanup());
@@ -121,6 +134,16 @@ describe("FinanceCockpitTab", () => {
     fireEvent.click(screen.getByText("تحديث القائمة"));
     await waitFor(() => expect(api.syncWinback).toHaveBeenCalledWith(3));
     await waitFor(() => expect(api.fetchWinback).toHaveBeenCalledTimes(2));
+  });
+
+  it("shows follow-up performance per staff member", async () => {
+    render(<FinanceCockpitTab isEn={false} />);
+
+    expect(await screen.findByText("أداء المتابعة")).toBeInTheDocument();
+    expect(screen.getByText("هدى")).toBeInTheDocument();
+    expect(screen.getByText("66.7%")).toBeInTheDocument();
+    expect(screen.getByText("36")).toBeInTheDocument();
+    expect(api.fetchWinbackPerformance).toHaveBeenCalledWith(3);
   });
 
   it("shows the all-clear state and refetches on window change", async () => {
