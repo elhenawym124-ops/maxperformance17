@@ -803,6 +803,22 @@ const recordPayment = async (req, res) => {
   }
 };
 
+const getVarianceReport = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationVarianceReportService');
+    const data = await service.buildVarianceReport(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building variance report:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب تقرير الفروق' });
+  }
+};
+
 const getMethodReport = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -1577,6 +1593,7 @@ module.exports = {
   getDues,
   getCollectionReport,
   getMethodReport,
+  getVarianceReport,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

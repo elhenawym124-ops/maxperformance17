@@ -264,6 +264,17 @@
 - Cash totals now exclude `CANCELLED`/`FAILED` payments (previously they could inflate the expected drawer).
 - UI: each closed shift gets a "مطابقة" toggle showing expected / counted / difference per payment method inline.
 
+## Phase 4 (part 19) — variance report (short/over across shifts and daily closings)
+
+- `GET /education/finance/variances?months=6`:
+  - Pulls **closed cashier shifts** (`difference`) and **daily closings** (`cashierExpected/Actual/Difference`) so a day is covered even when only one of them exists.
+  - `summary`: incidents, short, over, balanced, `netVariance`, `absVariance`, shifts count, closings count.
+  - `byStaff`: totals per cashier/closer with `short`, `over`, `net` and `abs`, ranked by absolute variance (worst first).
+  - `byMonth`: net and absolute variance per month.
+  - `items`: newest-first list with expected → actual and the signed difference; days closed with zero expected/actual are skipped.
+- UI: "فروق النقدية" panel at the bottom of the daily-closing tab with a 3/6/12-month selector, four KPIs and the incident list.
+
+
 
 
 

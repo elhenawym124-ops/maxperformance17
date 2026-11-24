@@ -318,3 +318,38 @@ export interface ShiftReconciliation {
     difference: number;
   };
 }
+
+export interface VarianceReport {
+  period: { from: string; to: string; months: number };
+  summary: {
+    incidents: number;
+    short: number;
+    over: number;
+    balanced: number;
+    netVariance: number;
+    absVariance: number;
+    shifts: number;
+    closings: number;
+  };
+  byStaff: Array<{
+    staffId: string | null;
+    staffName: string;
+    shifts: number;
+    short: number;
+    over: number;
+    net: number;
+    abs: number;
+  }>;
+  byMonth: Array<{ month: string; net: number; abs: number; short: number; over: number }>;
+  items: Array<{
+    kind: "SHIFT" | "CLOSING";
+    id: string;
+    label: string;
+    staffName?: string | null;
+    date: string;
+    expected: number;
+    actual: number;
+    difference: number;
+    state: "SHORT" | "OVER" | "BALANCED";
+  }>;
+}

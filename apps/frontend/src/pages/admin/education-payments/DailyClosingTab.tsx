@@ -8,6 +8,7 @@ import {
   fetchDailyClosingHistory,
   reopenDailyClosing,
 } from "./api";
+import VariancePanel from "./VariancePanel";
 import { StatusPill, formatDateTime, money, todayInput } from "./shared";
 import { PAYMENT_METHOD_LABELS, SOURCE_LABELS } from "./types";
 import type { DailyClosingHistoryRow, DailyClosingReport } from "./types";
@@ -378,6 +379,8 @@ const DailyClosingTab: React.FC<Props> = ({ reloadKey, onChanged }) => {
           </div>
         </div>
       ) : null}
+
+      <VariancePanel isEn={isEn} reloadKey={reloadKey} />
     </div>
   );
 };

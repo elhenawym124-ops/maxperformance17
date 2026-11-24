@@ -9,6 +9,7 @@ import type {
   PaymentsPagination,
   PaymentsSummary,
   ReceiptPayload,
+  VarianceReport,
   WalletTopup,
 } from "./types";
 
@@ -106,6 +107,9 @@ export const fetchCashierShifts = async (params: { page?: number; limit?: number
     pagination: json.pagination || { total: 0, page: 1, limit: 20, totalPages: 1 },
   };
 };
+
+export const fetchVarianceReport = (months = 6): Promise<VarianceReport> =>
+  fetchJson(api(`finance/variances${query({ months })}`));
 
 export const fetchShiftReconciliation = (id: string): Promise<import("./types").ShiftReconciliation> =>
   fetchJson(api(`finance/shifts/${id}/reconciliation`));
