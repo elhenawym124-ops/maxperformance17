@@ -1744,6 +1744,14 @@ const taskController = {
         success: true,
         data: formatTaskSummary(task),
         message: "تم تحديث المهمة بنجاح",
+        // توضيح صريح: الحالة لا تُحدَّث من هذا المسار (لها /tasks/:id/status)
+        ...(req.body?.status !== undefined
+          ? {
+              warnings: [
+                "تم تجاهل حقل status — استخدم PUT /api/v1/tasks/:id/status لتغيير حالة المهمة",
+              ],
+            }
+          : {}),
       });
 
       queueTaskWebhook("task.updated", {

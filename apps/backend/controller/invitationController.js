@@ -214,7 +214,7 @@ const acceptInvitation = async (req, res) => {
             const employeeCount = await getSharedPrismaClient().employee.count({
                 where: { companyId: invitation.companyId }
             });
-            const employeeNumber = `EMP${String(employeeCount + 1).padStart(5, '0')}`;
+            const employeeNumber = `EMP-${String(employeeCount + 1).padStart(3, '0')}`;
 
             await getSharedPrismaClient().employee.create({
                 data: {

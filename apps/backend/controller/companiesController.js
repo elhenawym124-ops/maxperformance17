@@ -1863,7 +1863,7 @@ const createnewUserForCompany = async (req, res) => {
       const employeeCount = await tx.user.count({
         where: { companyId: companyId, employeeNumber: { not: null } },
       });
-      const employeeNumber = `EMP${String(employeeCount + 1).padStart(5, "0")}`;
+      const employeeNumber = `EMP-${String(employeeCount + 1).padStart(3, "0")}`;
 
       // Extract Employee fields from request body
       const { departmentId, positionId, hireDate, contractType, baseSalary } =

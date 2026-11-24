@@ -5,6 +5,7 @@ try {
   bcrypt = null;
 }
 const crypto = require('crypto');
+const { isValidEgyptianPhone } = require('../utils/phoneValidation');
 
 const hashPassword = async (pwd) => {
   if (!pwd) return null;
@@ -389,6 +390,13 @@ const create = async (req, res) => {
     const safeGender = normalizeGender(gender);
     const safePhone = (phone && typeof phone === 'string' && phone.trim()) ? phone.trim() : null;
     const safePhone2 = (phone2 && typeof phone2 === 'string' && phone2.trim()) ? phone2.trim() : null;
+    // تحقق من صيغة الهاتف (كان يقبل 9 أرقام) — أرقام غير صالحة تُفسد رسائل الواتساب
+    if (safePhone && !isValidEgyptianPhone(safePhone)) {
+      return res.status(400).json({ success: false, error: 'رقم هاتف الطالب غير صالح — يجب أن يكون 11 رقمًا يبدأ بـ 010/011/012/015' });
+    }
+    if (safePhone2 && !isValidEgyptianPhone(safePhone2)) {
+      return res.status(400).json({ success: false, error: 'رقم الهاتف الإضافي غير صالح' });
+    }
     const safeAddress = (address && typeof address === 'string' && address.trim()) ? address.trim() : null;
     const safeGuardianPhone2 = (guardianPhone2 && typeof guardianPhone2 === 'string' && guardianPhone2.trim())
       ? guardianPhone2.trim()

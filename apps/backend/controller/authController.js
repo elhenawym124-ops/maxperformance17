@@ -576,7 +576,7 @@ const register = async (req, res) => {
       const employeeCount = await prisma.employee.count({
         where: { companyId: company.id }
       });
-      const employeeNumber = `EMP${String(employeeCount + 1).padStart(5, '0')}`;
+      const employeeNumber = `EMP-${String(employeeCount + 1).padStart(3, '0')}`;
 
       await prisma.employee.create({
         data: {
