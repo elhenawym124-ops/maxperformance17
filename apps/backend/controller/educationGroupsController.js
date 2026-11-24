@@ -1959,7 +1959,8 @@ const generateGroupSessionsInternal = async ({
   scheduleDays,
   startTime,
   endTime,
-  clearFutureScheduled = true
+  clearFutureScheduled = true,
+  preserveGroupStart = false
 }) => {
   const groupRows = await prisma.$queryRawUnsafe(`
     SELECT * FROM "education_groups" WHERE id = $1 AND "companyId" = $2
@@ -1989,11 +1990,21 @@ const generateGroupSessionsInternal = async ({
   }
 
   // Update group record with startDate and endDate
-  await prisma.$executeRawUnsafe(`
-    UPDATE "education_groups"
-    SET "startDate" = $1, "endDate" = $2, "updatedAt" = NOW()
-    WHERE id = $3 AND "companyId" = $4
-  `, effectiveStart, effectiveEnd, groupId, companyId);
+  // preserveGroupStart: used by the rollover job so extending the horizon never
+  // rewrites the original group start date.
+  if (preserveGroupStart) {
+    await prisma.$executeRawUnsafe(`
+      UPDATE "education_groups"
+      SET "endDate" = $1, "updatedAt" = NOW()
+      WHERE id = $2 AND "companyId" = $3
+    `, effectiveEnd, groupId, companyId);
+  } else {
+    await prisma.$executeRawUnsafe(`
+      UPDATE "education_groups"
+      SET "startDate" = $1, "endDate" = $2, "updatedAt" = NOW()
+      WHERE id = $3 AND "companyId" = $4
+    `, effectiveStart, effectiveEnd, groupId, companyId);
+  }
 
   // Parse slots
   let slots = [];
@@ -2240,6 +2251,53 @@ const generateSessions = async (req, res) => {
   }
 };
 
+/**
+ * PUT /education/groups/:id/sessions/:sessionId/cancel
+ * Cancels a single generated group session (holiday / teacher absence) without
+ * touching the rest of the group schedule or any student attendance record.
+ */
+const cancelGroupSession = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id: groupId, sessionId } = req.params;
+    if (!sessionId) {
+      return res.status(400).json({ success: false, error: 'معرّف الحصة مطلوب' });
+    }
+
+    const prisma = getSharedPrismaClient();
+    await ensureTablesExist(prisma);
+
+    const rows = await prisma.$queryRawUnsafe(`
+      SELECT id, status FROM "education_group_sessions"
+      WHERE id = $1 AND "groupId" = $2 AND "companyId" = $3
+      LIMIT 1
+    `, sessionId, groupId, companyId);
+
+    if (!rows || rows.length === 0) {
+      return res.status(404).json({ success: false, error: 'الحصة غير موجودة' });
+    }
+    if (rows[0].status === 'COMPLETED') {
+      return res.status(400).json({
+        success: false,
+        error: 'لا يمكن إلغاء حصة تم تسجيل حضورها. عدّل سجل الحضور بدلًا من ذلك.',
+      });
+    }
+
+    await prisma.$executeRawUnsafe(`
+      UPDATE "education_group_sessions"
+      SET "status" = 'CANCELLED'
+      WHERE id = $1 AND "groupId" = $2 AND "companyId" = $3
+    `, sessionId, groupId, companyId);
+
+    return res.json({ success: true, message: 'تم إلغاء الحصة' });
+  } catch (err) {
+    console.error('[EducationGroups] cancelGroupSession error:', err.message);
+    return res.status(500).json({ success: false, error: 'تعذر إلغاء الحصة' });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
@@ -2255,5 +2313,6 @@ module.exports = {
   getFinancials,
   collectDueFees,
   generateSessions,
+  cancelGroupSession,
   generateGroupSessionsInternal
 };

@@ -23,6 +23,8 @@ router.post('/:id/transfer-member', requireDbPermission('education.groups.manage
 // Sessions & Bulk Attendance
 router.post('/:id/sessions', requireDbPermission('education.sessions.manage'), controller.recordSession);
 router.post('/:id/generate-sessions', requireDbPermission('education.groups.manage'), controller.generateSessions);
+// إلغاء حصة واحدة من جدول المجموعة (عطلة/غياب مدرس) بدون المساس بباقي الجدول
+router.put('/:id/sessions/:sessionId/cancel', requireDbPermission('education.sessions.manage'), controller.cancelGroupSession);
 
 // Financials & Teacher Settlement
 router.get('/:id/financials', requireDbPermission('education.financials.view'), controller.getFinancials);

@@ -536,6 +536,23 @@ export function useEducationManagementController() {
     }
     fetchSessions();
   };
+  const handleCancelGroupSession = async (session: { id: string; groupId?: string }) => {
+    if (!session?.groupId) {
+      alert("هذه الحصة غير مرتبطة بمجموعة");
+      return;
+    }
+    if (!confirm("إلغاء هذه الحصة من جدول المجموعة؟ (باقي الجدول لن يتأثر)")) return;
+    const res = await fetch(api(`groups/${session.groupId}/sessions/${session.id}/cancel`), {
+      method: "PUT",
+      headers: getAuthHeaders(),
+    });
+    const data = await res.json();
+    if (!data.success) {
+      alert(data.error || "تعذر إلغاء الحصة");
+      return;
+    }
+    fetchSessions();
+  };
   const handleScheduleMakeup = async (id: string) => {
     const input = window.prompt("موعد حصة التعويض (YYYY-MM-DD HH:mm)");
     if (!input) return;
@@ -652,6 +669,7 @@ export function useEducationManagementController() {
     handleCancelSession,
     handleMarkNoShow,
     handleDeleteSession,
+    handleCancelGroupSession,
     handleScheduleMakeup,
   };
 }

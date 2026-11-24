@@ -31,7 +31,8 @@ const getAll = async (req, res) => {
         subject: { select: { id: true, name: true } },
         enrollment: { select: { id: true, remainingHours: true } }
       },
-      orderBy: { scheduledAt: 'desc' }
+      orderBy: { scheduledAt: 'desc' },
+      take: 2000
     });
 
     const formattedPrivate = data.map((s) => ({
@@ -95,7 +96,7 @@ const getAll = async (req, res) => {
           pIdx++;
         }
 
-        groupSql += ` ORDER BY s."sessionDate" DESC`;
+        groupSql += ` ORDER BY s."sessionDate" DESC LIMIT 2000`;
 
         const groupRows = await prisma.$queryRawUnsafe(groupSql, ...params);
 
@@ -117,7 +118,9 @@ const getAll = async (req, res) => {
             status: gs.status,
             sessionType: 'GROUP',
             groupName: gs.groupName,
+            groupCode: gs.groupCode,
             groupId: gs.groupId,
+            teacherId: gs.teacherId || null,
             room: gs.groupRoom,
             notes: gs.notes,
             presentCount: Number(gs.presentCount || 0),

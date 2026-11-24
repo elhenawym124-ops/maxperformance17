@@ -1775,6 +1775,17 @@ try {
   );
 }
 
+// Start Education group-session rollover (keeps every active group 4 weeks ahead)
+try {
+  const { startEducationGroupSessionRolloverCron } = require("./cron/educationGroupSessionRolloverCron");
+  startEducationGroupSessionRolloverCron();
+} catch (error) {
+  console.error(
+    "❌ [EDU-ROLLOVER] Failed to start education group session rollover:",
+    error,
+  );
+}
+
 // Start Manufacturing WhatsApp Notification Overdue Scan Cron Service (T01)
 try {
   const { startManufacturingNotificationCron } = require("./cron/manufacturingNotificationCron");

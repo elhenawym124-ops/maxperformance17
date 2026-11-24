@@ -43,6 +43,7 @@ export interface EducationSessionsTabProps {
   handleCancelSession: (id: string) => Promise<void>;
   handleMarkNoShow: (id: string) => Promise<void>;
   handleDeleteSession: (id: string) => Promise<void>;
+  handleCancelGroupSession: (session: { id: string; groupId?: string }) => Promise<void>;
   onScheduleMakeup?: (id: string) => void;
 }
 
@@ -61,6 +62,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
   handleCancelSession,
   handleMarkNoShow,
   handleDeleteSession,
+  handleCancelGroupSession,
   onScheduleMakeup,
 }) => {
   const { t, i18n } = useTranslation();
@@ -68,6 +70,8 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
   const navigate = useNavigate();
 
   const [sessionTypeFilter, setSessionTypeFilter] = React.useState<"ALL" | "PRIVATE" | "GROUP">("ALL");
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [visibleCount, setVisibleCount] = React.useState(100);
 
   const isGroupSession = (s: EducationSession) => s.sessionType === "GROUP";
 
@@ -87,6 +91,28 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
     }
     return true;
   });
+
+  const searched = React.useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return filtered;
+    return filtered.filter((s) => {
+      const haystack = [
+        s.student ? `${s.student.firstName} ${s.student.lastName || ""}` : "",
+        s.student?.code || "",
+        s.groupName || "",
+        s.groupCode || "",
+        s.room || "",
+        s.teacher?.name || "",
+        s.subject?.name || "",
+        s.topic || "",
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(q);
+    });
+  }, [filtered, searchQuery]);
+
+  const visible = searched.slice(0, visibleCount);
 
   return (
     <div className="space-y-4" dir={isEn ? "ltr" : "rtl"}>
@@ -132,6 +158,16 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
           </div>
         </div>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 w-full lg:w-auto items-stretch sm:items-center">
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setVisibleCount(100);
+            }}
+            placeholder={isEn ? "Search student / group / teacher" : "بحث بالطالب أو الجروب أو المدرس"}
+            className="bg-background border border-input rounded-lg px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary w-full sm:w-52"
+          />
           <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
             <select
               className="bg-background border border-input rounded-lg px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary w-full sm:w-auto"
@@ -196,7 +232,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
 
       {/* Mobile Cards View */}
       <div className="grid grid-cols-1 gap-3 md:hidden">
-        {filtered.map((s) => (
+        {visible.map((s) => (
           <div
             key={s.id}
             className="bg-card border border-border/80 rounded-xl p-3.5 shadow-xs space-y-3"
@@ -292,14 +328,28 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
 
             <div className="flex flex-wrap items-center justify-end gap-1.5 pt-2 border-t border-border/60">
               {isGroupSession(s) ? (
-                <button
-                  type="button"
-                  onClick={() => navigate("/admin/education/groups")}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-primary bg-primary/10 hover:bg-primary/20 rounded-md transition-colors border border-primary/20"
-                >
-                  <Users className="w-3.5 h-3.5" />
-                  {isEn ? "Log attendance" : "تسجيل الحضور"}
-                </button>
+                <>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/admin/education/groups")}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-primary bg-primary/10 hover:bg-primary/20 rounded-md transition-colors border border-primary/20"
+                  >
+                    <Users className="w-3.5 h-3.5" />
+                    {isEn ? "Log attendance" : "تسجيل الحضور"}
+                  </button>
+                  {s.status === "SCHEDULED" && (
+                    <button
+                      type="button"
+                      onClick={() => handleCancelGroupSession({ id: s.id, groupId: s.groupId })}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-destructive dark:text-destructive bg-destructive/10 hover:bg-destructive/20 rounded-md transition-colors border border-destructive/20"
+                      aria-label={isEn ? "Cancel this session" : "إلغاء هذه الحصة"}
+                      title={isEn ? "Cancel this session" : "إلغاء هذه الحصة"}
+                    >
+                      <X className="w-3.5 h-3.5" />
+                      {isEn ? "Cancel" : "إلغاء"}
+                    </button>
+                  )}
+                </>
               ) : (
                 <>
                   {s.status === "SCHEDULED" && (
@@ -366,7 +416,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
             </div>
           </div>
         ))}
-        {filtered.length === 0 && (
+        {visible.length === 0 && (
           <div className="bg-card border border-border/80 rounded-xl p-8 text-center text-xs text-muted-foreground">
             {t("education.sessions.empty", isEn ? "No registered sessions matching criteria" : "لا توجد حصص مسجلة")}
           </div>
@@ -395,7 +445,7 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
               </tr>
             </thead>
             <tbody className="divide-y divide-border/60">
-              {filtered.map((s) => (
+              {visible.map((s) => (
                 <tr key={s.id} className="hover:bg-muted/30 transition-colors">
                   <td className={CELL_CLS + " font-medium text-foreground"}>
                     <div className="flex items-center gap-1.5 flex-wrap">
@@ -468,14 +518,26 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                   <td className={CELL_CLS}>
                     <div className="flex items-center justify-end gap-1">
                       {isGroupSession(s) ? (
-                        <button
-                          type="button"
-                          onClick={() => navigate("/admin/education/groups")}
-                          className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
-                          aria-label={isEn ? "Log attendance" : "تسجيل الحضور"} title={isEn ? "Log attendance" : "تسجيل الحضور"}
-                        >
-                          <Users className="w-3.5 h-3.5" />
-                        </button>
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => navigate("/admin/education/groups")}
+                            className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
+                            aria-label={isEn ? "Log attendance" : "تسجيل الحضور"} title={isEn ? "Log attendance" : "تسجيل الحضور"}
+                          >
+                            <Users className="w-3.5 h-3.5" />
+                          </button>
+                          {s.status === "SCHEDULED" && (
+                            <button
+                              type="button"
+                              onClick={() => handleCancelGroupSession({ id: s.id, groupId: s.groupId })}
+                              className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+                              aria-label={isEn ? "Cancel this session" : "إلغاء هذه الحصة"} title={isEn ? "Cancel this session" : "إلغاء هذه الحصة"}
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </>
                       ) : (
                         <>
                           {s.status === "SCHEDULED" && (
@@ -542,12 +604,27 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
             </tbody>
           </table>
         </div>
-        {filtered.length === 0 && (
+        {visible.length === 0 && (
           <p className="text-center py-12 text-xs text-muted-foreground">
             {t("education.sessions.empty", isEn ? "No registered sessions" : "لا توجد حصص مسجلة")}
           </p>
         )}
       </div>
+
+      {/* Load more (client-side paging) */}
+      {searched.length > visible.length && (
+        <div className="flex justify-center pt-1">
+          <button
+            type="button"
+            onClick={() => setVisibleCount((n) => n + 100)}
+            className="px-4 py-1.5 text-xs font-semibold text-primary bg-primary/10 hover:bg-primary/20 border border-primary/20 rounded-lg transition-colors tabular-nums"
+          >
+            {isEn
+              ? `Show more (${visible.length}/${searched.length})`
+              : `عرض المزيد (${visible.length}/${searched.length})`}
+          </button>
+        </div>
+      )}
       {sessionModal !== undefined && (
         <SessionModal
           session={sessionModal}
