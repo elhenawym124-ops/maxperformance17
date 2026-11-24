@@ -18,6 +18,7 @@ import {
   isKhemetLuxeTheme,
 } from "../../utils/navigationGuards";
 import { parsePositiveNumber } from "./storefrontHeaderHelpers";
+import { isAhmedGadStore } from "../../utils/quantityTierVariants";
 import type {
   StorefrontHeaderController,
   StorefrontHeaderProps,
@@ -210,7 +211,25 @@ export const useStorefrontHeaderController = (
     return false;
   };
 
-  const filteredNavItems = resolvedNavItems?.filter((nav) => !isDraftPage(nav.to));
+  const isAhmedGad = isAhmedGadStore(
+    settings?.company?.id || settings?.companyId,
+    settings?.company?.slug || settings?.companySlug,
+  );
+
+  const isShoesNavItem = (label?: string) => {
+    if (!label) return false;
+    const l = label.trim().toLowerCase();
+    return (
+      l.includes("أحذية") ||
+      l.includes("احذية") ||
+      l.includes("shoes") ||
+      l.includes("footwear")
+    );
+  };
+
+  const filteredNavItems = resolvedNavItems
+    ?.filter((nav) => !isDraftPage(nav.to))
+    .filter((nav) => !(isAhmedGad && isShoesNavItem(nav.label)));
 
   const navLinks = (
     filteredNavItems

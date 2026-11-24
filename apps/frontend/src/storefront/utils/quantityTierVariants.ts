@@ -129,8 +129,8 @@ export const parseQuantityRange = (rawText: string): QuantityTierRange | null =>
     return { min: 2, max: 2 };
   }
 
-  // Pure single number at start: "5 كراتين", "10 قطع"
-  const singleMatch = text.match(/^(\d+)\s*(?:كرتونة|كراتين|قطعة|قطع|علبة|علب)?/);
+  // Pure single number with explicit unit: "5 كراتين", "10 قطع"
+  const singleMatch = text.match(/^(\d+)\s*(?:كرتونة|كراتين|قطعة|قطع|علبة|علب)/);
   if (singleMatch && singleMatch[1]) {
     const val = parseInt(singleMatch[1], 10);
     if (!isNaN(val) && val > 0) {

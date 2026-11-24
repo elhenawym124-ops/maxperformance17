@@ -4,6 +4,7 @@ import type {
   StorefrontTheme,
 } from '../types/theme.types';
 import { shouldInjectCheckoutCartItems } from "./checkoutPageSettings";
+import { isAhmedGadStore } from '../utils/quantityTierVariants';
 
 const PHARMACY_THEME_PRESET_IDS = new Set(["max-care-go", "pharmacy-demo"]);
 
@@ -1410,12 +1411,58 @@ export const normalizeStorefrontThemeCommercePages = (
     }
   });
 
+  let nextHeader = theme.header;
+  let nextFooter = theme.footer;
+
+  if (isAhmedGadStore()) {
+    const isShoes = (label?: string, to?: string) => {
+      const l = (label || "").trim().toLowerCase();
+      const t = (to || "").trim().toLowerCase();
+      return (
+        l.includes("أحذية") ||
+        l.includes("احذية") ||
+        l.includes("shoes") ||
+        l.includes("footwear") ||
+        t === "/shop/footwear"
+      );
+    };
+
+    if (Array.isArray(theme.header?.navigation)) {
+      const filteredNav = theme.header.navigation.filter(
+        (item) => !isShoes(item?.label, item?.to),
+      );
+      if (filteredNav.length !== theme.header.navigation.length) {
+        nextHeader = {
+          ...theme.header,
+          navigation: filteredNav,
+        };
+        hasChanges = true;
+      }
+    }
+
+    if (Array.isArray(theme.footer?.navigation)) {
+      const filteredFooterNav = theme.footer.navigation.map((group) => ({
+        ...group,
+        links: Array.isArray(group.links)
+          ? group.links.filter((link) => !isShoes(link?.label, link?.to))
+          : group.links,
+      }));
+      nextFooter = {
+        ...theme.footer,
+        navigation: filteredFooterNav,
+      };
+      hasChanges = true;
+    }
+  }
+
   if (!hasChanges) {
     return theme;
   }
 
   return {
     ...theme,
+    header: nextHeader,
+    footer: nextFooter,
     pages: nextPages,
   };
 };

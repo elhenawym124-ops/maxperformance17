@@ -44,7 +44,7 @@ const parseQuantityRange = (rawText) => {
     return { min: 2, max: 2 };
   }
 
-  const singleMatch = text.match(/^(\d+)\s*(?:كرتونة|كراتين|قطعة|قطع|علبة|علب)?/);
+  const singleMatch = text.match(/^(\d+)\s*(?:كرتونة|كراتين|قطعة|قطع|علبة|علب)/);
   if (singleMatch && singleMatch[1]) {
     const val = parseInt(singleMatch[1], 10);
     if (!isNaN(val) && val > 0) return { min: val, max: val };

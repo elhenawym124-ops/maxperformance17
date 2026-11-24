@@ -7,6 +7,7 @@ import { shouldStorefrontForceDocumentNavigation } from '../../../utils/navigati
 import { footerSettingsService, type FooterSettings } from '../../../../services/footerSettingsService';
 import type { StorefrontGlobalFooterConfig } from '../../../studio/StudioHeaderFooterPanel';
 import type { StorefrontFooterProps, FooterContactRow, FooterLinkGroup } from './footerTypes';
+import { isAhmedGadStore } from '../../../utils/quantityTierVariants';
 
 export function normalizeSocialLinks(
   value: unknown,
@@ -267,7 +268,23 @@ export const useStorefrontFooterController = ({
     ? effectiveGlobalFooter.columns
     : undefined;
 
-  const footerLinksData: FooterLinkGroup[] =
+  const isAhmedGad = isAhmedGadStore(
+    settings?.company?.id,
+    settings?.company?.slug,
+  );
+
+  const isShoesFooterLink = (label?: string) => {
+    if (!label) return false;
+    const l = label.trim().toLowerCase();
+    return (
+      l.includes('أحذية') ||
+      l.includes('احذية') ||
+      l.includes('shoes') ||
+      l.includes('footwear')
+    );
+  };
+
+  const rawFooterLinksData: FooterLinkGroup[] =
     Array.isArray(globalCols) && globalCols.length > 0
       ? globalCols.slice(0, 4).map((col) => ({
           title: col.title,
@@ -310,6 +327,14 @@ export const useStorefrontFooterController = ({
             ],
           },
         ];
+
+  const footerLinksData: FooterLinkGroup[] = useMemo(() => {
+    if (!isAhmedGad) return rawFooterLinksData;
+    return rawFooterLinksData.map((group) => ({
+      ...group,
+      links: group.links.filter((link) => !isShoesFooterLink(link.label)),
+    }));
+  }, [rawFooterLinksData, isAhmedGad]);
 
   const customSocialLinks = {
     ...normalizeSocialLinks(runtimeStorefrontSettings.socialLinks),

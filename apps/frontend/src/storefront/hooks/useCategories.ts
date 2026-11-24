@@ -5,6 +5,7 @@ import {
   resolveActiveThemePreviewDataset,
   resolveThemeCatalogPreviewKey,
 } from '../preview/themePreviewData';
+import { isAhmedGadStore } from '../utils/quantityTierVariants';
 
 export interface Category {
   id: string;
@@ -57,6 +58,21 @@ export const fetchStorefrontCategories = async (
       companyId: companyIdOverride,
     });
     if (response.success && Array.isArray(response.data) && response.data.length > 0) {
+      if (isAhmedGadStore(companyIdOverride)) {
+        const isShoesCat = (cat: Category) => {
+          const n = (cat.name || '').trim().toLowerCase();
+          const s = (cat.slug || '').trim().toLowerCase();
+          return (
+            n.includes('احذية') ||
+            n.includes('أحذية') ||
+            n.includes('shoes') ||
+            s.includes('footwear') ||
+            s.includes('a7dhya') ||
+            s.includes('shoes')
+          );
+        };
+        return response.data.filter((c: Category) => !isShoesCat(c));
+      }
       return response.data;
     }
   } catch (error) {
@@ -72,6 +88,15 @@ export const fetchStorefrontCategories = async (
     );
     const previewCategories = getMarketplacePreviewCategories(activeThemeId);
     if (previewCategories && previewCategories.length > 0) {
+      if (isAhmedGadStore(companyIdOverride)) {
+        return previewCategories.filter(
+          (c: Category) =>
+            !c.name?.includes('احذية') &&
+            !c.name?.includes('أحذية') &&
+            !c.slug?.includes('footwear') &&
+            !c.slug?.includes('a7dhya'),
+        );
+      }
       return previewCategories;
     }
   }

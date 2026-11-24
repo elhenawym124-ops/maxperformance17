@@ -16,6 +16,7 @@ import {
   ShopCommandBarProps,
   normalizeShopCommandBarVariant,
 } from './types';
+import { isAhmedGadStore } from '../../utils/quantityTierVariants';
 
 export const useShopCommandBarController = (
   section?: ShopCommandBarProps['section'],
@@ -107,7 +108,17 @@ export const useShopCommandBarController = (
   );
   const { pagination = { total: 0, page: 1, limit: 12, pages: 0 }, isLoading } = useProducts(productQuery);
 
-  const visibleCategories = categories.slice(0, chipLimit);
+  const isAhmedGad = isAhmedGadStore();
+  const safeCategories = isAhmedGad
+    ? categories.filter(
+        (c) =>
+          !c.name?.includes('احذية') &&
+          !c.name?.includes('أحذية') &&
+          c.slug !== 'a7dhya' &&
+          c.slug !== 'footwear',
+      )
+    : categories;
+  const visibleCategories = safeCategories.slice(0, chipLimit);
   const title =
     settings?.title ||
     (isElessiBagToolbar
@@ -138,7 +149,7 @@ export const useShopCommandBarController = (
           ? 'لوحة تصفح أقرب للقرار'
           : 'تحكم أسرع في التصفح');
 
-  const subtitle =
+  const rawSubtitle =
     settings?.subtitle ||
     (isElessiBagToolbar
       ? 'ابدأ من حقيبة يومية أو سفر أو هدية، ثم بدّل اللون والحجم وكمّل الطلب من نفس الصفحة.'
@@ -168,7 +179,18 @@ export const useShopCommandBarController = (
             ? 'ابحث بسرعة، فلتر حسب التصنيف، ثم غيّر الترتيب داخل لوحة خفيفة تقرّب المنتج المناسب.'
             : 'ابحث بسرعة، فلتر حسب التصنيف، ثم غيّر الترتيب بدون مغادرة الشبكة.');
 
-  const searchPlaceholder = settings?.searchPlaceholder || 'ابحث داخل المنتجات';
+  const subtitle =
+    isAhmedGad && typeof rawSubtitle === 'string'
+      ? rawSubtitle
+          .replace(/الأحذية/g, 'المنتجات')
+          .replace(/أحذية/g, 'منتجات')
+      : rawSubtitle;
+
+  const rawSearchPlaceholder = settings?.searchPlaceholder || 'ابحث داخل المنتجات';
+  const searchPlaceholder =
+    isAhmedGad && typeof rawSearchPlaceholder === 'string'
+      ? rawSearchPlaceholder.replace(/سنيكرز،\s*كعب،\s*صندل\s*أو\s*لوفر/g, 'منتجاتنا')
+      : rawSearchPlaceholder;
   const allCategoriesLabel = settings?.allCategoriesLabel || 'كل المنتجات';
   const resultsLabel = settings?.resultsLabel || 'منتج متاح';
   const clearButtonText = settings?.clearButtonText || 'إزالة الفلاتر';

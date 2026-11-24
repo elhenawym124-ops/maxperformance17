@@ -32,6 +32,7 @@ import {
   isAhmedGadStore,
   getVariantQuantityRange,
   detectQuantityTierVariants,
+  findMatchingTierVariant,
 } from '../../utils/quantityTierVariants';
 
 import type { ProductInfoProps, ProductInfoController } from './productInfoTypes';
@@ -422,6 +423,15 @@ export const useProductInfoController = ({
     );
   }, [product?.productVariants, selectedAttributes]);
 
+  const isAhmedGad = useMemo(
+    () =>
+      isAhmedGadStore(
+        storefrontSettings?.company?.id,
+        storefrontSettings?.company?.slug,
+      ),
+    [storefrontSettings?.company?.id, storefrontSettings?.company?.slug],
+  );
+
   const quantityTierRange = useMemo(() => {
     return getVariantQuantityRange(
       selectedVariant || selectedAttributes,
@@ -430,19 +440,64 @@ export const useProductInfoController = ({
     );
   }, [selectedVariant, selectedAttributes, storefrontSettings?.company?.id, storefrontSettings?.company?.slug]);
 
-  useEffect(() => {
-    if (quantityTierRange) {
-      if (quantity < quantityTierRange.min || quantity > quantityTierRange.max) {
-        setQuantity(quantityTierRange.min);
-      }
-    }
-  }, [quantityTierRange, quantity, setQuantity]);
-
   const quantityTierScheme = useMemo(() => {
+    if (!isAhmedGad) return { isTierScheme: false, tiers: [], attributeKey: '' };
     return detectQuantityTierVariants(
       (product?.productVariants || (product as any)?.variants || []) as any[],
     );
-  }, [product]);
+  }, [product, isAhmedGad]);
+
+  const prevQuantityRef = useRef<number>(quantity);
+  const prevVariantIdRef = useRef<string | null>(selectedVariant?.id || null);
+
+  // Synchronize quantity <-> tier variant bi-directionally without infinite loops (Ahmed Gad only)
+  useEffect(() => {
+    if (!isAhmedGad || !quantityTierScheme?.isTierScheme || !quantityTierScheme.tiers.length) {
+      return;
+    }
+
+    const qtyChanged = quantity !== prevQuantityRef.current;
+    const variantChanged = selectedVariant?.id !== prevVariantIdRef.current;
+
+    // Case 1: User modified quantity -> auto-select matching tier variant
+    if (qtyChanged) {
+      prevQuantityRef.current = quantity;
+      const match = findMatchingTierVariant(quantityTierScheme.tiers, quantity);
+      if (match && match.attributeKey && match.attributeVal) {
+        if (selectedAttributes[match.attributeKey] !== match.attributeVal) {
+          prevVariantIdRef.current = match.variantId;
+          setSelectedAttributes((prev) => ({
+            ...prev,
+            [match.attributeKey]: match.attributeVal,
+          }));
+        }
+      }
+      return;
+    }
+
+    // Case 2: User clicked a tier variant -> clamp quantity into that tier's range
+    if (variantChanged && quantityTierRange) {
+      prevVariantIdRef.current = selectedVariant?.id || null;
+      let targetQty = quantity;
+      if (quantity < quantityTierRange.min) {
+        targetQty = quantityTierRange.min;
+      } else if (quantity > quantityTierRange.max) {
+        targetQty = quantityTierRange.max;
+      }
+      if (targetQty !== quantity) {
+        prevQuantityRef.current = targetQty;
+        setQuantity(targetQty);
+      }
+    }
+  }, [
+    isAhmedGad,
+    quantity,
+    quantityTierScheme,
+    selectedVariant?.id,
+    quantityTierRange,
+    selectedAttributes,
+    setQuantity,
+  ]);
 
   const activePrice =
     typeof selectedVariant?.price === 'number' &&
@@ -891,11 +946,6 @@ export const useProductInfoController = ({
   const guaranteeItems = parseMetadataArray(sectionSettings?.guaranteeItems);
   const guaranteeStyle = (sectionSettings?.guaranteeStyle as any) || 'minimal';
   const showGuarantees = sectionSettings?.showGuarantees !== false;
-
-  const isAhmedGad = isAhmedGadStore(
-    storefrontSettings?.company?.id,
-    storefrontSettings?.company?.slug
-  );
   const showSizeGuideSetting = sectionSettings?.showSizeGuide !== false;
   const hasProductSizeGuide = Boolean(product?.['sizeGuide'] && String(product?.['sizeGuide']).trim());
   const rawSizeGuideHref = (!isAhmedGad && showSizeGuideSetting) ? (sectionSettings?.sizeGuideLink || '') : '';
