@@ -594,7 +594,9 @@ export default function EducationGroupsPage({
       ? (groupDetails?.members || []).filter(
           (m) =>
             m.status === "ACTIVE" &&
-            (m.paymentStatus !== "PAID" || !m.nextRenewalDate || new Date(m.nextRenewalDate) <= new Date())
+            (m.nextRenewalDate
+              ? new Date(m.nextRenewalDate) <= new Date()
+              : m.paymentStatus !== "PAID")
         ).length
       : 0;
 

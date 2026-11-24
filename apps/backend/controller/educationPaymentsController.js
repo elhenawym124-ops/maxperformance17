@@ -646,7 +646,14 @@ const recordPayment = async (req, res) => {
         const renewalDate = member.nextRenewalDate ? new Date(member.nextRenewalDate) : null;
         const renewalDue = !renewalDate || renewalDate.getTime() <= Date.now();
 
-        if (isPaid && !renewalDue) {
+        // الدورة الحالية مغطاة (اشتراك باقة أو دفعة مقدمة) → ممنوع التحصيل قبل تاريخ التجديد،
+        // حتى لو الحالة PARTIAL، عشان مايتحسبش الشهر مرتين.
+        if (renewalDate && !renewalDue) {
+          const err = new Error('عضو المجموعة مسدد للدورة الحالية — التجديد مستحق لاحقاً');
+          err.statusCode = 409;
+          throw err;
+        }
+        if (isPaid && !renewalDate) {
           const err = new Error('عضو المجموعة مسدد للدورة الحالية — التجديد مستحق لاحقاً');
           err.statusCode = 409;
           throw err;

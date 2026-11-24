@@ -1805,9 +1805,8 @@ const collectDueFees = async (req, res) => {
       JOIN "education_students" s ON s."id" = m."studentId" AND s."companyId" = m."companyId"
       WHERE m."groupId" = $1 AND m."companyId" = $2 AND m."status" = 'ACTIVE'
         AND (
-          COALESCE(m."paymentStatus", 'PENDING') <> 'PAID'
-          OR m."nextRenewalDate" IS NULL
-          OR m."nextRenewalDate" <= NOW()
+          m."nextRenewalDate" <= NOW()
+          OR (m."nextRenewalDate" IS NULL AND COALESCE(m."paymentStatus", 'PENDING') <> 'PAID')
         )
       ORDER BY s."firstName" ASC
     `, groupId, companyId);
