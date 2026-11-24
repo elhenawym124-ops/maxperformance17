@@ -631,7 +631,13 @@ export default function EducationGroupsPage({
       }
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
-      window.open(url, "_blank", "noopener,noreferrer");
+      // تنزيل مباشر بدون الاعتماد على النوافذ المنبثقة (بتتحجب بعد await)
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `group-receipt-${groupId}-${new Date().toISOString().slice(0, 7)}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
       setTimeout(() => URL.revokeObjectURL(url), 60000);
     } catch (err: any) {
       toast.error(err?.message || (isEn ? "Error while generating receipt" : "حدث خطأ أثناء إنشاء الإيصال"));
