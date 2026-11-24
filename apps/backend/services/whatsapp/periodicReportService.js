@@ -71,6 +71,26 @@ class PeriodicReportService {
       }
     })) || [];
 
+    // استعلام السلات غير المكتملة إن وجدت (Guest Carts)
+    let incompleteCarts = [];
+    try {
+      incompleteCarts = await safeQuery(() => prisma.guestCart.findMany({
+        where: {
+          companyId,
+          checkoutUpdatedAt: { gte: dayStart, lte: dayEnd },
+          checkoutData: { not: null }
+        },
+        select: {
+          id: true,
+          total: true
+        }
+      })) || [];
+    } catch (_) {
+      incompleteCarts = [];
+    }
+    const incompleteCartsCount = incompleteCarts.length;
+    const incompleteCartsValue = Math.round(incompleteCarts.reduce((sum, c) => sum + (parseFloat(c.total) || 0), 0));
+
     // دمج الطلبات وحساب المقاييس
     const allOrdersCount = orders.length + guestOrders.length;
     const regularRevenue = orders.reduce((sum, o) => sum + (parseFloat(o.total) || 0), 0);
@@ -155,8 +175,12 @@ class PeriodicReportService {
           shipped: shippedCount,
           delivered: deliveredCount,
           canceledOrReturned: canceledOrReturnedCount,
-          cancelRate
+          cancelRate,
+          incompleteCarts: incompleteCartsCount,
+          incompleteCartsValue
         },
+        incompleteCartsCount,
+        incompleteCartsValue,
         topSellingProducts,
         lowStockProducts
       }
@@ -207,6 +231,9 @@ class PeriodicReportService {
       lines.push(`• تم التوصيل للعميل: *${operations.delivered}* طلب`);
       if (operations.canceledOrReturned > 0) {
         lines.push(`• ملغي / مرتجع: ${operations.canceledOrReturned} طلب (${operations.cancelRate}%)`);
+      }
+      if (operations.incompleteCarts > 0) {
+        lines.push(`• سلات غير مكتملة / متروكة: *${operations.incompleteCarts}* سلة (${operations.incompleteCartsValue?.toLocaleString('en-US') || 0} ${currency})`);
       }
       lines.push('');
     }

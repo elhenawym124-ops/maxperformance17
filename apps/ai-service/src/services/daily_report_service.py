@@ -163,6 +163,38 @@ class DailyReportService:
                     s_first = await s_first
                 stats = dict(s_first or {}) if isinstance(s_first, dict) else {}
 
+                # 5.b Fetch Today's Incomplete Orders (Guest Carts)
+                incomplete_orders_count = 0
+                incomplete_orders_value = 0.0
+                try:
+                    cart_stats_row = await session.execute(
+                        text("""
+                            SELECT
+                              COUNT(*)::int AS incomplete_count,
+                              COALESCE(SUM(total), 0)::float AS incomplete_value
+                            FROM guest_carts
+                            WHERE "companyId" = :cid 
+                              AND COALESCE("checkoutUpdatedAt", "createdAt") >= :start_dt
+                              AND "checkoutData" IS NOT NULL
+                        """),
+                        {"cid": company_id, "start_dt": start_utc},
+                    )
+                    c_mappings = cart_stats_row.mappings()
+                    if asyncio.iscoroutine(c_mappings):
+                        c_mappings = await c_mappings
+                    c_first = c_mappings.first() if hasattr(c_mappings, "first") else None
+                    if asyncio.iscoroutine(c_first):
+                        c_first = await c_first
+                    if c_first and isinstance(c_first, dict):
+                        incomplete_orders_count = int(c_first.get("incomplete_count", 0) or 0)
+                        incomplete_orders_value = float(c_first.get("incomplete_value", 0.0) or 0.0)
+                except Exception as cart_err:
+                    logger.warning("daily_briefing_guest_carts_failed", error=str(cart_err))
+
+                stats["incomplete_orders"] = incomplete_orders_count
+                stats["incomplete_orders_value"] = incomplete_orders_value
+                stats["total_with_incomplete"] = stats.get("total_orders", 0) + incomplete_orders_count
+
                 # 6. Data-Not-Ready Guard: Ensure data validity
                 if stats.get("total_orders", 0) < 0 or stats.get("revenue", 0) < 0:
                     await cls._record_schedule_status(session, schedule_id, "SKIPPED_DATA_NOT_READY", "Negative figures detected in orders")
@@ -205,6 +237,12 @@ class DailyReportService:
                 aov = round(gross_sales / total_orders, 2) if total_orders > 0 else 0.0
 
                 # 10. Generate Crisp Executive Briefing
+                incomplete_line = (
+                    f"• *السلات غير المكتملة:* {incomplete_orders_count} سلة ({incomplete_orders_value:,.2f} ج.م)\n"
+                    if incomplete_orders_count > 0
+                    else "• *السلات غير المكتملة:* 0 سلة\n"
+                )
+
                 summary_text = (
                     f"📊 *التقرير التنفيذي اليومي — {company_name}*\n"
                     f"📅 *التاريخ:* {date_str} (توقيت القاهرة)\n"
@@ -213,6 +251,7 @@ class DailyReportService:
                     f"• *إجمالي المبيعات:* {gross_sales:,.2f} ج.م\n"
                     f"• *متوسط قيمة الطلب (AOV):* {aov:,.2f} ج.م\n"
                     f"• *الطلبات المسلّمة:* {delivered_orders} | *قيد المعالجة:* {pending_and_confirmed}\n"
+                    f"{incomplete_line}"
                     f"• *المحادثات والتواصل الجديد:* {leads_count} محادثة\n"
                     f"• *تنبيهات نواقص المخزون:* {low_stock_count} منتج\n"
                     f"────────────────────────\n"
@@ -264,6 +303,9 @@ class DailyReportService:
                         "gross_sales": gross_sales,
                         "delivered_orders": delivered_orders,
                         "pending_orders": pending_and_confirmed,
+                        "incomplete_orders": incomplete_orders_count,
+                        "incomplete_orders_value": incomplete_orders_value,
+                        "total_with_incomplete": total_orders + incomplete_orders_count,
                         "leads_count": leads_count,
                         "aov": aov,
                     },

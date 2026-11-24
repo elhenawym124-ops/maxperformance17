@@ -85,7 +85,7 @@ class OrderSummaryInput(BaseModel):
 class OrderRecentListInput(BaseModel):
     status: str | None = Field(
         default=None,
-        description="Filter orders by status: CONFIRMED, PENDING, SHIPPED, DELIVERED, CANCELLED. Case-insensitive.",
+        description="Filter orders by status: CONFIRMED, PENDING, SHIPPED, DELIVERED, CANCELLED, INCOMPLETE, LOST. Case-insensitive.",
     )
     period: str | None = Field(
         default=None,
@@ -380,7 +380,12 @@ async def order_summary(input_data: OrderSummaryInput) -> dict[str, Any]:
         res = await repo.get_order_summary(company_id, input_data.period)
 
     tot = res.get("totalOrders", 0)
-    res["summary"] = f"إجمالي عدد الطلبات في فترة ({input_data.period}): {tot} طلباً مسجلاً."
+    inc = res.get("incompleteOrdersCount", 0)
+    inc_val = res.get("incompleteOrdersValue", "0")
+    if inc > 0:
+        res["summary"] = f"إجمالي عدد الطلبات في فترة ({input_data.period}): {tot} طلباً مسجلاً، بالإضافة إلى {inc} سلة غير مكتملة بقيمة {inc_val} ج.م."
+    else:
+        res["summary"] = f"إجمالي عدد الطلبات في فترة ({input_data.period}): {tot} طلباً مسجلاً."
     return res
 
 

@@ -428,13 +428,50 @@ class OrderRepository(BaseRepository):
         status_rows = await self._session.execute(status_sql, params)
         by_status = {r.status.lower() if r.status else "unknown": r.cnt for r in status_rows}
 
+        # Query guest_carts for incomplete orders in the exact same period
+        incomplete_count = 0
+        incomplete_value = 0.0
+        try:
+            cart_where = ['"companyId" = :cid', 'COALESCE("checkoutUpdatedAt", "createdAt") >= :start']
+            cart_params: dict[str, Any] = {"cid": company_id, "start": start_date}
+            if end_date:
+                cart_where.append('COALESCE("checkoutUpdatedAt", "createdAt") < :end')
+                cart_params["end"] = end_date
+            cart_where.append('"checkoutData" IS NOT NULL')
+
+            cart_sql = text(f"""
+                SELECT
+                  COUNT(*)::int AS cnt,
+                  COALESCE(SUM(total), 0)::float AS val
+                FROM guest_carts
+                WHERE {" AND ".join(cart_where)}
+            """)
+            c_row = await self._session.execute(cart_sql, cart_params)
+            c_first = c_row.first()
+            if c_first:
+                c_mapping = dict(c_first._mapping) if hasattr(c_first, "_mapping") else {}
+                incomplete_count = int(c_mapping.get("cnt", 0) or 0)
+                incomplete_value = float(c_mapping.get("val", 0.0) or 0.0)
+        except Exception:
+            incomplete_count = 0
+            incomplete_value = 0.0
+
+        if incomplete_count > 0 or "incomplete" not in by_status:
+            by_status["incomplete"] = incomplete_count
+            by_status["lost"] = incomplete_count
+            by_status["متروك"] = incomplete_count
+
+        total_orders = agg.get("total_orders", 0)
         return {
             "period": period,
-            "totalOrders": agg.get("total_orders", 0),
+            "totalOrders": total_orders,
             "paidRevenue": str(agg.get("paid_revenue", 0)),
             "paidOrdersCount": agg.get("paid_count", 0),
             "avgOrderValue": str(agg.get("avg_value", 0)),
             "byStatus": by_status,
+            "incompleteOrdersCount": incomplete_count,
+            "incompleteOrdersValue": str(round(incomplete_value, 2)),
+            "totalWithIncomplete": total_orders + incomplete_count,
         }
 
     async def get_recent_orders(
@@ -478,12 +515,17 @@ class OrderRepository(BaseRepository):
         guest_conditions = ['g."companyId" = :cid']
 
         is_confirmed_query = False
+        is_incomplete_query = False
         if status:
             st = status.strip().upper()
             if st == "CONFIRMED":
                 is_confirmed_query = True
                 order_conditions.append('(o.status = \'CONFIRMED\' OR o."confirmedAt" IS NOT NULL)')
                 guest_conditions.append('(UPPER(g.status) = \'CONFIRMED\' OR g."confirmationNotifiedAt" IS NOT NULL)')
+            elif st in ("INCOMPLETE", "LOST", "ABANDONED", "متروك", "غير مكتمل", "سلات_غير_مكتملة"):
+                is_incomplete_query = True
+                order_conditions.append('1=0')
+                guest_conditions.append('1=0')
             else:
                 params["status"] = st
                 order_conditions.append('o.status = :status')
@@ -587,17 +629,82 @@ class OrderRepository(BaseRepository):
         except Exception:
             guest = []
 
-        merged = regular + guest
+        incomplete_carts = []
+        if is_incomplete_query:
+            cart_conditions = ['gc."companyId" = :cid', 'gc."checkoutData" IS NOT NULL']
+            cart_params: dict[str, Any] = {"cid": company_id, "lim": max(1, min(limit, 100))}
+            if start_date:
+                cart_params["start"] = start_date
+                if end_date:
+                    cart_params["end"] = end_date
+                    cart_conditions.append('COALESCE(gc."checkoutUpdatedAt", gc."createdAt") >= :start AND COALESCE(gc."checkoutUpdatedAt", gc."createdAt") < :end')
+                else:
+                    cart_conditions.append('COALESCE(gc."checkoutUpdatedAt", gc."createdAt") >= :start')
+
+            cart_sql = text(f"""
+                SELECT gc.id, gc."cartId", gc.total, gc."checkoutData",
+                       COALESCE(gc."checkoutUpdatedAt", gc."createdAt") AS date
+                FROM guest_carts gc
+                WHERE {" AND ".join(cart_conditions)}
+                ORDER BY COALESCE(gc."checkoutUpdatedAt", gc."createdAt") DESC
+                LIMIT :lim
+            """)
+            try:
+                c_rows = await self._session.execute(cart_sql, cart_params)
+                for r in c_rows:
+                    import json
+                    parsed_checkout = {}
+                    if getattr(r, "checkoutData", None):
+                        try:
+                            parsed_checkout = json.loads(r.checkoutData) if isinstance(r.checkoutData, str) else (r.checkoutData or {})
+                        except Exception:
+                            parsed_checkout = {}
+
+                    c_name = parsed_checkout.get("fullName") or parsed_checkout.get("name") or "عميل سلة غير مكتملة"
+                    c_phone = parsed_checkout.get("phone") or ""
+                    c_city = parsed_checkout.get("city") or ""
+                    c_gov = parsed_checkout.get("governorate") or parsed_checkout.get("state") or ""
+
+                    incomplete_carts.append({
+                        "orderNumber": f"CART-{str(getattr(r, 'cartId', None) or r.id)[-6:]}",
+                        "customerName": c_name,
+                        "phone": c_phone,
+                        "status": "INCOMPLETE",
+                        "customStatusCode": "",
+                        "paymentStatus": "UNPAID",
+                        "total": str(r.total or 0),
+                        "date": str(r.date or ""),
+                        "confirmedAt": "",
+                        "city": c_city,
+                        "governorate": c_gov,
+                        "shippingCompany": "",
+                        "shippingCarrier": "",
+                        "trackingNumber": "",
+                        "shipmentStatus": "CART_ABANDONED",
+                    })
+            except Exception:
+                incomplete_carts = []
+
+        merged = regular + guest + incomplete_carts
         merged.sort(key=lambda o: o.get("confirmedAt") or o.get("date") or "", reverse=True)
 
         total_matching = len(merged)
-        try:
-            cnt_row = await self._session.execute(text(f"SELECT COUNT(*)::int AS cnt FROM orders o WHERE {where_orders}"), params)
-            first_c = cnt_row.first()
-            if first_c and first_c.cnt is not None:
-                total_matching = int(first_c.cnt)
-        except Exception:
-            pass
+        if is_incomplete_query:
+            try:
+                cnt_row = await self._session.execute(text(f"SELECT COUNT(*)::int AS cnt FROM guest_carts gc WHERE {' AND '.join(cart_conditions)}"), cart_params)
+                first_c = cnt_row.first()
+                if first_c and first_c.cnt is not None:
+                    total_matching = int(first_c.cnt)
+            except Exception:
+                total_matching = len(merged)
+        else:
+            try:
+                cnt_row = await self._session.execute(text(f"SELECT COUNT(*)::int AS cnt FROM orders o WHERE {where_orders}"), params)
+                first_c = cnt_row.first()
+                if first_c and first_c.cnt is not None:
+                    total_matching = int(first_c.cnt)
+            except Exception:
+                pass
 
         self.last_total_matching = total_matching
         return merged[:limit]
