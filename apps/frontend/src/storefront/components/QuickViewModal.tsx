@@ -22,7 +22,7 @@ import { sanitizeStorefrontHtml } from '../utils/html';
 import { sanitizeProductCopy } from '../utils/productCopy';
 import VariantSelector from './VariantSelector';
 import { getVariantAttributes } from '../utils/variants';
-import { getVariantQuantityRange } from '../utils/quantityTierVariants';
+import { getVariantQuantityRange, isAhmedGadStore } from '../utils/quantityTierVariants';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -136,13 +136,21 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
   const sanitizedDescription = sanitizeStorefrontHtml(description);
   const hasVisibleDescription = Boolean(sanitizeProductCopy(description));
 
-  const fitNote =
-    (theme?.sections as any)?.['product-info']?.settings?.fitNote ||
-    (theme as any)?.settings?.fitNote ||
-    (theme as any)?.pdpSettings?.fitNote ||
-    (theme?.id?.includes('khemet')
-      ? 'لو مقاسك بين رقمين أو هتلبسي جورب تقيل شوية، اختاري الأكبر غالبًا.'
-      : null);
+  const isAhmedGad = isAhmedGadStore(
+    (product as any)?.companyId || (product as any)?.company?.id,
+    (product as any)?.company?.slug,
+  );
+
+  const fitNote = isAhmedGad
+    ? null
+    : (
+        (theme?.sections as any)?.['product-info']?.settings?.fitNote ||
+        (theme as any)?.settings?.fitNote ||
+        (theme as any)?.pdpSettings?.fitNote ||
+        (theme?.id?.includes('khemet')
+          ? 'لو مقاسك بين رقمين أو هتلبسي جورب تقيل شوية، اختاري الأكبر غالبًا.'
+          : null)
+      );
 
   const variantSettings = {
     styles: {

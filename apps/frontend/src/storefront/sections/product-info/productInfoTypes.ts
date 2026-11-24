@@ -69,6 +69,8 @@ export interface ProductInfoController {
 
   // Quantity and actions
   quantity: number;
+  minQuantity?: number;
+  maxQuantity?: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   handleAddToCart: () => Promise<void>;
   handleBuyNow: () => Promise<void>;

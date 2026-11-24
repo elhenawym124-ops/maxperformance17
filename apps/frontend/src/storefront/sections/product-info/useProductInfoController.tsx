@@ -31,6 +31,7 @@ import { Ruler } from 'lucide-react';
 import {
   isAhmedGadStore,
   getVariantQuantityRange,
+  detectQuantityTierVariants,
 } from '../../utils/quantityTierVariants';
 
 import type { ProductInfoProps, ProductInfoController } from './productInfoTypes';
@@ -436,6 +437,12 @@ export const useProductInfoController = ({
       }
     }
   }, [quantityTierRange, quantity, setQuantity]);
+
+  const quantityTierScheme = useMemo(() => {
+    return detectQuantityTierVariants(
+      (product?.productVariants || (product as any)?.variants || []) as any[],
+    );
+  }, [product]);
 
   const activePrice =
     typeof selectedVariant?.price === 'number' &&
