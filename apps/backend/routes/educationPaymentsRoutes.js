@@ -38,6 +38,7 @@ router.post('/topups/:id/reject', requireDbPermission('education.financials.mana
 router.get('/shifts', requireDbPermission(CAN_VIEW), shiftsController.listShifts);
 router.get('/shifts/current', requireDbPermission(CAN_VIEW), shiftsController.getCurrentShift);
 router.get('/shifts/:id', requireDbPermission(CAN_VIEW), shiftsController.getShiftById);
+router.get('/shifts/:id/reconciliation', requireDbPermission(CAN_VIEW), shiftsController.getShiftReconciliation);
 router.post('/shifts/open', requireDbPermission('education.financials.collect'), shiftsController.openShift);
 router.post('/shifts/:id/close', requireDbPermission('education.financials.collect'), shiftsController.closeShift);
 

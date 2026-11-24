@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle, Clock, LockKeyhole, RefreshCw, Wallet } from "lucide-react";
 import { toast } from "sonner";
-import { closeCashierShift, fetchCashierShifts, fetchCurrentShift, openCashierShift } from "./api";
+import { closeCashierShift, fetchCashierShifts, fetchCurrentShift, fetchShiftReconciliation, openCashierShift } from "./api";
 import { StatusPill, formatDateTime, money } from "./shared";
-import type { CashierShiftRecord, CurrentShiftPayload } from "./types";
+import type { CashierShiftRecord, CurrentShiftPayload, ShiftReconciliation } from "./types";
 
 interface Props {
   reloadKey: number;
@@ -23,6 +23,24 @@ const CashierShiftTab: React.FC<Props> = ({ reloadKey, onChanged }) => {
   const [closingBalance, setClosingBalance] = useState<number | "">("");
   const [notes, setNotes] = useState("");
   const [working, setWorking] = useState(false);
+  const [openReconciliation, setOpenReconciliation] = useState<ShiftReconciliation | null>(null);
+  const [reconciliationBusyId, setReconciliationBusyId] = useState<string | null>(null);
+
+  const toggleReconciliation = async (shiftId: string) => {
+    if (openReconciliation?.shift.id === shiftId) {
+      setOpenReconciliation(null);
+      return;
+    }
+    setReconciliationBusyId(shiftId);
+    try {
+      const data = await fetchShiftReconciliation(shiftId);
+      setOpenReconciliation(data);
+    } catch (e: any) {
+      toast.error(e.message || (isEn ? "Failed to load reconciliation" : "فشل جلب المطابقة"));
+    } finally {
+      setReconciliationBusyId(null);
+    }
+  };
 
   const load = useCallback(() => {
     let alive = true;
@@ -281,7 +299,52 @@ const CashierShiftTab: React.FC<Props> = ({ reloadKey, onChanged }) => {
                       {money(row.difference)}
                     </span>
                   ) : null}
+                  <button
+                    type="button"
+                    onClick={() => toggleReconciliation(row.id)}
+                    disabled={reconciliationBusyId === row.id}
+                    className="px-2 py-0.5 rounded border border-border text-[10px] font-semibold text-muted-foreground hover:bg-muted disabled:opacity-50"
+                  >
+                    {reconciliationBusyId === row.id
+                      ? (isEn ? "..." : "...")
+                      : (isEn ? "Reconcile" : "مطابقة")}
+                  </button>
                 </div>
+                {openReconciliation?.shift.id === row.id ? (
+                  <div className="w-full mt-2 rounded-lg border border-border/70 bg-muted/30 p-2">
+                    <div className="flex items-center justify-between text-[10px] text-muted-foreground mb-1">
+                      <span>{isEn ? "Method" : "الطريقة"}</span>
+                      <span className="flex items-center gap-4">
+                        <span>{isEn ? "Expected" : "المتوقع"}</span>
+                        <span>{isEn ? "Counted" : "المُعد"}</span>
+                        <span>{isEn ? "Diff" : "الفرق"}</span>
+                      </span>
+                    </div>
+                    {openReconciliation.byMethod.map((methodRow) => (
+                      <div
+                        key={methodRow.method}
+                        className="flex items-center justify-between text-[11px] font-mono tabular-nums py-0.5"
+                      >
+                        <span className="text-foreground">{methodRow.method}</span>
+                        <span className="flex items-center gap-4">
+                          <span className="text-muted-foreground">{money(methodRow.expected)}</span>
+                          <span>{methodRow.declared === null ? "—" : money(methodRow.declared)}</span>
+                          <span
+                            className={
+                              methodRow.difference === null
+                                ? "text-muted-foreground"
+                                : Math.abs(methodRow.difference) < 0.01
+                                  ? "text-success"
+                                  : "text-destructive"
+                            }
+                          >
+                            {methodRow.difference === null ? "—" : money(methodRow.difference)}
+                          </span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>

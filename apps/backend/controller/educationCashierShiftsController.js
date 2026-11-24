@@ -12,9 +12,14 @@ const cashierNameOf = (req) =>
   || 'كاشير';
 
 const computeCashTotals = async (db, companyId, from, to) => {
-  const [collectedRows, reversedRows] = await Promise.all([
+    const [collectedRows, reversedRows] = await Promise.all([
     db.educationPayment.findMany({
-      where: { companyId, method: 'CASH', paidAt: { gte: from, lte: to } },
+      where: {
+        companyId,
+        method: 'CASH',
+        status: { notIn: ['CANCELLED', 'FAILED'] },
+        paidAt: { gte: from, lte: to },
+      },
       select: { amount: true },
     }),
     db.educationPayment.findMany({
@@ -31,6 +36,115 @@ const computeCashTotals = async (db, companyId, from, to) => {
     reversed,
     net: money(collected - reversed),
   };
+};
+
+const computeMethodTotals = async (db, companyId, from, to) => {
+  const [collectedRows, reversedRows] = await Promise.all([
+    db.educationPayment.findMany({
+      where: { companyId, paidAt: { gte: from, lte: to } },
+      select: { amount: true, method: true, status: true, reversedAmount: true },
+    }),
+    db.educationPayment.findMany({
+      where: { companyId, reversedAmount: { gt: 0 }, reversedAt: { gte: from, lte: to } },
+      select: { reversedAmount: true, method: true },
+    }),
+  ]);
+
+  const collected = new Map();
+  for (const row of collectedRows || []) {
+    if (['CANCELLED', 'FAILED'].includes(String(row.status || '').toUpperCase())) continue;
+    const method = String(row.method || 'OTHER').toUpperCase();
+    collected.set(method, money((collected.get(method) || 0) + money(row.amount)));
+  }
+
+  const reversed = new Map();
+  for (const row of reversedRows || []) {
+    const method = String(row.method || 'OTHER').toUpperCase();
+    reversed.set(method, money((reversed.get(method) || 0) + money(row.reversedAmount)));
+  }
+
+  const methods = [...new Set([...collected.keys(), ...reversed.keys()])].sort();
+  return methods.map((method) => ({
+    method,
+    collected: money(collected.get(method) || 0),
+    reversed: money(reversed.get(method) || 0),
+    net: money(money(collected.get(method) || 0) - money(reversed.get(method) || 0)),
+  }));
+};
+
+const buildReconciliation = async (db, companyId, shift, until = null) => {
+  const to = until || shift.closedAt || new Date();
+  const rows = await computeMethodTotals(db, companyId, shift.openedAt, to);
+  const declared = shift.declaredByMethod && typeof shift.declaredByMethod === 'object'
+    ? shift.declaredByMethod
+    : {};
+
+  const byMethod = rows.map((row) => {
+    const declaredValue = declared[row.method];
+    const declaredAmount = declaredValue === undefined || declaredValue === null
+      ? null
+      : money(declaredValue);
+    // The drawer count includes the opening float, so cash is compared to net + opening.
+    const expected = row.method === 'CASH'
+      ? money(money(shift.openingBalance) + row.net)
+      : row.net;
+    return {
+      ...row,
+      expected,
+      declared: declaredAmount,
+      difference: declaredAmount === null ? null : money(declaredAmount - expected),
+    };
+  });
+
+  const cash = byMethod.find((row) => row.method === 'CASH');
+  const expectedCash = money(money(shift.openingBalance) + (cash?.net || 0));
+
+  return {
+    shift: {
+      id: shift.id,
+      cashierName: shift.cashierName,
+      status: shift.status,
+      openedAt: shift.openedAt,
+      closedAt: shift.closedAt,
+      openingBalance: money(shift.openingBalance),
+      closingBalance: shift.closingBalance === null || shift.closingBalance === undefined
+        ? null
+        : money(shift.closingBalance),
+      difference: shift.difference === null || shift.difference === undefined
+        ? null
+        : money(shift.difference),
+    },
+    window: { from: shift.openedAt, to },
+    openingBalance: money(shift.openingBalance),
+    expectedCash,
+    byMethod,
+    totals: {
+      collected: money(byMethod.reduce((sum, row) => sum + row.collected, 0)),
+      reversed: money(byMethod.reduce((sum, row) => sum + row.reversed, 0)),
+      net: money(byMethod.reduce((sum, row) => sum + row.net, 0)),
+      declared: money(byMethod.reduce((sum, row) => sum + (row.declared || 0), 0)),
+      difference: money(byMethod.reduce((sum, row) => sum + (row.difference || 0), 0)),
+    },
+  };
+};
+
+const getShiftReconciliation = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const shift = await prisma.educationCashierShift.findFirst({
+      where: { id: req.params.id, companyId },
+    });
+    if (!shift) return res.status(404).json({ success: false, error: 'الشيفت غير موجود' });
+
+    const data = await buildReconciliation(prisma, companyId, shift);
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building shift reconciliation:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في مطابقة الشيفت' });
+  }
 };
 
 const getCurrentShift = async (req, res) => {
@@ -144,6 +258,27 @@ const closeShift = async (req, res) => {
     const difference = money(actual - expectedCash);
     const notes = req.body?.notes ? String(req.body.notes).slice(0, 500) : shift.notes;
 
+    // 📋 اختياري: مبالغ مُعدّة لكل طريقة دفع (مطابقة متعددة الطرق)
+    let declaredByMethod = null;
+    const rawDeclared = req.body?.declaredByMethod;
+    if (rawDeclared && typeof rawDeclared === 'object') {
+      const sanitized = {};
+      for (const [key, value] of Object.entries(rawDeclared)) {
+        const amount = Number(value);
+        if (!Number.isFinite(amount) || amount < 0) {
+          return res.status(400).json({ success: false, error: 'مبلغ مطابقة غير صالح' });
+        }
+        sanitized[String(key).toUpperCase()] = money(amount);
+      }
+      declaredByMethod = Object.keys(sanitized).length ? sanitized : null;
+    }
+    // الكاش المُعد يدويًا هو closingBalance دايمًا
+    if (declaredByMethod) {
+      declaredByMethod.CASH = actual;
+    } else if (closingBalance !== null) {
+      declaredByMethod = { CASH: actual };
+    }
+
     const updated = await prisma.educationCashierShift.update({
       where: { id: shift.id },
       data: {
@@ -155,8 +290,14 @@ const closeShift = async (req, res) => {
         expectedCash,
         difference,
         notes,
+        ...(declaredByMethod ? { declaredByMethod } : {}),
       },
     });
+
+    let reconciliation = null;
+    try {
+      reconciliation = await buildReconciliation(prisma, companyId, updated);
+    } catch (_) {}
 
     logEducationEvent({
       companyId,
@@ -177,7 +318,7 @@ const closeShift = async (req, res) => {
       req,
     }).catch((e) => console.error('[ShiftAudit]', e.message));
 
-    res.json({ success: true, data: updated });
+    res.json({ success: true, data: updated, reconciliation });
   } catch (error) {
     console.error('Error closing cashier shift:', error);
     res.status(500).json({ success: false, error: 'حدث خطأ في إغلاق الشيفت' });
@@ -273,5 +414,8 @@ module.exports = {
   closeShift,
   listShifts,
   getShiftById,
+  getShiftReconciliation,
   computeCashTotals,
+  computeMethodTotals,
+  buildReconciliation,
 };

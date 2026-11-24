@@ -444,6 +444,7 @@ model EducationCashierShift {
   cashReversed   Float     @default(0)
   expectedCash   Float     @default(0)
   difference     Float?
+  declaredByMethod Json?  /// Per-method counted amounts at close: {"CASH": 1200, "TRANSFER": 300}
   status         String    @default("OPEN") /// OPEN | CLOSED
   notes          String?
   createdAt      DateTime  @default(now())

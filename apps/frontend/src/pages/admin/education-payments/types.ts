@@ -286,3 +286,35 @@ export interface MethodReport {
   byTreasury: Array<{ id: string; name: string; inflow: number; outflow: number; net: number; entries: number }>;
   treasuryNet: number;
 }
+
+export interface ShiftReconciliation {
+  shift: {
+    id: string;
+    cashierName: string;
+    status: string;
+    openedAt: string;
+    closedAt?: string | null;
+    openingBalance: number;
+    closingBalance?: number | null;
+    difference?: number | null;
+  };
+  window: { from: string; to: string };
+  openingBalance: number;
+  expectedCash: number;
+  byMethod: Array<{
+    method: string;
+    collected: number;
+    reversed: number;
+    net: number;
+    expected: number;
+    declared: number | null;
+    difference: number | null;
+  }>;
+  totals: {
+    collected: number;
+    reversed: number;
+    net: number;
+    declared: number;
+    difference: number;
+  };
+}

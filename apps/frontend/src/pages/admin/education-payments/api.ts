@@ -107,6 +107,9 @@ export const fetchCashierShifts = async (params: { page?: number; limit?: number
   };
 };
 
+export const fetchShiftReconciliation = (id: string): Promise<import("./types").ShiftReconciliation> =>
+  fetchJson(api(`finance/shifts/${id}/reconciliation`));
+
 export const fetchDailyClosing = (date: string): Promise<import("./types").DailyClosingReport> =>
   fetchJson(api(`finance/daily-closing${query({ date })}`));
 

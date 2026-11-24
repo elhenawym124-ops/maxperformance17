@@ -249,6 +249,22 @@
 - Partial reversals are netted per payment; fully reversed and failed payments never inflate the method split.
 - UI: the collection-rate tab now also shows "حسب طريقة الدفع" and "حسب الخزينة" panels plus a refunded/gross footnote.
 
+## Phase 4 (part 18) — cashier shift reconciliation (per payment method)
+
+- New column `education_cashier_shifts.declaredByMethod` (JSON) stores the counted amount per method at close.
+- `GET /education/finance/shifts/:id/reconciliation`:
+  - `byMethod`: collected, reversed, net and **expected** per method (cash expected = opening float + net), plus `declared` and `difference`.
+  - `totals`: collected / reversed / net / declared / difference.
+  - `expectedCash` mirrors the legacy shift math so both views agree.
+- `POST /shifts/:id/close` accepts optional `declaredByMethod` `{ CASH?, TRANSFER?, WALLET?, … }`:
+  - Values must be non-negative numbers (400 otherwise, and the shift stays open).
+  - `CASH` is always forced to `closingBalance` so the drawer figure cannot disagree with the shift balance.
+  - When omitted, the split defaults to `{ CASH: closingBalance }` — backward compatible.
+  - The response now also returns the freshly built `reconciliation`.
+- Cash totals now exclude `CANCELLED`/`FAILED` payments (previously they could inflate the expected drawer).
+- UI: each closed shift gets a "مطابقة" toggle showing expected / counted / difference per payment method inline.
+
+
 
 
 
