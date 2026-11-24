@@ -77,7 +77,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({ label, value, sub, tone = "def
       ) : (
         <div className={`text-lg font-bold font-mono tabular-nums whitespace-nowrap ${toneText}`}>{value}</div>
       )}
-      {sub ? <div className="text-[11px] text-muted-foreground font-mono truncate">{sub}</div> : null}
+      {sub ? <div className="text-[11px] text-muted-foreground font-mono leading-tight break-words">{sub}</div> : null}
     </div>
   );
 };
