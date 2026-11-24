@@ -7,6 +7,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/re
 
 const api = vi.hoisted(() => ({
   fetchCoupons: vi.fn(),
+  fetchDiscountReport: vi.fn(),
   createCoupon: vi.fn(),
   toggleCoupon: vi.fn(),
   deleteCoupon: vi.fn(),
@@ -32,6 +33,24 @@ const coupon = {
 beforeEach(() => {
   Object.values(api).forEach((value) => value.mockReset());
   api.fetchCoupons.mockResolvedValue([coupon]);
+  api.fetchDiscountReport.mockResolvedValue({
+    period: { from: "2026-06-01", to: "2026-11-24", months: 6 },
+    summary: {
+      couponDiscounts: 550,
+      couponUses: 3,
+      activeWaivers: 2,
+      waiversValue: 200,
+      totalImpact: 750,
+      manualWaivers: 1,
+    },
+    byCode: [],
+    byMonth: [],
+    byStaff: [],
+    items: [
+      { kind: "COUPON", id: "r1", code: "WELCOME200", discount: 100, studentName: "سارة محمد", date: "2026-11-20" },
+      { kind: "WAIVER", id: "m1", discount: 150, studentName: "ليلى حسن", groupName: "مجموعة أ", date: "2026-11-19" },
+    ],
+  });
   api.createCoupon.mockResolvedValue({ id: "coupon-2" });
   api.toggleCoupon.mockResolvedValue({ id: "coupon-1", isActive: false });
   api.deleteCoupon.mockResolvedValue({});
@@ -75,5 +94,17 @@ describe("CouponsTab", () => {
     render(<CouponsTab isEn={false} />);
 
     expect(await screen.findByText("مستهلك")).toBeInTheDocument();
+  });
+
+  it("shows the discount impact report and recent items", async () => {
+    render(<CouponsTab isEn={false} />);
+
+    expect(await screen.findByText("إجمالي أثر الإيراد")).toBeInTheDocument();
+    expect(screen.getByText("750 ج.م")).toBeInTheDocument();
+    expect(screen.getByText("200 ج.م")).toBeInTheDocument();
+    expect(screen.getByText("سارة محمد")).toBeInTheDocument();
+    expect(screen.getByText("ليلى حسن")).toBeInTheDocument();
+    expect(screen.getByText("إعفاء")).toBeInTheDocument();
+    expect(api.fetchDiscountReport).toHaveBeenCalledWith(6);
   });
 });

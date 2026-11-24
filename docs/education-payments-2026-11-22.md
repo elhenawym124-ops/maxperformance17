@@ -215,6 +215,19 @@
 - Dues payload adds `discountAmount` and computes the remaining after the waiver, so the desk and reports agree.
 - UI: group rows in the dues tab show the discount and a "خصم" action (prompts for the standing amount), and the record-payment modal offers the coupon field for group fees as well.
 
+## Phase 4 (part 15) — discounts & waivers report
+
+- `GET /education/finance/discounts?months=6` returns:
+  - Summary: `couponDiscounts`, `couponUses`, `activeWaivers`, `waiversValue`, `totalImpact`, `manualWaivers`.
+  - `byCode`: uses + amount per coupon code.
+  - `byMonth`: monthly coupon discount trend.
+  - `byStaff`: manual waivers grouped by the staff user (from the `MANUAL_DISCOUNT` audit entries).
+  - `items`: latest coupon redemptions and standing waivers (student, group, reason, amount, date).
+- Sources are never double counted: coupon value comes only from `education_coupon_redemptions`, waivers only from the members' current `discountAmount`.
+- Every source degrades to an empty section instead of failing the report.
+- UI: KPI strip + "آخر الخصومات" list inside the "أكواد الخصم" tab.
+
+
 
 
 

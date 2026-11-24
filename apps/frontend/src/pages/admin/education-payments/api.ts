@@ -1,6 +1,7 @@
 import { api, getAuthHeaders, fetchJson } from "../education-management/api";
 import type {
   Coupon,
+  DiscountReport,
   DuesResponse,
   EducationPayment,
   PaymentsPagination,
@@ -158,6 +159,9 @@ export const deleteCoupon = (id: string): Promise<unknown> =>
 
 export const setMemberDiscount = (groupMemberId: string, amount: number, reason?: string): Promise<unknown> =>
   sendJson(api(`finance/group-members/${groupMemberId}/discount`), "POST", { amount, reason });
+
+export const fetchDiscountReport = (months = 6): Promise<DiscountReport> =>
+  fetchJson(api(`finance/discounts${query({ months })}`));
 
 export const validateCoupon = (payload: {
   code: string;

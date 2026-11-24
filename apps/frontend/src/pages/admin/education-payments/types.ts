@@ -231,3 +231,32 @@ export interface Coupon {
   notes?: string | null;
   createdAt?: string;
 }
+
+export interface DiscountReportItem {
+  kind: "COUPON" | "WAIVER";
+  id: string;
+  code?: string | null;
+  discount: number;
+  studentId?: string | null;
+  studentName?: string | null;
+  groupName?: string | null;
+  reason?: string | null;
+  paymentId?: string | null;
+  date?: string | null;
+}
+
+export interface DiscountReport {
+  period: { from: string; to: string; months: number };
+  summary: {
+    couponDiscounts: number;
+    couponUses: number;
+    activeWaivers: number;
+    waiversValue: number;
+    totalImpact: number;
+    manualWaivers: number;
+  };
+  byCode: Array<{ code: string; uses: number; amount: number }>;
+  byMonth: Array<{ month: string; uses: number; amount: number }>;
+  byStaff: Array<{ userId: string | null; count: number; amount: number }>;
+  items: DiscountReportItem[];
+}

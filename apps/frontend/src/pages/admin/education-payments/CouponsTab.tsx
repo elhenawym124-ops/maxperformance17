@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { Loader2, Plus, RefreshCw, Ticket, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
-import { createCoupon, deleteCoupon, fetchCoupons, toggleCoupon } from "./api";
-import type { Coupon } from "./types";
+import { createCoupon, deleteCoupon, fetchCoupons, fetchDiscountReport, toggleCoupon } from "./api";
+import type { Coupon, DiscountReport } from "./types";
 
 const money = (value: number) =>
   (Math.round((Number(value) || 0) * 100) / 100).toLocaleString("en-EG", { maximumFractionDigits: 2 });
@@ -21,6 +21,7 @@ export const CouponsTab: React.FC<{ isEn: boolean; reloadKey?: number; onChanged
   onChanged,
 }) => {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [report, setReport] = useState<DiscountReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
@@ -42,6 +43,9 @@ export const CouponsTab: React.FC<{ isEn: boolean; reloadKey?: number; onChanged
       .then((rows) => alive && setCoupons(rows))
       .catch((err) => alive && setError(err.message || "فشل جلب أكواد الخصم"))
       .finally(() => alive && setLoading(false));
+    fetchDiscountReport(6)
+      .then((data) => alive && setReport(data))
+      .catch(() => {});
     return () => {
       alive = false;
     };
@@ -130,6 +134,56 @@ export const CouponsTab: React.FC<{ isEn: boolean; reloadKey?: number; onChanged
 
       {error ? (
         <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-xs text-destructive">{error}</div>
+      ) : null}
+
+      {report ? (
+        <div className="space-y-2.5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+            {[
+              { label: isEn ? "Coupon discounts" : "خصومات الكوبونات", value: `${money(report.summary.couponDiscounts)} ${isEn ? "EGP" : "ج.م"}`, tone: "text-foreground" },
+              { label: isEn ? "Coupon uses" : "مرات الاستخدام", value: String(report.summary.couponUses), tone: "text-foreground" },
+              { label: isEn ? "Active waivers" : "إعفاءات قائمة", value: `${money(report.summary.waiversValue)} ${isEn ? "EGP" : "ج.م"}`, tone: "text-warning" },
+              { label: isEn ? "Total revenue impact" : "إجمالي أثر الإيراد", value: `${money(report.summary.totalImpact)} ${isEn ? "EGP" : "ج.م"}`, tone: "text-destructive" },
+            ].map((item) => (
+              <div key={item.label} className="rounded-xl border border-border/70 bg-card p-3">
+                <span className="text-[10px] text-muted-foreground">{item.label}</span>
+                <p className={`text-sm font-bold font-mono tabular-nums mt-1 ${item.tone}`}>{item.value}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+            <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between">
+              <h4 className="text-xs font-semibold text-foreground">
+                {isEn ? "Recent discounts (6 months)" : "آخر الخصومات (6 شهور)"}
+              </h4>
+              <span className="text-[10px] text-muted-foreground font-mono">{report.items.length}</span>
+            </div>
+            {report.items.length === 0 ? (
+              <p className="p-4 text-[11px] text-muted-foreground">
+                {isEn ? "No discounts recorded yet" : "لا توجد خصومات مسجلة بعد"}
+              </p>
+            ) : (
+              <div className="divide-y divide-border/60">
+                {report.items.slice(0, 8).map((item) => (
+                  <div key={`${item.kind}-${item.id}`} className="px-4 py-2 flex items-center justify-between gap-2 text-[11px]">
+                    <div className="min-w-0 flex items-center gap-2 flex-wrap">
+                      <span className="px-1.5 py-0.5 rounded border border-border/70 text-[10px] text-muted-foreground font-mono">
+                        {item.kind === "COUPON" ? (item.code || "COUPON") : (isEn ? "WAIVER" : "إعفاء")}
+                      </span>
+                      <span className="font-semibold text-foreground truncate">{item.studentName || "—"}</span>
+                      {item.groupName ? <span className="text-muted-foreground">{item.groupName}</span> : null}
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0 font-mono tabular-nums">
+                      <span className="text-destructive">−{money(item.discount)}</span>
+                      <span className="text-muted-foreground">{formatDate(item.date)}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       ) : null}
 
       <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
