@@ -9,6 +9,7 @@ router.use(verifyToken.authenticateToken, requireEducationAppInstalled);
 
 router.get('/', requireDbPermission(['education.view', 'education.groups.view']), controller.getAll);
 router.get('/rooms/live', requireDbPermission(['education.view', 'education.groups.view']), controller.getLiveRooms);
+router.get('/rooms/availability', requireDbPermission(['education.view', 'education.groups.view']), controller.getRoomsAvailability);
 router.get('/availability', requireDbPermission(['education.view', 'education.groups.view']), controller.getAvailability);
 router.get('/collection-board', requireDbPermission(['education.view', 'education.financials.view']), controller.getCollectionBoard);
 router.get('/:id', requireDbPermission(['education.view', 'education.groups.view']), controller.getById);
@@ -29,6 +30,8 @@ router.put('/:id/sessions/:sessionId/cancel', requireDbPermission('education.ses
 
 // Financials & Teacher Settlement
 router.get('/:id/financials', requireDbPermission('education.financials.view'), controller.getFinancials);
+router.get('/:id/receipt-batch', requireDbPermission('education.financials.view'), controller.downloadGroupReceipt);
 router.post('/:id/collect-due', requireDbPermission('education.financials.manage'), controller.collectDueFees);
+router.post('/:id/remind-due', requireDbPermission('education.financials.manage'), controller.remindDueMembers);
 
 module.exports = router;

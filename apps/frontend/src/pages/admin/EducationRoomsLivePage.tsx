@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Building2,
+  CalendarClock,
   Clock,
   DoorOpen,
   MapPin,
@@ -228,6 +230,13 @@ const EducationRoomsLivePage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
+          <Link
+            to="/admin/education/rooms/availability"
+            className="inline-flex items-center gap-1 rounded-lg border border-border/70 px-2 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted"
+          >
+            <CalendarClock className="h-3.5 w-3.5" />
+            {isEn ? "Available times" : "المواعيد المتاحة"}
+          </Link>
           <span className="hidden items-center gap-1 rounded-lg border border-border/70 px-2 py-1 text-xs tabular-nums text-muted-foreground sm:inline-flex">
             <Clock className="h-3.5 w-3.5" />
             {clock.toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" })}

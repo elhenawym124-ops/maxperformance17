@@ -385,6 +385,18 @@
 - Cron: **Monday 08:00** weekly sweep across every company with groups.
 - UI: "تنبيهات المجموعات" card inside the profitability tab — severity chips, message, suggestion, a "معالجة" action and a "فحص الآن" button.
 
+## Phase 4 (part 30) — room availability (free windows per room)
+
+- `GET /education/groups/rooms/availability?date=YYYY-MM-DD&from=08:00&to=22:00&branchId=`:
+  - Busy blocks per room come from the **weekly group schedule** for that weekday **plus** any same-day group session that is not in the schedule (extra/make-up classes), merged so overlaps are never counted twice.
+  - `free`: the gaps left inside the working window (≥15 min), each with start/end and duration in minutes.
+  - Per room: `busyMinutes`, `freeMinutes`, `utilization`, `firstFree`, `groupsCount`.
+  - Summary: rooms, `fullyFree`, `fullyBooked`, `freeMinutesTotal`.
+  - Rooms are the branch's configured classrooms; assignment matches `classroomId` first then the room name (same rule as the live board).
+- UI: new page `/admin/education/rooms/availability` linked from the live board ("المواعيد المتاحة") — date + from/to + branch filters, per-room timeline bar with busy blocks and free window chips (duration included).
+- No schema change: it reads `branches.classrooms`, `education_groups` schedules and `education_group_sessions`.
+
+
 
 
 

@@ -1559,6 +1559,199 @@ const getAvailability = async (req, res) => {
   }
 };
 
+/**
+ * Room availability for one day: busy blocks from the weekly schedule + that
+ * day's actual sessions, and the free gaps inside the working window.
+ */
+const getRoomsAvailability = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    await ensureTablesExist(prisma);
+
+    const day = req.query.date ? new Date(`${req.query.date}T00:00:00`) : new Date();
+    const targetDay = Number.isNaN(day.getTime()) ? new Date() : day;
+    targetDay.setHours(0, 0, 0, 0);
+    const dayIdx = targetDay.getDay();
+
+    const windowFrom = minutesOfDay(req.query.from || '08:00');
+    const windowTo = Math.max(windowFrom + 60, minutesOfDay(req.query.to || '22:00'));
+    const branchFilter = req.query.branchId ? String(req.query.branchId) : null;
+
+    const branchRows = await prisma.$queryRawUnsafe(`
+      SELECT id, name, city, address, classrooms::text AS classrooms
+      FROM branches
+      WHERE "companyId" = $1 ${branchFilter ? 'AND id = $2' : ''}
+      ORDER BY name
+    `, ...(branchFilter ? [companyId, branchFilter] : [companyId]));
+
+    const groupRows = await prisma.$queryRawUnsafe(`
+      SELECT g.id, g.name, g.room, g."classroomId", g.capacity, g."branchId",
+             g."scheduleDays"::text AS "scheduleDays", g."scheduleSlots"::text AS "scheduleSlots",
+             g."startTime", g."endTime", g.status,
+             t.name AS "teacherName"
+      FROM "education_groups" g
+      LEFT JOIN "education_teachers" t ON t.id = g."teacherId" AND t."companyId" = g."companyId"
+      WHERE g."companyId" = $1 AND COALESCE(g.status, 'OPEN') <> 'CANCELLED'
+    `, companyId);
+
+    const dayEnd = new Date(targetDay);
+    dayEnd.setDate(dayEnd.getDate() + 1);
+    const sessionRows = await prisma.$queryRawUnsafe(`
+      SELECT id, "groupId", "sessionDate", status
+      FROM "education_group_sessions"
+      WHERE "companyId" = $1 AND "sessionDate" >= $2 AND "sessionDate" < $3
+    `, companyId, targetDay, dayEnd).catch(() => []);
+
+    const sessionsByGroup = new Map();
+    for (const row of sessionRows || []) {
+      const key = String(row.groupId);
+      if (!sessionsByGroup.has(key)) sessionsByGroup.set(key, []);
+      sessionsByGroup.get(key).push(row);
+    }
+
+    const hhmm = (minutes) =>
+      `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+
+    const groupIntervals = (group) => {
+      const slots = normalizeGroupSlots(group).filter((slot) => slot.dayIdx === dayIdx);
+      const intervals = slots.map((slot) => ({
+        start: slot.start,
+        end: Math.max(slot.end, slot.start + 15),
+        groupId: group.id,
+        groupName: group.name,
+        teacherName: group.teacherName || null,
+        source: 'SCHEDULE',
+      }));
+
+      for (const session of sessionsByGroup.get(String(group.id)) || []) {
+        if (String(session.status || '').toUpperCase() === 'CANCELLED') continue;
+        const startAt = new Date(session.sessionDate);
+        const start = startAt.getHours() * 60 + startAt.getMinutes();
+        const alreadyCovered = intervals.some((slot) => Math.abs(slot.start - start) <= 15);
+        if (alreadyCovered) continue;
+        const nearest = slots.find((slot) => slot.start >= start) || slots[0];
+        const duration = nearest ? Math.max(nearest.end - nearest.start, 30) : 90;
+        intervals.push({
+          start,
+          end: start + duration,
+          groupId: group.id,
+          groupName: group.name,
+          teacherName: group.teacherName || null,
+          source: 'SESSION',
+        });
+      }
+      return intervals;
+    };
+
+    const mergeIntervals = (intervals) => {
+      const sorted = [...intervals].sort((a, b) => a.start - b.start);
+      const merged = [];
+      for (const item of sorted) {
+        const last = merged[merged.length - 1];
+        if (last && item.start <= last.end) {
+          last.end = Math.max(last.end, item.end);
+          last.groups.push(item.groupName);
+          last.items.push(item);
+        } else {
+          merged.push({ ...item, end: item.end, groups: [item.groupName], items: [item] });
+        }
+      }
+      return merged;
+    };
+
+    const branches = (branchRows || []).map((branch) => {
+      const classrooms = parseJsonArray(branch.classrooms);
+      const rooms = classrooms.map((room) => {
+        const roomName = String(room.name || '').trim();
+        const roomKey = String(room.id || roomName);
+        const assigned = (groupRows || []).filter((group) => {
+          if (group.branchId && String(group.branchId) !== String(branch.id)) return false;
+          if (group.classroomId && String(group.classroomId) === roomKey) return true;
+          return !group.classroomId && group.room
+            && String(group.room).trim().toLowerCase() === roomName.toLowerCase();
+        });
+
+        const intervals = assigned.flatMap(groupIntervals);
+        const busy = mergeIntervals(intervals)
+          .map((block) => ({
+            startTime: hhmm(block.start),
+            endTime: hhmm(block.end),
+            start: block.start,
+            end: block.end,
+            groups: [...new Set(block.groups.filter(Boolean))],
+            teacherName: block.teacherName,
+          }))
+          .filter((block) => block.end > windowFrom && block.start < windowTo);
+
+        const free = [];
+        let cursor = windowFrom;
+        for (const block of busy.sort((a, b) => a.start - b.start)) {
+          const from = Math.max(block.start, windowFrom);
+          if (from > cursor) {
+            free.push({ startTime: hhmm(cursor), endTime: hhmm(Math.min(from, windowTo)), start: cursor, end: Math.min(from, windowTo) });
+          }
+          cursor = Math.max(cursor, Math.min(block.end, windowTo));
+        }
+        if (cursor < windowTo) {
+          free.push({ startTime: hhmm(cursor), endTime: hhmm(windowTo), start: cursor, end: windowTo });
+        }
+
+        const busyMinutes = busy.reduce(
+          (sum, block) => sum + Math.max(0, Math.min(block.end, windowTo) - Math.max(block.start, windowFrom)),
+          0
+        );
+        const totalMinutes = windowTo - windowFrom;
+
+        return {
+          id: roomKey,
+          name: roomName,
+          type: room.type || null,
+          capacity: Number(room.capacity) || 0,
+          isActive: room.isActive !== false,
+          groupsCount: assigned.length,
+          busy,
+          free: free.map((slot) => ({ ...slot, minutes: slot.end - slot.start })).filter((slot) => slot.minutes >= 15),
+          busyMinutes,
+          freeMinutes: Math.max(0, totalMinutes - busyMinutes),
+          utilization: totalMinutes > 0 ? Math.round((busyMinutes / totalMinutes) * 1000) / 10 : null,
+          firstFree: free.length ? hhmm(free[0].start) : null,
+        };
+      });
+
+      return {
+        id: branch.id,
+        name: branch.name,
+        city: branch.city || null,
+        address: branch.address || null,
+        rooms,
+      };
+    });
+
+    const allRooms = branches.flatMap((branch) => branch.rooms);
+    res.json({
+      success: true,
+      data: {
+        date: targetDay.toISOString().slice(0, 10),
+        dayLabel: DAY_LABELS_AR[dayIdx] || '',
+        window: { from: hhmm(windowFrom), to: hhmm(windowTo) },
+        summary: {
+          rooms: allRooms.length,
+          fullyFree: allRooms.filter((room) => room.busyMinutes === 0).length,
+          fullyBooked: allRooms.filter((room) => room.free.length === 0).length,
+          freeMinutesTotal: allRooms.reduce((sum, room) => sum + room.freeMinutes, 0),
+        },
+        branches,
+      },
+    });
+  } catch (error) {
+    console.error('Error loading rooms availability:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في تحميل مواعيد القاعات' });
+  }
+};
+
 const getLiveRooms = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -1944,6 +2137,189 @@ const getCollectionBoard = async (req, res) => {
     });
   } catch (err) {
     console.error('[EducationGroups] getCollectionBoard error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+/**
+ * إيصال PDF مجمّع لكل دفعات المجموعة في فترة (افتراضيًا الشهر الحالي).
+ * GET /education/groups/:id/receipt-batch?from=YYYY-MM-DD&to=YYYY-MM-DD
+ */
+const downloadGroupReceipt = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id: groupId } = req.params;
+    const prisma = getSharedPrismaClient();
+
+    const groupRows = await prisma.$queryRawUnsafe(`
+      SELECT g."id", g."name", g."feeAmount", COALESCE(t."name", '') AS "teacherName"
+      FROM "education_groups" g
+      LEFT JOIN "education_teachers" t ON t."id" = g."teacherId" AND t."companyId" = g."companyId"
+      WHERE g."id" = $1 AND g."companyId" = $2`, groupId, companyId);
+    const group = groupRows && groupRows[0];
+    if (!group) return res.status(404).json({ success: false, error: 'المجموعة غير موجودة' });
+
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const from = req.query.from ? new Date(req.query.from) : monthStart;
+    const to = req.query.to ? new Date(req.query.to) : now;
+    if (Number.isNaN(from.getTime()) || Number.isNaN(to.getTime())) {
+      return res.status(400).json({ success: false, error: 'فترة غير صحيحة' });
+    }
+    const toEnd = new Date(to.getTime() + 24 * 3600 * 1000);
+
+    const payments = await prisma.$queryRawUnsafe(`
+      SELECT p."paymentNumber", p."receiptNumber", COALESCE(p."studentName", '') AS "studentName",
+             p."method", p.amount::float AS amount, p."paidAt", p.status::text AS status
+      FROM "education_payments" p
+      WHERE p."companyId" = $1 AND p."groupId" = $2
+        AND p."paidAt" >= $3 AND p."paidAt" < $4
+        AND p.status IN ('COMPLETED', 'PARTIALLY_REVERSED', 'REVERSED')
+      ORDER BY p."paidAt" ASC`, companyId, groupId, from, toEnd);
+
+    const company = await prisma.company.findUnique({
+      where: { id: companyId },
+      select: { name: true, phone: true, address: true },
+    }).catch(() => null);
+
+    const { buildGroupReceiptPdf } = require('../services/educationGroupReceiptPdfService');
+    const buffer = await buildGroupReceiptPdf({
+      company: company || {},
+      group,
+      payments,
+      from: from.toISOString().slice(0, 10),
+      to: to.toISOString().slice(0, 10),
+    });
+
+    const fileName = `group-receipt-${String(group.name || groupId).replace(/[^A-Za-z0-9._-]/g, '_')}-${from.toISOString().slice(0, 10)}.pdf`;
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+    return res.send(buffer);
+  } catch (err) {
+    console.error('[EducationGroups] downloadGroupReceipt error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+/**
+ * تذكير أولياء أمور الأعضاء المستحقين برسوم الشهر (واتساب، مع منع التكرار 3 أيام).
+ * POST /education/groups/:id/remind-due
+ */
+const remindDueMembers = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id: groupId } = req.params;
+    const prisma = getSharedPrismaClient();
+
+    const groupRows = await prisma.$queryRawUnsafe(
+      `SELECT "id", "name", COALESCE("feeAmount", 0)::float AS "feeAmount" FROM "education_groups" WHERE "id" = $1 AND "companyId" = $2`,
+      groupId, companyId
+    );
+    const group = groupRows && groupRows[0];
+    if (!group) return res.status(404).json({ success: false, error: 'المجموعة غير موجودة' });
+    if (!(Number(group.feeAmount) > 0)) {
+      return res.status(400).json({ success: false, error: 'حدّد قيمة الاشتراك الشهري للمجموعة أولاً' });
+    }
+
+    const due = await prisma.$queryRawUnsafe(`
+      SELECT m."id", m."studentId", m."amountPaid", COALESCE(m."discountAmount", 0) AS "discountAmount",
+             m."nextRenewalDate",
+             s."firstName", s."lastName",
+             c."phone" AS "guardianPhone", c."firstName" AS "guardianFirstName", c."lastName" AS "guardianLastName"
+      FROM "education_group_members" m
+      JOIN "education_students" s ON s."id" = m."studentId" AND s."companyId" = m."companyId"
+      LEFT JOIN "customers" c ON c."id" = s."customerId" AND c."companyId" = m."companyId"
+      WHERE m."groupId" = $1 AND m."companyId" = $2 AND m."status" = 'ACTIVE'
+        AND (
+          m."nextRenewalDate" <= NOW()
+          OR (m."nextRenewalDate" IS NULL AND COALESCE(m."paymentStatus", 'PENDING') <> 'PAID')
+        )
+    `, groupId, companyId);
+
+    if (!due.length) {
+      return res.json({
+        success: true,
+        message: 'لا يوجد أعضاء مستحقون للتذكير',
+        data: { requested: 0, sent: 0, skippedNoPhone: 0, skippedRecent: 0, failures: [] },
+      });
+    }
+
+    const service = require('../services/educationNotificationService');
+    const now = Date.now();
+    const sent = [];
+    const failures = [];
+    let skippedNoPhone = 0;
+    let skippedRecent = 0;
+
+    for (const member of due) {
+      const phone = member.guardianPhone || null;
+      if (!phone) { skippedNoPhone += 1; continue; }
+
+      const recent = await prisma.whatsAppNotificationLog.findFirst({
+        where: {
+          companyId,
+          rawEventType: 'education_group_renewal_due',
+          recipientPhone: phone,
+          createdAt: { gte: new Date(now - 3 * 24 * 3600 * 1000) },
+          status: { in: ['SENT', 'DELIVERED', 'READ'] },
+        },
+        select: { id: true },
+      }).catch(() => null);
+      if (recent) { skippedRecent += 1; continue; }
+
+      const fee = Number(group.feeAmount) || 0;
+      const paid = Number(member.amountPaid) || 0;
+      const discount = Number(member.discountAmount) || 0;
+      const amount = Math.max(0, fee - discount - paid);
+      const daysLate = member.nextRenewalDate
+        ? Math.max(0, Math.floor((now - new Date(member.nextRenewalDate).getTime()) / (24 * 3600 * 1000)))
+        : 0;
+
+      try {
+        const result = await service.notifyGroupRenewalDue({
+          companyId,
+          parentName: `${member.guardianFirstName || ''} ${member.guardianLastName || ''}`.trim() || 'وليّ الأمر',
+          parentPhone: phone,
+          studentName: `${member.firstName || ''} ${member.lastName || ''}`.trim(),
+          groupName: group.name || '',
+          amount,
+          daysLate,
+        });
+        if (result && result.success === false) {
+          const wa = result.whatsappResult || {};
+          const code = wa.errorCode || wa.reason || '';
+          let reason = wa.message || result.reason || result.error || 'تعذّر الإرسال';
+          if (code === 'NO_TEMPLATE_CONFIGURED') {
+            reason = 'مفيش قالب واتساب معتمد لتنبيه التجديد — اربطه من صفحة القوالب';
+          } else if (code === 'quiet_hours' || wa.reason === 'quiet_hours') {
+            reason = 'خارج ساعات الإرسال المسموحة — هيتأجل';
+          }
+          failures.push({
+            student: `${member.firstName || ''} ${member.lastName || ''}`.trim(),
+            reason,
+          });
+        } else {
+          sent.push({ student: `${member.firstName || ''} ${member.lastName || ''}`.trim(), phone });
+        }
+      } catch (error) {
+        failures.push({
+          student: `${member.firstName || ''} ${member.lastName || ''}`.trim(),
+          reason: error.message,
+        });
+      }
+    }
+
+    res.json({
+      success: true,
+      message: `تم إرسال ${sent.length} تذكير${failures.length ? ` — ${failures.length} فشل` : ''}`,
+      data: { requested: due.length, sent: sent.length, skippedNoPhone, skippedRecent, failures },
+    });
+  } catch (err) {
+    console.error('[EducationGroups] remindDueMembers error:', err);
     return res.status(500).json({ success: false, error: err.message });
   }
 };
@@ -2393,10 +2769,13 @@ module.exports = {
   transferMember,
   recordSession,
   getAvailability,
+  getRoomsAvailability,
   getLiveRooms,
   getFinancials,
   collectDueFees,
   getCollectionBoard,
+  downloadGroupReceipt,
+  remindDueMembers,
   generateSessions,
   cancelGroupSession,
   generateGroupSessionsInternal

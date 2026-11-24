@@ -23,7 +23,8 @@ import {
   LayoutGrid,
   List,
   FileText,
-  Wallet
+  Wallet,
+  MessageSquare
 } from "lucide-react";
 import { toast } from "sonner";
 import { buildApiUrl } from "../../utils/urlHelper";
@@ -616,6 +617,69 @@ export default function EducationGroupsPage({
     })();
     return () => { cancelled = true; };
   }, [showCollectionBoard, groups.length]);
+
+  // إيصال PDF مجمّع لكل دفعات المجموعة في الشهر الحالي
+  const [downloadingReceipt, setDownloadingReceipt] = useState(false);
+  const handleDownloadGroupReceipt = async (groupId: string) => {
+    try {
+      setDownloadingReceipt(true);
+      const res = await fetch(api(`groups/${groupId}/receipt-batch`), { headers: getAuthHeaders() });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        toast.error(err.error || (isEn ? "Could not generate receipt" : "تعذّر إنشاء الإيصال"));
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank", "noopener,noreferrer");
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    } catch (err: any) {
+      toast.error(err?.message || (isEn ? "Error while generating receipt" : "حدث خطأ أثناء إنشاء الإيصال"));
+    } finally {
+      setDownloadingReceipt(false);
+    }
+  };
+
+  // تذكير أولياء الأمور بالمستحق (منع تكرار 3 أيام على السيرفر)
+  const [remindingDue, setRemindingDue] = useState(false);
+  const handleRemindDue = async () => {
+    if (!activeGroup) return;
+    try {
+      setRemindingDue(true);
+      const res = await fetch(api(`groups/${activeGroup.id}/remind-due`), { method: "POST", headers: getAuthHeaders() });
+      const data = await res.json();
+      if (data.success) {
+        const sentCount = Number(data.data?.sent || 0);
+        if (sentCount > 0) {
+          toast.success(isEn ? `Reminder sent to ${sentCount} guardian(s)` : `تم إرسال تذكير لـ ${sentCount} ولي أمر`);
+        } else {
+          toast.message(
+            isEn
+              ? (data.message || "No reminder was sent")
+              : (data.message || "لم يتم إرسال أي تذكير")
+          );
+        }
+        const failures = data.data?.failures || [];
+        if (failures.length) {
+          toast.error(
+            isEn
+              ? `${failures.length} reminder(s) failed — ${failures[0].reason}`
+              : `${failures.length} تذكير فشل — ${failures[0].reason}`
+          );
+        }
+        const noPhone = Number(data.data?.skippedNoPhone || 0);
+        if (noPhone > 0) {
+          toast.message(isEn ? `${noPhone} student(s) have no guardian phone` : `${noPhone} طالب بدون رقم ولي أمر`);
+        }
+      } else {
+        toast.error(data.error || (isEn ? "Could not send reminders" : "تعذّر إرسال التذكيرات"));
+      }
+    } catch (err: any) {
+      toast.error(err?.message || (isEn ? "Error while sending" : "حدث خطأ أثناء الإرسال"));
+    } finally {
+      setRemindingDue(false);
+    }
+  };
 
   // تحصيل جماعي: كل الأعضاء المستحقين (غير مسدد أو انتهت دورتهم) بضغطة واحدة
   const [collectingAllDue, setCollectingAllDue] = useState(false);
@@ -1580,6 +1644,20 @@ export default function EducationGroupsPage({
                       {activeGroup.feeType === "MONTHLY" && dueMembersCount > 0 && (
                         <button
                           type="button"
+                          onClick={handleRemindDue}
+                          disabled={remindingDue}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-warning/10 text-warning border border-warning/30 rounded-lg text-xs font-semibold hover:bg-warning/20 transition-all disabled:opacity-50"
+                          title={isEn ? "WhatsApp reminder to guardians" : "تذكير أولياء الأمور على واتساب"}
+                        >
+                          <MessageSquare className="w-3.5 h-3.5" />
+                          {remindingDue
+                            ? (isEn ? "Sending..." : "جاري الإرسال...")
+                            : (isEn ? `Remind due (${dueMembersCount})` : `تذكير المستحقين (${dueMembersCount})`)}
+                        </button>
+                      )}
+                      {activeGroup.feeType === "MONTHLY" && dueMembersCount > 0 && (
+                        <button
+                          type="button"
                           onClick={handleCollectAllDue}
                           disabled={collectingAllDue}
                           className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-success/10 text-success border border-success/30 rounded-lg text-xs font-semibold hover:bg-success/20 transition-all disabled:opacity-50"
@@ -1869,6 +1947,22 @@ export default function EducationGroupsPage({
               {/* Tab 3: Group Financials & Settlement */}
               {drawerTab === "financials" && (
                 <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <div className="text-xs font-semibold text-foreground">
+                      {isEn ? "Group collection receipt" : "إيصال تحصيل المجموعة"}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => activeGroup && handleDownloadGroupReceipt(activeGroup.id)}
+                      disabled={downloadingReceipt}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-background border border-border rounded-lg text-xs font-semibold text-foreground hover:bg-muted disabled:opacity-50"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      {downloadingReceipt
+                        ? (isEn ? "Preparing..." : "جاري التحضير...")
+                        : (isEn ? "This month's receipt (PDF)" : "إيصال الشهر (PDF)")}
+                    </button>
+                  </div>
                   {financialsError ? (
                     <div className="p-4 rounded-xl bg-destructive/10 space-y-2 text-center">
                       <p className="text-xs font-semibold text-destructive dark:text-destructive">{financialsError}</p>
