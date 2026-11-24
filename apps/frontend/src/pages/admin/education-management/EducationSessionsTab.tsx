@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Plus, Check, X, Pencil, Clock, BookOpen, User, CalendarPlus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Plus, Check, X, Pencil, Clock, BookOpen, User, CalendarPlus, UserX, Trash2, Users } from "lucide-react";
 import type {
   EducationSession,
   EducationTeacher,
@@ -40,6 +41,8 @@ export interface EducationSessionsTabProps {
     actualDuration?: number
   ) => Promise<void>;
   handleCancelSession: (id: string) => Promise<void>;
+  handleMarkNoShow: (id: string) => Promise<void>;
+  handleDeleteSession: (id: string) => Promise<void>;
   onScheduleMakeup?: (id: string) => void;
 }
 
@@ -56,12 +59,17 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
   handleSaveSession,
   handleConfirmSession,
   handleCancelSession,
+  handleMarkNoShow,
+  handleDeleteSession,
   onScheduleMakeup,
 }) => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
+  const navigate = useNavigate();
 
   const [sessionTypeFilter, setSessionTypeFilter] = React.useState<"ALL" | "PRIVATE" | "GROUP">("ALL");
+
+  const isGroupSession = (s: EducationSession) => s.sessionType === "GROUP";
 
   const filtered = sessions.filter((s) => {
     if (sessionTypeFilter !== "ALL" && (s.sessionType || "GROUP") !== sessionTypeFilter) return false;
@@ -69,12 +77,14 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
       return false;
     if (sessionFilters.teacherId && s.teacherId !== sessionFilters.teacherId)
       return false;
-    if (sessionFilters.from && s.scheduledAt < sessionFilters.from) return false;
-    if (
-      sessionFilters.to &&
-      s.scheduledAt > sessionFilters.to + "T23:59:59"
-    )
-      return false;
+    if (sessionFilters.from) {
+      const fromTs = new Date(`${sessionFilters.from}T00:00:00`).getTime();
+      if (new Date(s.scheduledAt).getTime() < fromTs) return false;
+    }
+    if (sessionFilters.to) {
+      const toTs = new Date(`${sessionFilters.to}T23:59:59.999`).getTime();
+      if (new Date(s.scheduledAt).getTime() > toTs) return false;
+    }
     return true;
   });
 
@@ -194,15 +204,31 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0 flex-1">
                 <div className="font-semibold text-sm text-foreground truncate flex items-center gap-1.5">
-                  <span>
-                    {s.student
-                      ? `${s.student.firstName} ${s.student.lastName || ""}`
-                      : "—"}
-                  </span>
-                  {s.student?.code && (
-                    <span className="font-mono text-[10px] text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20 shrink-0" dir="ltr">
-                      #{s.student.code}
-                    </span>
+                  {isGroupSession(s) ? (
+                    <>
+                      <Users className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span className="truncate">
+                        {s.groupName || (isEn ? "Group session" : "حصة مجموعة")}
+                      </span>
+                      {s.room && (
+                        <span className="font-mono text-[10px] text-muted-foreground bg-muted px-1 py-0.5 rounded shrink-0">
+                          {s.room}
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <span>
+                        {s.student
+                          ? `${s.student.firstName} ${s.student.lastName || ""}`
+                          : "—"}
+                      </span>
+                      {s.student?.code && (
+                        <span className="font-mono text-[10px] text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20 shrink-0" dir="ltr">
+                          #{s.student.code}
+                        </span>
+                      )}
+                    </>
                   )}
                   {s.sessionType === "PRIVATE" && (
                     <span className="font-mono text-[9px] text-primary dark:text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20 shrink-0">
@@ -214,6 +240,16 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                   <User className="w-3 h-3 text-primary shrink-0" />
                   <span className="truncate">{s.teacher?.name || (isEn ? "Unassigned Teacher" : "مدرس غير محدد")}</span>
                 </div>
+                {isGroupSession(s) && (
+                  <div className="flex items-center gap-1.5 mt-1 text-[10px] font-mono tabular-nums">
+                    <span className="text-success bg-success/10 px-1.5 py-0.5 rounded border border-success/20">
+                      {isEn ? "Present" : "حاضر"} {s.presentCount || 0}
+                    </span>
+                    <span className="text-destructive bg-destructive/10 px-1.5 py-0.5 rounded border border-destructive/20">
+                      {isEn ? "Absent" : "غائب"} {s.absentCount || 0}
+                    </span>
+                  </div>
+                )}
               </div>
               <span
                 className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border shrink-0 ${
@@ -254,38 +290,79 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
               </div>
             )}
 
-            <div className="flex items-center justify-end gap-1.5 pt-2 border-t border-border/60">
-              {s.status === "SCHEDULED" && (
+            <div className="flex flex-wrap items-center justify-end gap-1.5 pt-2 border-t border-border/60">
+              {isGroupSession(s) ? (
+                <button
+                  type="button"
+                  onClick={() => navigate("/admin/education/groups")}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-primary bg-primary/10 hover:bg-primary/20 rounded-md transition-colors border border-primary/20"
+                >
+                  <Users className="w-3.5 h-3.5" />
+                  {isEn ? "Log attendance" : "تسجيل الحضور"}
+                </button>
+              ) : (
                 <>
+                  {s.status === "SCHEDULED" && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleConfirmSession(s.id)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-success dark:text-success bg-success/10 hover:bg-success/20 rounded-md transition-colors border border-success/20"
+                        aria-label={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")} title={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")}
+                      >
+                        <Check className="w-3.5 h-3.5" />
+                        {t("education.actions.confirm", isEn ? "Confirm" : "تأكيد")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleMarkNoShow(s.id)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-warning bg-warning/10 hover:bg-warning/20 rounded-md transition-colors border border-warning/20"
+                        aria-label={isEn ? "Mark no-show" : "تسجيل غياب الطالب"} title={isEn ? "Mark no-show" : "تسجيل غياب الطالب"}
+                      >
+                        <UserX className="w-3.5 h-3.5" />
+                        {isEn ? "No-show" : "غياب"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleCancelSession(s.id)}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-destructive dark:text-destructive bg-destructive/10 hover:bg-destructive/20 rounded-md transition-colors border border-destructive/20"
+                        aria-label={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")} title={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")}
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        {t("education.actions.cancel", isEn ? "Cancel" : "إلغاء")}
+                      </button>
+                    </>
+                  )}
+                  {s.status === "CONFIRMED" && typeof onScheduleMakeup === "function" && (
+                    <button
+                      type="button"
+                      onClick={() => onScheduleMakeup(s.id)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-primary bg-primary/10 hover:bg-primary/20 rounded-md transition-colors border border-primary/20"
+                    >
+                      <CalendarPlus className="w-3.5 h-3.5" />
+                      {isEn ? "Make-up" : "تعويض"}
+                    </button>
+                  )}
                   <button
                     type="button"
-                    onClick={() => handleConfirmSession(s.id)}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-success dark:text-success bg-success/10 hover:bg-success/20 rounded-md transition-colors border border-success/20"
-                    aria-label={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")} title={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")}
+                    onClick={() => setSessionModal(s)}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors border border-border/60"
+                    aria-label={t("education.actions.edit", isEn ? "Edit" : "تعديل")} title={t("education.actions.edit", isEn ? "Edit" : "تعديل")}
                   >
-                    <Check className="w-3.5 h-3.5" />
-                    {t("education.actions.confirm", isEn ? "Confirm" : "تأكيد")}
+                    <Pencil className="w-3.5 h-3.5" />
+                    {t("education.actions.edit", isEn ? "Edit" : "تعديل")}
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleCancelSession(s.id)}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-destructive dark:text-destructive bg-destructive/10 hover:bg-destructive/20 rounded-md transition-colors border border-destructive/20"
-                    aria-label={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")} title={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")}
+                    onClick={() => handleDeleteSession(s.id)}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md transition-colors border border-border/60"
+                    aria-label={isEn ? "Delete session" : "حذف الحصة"} title={isEn ? "Delete session" : "حذف الحصة"}
                   >
-                    <X className="w-3.5 h-3.5" />
-                    {t("education.actions.cancel", isEn ? "Cancel" : "إلغاء")}
+                    <Trash2 className="w-3.5 h-3.5" />
+                    {isEn ? "Delete" : "حذف"}
                   </button>
                 </>
               )}
-              <button
-                type="button"
-                onClick={() => setSessionModal(s)}
-                className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors border border-border/60"
-                aria-label={t("education.actions.edit", isEn ? "Edit" : "تعديل")} title={t("education.actions.edit", isEn ? "Edit" : "تعديل")}
-              >
-                <Pencil className="w-3.5 h-3.5" />
-                {t("education.actions.edit", isEn ? "Edit" : "تعديل")}
-              </button>
             </div>
           </div>
         ))}
@@ -322,20 +399,40 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                 <tr key={s.id} className="hover:bg-muted/30 transition-colors">
                   <td className={CELL_CLS + " font-medium text-foreground"}>
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span>
-                        {s.student
-                          ? `${s.student.firstName} ${s.student.lastName || ""}`
-                          : "—"}
-                      </span>
-                      {s.student?.code && (
-                        <span className="font-mono text-[10px] text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20" dir="ltr">
-                          #{s.student.code}
-                        </span>
-                      )}
-                      {s.sessionType === "PRIVATE" && (
-                        <span className="font-mono text-[9px] text-primary dark:text-primary bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20" dir="ltr">
-                          Private 1-on-1
-                        </span>
+                      {isGroupSession(s) ? (
+                        <>
+                          <Users className="w-3.5 h-3.5 text-primary shrink-0" />
+                          <span>{s.groupName || (isEn ? "Group session" : "حصة مجموعة")}</span>
+                          {s.room && (
+                            <span className="font-mono text-[10px] text-muted-foreground bg-muted px-1 py-0.5 rounded">
+                              {s.room}
+                            </span>
+                          )}
+                          <span className="font-mono text-[10px] tabular-nums text-success bg-success/10 px-1 py-0.5 rounded border border-success/20">
+                            {isEn ? "P" : "حاضر"} {s.presentCount || 0}
+                          </span>
+                          <span className="font-mono text-[10px] tabular-nums text-destructive bg-destructive/10 px-1 py-0.5 rounded border border-destructive/20">
+                            {isEn ? "A" : "غائب"} {s.absentCount || 0}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span>
+                            {s.student
+                              ? `${s.student.firstName} ${s.student.lastName || ""}`
+                              : "—"}
+                          </span>
+                          {s.student?.code && (
+                            <span className="font-mono text-[10px] text-primary bg-primary/10 px-1 py-0.5 rounded border border-primary/20" dir="ltr">
+                              #{s.student.code}
+                            </span>
+                          )}
+                          {s.sessionType === "PRIVATE" && (
+                            <span className="font-mono text-[9px] text-primary dark:text-primary bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20" dir="ltr">
+                              Private 1-on-1
+                            </span>
+                          )}
+                        </>
                       )}
                     </div>
                   </td>
@@ -370,45 +467,74 @@ export const EducationSessionsTab: React.FC<EducationSessionsTabProps> = ({
                   </td>
                   <td className={CELL_CLS}>
                     <div className="flex items-center justify-end gap-1">
-                      {s.status === "SCHEDULED" && (
+                      {isGroupSession(s) ? (
+                        <button
+                          type="button"
+                          onClick={() => navigate("/admin/education/groups")}
+                          className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
+                          aria-label={isEn ? "Log attendance" : "تسجيل الحضور"} title={isEn ? "Log attendance" : "تسجيل الحضور"}
+                        >
+                          <Users className="w-3.5 h-3.5" />
+                        </button>
+                      ) : (
                         <>
+                          {s.status === "SCHEDULED" && (
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => handleConfirmSession(s.id)}
+                                className="p-1.5 text-success dark:text-success hover:bg-success/10 rounded-md transition-colors"
+                                aria-label={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")} title={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")}
+                              >
+                                <Check className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleMarkNoShow(s.id)}
+                                className="p-1.5 text-warning hover:bg-warning/10 rounded-md transition-colors"
+                                aria-label={isEn ? "Mark no-show" : "تسجيل غياب الطالب"} title={isEn ? "Mark no-show" : "تسجيل غياب الطالب"}
+                              >
+                                <UserX className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleCancelSession(s.id)}
+                                className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+                                aria-label={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")} title={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")}
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </>
+                          )}
+                          {s.status === "CONFIRMED" && typeof onScheduleMakeup === "function" && (
+                            <button
+                              type="button"
+                              onClick={() => onScheduleMakeup(s.id)}
+                              className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
+                              aria-label={isEn ? "Schedule make-up" : "حصة تعويض"}
+                              title={isEn ? "Schedule make-up" : "حصة تعويض"}
+                            >
+                              <CalendarPlus className="w-3.5 h-3.5" />
+                            </button>
+                          )}
                           <button
                             type="button"
-                            onClick={() => handleConfirmSession(s.id)}
-                            className="p-1.5 text-success dark:text-success hover:bg-success/10 rounded-md transition-colors"
-                            aria-label={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")} title={t("education.dashboard.confirmSession", isEn ? "Confirm Attendance" : "تأكيد الحضور")}
+                            onClick={() => setSessionModal(s)}
+                            className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                            aria-label={t("education.actions.edit", isEn ? "Edit Details" : "تفاصيل")} title={t("education.actions.edit", isEn ? "Edit Details" : "تفاصيل")}
                           >
-                            <Check className="w-3.5 h-3.5" />
+                            <Pencil className="w-3.5 h-3.5" />
                           </button>
                           <button
                             type="button"
-                            onClick={() => handleCancelSession(s.id)}
-                            className="p-1.5 text-destructive dark:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
-                            aria-label={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")} title={t("education.dashboard.cancelSession", isEn ? "Cancel Session" : "إلغاء الحصة")}
+                            onClick={() => handleDeleteSession(s.id)}
+                            className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+                            aria-label={isEn ? "Delete session" : "حذف الحصة"} title={isEn ? "Delete session" : "حذف الحصة"}
                           >
-                            <X className="w-3.5 h-3.5" />
+                            <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </>
                       )}
-                      {s.status === "CONFIRMED" && typeof onScheduleMakeup === "function" && (
-                        <button
-                          type="button"
-                          onClick={() => onScheduleMakeup(s.id)}
-                          className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
-                          aria-label={isEn ? "Schedule make-up" : "حصة تعويض"}
-                          title={isEn ? "Schedule make-up" : "حصة تعويض"}
-                        >
-                          <CalendarPlus className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => setSessionModal(s)}
-                        className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
-                        aria-label={t("education.actions.edit", isEn ? "Edit Details" : "تفاصيل")} title={t("education.actions.edit", isEn ? "Edit Details" : "تفاصيل")}
-                      >
-                        <Pencil className="w-3.5 h-3.5" />
-                      </button>
                     </div>
                   </td>
                 </tr>

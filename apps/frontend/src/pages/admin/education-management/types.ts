@@ -121,8 +121,11 @@ export interface EducationSession {
   subjectId: string;
   sessionType?: "PRIVATE" | "GROUP";
   groupName?: string;
+  groupCode?: string;
   groupId?: string;
   room?: string;
+  presentCount?: number;
+  absentCount?: number;
   scheduledAt: string;
   plannedDuration: number;
   actualDuration?: number;
@@ -237,6 +240,10 @@ export const SESSION_STATUS: Record<string, { label: string; color: string }> = 
     label: "ملغية",
     color: "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20",
   },
+  NO_SHOW: {
+    label: "غياب الطالب",
+    color: "bg-warning/10 text-warning border-warning/20",
+  },
 };
 
 export const getSessionStatus = (status: string, isEn = false): { label: string; color: string } => {
@@ -245,6 +252,7 @@ export const getSessionStatus = (status: string, isEn = false): { label: string;
     CONFIRMED: { ar: "مؤكدة", en: "Confirmed", color: "bg-emerald-500/10 text-success dark:text-success border-success/20" },
     COMPLETED: { ar: "مكتملة", en: "Completed", color: "bg-purple-500/10 text-primary dark:text-primary border-primary/20" },
     CANCELLED: { ar: "ملغية", en: "Cancelled", color: "bg-red-500/10 text-destructive dark:text-destructive border-destructive/20" },
+    NO_SHOW: { ar: "غياب الطالب", en: "No-show", color: "bg-warning/10 text-warning border-warning/20" },
   };
   const item = map[status];
   if (!item) return { label: status, color: "bg-muted text-muted-foreground" };

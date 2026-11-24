@@ -510,6 +510,32 @@ export function useEducationManagementController() {
     }
     fetchSessions();
   };
+  const handleMarkNoShow = async (id: string) => {
+    if (!confirm("تسجيل غياب الطالب عن هذه الحصة؟ لن تُخصم ساعات من الباقة.")) return;
+    const res = await fetch(api(`sessions/${id}/no-show`), {
+      method: "PUT",
+      headers: getAuthHeaders(),
+    });
+    const data = await res.json();
+    if (!data.success) {
+      alert(data.error || "تعذر تسجيل الغياب");
+      return;
+    }
+    fetchSessions();
+  };
+  const handleDeleteSession = async (id: string) => {
+    if (!confirm("حذف الحصة نهائيًا؟ إذا كانت مؤكدة سيتم استرجاع ساعاتها إلى رصيد الطالب.")) return;
+    const res = await fetch(api(`sessions/${id}`), {
+      method: "DELETE",
+      headers: getAuthHeaders(),
+    });
+    const data = await res.json();
+    if (!data.success) {
+      alert(data.error || "فشل حذف الحصة");
+      return;
+    }
+    fetchSessions();
+  };
   const handleScheduleMakeup = async (id: string) => {
     const input = window.prompt("موعد حصة التعويض (YYYY-MM-DD HH:mm)");
     if (!input) return;
@@ -624,6 +650,8 @@ export function useEducationManagementController() {
     handleSaveSession,
     handleConfirmSession,
     handleCancelSession,
+    handleMarkNoShow,
+    handleDeleteSession,
     handleScheduleMakeup,
   };
 }

@@ -83,6 +83,8 @@ export default function EducationManagementPage() {
     handleSaveSession,
     handleConfirmSession,
     handleCancelSession,
+    handleMarkNoShow,
+    handleDeleteSession,
     handleScheduleMakeup,
   } = useEducationManagementController();
 
@@ -313,6 +315,8 @@ export default function EducationManagementPage() {
               handleSaveSession={handleSaveSession}
               handleConfirmSession={handleConfirmSession}
               handleCancelSession={handleCancelSession}
+              handleMarkNoShow={handleMarkNoShow}
+              handleDeleteSession={handleDeleteSession}
               onScheduleMakeup={handleScheduleMakeup}
             />
           )}
