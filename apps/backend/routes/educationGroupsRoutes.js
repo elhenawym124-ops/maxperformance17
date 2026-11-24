@@ -26,5 +26,6 @@ router.post('/:id/generate-sessions', requireDbPermission('education.groups.mana
 
 // Financials & Teacher Settlement
 router.get('/:id/financials', requireDbPermission('education.financials.view'), controller.getFinancials);
+router.post('/:id/collect-due', requireDbPermission('education.financials.manage'), controller.collectDueFees);
 
 module.exports = router;

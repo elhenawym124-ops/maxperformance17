@@ -587,8 +587,55 @@ export default function EducationGroupsPage({
     }
   };
 
-  const handleRemoveMember = async (studentId: string, studentName: string) => {
+  // تحصيل جماعي: كل الأعضاء المستحقين (غير مسدد أو انتهت دورتهم) بضغطة واحدة
+  const [collectingAllDue, setCollectingAllDue] = useState(false);
+  const dueMembersCount =
+    activeGroup?.feeType === "MONTHLY"
+      ? (groupDetails?.members || []).filter(
+          (m) =>
+            m.status === "ACTIVE" &&
+            (m.paymentStatus !== "PAID" || !m.nextRenewalDate || new Date(m.nextRenewalDate) <= new Date())
+        ).length
+      : 0;
+
+  const handleCollectAllDue = async () => {
     if (!activeGroup) return;
+    const confirmMsg = isEn
+      ? `Collect the monthly fee for ${dueMembersCount} due student(s)?`
+      : `تحصيل رسوم الشهر لـ ${dueMembersCount} طالب مستحق؟`;
+    if (!window.confirm(confirmMsg)) return;
+    try {
+      setCollectingAllDue(true);
+      const res = await fetch(api(`groups/${activeGroup.id}/collect-due`), {
+        method: "POST",
+        headers: getAuthHeaders(),
+      });
+      const data = await res.json();
+      if (data.success) {
+        const amount = Number(data.data?.amount || 0);
+        toast.success(
+          isEn
+            ? `Collected ${data.data?.collected || 0} payment(s) — ${amount.toLocaleString()} EGP`
+            : `تم تحصيل ${data.data?.collected || 0} دفعة — ${amount.toLocaleString()} ج.م`
+        );
+        if (data.data?.failed?.length) {
+          toast.error(
+            isEn ? `${data.data.failed.length} payment(s) failed` : `${data.data.failed.length} دفعة فشلت`
+          );
+        }
+        fetchGroupDetails(activeGroup.id);
+        fetchData();
+      } else {
+        toast.error(data.error || (isEn ? "Could not collect" : "تعذّر التحصيل"));
+      }
+    } catch (err: any) {
+      toast.error(err?.message || (isEn ? "Error while collecting" : "حدث خطأ أثناء التحصيل"));
+    } finally {
+      setCollectingAllDue(false);
+    }
+  };
+
+  const handleRemoveMember = async (studentId: string, studentName: string) => {    if (!activeGroup) return;
     const confirmMsg = isEn
       ? `Are you sure you want to remove "${studentName}" from the group?`
       : `هل أنت متأكد من إزالة الطالب "${studentName}" من المجموعة؟`;
@@ -1400,6 +1447,19 @@ export default function EducationGroupsPage({
                       {activeGroup.capacity})
                     </div>
                     <div className="flex items-center gap-2">
+                      {activeGroup.feeType === "MONTHLY" && dueMembersCount > 0 && (
+                        <button
+                          type="button"
+                          onClick={handleCollectAllDue}
+                          disabled={collectingAllDue}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-success/10 text-success border border-success/30 rounded-lg text-xs font-semibold hover:bg-success/20 transition-all disabled:opacity-50"
+                        >
+                          <DollarSign className="w-3.5 h-3.5" />
+                          {isEn
+                            ? `Collect due (${dueMembersCount})`
+                            : `تحصيل المستحق (${dueMembersCount})`}
+                        </button>
+                      )}
                       <button
                         type="button"
                         onClick={() => window.print()}

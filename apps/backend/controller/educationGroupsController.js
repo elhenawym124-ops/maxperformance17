@@ -1771,8 +1771,100 @@ const getLiveRooms = async (req, res) => {
   }
 };
 
-const getFinancials = async (req, res) => {  try {
+/**
+ * تحصيل رسوم الشهر لكل الأعضاء المستحقين في المجموعة بضغطة واحدة.
+ * بيعيد استخدام نفس منطق الدفع الفردي (دفتر + خزينة + تجديد) بدون أي تكرار محاسبي.
+ * POST /education/groups/:id/collect-due
+ */
+const collectDueFees = async (req, res) => {
+  try {
     const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id: groupId } = req.params;
+    const prisma = getSharedPrismaClient();
+
+    const groupRows = await prisma.$queryRawUnsafe(
+      `SELECT "id", "name", "feeAmount", "feeType" FROM "education_groups" WHERE "id" = $1 AND "companyId" = $2`,
+      groupId, companyId
+    );
+    const group = groupRows && groupRows[0];
+    if (!group) return res.status(404).json({ success: false, error: 'المجموعة غير موجودة' });
+    if (String(group.feeType || '').toUpperCase() !== 'MONTHLY') {
+      return res.status(400).json({ success: false, error: 'التحصيل الشهري متاح للمجموعات الشهرية فقط' });
+    }
+    if (!(Number(group.feeAmount) > 0)) {
+      return res.status(400).json({ success: false, error: 'حدّد قيمة الاشتراك الشهري للمجموعة أولاً' });
+    }
+
+    const dueMembers = await prisma.$queryRawUnsafe(`
+      SELECT m."id", m."studentId", m."amountPaid", m."paymentStatus", m."nextRenewalDate",
+             s."firstName", s."lastName"
+      FROM "education_group_members" m
+      JOIN "education_students" s ON s."id" = m."studentId" AND s."companyId" = m."companyId"
+      WHERE m."groupId" = $1 AND m."companyId" = $2 AND m."status" = 'ACTIVE'
+        AND (
+          COALESCE(m."paymentStatus", 'PENDING') <> 'PAID'
+          OR m."nextRenewalDate" IS NULL
+          OR m."nextRenewalDate" <= NOW()
+        )
+      ORDER BY s."firstName" ASC
+    `, groupId, companyId);
+
+    if (!dueMembers.length) {
+      return res.json({
+        success: true,
+        message: 'لا يوجد أعضاء مستحقون للتحصيل في هذه المجموعة',
+        data: { collected: 0, amount: 0, skipped: [], failed: [] },
+      });
+    }
+
+    const paymentsController = require('./educationPaymentsController');
+    const collected = [];
+    const failed = [];
+
+    for (const member of dueMembers) {
+      const captured = [];
+      const fakeRes = {
+        statusCode: 200,
+        status(code) { this.statusCode = code; return this; },
+        json(payload) { captured.push(payload); return this; },
+      };
+      const fakeReq = Object.create(req);
+      fakeReq.params = { ...(req.params || {}) };
+      fakeReq.body = { groupMemberId: member.id, method: 'CASH' };
+      try {
+        await paymentsController.recordPayment(fakeReq, fakeRes);
+        const payload = captured[0] || {};
+        if (payload.success) {
+          collected.push({
+            memberId: member.id,
+            studentId: member.studentId,
+            student: `${member.firstName || ''} ${member.lastName || ''}`.trim(),
+            amount: payload.data?.amount ?? (Number(group.feeAmount) || 0),
+            paymentNumber: payload.data?.paymentNumber || null,
+          });
+        } else {
+          failed.push({ memberId: member.id, studentId: member.studentId, error: payload.error || 'فشل التحصيل' });
+        }
+      } catch (error) {
+        failed.push({ memberId: member.id, studentId: member.studentId, error: error.message });
+      }
+    }
+
+    const totalAmount = collected.reduce((sum, row) => sum + (Number(row.amount) || 0), 0);
+    return res.json({
+      success: true,
+      message: `تم تحصيل ${collected.length} عضو بإجمالي ${totalAmount} ج.م`,
+      data: { collected: collected.length, amount: totalAmount, items: collected, failed, skipped: [] },
+    });
+  } catch (err) {
+    console.error('[EducationGroups] collectDueFees error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+const getFinancials = async (req, res) => {  try {    const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id: groupId } = req.params;
@@ -2161,6 +2253,7 @@ module.exports = {
   getAvailability,
   getLiveRooms,
   getFinancials,
+  collectDueFees,
   generateSessions,
   generateGroupSessionsInternal
 };
