@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Plus, Pencil, Trash2, AlertTriangle, CreditCard, CheckCircle2, Calendar, Percent, X, Check } from "lucide-react";
+import { Plus, Pencil, Trash2, AlertTriangle, CreditCard, CheckCircle2, Calendar, Percent, X, Check, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { api, getAuthHeaders } from "./api";
 import type {
@@ -12,6 +12,7 @@ import type {
   EducationSubject,
 } from "./types";
 import { CELL_CLS } from "./types";
+import { computeRenewalExpiry } from "./educationSharedHelpers";
 import { EnrollmentModal } from "./EnrollmentModal";
 
 export interface EducationEnrollmentsTabProps {
@@ -96,6 +97,51 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
         ? "No subscriptions match this filter"
         : "لا توجد اشتراكات مطابقة للفلتر"
       : t("education.enrollments.empty", isEn ? "No registered enrollments" : "لا توجد تسجيلات مسجلة");
+
+  // تجديد اشتراك: يمدد المدة، يسجل الدفعة، ويمدّد تجديد المجموعة
+  const [renewTarget, setRenewTarget] = useState<EducationEnrollment | null>(null);
+  const [renewMonths, setRenewMonths] = useState(3);
+  const [renewAmount, setRenewAmount] = useState(0);
+  const [renewMethod, setRenewMethod] = useState<"CASH" | "CARD" | "TRANSFER">("CASH");
+  const [renewSaving, setRenewSaving] = useState(false);
+
+  const openRenew = (enrollment: EducationEnrollment) => {
+    const months = Math.min(24, Math.max(1, Number(enrollment.package?.durationMonths) || 3));
+    setRenewMonths(months);
+    setRenewAmount(Number(enrollment.finalAmount ?? enrollment.package?.price ?? 0));
+    setRenewMethod("CASH");
+    setRenewTarget(enrollment);
+  };
+
+  const renewPreviewDate = renewTarget ? computeRenewalExpiry(renewTarget.expiresAt, renewMonths) : "";
+
+  const handleRenewEnrollment = async () => {
+    if (!renewTarget) return;
+    try {
+      setRenewSaving(true);
+      const res = await fetch(api(`enrollments/${renewTarget.id}/renew`), {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ months: renewMonths, amountPaid: renewAmount, paymentMethod: renewMethod }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success(
+          isEn
+            ? `Renewed for ${renewMonths} months until ${data.meta?.newExpiry?.slice(0, 10) || renewPreviewDate}`
+            : `تم التجديد ${renewMonths} شهور حتى ${data.meta?.newExpiry?.slice(0, 10) || renewPreviewDate}`
+        );
+        setRenewTarget(null);
+        onRefresh?.();
+      } else {
+        toast.error(data.error || (isEn ? "Could not renew" : "تعذّر تجديد الاشتراك"));
+      }
+    } catch (err: any) {
+      toast.error(err?.message || (isEn ? "Error while renewing" : "حدث خطأ أثناء التجديد"));
+    } finally {
+      setRenewSaving(false);
+    }
+  };
 
   const handlePayInstallment = async (enrollmentId: string, installmentNumber: number) => {
     try {
@@ -290,6 +336,16 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
               </div>
 
               <div className="flex items-center justify-end gap-1.5 pt-2 border-t border-border/60">
+                {e.isActive !== false && (
+                  <button
+                    type="button"
+                    onClick={() => openRenew(e)}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-primary hover:bg-primary/10 rounded-md transition-colors border border-primary/30"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    {isEn ? "Renew" : "تجديد"}
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => setEnrollmentModal(e)}
@@ -491,6 +547,17 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                     </td>
                     <td className={CELL_CLS}>
                       <div className="flex items-center justify-end gap-1">
+                        {e.isActive !== false && (
+                          <button
+                            type="button"
+                            onClick={() => openRenew(e)}
+                            className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
+                            aria-label={isEn ? "Renew subscription" : "تجديد الاشتراك"}
+                            title={isEn ? "Renew subscription" : "تجديد الاشتراك"}
+                          >
+                            <RefreshCw className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                         <button
                           type="button"
                           onClick={() => setEnrollmentModal(e)}
@@ -544,6 +611,103 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
           </p>
         )}
       </div>
+      {renewTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" dir={isEn ? "ltr" : "rtl"}>
+          <div className="w-full max-w-md bg-card border border-border/80 rounded-2xl shadow-xl">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border/70">
+              <div className="min-w-0">
+                <h3 className="text-sm font-bold text-foreground">{isEn ? "Renew subscription" : "تجديد الاشتراك"}</h3>
+                <p className="text-[11px] text-muted-foreground truncate">
+                  {renewTarget.student ? `${renewTarget.student.firstName} ${renewTarget.student.lastName || ""}` : ""} •{" "}
+                  {renewTarget.package?.name}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setRenewTarget(null)}
+                className="p-1.5 text-muted-foreground hover:bg-muted rounded-lg"
+                aria-label={isEn ? "Close" : "إغلاق"}
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-4 space-y-3">
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-foreground">{isEn ? "Months" : "المدة (شهور)"}</label>
+                  <select
+                    className="w-full bg-background border border-input rounded-xl px-3 py-2 text-sm text-foreground"
+                    value={renewMonths}
+                    onChange={(e) => setRenewMonths(Number(e.target.value))}
+                  >
+                    {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
+                      <option key={m} value={m}>
+                        {isEn ? `${m} months` : `${m} شهور`}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-foreground">{isEn ? "Amount (EGP)" : "المبلغ (ج.م)"}</label>
+                  <input
+                    type="number"
+                    min={0}
+                    step="0.01"
+                    className="w-full bg-background border border-input rounded-xl px-3 py-2 text-sm font-mono tabular-nums text-foreground"
+                    value={renewAmount}
+                    onChange={(e) => setRenewAmount(Number(e.target.value))}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-foreground">{isEn ? "Payment method" : "طريقة الدفع"}</label>
+                <select
+                  className="w-full bg-background border border-input rounded-xl px-3 py-2 text-sm text-foreground"
+                  value={renewMethod}
+                  onChange={(e) => setRenewMethod(e.target.value as "CASH" | "CARD" | "TRANSFER")}
+                >
+                  <option value="CASH">{isEn ? "Cash" : "كاش"}</option>
+                  <option value="CARD">{isEn ? "Card" : "بطاقة"}</option>
+                  <option value="TRANSFER">{isEn ? "Transfer" : "تحويل"}</option>
+                </select>
+              </div>
+
+              <div className="rounded-xl border border-border/70 bg-muted/30 px-3 py-2 text-[11px] text-muted-foreground space-y-0.5">
+                <div className="flex items-center justify-between">
+                  <span>{isEn ? "Renewal covers until" : "التجديد يغطي حتى"}</span>
+                  <span className="font-mono tabular-nums text-foreground">{renewPreviewDate}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>{isEn ? "Monthly collection paused" : "التحصيل الشهري متوقف"}</span>
+                  <span className="text-foreground">{isEn ? "Yes, within the period" : "نعم، خلال المدة"}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 px-4 py-3 border-t border-border/70">
+              <button
+                type="button"
+                onClick={() => setRenewTarget(null)}
+                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-border text-foreground hover:bg-muted"
+              >
+                {isEn ? "Cancel" : "إلغاء"}
+              </button>
+              <button
+                type="button"
+                onClick={handleRenewEnrollment}
+                disabled={renewSaving}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${renewSaving ? "animate-spin" : ""}`} />
+                {isEn ? "Confirm renewal" : "تأكيد التجديد"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {enrollmentModal !== undefined && (
         <EnrollmentModal
           enrollment={enrollmentModal}

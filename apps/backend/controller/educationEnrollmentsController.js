@@ -672,6 +672,167 @@ const payInstallment = async (req, res) => {
 };
 
 /**
+ * تجديد اشتراك لمدة الليفل (شهور) + تسجيل الدفعة + تمديد تجديد المجموعة
+ * POST /api/education/enrollments/:id/renew
+ */
+const renewEnrollment = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const { id } = req.params;
+    const prisma = getSharedPrismaClient();
+    const { assertDayOpen } = require('../services/educationDailyClosingService');
+    await assertDayOpen(prisma, companyId, new Date());
+    const runInTx = typeof prisma.$transaction === 'function'
+      ? (fn) => prisma.$transaction(fn)
+      : (fn) => fn(prisma);
+
+    const body = req.body || {};
+
+    const result = await runInTx(async (tx) => {
+      const enrollment = await tx.educationEnrollment.findFirst({
+        where: { id, companyId },
+        include: { package: true, student: true },
+      });
+      if (!enrollment) {
+        const err = new Error('التسجيل غير موجود');
+        err.statusCode = 404;
+        throw err;
+      }
+      if (!enrollment.isActive) {
+        const err = new Error('الاشتراك ملغى — أعد تفعيله قبل التجديد');
+        err.statusCode = 409;
+        throw err;
+      }
+
+      const months = Math.min(24, Math.max(1, Number(body.months) || Number(enrollment.package?.durationMonths) || 1));
+      const price = Number(enrollment.finalAmount || enrollment.package?.price || 0);
+      const paid = body.amountPaid === undefined || body.amountPaid === null || body.amountPaid === ''
+        ? price
+        : Math.max(0, Number(body.amountPaid) || 0);
+      const method = String(body.paymentMethod || 'CASH').toUpperCase();
+
+      const now = new Date();
+      const base = enrollment.expiresAt && new Date(enrollment.expiresAt) > now ? new Date(enrollment.expiresAt) : now;
+      const newExpiry = new Date(base);
+      newExpiry.setMonth(newExpiry.getMonth() + months);
+
+      const saved = await tx.educationEnrollment.update({
+        where: { id },
+        data: {
+          expiresAt: newExpiry,
+          remainingHours: Number(enrollment.totalHours) || 0,
+          amountPaid: paid,
+          finalAmount: price,
+          paymentStatus: paid >= price && price > 0 ? 'COMPLETED' : (paid > 0 ? 'PARTIALLY_PAID' : 'PENDING'),
+          paymentMethod: method,
+          installments: [],
+          installmentCount: 1,
+        },
+        include: {
+          student: { select: { id: true, code: true, firstName: true, lastName: true } },
+          package: { include: { subject: { select: { id: true, name: true } } } },
+          teacher: { select: { id: true, name: true } },
+        },
+      });
+
+      let paymentNumber = null;
+      if (paid > 0) {
+        paymentNumber = await (async () => {
+          const prefix = `EDU-PAY-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}-`;
+          const lastPayment = await tx.educationPayment.findFirst({
+            where: { companyId, paymentNumber: { startsWith: prefix } },
+            orderBy: { paymentNumber: 'desc' },
+            select: { paymentNumber: true },
+          });
+          let seq = 1;
+          if (lastPayment?.paymentNumber) {
+            const parsed = parseInt(String(lastPayment.paymentNumber).split('-').pop(), 10);
+            if (!Number.isNaN(parsed)) seq = parsed + 1;
+          }
+          return `${prefix}${String(seq).padStart(4, '0')}`;
+        })();
+
+        const studentName = `${saved.student?.firstName || ''} ${saved.student?.lastName || ''}`.trim();
+        await tx.educationPayment.create({
+          data: {
+            companyId,
+            paymentNumber,
+            receiptNumber: paymentNumber.replace('EDU-PAY-', 'RCP-'),
+            studentId: saved.studentId,
+            enrollmentId: saved.id,
+            branchId: saved.branchId || null,
+            packageId: saved.packageId || null,
+            studentName: studentName || null,
+            amount: paid,
+            method,
+            status: 'COMPLETED',
+            source: 'RENEWAL',
+            notes: `تجديد اشتراك ${months} شهور (${saved.package?.name || ''})`,
+            paidAt: now,
+            cashierId: req.user?.id || null,
+            cashierName: req.user?.name || [req.user?.firstName, req.user?.lastName].filter(Boolean).join(' ') || null,
+          },
+        });
+
+        const educationFinancialService = require('../services/educationFinancialIntegrationService');
+        await educationFinancialService.recordEducationRevenueInTx(tx, {
+          companyId,
+          sourceType: 'EDUCATION_RENEWAL',
+          sourceId: `${saved.id}_renew_${now.getTime()}`,
+          studentName,
+          title: `تجديد اشتراك (${saved.package?.name || ''})`,
+          amount: paid,
+          createdById: req.user?.id,
+        });
+      }
+
+      // تجديد المجموعة يتبع مدة الليفل — منع تحصيل شهري مكرر داخل نفس الدورة
+      await tx.$executeRawUnsafe(`
+        UPDATE "education_group_members" m
+        SET "nextRenewalDate" = $1,
+            "paymentStatus" = CASE WHEN $2::float > 0 THEN 'PAID' ELSE m."paymentStatus" END,
+            "amountPaid" = COALESCE(m."amountPaid", 0) + $2::float,
+            "updatedAt" = NOW()
+        FROM "education_groups" g
+        WHERE m."groupId" = g.id
+          AND m."companyId" = $3
+          AND m."studentId" = $4
+          AND m.status = 'ACTIVE'
+          AND ($5::text IS NULL OR g."subjectId" = $5)
+      `, newExpiry, paid, companyId, saved.studentId, saved.package?.subjectId || null);
+
+      return { saved, paid, months, newExpiry, paymentNumber };
+    });
+
+    logEducationEvent({
+      companyId,
+      action: 'RENEW_ENROLLMENT',
+      entityType: 'ENROLLMENT',
+      entityId: id,
+      entityName: result.saved.package?.name,
+      description: `تجديد اشتراك ${result.months} شهور بمبلغ ${result.paid} ج.م حتى ${result.newExpiry.toISOString().slice(0, 10)}`,
+      details: { months: result.months, paid: result.paid, paymentNumber: result.paymentNumber },
+      req,
+    }).catch((e) => console.error('[EnrollmentRenewAudit]', e.message));
+
+    res.json({
+      success: true,
+      message: `تم تجديد الاشتراك ${result.months} شهور حتى ${result.newExpiry.toISOString().slice(0, 10)}`,
+      data: result.saved,
+      meta: { months: result.months, paid: result.paid, newExpiry: result.newExpiry, paymentNumber: result.paymentNumber },
+    });
+  } catch (error) {
+    if (error.statusCode) {
+      return res.status(error.statusCode).json({ success: false, error: error.message });
+    }
+    console.error('Error renewing enrollment:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ أثناء تجديد الاشتراك' });
+  }
+};
+
+/**
  * W8: إلغاء اشتراك مع استرداد اختياري
  * POST /api/education/enrollments/:id/cancel
  */
@@ -788,4 +949,4 @@ const cancelEnrollment = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, remove, payInstallment, cancelEnrollment };
+module.exports = { getAll, getById, create, update, remove, payInstallment, renewEnrollment, cancelEnrollment };

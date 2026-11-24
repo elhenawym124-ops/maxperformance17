@@ -305,6 +305,29 @@ export function calculateInstallmentSchedule(
 
 import type { EducationCustomDiscount } from "./types";
 
+/** تاريخ انتهاء التجديد: يمتد من الأبعد بين "الآن" و"تاريخ الانتهاء الحالي".
+ *  التواريخ المحلية (YYYY-MM-DD) تُفسَّر وتُعاد بتوقيت المستخدم — بدون انزياح يوم بسبب UTC. */
+export function computeRenewalExpiry(
+  currentExpiry: string | Date | null | undefined,
+  months: number,
+  now: Date = new Date()
+): string {
+  const safeMonths = Math.min(24, Math.max(1, Math.floor(Number(months) || 1)));
+  const toLocalISO = (d: Date) =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const parseLocal = (value: string | Date): Date => {
+    if (value instanceof Date) return new Date(value.getTime());
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value));
+    if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return new Date(value);
+  };
+  const current = currentExpiry ? parseLocal(currentExpiry) : null;
+  const base = current && !Number.isNaN(current.getTime()) && current > now ? current : new Date(now.getTime());
+  const next = new Date(base);
+  next.setMonth(next.getMonth() + safeMonths);
+  return toLocalISO(next);
+}
+
 export const DEFAULT_EDUCATION_DISCOUNTS: EducationCustomDiscount[] = [
   {
     id: "disc_sibling",

@@ -105,7 +105,7 @@ export interface EducationEnrollment {
   expiresAt?: string;
   isActive: boolean;
   student?: { id: string; code?: string; firstName: string; lastName?: string };
-  package?: { id: string; name: string; price?: number; subject?: { id: string; name: string } };
+  package?: { id: string; name: string; price?: number; durationMonths?: number | null; subject?: { id: string; name: string } };
   teacher?: { id: string; name: string };
   branch?: { id: string; name: string };
   groups?: { id: string; name: string; teacherId?: string | null }[];

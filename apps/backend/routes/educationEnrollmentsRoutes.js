@@ -13,6 +13,7 @@ router.post('/', requireDbPermission('education.students.manage'), controller.cr
 router.put('/:id', requireDbPermission('education.students.manage'), controller.update);
 router.delete('/:id', requireDbPermission('education.students.manage'), controller.remove);
 router.post('/:id/installments/:installmentNumber/pay', requireDbPermission('education.financials.manage'), controller.payInstallment);
+router.post('/:id/renew', requireDbPermission('education.financials.manage'), controller.renewEnrollment);
 router.post('/:id/cancel', requireDbPermission('education.financials.manage'), controller.cancelEnrollment);
 
 module.exports = router;
