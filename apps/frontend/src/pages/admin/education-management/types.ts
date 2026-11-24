@@ -29,6 +29,9 @@ export interface EducationPackage {
   hoursCount: number;
   sessionDuration: number;
   price: number;
+  levelNumber?: number | null;
+  ageFrom?: number | null;
+  ageTo?: number | null;
   packageType?: "GROUP" | "PRIVATE";
   scheduleSlots?: Array<{ dayOfWeek: string; startTime: string; endTime: string }>;
   timetable?: Array<{ dayOfWeek: string; time: string; subject?: string; room?: string }>;

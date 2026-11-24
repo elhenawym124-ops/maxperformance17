@@ -192,6 +192,7 @@ export default function EducationGroupsPage({
   const [subjects, setSubjects] = useState<{ id: string; name: string }[]>([]);
   const [teachers, setTeachers] = useState<{ id: string; name: string }[]>([]);
   const [branches, setBranches] = useState<BranchWithClassrooms[]>([]);
+  const [collectingMemberId, setCollectingMemberId] = useState<string | null>(null);
   const [allStudents, setAllStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -549,6 +550,39 @@ export default function EducationGroupsPage({
       }
     } catch (err: any) {
       toast.error(isEn ? "Error while enrolling" : "حدث خطأ أثناء التسجيل");
+    }
+  };
+
+  const handleCollectMemberFee = async (member: { id: string; studentId: string; studentName?: string }) => {
+    if (!activeGroup) return;
+    const amount = Number(activeGroup.feeAmount || 0);
+    if (!amount || amount <= 0) {
+      toast.error(isEn ? "Set the monthly fee for the group first" : "حدّد قيمة الاشتراك الشهري للمجموعة أولاً");
+      return;
+    }
+    try {
+      setCollectingMemberId(member.id);
+      const res = await fetch(api("finance/payments"), {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ groupMemberId: member.id, amount, method: "CASH" }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success(
+          isEn
+            ? `Collected ${amount} EGP and renewed the month`
+            : `تم تحصيل ${amount} ج.م وتجديد الشهر`
+        );
+        fetchGroupDetails(activeGroup.id);
+        fetchData();
+      } else {
+        toast.error(data.error || (isEn ? "Could not collect the fee" : "تعذّر تحصيل الرسوم"));
+      }
+    } catch (err: any) {
+      toast.error(err?.message || (isEn ? "Error while collecting" : "حدث خطأ أثناء التحصيل"));
+    } finally {
+      setCollectingMemberId(null);
     }
   };
 
@@ -1462,6 +1496,19 @@ export default function EducationGroupsPage({
                                 ? (isEn ? "Paid" : "تم السداد")
                                 : (isEn ? "Unpaid" : "غير مسدد")}
                             </span>
+
+                            {activeGroup.feeType === "MONTHLY" && (
+                              <button
+                                type="button"
+                                onClick={() => handleCollectMemberFee(member)}
+                                disabled={collectingMemberId === member.id}
+                                className="p-1.5 text-muted-foreground hover:text-success hover:bg-success/10 rounded-lg transition-colors disabled:opacity-40"
+                                aria-label={isEn ? "Collect monthly fee" : "تحصيل رسوم الشهر"}
+                                title={isEn ? "Collect monthly fee" : "تحصيل رسوم الشهر"}
+                              >
+                                <DollarSign className="w-3.5 h-3.5" />
+                              </button>
+                            )}
 
                             <button
                               type="button"

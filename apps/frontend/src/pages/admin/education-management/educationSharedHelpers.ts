@@ -265,73 +265,38 @@ export interface InstallmentPlan {
 
 export function calculateInstallmentSchedule(
   totalAmount: number,
-  count: 2 | 3,
+  count: number,
   startDate?: string
 ): InstallmentPlan[] {
   const baseDate = startDate ? new Date(startDate) : new Date();
   const safeTotal = Math.max(0, Number(totalAmount) || 0);
-
+  // أي عدد أقساط من 1 لـ24 (مثال: ليفل مدته 3 شهور = 3 أقساط شهرية)
+  const total = Math.min(24, Math.max(1, Math.floor(Number(count) || 1)));
   const plans: InstallmentPlan[] = [];
 
-  if (count === 2) {
-    const part1 = Math.round(safeTotal / 2);
-    const part2 = safeTotal - part1;
-
-    const due1 = new Date(baseDate);
-    const due2 = new Date(baseDate);
-    due2.setMonth(due2.getMonth() + 1);
-
+  if (total === 1) {
     plans.push({
       installmentNumber: 1,
-      amount: part1,
-      dueDate: due1.toISOString().split("T")[0],
+      amount: safeTotal,
+      dueDate: baseDate.toISOString().split("T")[0],
       status: "PAID",
-      paidAt: due1.toISOString(),
-      notes: "دفعة أولى (50%)",
+      paidAt: baseDate.toISOString(),
+      notes: "دفعة كاملة عند التسجيل",
     });
+    return plans;
+  }
 
+  const part = Math.round(safeTotal / total);
+  for (let i = 1; i <= total; i += 1) {
+    const due = new Date(baseDate);
+    due.setMonth(due.getMonth() + (i - 1));
     plans.push({
-      installmentNumber: 2,
-      amount: part2,
-      dueDate: due2.toISOString().split("T")[0],
-      status: "PENDING",
-      notes: "القسط الثاني بعد شهر",
-    });
-  } else {
-    // 3 installments
-    const part1 = Math.round(safeTotal / 3);
-    const part2 = Math.round(safeTotal / 3);
-    const part3 = safeTotal - part1 - part2;
-
-    const due1 = new Date(baseDate);
-    const due2 = new Date(baseDate);
-    due2.setMonth(due2.getMonth() + 1);
-    const due3 = new Date(baseDate);
-    due3.setMonth(due3.getMonth() + 2);
-
-    plans.push({
-      installmentNumber: 1,
-      amount: part1,
-      dueDate: due1.toISOString().split("T")[0],
-      status: "PAID",
-      paidAt: due1.toISOString(),
-      notes: "دفعة أولى عند التسجيل",
-    });
-
-    plans.push({
-      installmentNumber: 2,
-      amount: part2,
-      dueDate: due2.toISOString().split("T")[0],
-      status: "PENDING",
-      notes: "القسط الثاني بعد شهر",
-    });
-
-    plans.push({
-      installmentNumber: 3,
-      amount: part3,
-      dueDate: due3.toISOString().split("T")[0],
-      status: "PENDING",
-      notes: "القسط الثالث بعد شهرين",
+      installmentNumber: i,
+      amount: i === total ? safeTotal - part * (total - 1) : part,
+      dueDate: due.toISOString().split("T")[0],
+      status: i === 1 ? "PAID" : "PENDING",
+      ...(i === 1 ? { paidAt: baseDate.toISOString() } : {}),
+      notes: i === 1 ? "دفعة أولى عند التسجيل" : `القسط ${i} بعد ${i - 1} شهر`,
     });
   }
 

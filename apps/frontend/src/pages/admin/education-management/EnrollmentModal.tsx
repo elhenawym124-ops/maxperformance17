@@ -107,8 +107,8 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
   const [paymentMethod, setPaymentMethod] = useState<"CASH" | "INSTALLMENTS">(
     enrollment?.paymentMethod || "CASH"
   );
-  const [installmentCount, setInstallmentCount] = useState<2 | 3>(
-    enrollment?.installmentCount === 3 ? 3 : 2
+  const [installmentCount, setInstallmentCount] = useState<number>(
+    enrollment?.installmentCount && enrollment.installmentCount > 1 ? enrollment.installmentCount : 3
   );
   const [installments, setInstallments] = useState<
     Array<{ installmentNumber: number; amount: number; dueDate: string; status: string }>
@@ -705,28 +705,20 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
               <div className="space-y-2 pt-1">
                 <div className="flex items-center gap-2 text-xs">
                   <span className="text-muted-foreground">{isEn ? "Installment Count:" : "عدد الأقساط:"}</span>
-                  <button
-                    type="button"
-                    onClick={() => setInstallmentCount(2)}
-                    className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${
-                      installmentCount === 2
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-border text-muted-foreground"
-                    }`}
+                  <select
+                    value={installmentCount}
+                    onChange={(e) => setInstallmentCount(Number(e.target.value))}
+                    className="bg-background border border-input rounded-md px-2 py-0.5 text-xs font-bold text-foreground"
                   >
-                    {isEn ? "2 Installments" : "قسطين"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setInstallmentCount(3)}
-                    className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${
-                      installmentCount === 3
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-border text-muted-foreground"
-                    }`}
-                  >
-                    {isEn ? "3 Installments" : "3 أقساط"}
-                  </button>
+                    {Array.from({ length: 11 }, (_, i) => i + 2).map((n) => (
+                      <option key={n} value={n}>
+                        {isEn ? `${n} installments` : `${n} أقساط`}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="text-[10px] text-muted-foreground">
+                    {isEn ? "(one every month)" : "(قسط كل شهر)"}
+                  </span>
                 </div>
 
                 {/* Installments Table */}
