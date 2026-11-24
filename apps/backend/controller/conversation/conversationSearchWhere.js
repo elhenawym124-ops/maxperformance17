@@ -63,7 +63,7 @@ function buildConversationSearchWhere(rawTerm) {
  * the caller's matches. Rows are capped to the most recent 1000 hits.
  *
  * Database failures are propagated to the caller (no silent empty result): the
- * controller turns them into HTTP 422 (`MESSAGE_SEARCH_TIMEOUT`/`MESSAGE_SEARCH_FAILED`)
+ * controller turns them into HTTP 422 (`MESSAGE_SEARCH_TIMEOUT`/`MESSAGE_SEARCH_UNAVAILABLE`)
  * so the user never sees "no results" for a query that actually failed.
  *
  * @param {object} prisma - PrismaClient instance
