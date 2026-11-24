@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
-  Users,
   GraduationCap,
-  CalendarDays,
   Clock,
   RefreshCw,
   ArrowRight,
   BookOpen,
-  User,
-  CheckCircle2,
   CalendarCheck
 } from "lucide-react";
 
@@ -129,8 +125,27 @@ const ParentChildDetailPage: React.FC = () => {
     return enrollments.reduce((sum, e) => sum + (e.remainingHours || 0), 0);
   }, [enrollments]);
 
-  const downloadCertificate = async (certificateId: string, serialNumber: string) => {
+  const downloadStatement = async (format: "pdf" | "excel") => {
     try {
+      const token = localStorage.getItem("parentToken");
+      const res = await fetch(
+        `/api/v1/education/parent-portal/children/${studentId}/statement?months=12&format=${format}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (!res.ok) throw new Error("تعذر تصدير كشف الحساب");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `statement-${studentId}.${format === "excel" ? "xlsx" : "pdf"}`;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Statement export failed:", err);
+    }
+  };
+
+  const downloadCertificate = async (certificateId: string, serialNumber: string) => {    try {
       const token = localStorage.getItem("parentToken");
       const res = await fetch(`/api/v1/education/parent-portal/certificates/${certificateId}/pdf`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -227,7 +242,8 @@ const ParentChildDetailPage: React.FC = () => {
       </div>
 
       {/* Tabs Switcher */}
-      <div className="flex items-center gap-1 p-1 bg-muted/50 rounded-lg border border-border/50 text-xs w-fit">
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-1 p-1 bg-muted/50 rounded-lg border border-border/50 text-xs w-fit">
         <button
           onClick={() => setActiveTab("sessions")}
           className={`px-3.5 py-1.5 rounded-md font-medium transition-all ${
@@ -258,6 +274,24 @@ const ParentChildDetailPage: React.FC = () => {
         >
           الدرجات والشهادات ({examResults.length + certificates.length})
         </button>
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => downloadStatement("pdf")}
+            className="px-3 py-1.5 rounded-lg border border-border/70 text-[11px] font-semibold text-foreground hover:bg-muted"
+          >
+            كشف حساب PDF
+          </button>
+          <button
+            type="button"
+            onClick={() => downloadStatement("excel")}
+            className="px-3 py-1.5 rounded-lg border border-border/70 text-[11px] font-semibold text-muted-foreground hover:bg-muted"
+          >
+            Excel
+          </button>
+        </div>
       </div>
 
       {/* Tab 1: Sessions */}

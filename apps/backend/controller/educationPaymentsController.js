@@ -803,8 +803,67 @@ const recordPayment = async (req, res) => {
   }
 };
 
-const getCockpit = async (req, res) => {
+const getStatement = async (req, res) => {
   try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const studentId = req.params.studentId || req.query.studentId;
+    if (!studentId) return res.status(400).json({ success: false, error: 'الطالب مطلوب' });
+
+    const service = require('../services/educationStatementService');
+    const statement = await service.buildStatement(getSharedPrismaClient(), {
+      companyId,
+      studentId,
+      months: req.query.months,
+    });
+    if (!statement) return res.status(404).json({ success: false, error: 'الطالب غير موجود' });
+
+    res.json({ success: true, data: statement });
+  } catch (error) {
+    console.error('Error building statement:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب كشف الحساب' });
+  }
+};
+
+const downloadStatement = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const studentId = req.params.studentId || req.query.studentId;
+    if (!studentId) return res.status(400).json({ success: false, error: 'الطالب مطلوب' });
+
+    const service = require('../services/educationStatementService');
+    const statement = await service.buildStatement(getSharedPrismaClient(), {
+      companyId,
+      studentId,
+      months: req.query.months,
+    });
+    if (!statement) return res.status(404).json({ success: false, error: 'الطالب غير موجود' });
+
+    const exporter = require('../services/educationStatementExportService');
+    const format = String(req.query.format || 'pdf').toLowerCase();
+    const safeName = `statement-${statement.student.code || statement.student.id}.${format === 'excel' ? 'xlsx' : 'pdf'}`;
+
+    if (format === 'excel' || format === 'xlsx') {
+      const buffer = await exporter.buildStatementExcel(statement);
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename="${safeName}"`);
+      return res.send(buffer);
+    }
+
+    const buffer = await exporter.buildStatementPdf(statement);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="${safeName}"`);
+    res.send(buffer);
+  } catch (error) {
+    console.error('Error exporting statement:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في تصدير كشف الحساب' });
+  }
+};
+
+const getCockpit = async (req, res) => {  try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -1611,6 +1670,8 @@ module.exports = {
   getMethodReport,
   getVarianceReport,
   getCockpit,
+  getStatement,
+  downloadStatement,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

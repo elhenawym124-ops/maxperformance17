@@ -75,8 +75,46 @@ const getChildCertificates = async (req, res) => {
   }
 };
 
-const downloadCertificatePdf = async (req, res) => {
+const downloadChildStatement = async (req, res) => {
   try {
+    const parentId = req.parent?.id;
+    const companyId = req.parent?.companyId;
+    if (!parentId || !companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const student = await resolveParentStudent(prisma, companyId, parentId, req.params.studentId);
+    if (!student) return res.status(404).json({ success: false, error: 'الطالب غير موجود' });
+
+    const service = require('../services/educationStatementService');
+    const statement = await service.buildStatement(prisma, {
+      companyId,
+      studentId: student.id,
+      months: req.query.months,
+    });
+    if (!statement) return res.status(404).json({ success: false, error: 'الطالب غير موجود' });
+
+    const exporter = require('../services/educationStatementExportService');
+    const format = String(req.query.format || 'pdf').toLowerCase();
+    const safeName = `statement-${statement.student.code || statement.student.id}.${format === 'excel' ? 'xlsx' : 'pdf'}`;
+
+    if (format === 'excel' || format === 'xlsx') {
+      const buffer = await exporter.buildStatementExcel(statement);
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename="${safeName}"`);
+      return res.send(buffer);
+    }
+
+    const buffer = await exporter.buildStatementPdf(statement);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="${safeName}"`);
+    res.send(buffer);
+  } catch (error) {
+    console.error('[ParentPortal] Statement export error:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في تصدير كشف الحساب' });
+  }
+};
+
+const downloadCertificatePdf = async (req, res) => {  try {
     const parentId = req.parent?.id;
     const companyId = req.parent?.companyId;
     if (!parentId || !companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
@@ -106,4 +144,4 @@ const downloadCertificatePdf = async (req, res) => {
   }
 };
 
-module.exports = { getChildExams, getChildCertificates, downloadCertificatePdf };
+module.exports = { getChildExams, getChildCertificates, downloadCertificatePdf, downloadChildStatement };

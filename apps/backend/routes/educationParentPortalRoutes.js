@@ -52,6 +52,7 @@ router.post('/enrollments/installments/kashier-verify', authenticateParentToken,
 router.get('/children/:studentId/exams', authenticateParentToken, parentAcademicsController.getChildExams);
 router.get('/children/:studentId/certificates', authenticateParentToken, parentAcademicsController.getChildCertificates);
 router.get('/certificates/:id/pdf', authenticateParentToken, parentAcademicsController.downloadCertificatePdf);
+router.get('/children/:studentId/statement', authenticateParentToken, parentAcademicsController.downloadChildStatement);
 
 // Parent's children
 router.get('/children', authenticateParentToken, async (req, res) => {

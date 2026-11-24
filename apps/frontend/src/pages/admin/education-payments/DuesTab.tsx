@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle, CalendarClock, RefreshCw, Wallet } from "lucide-react";
-import { fetchDues, setMemberDiscount } from "./api";
+import { downloadStatement, fetchDues, setMemberDiscount } from "./api";
 import { EmptyState, StatusPill, formatDate, money } from "./shared";
 import type { DuesResponse } from "./types";
 
@@ -119,6 +119,19 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
                       {money(due.remaining)} {isEn ? "EGP" : "ج.م"}
                     </p>
                   </div>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      try {
+                        await downloadStatement(due.studentId, "pdf");
+                      } catch (e: any) {
+                        window.alert(e.message || (isEn ? "Failed to export statement" : "فشل تصدير كشف الحساب"));
+                      }
+                    }}
+                    className="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-border text-muted-foreground hover:bg-muted"
+                  >
+                    {isEn ? "Statement" : "كشف"}
+                  </button>
                   <button
                     type="button"
                     onClick={() =>

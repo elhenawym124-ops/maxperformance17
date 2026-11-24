@@ -287,6 +287,17 @@
 - Each source degrades to zero/null instead of failing the cockpit.
 - UI: "النظرة المالية" tab in `/admin/education/payments` — KPI grid, discount strip and a "محتاج تدخّل" alert list with an all-clear state.
 
+## Phase 4 (part 21) — student account statement (PDF + Excel)
+
+- `GET /education/finance/students/:studentId/statement?months=12` returns the statement data; `.../statement/export?format=pdf|excel` returns the file.
+- Scope: the student's enrollment charges, their discounts, and the payments linked to **those enrollments**. Group-fee collections are excluded on purpose so the running balance never mixes recurring fees with package invoices.
+- Each line carries date, type (CHARGE/DISCOUNT/PAYMENT), label, method, debit, credit and a running balance; totals cover charges, discounts, paid, refunded and the remaining balance.
+- PDF: A4 portrait, Arabic-shaped with NotoSansArabic, header band, totals block and a note pointing to Excel when the list is truncated.
+- Excel: real `.xlsx` via exceljs with an RTL sheet, currency formatting and a bold totals row.
+- Parent portal: `GET /children/:studentId/statement` (scoped to the guardian's own child) supports the same PDF/Excel formats.
+- UI: "كشف" on each enrollment due row, plus "كشف حساب PDF / Excel" buttons in the parent child page header.
+
+
 
 
 

@@ -35,6 +35,19 @@ const mockApi = vi.hoisted(() => ({
   releaseTopup: vi.fn(),
   rejectTopup: vi.fn(),
   fetchReceipt: vi.fn(),
+  fetchVarianceReport: vi.fn(),
+  fetchShiftReconciliation: vi.fn(),
+  fetchCockpit: vi.fn(),
+  downloadStatement: vi.fn(),
+  fetchCoupons: vi.fn(),
+  fetchDiscountReport: vi.fn(),
+  fetchCollectionReport: vi.fn(),
+  fetchMethodReport: vi.fn(),
+  createCoupon: vi.fn(),
+  toggleCoupon: vi.fn(),
+  deleteCoupon: vi.fn(),
+  validateCoupon: vi.fn(),
+  setMemberDiscount: vi.fn(),
 }));
 
 vi.mock("../api", () => mockApi);
@@ -162,6 +175,13 @@ beforeEach(() => {
     pagination: { total: 1, page: 1, limit: 25, totalPages: 1 },
   });
   mockApi.fetchDues.mockResolvedValue(dues);
+  mockApi.fetchVarianceReport.mockResolvedValue({
+    period: { from: "2026-06-01", to: "2026-11-24", months: 6 },
+    summary: { incidents: 0, short: 0, over: 0, balanced: 0, netVariance: 0, absVariance: 0, shifts: 0, closings: 0 },
+    byStaff: [],
+    byMonth: [],
+    items: [],
+  });
   mockApi.fetchTopups.mockResolvedValue([pendingTopup]);
   mockApi.fetchReceipt.mockResolvedValue({
     payment,

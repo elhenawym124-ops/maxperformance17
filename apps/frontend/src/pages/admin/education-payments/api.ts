@@ -112,6 +112,33 @@ export const fetchCashierShifts = async (params: { page?: number; limit?: number
 export const fetchCockpit = (months = 6): Promise<FinanceCockpit> =>
   fetchJson(api(`finance/cockpit${query({ months })}`));
 
+export const downloadStatement = async (
+  studentId: string,
+  format: "pdf" | "excel" = "pdf",
+  months = 12
+): Promise<void> => {
+  const res = await fetch(api(`finance/students/${studentId}/statement/export${query({ format, months })}`), {
+    headers: getAuthHeaders(),
+  });
+  if (!res.ok) {
+    let message = "فشل تصدير كشف الحساب";
+    try {
+      const body = await res.json();
+      message = body.error || body.message || message;
+    } catch {
+      /* ignore */
+    }
+    throw new Error(message);
+  }
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `statement-${studentId}.${format === "excel" ? "xlsx" : "pdf"}`;
+  link.click();
+  URL.revokeObjectURL(url);
+};
+
 export const fetchVarianceReport = (months = 6): Promise<VarianceReport> =>
   fetchJson(api(`finance/variances${query({ months })}`));
 
