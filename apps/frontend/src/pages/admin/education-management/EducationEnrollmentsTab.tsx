@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Plus, Pencil, Trash2, AlertTriangle, CreditCard, CheckCircle2, Calendar, Percent, X, Check, RefreshCw } from "lucide-react";
@@ -105,6 +105,37 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
   const [renewMethod, setRenewMethod] = useState<"CASH" | "CARD" | "TRANSFER">("CASH");
   const [renewSaving, setRenewSaving] = useState(false);
 
+  // ملخص التجديدات: عدد ومبلغ التجديدات، الإيراد الشهري المتكرر، واللي بتنتهي خلال أسبوع
+  const [renewalSummary, setRenewalSummary] = useState<{
+    renewals: number;
+    amount: number;
+    mrr: number;
+    expiringIn7Days: number;
+    activeWithoutExpiry: number;
+  } | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(api("enrollments/renewals-report?months=6"), { headers: getAuthHeaders() });
+        const data = await res.json();
+        if (!cancelled && data?.success) {
+          setRenewalSummary({
+            renewals: Number(data.data?.totals?.renewals) || 0,
+            amount: Number(data.data?.totals?.amount) || 0,
+            mrr: Number(data.data?.mrr) || 0,
+            expiringIn7Days: Number(data.data?.expiringIn7Days) || 0,
+            activeWithoutExpiry: Number(data.data?.activeWithoutExpiry) || 0,
+          });
+        }
+      } catch {
+        /* الملخص تحسيني — تجاهل الفشل بدون تعطيل الصفحة */
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
   const openRenew = (enrollment: EducationEnrollment) => {
     const months = Math.min(24, Math.max(1, Number(enrollment.package?.durationMonths) || 3));
     setRenewMonths(months);
@@ -200,6 +231,45 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
         </div>
       </div>
 
+      {/* Renewal summary — renewals, recurring revenue, expiring soon */}
+      {renewalSummary && (
+        <div className="grid grid-cols-3 gap-2">
+          <div className="bg-card border border-border/80 rounded-xl px-3 py-2">
+            <div className="text-[10px] text-muted-foreground">{isEn ? "Renewals (6 mo)" : "تجديدات (6 شهور)"}</div>
+            <div className="text-sm font-bold text-foreground font-mono tabular-nums">
+              {renewalSummary.renewals}
+              <span className="text-[10px] font-normal text-muted-foreground ms-1">
+                {renewalSummary.amount.toLocaleString()} {isEn ? "EGP" : "ج.م"}
+              </span>
+            </div>
+          </div>
+          <div className="bg-card border border-border/80 rounded-xl px-3 py-2">
+            <div className="text-[10px] text-muted-foreground">{isEn ? "Monthly recurring" : "إيراد شهري متكرر"}</div>
+            <div className="text-sm font-bold text-foreground font-mono tabular-nums">
+              {renewalSummary.mrr.toLocaleString()}
+              <span className="text-[10px] font-normal text-muted-foreground ms-1">{isEn ? "EGP" : "ج.م"}</span>
+            </div>
+          </div>
+          <div className="bg-card border border-border/80 rounded-xl px-3 py-2">
+            <div className="text-[10px] text-muted-foreground">{isEn ? "Expiring in 7 days" : "تنتهي خلال 7 أيام"}</div>
+            <div
+              className={`text-sm font-bold font-mono tabular-nums ${
+                renewalSummary.expiringIn7Days > 0 ? "text-warning" : "text-foreground"
+              }`}
+            >
+              {renewalSummary.expiringIn7Days}
+              {renewalSummary.activeWithoutExpiry > 0 && (
+                <span className="text-[10px] font-normal text-muted-foreground ms-1">
+                  {isEn
+                    ? `(${renewalSummary.activeWithoutExpiry} without date)`
+                    : `(${renewalSummary.activeWithoutExpiry} بدون تاريخ)`}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Activation filter — active subscriptions are the default view */}
       <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
         {([
@@ -257,6 +327,12 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                     <div className="text-[11px] text-muted-foreground/80 truncate">
                       {isEn ? "Group: " : "المجموعة: "}
                       {e.groups.map((g) => g.name).join(isEn ? ", " : "، ")}
+                    </div>
+                  )}
+                  {e.notes && (
+                    <div className="text-[11px] text-muted-foreground/80 truncate" title={e.notes}>
+                      {isEn ? "Note: " : "ملاحظة: "}
+                      {e.notes}
                     </div>
                   )}
                 </div>
@@ -441,6 +517,12 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
                       {e.groups && e.groups.length > 0 && (
                         <div className="text-[10px] text-muted-foreground/80">
                           {e.groups.map((g) => g.name).join(isEn ? ", " : "، ")}
+                        </div>
+                      )}
+                      {e.notes && (
+                        <div className="text-[10px] text-muted-foreground/80 truncate max-w-[220px]" title={e.notes}>
+                          {isEn ? "Note: " : "ملاحظة: "}
+                          {e.notes}
                         </div>
                       )}
                     </td>

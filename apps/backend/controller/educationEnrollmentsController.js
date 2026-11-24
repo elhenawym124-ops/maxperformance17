@@ -59,6 +59,90 @@ const createEducationLedgerEntry = async (db, payload) => {
   });
 };
 
+/**
+ * تقرير التجديدات + الإيراد الشهري المتكرر (MRR) + الاشتراكات اللي بتنتهي قريب
+ * GET /api/education/enrollments/renewals-report?months=6
+ */
+const renewalsReport = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const prisma = getSharedPrismaClient();
+    const months = Math.min(24, Math.max(1, parseInt(req.query.months, 10) || 6));
+    const since = new Date();
+    since.setMonth(since.getMonth() - (months - 1));
+    since.setDate(1);
+    since.setHours(0, 0, 0, 0);
+
+    const payments = await prisma.educationPayment.findMany({
+      where: { companyId, status: 'COMPLETED', source: 'RENEWAL', paidAt: { gte: since } },
+      select: { amount: true, paidAt: true },
+    });
+
+    const buckets = new Map();
+    for (let i = 0; i < months; i += 1) {
+      const d = new Date(since);
+      d.setMonth(d.getMonth() + i);
+      buckets.set(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`, { month: null, count: 0, amount: 0 });
+    }
+    buckets.forEach((_, key) => { buckets.get(key).month = key; });
+
+    let totalRenewals = 0;
+    let totalAmount = 0;
+    for (const p of payments) {
+      const d = new Date(p.paidAt);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      const bucket = buckets.get(key);
+      if (bucket) { bucket.count += 1; bucket.amount += Number(p.amount) || 0; }
+      totalRenewals += 1;
+      totalAmount += Number(p.amount) || 0;
+    }
+
+    // MRR: قيمة الاشتراك مقسومة على مدة الليفل، لكل اشتراك نشط
+    const active = await prisma.$queryRawUnsafe(`
+      SELECT COALESCE(p."durationMonths", 1) AS months,
+             COALESCE(e."finalAmount", p.price, 0)::float AS price
+      FROM education_enrollments e
+      JOIN education_packages p ON p.id = e."packageId"
+      WHERE e."companyId" = $1 AND e."isActive" = true
+    `, companyId);
+    const mrr = Math.round(active.reduce((sum, row) => {
+      const m = Number(row.months) > 0 ? Number(row.months) : 1;
+      return sum + (Number(row.price) || 0) / m;
+    }, 0));
+
+    // اشتراكات تنتهي خلال 7 أيام (نفس نافذة تذكير الواتساب)
+    const soon = await prisma.$queryRawUnsafe(`
+      SELECT count(*)::int AS c
+      FROM education_enrollments
+      WHERE "companyId" = $1 AND "isActive" = true AND "expiresAt" IS NOT NULL
+        AND "expiresAt" >= NOW() AND "expiresAt" <= NOW() + interval '7 days'
+    `, companyId);
+
+    const missingExpiry = await prisma.$queryRawUnsafe(`
+      SELECT count(*)::int AS c FROM education_enrollments
+      WHERE "companyId" = $1 AND "isActive" = true AND "expiresAt" IS NULL
+    `, companyId);
+
+    res.json({
+      success: true,
+      data: {
+        months,
+        totals: { renewals: totalRenewals, amount: totalAmount },
+        monthly: [...buckets.values()],
+        mrr,
+        activeSubscriptions: active.length,
+        expiringIn7Days: Number(soon[0]?.c || 0),
+        activeWithoutExpiry: Number(missingExpiry[0]?.c || 0),
+      },
+    });
+  } catch (error) {
+    console.error('Error building renewals report:', error);
+    res.status(500).json({ success: false, error: 'تعذّر إنشاء تقرير التجديدات' });
+  }
+};
+
 const getAll = async (req, res) => {
   try {
     const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
@@ -153,7 +237,8 @@ const create = async (req, res) => {
       discountAmount,
       finalAmount,
       branchId,
-      groupId
+      groupId,
+      notes
     } = req.body;
     if (!studentId) return res.status(400).json({ success: false, error: 'الطالب مطلوب' });
     if (!packageId) return res.status(400).json({ success: false, error: 'الباقة مطلوبة' });
@@ -215,9 +300,13 @@ const create = async (req, res) => {
 
     const resolvedBranchId = branchId || group?.branchId || null;
 
+    // مدة الليفل تحدد تاريخ الانتهاء تلقائياً (لو المستخدم مامررهوش) — بيشغّل تذكير التجديد قبل أسبوع
+    const packageMonths = Number(pkg.durationMonths) > 0 ? Number(pkg.durationMonths) : null;
     const parsedExpiresAt = (expiresAt && !isNaN(new Date(expiresAt).getTime()))
       ? new Date(expiresAt)
-      : null;
+      : (packageMonths
+        ? (() => { const d = new Date(); d.setMonth(d.getMonth() + packageMonths); return d; })()
+        : null);
 
     let safeInstallments = [];
     if (Array.isArray(installments)) {
@@ -274,7 +363,8 @@ const create = async (req, res) => {
           discountType: discountType || 'NONE',
           discountAmount: discountAmount ? parseFloat(discountAmount) : 0,
           finalAmount: safeFinalAmount,
-          branchId: resolvedBranchId
+          branchId: resolvedBranchId,
+          ...(notes !== undefined ? { notes: notes ? String(notes).trim() : null } : {})
         },
         include: {
           student: { select: { id: true, code: true, firstName: true, lastName: true } },
@@ -392,7 +482,7 @@ const update = async (req, res) => {
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id } = req.params;
-    const { teacherId, amountPaid, paymentStatus, remainingHours, expiresAt, isActive } = req.body;
+    const { teacherId, amountPaid, paymentStatus, remainingHours, expiresAt, isActive, notes } = req.body;
 
     const existing = await getSharedPrismaClient().educationEnrollment.findFirst({
       where: { id, companyId },
@@ -458,6 +548,7 @@ const update = async (req, res) => {
         remainingHours: remainingHours !== undefined ? Number(remainingHours) || 0 : undefined,
         expiresAt: parsedExpiresAt,
         isActive: isActive !== undefined ? !!isActive : undefined,
+        ...(notes !== undefined ? { notes: notes ? String(notes).trim() : null } : {}),
       },
       include: {
         student: { select: { id: true, code: true, firstName: true, lastName: true } },
@@ -949,4 +1040,4 @@ const cancelEnrollment = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, remove, payInstallment, renewEnrollment, cancelEnrollment };
+module.exports = { getAll, getById, create, update, remove, payInstallment, renewEnrollment, renewalsReport, cancelEnrollment };

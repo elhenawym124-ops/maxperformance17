@@ -89,6 +89,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
     teacherId: "",
     amountPaid: 0,
     expiresAt: "",
+    notes: "",
     ...enrollment,
     paymentStatus:
       enrollment?.paymentStatus === "PAID"
@@ -811,6 +812,24 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
               }
             />
           </div>
+
+          {/* Internal notes — admin only, never shown to the guardian */}
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-foreground">
+              {isEn ? "Notes (admin only)" : "ملاحظات (للإدارة فقط)"}
+            </label>
+            <textarea
+              rows={2}
+              className={`${INPUT_CLS} resize-none`}
+              value={(form as any).notes || ""}
+              onChange={(e) => setForm({ ...form, notes: e.target.value } as any)}
+              placeholder={
+                isEn
+                  ? "e.g. discount agreed with the guardian, special arrangement..."
+                  : "مثال: خصم متفق عليه مع ولي الأمر، اتفاق خاص..."
+              }
+            />
+          </div>
         </div>
 
         {/* Modal Footer */}
@@ -846,6 +865,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                   teacherId: form.teacherId || null,
                   groupId: groupId || null,
                   expiresAt: form.expiresAt ? form.expiresAt : null,
+                  notes: (form as any).notes || null,
                 })
               }
               disabled={!form.studentId || !form.packageId}

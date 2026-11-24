@@ -103,6 +103,7 @@ export interface EducationEnrollment {
   finalAmount?: number;
   enrollmentDate: string;
   expiresAt?: string;
+  notes?: string | null;
   isActive: boolean;
   student?: { id: string; code?: string; firstName: string; lastName?: string };
   package?: { id: string; name: string; price?: number; durationMonths?: number | null; subject?: { id: string; name: string } };

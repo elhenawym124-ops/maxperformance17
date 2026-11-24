@@ -8,6 +8,7 @@ const { requireDbPermission } = require('../middleware/rbacMiddleware');
 router.use(verifyToken.authenticateToken, requireEducationAppInstalled);
 
 router.get('/', requireDbPermission(['education.view', 'education.students.view']), controller.getAll);
+router.get('/renewals-report', requireDbPermission(['education.view', 'education.students.view']), controller.renewalsReport);
 router.get('/:id', requireDbPermission(['education.view', 'education.students.view']), controller.getById);
 router.post('/', requireDbPermission('education.students.manage'), controller.create);
 router.put('/:id', requireDbPermission('education.students.manage'), controller.update);

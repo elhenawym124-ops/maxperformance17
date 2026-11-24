@@ -192,6 +192,7 @@ model EducationEnrollment {
   discountAmount  Float?        @default(0)
   finalAmount     Float?
   branchId        String?
+  notes           String?       /// ملاحظات إدارية على الاشتراك (لا تُظهر لولي الأمر)
   enrollmentDate  DateTime      @default(now())
   expiresAt       DateTime?
   isActive        Boolean       @default(true)
