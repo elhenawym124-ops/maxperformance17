@@ -12,6 +12,7 @@ import {
   ExternalLink,
   Wallet,
   CalendarX,
+  CalendarCheck,
   TrendingUp,
 } from "lucide-react";
 import { fetchAttributionAnalytics, fetchFunnelMetrics, fetchMissedSessions } from "./api";
@@ -19,6 +20,7 @@ import { EducationCampaignsTab } from "./EducationCampaignsTab";
 import { EducationFunnelTab } from "./EducationFunnelTab";
 import { EducationFinanceTab } from "./EducationFinanceTab";
 import { EducationGrowthTab } from "./EducationGrowthTab";
+import { EducationAttendanceTab } from "./EducationAttendanceTab";
 import { EducationMissedSessionsTab } from "./EducationMissedSessionsTab";
 import {
   EducationAttributionData,
@@ -35,7 +37,7 @@ export default function EducationReportsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
   const [activeTab, setActiveTab] = useState<ReportTab>(
-    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : tabParam === "missed" ? "missed" : tabParam === "growth" ? "growth" : "campaigns"
+    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : tabParam === "missed" ? "missed" : tabParam === "growth" ? "growth" : tabParam === "attendance" ? "attendance" : "campaigns"
   );
   const [period, setPeriod] = useState<ReportPeriod>("all");
 
@@ -222,6 +224,19 @@ export default function EducationReportsPage() {
             <TrendingUp className="w-3.5 h-3.5 text-success" />
             <span>{isEn ? "Growth & Retention" : "النمو والاحتفاظ"}</span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => handleTabChange("attendance")}
+            className={`inline-flex items-center gap-2 py-2.5 px-0.5 text-xs font-semibold border-b-2 transition-all ${
+              activeTab === "attendance"
+                ? "border-primary text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <CalendarCheck className="w-3.5 h-3.5 text-primary" />
+            <span>{isEn ? "Attendance" : "الحضور والالتزام"}</span>
+          </button>
         </div>
 
         {/* Error Banner */}
@@ -262,6 +277,7 @@ export default function EducationReportsPage() {
         {activeTab === "finance" && <EducationFinanceTab isEn={isEn} />}
 
         {activeTab === "growth" && <EducationGrowthTab isEn={isEn} />}
+        {activeTab === "attendance" && <EducationAttendanceTab isEn={isEn} />}
 
         {/* Tab 4: Missed sessions */}
         {activeTab === "missed" && (

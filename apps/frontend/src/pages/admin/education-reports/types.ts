@@ -113,7 +113,7 @@ export interface InsightsData {
 }
 
 export type ReportPeriod = "all" | "30d" | "7d" | "today";
-export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance" | "missed" | "growth";
+export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance" | "missed" | "growth" | "attendance";
 
 export interface MissedSessionRow {
   id: string;
@@ -177,4 +177,52 @@ export interface AbsenceAlert {
   groupName: string;
   streak: number;
   lastSessionAt?: string | null;
+}
+
+export interface AttendanceReport {
+  period: { from: string; to: string; months: number };
+  summary: {
+    records: number;
+    present: number;
+    absent: number;
+    excused: number;
+    attendanceRate: number | null;
+    students: number;
+    groups: number;
+    atRiskStudents: number;
+  };
+  byGroup: Array<{
+    groupId: string;
+    groupName?: string | null;
+    name: string;
+    total: number;
+    present: number;
+    absent: number;
+    excused: number;
+    rate: number | null;
+    atRisk: boolean;
+    students: number;
+  }>;
+  byStudent: Array<{
+    studentId: string;
+    studentName: string;
+    total: number;
+    present: number;
+    absent: number;
+    excused: number;
+    rate: number | null;
+    atRisk: boolean;
+    lastSessionAt?: string | null;
+  }>;
+  atRisk: Array<{
+    studentId: string;
+    studentName: string;
+    firstName?: string | null;
+    total: number;
+    present: number;
+    absent: number;
+    excused: number;
+    rate: number | null;
+    atRisk: boolean;
+  }>;
 }

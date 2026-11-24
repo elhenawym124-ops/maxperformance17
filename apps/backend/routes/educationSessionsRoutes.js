@@ -10,6 +10,7 @@ router.use(verifyToken.authenticateToken, requireEducationAppInstalled);
 router.get('/', requireDbPermission(['education.view', 'education.sessions.manage']), controller.getAll);
 // يجب أن يسبق /:id وإلا اعتُبر "missed" معرّفًا
 router.get('/missed', requireDbPermission(['education.view', 'education.reports.view', 'education.sessions.manage']), controller.getMissed);
+router.get('/attendance-report', requireDbPermission(['education.view', 'education.reports.view', 'education.sessions.manage']), require('../controller/educationAttendanceController').getAttendanceReport);
 router.get('/:id', requireDbPermission(['education.view', 'education.sessions.manage']), controller.getById);
 router.post('/', requireDbPermission('education.sessions.manage'), controller.create);
 router.put('/:id', requireDbPermission('education.sessions.manage'), controller.update);

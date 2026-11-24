@@ -318,6 +318,18 @@
 - Rates return `null` (not `0%`) when there is no data, so a quiet week is not reported as failure.
 - UI: "تفاعل أولياء الأمور" tab with a 3/6/12-month selector, four KPIs (messages, read rate, activation, best hour), a per-type table and the never-reading list.
 
+## Phase 4 (part 24) — attendance & retention report
+
+- `GET /education/sessions/attendance-report?months=3` (education.view / reports.view / sessions.manage):
+  - Summary: records, present, absent, excused, `attendanceRate`, students, groups, `atRiskStudents`.
+  - `byGroup`: rate + distinct students per group, worst first, with a `atRisk` flag under 70%.
+  - `byStudent`: rate, counts and last session date, worst first (top 500).
+  - `atRisk`: students under 70% **with at least 3 records** so a single absence does not trigger a flag.
+- Source: `education_group_attendance` joined to `education_group_sessions`; private sessions carry no attendance rows and are out of scope.
+- Rates return `null` when there are no records (no fake 0%).
+- UI: "الحضور والالتزام" tab in education reports with a 1/3/6-month selector, KPI strip, group table and the at-risk student list.
+
+
 
 
 

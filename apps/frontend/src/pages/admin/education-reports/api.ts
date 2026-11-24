@@ -3,7 +3,7 @@ import {
   getCompanyId as getEducationCompanyId,
   getAuthHeaders as getEducationAuthHeaders,
 } from "../education-management/api";
-import { AbsenceAlert, EducationAttributionData, EducationFunnelData, FinanceReportData, InsightsData, MissedSessionsData, ReportPeriod } from "./types";
+import { AbsenceAlert, AttendanceReport, EducationAttributionData, EducationFunnelData, FinanceReportData, InsightsData, MissedSessionsData, ReportPeriod } from "./types";
 
 export const getCompanyId = () => getEducationCompanyId();
 export const getAuthHeaders = () => getEducationAuthHeaders();
@@ -104,8 +104,28 @@ export async function fetchInsights(months = 6, inactiveDays = 21): Promise<Insi
   }
 }
 
-export async function fetchAbsenceAlerts(threshold = 3, days = 45): Promise<AbsenceAlert[]> {
+export async function fetchAttendanceReport(months = 3): Promise<AttendanceReport | null> {
   try {
+    const base = buildApiUrl(`education/sessions/attendance-report?months=${months}`);
+    let url: URL;
+    try {
+      url = new URL(base);
+    } catch {
+      url = new URL(base, window.location.origin);
+    }
+    const cid = getCompanyId();
+    if (cid) url.searchParams.set("companyId", cid);
+    const res = await fetch(url.toString(), { headers: getAuthHeaders() });
+    const d = await res.json();
+    if (!d.success) throw new Error(d.error || d.message || "فشل جلب تقرير الحضور");
+    return d.data || null;
+  } catch (err) {
+    console.error("Attendance report error:", err);
+    return null;
+  }
+}
+
+export async function fetchAbsenceAlerts(threshold = 3, days = 45): Promise<AbsenceAlert[]> {  try {
     const base = buildApiUrl(`education/finance/absence-alerts?threshold=${threshold}&days=${days}`);
     let url: URL;
     try {
