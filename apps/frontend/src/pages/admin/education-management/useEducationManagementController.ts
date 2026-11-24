@@ -524,7 +524,7 @@ export function useEducationManagementController() {
     () => ({
       totalSubjects: (subjects || []).filter((s) => s.isActive).length,
       totalPackages: (packages || []).filter((p) => p.isActive).length,
-      totalStudents: (students || []).filter((s) => s.isActive).length,
+      totalStudents: studentsTotalAll || (students || []).filter((s) => s.isActive).length,
       totalTeachers: (teachers || []).filter((t) => t.isActive).length,
       activeEnrollments: (enrollments || []).filter((e) => (e.remainingHours ?? 0) > 0).length,
       sessionsToday: (sessions || []).filter((s) =>
