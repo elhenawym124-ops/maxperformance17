@@ -2,6 +2,11 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { VolumeDiscountTier } from "../utils/volumeDiscounts";
 import { getCartItemPricing } from "../utils/cartQuantityOffers";
+import {
+  findMatchingTierVariant,
+  getCartItemQuantityRange,
+  type QuantityTierVariantInfo,
+} from "../utils/quantityTierVariants";
 
 export const DEFAULT_STOREFRONT_CART_STORAGE_NAME = "sf-cart-storage";
 export const getStorefrontPreviewCartStorageName = (previewThemeId: string) =>
@@ -57,6 +62,7 @@ export interface CartItem {
   comparePrice?: number;
   quantity: number;
   imageUrl?: string;
+  companyId?: string;
   attributes?: Record<string, string>; // e.g., { Color: "Red", Size: "M" }
   productColor?: string;
   productSize?: string;
@@ -69,6 +75,9 @@ export interface CartItem {
     slotIndex?: number;
     freeShipping?: boolean;
   } | null;
+  minQuantity?: number;
+  maxQuantity?: number;
+  quantityTiers?: QuantityTierVariantInfo[];
 }
 
 interface CartState {
@@ -103,31 +112,47 @@ export const useCartStore = create<CartState>()(
           const shouldOpenCart = options?.openCart !== false;
           const itemId = buildCartItemId(newItemInput);
 
+          const itemRange = getCartItemQuantityRange(newItemInput);
+          const initialQuantity = itemRange
+            ? Math.max(itemRange.min, Math.min(itemRange.max, newItemInput.quantity || 1))
+            : Math.max(1, newItemInput.quantity || 1);
+
           const existingItemIndex = state.items.findIndex(
             (item) => item.id === itemId
           );
 
           if (existingItemIndex >= 0) {
-            // Update quantity of existing item
+            // Update quantity of existing item immutably
             const newItems = [...state.items];
             const existingItem = newItems[existingItemIndex];
             if (existingItem) {
-              existingItem.quantity += newItemInput.quantity;
-              existingItem.basePrice =
-                newItemInput.basePrice ?? existingItem.basePrice ?? existingItem.price;
-              if (Array.isArray(newItemInput.volumeDiscounts) && newItemInput.volumeDiscounts.length > 0) {
-                existingItem.volumeDiscounts = newItemInput.volumeDiscounts;
-              }
-              if (newItemInput.quantityOffer) {
-                existingItem.quantityOffer = newItemInput.quantityOffer;
-              }
-              
-              // Ensure imageUrl is a string even if updated from object
+              const combinedRange = getCartItemQuantityRange(existingItem) || itemRange;
+              const combined = existingItem.quantity + initialQuantity;
+              const newQuantity = combinedRange
+                ? Math.max(combinedRange.min, Math.min(combinedRange.max, combined))
+                : combined;
+
+              let updatedImageUrl = existingItem.imageUrl;
               if (newItemInput.imageUrl) {
-                existingItem.imageUrl = normalizeCartImageUrl(
+                updatedImageUrl = normalizeCartImageUrl(
                   newItemInput.imageUrl as string | ImageLike,
                 );
               }
+
+              newItems[existingItemIndex] = {
+                ...existingItem,
+                quantity: newQuantity,
+                minQuantity: combinedRange ? combinedRange.min : existingItem.minQuantity,
+                maxQuantity: combinedRange ? combinedRange.max : existingItem.maxQuantity,
+                companyId: existingItem.companyId || (newItemInput as any).companyId,
+                basePrice: newItemInput.basePrice ?? existingItem.basePrice ?? existingItem.price,
+                volumeDiscounts:
+                  Array.isArray(newItemInput.volumeDiscounts) && newItemInput.volumeDiscounts.length > 0
+                    ? newItemInput.volumeDiscounts
+                    : existingItem.volumeDiscounts,
+                quantityOffer: newItemInput.quantityOffer || existingItem.quantityOffer,
+                imageUrl: updatedImageUrl,
+              };
             }
             return { items: newItems, isOpen: shouldOpenCart };
           } else {
@@ -167,6 +192,10 @@ export const useCartStore = create<CartState>()(
 
             const newItem: CartItem = {
               ...newItemInput,
+              quantity: initialQuantity,
+              minQuantity: itemRange?.min ?? newItemInput.minQuantity,
+              maxQuantity: itemRange?.max ?? newItemInput.maxQuantity,
+              companyId: newItemInput.companyId || (newItemInput as any).companyId,
               basePrice: newItemInput.basePrice ?? newItemInput.price,
               imageUrl: normalizedImageUrl,
               ...(resolvedColor ? { productColor: resolvedColor } : {}),
@@ -199,10 +228,33 @@ export const useCartStore = create<CartState>()(
             return state;
           }
 
+          const range = targetItem ? getCartItemQuantityRange(targetItem) : null;
+          const min = range?.min ?? 1;
+          const max = range?.max ?? 99;
+          const newQuantity = Math.max(min, Math.min(max, quantity));
+
           return {
-            items: state.items.map((item) =>
-              item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
-            ),
+            items: state.items.map((item) => {
+              if (item.id !== id) return item;
+
+              let updatedItem = { ...item, quantity: newQuantity };
+
+              if (item.quantityTiers && item.quantityTiers.length > 0) {
+                const match = findMatchingTierVariant(item.quantityTiers, newQuantity);
+                if (match) {
+                  updatedItem.price = match.price;
+                  if (match.variantId) updatedItem.variantId = match.variantId;
+                  if (match.attributeKey && match.attributeVal) {
+                    updatedItem.attributes = {
+                      ...(updatedItem.attributes || {}),
+                      [match.attributeKey]: match.attributeVal,
+                    };
+                  }
+                }
+              }
+
+              return updatedItem;
+            }),
           };
         });
       },

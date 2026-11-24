@@ -35,6 +35,8 @@ export const StandardBuybox: React.FC<StandardBuyboxProps> = ({ ctrl }) => {
     setSelectedAttributes,
     variantSettings,
     quantity,
+    minQuantity = 1,
+    maxQuantity = 99,
     setQuantity,
     addToCartText,
     buyNowText,
@@ -65,6 +67,7 @@ export const StandardBuybox: React.FC<StandardBuyboxProps> = ({ ctrl }) => {
     showExternalAffiliateCta,
     renderExternalPurchaseCta,
     shouldRenderStandaloneBuyBox,
+    mergedInlinePdpQuickOrder,
   } = ctrl;
 
   if (!product) return null;
@@ -161,7 +164,12 @@ export const StandardBuybox: React.FC<StandardBuyboxProps> = ({ ctrl }) => {
           ) : shouldRenderStandaloneBuyBox ? (
             <div className="space-y-3 pt-2">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <QuantitySelector value={quantity} onChange={setQuantity} />
+                <QuantitySelector
+                  value={quantity}
+                  min={minQuantity}
+                  max={maxQuantity}
+                  onChange={setQuantity}
+                />
                 <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
                   <Button
                     size="lg"
@@ -199,6 +207,12 @@ export const StandardBuybox: React.FC<StandardBuyboxProps> = ({ ctrl }) => {
             <p className="text-sm leading-7 text-muted-foreground">{shippingText}</p>
           </Accordion>
         </div>
+
+        {mergedInlinePdpQuickOrder ? (
+          <div className="pt-4 border-t border-border">
+            {mergedInlinePdpQuickOrder}
+          </div>
+        ) : null}
 
         {/* Trust Badges */}
         <div className="pt-2">

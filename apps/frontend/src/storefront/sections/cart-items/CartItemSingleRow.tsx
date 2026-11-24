@@ -1,5 +1,6 @@
 import React from 'react';
 import QuantitySelector from '../../components/QuantitySelector';
+import { getCartItemQuantityRange } from '../../utils/quantityTierVariants';
 import StorefrontProductImage from '../../components/StorefrontProductImage';
 import { formatStorefrontCurrency } from '../../utils/currency';
 import { getCartItemImageCandidates } from '../../utils/productImages';
@@ -158,10 +159,20 @@ export const CartItemSingleRow: React.FC<CartItemSingleRowProps> = ({
       </div>
 
       <div>
-        <QuantitySelector
-          value={entry.item.quantity}
-          onChange={(quantity) => updateQuantity(entry.item.id, quantity)}
-        />
+        {(() => {
+          const itemRange = getCartItemQuantityRange(entry.item);
+          const itemMin = itemRange?.min ?? 1;
+          const itemMax = itemRange?.max ?? 99;
+
+          return (
+            <QuantitySelector
+              value={entry.item.quantity}
+              min={itemMin}
+              max={itemMax}
+              onChange={(quantity) => updateQuantity(entry.item.id, quantity)}
+            />
+          );
+        })()}
       </div>
 
       <div className={`font-semibold text-foreground ${isWomenFashionCart ? 'text-[13px]' : 'text-sm'}`}>

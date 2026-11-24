@@ -32,6 +32,8 @@ export const ZenOrganicBuybox: React.FC<ZenOrganicBuyboxProps> = ({ ctrl }) => {
     guaranteeItems,
     guaranteeStyle,
     quantity,
+    minQuantity = 1,
+    maxQuantity = 99,
     setQuantity,
     handleAddToCart,
     addToCartText,
@@ -193,7 +195,12 @@ export const ZenOrganicBuybox: React.FC<ZenOrganicBuyboxProps> = ({ ctrl }) => {
               id={STOREFRONT_BUYBOX_ID}
               className="flex flex-col gap-4 rounded-[1.75rem] border border-[#dbe3d3] bg-white/92 p-4 shadow-[0_22px_60px_-52px_rgba(26,51,40,0.28)] sm:flex-row sm:items-center"
             >
-              <QuantitySelector value={quantity} onChange={setQuantity} />
+              <QuantitySelector
+                value={quantity}
+                min={minQuantity}
+                max={maxQuantity}
+                onChange={setQuantity}
+              />
               <Button
                 size="lg"
                 fullWidth

@@ -28,6 +28,7 @@ import {
   localizeBiteRushAttributeEntries,
   localizeBiteRushName,
 } from '../utils/biteRushCopy';
+import { getCartItemQuantityRange } from '../utils/quantityTierVariants';
 import { isPharmacyThemeId } from '../utils/pharmacyThemes';
 import { createStorefrontThemeTextReplacer } from '../utils/runtimeBrandText';
 import { isKhemetLuxeTheme } from '../utils/navigationGuards';
@@ -82,6 +83,25 @@ const CartDrawer: React.FC = () => {
     }
     setIsOpen(false);
   }, [setIsOpen]);
+
+  // Enforce quantity bounds for tier variants (Ahmed Gad store)
+  useEffect(() => {
+    if (!isOpen || !items?.length) return;
+    items.forEach((item) => {
+      const range = getCartItemQuantityRange(
+        item,
+        settings?.company?.id,
+        settings?.company?.slug,
+      );
+      if (range) {
+        if (item.quantity < range.min) {
+          updateQuantity(item.id, range.min);
+        } else if (item.quantity > range.max) {
+          updateQuantity(item.id, range.max);
+        }
+      }
+    });
+  }, [isOpen, items, settings?.company?.id, settings?.company?.slug, updateQuantity]);
 
   // Lock body scroll when drawer is open & handle accessible focus management
   useEffect(() => {
@@ -575,11 +595,25 @@ const CartDrawer: React.FC = () => {
                         ) : null}
                       </div>
 
-                      <QuantitySelector
-                        size="compact"
-                        value={entry.item.quantity}
-                        onChange={(q) => updateQuantity(entry.item.id, q)}
-                      />
+                      {(() => {
+                        const itemRange = getCartItemQuantityRange(
+                          entry.item,
+                          settings?.company?.id,
+                          settings?.company?.slug,
+                        );
+                        const itemMin = itemRange?.min ?? 1;
+                        const itemMax = itemRange?.max ?? 99;
+
+                        return (
+                          <QuantitySelector
+                            size="compact"
+                            value={entry.item.quantity}
+                            min={itemMin}
+                            max={itemMax}
+                            onChange={(q) => updateQuantity(entry.item.id, q)}
+                          />
+                        );
+                      })()}
                     </div>
                   </div>
                 </div>

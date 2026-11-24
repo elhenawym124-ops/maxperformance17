@@ -36,6 +36,8 @@ export const AtelierBuybox: React.FC<AtelierBuyboxProps> = ({ ctrl }) => {
     selectedAttributes,
     setSelectedAttributes,
     quantity,
+    minQuantity = 1,
+    maxQuantity = 99,
     setQuantity,
     handleAddToCart,
     handleBuyNow,
@@ -321,7 +323,12 @@ export const AtelierBuybox: React.FC<AtelierBuyboxProps> = ({ ctrl }) => {
 
               {/* Secondary: Quantity + Add to Cart */}
               <div className="flex items-center gap-3">
-                <QuantitySelector value={quantity} onChange={setQuantity} />
+                <QuantitySelector
+                  value={quantity}
+                  min={minQuantity}
+                  max={maxQuantity}
+                  onChange={setQuantity}
+                />
                 <Button
                   size="lg"
                   fullWidth

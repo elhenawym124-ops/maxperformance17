@@ -22,6 +22,7 @@ import { sanitizeStorefrontHtml } from '../utils/html';
 import { sanitizeProductCopy } from '../utils/productCopy';
 import VariantSelector from './VariantSelector';
 import { getVariantAttributes } from '../utils/variants';
+import { getVariantQuantityRange } from '../utils/quantityTierVariants';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -88,6 +89,25 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
     );
   }, [variants, selectedAttributes]);
 
+  const quickViewRange = useMemo(() => {
+    return getVariantQuantityRange(
+      selectedVariant || selectedAttributes,
+      (product as any)?.companyId || (product as any)?.company?.id,
+      (product as any)?.company?.slug,
+    );
+  }, [selectedVariant, selectedAttributes, product]);
+
+  const minQ = quickViewRange?.min ?? 1;
+  const maxQ = quickViewRange?.max ?? 99;
+
+  useEffect(() => {
+    if (quickViewRange) {
+      if (quantity < quickViewRange.min || quantity > quickViewRange.max) {
+        setQuantity(quickViewRange.min);
+      }
+    }
+  }, [quickViewRange, quantity]);
+
   if (!product) return null;
 
   const { id, name, price, description, slug } = product;
@@ -153,6 +173,10 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
   const handleAddToCart = () => {
     const finalPrice = typeof activePrice === 'string' ? parseFloat(activePrice) : Number(activePrice);
     const finalComparePrice = typeof activeComparePrice === 'number' ? activeComparePrice : undefined;
+    const effectiveQty = quickViewRange
+      ? Math.max(quickViewRange.min, Math.min(quickViewRange.max, quantity))
+      : quantity;
+    const resolvedCompanyId = (product as any)?.companyId || (product as any)?.company?.id;
 
     addItem({
       productId: id,
@@ -163,7 +187,10 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
       price: finalPrice,
       basePrice: finalPrice,
       comparePrice: finalComparePrice,
-      quantity,
+      quantity: effectiveQty,
+      minQuantity: quickViewRange?.min,
+      maxQuantity: quickViewRange?.max,
+      companyId: resolvedCompanyId,
       imageUrl: activeImage,
       volumeDiscounts: getProductVolumeDiscounts(product),
     });
@@ -172,7 +199,7 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
       id,
       name,
       price: finalPrice,
-      quantity,
+      quantity: effectiveQty,
       category: product.category?.name,
     });
 
@@ -186,6 +213,10 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
   const handleQuickBuy = () => {
     const finalPrice = typeof activePrice === 'string' ? parseFloat(activePrice) : Number(activePrice);
     const finalComparePrice = typeof activeComparePrice === 'number' ? activeComparePrice : undefined;
+    const effectiveQty = quickViewRange
+      ? Math.max(quickViewRange.min, Math.min(quickViewRange.max, quantity))
+      : quantity;
+    const resolvedCompanyId = (product as any)?.companyId || (product as any)?.company?.id;
 
     addItem(
       {
@@ -197,7 +228,10 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
         price: finalPrice,
         basePrice: finalPrice,
         comparePrice: finalComparePrice,
-        quantity,
+        quantity: effectiveQty,
+        minQuantity: quickViewRange?.min,
+        maxQuantity: quickViewRange?.max,
+        companyId: resolvedCompanyId,
         imageUrl: activeImage,
         volumeDiscounts: getProductVolumeDiscounts(product),
       },
@@ -208,7 +242,7 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
       id,
       name,
       price: finalPrice,
-      quantity,
+      quantity: effectiveQty,
       category: product.category?.name,
     });
 
@@ -298,17 +332,18 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
                   <div className="inline-flex items-center rounded-lg border border-border bg-background">
                     <button
                       type="button"
-                      onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                      className="p-2 text-foreground hover:bg-muted transition-colors rounded-s-lg"
-                      disabled={quantity <= 1}
+                      onClick={() => setQuantity((prev) => Math.max(minQ, prev - 1))}
+                      className="p-2 text-foreground hover:bg-muted transition-colors rounded-s-lg disabled:opacity-40 disabled:cursor-not-allowed"
+                      disabled={quantity <= minQ}
                     >
                       <Minus size={14} />
                     </button>
                     <span className="px-3 text-sm font-bold min-w-[2.5rem] text-center">{quantity}</span>
                     <button
                       type="button"
-                      onClick={() => setQuantity((prev) => prev + 1)}
-                      className="p-2 text-foreground hover:bg-muted transition-colors rounded-e-lg"
+                      onClick={() => setQuantity((prev) => Math.min(maxQ, prev + 1))}
+                      className="p-2 text-foreground hover:bg-muted transition-colors rounded-e-lg disabled:opacity-40 disabled:cursor-not-allowed"
+                      disabled={quantity >= maxQ}
                     >
                       <Plus size={14} />
                     </button>

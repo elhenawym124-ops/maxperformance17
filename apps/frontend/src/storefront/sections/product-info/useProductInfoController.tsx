@@ -284,7 +284,7 @@ export const useProductInfoController = ({
   const shouldRenderInlinePdpQuickOrder =
     forceInlineKhemetQuickOrder ||
     forceInlineMarketplaceQuickOrder ||
-    (hasEmbeddedPdpCheckout && supportsInlineQuickOrderPlacement);
+    ((hasEmbeddedPdpCheckout || productPageCheckoutEnabled) && supportsInlineQuickOrderPlacement);
 
   const quantityOffersEnabled = isStorefrontMarketplaceAppEnabled(
     storefrontSettings,
@@ -416,6 +416,22 @@ export const useProductInfoController = ({
       }) || null
     );
   }, [product?.productVariants, selectedAttributes]);
+
+  const quantityTierRange = useMemo(() => {
+    return getVariantQuantityRange(
+      selectedVariant || selectedAttributes,
+      storefrontSettings?.company?.id,
+      storefrontSettings?.company?.slug,
+    );
+  }, [selectedVariant, selectedAttributes, storefrontSettings?.company?.id, storefrontSettings?.company?.slug]);
+
+  useEffect(() => {
+    if (quantityTierRange) {
+      if (quantity < quantityTierRange.min || quantity > quantityTierRange.max) {
+        setQuantity(quantityTierRange.min);
+      }
+    }
+  }, [quantityTierRange, quantity, setQuantity]);
 
   const activePrice =
     typeof selectedVariant?.price === 'number' &&
@@ -620,9 +636,13 @@ export const useProductInfoController = ({
       selectedVolumeDiscounts.length > 0
         ? selectedVolumeDiscounts
         : getProductVolumeDiscounts(product, activePrice);
+    const effectiveQty = quantityTierRange
+      ? Math.max(quantityTierRange.min, Math.min(quantityTierRange.max, quantity))
+      : quantity;
+
     const quantityPricing = calculateVolumeDiscountPricing({
       unitPrice: activePrice,
-      quantity,
+      quantity: effectiveQty,
       discounts: activeVolumeDiscounts,
     });
 
@@ -633,7 +653,10 @@ export const useProductInfoController = ({
       name: product.name,
       price: activePrice,
       basePrice: activePrice,
-      quantity,
+      quantity: effectiveQty,
+      minQuantity: quantityTierRange?.min,
+      maxQuantity: quantityTierRange?.max,
+      companyId: storefrontSettings?.company?.id,
       image: product.images?.[0] || '',
       attributes: selectedAttributes,
       volumeDiscounts: activeVolumeDiscounts,
@@ -644,7 +667,7 @@ export const useProductInfoController = ({
       productId: product.id,
       name: product.name,
       price: quantityPricing.effectiveUnitPrice,
-      quantity,
+      quantity: effectiveQty,
       currency,
     } as any);
 
@@ -672,13 +695,26 @@ export const useProductInfoController = ({
       return;
     }
 
-    if (hasEmbeddedPdpCheckout) {
+    if (shouldRenderInlinePdpQuickOrder || hasEmbeddedPdpCheckout || productPageCheckoutEnabled) {
       if (product?.productVariants?.length && !selectedVariant) {
         toast.error(
           prefersArabicCopy
             ? 'يرجى اختيار المقاس واللون المتاح أولاً.'
             : 'Please select an available variant first.',
         );
+        return;
+      }
+      const checkoutFormEl =
+        document.getElementById('pdp-checkout') ||
+        document.querySelector('[data-section="pdp-checkout"]') ||
+        document.getElementById('storefront-pdp-checkout') ||
+        document.querySelector('form[name="quickOrderForm"]');
+      if (checkoutFormEl) {
+        checkoutFormEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const nameInput = checkoutFormEl.querySelector('input[name="customerName"]') as HTMLElement | null;
+        if (nameInput) {
+          nameInput.focus();
+        }
         return;
       }
       dispatchEmbeddedCheckoutOpen();
@@ -935,7 +971,12 @@ export const useProductInfoController = ({
   const commonActions = (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <QuantitySelector value={quantity} onChange={setQuantity} />
+        <QuantitySelector
+          value={quantity}
+          min={quantityTierRange?.min ?? 1}
+          max={quantityTierRange?.max ?? 99}
+          onChange={setQuantity}
+        />
         <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
           <Button
             size="lg"
@@ -1059,6 +1100,8 @@ export const useProductInfoController = ({
     selectedOptionSummary,
     inventoryCountdownText,
     quantity,
+    minQuantity: quantityTierRange?.min ?? 1,
+    maxQuantity: quantityTierRange?.max ?? 99,
     setQuantity,
     handleAddToCart,
     handleBuyNow,

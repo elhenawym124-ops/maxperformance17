@@ -40,6 +40,8 @@ export const MarketplaceBuybox: React.FC<MarketplaceBuyboxProps> = ({ ctrl }) =>
     setSelectedAttributes,
     variantSettings,
     quantity,
+    minQuantity = 1,
+    maxQuantity = 99,
     setQuantity,
     addToCartText,
     buyNowText,
@@ -418,6 +420,8 @@ export const MarketplaceBuybox: React.FC<MarketplaceBuyboxProps> = ({ ctrl }) =>
               <div className="flex items-center gap-2.5">
                 <QuantitySelector
                   value={quantity}
+                  min={minQuantity}
+                  max={maxQuantity}
                   onChange={setQuantity}
                   className="rounded-full h-11 bg-card border border-border shrink-0"
                 />

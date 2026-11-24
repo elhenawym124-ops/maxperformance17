@@ -1,6 +1,7 @@
 import React from "react";
 import StorefrontProductImage from "../../components/StorefrontProductImage";
 import QuantitySelector from "../../components/QuantitySelector";
+import { getCartItemQuantityRange } from "../../utils/quantityTierVariants";
 import { formatStorefrontCurrency } from "../../utils/currency";
 import { getCartItemImageCandidates } from "../../utils/productImages";
 import { getCartItemPricing } from "../../utils/cartQuantityOffers";
@@ -175,38 +176,46 @@ export const OrderSummaryLineItems: React.FC<OrderSummaryLineItemsProps> = ({
                       </span>
                     ) : null}
                   </div>
-                  {canEditQuantity ? (
-                    <QuantitySelector
-                      value={item.quantity}
-                      onChange={(value) => onUpdateQuantity(item.id, value)}
-                      size={
-                        isKhemetLuxe || isFittingRoomSummary
-                          ? "compact"
-                          : "default"
-                      }
-                      className={
-                        isFittingRoomSummary
-                          ? "border-none bg-transparent shadow-none"
-                          : isKhemetLuxe
-                            ? "border-[#e2d4c0] bg-[#fffdf8]"
-                            : undefined
-                      }
-                      buttonClassName={
-                        isFittingRoomSummary
-                          ? "text-[#77706a] hover:text-[#242220]"
-                          : isKhemetLuxe
-                            ? "text-[#725523]"
-                            : undefined
-                      }
-                      valueClassName={
-                        isFittingRoomSummary
-                          ? "border-none bg-transparent text-[#242220]"
-                          : isKhemetLuxe
-                            ? "border-[#e2d4c0] bg-[#fffdf8] text-[#2c241b]"
-                            : undefined
-                      }
-                    />
-                  ) : (
+                  {canEditQuantity ? (() => {
+                    const itemRange = getCartItemQuantityRange(item);
+                    const itemMin = itemRange?.min ?? 1;
+                    const itemMax = itemRange?.max ?? 99;
+
+                    return (
+                      <QuantitySelector
+                        value={item.quantity}
+                        min={itemMin}
+                        max={itemMax}
+                        onChange={(value) => onUpdateQuantity(item.id, value)}
+                        size={
+                          isKhemetLuxe || isFittingRoomSummary
+                            ? "compact"
+                            : "default"
+                        }
+                        className={
+                          isFittingRoomSummary
+                            ? "border-none bg-transparent shadow-none"
+                            : isKhemetLuxe
+                              ? "border-[#e2d4c0] bg-[#fffdf8]"
+                              : undefined
+                        }
+                        buttonClassName={
+                          isFittingRoomSummary
+                            ? "text-[#77706a] hover:text-[#242220]"
+                            : isKhemetLuxe
+                              ? "text-[#725523]"
+                              : undefined
+                        }
+                        valueClassName={
+                          isFittingRoomSummary
+                            ? "border-none bg-transparent text-[#242220]"
+                            : isKhemetLuxe
+                              ? "border-[#e2d4c0] bg-[#fffdf8] text-[#2c241b]"
+                              : undefined
+                        }
+                      />
+                    );
+                  })() : (
                     <p className={lineItemMetaClassName}>
                       {prefersArabicCopy
                         ? `الكمية: ${item.quantity}`

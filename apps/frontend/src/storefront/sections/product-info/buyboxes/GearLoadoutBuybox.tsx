@@ -27,6 +27,8 @@ export const GearLoadoutBuybox: React.FC<GearLoadoutBuyboxProps> = ({ ctrl }) =>
     originalPrice,
     discount,
     quantity,
+    minQuantity = 1,
+    maxQuantity = 99,
     setQuantity,
     handleAddToCart,
     handleBuyNow,
@@ -353,7 +355,12 @@ export const GearLoadoutBuybox: React.FC<GearLoadoutBuyboxProps> = ({ ctrl }) =>
                         className="flex flex-col gap-3"
                       >
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                          <QuantitySelector value={quantity} onChange={setQuantity} />
+                          <QuantitySelector
+                            value={quantity}
+                            min={minQuantity}
+                            max={maxQuantity}
+                            onChange={setQuantity}
+                          />
                           <button
                             type="button"
                             onClick={handleAddToCart}
