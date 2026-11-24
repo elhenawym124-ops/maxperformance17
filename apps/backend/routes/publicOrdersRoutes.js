@@ -2555,6 +2555,10 @@ router.post('/', async (req, res) => {
     }
 
     // Track Purchase event via Facebook Conversions API (Server-side)
+    const resolvedEventId = (typeof pixelEventId === 'string' && pixelEventId.trim())
+      ? pixelEventId.trim()
+      : `order_${order.id || order.orderNumber}_${Date.now()}`;
+
     if (!isDuplicateOrder) {
       try {
       const storefrontSettings = await prisma.storefrontSettings.findUnique({
@@ -2597,7 +2601,7 @@ router.post('/', async (req, res) => {
 
         // Use event ID from frontend Pixel for deduplication, or generate new one
         // This ensures the same event is not counted twice (Pixel + CAPI)
-        const eventId = pixelEventId || `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const eventId = resolvedEventId;
 
         console.log('🔄 [Facebook CAPI] Using event ID for deduplication:', eventId);
 
@@ -2674,7 +2678,7 @@ router.post('/', async (req, res) => {
     // TikTok Events (best-effort, never throws)
     try {
       const tiktokEventsManager = require('../services/tiktok/tiktokEventsManager');
-      const tiktokEventId = pixelEventId || `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const tiktokEventId = resolvedEventId;
       await tiktokEventsManager.trackPurchaseForCompany(
         company.id,
         {
@@ -3206,6 +3210,8 @@ router.post('/', async (req, res) => {
       success: true,
       data: {
         ...order,
+        eventId: resolvedEventId,
+        pixelEventId: resolvedEventId,
         storePromotionDiscount: promoDiscount,
         storePromotionLabel: promoLabel,
         loyaltyDiscount,

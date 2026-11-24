@@ -223,10 +223,19 @@ export const dispatchTargetedFbqEvent = (
     return;
   }
 
+  const resolvedEventId = options?.eventID ? String(options.eventID).trim() : undefined;
+  const enrichedEventData: FacebookPixelEventData =
+    resolvedEventId && !eventData.event_id
+      ? { ...eventData, event_id: resolvedEventId }
+      : eventData;
+  const effectiveOptions = resolvedEventId
+    ? { ...(options || {}), eventID: resolvedEventId }
+    : options;
+
   const singleMethod = method === "trackCustom" ? "trackSingleCustom" : "trackSingle";
 
   // 1. استهداف البكسل الأساسي النشط حصراً
-  invokeFbq(singleMethod, pixelId, eventName, eventData, options);
+  invokeFbq(singleMethod, pixelId, eventName, enrichedEventData, effectiveOptions);
 
   // 2. استهداف البكسلات الثانوية فقط إذا كانت مسموحة في إعدادات التاجر
   if (Array.isArray(activeSecondaryConfigs) && activeSecondaryConfigs.length > 0) {
@@ -236,7 +245,7 @@ export const dispatchTargetedFbqEvent = (
       if (eventKey && cfg[eventKey] === false) {
         return; // محظور لهذا البكسل الثانوي طبقاً لإعدادات التاجر
       }
-      invokeFbq(singleMethod, trimmedId, eventName, eventData, options);
+      invokeFbq(singleMethod, trimmedId, eventName, enrichedEventData, effectiveOptions);
     });
   }
 };

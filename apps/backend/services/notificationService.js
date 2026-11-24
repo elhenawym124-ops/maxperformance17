@@ -1,4 +1,8 @@
-const { getSharedPrismaClient } = require('./sharedDatabase');
+const sharedDb = require('./sharedDatabase');
+
+function getDb() {
+  return sharedDb.getSharedPrismaClient();
+}
 
 /**
  * Universal Notification Service for MaxP Platform
@@ -13,7 +17,7 @@ async function resolveCompanyRecipientUserIds(companyId, preferredUserId = null)
   if (preferredUserId) return [preferredUserId];
   if (!companyId) return [];
 
-  const db = getSharedPrismaClient();
+  const db = getDb();
   try {
     // 1. Primary: active company admins/owners/managers
     const managers = await db.user.findMany({
@@ -55,18 +59,26 @@ async function resolveCompanyRecipientUserIds(companyId, preferredUserId = null)
  */
 async function isDuplicateNotification({ companyId, title, type, dedupeKey = null, windowMinutes = 5 }) {
   if (!companyId) return false;
-  const db = getSharedPrismaClient();
+  const db = getDb();
   const since = new Date(Date.now() - windowMinutes * 60 * 1000);
 
   try {
+    const where = {
+      companyId,
+      type,
+      createdAt: { gte: since },
+    };
+
+    if (title) {
+      where.title = title;
+    } else if (dedupeKey) {
+      where.title = { contains: dedupeKey };
+    }
+
     const existing = await db.notification.findFirst({
-      where: {
-        companyId,
-        type,
-        createdAt: { gte: since },
-        ...(title ? { title } : {}),
-      },
+      where,
       select: { id: true, data: true },
+      orderBy: { createdAt: 'desc' },
     });
 
     if (!existing) return false;
@@ -88,12 +100,14 @@ async function isDuplicateNotification({ companyId, title, type, dedupeKey = nul
  */
 async function createOrderNotification({ companyId, order, source = 'storefront' }) {
   if (!companyId || !order) return null;
-  const db = getSharedPrismaClient();
+  const db = getDb();
 
   const orderNumber = order.orderNumber || order.id;
+  const title = `طلب جديد #${orderNumber}`;
   const isDupe = await isDuplicateNotification({
     companyId,
     type: 'order_created',
+    title,
     dedupeKey: String(orderNumber),
     windowMinutes: 120, // 2 hours dedupe per order
   });
@@ -104,7 +118,6 @@ async function createOrderNotification({ companyId, order, source = 'storefront'
   }
 
   const recipientUserIds = await resolveCompanyRecipientUserIds(companyId);
-  const title = `طلب جديد #${orderNumber}`;
   const customerName = order.guestName || order.customerName || 'عميل';
   const total = order.total || order.finalTotal || 0;
   const message = `${customerName} • ${total} ج.م`;
@@ -205,7 +218,7 @@ async function createNotification({
   windowMinutes = null,
 }) {
   if (!companyId) return null;
-  const db = getSharedPrismaClient();
+  const db = getDb();
   const notificationMessage = body || message || title;
 
   // Deduplication check if windowMinutes specified

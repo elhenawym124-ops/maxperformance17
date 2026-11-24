@@ -205,36 +205,45 @@ const normalizePurchaseTracking = (
 const readStoredPurchaseTracking = (
   storageKey: string,
 ): StoredPurchaseTrackingState | null => {
-  const storage = getSessionStorage();
-  if (!storage) {
+  const sessionStorage = getSessionStorage();
+  const localStorage = getLocalStorage();
+
+  const storages = [sessionStorage, localStorage].filter(
+    (s): s is Storage => Boolean(s),
+  );
+
+  if (storages.length === 0) {
     return null;
   }
 
-  try {
-    const raw = storage.getItem(storageKey);
-    if (!raw) {
-      return null;
-    }
+  for (const storage of storages) {
+    try {
+      const raw = storage.getItem(storageKey);
+      if (!raw) {
+        continue;
+      }
 
-    const parsed = JSON.parse(raw) as Partial<StoredPurchaseTrackingState>;
-    const normalized = normalizePurchaseTracking(parsed);
-    const savedAt = Number(parsed.savedAt);
+      const parsed = JSON.parse(raw) as Partial<StoredPurchaseTrackingState>;
+      const normalized = normalizePurchaseTracking(parsed);
+      const savedAt = Number(parsed.savedAt);
 
-    if (!normalized || !Number.isFinite(savedAt)) {
+      if (!normalized || !Number.isFinite(savedAt)) {
+        storage.removeItem(storageKey);
+        continue;
+      }
+
+      if (Date.now() - savedAt > PURCHASE_TRACKING_TTL_MS) {
+        storage.removeItem(storageKey);
+        continue;
+      }
+
+      return { ...normalized, savedAt };
+    } catch {
       storage.removeItem(storageKey);
-      return null;
     }
-
-    if (Date.now() - savedAt > PURCHASE_TRACKING_TTL_MS) {
-      storage.removeItem(storageKey);
-      return null;
-    }
-
-    return { ...normalized, savedAt };
-  } catch {
-    storage.removeItem(storageKey);
-    return null;
   }
+
+  return null;
 };
 
 export const persistPurchaseTracking = (
@@ -246,8 +255,10 @@ export const persistPurchaseTracking = (
     ...tracking,
     ...(resolvedCompanyId ? { companyId: resolvedCompanyId } : {}),
   });
-  const storage = getSessionStorage();
-  if (!normalized || !storage) {
+  const sessionStorage = getSessionStorage();
+  const localStorage = getLocalStorage();
+
+  if (!normalized || (!sessionStorage && !localStorage)) {
     return normalized;
   }
 
@@ -257,22 +268,28 @@ export const persistPurchaseTracking = (
   };
   const serialized = JSON.stringify(stored);
 
-  try {
-    if (resolvedCompanyId) {
-      storage.setItem(
-        resolvePurchaseTrackingKey(normalized.orderNumber, resolvedCompanyId),
-        serialized,
-      );
-      storage.setItem(
-        resolveRecentPurchaseTrackingKey(resolvedCompanyId),
-        serialized,
-      );
+  const storages = [sessionStorage, localStorage].filter(
+    (s): s is Storage => Boolean(s),
+  );
+
+  for (const storage of storages) {
+    try {
+      if (resolvedCompanyId) {
+        storage.setItem(
+          resolvePurchaseTrackingKey(normalized.orderNumber, resolvedCompanyId),
+          serialized,
+        );
+        storage.setItem(
+          resolveRecentPurchaseTrackingKey(resolvedCompanyId),
+          serialized,
+        );
+      }
+      // Also save base unscoped keys for backward compatibility or when companyId is unspecified
+      storage.setItem(purchaseTrackingKey(normalized.orderNumber), serialized);
+      storage.setItem(RECENT_PURCHASE_TRACKING_KEY, serialized);
+    } catch {
+      // The checkout must keep working in restricted storage contexts.
     }
-    // Also save base unscoped keys for backward compatibility or when companyId is unspecified
-    storage.setItem(purchaseTrackingKey(normalized.orderNumber), serialized);
-    storage.setItem(RECENT_PURCHASE_TRACKING_KEY, serialized);
-  } catch {
-    // The checkout must keep working in restricted storage contexts.
   }
 
   return normalized;
@@ -335,29 +352,36 @@ export const clearStoredPurchaseTracking = (
   orderNumber?: string | null,
   companyId?: string | null,
 ) => {
-  const storage = getSessionStorage();
-  if (!storage) {
+  const sessionStorage = getSessionStorage();
+  const localStorage = getLocalStorage();
+  const storages = [sessionStorage, localStorage].filter(
+    (s): s is Storage => Boolean(s),
+  );
+
+  if (storages.length === 0) {
     return;
   }
 
   const normalizedOrderNumber = normalizeText(orderNumber);
   const normalizedCompanyId = normalizeText(companyId);
 
-  try {
-    if (normalizedOrderNumber) {
-      storage.removeItem(purchaseTrackingKey(normalizedOrderNumber));
-      if (normalizedCompanyId) {
-        storage.removeItem(
-          resolvePurchaseTrackingKey(normalizedOrderNumber, normalizedCompanyId),
-        );
+  for (const storage of storages) {
+    try {
+      if (normalizedOrderNumber) {
+        storage.removeItem(purchaseTrackingKey(normalizedOrderNumber));
+        if (normalizedCompanyId) {
+          storage.removeItem(
+            resolvePurchaseTrackingKey(normalizedOrderNumber, normalizedCompanyId),
+          );
+        }
       }
+      storage.removeItem(RECENT_PURCHASE_TRACKING_KEY);
+      if (normalizedCompanyId) {
+        storage.removeItem(resolveRecentPurchaseTrackingKey(normalizedCompanyId));
+      }
+    } catch {
+      // Ignore storage failures.
     }
-    storage.removeItem(RECENT_PURCHASE_TRACKING_KEY);
-    if (normalizedCompanyId) {
-      storage.removeItem(resolveRecentPurchaseTrackingKey(normalizedCompanyId));
-    }
-  } catch {
-    // Ignore storage failures.
   }
 };
 
