@@ -657,6 +657,15 @@ const getMissed = async (req, res) => {
       take: 500,
     });
 
+    // غياب مسجّل صراحةً (NO_SHOW) في نفس الفترة
+    const noShowCount = await prisma.educationSession.count({
+      where: {
+        companyId,
+        scheduledAt: { gte: since, lt: now },
+        status: 'NO_SHOW',
+      },
+    });
+
     const teacherMap = new Map();
     const studentMap = new Map();
     for (const r of rows) {
@@ -685,6 +694,7 @@ const getMissed = async (req, res) => {
       data: {
         days,
         total: rows.length,
+        noShowCount,
         byTeacher: [...teacherMap.values()].sort((a, b) => b.count - a.count),
         byStudent: [...studentMap.values()].sort((a, b) => b.count - a.count),
         sessions: rows.map((r) => ({
@@ -833,4 +843,55 @@ const createMakeup = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, confirm, cancel, remove, getMissed, createMakeup };
+/**
+ * PUT /api/v1/education/sessions/:id/no-show
+ * تسجيل غياب الطالب عن الحصة (بدون استهلاك ساعات الباقة).
+ */
+const markNoShow = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId || req.user?.effectiveCompanyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'لا يوجد سياق شركة' });
+
+    const { id } = req.params;
+    const { notes } = req.body || {};
+
+    const prisma = getSharedPrismaClient();
+    const existing = await prisma.educationSession.findFirst({ where: { id, companyId } });
+    if (!existing) return res.status(404).json({ success: false, error: 'الحصة غير موجودة' });
+    if (!['SCHEDULED', 'CONFIRMED'].includes(existing.status)) {
+      return res.status(400).json({ success: false, error: 'يمكن تسجيل الغياب للحصص المجدولة أو المؤكدة فقط' });
+    }
+
+    const data = await prisma.educationSession.update({
+      where: { id },
+      data: {
+        status: 'NO_SHOW',
+        notes: notes ? String(notes).slice(0, 500) : existing.notes,
+      },
+      include: {
+        student: { select: { id: true, code: true, firstName: true, lastName: true } },
+        teacher: { select: { id: true, name: true } },
+        subject: { select: { id: true, name: true } },
+      },
+    });
+
+    logEducationEvent({
+      companyId,
+      action: 'NO_SHOW_SESSION',
+      entityType: 'SESSION',
+      entityId: data.id,
+      entityName: `${data.subject?.name || 'حصة'} - ${data.student?.firstName || ''} ${data.student?.lastName || ''}`.trim(),
+      description: `تم تسجيل غياب الطالب عن حصة ${data.subject?.name || ''} مع ${data.teacher?.name || ''}`,
+      details: { scheduledAt: data.scheduledAt, notes: notes || null },
+      severity: 'MEDIUM',
+      req,
+    }).catch((e) => console.error('[SessionAudit]', e.message));
+
+    res.json({ success: true, data, message: 'تم تسجيل غياب الطالب' });
+  } catch (error) {
+    console.error('[EducationSessions] markNoShow error:', error.message);
+    res.status(500).json({ success: false, error: 'تعذر تسجيل الغياب' });
+  }
+};
+
+module.exports = { getAll, getById, create, update, confirm, cancel, remove, getMissed, createMakeup, markNoShow };

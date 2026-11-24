@@ -2087,6 +2087,7 @@ enum EducationSessionStatus {
   SCHEDULED
   CONFIRMED
   CANCELLED
+  NO_SHOW
 
   @@map("education_session_status")
 }

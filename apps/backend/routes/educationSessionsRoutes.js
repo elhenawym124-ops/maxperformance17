@@ -15,6 +15,8 @@ router.post('/', requireDbPermission('education.sessions.manage'), controller.cr
 router.put('/:id', requireDbPermission('education.sessions.manage'), controller.update);
 router.put('/:id/confirm', requireDbPermission('education.sessions.manage'), controller.confirm);
 router.put('/:id/cancel', requireDbPermission('education.sessions.manage'), controller.cancel);
+// تسجيل غياب الطالب (NO_SHOW) — لا يستهلك ساعات الباقة
+router.put('/:id/no-show', requireDbPermission('education.sessions.manage'), controller.markNoShow);
 router.post('/:id/makeup', requireDbPermission('education.sessions.manage'), controller.createMakeup);
 router.delete('/:id', requireDbPermission('education.sessions.manage'), controller.remove);
 
