@@ -44,10 +44,11 @@ interface KpiCardProps {
   sub?: string;
   tone?: "default" | "success" | "warning" | "danger";
   icon: LucideIcon;
+  loading?: boolean;
 }
 
-export const KpiCard: React.FC<KpiCardProps> = ({ label, value, sub, tone = "default", icon: Icon }) => {
-  const toneCls =
+export const KpiCard: React.FC<KpiCardProps> = ({ label, value, sub, tone = "default", icon: Icon, loading = false }) => {
+  const toneText =
     tone === "success"
       ? "text-success"
       : tone === "warning"
@@ -55,14 +56,28 @@ export const KpiCard: React.FC<KpiCardProps> = ({ label, value, sub, tone = "def
       : tone === "danger"
       ? "text-destructive"
       : "text-foreground";
+  const toneChip =
+    tone === "success"
+      ? "bg-success/10 text-success border-success/20"
+      : tone === "warning"
+      ? "bg-warning/10 text-warning border-warning/20"
+      : tone === "danger"
+      ? "bg-destructive/10 text-destructive border-destructive/20"
+      : "bg-primary/10 text-primary border-primary/20";
   return (
-    <div className="rounded-xl border border-border/70 bg-card p-4 flex flex-col gap-2">
+    <div className="rounded-xl border border-border/80 bg-card p-3.5 space-y-1.5 shadow-xs">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[11px] font-medium text-muted-foreground">{label}</span>
-        <Icon className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
+        <span className="text-xs text-muted-foreground truncate">{label}</span>
+        <span className={`w-7 h-7 rounded-lg flex items-center justify-center border shrink-0 ${toneChip}`}>
+          <Icon className="w-3.5 h-3.5" aria-hidden="true" />
+        </span>
       </div>
-      <div className={`text-lg font-bold font-mono tabular-nums ${toneCls}`}>{value}</div>
-      {sub ? <div className="text-[11px] text-muted-foreground font-mono">{sub}</div> : null}
+      {loading ? (
+        <div className="h-6 w-24 rounded bg-muted animate-pulse" />
+      ) : (
+        <div className={`text-lg font-bold font-mono tabular-nums whitespace-nowrap ${toneText}`}>{value}</div>
+      )}
+      {sub ? <div className="text-[11px] text-muted-foreground font-mono truncate">{sub}</div> : null}
     </div>
   );
 };

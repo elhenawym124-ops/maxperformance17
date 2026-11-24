@@ -30,11 +30,12 @@ interface Props {
   reloadKey: number;
   onChanged: () => void;
   onOpenReceipt: (id: string) => void;
+  onRangeChange?: (range: { from: string; to: string }) => void;
 }
 
 const PAGE_SIZE = 25;
 
-const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceipt }) => {
+const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceipt, onRangeChange }) => {
   const { i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
@@ -93,6 +94,11 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
       alive = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!onRangeChange) return;
+    onRangeChange({ from: filters.from, to: filters.to });
+  }, [filters.from, filters.to, onRangeChange]);
 
   const submitReverse = async () => {
     if (!reverseTarget) return;
@@ -319,7 +325,8 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
       {items.length > 0 ? (
         <>
           <div className="hidden md:block rounded-xl border border-border/70 bg-card overflow-hidden">
-            <table className="w-full text-xs">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[860px] text-xs">
               <thead className="bg-muted/40 text-muted-foreground">
                 <tr>
                   <th className="text-start px-3 py-2.5 font-medium">{isEn ? "Receipt" : "الإيصال"}</th>
@@ -456,7 +463,8 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
                   );
                 })}
               </tbody>
-            </table>
+              </table>
+            </div>
           </div>
 
           <div className="md:hidden space-y-2">
@@ -591,7 +599,7 @@ const PaymentsLedgerTab: React.FC<Props> = ({ reloadKey, onChanged, onOpenReceip
           onClick={() => setReverseTarget(null)}
         >
           <div
-            className="w-full max-w-sm rounded-xl border border-border bg-card shadow-2xl p-4 space-y-3"
+            className="w-full max-w-sm max-h-[90vh] overflow-y-auto rounded-xl border border-border bg-card shadow-2xl p-4 space-y-3"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"

@@ -329,7 +329,7 @@ const DailyClosingTab: React.FC<Props> = ({ reloadKey, onChanged }) => {
           onClick={() => setDecision(null)}
         >
           <div
-            className="w-full max-w-sm rounded-xl border border-border bg-card shadow-2xl p-4 space-y-3"
+            className="w-full max-w-sm max-h-[90vh] overflow-y-auto rounded-xl border border-border bg-card shadow-2xl p-4 space-y-3"
             onClick={(event) => event.stopPropagation()}
             role="dialog"
             aria-modal="true"

@@ -213,6 +213,7 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
+  window.history.replaceState(null, "", "/");
 });
 
 describe("EducationPaymentsPage", () => {
@@ -221,7 +222,7 @@ describe("EducationPaymentsPage", () => {
     await waitFor(() => expect(mockApi.fetchSummary).toHaveBeenCalled());
     expect(await screen.findByText("محصّل اليوم")).toBeInTheDocument();
     expect(screen.getByText("500 ج.م")).toBeInTheDocument();
-    expect(screen.getByText("4,200 ج.م")).toBeInTheDocument();
+    expect(screen.getAllByText("4,200 ج.م").length).toBeGreaterThan(0);
     expect(screen.getByText("1,500 ج.م")).toBeInTheDocument();
     expect(screen.getByText("200 ج.م")).toBeInTheDocument();
     expect(screen.getAllByText("2").length).toBeGreaterThan(0);

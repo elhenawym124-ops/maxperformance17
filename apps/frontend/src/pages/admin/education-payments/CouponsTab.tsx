@@ -256,8 +256,8 @@ export const CouponsTab: React.FC<{ isEn: boolean; reloadKey?: number; onChanged
       </div>
 
       {open ? (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-          <form onSubmit={handleCreate} className="w-full max-w-md rounded-xl border border-border/70 bg-card p-4 space-y-3">
+        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <form onSubmit={handleCreate} className="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-xl border border-border/70 bg-card shadow-2xl p-4 space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-foreground">{isEn ? "New discount code" : "كود خصم جديد"}</h3>
               <button type="button" onClick={() => setOpen(false)} aria-label={isEn ? "Close" : "إغلاق"}>
