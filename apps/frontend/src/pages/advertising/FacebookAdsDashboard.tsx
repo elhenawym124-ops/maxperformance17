@@ -138,10 +138,18 @@ const FacebookAdsDashboard: React.FC = () => {
   const loadCampaigns = useCallback(
     async (adAccountId = selectedAdAccountId, forceRefresh = false) => {
       if (!adAccountId) {
-        setCampaigns([]);
+        // بدون حساب Meta مربوط: نعرض الحملات المحلية بدل شاشة فاضية
+        try {
+          setLoading(true);
+          const localCampaigns = await facebookAdsService.getCampaigns(undefined as any);
+          setCampaigns(localCampaigns || []);
+        } catch {
+          setCampaigns([]);
+        } finally {
+          setLoading(false);
+        }
         setPerformanceSummary(null);
         setDecisionSummary(null);
-        setLoading(false);
         return;
       }
 
