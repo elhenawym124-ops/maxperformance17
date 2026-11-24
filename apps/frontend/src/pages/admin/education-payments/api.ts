@@ -1,5 +1,6 @@
 import { api, getAuthHeaders, fetchJson } from "../education-management/api";
 import type {
+  AttendanceLinkReport,
   CollectionReport,
   Coupon,
   DiscountReport,
@@ -115,6 +116,9 @@ export const fetchCockpit = (months = 6): Promise<FinanceCockpit> =>
 
 export const fetchEngagement = (months = 3): Promise<EngagementReport> =>
   fetchJson(api(`finance/engagement${query({ months })}`));
+
+export const fetchAttendanceLink = (months = 3): Promise<AttendanceLinkReport> =>
+  fetchJson(api(`finance/attendance-link${query({ months })}`));
 
 export const fetchStatementDue = (months = 12): Promise<Array<{
   studentId: string;

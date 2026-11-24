@@ -34,6 +34,9 @@ router.post('/statement-due/notify', requireDbPermission('education.financials.c
 
 // Parent engagement (delivery funnel + activation)
 router.get('/engagement', requireDbPermission(CAN_VIEW), controller.getEngagement);
+
+// Attendance × collection correlation
+router.get('/attendance-link', requireDbPermission(CAN_VIEW), controller.getAttendancePaymentLink);
 router.get('/payments/:id/receipt', requireDbPermission(CAN_VIEW), controller.getReceipt);
 router.get('/payments/:id/pdf', requireDbPermission(CAN_VIEW), controller.downloadReceiptPdf);
 router.post('/payments/:id/send-receipt', requireDbPermission(CAN_VIEW), controller.sendReceipt);

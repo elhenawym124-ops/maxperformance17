@@ -803,8 +803,23 @@ const recordPayment = async (req, res) => {
   }
 };
 
-const getEngagement = async (req, res) => {
+const getAttendancePaymentLink = async (req, res) => {
   try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationAttendancePaymentLinkService');
+    const data = await service.buildAttendancePaymentLink(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building attendance/payment link:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في ربط الغياب بالتحصيل' });
+  }
+};
+
+const getEngagement = async (req, res) => {  try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -1737,6 +1752,7 @@ module.exports = {
   listStatementDue,
   notifyStatementDue,
   getEngagement,
+  getAttendancePaymentLink,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

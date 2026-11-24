@@ -396,3 +396,28 @@ export interface EngagementReport {
   bestHour: { hour: number; readRate: number | null; total: number } | null;
   ignored: { count: number; phones: Array<{ phone: string; total: number; read: number }> };
 }
+
+export interface AttendanceLinkReport {
+  period: { from: string; to: string; months: number };
+  summary: {
+    students: number;
+    lowAttendance: number;
+    withDues: number;
+    overlap: number;
+    avgDuesLowAttendance: number;
+    avgDuesOthers: number;
+    riskAmount: number;
+    rate: number | null;
+  };
+  buckets: Array<{ band: "LOW" | "MEDIUM" | "HIGH" | string; students: number; duesStudents: number; totalDues: number }>;
+  risky: Array<{
+    studentId: string;
+    studentName: string | null;
+    phone?: string | null;
+    attendanceRate: number;
+    absent: number;
+    totalSessions: number;
+    dues: number;
+    overdue: number;
+  }>;
+}

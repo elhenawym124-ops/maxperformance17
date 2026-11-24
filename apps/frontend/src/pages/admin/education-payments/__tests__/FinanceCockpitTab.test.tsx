@@ -5,7 +5,7 @@ import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-const api = vi.hoisted(() => ({ fetchCockpit: vi.fn() }));
+const api = vi.hoisted(() => ({ fetchCockpit: vi.fn(), fetchAttendanceLink: vi.fn() }));
 vi.mock("../api", () => api);
 
 import { FinanceCockpitTab } from "../FinanceCockpitTab";
@@ -39,6 +39,18 @@ const cockpit = {
 beforeEach(() => {
   api.fetchCockpit.mockReset();
   api.fetchCockpit.mockResolvedValue(cockpit);
+  api.fetchAttendanceLink.mockReset();
+  api.fetchAttendanceLink.mockResolvedValue({
+    period: { from: "2026-09-01", to: "2026-11-24", months: 3 },
+    summary: {
+      students: 10, lowAttendance: 2, withDues: 4, overlap: 1,
+      avgDuesLowAttendance: 800, avgDuesOthers: 200, riskAmount: 800, rate: 50,
+    },
+    buckets: [],
+    risky: [
+      { studentId: "stu-1", studentName: "سارة محمد", phone: "0100", attendanceRate: 40, absent: 6, totalSessions: 10, dues: 800, overdue: 400 },
+    ],
+  });
 });
 
 afterEach(() => cleanup());
@@ -63,6 +75,15 @@ describe("FinanceCockpitTab", () => {
     expect(screen.getByText("HIGH")).toBeInTheDocument();
     expect(screen.getByText("MEDIUM")).toBeInTheDocument();
     expect(screen.getByText(/مستحقات مفتوحة 3000/)).toBeInTheDocument();
+  });
+
+  it("links low attendance with outstanding dues", async () => {
+    render(<FinanceCockpitTab isEn={false} />);
+
+    expect(await screen.findByText("الغياب × التحصيل")).toBeInTheDocument();
+    expect(screen.getByText("سارة محمد")).toBeInTheDocument();
+    expect(screen.getByText(/40% · 6\/10/)).toBeInTheDocument();
+    expect(api.fetchAttendanceLink).toHaveBeenCalledWith(3);
   });
 
   it("shows the all-clear state and refetches on window change", async () => {

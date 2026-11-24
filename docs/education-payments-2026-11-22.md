@@ -329,6 +329,17 @@
 - Rates return `null` when there are no records (no fake 0%).
 - UI: "الحضور والالتزام" tab in education reports with a 1/3/6-month selector, KPI strip, group table and the at-risk student list.
 
+## Phase 4 (part 25) — attendance × collections link
+
+- `GET /education/finance/attendance-link?months=3`:
+  - Per student: attendance rate from group attendance + outstanding balance from active enrollments + overdue installments.
+  - `summary`: students, `lowAttendance` (<70%), `withDues`, `overlap` (low attendance **and** owes), `avgDuesLowAttendance` vs `avgDuesOthers`, `riskAmount` (total dues concentrated in the overlap) and `rate` (share of low-attendance students who also owe).
+  - `buckets`: LOW / MEDIUM / HIGH attendance bands with students, dues-paying students and total dues.
+  - `risky`: overlapping students with rate, absences, dues and overdue amount, highest dues first.
+- Students without attendance rows are excluded so the averages are not diluted.
+- UI: "الغياب × التحصيل" card in the finance cockpit (fixed 3-month window) with three KPIs, the average-dues comparison and the top risky students.
+
+
 
 
 
