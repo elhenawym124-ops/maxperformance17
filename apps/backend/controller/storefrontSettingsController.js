@@ -1021,32 +1021,6 @@ const testFacebookPixel = async (req, res) => {
 
     const accessToken = getPrimaryManagementToken({ company, settings });
 
-    // توكن CAPI وحده لا يملك صلاحية قراءة البيكسل (ads_management) —
-    // لا نعتبره "توكن غير صالح" ولا نرمي خطأ يخيف التاجر
-    const dedicatedManagementToken =
-      trimToNull(company?.facebookPixelAccessToken) ||
-      trimToNull(company?.facebookAdsAccessToken) ||
-      trimToNull(company?.facebookUserAccessToken);
-
-    if (
-      accessToken &&
-      !dedicatedManagementToken &&
-      trimToNull(settings?.facebookConvApiToken) &&
-      trimToNull(settings?.facebookConvApiToken) === accessToken
-    ) {
-      await updateStorefrontSettingsStatus(companyId, {
-        pixelStatus: 'configured',
-        lastPixelTest: new Date(),
-      });
-
-      return res.json({
-        success: false,
-        needsAuth: false,
-        message:
-          'Pixel ID محفوظ. التحقق الكامل من ملكية البيكسل يحتاج توكن إدارة (ads_management)، لكن إرسال أحداث CAPI يعمل بالتوكن الحالي — استخدم «فحص CAPI».',
-      });
-    }
-
     if (!accessToken) {
       await updateStorefrontSettingsStatus(companyId, {
         pixelStatus: 'configured',
@@ -1078,21 +1052,26 @@ const testFacebookPixel = async (req, res) => {
         },
       });
     } catch (error) {
-      // فشل التحقق = خطأ حقيقي، مش "مُهيّأ" — وإلا المستخدم يفتكر التتبع شغال
+      // توكن CAPI الصالح للكتابة لا يقرأ البيكسل (يحتاج ads_management) —
+      // لو عندنا توكن CAPI محفوظ، الحالة "محفوظ بدون تحقق" مش "خطأ"
       const tokenIssue = isFacebookTokenError(error) || isFacebookPermissionError(error);
+      const hasCapiToken = Boolean(trimToNull(settings?.facebookConvApiToken));
+      const capiStillWorks = tokenIssue && hasCapiToken;
       const metaMessage = getFacebookErrorMessage(error, '');
-      const arabicMessage = tokenIssue
-        ? 'تعذّر التحقق من Pixel: توكن فيسبوك غير صالح أو لا يملك صلاحية الوصول للبيكسل. استخدم «لصق التوكن» من Events Manager أو أعد الربط.'
-        : `فشل التحقق من Pixel عبر Facebook${metaMessage ? `: ${metaMessage}` : ''}`;
+      const arabicMessage = capiStillWorks
+        ? 'Pixel ID محفوظ، لكن التحقق الكامل من ملكية البيكسل يحتاج توكن إدارة (ads_management). إرسال أحداث CAPI بالتوكن المحفوظ يعمل — استخدم «فحص CAPI».'
+        : tokenIssue
+          ? 'تعذّر التحقق من Pixel: توكن فيسبوك غير صالح أو لا يملك صلاحية الوصول للبيكسل. استخدم «لصق التوكن» من Events Manager أو أعد الربط.'
+          : `فشل التحقق من Pixel عبر Facebook${metaMessage ? `: ${metaMessage}` : ''}`;
 
       await updateStorefrontSettingsStatus(companyId, {
-        pixelStatus: 'error',
+        pixelStatus: capiStillWorks ? 'configured' : 'error',
         lastPixelTest: new Date(),
       });
 
       return res.json({
         success: false,
-        needsAuth: tokenIssue,
+        needsAuth: tokenIssue && !capiStillWorks,
         message: arabicMessage,
       });
     }
