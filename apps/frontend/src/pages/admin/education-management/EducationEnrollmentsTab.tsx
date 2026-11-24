@@ -83,6 +83,20 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
     useState<EducationEnrollment | null>(null);
   const [payingInstallment, setPayingInstallment] = useState(false);
 
+  // الافتراضي: الاشتراكات النشطة فقط — المعطلة تظهر بفلتر صريح
+  const [activationFilter, setActivationFilter] = useState<"active" | "inactive" | "all">("active");
+  const activeCount = enrollments.filter((e) => e.isActive !== false).length;
+  const inactiveCount = enrollments.length - activeCount;
+  const visibleEnrollments = enrollments.filter((e) =>
+    activationFilter === "all" ? true : activationFilter === "active" ? e.isActive !== false : e.isActive === false
+  );
+  const emptyMessage =
+    enrollments.length > 0 && visibleEnrollments.length === 0
+      ? isEn
+        ? "No subscriptions match this filter"
+        : "لا توجد اشتراكات مطابقة للفلتر"
+      : t("education.enrollments.empty", isEn ? "No registered enrollments" : "لا توجد تسجيلات مسجلة");
+
   const handlePayInstallment = async (enrollmentId: string, installmentNumber: number) => {
     try {
       setPayingInstallment(true);
@@ -140,9 +154,32 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
         </div>
       </div>
 
+      {/* Activation filter — active subscriptions are the default view */}
+      <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+        {([
+          { key: "active" as const, label: isEn ? "Active" : "نشطة", count: activeCount },
+          { key: "inactive" as const, label: isEn ? "Inactive" : "معطلة", count: inactiveCount },
+          { key: "all" as const, label: isEn ? "All" : "الكل", count: enrollments.length },
+        ]).map((chip) => (
+          <button
+            key={chip.key}
+            type="button"
+            onClick={() => setActivationFilter(chip.key)}
+            className={`shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition-colors ${
+              activationFilter === chip.key
+                ? "bg-primary text-primary-foreground border-primary"
+                : "bg-background text-muted-foreground border-border hover:bg-muted"
+            }`}
+          >
+            {chip.label}
+            <span className="font-mono tabular-nums opacity-80">{chip.count}</span>
+          </button>
+        ))}
+      </div>
+
       {/* Mobile Cards View */}
       <div className="grid grid-cols-1 gap-3 md:hidden">
-        {enrollments.map((e) => {
+        {visibleEnrollments.map((e) => {
           const remaining = e.remainingHours ?? 0;
           const total = e.totalHours ?? 0;
           const pct = total > 0 ? Math.round((remaining / total) * 100) : 0;
@@ -291,9 +328,9 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
             </div>
           );
         })}
-        {enrollments.length === 0 && (
+        {visibleEnrollments.length === 0 && (
           <div className="bg-card border border-border/80 rounded-xl p-8 text-center text-xs text-muted-foreground">
-            {t("education.enrollments.empty", isEn ? "No registered enrollments" : "لا توجد تسجيلات مسجلة")}
+            {emptyMessage}
           </div>
         )}
       </div>
@@ -322,7 +359,7 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
               </tr>
             </thead>
             <tbody className="divide-y divide-border/60">
-              {enrollments.map((e) => {
+              {visibleEnrollments.map((e) => {
                 const remaining = e.remainingHours ?? 0;
                 const total = e.totalHours ?? 0;
                 const pct =
@@ -501,9 +538,9 @@ export const EducationEnrollmentsTab: React.FC<EducationEnrollmentsTabProps> = (
             </tbody>
           </table>
         </div>
-        {enrollments.length === 0 && (
+        {visibleEnrollments.length === 0 && (
           <p className="text-center py-12 text-xs text-muted-foreground">
-            {t("education.enrollments.empty", isEn ? "No registered enrollments" : "لا توجد تسجيلات مسجلة")}
+            {emptyMessage}
           </p>
         )}
       </div>
