@@ -323,11 +323,16 @@ const create = async (req, res) => {
         if (!existingMember || existingMember.length === 0) {
           const { generateMemberId } = require('../services/educationGroupsService');
           const isFullGroup = Number(group.active_count || 0) >= Number(group.capacity || 0);
+          // مدة الليفل بالشهور تحدد متى يصبح تجديد رسوم المجموعة مستحقاً
+          const coveredMonths = Number(pkg.durationMonths) > 0 ? Number(pkg.durationMonths) : 1;
+          const nextRenewalDate = paidAmount > 0
+            ? (() => { const d = new Date(); d.setMonth(d.getMonth() + coveredMonths); return d; })()
+            : null;
           await tx.$executeRawUnsafe(`
             INSERT INTO "education_group_members" (
               "id", "companyId", "groupId", "studentId", "status", "paymentStatus",
               "amountPaid", "nextRenewalDate", "notes", "joinedAt", "updatedAt"
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, NULL, $8, NOW(), NOW())
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NOW())
           `,
             generateMemberId(),
             companyId,
@@ -336,6 +341,7 @@ const create = async (req, res) => {
             isFullGroup ? 'WAITING_LIST' : 'ACTIVE',
             paidAmount > 0 ? 'PAID' : 'PENDING',
             paidAmount,
+            nextRenewalDate,
             `اشتراك باقة: ${pkg.name}`
           );
         }
