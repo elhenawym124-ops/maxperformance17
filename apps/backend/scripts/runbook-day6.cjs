@@ -107,11 +107,16 @@ const mainText = (page) =>
   await page.waitForTimeout(6000);
   const afterGroup = await mainText(page);
   const groupsAfter = Number(afterGroup.match(/إجمالي المجموعات\s*(\d+)/)?.[1] ?? 0);
+  // التحقق الحاسم عبر الـAPI (الشاشة قد لا تحدّث العدّاد فورًا)
+  const tCheck = await token();
+  const gRes = await api('/education/groups?limit=50', tCheck);
+  const gList = gRes.json?.groups || gRes.json?.data || [];
+  const createdGroup = gList.find((g) => (g.name || '').includes(stamp));
   record(
     'D6-1',
     'إنشاء مجموعة دراسية جديدة',
-    filled.ok && (groupsAfter > groupsBefore || afterGroup.includes(groupName)),
-    `المجموعات: ${groupsBefore} → ${groupsAfter}${filled.ok ? '' : ' · ' + filled.why}`,
+    Boolean(createdGroup) || groupsAfter > groupsBefore,
+    createdGroup ? `${createdGroup.name} · ${createdGroup.code || ''}` : `المجموعات: ${groupsBefore} → ${groupsAfter}`,
   );
 
   // ===== 2) إضافة طالب للمجموعة =====
@@ -123,10 +128,18 @@ const mainText = (page) =>
   if (newGroup) {
     const students = await api('/education/students?limit=50', t);
     const st = (students.json?.data || students.json?.students || []).find((s) => s.isActive !== false);
-    const add = await api(`/education/groups/${newGroup.id}/members`, t, 'POST', { studentId: st.id });
+    // نجرّب أول طالب ثم بقية الطلاب لو كان عضوًا بالفعل
+    const allStudents = students.json?.data || students.json?.students || [];
+    let add = { status: 0 };
+    let used = st;
+    for (const cand of allStudents) {
+      add = await api(`/education/groups/${newGroup.id}/members`, t, 'POST', { studentId: cand.id });
+      used = cand;
+      if (add.status < 300) break;
+    }
     const after = await api(`/education/groups/${newGroup.id}`, t);
     const count = (after.json?.data?.students || after.json?.group?.students || after.json?.data?.members || []).length;
-    memberNote = `إضافة: ${add.status} · الأعضاء الآن: ${count}`;
+    memberNote = `إضافة ${used?.firstName || ''}: ${add.status} · الأعضاء الآن: ${count}`;
     record('D6-2', 'إضافة طالب إلى المجموعة', add.status < 300 && count > 0, memberNote);
   } else record('D6-2', 'إضافة طالب إلى المجموعة', false, memberNote);
 
