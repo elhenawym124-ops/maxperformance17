@@ -1,0 +1,168 @@
+import { useCallback, useEffect, useState } from "react";
+import { AlertTriangle, Loader2, RefreshCw, ShieldCheck } from "lucide-react";
+import { fetchCockpit } from "./api";
+import { money } from "./shared";
+import type { FinanceCockpit } from "./types";
+
+const severityTone = (severity: string) => {
+  if (severity === "HIGH") return "border-destructive/30 bg-destructive/10 text-destructive";
+  if (severity === "MEDIUM") return "border-warning/30 bg-warning/10 text-warning";
+  return "border-border/70 bg-muted/40 text-muted-foreground";
+};
+
+export const FinanceCockpitTab: React.FC<{ isEn: boolean; reloadKey?: number }> = ({ isEn, reloadKey }) => {
+  const [months, setMonths] = useState(6);
+  const [data, setData] = useState<FinanceCockpit | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const load = useCallback(() => {
+    let alive = true;
+    setLoading(true);
+    setError("");
+    fetchCockpit(months)
+      .then((payload) => alive && setData(payload))
+      .catch((err) => alive && setError(err.message || (isEn ? "Failed to load" : "فشل التحميل")))
+      .finally(() => alive && setLoading(false));
+    return () => {
+      alive = false;
+    };
+  }, [months, isEn]);
+
+  useEffect(() => {
+    const cleanup = load();
+    return cleanup;
+  }, [load, reloadKey]);
+
+  const summary = data?.summary;
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <h3 className="text-sm font-semibold text-foreground">
+          {isEn ? "Finance cockpit" : "النظرة المالية الشاملة"}
+        </h3>
+        <div className="flex items-center gap-2">
+          <div className="inline-flex items-center gap-1 rounded-lg border border-border/70 bg-card p-1">
+            {[3, 6, 12].map((value) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setMonths(value)}
+                className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors ${
+                  months === value ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                {value} {isEn ? "mo" : "شهور"}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={load}
+            className="p-1.5 rounded-lg border border-border/70 text-muted-foreground hover:bg-muted"
+            aria-label={isEn ? "Refresh" : "تحديث"}
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
+          </button>
+        </div>
+      </div>
+
+      {error ? (
+        <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-xs text-destructive">{error}</div>
+      ) : null}
+
+      {loading && !data ? (
+        <div className="rounded-xl border border-border/70 bg-card p-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+          <Loader2 className="w-4 h-4 animate-spin" />
+          {isEn ? "Loading..." : "جارٍ التحميل..."}
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+            {[
+              {
+                label: isEn ? "This month" : "إيراد الشهر",
+                value: money(summary?.monthCollected || 0),
+                hint: summary?.monthGrowth === null || summary?.monthGrowth === undefined
+                  ? null
+                  : `${summary.monthGrowth > 0 ? "+" : ""}${summary.monthGrowth}%`,
+                tone: "text-success",
+              },
+              {
+                label: isEn ? "Collection rate" : "نسبة التحصيل",
+                value: summary?.collectionRate === null || summary?.collectionRate === undefined ? "—" : `${summary.collectionRate}%`,
+                hint: `${money(summary?.collected || 0)} / ${money(summary?.billed || 0)}`,
+                tone: "text-primary",
+              },
+              {
+                label: isEn ? "Open dues" : "مستحقات مفتوحة",
+                value: money(summary?.openDues || 0),
+                hint: summary?.openDuesMembers ? `${summary.openDuesMembers} ${isEn ? "items" : "عضو"}` : null,
+                tone: (summary?.openDues || 0) > 0 ? "text-warning" : "text-muted-foreground",
+              },
+              {
+                label: isEn ? "Cash variance" : "فروق النقدية",
+                value: money(summary?.varianceNet || 0),
+                hint: summary?.shortCloses ? `${summary.shortCloses} ${isEn ? "short" : "عجز"}` : null,
+                tone: (summary?.varianceNet || 0) < 0 ? "text-destructive" : "text-foreground",
+              },
+            ].map((item) => (
+              <div key={item.label} className="rounded-xl border border-border/70 bg-card p-3">
+                <span className="text-[10px] text-muted-foreground">{item.label}</span>
+                <p className={`text-sm font-bold font-mono tabular-nums mt-1 ${item.tone}`}>{item.value}</p>
+                {item.hint ? (
+                  <p className="text-[10px] text-muted-foreground font-mono mt-0.5">{item.hint}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            {[
+              { label: isEn ? "Coupon discounts" : "خصومات الكوبونات", value: summary?.couponDiscounts || 0 },
+              { label: isEn ? "Waivers" : "إعفاءات", value: summary?.waiversValue || 0 },
+              { label: isEn ? "Total discount impact" : "إجمالي أثر الخصومات", value: summary?.discountImpact || 0 },
+            ].map((item) => (
+              <div key={item.label} className="rounded-xl border border-border/70 bg-card px-3 py-2 flex items-center justify-between">
+                <span className="text-[11px] text-muted-foreground">{item.label}</span>
+                <span className="text-[11px] font-bold font-mono tabular-nums text-destructive">
+                  −{money(item.value)}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-xl border border-border/70 bg-card overflow-hidden">
+            <div className="px-4 py-3 border-b border-border/70 flex items-center justify-between">
+              <h4 className="text-xs font-semibold text-foreground">{isEn ? "Needs attention" : "محتاج تدخّل"}</h4>
+              <span className="text-[10px] text-muted-foreground font-mono">{data?.alerts.length || 0}</span>
+            </div>
+            {(data?.alerts.length || 0) === 0 ? (
+              <div className="p-4 flex items-center gap-2 text-[11px] text-success">
+                <ShieldCheck className="w-4 h-4" />
+                {isEn ? "Everything is balanced" : "كل المؤشرات سليمة"}
+              </div>
+            ) : (
+              <div className="divide-y divide-border/60">
+                {data?.alerts.map((alert) => (
+                  <div key={alert.code} className="px-4 py-2.5 flex items-start gap-2">
+                    <AlertTriangle className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                    <div className="min-w-0">
+                      <span className={`inline-block px-1.5 py-0.5 rounded border text-[10px] font-mono ${severityTone(alert.severity)}`}>
+                        {alert.severity}
+                      </span>
+                      <p className="text-[11px] text-foreground mt-1">{alert.message}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default FinanceCockpitTab;

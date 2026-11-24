@@ -803,6 +803,22 @@ const recordPayment = async (req, res) => {
   }
 };
 
+const getCockpit = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationFinanceCockpitService');
+    const data = await service.buildCockpit(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building finance cockpit:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب النظرة المالية' });
+  }
+};
+
 const getVarianceReport = async (req, res) => {
   try {
     const companyId = getCompanyId(req);
@@ -1594,6 +1610,7 @@ module.exports = {
   getCollectionReport,
   getMethodReport,
   getVarianceReport,
+  getCockpit,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

@@ -274,6 +274,20 @@
   - `items`: newest-first list with expected → actual and the signed difference; days closed with zero expected/actual are skipped.
 - UI: "فروق النقدية" panel at the bottom of the daily-closing tab with a 3/6/12-month selector, four KPIs and the incident list.
 
+## Phase 4 (part 20) — finance cockpit (one owner screen)
+
+- `GET /education/finance/cockpit?months=6` composes the existing reports instead of recomputing rules:
+  - Revenue pulse: this month collected, previous month, growth %, payment count.
+  - Collections: collected, billed, rate, open dues and how many members/enrollments owe.
+  - Discounts: coupon discounts, waivers, total impact.
+  - Variances: net, absolute and short-close count.
+  - `readiness`: which sources answered (so a blank KPI is explainable, not silent).
+- Alerts are derived, ordered HIGH → LOW:
+  - `CASH_SHORT` (any short close), `OPEN_DUES`, `LOW_COLLECTION` (<70%), `DISCOUNT_IMPACT`, `REVENUE_DROP` (< −10% month over month).
+- Each source degrades to zero/null instead of failing the cockpit.
+- UI: "النظرة المالية" tab in `/admin/education/payments` — KPI grid, discount strip and a "محتاج تدخّل" alert list with an all-clear state.
+
+
 
 
 

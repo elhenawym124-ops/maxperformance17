@@ -5,6 +5,7 @@ import type {
   DiscountReport,
   DuesResponse,
   EducationPayment,
+  FinanceCockpit,
   MethodReport,
   PaymentsPagination,
   PaymentsSummary,
@@ -107,6 +108,9 @@ export const fetchCashierShifts = async (params: { page?: number; limit?: number
     pagination: json.pagination || { total: 0, page: 1, limit: 20, totalPages: 1 },
   };
 };
+
+export const fetchCockpit = (months = 6): Promise<FinanceCockpit> =>
+  fetchJson(api(`finance/cockpit${query({ months })}`));
 
 export const fetchVarianceReport = (months = 6): Promise<VarianceReport> =>
   fetchJson(api(`finance/variances${query({ months })}`));

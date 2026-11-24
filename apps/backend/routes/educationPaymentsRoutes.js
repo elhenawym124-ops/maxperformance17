@@ -22,6 +22,7 @@ router.get('/discounts', requireDbPermission(CAN_VIEW), controller.getDiscountRe
 router.get('/collections', requireDbPermission(CAN_VIEW), controller.getCollectionReport);
 router.get('/methods', requireDbPermission(CAN_VIEW), controller.getMethodReport);
 router.get('/variances', requireDbPermission(CAN_VIEW), controller.getVarianceReport);
+router.get('/cockpit', requireDbPermission(CAN_VIEW), controller.getCockpit);
 router.get('/payments/:id/receipt', requireDbPermission(CAN_VIEW), controller.getReceipt);
 router.get('/payments/:id/pdf', requireDbPermission(CAN_VIEW), controller.downloadReceiptPdf);
 router.post('/payments/:id/send-receipt', requireDbPermission(CAN_VIEW), controller.sendReceipt);

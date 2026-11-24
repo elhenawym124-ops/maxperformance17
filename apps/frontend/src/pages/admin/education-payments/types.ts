@@ -353,3 +353,26 @@ export interface VarianceReport {
     state: "SHORT" | "OVER" | "BALANCED";
   }>;
 }
+
+export interface FinanceCockpit {
+  period: { from: string; to: string; months: number };
+  summary: {
+    monthCollected: number;
+    prevMonthCollected: number;
+    monthGrowth: number | null;
+    monthPayments: number;
+    collected: number;
+    billed: number;
+    collectionRate: number | null;
+    openDues: number;
+    openDuesMembers: number;
+    discountImpact: number;
+    couponDiscounts: number;
+    waiversValue: number;
+    varianceNet: number;
+    varianceAbs: number;
+    shortCloses: number;
+  };
+  alerts: Array<{ severity: "HIGH" | "MEDIUM" | "LOW"; code: string; message: string }>;
+  readiness: { collections: boolean; discounts: boolean; variances: boolean };
+}
