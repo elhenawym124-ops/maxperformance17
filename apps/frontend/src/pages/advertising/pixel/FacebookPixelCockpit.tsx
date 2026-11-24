@@ -531,11 +531,15 @@ export const FacebookPixelCockpit: React.FC = () => {
     );
   }
 
-  const isPixelActive = Boolean(settings.facebookPixelEnabled && settings.facebookPixelId);
-  const isCapiActive = Boolean(
-    settings.facebookConvApiEnabled &&
-      (settings.facebookConvApiToken || diagnostics?.capi?.hasToken)
-  );
+  // الشيب في الهيدر لازم يعكس الحالة الحقيقية مش مجرد وجود ID/توكن
+  const isPixelActive =
+    settings.pixelStatus === "active" ||
+    (settings.pixelStatus !== "error" &&
+      Boolean(settings.facebookPixelEnabled && settings.facebookPixelId) &&
+      diagnostics?.pixel?.verified === true);
+  const isCapiActive =
+    settings.capiStatus === "active" ||
+    (settings.capiStatus !== "error" && diagnostics?.capi?.verified === true);
 
   return (
     <div className="w-full min-h-screen bg-muted dark:bg-muted flex flex-col antialiased">

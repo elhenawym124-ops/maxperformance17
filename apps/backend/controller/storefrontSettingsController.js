@@ -139,6 +139,15 @@ const getFacebookErrorMessage = (error, fallbackMessage) =>
 const getFacebookErrorCode = (error) =>
   Number(error?.response?.data?.error?.code || error?.response?.data?.code || 0);
 
+// العمود lastCapiErrorCode نصّي في قاعدة البيانات — لازم نكتبه String دايمًا
+// (كتابة رقم كانت بترمي PrismaClientValidationError وتضيّع رسالة الخطأ الحقيقية)
+const toCapiErrorCode = (value) => {
+  if (value === null || value === undefined || value === '') {
+    return null;
+  }
+  return String(value);
+};
+
 const isFacebookTokenError = (error) => {
   const message = getFacebookErrorMessage(error, '');
   const code = getFacebookErrorCode(error);
@@ -320,6 +329,8 @@ const serializeStorefrontSettings = (settings, company) => {
       DEFAULT_THEME_ID,
     designTokens,
     paymentGatewayConfig: maskGatewayConfig(settings?.paymentGatewayConfig),
+    // نفس سياسة مفاتيح الدفع: لا نرجّع توكن CAPI خام للعميل أبدًا
+    facebookConvApiToken: maskToken(settings?.facebookConvApiToken),
     enabledPaymentMethods: settings?.enabledPaymentMethods || '["cod"]',
     walletPaymentSettings: settings?.walletPaymentSettings || null,
   };
@@ -401,14 +412,14 @@ const buildDiagnosticsData = (settings, pixelConfigs = [], company = null) => {
         `آخر خطأ في CAPI: ${settings.lastCapiError}`
       )
     );
-    if (settings.lastCapiErrorCode === 270) {
+    if (String(settings.lastCapiErrorCode || '') === '270') {
       recommendations.push(
         createRecommendation(
           'high',
           'خطأ ميتا #270: أضف التطبيق إلى Meta Business Portfolio واطلب صلاحية ads_management من App Review.'
         )
       );
-    } else if (settings.lastCapiErrorCode === 190) {
+    } else if (String(settings.lastCapiErrorCode || '') === '190') {
       recommendations.push(
         createRecommendation(
           'high',
@@ -430,32 +441,69 @@ const buildDiagnosticsData = (settings, pixelConfigs = [], company = null) => {
     );
   }
 
+  // الحالة الحقيقية مش مجرد "فيه ID وتوكن" — لازم فحص ناجح من ميتا
+  const pixelStatus = settings?.pixelStatus || (pixelConfigured ? 'configured' : 'not_configured');
+  const capiStatus = settings?.capiStatus || (capiConfigured ? 'configured' : 'not_configured');
+  const pixelVerified = pixelStatus === 'active';
+  const capiVerified = capiStatus === 'active';
+
+  if (pixelConfigured && !pixelVerified && pixelStatus !== 'error') {
+    pixelIssues.push(
+      createIssue(
+        'verification',
+        'pixel_unverified',
+        'Pixel ID محفوظ لكن لم يتم التحقق منه مع ميتا بعد — اضغط «فحص Pixel».'
+      )
+    );
+  }
+
+  if (capiConfigured && !capiVerified && !settings?.lastCapiError) {
+    capiIssues.push(
+      createIssue(
+        'verification',
+        'capi_unverified',
+        'بيانات CAPI محفوظة لكن لم يتم اختبار الإرسال بنجاح بعد — اضغط «فحص CAPI».'
+      )
+    );
+  }
+
   const scoreBase =
-    (pixelConfigured ? 40 : 0) +
-    (capiConfigured ? 35 : 0) +
+    (pixelVerified ? 40 : pixelConfigured ? 20 : 0) +
+    (capiVerified ? 35 : capiConfigured ? 15 : 0) +
     (settings?.eventDeduplicationEnabled ? 15 : 0) +
     (settings?.hashUserData ? 10 : 0);
   const issuePenalty = (pixelIssues.length + capiIssues.length) * 5;
   const score = Math.max(0, Math.min(100, scoreBase - issuePenalty));
 
+  // صحّة = الاتنين متحققين فعليًا؛ أي خطأ مسجّل يمنع "healthy"
+  const hasRuntimeError = Boolean(settings?.lastCapiError) || pixelStatus === 'error' || capiStatus === 'error';
+  const overallStatus =
+    hasRuntimeError || score < 50
+      ? 'error'
+      : pixelVerified && capiVerified && score >= 80
+        ? 'healthy'
+        : 'warning';
+
   return {
     timestamp: new Date().toISOString(),
     overall: {
-      status: score >= 80 ? 'healthy' : score >= 50 ? 'warning' : 'error',
+      status: overallStatus,
       score,
       issues: [...pixelIssues, ...capiIssues],
       recommendations,
     },
     pixel: {
       configured: pixelConfigured,
-      status: settings?.pixelStatus || (pixelConfigured ? 'configured' : 'not_configured'),
+      verified: pixelVerified,
+      status: pixelStatus,
       pixelId: trimToNull(settings?.facebookPixelId),
       lastTest: settings?.lastPixelTest || null,
       issues: pixelIssues,
     },
     capi: {
       configured: capiConfigured,
-      status: settings?.capiStatus || (capiConfigured ? 'configured' : 'not_configured'),
+      verified: capiVerified,
+      status: capiStatus,
       hasToken: Boolean(effectiveCapiToken),
       tokenStatus: effectiveCapiToken ? 'available' : 'missing',
       lastTest: settings?.lastCapiTest || null,
@@ -734,6 +782,14 @@ const updateSettings = async (req, res) => {
 
     const sanitizedInput = sanitizeResult.sanitized;
 
+    // التوكن بيتعرض للعميل ماسك — لو رجع ماسك في الحفظ نسيبه زي ما هو
+    if (
+      sanitizedInput.facebookConvApiToken !== undefined &&
+      isMaskedToken(sanitizedInput.facebookConvApiToken)
+    ) {
+      delete sanitizedInput.facebookConvApiToken;
+    }
+
     if (sanitizedInput.paymentGatewayConfig !== undefined) {
       sanitizedInput.paymentGatewayConfig = mergeGatewayConfig(
         sanitizedInput.paymentGatewayConfig,
@@ -996,21 +1052,22 @@ const testFacebookPixel = async (req, res) => {
         },
       });
     } catch (error) {
-      const status =
-        isFacebookTokenError(error) || isFacebookPermissionError(error) ? 'configured' : 'error';
+      // فشل التحقق = خطأ حقيقي، مش "مُهيّأ" — وإلا المستخدم يفتكر التتبع شغال
+      const tokenIssue = isFacebookTokenError(error) || isFacebookPermissionError(error);
+      const metaMessage = getFacebookErrorMessage(error, '');
+      const arabicMessage = tokenIssue
+        ? 'تعذّر التحقق من Pixel: توكن فيسبوك غير صالح أو لا يملك صلاحية الوصول للبيكسل. استخدم «لصق التوكن» من Events Manager أو أعد الربط.'
+        : `فشل التحقق من Pixel عبر Facebook${metaMessage ? `: ${metaMessage}` : ''}`;
 
       await updateStorefrontSettingsStatus(companyId, {
-        pixelStatus: status,
+        pixelStatus: 'error',
         lastPixelTest: new Date(),
       });
 
       return res.json({
         success: false,
-        needsAuth: isFacebookTokenError(error) || isFacebookPermissionError(error),
-        message: getFacebookErrorMessage(
-          error,
-          'فشل التحقق من Pixel عبر Facebook. يرجى إعادة الربط أو مراجعة الصلاحيات.'
-        ),
+        needsAuth: tokenIssue,
+        message: arabicMessage,
       });
     }
   } catch (error) {
@@ -1072,7 +1129,7 @@ const testFacebookCapi = async (req, res) => {
         capiStatus: 'error',
         lastCapiTest: new Date(),
         lastCapiError: shortTokenError,
-        lastCapiErrorCode: 190,
+        lastCapiErrorCode: toCapiErrorCode(190),
         lastCapiErrorAt: new Date(),
       });
       return res.json({
@@ -1105,7 +1162,7 @@ const testFacebookCapi = async (req, res) => {
       capiStatus: result.success ? 'active' : 'error',
       lastCapiTest: new Date(),
       lastCapiError: result.success ? null : (result.message || result.rawMessage || 'Failed connection test'),
-      lastCapiErrorCode: result.success ? null : (result.code || null),
+      lastCapiErrorCode: result.success ? null : toCapiErrorCode(result.code),
       lastCapiErrorAt: result.success ? null : new Date(),
     });
 
@@ -1225,10 +1282,28 @@ const sendTestEvent = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('❌ [STOREFRONT-SETTINGS] Failed to send test event:', error);
-    return res.status(500).json({
+    const classified = FacebookConversionsService.classifyMetaError(error);
+    console.error('❌ [STOREFRONT-SETTINGS] Failed to send test event:', classified.rawMessage);
+
+    const companyId = resolveCompanyId(req);
+    if (companyId) {
+      try {
+        await updateStorefrontSettingsStatus(companyId, {
+          capiStatus: 'error',
+          lastCapiTest: new Date(),
+          lastCapiError: classified.message,
+          lastCapiErrorCode: toCapiErrorCode(classified.code),
+          lastCapiErrorAt: new Date(),
+        });
+      } catch (_) {}
+    }
+
+    // فشل الإرسال سببه بيانات اعتماد مش سيرفرنا — نرجّع 200 مع رسالة مفهومة
+    return res.json({
       success: false,
-      message: error.message || 'فشل إرسال الحدث التجريبي',
+      code: classified.code,
+      category: classified.category,
+      message: classified.message,
     });
   }
 };

@@ -3469,25 +3469,20 @@ router.get("/pixels", verifyToken.authenticateToken, async (req, res) => {
     }
 
     if (!pixelAccessToken) {
-      if (company.facebookPixelAccessToken) {
-        console.warn(
-          "⚠️ [PIXELS] Clearing stale pixel token after all candidate tokens failed validation.",
-        );
-        await getSharedPrismaClient().company.update({
-          where: { id: companyId },
-          data: { facebookPixelAccessToken: null },
-        });
-      }
-
+      // لا نحذف التوكن: المسح كان بيحوّل أي نقص صلاحيات لحلقة ربط لا تنتهي،
+      // والمسار اليدوي (Pixel ID + CAPI Token من Events Manager) مش محتاج ads_management.
       return res.json({
         success: false,
         message:
-          "الصلاحيات المطلوبة غير متوفرة. يرجى إعادة الربط مع Facebook والتأكد من الموافقة على جميع الصلاحيات المطلوبة (ads_read و ads_management).",
-        needsAuth: true,
+          "ربط فيسبوك نجح، لكن التطبيق لا يملك صلاحية عرض البيكسلات (ads_read / ads_management تحتاج App Review). استخدم الطريقة الأسهل: انسخ Pixel ID و CAPI Access Token من Events Manager والصقهما هنا.",
+        needsAuth: false,
+        manualMode: true,
         missingPermissions:
           lastMissingPermissions.length > 0
             ? lastMissingPermissions
             : ["ads_read", "ads_management"],
+        manualSetupUrl:
+          "https://business.facebook.com/events_manager2/overview",
       });
     }
 
@@ -3588,22 +3583,15 @@ router.get("/pixels", verifyToken.authenticateToken, async (req, res) => {
       console.warn(
         "⚠️ [PIXELS] No businesses found - user may be logged in with wrong account",
       );
-      console.warn(
-        "⚠️ [PIXELS] Clearing token to allow re-authentication with correct account",
-      );
-
-      // حذف Token القديم للسماح بإعادة الربط بحساب آخر
-      await getSharedPrismaClient().company.update({
-        where: { id: companyId },
-        data: { facebookPixelAccessToken: null },
-      });
-
       return res.json({
         success: false,
         message:
-          "لم يتم العثور على Businesses. قد تكون مسجل بحساب آخر. يرجى إعادة الربط بالحساب الصحيح.",
-        needsAuth: true,
+          "لم يتم العثور على Businesses في حساب فيسبوك المربوط. تقدر برضه تجيب Pixel ID و CAPI Token من Events Manager وتلصقهم يدويًا.",
+        needsAuth: false,
         noBusinesses: true,
+        manualMode: true,
+        manualSetupUrl:
+          "https://business.facebook.com/events_manager2/overview",
       });
     }
 

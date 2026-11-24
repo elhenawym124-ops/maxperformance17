@@ -288,8 +288,15 @@ export const ConnectionCredentialsPanel: React.FC<ConnectionCredentialsPanelProp
             </button>
           </div>
 
-          <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-            <span>System User Token مع صلاحية ads_management</span>
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+            <a
+              href="https://business.facebook.com/events_manager2/overview"
+              target="_blank"
+              rel="noreferrer"
+              className="min-w-0 leading-relaxed hover:underline"
+            >
+              من Events Manager → البيكسل → الإعدادات → Conversions API → إنشاء رمز وصول
+            </a>
             <button
               type="button"
               onClick={onCheckPermissions}
@@ -309,7 +316,9 @@ export const ConnectionCredentialsPanel: React.FC<ConnectionCredentialsPanelProp
               className={`p-3 rounded-lg border text-xs flex flex-col gap-1.5 ${
                 settings.capiStatus === "active"
                   ? "border-emerald-200 dark:border-success/60 bg-success/40 dark:bg-success/20 text-success dark:text-success"
-                  : "border-red-200 dark:border-destructive/60 bg-destructive/40 dark:bg-destructive/20 text-destructive dark:text-destructive"
+                  : settings.capiStatus === "error"
+                    ? "border-red-200 dark:border-destructive/60 bg-destructive/40 dark:bg-destructive/20 text-destructive dark:text-destructive"
+                    : "border-amber-200 dark:border-warning/60 bg-warning/30 dark:bg-warning/20 text-amber-700 dark:text-warning"
               }`}
             >
               <div className="flex items-center justify-between font-bold">
@@ -317,10 +326,15 @@ export const ConnectionCredentialsPanel: React.FC<ConnectionCredentialsPanelProp
                   {settings.capiStatus === "active" ? (
                     <CheckCircleIcon className="w-4 h-4 text-success" />
                   ) : (
-                    <ExclamationTriangleIcon className="w-4 h-4 text-destructive" />
+                    <ExclamationTriangleIcon className={`w-4 h-4 ${settings.capiStatus === "error" ? "text-destructive" : "text-amber-600"}`} />
                   )}
                   <span>
-                    حالة CAPI: {settings.capiStatus === "active" ? "متصل ونشط" : "يوجد خطأ في الاتصال"}
+                    حالة CAPI:{" "}
+                    {settings.capiStatus === "active"
+                      ? "متصل ونشط"
+                      : settings.capiStatus === "error"
+                        ? "يوجد خطأ في الاتصال"
+                        : "لم يتم الاختبار بعد"}
                   </span>
                 </span>
                 {settings.lastCapiTest && (
@@ -335,12 +349,12 @@ export const ConnectionCredentialsPanel: React.FC<ConnectionCredentialsPanelProp
                     {settings.lastCapiErrorCode ? `كود ميتا #${settings.lastCapiErrorCode}: ` : ""}
                     {settings.lastCapiError}
                   </div>
-                  {settings.lastCapiErrorCode === 270 && (
+                  {Number(settings.lastCapiErrorCode) === 270 && (
                     <div className="text-muted-foreground mt-1 text-[10px]">
                       ⚠️ <strong>توضيح:</strong> التطبيق يحتاج لإضافته داخل حساب Meta Business Portfolio ومراجعة صلاحيات ads_management من قبل Meta أو نقل التطبيق من Development Mode إلى Live.
                     </div>
                   )}
-                  {settings.lastCapiErrorCode === 190 && (
+                  {Number(settings.lastCapiErrorCode) === 190 && (
                     <div className="text-muted-foreground mt-1 text-[10px]">
                       ⚠️ <strong>توضيح:</strong> رمز الوصول (Token) غير صالح أو انتهت صلاحيته — يرجى استخراج System User Token جديد.
                     </div>

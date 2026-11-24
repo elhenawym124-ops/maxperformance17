@@ -66,15 +66,22 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
             </span>
             <span
               className={`font-semibold inline-flex items-center gap-1 ${
-                diagnostics?.pixel?.configured
+                diagnostics?.pixel?.verified
                   ? "text-emerald-600 dark:text-success"
-                  : "text-gray-400"
+                  : diagnostics?.pixel?.configured
+                    ? "text-amber-600 dark:text-warning"
+                    : "text-gray-400"
               }`}
             >
-              {diagnostics?.pixel?.configured ? (
+              {diagnostics?.pixel?.verified ? (
                 <>
                   <CheckCircleIcon className="w-4 h-4" />
-                  <span>مُهيّأ بنجاح</span>
+                  <span>مُتحقق من ميتا</span>
+                </>
+              ) : diagnostics?.pixel?.configured ? (
+                <>
+                  <ExclamationTriangleIcon className="w-4 h-4" />
+                  <span>محفوظ بدون تحقق</span>
                 </>
               ) : (
                 <span>غير مُهيّأ</span>
@@ -88,15 +95,22 @@ export const DiagnosticsTelemetryCard: React.FC<DiagnosticsTelemetryCardProps> =
             </span>
             <span
               className={`font-semibold inline-flex items-center gap-1 ${
-                diagnostics?.capi?.configured
+                diagnostics?.capi?.verified
                   ? "text-emerald-600 dark:text-success"
-                  : "text-amber-600 dark:text-warning"
+                  : diagnostics?.capi?.configured
+                    ? "text-amber-600 dark:text-warning"
+                    : "text-amber-600 dark:text-warning"
               }`}
             >
-              {diagnostics?.capi?.configured ? (
+              {diagnostics?.capi?.verified ? (
                 <>
                   <CheckCircleIcon className="w-4 h-4" />
-                  <span>مُهيّأ بنجاح</span>
+                  <span>مُتحقق من ميتا</span>
+                </>
+              ) : diagnostics?.capi?.configured ? (
+                <>
+                  <ExclamationTriangleIcon className="w-4 h-4" />
+                  <span>محفوظ بدون اختبار ناجح</span>
                 </>
               ) : (
                 <>

@@ -33,7 +33,7 @@ export interface FacebookPixelSettings {
   lastPixelTest?: string;
   lastCapiTest?: string;
   lastCapiError?: string | null;
-  lastCapiErrorCode?: number | null;
+  lastCapiErrorCode?: number | string | null;
   lastCapiErrorAt?: string | null;
 }
 
@@ -72,6 +72,7 @@ export interface DiagnosticsData {
   };
   pixel: {
     configured: boolean;
+    verified?: boolean;
     status: string;
     pixelId: string | null;
     lastTest: string | null;
@@ -79,12 +80,13 @@ export interface DiagnosticsData {
   };
   capi: {
     configured: boolean;
+    verified?: boolean;
     status: string;
     hasToken: boolean;
     tokenStatus: string;
     lastTest: string | null;
     lastError?: string | null;
-    lastErrorCode?: number | null;
+    lastErrorCode?: number | string | null;
     lastErrorAt?: string | null;
     issues: Array<{ type: string; code: string; message: string }>;
   };

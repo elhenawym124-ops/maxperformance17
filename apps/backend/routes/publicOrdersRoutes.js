@@ -2664,7 +2664,7 @@ router.post('/', async (req, res) => {
             capiStatus: 'error',
             lastCapiTest: new Date(),
             lastCapiError: classified.message,
-            lastCapiErrorCode: classified.code,
+            lastCapiErrorCode: classified.code === null || classified.code === undefined ? null : String(classified.code),
             lastCapiErrorAt: new Date(),
           },
         });
