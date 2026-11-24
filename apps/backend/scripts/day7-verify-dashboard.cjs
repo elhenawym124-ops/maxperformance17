@@ -1,0 +1,22 @@
+﻿const { chromium } = require("playwright");
+const BASE = "https://maxp.online";
+const CHROME = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+(async () => {
+  const browser = await chromium.launch({ executablePath: CHROME });
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  await page.goto(BASE + "/login", { waitUntil: "domcontentloaded" });
+  await page.fill("#email", "trial.owner@maxp.test");
+  await page.fill("#password", "Maxp@2026");
+  await page.click('button[type="submit"]');
+  await page.waitForTimeout(9000);
+  await page.goto(BASE + "/admin/education/dashboard", { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(7000);
+  const t = await page.evaluate(() => (document.querySelector("main")?.innerText || "").replace(/\s+/g, " "));
+  const students = t.match(/(\d+)\s*الطلاب المسجلين/);
+  const teachers = t.match(/(\d+)\s*المدرسين/);
+  const enroll = t.match(/(\d+)\s*تسجيلات سار/);
+  console.log(JSON.stringify({ students: students ? students[1] : "n/a", teachers: teachers ? teachers[1] : "n/a", enroll: enroll ? enroll[1] : "n/a" }));
+  await page.screenshot({ path: "docs/qa/trial-14d/evidence/54-day7-dashboard-numbers.png" });
+  await browser.close();
+})().catch(e => { console.error("FAILED:", e.message); process.exit(1); });
