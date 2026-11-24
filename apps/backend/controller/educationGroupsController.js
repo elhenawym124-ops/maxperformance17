@@ -1799,6 +1799,7 @@ const collectDueFees = async (req, res) => {
 
     const dueMembers = await prisma.$queryRawUnsafe(`
       SELECT m."id", m."studentId", m."amountPaid", m."paymentStatus", m."nextRenewalDate",
+             COALESCE(m."discountAmount", 0) AS "discountAmount",
              s."firstName", s."lastName"
       FROM "education_group_members" m
       JOIN "education_students" s ON s."id" = m."studentId" AND s."companyId" = m."companyId"
@@ -1824,6 +1825,11 @@ const collectDueFees = async (req, res) => {
     const failed = [];
 
     for (const member of dueMembers) {
+      const effectiveFee = Math.max(0, Number(group.feeAmount) - (Number(member.discountAmount) || 0));
+      if (!(effectiveFee > 0)) {
+        failed.push({ memberId: member.id, studentId: member.studentId, error: 'قيمة الاشتراك الشهري صفر' });
+        continue;
+      }
       const captured = [];
       const fakeRes = {
         statusCode: 200,
@@ -1832,7 +1838,7 @@ const collectDueFees = async (req, res) => {
       };
       const fakeReq = Object.create(req);
       fakeReq.params = { ...(req.params || {}) };
-      fakeReq.body = { groupMemberId: member.id, method: 'CASH' };
+      fakeReq.body = { groupMemberId: member.id, amount: effectiveFee, method: 'CASH' };
       try {
         await paymentsController.recordPayment(fakeReq, fakeRes);
         const payload = captured[0] || {};
