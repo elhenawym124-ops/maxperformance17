@@ -408,7 +408,15 @@ class FacebookConversionsService {
       }
 
       // Execute request
-      const response = await eventRequest.execute();
+      let response;
+      try {
+        response = await eventRequest.execute();
+      } catch (sdkError) {
+        // أخطاء الـ SDK غامضة (بدون response.data.error.code) فتصنيف ميتا بيفشل.
+        // نعيد المحاولة عبر HTTP مباشرةً للحصول على كود الخطأ الحقيقي (190/270/100…)
+        console.warn('⚠️ [Facebook CAPI] SDK send failed, retrying via HTTP:', sdkError.message);
+        return await this.sendEventViaHTTP(event);
+      }
 
       // التحقق من نوع response: SDK object أو HTTP object
       let eventsReceived, messages, fbtraceId;
