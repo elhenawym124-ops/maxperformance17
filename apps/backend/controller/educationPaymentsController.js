@@ -803,8 +803,54 @@ const recordPayment = async (req, res) => {
   }
 };
 
-const getStatement = async (req, res) => {
+const listStatementDue = async (req, res) => {
   try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationStatementReminderService');
+    const students = await service.findOutstanding(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+      minAmount: req.query.minAmount,
+    });
+    res.json({ success: true, data: students });
+  } catch (error) {
+    console.error('Error listing statement dues:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب المتأخرات' });
+  }
+};
+
+const notifyStatementDue = async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationStatementReminderService');
+    const prisma = getSharedPrismaClient();
+
+    if (req.body?.studentId) {
+      const students = await service.findOutstanding(prisma, companyId, { months: req.body?.months });
+      const target = students.find((row) => row.studentId === req.body.studentId);
+      if (!target) {
+        return res.status(404).json({ success: false, error: 'لا يوجد مبلغ متبقٍ على هذا الطالب' });
+      }
+      const result = await service.notifyOutstanding(prisma, [target], { dedupeDays: 0 });
+      return res.json({ success: true, data: { ...result, detected: 1 } });
+    }
+
+    const summary = await service.runStatementReminders(prisma, {
+      companyId,
+      months: req.body?.months,
+      minAmount: req.body?.minAmount,
+    });
+    res.json({ success: true, data: summary });
+  } catch (error) {
+    console.error('Error sending statement reminders:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في إرسال إشعارات المتأخرات' });
+  }
+};
+
+const getStatement = async (req, res) => {  try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -1672,6 +1718,8 @@ module.exports = {
   getCockpit,
   getStatement,
   downloadStatement,
+  listStatementDue,
+  notifyStatementDue,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

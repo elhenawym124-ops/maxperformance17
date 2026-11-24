@@ -18,6 +18,7 @@ const EDUCATION_NOTIFICATION_EVENTS = {
   PARENT_ACTIVATED: 'education_parent_activated',
   ABSENCE_ALERT: 'education_absence_alert',
   REPEATED_ABSENCE: 'education_repeated_absence',
+  STATEMENT_DUE: 'education_statement_due',
   DEMO_DAY_REGISTERED: 'education_demo_day_registered',
   DEMO_DAY_REMINDER_24H: 'education_demo_day_reminder_24h',
   DEMO_DAY_REMINDER_2H: 'education_demo_day_reminder_2h',
@@ -200,6 +201,17 @@ const NOTIFICATION_TEMPLATES = {
 
 نحب نطمن على الطالب ونحدد حصة تعويض مناسبة.
 برجاء التواصل معنا في أقرب وقت.`,
+  },
+  [EDUCATION_NOTIFICATION_EVENTS.STATEMENT_DUE]: {
+    parent: `كشف حساب محدث 📋
+
+أهلاً {parentName}،
+على {studentName} مبلغ متبقٍ قدره {amount} {currency}.
+
+يمكنكم مراجعة تفاصيل كشف الحساب وتحميله من بوابة ولي الأمر:
+{portalUrl}
+
+لو تم السداد بالفعل، تجاهلوا هذه الرسالة.`,
   },
   [EDUCATION_NOTIFICATION_EVENTS.DEMO_DAY_REGISTERED]: {
     parent: `أهلاً {parentName} 🎉
@@ -989,6 +1001,44 @@ async function notifyAbsenceAlert({ companyId, studentName, parentName, phone, g
   });
 }
 
+async function notifyStatementDue({
+  companyId,
+  customerId = null,
+  parentName,
+  parentPhone,
+  studentName,
+  amount,
+  studentId = null,
+  portalUrl = null,
+}) {
+  if (!companyId || (!customerId && !parentPhone)) return null;
+  const resolvedName = parentName || 'وليّ الأمر';
+  const resolvedUrl = portalUrl
+    || (studentId ? `/parent/children/${studentId}` : '/parent/enrollments');
+
+  return sendEducationalEventWithPushRouting({
+    companyId,
+    actorType: 'PARENT',
+    actorId: customerId || null,
+    eventType: EDUCATION_NOTIFICATION_EVENTS.STATEMENT_DUE,
+    title: 'كشف حساب ومبلغ متبقٍ',
+    templates: NOTIFICATION_TEMPLATES[EDUCATION_NOTIFICATION_EVENTS.STATEMENT_DUE].parent,
+    variables: {
+      parentName: resolvedName,
+      studentName: studentName || '',
+      amount: Number(amount) || 0,
+      currency: 'ج.م',
+      portalUrl: resolvedUrl,
+    },
+    recipientPhone: parentPhone,
+    recipientName: resolvedName,
+    recipientType: 'CUSTOMER',
+    url: resolvedUrl,
+    pushFirst: false,
+    forceWhatsApp: true,
+  });
+}
+
 async function notifyRepeatedAbsence({
   companyId,
   customerId = null,
@@ -1423,6 +1473,7 @@ module.exports = {
   notifyExamResult,
   notifyAbsenceAlert,
   notifyRepeatedAbsence,
+  notifyStatementDue,
   notifyDemoDayRegistered,
   notifyDemoDayReminder,
   getFunnelStats,

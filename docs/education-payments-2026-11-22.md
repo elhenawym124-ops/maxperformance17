@@ -297,6 +297,17 @@
 - Parent portal: `GET /children/:studentId/statement` (scoped to the guardian's own child) supports the same PDF/Excel formats.
 - UI: "كشف" on each enrollment due row, plus "كشف حساب PDF / Excel" buttons in the parent child page header.
 
+## Phase 4 (part 22) — outstanding-balance WhatsApp reminders
+
+- `GET /education/finance/statement-due?months=12` lists students with an unpaid package balance (aggregated per student, packages included).
+- `POST /education/finance/statement-due/notify` sends the reminder to every parent with a balance; body `{ studentId }` targets a single student (no dedupe for that manual send).
+- Source of truth: `finalAmount` (falling back to package price) − `amountPaid` on active enrollments inside the window; only positive remainders count.
+- Message (`education_statement_due`): parent name, student, remaining amount and a **portal link** (`/parent/children/<id>`) — no unauthenticated file links.
+- Dedupe: one message per parent phone per 7 days via `whatsAppNotificationLog`.
+- Cron: daily 13:00 sweep across every company with active enrollments.
+- UI: "إشعار المتأخرات" button in the package-dues header with a confirmation and a sent/skipped/failed summary.
+
+
 
 
 

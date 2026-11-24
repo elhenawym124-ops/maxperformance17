@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle, CalendarClock, RefreshCw, Wallet } from "lucide-react";
-import { downloadStatement, fetchDues, setMemberDiscount } from "./api";
+import { downloadStatement, fetchDues, notifyStatementDue, setMemberDiscount } from "./api";
 import { EmptyState, StatusPill, formatDate, money } from "./shared";
 import type { DuesResponse } from "./types";
 
@@ -86,7 +86,31 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
       <section className="rounded-xl border border-border/70 bg-card overflow-hidden">
         <header className="px-4 py-3 border-b border-border/70 flex items-center justify-between gap-2">
           <h3 className="text-sm font-semibold text-foreground">{isEn ? "Package dues" : "مستحقات الباقات"}</h3>
-          {loading ? <RefreshCw className="w-3.5 h-3.5 text-muted-foreground animate-spin" /> : null}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={async () => {
+                if (!window.confirm(isEn
+                  ? "Send a WhatsApp statement reminder to every parent with an outstanding balance?"
+                  : "إرسال إشعار كشف حساب لكل ولي أمر عليه متبقي؟")) return;
+                try {
+                  const result = await notifyStatementDue({ months: 12 });
+                  window.alert(
+                    isEn
+                      ? `Sent ${result.sent} · skipped ${result.skipped} · failed ${result.failed}`
+                      : `تم إرسال ${result.sent} · تخطي ${result.skipped} · فشل ${result.failed}`
+                  );
+                  load();
+                } catch (e: any) {
+                  window.alert(e.message || (isEn ? "Failed to send reminders" : "فشل إرسال الإشعارات"));
+                }
+              }}
+              className="px-2.5 py-1 rounded-lg border border-border text-[11px] font-semibold text-foreground hover:bg-muted"
+            >
+              {isEn ? "Statement reminder" : "إشعار المتأخرات"}
+            </button>
+            {loading ? <RefreshCw className="w-3.5 h-3.5 text-muted-foreground animate-spin" /> : null}
+          </div>
         </header>
         {!loading && (data?.enrollments.length || 0) === 0 ? (
           <EmptyState title={isEn ? "No package dues" : "لا توجد مستحقات باقات"} />

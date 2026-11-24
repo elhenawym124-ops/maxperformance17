@@ -112,6 +112,23 @@ export const fetchCashierShifts = async (params: { page?: number; limit?: number
 export const fetchCockpit = (months = 6): Promise<FinanceCockpit> =>
   fetchJson(api(`finance/cockpit${query({ months })}`));
 
+export const fetchStatementDue = (months = 12): Promise<Array<{
+  studentId: string;
+  studentName: string;
+  parentName: string;
+  parentPhone?: string | null;
+  balance: number;
+  enrollments: number;
+  packages: string[];
+}>> => fetchJson(api(`finance/statement-due${query({ months })}`));
+
+export const notifyStatementDue = (payload: { studentId?: string; months?: number } = {}): Promise<{
+  detected?: number;
+  sent: number;
+  skipped: number;
+  failed: number;
+}> => sendJson(api("finance/statement-due/notify"), "POST", payload);
+
 export const downloadStatement = async (
   studentId: string,
   format: "pdf" | "excel" = "pdf",

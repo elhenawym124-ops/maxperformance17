@@ -27,6 +27,10 @@ router.get('/cockpit', requireDbPermission(CAN_VIEW), controller.getCockpit);
 // Student account statement (data + PDF/Excel export)
 router.get('/students/:studentId/statement', requireDbPermission(CAN_VIEW), controller.getStatement);
 router.get('/students/:studentId/statement/export', requireDbPermission(CAN_VIEW), controller.downloadStatement);
+
+// Outstanding-balance reminders (statement nudge)
+router.get('/statement-due', requireDbPermission(CAN_VIEW), controller.listStatementDue);
+router.post('/statement-due/notify', requireDbPermission('education.financials.collect'), controller.notifyStatementDue);
 router.get('/payments/:id/receipt', requireDbPermission(CAN_VIEW), controller.getReceipt);
 router.get('/payments/:id/pdf', requireDbPermission(CAN_VIEW), controller.downloadReceiptPdf);
 router.post('/payments/:id/send-receipt', requireDbPermission(CAN_VIEW), controller.sendReceipt);
