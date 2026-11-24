@@ -10,6 +10,8 @@ import {
 interface PixelHeaderBarProps {
   isPixelActive: boolean;
   isCapiActive: boolean;
+  isPixelConfigured?: boolean;
+  isCapiConfigured?: boolean;
   isSaving: boolean;
   isDirty: boolean;
   onSave: () => void;
@@ -20,6 +22,8 @@ interface PixelHeaderBarProps {
 export const PixelHeaderBar: React.FC<PixelHeaderBarProps> = ({
   isPixelActive,
   isCapiActive,
+  isPixelConfigured = false,
+  isCapiConfigured = false,
   isSaving,
   isDirty,
   onSave,
@@ -60,7 +64,7 @@ export const PixelHeaderBar: React.FC<PixelHeaderBarProps> = ({
                 }`}
               />
               <span className="font-mono text-[11px]">Browser:</span>
-              <span>{isPixelActive ? "نشط" : "معطل"}</span>
+              <span>{isPixelActive ? "نشط" : isPixelConfigured ? "غير مُتحقق" : "معطل"}</span>
             </span>
 
             <span
@@ -76,7 +80,7 @@ export const PixelHeaderBar: React.FC<PixelHeaderBarProps> = ({
                 }`}
               />
               <span className="font-mono text-[11px]">CAPI:</span>
-              <span>{isCapiActive ? "متصل" : "بحاجة لتوكن"}</span>
+              <span>{isCapiActive ? "متصل" : isCapiConfigured ? "غير مُتحقق" : "بحاجة لتوكن"}</span>
             </span>
 
             <span className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground border border-border dark:border-border">

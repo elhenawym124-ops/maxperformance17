@@ -540,6 +540,10 @@ export const FacebookPixelCockpit: React.FC = () => {
   const isCapiActive =
     settings.capiStatus === "active" ||
     (settings.capiStatus !== "error" && diagnostics?.capi?.verified === true);
+  const isPixelConfigured = Boolean(settings.facebookPixelEnabled && settings.facebookPixelId);
+  const isCapiConfigured = Boolean(
+    settings.facebookConvApiEnabled && settings.facebookConvApiToken
+  );
 
   return (
     <div className="w-full min-h-screen bg-muted dark:bg-muted flex flex-col antialiased">
@@ -547,6 +551,8 @@ export const FacebookPixelCockpit: React.FC = () => {
       <PixelHeaderBar
         isPixelActive={isPixelActive}
         isCapiActive={isCapiActive}
+        isPixelConfigured={isPixelConfigured}
+        isCapiConfigured={isCapiConfigured}
         isSaving={saving}
         isDirty={isDirty}
         onSave={handleSave}
