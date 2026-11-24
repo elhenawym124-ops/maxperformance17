@@ -307,6 +307,18 @@
 - Cron: daily 13:00 sweep across every company with active enrollments.
 - UI: "إشعار المتأخرات" button in the package-dues header with a confirmation and a sent/skipped/failed summary.
 
+## Phase 4 (part 23) — parent engagement dashboard
+
+- `GET /education/finance/engagement?months=3&minSample=5`:
+  - Funnel: messages, sent/delivered/read/failed with `deliveryRate` and `readRate`.
+  - Portal activation: guardians of active students vs those with a portal password, as a percentage.
+  - `byEventType`: volume + read rate per template (statement due, exam result, …) to see which message parents actually open.
+  - `byHour` + `bestHour`: the hour with the highest read rate, using a minimum sample so a single lucky message cannot win.
+  - `ignored`: parents with ≥3 messages and zero reads.
+- Rates return `null` (not `0%`) when there is no data, so a quiet week is not reported as failure.
+- UI: "تفاعل أولياء الأمور" tab with a 3/6/12-month selector, four KPIs (messages, read rate, activation, best hour), a per-type table and the never-reading list.
+
+
 
 
 

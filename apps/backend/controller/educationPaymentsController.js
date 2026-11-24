@@ -803,8 +803,24 @@ const recordPayment = async (req, res) => {
   }
 };
 
-const listStatementDue = async (req, res) => {
+const getEngagement = async (req, res) => {
   try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationEngagementService');
+    const data = await service.buildEngagement(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+      minSample: req.query.minSample,
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building engagement report:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب تفاعل أولياء الأمور' });
+  }
+};
+
+const listStatementDue = async (req, res) => {  try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -1720,6 +1736,7 @@ module.exports = {
   downloadStatement,
   listStatementDue,
   notifyStatementDue,
+  getEngagement,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

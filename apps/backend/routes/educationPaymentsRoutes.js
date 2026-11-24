@@ -31,6 +31,9 @@ router.get('/students/:studentId/statement/export', requireDbPermission(CAN_VIEW
 // Outstanding-balance reminders (statement nudge)
 router.get('/statement-due', requireDbPermission(CAN_VIEW), controller.listStatementDue);
 router.post('/statement-due/notify', requireDbPermission('education.financials.collect'), controller.notifyStatementDue);
+
+// Parent engagement (delivery funnel + activation)
+router.get('/engagement', requireDbPermission(CAN_VIEW), controller.getEngagement);
 router.get('/payments/:id/receipt', requireDbPermission(CAN_VIEW), controller.getReceipt);
 router.get('/payments/:id/pdf', requireDbPermission(CAN_VIEW), controller.downloadReceiptPdf);
 router.post('/payments/:id/send-receipt', requireDbPermission(CAN_VIEW), controller.sendReceipt);

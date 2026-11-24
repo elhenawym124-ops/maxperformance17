@@ -5,6 +5,7 @@ import type {
   DiscountReport,
   DuesResponse,
   EducationPayment,
+  EngagementReport,
   FinanceCockpit,
   MethodReport,
   PaymentsPagination,
@@ -111,6 +112,9 @@ export const fetchCashierShifts = async (params: { page?: number; limit?: number
 
 export const fetchCockpit = (months = 6): Promise<FinanceCockpit> =>
   fetchJson(api(`finance/cockpit${query({ months })}`));
+
+export const fetchEngagement = (months = 3): Promise<EngagementReport> =>
+  fetchJson(api(`finance/engagement${query({ months })}`));
 
 export const fetchStatementDue = (months = 12): Promise<Array<{
   studentId: string;

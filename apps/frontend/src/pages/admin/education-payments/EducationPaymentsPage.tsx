@@ -11,11 +11,12 @@ import DailyClosingTab from "./DailyClosingTab";
 import CouponsTab from "./CouponsTab";
 import CollectionRateTab from "./CollectionRateTab";
 import FinanceCockpitTab from "./FinanceCockpitTab";
+import EngagementTab from "./EngagementTab";
 import RecordPaymentModal from "./RecordPaymentModal";
 import ReceiptModal from "./ReceiptModal";
 import type { PaymentsSummary } from "./types";
 
-type TabKey = "ledger" | "dues" | "topups" | "shift" | "closing" | "coupons" | "collections" | "cockpit";
+type TabKey = "ledger" | "dues" | "topups" | "shift" | "closing" | "coupons" | "collections" | "cockpit" | "engagement";
 
 const EducationPaymentsPage: React.FC = () => {
   const { i18n } = useTranslation();
@@ -68,6 +69,7 @@ const EducationPaymentsPage: React.FC = () => {
     { key: "coupons", label: isEn ? "Discount codes" : "أكواد الخصم" },
     { key: "collections", label: isEn ? "Collection rate" : "نسبة التحصيل" },
     { key: "cockpit", label: isEn ? "Finance cockpit" : "النظرة المالية" },
+    { key: "engagement", label: isEn ? "Parent engagement" : "تفاعل أولياء الأمور" },
   ];
 
   return (
@@ -195,6 +197,7 @@ const EducationPaymentsPage: React.FC = () => {
       {tab === "coupons" ? <CouponsTab isEn={isEn} reloadKey={reloadKey} onChanged={refreshAll} /> : null}
       {tab === "collections" ? <CollectionRateTab isEn={isEn} reloadKey={reloadKey} /> : null}
       {tab === "cockpit" ? <FinanceCockpitTab isEn={isEn} reloadKey={reloadKey} /> : null}
+      {tab === "engagement" ? <EngagementTab isEn={isEn} reloadKey={reloadKey} /> : null}
 
       {recordOpen ? (
         <RecordPaymentModal

@@ -376,3 +376,23 @@ export interface FinanceCockpit {
   alerts: Array<{ severity: "HIGH" | "MEDIUM" | "LOW"; code: string; message: string }>;
   readiness: { collections: boolean; discounts: boolean; variances: boolean };
 }
+
+export interface EngagementReport {
+  period: { from: string; to: string; months: number };
+  summary: {
+    messages: number;
+    sent: number;
+    delivered: number;
+    read: number;
+    failed: number;
+    readRate: number | null;
+    deliveryRate: number | null;
+    guardians: number;
+    activated: number;
+    activationRate: number | null;
+  };
+  byEventType: Array<{ eventType: string; total: number; read: number; failed: number; readRate: number | null }>;
+  byHour: Array<{ hour: number; total: number; read: number; readRate: number | null }>;
+  bestHour: { hour: number; readRate: number | null; total: number } | null;
+  ignored: { count: number; phones: Array<{ phone: string; total: number; read: number }> };
+}
