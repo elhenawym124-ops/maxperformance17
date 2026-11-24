@@ -21,6 +21,7 @@ import { EducationFunnelTab } from "./EducationFunnelTab";
 import { EducationFinanceTab } from "./EducationFinanceTab";
 import { EducationGrowthTab } from "./EducationGrowthTab";
 import { EducationAttendanceTab } from "./EducationAttendanceTab";
+import { EducationGroupPnlTab } from "./EducationGroupPnlTab";
 import { EducationMissedSessionsTab } from "./EducationMissedSessionsTab";
 import {
   EducationAttributionData,
@@ -37,7 +38,7 @@ export default function EducationReportsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
   const [activeTab, setActiveTab] = useState<ReportTab>(
-    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : tabParam === "missed" ? "missed" : tabParam === "growth" ? "growth" : tabParam === "attendance" ? "attendance" : "campaigns"
+    tabParam === "funnel" ? "funnel" : tabParam === "finance" ? "finance" : tabParam === "missed" ? "missed" : tabParam === "growth" ? "growth" : tabParam === "attendance" ? "attendance" : tabParam === "group-pnl" ? "group-pnl" : "campaigns"
   );
   const [period, setPeriod] = useState<ReportPeriod>("all");
 
@@ -237,6 +238,19 @@ export default function EducationReportsPage() {
             <CalendarCheck className="w-3.5 h-3.5 text-primary" />
             <span>{isEn ? "Attendance" : "الحضور والالتزام"}</span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => handleTabChange("group-pnl")}
+            className={`inline-flex items-center gap-2 py-2.5 px-0.5 text-xs font-semibold border-b-2 transition-all ${
+              activeTab === "group-pnl"
+                ? "border-primary text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Wallet className="w-3.5 h-3.5 text-warning" />
+            <span>{isEn ? "Group profitability" : "ربحية المجموعات"}</span>
+          </button>
         </div>
 
         {/* Error Banner */}
@@ -278,6 +292,7 @@ export default function EducationReportsPage() {
 
         {activeTab === "growth" && <EducationGrowthTab isEn={isEn} />}
         {activeTab === "attendance" && <EducationAttendanceTab isEn={isEn} />}
+        {activeTab === "group-pnl" && <EducationGroupPnlTab isEn={isEn} />}
 
         {/* Tab 4: Missed sessions */}
         {activeTab === "missed" && (

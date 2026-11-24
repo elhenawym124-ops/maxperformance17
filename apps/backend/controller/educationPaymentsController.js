@@ -803,8 +803,23 @@ const recordPayment = async (req, res) => {
   }
 };
 
-const getAttendancePaymentLink = async (req, res) => {
+const getGroupPnl = async (req, res) => {
   try {
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
+
+    const service = require('../services/educationGroupPnlService');
+    const data = await service.buildGroupPnl(getSharedPrismaClient(), companyId, {
+      months: req.query.months,
+    });
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('Error building group P&L:', error);
+    res.status(500).json({ success: false, error: 'حدث خطأ في جلب ربحية المجموعات' });
+  }
+};
+
+const getAttendancePaymentLink = async (req, res) => {  try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
@@ -1753,6 +1768,7 @@ module.exports = {
   notifyStatementDue,
   getEngagement,
   getAttendancePaymentLink,
+  getGroupPnl,
   getDiscountReport,
   recordPayment,
   setMemberDiscount,

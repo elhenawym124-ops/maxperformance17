@@ -37,6 +37,7 @@ router.get('/engagement', requireDbPermission(CAN_VIEW), controller.getEngagemen
 
 // Attendance × collection correlation
 router.get('/attendance-link', requireDbPermission(CAN_VIEW), controller.getAttendancePaymentLink);
+router.get('/group-pnl', requireDbPermission(CAN_VIEW), controller.getGroupPnl);
 
 // Win-back worklist for at-risk students
 const winbackController = require('../controller/educationWinbackController');

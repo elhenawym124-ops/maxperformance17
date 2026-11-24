@@ -362,6 +362,17 @@
 - Rates return `null` when nothing was opened in the window.
 - UI: "أداء المتابعة" card in the finance cockpit (closed, close rate, average hours, recovered) with the staff leaderboard.
 
+## Phase 4 (part 28) — group profitability (P&L)
+
+- `GET /education/finance/group-pnl?months=3`:
+  - Per group: collected (payments net of reversals), dues (active members after member discounts), teacher cost, net, margin, members/capacity with occupancy %, completed sessions.
+  - Teacher cost follows the group's own rule: `PERCENTAGE` → rate% of collected, `FIXED` → the amount once, `PER_SESSION` → rate × completed group sessions.
+  - Summary: groups, revenue, dues, teacher cost, net, portfolio occupancy, margin and `lossMaking` count.
+  - Groups are sorted by **net ascending** so loss-makers surface first.
+- Percentages return `null` when the denominator is zero (no revenue, no capacity).
+- UI: "ربحية المجموعات" tab in education reports with a 1/3/6-month selector, KPI strip, a loss warning and a table (members/capacity, collected, dues, teacher, net).
+
+
 
 
 

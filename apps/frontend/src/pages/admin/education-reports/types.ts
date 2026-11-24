@@ -113,7 +113,7 @@ export interface InsightsData {
 }
 
 export type ReportPeriod = "all" | "30d" | "7d" | "today";
-export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance" | "missed" | "growth" | "attendance";
+export type ReportTab = "campaigns" | "funnel" | "demoday" | "finance" | "missed" | "growth" | "attendance" | "group-pnl";
 
 export interface MissedSessionRow {
   id: string;
@@ -224,5 +224,39 @@ export interface AttendanceReport {
     excused: number;
     rate: number | null;
     atRisk: boolean;
+  }>;
+}
+
+export interface GroupPnlReport {
+  period: { from: string; to: string; months: number };
+  summary: {
+    groups: number;
+    revenue: number;
+    dues: number;
+    teacherCost: number;
+    net: number;
+    members: number;
+    capacity: number;
+    occupancy: number | null;
+    margin: number | null;
+    lossMaking: number;
+  };
+  groups: Array<{
+    groupId: string;
+    name: string;
+    teacherId?: string | null;
+    teacherName?: string | null;
+    feeAmount: number;
+    feeType?: string | null;
+    members: number;
+    capacity: number;
+    occupancy: number | null;
+    sessions: number;
+    revenue: number;
+    dues: number;
+    collectedTotal: number;
+    teacherCost: number;
+    net: number;
+    margin: number | null;
   }>;
 }
