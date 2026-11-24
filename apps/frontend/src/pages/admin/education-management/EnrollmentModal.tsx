@@ -470,12 +470,17 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
               className={INPUT_CLS}
               value={form.packageId}
               onChange={(e) => {
+                const nextPackageId = e.target.value;
+                const picked = packages.find((p) => p.id === nextPackageId);
                 setForm({
                   ...form,
-                  packageId: e.target.value,
+                  packageId: nextPackageId,
                   teacherId: "",
                 });
                 setGroupId("");
+                // مدة الليفل بالشهور تحدد عدد الأقساط الشهرية تلقائياً
+                const months = Number(picked?.durationMonths || 0);
+                if (months >= 2) setInstallmentCount(Math.min(12, months));
               }}
               disabled={!!enrollment?.id}
             >
@@ -488,6 +493,13 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                   </option>
                 ))}
             </select>
+            {selectedPackage?.durationMonths ? (
+              <p className="text-[11px] text-muted-foreground mt-1">
+                {isEn
+                  ? `Level duration: ${selectedPackage.durationMonths} months — installments default to that.`
+                  : `مدة الليفل: ${selectedPackage.durationMonths} شهور — وعدد الأقساط الافتراضي بيتبعها.`}
+              </p>
+            ) : null}
           </div>
 
           {/* Group Selection — the teacher and branch come from the group */}

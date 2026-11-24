@@ -40,6 +40,7 @@ export const PackageModal: React.FC<PackageModalProps> = ({
     sessionDuration: 60,
     price: 0,
     levelNumber: null as number | null,
+    durationMonths: null as number | null,
     ageFrom: null as number | null,
     ageTo: null as number | null,
     packageType: "GROUP" as "GROUP" | "PRIVATE",
@@ -225,8 +226,8 @@ export const PackageModal: React.FC<PackageModalProps> = ({
             </div>
           </div>
 
-          {/* Level sequence & age range */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          {/* Level sequence, duration & age range */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <div className="space-y-1">
               <label className="text-xs font-medium text-foreground">
                 {isEn ? "Level Number" : "رقم الليفل"}
@@ -239,6 +240,22 @@ export const PackageModal: React.FC<PackageModalProps> = ({
                 value={form.levelNumber ?? ""}
                 onChange={(e) =>
                   setForm({ ...form, levelNumber: e.target.value ? Number(e.target.value) : null })
+                }
+                placeholder={isEn ? "e.g. 3" : "مثال: 3"}
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-foreground">
+                {isEn ? "Duration (months)" : "المدة (شهور)"}
+              </label>
+              <input
+                type="number"
+                min={1}
+                max={24}
+                className={INPUT_CLS}
+                value={form.durationMonths ?? ""}
+                onChange={(e) =>
+                  setForm({ ...form, durationMonths: e.target.value ? Number(e.target.value) : null })
                 }
                 placeholder={isEn ? "e.g. 3" : "مثال: 3"}
               />

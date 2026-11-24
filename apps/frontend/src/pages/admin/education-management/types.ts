@@ -30,6 +30,7 @@ export interface EducationPackage {
   sessionDuration: number;
   price: number;
   levelNumber?: number | null;
+  durationMonths?: number | null;
   ageFrom?: number | null;
   ageTo?: number | null;
   packageType?: "GROUP" | "PRIVATE";

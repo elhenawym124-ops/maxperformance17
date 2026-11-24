@@ -42,7 +42,7 @@ const create = async (req, res) => {
     const companyId = resolveCompanyId(req);
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
-    let { subjectId, name, description, hoursCount, sessionDuration, price, levelNumber, ageFrom, ageTo, packageType, scheduleSlots, timetable } = req.body;
+    let { subjectId, name, description, hoursCount, sessionDuration, price, levelNumber, durationMonths, ageFrom, ageTo, packageType, scheduleSlots, timetable } = req.body;
     if (!name || !name.trim()) return res.status(400).json({ success: false, error: 'اسم الباقة مطلوب' });
     if (!hoursCount || hoursCount <= 0) return res.status(400).json({ success: false, error: 'عدد الساعات يجب أن يكون أكبر من صفر' });
 
@@ -88,6 +88,7 @@ const create = async (req, res) => {
         sessionDuration: sessionDuration ? Number(sessionDuration) : 60,
         price: Number(price) || 0,
         levelNumber: levelNumber ? Number(levelNumber) : null,
+        durationMonths: durationMonths ? Number(durationMonths) : null,
         ageFrom: ageFrom ? Number(ageFrom) : null,
         ageTo: ageTo ? Number(ageTo) : null,
         packageType: packageType || 'GROUP',
@@ -121,7 +122,7 @@ const update = async (req, res) => {
     if (!companyId) return res.status(403).json({ success: false, error: 'غير مصرح' });
 
     const { id } = req.params;
-    const { subjectId, name, description, hoursCount, sessionDuration, price, isActive, levelNumber, ageFrom, ageTo, packageType, scheduleSlots, timetable } = req.body;
+    const { subjectId, name, description, hoursCount, sessionDuration, price, isActive, levelNumber, durationMonths, ageFrom, ageTo, packageType, scheduleSlots, timetable } = req.body;
 
     const existing = await getSharedPrismaClient().educationPackage.findFirst({ where: { id, companyId } });
     if (!existing) return res.status(404).json({ success: false, error: 'الباقة غير موجودة' });
@@ -149,6 +150,7 @@ const update = async (req, res) => {
         ...(subjectId ? { subjectId } : {}),
         name, description, hoursCount, sessionDuration, price, isActive,
         ...(levelNumber !== undefined ? { levelNumber: levelNumber === null ? null : Number(levelNumber) } : {}),
+        ...(durationMonths !== undefined ? { durationMonths: durationMonths === null ? null : Number(durationMonths) } : {}),
         ...(ageFrom !== undefined ? { ageFrom: ageFrom === null ? null : Number(ageFrom) } : {}),
         ...(ageTo !== undefined ? { ageTo: ageTo === null ? null : Number(ageTo) } : {}),
         ...(packageType !== undefined ? { packageType } : {}),

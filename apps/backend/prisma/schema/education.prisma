@@ -29,6 +29,7 @@ model EducationPackage {
   sessionDuration Int?     /// Suggested minutes per session
   price           Float
   levelNumber     Int?     /// ترتيب المستوى داخل المسار (1..15) — يسمح بمعرفة الليفل التالي
+  durationMonths  Int?     /// مدة الليفل بالشهور (مثال: 3) — تُستخدم كعدد أقساط افتراضي
   ageFrom         Int?     /// أقل سن مناسب للمستوى
   ageTo           Int?     /// أكبر سن مناسب للمستوى
   packageType     String?  @default("GROUP") /// GROUP, PRIVATE
