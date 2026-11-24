@@ -523,6 +523,27 @@ const FacebookAdsDashboard: React.FC = () => {
                 ? "Select an account above to inspect campaigns, spend, and intelligence signals."
                 : "اختر حسابك الإعلاني من القائمة العلوية لعرض الحملات والنتائج الحية، أو قم بربط حساب جديد."}
             </p>
+
+            {/* الحملات المحلية المُدخلة يدويًا تبقى مرئية حتى قبل ربط حساب Meta */}
+            {campaigns.length > 0 && (
+              <div className="mt-4 text-start">
+                <p className="mb-1.5 text-[11px] font-bold text-foreground">
+                  {isEn
+                    ? `Local campaigns (${campaigns.length}) — metrics need a connected ad account`
+                    : `حملات محلية مسجّلة (${campaigns.length}) — الأرقام الحية تحتاج ربط حساب إعلاني`}
+                </p>
+                <ul className="divide-y divide-border/70 rounded-lg border border-border/70">
+                  {campaigns.slice(0, 6).map((c: any) => (
+                    <li key={c.id} className="flex items-center justify-between gap-2 px-2.5 py-1.5 text-[11px]">
+                      <span className="truncate text-foreground">{c.name}</span>
+                      <span className="shrink-0 rounded border border-border/70 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+                        {c.status || "—"}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
               <Link
                 to="/advertising/facebook-ads/connection"
