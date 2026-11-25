@@ -11,7 +11,6 @@ import OrderCancellationReturnBanner from "./OrderCancellationReturnBanner";
 import OrderConfirmationDistributionCard from "./OrderConfirmationDistributionCard";
 import OrderActivityLog from "./OrderActivityLog";
 import OrderScheduledDeliveryCard from "./OrderScheduledDeliveryCard";
-import OrderDeliveryProofCard from "./OrderDeliveryProofCard";
 import { OrderDetailsType } from "../types";
 
 export interface OrderDetailsSidebarProps {
@@ -161,8 +160,6 @@ export const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
       {showOrderAttributionCard && <OrderAttributionCard order={order} />}
 
       <OrderReturnCollectionFeeCard order={order} />
-
-      <OrderDeliveryProofCard order={order} />
 
       {(order as any)?.walletPaymentProof ? (
         <WalletPaymentProofCard
