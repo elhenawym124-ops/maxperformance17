@@ -12,6 +12,7 @@ const { serializeTurboMetadata } = require('../utils/turbo/turboMetadata');
 const { VALID_ORDER_STATUS_ENUM } = require('../utils/orderStatusEnum');
 const { PAID_PAYMENT_STATUSES } = require('../utils/orderDiscountUtils');
 const { logOrderEvent, ORDER_EVENT_ACTIONS } = require('./orderEventLogger');
+const turboAiAreaResolver = require('./turbo/turboAiAreaResolver');
 
 const parseOrderMetadata = (raw) => {
   if (!raw) return {};
@@ -3698,7 +3699,7 @@ class OrderService {
       // trackingNumber, turboShipmentId, and the in-flight lock.
 
       const TurboService = require('./turboService');
-      const { resolveAndApplyTurboLocation, isGenericOrEmptyLocation } = require('./turbo/turboAiAreaResolver');
+      const { resolveAndApplyTurboLocation, isGenericOrEmptyLocation } = turboAiAreaResolver;
       const turboService = new TurboService(turboApiKey, companyId);
       const orderData = turboService.formatOrderForTurbo(order, order.customer, order.orderItems);
 
@@ -4047,7 +4048,7 @@ class OrderService {
       } catch {}
 
       const TurboService = require('./turboService');
-      const { resolveAndApplyTurboLocation, isGenericOrEmptyLocation } = require('./turbo/turboAiAreaResolver');
+      const { resolveAndApplyTurboLocation, isGenericOrEmptyLocation } = turboAiAreaResolver;
       const turboService = new TurboService(turboApiKey, companyId);
       const guestOrderData = turboService.formatOrderForTurbo({
         ...guest,
