@@ -1,0 +1,454 @@
+{
+  "id": "tpl-074-sabah-cafe",
+  "name": "Sabah — فطار وقهوة",
+  "description": "قالب كافيه بمنطق الفطار الصبح: شريط عرض، هيرو نصين بعرض الشهر، فئات كتالوج، باقات فطار، شبكة أصناف، شريط خدمات، صور عملاء ومجلة قهوة. أخضر مريمية وتراكوتا على كريمي — مبني لكافيه بيبيع فطار وقهوة مختصة أكتر من الوجبات.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "152 26% 28%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "34 56% 92%",
+      "secondaryForeground": "22 30% 18%",
+      "accent": "20 62% 50%",
+      "accentForeground": "0 0% 100%",
+      "background": "40 46% 97%",
+      "foreground": "24 22% 14%",
+      "muted": "38 34% 93%",
+      "mutedForeground": "24 12% 40%",
+      "border": "36 22% 86%",
+      "card": "0 0% 100%",
+      "cardForeground": "24 22% 14%",
+      "ring": "20 62% 50%"
+    },
+    "typography": {
+      "headingFont": "Almarai, Cairo, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1.25rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1.25rem",
+      "boxShadow": "0 6px 22px hsl(20 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(20 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | SABAH",
+    "description": "قالب كافيه بمنطق الفطار الصبح: شريط عرض، هيرو نصين بعرض الشهر، فئات كتالوج، باقات فطار، شبكة أصناف، شريط خدمات، صور عملاء ومجلة قهوة. أخضر مريمية وتراكوتا على كريمي — مبني لكافيه بيبيع فطار وقهوة مختصة أكتر من الوجبات."
+  },
+  "preview": {
+    "colors": [
+      "152 26% 28%",
+      "20 62% 50%",
+      "40 46% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-074-sabah-cafe/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "SABAH",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "فطار لحد ١٢ · قهوة مختصة · توصيل قبل ١٠",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "المنيو",
+        "to": "/shop"
+      },
+      {
+        "label": "الفطار",
+        "to": "/shop?category=breakfast"
+      },
+      {
+        "label": "القهوة",
+        "to": "/shop?category=coffee"
+      },
+      {
+        "label": "الباقات",
+        "to": "/collections"
+      },
+      {
+        "label": "المجلة",
+        "to": "/collections"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "SABAH — قالب كافيه بمنطق الفطار الصبح.",
+    "copyrightText": "© 2026 SABAH",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "المنيو",
+            "to": "/shop"
+          },
+          {
+            "label": "الفطار",
+            "to": "/shop?category=breakfast"
+          },
+          {
+            "label": "القهوة",
+            "to": "/shop?category=coffee"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "sale-signal",
+          "settings": {
+            "badge": "خصم ٢٥%",
+            "message": "على باقات الفطار لحد آخر الشهر — قهوة مختصة مع كل باقة",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "split-panel",
+          "settings": {
+            "eyebrow": "عرض الشهر",
+            "title": "فطار البيت مع قهوة مختصة",
+            "subtitle": "باقات فطار لكل الصبح — بن محمّص عندنا واللبن بلدي، وتوصيل قبل ١٠ الصبح.",
+            "ctaText": "شوف الباقات",
+            "ctaLink": "/collections",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-074-sabah-cafe/hero.jpg",
+            "panelImage": "/assets/themes/tpl-074-sabah-cafe/hero.jpg",
+            "highlights": [
+              {
+                "label": "الفطار",
+                "value": "لحد ١٢"
+              },
+              {
+                "label": "القهوة",
+                "value": "مختصة"
+              },
+              {
+                "label": "التوصيل",
+                "value": "قبل ١٠"
+              }
+            ],
+            "panelEyebrow": "عرض الشهر",
+            "panelTitle": "فطار البيت مع قهوة مختصة",
+            "panelSubtitle": "باقات فطار لكل الصبح — بن محمّص عندنا واللبن بلدي، وتوصيل قبل ١٠ الصبح.",
+            "panelMetricValue": "بن محمّص عندنا"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "editorial-categories",
+          "settings": {
+            "title": "فئات الفطار",
+            "subtitle": "فطار · سندوتشات · قهوة · حلويات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "category-promo",
+          "settings": {
+            "badge": "عروض",
+            "title": "بوكسات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "باقة ١",
+                "title": "فطار كامل + قهوة",
+                "subtitle": "بيض وجبن وعيش بلدي مع كوب قهوة مختصة",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "١٢٠ ج.م"
+              },
+              {
+                "label": "باقة ٢",
+                "title": "فطار الشريكين",
+                "subtitle": "باقتين فطار + ٢ قهوة — بسعر أوفر",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "٢١٠ ج.م"
+              },
+              {
+                "label": "باقة ٣",
+                "title": "فطار المكتب",
+                "subtitle": "٤ باقات فطار مع ٤ قهوة — تغليف منفصل",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "٣٩٠ ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "من الكافيه",
+            "title": "أصناف بتتباع كل صبح",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "service-clarity",
+          "settings": {
+            "title": "ليه تفطر عندنا",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "فطار لحد ١٢",
+                "description": "بنقدّم الفطار طول الصبح — مش بيفوتك"
+              },
+              {
+                "title": "بن محمّص عندنا",
+                "description": "تحميص أسبوعي — تاريخ التحميص على الكيس"
+              },
+              {
+                "title": "تغليف يحافظ",
+                "description": "أكياس حافظة للحرارة وعلب مقاومة للتسريب"
+              },
+              {
+                "title": "دفع عند الاستلام",
+                "description": "كاش أو إنستاباي — والفاتورة مع الطلب"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "صبح عند الناس",
+            "subtitle": "صور من أوردرات الصبح — من غير فلتر",
+            "handle": "@sabah.cafe",
+            "images": [
+              "/assets/themes/tpl-074-sabah-cafe/aisle-1.jpg",
+              "/assets/themes/tpl-074-sabah-cafe/aisle-2.jpg",
+              "/assets/themes/tpl-074-sabah-cafe/hero.jpg"
+            ]
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "badge": "المجلة",
+            "title": "من دفتر الكافيه",
+            "subtitle": "كل نصيحة مربوطة بصنف في المنيو",
+            "items": [
+              {
+                "tag": "وصفة",
+                "title": "فطار مصري في ١٠ دقايق",
+                "excerpt": "بيض بالطماطم مع عيش بلدي — نفس الطريقة اللي بنعملها.",
+                "image": "/assets/themes/tpl-074-sabah-cafe/aisle-1.jpg",
+                "link": "/shop?category=breakfast"
+              },
+              {
+                "tag": "قهوة",
+                "title": "إزاي تختار تحميصك",
+                "excerpt": "فاتح ولا غامق؟ الفرق في الحموضة والجسم.",
+                "image": "/assets/themes/tpl-074-sabah-cafe/aisle-2.jpg",
+                "link": "/shop?category=coffee"
+              },
+              {
+                "tag": "نصيحة",
+                "title": "بنحفظ الفطار سخن",
+                "excerpt": "٣ حيل بسيطة تخلي الأوردر يوصل زي ما طلع من المطبخ.",
+                "image": "/assets/themes/tpl-074-sabah-cafe/hero.jpg",
+                "link": "/shop"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "minimal",
+          "settings": {
+            "title": "وصفة الشهر في بريدك",
+            "subtitle": "رسالة واحدة كل شهر: وصفة فطار وقهوة جديدة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المنيو",
+            "subtitle": "فطار · قهوة · حلويات مخبوزة",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "menu-quick-order"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "pairing-rail"
+        },
+        {
+          "type": "related-products",
+          "variant": "editorial"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "editorial",
+          "settings": {
+            "title": "سلة الفطار",
+            "subtitle": "راجع الأصناف والباقات — التوصيل قبل ١٠.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "فئات الفطار",
+            "subtitle": "فطار · سندوتشات · قهوة · حلويات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن طبق أو حجز أو ميعاد توصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

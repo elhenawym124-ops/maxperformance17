@@ -1,0 +1,447 @@
+{
+  "id": "tpl-075-layali-dining",
+  "name": "Layali — عشاء شرقي",
+  "description": "قالب عشاء شرقي بمنطق السفرة الكبيرة: شريط مناسب، هيرو بوتيك، فئات حسب المناسبة، شبكة أطباق، شريط ثقة، صور عملاء، تابات أطباق وتقييمات. نبيتي وذهبي على عاجي دافي — مبني لمطعم بيستقبل عزومات وحجوزات أكتر من أوردرات فردية.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "346 44% 22%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "38 44% 90%",
+      "secondaryForeground": "346 40% 18%",
+      "accent": "38 64% 46%",
+      "accentForeground": "30 40% 12%",
+      "background": "36 40% 96%",
+      "foreground": "346 24% 12%",
+      "muted": "36 26% 92%",
+      "mutedForeground": "346 10% 38%",
+      "border": "34 22% 84%",
+      "card": "0 0% 100%",
+      "cardForeground": "346 24% 12%",
+      "ring": "38 64% 46%"
+    },
+    "typography": {
+      "headingFont": "El Messiri, Cairo, sans-serif",
+      "bodyFont": "Almarai, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.75rem",
+      "buttonRadius": "0.5rem"
+    },
+    "productCard": {
+      "borderRadius": "0.75rem",
+      "boxShadow": "0 6px 22px hsl(20 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(20 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | LAYALI",
+    "description": "قالب عشاء شرقي بمنطق السفرة الكبيرة: شريط مناسب، هيرو بوتيك، فئات حسب المناسبة، شبكة أطباق، شريط ثقة، صور عملاء، تابات أطباق وتقييمات. نبيتي وذهبي على عاجي دافي — مبني لمطعم بيستقبل عزومات وحجوزات أكتر من أوردرات فردية."
+  },
+  "preview": {
+    "colors": [
+      "346 44% 22%",
+      "38 64% 46%",
+      "36 40% 96%"
+    ],
+    "imageUrl": "/assets/themes/tpl-075-layali-dining/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "LAYALI",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "حجز طاولات · قوائم عشاء للعزومات · توصيل للمناسبات",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "المنيو",
+        "to": "/shop"
+      },
+      {
+        "label": "الأطباق",
+        "to": "/shop?category=mains"
+      },
+      {
+        "label": "العزومات",
+        "to": "/collections"
+      },
+      {
+        "label": "الحجز",
+        "to": "/contact"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "editorial-soft",
+    "description": "LAYALI — قالب عشاء شرقي بمنطق السفرة الكبيرة.",
+    "copyrightText": "© 2026 LAYALI",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "المنيو",
+            "to": "/shop"
+          },
+          {
+            "label": "الأطباق",
+            "to": "/shop?category=mains"
+          },
+          {
+            "label": "العزومات",
+            "to": "/collections"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "standard",
+          "settings": {
+            "badge": "موسم العزومات",
+            "message": "قوائم عشاء لـ٨ و١٢ فرد — الحجز قبل ٤٨ ساعة",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "boutique-muse",
+          "settings": {
+            "eyebrow": "تجربة العشاء",
+            "title": "سفرة شرقية بتلمس التفاصيل",
+            "subtitle": "أطباق بيتي على نار هادية، طاولة مجهزة، وخدمة بتفهم المناسبة — للحجز والطلبات الكبيرة.",
+            "ctaText": "شوف المنيو",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-075-layali-dining/hero.jpg",
+            "panelImage": "/assets/themes/tpl-075-layali-dining/hero.jpg",
+            "highlights": [
+              {
+                "label": "المناسبة",
+                "value": "عشاء عائلي"
+              },
+              {
+                "label": "الطاولة",
+                "value": "مجهزة"
+              },
+              {
+                "label": "الحجز",
+                "value": "مسبق"
+              }
+            ],
+            "panelEyebrow": "تجربة العشاء",
+            "panelTitle": "سفرة شرقية بتلمس التفاصيل",
+            "panelSubtitle": "أطباق بيتي على نار هادية، طاولة مجهزة، وخدمة بتفهم المناسبة — للحجز والطلبات الكبيرة.",
+            "panelMetricValue": "حجز مسبق"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "occasion-ribbon",
+          "settings": {
+            "title": "حسب المناسبة",
+            "subtitle": "فرح · عزومة · عشاء عائلي · سهرة",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "من المطبخ",
+            "title": "أطباق السفرة",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "trust-strip",
+          "settings": {
+            "title": "ليه العشاء عندنا",
+            "subtitle": "كل تفصيلة مكتوبة قبل الحجز",
+            "items": [
+              {
+                "title": "طاولة مجهزة",
+                "description": "أدوات تقديم وحافظات حرارة للعزومات"
+              },
+              {
+                "title": "أطباق على نار هادية",
+                "description": "الطبيخ بياخد وقته — مفيش تسريع"
+              },
+              {
+                "title": "قوائم للأعداد",
+                "description": "قائمة ٨ و١٢ فرد بالسعر النهائي قبل الحجز"
+              },
+              {
+                "title": "حجز مؤكد",
+                "description": "بنأكد الطاولة والمنيو على واتساب قبل الميعاد"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social-gallery",
+          "variant": "grid",
+          "settings": {
+            "badge": "من عملائنا",
+            "title": "سفرة عملائنا",
+            "subtitle": "صور من عزومات حقيقية — بإذن أصحابها",
+            "handle": "@layali.dining",
+            "images": [
+              "/assets/themes/tpl-075-layali-dining/aisle-1.jpg",
+              "/assets/themes/tpl-075-layali-dining/hero.jpg",
+              "/assets/themes/tpl-075-layali-dining/aisle-2.jpg"
+            ]
+          }
+        },
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الأطباق",
+            "title": "أطباق السفرة",
+            "subtitle": "اختار نوع الطبق",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "رئيسية",
+                "title": "أطباق رئيسية",
+                "subtitle": "لحم · فراخ · سمك",
+                "image": "/assets/themes/tpl-075-layali-dining/aisle-1.jpg",
+                "link": "/shop?category=mains"
+              },
+              {
+                "label": "مقبلات",
+                "title": "مقبلات ومازة",
+                "subtitle": "متبل · ورق عنب · سلطات",
+                "image": "/assets/themes/tpl-075-layali-dining/aisle-2.jpg",
+                "link": "/shop?category=starters"
+              },
+              {
+                "label": "حلويات",
+                "title": "حلويات شرقية",
+                "subtitle": "بسبوسة · أم علي · كنافة",
+                "image": "/assets/themes/tpl-075-layali-dining/hero.jpg",
+                "link": "/shop?category=desserts"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "editorial-strip",
+          "settings": {
+            "title": "قائمة الموسم في بريدك",
+            "subtitle": "رسالة واحدة كل شهر: أطباق الموسم وقوائم العزومات.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المنيو",
+            "subtitle": "أطباق رئيسية · مقبلات · حلويات",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "menu-quick-order"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "editorial"
+        },
+        {
+          "type": "related-products",
+          "variant": "graceful-related"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "editorial",
+          "settings": {
+            "title": "سلة السفرة",
+            "subtitle": "راجع الأطباق والعدد — قوائم العزومات بتتأكد على واتساب.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "boutique-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "collection-tab",
+          "variant": "pills",
+          "settings": {
+            "badge": "الأطباق",
+            "title": "أطباق السفرة",
+            "subtitle": "اختار نوع الطبق",
+            "ctaText": "شوف القسم",
+            "ctaLink": "/collections",
+            "columns": 3,
+            "tabs": [
+              {
+                "label": "رئيسية",
+                "title": "أطباق رئيسية",
+                "subtitle": "لحم · فراخ · سمك",
+                "image": "/assets/themes/tpl-075-layali-dining/aisle-1.jpg",
+                "link": "/shop?category=mains"
+              },
+              {
+                "label": "مقبلات",
+                "title": "مقبلات ومازة",
+                "subtitle": "متبل · ورق عنب · سلطات",
+                "image": "/assets/themes/tpl-075-layali-dining/aisle-2.jpg",
+                "link": "/shop?category=starters"
+              },
+              {
+                "label": "حلويات",
+                "title": "حلويات شرقية",
+                "subtitle": "بسبوسة · أم علي · كنافة",
+                "image": "/assets/themes/tpl-075-layali-dining/hero.jpg",
+                "link": "/shop?category=desserts"
+              }
+            ]
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن طبق أو حجز أو ميعاد توصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

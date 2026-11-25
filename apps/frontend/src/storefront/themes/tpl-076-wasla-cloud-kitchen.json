@@ -1,0 +1,510 @@
+{
+  "id": "tpl-076-wasla-cloud-kitchen",
+  "name": "Wasla — مطبخ سحابي",
+  "description": "قالب مطبخ سحابي أصلي بمنطق «٤ مطابخ في مطبخ واحد»: هيرو سرعة، مخطّط وجبة، موزايك بوكسات، فئات ماركات، شبكة أطباق، عروض يومية، تقييمات وشريط نظام. أحمر طلب وأصفر سريع على أبيض — مبني لمطبخ سحابي بيطلّع ٤ براندات من مكان واحد.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "8 78% 46%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "45 96% 92%",
+      "secondaryForeground": "20 30% 14%",
+      "accent": "45 96% 52%",
+      "accentForeground": "20 40% 10%",
+      "background": "0 0% 100%",
+      "foreground": "20 18% 10%",
+      "muted": "30 22% 95%",
+      "mutedForeground": "20 10% 40%",
+      "border": "24 16% 88%",
+      "card": "0 0% 100%",
+      "cardForeground": "20 18% 10%",
+      "ring": "45 96% 52%"
+    },
+    "typography": {
+      "headingFont": "IBM Plex Sans Arabic, Cairo, sans-serif",
+      "bodyFont": "IBM Plex Sans Arabic, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1rem",
+      "boxShadow": "0 6px 22px hsl(20 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(20 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | WASLA",
+    "description": "قالب مطبخ سحابي أصلي بمنطق «٤ مطابخ في مطبخ واحد»: هيرو سرعة، مخطّط وجبة، موزايك بوكسات، فئات ماركات، شبكة أطباق، عروض يومية، تقييمات وشريط نظام. أحمر طلب وأصفر سريع على أبيض — مبني لمطبخ سحابي بيطلّع ٤ براندات من مكان واحد."
+  },
+  "preview": {
+    "colors": [
+      "8 78% 46%",
+      "45 96% 52%",
+      "0 0% 100%"
+    ],
+    "imageUrl": "/assets/themes/tpl-076-wasla-cloud-kitchen/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "WASLA",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "٤ براندات من مطبخ واحد · توصيل ٣٥ دقيقة · متابعة أوردر لحظة بلحظة",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "المنيو",
+        "to": "/shop"
+      },
+      {
+        "label": "البرجر",
+        "to": "/shop?category=burger"
+      },
+      {
+        "label": "المشويات",
+        "to": "/shop?category=grill"
+      },
+      {
+        "label": "العروض",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "WASLA — قالب مطبخ سحابي أصلي بمنطق «٤ مطابخ في مطبخ واحد».",
+    "copyrightText": "© 2026 WASLA",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "المنيو",
+            "to": "/shop"
+          },
+          {
+            "label": "البرجر",
+            "to": "/shop?category=burger"
+          },
+          {
+            "label": "المشويات",
+            "to": "/shop?category=grill"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "speed-banner",
+          "settings": {
+            "eyebrow": "٤ مطابخ في مطبخ",
+            "title": "أربع مطابخ… أوردر واحد",
+            "subtitle": "برجر · مشويات · بيتزا · شرقي — من مطبخ سحابي واحد، بأربع وصفات وتوصيل ٣٥ دقيقة.",
+            "ctaText": "اطلب من المنيو",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-076-wasla-cloud-kitchen/hero.jpg",
+            "panelImage": "/assets/themes/tpl-076-wasla-cloud-kitchen/hero.jpg",
+            "highlights": [
+              {
+                "label": "مطابخ",
+                "value": "٤ براندات"
+              },
+              {
+                "label": "توصيل",
+                "value": "٣٥ دقيقة"
+              },
+              {
+                "label": "متابعة",
+                "value": "لحظة بلحظة"
+              }
+            ],
+            "panelEyebrow": "٤ مطابخ في مطبخ",
+            "panelTitle": "أربع مطابخ… أوردر واحد",
+            "panelSubtitle": "برجر · مشويات · بيتزا · شرقي — من مطبخ سحابي واحد، بأربع وصفات وتوصيل ٣٥ دقيقة.",
+            "panelMetricValue": "٣٥ دقيقة"
+          }
+        },
+        {
+          "type": "look-planner",
+          "variant": "chips",
+          "settings": {
+            "title": "جهّز وجبتك في دقيقة",
+            "subtitle": "المناسبة ← عدد الأفراد",
+            "ctaText": "شوف البوكس",
+            "ctaLink": "/collections",
+            "occasions": [
+              {
+                "label": "غدا"
+              },
+              {
+                "label": "عشا"
+              },
+              {
+                "label": "سهرة"
+              }
+            ],
+            "moods": [
+              {
+                "label": "فرد"
+              },
+              {
+                "label": "فردين"
+              },
+              {
+                "label": "عيلة"
+              }
+            ],
+            "looks": [
+              {
+                "title": "غدا فرد — برجر",
+                "image": "/assets/themes/tpl-076-wasla-cloud-kitchen/aisle-1.jpg",
+                "occasions": [
+                  "غدا"
+                ],
+                "moods": [
+                  "فرد"
+                ],
+                "price": "١٤٠ ج.م",
+                "link": "/shop?category=burger"
+              },
+              {
+                "title": "عشا فردين — مشويات",
+                "image": "/assets/themes/tpl-076-wasla-cloud-kitchen/aisle-2.jpg",
+                "occasions": [
+                  "عشا"
+                ],
+                "moods": [
+                  "فردين"
+                ],
+                "price": "٣٢٠ ج.م",
+                "link": "/shop?category=grill"
+              },
+              {
+                "title": "سهرة عيلة — بيتزا",
+                "image": "/assets/themes/tpl-076-wasla-cloud-kitchen/hero.jpg",
+                "occasions": [
+                  "سهرة"
+                ],
+                "moods": [
+                  "عيلة"
+                ],
+                "price": "٤٩٠ ج.م",
+                "link": "/shop?category=pizza"
+              }
+            ]
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "bento",
+          "settings": {
+            "title": "بوكسات الوجبات",
+            "subtitle": "وجبة كاملة — سعر واحد",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-076-wasla-cloud-kitchen/aisle-1.jpg",
+                "title": "بوكس البرجر",
+                "subtitle": "برجر + فرايز + مشروب",
+                "priceLabel": "١٤٠ ج.م",
+                "link": "/shop?category=burger"
+              },
+              {
+                "image": "/assets/themes/tpl-076-wasla-cloud-kitchen/aisle-2.jpg",
+                "title": "بوكس المشويات",
+                "subtitle": "كفتة + رز + سلطة",
+                "priceLabel": "٢٦٠ ج.م",
+                "link": "/shop?category=grill"
+              },
+              {
+                "image": "/assets/themes/tpl-076-wasla-cloud-kitchen/hero.jpg",
+                "title": "بوكس البيتزا",
+                "subtitle": "بيتزا ٣٠ سم + بطاطس",
+                "priceLabel": "١٨٠ ج.م",
+                "link": "/shop?category=pizza"
+              }
+            ]
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "marketplace-tiles",
+          "settings": {
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "من المطبخ",
+            "title": "أطباق من الأربع مطابخ",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "offer-bento",
+          "variant": "daily-picks",
+          "settings": {
+            "badge": "عروض",
+            "title": "بوكسات وعروض مختارة",
+            "subtitle": "السعر النهائي مكتوب — من غير شروط مخفية",
+            "cards": [
+              {
+                "label": "النهاردة",
+                "title": "عرض الغدا",
+                "subtitle": "وجبة برجر + مشروب بسعر ثابت لحد ٤ العصر",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "١٠٩ ج.م"
+              },
+              {
+                "label": "النهاردة",
+                "title": "عرض العيلة",
+                "subtitle": "٤ وجبات من أي ماركة — توصيل مجاني",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "٤٩٠ ج.م"
+              },
+              {
+                "label": "النهاردة",
+                "title": "عرض التجربة",
+                "subtitle": "أصغر بوكس من كل ماركة بسعر واحد",
+                "link": "/collections",
+                "ctaText": "اعرف أكتر",
+                "stat": "٢٩٩ ج.م"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "voice-notes",
+          "settings": {
+            "title": "تقييمات الأوردرات",
+            "intro": "تقييمات موثقة من أوردرات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "أحمد ط.",
+                "text": "طلبت من برجر ومشويات في نفس الأوردر ووصل مع بعض سخن.",
+                "rating": 5
+              },
+              {
+                "author": "مي ع.",
+                "text": "المتابعة على واتساب خللتني أعرف الأوردر فين كل دقيقة.",
+                "rating": 5
+              },
+              {
+                "author": "حسام ن.",
+                "text": "العرض اليومي حقيقي — نفس السعر اللي على الموقع.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "system-assurance",
+          "settings": {
+            "title": "نظام المطبخ",
+            "subtitle": "٤ براندات — فاتورة واحدة وتوصيل واحد",
+            "items": [
+              {
+                "title": "٤ براندات",
+                "description": "فاتورة واحدة وتوصيل واحد — من مطبخ سحابي"
+              },
+              {
+                "title": "٣٥ دقيقة",
+                "description": "متوسط التوصيل — ومتابعة الأوردر على واتساب"
+              },
+              {
+                "title": "مطبخ واحد",
+                "description": "نفس معايير النظافة على الأربع ماركات"
+              },
+              {
+                "title": "دفع عند الاستلام",
+                "description": "كاش أو إنستاباي — والسعر النهائي قبل الدفع"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "standard",
+          "settings": {
+            "title": "عروض المطبخ في بريدك",
+            "subtitle": "رسالة واحدة كل أسبوع: عروض البراندات الأربعة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "منيو المطبخ",
+            "subtitle": "برجر · مشويات · بيتزا — ٤ ماركات",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "menu-quick-order"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "marketplace-bazaar"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة الأوردر",
+            "subtitle": "أطباق من أكتر من ماركة — فاتورة واحدة وتوصيل واحد.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "market-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن طبق أو حجز أو ميعاد توصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}

@@ -461,6 +461,30 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "pharmacy",
     "صيدلية",
   ),
+  "tpl-073-shawaya-grill": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "restaurants",
+    "مطاعم وكافيهات",
+  ),
+  "tpl-074-sabah-cafe": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "restaurants",
+    "مطاعم وكافيهات",
+  ),
+  "tpl-075-layali-dining": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "restaurants",
+    "مطاعم وكافيهات",
+  ),
+  "tpl-076-wasla-cloud-kitchen": createThemeCategoryMeta(
+    "food",
+    "مطاعم وأغذية",
+    "restaurants",
+    "مطاعم وكافيهات",
+  ),
   "mono-jewel-atelier": createThemeCategoryMeta(
     "luxury",
     "فخامة",
@@ -1171,6 +1195,14 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب صيدلية عربي موبايل-أولًا بمنطق الواتساب: هيرو صيدلية، دوائر أقسام، شبكة أصناف، شريط ثقة بالدفع عند الاستلام، صور عملاء، وتقييمات وزر واتساب لرفع الروشتة. أخضر زمردي وذهبي على كريمي — مبني لصيدلية بتستقبل الروشتة على واتساب وبتوصّل بالدفع عند الاستلام.",
   "tpl-072-sehaty-pharmacy":
     "قالب صيدلية أصلي بمنطق «اشتراك الدوا الشهري»: هيرو لوحة اشتراك، مخطّط مدة وعدد الأدوية، بوكسات شهرية، فئات تحريرية، تذكير قبل الميعاد، ودفتر نصائح للمرض المزمن. نيلي ومرجاني على أبيض بارد — مبني لصيدلية بتشتغل على الرفيل الشهري والروشتة الواحدة.",
+  "tpl-073-shawaya-grill":
+    "قالب مشويات بمنطق المحل اللي بيشوي على الفحم: هيرو غامق بصورة الشواية، شريط أقسام سريع، شبكة أطباق، موزايك «الأكثر طلبًا»، تقييمات مختصرة وشريط توصيل. أسود فحمي وبرتقالي جمر على خلفية كريمي — مبني لمشويات بتوصّل في ٤٥ دقيقة.",
+  "tpl-074-sabah-cafe":
+    "قالب كافيه بمنطق الفطار الصبح: شريط عرض، هيرو نصين بعرض الشهر، فئات كتالوج، باقات فطار، شبكة أصناف، شريط خدمات، صور عملاء ومجلة قهوة. أخضر مريمية وتراكوتا على كريمي — مبني لكافيه بيبيع فطار وقهوة مختصة أكتر من الوجبات.",
+  "tpl-075-layali-dining":
+    "قالب عشاء شرقي بمنطق السفرة الكبيرة: شريط مناسب، هيرو بوتيك، فئات حسب المناسبة، شبكة أطباق، شريط ثقة، صور عملاء، تابات أطباق وتقييمات. نبيتي وذهبي على عاجي دافي — مبني لمطعم بيستقبل عزومات وحجوزات أكتر من أوردرات فردية.",
+  "tpl-076-wasla-cloud-kitchen":
+    "قالب مطبخ سحابي أصلي بمنطق «٤ مطابخ في مطبخ واحد»: هيرو سرعة، مخطّط وجبة، موزايك بوكسات، فئات ماركات، شبكة أطباق، عروض يومية، تقييمات وشريط نظام. أحمر طلب وأصفر سريع على أبيض — مبني لمطبخ سحابي بيطلّع ٤ براندات من مكان واحد.",
   "mono-jewel-atelier":
     "قالب مجوهرات أحادي اللون بمنطق الأتيليه: شريط إعلان رفيع، هيرو صورة واحدة كبيرة، فئات مختارة، شبكة منتجات ٤×٢، لوك بوك إصدارين، آراء ثلاثية، شريط مجلة، شبكة إنستجرام، ونشرة انضمام — حدود رقيقة وradius صغير.",
   "menswear-regent":
@@ -1470,6 +1502,14 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
     "/assets/themes/tpl-071-salama-pharmacy/preview.png",
   "tpl-072-sehaty-pharmacy":
     "/assets/themes/tpl-072-sehaty-pharmacy/preview.png",
+  "tpl-073-shawaya-grill":
+    "/assets/themes/tpl-073-shawaya-grill/preview.png",
+  "tpl-074-sabah-cafe":
+    "/assets/themes/tpl-074-sabah-cafe/preview.png",
+  "tpl-075-layali-dining":
+    "/assets/themes/tpl-075-layali-dining/preview.png",
+  "tpl-076-wasla-cloud-kitchen":
+    "/assets/themes/tpl-076-wasla-cloud-kitchen/preview.png",
   "mono-jewel-atelier":
     "/assets/themes/mono-jewel-atelier/preview.png",
   "menswear-regent":

@@ -5456,6 +5456,130 @@
     }
   },
   {
+    "id": "tpl-073-shawaya-grill",
+    "name": "Shawaya — مشويات",
+    "description": "قالب مشويات بمنطق المحل اللي بيشوي على الفحم: هيرو غامق بصورة الشواية، شريط أقسام سريع، شبكة أطباق، موزايك «الأكثر طلبًا»، تقييمات مختصرة وشريط توصيل. أسود فحمي وبرتقالي جمر على خلفية كريمي — مبني لمشويات بتوصّل في ٤٥ دقيقة.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "restaurants",
+        "label": "مطاعم وكافيهات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "0 0% 13%",
+      "30 32% 92%",
+      "18 88% 50%"
+    ],
+    "previewImage": "/assets/themes/tpl-073-shawaya-grill/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-074-sabah-cafe",
+    "name": "Sabah — فطار وقهوة",
+    "description": "قالب كافيه بمنطق الفطار الصبح: شريط عرض، هيرو نصين بعرض الشهر، فئات كتالوج، باقات فطار، شبكة أصناف، شريط خدمات، صور عملاء ومجلة قهوة. أخضر مريمية وتراكوتا على كريمي — مبني لكافيه بيبيع فطار وقهوة مختصة أكتر من الوجبات.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "restaurants",
+        "label": "مطاعم وكافيهات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "152 26% 28%",
+      "34 56% 92%",
+      "20 62% 50%"
+    ],
+    "previewImage": "/assets/themes/tpl-074-sabah-cafe/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
+    "id": "tpl-075-layali-dining",
+    "name": "Layali — عشاء شرقي",
+    "description": "قالب عشاء شرقي بمنطق السفرة الكبيرة: شريط مناسب، هيرو بوتيك، فئات حسب المناسبة، شبكة أطباق، شريط ثقة، صور عملاء، تابات أطباق وتقييمات. نبيتي وذهبي على عاجي دافي — مبني لمطعم بيستقبل عزومات وحجوزات أكتر من أوردرات فردية.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "restaurants",
+        "label": "مطاعم وكافيهات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "346 44% 22%",
+      "38 44% 90%",
+      "38 64% 46%"
+    ],
+    "previewImage": "/assets/themes/tpl-075-layali-dining/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 22
+    }
+  },
+  {
+    "id": "tpl-076-wasla-cloud-kitchen",
+    "name": "Wasla — مطبخ سحابي",
+    "description": "قالب مطبخ سحابي أصلي بمنطق «٤ مطابخ في مطبخ واحد»: هيرو سرعة، مخطّط وجبة، موزايك بوكسات، فئات ماركات، شبكة أطباق، عروض يومية، تقييمات وشريط نظام. أحمر طلب وأصفر سريع على أبيض — مبني لمطبخ سحابي بيطلّع ٤ براندات من مكان واحد.",
+    "category": "food",
+    "categoryMeta": {
+      "primary": {
+        "id": "food",
+        "label": "مطاعم وأغذية"
+      },
+      "secondary": {
+        "id": "restaurants",
+        "label": "مطاعم وكافيهات"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "8 78% 46%",
+      "45 96% 92%",
+      "45 96% 52%"
+    ],
+    "previewImage": "/assets/themes/tpl-076-wasla-cloud-kitchen/preview.png",
+    "pageStats": {
+      "homeSections": 9,
+      "shopSections": 5,
+      "checkoutSections": 0,
+      "pdpSections": 7,
+      "cartSections": 2,
+      "totalSections": 23
+    }
+  },
+  {
     "id": "turbo-parts",
     "name": "Turbo Parts",
     "description": "قالب قطع غيار يختصر القرار: بحث بالموديل، باقات صيانة، وضمان واضح يطمن العميل قبل الشراء.",

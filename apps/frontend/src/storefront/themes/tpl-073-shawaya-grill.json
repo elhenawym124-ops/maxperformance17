@@ -1,0 +1,430 @@
+{
+  "id": "tpl-073-shawaya-grill",
+  "name": "Shawaya — مشويات",
+  "description": "قالب مشويات بمنطق المحل اللي بيشوي على الفحم: هيرو غامق بصورة الشواية، شريط أقسام سريع، شبكة أطباق، موزايك «الأكثر طلبًا»، تقييمات مختصرة وشريط توصيل. أسود فحمي وبرتقالي جمر على خلفية كريمي — مبني لمشويات بتوصّل في ٤٥ دقيقة.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "0 0% 13%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "30 32% 92%",
+      "secondaryForeground": "16 28% 14%",
+      "accent": "18 88% 50%",
+      "accentForeground": "0 0% 100%",
+      "background": "30 28% 97%",
+      "foreground": "16 18% 12%",
+      "muted": "30 20% 92%",
+      "mutedForeground": "20 10% 38%",
+      "border": "28 18% 84%",
+      "card": "0 0% 100%",
+      "cardForeground": "16 18% 12%",
+      "ring": "18 88% 50%"
+    },
+    "typography": {
+      "headingFont": "Cairo, Tajawal, sans-serif",
+      "bodyFont": "Tajawal, Cairo, sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0.5rem",
+      "buttonRadius": "0.375rem"
+    },
+    "productCard": {
+      "borderRadius": "0.5rem",
+      "boxShadow": "0 6px 22px hsl(20 18% 13% / .07)",
+      "hoverShadow": "0 22px 40px -24px hsl(20 18% 13% / .26)"
+    },
+    "layout": {
+      "contentAlign": "center"
+    }
+  },
+  "seo": {
+    "titleTemplate": "%s | SHAWAYA",
+    "description": "قالب مشويات بمنطق المحل اللي بيشوي على الفحم: هيرو غامق بصورة الشواية، شريط أقسام سريع، شبكة أطباق، موزايك «الأكثر طلبًا»، تقييمات مختصرة وشريط توصيل. أسود فحمي وبرتقالي جمر على خلفية كريمي — مبني لمشويات بتوصّل في ٤٥ دقيقة."
+  },
+  "preview": {
+    "colors": [
+      "0 0% 13%",
+      "18 88% 50%",
+      "30 28% 97%"
+    ],
+    "imageUrl": "/assets/themes/tpl-073-shawaya-grill/preview.png"
+  },
+  "header": {
+    "variant": "default",
+    "brandName": "SHAWAYA",
+    "transparentOnHome": true,
+    "showSearch": true,
+    "showCart": true,
+    "announcementText": "توصيل ٤٥ دقيقة · شوي على الفحم · الدفع عند الاستلام",
+    "announcementLinkText": "اعرف أكتر",
+    "announcementLinkTo": "/collections",
+    "navigation": [
+      {
+        "label": "المنيو",
+        "to": "/shop"
+      },
+      {
+        "label": "المشويات",
+        "to": "/shop?category=grill"
+      },
+      {
+        "label": "الوجبات",
+        "to": "/shop?category=meals"
+      },
+      {
+        "label": "العروض",
+        "to": "/collections"
+      },
+      {
+        "label": "كلمنا",
+        "to": "/contact"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "default",
+    "description": "SHAWAYA — قالب مشويات بمنطق المحل اللي بيشوي على الفحم.",
+    "copyrightText": "© 2026 SHAWAYA",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com"
+    },
+    "navigation": [
+      {
+        "title": "المتجر",
+        "links": [
+          {
+            "label": "المنيو",
+            "to": "/shop"
+          },
+          {
+            "label": "المشويات",
+            "to": "/shop?category=grill"
+          },
+          {
+            "label": "الوجبات",
+            "to": "/shop?category=meals"
+          }
+        ]
+      },
+      {
+        "title": "المساعدة",
+        "links": [
+          {
+            "label": "الشحن",
+            "to": "/contact"
+          },
+          {
+            "label": "الاستبدال",
+            "to": "/contact"
+          },
+          {
+            "label": "كلمنا",
+            "to": "/contact"
+          }
+        ]
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "الخصوصية",
+        "to": "/contact"
+      },
+      {
+        "label": "الشروط",
+        "to": "/contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "promo-strip",
+          "variant": "benefit-ribbon",
+          "settings": {
+            "badge": "توصيل ٤٥ دقيقة",
+            "message": "أي أوردر قبل ١١ بالليل يوصلك سخن — الشوي بيبدأ بعد تأكيد الطلب",
+            "saleLabel": "عروض الأسبوع",
+            "shippingLabel": "توصيل سريع",
+            "returnLabel": "استبدال فوري",
+            "ctaText": "اعرف أكتر",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "hero-banner",
+          "variant": "cinematic-plinth",
+          "settings": {
+            "eyebrow": "مشويات على الفحم",
+            "title": "اللحمة بتتشوى على الطلب",
+            "subtitle": "من الشواية للباب في ٤٥ دقيقة — كل طبق بيتوزن قبل ما يتلفّ، والسعر مكتوب على المنيو.",
+            "ctaText": "اطلب دلوقتي",
+            "ctaLink": "/shop",
+            "secondaryCtaText": "كل الأقسام",
+            "secondaryCtaLink": "/shop",
+            "backgroundImage": "/assets/themes/tpl-073-shawaya-grill/hero.jpg",
+            "panelImage": "/assets/themes/tpl-073-shawaya-grill/hero.jpg",
+            "highlights": [
+              {
+                "label": "توصيل",
+                "value": "٤٥ دقيقة"
+              },
+              {
+                "label": "الشوي",
+                "value": "على الفحم"
+              },
+              {
+                "label": "الدفع",
+                "value": "عند الاستلام"
+              }
+            ],
+            "panelEyebrow": "مشويات على الفحم",
+            "panelTitle": "اللحمة بتتشوى على الطلب",
+            "panelSubtitle": "من الشواية للباب في ٤٥ دقيقة — كل طبق بيتوزن قبل ما يتلفّ، والسعر مكتوب على المنيو.",
+            "panelMetricValue": "٤٥ دقيقة توصيل"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "fast-nav-grid",
+          "settings": {
+            "title": "أقسام المنيو",
+            "subtitle": "مشويات · وجبات · مقابلات · مشروبات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "eyebrow": "مختار من الشواية",
+            "title": "أطباق بتتباع كل يوم",
+            "ctaText": "شوف كل الأصناف",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "look-mosaic",
+          "variant": "masonry",
+          "settings": {
+            "title": "الأكثر طلبًا",
+            "subtitle": "من أوردرات حقيقية — مش صور ستوك",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections",
+            "looks": [
+              {
+                "image": "/assets/themes/tpl-073-shawaya-grill/aisle-1.jpg",
+                "title": "ريش الضاني",
+                "subtitle": "على الفحم — بتتقدم مع طحينة",
+                "priceLabel": "٣٢٠ ج.م",
+                "link": "/shop?category=grill"
+              },
+              {
+                "image": "/assets/themes/tpl-073-shawaya-grill/hero.jpg",
+                "title": "كفتة مشوية",
+                "subtitle": "لحمة بلدي مفرومة طازة كل يوم",
+                "priceLabel": "٢٤٠ ج.م",
+                "link": "/shop?category=grill"
+              },
+              {
+                "image": "/assets/themes/tpl-073-shawaya-grill/aisle-2.jpg",
+                "title": "وجبة عائلية",
+                "subtitle": "٤ أفراد — مشويات ورز وسلطات",
+                "priceLabel": "٨٩٠ ج.م",
+                "link": "/shop?category=meals"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "compact",
+          "settings": {
+            "title": "اللي جربه بيطلب تاني",
+            "intro": "تقييمات موثقة من أوردرات حقيقية بعد التوصيل.",
+            "reviews": [
+              {
+                "author": "محمود ع.",
+                "text": "الكفتة وصلت سخنة والريحة قبل الأكل — الوزن مظبوط.",
+                "rating": 5
+              },
+              {
+                "author": "هبة س.",
+                "text": "طلبت وجبة عائلية لـ٤ وكل حاجة كانت متلفلة ومكتوبة.",
+                "rating": 5
+              },
+              {
+                "author": "كريم ف.",
+                "text": "التوصيل أخد ٤٠ دقيقة بس، والدفع عند الاستلام ريحني.",
+                "rating": 4
+              }
+            ]
+          }
+        },
+        {
+          "type": "features-bar",
+          "variant": "delivery-clarity",
+          "settings": {
+            "title": "ليه تطلب من شَويّة",
+            "subtitle": "كل شرط مكتوب قبل الدفع",
+            "items": [
+              {
+                "title": "توصيل ٤٥ دقيقة",
+                "description": "سخن من الشواية للباب — أكياس حافظة للحم"
+              },
+              {
+                "title": "شوي على الفحم",
+                "description": "مش كهرباء — الطعم بيبان في أول لقمة"
+              },
+              {
+                "title": "وزن مكتوب",
+                "description": "كل طبق بيتوزن قبل التغليف والسعر على المنيو"
+              },
+              {
+                "title": "دفع عند الاستلام",
+                "description": "كاش أو إنستاباي عند الباب"
+              }
+            ]
+          }
+        },
+        {
+          "type": "newsletter",
+          "variant": "split-panel",
+          "settings": {
+            "title": "عروض الشواية في بريدك",
+            "subtitle": "رسالة واحدة كل أسبوع: عروض المشويات والوجبات الجديدة.",
+            "buttonText": "اشترك",
+            "placeholder": "بريدك الإلكتروني"
+          }
+        }
+      ]
+    },
+    "shop": {
+      "pageGoal": "discovery",
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المنيو",
+            "subtitle": "مشويات · وجبات · مقبلات — السعر مكتوب",
+            "ctaText": "الأحدث",
+            "ctaLink": "/shop?sort=new"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "menu-quick-order"
+        },
+        {
+          "type": "filters-sidebar"
+        },
+        {
+          "type": "shop-product-grid"
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "trust-rail"
+        }
+      ]
+    },
+    "pdp": {
+      "pageGoal": "conversion",
+      "layoutHint": "product-detail",
+      "sections": [
+        {
+          "type": "product-gallery",
+          "variant": "standard"
+        },
+        {
+          "type": "product-info",
+          "variant": "accordion"
+        },
+        {
+          "type": "delivery-proof"
+        },
+        {
+          "type": "trusted-badges"
+        },
+        {
+          "type": "reviews",
+          "variant": "standard"
+        },
+        {
+          "type": "bought-together",
+          "variant": "compact"
+        },
+        {
+          "type": "related-products",
+          "variant": "compact"
+        }
+      ]
+    },
+    "cart": {
+      "layoutHint": "sidebar-right",
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "market-basket",
+          "settings": {
+            "title": "سلة الطلب",
+            "subtitle": "راجع الأطباق والكمية — التوصيل ٤٥ دقيقة.",
+            "emptyText": "السلة فاضية لسه.",
+            "continueLabel": "كمّل تسوّق"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "market-summary"
+        }
+      ]
+    },
+    "collections": {
+      "pageGoal": "discovery",
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "standard-showcase",
+          "settings": {
+            "title": "أقسام المنيو",
+            "subtitle": "مشويات · وجبات · مقابلات · مشروبات",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/collections"
+          }
+        },
+        {
+          "type": "product-grid",
+          "settings": {
+            "title": "كل الأقسام",
+            "ctaText": "شوف الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-promo-rail",
+          "variant": "campaign-rail"
+        }
+      ]
+    },
+    "contact": {
+      "pageGoal": "support",
+      "sections": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "title": "كلمنا",
+            "subtitle": "اسأل عن طبق أو حجز أو ميعاد توصيل — بنرد في نفس اليوم."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "green"
+        }
+      ]
+    }
+  }
+}
