@@ -31,6 +31,37 @@
     }
   },
   {
+    "id": "academy-stage-3d",
+    "name": "مسرح الأكاديمية 3D",
+    "description": "قالب أكاديميات ومراكز تدريب إبداعية بموجة مشاريع ثلاثية الأبعاد تفاعلية (Three.js)، ومعمل تجربة حي، ومسارات تعليمية متدرجة حسب العمر.",
+    "category": "education",
+    "categoryMeta": {
+      "primary": {
+        "id": "education",
+        "label": "تعليم"
+      },
+      "secondary": {
+        "id": "kids-coding-ai",
+        "label": "مسرح الأكاديمية 3D"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "178 96% 11%",
+      "14 68% 54%",
+      "36 45% 97%"
+    ],
+    "previewImage": "/assets/themes/academy-stage-3d/preview.png",
+    "pageStats": {
+      "homeSections": 8,
+      "shopSections": 4,
+      "checkoutSections": 0,
+      "pdpSections": 3,
+      "cartSections": 2,
+      "totalSections": 17
+    }
+  },
+  {
     "id": "academy-little-coders",
     "name": "أكاديمية كود كيدز",
     "description": "قالب أكاديمية أطفال (برمجة وروبوتات): مسارات ومستويات وباقات وحجز حصة تجريبية — 6 صفحات بزنس.",

@@ -86,6 +86,22 @@ export interface HeroVariantProps {
   offerCard?: HeroOfferCard;
   miniCategories?: { title?: string; link?: string; items?: HeroMiniCategory[] };
   bestPicks?: { title?: string; linkLabel?: string; link?: string; items?: HeroBestPick[] };
+  watermarkText?: string;
+  brandName?: string;
+  logoUrl?: string;
+  hintText?: string;
+  heroBgFrom?: string;
+  heroBgTo?: string;
+  trustPills?: string[];
+  academyCards?: Array<{
+    title: string;
+    tag: string;
+    age: string;
+    desc: string;
+    bgColor?: string;
+    accentColor?: string;
+    pattern?: 'wave' | 'rings' | 'grid' | 'bars' | 'dots';
+  }>;
 }
 
 export interface HeroBannerProps {

@@ -89,6 +89,7 @@ export const DYNAMIC_THEME_REGISTRY: Record<string, ThemeLoaderFn> = {
   "skill-lab": () => import("./skill-lab.json"),
   "junior-ai-lab": () => import("./junior-ai-lab.json"),
   "academy-little-coders": () => import("./academy-little-coders.json"),
+  "academy-stage-3d": () => import("./academy-stage-3d.json"),
   "cafe-demo": () => import("./cafe-demo.json"),
   "couture-atelier-eg": () => import("./couture-atelier-eg.json"),
   "creative-portfolio": () => import("./creative-portfolio.json"),

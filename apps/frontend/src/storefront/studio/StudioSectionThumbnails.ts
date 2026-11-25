@@ -404,6 +404,19 @@ export const STUDIO_SECTION_THUMBNAILS: Record<string, string> = {
     </svg>
   `),
 
+  // 17b. Academy: Interactive Lab (معمل التجربة التفاعلي)
+  "academy-interactive-lab": encodeSvg(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80">
+      <rect width="240" height="80" rx="8" fill="#0E1722"/>
+      <rect x="12" y="10" width="216" height="60" rx="8" fill="#071518" stroke="#D95D39" stroke-width="1.2"/>
+      <rect x="132" y="18" width="84" height="44" rx="6" fill="#0E2429" stroke="#38BDF8" stroke-width="1"/>
+      <rect x="156" y="26" width="36" height="28" rx="4" fill="none" stroke="#38BDF8" stroke-width="1.4" stroke-dasharray="4 2"/>
+      <rect x="24" y="20" width="88" height="8" rx="4" fill="#ffffff"/>
+      <rect x="24" y="34" width="96" height="5" rx="2.5" fill="#94a3b8"/>
+      <rect x="24" y="46" width="60" height="14" rx="7" fill="#D95D39"/>
+    </svg>
+  `),
+
   // 18. Automotive: Car Model Matcher (مطابقة موديل السيارة)
   "car-model-matcher": encodeSvg(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80">

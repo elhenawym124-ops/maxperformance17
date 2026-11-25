@@ -74,6 +74,18 @@ export const useHeroBannerController = (
     offerCard: (settings?.offerCard as HeroVariantProps['offerCard']) || undefined,
     miniCategories: (settings?.miniCategories as HeroVariantProps['miniCategories']) || undefined,
     bestPicks: (settings?.bestPicks as HeroVariantProps['bestPicks']) || undefined,
+    watermarkText: typeof settings?.watermarkText === 'string' ? settings.watermarkText : undefined,
+    brandName: typeof settings?.brandName === 'string' ? settings.brandName : undefined,
+    logoUrl: typeof settings?.logoUrl === 'string' ? settings.logoUrl : undefined,
+    hintText: typeof settings?.hintText === 'string' ? settings.hintText : undefined,
+    heroBgFrom: typeof settings?.heroBgFrom === 'string' ? settings.heroBgFrom : undefined,
+    heroBgTo: typeof settings?.heroBgTo === 'string' ? settings.heroBgTo : undefined,
+    trustPills: Array.isArray(settings?.trustPills) ? (settings.trustPills as string[]) : undefined,
+    academyCards: Array.isArray(settings?.cards)
+      ? (settings.cards as HeroVariantProps['academyCards'])
+      : Array.isArray(settings?.academyCards)
+        ? (settings.academyCards as HeroVariantProps['academyCards'])
+        : undefined,
     panel: {
       image: settings?.panelImage,
       title: settings?.panelTitle,

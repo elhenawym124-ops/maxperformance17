@@ -55,6 +55,8 @@ import { EasyOrdersMasonryHero } from './hero-banner/EasyOrdersMasonryHero';
 import { DawnImageBanner } from './hero-banner/DawnImageBanner';
 import { MarketplaceSliderHero } from './hero-banner/MarketplaceSliderHero';
 
+const Academy3DWaveHero = React.lazy(() => import('./hero-banner/Academy3DWaveHero'));
+
 export * from './hero-banner';
 
 export const HeroBanner: React.FC<HeroBannerProps> = ({ section, settings }) => {
@@ -100,6 +102,13 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ section, settings }) => 
   if (variant === 'grooming-hero') return <GroomingProHero {...props} />;
   if (variant === 'dental-precision-hero') return <DentalPrecisionHero {...props} />;
   if (variant === 'skill-lab-motion' || variant === 'academy-motion') return <SkillLabAcademyHero {...props} />;
+  if (variant === 'academy-3d-wave') {
+    return (
+      <React.Suspense fallback={<SkillLabAcademyHero {...props} />}>
+        <Academy3DWaveHero {...props} />
+      </React.Suspense>
+    );
+  }
   if (variant === 'centered') return <CenteredHero {...props} />;
 
   return <CenteredHero {...props} />;

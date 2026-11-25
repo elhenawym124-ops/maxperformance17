@@ -1014,6 +1014,12 @@ export const STOREFRONT_THEME_CATEGORY_PRESETS: Record<
     "kids-coding-ai",
     "برمجة وذكاء اصطناعي للأطفال",
   ),
+  "academy-stage-3d": createThemeCategoryMeta(
+    "education",
+    "تعليم",
+    "kids-coding-ai",
+    "مسرح الأكاديمية 3D",
+  ),
   "baladi-market-eg": createThemeCategoryMeta(
     "general",
     "عام",
@@ -1381,6 +1387,8 @@ export const STOREFRONT_THEME_DESCRIPTIONS: Record<string, string> = {
     "قالب أكاديمية أطفال (برمجة وروبوتات): مسارات ومستويات وباقات وحجز حصة تجريبية — 6 صفحات بزنس.",
   "junior-ai-lab":
     "قالب أكاديمية أطفال يبيع مسارًا واضحًا من أساسيات البرمجة إلى مشاريع الذكاء الاصطناعي، مع مستويات مفهومة ومتابعة لولي الأمر.",
+  "academy-stage-3d":
+    "قالب مسرح الأكاديمية 3D بموجة بطاقات مشاريع ثلاثية الأبعاد تفاعلية بالـ Three.js ومعمل تجربة حي للذكاء الاصطناعي والفيزياء.",
   "baladi-market-eg":
     "متجر مصري مباشر بدون صفحة رئيسية — الزائر يدخل على المنتجات من أول ثانية مع ألوان مصرية دافئة ورسائل بيع محلية تشجع الحسم السريع.",
   "nile-elegance-eg":
@@ -1625,6 +1633,7 @@ export const STOREFRONT_THEME_PREVIEW_IMAGES: Record<string, string> = {
   "skill-lab": "/assets/themes/pc-hub-eg/workbook-14-air.jpg",
   "academy-little-coders": "/assets/themes/academy-little-coders/preview.png",
   "junior-ai-lab": "/assets/themes/junior-ai-lab/preview.png",
+  "academy-stage-3d": "/assets/themes/academy-stage-3d/preview.png",
   "nile-elegance-eg":
     "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1600",
   "zen-organic":

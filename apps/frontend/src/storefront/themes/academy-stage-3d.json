@@ -1,0 +1,304 @@
+{
+  "id": "academy-stage-3d",
+  "name": "مسرح الأكاديمية 3D",
+  "description": "قالب أكاديميات ومراكز تدريب إبداعية بموجة مشاريع ثلاثية الأبعاد تفاعلية (Three.js)، ومعمل تجربة حي، ومسارات تعليمية متدرجة حسب العمر.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "178 96% 11%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "152 29% 92%",
+      "secondaryForeground": "178 96% 11%",
+      "accent": "14 68% 54%",
+      "accentForeground": "0 0% 100%",
+      "background": "36 45% 97%",
+      "foreground": "216 14% 8%",
+      "muted": "36 30% 92%",
+      "mutedForeground": "48 4% 33%",
+      "border": "36 18% 85%",
+      "card": "0 0% 100%",
+      "cardForeground": "216 14% 8%",
+      "ring": "178 96% 11%"
+    },
+    "typography": {
+      "headingFont": "\"IBM Plex Sans Arabic\", sans-serif",
+      "bodyFont": "\"IBM Plex Sans Arabic\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "1.5rem",
+      "buttonRadius": "999px"
+    },
+    "productCard": {
+      "borderRadius": "1.25rem",
+      "boxShadow": "0 18px 44px -34px rgba(1, 55, 53, 0.28)",
+      "hoverShadow": "0 24px 54px -28px rgba(1, 55, 53, 0.36)",
+      "badgeRadius": "999px",
+      "buttonRadius": "999px",
+      "surfaceOpacity": "1"
+    }
+  },
+  "header": {
+    "brandName": "مسرح الأكاديمية 3D",
+    "showSearch": true,
+    "showCart": true,
+    "navigation": [
+      { "label": "الرئيسية", "to": "/" },
+      { "label": "المسارات والدورات", "to": "/shop" },
+      { "label": "الفئات العمرية", "to": "/collections" },
+      { "label": "احجز تقييم مجاني", "to": "/registration" },
+      { "label": "تواصل معنا", "to": "/contact" }
+    ]
+  },
+  "footer": {
+    "description": "قالب أكاديميات ومراكز تعليم البرمجة والمهارات الرقمية بموجة 3D تفاعلية ومعمل تجربة حي للطلاب وأولياء الأمور.",
+    "copyrightText": "© 2026 مسرح الأكاديمية 3D — جميع الحقوق محفوظة.",
+    "socialLinks": {},
+    "navigation": [
+      {
+        "title": "المسارات التعليمية",
+        "links": [
+          { "label": "تصفح كل البرامج", "to": "/shop" },
+          { "label": "المراحل العمرية", "to": "/collections" },
+          { "label": "حجز حصة تقييم", "to": "/registration" }
+        ]
+      },
+      {
+        "title": "الدعم",
+        "links": [
+          { "label": "تواصل معنا", "to": "/contact" },
+          { "label": "سلة التسجيل", "to": "/cart" }
+        ]
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s | مسرح الأكاديمية 3D",
+    "description": "مسارات برمجة وذكاء اصطناعي وريادة أعمال بمشاريع تطبيقية وتجربة عرض 3D تفاعلية."
+  },
+  "preview": {
+    "colors": ["178 96% 11%", "14 68% 54%", "36 45% 97%"],
+    "imageUrl": "/assets/themes/academy-stage-3d/preview.png"
+  },
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "academy-3d-wave",
+          "settings": {
+            "eyebrow": "من عمر 6 إلى 17 سنة · تدريب عملي ومشاريع حقيقية",
+            "title": "من الفضول الرقمي إلى بناء الألعاب والمشاريع الذكية",
+            "subtitle": "مجموعات صغيرة وإشراف هندسي مباشر، ينتهي كل مستوى بمشروع تطبيقي يقدمه الطالب بثقة مع متابعة أسبوعية لولي الأمر.",
+            "ctaText": "احجز حصة تقييم مجانية",
+            "ctaLink": "/registration",
+            "secondaryCtaText": "جرّب المعمل التفاعلي",
+            "secondaryCtaLink": "#academy-lab",
+            "watermarkText": "ACADEMY",
+            "hintText": "حرّك المؤشر أو اضغط على البطاقات ثلاثية الأبعاد لاستعراض المسارات"
+          }
+        },
+        {
+          "type": "trusted-badges",
+          "variant": "balanced",
+          "settings": {
+            "title": "تجربة تعليمية متكاملة للأسرة",
+            "trustedBadgeItems": "مجموعات صغيرة بحد أقصى 6-10 طلاب،مشاريع عملية في نهاية كل مستوى،تقرير أسبوعي واضح لولي الأمر"
+          }
+        },
+        {
+          "type": "services-grid",
+          "variant": "standard",
+          "settings": {
+            "badge": "أركان المنهج",
+            "title": "مهارات متكاملة تصنع الفارق",
+            "subtitle": "من التفكير المنطقي وكتابة الكود إلى بناء المنتجات وتقديمها أمام الجمهور.",
+            "columns": 4,
+            "items": [
+              { "title": "٠١ · البرمجة والتفكير", "description": "تأسيس عملي من الألعاب البصرية إلى Python وتطوير الويب." },
+              { "title": "٠٢ · الذكاء الاصطناعي", "description": "فهم وتدريب نماذج ذكية تتعرف على الصور والأصوات بأمان." },
+              { "title": "٠٣ · ريادة الأعمال", "description": "تحويل الأفكار التقنية إلى مشاريع واضحة القيمة." },
+              { "title": "٠٤ · مهارات العرض", "description": "تقديم المشروع النهائي بثقة في يوم العرض (Demo Day)." }
+            ]
+          }
+        },
+        {
+          "type": "academy-interactive-lab",
+          "variant": "standard",
+          "settings": {
+            "badge": "معمل التجربة الحي",
+            "title": "شوف بنفسك كيف يبني الطالب ذكاءً اصطناعياً وألعاباً حية",
+            "subtitle": "جرّب نموذج الرؤية الحاسوبية أو محاكاة الفيزياء التي ينفذها طلابنا في الحصص التطبيقية.",
+            "ctaText": "سجّل في حصة التقييم المجانية",
+            "ctaLink": "/registration"
+          }
+        },
+        {
+          "type": "featured-products",
+          "variant": "editorial-card",
+          "settings": {
+            "title": "المسارات والدورات المتاحة",
+            "subtitle": "اختر المستوى المناسب لعمر الطالب وخبرته.",
+            "limit": 6
+          }
+        },
+        {
+          "type": "journal-strip",
+          "variant": "editorial-cards",
+          "settings": {
+            "badge": "مخرجات حقيقية",
+            "title": "مشاريع ينفذها الطلاب بأيديهم",
+            "subtitle": "نركز على التطبيق العملي وبناء معرض أعمال لكل طالب.",
+            "limit": 3,
+            "items": [
+              {
+                "title": "ألعاب تفاعلية بـ Scratch",
+                "meta": "المستوى التأسيسي",
+                "excerpt": "تصميم شخصيات ومستويات وقواعد لعب كاملة بالمنطق البرمجي.",
+                "image": "/assets/themes/academy-stage-3d/preview.png",
+                "link": "/shop"
+              },
+              {
+                "title": "تطبيقات الرؤية الحاسوبية",
+                "meta": "المستوى المتوسط",
+                "excerpt": "تدريب نماذج ذكاء اصطناعي لتمييز الصور وحركات اليد.",
+                "image": "/assets/themes/academy-stage-3d/preview.png",
+                "link": "/shop"
+              },
+              {
+                "title": "مواقع وتطبيقات بـ Python & Web",
+                "meta": "المستوى المتقدم",
+                "excerpt": "تطوير تطبيقات ويب كاملة وعرضها في يوم التخرج Demo Day.",
+                "image": "/assets/themes/academy-stage-3d/preview.png",
+                "link": "/collections"
+              }
+            ]
+          }
+        },
+        {
+          "type": "reviews",
+          "variant": "editorial",
+          "settings": {
+            "title": "آراء أولياء الأمور"
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "primary",
+          "settings": {
+            "label": "استفسر عبر واتساب عن المسار المناسب",
+            "message": "أرغب في معرفة المسار والمواعيد المناسبة لطفلي."
+          }
+        }
+      ]
+    },
+    "shop": {
+      "layoutHint": "sidebar-left",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "المسارات والبرامج التدريبية",
+            "subtitle": "تصفح البرامج حسب الفئة العمرية والمستوى.",
+            "ctaText": "عرض الكل",
+            "ctaLink": "/shop"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "minimal-toolbar",
+          "settings": {
+            "title": "ابحث في البرامج",
+            "searchPlaceholder": "مثال: Python أو Scratch",
+            "allCategoriesLabel": "كل المستويات",
+            "resultsLabel": "برنامج",
+            "clearButtonText": "مسح البحث"
+          }
+        },
+        {
+          "type": "filters-sidebar",
+          "settings": {
+            "title": "تصفية المستويات",
+            "categoryLabel": "المسار",
+            "priceLabel": "الرسوم",
+            "allProductsLabel": "كل المستويات",
+            "clearButtonText": "إعادة ضبط",
+            "showMobileLabel": "إظهار الفلاتر",
+            "hideMobileLabel": "إخفاء الفلاتر"
+          }
+        },
+        {
+          "type": "product-grid",
+          "variant": "grid",
+          "settings": {
+            "title": "البرامج المتاحة",
+            "limit": 12
+          }
+        }
+      ]
+    },
+    "pdp": {
+      "sections": [
+        { "type": "product-gallery", "variant": "standard" },
+        {
+          "type": "product-info",
+          "variant": "standard",
+          "settings": {
+            "ctaText": "احجز مقعد في هذا المستوى",
+            "descriptionTitle": "تفاصيل المنهج والمخرجات",
+            "shippingTitle": "نظام الحصص",
+            "shippingText": "متاح أونلاين أو بالحضور المباشر في المقر مع متابعة أسبوعية.",
+            "guaranteesTitle": "مميزات التسجيل",
+            "guaranteeItems": "مجموعات صغيرة|مشروع تخرج|تقرير لولي الأمر",
+            "guaranteeStyle": "strip"
+          }
+        },
+        { "type": "related-products", "variant": "compact", "settings": { "title": "المستويات المكملة", "limit": 3 } }
+      ]
+    },
+    "cart": {
+      "sections": [
+        { "type": "cart-items", "variant": "compact", "settings": { "title": "المستويات المختارة" } },
+        { "type": "order-summary", "variant": "highlighted", "settings": { "title": "ملخص الاشتراك", "checkoutButtonText": "تأكيد التسجيل" } }
+      ]
+    },
+    "collections": {
+      "sections": [
+        { "type": "collection-tab", "variant": "pills", "settings": { "title": "التخصصات والأعمار" } },
+        { "type": "featured-collections", "variant": "tech-decision-lanes", "settings": { "title": "اختر نقطة البداية", "limit": 4 } }
+      ]
+    },
+    "contact": {
+      "sections": [
+        {
+          "type": "info-content",
+          "settings": {
+            "title": "تواصل مع فريق الأكاديمية",
+            "subtitle": "نساعدك في تحديد المستوى الأنسب لعمر الطالب وخبرته.",
+            "body": "راسلنا بعمر الطالب واهتمامه وسنرشح لك المجموعة والموعد المناسب."
+          }
+        },
+        {
+          "type": "whatsapp-cta",
+          "variant": "primary",
+          "settings": {
+            "label": "تحدث معنا على واتساب",
+            "message": "أرغب في الاستفسار عن المواعيد والمستويات."
+          }
+        }
+      ]
+    },
+    "registration": {
+      "sections": [
+        {
+          "type": "member-registration",
+          "settings": {
+            "title": "احجز حصة التقييم المجانية",
+            "subtitle": "سجّل بيانات ولي الأمر وعمر الطالب لتحديد موعد الجلسة."
+          }
+        }
+      ]
+    }
+  }
+}

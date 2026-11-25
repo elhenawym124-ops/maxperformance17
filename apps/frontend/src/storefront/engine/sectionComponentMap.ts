@@ -132,6 +132,7 @@ export const STOREFRONT_SECTION_COMPONENT_MAP: Readonly<Record<string, string>> 
   'shop-the-look': 'shop-the-look',
   'dental-3d-showcase': 'dental-3d-showcase',
   'dental-sample-kit': 'dental-sample-kit',
+  'academy-interactive-lab': 'academy-interactive-lab',
   'car-model-matcher': 'car-model-matcher',
   'automotive-bento': 'automotive-bento',
   'cookie-consent': 'cookie-consent',

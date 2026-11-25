@@ -552,6 +552,17 @@ export const storefrontVariantRegistry = {
       tone: 'cyber-dark-luxury',
       status: 'implemented-now',
     },
+    {
+      id: 'academy-3d-wave',
+      section: 'HeroBanner',
+      purpose: 'Interactive Three.js 3D physical cards wave hero with pointer spring physics, cursor spotlight, synchronized HUD preview, and click-to-inspect project modal',
+      bestPages: ['home', 'shop'],
+      bestArchetypes: ['education', 'kids-academy', 'creative-school', 'digital'],
+      rtlSuitability: 'high',
+      density: 'medium',
+      tone: 'editorial-3d-studio',
+      status: 'implemented-now',
+    },
   ],
   ProductGrid: [
     {

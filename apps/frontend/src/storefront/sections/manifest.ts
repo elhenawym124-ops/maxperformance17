@@ -874,6 +874,7 @@ export const STOREFRONT_SECTION_MANIFEST = {
       { value: "grooming-hero", label: "Hero مدونة Grooming (داكن)" },
       { value: "dental-precision-hero", label: "معمل أسنان رقمي CAD/CAM فاخر" },
       { value: "skill-lab-motion", label: "أكاديمية Skill Lab بحركات 3D وساندبوكس" },
+      { value: "academy-3d-wave", label: "مسرح الأكاديمية ثلاثي الأبعاد 3D Wave" },
       { value: "marketplace-slider", label: "سلايدر ماركت بليس + عرض جانبي + أقسام ساخنة" },
     ],
     fields: [
@@ -4146,6 +4147,24 @@ export const STOREFRONT_SECTION_MANIFEST = {
       { key: "subtitle", label: "الوصف", type: "textarea" },
     ],
   },
+  "academy-interactive-lab": {
+    label: "معمل التجربة التفاعلي للأكاديمية (Interactive Lab)",
+    component: "academy-interactive-lab",
+    icon: "🧪",
+    category: "specialized",
+    note: "معمل تفاعلي حي للرؤية الحاسوبية ومحاكاة الفيزياء داخل الصفحة لتعريف الآباء والطلاب بالتطبيق العملي.",
+    pages: ["home", "shop", "collections", "about"],
+    variants: [
+      { value: "standard", label: "قياسي" },
+    ],
+    fields: [
+      { key: "badge", label: "الشارة", type: "text", placeholder: "معمل التجربة التفاعلي" },
+      { key: "title", label: "العنوان", type: "text", placeholder: "جرّب بنفسك كيف يتعلم الطالب" },
+      { key: "subtitle", label: "الوصف", type: "textarea" },
+      { key: "ctaText", label: "نص زر الإجراء", type: "text", placeholder: "احجز حصة تقييم مجانية" },
+      { key: "ctaLink", label: "رابط زر الإجراء", type: "url", placeholder: "/registration" },
+    ],
+  },
   "car-model-matcher": {
     label: "مطابقة موديل السيارة (Car Model Matcher)",
     component: "car-model-matcher",
@@ -4351,6 +4370,7 @@ const STOREFRONT_SECTION_VARIANT_ALIASES = {
   },
   "dental-3d-showcase": {},
   "dental-sample-kit": {},
+  "academy-interactive-lab": {},
 } as const satisfies Partial<Record<StorefrontSectionId, Record<string, string>>>;
 
 const normalizeVariantValue = (variant: string): string =>
@@ -4497,6 +4517,7 @@ const SECTION_CATEGORY_LOOKUP: Record<string, StudioSectionCategoryId> = {
   "marketing-consent": "specialized",
   "member-registration": "specialized",
   "dental-sample-kit": "specialized",
+  "academy-interactive-lab": "specialized",
 };
 
 export const resolveStorefrontSectionCategory = (
