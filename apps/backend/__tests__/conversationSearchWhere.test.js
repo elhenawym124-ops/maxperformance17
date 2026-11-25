@@ -233,6 +233,36 @@ describe('conversationSearchWhere', () => {
       expect(query).toHaveBeenCalledTimes(2);
     });
 
+    it('does NOT retry when the transaction failed because of a deadline/cancel error', async () => {
+      const tx = jest.fn().mockImplementation(() => Promise.reject(
+        Object.assign(new Error('canceling statement due to statement timeout'), { code: 'P2034' })));
+      const query = jest.fn().mockResolvedValue([{ id: 'conv-should-not-run' }]);
+      const mockPrisma = {
+        $executeRawUnsafe: jest.fn().mockResolvedValue(1),
+        $queryRawUnsafe: query,
+        $transaction: tx,
+      };
+
+      await expect(searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'المقاسات' }))
+        .rejects.toThrow('statement timeout');
+      // the only $queryRawUnsafe call is the one that built the array transaction
+      expect(query).toHaveBeenCalledTimes(1);
+    });
+
+    it('does NOT retry an unrelated database error (no masking of real failures)', async () => {
+      const tx = jest.fn().mockImplementation(() => Promise.reject(new Error('syntax error at or near "FROM"')));
+      const query = jest.fn().mockResolvedValue([{ id: 'conv-nope' }]);
+      const mockPrisma = {
+        $executeRawUnsafe: jest.fn().mockResolvedValue(1),
+        $queryRawUnsafe: query,
+        $transaction: tx,
+      };
+
+      await expect(searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'المقاسات' }))
+        .rejects.toThrow('syntax error');
+      expect(query).toHaveBeenCalledTimes(1);
+    });
+
     it('still throws when the query itself fails (no silent empty result)', async () => {
       const query = jest.fn().mockImplementation(() => Promise.reject(new Error('DB connection failed')));
       const mockPrisma = { $queryRawUnsafe: query };

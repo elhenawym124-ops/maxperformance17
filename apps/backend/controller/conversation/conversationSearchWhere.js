@@ -151,8 +151,17 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
 }
 
 /**
- * Runs the raw search with a hard server-side deadline instead of relying on the
- * pooler/role default (the SPA gives up at 30s).
+ * Errors that mean "this pooler refuses the transaction wrapper", not "the query
+ * itself failed". Only those are retried on the plain path; a deadline/cancel
+ * error must never be retried (gate-4 BLOCKER, 2026-11-25).
+ */
+const TX_WRAPPER_ERROR = /transaction|pooler|pool|prepared statement|connection|closed|P2024|P2028/i;
+/** Cancel/timeout errors: the query already burned its budget — surface them. */
+const DEADLINE_ERROR = /timeout|timed out|cancel|P2034/i;
+
+/**
+ * Runs the raw search with a hard deadline instead of relying on the pooler/role
+ * default (the SPA gives up at 30s).
  *
  * Preferred path: a single pipelined (array-form) transaction — BEGIN + SET LOCAL +
  * query are sent as one batch to the pooler, so the pooled server connection is
@@ -162,11 +171,12 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
  * `query_wait_timeout` errors.
  *
  * Production fallback (2026-11-25): on a transaction-pooling PgBouncer the array
- * transaction can be rejected outright (every content search answered 422
+ * transaction is rejected outright (every content search answered 422
  * MESSAGE_SEARCH_UNAVAILABLE in <1s after 9d7bfd922 shipped, while the plain path
- * worked before it). So a failed transaction is retried as a plain
- * `$queryRawUnsafe` — the pooler default deadline then applies, and a genuinely
- * broken query still throws (the caller maps it to 422).
+ * worked before it). A rejected *wrapper* is retried as a plain `$queryRawUnsafe`
+ * that keeps the same hard deadline through a client-side race, so a slow query
+ * still fails as MESSAGE_SEARCH_TIMEOUT at ~5s instead of hanging to the SPA's 30s.
+ * Timeout/cancel errors are never retried, and a broken query still throws.
  * Simple/mock clients without `$transaction` use the plain call directly.
  */
 async function runWithStatementTimeout(prisma, query, params, timeoutMs = SEARCH_STATEMENT_TIMEOUT_MS) {
@@ -178,15 +188,45 @@ async function runWithStatementTimeout(prisma, query, params, timeoutMs = SEARCH
             ], { timeout: timeoutMs + 2000 });
             return rows;
         } catch (txErr) {
-            const fallback = await prisma.$queryRawUnsafe(query, ...params);
-            if (typeof console !== 'undefined' && process.env.DEBUG_CONV_SEARCH === 'true') {
-                console.warn('⚠️ [CONV-SEARCH] pipelined transaction failed, plain query used:',
-                    (txErr && txErr.message || '').slice(0, 200));
+            const fingerprint = `${(txErr && txErr.message) || ''} ${(txErr && txErr.code) || ''}`;
+            if (DEADLINE_ERROR.test(fingerprint) || !TX_WRAPPER_ERROR.test(fingerprint)) {
+                throw txErr;
             }
-            return fallback;
+            // Log the driver error CODE only — never raw driver text (PII/statement fragments).
+            if (typeof process !== 'undefined' && process.env.DEBUG_CONV_SEARCH === 'true') {
+                console.warn('⚠️ [CONV-SEARCH] transaction wrapper rejected (code=%s); retrying with a client deadline',
+                    (txErr && txErr.code) || 'unknown');
+            }
+            return runWithClientDeadline(prisma, query, params, timeoutMs);
         }
     }
     return prisma.$queryRawUnsafe(query, ...params);
+}
+
+/**
+ * Plain `$queryRawUnsafe` bounded by a client-side deadline. The server query is
+ * not cancellable from here, so a late rejection is swallowed to avoid an
+ * unhandled-rejection crash; the caller receives a timeout error at `timeoutMs`.
+ */
+function runWithClientDeadline(prisma, query, params, timeoutMs = SEARCH_STATEMENT_TIMEOUT_MS) {
+    const pending = prisma.$queryRawUnsafe(query, ...params);
+    if (!pending || typeof pending.then !== 'function') {
+        return pending;
+    }
+    let timer;
+    const deadline = new Promise((_, reject) => {
+        timer = setTimeout(() => {
+            const err = new Error('statement timeout: message content search exceeded its deadline');
+            err.code = 'MESSAGE_SEARCH_TIMEOUT';
+            reject(err);
+        }, Number(timeoutMs));
+        if (timer && typeof timer.unref === 'function') {
+            timer.unref();
+        }
+    });
+    // Keep the late outcome of the server query from becoming an unhandled rejection.
+    pending.catch(() => {});
+    return Promise.race([pending, deadline]).finally(() => clearTimeout(timer));
 }
 
 module.exports = {
