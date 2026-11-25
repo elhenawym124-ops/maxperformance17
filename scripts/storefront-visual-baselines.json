@@ -998,7 +998,47 @@
       "minFontSize": 8.5,
       "firstProductScreen": 5.71,
       "updatedAt": "2026-11-22"
+    },
+    "tpl-073-shawaya-grill": {
+      "cls": 0.005,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 3.78,
+      "updatedAt": "2026-11-25"
+    },
+    "tpl-074-sabah-cafe": {
+      "cls": 0.002,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 5.44,
+      "updatedAt": "2026-11-25"
+    },
+    "tpl-075-layali-dining": {
+      "cls": 0.001,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 4.79,
+      "updatedAt": "2026-11-25"
+    },
+    "tpl-076-wasla-cloud-kitchen": {
+      "cls": 0,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 9,
+      "minFontSize": 8.5,
+      "firstProductScreen": 3.4,
+      "updatedAt": "2026-11-25"
     }
   },
-  "updatedAt": "2026-11-22"
+  "updatedAt": "2026-11-25"
 }
