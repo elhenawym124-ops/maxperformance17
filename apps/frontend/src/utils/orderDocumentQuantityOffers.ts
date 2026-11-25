@@ -88,16 +88,36 @@ export const getOrderDocumentQuantityOffer = (
   return null;
 };
 
+export const normalizeOrderDocumentItems = <T extends OrderDocumentItem>(
+  items: T[] | unknown,
+): T[] => {
+  if (Array.isArray(items)) {
+    return items;
+  }
+
+  if (typeof items === "string") {
+    try {
+      const parsed = JSON.parse(items);
+      return Array.isArray(parsed) ? (parsed as T[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  return [];
+};
+
 export const groupOrderDocumentQuantityOffers = <T extends OrderDocumentItem>(
-  items: T[],
+  items: T[] | unknown,
 ): {
   groups: Array<OrderDocumentQuantityOfferGroup<T>>;
   singles: T[];
 } => {
+  const safeItems = normalizeOrderDocumentItems<T>(items);
   const singles: T[] = [];
   const groups = new Map<string, OrderDocumentQuantityOfferGroup<T>>();
 
-  items.forEach((item) => {
+  safeItems.forEach((item) => {
     const quantityOffer = getOrderDocumentQuantityOffer(item);
     if (!quantityOffer?.groupId) {
       singles.push(item);
@@ -154,24 +174,25 @@ export const groupOrderDocumentQuantityOffers = <T extends OrderDocumentItem>(
 };
 
 export const summarizeOrderDocumentItems = <T extends OrderDocumentItem>(
-  items: T[],
+  items: T[] | unknown,
 ): OrderDocumentItemsSummary => {
-  const grouped = groupOrderDocumentQuantityOffers(items);
-  const totalItemCount = items.reduce(
+  const safeItems = normalizeOrderDocumentItems<T>(items);
+  const grouped = groupOrderDocumentQuantityOffers(safeItems);
+  const totalItemCount = safeItems.reduce(
     (sum, item) => sum + Math.max(0, Number(item.quantity || 0)),
     0,
   );
 
   if (grouped.groups.length === 0) {
-    const firstItem = items[0];
+    const firstItem = safeItems[0];
     return {
       hasQuantityOffers: false,
       quantityOfferCount: 0,
       totalItemCount,
       primaryLabel: firstItem?.productName || "طلب بدون منتجات",
       secondaryLabel:
-        items.length > 1
-          ? `+${items.length - 1} منتجات إضافية`
+        safeItems.length > 1
+          ? `+${safeItems.length - 1} منتجات إضافية`
           : `${Math.max(1, totalItemCount || 0)} قطعة`,
     };
   }

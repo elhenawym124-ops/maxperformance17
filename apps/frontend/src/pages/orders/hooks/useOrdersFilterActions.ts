@@ -118,6 +118,8 @@ export function useOrdersFilterActions({
       extractionMethod: "",
       minConfidence: "",
       timeRange: "",
+      onlyUnseen: false,
+      onlyPostPurchaseOffer: false,
     }));
     setPage(1);
   };

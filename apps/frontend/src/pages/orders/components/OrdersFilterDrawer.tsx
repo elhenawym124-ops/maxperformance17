@@ -96,6 +96,7 @@ export const OrdersFilterDrawer: React.FC<OrdersFilterDrawerProps> = ({
 
   const drawerContent = (
     <div
+      dir="rtl"
       className="fixed inset-0 z-40 flex justify-end animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
@@ -103,13 +104,13 @@ export const OrdersFilterDrawer: React.FC<OrdersFilterDrawerProps> = ({
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-black/50 transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Slide-over Drawer Panel */}
-      <aside className="relative z-[45] flex h-full w-full max-w-md sm:max-w-lg lg:max-w-xl flex-col border-s border-border bg-card shadow-2xl transition-transform animate-in slide-in-from-end duration-200">
+      <aside className="relative z-[45] flex h-full w-full max-w-md flex-col border-s border-border/70 bg-card text-foreground shadow-xl transition-transform animate-in slide-in-from-end duration-200">
         {/* Header */}
         <FilterDrawerHeader
           advancedFilterCount={advancedFilterCount}
@@ -117,8 +118,8 @@ export const OrdersFilterDrawer: React.FC<OrdersFilterDrawerProps> = ({
           onClose={onClose}
         />
 
-        {/* Scrollable Content Body */}
-        <div className="flex-1 space-y-4 overflow-y-auto px-4 sm:px-6 py-5">
+        {/* Scrollable Content Body (single-surface hairline dividers) */}
+        <div className="flex-1 divide-y divide-border/70 overflow-y-auto px-4 sm:px-5">
           {/* Section: Date Range */}
           <DateRangeFilterSection
             filters={filters}

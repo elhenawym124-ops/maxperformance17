@@ -137,4 +137,17 @@ describe("orderDocumentQuantityOffers", () => {
     expect(summary.secondaryLabel).toContain("2/2 قطع");
     expect(summary.secondaryLabel).toContain("+1 منتجات منفصلة");
   });
+
+  it("handles null, undefined, non-array objects, or invalid JSON items safely without throwing", () => {
+    expect(groupOrderDocumentQuantityOffers(null)).toEqual({ groups: [], singles: [] });
+    expect(groupOrderDocumentQuantityOffers(undefined)).toEqual({ groups: [], singles: [] });
+    expect(groupOrderDocumentQuantityOffers({ bad: true })).toEqual({ groups: [], singles: [] });
+    expect(summarizeOrderDocumentItems({ count: 2 })).toEqual(
+      expect.objectContaining({
+        hasQuantityOffers: false,
+        quantityOfferCount: 0,
+        totalItemCount: 0,
+      }),
+    );
+  });
 });

@@ -264,7 +264,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
 
             <button
               type="button"
-              onClick={() => navigate("/orders/new")}
+              onClick={() => navigate("/orders/manual")}
               className="inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground px-3 text-xs font-semibold transition-all active:scale-95 shadow-xs"
             >
               <Plus className="w-4 h-4 shrink-0" />
@@ -323,7 +323,14 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
               { key: "cancelled", label: "ملغي" },
             ].map((tab) => {
               const isActive = activeTab === tab.key;
-              const rawCount = tabCounts[tab.key as keyof typeof tabCounts];
+              const rawCount =
+                tab.key === "all" &&
+                activeTab === "all" &&
+                activeFilterCount === 0 &&
+                !search &&
+                totalOrders > 0
+                  ? totalOrders
+                  : tabCounts[tab.key as keyof typeof tabCounts];
               return (
                 <button
                   key={tab.key}

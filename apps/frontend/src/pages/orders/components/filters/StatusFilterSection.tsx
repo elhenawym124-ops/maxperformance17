@@ -32,14 +32,14 @@ export const StatusFilterSection: React.FC<StatusFilterSectionProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="space-y-3.5">
+    <div className="py-4 space-y-3.5">
       {/* Order Status */}
-      <div className="space-y-2 rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+      <div className="space-y-1.5">
         <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground">
+          <span className="flex items-center gap-2 text-xs font-bold text-foreground">
             <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
             <span>{t("orders.allStatuses", { defaultValue: "حالة الطلب" })}</span>
-          </label>
+          </span>
           {filters.status.length > 0 && (
             <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-bold text-primary font-mono tabular-nums">
               {filters.status.length}
@@ -57,12 +57,12 @@ export const StatusFilterSection: React.FC<StatusFilterSectionProps> = ({
       </div>
 
       {/* Payment Status */}
-      <div className="space-y-2 rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+      <div className="space-y-1.5">
         <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground">
+          <span className="flex items-center gap-2 text-xs font-bold text-foreground">
             <CreditCard className="h-4 w-4 text-primary shrink-0" />
             <span>{t("orders.allPaymentStatuses", { defaultValue: "حالة الدفع" })}</span>
-          </label>
+          </span>
           {filters.paymentStatus.length > 0 && (
             <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-bold text-primary font-mono tabular-nums">
               {filters.paymentStatus.length}
@@ -81,12 +81,12 @@ export const StatusFilterSection: React.FC<StatusFilterSectionProps> = ({
 
       {/* Order Source */}
       {showOrderSourceFilter && (
-        <div className="space-y-2 rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
+        <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground">
+            <span className="flex items-center gap-2 text-xs font-bold text-foreground">
               <Globe className="h-4 w-4 text-primary shrink-0" />
               <span>{t("orders.allSources", { defaultValue: "مصدر الطلب" })}</span>
-            </label>
+            </span>
             {filters.sourceType.length > 0 && (
               <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-bold text-primary font-mono tabular-nums">
                 {filters.sourceType.length}

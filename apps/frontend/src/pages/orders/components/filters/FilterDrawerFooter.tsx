@@ -19,22 +19,22 @@ export const FilterDrawerFooter: React.FC<FilterDrawerFooterProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="border-t border-border/70 bg-card/90 px-4 sm:px-6 py-4 backdrop-blur-md">
-      <div className="flex items-center justify-between gap-3">
+    <div className="border-t border-border/70 bg-card px-4 sm:px-5 py-3.5">
+      <div className="flex items-center justify-between gap-2.5">
         <button
           type="button"
           onClick={onClearAdvancedFilters}
           disabled={advancedFilterCount === 0 && !onlyUnseen && !onlyPostPurchaseOffer}
-          className="inline-flex items-center justify-center rounded-xl border border-border/70 bg-background/80 px-4 py-2.5 text-xs sm:text-sm font-semibold text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 active:scale-95 transition-all"
+          className="inline-flex h-9 items-center justify-center rounded-lg border border-border/70 bg-background px-4 text-xs sm:text-sm font-semibold text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.97] transition-all cursor-pointer"
         >
-          {t("orders.clearAdvancedFilters", { defaultValue: "إعادة تعيين الكل" })}
+          {t("orders.clearAll", { defaultValue: "مسح الكل" })}
         </button>
         <button
           type="button"
           onClick={onClose}
-          className="flex-1 rounded-xl bg-primary px-5 py-2.5 text-center text-xs sm:text-sm font-bold text-primary-foreground shadow-xs hover:bg-primary/90 active:scale-95 transition-all"
+          className="flex-1 h-9 rounded-lg bg-primary px-5 text-center text-xs sm:text-sm font-bold text-primary-foreground shadow-xs hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 active:scale-[0.97] transition-all cursor-pointer"
         >
-          {t("orders.applyFilters", { defaultValue: "تطبيق الفلاتر" })}
+          {t("orders.viewResults", { defaultValue: "عرض النتائج" })}
         </button>
       </div>
     </div>

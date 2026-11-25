@@ -103,7 +103,7 @@ export const MultiSelectFilter: React.FC<MultiSelectFilterProps> = ({
         type="button"
         aria-label={ariaLabel}
         aria-expanded={open}
-        className={`flex h-10 w-full items-center justify-between gap-2 rounded-xl border border-border/70 bg-background px-3.5 py-2 text-start text-xs sm:text-sm transition-all hover:bg-muted/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 ${fieldClassName}`}
+        className={`flex h-9 w-full items-center justify-between gap-2 rounded-lg border border-border/70 bg-background px-3 py-1.5 text-start text-xs sm:text-sm transition-all hover:bg-muted/40 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 cursor-pointer ${fieldClassName}`}
       >
         <span
           className={`truncate font-medium ${value.length === 0 ? "text-muted-foreground" : "text-foreground"}`}
@@ -126,19 +126,19 @@ export const MultiSelectFilter: React.FC<MultiSelectFilterProps> = ({
       <PopoverContent
         align="start"
         dir="rtl"
-        className="z-[120] w-[var(--radix-popover-trigger-width)] min-w-[280px] max-w-[420px] rounded-xl border border-border/70 bg-card p-2.5 text-card-foreground shadow-2xl animate-in fade-in-50 zoom-in-95 duration-150"
+        className="z-[120] w-[var(--radix-popover-trigger-width)] min-w-[280px] max-w-[420px] rounded-xl border border-border/70 bg-card p-2 text-card-foreground shadow-md animate-in fade-in-50 zoom-in-95 duration-150"
       >
         <div className="flex flex-col gap-2">
           {/* Search Bar */}
           <div className="relative">
-            <Search className="pointer-events-none absolute start-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+            <Search className="pointer-events-none absolute start-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               aria-label={searchPlaceholder}
               placeholder={searchPlaceholder}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full rounded-xl border border-border/70 bg-background py-1.5 pe-3 ps-9 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-start"
+              className="w-full h-8 rounded-lg border border-border/70 bg-background py-1 pe-3 ps-8 text-xs text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 transition-all text-start"
             />
           </div>
 
@@ -182,7 +182,7 @@ export const MultiSelectFilter: React.FC<MultiSelectFilterProps> = ({
                 return (
                   <label
                     key={option.code}
-                    className={`flex items-center gap-2.5 rounded-xl px-2.5 py-2 transition-all select-none ${
+                    className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-all select-none ${
                       option.disabled
                         ? "cursor-not-allowed opacity-60"
                         : "cursor-pointer hover:bg-muted/60 active:scale-[0.99]"

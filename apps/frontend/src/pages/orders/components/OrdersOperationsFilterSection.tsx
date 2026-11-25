@@ -46,8 +46,8 @@ export const OrdersOperationsFilterSection: React.FC<OrdersOperationsFilterSecti
   const { t } = useTranslation();
 
   return (
-    <div className="space-y-3.5 rounded-xl border border-border/70 bg-card p-3.5 sm:p-4 shadow-xs">
-      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground">
+    <div className="py-4 space-y-3.5">
+      <div className="flex items-center gap-2 text-xs font-bold text-foreground">
         <Truck className="h-4 w-4 text-primary shrink-0" />
         <span>{t("orders.unifiedOperations", { defaultValue: "العمليات والتنفيذ والشحن" })}</span>
       </div>
@@ -106,18 +106,6 @@ export const OrdersOperationsFilterSection: React.FC<OrdersOperationsFilterSecti
             onRetry={onRetryAffiliates}
             {...multiSelectCommon}
           />
-          {affiliateOptionsError && (
-            <button
-              type="button"
-              onClick={() => onRetryAffiliates?.()}
-              className="flex w-full items-center justify-between gap-2 rounded-xl border border-destructive/20 bg-destructive/10 px-3 py-1.5 text-[11px] font-semibold text-destructive transition hover:bg-destructive/15"
-            >
-              <span className="truncate">{affiliateOptionsError}</span>
-              <span className="shrink-0 rounded-lg border border-destructive/30 px-2 py-0.5">
-                {t("orders.retryNow", { defaultValue: "إعادة المحاولة" })}
-              </span>
-            </button>
-          )}
         </div>
       )}
 
