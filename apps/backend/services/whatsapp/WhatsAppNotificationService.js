@@ -1505,7 +1505,23 @@ async function sendNotification(options) {
       };
       templateId = null;
     } else if (options.contentOverride) {
-      console.log(`[WHATSAPP-NOTIFY] Using contentOverride for journey notification`);
+      // 🚨 PRODUCTION-FIX (education/meta-template-with-override):
+      // النص الجاهز (contentOverride) مش بديل عن القالب على META_CLOUD — كان القالب بيتخطى
+      // فيبقى template=null والبوابة ترفض الإرسال بـNO_TEMPLATE_CONFIGURED رغم وجود قالب معتمد.
+      const providedTemplate = options.template && options.template.id ? options.template : null;
+      if (providedTemplate) {
+        template = providedTemplate;
+        templateId = providedTemplate.id;
+      } else if (sessionProvider === 'META_CLOUD') {
+        template = await safeQuery(() => findNotificationTemplateForEvent(
+          deliveryCompanyId,
+          eventType,
+          sessionProvider,
+          getSharedPrismaClient()
+        ));
+        if (template) templateId = template.id;
+      }
+      console.log(`[WHATSAPP-NOTIFY] Using contentOverride for journey notification (template=${templateId || 'none'}, provider=${sessionProvider})`);
     } else {
       // 🎁 إشعارات العملاء: عند تمرير قالب محدد نستخدمه مباشرة (وليس بحثاً بالحدث)
       if (preferredTemplateId) {
