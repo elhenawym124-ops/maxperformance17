@@ -19,7 +19,6 @@ import { cn } from "@/lib/utils";
 import {
   formatNumber,
   formatCurrency,
-  formatRatio,
 } from "../../../utils/formatNumber";
 
 interface OperationsPulseData {
@@ -268,7 +267,8 @@ export const PlatformOperationsPulse: React.FC = () => {
           <div className="mt-2 pt-2 border-t border-border/40 text-[11px] flex items-center justify-between text-muted-foreground">
             <span>تم استردادها:</span>
             <span className="text-emerald-600 dark:text-success font-semibold tabular-nums">
-              {formatNumber(pulse.abandonedCarts.todayRecovered)} سلة ({formatRatio(pulse.abandonedCarts.todayRecovered, pulse.abandonedCarts.todayCount)})
+              {formatNumber(pulse.abandonedCarts.todayRecovered)} من{" "}
+              {formatNumber(pulse.abandonedCarts.todayCount)} سلة
             </span>
           </div>
         </div>

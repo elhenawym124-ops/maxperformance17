@@ -134,13 +134,32 @@ export const SuperAdminTrendChart: React.FC<SuperAdminTrendChartProps> = ({
             />
             <Tooltip content={<CustomTooltip />} />
             <Legend
-              formatter={(value) => (
-                <span className="inline-flex items-center px-2">
-                  {{ companies: "شركات", users: "مستخدمين", customers: "عملاء" }[
-                    value
-                  ] || value}
-                </span>
-              )}
+              content={(props: any) => {
+                const payload = (props && props.payload) || [];
+                const labels: Record<string, string> = {
+                  companies: "شركات",
+                  users: "مستخدمين",
+                  customers: "عملاء",
+                };
+                return (
+                  <ul className="flex flex-wrap items-center justify-center gap-1 pt-2 text-[11px]">
+                    {payload.map((entry: any, index: number) => (
+                      <li key={String(entry.value)} className="inline-flex items-center gap-1">
+                        <span
+                          className="inline-block size-2 rounded-full"
+                          style={{ backgroundColor: entry.color }}
+                        />
+                        <span className="font-medium text-foreground">
+                          {labels[entry.value] || entry.value}
+                        </span>
+                        {index < payload.length - 1 ? (
+                          <span className="px-1 text-muted-foreground">·</span>
+                        ) : null}
+                      </li>
+                    ))}
+                  </ul>
+                );
+              }}
               wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }}
             />
             <Area

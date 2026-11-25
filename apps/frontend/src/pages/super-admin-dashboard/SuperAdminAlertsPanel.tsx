@@ -33,7 +33,11 @@ export const formatAlertCategory = (category?: string): string => {
 
 export const cleanAlertMessage = (msg?: string): string => {
   if (!msg) return "";
-  return msg.replace(/\s*[-–—]?\s*السبب:\s*0+\b/g, "").trim();
+  // Drop «السبب: …» when the reason has no real text (zeros / dots / numbers only),
+  // e.g. «السبب: 00000» و«السبب: .00000000» — but keep typed reasons like «gg».
+  return msg
+    .replace(/\s*[-–—]?\s*السبب:\s*[^A-Za-z\u0600-\u06FF]*$/u, "")
+    .trim();
 };
 
 export const SuperAdminAlertsPanel: React.FC<SuperAdminAlertsPanelProps> = ({
