@@ -94,7 +94,7 @@ export const StatusTemplateSlot: React.FC<StatusTemplateSlotProps> = ({
   return (
     <div
       data-testid={`${slot}-slot-${status.id}`}
-      className={`rounded-lg border p-3 ${colors.border} ${colors.bg}`}
+      className={`min-w-0 overflow-hidden rounded-lg border p-3 ${colors.border} ${colors.bg}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium ${colors.badge}`}>

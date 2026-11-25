@@ -23,13 +23,13 @@ export default function TemplateTestBar({
   statuses,
 }: TemplateTestBarProps) {
   return (
-    <div className="mb-4 rounded-xl border border-slate-200/70 bg-white p-4 dark:border-white/10 dark:bg-slate-900/50">
-      <h2 className="mb-2 text-sm font-bold text-slate-800 dark:text-slate-200">
+    <div className="mb-4 min-w-0 overflow-hidden rounded-xl border border-border/70 bg-card p-3.5 sm:p-4">
+      <h2 className="mb-2 text-sm font-bold text-foreground">
         إرسال تجريبي
       </h2>
       <div className="flex flex-wrap items-end gap-3">
-        <div className="flex-1">
-          <Label htmlFor="test-phone" className="text-xs text-slate-500">
+        <div className="min-w-0 flex-1 basis-full sm:basis-auto">
+          <Label htmlFor="test-phone" className="text-xs text-muted-foreground">
             رقم الهاتف
           </Label>
           <input
@@ -38,18 +38,18 @@ export default function TemplateTestBar({
             value={testPhone}
             onChange={(e) => setTestPhone(e.target.value)}
             placeholder="01000000000"
-            className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+            className="mt-1 w-full min-w-0 rounded-lg border border-border/70 bg-background px-3 py-2 text-sm text-foreground"
           />
         </div>
-        <div>
-          <Label htmlFor="test-event" className="text-xs text-slate-500">
+        <div className="min-w-0 w-full sm:w-auto">
+          <Label htmlFor="test-event" className="text-xs text-muted-foreground">
             الحدث
           </Label>
           <select
             id="test-event"
             value={testEvent}
             onChange={(e) => setTestEvent(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+            className="mt-1 w-full min-w-0 max-w-full rounded-lg border border-border/70 bg-background px-3 py-2 text-sm text-foreground"
           >
             <option value="">اختر الحدث...</option>
             {statuses.map((s) => (

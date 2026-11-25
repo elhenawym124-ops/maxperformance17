@@ -22,12 +22,12 @@ export default function TemplateBatchPublishBanner({
   if (unsubmittedCount === 0) return null;
 
   return (
-    <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-sky-500/30 bg-sky-500/[0.06] p-3.5 backdrop-blur-sm dark:border-sky-500/30 dark:bg-sky-500/10">
-      <div className="flex items-center gap-3">
+    <div className="mb-4 flex min-w-0 flex-wrap items-center justify-between gap-3 rounded-2xl border border-sky-500/30 bg-sky-500/[0.06] p-3.5 backdrop-blur-sm dark:border-sky-500/30 dark:bg-sky-500/10">
+      <div className="flex min-w-0 items-center gap-3">
         <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-sky-500/15 text-sky-600 dark:bg-sky-500/25 dark:text-sky-400">
           <GlobeAltIcon className="size-5" />
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="text-xs font-semibold text-slate-800 dark:text-slate-100">
             قوالب Meta الرسمية جاهزة ({unsubmittedCount} قالب جاهز)
           </p>
@@ -36,7 +36,7 @@ export default function TemplateBatchPublishBanner({
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         {metaSessions.length > 1 && (
           <select
             value={selectedMetaSession}

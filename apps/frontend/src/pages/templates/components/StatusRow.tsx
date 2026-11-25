@@ -80,7 +80,7 @@ export const StatusRow: React.FC<StatusRowProps> = ({
   return (
     <div
       data-testid={`status-row-${status.id}`}
-      className="group rounded-lg border border-border/70 bg-card p-3.5 transition hover:shadow-sm"
+      className="group min-w-0 overflow-hidden rounded-lg border border-border/70 bg-card p-3 sm:p-3.5 transition hover:shadow-sm"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 flex-1 items-center gap-2.5">
@@ -151,7 +151,7 @@ export const StatusRow: React.FC<StatusRowProps> = ({
         ) : null}
       </div>
 
-      <div className="mt-3 grid gap-3 lg:grid-cols-2">
+      <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
         <StatusTemplateSlot
           slot="regular"
           template={regular}

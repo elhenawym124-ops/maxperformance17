@@ -54,8 +54,8 @@ export default function TemplateFilterBar({
 }: TemplateFilterBarProps) {
   return (
     <>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="relative min-w-[200px] max-w-xs flex-1">
+      <div className="mb-4 flex min-w-0 flex-wrap items-center justify-between gap-3">
+        <div className="relative w-full min-w-0 sm:min-w-[200px] sm:max-w-xs sm:flex-1">
           <input
             type="text"
             value={searchQuery}
@@ -135,7 +135,7 @@ export default function TemplateFilterBar({
                 value={topCreateEvent || filteredStatuses[0]?.code || ""}
                 onChange={(e) => setTopCreateEvent(e.target.value)}
                 aria-label="نوع الحدث"
-                className="min-w-[200px] rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                className="w-full min-w-0 sm:w-auto sm:min-w-[200px] max-w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white"
               >
                 {filteredStatuses.map((s) => (
                   <option key={s.code} value={s.code}>

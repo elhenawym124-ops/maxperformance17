@@ -33,7 +33,7 @@ export default function TemplateCenter({ config }: { config: TemplateScopeConfig
   const d = useTemplateCenterData(config);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-4">
+    <div className="mx-auto w-full min-w-0 max-w-6xl overflow-x-hidden px-3 py-4 sm:px-4">
       {/* Header */}
       <div className="mb-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -86,7 +86,7 @@ export default function TemplateCenter({ config }: { config: TemplateScopeConfig
       )}
 
       {/* Tabs list */}
-      <div role="tablist" className="mb-4 flex gap-1 overflow-x-auto scrollbar-none border-b border-border/70">
+      <div role="tablist" className="mb-4 flex w-full min-w-0 max-w-full gap-1 overflow-x-auto scrollbar-none border-b border-border/70">
         {config.tabs.map((tab) => {
           const isReports = tab.kind === "reports";
           const isSettings = tab.kind === "settings";
@@ -107,7 +107,7 @@ export default function TemplateCenter({ config }: { config: TemplateScopeConfig
               aria-selected={d.activeTab === tab.key}
               tabIndex={d.activeTab === tab.key ? 0 : -1}
               onClick={() => d.setActiveTab(tab.key)}
-              className={`whitespace-nowrap px-4 py-2.5 text-sm font-medium transition border-b-2 -mb-px ${
+              className={`shrink-0 whitespace-nowrap px-3 sm:px-4 py-2.5 text-sm font-medium transition border-b-2 -mb-px ${
                 d.activeTab === tab.key
                   ? "border-primary text-primary"
                   : "border-transparent text-muted-foreground hover:text-foreground"
@@ -145,7 +145,7 @@ export default function TemplateCenter({ config }: { config: TemplateScopeConfig
       )}
 
       {/* Tab Panels */}
-      <div id={`panel-${d.activeTab}`} role="tabpanel" aria-labelledby={`tab-${d.activeTab}`}>
+      <div id={`panel-${d.activeTab}`} role="tabpanel" aria-labelledby={`tab-${d.activeTab}`} className="w-full min-w-0">
         {d.activeTab === "reports" ? (
           <StatusReportTab statuses={d.statuses} config={config} />
         ) : d.activeTab === "settings" && config.features.enableSettings ? (

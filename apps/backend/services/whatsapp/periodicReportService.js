@@ -163,6 +163,7 @@ class PeriodicReportService {
       currency,
       dateString: zonedDateStr,
       metrics: {
+        dateString: zonedDateStr,
         totalOrders: allOrdersCount,
         totalRevenue,
         avgOrderValue,
@@ -190,7 +191,7 @@ class PeriodicReportService {
   /**
    * 2. صياغة التقرير بتنسيق WhatsApp Markdown
    */
-  formatReportMessage({ company, metrics, config = {} }) {
+  formatReportMessage({ company, metrics, dateString, config = {} }) {
     const {
       totalOrders,
       totalRevenue,
@@ -203,12 +204,13 @@ class PeriodicReportService {
     } = metrics;
 
     const currency = company.currency || 'ج.م';
+    const reportDate = metrics?.dateString || dateString || new Date().toLocaleDateString('ar-EG');
     const lines = [];
 
     // ترويسة التقرير
     lines.push('📊 *تقرير العمليات والمبيعات الدوري*');
     lines.push(`🏢 *${company.name || 'المتجر'}*`);
-    lines.push(`📅 التاريخ: ${metrics.dateString}`);
+    lines.push(`📅 التاريخ: ${reportDate}`);
     lines.push('━━━━━━━━━━━━━━━━━━━');
 
     // 1. قسم المبيعات
@@ -313,6 +315,7 @@ class PeriodicReportService {
     const messageText = this.formatReportMessage({
       company: reportData.company,
       metrics: reportData.metrics,
+      dateString: reportData.dateString,
       config
     });
 
@@ -397,6 +400,7 @@ class PeriodicReportService {
     const messageText = this.formatReportMessage({
       company: reportData.company,
       metrics: reportData.metrics,
+      dateString: reportData.dateString,
       config
     });
 
