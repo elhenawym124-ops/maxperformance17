@@ -110,8 +110,11 @@ const CustomerInfoCard: React.FC<CustomerInfoCardProps> = ({
               <button
                 type="button"
                 onClick={() => {
-                  const el = document.getElementById("customer-order-history-card");
-                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  window.dispatchEvent(new CustomEvent("expand-customer-history"));
+                  window.setTimeout(() => {
+                    const el = document.getElementById("customer-order-history-card");
+                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }, 40);
                 }}
                 aria-label={
                   order.customerHistory.stats.totalOrders > 1

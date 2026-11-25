@@ -53,17 +53,29 @@ export interface OrderDetailsSidebarProps {
 }
 
 interface MobileCollapsibleCardProps {
+  id?: string;
   title: string;
+  expandEventName?: string;
   children: React.ReactNode;
 }
 
 const MobileCollapsibleCard: React.FC<MobileCollapsibleCardProps> = ({
+  id,
   title,
+  expandEventName,
   children,
 }) => {
   const [open, setOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!expandEventName) return;
+    const handler = () => setOpen(true);
+    window.addEventListener(expandEventName, handler);
+    return () => window.removeEventListener(expandEventName, handler);
+  }, [expandEventName]);
+
   return (
-    <div>
+    <div id={id}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -153,7 +165,15 @@ export const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
       </div>
 
       <div className="order-3 lg:order-none space-y-4 sm:space-y-6">
-        <div id="customer-order-history-card">
+        <MobileCollapsibleCard
+          id="customer-order-history-card"
+          expandEventName="expand-customer-history"
+          title={`سجل وتاريخ طلبات العميل${
+            order.customerHistory?.stats?.totalOrders
+              ? ` (${order.customerHistory.stats.totalOrders})`
+              : ""
+          }`}
+        >
           <CustomerOrderHistoryCard
             orderNumber={order.orderNumber}
             initialHistory={order.customerHistory}
@@ -162,7 +182,7 @@ export const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
             customerId={order.customerId}
             currency={order.currency}
           />
-        </div>
+        </MobileCollapsibleCard>
 
       <OrderPaymentCard
         order={order}

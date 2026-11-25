@@ -48,17 +48,25 @@ export const OrderItemVariantBadges: React.FC<OrderItemVariantBadgesProps> = ({
   }
 
   return variantValues.color || variantValues.size ? (
-    <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap mt-1 sm:mt-1.5">
+    <>
       {variantValues.color && (
-        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 bg-primary/10 dark:bg-primary/15 text-foreground rounded-md text-[11px] sm:text-sm font-semibold border border-primary/25">
-          اللون: {variantValues.color}
+        <span
+          aria-label={`اللون: ${variantValues.color}`}
+          title={`اللون: ${variantValues.color}`}
+          className="inline-flex items-center px-1.5 py-0.5 bg-muted/70 text-foreground rounded text-[11px] sm:text-xs font-medium border border-border/60"
+        >
+          {variantValues.color}
         </span>
       )}
       {variantValues.size && (
-        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 bg-primary/10 dark:bg-primary/15 text-foreground rounded-md text-[11px] sm:text-sm font-semibold border border-primary/25">
-          المقاس: {variantValues.size}
+        <span
+          aria-label={`المقاس: ${variantValues.size}`}
+          title={`المقاس: ${variantValues.size}`}
+          className="inline-flex items-center px-1.5 py-0.5 bg-muted/70 text-foreground rounded text-[11px] sm:text-xs font-medium border border-border/60"
+        >
+          {variantValues.size}
         </span>
       )}
-    </div>
+    </>
   ) : null;
 };

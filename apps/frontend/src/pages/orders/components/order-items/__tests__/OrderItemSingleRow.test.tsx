@@ -41,8 +41,10 @@ describe("OrderItemVariantBadges", () => {
       />,
     );
 
-    expect(screen.getByText("اللون: أبيض")).toBeInTheDocument();
-    expect(screen.getByText("المقاس: L")).toBeInTheDocument();
+    expect(screen.getByText("أبيض")).toBeInTheDocument();
+    expect(screen.getByTitle("اللون: أبيض")).toBeInTheDocument();
+    expect(screen.getByText("L")).toBeInTheDocument();
+    expect(screen.getByTitle("المقاس: L")).toBeInTheDocument();
   });
 
   it("renders editable inputs in edit mode and triggers onItemChange", () => {

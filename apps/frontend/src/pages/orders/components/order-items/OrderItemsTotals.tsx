@@ -1,5 +1,5 @@
 import React from "react";
-import { TagIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { TagIcon } from "@heroicons/react/24/outline";
 import { useCurrency } from "../../../../hooks/useCurrency";
 
 interface OrderItemsTotalsProps {
@@ -96,7 +96,7 @@ export const OrderItemsTotals: React.FC<OrderItemsTotalsProps> = ({
                   type="number"
                   value={isNaN(totals.discount) ? 0 : totals.discount}
                   onChange={(e) => onDiscountChange(parseFloat(e.target.value) || 0)}
-                  className="w-24 px-2 py-1 text-right text-sm border border-border rounded bg-card text-foreground focus:ring-2 focus:ring-primary font-mono tabular-nums"
+                  className="w-24 px-2 py-1 text-end text-base sm:text-sm border border-border rounded bg-card text-foreground focus:ring-2 focus:ring-primary font-mono tabular-nums"
                   min="0"
                   placeholder="قيمة الخصم"
                 />
@@ -132,15 +132,6 @@ export const OrderItemsTotals: React.FC<OrderItemsTotalsProps> = ({
           </div>
         </div>
       </div>
-
-      {isEditing && (
-        <div className="mt-3 flex items-center gap-2 text-xs text-warning dark:text-warning bg-warning/10 dark:bg-warning/20 px-3 py-2 rounded-lg">
-          <ExclamationCircleIcon className="w-4 h-4 flex-shrink-0" />
-          <span>
-            الإجمالي يتم حسابه تلقائياً بناءً على المنتجات والشحن والضرائب والخصم
-          </span>
-        </div>
-      )}
     </div>
   );
 };

@@ -102,7 +102,7 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
 
         {/* Status Badge */}
         <span
-          className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-[11px] font-medium tabular-nums ${
+          className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 text-[11px] font-medium tabular-nums ${
             isCompleted
               ? "border-success/30 bg-success/10 text-success dark:text-success"
               : isFailed
@@ -141,10 +141,10 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
       {kashier && (
         <div className="mt-3 pt-3 border-t border-border/60 space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 rounded border border-primary/30 bg-primary/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-primary">
+            <span className="inline-flex items-center gap-1.5 rounded border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] font-semibold tracking-wider text-primary dark:text-primary">
               <span>بوابة الدفع</span>
               <span>•</span>
-              <span>Kashier V3</span>
+              <span dir="ltr" className="font-mono uppercase">Kashier V3</span>
             </span>
             {kashier.transactionResponseMessage && (
               <span className="text-xs font-medium text-success dark:text-success flex items-center gap-1">
@@ -249,7 +249,7 @@ export const OrderPaymentCard: React.FC<OrderPaymentCardProps> = ({
 
             {/* Timestamp */}
             {kashier.confirmedAt && (
-              <div className="flex items-center justify-between gap-2 pt-1 border-t border-border/60 font-mono text-[11px] tabular-nums text-muted-foreground">
+              <div className="flex items-center justify-between gap-2 pt-1 border-t border-border/60 text-[11px] tabular-nums text-muted-foreground">
                 <span>تاريخ المعاملة:</span>
                 <span>{formatDateTime(kashier.confirmedAt)}</span>
               </div>

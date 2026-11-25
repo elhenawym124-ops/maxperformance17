@@ -97,8 +97,8 @@ export const CustomerNotesSection: React.FC<CustomerNotesSectionProps> = ({
           </div>
 
           {displayNotes ? (
-            <div className="rounded-xl border border-border/70 bg-muted/40 p-3 text-sm text-foreground shadow-xs">
-              <span className="text-xs font-semibold block mb-1 text-muted-foreground">
+            <div className="pt-2 border-t border-border/50 text-xs sm:text-sm text-foreground">
+              <span className="text-[11px] font-semibold block mb-0.5 text-muted-foreground">
                 {t("orderDetails.additionalNotes", "ملاحظات إضافية:")}
               </span>
               <p className="whitespace-pre-wrap font-medium leading-relaxed break-words">
@@ -108,15 +108,11 @@ export const CustomerNotesSection: React.FC<CustomerNotesSectionProps> = ({
           ) : null}
         </div>
       ) : (
-        <div className="rounded-xl border border-border/70 bg-muted/40 p-3 text-sm text-foreground shadow-xs">
-          <div className="flex items-start gap-2.5">
-            <DocumentTextIcon className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
-            <div className="space-y-1 w-full min-w-0">
-              <p className="whitespace-pre-wrap font-medium leading-relaxed break-words">
-                {order.notes}
-              </p>
-            </div>
-          </div>
+        <div className="pt-2 border-t border-border/50 text-xs sm:text-sm text-foreground flex items-start gap-2">
+          <DocumentTextIcon className="w-4 h-4 text-muted-foreground/80 shrink-0 mt-0.5" />
+          <p className="whitespace-pre-wrap font-medium leading-relaxed break-words min-w-0">
+            {order.notes}
+          </p>
         </div>
       )}
     </div>

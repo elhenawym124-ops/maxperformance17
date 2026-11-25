@@ -793,7 +793,12 @@
   - دمج المحافظة والمدينة في سطر واحد وإخفاء تسميات الحقول الزائدة في وضع العرض داخل بطاقة العميل، ونقل سجل المشتريات إلى شارة مضغوطة في رأس البطاقة.
   - نقل `OrderItemPriceQtyFields` بعرض كامل أسفل صف الصورة والعنوان، تصغير صورة المنتج على الموبايل `w-12 h-12`، إزالة الكارت الداخلي المزدوج في وضع العرض، وطيّ البطاقات التشخيصية الثانوية في `OrderDetailsSidebar.tsx` بداخل أكورديون على `< lg`.
   - **التحقق بالمتصفح والاختبارات بعد المرحلة 2:** Playwright على `390x844` (داكن/فاتح)، `360x800`، `1280x800` → `overflowX: false`، `overlapPhoneCall: false`، `createdAtFont: IBM Plex Sans Arabic`، `phoneFont: JetBrains Mono`، `productsTop: 520px` (أعلى من خط الطي `844px`)، `headerTotalText: 710 EGP`، `copyBtnCount: 2`، صفر أخطاء كونسول + `lint:fast` (0 errors) + `check-icon-imports` + `check-heroicons` + Vitest (2 files, 8 tests) + Jest (5 suites, 20 tests).
-- **الحالة:** ✅ متصلح بالكامل (المرحلتان 1 و 2) ومتحقق بالمتصفح والاختبارات.
+- **تحديث المرحلة 3 (2026-11-25 — ضغط الشارات، الشحن، التباين، وطي السجل):**
+  - دمج `SKU` واللون والمقاس في سطر واحد مضغوط داخل [OrderItemSingleRow.tsx](file:///c:/Users/Administrator/projects/maxperformance17/apps/frontend/src/pages/orders/components/order-items/OrderItemSingleRow.tsx) و[OrderItemVariantBadges.tsx](file:///c:/Users/Administrator/projects/maxperformance17/apps/frontend/src/pages/orders/components/order-items/OrderItemVariantBadges.tsx) (مع `title`/`aria-label` بدلاً من تكرار كلمة اللون/المقاس)، وتصحيح `text-right` ← `text-end` وحذف التنبيه المتكرر أسفل الإجمالي في `OrderItemsTotals.tsx`.
+  - إخفاء النص الشارح أسفل عنوان «إدارة الشحن والتوصيل» (`sr-only` للوصولية)، وتقليص تنبيه «لا توجد شركات شحن مفعلة» لصف واحد مع إصلاح تباين ألوان الأخطاء في `ShippingErrorBanner.tsx`.
+  - إزالة `font-mono` عن النصوص العربية داخل `OrderPaymentCard.tsx`، وتقصير شارة `دفع عند الاستلام (COD)` إلى `COD` على الموبايل مع تصحيح `border-r` ← `border-e` في `OrderStatusBadgeRail.tsx`.
+  - تسطيح ملاحظة العميل بحد علوي خفيف (`CustomerNotesSection.tsx`) وطي `CustomerOrderHistoryCard` على `< lg` داخل `MobileCollapsibleCard` مع التوسيع التلقائي عند الضغط على شارة عدد الطلبات (`productsTop: 500px`).
+- **الحالة:** ✅ متصلح بالكامل (المراحل 1 و 2 و 3) ومتحقق بالمتصفح والاختبارات.
 - **الحالة:** 🟡 متصلح ومتحقق محلياً — جاهز للنشر وإعادة الفحص الحي
 
 ---

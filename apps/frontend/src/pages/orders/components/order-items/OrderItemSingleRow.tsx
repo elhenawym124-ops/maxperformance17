@@ -94,19 +94,28 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
                 )}
               </div>
 
-              {(item.productSku || stockInfo.stock > 0) && (
-                <div className="flex flex-wrap items-center gap-2 mb-1 sm:mb-1.5 text-xs">
+              {(item.productSku ||
+                stockInfo.stock > 0 ||
+                itemMetadata ||
+                item.productColor ||
+                item.productSize) && (
+                <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs">
                   {item.productSku && (
-                    <div className="inline-flex items-center gap-1 rounded bg-primary/10 dark:bg-primary/15 border border-primary/25 px-1.5 py-0.5">
-                      <span className="text-[10px] font-bold text-primary dark:brightness-125 uppercase tracking-wider">SKU</span>
-                      <span className="text-[11px] sm:text-xs font-mono font-semibold text-foreground">
-                        {item.productSku}
-                      </span>
-                    </div>
+                    <span className="inline-flex items-center rounded bg-muted/60 border border-border/60 px-1.5 py-0.5 font-mono text-[11px] font-medium text-muted-foreground tabular-nums">
+                      <span className="sr-only">SKU </span>
+                      {item.productSku}
+                    </span>
                   )}
+                  <OrderItemVariantBadges
+                    item={item}
+                    itemMetadata={itemMetadata}
+                    index={index}
+                    isEditing={isEditing}
+                    onItemChange={onItemChange}
+                  />
                   {stockInfo.stock > 0 && (
                     <span
-                      className={`inline-flex items-center gap-1 font-semibold ${
+                      className={`inline-flex items-center gap-1 text-[11px] font-semibold ${
                         stockInfo.status === "available"
                           ? "text-success dark:text-success"
                           : stockInfo.status === "low"
@@ -136,7 +145,7 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
               )}
 
               {quantityOfferSummary ? (
-                <div className="mb-1.5 sm:mb-2 flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <div className="mt-1.5 flex flex-wrap items-center gap-1.5 sm:gap-2">
                   <span className="inline-flex items-center gap-1 rounded-md border border-warning bg-warning/10 px-1.5 py-0.5 sm:px-2.5 sm:py-1 text-[11px] sm:text-sm font-semibold text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning">
                     عرض كميات
                   </span>
@@ -150,14 +159,6 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
                   ) : null}
                 </div>
               ) : null}
-
-              <OrderItemVariantBadges
-                item={item}
-                itemMetadata={itemMetadata}
-                index={index}
-                isEditing={isEditing}
-                onItemChange={onItemChange}
-              />
             </div>
 
             {isEditing && (

@@ -190,7 +190,7 @@ export const OrderStatusBadgeRail: React.FC<OrderStatusBadgeRailProps> = ({
           <RotateCcw className="h-3.5 w-3.5 shrink-0 text-destructive" />
           <span>{returnDetails.returnTypeLabel}</span>
           {returnDetails.reason && (
-            <span className="max-w-[160px] sm:max-w-[320px] truncate font-semibold border-r border-destructive/30 pe-1.5 me-0.5">
+            <span className="max-w-[160px] sm:max-w-[320px] truncate font-semibold border-e border-destructive/30 pe-1.5 me-0.5">
               {returnDetails.reason}
             </span>
           )}
@@ -255,7 +255,21 @@ export const OrderStatusBadgeRail: React.FC<OrderStatusBadgeRailProps> = ({
         }`}
       >
         <CreditCard className="h-3.5 w-3.5 shrink-0" />
-        <span>{isPaid ? "مدفوع بالكامل" : isFailed ? "فشل الدفع" : isCod ? "دفع عند الاستلام (COD)" : "بانتظار الدفع"}</span>
+        <span>
+          {isPaid ? (
+            "مدفوع بالكامل"
+          ) : isFailed ? (
+            "فشل الدفع"
+          ) : isCod ? (
+            <>
+              <span className="hidden sm:inline">دفع عند الاستلام (</span>
+              <span className="font-mono">COD</span>
+              <span className="hidden sm:inline">)</span>
+            </>
+          ) : (
+            "بانتظار الدفع"
+          )}
+        </span>
         {hasKashier && <span className="opacity-75 font-normal">(كاشير)</span>}
       </span>
 
