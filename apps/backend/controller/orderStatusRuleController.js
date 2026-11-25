@@ -229,7 +229,7 @@ exports.getAutomationReports = async (req, res) => {
         )::int AS "autoTransitions"
       FROM "OrderStatusHistory" h
       LEFT JOIN "orders" o ON o."id" = h."orderId"
-      LEFT JOIN "GuestOrder" go ON go."id" = h."guestOrderId"
+      LEFT JOIN "guest_orders" go ON go."id" = h."guestOrderId"
       WHERE (o."companyId" = $1 OR go."companyId" = $1)
         AND h."createdAt" >= $2
         AND h."createdAt" <= $3
@@ -257,7 +257,7 @@ exports.getAutomationReports = async (req, res) => {
         h."createdAt"
       FROM "OrderStatusHistory" h
       LEFT JOIN "orders" o ON o."id" = h."orderId"
-      LEFT JOIN "GuestOrder" go ON go."id" = h."guestOrderId"
+      LEFT JOIN "guest_orders" go ON go."id" = h."guestOrderId"
       WHERE (o."companyId" = $1 OR go."companyId" = $1)
         AND h."createdAt" >= $2
         AND h."createdAt" <= $3
