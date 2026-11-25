@@ -785,7 +785,15 @@
   2. تصحيح تباين بانر السجل (`bg-primary/10 text-foreground`) وأزرار الحظر والتفاصيل الدلالية (`bg-card`, `text-destructive dark:brightness-125 hover:text-destructive-foreground`).
   3. رفع `CustomerInfoCard` أعلى المنتجات على `< lg` (`order-1` عبر `contents lg:block` بدون تكرار mount)، إزالة `px-3` الزائدة في `OrderDetails.tsx`، وتسطيح تداخل الكروت في `CustomerInfoCard` و`OrderItemBundleRow`.
   4. تنظيف الكلاسات التالفة وتوحيد RTL (`start-*`, `end-*`, `border-s-2`, `text-end`) ونقل `[data-theme="business-os-enterprise"] *` إلى `@layer base` لإعادة تفعيل `font-mono tabular-nums`.
-- **التحقق بالمتصفح والاختبارات (2026-11-25):** Playwright على `390x844` (داكن/فاتح)، `360x800`، `1280x800` → `overflowX: false`، `phoneH: 20px`، `phoneFont: JetBrains Mono`، `customerCardPct: 94%` (390px) / `93%` (360px)، `overlapPhoneCall: false`، صفر أخطاء كونسول + `lint:fast` (0 errors) + Jest (5 suites, 29 tests) + Vitest (`UnifiedShippingCard.test.tsx`).
+- **التحقق بالمتصفح والاختبارات (2026-11-25 — المرحلة 1):** Playwright على `390x844` (داكن/فاتح)، `360x800`، `1280x800` → `overflowX: false`، `phoneH: 20px`، `phoneFont: JetBrains Mono`، `customerCardPct: 94%` (390px) / `93%` (360px)، `overlapPhoneCall: false`، صفر أخطاء كونسول + `lint:fast` (0 errors) + Jest (5 suites, 20 tests) + Vitest (`OrderHeader`, `OrderItemSingleRow`).
+- **تحديث المرحلة 2 (2026-11-25 — ضغط المساحات وأيقونات بدون نصوص مكررة):**
+  - إزالة `font-mono` عن النص العربي `تم الإنشاء في` في `OrderHeaderTitle.tsx` مع إبقاء `tabular-nums`، وإخفاء البادئة المكررة "تفاصيل الطلب" على الموبايل واستبدالها بشارة إجمالي الطلب `710 EGP`.
+  - تحويل أزرار شريط الإجراءات في `OrderHeaderActions.tsx` وأزرار العميل (`اتصال`، `واتساب`، `حظر العميل`، أزرار النسخ السريع للهاتف والعنوان) إلى أيقونات مضغوطة `h-9 w-9` على الموبايل (`sr-only sm:not-sr-only` للوصولية)، وإخفاء زر واتساب المكرر على `< sm`، مع تثبيت شريط الحفظ/الإلغاء فوق الشريط السفلي في وضع التعديل.
+  - إضافة خاصية `iconOnly` لـ `OrderCallButton.tsx` (مع إخفاء `deviceBadge` وزر التشخيص عند `iconOnly`) ومنع تداخل صف الهاتف على الشريط الجانبي الضيق (`lg:`).
+  - دمج المحافظة والمدينة في سطر واحد وإخفاء تسميات الحقول الزائدة في وضع العرض داخل بطاقة العميل، ونقل سجل المشتريات إلى شارة مضغوطة في رأس البطاقة.
+  - نقل `OrderItemPriceQtyFields` بعرض كامل أسفل صف الصورة والعنوان، تصغير صورة المنتج على الموبايل `w-12 h-12`، إزالة الكارت الداخلي المزدوج في وضع العرض، وطيّ البطاقات التشخيصية الثانوية في `OrderDetailsSidebar.tsx` بداخل أكورديون على `< lg`.
+  - **التحقق بالمتصفح والاختبارات بعد المرحلة 2:** Playwright على `390x844` (داكن/فاتح)، `360x800`، `1280x800` → `overflowX: false`، `overlapPhoneCall: false`، `createdAtFont: IBM Plex Sans Arabic`، `phoneFont: JetBrains Mono`، `productsTop: 520px` (أعلى من خط الطي `844px`)، `headerTotalText: 710 EGP`، `copyBtnCount: 2`، صفر أخطاء كونسول + `lint:fast` (0 errors) + `check-icon-imports` + `check-heroicons` + Vitest (2 files, 8 tests) + Jest (5 suites, 20 tests).
+- **الحالة:** ✅ متصلح بالكامل (المرحلتان 1 و 2) ومتحقق بالمتصفح والاختبارات.
 - **الحالة:** 🟡 متصلح ومتحقق محلياً — جاهز للنشر وإعادة الفحص الحي
 
 ---

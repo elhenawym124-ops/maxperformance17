@@ -55,11 +55,11 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
   return (
     <div
       key={`${item.id || item.productId || "item"}-${index}`}
-      className="p-3.5 sm:p-6 hover:bg-muted/30 transition-colors"
+      className="p-3 sm:p-5 hover:bg-muted/30 transition-colors"
     >
-      <div className="flex gap-3 sm:gap-4">
+      <div className="flex gap-2.5 sm:gap-4">
         <div className="flex-shrink-0">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-muted border border-border">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg overflow-hidden bg-muted border border-border">
             {productImage ? (
               <img
                 src={productImage}
@@ -68,21 +68,21 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <PhotoIcon className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground/80" />
+                <PhotoIcon className="w-5 h-5 sm:w-7 sm:h-7 text-muted-foreground/80" />
               </div>
             )}
           </div>
         </div>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-3 mb-3">
+          <div className="flex items-start justify-between gap-2 sm:gap-3">
             <div className="flex-1 min-w-0">
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <h4 className="text-sm sm:text-base font-bold text-foreground">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                <h4 className="text-sm sm:text-base font-bold text-foreground leading-snug">
                   {item.productName}
                 </h4>
                 {isPostPurchaseOfferItem(item) && (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-warning/10 text-warning dark:bg-warning/60 dark:text-warning border border-warning dark:border-warning/60 shadow-xs">
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-bold bg-warning/10 text-warning dark:bg-warning/60 dark:text-warning border border-warning dark:border-warning/60 shadow-xs">
                     <GiftIcon className="w-3.5 h-3.5 text-warning dark:text-warning" />
                     <span>عرض بعد الشراء</span>
                     {item.originalPrice && Number(item.originalPrice) > Number(item.price) && (
@@ -94,56 +94,57 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
                 )}
               </div>
 
-              {item.productSku && (
-                <div className="inline-flex items-center gap-1.5 rounded bg-primary/10 dark:bg-primary/15 border border-primary/25 px-2 py-0.5 mb-2">
-                  <span className="text-[10px] font-bold text-primary dark:brightness-125 uppercase tracking-wider">SKU</span>
-                  <span className="text-xs font-mono font-semibold text-foreground">
-                    {item.productSku}
-                  </span>
+              {(item.productSku || stockInfo.stock > 0) && (
+                <div className="flex flex-wrap items-center gap-2 mb-1 sm:mb-1.5 text-xs">
+                  {item.productSku && (
+                    <div className="inline-flex items-center gap-1 rounded bg-primary/10 dark:bg-primary/15 border border-primary/25 px-1.5 py-0.5">
+                      <span className="text-[10px] font-bold text-primary dark:brightness-125 uppercase tracking-wider">SKU</span>
+                      <span className="text-[11px] sm:text-xs font-mono font-semibold text-foreground">
+                        {item.productSku}
+                      </span>
+                    </div>
+                  )}
+                  {stockInfo.stock > 0 && (
+                    <span
+                      className={`inline-flex items-center gap-1 font-semibold ${
+                        stockInfo.status === "available"
+                          ? "text-success dark:text-success"
+                          : stockInfo.status === "low"
+                            ? "text-warning dark:text-warning"
+                            : "text-destructive dark:text-destructive"
+                      }`}
+                    >
+                      <span
+                        className={`inline-block w-1.5 h-1.5 rounded-full ${
+                          stockInfo.status === "available"
+                            ? "bg-success"
+                            : stockInfo.status === "low"
+                              ? "bg-warning"
+                              : "bg-destructive"
+                        }`}
+                      />
+                      <span>
+                        {stockInfo.status === "available"
+                          ? "متوفر"
+                          : stockInfo.status === "low"
+                            ? `متبقي ${stockInfo.stock}`
+                            : "نفذ"}
+                      </span>
+                    </span>
+                  )}
                 </div>
               )}
 
-              <div className="flex items-center gap-3 text-xs sm:text-sm text-foreground mb-2">
-                {stockInfo.stock > 0 && (
-                  <span
-                    className={`inline-flex items-center gap-1 font-semibold ${
-                      stockInfo.status === "available"
-                        ? "text-success dark:text-success"
-                        : stockInfo.status === "low"
-                          ? "text-warning dark:text-warning"
-                          : "text-destructive dark:text-destructive"
-                    }`}
-                  >
-                    <span
-                      className={`inline-block w-1.5 h-1.5 rounded-full ${
-                        stockInfo.status === "available"
-                          ? "bg-success"
-                          : stockInfo.status === "low"
-                            ? "bg-warning"
-                            : "bg-destructive"
-                      }`}
-                    />
-                    <span>
-                      {stockInfo.status === "available"
-                        ? "متوفر"
-                        : stockInfo.status === "low"
-                          ? `متبقي ${stockInfo.stock}`
-                          : "نفذ"}
-                    </span>
-                  </span>
-                )}
-              </div>
-
               {quantityOfferSummary ? (
-                <div className="mb-3 flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-warning bg-warning/10 px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs sm:text-sm font-semibold text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning">
+                <div className="mb-1.5 sm:mb-2 flex flex-wrap items-center gap-1.5 sm:gap-2">
+                  <span className="inline-flex items-center gap-1 rounded-md border border-warning bg-warning/10 px-1.5 py-0.5 sm:px-2.5 sm:py-1 text-[11px] sm:text-sm font-semibold text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning">
                     عرض كميات
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs sm:text-sm font-medium text-foreground">
+                  <span className="inline-flex items-center gap-1 rounded-md border border-border bg-muted px-1.5 py-0.5 sm:px-2.5 sm:py-1 text-[11px] sm:text-sm font-medium text-foreground">
                     {quantityOfferSummary.offerLabel}
                   </span>
                   {quantityOfferSummary.freeShipping ? (
-                    <span className="inline-flex items-center gap-1.5 rounded-md border border-success bg-success/10 px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs sm:text-sm font-semibold text-success dark:border-success/40 dark:bg-success/20 dark:text-success">
+                    <span className="inline-flex items-center gap-1 rounded-md border border-success bg-success/10 px-1.5 py-0.5 sm:px-2.5 sm:py-1 text-[11px] sm:text-sm font-semibold text-success dark:border-success/40 dark:bg-success/20 dark:text-success">
                       شحن مجاني
                     </span>
                   ) : null}
@@ -192,20 +193,20 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
               </div>
             )}
           </div>
-
-          <OrderItemPriceQtyFields
-            item={item}
-            index={index}
-            isEditing={isEditing}
-            validationErrors={validationErrors}
-            handlePriceChange={handlePriceChange}
-            handleQuantityChange={handleQuantityChange}
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-            formatPrice={formatPrice}
-          />
         </div>
       </div>
+
+      <OrderItemPriceQtyFields
+        item={item}
+        index={index}
+        isEditing={isEditing}
+        validationErrors={validationErrors}
+        handlePriceChange={handlePriceChange}
+        handleQuantityChange={handleQuantityChange}
+        incrementQuantity={incrementQuantity}
+        decrementQuantity={decrementQuantity}
+        formatPrice={formatPrice}
+      />
     </div>
   );
 };

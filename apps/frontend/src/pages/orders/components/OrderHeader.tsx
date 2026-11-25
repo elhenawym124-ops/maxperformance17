@@ -35,6 +35,7 @@ export interface OrderHeaderProps {
   onPartialDelivery?: () => void;
   showLateCancellationButton?: boolean;
   onCancelRequest?: () => void;
+  totalAmount?: number;
 }
 
 export const OrderHeader: React.FC<OrderHeaderProps> = ({
@@ -63,6 +64,7 @@ export const OrderHeader: React.FC<OrderHeaderProps> = ({
   onPartialDelivery,
   showLateCancellationButton = false,
   onCancelRequest,
+  totalAmount,
 }) => {
   const [isStatusMenuOpen, setIsStatusMenuOpen] = useState(false);
   const statusMenuRef = useRef<HTMLDivElement | null>(null);
@@ -109,7 +111,7 @@ export const OrderHeader: React.FC<OrderHeaderProps> = ({
   }, [isEditing, updating]);
 
   return (
-    <div className="mb-4 sm:mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
+    <div className="mb-3 sm:mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 sm:gap-4">
       <OrderHeaderTitle
         order={order}
         onBack={onBack}
@@ -123,6 +125,7 @@ export const OrderHeader: React.FC<OrderHeaderProps> = ({
         setIsStatusMenuOpen={setIsStatusMenuOpen}
         statusMenuRef={statusMenuRef}
         statusStyles={statusStyles}
+        totalAmount={totalAmount}
       />
 
       <OrderHeaderActions

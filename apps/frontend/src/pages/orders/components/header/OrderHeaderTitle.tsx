@@ -30,6 +30,7 @@ export interface OrderHeaderTitleProps {
     color: string;
     border: string;
   };
+  totalAmount?: number;
 }
 
 export const OrderHeaderTitle: React.FC<OrderHeaderTitleProps> = ({
@@ -45,6 +46,7 @@ export const OrderHeaderTitle: React.FC<OrderHeaderTitleProps> = ({
   setIsStatusMenuOpen,
   statusMenuRef,
   statusStyles,
+  totalAmount,
 }) => {
   const { t } = useTranslation();
   const { formatDateTime } = useDateFormat();
@@ -54,47 +56,59 @@ export const OrderHeaderTitle: React.FC<OrderHeaderTitleProps> = ({
       <button
         type="button"
         onClick={onBack}
-        className="me-2.5 sm:me-4 p-1.5 sm:p-2 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted transition shrink-0"
+        className="me-1.5 sm:me-3 p-1.5 sm:p-2 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted transition shrink-0"
         aria-label={String(t("common.back", { defaultValue: "رجوع" }))}
       >
-        <ArrowLeft className="h-5 w-5 sm:h-5 sm:w-5 rtl:rotate-180" />
+        <ArrowLeft className="h-5 w-5 rtl:rotate-180" />
       </button>
       <div className="min-w-0 flex-1">
-        <h1 className="text-base sm:text-xl font-bold text-foreground flex flex-wrap items-center gap-1.5 sm:gap-2 leading-tight">
-          <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6 text-primary shrink-0" />
-          <span>
-            {t("orderDetails.titlePrefix", { defaultValue: "تفاصيل الطلب" })}
-          </span>
-          <span dir="ltr" className="font-mono tabular-nums text-foreground">
-            #{String(order.orderNumber || "").startsWith("cart_")
-              ? `INC-${String(order.orderNumber)
-                  .replace(/^cart_/, "")
-                  .slice(0, 8)
-                  .toUpperCase()}`
-              : order.orderNumber}
-          </span>
-          {Boolean(
-            (order as any).orderSource === "AFFILIATE_DIRECT" ||
-              (typeof order.orderNumber === "string" && order.orderNumber.includes("-AFF-"))
-          ) && (
-            <span
-              className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary dark:text-primary border border-primary/20"
-              title={
-                (order as any).affiliate?.user?.company?.name
-                  ? `أوردر من شركة مرتبطة: ${(order as any).affiliate.user.company.name}`
-                  : "أوردر من شركة مرتبطة"
-              }
-            >
-              <span>
-                {(order as any).affiliate?.user?.company?.name
-                  ? `مرتبط — ${(order as any).affiliate.user.company.name}`
-                  : "مرتبط"}
+        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+          <h1 className="text-base sm:text-xl font-bold text-foreground flex flex-wrap items-center gap-1.5 sm:gap-2 leading-tight min-w-0">
+            <ShoppingBag className="hidden sm:inline h-6 w-6 text-primary shrink-0" />
+            <span className="hidden sm:inline">
+              {t("orderDetails.titlePrefix", { defaultValue: "تفاصيل الطلب" })}
+            </span>
+            <span dir="ltr" className="font-mono tabular-nums text-foreground">
+              #{String(order.orderNumber || "").startsWith("cart_")
+                ? `INC-${String(order.orderNumber)
+                    .replace(/^cart_/, "")
+                    .slice(0, 8)
+                    .toUpperCase()}`
+                : order.orderNumber}
+            </span>
+            {Boolean(
+              (order as any).orderSource === "AFFILIATE_DIRECT" ||
+                (typeof order.orderNumber === "string" && order.orderNumber.includes("-AFF-"))
+            ) && (
+              <span
+                className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary dark:text-primary border border-primary/20"
+                title={
+                  (order as any).affiliate?.user?.company?.name
+                    ? `أوردر من شركة مرتبطة: ${(order as any).affiliate.user.company.name}`
+                    : "أوردر من شركة مرتبطة"
+                }
+              >
+                <span>
+                  {(order as any).affiliate?.user?.company?.name
+                    ? `مرتبط — ${(order as any).affiliate.user.company.name}`
+                    : "مرتبط"}
+                </span>
               </span>
+            )}
+          </h1>
+          {totalAmount != null && Number.isFinite(Number(totalAmount)) && (
+            <span
+              dir="ltr"
+              className="sm:hidden inline-flex items-center px-2 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono tabular-nums shrink-0"
+              aria-label="إجمالي الطلب"
+            >
+              {Number(totalAmount).toLocaleString("en-US")}{" "}
+              {(order as any).currency || "EGP"}
             </span>
           )}
-        </h1>
-        <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
-          <p className="text-muted-foreground whitespace-nowrap font-mono tabular-nums text-xs">
+        </div>
+        <div className="mt-1 sm:mt-1.5 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+          <p className="text-muted-foreground whitespace-nowrap tabular-nums text-xs">
             {t("orderDetails.createdAt", {
               date: formatDateTime(order.createdAt),
             })}

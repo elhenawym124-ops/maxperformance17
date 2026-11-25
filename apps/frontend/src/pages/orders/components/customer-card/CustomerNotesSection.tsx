@@ -38,7 +38,7 @@ export const CustomerNotesSection: React.FC<CustomerNotesSectionProps> = ({
 
   return (
     <div>
-      <label className="text-sm font-medium text-muted-foreground block mb-1">
+      <label className={isEditing ? "text-xs font-medium text-muted-foreground block mb-1" : "sr-only"}>
         {isCustomFieldEnabled && customFields.length > 0
           ? customFieldConfig.label
             ? `${customFieldConfig.label} / ${t("orderDetails.orderNotes", "ملاحظات الطلب")}`

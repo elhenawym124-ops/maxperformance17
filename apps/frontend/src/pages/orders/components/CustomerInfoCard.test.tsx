@@ -341,7 +341,7 @@ describe("CustomerInfoCard notes and custom fields behavior", () => {
     expect(phoneEl).toHaveClass("whitespace-nowrap", "font-mono", "tabular-nums");
 
     const whatsappLink = screen.getByRole("link", { name: /محادثة واتساب/i });
-    expect(whatsappLink).toHaveClass("whitespace-nowrap", "min-h-10");
+    expect(whatsappLink).toHaveClass("whitespace-nowrap", "min-h-9");
 
     const historyBanner = screen.getByRole("button", { name: /سجل المشتريات/i });
     expect(historyBanner).not.toHaveClass("bg-primary/60");

@@ -20,6 +20,7 @@ interface OrderCallButtonProps {
   customerPhone?: string;
   secondaryPhone?: string | null;
   compact?: boolean;
+  iconOnly?: boolean;
   className?: string;
   buttonClassName?: string;
   onConfirm?: () => void;
@@ -36,6 +37,7 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
   customerPhone,
   secondaryPhone,
   compact = false,
+  iconOnly = false,
   className = "",
   buttonClassName = "",
   onConfirm,
@@ -214,7 +216,7 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
       onClick={handleManualPresenceRefresh}
       role="button"
       tabIndex={0}
-      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-medium border font-mono tabular-nums transition-colors cursor-pointer hover:opacity-80 active:scale-95 ${
+      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-medium border tabular-nums transition-colors cursor-pointer hover:opacity-80 active:scale-95 ${
         isNativeApp
           ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
           : isBrowserDevice
@@ -258,7 +260,7 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
 
   return (
     <div className={`inline-flex items-center gap-1.5 flex-wrap ${className}`.trim()}>
-      {!compact && (
+      {!compact && !iconOnly && (
         <div className="inline-flex items-center gap-1">
           {deviceBadge}
           <button
@@ -280,6 +282,15 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
         type="button"
         onClick={() => handleStartCall()}
         disabled={isLoading || isDialing || cooldown > 0 || !customerPhone}
+        aria-label={
+          isLoading
+            ? "جاري الربط"
+            : isDialing
+            ? `يرن ${dialSeconds} ثانية`
+            : cooldown > 0
+            ? `انتظر ${cooldown} ثانية`
+            : `اتصال بالعميل ${customerPhone || ""}`
+        }
         title={
           !presence.isOnline
             ? "يرجى فتح تطبيق MaxP على هاتفك للاتصال"
@@ -287,7 +298,9 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
             ? `انتظر ${cooldown} ثانية بين المكالمات`
             : `اتصال بالرقم الأساسي (${customerPhone})`
         }
-        className={`inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold font-mono tabular-nums transition-all shadow-2xs active:scale-[0.98] ${
+        className={`inline-flex items-center justify-center gap-1.5 ${
+          iconOnly ? (buttonClassName ? "p-0" : "h-9 w-9 p-0") : "px-2.5 py-1.5"
+        } rounded-lg text-xs font-semibold tabular-nums transition-all shadow-2xs active:scale-[0.98] ${
           isDialing
             ? "bg-amber-500 text-white animate-pulse"
             : cooldown > 0
@@ -298,23 +311,27 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
         } ${buttonClassName}`.trim()}
       >
         {isLoading ? (
-          <RotateCw className="size-3.5 animate-spin" />
+          <RotateCw className="size-4 animate-spin" />
         ) : isDialing ? (
-          <PhoneCall className="size-3.5 animate-bounce" />
+          <PhoneCall className="size-4 animate-bounce" />
         ) : (
-          <Phone className="size-3.5" />
+          <Phone className="size-4" />
         )}
-        <span>
-          {isLoading
-            ? "جاري الربط..."
-            : isDialing
-            ? `يرن… ${dialSeconds}ث`
-            : cooldown > 0
-            ? `انتظر (${cooldown}ث)`
-            : compact
-            ? "اتصال"
-            : "اتصال هاتفي"}
-        </span>
+        {(!iconOnly || isDialing) && (
+          <span>
+            {isLoading
+              ? "جاري الربط..."
+              : isDialing
+              ? iconOnly
+                ? `${dialSeconds}ث`
+                : `يرن… ${dialSeconds}ث`
+              : cooldown > 0
+              ? `انتظر (${cooldown}ث)`
+              : compact
+              ? "اتصال"
+              : "اتصال هاتفي"}
+          </span>
+        )}
       </button>
 
       {/* Optional Alternate/Secondary Phone Call Button */}
@@ -324,7 +341,7 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
           onClick={() => handleStartCall(secondaryPhone || undefined)}
           disabled={isLoading || isDialing || cooldown > 0}
           title={`اتصال بالرقم البديل (${secondaryPhone})`}
-          className="inline-flex h-7 items-center gap-1 rounded-lg border border-primary/30 bg-primary/10 px-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/20 disabled:opacity-50 font-mono tabular-nums active:scale-[0.98]"
+          className="inline-flex h-7 items-center gap-1 rounded-lg border border-primary/30 bg-primary/10 px-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/20 disabled:opacity-50 tabular-nums active:scale-[0.98]"
         >
           <Phone className="size-3" />
           <span>بديل</span>

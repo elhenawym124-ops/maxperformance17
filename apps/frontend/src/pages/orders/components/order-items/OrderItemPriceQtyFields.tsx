@@ -34,9 +34,15 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
   const hasPriceError = validationErrors[`price_${index}`];
 
   return (
-    <div className="grid grid-cols-3 gap-2 sm:gap-4 items-center sm:items-end mt-3 pt-2.5 sm:pt-0 border-t border-border/70 sm:border-t-0 bg-muted/40 p-2.5 sm:p-0 rounded-xl sm:bg-transparent">
+    <div
+      className={
+        isEditing
+          ? "grid grid-cols-3 gap-2 sm:gap-4 items-center sm:items-end mt-2.5 pt-2.5 border-t border-border/70 bg-muted/40 p-2.5 sm:p-0 rounded-xl sm:bg-transparent sm:border-t-0"
+          : "grid grid-cols-3 gap-2 sm:gap-4 items-center sm:items-end mt-2 pt-2 border-t border-border/50 sm:border-t-0 sm:pt-0 sm:mt-3"
+      }
+    >
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-muted-foreground mb-1 sm:mb-1.5">
+        <label className="block text-[10px] sm:text-xs font-medium sm:font-semibold text-muted-foreground mb-0.5 sm:mb-1.5">
           السعر
         </label>
         {isEditing ? (
@@ -69,7 +75,7 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
       </div>
 
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-muted-foreground mb-1 sm:mb-1.5">
+        <label className="block text-[10px] sm:text-xs font-medium sm:font-semibold text-muted-foreground mb-0.5 sm:mb-1.5">
           الكمية
         </label>
         {isEditing ? (
@@ -127,7 +133,7 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
       </div>
 
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-muted-foreground mb-1 sm:mb-1.5">
+        <label className="block text-[10px] sm:text-xs font-medium sm:font-semibold text-muted-foreground mb-0.5 sm:mb-1.5">
           الإجمالي
         </label>
         <p className="text-xs sm:text-lg font-bold text-primary dark:text-primary font-mono tabular-nums">

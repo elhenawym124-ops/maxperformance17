@@ -127,6 +127,7 @@ export const OrderDetails: React.FC = () => {
         setShowPartialDeliveryModal={fulfillmentActions.setShowPartialDeliveryModal}
         showLateCancellationButton={showLateCancellationButton}
         updateStatus={updateStatus}
+        totalAmount={calculatedTotals?.total ?? order.total}
       />
 
       {/* Return Alert Banner & Details Card */}

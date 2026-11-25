@@ -29,6 +29,7 @@ export interface OrderDetailsHeaderWrapperProps {
   setShowPartialDeliveryModal: (show: boolean) => void;
   showLateCancellationButton: boolean;
   updateStatus: (status: string, note?: string, notify?: boolean) => Promise<void> | void;
+  totalAmount?: number;
 }
 
 export const OrderDetailsHeaderWrapper: React.FC<OrderDetailsHeaderWrapperProps> = ({
@@ -55,6 +56,7 @@ export const OrderDetailsHeaderWrapper: React.FC<OrderDetailsHeaderWrapperProps>
   setShowPartialDeliveryModal,
   showLateCancellationButton,
   updateStatus,
+  totalAmount,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -110,6 +112,7 @@ export const OrderDetailsHeaderWrapper: React.FC<OrderDetailsHeaderWrapperProps>
       onPartialDelivery={() => setShowPartialDeliveryModal(true)}
       showLateCancellationButton={showLateCancellationButton}
       onCancelRequest={handleCancelRequest}
+      totalAmount={totalAmount}
     />
   );
 };

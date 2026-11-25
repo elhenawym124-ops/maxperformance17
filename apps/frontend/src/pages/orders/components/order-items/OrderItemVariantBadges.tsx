@@ -48,14 +48,14 @@ export const OrderItemVariantBadges: React.FC<OrderItemVariantBadgesProps> = ({
   }
 
   return variantValues.color || variantValues.size ? (
-    <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
+    <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap mt-1 sm:mt-1.5">
       {variantValues.color && (
-        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 bg-primary/10 dark:bg-primary/15 text-foreground rounded-md text-xs sm:text-sm font-semibold border border-primary/25">
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 bg-primary/10 dark:bg-primary/15 text-foreground rounded-md text-[11px] sm:text-sm font-semibold border border-primary/25">
           اللون: {variantValues.color}
         </span>
       )}
       {variantValues.size && (
-        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 bg-primary/10 dark:bg-primary/15 text-foreground rounded-md text-xs sm:text-sm font-semibold border border-primary/25">
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 bg-primary/10 dark:bg-primary/15 text-foreground rounded-md text-[11px] sm:text-sm font-semibold border border-primary/25">
           المقاس: {variantValues.size}
         </span>
       )}
