@@ -8,6 +8,76 @@ const { getBestShippingAddressFields, cleanLocationName } = require('../../utils
 const { getTurboGovernorateName, isUnspecified, normalizeArabic } = require('../../utils/turbo/governorateMapper');
 const { resolveAiKey, callChatCompletion } = require('../radiologyAiDraftService');
 
+const AI_PROVIDER_PREFERENCE = ['GOOGLE', 'OPENROUTER', 'OPENAI', 'GROQ', 'ANTHROPIC', 'DEEPSEEK', 'MISTRAL', 'NVIDIA', 'HUGGINGFACE', 'OLLAMA'];
+const AI_BASE_URLS = {
+  OPENROUTER: 'https://openrouter.ai/api/v1',
+  OPENAI: 'https://api.openai.com/v1',
+  GROQ: 'https://api.groq.com/openai/v1',
+  DEEPSEEK: 'https://api.deepseek.com/v1',
+  ANTHROPIC: 'https://api.anthropic.com/v1',
+  GOOGLE: 'https://generativelanguage.googleapis.com/v1beta',
+  MISTRAL: 'https://api.mistral.ai/v1',
+  NVIDIA: 'https://integrate.api.nvidia.com/v1',
+  HUGGINGFACE: 'https://router.huggingface.co/v1',
+  OLLAMA: 'http://localhost:11434/v1',
+};
+const AI_MODEL_DEFAULTS = {
+  OPENROUTER: 'openai/gpt-4o-mini',
+  OPENAI: 'gpt-4o-mini',
+  GROQ: 'qwen/qwen3.8-27b',
+  DEEPSEEK: 'deepseek-chat',
+  ANTHROPIC: 'claude-3-5-haiku-latest',
+  GOOGLE: 'gemini-2.5-flash',
+  MISTRAL: 'mistral-small-latest',
+  NVIDIA: 'nvidia/llama-3.1-nemotron-70b-instruct',
+  HUGGINGFACE: 'meta-llama/Meta-Llama-3.1-8B-Instruct',
+  OLLAMA: 'llama3.1',
+};
+
+async function resolveAiCandidates(prisma, companyId) {
+  const candidates = [];
+  const seen = new Set();
+  const pushCandidate = (cfg) => {
+    if (!cfg?.apiKey) return;
+    const provider = String(cfg.provider || '').toUpperCase();
+    const dedupKey = `${provider}:${cfg.apiKey}:${cfg.model || ''}`;
+    if (seen.has(dedupKey)) return;
+    seen.add(dedupKey);
+    candidates.push({
+      provider,
+      apiKey: cfg.apiKey,
+      baseUrl: cfg.baseUrl || AI_BASE_URLS[provider] || 'https://api.openai.com/v1',
+      model: cfg.model || AI_MODEL_DEFAULTS[provider] || 'gpt-4o-mini',
+    });
+  };
+
+  const primary = await resolveAiKey(prisma, companyId).catch(() => null);
+  pushCandidate(primary);
+
+  if (prisma?.aiKey && typeof prisma.aiKey.findMany === 'function') {
+    const rows = await prisma.aiKey.findMany({
+      where: {
+        isActive: true,
+        OR: [{ companyId }, { keyType: 'CENTRAL' }],
+      },
+      orderBy: { priority: 'asc' },
+    }).catch(() => []);
+    if (Array.isArray(rows) && rows.length > 0) {
+      const sorted = [...rows].sort((a, b) => {
+        const idxA = AI_PROVIDER_PREFERENCE.indexOf(String(a.provider || '').toUpperCase());
+        const idxB = AI_PROVIDER_PREFERENCE.indexOf(String(b.provider || '').toUpperCase());
+        const rankA = idxA === -1 ? 999 : idxA;
+        const rankB = idxB === -1 ? 999 : idxB;
+        if (rankA !== rankB) return rankA - rankB;
+        return Number(a.priority || 0) - Number(b.priority || 0);
+      });
+      for (const row of sorted) pushCandidate(row);
+    }
+  }
+
+  return candidates;
+}
+
 const GENERIC_LOCATION_TOKENS = new Set([
   'cairo', 'giza', 'alexandria', 'alex', 'dakahlia', 'sharqia', 'sharkia', 'gharbia',
   'qalyubia', 'qaliubiya', 'monufia', 'menofia', 'beheira', 'behira', 'ismailia',
@@ -233,8 +303,8 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
     return { skipped: true, resolved: false, reason: 'AI_DISABLED' };
   }
 
-  const aiConfig = await resolveAiKey(prisma, companyId).catch(() => null);
-  if (!aiConfig?.apiKey) {
+  const aiCandidates = await resolveAiCandidates(prisma, companyId);
+  if (aiCandidates.length === 0) {
     return { resolved: false, reason: 'NO_ACTIVE_AI_KEY' };
   }
 
@@ -301,20 +371,27 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
       : 'ابحث في معرفتك الجغرافية بمصر واختر أقرب منطقة رسمية في تربو مع محافظتها.',
   ].join('\n');
 
-  let aiRawText;
-  try {
-    aiRawText = await callChatCompletion({
-      baseUrl: aiConfig.baseUrl,
-      apiKey: aiConfig.apiKey,
-      model: aiConfig.model,
-      system: systemPrompt,
-      user: userPrompt,
-      maxTokens: 300,
-      timeoutMs: 15000,
-    });
-  } catch (aiErr) {
-    console.warn(`⚠️ [TURBO-AI-AREA] AI lookup failed: ${aiErr.message}`);
-    return { resolved: false, reason: 'AI_CALL_FAILED', error: aiErr.message };
+  let aiRawText = null;
+  let lastAiError = null;
+  for (const aiConfig of aiCandidates) {
+    try {
+      aiRawText = await callChatCompletion({
+        baseUrl: aiConfig.baseUrl,
+        apiKey: aiConfig.apiKey,
+        model: config.model || aiConfig.model,
+        system: systemPrompt,
+        user: userPrompt,
+        maxTokens: 300,
+        timeoutMs: 15000,
+      });
+      if (aiRawText) break;
+    } catch (aiErr) {
+      lastAiError = aiErr;
+      console.warn(`⚠️ [TURBO-AI-AREA] AI lookup failed (${aiConfig.provider || 'UNKNOWN'}): ${aiErr.message}`);
+    }
+  }
+  if (!aiRawText) {
+    return { resolved: false, reason: 'AI_CALL_FAILED', error: lastAiError?.message || 'AI lookup failed' };
   }
 
   const parsed = parseJsonResponse(aiRawText);

@@ -265,4 +265,48 @@ describe('turboAiAreaResolver', () => {
     expect(result.reason).toBe('AI_DISABLED');
     expect(callChatCompletion).not.toHaveBeenCalled();
   });
+
+  test('falls back to secondary active AI key when primary key fails with HTTP 402', async () => {
+    const turboService = createMockTurboService({
+      areasByGov: {
+        '2': [{ id: '201', name: 'كفر عبده' }],
+      },
+    });
+    const prisma = createMockPrisma();
+    prisma.aiKey = {
+      findMany: jest.fn().mockResolvedValue([
+        { provider: 'DEEPSEEK', apiKey: 'key-1', priority: 1 },
+        { provider: 'GOOGLE', apiKey: 'key-2', priority: 2 },
+      ]),
+    };
+
+    resolveAiKey.mockResolvedValue({
+      provider: 'DEEPSEEK',
+      apiKey: 'key-1',
+      baseUrl: 'https://api.deepseek.com/v1',
+      model: 'deepseek-chat',
+    });
+    callChatCompletion
+      .mockRejectedValueOnce(new Error('AI HTTP 402'))
+      .mockResolvedValueOnce(
+        JSON.stringify({
+          area: 'كفر عبده',
+          governorate: 'الجيزة',
+          confidence: 0.9,
+          reason: 'Fallback to Google succeeded',
+        })
+      );
+
+    const result = await resolveTurboLocation({
+      prisma,
+      turboService,
+      companyId: 'comp_1',
+      order: { governorate: 'الجيزة', city: 'Giza' },
+      orderData: { governorate: 'الجيزة', city: 'Giza', shippingAddress: '5 شارع نبيل شاكر - حي غير مكتوب' },
+    });
+
+    expect(callChatCompletion).toHaveBeenCalledTimes(2);
+    expect(result.resolved).toBe(true);
+    expect(result.area).toBe('كفر عبده');
+  });
 });

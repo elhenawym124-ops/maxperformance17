@@ -2213,7 +2213,7 @@ class OrderService {
   async updateOrderStatus(orderNumber, companyId, status, notes = null, userId = null, userName = null, existingOrderObject = null, isOverride = false, options = null) {
 
     try {
-      const { skipCallAttemptGuard = false, skipTransitionValidation = false, source = null, providerKey = null, deliveryProof = null } = options || {};
+      const { skipCallAttemptGuard = false, skipTransitionValidation = false, source = null } = options || {};
       status = normalizeOrderStatusCode(status);
 
       // ⚡ FIX: If status is an ID (CUIDs are typically >20 chars), resolve it to its Code
@@ -2483,18 +2483,6 @@ class OrderService {
             ...(nextMetadata ? { metadata: nextMetadata } : {}),
             ...confirmationData,
             ...resetConfirmationData,
-            // 🚚 Delivery proof (shipping provider / courier / waybill / time) is
-            // written atomically with the status change so "delivered" is never a
-            // bare status without a carrier behind it.
-            ...(providerKey ? { providerKey } : {}),
-            ...(deliveryProof && typeof deliveryProof === 'object'
-              ? {
-                  ...(deliveryProof.shippingCompanyId ? { shippingCompanyId: deliveryProof.shippingCompanyId } : {}),
-                  ...(deliveryProof.courierId ? { courierId: deliveryProof.courierId } : {}),
-                  ...(deliveryProof.trackingNumber ? { trackingNumber: String(deliveryProof.trackingNumber) } : {}),
-                  ...(deliveryProof.deliveredAt ? { deliveredAt: new Date(deliveryProof.deliveredAt) } : {}),
-                }
-              : {}),
             updatedAt: new Date(),
             statusHistory: {
               create: {
@@ -2502,7 +2490,6 @@ class OrderService {
                 oldStatus: order.status,
                 changedBy: userId,
                 userName: userName,
-                providerKey: providerKey || null,
                 reason: (notes && notes.trim())
                   ? notes.trim()
                   : (order.status && originalRequestedStatus && order.status !== originalRequestedStatus
