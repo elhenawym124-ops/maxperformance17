@@ -279,7 +279,7 @@ export const TaskSettingsTab: React.FC<TaskSettingsTabProps> = ({
             تحكم في إشعارات المهام المرسلة عبر واتساب — شغّل أو أوقف كل حدث على حدة.
           </p>
           <a
-            href="/whatsapp/notifications?tab=tasks"
+            href="/whatsapp/settings?tab=notification-modules"
             className="mt-3 inline-flex items-center rounded-xl bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 transition-colors"
           >
             <BellIcon className="size-4 ms-2" />

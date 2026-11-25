@@ -320,7 +320,7 @@ export default function IncompleteOrdersSettings() {
               </div>
 
               <Link
-                to="/whatsapp/notifications"
+                to="/orders/status-templates?tab=incomplete"
                 className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-muted/20 px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted/50 transition-colors"
               >
                 <span>تعديل القوالب</span>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { apiClient } from "../../../services/apiClient";
@@ -29,8 +29,22 @@ function buildVariableDescriptionsFrom(variables: { var: string; desc: string }[
 export function useTemplateCenterData(config: TemplateScopeConfig) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const noun = config.entityLabel ?? { singular: "حالة", plural: "حالات" };
-  const [activeTab, setActiveTab] = useState(() => config.tabs[0]?.key || "all");
+  const [activeTab, setActiveTab] = useState(() => {
+    const tabParam = new URLSearchParams(location.search).get("tab");
+    if (tabParam && config.tabs.some((tb) => tb.key === tabParam)) {
+      return tabParam;
+    }
+    return config.tabs[0]?.key || "all";
+  });
+
+  useEffect(() => {
+    const tabParam = new URLSearchParams(location.search).get("tab");
+    if (tabParam && config.tabs.some((tb) => tb.key === tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [location.search, config.tabs]);
 
   const variableDescriptions = useMemo(() => buildVariableDescriptionsFrom(config.variables), [config.variables]);
   const sampleVariables = useMemo(() => config.sampleVariables || {}, [config.sampleVariables]);

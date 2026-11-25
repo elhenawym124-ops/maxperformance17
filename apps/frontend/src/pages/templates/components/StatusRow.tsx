@@ -80,7 +80,7 @@ export const StatusRow: React.FC<StatusRowProps> = ({
   return (
     <div
       data-testid={`status-row-${status.id}`}
-      className="group rounded-lg border border-slate-200/70 bg-white p-3.5 transition hover:shadow-sm dark:border-white/10 dark:bg-slate-900/50"
+      className="group rounded-lg border border-border/70 bg-card p-3.5 transition hover:shadow-sm"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 flex-1 items-center gap-2.5">
@@ -93,29 +93,29 @@ export const StatusRow: React.FC<StatusRowProps> = ({
           </span>
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="truncate text-sm font-semibold text-slate-900 dark:text-white">
+              <span className="truncate text-sm font-semibold text-foreground">
                 {status.name}
               </span>
               {status.isSystemStatus && (
-                <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
                   {t("orders.system", "نظامي")}
                 </span>
               )}
               {status.statusType && status.statusType !== "order" && (
-                <span className="rounded bg-indigo-50 px-1.5 py-0.5 text-[10px] font-medium text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400">
+                <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
                   {status.statusType === "preparation" ? "تجهيز" : status.statusType === "shipping" ? "شحن" : status.statusType === "payment" ? "دفع" : status.statusType === "incomplete" ? "غير مكتمل" : status.statusType}
                 </span>
               )}
             </div>
-            <div className="mt-1 flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+            <div className="mt-1 flex items-center gap-2 text-[11px] text-muted-foreground">
               <span className="font-mono">{status.code}</span>
               <button
                 onClick={() => onToggleNotify(status)}
                 disabled={togglingId === status.id}
                 className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium transition ${
                   status.notifyCustomer
-                    ? "bg-green-50 text-green-700 hover:bg-green-100 dark:bg-green-900/20 dark:text-green-400"
-                    : "bg-slate-50 text-slate-400 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-500"
+                    ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:text-emerald-400"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
               >
                 {togglingId === status.id ? (

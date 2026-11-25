@@ -37,25 +37,25 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div data-testid="settings-panel" className="rounded-xl border border-slate-200/70 bg-white p-5 dark:border-white/10 dark:bg-slate-900/50">
-      <h2 className="mb-4 text-base font-bold text-slate-900 dark:text-white">
+    <div data-testid="settings-panel" className="rounded-xl border border-border/70 bg-card p-5">
+      <h2 className="mb-4 text-base font-bold text-foreground">
         <Cog6ToothIcon className="ms-1.5 inline h-5 w-5" />
         إعدادات إشعارات واتساب للطلبات
       </h2>
 
       {settingsLoading ? (
         <div className="flex justify-center py-10">
-          <span className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-indigo-500/20 border-t-indigo-500" />
+          <span className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
         </div>
       ) : !settings ? (
-        <p className="text-sm text-slate-400">{t("orders.settingsNone", "لا توجد إعدادات")}</p>
+        <p className="text-sm text-muted-foreground">{t("orders.settingsNone", "لا توجد إعدادات")}</p>
       ) : (
         <div className="space-y-5 max-w-xl">
           {/* General toggle */}
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-900 dark:text-white">{t("orders.settingsEnableNotifications", "تفعيل إشعارات واتساب")}</p>
-              <p className="text-xs text-slate-500">تشغيل أو إيقاف جميع إشعارات الواتساب</p>
+              <p className="text-sm font-medium text-foreground">{t("orders.settingsEnableNotifications", "تفعيل إشعارات واتساب")}</p>
+              <p className="text-xs text-muted-foreground">تشغيل أو إيقاف جميع إشعارات الواتساب</p>
             </div>
             <Switch
               checked={settings.isEnabled}
@@ -64,13 +64,13 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
             />
           </div>
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-border/70" />
 
           {/* Order notifications toggle */}
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-900 dark:text-white">إشعارات حالات الطلبات</p>
-              <p className="text-xs text-slate-500">إرسال رسالة واتساب عند تغيير حالة الطلب</p>
+              <p className="text-sm font-medium text-foreground">إشعارات حالات الطلبات</p>
+              <p className="text-xs text-muted-foreground">إرسال رسالة واتساب عند تغيير حالة الطلب</p>
             </div>
             <Switch
               checked={settings.orderNotificationsEnabled}
@@ -79,16 +79,16 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
             />
           </div>
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-border/70" />
 
           {/* Default session */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-900 dark:text-white">الجلسة الأساسية</label>
-            <p className="mb-2 text-xs text-slate-500">جلسة الواتساب التي ستُرسل منها الرسائل</p>
+            <label className="mb-1 block text-sm font-medium text-foreground">الجلسة الأساسية</label>
+            <p className="mb-2 text-xs text-muted-foreground">جلسة الواتساب التي ستُرسل منها الرسائل</p>
             <select
               value={settings.defaultSessionId || ""}
               onChange={(e) => onUpdateSettings((p) => p ? { ...p, defaultSessionId: e.target.value || null } : p)}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white cursor-pointer"
+              className="w-full rounded-lg border border-border/70 bg-background px-3 py-2 text-sm text-foreground cursor-pointer"
             >
               <option value="">تلقائي (أي جلسة متصلة)</option>
               {settingsSessions.map((s) => (
@@ -99,7 +99,7 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
             </select>
             {defaultSessionInfo && (
               <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
-                <span className="text-slate-500 dark:text-slate-400">طريقة الإرسال الحالية:</span>
+                <span className="text-muted-foreground">طريقة الإرسال الحالية:</span>
                 <span
                   className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-medium ${
                     defaultSessionInfo.provider === "META_CLOUD"
@@ -109,7 +109,7 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
                 >
                   {defaultSessionInfo.provider === "META_CLOUD" ? "Meta Cloud API" : "Baileys"}
                 </span>
-                <span className="text-slate-400 dark:text-slate-500 font-mono">{defaultSessionInfo.name}</span>
+                <span className="text-muted-foreground font-mono">{defaultSessionInfo.name}</span>
                 {defaultSessionInfo.provider === "META_CLOUD" && !Object.values(deliveryPreview).some((item) => item.riskLevel === "none") && (
                   <span className="text-amber-500 dark:text-amber-400 font-medium">تحقق من حالة كل قالب</span>
                 )}
@@ -119,7 +119,7 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
               <button
                 onClick={onSyncMetaStatuses}
                 disabled={syncingStatus}
-                className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 transition hover:bg-slate-50 disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+                className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-card px-2.5 py-1 text-xs font-medium text-foreground transition hover:bg-muted disabled:opacity-50"
               >
                 <ArrowPathIcon className={`h-3.5 w-3.5 ${syncingStatus ? "animate-spin" : ""}`} />
                 مزامنة الحالات من ميتا
@@ -127,13 +127,13 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
             )}
           </div>
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-border/70" />
 
           {/* Sticky session */}
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-900 dark:text-white">{t("orders.settingsStickySession", "تثبيت الجلسة (Sticky Session)")}</p>
-              <p className="text-xs text-slate-500">نفس العميل يستخدم نفس الجلسة دائماً</p>
+              <p className="text-sm font-medium text-foreground">{t("orders.settingsStickySession", "تثبيت الجلسة (Sticky Session)")}</p>
+              <p className="text-xs text-muted-foreground">نفس العميل يستخدم نفس الجلسة دائماً</p>
             </div>
             <Switch
               checked={settings.stickySessionEnabled}
@@ -142,17 +142,17 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
             />
           </div>
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-border/70" />
 
           {/* Quiet hours */}
           <div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-slate-900 dark:text-white">
+                <p className="text-sm font-medium text-foreground">
                   <ClockIcon className="me-1 inline h-4 w-4" />
                   ساعات الهدوء
                 </p>
-                <p className="text-xs text-slate-500">عدم إرسال رسائل في هذه الفترة</p>
+                <p className="text-xs text-muted-foreground">عدم إرسال رسائل في هذه الفترة</p>
               </div>
               <Switch
                 checked={settings.quietHoursEnabled}
@@ -163,33 +163,33 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
             {settings.quietHoursEnabled && (
               <div className="mt-2 flex items-center gap-3">
                 <div>
-                  <label className="text-xs text-slate-500">من</label>
+                  <label className="text-xs text-muted-foreground">من</label>
                   <input
                     type="time"
                     value={settings.quietHoursStart}
                     onChange={(e) => onUpdateSettings((p) => p ? { ...p, quietHoursStart: e.target.value } : p)}
-                    className="mt-1 block rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-mono dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                    className="mt-1 block rounded-lg border border-border/70 bg-background px-3 py-1.5 text-sm font-mono tabular-nums text-foreground"
                   />
                 </div>
-                <span className="mt-5 text-slate-400">→</span>
+                <span className="mt-5 text-muted-foreground">→</span>
                 <div>
-                  <label className="text-xs text-slate-500">إلى</label>
+                  <label className="text-xs text-muted-foreground">إلى</label>
                   <input
                     type="time"
                     value={settings.quietHoursEnd}
                     onChange={(e) => onUpdateSettings((p) => p ? { ...p, quietHoursEnd: e.target.value } : p)}
-                    className="mt-1 block rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-mono dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                    className="mt-1 block rounded-lg border border-border/70 bg-background px-3 py-1.5 text-sm font-mono tabular-nums text-foreground"
                   />
                 </div>
               </div>
             )}
           </div>
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-border/70" />
 
           {/* Rate limit */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-900 dark:text-white">
+            <label className="mb-1 block text-sm font-medium text-foreground">
               <BoltIcon className="me-1 inline h-4 w-4" />
               حد الإرسال (رسالة/دقيقة)
             </label>
@@ -199,16 +199,16 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
               max={120}
               value={settings.rateLimitPerMinute}
               onChange={(e) => onUpdateSettings((p) => p ? { ...p, rateLimitPerMinute: parseInt(e.target.value) || 30 } : p)}
-              className="w-32 rounded-lg border border-slate-200 px-3 py-2 text-sm font-mono dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              className="w-32 rounded-lg border border-border/70 bg-background px-3 py-2 text-sm font-mono tabular-nums text-foreground"
             />
           </div>
 
-          <hr className="border-slate-200 dark:border-slate-700" />
+          <hr className="border-border/70" />
 
           <button
             onClick={onSaveSettings}
             disabled={settingsSaving}
-            className="flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
           >
             {settingsSaving && (
               <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

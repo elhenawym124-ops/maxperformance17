@@ -6,7 +6,24 @@ import type { TemplateScopeConfig, EventRow } from "../types";
  * بيحافظ على نفس السلوك والـ endpoints الحالية بالضبط.
  */
 
-const INCOMPLETE_CART_EVENT_TYPE = "INCOMPLETE_CART_FIRST_APPEARANCE";
+const INCOMPLETE_CART_EVENTS = new Set([
+  "INCOMPLETE_CART_FIRST_APPEARANCE",
+  "CART_ABANDONED_1H",
+  "CART_ABANDONED_24H",
+  "CART_ABANDONED_72H",
+  "CART_ABANDONED_WITH_DISCOUNT",
+]);
+
+const SYSTEM_SETTING_TOGGLE_MAP: Record<string, string> = {
+  ORDER_CREATED: "orderCreatedEnabled",
+  ORDER_CANCELLED: "orderCancelledEnabled",
+  PAYMENT_REMINDER: "paymentReminderEnabled",
+  INCOMPLETE_CART_FIRST_APPEARANCE: "incompleteCartImmediateMessage",
+  CART_ABANDONED_1H: "abandonedCartEnabled",
+  CART_ABANDONED_24H: "abandonedCartEnabled",
+  CART_ABANDONED_72H: "abandonedCartEnabled",
+  CART_ABANDONED_WITH_DISCOUNT: "abandonedCartDiscountEnabled",
+};
 
 const ORDER_VARIABLES = [
   { var: "{{customerName}}", desc: "اسم العميل" },
@@ -23,6 +40,12 @@ const ORDER_VARIABLES = [
   { var: "{{trackingLink}}", desc: "رابط تتبع الطلب" },
   { var: "{{estimatedDays}}", desc: "الأيام التقديرية للشحن" },
   { var: "{{reason}}", desc: "سبب الإلغاء أو الرفض" },
+  { var: "{{cartUrl}}", desc: "رابط استرجاع السلة غير المكتملة" },
+  { var: "{{cartTotal}}", desc: "إجمالي السلة" },
+  { var: "{{itemCount}}", desc: "عدد المنتجات في السلة" },
+  { var: "{{discount}}", desc: "نسبة أو قيمة الخصم" },
+  { var: "{{discountedTotal}}", desc: "إجمالي السلة بعد الخصم" },
+  { var: "{{couponCode}}", desc: "كود الخصم التلقائي" },
 ];
 
 const DEFAULT_TEMPLATE_CONTENT = `مرحباً {{customerName}} 👋
@@ -79,6 +102,8 @@ export const orderScopeConfig: TemplateScopeConfig = {
     orderNumber: "ORD-12345",
     customerPhone: "01001234567",
     total: "500",
+    subtotal: "450",
+    shipping: "50",
     currency: "EGP",
     itemCount: "3",
     orderItems: "1. تيشيرت أحمر | المقاس: L | الكمية: 2",
@@ -86,6 +111,11 @@ export const orderScopeConfig: TemplateScopeConfig = {
     trackingNumber: "TRK-98765",
     trackingLink: "https://maxp.online/track/TRK-98765",
     estimatedDays: "2-3",
+    cartUrl: "https://swan.maxp.online/checkout?recoverCart=demo123",
+    cartTotal: "500",
+    discount: "10%",
+    discountedTotal: "450",
+    couponCode: "SAVE10",
   },
   metaToLocalDefaultOrder: META_TO_LOCAL_DEFAULT_ORDER,
   defaultContent: DEFAULT_TEMPLATE_CONTENT,
@@ -98,9 +128,10 @@ export const orderScopeConfig: TemplateScopeConfig = {
 
   toggleNotify: async (api: ApiLike, row: EventRow): Promise<void> => {
     const nextValue = !row.notifyCustomer;
-    if (row.code === INCOMPLETE_CART_EVENT_TYPE) {
+    const settingKey = SYSTEM_SETTING_TOGGLE_MAP[row.code];
+    if (settingKey) {
       await api.put("/whatsapp/notifications/settings", {
-        incompleteCartImmediateMessage: nextValue,
+        [settingKey]: nextValue,
       });
     } else {
       await api.put(`/order-status/${row.id}`, {
@@ -113,7 +144,7 @@ export const orderScopeConfig: TemplateScopeConfig = {
   metaOpsBase: "/whatsapp-notifications/templates",
 
   resolveCategory: (row: EventRow): string =>
-    row.code === INCOMPLETE_CART_EVENT_TYPE ? "ABANDONED_CART" : "ORDERS",
+    INCOMPLETE_CART_EVENTS.has(row.code) ? "ABANDONED_CART" : "ORDERS",
 
   gateCreateOnNotify: true,
 

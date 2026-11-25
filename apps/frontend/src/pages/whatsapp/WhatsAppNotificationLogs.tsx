@@ -29,7 +29,7 @@ const WhatsAppNotificationLogs: React.FC<WhatsAppNotificationLogsProps> = ({
   const pageTitle = companyName
     ? `${t('whatsappNotificationLogs.title')} · ${companyName}`
     : t('whatsappNotificationLogs.title');
-  const backHref = '/whatsapp/notifications';
+  const backHref = '/orders/status-templates';
   const eyebrow = undefined;
 
   const {

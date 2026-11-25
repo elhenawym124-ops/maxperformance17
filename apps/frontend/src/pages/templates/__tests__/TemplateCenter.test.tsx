@@ -8,7 +8,8 @@ import TemplateCenter, {
   resolveVariablesForPreview,
   buildLocalContentFromMetaBody,
 } from "../TemplateCenter";
-import type { TemplateScopeConfig } from "../types";
+import { orderScopeConfig } from "../scopes/orderScope";
+import type { TemplateScopeConfig, EventRow } from "../types";
 
 const { mockApiGet, mockApiPost } = vi.hoisted(() => ({
   mockApiGet: vi.fn(),
@@ -149,5 +150,40 @@ describe("TemplateCenter Domain Suite", () => {
     await waitFor(() => {
       expect(screen.getByText("تم التأكيد")).toBeTruthy();
     });
+  });
+
+  it("reads initial ?tab= query parameter from URL and activates that tab", async () => {
+    render(
+      <MemoryRouter initialEntries={["/orders/status-templates?tab=reports"]}>
+        <TemplateCenter config={mockConfig} />
+      </MemoryRouter>
+    );
+
+    const reportsTab = screen.getByRole("tab", { name: /سجل الإرسال/ });
+    expect(reportsTab.getAttribute("aria-selected")).toBe("true");
+  });
+
+  it("maps order/cart system events and recovery variables in orderScopeConfig", async () => {
+    const varNames = orderScopeConfig.variables.map((v) => v.var);
+    expect(varNames).toContain("{{cartUrl}}");
+    expect(varNames).toContain("{{couponCode}}");
+    expect(varNames).toContain("{{discountedTotal}}");
+    expect(orderScopeConfig.resolveCategory?.({ code: "CART_ABANDONED_1H" } as EventRow)).toBe("ABANDONED_CART");
+    expect(orderScopeConfig.resolveCategory?.({ code: "CART_ABANDONED_WITH_DISCOUNT" } as EventRow)).toBe("ABANDONED_CART");
+
+    const mockPut = vi.fn().mockResolvedValue({ data: { success: true } });
+    await orderScopeConfig.toggleNotify({ put: mockPut } as any, {
+      id: "CART_ABANDONED_24H",
+      code: "CART_ABANDONED_24H",
+      notifyCustomer: false,
+    } as EventRow);
+    expect(mockPut).toHaveBeenCalledWith("/whatsapp/notifications/settings", { abandonedCartEnabled: true });
+
+    await orderScopeConfig.toggleNotify({ put: mockPut } as any, {
+      id: "ORDER_CREATED",
+      code: "ORDER_CREATED",
+      notifyCustomer: true,
+    } as EventRow);
+    expect(mockPut).toHaveBeenCalledWith("/whatsapp/notifications/settings", { orderCreatedEnabled: false });
   });
 });

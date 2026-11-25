@@ -75,7 +75,7 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
         className="min-h-full space-y-space-4 overflow-x-hidden px-space-1 py-space-2 pb-[calc(var(--space-4)+env(safe-area-inset-bottom))] sm:space-y-space-6 sm:px-space-6 sm:py-space-4 lg:px-space-8"
       >
         <JourneyPageTopBar
-          backHref="/whatsapp/notifications"
+          backHref="/orders/status-templates"
           backLabel={t("common.back") as string}
           isRtl={isRtl}
           refreshing={refreshing}
@@ -103,7 +103,7 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
       className="min-h-full space-y-space-4 overflow-x-hidden px-space-1 py-space-2 pb-[calc(var(--space-4)+env(safe-area-inset-bottom))] sm:space-y-space-6 sm:px-space-6 sm:py-space-4 lg:px-space-8"
     >
       <JourneyPageTopBar
-        backHref="/whatsapp/notifications"
+        backHref="/orders/status-templates"
         backLabel={t("common.back") as string}
         isRtl={isRtl}
         refreshing={refreshing}

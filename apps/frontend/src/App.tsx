@@ -1769,9 +1769,6 @@ const WhatsAppTemplates = React.lazy(() =>
 const WhatsAppChat = React.lazy(() =>
   import("./pages/whatsapp").then((m) => ({ default: m.WhatsAppChat })),
 );
-const WhatsAppNotifications = React.lazy(
-  () => import("./pages/whatsapp/WhatsAppNotifications"),
-);
 const WhatsAppCustomerJourney = React.lazy(
   () => import("./pages/whatsapp/WhatsAppCustomerJourney"),
 );
@@ -8286,13 +8283,7 @@ const AppContent = () => {
                 />
                 <Route
                   path="/whatsapp/notifications"
-                  element={
-                    <Layout>
-                      <AppAccessRoute requiredAppSlugs={['whatsapp-business', 'whatsapp-cloud-api']} redirectMode="overlay-blur">
-                        <WhatsAppNotifications />
-                      </AppAccessRoute>
-                    </Layout>
-                  }
+                  element={<Navigate to="/orders/status-templates" replace />}
                 />
                 <Route
                   path="/whatsapp/templates"

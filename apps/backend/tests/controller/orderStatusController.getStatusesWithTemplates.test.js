@@ -94,4 +94,35 @@ describe('getStatusesWithTemplates', () => {
     expect(shipped.metaTemplate.id).toBe('t-meta-approved');
     expect(shipped.metaTemplate.metaTemplateStatus).toBe('APPROVED');
   });
+
+  test('يرجع أحداث السلة غير المكتملة الخمسة بحالات التفعيل الحقيقية من الإعدادات', async () => {
+    const prisma = {
+      orderStatusConfig: { findMany: jest.fn().mockResolvedValue([]) },
+      whatsAppNotificationTemplate: { findMany: jest.fn().mockResolvedValue([]) },
+      whatsAppNotificationSettings: {
+        findUnique: jest.fn().mockResolvedValue({
+          orderCreatedEnabled: true,
+          orderCancelledEnabled: false,
+          paymentReminderEnabled: true,
+          incompleteCartImmediateMessage: true,
+          abandonedCartEnabled: true,
+          abandonedCartDiscountEnabled: false,
+        }),
+      },
+    };
+
+    const { req, res } = makeReqRes(prisma);
+    await getStatusesWithTemplates(req, res);
+
+    const payload = res.json.mock.calls[0][0];
+    const byCode = Object.fromEntries(payload.data.map((s) => [s.code, s]));
+
+    expect(byCode.INCOMPLETE_CART_FIRST_APPEARANCE.notifyCustomer).toBe(true);
+    expect(byCode.CART_ABANDONED_1H.notifyCustomer).toBe(true);
+    expect(byCode.CART_ABANDONED_24H.notifyCustomer).toBe(true);
+    expect(byCode.CART_ABANDONED_72H.notifyCustomer).toBe(true);
+    expect(byCode.CART_ABANDONED_WITH_DISCOUNT.notifyCustomer).toBe(false);
+    expect(byCode.ORDER_CREATED.notifyCustomer).toBe(true);
+    expect(byCode.ORDER_CANCELLED.notifyCustomer).toBe(false);
+  });
 });

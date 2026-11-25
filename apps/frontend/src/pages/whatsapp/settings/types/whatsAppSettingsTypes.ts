@@ -3,6 +3,8 @@ import React from "react";
 export type TabId =
   | "sessions"
   | "general"
+  | "notification-modules"
+  | "scheduled-reports"
   | "window-policy"
   | "quick-replies"
   | "business"

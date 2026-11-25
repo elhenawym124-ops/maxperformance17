@@ -289,7 +289,7 @@ export const marketplaceFeatureMap: MarketplaceFeatureMapEntry[] = [
     routes: [
       { path: "/whatsapp", label: "واتساب" },
       { path: "/whatsapp/settings", label: "إعدادات واتساب" },
-      { path: "/whatsapp/notifications", label: "تنبيهات واتساب" },
+      { path: "/orders/status-templates", label: "قوالب وإشعارات الطلبات" },
       { path: "/orders/whatsapp-notifications", label: "تنبيهات الطلبات" },
     ],
     action: "مغطى بتطبيق WhatsApp Business API الموحد بعد إزالة whatsapp-integration.",

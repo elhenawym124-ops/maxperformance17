@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
+  Bell,
+  Calendar,
   Clock,
   Copy,
   Database,
@@ -34,13 +36,15 @@ import { WhatsAppBusinessTab } from "./settings/components/WhatsAppBusinessTab";
 import { WhatsAppPrivacyTab } from "./settings/components/WhatsAppPrivacyTab";
 import { WhatsAppLabelsTab } from "./settings/components/WhatsAppLabelsTab";
 import { WhatsAppSettingsDialogs } from "./settings/components/WhatsAppSettingsDialogs";
+import { WhatsAppNotificationModulesTab } from "./settings/components/WhatsAppNotificationModulesTab";
+import { WhatsAppScheduledReportsTab } from "./scheduled-reports/WhatsAppScheduledReportsTab";
 
 const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
   companyId,
   companyName,
   superAdminMode = false,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const ts = (key: string, opts?: Record<string, unknown>) =>
     (t(key, opts as any) as unknown) as string;
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,7 +59,7 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
   const pageTitle = companyName
     ? `${t("whatsappSettings.title")} · ${companyName}`
     : t("whatsappSettings.title");
-  const notificationsHref = "/whatsapp/notifications";
+  const notificationsHref = "/orders/status-templates";
 
   const tabs = useMemo<TabDefinition[]>(
     () => [
@@ -100,6 +104,18 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
         label: t("whatsappSettings.labels"),
         icon: Tag,
         description: t("whatsappSettings.manageLabels"),
+      },
+      {
+        id: "notification-modules",
+        label: "إشعارات الأقسام",
+        icon: Bell,
+        description: "الموارد البشرية، المهام، المنتجات، والتسويق",
+      },
+      {
+        id: "scheduled-reports",
+        label: "التقارير المجدولة",
+        icon: Calendar,
+        description: "التقارير الدورية التلقائية عبر واتساب",
       },
     ],
     [t],
@@ -283,6 +299,20 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
             onDeleteLabel={(label) =>
               data.setDeleteState({ kind: "label", id: label.id })
             }
+          />
+        );
+      case "notification-modules":
+        return (
+          <WhatsAppNotificationModulesTab
+            companyId={companyId}
+            superAdminMode={superAdminMode}
+          />
+        );
+      case "scheduled-reports":
+        return (
+          <WhatsAppScheduledReportsTab
+            companyId={companyId}
+            isRtl={i18n.language === "ar"}
           />
         );
       default:

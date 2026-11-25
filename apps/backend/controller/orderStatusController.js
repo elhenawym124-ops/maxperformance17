@@ -928,19 +928,29 @@ const getStatusesWithTemplates = async (req, res) => {
     await seedDefaultOrderTemplates(companyId, getSharedPrismaClient());
 
     const EXTRA_ORDER_EVENTS = [
-      { code: 'ORDER_CREATED', name: 'طلب جديد' },
-      { code: 'ORDER_CANCELLED', name: 'إلغاء الطلب' },
-      { code: 'PAYMENT_REMINDER', name: 'تذكير بالدفع' }
+      { code: 'ORDER_CREATED', name: 'طلب جديد', settingKey: 'orderCreatedEnabled', defaultNotify: true },
+      { code: 'ORDER_CANCELLED', name: 'إلغاء الطلب', settingKey: 'orderCancelledEnabled', defaultNotify: true },
+      { code: 'PAYMENT_REMINDER', name: 'تذكير بالدفع', settingKey: 'paymentReminderEnabled', defaultNotify: true }
     ];
 
-    const INCOMPLETE_CART_EVENT = {
-      code: 'INCOMPLETE_CART_FIRST_APPEARANCE',
-      name: 'رسالة أول ظهور - طلب غير مكتمل'
-    };
+    const INCOMPLETE_CART_EVENTS = [
+      { code: 'INCOMPLETE_CART_FIRST_APPEARANCE', name: 'رسالة أول ظهور - طلب غير مكتمل', settingKey: 'incompleteCartImmediateMessage', defaultNotify: false },
+      { code: 'CART_ABANDONED_1H', name: 'تذكير السلة المتروكة - ساعة', settingKey: 'abandonedCartEnabled', defaultNotify: true },
+      { code: 'CART_ABANDONED_24H', name: 'تذكير السلة المتروكة - 24 ساعة', settingKey: 'abandonedCartEnabled', defaultNotify: true },
+      { code: 'CART_ABANDONED_72H', name: 'تذكير السلة المتروكة - 72 ساعة', settingKey: 'abandonedCartEnabled', defaultNotify: true },
+      { code: 'CART_ABANDONED_WITH_DISCOUNT', name: 'تذكير السلة المتروكة مع خصم', settingKey: 'abandonedCartDiscountEnabled', defaultNotify: false }
+    ];
 
-    const incompleteSettings = await getSharedPrismaClient().whatsAppNotificationSettings.findUnique({
+    const waSettings = await getSharedPrismaClient().whatsAppNotificationSettings.findUnique({
       where: { companyId },
-      select: { incompleteCartImmediateMessage: true }
+      select: {
+        orderCreatedEnabled: true,
+        orderCancelledEnabled: true,
+        paymentReminderEnabled: true,
+        incompleteCartImmediateMessage: true,
+        abandonedCartEnabled: true,
+        abandonedCartDiscountEnabled: true
+      }
     });
 
     const statuses = await getSharedPrismaClient().orderStatusConfig.findMany({
@@ -955,7 +965,7 @@ const getStatusesWithTemplates = async (req, res) => {
     const allEventCodes = [
       ...statuses.map(s => s.code),
       ...EXTRA_ORDER_EVENTS.map(e => e.code),
-      INCOMPLETE_CART_EVENT.code
+      ...INCOMPLETE_CART_EVENTS.map(e => e.code)
     ];
 
     const templates = await getSharedPrismaClient().whatsAppNotificationTemplate.findMany({
@@ -1004,6 +1014,13 @@ const getStatusesWithTemplates = async (req, res) => {
       };
     };
 
+    const resolveSettingNotify = (settingKey, defaultVal) => {
+      if (!waSettings || waSettings[settingKey] === undefined || waSettings[settingKey] === null) {
+        return defaultVal;
+      }
+      return waSettings[settingKey] === true;
+    };
+
     const result = [
       ...statuses.map(s => buildStatus(s, s.code)),
       // أحداث الطلبات العامة (غير مرتبطة بحالة orderStatusConfig) تظهر هنا
@@ -1012,22 +1029,22 @@ const getStatusesWithTemplates = async (req, res) => {
         id: `extra-${e.code}`,
         code: e.code,
         name: e.name,
-        color: '#6B7280',
+        color: '#013735',
         sortOrder: 999,
         statusType: 'order',
-        notifyCustomer: true,
+        notifyCustomer: resolveSettingNotify(e.settingKey, e.defaultNotify),
         isSystemStatus: true
       }, e.code)),
-      buildStatus({
-        id: `extra-${INCOMPLETE_CART_EVENT.code}`,
-        code: INCOMPLETE_CART_EVENT.code,
-        name: INCOMPLETE_CART_EVENT.name,
-        color: '#7C3AED',
-        sortOrder: 999,
+      ...INCOMPLETE_CART_EVENTS.map((e, idx) => buildStatus({
+        id: `extra-${e.code}`,
+        code: e.code,
+        name: e.name,
+        color: '#0D9488',
+        sortOrder: 1000 + idx,
         statusType: 'incomplete',
-        notifyCustomer: incompleteSettings?.incompleteCartImmediateMessage === true,
+        notifyCustomer: resolveSettingNotify(e.settingKey, e.defaultNotify),
         isSystemStatus: true
-      }, INCOMPLETE_CART_EVENT.code)
+      }, e.code))
     ];
 
     res.json({ success: true, data: result });

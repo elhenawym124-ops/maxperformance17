@@ -1118,7 +1118,6 @@ export const getSidebarConfig = (
           icon: WhatsAppIcon,
             items: [
                 { to: '/whatsapp', icon: MessageSquare, label: t('sidebar.whatsapp'), requiredPermissions: ['inbox.view'] },
-                { to: '/whatsapp/notifications', icon: Bell, label: t('sidebar.whatsappNotifications'), requiredPermissions: ['orders.whatsapp-notifications.view'] },
                 { to: '/whatsapp/templates', icon: FileText, label: t('sidebar.whatsappTemplates'), requiredPermissions: ['whatsapp.templates'] },
                 { to: '/whatsapp/routing', icon: ArrowLeftRight, label: t('sidebar.whatsappRouting'), requiredPermissions: ['whatsapp.sessions'] },
                 { to: '/whatsapp/settings', icon: Cog, label: t('sidebar.whatsappSettings'), requiredPermissions: ['whatsapp.settings'] },

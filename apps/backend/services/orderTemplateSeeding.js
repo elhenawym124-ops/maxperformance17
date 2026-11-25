@@ -207,6 +207,7 @@ const META_ORDER_BLUEPRINTS = {
     metaTemplateName: 'cart_recovery_discount',
     name: 'سلة متروكة - استعادة الطلب',
     category: 'ABANDONED_CART',
+    regularContent: 'مرحباً {{customerName}} 👋\nلاحظنا أنك بدأت طلباً ولم تُكمله بعد!\n\n🛒 لديك {{itemCount}} منتج بقيمة {{total}} {{currency}}\n\nأكمل طلبك الآن من هنا:\n{{cartUrl}}',
     content: 'أهلاً {{customerName}} 👋\nلاحظنا أنك تركت بعض المنتجات المميزة في سلة التسوق 🛍️\n\nإجمالي السلة: {{cartTotal}} {{currency}}\n\nالمنتجات لا تزال محجوزة لك لفترة محدودة، اضغط أدناه لإتمام طلبك قبل نفاد الكمية! ✨',
     hasButtons: true,
     buttons: [{ type: 'QUICK_REPLY', text: 'إتمام الشراء الآن' }],
@@ -214,6 +215,69 @@ const META_ORDER_BLUEPRINTS = {
       { position: 1, name: 'customerName' },
       { position: 2, name: 'cartTotal' },
       { position: 3, name: 'currency' }
+    ]
+  },
+  CART_ABANDONED_1H: {
+    metaTemplateName: 'cart_abandoned_1h',
+    name: 'تذكير السلة المتروكة - ساعة',
+    category: 'ABANDONED_CART',
+    regularContent: 'مرحباً {{customerName}} 👋\nلاحظنا أنك تركت منتجات في عربة التسوق!\n\n🛒 لديك {{itemCount}} منتج بقيمة {{total}} {{currency}}\n\nأكمل طلبك الآن بنقرة واحدة:\n{{cartUrl}}',
+    content: 'أهلاً {{customerName}} 👋\nمنتجاتك لا تزال في سلة التسوق 🛒\n\nعدد المنتجات: {{itemCount}}\nالإجمالي: {{cartTotal}} {{currency}}\n\nأكمل طلبك الآن من هنا: {{cartUrl}}',
+    hasButtons: true,
+    buttons: [{ type: 'QUICK_REPLY', text: 'إتمام الشراء الآن' }],
+    variables: [
+      { position: 1, name: 'customerName' },
+      { position: 2, name: 'itemCount' },
+      { position: 3, name: 'cartTotal' },
+      { position: 4, name: 'currency' },
+      { position: 5, name: 'cartUrl' }
+    ]
+  },
+  CART_ABANDONED_24H: {
+    metaTemplateName: 'cart_abandoned_24h',
+    name: 'تذكير السلة المتروكة - 24 ساعة',
+    category: 'ABANDONED_CART',
+    regularContent: 'مرحباً {{customerName}} 👋\nمنتجاتك لا تزال في انتظارك! 🛒\n\nلديك {{itemCount}} منتج بقيمة {{total}} {{currency}}\n\nأكمل طلبك الآن:\n{{cartUrl}}',
+    content: 'أهلاً {{customerName}} 👋\nما زالت منتجاتك محجوزة لك 🛒\n\nالإجمالي: {{cartTotal}} {{currency}}\n\nلا تفوت الفرصة وأكمل طلبك الآن: {{cartUrl}}',
+    hasButtons: true,
+    buttons: [{ type: 'QUICK_REPLY', text: 'إتمام الشراء الآن' }],
+    variables: [
+      { position: 1, name: 'customerName' },
+      { position: 2, name: 'cartTotal' },
+      { position: 3, name: 'currency' },
+      { position: 4, name: 'cartUrl' }
+    ]
+  },
+  CART_ABANDONED_72H: {
+    metaTemplateName: 'cart_abandoned_72h',
+    name: 'تذكير السلة المتروكة - 72 ساعة',
+    category: 'ABANDONED_CART',
+    regularContent: 'مرحباً {{customerName}} 👋\nتذكير أخير بمنتجاتك المحجوزة في السلة 🛒\n\nلديك {{itemCount}} منتج بقيمة {{total}} {{currency}}\n\nأكمل طلبك قبل انتهاء الحجز:\n{{cartUrl}}',
+    content: 'أهلاً {{customerName}} 👋\nتذكير أخير بمنتجاتك قبل انتهاء الحجز 🛒\n\nالإجمالي: {{cartTotal}} {{currency}}\n\nأكمل طلبك الآن: {{cartUrl}}',
+    hasButtons: true,
+    buttons: [{ type: 'QUICK_REPLY', text: 'إتمام الشراء الآن' }],
+    variables: [
+      { position: 1, name: 'customerName' },
+      { position: 2, name: 'cartTotal' },
+      { position: 3, name: 'currency' },
+      { position: 4, name: 'cartUrl' }
+    ]
+  },
+  CART_ABANDONED_WITH_DISCOUNT: {
+    metaTemplateName: 'cart_abandoned_discount',
+    name: 'تذكير السلة المتروكة مع خصم',
+    category: 'ABANDONED_CART',
+    regularContent: 'مرحباً {{customerName}} 🎁\nخصم {{discount}}% على سلة التسوق الخاصة بك!\n\n🛒 {{itemCount}} منتج — السعر بعد الخصم: {{discountedTotal}} {{currency}}\nاستخدم الكود: {{couponCode}}\n\nأكمل طلبك الآن:\n{{cartUrl}}',
+    content: 'هدية خاصة لك يا {{customerName}} 🎁\nخصم {{discount}}% على سلتك!\n\nالسعر بعد الخصم: {{discountedTotal}} {{currency}}\nالكود: {{couponCode}}\n\nأكمل طلبك الآن: {{cartUrl}}',
+    hasButtons: true,
+    buttons: [{ type: 'QUICK_REPLY', text: 'تطبيق الخصم والشراء' }],
+    variables: [
+      { position: 1, name: 'customerName' },
+      { position: 2, name: 'discount' },
+      { position: 3, name: 'discountedTotal' },
+      { position: 4, name: 'currency' },
+      { position: 5, name: 'couponCode' },
+      { position: 6, name: 'cartUrl' }
     ]
   },
   STOCK_SHORTAGE: {
@@ -274,7 +338,11 @@ async function seedDefaultOrderTemplates(companyId, prisma = getSharedPrismaClie
       { code: 'ORDER_CREATED', name: 'طلب جديد' },
       { code: 'ORDER_CANCELLED', name: 'إلغاء الطلب' },
       { code: 'PAYMENT_REMINDER', name: 'تذكير بالدفع' },
-      { code: 'INCOMPLETE_CART_FIRST_APPEARANCE', name: 'سلة متروكة - أول ظهور' }
+      { code: 'INCOMPLETE_CART_FIRST_APPEARANCE', name: 'سلة متروكة - أول ظهور' },
+      { code: 'CART_ABANDONED_1H', name: 'تذكير السلة المتروكة - ساعة' },
+      { code: 'CART_ABANDONED_24H', name: 'تذكير السلة المتروكة - 24 ساعة' },
+      { code: 'CART_ABANDONED_72H', name: 'تذكير السلة المتروكة - 72 ساعة' },
+      { code: 'CART_ABANDONED_WITH_DISCOUNT', name: 'تذكير السلة المتروكة مع خصم' }
     ];
 
     const allEvents = [
@@ -307,17 +375,22 @@ async function seedDefaultOrderTemplates(companyId, prisma = getSharedPrismaClie
 
       // 1. بذر القالب العادي الافتراضي إذا لم يكن موجوداً
       if (!existingRegularEventTypes.has(event.code)) {
+        const isAbandonedCart = bp.category === 'ABANDONED_CART';
+        const regularContent = isAbandonedCart
+          ? (bp.regularContent || bp.content)
+          : DEFAULT_ORDER_TEMPLATE_CONTENT(event.name);
+        const regularVars = isAbandonedCart
+          ? (bp.variables || [{ position: 1, name: 'customerName' }, { position: 2, name: 'total' }, { position: 3, name: 'cartUrl' }])
+          : [{ position: 1, name: 'customerName' }, { position: 2, name: 'orderNumber' }];
+
         await prisma.whatsAppNotificationTemplate.create({
           data: {
             companyId,
             eventType: event.code,
             name: `قالب ${event.name}`,
             category: bp.category || 'ORDERS',
-            content: DEFAULT_ORDER_TEMPLATE_CONTENT(event.name),
-            variables: JSON.stringify([
-              { position: 1, name: 'customerName' },
-              { position: 2, name: 'orderNumber' }
-            ]),
+            content: regularContent,
+            variables: JSON.stringify(regularVars),
             hasButtons: false,
             channel: 'AUTO',
             isActive: true

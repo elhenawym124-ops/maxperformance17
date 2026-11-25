@@ -15,7 +15,7 @@ export const useWhatsAppAnalyticsController = ({
     ? `${t("whatsappAnalytics.title")} · ${companyName}`
     : t("whatsappAnalytics.title");
 
-  const backHref = "/whatsapp/notifications";
+  const backHref = "/orders/status-templates";
   const eyebrow = undefined;
 
   const STATUS_LABELS: Record<string, string> = useMemo(
