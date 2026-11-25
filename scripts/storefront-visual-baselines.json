@@ -1038,6 +1038,16 @@
       "minFontSize": 8.5,
       "firstProductScreen": 3.4,
       "updatedAt": "2026-11-25"
+    },
+    "academy-stage-3d": {
+      "cls": 0.032,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 5,
+      "minFontSize": 8.5,
+      "firstProductScreen": 4.35,
+      "updatedAt": "2026-11-25"
     }
   },
   "updatedAt": "2026-11-25"
