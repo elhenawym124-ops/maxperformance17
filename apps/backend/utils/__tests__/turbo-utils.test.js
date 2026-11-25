@@ -225,6 +225,18 @@ describe('governorateMapper', () => {
     test('maps alex to الإسكندرية', () => {
       expect(getTurboGovernorateName('alex')).toBe('الإسكندرية');
     });
+
+    test('does not let street keywords like بدر hijack explicit الدقهلية governorate', () => {
+      expect(
+        getTurboGovernorateName('الدقهلية', 'مركز المنصورة', 'المنصوره تقاطع شارع الدراسات بدر')
+      ).toBe('الدقهلية');
+    });
+
+    test('still maps 6th of October under الجيزة to أطراف القاهرة والجيزة', () => {
+      expect(
+        getTurboGovernorateName('الجيزة', '6 اكتوبر', 'الحي الرابع مجاورة 2')
+      ).toBe('أطراف القاهرة والجيزة');
+    });
   });
 
   describe('findGovernmentByCity', () => {

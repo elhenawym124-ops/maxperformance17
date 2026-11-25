@@ -645,6 +645,88 @@ describe('OrderService - Turbo Auto-Shipment Creation & Idempotency', () => {
       expect(result.success).toBe(true);
       expect(result.shipmentId).toBe('TURBO-SHP-001');
     });
+
+    test('20. Holds auto-dispatch cleanly with AREA_UNRESOLVED when Turbo area cannot be resolved', async () => {
+      const turboAiAreaResolver = require('../../services/turbo/turboAiAreaResolver');
+      jest.spyOn(turboAiAreaResolver, 'resolveAndApplyTurboLocation').mockResolvedValueOnce({
+        resolved: false,
+        reason: 'AI_AREA_NOT_IN_TURBO_MAP',
+      });
+      mockFormatOrderForTurbo.mockReturnValueOnce({
+        orderNumber: 'ORD-AREA-HOLD',
+        customerName: 'عميل سوان',
+        customerPhone: '01012345678',
+        shippingAddress: 'الثالث',
+        governorate: 'الجيزة',
+        city: 'Giza',
+        items: [{ id: 'item_1', name: 'Product 1', quantity: 1, price: 100 }],
+      });
+
+      const order = {
+        id: 'ord_area_hold',
+        orderNumber: 'ORD-AREA-HOLD',
+        companyId: 'comp_1',
+        status: 'CONFIRMED',
+        governorate: 'الجيزة',
+        city: 'Giza',
+        shippingAddress: 'الثالث',
+        turboShipmentId: null,
+        customer: { name: 'عميل سوان' },
+        orderItems: [{ id: 'item_1' }],
+        company: { turboEnabled: true, turboAutoCreate: true, turboApiKey: 'key_123' },
+      };
+
+      const result = await orderService.autoCreateTurboShipmentForOrder(order, 'comp_1');
+
+      expect(result.success).toBe(false);
+      expect(result.reason).toBe('AREA_UNRESOLVED');
+      expect(mockCreateShipment).not.toHaveBeenCalled();
+    });
+
+    test('21. Proceeds with AI-resolved area & governorate when resolver succeeds', async () => {
+      const turboAiAreaResolver = require('../../services/turbo/turboAiAreaResolver');
+      jest.spyOn(turboAiAreaResolver, 'resolveAndApplyTurboLocation').mockImplementationOnce(async ({ orderData }) => {
+        orderData.governorate = 'الجيزة';
+        orderData.area = 'العمرانية';
+        orderData.city = 'العمرانية';
+        orderData.verifiedTurboArea = 'العمرانية';
+        return { resolved: true, governorate: 'الجيزة', area: 'العمرانية', source: 'ai_turbo_map' };
+      });
+      mockFormatOrderForTurbo.mockReturnValueOnce({
+        orderNumber: 'ORD-AREA-AI',
+        customerName: 'محمود المصري',
+        customerPhone: '01012345678',
+        shippingAddress: 'Wahba Al Refiy Street 17L, Giza',
+        governorate: 'الجيزة',
+        city: 'Giza',
+        items: [{ id: 'item_1', name: 'Product 1', quantity: 1, price: 100 }],
+      });
+
+      const order = {
+        id: 'ord_area_ai',
+        orderNumber: 'ORD-AREA-AI',
+        companyId: 'comp_1',
+        status: 'CONFIRMED',
+        governorate: 'الجيزة',
+        city: 'Giza',
+        shippingAddress: 'Wahba Al Refiy Street 17L, Giza',
+        turboShipmentId: null,
+        customer: { name: 'محمود المصري' },
+        orderItems: [{ id: 'item_1' }],
+        company: { turboEnabled: true, turboAutoCreate: true, turboApiKey: 'key_123' },
+      };
+
+      const result = await orderService.autoCreateTurboShipmentForOrder(order, 'comp_1');
+
+      expect(result.success).toBe(true);
+      expect(mockCreateShipment).toHaveBeenCalledWith(
+        expect.objectContaining({
+          governorate: 'الجيزة',
+          area: 'العمرانية',
+          verifiedTurboArea: 'العمرانية',
+        })
+      );
+    });
   });
 });
 

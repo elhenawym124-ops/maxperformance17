@@ -1,6 +1,7 @@
 export interface TurboSettingsData {
   turboEnabled: boolean;
   turboAutoCreate: boolean;
+  turboAiAreaResolverEnabled: boolean;
   turboApiKey: string;
   turboMainClientCode: number | null;
   turboSenderNumber: string;
@@ -13,6 +14,7 @@ export interface TurboSettingsData {
 export const defaultTurboSettings = (): TurboSettingsData => ({
   turboEnabled: false,
   turboAutoCreate: false,
+  turboAiAreaResolverEnabled: true,
   turboApiKey: "",
   turboMainClientCode: null,
   turboSenderNumber: "",

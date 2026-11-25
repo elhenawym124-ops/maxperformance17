@@ -16,9 +16,9 @@ const { handleError } = require('../utils/turbo/errorHandler');
 class TurboService {
   constructor(apiKey = null, companyId = null) {
     this._client = new TurboApiClient(apiKey, companyId);
-    this._shipment = new ShipmentService(this._client);
-    this._tracking = new TrackingService(this._client, companyId);
     this._location = new LocationService(this._client);
+    this._shipment = new ShipmentService(this._client, this._location);
+    this._tracking = new TrackingService(this._client, companyId);
     this._label = new LabelService(this._client);
     this._ticket = new TicketService(this._client);
     this._message = new MessageService(this._client);

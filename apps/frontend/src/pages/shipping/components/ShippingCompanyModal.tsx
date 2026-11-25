@@ -270,6 +270,25 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
             )}
           </div>
 
+          {/* Standalone AI Area Resolver Service Toggle (Turbo only) */}
+          {formData.providerKey === 'TURBO' && (
+            <div className="flex items-start gap-2 p-3 rounded-xl border border-border bg-muted/40">
+              <input
+                type="checkbox"
+                id="modalTurboAiArea"
+                checked={formData.aiAreaResolverEnabled !== false}
+                onChange={(e) => setFormData((prev) => ({ ...prev, aiAreaResolverEnabled: e.target.checked }))}
+                className="mt-0.5 h-4 w-4 text-primary rounded border-border focus:ring-primary"
+              />
+              <label htmlFor="modalTurboAiArea" className="text-xs text-foreground cursor-pointer">
+                <span className="font-semibold text-foreground">خدمة تحديد منطقة تربو بالذكاء الاصطناعي (مستقلة)</span>
+                <span className="block text-[11px] text-muted-foreground">
+                  تخمين المدينة من عنوان العميل على خريطة تربو، تحديد المحافظة تلقائياً، ومراجعتها قبل الإرسال لتجنب حالة غير مكتمل
+                </span>
+              </label>
+            </div>
+          )}
+
           {/* Action Buttons & Test Connection */}
           <div className="pt-4 border-t border-border dark:border-border flex flex-wrap items-center justify-between gap-2">
             {editingCompany ? (

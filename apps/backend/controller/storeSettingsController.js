@@ -375,6 +375,7 @@ exports.getTurboSettings = async (req, res) => {
         data: {
           turboEnabled: false,
           turboAutoCreate: false,
+          turboAiAreaResolverEnabled: true,
           turboMainClientCode: null,
           turboSenderNumber: null,
           turboWebhookUrl: null,
@@ -398,10 +399,37 @@ exports.getTurboSettings = async (req, res) => {
           turboEnabled: true,
           turboAutoCreate: true,
           turboWebhookUrl: true,
-          turboWebhookToken: true
+          turboWebhookToken: true,
+          settings: true
         }
       });
     }, 3);
+
+    let turboAiAreaResolverEnabled = true;
+    try {
+      let carrierFlagFound = false;
+      if (prisma.shippingCompany?.findFirst) {
+        const turboCarrier = await prisma.shippingCompany.findFirst({
+          where: { companyId, providerKey: 'TURBO' },
+          select: { settings: true }
+        }).catch(() => null);
+        if (turboCarrier?.settings) {
+          const cs = typeof turboCarrier.settings === 'string' ? JSON.parse(turboCarrier.settings) : turboCarrier.settings;
+          if (typeof cs?.aiAreaResolverEnabled === 'boolean') {
+            turboAiAreaResolverEnabled = cs.aiAreaResolverEnabled;
+            carrierFlagFound = true;
+          }
+        }
+      }
+      if (!carrierFlagFound) {
+        const compSettings = company?.settings
+          ? (typeof company.settings === 'string' ? JSON.parse(company.settings) : company.settings)
+          : {};
+        if (typeof compSettings?.turboAiAreaResolverEnabled === 'boolean') {
+          turboAiAreaResolverEnabled = compSettings.turboAiAreaResolverEnabled;
+        }
+      }
+    } catch {}
 
     // إخفاء API Key جزئياً للأمان
     const maskedApiKey = company?.turboApiKey
@@ -413,6 +441,7 @@ exports.getTurboSettings = async (req, res) => {
       data: {
         turboEnabled: company?.turboEnabled || false,
         turboAutoCreate: company?.turboAutoCreate || false,
+        turboAiAreaResolverEnabled,
         turboMainClientCode: company?.turboMainClientCode || null,
         turboSenderNumber: company?.turboSenderNumber || null,
         turboWebhookUrl: company?.turboWebhookUrl || null,
@@ -450,7 +479,7 @@ exports.updateTurboSettings = async (req, res) => {
       });
     }
 
-    const { turboApiKey, turboMainClientCode, turboSenderNumber, turboEnabled, turboAutoCreate, turboWebhookUrl, turboWebhookToken } = req.body;
+    const { turboApiKey, turboMainClientCode, turboSenderNumber, turboEnabled, turboAutoCreate, turboAiAreaResolverEnabled, turboWebhookUrl, turboWebhookToken } = req.body;
     const prisma = await getPrisma();
 
     const updateData = {};
@@ -496,6 +525,36 @@ exports.updateTurboSettings = async (req, res) => {
 
     if (turboWebhookToken !== undefined) {
       updateData.turboWebhookToken = turboWebhookToken || null;
+    }
+
+    if (turboAiAreaResolverEnabled !== undefined) {
+      const existingCompany = await safeQuery(() => prisma.company.findUnique({ where: { id: companyId }, select: { settings: true } }), 2).catch(() => null);
+      let compSettings = {};
+      try {
+        compSettings = existingCompany?.settings
+          ? (typeof existingCompany.settings === 'string' ? JSON.parse(existingCompany.settings) : existingCompany.settings)
+          : {};
+      } catch {}
+      compSettings.turboAiAreaResolverEnabled = Boolean(turboAiAreaResolverEnabled);
+      updateData.settings = JSON.stringify(compSettings);
+
+      if (prisma.shippingCompany?.findMany && prisma.shippingCompany?.update) {
+        const turboCarriers = await prisma.shippingCompany.findMany({
+          where: { companyId, providerKey: 'TURBO' },
+          select: { id: true, settings: true }
+        }).catch(() => []);
+        for (const carrier of turboCarriers) {
+          let cs = {};
+          try {
+            cs = carrier.settings ? (typeof carrier.settings === 'string' ? JSON.parse(carrier.settings) : carrier.settings) : {};
+          } catch {}
+          cs.aiAreaResolverEnabled = Boolean(turboAiAreaResolverEnabled);
+          await prisma.shippingCompany.update({
+            where: { id: carrier.id },
+            data: { settings: JSON.stringify(cs) }
+          }).catch(() => {});
+        }
+      }
     }
 
     await safeQuery(async () => {

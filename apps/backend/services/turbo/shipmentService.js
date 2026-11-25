@@ -193,8 +193,48 @@ function rawShippingAddressString(shippingAddress, customerAddress) {
 }
 
 class ShipmentService {
-  constructor(apiClient) {
+  constructor(apiClient, locationService = null) {
     this._client = apiClient;
+    this._location = locationService;
+  }
+
+  async _fetchGovernments(apiKey, mainClientCode) {
+    if (this._location && this._location._client === this._client && typeof this._location.getGovernments === 'function') {
+      try {
+        const res = await this._location.getGovernments();
+        if (Array.isArray(res?.governments) && res.governments.length > 0 && !res.isFallback) {
+          return res.governments;
+        }
+      } catch (_) {}
+    }
+    try {
+      const govResult = await this._client.get(`${this._client.baseUrl}/get-government?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`);
+      const data = govResult?.data;
+      if ((data?.success === true || data?.success === 1) && data.feed) {
+        return Array.isArray(data.feed) ? data.feed : [];
+      }
+    } catch (e) { console.warn('⚠️ [TURBO] Failed to fetch governments:', e.message); }
+    return [];
+  }
+
+  async _fetchAreas(govId, apiKey, mainClientCode) {
+    if (!govId) return [];
+    if (this._location && this._location._client === this._client && typeof this._location.getAreas === 'function') {
+      try {
+        const res = await this._location.getAreas(govId);
+        if (Array.isArray(res?.areas) && res.areas.length > 0) {
+          return res.areas;
+        }
+      } catch (_) {}
+    }
+    try {
+      const areasResult = await this._client.get(`${this._client.baseUrl}/get-area/${govId}?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`);
+      const aData = areasResult?.data;
+      if ((aData?.success === true || aData?.success === 1) && aData.feed) return Array.isArray(aData.feed) ? aData.feed : [];
+      if (Array.isArray(aData?.areas)) return aData.areas;
+      if (Array.isArray(aData?.data)) return aData.data;
+    } catch (e) { console.warn('⚠️ [TURBO] Failed area matching:', e.message); }
+    return [];
   }
 
   async createShipment(orderData) {
@@ -211,14 +251,7 @@ class ShipmentService {
       const addressFields = getBestShippingAddressFields(shippingAddress, customerAddress);
       const cleanAddress = extractCleanStreetAddress(addressFields, shippingAddress, { customerName, city });
 
-      let governments = [];
-      try {
-        const govResult = await this._client.get(`${this._client.baseUrl}/get-government?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`);
-        const data = govResult.data;
-        if ((data.success === true || data.success === 1) && data.feed) {
-          governments = Array.isArray(data.feed) ? data.feed : [];
-        }
-      } catch (e) { console.warn('⚠️ [TURBO] Failed to fetch governments:', e.message); }
+      let governments = await this._fetchGovernments(apiKey, mainClientCode);
 
       // 🛡️ Fallback to FALLBACK_GOVERNMENTS if API failed or returned empty
       if (!governments || governments.length === 0) {
@@ -264,20 +297,17 @@ class ShipmentService {
         ? cleanLocationName(rawGov)
         : null;
 
-      // Determine area: prioritize specific area, then smart match from address text against Turbo's canonical area list
-      let candidateArea = cleanLocationName(orderData.area || addressFields.area || addressFields.parsedAddress?.area || potentialDistrict || city || addressFields.city || '');
+      // Determine area: prioritize AI-verified area if present, else smart match against Turbo's canonical area list
+      let candidateArea = cleanLocationName(orderData.verifiedTurboArea || orderData.area || addressFields.area || addressFields.parsedAddress?.area || potentialDistrict || city || addressFields.city || '');
       let cleanArea = candidateArea;
 
-      if (matchedGovId) {
-        try {
-          const areasResult = await this._client.get(`${this._client.baseUrl}/get-area/${matchedGovId}?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`);
-          const aData = areasResult.data;
-          let areas = [];
-          if ((aData.success === true || aData.success === 1) && aData.feed) areas = Array.isArray(aData.feed) ? aData.feed : [];
-          if (areas.length > 0) {
-            cleanArea = matchBestAreaFromTurboList(areas, candidateArea, cleanAddress || fullAddressContext, cleanGovernorate);
-          }
-        } catch (e) { console.warn('⚠️ [TURBO] Failed area matching:', e.message); }
+      if (orderData.verifiedTurboArea) {
+        cleanArea = orderData.verifiedTurboArea;
+      } else if (matchedGovId) {
+        const areas = await this._fetchAreas(matchedGovId, apiKey, mainClientCode);
+        if (areas.length > 0) {
+          cleanArea = matchBestAreaFromTurboList(areas, candidateArea, cleanAddress || fullAddressContext, cleanGovernorate);
+        }
       }
 
       const rawSecondPhone = orderData.phone2 || orderData.alternativePhone || addressFields.parsedAddress?.phone2 || addressFields.parsedAddress?.alternativePhone || addressFields.parsedAddress?.secondPhone || addressFields.secondaryAddressPhone || null;
@@ -468,12 +498,7 @@ class ShipmentService {
       const addressFields = getBestShippingAddressFields(formattedData.shippingAddress, formattedData.customerAddress);
       const cleanAddress = extractCleanStreetAddress(addressFields, formattedData.shippingAddress, { customerName: formattedData.customerName, city: formattedData.city });
 
-      let governments = [];
-      try {
-        const govResult = await this._client.get(`${this._client.baseUrl}/get-government?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`);
-        const data = govResult.data;
-        if ((data.success === true || data.success === 1) && data.feed) governments = Array.isArray(data.feed) ? data.feed : [];
-      } catch (e) { console.warn('⚠️ [TURBO] Failed to fetch governments for update:', e.message); }
+      let governments = await this._fetchGovernments(apiKey, mainClientCode);
 
       const updateRawGov = formattedData.governorate || '';
       const updateRawCity = formattedData.city || addressFields.city || '';
@@ -513,20 +538,17 @@ class ShipmentService {
         ? cleanLocationName(updateRawGov)
         : null;
 
-      // Determine area: prioritize specific area, then smart match from address text against Turbo's canonical area list
-      let candidateArea = cleanLocationName(formattedData.area || addressFields.area || addressFields.parsedAddress?.area || updatePotentialDistrict || formattedData.city || addressFields.city || '');
+      // Determine area: prioritize AI-verified area if present, else smart match against Turbo's canonical area list
+      let candidateArea = cleanLocationName(formattedData.verifiedTurboArea || formattedData.area || addressFields.area || addressFields.parsedAddress?.area || updatePotentialDistrict || formattedData.city || addressFields.city || '');
       let cleanArea = candidateArea;
 
-      if (matchedGovId) {
-        try {
-          const areasResult = await this._client.get(`${this._client.baseUrl}/get-area/${matchedGovId}?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`);
-          const aData = areasResult.data;
-          let areas = [];
-          if ((aData.success === true || aData.success === 1) && aData.feed) areas = Array.isArray(aData.feed) ? aData.feed : [];
-          if (areas.length > 0) {
-            cleanArea = matchBestAreaFromTurboList(areas, candidateArea, cleanAddress || `${cleanAddress} ${rawShippingAddressString(formattedData.shippingAddress, formattedData.customerAddress)}`, cleanGovernorate);
-          }
-        } catch (e) { console.warn('⚠️ [TURBO] Failed area matching:', e.message); }
+      if (formattedData.verifiedTurboArea) {
+        cleanArea = formattedData.verifiedTurboArea;
+      } else if (matchedGovId) {
+        const areas = await this._fetchAreas(matchedGovId, apiKey, mainClientCode);
+        if (areas.length > 0) {
+          cleanArea = matchBestAreaFromTurboList(areas, candidateArea, cleanAddress || `${cleanAddress} ${rawShippingAddressString(formattedData.shippingAddress, formattedData.customerAddress)}`, cleanGovernorate);
+        }
       }
 
       const rawReqType = String(formattedData.requestType || formattedData.orderType || formattedData.type || '').trim().toLowerCase();

@@ -6,6 +6,7 @@ export * from "./TurboApiKeyCard";
 export * from "./TurboClientCodeCard";
 export * from "./TurboSenderNumberCard";
 export * from "./TurboAutoCreateCard";
+export * from "./TurboAiAreaCard";
 export * from "./TurboWebhookCard";
 export * from "./TurboInfoSection";
 export * from "./TurboSaveBar";

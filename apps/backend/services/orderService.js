@@ -2213,7 +2213,7 @@ class OrderService {
   async updateOrderStatus(orderNumber, companyId, status, notes = null, userId = null, userName = null, existingOrderObject = null, isOverride = false, options = null) {
 
     try {
-      const { skipCallAttemptGuard = false, skipTransitionValidation = false, source = null } = options || {};
+      const { skipCallAttemptGuard = false, skipTransitionValidation = false, source = null, providerKey = null, deliveryProof = null } = options || {};
       status = normalizeOrderStatusCode(status);
 
       // ⚡ FIX: If status is an ID (CUIDs are typically >20 chars), resolve it to its Code
@@ -2483,6 +2483,18 @@ class OrderService {
             ...(nextMetadata ? { metadata: nextMetadata } : {}),
             ...confirmationData,
             ...resetConfirmationData,
+            // 🚚 Delivery proof (shipping provider / courier / waybill / time) is
+            // written atomically with the status change so "delivered" is never a
+            // bare status without a carrier behind it.
+            ...(providerKey ? { providerKey } : {}),
+            ...(deliveryProof && typeof deliveryProof === 'object'
+              ? {
+                  ...(deliveryProof.shippingCompanyId ? { shippingCompanyId: deliveryProof.shippingCompanyId } : {}),
+                  ...(deliveryProof.courierId ? { courierId: deliveryProof.courierId } : {}),
+                  ...(deliveryProof.trackingNumber ? { trackingNumber: String(deliveryProof.trackingNumber) } : {}),
+                  ...(deliveryProof.deliveredAt ? { deliveredAt: new Date(deliveryProof.deliveredAt) } : {}),
+                }
+              : {}),
             updatedAt: new Date(),
             statusHistory: {
               create: {
@@ -2490,6 +2502,7 @@ class OrderService {
                 oldStatus: order.status,
                 changedBy: userId,
                 userName: userName,
+                providerKey: providerKey || null,
                 reason: (notes && notes.trim())
                   ? notes.trim()
                   : (order.status && originalRequestedStatus && order.status !== originalRequestedStatus
@@ -3698,8 +3711,38 @@ class OrderService {
       // trackingNumber, turboShipmentId, and the in-flight lock.
 
       const TurboService = require('./turboService');
+      const { resolveAndApplyTurboLocation, isGenericOrEmptyLocation } = require('./turbo/turboAiAreaResolver');
       const turboService = new TurboService(turboApiKey, companyId);
       const orderData = turboService.formatOrderForTurbo(order, order.customer, order.orderItems);
+
+      // 🤖 AI Turbo Area Resolver: يخمن المنطقة من العنوان بناءً على خريطة تربو، يحدد المحافظة تلقائياً، ويراجعها
+      const areaResolution = await resolveAndApplyTurboLocation({
+        prisma,
+        turboService,
+        companyId,
+        order,
+        orderData,
+      });
+
+      if (
+        areaResolution &&
+        !areaResolution.resolved &&
+        !areaResolution.skipped &&
+        isGenericOrEmptyLocation(orderData.area || orderData.city) &&
+        !options.allowUnmappedArea
+      ) {
+        console.warn(`⚠️ [TURBO-AUTO] Area unresolved for order ${order.orderNumber} (${areaResolution.reason}) — holding before Turbo to avoid incomplete shipment`);
+        const classified = classifyShippingError('تعذر تحديد منطقة تربو من العنوان تلقائياً — يرجى تحديد المنطقة يدوياً قبل الشحن', 'AREA_UNRESOLVED');
+        const updatedMeta = attachShippingErrorToMetadata(order.metadata, classified);
+        const warnNote = `[تنبيه شحن تربو: تعذر تحديد منطقة تربو من العنوان (${orderData.shippingAddress || 'بدون عنوان'}). يرجى اختيار المنطقة من خريطة تربو]`;
+        if (!order.notes?.includes('تعذر تحديد منطقة تربو')) {
+          const updatedNotes = order.notes ? `${order.notes}\n${warnNote}` : warnNote;
+          await prisma.order.update({ where: { id: order.id }, data: { notes: updatedNotes, metadata: updatedMeta } }).catch(() => {});
+        } else {
+          await prisma.order.update({ where: { id: order.id }, data: { metadata: updatedMeta } }).catch(() => {});
+        }
+        return { success: false, reason: 'AREA_UNRESOLVED', areaResolution, errorInfo: classified };
+      }
 
       // 🛡️ PRE-SHIPMENT VALIDATION GATE:
       // Verify governorate, city, address, customer phone and items before calling Turbo
@@ -4017,6 +4060,7 @@ class OrderService {
       } catch {}
 
       const TurboService = require('./turboService');
+      const { resolveAndApplyTurboLocation, isGenericOrEmptyLocation } = require('./turbo/turboAiAreaResolver');
       const turboService = new TurboService(turboApiKey, companyId);
       const guestOrderData = turboService.formatOrderForTurbo({
         ...guest,
@@ -4040,6 +4084,34 @@ class OrderService {
         phone: guest.guestPhone || '',
         email: guest.guestEmail || ''
       }, parsedItems);
+
+      const guestAreaResolution = await resolveAndApplyTurboLocation({
+        prisma,
+        turboService,
+        companyId,
+        order: { ...guest, tableType: 'GuestOrder' },
+        orderData: guestOrderData,
+      });
+
+      if (
+        guestAreaResolution &&
+        !guestAreaResolution.resolved &&
+        !guestAreaResolution.skipped &&
+        isGenericOrEmptyLocation(guestOrderData.area || guestOrderData.city) &&
+        !options.allowUnmappedArea
+      ) {
+        console.warn(`⚠️ [TURBO-AUTO-GUEST] Area unresolved for guest order ${guest.orderNumber} (${guestAreaResolution.reason}) — holding before Turbo`);
+        const classified = classifyShippingError('تعذر تحديد منطقة تربو من العنوان تلقائياً — يرجى تحديد المنطقة يدوياً قبل الشحن', 'AREA_UNRESOLVED');
+        const updatedMeta = attachShippingErrorToMetadata(guest.metadata, classified);
+        const warnNote = `[تنبيه شحن تربو: تعذر تحديد منطقة تربو من العنوان. يرجى اختيار المنطقة من خريطة تربو]`;
+        if (!guest.notes?.includes('تعذر تحديد منطقة تربو')) {
+          const updatedNotes = guest.notes ? `${guest.notes}\n${warnNote}` : warnNote;
+          await prisma.guestOrder.update({ where: { id: guest.id }, data: { notes: updatedNotes, metadata: updatedMeta } }).catch(() => {});
+        } else {
+          await prisma.guestOrder.update({ where: { id: guest.id }, data: { metadata: updatedMeta } }).catch(() => {});
+        }
+        return { success: false, reason: 'AREA_UNRESOLVED', areaResolution: guestAreaResolution, errorInfo: classified };
+      }
 
       // 🛡️ PRE-SHIPMENT VALIDATION GATE FOR GUEST ORDER:
       const { validateOrderForTurbo } = require('../utils/turbo/shipmentValidator');

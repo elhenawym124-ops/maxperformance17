@@ -4,6 +4,7 @@ const orderService = require('../../services/orderService');
 const { validateOrderForTurbo } = require('../../utils/turbo/shipmentValidator');
 const { findOrderByNumber, parseTurboMetadata, buildTurboShipmentSearchKeys, buildTurboUnlinkUpdateData, hasTurboLink, findOrderForTurboLocalAction } = require('./helpers');
 const { serializeTurboMetadata } = require('../../utils/turbo/turboMetadata');
+const { resolveAndApplyTurboLocation } = require('../../services/turbo/turboAiAreaResolver');
 
 const createShipment = async (req, res) => {
   try {
@@ -77,6 +78,7 @@ const createShipment = async (req, res) => {
     const previousTurboShipment = existingTurboShipment && replaceExisting ? { shipmentId: order.turboShipmentId || null, trackingNumber: order.turboTrackingNumber || null, status: order.turboShipmentStatus || null, labelUrl: order.turboLabelUrl || null, metadata: parseTurboMetadata(order.turboMetadata), replacedAt: new Date().toISOString() } : null;
     const turboService = new TurboService(turboApiKey, companyId);
     const orderData = turboService.formatOrderForTurbo(order, order.customer, order.orderItems || order.items);
+    await resolveAndApplyTurboLocation({ prisma, turboService, companyId, order, orderData }).catch(() => {});
     const validation = validateOrderForTurbo(order, orderData);
     if (!validation.isValid) return res.status(400).json({ success: false, validationError: true, error: validation.message, missingFields: validation.missingFields, suggestions: validation.suggestions, message: validation.message });
     if (validation.resolvedGovernorate && (!order.governorate || order.governorate === 'غير محدد')) {
@@ -342,6 +344,7 @@ const bulkCreateShipments = async (req, res) => {
         }
 
         const orderData = turboService.formatOrderForTurbo(order, order.customer, order.orderItems);
+        await resolveAndApplyTurboLocation({ prisma, turboService, companyId, order, orderData }).catch(() => {});
         const validation = validateOrderForTurbo(order, orderData);
         if (!validation.isValid) {
           results.skipped.push({
@@ -554,6 +557,7 @@ const bulkCreateShipments = async (req, res) => {
           email: guest.guestEmail || ''
         }, items);
 
+        await resolveAndApplyTurboLocation({ prisma, turboService, companyId, order: { ...guest, tableType: 'GuestOrder' }, orderData: guestOrderData }).catch(() => {});
         const validation = validateOrderForTurbo(guest, guestOrderData);
         if (!validation.isValid) {
           results.skipped.push({

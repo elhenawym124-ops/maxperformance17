@@ -13,6 +13,7 @@ export interface ShippingCompany {
   settings?: string | null;
   isActive: boolean;
   createdAt: string;
+  hasApiCredentials?: boolean;
 }
 
 export interface ShippingCompanyFormData {
@@ -27,6 +28,7 @@ export interface ShippingCompanyFormData {
   integrationMode: string;
   linkedCompanyId?: string;
   autoCreateShipments: boolean;
+  aiAreaResolverEnabled?: boolean;
   shipmentCreateTrigger?: string;
   logoUrl?: string;
   isActive: boolean;

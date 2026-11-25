@@ -201,4 +201,29 @@ describe("TurboSettings", () => {
     fireEvent.click(screen.getByText("شركات الشحن"));
     expect(mockNavigate).toHaveBeenCalledWith("/shipping-companies");
   });
+
+  it("toggles standalone Turbo AI area resolver and saves setting", async () => {
+    render(<TurboSettings />);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText("خدمة تحديد منطقة تربو بالذكاء الاصطناعي")).toBeInTheDocument();
+    });
+
+    const aiToggle = screen.getByLabelText("خدمة تحديد منطقة تربو بالذكاء الاصطناعي") as HTMLInputElement;
+    expect(aiToggle.checked).toBe(true);
+
+    fireEvent.click(aiToggle);
+    expect(aiToggle.checked).toBe(false);
+
+    fireEvent.click(screen.getByText("حفظ الإعدادات"));
+
+    await waitFor(() => {
+      expect(mockApiPut).toHaveBeenCalledWith(
+        "/store-settings/turbo",
+        expect.objectContaining({
+          turboAiAreaResolverEnabled: false,
+        })
+      );
+    });
+  });
 });

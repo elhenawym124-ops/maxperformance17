@@ -129,6 +129,13 @@ function inferGovernorateFromText(text, allowedGovs = null) {
   return null;
 }
 
+function containsArabicTerm(normalizedText, normalizedTerm) {
+  if (!normalizedText || !normalizedTerm) return false;
+  if (normalizedText === normalizedTerm) return true;
+  const escaped = normalizedTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?:^|\\s)${escaped}(?:\\s|$)`).test(normalizedText);
+}
+
 /**
  * استخراج الاسم الرسمي لمحافظة تربو مع دعم التطبيع والاستنتاج وحل المناطق المركبة
  */
@@ -147,9 +154,28 @@ function getTurboGovernorateName(governorate, contextCity = '', fullAddress = ''
     return 'أطراف القاهرة والجيزة';
   }
 
+  // تحديد ما إذا كانت المحافظة المدخلة صراحةً محافظة غير القاهرة/الجيزة (مثل الدقهلية، الإسكندرية...)
+  // حتى لا تطغى مطابقة نصية فرعية داخل الشارع (مثل "شارع بدر" أو "الصفا") على المحافظة الحقيقية
+  let explicitDirectGov = null;
+  if (trimmed && GOVERNORATE_MAP[trimmed]) {
+    explicitDirectGov = GOVERNORATE_MAP[trimmed];
+  } else if (trimmed && !isUnspecified(trimmed)) {
+    const nTrimmed = normalizeArabic(cleanedGov);
+    for (const [key, value] of Object.entries(GOVERNORATE_MAP)) {
+      if (normalizeArabic(key) === nTrimmed || normalizeArabic(value) === nTrimmed) {
+        explicitDirectGov = value;
+        break;
+      }
+    }
+  }
+
+  const isExplicitNonCairoGiza = Boolean(
+    explicitDirectGov && !['القاهرة', 'الجيزة', 'أطراف القاهرة والجيزة'].includes(explicitDirectGov)
+  );
+
   // 2. فحص استباقي: إذا كان العنوان أو المدينة يحتوي على مناطق تتبع أطراف القاهرة والجيزة في تربو
-  // (مثل 6 أكتوبر، الشيخ زايد، حدائق الأهرام، حدائق أكتوبر، العاصمة الإدارية، دريم لاند، القرية الذكية...)
-  if (contextCity || fullAddress) {
+  // (فقط إذا لم تكن المحافظة الصريحة محافظة بعيدة عن القاهرة/الجيزة، مع مطابقة حدود الكلمات)
+  if (!isExplicitNonCairoGiza && (contextCity || fullAddress)) {
     const combined = `${contextCity || ''} ${fullAddress || ''}`;
     const compoundDistricts = [
       'حدائق الاهرام', 'حدائق الأهرام', 'هضبة الاهرام', 'هضبة الأهرام',
@@ -172,14 +198,14 @@ function getTurboGovernorateName(governorate, contextCity = '', fullAddress = ''
     const nCombined = normalizeArabic(combined);
     // استبعاد كباري القاهرة (مثل كوبري 6 أكتوبر أو كوبري أكتوبر أو السادس من أكتوبر) حتى لا تلتقط خطأ كمدينة
     const textWithoutBridges = nCombined.replace(/كوبري\s*(?:6\s*|السادس\s*من\s*)?اكتوبر/g, ' ');
-    if (compoundDistricts.some(d => textWithoutBridges.includes(normalizeArabic(d)))) {
+    if (compoundDistricts.some(d => containsArabicTerm(textWithoutBridges, normalizeArabic(d)))) {
       return 'أطراف القاهرة والجيزة';
     }
   }
 
   // Direct key check in GOVERNORATE_MAP (handles numeric IDs '1', '2' and exact keys)
-  if (trimmed && GOVERNORATE_MAP[trimmed]) {
-    return GOVERNORATE_MAP[trimmed];
+  if (explicitDirectGov) {
+    return explicitDirectGov;
   }
 
   // 3. إذا كانت المحافظة فارغة أو غير محددة، نستنتجها من المدينة والعنوان

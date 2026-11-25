@@ -1,6 +1,7 @@
 import React from "react";
 import {
   TurboApiKeyCard,
+  TurboAiAreaCard,
   TurboAutoCreateCard,
   TurboClientCodeCard,
   TurboInfoSection,
@@ -84,6 +85,12 @@ const TurboSettings: React.FC = () => {
           enabled={settings.turboEnabled}
           autoCreate={settings.turboAutoCreate}
           onToggleAutoCreate={(checked) => setSettings((prev) => ({ ...prev, turboAutoCreate: checked }))}
+        />
+
+        <TurboAiAreaCard
+          enabled={settings.turboEnabled}
+          aiAreaEnabled={settings.turboAiAreaResolverEnabled}
+          onToggleAiArea={(checked) => setSettings((prev) => ({ ...prev, turboAiAreaResolverEnabled: checked }))}
         />
 
         <TurboWebhookCard
