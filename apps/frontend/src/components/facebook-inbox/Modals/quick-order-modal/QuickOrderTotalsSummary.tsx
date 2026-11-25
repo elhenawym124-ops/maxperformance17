@@ -37,9 +37,9 @@ export const QuickOrderTotalsSummary: React.FC<QuickOrderTotalsSummaryProps> = (
         </div>
 
         {totalDiscount > 0 && (
-          <div className="flex justify-between text-success dark:text-success font-medium font-mono tabular-nums">
+          <div className="flex justify-between text-success dark:text-success font-medium">
             <span>إجمالي الخصم</span>
-            <span>-{totalDiscount.toLocaleString()} ج.م</span>
+            <span className="font-mono tabular-nums">-{totalDiscount.toLocaleString()} ج.م</span>
           </div>
         )}
 

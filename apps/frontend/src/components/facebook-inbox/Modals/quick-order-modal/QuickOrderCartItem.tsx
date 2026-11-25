@@ -43,7 +43,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
       key={`${item.productId}-${item.variantId || ""}`}
       className={`business-cart-card p-2 sm:p-2.5 rounded-xl border transition-colors ${
         isOverStock
-          ? "border-red-300 dark:border-destructive bg-destructive/40 dark:bg-destructive/15"
+          ? "border-destructive/40 bg-destructive/10"
           : ""
       }`}
       style={{
@@ -80,7 +80,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
             <button
               type="button"
               onClick={() => removeFromCart(item.productId, item.variantId)}
-              className="text-gray-400 hover:text-destructive p-0.5 rounded transition-colors flex-shrink-0"
+              className="text-muted-foreground hover:text-destructive p-0.5 rounded transition-colors flex-shrink-0"
               title="حذف من السلة"
             >
               <TrashIcon className="h-4 w-4" />

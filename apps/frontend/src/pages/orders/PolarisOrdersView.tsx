@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { Suspense, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -39,6 +39,10 @@ import {
   buildStoreOptionsList,
 } from "./utils/toolbarOptions";
 
+const QuickOrderModal = React.lazy(
+  () => import("../../components/facebook-inbox/Modals/QuickOrderModal"),
+);
+
 export interface PolarisOrdersViewProps {
   toolbarSectionProps: OrdersToolbarSectionProps;
   tableSectionProps: OrdersTableSectionProps;
@@ -53,6 +57,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [showStats, setShowStats] = React.useState(false);
+  const [showQuickOrderModal, setShowQuickOrderModal] = React.useState(false);
   const tabCounts = useOrderTabCounts();
 
   const {
@@ -264,8 +269,8 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
 
             <button
               type="button"
-              onClick={() => navigate("/orders/manual")}
-              className="inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground px-3 text-xs font-semibold transition-all active:scale-95 shadow-xs"
+              onClick={() => setShowQuickOrderModal(true)}
+              className="inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground px-3 text-xs font-semibold transition-all active:scale-95 shadow-xs cursor-pointer"
             >
               <Plus className="w-4 h-4 shrink-0" />
               <span>إنشاء طلب</span>
@@ -565,6 +570,19 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
 
       {/* Modals Container */}
       <OrdersModalsContainer {...modalsContainerProps} />
+
+      {/* Quick Order Modal (shared with Inbox) */}
+      <Suspense fallback={null}>
+        {showQuickOrderModal && (
+          <QuickOrderModal
+            isOpen={showQuickOrderModal}
+            onClose={() => setShowQuickOrderModal(false)}
+            platform="manual"
+            pageName="لوحة الطلبات"
+            onOrderCreated={() => onRefresh()}
+          />
+        )}
+      </Suspense>
     </div>
   );
 };

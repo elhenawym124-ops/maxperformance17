@@ -84,19 +84,11 @@ export const QuickOrderFooter: React.FC<QuickOrderFooterProps> = ({
           type="button"
           onClick={handleCreateOrder}
           disabled={isSubmitDisabled}
-          className={`business-chip-button flex items-center gap-2 px-4 sm:px-6 py-2 text-xs sm:text-sm font-medium ${
-            isSubmitDisabled ? "cursor-not-allowed opacity-60" : ""
-          }`}
-          style={
+          className={`inline-flex items-center gap-2 rounded-lg px-4 sm:px-6 py-2 text-xs sm:text-sm font-semibold transition-all active:scale-[0.97] ${
             isSubmitDisabled
-              ? undefined
-              : {
-                  background:
-                    "linear-gradient(135deg, var(--business-success) 0%, color-mix(in srgb, var(--color-secondary) 82%, white) 100%)",
-                  borderColor: "transparent",
-                  color: "white",
-                }
-          }
+              ? "cursor-not-allowed opacity-50 bg-muted text-muted-foreground border border-border/70"
+              : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs cursor-pointer"
+          }`}
         >
           {loading ? (
             <div

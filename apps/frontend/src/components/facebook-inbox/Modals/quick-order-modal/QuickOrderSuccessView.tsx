@@ -59,7 +59,7 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
         </div>
 
         <div
-          className="p-4 rounded-xl text-xs sm:text-sm text-right space-y-2 border"
+          className="p-4 rounded-xl text-xs sm:text-sm text-start space-y-2 border"
           style={{
             background: "var(--business-surface-subtle)",
             borderColor: "var(--business-card-border)",
@@ -103,14 +103,7 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
                 "_blank",
               );
             }}
-            className="business-chip-button w-full py-3 flex items-center justify-center gap-2 font-bold text-sm"
-            data-active="true"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--business-success) 0%, color-mix(in srgb, var(--color-secondary) 82%, white) 100%)",
-              borderColor: "transparent",
-              color: "white",
-            }}
+            className="w-full py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all flex items-center justify-center gap-2 font-bold text-sm cursor-pointer shadow-xs"
           >
             <PrinterIcon className="w-5 h-5" />
             طباعة الفاتورة / البوليصة

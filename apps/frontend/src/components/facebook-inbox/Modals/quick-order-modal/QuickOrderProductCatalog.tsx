@@ -73,7 +73,7 @@ export const QuickOrderProductCatalog: React.FC<
             className="business-chat-input w-full ps-4 pe-10 py-2 text-sm"
           />
           <MagnifyingGlassIcon
-            className="absolute right-3 top-2.5 h-5 w-5"
+            className="pointer-events-none absolute end-3 top-2.5 h-5 w-5"
             style={mutedStyle}
           />
         </div>
@@ -85,8 +85,8 @@ export const QuickOrderProductCatalog: React.FC<
             onClick={() => setShowHistoryDrawer((prev) => !prev)}
             className={`business-chip-button flex items-center gap-1.5 px-2.5 sm:px-3 py-2 text-xs font-semibold shrink-0 transition-all ${
               showHistoryDrawer
-                ? "bg-primary text-white border-primary"
-                : "bg-blue-50 text-primary dark:bg-primary/40 dark:text-primary border-primary dark:border-primary"
+                ? "bg-primary text-primary-foreground border-primary"
+                : "bg-primary/10 text-primary border-primary/30"
             }`}
             title="سجل طلبات وبيانات العميل السابقة"
           >
@@ -96,8 +96,8 @@ export const QuickOrderProductCatalog: React.FC<
               <span
                 className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono tabular-nums font-bold ${
                   showHistoryDrawer
-                    ? "bg-white text-primary"
-                    : "bg-primary text-white"
+                    ? "bg-card text-primary"
+                    : "bg-primary text-primary-foreground"
                 }`}
               >
                 {previousOrders.length}
@@ -106,7 +106,7 @@ export const QuickOrderProductCatalog: React.FC<
           </button>
         )}
 
-        <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-xl border border-border/50 flex-shrink-0">
+        <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-lg border border-border/50 flex-shrink-0">
           <button
             type="button"
             onClick={() => setViewMode("grid")}

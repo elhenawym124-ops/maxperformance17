@@ -55,13 +55,13 @@ export const QuickOrderCartSidebar: React.FC<QuickOrderCartSidebarProps> = ({
           <button
             type="button"
             onClick={() => setShowMobileCart(true)}
-            className="flex items-center gap-2 text-right min-w-0 flex-1 hover:opacity-85 transition-opacity"
+            className="flex items-center gap-2 text-start min-w-0 flex-1 hover:opacity-85 transition-opacity"
           >
             <div className="relative flex-shrink-0">
               <div className="p-2 rounded-xl bg-primary/15 text-primary dark:bg-primary/25">
                 <ShoppingCartIcon className="h-5 w-5" />
               </div>
-              <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] font-bold font-mono tabular-nums rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+              <span className="absolute -top-1 -end-1 bg-primary text-primary-foreground text-[10px] font-bold font-mono tabular-nums rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
                 {totalItemCount}
               </span>
             </div>

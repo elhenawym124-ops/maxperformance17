@@ -38,7 +38,7 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
             </div>
           )}
           {product.variants.length > 0 && (
-            <div className="business-product-card-pill absolute bottom-1 right-1 text-[9px] px-1.5 py-0.5 rounded font-medium shadow-sm">
+            <div className="business-product-card-pill absolute bottom-1 end-1 text-[9px] px-1.5 py-0.5 rounded font-medium shadow-sm">
               خيارات
             </div>
           )}
@@ -67,8 +67,8 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
               {product.price} ج.م
             </span>
             {product.variants.length > 0 && (
-              <span className="text-[10px] text-primary bg-primary/10 px-1.5 py-0.5 rounded font-medium font-mono tabular-nums">
-                {product.variants.length} خيار
+              <span className="text-[10px] text-primary bg-primary/10 px-1.5 py-0.5 rounded font-medium">
+                <span className="font-mono tabular-nums">{product.variants.length}</span> خيار
               </span>
             )}
           </div>
@@ -114,7 +114,7 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
           </div>
         )}
         {product.variants.length > 0 && (
-          <div className="business-product-card-pill absolute bottom-2 right-2 text-[10px] px-2 py-0.5 rounded-md font-medium shadow-sm">
+          <div className="business-product-card-pill absolute bottom-2 end-2 text-[10px] px-2 py-0.5 rounded-md font-medium shadow-sm">
             خيارات
           </div>
         )}

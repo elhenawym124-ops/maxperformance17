@@ -19,7 +19,10 @@ export const useQuickOrderModal = ({
   const convId = conversation?.id || propConvId || "";
   const convCustomerId = conversation?.customerId || propCustomerId || "";
   const convCustomerName = conversation?.customerName || "";
-  const convPageName = conversation?.pageName || propPageName || "Facebook";
+  const convPageName =
+    conversation?.pageName ||
+    propPageName ||
+    (propPlatform === "manual" ? "لوحة الطلبات" : "Facebook");
   const convPlatform = conversation?.platform || propPlatform || "facebook";
 
   const productsState = useQuickOrderProducts(isOpen);

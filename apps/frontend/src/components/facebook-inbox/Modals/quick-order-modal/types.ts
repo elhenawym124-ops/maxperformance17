@@ -75,7 +75,7 @@ export interface QuickOrderModalProps {
   customerPhone?: string;
   conversationId?: string;
   customerId?: string;
-  platform?: "facebook" | "whatsapp" | "telegram";
+  platform?: "facebook" | "whatsapp" | "telegram" | "manual";
   pageName?: string;
   onOrderCreated?: (orderId: string, order?: any, confirmationMessage?: any) => void;
 }

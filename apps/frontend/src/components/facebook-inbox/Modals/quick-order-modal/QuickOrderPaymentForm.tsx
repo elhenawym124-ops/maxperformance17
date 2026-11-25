@@ -170,7 +170,7 @@ export const QuickOrderPaymentForm: React.FC<QuickOrderPaymentFormProps> = ({
         {(requestType === "return" || requestType === "exchange") && (
           <div className="mt-3">
             <label className="mb-1 block text-xs" style={mutedStyle}>
-              💰 مبلغ التحصيل في حالة المرتجع (افتراضي: مصاريف الشحن)
+              مبلغ التحصيل في حالة المرتجع (افتراضي: مصاريف الشحن)
             </label>
             <div className="relative">
               <input

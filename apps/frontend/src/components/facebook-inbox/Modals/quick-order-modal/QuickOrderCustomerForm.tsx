@@ -102,17 +102,19 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
               {customerProfile && (
                 <div className="flex items-center gap-1.5 flex-wrap">
                   {customerProfile.customerRating && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-warning text-warning dark:bg-warning/40 dark:text-warning border border-warning">
-                      ⭐ {customerProfile.customerRating}
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-warning/15 text-warning border border-warning/30">
+                      تقييم {customerProfile.customerRating}
                     </span>
                   )}
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-muted dark:bg-muted text-foreground dark:text-muted-foreground font-mono tabular-nums">
-                    {customerProfile.totalOrdersCount || previousOrders.length}{" "}
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-card border border-border/70 text-foreground">
+                    <span className="font-mono tabular-nums">
+                      {customerProfile.totalOrdersCount || previousOrders.length}
+                    </span>{" "}
                     طلبات
                   </span>
                   {customerProfile.deliveryRate != null && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-success text-success dark:bg-success/40 dark:text-success font-mono tabular-nums">
-                      {customerProfile.deliveryRate}% تسليم
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-success/15 text-success border border-success/30">
+                      <span className="font-mono tabular-nums">{customerProfile.deliveryRate}%</span> تسليم
                     </span>
                   )}
                 </div>
@@ -125,7 +127,7 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
                 <div className="text-[11px] space-y-1 text-muted-foreground border-t border-border dark:border-border pt-1.5">
                   {customerProfile.notes && (
                     <p className="truncate">
-                      📝 <span className="font-medium text-foreground">ملاحظات:</span>{" "}
+                      <span className="font-medium text-foreground">ملاحظات:</span>{" "}
                       {customerProfile.notes}
                     </p>
                   )}
@@ -145,7 +147,7 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
                   {previousOrders.map((prevOrder) => (
                     <div
                       key={prevOrder.id || prevOrder.orderNumber}
-                      className="p-2 rounded-lg border border-border dark:border-border bg-white dark:bg-muted text-xs space-y-1 shadow-2xs"
+                      className="p-2 rounded-lg border border-border/70 bg-card text-xs space-y-1 shadow-2xs"
                     >
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5 flex-wrap">
@@ -189,7 +191,7 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
                           </div>
                         )}
 
-                      <div className="text-left pt-0.5">
+                      <div className="text-end pt-0.5">
                         <a
                           href={`/orders/${encodeURIComponent(prevOrder.orderNumber || prevOrder.id)}`}
                           target="_blank"
@@ -216,8 +218,8 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
           <div
             className={`rounded-xl border p-3 text-xs sm:text-sm ${
               customerBlock?.blocked
-                ? "border-red-200 bg-destructive/10 text-destructive dark:border-destructive dark:bg-destructive/20 dark:text-destructive"
-                : "border-amber-200 bg-warning/10 text-warning dark:border-warning dark:bg-warning/20 dark:text-warning"
+                ? "border-destructive/30 bg-destructive/10 text-destructive"
+                : "border-warning/30 bg-warning/10 text-warning"
             }`}
           >
             <div className="flex items-start gap-2">

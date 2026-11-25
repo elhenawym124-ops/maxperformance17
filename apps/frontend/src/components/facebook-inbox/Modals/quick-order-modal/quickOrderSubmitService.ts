@@ -86,9 +86,17 @@ export const submitQuickOrder = async (
       : null;
 
   const extractionMethod =
-    convPlatform === "whatsapp" ? "whatsapp_inbox" : "facebook_inbox";
+    convPlatform === "whatsapp"
+      ? "whatsapp_inbox"
+      : convPlatform === "manual"
+        ? "manual"
+        : "facebook_inbox";
   const source =
-    convPlatform === "whatsapp" ? "whatsapp_inbox" : "facebook_inbox";
+    convPlatform === "whatsapp"
+      ? "whatsapp_inbox"
+      : convPlatform === "manual"
+        ? "manual_dashboard"
+        : "facebook_inbox";
 
   const payload = {
     products: cartItems.map((item) => ({

@@ -26,7 +26,12 @@ const QuickOrderModal: React.FC<QuickOrderModalProps> = (props) => {
       className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 quick-order-modal"
       style={overlayStyle}
     >
-      <div className="business-modal-surface flex h-[95vh] sm:h-auto sm:max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl sm:rounded-xl">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="طلب سريع"
+        className="business-modal-surface flex h-[95vh] sm:h-auto sm:max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl"
+      >
         {/* Header & Tabs */}
         <QuickOrderHeader
           initialCustomerName={initialCustomerName}

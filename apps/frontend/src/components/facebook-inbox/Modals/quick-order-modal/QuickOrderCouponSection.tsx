@@ -66,21 +66,22 @@ export const QuickOrderCouponSection: React.FC<
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between p-2.5 rounded-xl border border-primary bg-primary/50 dark:border-primary dark:bg-primary/20 text-xs sm:text-sm">
+          <div className="flex items-center justify-between p-2.5 rounded-xl border border-primary/30 bg-primary/10 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
               <TicketIcon className="h-4 w-4 text-primary dark:text-primary" />
               <span className="font-bold text-primary dark:text-primary font-mono">
                 {appliedCoupon.code}
               </span>
-              <span className="text-muted-foreground font-mono tabular-nums">
-                (خصم {appliedCoupon.discountAmount.toLocaleString()} ج.م)
+              <span className="text-muted-foreground">
+                (خصم <span className="font-mono tabular-nums">{appliedCoupon.discountAmount.toLocaleString()}</span> ج.م)
               </span>
             </div>
             <button
               type="button"
               onClick={handleRemoveCoupon}
-              className="text-red-500 hover:text-destructive p-1 rounded transition-colors"
+              className="text-muted-foreground hover:text-destructive p-1 rounded transition-colors cursor-pointer"
               title="إزالة الكوبون"
+              aria-label="إزالة الكوبون"
             >
               <XMarkIcon className="h-4 w-4" />
             </button>

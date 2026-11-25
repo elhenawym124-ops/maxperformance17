@@ -35,14 +35,17 @@ export const QuickOrderHeader: React.FC<QuickOrderHeaderProps> = ({
           <div className="min-w-0">
             <h2 className="business-workflow-title truncate">طلب سريع</h2>
             <p className="business-workflow-subtitle truncate">
-              {initialCustomerName || convCustomerName} - {convPageName}
+              {initialCustomerName || convCustomerName
+                ? `${initialCustomerName || convCustomerName} - ${convPageName}`
+                : convPageName}
             </p>
           </div>
         </div>
         <button
           type="button"
           onClick={onClose}
-          className="business-icon-button flex-shrink-0"
+          aria-label="إغلاق"
+          className="business-icon-button flex-shrink-0 active:scale-[0.97] transition-transform"
           style={{
             background: "rgba(255, 255, 255, 0.14)",
             borderColor: "rgba(255, 255, 255, 0.18)",
