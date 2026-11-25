@@ -5,6 +5,7 @@ import { changeLanguage } from "../../i18n";
 
 interface LanguageSwitcherProps {
   className?: string;
+  iconOnly?: boolean;
 }
 
 const LANGUAGES = [
@@ -14,6 +15,7 @@ const LANGUAGES = [
 
 export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   className = "",
+  iconOnly = false,
 }) => {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -30,14 +32,18 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="business-icon-button business-shell-utility-button business-shell-language-button relative inline-flex items-center gap-1.5 px-2 py-1 rounded-lg border border-border/60 bg-muted/30 hover:bg-muted/60 transition-colors shadow-2xs active:scale-95"
-        title="تغيير اللغة / Change language"
-        aria-label="Change language"
+        className={`business-icon-button business-shell-utility-button business-shell-language-button relative inline-flex items-center justify-center rounded-lg border border-border/60 bg-muted/30 hover:bg-muted/60 transition-colors shadow-2xs active:scale-95 ${
+          iconOnly ? "h-8 w-8 p-0" : "gap-1.5 px-2 py-1"
+        }`}
+        title={`تغيير اللغة / Change language (${currentLanguage.toUpperCase()})`}
+        aria-label={`Change language (${currentLanguage.toUpperCase()})`}
       >
-        <Globe className="size-3.5 text-muted-foreground" />
-        <span className="text-[11px] font-bold font-mono tracking-wider text-foreground uppercase tabular-nums">
-          {currentLanguage}
-        </span>
+        <Globe className={iconOnly ? "size-[18px]" : "size-3.5 text-muted-foreground"} />
+        {!iconOnly && (
+          <span className="text-[11px] font-bold font-mono tracking-wider text-foreground uppercase tabular-nums">
+            {currentLanguage}
+          </span>
+        )}
       </button>
 
       {isOpen && (

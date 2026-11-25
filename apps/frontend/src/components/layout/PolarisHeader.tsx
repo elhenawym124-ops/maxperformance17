@@ -131,7 +131,7 @@ export const PolarisHeader: React.FC<PolarisHeaderProps> = ({
 
         <ThemeToggle />
 
-        <LanguageSwitcher className="shrink-0" />
+        <LanguageSwitcher className="shrink-0" iconOnly />
 
         <NotificationDropdown className="shrink-0" />
 

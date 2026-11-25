@@ -3922,13 +3922,6 @@ select {
   transform: none;
 }
 
-[data-theme="business-os-enterprise"] .polaris-top-header .business-shell-language-button,
-.dark [data-theme="business-os-enterprise"] .polaris-top-header .business-shell-language-button {
-  width: auto;
-  min-width: 2rem;
-  padding-inline: 0.45rem;
-}
-
 [data-theme="business-os-enterprise"] .polaris-top-header .business-theme-toggle-icon {
   width: 1.125rem;
   height: 1.125rem;
