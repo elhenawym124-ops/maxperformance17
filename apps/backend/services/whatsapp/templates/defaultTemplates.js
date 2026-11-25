@@ -202,8 +202,9 @@ const DEFAULT_TEMPLATES = {
 
 🛒 لديك {itemCount} منتج بقيمة {total} {currency}
 
-أكمل طلبك الآن قبل نفاد الكمية!`,
-    variables: ['customerName', 'itemCount', 'total', 'currency']
+أكمل طلبك الآن بنقرة واحدة قبل نفاد الكمية:
+{cartUrl}`,
+    variables: ['customerName', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
   },
 
   CART_ABANDONED_24H: {
@@ -214,8 +215,22 @@ const DEFAULT_TEMPLATES = {
 
 لديك {itemCount} منتج بقيمة {total} {currency}
 
-لا تفوت الفرصة، أكمل طلبك الآن!`,
-    variables: ['customerName', 'itemCount', 'total', 'currency']
+لا تفوت الفرصة، أكمل طلبك الآن من هنا:
+{cartUrl}`,
+    variables: ['customerName', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
+  },
+
+  CART_ABANDONED_72H: {
+    name: 'تذكير العربة - 72 ساعة',
+    content: `مرحباً {customerName} 👋
+
+تذكير أخير بمنتجاتك المحجوزة في السلة 🛒
+
+لديك {itemCount} منتج بقيمة {total} {currency}
+
+أكمل طلبك الآن قبل انتهاء الحجز:
+{cartUrl}`,
+    variables: ['customerName', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
   },
 
   CART_ABANDONED_WITH_DISCOUNT: {
@@ -231,8 +246,9 @@ const DEFAULT_TEMPLATES = {
 
 استخدم الكود: {couponCode}
 
-العرض ساري لمدة 24 ساعة فقط!`,
-    variables: ['customerName', 'itemCount', 'discount', 'discountedTotal', 'currency', 'couponCode']
+أكمل طلبك الآن قبل انتهاء العرض (24 ساعة):
+{cartUrl}`,
+    variables: ['customerName', 'itemCount', 'discount', 'discountedTotal', 'currency', 'couponCode', 'cartUrl']
   },
 
   INCOMPLETE_CART_FIRST_APPEARANCE: {
@@ -243,8 +259,9 @@ const DEFAULT_TEMPLATES = {
 
 🛒 لديك {itemCount} منتج بقيمة {total} {currency}
 
-نحن هنا لمساعدتك — أكمل طلبك الآن!`,
-    variables: ['customerName', 'itemCount', 'total', 'currency']
+يمكنك إكمال طلبك مباشرة من هنا أو الرد علينا لأي استفسار:
+{cartUrl}`,
+    variables: ['customerName', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
   },
 
   // التسويق

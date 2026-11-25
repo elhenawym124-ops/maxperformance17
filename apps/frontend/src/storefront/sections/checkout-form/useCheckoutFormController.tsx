@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCheckoutStore } from '../../store/useCheckoutStore';
 import { useCartStore } from '../../store/useCartStore';
+import { storefrontApi } from '../../../utils/storefrontApi';
 import { useStorefrontTheme } from '../../engine/ThemeProvider';
 import { isKhemetLuxeTheme } from '../../utils/navigationGuards';
 import { useTierProgress } from '../../hooks/useTierProgress';
@@ -16,11 +17,63 @@ import {
 } from './checkoutFormHelpers';
 
 export const useCheckoutFormController = ({ section, settings }: CheckoutFormProps) => {
-  const { formData, updateFormData } = useCheckoutStore();
-  const { items } = useCartStore();
+  const { formData, updateFormData, setPaymentMethod, setPendingCouponCode } = useCheckoutStore();
+  const { items, restoreItems } = useCartStore();
   const { theme } = useStorefrontTheme();
   const location = useLocation();
   const { refreshTierProgress } = useTierProgress();
+  const recoveredCartIdsRef = useRef<Set<string>>(new Set());
+
+  // استرجاع السلة وبيانات العميل تلقائياً عند فتح رابط واتساب (?recoverCart=...)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const recoverCartId = params.get('recoverCart')?.trim();
+    const couponFromUrl = params.get('coupon')?.trim();
+    if (!recoverCartId || recoveredCartIdsRef.current.has(recoverCartId)) {
+      return;
+    }
+    recoveredCartIdsRef.current.add(recoverCartId);
+
+    let cancelled = false;
+    (async () => {
+      const response = await storefrontApi.recoverCheckoutDraft(recoverCartId);
+      if (cancelled || !response?.success || !response?.data) return;
+
+      const { items: recoveredItems, checkoutData } = response.data;
+      if (Array.isArray(recoveredItems) && recoveredItems.length > 0) {
+        restoreItems(recoveredItems);
+      }
+
+      if (checkoutData && typeof checkoutData === 'object') {
+        updateFormData({
+          ...(checkoutData.customerName ? { customerName: checkoutData.customerName } : {}),
+          ...(checkoutData.phone ? { phone: checkoutData.phone } : {}),
+          ...(checkoutData.email ? { email: checkoutData.email } : {}),
+          ...(checkoutData.address ? { address: checkoutData.address } : {}),
+          ...(checkoutData.city ? { city: checkoutData.city } : {}),
+          ...(checkoutData.governorate ? { governorate: checkoutData.governorate } : {}),
+          ...(checkoutData.notes ? { notes: checkoutData.notes } : {}),
+        });
+        if (
+          checkoutData.paymentMethod === 'cod' ||
+          checkoutData.paymentMethod === 'card' ||
+          checkoutData.paymentMethod === 'wallet'
+        ) {
+          setPaymentMethod(checkoutData.paymentMethod);
+        }
+        const resolvedCoupon = couponFromUrl || checkoutData.couponCode;
+        if (resolvedCoupon) {
+          setPendingCouponCode(resolvedCoupon);
+        }
+      } else if (couponFromUrl) {
+        setPendingCouponCode(couponFromUrl);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [location.search, restoreItems, setPaymentMethod, setPendingCouponCode, updateFormData]);
   const variant = normalizeVariant(section?.variant);
 
   const isAirlume = theme.id === 'airlume-ai';

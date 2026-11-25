@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone, MessageCircle, Send, Loader2 } from "lucide-react";
 
 interface CustomerInfo {
   name: string;
@@ -12,12 +12,16 @@ interface IncompleteCustomerCardProps {
   customerInfo: CustomerInfo;
   cartId: string;
   whatsappUrl: string | null;
+  sendingWhatsApp?: boolean;
+  onSendStoreWhatsApp?: () => void;
 }
 
 export const IncompleteCustomerCard: React.FC<IncompleteCustomerCardProps> = ({
   customerInfo,
   cartId,
   whatsappUrl,
+  sendingWhatsApp = false,
+  onSendStoreWhatsApp,
 }) => {
   const { t } = useTranslation();
 
@@ -64,7 +68,7 @@ export const IncompleteCustomerCard: React.FC<IncompleteCustomerCardProps> = ({
         </div>
 
         {customerInfo.phone && (
-          <div className="flex items-center gap-2 pt-2 border-t border-border/40">
+          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/40">
             <a
               href={`tel:${customerInfo.phone.replace(/\D/g, "")}`}
               className="inline-flex items-center gap-1.5 rounded-lg border border-success/30 bg-success/10 px-3 py-1.5 text-xs font-semibold text-success dark:text-success hover:bg-success/20 transition-colors"
@@ -82,6 +86,21 @@ export const IncompleteCustomerCard: React.FC<IncompleteCustomerCardProps> = ({
                 <MessageCircle className="h-3.5 w-3.5" />
                 <span>{t("orders.incompleteWhatsApp") || "واتساب"}</span>
               </a>
+            )}
+            {onSendStoreWhatsApp && (
+              <button
+                type="button"
+                onClick={onSendStoreWhatsApp}
+                disabled={sendingWhatsApp}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-primary/20 disabled:opacity-50 transition-colors cursor-pointer"
+              >
+                {sendingWhatsApp ? (
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                ) : (
+                  <Send className="h-3.5 w-3.5" />
+                )}
+                <span>إرسال من جلسة المتجر</span>
+              </button>
             )}
           </div>
         )}

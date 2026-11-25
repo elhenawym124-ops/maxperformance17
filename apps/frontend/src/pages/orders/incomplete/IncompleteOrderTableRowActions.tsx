@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   Phone,
   MessageCircle,
+  Send,
   ShoppingBag,
   FileText,
   Ban,
@@ -19,11 +20,13 @@ export interface IncompleteOrderTableRowActionsProps {
   phone?: string;
   whatsappUrl: string | null;
   isConverting: boolean;
+  isSendingWhatsApp?: boolean;
   isCopied: boolean;
   onCopyCartId: (e: React.MouseEvent, cartId: string) => void;
   onConfirmConvert: (cartId: string) => void;
   onOpenContactModal: (cartId: string) => void;
   onOpenCancelModal: (order: IncompleteOrder) => void;
+  onSendWhatsApp?: (cartId: string) => void;
 }
 
 export const IncompleteOrderTableRowActions: React.FC<IncompleteOrderTableRowActionsProps> = ({
@@ -31,11 +34,13 @@ export const IncompleteOrderTableRowActions: React.FC<IncompleteOrderTableRowAct
   phone,
   whatsappUrl,
   isConverting,
+  isSendingWhatsApp = false,
   isCopied,
   onCopyCartId,
   onConfirmConvert,
   onOpenContactModal,
   onOpenCancelModal,
+  onSendWhatsApp,
 }) => {
   const { t } = useTranslation();
 
@@ -84,6 +89,27 @@ export const IncompleteOrderTableRowActions: React.FC<IncompleteOrderTableRowAct
           >
             <MessageCircle className="h-3.5 w-3.5" />
           </span>
+        )}
+
+        {/* Quick Send via Store WhatsApp Session */}
+        {phone && onSendWhatsApp && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSendWhatsApp(order.cartId);
+            }}
+            disabled={isSendingWhatsApp}
+            className="inline-flex items-center justify-center h-7 w-7 rounded-lg border border-primary/30 text-primary hover:bg-primary/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            title="إرسال تذكير تلقائي عبر واتساب المتجر"
+            aria-label="إرسال تذكير تلقائي عبر واتساب المتجر"
+          >
+            {isSendingWhatsApp ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <Send className="h-3.5 w-3.5" />
+            )}
+          </button>
         )}
 
         {/* Quick Convert */}

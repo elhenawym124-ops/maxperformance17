@@ -57,6 +57,8 @@ export const IncompleteOrders: React.FC = () => {
     setStatusFilter,
     phoneFilter,
     setPhoneFilter,
+    reasonFilter,
+    setReasonFilter,
     sortValue,
     setSortValue,
     buildParams,
@@ -117,11 +119,13 @@ export const IncompleteOrders: React.FC = () => {
     setCancelModalOpen,
     selectedCancelOrder,
     setSelectedCancelOrder,
+    sendingWhatsAppCartId,
     handleCopyCartId,
     handleConvert,
     openContactModal,
     handleSaveContact,
     handleExport,
+    handleSendWhatsApp,
     handleConfirmConvert,
   } = useIncompleteOrdersActions({
     orders,
@@ -159,6 +163,11 @@ export const IncompleteOrders: React.FC = () => {
           setPhoneFilter(filter);
           setPage(1);
         }}
+        reasonFilter={reasonFilter}
+        onReasonFilterChange={(reason) => {
+          setReasonFilter(reason);
+          setPage(1);
+        }}
         sortValue={sortValue}
         onSortValueChange={(sort) => {
           setSortValue(sort);
@@ -182,6 +191,7 @@ export const IncompleteOrders: React.FC = () => {
         error={error}
         canShowAttribution={canShowAttribution}
         convertingCartId={convertingCartId}
+        sendingWhatsAppCartId={sendingWhatsAppCartId}
         onRetry={handleRetry}
         onCopyCartId={handleCopyCartId}
         onConfirmConvert={handleConfirmConvert}
@@ -190,6 +200,7 @@ export const IncompleteOrders: React.FC = () => {
           setSelectedCancelOrder(order);
           setCancelModalOpen(true);
         }}
+        onSendWhatsApp={handleSendWhatsApp}
       />
 
       {/* Pagination */}

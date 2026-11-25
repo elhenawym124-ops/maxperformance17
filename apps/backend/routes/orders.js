@@ -1919,6 +1919,17 @@ router.get('/incomplete', verifyToken.authenticateToken, async (req, res) => {
       filterClauses.push({ OR: [{ NOT: phoneKeyClause }, emptyPhoneClause] });
     }
 
+    const reasonFilter = (req.query.abandonReason || '').toString().trim();
+    if (reasonFilter) {
+      if (reasonFilter === 'no_phone') {
+        filterClauses.push({ OR: [{ NOT: phoneKeyClause }, emptyPhoneClause] });
+      } else if (reasonFilter === 'checkout_error') {
+        filterClauses.push({ checkoutData: { contains: '"_checkoutError"' } });
+      } else {
+        filterClauses.push({ checkoutData: { contains: `"code":"${reasonFilter}"` } });
+      }
+    }
+
     // السلات المستبعدة يدويًا من الورك-سبيس (سجل استبعاد في cartContactLog)
     // لا تعود للطابور مع التحديث الدوري
     try {
@@ -2070,6 +2081,7 @@ router.get('/incomplete', verifyToken.authenticateToken, async (req, res) => {
 
       return {
         cartId: cart.cartId,
+        id: cart.id,
         items,
         itemsCount: Array.isArray(items) ? items.length : 0,
         total,
@@ -2087,6 +2099,74 @@ router.get('/incomplete', verifyToken.authenticateToken, async (req, res) => {
         ),
       };
     });
+
+    // إثراء الصفوف بحالة إشعارات الواتساب ومحاولات التواصل السابقة (دون كسر الـ mocks في الاختبارات)
+    const pageCartIds = data.map((d) => d.cartId).filter(Boolean);
+    const pageRawIds = data.map((d) => d.id).filter(Boolean);
+    const allLookupCartIds = [...new Set([...pageCartIds, ...pageRawIds])];
+
+    if (allLookupCartIds.length > 0) {
+      try {
+        const prisma = getSharedPrismaClient();
+        const [waLogs, contactLogs] = await Promise.all([
+          prisma.whatsAppNotificationLog?.findMany
+            ? prisma.whatsAppNotificationLog.findMany({
+                where: { companyId, cartId: { in: allLookupCartIds } },
+                orderBy: { createdAt: 'desc' },
+                select: { cartId: true, eventType: true, status: true, sentAt: true, createdAt: true },
+              })
+            : Promise.resolve([]),
+          prisma.cartContactLog?.findMany
+            ? prisma.cartContactLog.findMany({
+                where: { companyId, cartId: { in: pageCartIds }, method: { not: 'dismissed' } },
+                orderBy: { createdAt: 'desc' },
+                select: { cartId: true, method: true, result: true, note: true, employeeName: true, createdAt: true },
+              })
+            : Promise.resolve([]),
+        ]);
+
+        const waByCart = new Map();
+        (waLogs || []).forEach((log) => {
+          if (!waByCart.has(log.cartId)) {
+            waByCart.set(log.cartId, { count: 0, latest: log });
+          }
+          waByCart.get(log.cartId).count += 1;
+        });
+
+        const contactByCart = new Map();
+        (contactLogs || []).forEach((log) => {
+          if (!contactByCart.has(log.cartId)) {
+            contactByCart.set(log.cartId, { count: 0, latest: log });
+          }
+          contactByCart.get(log.cartId).count += 1;
+        });
+
+        data.forEach((item) => {
+          const waEntry = waByCart.get(item.cartId) || (item.id ? waByCart.get(item.id) : null);
+          if (waEntry) {
+            item.whatsappSummary = {
+              count: waEntry.count,
+              status: waEntry.latest.status,
+              eventType: waEntry.latest.eventType,
+              sentAt: waEntry.latest.sentAt || waEntry.latest.createdAt,
+            };
+          }
+          const contactEntry = contactByCart.get(item.cartId);
+          if (contactEntry) {
+            item.contactSummary = {
+              count: contactEntry.count,
+              method: contactEntry.latest.method,
+              result: contactEntry.latest.result,
+              note: contactEntry.latest.note,
+              employeeName: contactEntry.latest.employeeName,
+              createdAt: contactEntry.latest.createdAt,
+            };
+          }
+        });
+      } catch (_enrichErr) {
+        // الحفاظ على استقرار القائمة إذا لم تتوفر جداول السجل في بيئات قديمة
+      }
+    }
 
     res.json({
       success: true,
@@ -3240,10 +3320,50 @@ router.get('/incomplete/:cartId', verifyToken.authenticateToken, async (req, res
 
     const customerPhone = checkoutData?.phone || checkoutData?.guestPhone || checkoutData?.mobileNumber || '';
     const customerEmail = checkoutData?.email || checkoutData?.guestEmail || '';
-    const firstOrderInfo = await getCustomerFirstOrderInfo(getSharedPrismaClient(), companyId, {
-      phone: customerPhone,
-      email: customerEmail,
-    });
+    const prisma = getSharedPrismaClient();
+    const [firstOrderInfo, contactLogs, whatsappLogs] = await Promise.all([
+      getCustomerFirstOrderInfo(prisma, companyId, {
+        phone: customerPhone,
+        email: customerEmail,
+      }),
+      prisma.cartContactLog?.findMany
+        ? prisma.cartContactLog.findMany({
+            where: { companyId, cartId },
+            orderBy: { createdAt: 'desc' },
+            take: 50,
+            select: {
+              id: true,
+              method: true,
+              result: true,
+              note: true,
+              employeeName: true,
+              createdAt: true,
+            },
+          }).catch(() => [])
+        : Promise.resolve([]),
+      prisma.whatsAppNotificationLog?.findMany
+        ? prisma.whatsAppNotificationLog.findMany({
+            where: {
+              companyId,
+              OR: [
+                { cartId },
+                ...(cart.id && cart.id !== cartId ? [{ cartId: cart.id }] : []),
+              ],
+            },
+            orderBy: { createdAt: 'desc' },
+            take: 25,
+            select: {
+              id: true,
+              eventType: true,
+              status: true,
+              content: true,
+              sentAt: true,
+              createdAt: true,
+              errorMessage: true,
+            },
+          }).catch(() => [])
+        : Promise.resolve([]),
+    ]);
 
     res.json({
       success: true,
@@ -3256,6 +3376,8 @@ router.get('/incomplete/:cartId', verifyToken.authenticateToken, async (req, res
         ...(cartAttribution ? { attribution: cartAttribution } : {}),
         sessionDetails: cartSessionDetails,
         firstOrderInfo,
+        contactLogs,
+        whatsappLogs,
         checkoutStartedAt: cart.checkoutStartedAt,
         checkoutUpdatedAt: cart.checkoutUpdatedAt,
         updatedAt: cart.updatedAt,
@@ -3461,6 +3583,131 @@ router.post('/incomplete/:cartId/dismiss', verifyToken.authenticateToken, async 
   } catch (error) {
     console.error('❌ Error dismissing incomplete cart:', error.message);
     return res.status(500).json({ success: false, message: 'خطأ في استبعاد السلة' });
+  }
+});
+
+// إرسال رسالة استرجاع واتساب مباشرة من جلسة المتجر + تسجيلها في سجل التواصل
+router.post('/incomplete/:cartId/send-whatsapp', verifyToken.authenticateToken, async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ success: false, message: 'غير مصرح - يجب تسجيل الدخول' });
+    }
+
+    const merchant = isMerchantUser(req.user)
+      ? await requireMerchantAccountForUser(req.user)
+      : null;
+    const companyId = merchant?.companyId || req.user?.effectiveCompanyId || req.user?.companyId;
+    if (!companyId) {
+      return res.status(403).json({ success: false, message: 'معرف الشركة مطلوب' });
+    }
+
+    const cartId = (req.params.cartId || '').toString().trim();
+    if (!cartId) {
+      return res.status(400).json({ success: false, message: 'معرف السلة مطلوب' });
+    }
+
+    const prisma = getSharedPrismaClient();
+    const cart = await prisma.guestCart.findFirst({ where: { cartId, companyId } });
+    if (!cart) {
+      return res.status(404).json({ success: false, message: 'السلة غير موجودة' });
+    }
+
+    let checkoutData = {};
+    try {
+      checkoutData = typeof cart.checkoutData === 'string'
+        ? JSON.parse(cart.checkoutData)
+        : (cart.checkoutData || {});
+    } catch {
+      checkoutData = {};
+    }
+
+    let items = [];
+    try {
+      items = typeof cart.items === 'string' ? JSON.parse(cart.items) : (cart.items || []);
+    } catch {
+      items = [];
+    }
+
+    const phone =
+      checkoutData.guestPhone ||
+      checkoutData.customerPhone ||
+      checkoutData.phoneNumber ||
+      checkoutData.mobileNumber ||
+      checkoutData.phone ||
+      checkoutData.mobile ||
+      '';
+    if (!phone) {
+      return res.status(400).json({ success: false, message: 'لا يوجد رقم هاتف لهذه السلة' });
+    }
+
+    const name =
+      checkoutData.guestName ||
+      checkoutData.fullName ||
+      checkoutData.customerName ||
+      checkoutData.name ||
+      'عميلنا العزيز';
+
+    const { buildCartRecoveryUrl } = require('../utils/cartRecoveryHelper');
+    const { sendNotification } = require('../services/whatsapp/WhatsAppNotificationService');
+    const couponCode = req.body?.couponCode ? String(req.body.couponCode).trim() : null;
+    const cartUrl = await buildCartRecoveryUrl(companyId, cart.cartId, couponCode);
+    const customMessage = req.body?.message ? String(req.body.message).trim() : null;
+    const total = Number(cart.total || 0);
+    const itemCount = (Array.isArray(items) ? items.length : 0).toString();
+
+    const sendRes = await sendNotification({
+      companyId,
+      recipientPhone: phone,
+      recipientName: name,
+      recipientType: 'CUSTOMER',
+      category: 'ABANDONED_CART',
+      eventType: req.body?.eventType || 'CART_ABANDONED_1H',
+      ...(customMessage ? { contentOverride: customMessage } : {}),
+      variables: {
+        customerName: name,
+        itemCount,
+        itemsCount: itemCount,
+        total: total.toString(),
+        cartTotal: total.toString(),
+        currency: 'EGP',
+        cartUrl,
+        checkoutUrl: cartUrl,
+        ...(couponCode ? { couponCode } : {}),
+      },
+      cartId: cart.cartId,
+      priority: 2,
+    });
+
+    await prisma.cartContactLog.create({
+      data: {
+        cartId: cart.cartId,
+        companyId,
+        employeeId: req.user.id || null,
+        employeeName: req.user.name || req.user.username || req.user.email || null,
+        method: 'whatsapp',
+        result: sendRes?.success ? 'sent' : (sendRes?.reason || 'failed'),
+        note: customMessage ? customMessage.slice(0, 400) : 'إرسال عبر جلسة واتساب المتجر',
+      },
+    }).catch(() => {});
+
+    if (!sendRes?.success) {
+      return res.status(400).json({
+        success: false,
+        reason: sendRes?.reason || 'send_failed',
+        message: sendRes?.reason === 'session_not_connected'
+          ? 'لا توجد جلسة واتساب متصلة حالياً لهذا المتجر'
+          : (sendRes?.message || 'تعذر إرسال رسالة الواتساب عبر الجلسة'),
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: 'تم إرسال رسالة الواتساب عبر جلسة المتجر وتسجيلها',
+      data: { cartUrl, queueId: sendRes.queueId || null },
+    });
+  } catch (error) {
+    console.error('❌ Error sending incomplete cart WhatsApp:', error.message);
+    return res.status(500).json({ success: false, message: 'خطأ في إرسال رسالة الواتساب' });
   }
 });
 
@@ -4053,9 +4300,14 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
 
       const phoneVariations = getPhoneVariations(searchTerms);
 
+      const strippedOrderTerm = searchTerms.replace(/^#+/, '').trim();
+
       // Base fields that we search with "contains" for regular orders
       const regularOrFields = [
         { orderNumber: { contains: searchTerms, mode: 'insensitive' } },
+        ...(strippedOrderTerm && strippedOrderTerm !== searchTerms
+          ? [{ orderNumber: { contains: strippedOrderTerm, mode: 'insensitive' } }]
+          : []),
         { turboTrackingNumber: { contains: searchTerms, mode: 'insensitive' } },
         { turboShipmentId: { contains: searchTerms, mode: 'insensitive' } },
         { customerEmail: { contains: searchTerms, mode: 'insensitive' } }
@@ -4106,12 +4358,15 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
         }
       }
 
-      // Merge search into whereClause
-      Object.assign(whereClause, { OR: regularOrFields });
+      // Merge search into whereClause without clobbering existing OR conditions
+      appendAnd(whereClause, { OR: regularOrFields });
 
       // Base fields for guest orders
       const guestOrFields = [
         { orderNumber: { contains: searchTerms, mode: 'insensitive' } },
+        ...(strippedOrderTerm && strippedOrderTerm !== searchTerms
+          ? [{ orderNumber: { contains: strippedOrderTerm, mode: 'insensitive' } }]
+          : []),
         { turboTrackingNumber: { contains: searchTerms, mode: 'insensitive' } },
         { turboShipmentId: { contains: searchTerms, mode: 'insensitive' } },
         { guestEmail: { contains: searchTerms, mode: 'insensitive' } }
@@ -4132,7 +4387,7 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
         }
       }
 
-      Object.assign(guestWhereClause, { OR: guestOrFields });
+      appendAnd(guestWhereClause, { OR: guestOrFields });
     }
 
     // 5. Filter by Source Type (مصدر الطلب) — may be a comma-separated list

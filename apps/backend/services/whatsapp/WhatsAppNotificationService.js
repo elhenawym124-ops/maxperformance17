@@ -1472,6 +1472,15 @@ async function sendNotification(options) {
       options.priority === 1 ||
       COMPANY_LIFECYCLE_EVENT_TYPES.has(eventType);
 
+    if (scheduleAt && new Date(scheduleAt) > new Date()) {
+      return scheduleNotification({
+        ...options,
+        deliveryCompanyId,
+        deliveryStrategy,
+        scheduleAt: new Date(scheduleAt)
+      });
+    }
+
     if (isQuietHours(settings) && !scheduleAt && !bypassQuietHours) {
       const nextAllowedSendAt = new Date();
       const [endHour, endMin] = settings.quietHoursEnd.split(':').map(Number);
@@ -3178,25 +3187,50 @@ async function sendAbandonedCartNotification(cart, reminderType = 'CART_ABANDONE
   const phone = cart.customerPhone || cart.customer?.phone;
   if (!phone) return { success: false, reason: 'no_phone' };
 
+  const canonicalCartId = cart.cartId || cart.id;
+  const { buildCartRecoveryUrl, isCartConvertedOrDismissed } = require('../../utils/cartRecoveryHelper');
+  const guard = await isCartConvertedOrDismissed(prisma, {
+    companyId: cart.companyId,
+    cartId: canonicalCartId,
+    customerPhone: phone
+  });
+  if (guard.blocked) {
+    return { success: false, reason: guard.reason || 'converted' };
+  }
+
   let eventType = reminderType;
-  let variables = {
-    itemCount: cart.items?.length?.toString() || '0',
-    total: cart.total?.toString() || '0',
-    currency: cart.currency || 'EGP'
-  };
+  const itemCount = cart.items?.length?.toString() || '0';
+  const totalStr = cart.total?.toString() || '0';
+  const customerName = cart.customerName || cart.customer?.firstName || 'عميلنا العزيز';
+
+  let couponCode = null;
+  let extraDiscountVars = {};
 
   // إضافة خصم للتذكير الأخير
   if (reminderType === 'CART_ABANDONED_WITH_DISCOUNT' && settings.abandonedCartDiscountEnabled) {
     const discountPercent = settings.abandonedCartDiscountPercent;
-    const discountedTotal = cart.total * (1 - discountPercent / 100);
+    const discountedTotal = Number(cart.total || 0) * (1 - discountPercent / 100);
+    couponCode = `CART${Date.now().toString(36).toUpperCase()}`;
 
-    variables = {
-      ...variables,
+    extraDiscountVars = {
       discount: discountPercent.toString(),
       discountedTotal: discountedTotal.toFixed(2),
-      couponCode: `CART${Date.now().toString(36).toUpperCase()}`
+      couponCode
     };
   }
+
+  const cartUrl = await buildCartRecoveryUrl(cart.companyId, canonicalCartId, couponCode);
+  const variables = {
+    customerName,
+    itemCount,
+    itemsCount: itemCount,
+    total: totalStr,
+    cartTotal: totalStr,
+    currency: cart.currency || 'EGP',
+    cartUrl,
+    checkoutUrl: cartUrl,
+    ...extraDiscountVars
+  };
 
   return sendNotification({
     companyId: cart.companyId,
@@ -3207,7 +3241,7 @@ async function sendAbandonedCartNotification(cart, reminderType = 'CART_ABANDONE
     eventType,
     variables,
     customerId: cart.customerId,
-    cartId: cart.id,
+    cartId: canonicalCartId,
     priority: 3
   });
 }
@@ -3789,6 +3823,26 @@ async function processNotificationQueue() {
       }
 
       try {
+        // 🛡️ قبل إرسال أي إشعار سلة متروكة مجدول (فترة سماح / ساعات هدوء):
+        // تحقق أن السلة لم تتحول لطلب ولم تُلغَ أثناء الانتظار.
+        if (notification.cartId) {
+          const { isCartConvertedOrDismissed } = require('../../utils/cartRecoveryHelper');
+          const cartGuard = await isCartConvertedOrDismissed(prisma, {
+            companyId: notification.companyId,
+            cartId: notification.cartId,
+            customerPhone: notification.recipientPhone,
+            requireExistingCart: true
+          });
+          if (cartGuard.blocked) {
+            await prisma.whatsAppNotificationQueue.update({
+              where: { id: notification.id },
+              data: { status: 'CANCELLED', processedAt: new Date() }
+            });
+            console.log(`⏭️ [WHATSAPP-QUEUE] Cancelled cart notification ${notification.id} (${cartGuard.reason})`);
+            continue;
+          }
+        }
+
         // التحقق من الجلسة — أعد حلّها وقت المعالجة (إصلاح §4.1):
         // - META_CLOUD لا يملك socket في ذاكرة Baileys (getSession يرجع undefined).
         // - الجلسة قد تنفصل بين الجدولة والمعالجة.

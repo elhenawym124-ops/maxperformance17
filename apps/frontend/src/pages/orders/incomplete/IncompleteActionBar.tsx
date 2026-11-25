@@ -53,7 +53,7 @@ export const IncompleteActionBar: React.FC<IncompleteActionBarProps> = ({
               <span>
                 {converting
                   ? t("orders.incompleteConverting") || "جاري التحويل..."
-                  : t("orders.incompleteConvertToOrder") || "تحويل لطلب مؤكد"}
+                  : "تحويل لطلب قيد الانتظار"}
               </span>
             </button>
 

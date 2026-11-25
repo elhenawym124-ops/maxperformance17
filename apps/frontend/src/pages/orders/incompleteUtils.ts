@@ -39,6 +39,41 @@ export interface CheckoutData {
   [key: string]: unknown;
 }
 
+export interface IncompleteWhatsAppSummary {
+  count: number;
+  status: string;
+  eventType?: string;
+  sentAt?: string;
+}
+
+export interface IncompleteContactSummary {
+  count: number;
+  method: string;
+  result?: string | null;
+  note?: string | null;
+  employeeName?: string | null;
+  createdAt?: string;
+}
+
+export interface IncompleteContactLogEntry {
+  id: string;
+  method: string;
+  result?: string | null;
+  note?: string | null;
+  employeeName?: string | null;
+  createdAt: string;
+}
+
+export interface IncompleteWhatsAppLogEntry {
+  id: string;
+  eventType: string;
+  status: string;
+  content?: string | null;
+  sentAt?: string | null;
+  createdAt: string;
+  errorMessage?: string | null;
+}
+
 export interface IncompleteOrder {
   cartId: string;
   itemsCount: number;
@@ -47,6 +82,8 @@ export interface IncompleteOrder {
   attribution?: OrderAttributionData | null;
   sessionDetails?: OrderSessionDetailsData | null;
   firstOrderInfo?: CustomerFirstOrderInfo | null;
+  whatsappSummary?: IncompleteWhatsAppSummary | null;
+  contactSummary?: IncompleteContactSummary | null;
   checkoutStartedAt?: string;
   checkoutUpdatedAt?: string;
   updatedAt?: string;
@@ -86,6 +123,8 @@ export interface IncompleteOrderDetailsData {
   attribution?: OrderAttributionData | null;
   sessionDetails?: OrderSessionDetailsData | null;
   firstOrderInfo?: CustomerFirstOrderInfo | null;
+  contactLogs?: IncompleteContactLogEntry[];
+  whatsappLogs?: IncompleteWhatsAppLogEntry[];
   checkoutStartedAt?: string;
   checkoutUpdatedAt?: string;
   updatedAt?: string;
@@ -128,6 +167,32 @@ export const getCustomerName = (checkoutData?: CheckoutData) => {
     data.name ||
     null
   );
+};
+
+export const formatWhatsAppPhone = (phone?: string | null): string | null => {
+  if (!phone) return null;
+  let cleaned = String(phone)
+    .replace(/[\u0660-\u0669]/g, (d) => String.fromCharCode(d.charCodeAt(0) - 0x0660 + 48))
+    .replace(/\D/g, "");
+  if (!cleaned) return null;
+  if (cleaned.startsWith("00")) {
+    cleaned = cleaned.slice(2);
+  }
+  if (cleaned.startsWith("0")) {
+    cleaned = `20${cleaned.slice(1)}`;
+  } else if (cleaned.length === 10 && cleaned.startsWith("1")) {
+    cleaned = `20${cleaned}`;
+  }
+  return cleaned.length >= 8 ? cleaned : null;
+};
+
+export const buildWhatsAppRecoveryUrl = (
+  phone: string | null | undefined,
+  message: string
+): string | null => {
+  const digits = formatWhatsAppPhone(phone);
+  if (!digits) return null;
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 };
 
 export const getCustomerContact = (checkoutData?: CheckoutData) => {

@@ -3,9 +3,14 @@ const {
   sendNotification,
   isDuplicateNotification,
 } = require('../whatsapp/WhatsAppNotificationService');
+const {
+  buildCartRecoveryUrl,
+  isCartConvertedOrDismissed,
+} = require('../../utils/cartRecoveryHelper');
 
 const EVENT_TYPE = 'INCOMPLETE_CART_FIRST_APPEARANCE';
-const DEDUP_WINDOW_MS = 60 * 1000;
+const DEDUP_WINDOW_MS = 24 * 60 * 60 * 1000;
+const DEFAULT_GRACE_MINUTES = 15;
 
 const PHONE_KEYS = [
   'guestPhone',
@@ -62,14 +67,15 @@ async function handleCartCreated(cart) {
       return { success: false, reason: 'no_phone' };
     }
 
-    const conversion = await safeQuery(() =>
-      prisma.cartConversionLog.findFirst({
-        where: { companyId: cart.companyId, cartId: cart.cartId },
-        select: { id: true },
+    const guard = await safeQuery(() =>
+      isCartConvertedOrDismissed(prisma, {
+        companyId: cart.companyId,
+        cartId: cart.cartId,
+        customerPhone: phone,
       }),
     );
-    if (conversion) {
-      return { success: false, reason: 'converted' };
+    if (guard?.blocked) {
+      return { success: false, reason: guard.reason || 'converted' };
     }
 
     const duplicate = await isDuplicateNotification({
@@ -85,6 +91,8 @@ async function handleCartCreated(cart) {
     const items = parseJsonField(cart.items);
     const name = pickFirst(checkoutData, NAME_KEYS);
     const total = typeof cart.total === 'string' ? parseFloat(cart.total) || 0 : Number(cart.total || 0);
+    const itemCount = (Array.isArray(items) ? items.length : 0).toString();
+    const cartUrl = await buildCartRecoveryUrl(cart.companyId, cart.cartId);
 
     const template = await safeQuery(() =>
       prisma.whatsAppNotificationTemplate.findFirst({
@@ -94,6 +102,13 @@ async function handleCartCreated(cart) {
       }),
     );
 
+    const graceMinutes = Number.isFinite(Number(settings.incompleteCartGraceMinutes))
+      ? Math.max(0, Number(settings.incompleteCartGraceMinutes))
+      : DEFAULT_GRACE_MINUTES;
+    const scheduleAt = graceMinutes > 0
+      ? new Date(Date.now() + graceMinutes * 60 * 1000)
+      : null;
+
     return sendNotification({
       companyId: cart.companyId,
       recipientPhone: phone,
@@ -102,11 +117,16 @@ async function handleCartCreated(cart) {
       category: 'ABANDONED_CART',
       eventType: EVENT_TYPE,
       channel: template?.channel || 'AUTO',
+      ...(scheduleAt ? { scheduleAt } : {}),
       variables: {
         customerName: name || 'عميلنا العزيز',
-        itemCount: (Array.isArray(items) ? items.length : 0).toString(),
+        itemCount,
+        itemsCount: itemCount,
         total: total.toString(),
+        cartTotal: total.toString(),
         currency: 'EGP',
+        cartUrl,
+        checkoutUrl: cartUrl,
       },
       cartId: cart.cartId,
       priority: 3,

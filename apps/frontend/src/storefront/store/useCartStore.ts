@@ -92,6 +92,7 @@ interface CartState {
   removeItem: (id: string) => void;
   removeQuantityOfferGroup: (groupId: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
+  restoreItems: (items: Array<Omit<CartItem, "id"> & { id?: string }>) => void;
   clearCart: () => void;
   setIsOpen: (isOpen: boolean) => void;
 
@@ -260,6 +261,31 @@ export const useCartStore = create<CartState>()(
             }),
           };
         });
+      },
+
+      restoreItems: (incomingItems) => {
+        if (!Array.isArray(incomingItems) || incomingItems.length === 0) return;
+        const normalized: CartItem[] = incomingItems
+          .filter((item) => item && (item.productId || item.id))
+          .map((item) => {
+            const itemId = buildCartItemId(item);
+            const img = normalizeCartImageUrl(
+              (item.imageUrl || (item as any).image || (item as any).productImage) as string | ImageLike | undefined,
+            );
+            return {
+              ...item,
+              id: itemId,
+              productId: String(item.productId || itemId),
+              name: String(item.name || (item as any).productName || ""),
+              price: Number(item.price || 0),
+              basePrice: Number(item.basePrice ?? item.price ?? 0),
+              quantity: Math.max(1, Number(item.quantity || 1)),
+              imageUrl: img,
+            };
+          });
+        if (normalized.length > 0) {
+          set({ items: normalized });
+        }
       },
 
       clearCart: () => {

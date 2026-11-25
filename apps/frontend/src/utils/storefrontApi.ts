@@ -753,6 +753,30 @@ export const storefrontApi = {
     }
   },
 
+  recoverCheckoutDraft: async (cartId: string) => {
+    const cleanCartId = String(cartId || "").trim();
+    if (!cleanCartId) {
+      return { success: false, message: "Cart ID is required" };
+    }
+    try {
+      const response = await storefrontFetch(
+        `/orders/checkout-draft/${encodeURIComponent(cleanCartId)}`,
+      );
+      if (response?.success && response?.data?.cartId) {
+        rememberCartId(String(response.data.cartId));
+      }
+      return response;
+    } catch (error) {
+      return {
+        success: false,
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to recover checkout draft",
+      };
+    }
+  },
+
   getWalletBalance: async () => {
     try {
       const { apiClient } = await import("../services/apiClient");

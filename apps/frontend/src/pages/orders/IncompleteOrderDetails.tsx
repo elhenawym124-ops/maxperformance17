@@ -15,6 +15,7 @@ import { IncompleteCustomerCard } from "./incomplete/IncompleteCustomerCard";
 import { IncompleteCartItemsCard } from "./incomplete/IncompleteCartItemsCard";
 import { IncompleteReasonCard } from "./incomplete/IncompleteReasonCard";
 import { IncompleteCheckoutMetadataCard } from "./incomplete/IncompleteCheckoutMetadataCard";
+import { IncompleteCommunicationTimeline } from "./incomplete/IncompleteCommunicationTimeline";
 import { useIncompleteOrderDetailsData } from "./incomplete/useIncompleteOrderDetailsData";
 
 export const IncompleteOrderDetails: React.FC = () => {
@@ -30,6 +31,7 @@ export const IncompleteOrderDetails: React.FC = () => {
     loading,
     error,
     converting,
+    sendingWhatsApp,
     showConfirm,
     setShowConfirm,
     cancelModalOpen,
@@ -41,6 +43,7 @@ export const IncompleteOrderDetails: React.FC = () => {
     expiry,
     whatsappUrl,
     handleConvertToOrder,
+    handleSendStoreWhatsApp,
     retry,
     lang,
   } = useIncompleteOrderDetailsData(decodedCartId);
@@ -103,6 +106,8 @@ export const IncompleteOrderDetails: React.FC = () => {
               customerInfo={customerInfo}
               cartId={order.cartId}
               whatsappUrl={whatsappUrl}
+              sendingWhatsApp={sendingWhatsApp}
+              onSendStoreWhatsApp={handleSendStoreWhatsApp}
             />
 
             <IncompleteCartItemsCard
@@ -110,6 +115,15 @@ export const IncompleteOrderDetails: React.FC = () => {
               cartId={order.cartId}
               total={order.total || 0}
               formatPrice={formatPrice}
+            />
+          </div>
+
+          {/* Communication & WhatsApp Timeline */}
+          <div className="lg:max-w-3xl">
+            <IncompleteCommunicationTimeline
+              contactLogs={order.contactLogs}
+              whatsappLogs={order.whatsappLogs}
+              lang={lang}
             />
           </div>
 

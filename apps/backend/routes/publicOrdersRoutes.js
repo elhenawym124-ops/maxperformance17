@@ -176,6 +176,70 @@ router.post('/wallet-proof/upload', checkWalletProofRateLimit, walletProofUpload
   }
 });
 
+// GET /api/v1/public/orders/checkout-draft/:cartId - استرجاع سلة غير مكتملة من رابط الواتساب
+router.get('/checkout-draft/:cartId', async (req, res) => {
+  try {
+    const prisma = await getPrisma();
+    const companyId = req.company.id;
+    const cartId = normalizeCheckoutDraftText(req.params.cartId, 160);
+    if (!cartId) {
+      return res.status(400).json({ success: false, message: 'معرف السلة مطلوب' });
+    }
+
+    const [cart, converted] = await Promise.all([
+      prisma.guestCart.findFirst({ where: { companyId, cartId } }),
+      prisma.cartConversionLog.findFirst({ where: { companyId, cartId }, select: { id: true } }),
+    ]);
+
+    if (!cart || converted) {
+      return res.status(404).json({ success: false, message: 'السلة غير متاحة أو تم تأكيدها بالفعل' });
+    }
+
+    if (cart.expiresAt && new Date(cart.expiresAt) < new Date()) {
+      return res.status(410).json({ success: false, message: 'انتهت صلاحية رابط السلة' });
+    }
+
+    let items = [];
+    try {
+      items = typeof cart.items === 'string' ? JSON.parse(cart.items) : (cart.items || []);
+    } catch {
+      items = [];
+    }
+
+    let rawCheckoutData = {};
+    try {
+      rawCheckoutData = typeof cart.checkoutData === 'string'
+        ? JSON.parse(cart.checkoutData)
+        : (cart.checkoutData || {});
+    } catch {
+      rawCheckoutData = {};
+    }
+
+    return res.json({
+      success: true,
+      data: {
+        cartId: cart.cartId,
+        items: Array.isArray(items) ? items : [],
+        total: Number(cart.total || 0),
+        checkoutData: {
+          customerName: rawCheckoutData.customerName || rawCheckoutData.guestName || rawCheckoutData.fullName || '',
+          phone: rawCheckoutData.phone || rawCheckoutData.guestPhone || rawCheckoutData.customerPhone || rawCheckoutData.mobileNumber || '',
+          email: rawCheckoutData.email || rawCheckoutData.guestEmail || rawCheckoutData.customerEmail || '',
+          address: rawCheckoutData.address || rawCheckoutData.street || '',
+          city: rawCheckoutData.city || '',
+          governorate: rawCheckoutData.governorate || rawCheckoutData.gov || '',
+          notes: rawCheckoutData.notes || '',
+          paymentMethod: rawCheckoutData.paymentMethod || 'cod',
+          couponCode: rawCheckoutData.couponCode || '',
+        },
+      },
+    });
+  } catch (error) {
+    console.error('❌ [CHECKOUT-DRAFT-GET] Error:', error.message);
+    return res.status(500).json({ success: false, message: 'تعذر استرجاع السلة' });
+  }
+});
+
 router.post('/checkout-draft', async (req, res) => {
   try {
     const prisma = await getPrisma();

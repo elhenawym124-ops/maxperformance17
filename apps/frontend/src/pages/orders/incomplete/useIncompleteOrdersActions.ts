@@ -31,6 +31,7 @@ export function useIncompleteOrdersActions({
   const [savingContact, setSavingContact] = useState(false);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [selectedCancelOrder, setSelectedCancelOrder] = useState<IncompleteOrder | null>(null);
+  const [sendingWhatsAppCartId, setSendingWhatsAppCartId] = useState<string | null>(null);
 
   const handleCopyCartId = async (cartId: string) => {
     if (!cartId) return;
@@ -183,6 +184,31 @@ export function useIncompleteOrdersActions({
     }
   };
 
+  const handleSendWhatsApp = async (cartId: string) => {
+    if (!cartId) return;
+    setSendingWhatsAppCartId(cartId);
+    try {
+      const response = await apiClient.post<{
+        success: boolean;
+        message?: string;
+      }>(`/orders-new/incomplete/${encodeURIComponent(cartId)}/send-whatsapp`);
+      if (response.data?.success) {
+        toast.success(response.data.message || "تم إرسال رسالة الواتساب عبر جلسة المتجر");
+        handleRetry();
+      } else {
+        toast.error(response.data?.message || "تعذر إرسال رسالة الواتساب");
+      }
+    } catch (err: any) {
+      toast.error(
+        err?.response?.data?.message ||
+          err?.message ||
+          "تعذر إرسال رسالة الواتساب عبر الجلسة"
+      );
+    } finally {
+      setSendingWhatsAppCartId(null);
+    }
+  };
+
   const handleConfirmConvert = (cartId: string) => {
     const targetOrder = orders.find((o) => o.cartId === cartId);
     const phone = targetOrder
@@ -213,11 +239,13 @@ export function useIncompleteOrdersActions({
     setCancelModalOpen,
     selectedCancelOrder,
     setSelectedCancelOrder,
+    sendingWhatsAppCartId,
     handleCopyCartId,
     handleConvert,
     openContactModal,
     handleSaveContact,
     handleExport,
+    handleSendWhatsApp,
     handleConfirmConvert,
   };
 }

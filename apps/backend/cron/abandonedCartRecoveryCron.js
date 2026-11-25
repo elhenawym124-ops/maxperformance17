@@ -1,18 +1,18 @@
 const cron = require('node-cron');
 const { getSharedPrismaClient } = require('../services/sharedDatabase');
 const { sendAbandonedCartNotification } = require('../services/whatsapp/WhatsAppNotificationService');
+const { isCartConvertedOrDismissed, normalizePhoneSuffix } = require('../utils/cartRecoveryHelper');
 
 /**
  * 🆕 Wave 1 — Abandoned guest-cart recovery cron.
- * sendAbandonedCartNotification + templates + settings existed with ZERO callers
- * (orphaned feature). Now: hourly sweep over guest carts per enabled company,
- * one WhatsApp reminder per window (1H / 24H / 72H), deduped by notification log.
+ * Sweeps over guest carts per enabled company respecting tenant reminder hours,
+ * excludes converted/dismissed carts and recent orders, deduplicates by phone & cartId.
  */
 
-const WINDOWS = [
-  { eventType: 'CART_ABANDONED_1H', minHours: 1, maxHours: 2 },
-  { eventType: 'CART_ABANDONED_24H', minHours: 24, maxHours: 48 },
-  { eventType: 'CART_ABANDONED_72H', minHours: 72, maxHours: 96 }
+const DEFAULT_WINDOWS = [
+  { eventType: 'CART_ABANDONED_1H', settingKey: 'abandonedCartFirstReminder', defaultHours: 1, spanHours: 2 },
+  { eventType: 'CART_ABANDONED_24H', settingKey: 'abandonedCartSecondReminder', defaultHours: 24, spanHours: 24 },
+  { eventType: 'CART_ABANDONED_72H', settingKey: 'abandonedCartThirdReminder', defaultHours: 72, spanHours: 24 }
 ];
 
 function extractGuestContact(cart) {
@@ -23,10 +23,24 @@ function extractGuestContact(cart) {
     checkout = null;
   }
   if (!checkout || typeof checkout !== 'object') return null;
-  const phone = checkout.customerPhone || checkout.phone || checkout.mobile || checkout.phoneNumber || null;
-  const name = checkout.customerName || checkout.name || checkout.fullName || checkout.firstName || null;
+  const phone = checkout.guestPhone || checkout.customerPhone || checkout.phoneNumber || checkout.mobileNumber || checkout.phone || checkout.mobile || null;
+  const name = checkout.guestName || checkout.customerName || checkout.fullName || checkout.name || checkout.firstName || null;
   if (!phone) return null;
   return { phone: String(phone).trim(), name: name ? String(name).trim() : null };
+}
+
+function buildCompanyWindows(companySettings) {
+  return DEFAULT_WINDOWS
+    .map((w) => {
+      const configured = Number(companySettings?.[w.settingKey]);
+      const minHours = Number.isFinite(configured) && configured > 0 ? configured : w.defaultHours;
+      return {
+        eventType: w.eventType,
+        minHours,
+        maxHours: minHours + w.spanHours
+      };
+    })
+    .filter((w) => w.minHours > 0);
 }
 
 async function processAbandonedCarts() {
@@ -35,30 +49,68 @@ async function processAbandonedCarts() {
   let sent = 0;
 
   const enabledCompanies = await prisma.whatsAppNotificationSettings.findMany({
-    where: { abandonedCartEnabled: true },
-    select: { companyId: true }
+    where: { abandonedCartEnabled: true, isEnabled: true },
+    select: {
+      companyId: true,
+      abandonedCartFirstReminder: true,
+      abandonedCartSecondReminder: true,
+      abandonedCartThirdReminder: true,
+      abandonedCartDiscountEnabled: true,
+      abandonedCartDiscountPercent: true
+    }
   });
 
-  for (const { companyId } of enabledCompanies) {
-    for (const window of WINDOWS) {
+  for (const companySetting of enabledCompanies) {
+    const { companyId } = companySetting;
+    const windows = buildCompanyWindows(companySetting);
+    const notifiedPhonesThisSweep = new Set();
+
+    for (let i = 0; i < windows.length; i++) {
+      const window = windows[i];
+      const isDiscountWindow =
+        Boolean(companySetting.abandonedCartDiscountEnabled) &&
+        i === windows.length - 1;
+      const effectiveEventType = isDiscountWindow ? 'CART_ABANDONED_WITH_DISCOUNT' : window.eventType;
+
       const olderThan = new Date(now - window.minHours * 60 * 60 * 1000);
       const newerThan = new Date(now - window.maxHours * 60 * 60 * 1000);
 
       const carts = await prisma.guestCart.findMany({
         where: { companyId, updatedAt: { gte: newerThan, lte: olderThan } },
+        orderBy: { updatedAt: 'desc' },
         take: 200
       });
 
       for (const cart of carts) {
         try {
+          const canonicalCartId = cart.cartId || cart.id;
+          const contact = extractGuestContact(cart);
+          if (!contact) continue;
+
+          const phoneSuffix = normalizePhoneSuffix(contact.phone);
+          if (phoneSuffix && notifiedPhonesThisSweep.has(phoneSuffix)) {
+            continue;
+          }
+
+          const guard = await isCartConvertedOrDismissed(prisma, {
+            companyId,
+            cartId: canonicalCartId,
+            customerPhone: contact.phone
+          });
+          if (guard.blocked) continue;
+
           const alreadySent = await prisma.whatsAppNotificationLog.findFirst({
-            where: { companyId, cartId: cart.id, eventType: window.eventType },
+            where: {
+              companyId,
+              eventType: { in: [window.eventType, effectiveEventType] },
+              OR: [
+                { cartId: canonicalCartId },
+                ...(cart.id && cart.id !== canonicalCartId ? [{ cartId: cart.id }] : [])
+              ]
+            },
             select: { id: true }
           });
           if (alreadySent) continue;
-
-          const contact = extractGuestContact(cart);
-          if (!contact) continue;
 
           let items = [];
           try {
@@ -69,6 +121,7 @@ async function processAbandonedCarts() {
 
           const result = await sendAbandonedCartNotification({
             id: cart.id,
+            cartId: canonicalCartId,
             companyId: cart.companyId,
             customerId: null,
             customerPhone: contact.phone,
@@ -76,11 +129,14 @@ async function processAbandonedCarts() {
             items,
             total: parseFloat(cart.total) || 0,
             currency: 'EGP'
-          }, window.eventType);
+          }, effectiveEventType);
 
-          if (result && result.success) sent += 1;
+          if (result && result.success) {
+            sent += 1;
+            if (phoneSuffix) notifiedPhonesThisSweep.add(phoneSuffix);
+          }
         } catch (cartError) {
-          console.error('[CART-RECOVERY-CRON] Cart processing failed:', cart.id, cartError.message);
+          console.error('[CART-RECOVERY-CRON] Cart processing failed:', cart.cartId || cart.id, cartError.message);
         }
       }
     }

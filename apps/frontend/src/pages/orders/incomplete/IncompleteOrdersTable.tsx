@@ -16,11 +16,13 @@ interface IncompleteOrdersTableProps {
   error: string | null;
   canShowAttribution: boolean;
   convertingCartId: string | null;
+  sendingWhatsAppCartId?: string | null;
   onRetry: () => void;
   onCopyCartId: (cartId: string) => void;
   onConfirmConvert: (cartId: string) => void;
   onOpenContactModal: (cartId: string) => void;
   onOpenCancelModal: (order: IncompleteOrder) => void;
+  onSendWhatsApp?: (cartId: string) => void;
 }
 
 export const IncompleteOrdersTable: React.FC<IncompleteOrdersTableProps> = ({
@@ -29,11 +31,13 @@ export const IncompleteOrdersTable: React.FC<IncompleteOrdersTableProps> = ({
   error,
   canShowAttribution,
   convertingCartId,
+  sendingWhatsAppCartId,
   onRetry,
   onCopyCartId,
   onConfirmConvert,
   onOpenContactModal,
   onOpenCancelModal,
+  onSendWhatsApp,
 }) => {
   const { t } = useTranslation();
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -160,11 +164,13 @@ export const IncompleteOrdersTable: React.FC<IncompleteOrdersTableProps> = ({
                   idx={idx}
                   canShowAttribution={canShowAttribution}
                   convertingCartId={convertingCartId}
+                  sendingWhatsAppCartId={sendingWhatsAppCartId}
                   copiedId={copiedId}
                   onCopyCartId={handleCopy}
                   onConfirmConvert={onConfirmConvert}
                   onOpenContactModal={onOpenContactModal}
                   onOpenCancelModal={onOpenCancelModal}
+                  onSendWhatsApp={onSendWhatsApp}
                 />
               ))
             )}

@@ -12,6 +12,8 @@ interface IncompleteOrdersFilterBarProps {
   onStatusFilterChange: (status: string) => void;
   phoneFilter: PhoneFilter;
   onPhoneFilterChange: (filter: PhoneFilter) => void;
+  reasonFilter?: string;
+  onReasonFilterChange?: (reason: string) => void;
   sortValue: SortValue;
   onSortValueChange: (sort: SortValue) => void;
   limit: number;
@@ -29,6 +31,8 @@ export const IncompleteOrdersFilterBar: React.FC<IncompleteOrdersFilterBarProps>
   onStatusFilterChange,
   phoneFilter,
   onPhoneFilterChange,
+  reasonFilter = "",
+  onReasonFilterChange,
   sortValue,
   onSortValueChange,
   limit,
@@ -112,6 +116,29 @@ export const IncompleteOrdersFilterBar: React.FC<IncompleteOrdersFilterBarProps>
             </select>
             <ChevronDown className="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
           </div>
+
+          {/* Reason filter select */}
+          {onReasonFilterChange && (
+            <div className="relative">
+              <label htmlFor="incomplete-orders-reason" className="sr-only">
+                {t("orders.incompleteReasonColumn")}
+              </label>
+              <select
+                id="incomplete-orders-reason"
+                value={reasonFilter}
+                onChange={(e) => onReasonFilterChange(e.target.value)}
+                className="appearance-none ps-2.5 pe-7 py-1.5 border border-border/70 rounded-lg bg-card text-xs font-medium text-foreground focus:border-border focus:ring-1 focus:ring-ring outline-none transition-all cursor-pointer"
+              >
+                <option value="">كل أسباب الترك</option>
+                <option value="checkout_error">أخطاء الشيك آوت</option>
+                <option value="stock_insufficient">نقص المخزون</option>
+                <option value="minimum_order_not_met">أقل من الحد الأدنى</option>
+                <option value="missing_required_fields">بيانات ناقصة</option>
+                <option value="no_phone">بدون رقم هاتف</option>
+              </select>
+              <ChevronDown className="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+            </div>
+          )}
 
           {/* Sort select */}
           <div className="relative">

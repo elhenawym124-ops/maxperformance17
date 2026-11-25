@@ -16,6 +16,7 @@ import {
   IncompleteConvertResponse,
   IncompleteDetailsResponse,
   IncompleteOrderDetailsData,
+  buildWhatsAppRecoveryUrl,
   getCustomerContact,
   getCustomerName,
   getExpiryStatus,
@@ -33,6 +34,7 @@ export function useIncompleteOrderDetailsData(decodedCartId: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [converting, setConverting] = useState(false);
+  const [sendingWhatsApp, setSendingWhatsApp] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [retryKey, setRetryKey] = useState(0);
@@ -114,18 +116,40 @@ export function useIncompleteOrderDetailsData(decodedCartId: string) {
   const expiry = order ? getExpiryStatus(order, t) : null;
 
   const buildWhatsAppUrl = (phone: string) => {
-    const digits = phone.replace(/\D/g, "");
-    if (!digits) return null;
     const msg = t("orders.incompleteWhatsAppMessage", {
       name: customerInfo.name,
       total: formatPrice(order?.total || 0),
     });
-    return `https://wa.me/${digits}?text=${encodeURIComponent(msg)}`;
+    return buildWhatsAppRecoveryUrl(phone, msg);
   };
 
   const whatsappUrl = customerInfo.phone
     ? buildWhatsAppUrl(customerInfo.phone)
     : null;
+
+  const handleSendStoreWhatsApp = async () => {
+    if (!decodedCartId) return;
+    setSendingWhatsApp(true);
+    try {
+      const response = await apiClient.post<{ success: boolean; message?: string }>(
+        `/orders-new/incomplete/${encodeURIComponent(decodedCartId)}/send-whatsapp`
+      );
+      if (response.data?.success) {
+        toast.success(response.data.message || "تم إرسال رسالة الواتساب عبر جلسة المتجر");
+        setRetryKey((prev) => prev + 1);
+      } else {
+        toast.error(response.data?.message || "تعذر إرسال رسالة الواتساب");
+      }
+    } catch (err: any) {
+      toast.error(
+        err?.response?.data?.message ||
+          err?.message ||
+          "تعذر إرسال رسالة الواتساب عبر الجلسة"
+      );
+    } finally {
+      setSendingWhatsApp(false);
+    }
+  };
 
   const handleConvertToOrder = async () => {
     if (!decodedCartId) return;
@@ -172,6 +196,7 @@ export function useIncompleteOrderDetailsData(decodedCartId: string) {
     loading,
     error,
     converting,
+    sendingWhatsApp,
     showConfirm,
     setShowConfirm,
     cancelModalOpen,
@@ -183,6 +208,7 @@ export function useIncompleteOrderDetailsData(decodedCartId: string) {
     expiry,
     whatsappUrl,
     handleConvertToOrder,
+    handleSendStoreWhatsApp,
     retry,
     lang,
   };

@@ -12,6 +12,7 @@ export interface IncompleteListParams {
   page: number;
   limit: number;
   hasPhone?: boolean;
+  abandonReason?: string;
   search?: string;
   status?: string;
   sortBy?: string;
@@ -33,6 +34,7 @@ export function useIncompleteOrdersData() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("active");
   const [phoneFilter, setPhoneFilter] = useState<PhoneFilter>("with_phone");
+  const [reasonFilter, setReasonFilter] = useState("");
   const [sortValue, setSortValue] = useState<SortValue>("priority");
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -70,6 +72,7 @@ export function useIncompleteOrdersData() {
       };
       if (phoneFilter === "with_phone") params.hasPhone = true;
       else if (phoneFilter === "no_phone") params.hasPhone = false;
+      if (reasonFilter) params.abandonReason = reasonFilter;
       if (search) params.search = search;
       if (statusFilter && statusFilter !== "all") params.status = statusFilter;
       if (sortValue === "priority") {
@@ -86,7 +89,7 @@ export function useIncompleteOrdersData() {
       }
       return params;
     },
-    [search, statusFilter, sortValue, phoneFilter]
+    [search, statusFilter, sortValue, phoneFilter, reasonFilter]
   );
 
   useEffect(() => {
@@ -151,6 +154,8 @@ export function useIncompleteOrdersData() {
     setStatusFilter,
     phoneFilter,
     setPhoneFilter,
+    reasonFilter,
+    setReasonFilter,
     sortValue,
     setSortValue,
     buildParams,

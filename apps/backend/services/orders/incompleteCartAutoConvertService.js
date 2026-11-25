@@ -4,6 +4,27 @@ const axios = require('axios');
 
 const activeIncompleteCartConversions = new Set();
 let isAutoConvertRunning = false;
+const AUTO_CONVERT_INACTIVITY_GRACE_MS = 30 * 60 * 1000;
+
+/**
+ * التحقق من صحة رقم هاتف العميل ومنع الأرقام الوهمية أو المتسلسلة
+ */
+function isValidCustomerPhone(phone) {
+  if (!phone) return false;
+  const digits = String(phone)
+    .replace(/[\u0660-\u0669]/g, (d) => String.fromCharCode(d.charCodeAt(0) - 0x0660 + 48))
+    .replace(/\D/g, '');
+
+  if (digits.length < 10 || digits.length > 15) return false;
+  // منع الأرقام المكررة مثل 01000000000 أو 1111111111
+  if (/^(\d)\1{7,}$/.test(digits) || /^01\d(\d)\1{7,}$/.test(digits)) return false;
+  // منع الأرقام المتسلسلة الوهمية مثل 01234567890 أو 1234567890
+  const tail = digits.slice(-10);
+  if (tail === '0123456789' || tail === '1234567890' || tail === '9876543210' || tail === '0987654321') {
+    return false;
+  }
+  return true;
+}
 
 /**
  * ⚡ تحويل سلة متروكة واحدة إلى طلب رسمي بحالة PENDING داخل جدول الطلبات الرئيسي
@@ -83,11 +104,11 @@ async function convertSingleIncompleteCart({
     const address = checkoutData.address || checkoutData.street || checkoutData.addressLine1 || '';
     const notes = checkoutData.notes || '';
 
-    if (!guestPhone) {
+    if (!guestPhone || (!forceConvert && !isValidCustomerPhone(guestPhone))) {
       return {
         success: false,
         code: 'MISSING_PHONE',
-        message: 'رقم الهاتف مطلوب لتحويل الطلب'
+        message: 'رقم الهاتف مطلوب أو غير صالح لتحويل الطلب'
       };
     }
 
@@ -302,9 +323,17 @@ async function autoConvertCompanyIncompleteCarts(companyId, { limit = 50, user =
     console.warn('⚠️ [INCOMPLETE-AUTO-CONVERT] Error fetching excluded cart logs:', e.message);
   }
 
+  const graceThreshold = new Date(Date.now() - AUTO_CONVERT_INACTIVITY_GRACE_MS);
+
   const whereConditions = [
     { companyId },
     ...(excludedCartIds.length > 0 ? [{ cartId: { notIn: excludedCartIds } }] : []),
+    ...(!forceConvert ? [{
+      OR: [
+        { checkoutUpdatedAt: { lte: graceThreshold } },
+        { AND: [{ checkoutUpdatedAt: null }, { updatedAt: { lte: graceThreshold } }] }
+      ]
+    }] : []),
     {
       OR: [
         { checkoutData: { contains: '"guestPhone"' } },
@@ -418,6 +447,7 @@ async function runAutoConvertIncompleteCartsJob() {
 }
 
 module.exports = {
+  isValidCustomerPhone,
   convertSingleIncompleteCart,
   autoConvertCompanyIncompleteCarts,
   runAutoConvertIncompleteCartsJob,

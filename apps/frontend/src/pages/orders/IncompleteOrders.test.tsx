@@ -3,6 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import { IncompleteOrders } from "./IncompleteOrders";
+import { buildWhatsAppRecoveryUrl, formatWhatsAppPhone } from "./incompleteUtils";
 
 jest.mock("../../i18n", () => ({
   getDirection: () => "rtl",
@@ -84,5 +85,16 @@ describe("IncompleteOrders Suite", () => {
       expect(screen.getByText("محمد علي")).toBeInTheDocument();
       expect(screen.getByText(/cart-abc-123/)).toBeInTheDocument();
     });
+  });
+
+  it("formats Egyptian and international WhatsApp numbers properly", () => {
+    expect(formatWhatsAppPhone("01012345678")).toBe("201012345678");
+    expect(formatWhatsAppPhone("00201012345678")).toBe("201012345678");
+    expect(formatWhatsAppPhone("+201012345678")).toBe("201012345678");
+    expect(formatWhatsAppPhone("٠١٠١٢٣٤٥٦٧٨")).toBe("201012345678");
+    expect(formatWhatsAppPhone("123")).toBeNull();
+
+    const url = buildWhatsAppRecoveryUrl("01012345678", "مرحبا");
+    expect(url).toContain("https://wa.me/201012345678?text=");
   });
 });

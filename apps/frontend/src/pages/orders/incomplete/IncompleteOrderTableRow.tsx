@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useCurrency } from "../../../hooks/useCurrency";
 import type { IncompleteOrder } from "../incompleteUtils";
 import {
+  buildWhatsAppRecoveryUrl,
   formatDateTimeCompact,
   getAbandonReasonLabel,
   getCustomerContact,
@@ -26,11 +27,13 @@ interface IncompleteOrderTableRowProps {
   idx: number;
   canShowAttribution: boolean;
   convertingCartId: string | null;
+  sendingWhatsAppCartId?: string | null;
   copiedId: string | null;
   onCopyCartId: (e: React.MouseEvent, cartId: string) => void;
   onConfirmConvert: (cartId: string) => void;
   onOpenContactModal: (cartId: string) => void;
   onOpenCancelModal: (order: IncompleteOrder) => void;
+  onSendWhatsApp?: (cartId: string) => void;
 }
 
 export const IncompleteOrderTableRow: React.FC<IncompleteOrderTableRowProps> = ({
@@ -38,11 +41,13 @@ export const IncompleteOrderTableRow: React.FC<IncompleteOrderTableRowProps> = (
   idx,
   canShowAttribution,
   convertingCartId,
+  sendingWhatsAppCartId,
   copiedId,
   onCopyCartId,
   onConfirmConvert,
   onOpenContactModal,
   onOpenCancelModal,
+  onSendWhatsApp,
 }) => {
   const { t, i18n } = useTranslation();
   const { formatPrice } = useCurrency();
@@ -61,13 +66,11 @@ export const IncompleteOrderTableRow: React.FC<IncompleteOrderTableRowProps> = (
     customerName: string | null,
     total: number
   ) => {
-    const digits = phone.replace(/\D/g, "");
-    if (!digits) return null;
     const msg = t("orders.incompleteWhatsAppMessage", {
       name: customerName || t("orders.notSpecified"),
       total: formatPrice(total),
     });
-    return `https://wa.me/${digits}?text=${encodeURIComponent(msg)}`;
+    return buildWhatsAppRecoveryUrl(phone, msg);
   };
 
   const whatsappUrl = buildWhatsAppUrl(
@@ -76,6 +79,7 @@ export const IncompleteOrderTableRow: React.FC<IncompleteOrderTableRowProps> = (
     order.total || 0
   );
   const isConverting = convertingCartId === order.cartId;
+  const isSendingWhatsApp = sendingWhatsAppCartId === order.cartId;
   const isCopied = copiedId === order.cartId;
 
   return (
@@ -106,6 +110,32 @@ export const IncompleteOrderTableRow: React.FC<IncompleteOrderTableRowProps> = (
         <div className="text-[11px] text-muted-foreground mt-0.5 truncate max-w-[140px]">
           {contact.email || "—"}
         </div>
+        {(order.whatsappSummary || order.contactSummary) && (
+          <div className="mt-1 flex flex-wrap items-center gap-1">
+            {order.whatsappSummary && (
+              <span
+                className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium border ${
+                  order.whatsappSummary.status === "SENT"
+                    ? "border-success/30 bg-success/10 text-success"
+                    : order.whatsappSummary.status === "FAILED"
+                    ? "border-destructive/30 bg-destructive/10 text-destructive"
+                    : "border-warning/30 bg-warning/10 text-warning"
+                }`}
+              >
+                {order.whatsappSummary.status === "SENT"
+                  ? `واتساب ✓ (${order.whatsappSummary.count})`
+                  : order.whatsappSummary.status === "FAILED"
+                  ? "واتساب ✕"
+                  : "واتساب مجدول"}
+              </span>
+            )}
+            {order.contactSummary && (
+              <span className="inline-flex items-center rounded border border-border/70 bg-muted/40 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                متابعة ({order.contactSummary.count})
+              </span>
+            )}
+          </div>
+        )}
       </td>
 
       {/* Items */}
@@ -185,11 +215,13 @@ export const IncompleteOrderTableRow: React.FC<IncompleteOrderTableRowProps> = (
         phone={contact.phone}
         whatsappUrl={whatsappUrl}
         isConverting={isConverting}
+        isSendingWhatsApp={isSendingWhatsApp}
         isCopied={isCopied}
         onCopyCartId={onCopyCartId}
         onConfirmConvert={onConfirmConvert}
         onOpenContactModal={onOpenContactModal}
         onOpenCancelModal={onOpenCancelModal}
+        onSendWhatsApp={onSendWhatsApp}
       />
     </tr>
   );
