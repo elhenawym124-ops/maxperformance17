@@ -1962,12 +1962,14 @@ select {
   );
 }
 
-[data-theme="business-os-enterprise"] * {
-  font-family: var(--theme-font-body);
-}
+@layer base {
+  [data-theme="business-os-enterprise"] * {
+    font-family: var(--theme-font-body);
+  }
 
-[data-theme="business-os-enterprise"] :is(h1, h2, h3, h4, h5, h6) {
-  font-family: var(--theme-font-heading);
+  [data-theme="business-os-enterprise"] :is(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--theme-font-heading);
+  }
 }
 
 [data-theme="business-os-enterprise"] .business-auth-shell {

@@ -55,7 +55,7 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
   return (
     <div
       key={`${item.id || item.productId || "item"}-${index}`}
-      className="p-3.5 sm:p-6 hover:hover:bg-muted dark:hover:dark:hover:bg-muted transition-colors"
+      className="p-3.5 sm:p-6 hover:bg-muted/30 transition-colors"
     >
       <div className="flex gap-3 sm:gap-4">
         <div className="flex-shrink-0">
@@ -95,15 +95,15 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
               </div>
 
               {item.productSku && (
-                <div className="inline-flex items-center gap-1.5 rounded bg-primary/10 dark:bg-primary/20 px-2 py-0.5 mb-2">
-                  <span className="text-[10px] font-bold text-primary dark:text-primary uppercase tracking-wider">SKU</span>
-                  <span className="text-xs font-mono font-semibold text-primary dark:text-primary">
+                <div className="inline-flex items-center gap-1.5 rounded bg-primary/10 dark:bg-primary/15 border border-primary/25 px-2 py-0.5 mb-2">
+                  <span className="text-[10px] font-bold text-primary dark:brightness-125 uppercase tracking-wider">SKU</span>
+                  <span className="text-xs font-mono font-semibold text-foreground">
                     {item.productSku}
                   </span>
                 </div>
               )}
 
-              <div className="flex items-center gap-3 text-xs sm:text-sm text-foreground dark:dark:text-muted-foreground mb-2">
+              <div className="flex items-center gap-3 text-xs sm:text-sm text-foreground mb-2">
                 {stockInfo.stock > 0 && (
                   <span
                     className={`inline-flex items-center gap-1 font-semibold ${
@@ -139,7 +139,7 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
                   <span className="inline-flex items-center gap-1.5 rounded-md border border-warning bg-warning/10 px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs sm:text-sm font-semibold text-warning dark:border-warning/40 dark:bg-warning/20 dark:text-warning">
                     عرض كميات
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs sm:text-sm font-medium text-foreground dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground">
+                  <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs sm:text-sm font-medium text-foreground">
                     {quantityOfferSummary.offerLabel}
                   </span>
                   {quantityOfferSummary.freeShipping ? (
@@ -177,11 +177,11 @@ export const OrderItemSingleRow: React.FC<OrderItemSingleRowProps> = ({
                       className="fixed inset-0 z-10"
                       onClick={() => setOpenMenuIndex(null)}
                     />
-                    <div className="absolute left-0 mt-2 w-48 bg-card rounded-lg shadow-lg border border-border dark:dark:border-border py-1 z-20">
+                    <div className="absolute end-0 mt-2 w-48 bg-popover rounded-lg shadow-lg border border-border py-1 z-20">
                       <button
                         type="button"
                         onClick={() => handleDeleteClick(index, item)}
-                        className="w-full px-4 py-2 text-right text-sm text-destructive dark:text-destructive hover:bg-destructive/10 dark:hover:bg-destructive/20 flex items-center gap-2"
+                        className="w-full px-4 py-2 text-start text-sm text-destructive hover:bg-destructive/10 flex items-center gap-2"
                       >
                         <TrashIcon className="w-4 h-4" />
                         <span>حذف المنتج</span>

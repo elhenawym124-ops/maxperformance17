@@ -97,15 +97,15 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
               onChange={(e) =>
                 setEditForm({ ...editForm, customerAddress: e.target.value })
               }
-              className="w-full border-border rounded-md text-sm dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:placeholder-muted"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-base sm:text-sm text-foreground focus:ring-2 focus:ring-primary focus:border-primary"
               rows={3}
               placeholder={t("orderDetails.addressPlaceholder", "أدخل العنوان التفصيلي...").toString()}
             />
           </div>
         ) : (
-          <div className="flex items-start text-foreground">
-            <MapPinIcon className="w-4 h-4 text-muted-foreground/80 ms-2 mt-1" />
-            <span>
+          <div className="flex items-start gap-2 text-foreground">
+            <MapPinIcon className="w-4 h-4 text-muted-foreground/80 shrink-0 mt-1" />
+            <span className="min-w-0 break-words leading-relaxed">
               {(() => {
                 if (!order.customerAddress) return t("orders.notSpecified");
                 let rawAddr = order.customerAddress;

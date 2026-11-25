@@ -144,7 +144,7 @@ export const OrderStatusBadgeRail: React.FC<OrderStatusBadgeRailProps> = ({
           </button>
 
           {canQuickSelectStatus && isStatusMenuOpen && (
-            <div className="absolute right-0 top-full z-30 mt-2 w-72 overflow-hidden rounded-xl border border-border bg-card shadow-xl">
+            <div className="absolute start-0 top-full z-30 mt-2 w-72 max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-xl">
               <div className="border-b border-border/70 px-4 py-2.5 text-xs font-semibold text-muted-foreground">
                 اختاري الحالة
               </div>

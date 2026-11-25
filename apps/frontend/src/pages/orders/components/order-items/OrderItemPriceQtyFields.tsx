@@ -34,9 +34,9 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
   const hasPriceError = validationErrors[`price_${index}`];
 
   return (
-    <div className="grid grid-cols-3 gap-2 sm:gap-4 items-center sm:items-end mt-3 pt-2 sm:pt-0 border-t border-border dark:dark:border-border sm:border-t-0 /70/70bg-muted dark:dark:bg-muted p-2 sm:p-0 rounded-xl sm:bg-transparent sm:dark:bg-transparent">
+    <div className="grid grid-cols-3 gap-2 sm:gap-4 items-center sm:items-end mt-3 pt-2.5 sm:pt-0 border-t border-border/70 sm:border-t-0 bg-muted/40 p-2.5 sm:p-0 rounded-xl sm:bg-transparent">
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-foreground dark:dark:text-muted-foreground mb-1 sm:mb-1.5">
+        <label className="block text-[11px] sm:text-xs font-semibold text-muted-foreground mb-1 sm:mb-1.5">
           السعر
         </label>
         {isEditing ? (
@@ -48,9 +48,9 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
               min="0.01"
               max="1000000"
               step="0.01"
-              className={`w-full px-2 py-1.5 sm:px-3 sm:py-2 border rounded-lg text-xs sm:text-sm font-semibold font-mono tabular-nums dark:dark:bg-muted dark:dark:text-muted-foreground ${
+              className={`w-full px-2 py-1.5 sm:px-3 sm:py-2 border rounded-lg text-base sm:text-sm font-semibold font-mono tabular-nums bg-background text-foreground ${
                 hasPriceError
-                  ? "border-destructive dark:border-destructive"
+                  ? "border-destructive"
                   : "border-border focus:ring-2 focus:ring-primary focus:border-primary"
               }`}
             />
@@ -69,7 +69,7 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
       </div>
 
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-foreground dark:dark:text-muted-foreground mb-1 sm:mb-1.5">
+        <label className="block text-[11px] sm:text-xs font-semibold text-muted-foreground mb-1 sm:mb-1.5">
           الكمية
         </label>
         {isEditing ? (
@@ -81,7 +81,7 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
                   decrementQuantity(index, item.quantity || 1)
                 }
                 disabled={(item.quantity || 1) <= 1}
-                className="p-1 sm:p-2 bg-muted hover:hover:bg-muted dark:hover:dark:hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed rounded-md sm:rounded-lg transition-colors"
+                className="p-1 sm:p-2 bg-muted hover:bg-muted/80 disabled:opacity-50 disabled:cursor-not-allowed rounded-md sm:rounded-lg transition-colors"
               >
                 <MinusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-foreground" />
               </button>
@@ -96,9 +96,9 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
                 }
                 min="1"
                 max="9999"
-                className={`w-10 sm:w-16 px-1 py-1.5 sm:px-2 sm:py-2 border rounded-md sm:rounded-lg text-center text-xs sm:text-sm font-bold font-mono tabular-nums dark:dark:bg-muted dark:dark:text-muted-foreground ${
+                className={`w-10 sm:w-16 px-1 py-1.5 sm:px-2 sm:py-2 border rounded-md sm:rounded-lg text-center text-base sm:text-sm font-bold font-mono tabular-nums bg-background text-foreground ${
                   hasQuantityError
-                    ? "border-destructive dark:border-destructive"
+                    ? "border-destructive"
                     : "border-border"
                 }`}
               />
@@ -107,13 +107,13 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
                 onClick={() =>
                   incrementQuantity(index, item.quantity || 1)
                 }
-                className="p-1 sm:p-2 bg-muted hover:hover:bg-muted dark:hover:dark:hover:bg-muted rounded-md sm:rounded-lg transition-colors"
+                className="p-1 sm:p-2 bg-muted hover:bg-muted/80 rounded-md sm:rounded-lg transition-colors"
               >
                 <PlusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-foreground" />
               </button>
             </div>
             {hasQuantityError && (
-              <p className="mt-1 text-[10px] sm:text-xs text-destructive dark:text-destructive flex items-center gap-1 justify-center">
+              <p className="mt-1 text-[10px] sm:text-xs text-destructive flex items-center gap-1 justify-center">
                 <ExclamationCircleIcon className="w-3 h-3" />
                 {hasQuantityError}
               </p>
@@ -127,7 +127,7 @@ export const OrderItemPriceQtyFields: React.FC<OrderItemPriceQtyFieldsProps> = (
       </div>
 
       <div>
-        <label className="block text-[11px] sm:text-xs font-semibold text-foreground dark:dark:text-muted-foreground mb-1 sm:mb-1.5">
+        <label className="block text-[11px] sm:text-xs font-semibold text-muted-foreground mb-1 sm:mb-1.5">
           الإجمالي
         </label>
         <p className="text-xs sm:text-lg font-bold text-primary dark:text-primary font-mono tabular-nums">

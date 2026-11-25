@@ -68,8 +68,8 @@ export const CUSTOMER_RATING_OPTIONS: CustomerRatingOption[] = [
     label: "عميل جديد / غير مصنف",
     shortLabel: "جديد",
     badgeClass:
-      "bg-muted text-foreground /80/80border-border dark:dark:bg-muted dark:dark:text-muted-foreground dark:dark:border-border",
-    dotClass: "bg-muted /20/20ring-border",
+      "bg-muted text-foreground border-border/80 dark:bg-muted dark:text-foreground dark:border-border",
+    dotClass: "bg-muted-foreground/50 ring-border/30",
     barColor: "bg-muted",
     icon: QuestionMarkCircleIcon,
   },
@@ -660,7 +660,7 @@ export const CustomerRatingBadge: React.FC<CustomerRatingBadgeProps> = ({
       {/* 5. Rich Diagnostic Popover Modal */}
       {isMenuOpen && (
         <div
-          className="absolute start-0 top-full mt-1.5 z-50 w-72 rounded-xl border border-border bg-white p-3 shadow-xl dark:dark:border-border dark:dark:bg-muted select-none animate-in fade-in zoom-in-95 duration-100"
+          className="absolute start-0 top-full mt-1.5 z-50 w-72 max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-popover p-3 shadow-xl text-popover-foreground select-none animate-in fade-in zoom-in-95 duration-100"
           role="menu"
           dir="rtl"
           onClick={(e) => e.stopPropagation()}

@@ -312,4 +312,39 @@ describe("CustomerInfoCard notes and custom fields behavior", () => {
     expect(screen.getByText("جيد")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /تقييم العميل/i })).not.toBeInTheDocument();
   });
+
+  it("renders non-wrapping phone number, accessible action buttons, and high-contrast purchase banner", () => {
+    renderCard({
+      ...baseOrder,
+      customerPhone: "01121534666",
+      customerHistory: {
+        stats: {
+          totalOrders: 1,
+          deliveredCount: 0,
+          cancelledCount: 0,
+          returnedCount: 0,
+          inProgressCount: 0,
+          pendingCount: 1,
+          deliverySuccessRate: null,
+          totalDeliveredSpent: 0,
+          totalAllOrdersValue: 120,
+          averageOrderValue: 120,
+          firstOrderDate: "2026-05-04T09:00:00.000Z",
+          lastOrderDate: "2026-05-04T09:00:00.000Z",
+          isRepeatCustomer: false,
+        },
+        orders: [],
+      },
+    });
+
+    const phoneEl = screen.getByText("01121534666");
+    expect(phoneEl).toHaveClass("whitespace-nowrap", "font-mono", "tabular-nums");
+
+    const whatsappLink = screen.getByRole("link", { name: /محادثة واتساب/i });
+    expect(whatsappLink).toHaveClass("whitespace-nowrap", "min-h-10");
+
+    const historyBanner = screen.getByRole("button", { name: /سجل المشتريات/i });
+    expect(historyBanner).not.toHaveClass("bg-primary/60");
+    expect(historyBanner).toHaveClass("text-foreground");
+  });
 });

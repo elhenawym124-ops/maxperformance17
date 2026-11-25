@@ -20,6 +20,8 @@ interface OrderCallButtonProps {
   customerPhone?: string;
   secondaryPhone?: string | null;
   compact?: boolean;
+  className?: string;
+  buttonClassName?: string;
   onConfirm?: () => void;
   onNoAnswer?: () => void;
   onPostpone?: () => void;
@@ -34,6 +36,8 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
   customerPhone,
   secondaryPhone,
   compact = false,
+  className = "",
+  buttonClassName = "",
   onConfirm,
   onNoAnswer,
   onPostpone,
@@ -253,7 +257,7 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
     Boolean(secondaryPhone && secondaryPhone !== customerPhone && secondaryPhone.trim().length >= 8);
 
   return (
-    <div className="inline-flex items-center gap-1.5 flex-wrap">
+    <div className={`inline-flex items-center gap-1.5 flex-wrap ${className}`.trim()}>
       {!compact && (
         <div className="inline-flex items-center gap-1">
           {deviceBadge}
@@ -283,7 +287,7 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
             ? `انتظر ${cooldown} ثانية بين المكالمات`
             : `اتصال بالرقم الأساسي (${customerPhone})`
         }
-        className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold font-mono tabular-nums transition-all shadow-2xs active:scale-[0.98] ${
+        className={`inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold font-mono tabular-nums transition-all shadow-2xs active:scale-[0.98] ${
           isDialing
             ? "bg-amber-500 text-white animate-pulse"
             : cooldown > 0
@@ -291,7 +295,7 @@ export const OrderCallButton: React.FC<OrderCallButtonProps> = ({
             : presence.isOnline
             ? "bg-primary hover:bg-primary/90 text-primary-foreground"
             : "bg-muted text-muted-foreground cursor-not-allowed border border-border/60"
-        }`}
+        } ${buttonClassName}`.trim()}
       >
         {isLoading ? (
           <RotateCw className="size-3.5 animate-spin" />

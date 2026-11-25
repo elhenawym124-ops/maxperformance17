@@ -179,20 +179,20 @@ const OrderItemsCard: React.FC<OrderItemsCardProps> = ({
     : groupedQuantityOffers.groups.length + groupedQuantityOffers.singles.length;
 
   return (
-    <div className="bg-card shadow-sm rounded-xl border border-border dark:dark:border-border overflow-hidden">
+    <div className="bg-card shadow-xs rounded-xl border border-border/70 overflow-hidden">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-border dark:dark:border-border bg-muted dark:dark:bg-muted">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <h3 className="text-lg font-bold text-foreground">
+      <div className="px-3.5 py-3 sm:px-6 sm:py-4 border-b border-border/70 bg-muted/40">
+        <div className="flex justify-between items-center gap-2">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <h3 className="text-base sm:text-lg font-bold text-foreground">
               {t("orderDetails.products")}
             </h3>
-            <span className="px-2.5 py-0.5 bg-primary dark:bg-primary/30 text-primary dark:text-primary text-sm font-semibold rounded-full font-mono tabular-nums">
+            <span className="px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 text-xs sm:text-sm font-semibold rounded-full font-mono tabular-nums">
               {displayEntryCount}
             </span>
           </div>
           {!isEditing && groupedQuantityOffers.groups.length > 0 ? (
-            <span className="text-xs font-medium text-warning dark:text-warning">
+            <span className="text-xs font-medium text-warning">
               {groupedQuantityOffers.groups.length} عروض كميات مجمعة
             </span>
           ) : null}
@@ -200,7 +200,7 @@ const OrderItemsCard: React.FC<OrderItemsCardProps> = ({
             <button
               type="button"
               onClick={onAddItem}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary dark:bg-primary dark:hover:bg-primary text-white rounded-lg font-medium transition-colors shadow-sm active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-sm active:scale-95 shrink-0"
             >
               <PlusIcon className="w-4 h-4" />
               <span>إضافة منتج</span>
@@ -210,10 +210,10 @@ const OrderItemsCard: React.FC<OrderItemsCardProps> = ({
       </div>
 
       {/* Items List */}
-      <div className="divide-y divide-border dark:dark:divide-border">
+      <div className="divide-y divide-border/70">
         {items.length === 0 ? (
           <div className="px-6 py-12 text-center">
-            <PhotoIcon className="w-16 h-16 mx-auto text-muted-foreground dark:dark:text-foreground mb-3" />
+            <PhotoIcon className="w-16 h-16 mx-auto text-muted-foreground mb-3" />
             <p className="text-muted-foreground font-medium">
               لا توجد منتجات في هذا الطلب
             </p>

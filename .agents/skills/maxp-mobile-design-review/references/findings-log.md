@@ -18,7 +18,7 @@
 | الدفع Checkout | 🟡 MOB-002 متصلح · MOB-004 | — |
 | متجر التطبيقات | — | 🟡 MOB-007 |
 | تطبيقاتي | — | ✅ نضيفة |
-| الطلبات | — | ✅ MOB-003 + MOB-023 متصلحة 2026-09-02 |
+| الطلبات | — | ✅ MOB-003 + MOB-023 متصلحة 2026-09-02 · تفاصيل الطلب `/orders/:id` ✅ MOB-077 (2026-11-25) |
 | إعدادات الطلبات `/settings/orders` | — | ✅ MOB-018 متصلح 2026-09-01 (commit 9aee2ba1) |
 | المنتجات | — | ✅ MOB-024 متصلح 2026-09-02 (تعديل المنتج + قائمة الهيدر + الإجراءات الجماعية) |
 | الكاتيجوريز `/categories` | — | 🟡 MOB-026→032 متصلحة 2026-09-03 — مستني تحقق بعد deploy |
@@ -773,4 +773,21 @@
 
 ---
 
-*العدد الكلي: 68 بند. محتاجة قرار من مختار: MOB-055 · MOB-057 · MOB-059 · MOB-060 · MOB-061 · MOB-064.
+### MOB-077 🔴 صفحة تفاصيل الطلب `/orders/:id`: انكسار رقم الهاتف على سطرين + فشل تباين الداكن + تداخل MOB-015 + تعطيل `font-mono`
+- **الجزء:** اللوحة — `/orders/:id` (`OrderDetails.tsx`, `CustomerInfoCard.tsx`, `CustomerContactSection.tsx`, `CustomerNotesSection.tsx`, `CustomerAddressSection.tsx`, `CustomerBlockModal.tsx`, `OrderItemsCard.tsx`, `OrderItemBundleRow.tsx`, `OrderItemSingleRow.tsx`, `OrderItemPriceQtyFields.tsx`, `OrderItemsTotals.tsx`, `OrderStatusBadgeRail.tsx`, `OrderActivityLogItem.tsx`, `UnifiedShippingCard.tsx`, `ShippingTrackingHeader.tsx`, `CustomerRatingBadge.tsx`, `OrderCallButton.tsx`, `index.css`)
+- **العيوب المفحوصة:**
+  1. `CustomerContactSection`: صف الهاتف `flex justify-between` يزاحم رقم الهاتف بأزرار `اتصال` + `محادثة واتساب` فينكسر `01121534666` على سطرين، مع ارتفاع لمس أقل من 40px.
+  2. `CustomerInfoCard`: فشل تباين WCAG AA في بانر سجل المشتريات (`bg-primary/60 dark:bg-primary/20 text-primary`) وزر `حظر العميل` الداكن.
+  3. `OrderDetails` + `OrderItemBundleRow`: تداخل هوامش وكروت `MOB-015` (96px مهدرة في بطاقة العميل و168px في عروض الكميات)، مع وضع `CustomerInfoCard` أسفل المنتجات والشحن على الموبايل.
+  4. كلاسات Tailwind تالفة (`/90/90border-border`, `/80/80bg-muted`, `dark:dark:...`)، ومواضع RTL ثابتة (`left-4`, `left-0`, `right-0`, `border-r-2`, `text-left`)، وقاعدة `[data-theme="business-os-enterprise"] *` غير المؤطرة بطبقة `@layer base` كانت تعطل `.font-mono` على الأرقام والأكواد.
+- **الإصلاح المنفذ:**
+  1. تكديس صف الهاتف عمودياً على الموبايل (`flex-col` مع شبكة أزرار `grid-cols-2 min-h-10`) وكذلك في الشريط الجانبي الضيق للديسكتوب (`lg:flex-col 2xl:flex-row`) لمنع قص الرقم أو تداخله.
+  2. تصحيح تباين بانر السجل (`bg-primary/10 text-foreground`) وأزرار الحظر والتفاصيل الدلالية (`bg-card`, `text-destructive dark:brightness-125 hover:text-destructive-foreground`).
+  3. رفع `CustomerInfoCard` أعلى المنتجات على `< lg` (`order-1` عبر `contents lg:block` بدون تكرار mount)، إزالة `px-3` الزائدة في `OrderDetails.tsx`، وتسطيح تداخل الكروت في `CustomerInfoCard` و`OrderItemBundleRow`.
+  4. تنظيف الكلاسات التالفة وتوحيد RTL (`start-*`, `end-*`, `border-s-2`, `text-end`) ونقل `[data-theme="business-os-enterprise"] *` إلى `@layer base` لإعادة تفعيل `font-mono tabular-nums`.
+- **التحقق بالمتصفح والاختبارات (2026-11-25):** Playwright على `390x844` (داكن/فاتح)، `360x800`، `1280x800` → `overflowX: false`، `phoneH: 20px`، `phoneFont: JetBrains Mono`، `customerCardPct: 94%` (390px) / `93%` (360px)، `overlapPhoneCall: false`، صفر أخطاء كونسول + `lint:fast` (0 errors) + Jest (5 suites, 29 tests) + Vitest (`UnifiedShippingCard.test.tsx`).
+- **الحالة:** 🟡 متصلح ومتحقق محلياً — جاهز للنشر وإعادة الفحص الحي
+
+---
+
+*العدد الكلي: 69 بند. محتاجة قرار من مختار: MOB-055 · MOB-057 · MOB-059 · MOB-060 · MOB-061 · MOB-064.

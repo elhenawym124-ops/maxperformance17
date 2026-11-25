@@ -55,7 +55,7 @@ export const OrderActivityLogItem: React.FC<OrderActivityLogItemProps> = ({
       <div className="relative pb-5">
         {!isLast && (
           <span
-            className="absolute top-4 left-4 -ms-px h-full w-px bg-border/60 pointer-events-none"
+            className="absolute top-4 start-3.5 -ms-px h-full w-px bg-border/60 pointer-events-none"
             aria-hidden="true"
           />
         )}
@@ -113,7 +113,7 @@ export const OrderActivityLogItem: React.FC<OrderActivityLogItemProps> = ({
                         return (
                           <div
                             key={lIdx}
-                            className="my-1 me-2 text-xs font-mono text-muted-foreground bg-muted/40 p-2 rounded-lg border-r-2 border-primary"
+                            className="my-1 me-2 text-xs font-mono text-muted-foreground bg-muted/40 p-2 rounded-lg border-s-2 border-primary"
                           >
                             {trimmedLine}
                           </div>

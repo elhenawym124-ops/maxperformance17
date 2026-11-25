@@ -32,10 +32,10 @@ export const OrderItemsTotals: React.FC<OrderItemsTotalsProps> = ({
   const { formatPrice } = useCurrency();
 
   return (
-    <div className="px-6 py-4 bg-muted dark:dark:bg-muted border-t border-border dark:dark:border-border">
+    <div className="px-3.5 py-3.5 sm:px-6 sm:py-4 bg-muted/40 border-t border-border/70">
       <div className="space-y-2 max-w-sm me-auto">
         <div className="flex justify-between text-sm">
-          <span className="text-foreground dark:dark:text-muted-foreground">
+          <span className="text-muted-foreground">
             المجموع الفرعي:
           </span>
           <span className="font-semibold text-foreground font-mono tabular-nums">
@@ -44,7 +44,7 @@ export const OrderItemsTotals: React.FC<OrderItemsTotalsProps> = ({
         </div>
 
         <div className="flex justify-between text-sm items-center">
-          <span className="text-foreground dark:dark:text-muted-foreground">الشحن:</span>
+          <span className="text-muted-foreground">الشحن:</span>
           {isEditing && onShippingChange ? (
             <input
               type="number"
@@ -52,7 +52,7 @@ export const OrderItemsTotals: React.FC<OrderItemsTotalsProps> = ({
               onChange={(e) =>
                 onShippingChange(parseFloat(e.target.value) || 0)
               }
-              className="w-24 px-2 py-1 text-right text-sm border border-border rounded bg-card text-foreground focus:ring-2 focus:ring-primary font-mono tabular-nums"
+              className="w-24 px-2 py-1 text-end text-base sm:text-sm border border-border rounded bg-card text-foreground focus:ring-2 focus:ring-primary font-mono tabular-nums"
               min="0"
             />
           ) : (
@@ -63,13 +63,13 @@ export const OrderItemsTotals: React.FC<OrderItemsTotalsProps> = ({
         </div>
 
         <div className="flex justify-between text-sm items-center">
-          <span className="text-foreground dark:dark:text-muted-foreground">الضريبة:</span>
+          <span className="text-muted-foreground">الضريبة:</span>
           {isEditing && onTaxChange ? (
             <input
               type="number"
               value={isNaN(totals.tax) ? 0 : totals.tax}
               onChange={(e) => onTaxChange(parseFloat(e.target.value) || 0)}
-              className="w-24 px-2 py-1 text-right text-sm border border-border rounded bg-card text-foreground focus:ring-2 focus:ring-primary font-mono tabular-nums"
+              className="w-24 px-2 py-1 text-end text-base sm:text-sm border border-border rounded bg-card text-foreground focus:ring-2 focus:ring-primary font-mono tabular-nums"
               min="0"
             />
           ) : (
@@ -83,9 +83,9 @@ export const OrderItemsTotals: React.FC<OrderItemsTotalsProps> = ({
           <div className="space-y-1 text-sm">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-foreground dark:dark:text-muted-foreground">الخصم:</span>
+                <span className="text-muted-foreground">الخصم:</span>
                 {!isEditing && discountReason && (
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-destructive/10 text-destructive dark:bg-destructive/40 dark:text-destructive border border-destructive dark:border-destructive">
+                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-destructive/10 text-destructive border border-destructive/30">
                     <TagIcon className="w-3 h-3 flex-shrink-0" />
                     <span>{discountReason}</span>
                   </span>

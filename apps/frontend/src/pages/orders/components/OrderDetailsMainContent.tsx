@@ -43,7 +43,7 @@ export const OrderDetailsMainContent: React.FC<OrderDetailsMainContentProps> = (
   setShowTicketModal,
 }) => {
   return (
-    <div className="space-y-6 lg:col-span-2">
+    <div className="order-2 lg:order-none space-y-4 sm:space-y-6 lg:col-span-2">
       {/* Discount Approval Banner */}
       <OrderDiscountApprovalBanner
         order={order}

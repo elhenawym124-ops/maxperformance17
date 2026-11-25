@@ -70,18 +70,18 @@ const UnifiedShippingCard: React.FC<UnifiedShippingCardProps> = ({
   });
 
   return (
-    <div className="bg-white dark:dark:bg-muted rounded-xl border border-border dark:dark:border-border shadow-xs p-4 sm:p-5 space-y-4">
+    <div className="bg-card text-card-foreground rounded-xl border border-border/70 shadow-xs p-3.5 sm:p-5 space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-border dark:dark:border-border pb-3">
-        <div className="flex items-center gap-2">
-          <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/50 text-primary">
+      <div className="flex items-center justify-between gap-2 border-b border-border/70 pb-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
             <TruckIcon className="h-5 w-5" />
           </div>
-          <div>
-            <h3 className="text-sm sm:text-base font-bold text-foreground dark:text-white">
+          <div className="min-w-0">
+            <h3 className="text-sm sm:text-base font-bold text-foreground">
               إدارة الشحن والتوصيل
             </h3>
-            <p className="text-xs text-muted-foreground dark:dark:text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               ربط ومتابعة شحنة الطلب مع أي شركة شحن أو مندوب
             </p>
           </div>

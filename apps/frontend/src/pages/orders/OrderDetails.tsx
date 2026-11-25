@@ -90,7 +90,7 @@ export const OrderDetails: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-[50dvh]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
@@ -101,7 +101,7 @@ export const OrderDetails: React.FC = () => {
   }
 
   return (
-    <div className="w-full px-3 sm:px-6 lg:px-8 py-3.5 sm:py-6">
+    <div className="w-full px-0 sm:px-6 lg:px-8 py-2 sm:py-6 pb-8">
       {/* Header */}
       <OrderDetailsHeaderWrapper
         order={order}
@@ -154,7 +154,7 @@ export const OrderDetails: React.FC = () => {
         <OrderCallTimeline orderId={order.id} />
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-flow-col-dense lg:grid-cols-3">
+      <div className="mt-4 sm:mt-8 grid grid-cols-1 gap-4 sm:gap-6 lg:grid-flow-col-dense lg:grid-cols-3">
         {/* RIGHT COLUMN (Main Info) */}
         <OrderDetailsMainContent
           order={order}

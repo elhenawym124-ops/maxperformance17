@@ -11,6 +11,7 @@ import OrderCancellationReturnBanner from "./OrderCancellationReturnBanner";
 import OrderConfirmationDistributionCard from "./OrderConfirmationDistributionCard";
 import OrderActivityLog from "./OrderActivityLog";
 import OrderScheduledDeliveryCard from "./OrderScheduledDeliveryCard";
+import OrderDeliveryProofCard from "./OrderDeliveryProofCard";
 import { OrderDetailsType } from "../types";
 
 export interface OrderDetailsSidebarProps {
@@ -89,46 +90,49 @@ export const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
   isCancellationStatus,
 }) => {
   return (
-    <div className="space-y-6 lg:col-span-1">
-      <CustomerInfoCard
-        order={order}
-        isEditing={canEditOrderDetails && isEditing}
-        editForm={editForm}
-        setEditForm={setEditForm}
-        governments={governments}
-        areas={areas}
-        loadingGovernments={loadingGovernments}
-        loadingAreas={loadingAreas}
-        selectedGovernmentId={selectedGovernmentId}
-        setSelectedGovernmentId={setSelectedGovernmentId}
-        handleGovernmentChange={handleGovernmentChange}
-        invoiceSettings={invoiceSettings}
-        onOrderUpdated={fetchOrderDetails}
-        onCustomerRatingChange={(newRating) => {
-          setOrder((prev) =>
-            prev
-              ? {
-                  ...prev,
-                  customerRating: newRating,
-                  customer: prev.customer
-                    ? { ...prev.customer, customerRating: newRating }
-                    : prev.customer,
-                }
-              : prev,
-          );
-        }}
-      />
-
-      <div id="customer-order-history-card">
-        <CustomerOrderHistoryCard
-          orderNumber={order.orderNumber}
-          initialHistory={order.customerHistory}
-          customerPhone={order.customerPhone}
-          customerEmail={order.customerEmail}
-          customerId={order.customerId}
-          currency={order.currency}
+    <div className="contents lg:block lg:col-span-1 lg:space-y-6">
+      <div className="order-1 lg:order-none">
+        <CustomerInfoCard
+          order={order}
+          isEditing={canEditOrderDetails && isEditing}
+          editForm={editForm}
+          setEditForm={setEditForm}
+          governments={governments}
+          areas={areas}
+          loadingGovernments={loadingGovernments}
+          loadingAreas={loadingAreas}
+          selectedGovernmentId={selectedGovernmentId}
+          setSelectedGovernmentId={setSelectedGovernmentId}
+          handleGovernmentChange={handleGovernmentChange}
+          invoiceSettings={invoiceSettings}
+          onOrderUpdated={fetchOrderDetails}
+          onCustomerRatingChange={(newRating) => {
+            setOrder((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    customerRating: newRating,
+                    customer: prev.customer
+                      ? { ...prev.customer, customerRating: newRating }
+                      : prev.customer,
+                  }
+                : prev,
+            );
+          }}
         />
       </div>
+
+      <div className="order-3 lg:order-none space-y-4 sm:space-y-6">
+        <div id="customer-order-history-card">
+          <CustomerOrderHistoryCard
+            orderNumber={order.orderNumber}
+            initialHistory={order.customerHistory}
+            customerPhone={order.customerPhone}
+            customerEmail={order.customerEmail}
+            customerId={order.customerId}
+            currency={order.currency}
+          />
+        </div>
 
       <OrderPaymentCard
         order={order}
@@ -157,6 +161,8 @@ export const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
       {showOrderAttributionCard && <OrderAttributionCard order={order} />}
 
       <OrderReturnCollectionFeeCard order={order} />
+
+      <OrderDeliveryProofCard order={order} />
 
       {(order as any)?.walletPaymentProof ? (
         <WalletPaymentProofCard
@@ -206,6 +212,7 @@ export const OrderDetailsSidebar: React.FC<OrderDetailsSidebarProps> = ({
           autoTransitionEnabled={order.autoTransitionEnabled}
         />
       )}
+      </div>
     </div>
   );
 };
