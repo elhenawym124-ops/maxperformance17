@@ -26,6 +26,14 @@ const NOISY_PRODUCTION_PATTERNS = [
   /\[IMAGE-PROXY\] No proxyable avatar asset was found, serving fallback avatar:/,
   /\[IMAGE-PROXY\] Avatar fetch failed for all candidates, serving fallback avatar:/,
   /BullMQ Webhook Worker started/,
+  /\[COSTS-CALC\]/,
+  /\[SHIPPING-CALC\]/,
+  /\[ORDER-CONFIRMATION\]/,
+  /\[BAILEYS-DEBOUNCE\]/,
+  /\[WA-HEALTH:/,
+  /\[WA-EVENT:/,
+  /\[WA-SOCKET:/,
+  /\[HISTORY-BATCH\]/,
 ];
 
 function shouldSuppress(args) {

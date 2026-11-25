@@ -137,17 +137,18 @@ const MEDIA_DIR = path.join(__dirname, '../../uploads/whatsapp');
 const whatsappDisconnectAlertTimestamps = new Map();
 
 // 🔐 Professional Logger
+const isWhatsAppDebugEnabled = () => process.env.DEBUG_WHATSAPP === 'true';
 const WA_LOG = {
-    info: (sessionId, msg, data) => console.log(`🔷 [WA:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''),
-    ok: (sessionId, msg, data) => console.log(`✅ [WA:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''),
+    info: (sessionId, msg, data) => { if (isWhatsAppDebugEnabled()) console.log(`🔷 [WA:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''); },
+    ok: (sessionId, msg, data) => { if (isWhatsAppDebugEnabled()) console.log(`✅ [WA:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''); },
     warn: (sessionId, msg, data) => console.warn(`⚠️ [WA:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''),
     error: (sessionId, msg, data) => console.error(`❌ [WA:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''),
-    event: (sessionId, event, data) => console.log(`📡 [WA-EVENT:${sessionId ? sessionId.substring(0,8) : '?'}] ${event}`, data || ''),
-    reconnect: (sessionId, msg, data) => console.log(`🔄 [WA-RECONNECT:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''),
-    auth: (sessionId, msg, data) => console.log(`🔐 [WA-AUTH:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''),
-    health: (sessionId, msg, data) => console.log(`💓 [WA-HEALTH:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''),
-    socket: (sessionId, msg, data) => console.log(`🔌 [WA-SOCKET:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''),
-    restore: (msg, data) => console.log(`♻️ [WA-RESTORE] ${msg}`, data || ''),
+    event: (sessionId, event, data) => { if (isWhatsAppDebugEnabled()) console.log(`📡 [WA-EVENT:${sessionId ? sessionId.substring(0,8) : '?'}] ${event}`, data || ''); },
+    reconnect: (sessionId, msg, data) => { if (isWhatsAppDebugEnabled()) console.log(`🔄 [WA-RECONNECT:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''); },
+    auth: (sessionId, msg, data) => { if (isWhatsAppDebugEnabled()) console.log(`🔐 [WA-AUTH:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''); },
+    health: (sessionId, msg, data) => { if (isWhatsAppDebugEnabled()) console.log(`💓 [WA-HEALTH:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''); },
+    socket: (sessionId, msg, data) => { if (isWhatsAppDebugEnabled()) console.log(`🔌 [WA-SOCKET:${sessionId ? sessionId.substring(0,8) : '?'}] ${msg}`, data || ''); },
+    restore: (msg, data) => { if (isWhatsAppDebugEnabled()) console.log(`♻️ [WA-RESTORE] ${msg}`, data || ''); },
 };
 
 // ====== Sprint 3.3: Per-session reconnect coordinator ======
