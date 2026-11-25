@@ -196,6 +196,21 @@ export interface ChannelAnalyticsResponse {
   } | null;
 }
 
+export interface PriceCompareEntry {
+  id: string;
+  country: CountryCode;
+  platforms: MarketplacePlatform[];
+  query: string;
+  searchUrls: { amazon: string; noon: string; jumia: string | null };
+  analysis: {
+    productTitle: string;
+    estimatedRange: { min: number; max: number; currency: string };
+    recommendedStrategy: string;
+    platformNotes: Array<{ platform: string; positioning: string; tip: string }>;
+  };
+  createdAt: string;
+}
+
 export const marketplaceHubService = {
   async getMetadata(): Promise<MarketplaceHubMetadata> {
     const res = await apiClient.get<{ data: MarketplaceHubMetadata }>('/marketplace-hub/metadata');
@@ -372,6 +387,23 @@ export const marketplaceHubService = {
     const res = await apiClient.get<{ data: ChannelAnalyticsResponse }>('/marketplace-hub/dashboard/analytics', {
       params: { country: params.country, dateRange: params.dateRange, region: params.region || 'na', mode: params.mode || 'sandbox' },
     });
+    return res.data.data;
+  },
+
+  async comparePrices(payload: { country: CountryCode; platforms: MarketplacePlatform[]; query: string }) {
+    const res = await apiClient.post<{
+      data: { entry: PriceCompareEntry; wallet: WalletSummary['wallet']; modelUsed: string };
+    }>('/marketplace-hub/price-compare', payload);
+    return res.data.data;
+  },
+
+  async getPriceHistory(): Promise<PriceCompareEntry[]> {
+    const res = await apiClient.get<{ data: PriceCompareEntry[] }>('/marketplace-hub/price-compare/history');
+    return res.data.data;
+  },
+
+  async exchangeAmazonOAuth(payload: { code: string; sellingPartnerId?: string; country: CountryCode }) {
+    const res = await apiClient.post<{ data: ChannelConnection }>('/marketplace-hub/connections/amazon-oauth-exchange', payload);
     return res.data.data;
   },
 };

@@ -318,6 +318,69 @@ async function saveStudioDraft({ companyId, workflow = 'AI_COMPLETE', title, sou
   return draft;
 }
 
+const memoryPriceComparisons = new Map();
+
+function buildMarketplaceSearchUrls(country, query) {
+  const q = encodeURIComponent(String(query || '').trim());
+  const c = String(country || 'EGY').toUpperCase();
+  const amazonHost = c === 'KSA' ? 'amazon.sa' : c === 'UAE' ? 'amazon.ae' : 'amazon.eg';
+  const noonSlug = c === 'KSA' ? 'saudi-en' : c === 'UAE' ? 'uae-en' : 'egypt-en';
+  return {
+    amazon: `https://www.${amazonHost}/s?k=${q}`,
+    noon: `https://www.noon.com/${noonSlug}/search/?q=${q}`,
+    jumia: c === 'EGY' ? `https://www.jumia.com.eg/catalog/?q=${q}` : null,
+  };
+}
+
+async function compareMarketplacePrices({ companyId, country = 'EGY', platforms = ['amazon', 'noon', 'jumia'], query }, prisma = safeGetPrisma()) {
+  const cleanQuery = String(query || '').trim();
+  if (!cleanQuery) {
+    const err = new Error('أدخل اسم المنتج أو رابط المنتج للمقارنة');
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const aiConfig = await requireResolvedAiKey(companyId, prisma);
+  const selected = Array.isArray(platforms) && platforms.length > 0 ? platforms : ['amazon', 'noon', 'jumia'];
+  const system = 'أنت محلل تسعير تجارة إلكترونية في مصر والخليج. أرجع JSON فقط بالمفاتيح: productTitle، estimatedRange ({ min, max, currency })، recommendedStrategy (string)، platformNotes (array of { platform, positioning, tip }).';
+  const user = `Country: ${country}\nPlatforms: ${selected.join(', ')}\nProduct Query: ${cleanQuery}`;
+  const raw = await callChatCompletion({ ...aiConfig, system, user, maxTokens: 1200 });
+
+  let analysis;
+  try {
+    analysis = JSON.parse(raw);
+  } catch {
+    analysis = {
+      productTitle: cleanQuery,
+      estimatedRange: { min: 0, max: 0, currency: country === 'KSA' ? 'SAR' : country === 'UAE' ? 'AED' : 'EGP' },
+      recommendedStrategy: raw,
+      platformNotes: [],
+    };
+  }
+
+  const { wallet } = await deductCredits(companyId, 'bekam', TOOL_CREDIT_COSTS.bekam, `مقارنة أسعار: ${cleanQuery.slice(0, 40)}`, prisma);
+  const entry = {
+    id: `cmp-${Date.now()}`,
+    country,
+    platforms: selected,
+    query: cleanQuery,
+    searchUrls: buildMarketplaceSearchUrls(country, cleanQuery),
+    analysis,
+    createdAt: new Date().toISOString(),
+  };
+
+  const key = String(companyId || 'default');
+  const hist = memoryPriceComparisons.get(key) || [];
+  hist.unshift(entry);
+  memoryPriceComparisons.set(key, hist.slice(0, 20));
+
+  return { entry, wallet, modelUsed: aiConfig.model };
+}
+
+function getPriceCompareHistory(companyId) {
+  return memoryPriceComparisons.get(String(companyId || 'default')) || [];
+}
+
 module.exports = {
   TOOL_CREDIT_COSTS,
   getWalletSummary,
@@ -329,4 +392,7 @@ module.exports = {
   sellerCopilotChat,
   listStudioDrafts,
   saveStudioDraft,
+  compareMarketplacePrices,
+  getPriceCompareHistory,
+  buildMarketplaceSearchUrls,
 };

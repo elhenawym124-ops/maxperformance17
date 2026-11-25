@@ -418,6 +418,50 @@ async function getChannelAnalytics({ companyId, country = 'EGY', dateRange = '30
   });
 }
 
+async function exchangeAmazonOAuthCode({ companyId, code, sellingPartnerId, country = 'EGY', clientId, clientSecret }, prisma = safeGetPrisma()) {
+  const authCode = String(code || '').trim();
+  const activeClientId = String(clientId || process.env.AMAZON_SP_API_CLIENT_ID || '').trim();
+  const activeClientSecret = String(clientSecret || process.env.AMAZON_SP_API_CLIENT_SECRET || '').trim();
+  if (!authCode || !activeClientId || !activeClientSecret) {
+    const err = new Error('كود التوثيق و Client ID و Client Secret مطلوبة لإتمام ربط أمازون');
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const params = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code: authCode,
+    client_id: activeClientId,
+    client_secret: activeClientSecret,
+  });
+
+  const tokenRes = await fetch('https://api.amazon.com/auth/o2/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    body: params.toString(),
+  });
+  const tokenJson = await tokenRes.json();
+  if (!tokenRes.ok || !tokenJson.refresh_token) {
+    const err = new Error(`فشل تبديل كود OAuth: ${tokenJson.error_description || tokenJson.error || tokenRes.status}`);
+    err.statusCode = 400;
+    throw err;
+  }
+
+  return saveConnection({
+    companyId,
+    platform: 'amazon',
+    country,
+    storeName: sellingPartnerId ? `Amazon (${sellingPartnerId})` : `Amazon (${country})`,
+    authMode: 'SP_API_OAUTH',
+    credentials: {
+      apiKey: activeClientId,
+      apiSecret: activeClientSecret,
+      refreshToken: tokenJson.refresh_token,
+      sellingPartnerId: sellingPartnerId || '',
+    },
+  }, prisma);
+}
+
 module.exports = {
   getVendors,
   parseMarketplaceCsv,
@@ -425,6 +469,7 @@ module.exports = {
   saveConnection,
   removeConnection,
   buildAmazonOAuthConsentUrl,
+  exchangeAmazonOAuthCode,
   testAmazonSandbox,
   getChannelAnalytics,
   aggregateOrdersToAnalytics,

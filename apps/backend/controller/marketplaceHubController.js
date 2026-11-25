@@ -215,3 +215,36 @@ exports.getDashboardAnalytics = async (req, res) => {
     return handleError(res, error, 'Failed to load channel analytics');
   }
 };
+
+exports.comparePrices = async (req, res) => {
+  try {
+    const data = await marketplaceHubAiService.compareMarketplacePrices({
+      companyId: getCompanyId(req),
+      ...(req.body || {}),
+    });
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to compare marketplace prices');
+  }
+};
+
+exports.getPriceHistory = async (req, res) => {
+  try {
+    const data = marketplaceHubAiService.getPriceCompareHistory(getCompanyId(req));
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load price history');
+  }
+};
+
+exports.exchangeAmazonOAuth = async (req, res) => {
+  try {
+    const data = await marketplaceHubOpsService.exchangeAmazonOAuthCode({
+      companyId: getCompanyId(req),
+      ...(req.body || {}),
+    });
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to complete Amazon OAuth');
+  }
+};

@@ -119,6 +119,11 @@ async function runTests() {
   assert.strictEqual(agg.payments.grossSales, 11.01);
   assert.ok(agg.payments.netPayout > 0);
 
+  const searchUrls = aiService.buildMarketplaceSearchUrls('EGY', 'coffee maker');
+  assert.ok(searchUrls.amazon.includes('amazon.eg/s?k=coffee%20maker'));
+  assert.ok(searchUrls.noon.includes('noon.com/egypt-en'));
+  assert.ok(searchUrls.jumia.includes('jumia.com.eg'));
+
   try {
     const qrPng = await generateQrCode({ content: 'https://maxp.online', size: 240, format: 'png' });
     assert.strictEqual(qrPng.mimeType, 'image/png');

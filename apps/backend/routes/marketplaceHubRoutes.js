@@ -26,8 +26,11 @@ router.post('/studio/drafts', controller.saveDraft);
 // Phase 3 & 4: Vendors, CSV Import & Channel Connections
 router.get('/vendors', controller.getVendors);
 router.post('/import-csv', controller.importCsv);
+router.post('/price-compare', controller.comparePrices);
+router.get('/price-compare/history', controller.getPriceHistory);
 router.get('/connections', controller.listConnections);
 router.post('/connections', controller.saveConnection);
+router.post('/connections/amazon-oauth-exchange', controller.exchangeAmazonOAuth);
 router.post('/connections/test-amazon-sandbox', controller.testAmazonSandbox);
 router.delete('/connections/:platform/:country', controller.deleteConnection);
 router.get('/dashboard/analytics', controller.getDashboardAnalytics);

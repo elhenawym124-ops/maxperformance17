@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { CheckCircle2, ExternalLink, KeyRound, Trash2, Coins } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
@@ -12,6 +13,7 @@ import {
 } from '../../services/marketplaceHubService';
 
 export const MarketplaceChannelsPage: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [country, setCountry] = useState<CountryCode>('EGY');
   const [connections, setConnections] = useState<ChannelConnection[]>([]);
   const [amazonOAuth, setAmazonOAuth] = useState<AmazonOAuthInfo | null>(null);
@@ -59,6 +61,25 @@ export const MarketplaceChannelsPage: React.FC = () => {
     void loadAll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [country]);
+
+  useEffect(() => {
+    const spapiCode = searchParams.get('spapi_oauth_code');
+    const sellingPartnerId = searchParams.get('selling_partner_id') || undefined;
+    if (!spapiCode) return;
+
+    marketplaceHubService
+      .exchangeAmazonOAuth({ code: spapiCode, sellingPartnerId, country })
+      .then(async () => {
+        toast.success('تم ربط حساب أمازون بنجاح عبر OAuth');
+        setSearchParams({});
+        await loadAll();
+      })
+      .catch((err: unknown) => {
+        const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message || 'فشل إتمام ربط Amazon OAuth';
+        toast.error(msg);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   useEffect(() => {
     marketplaceHubService
@@ -166,6 +187,22 @@ export const MarketplaceChannelsPage: React.FC = () => {
                   </a>
                 )}
               </div>
+            </div>
+          )}
+
+          {amazonOAuth?.ready && amazonOAuth.oauthUrl && (
+            <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-border/70 bg-muted/20 p-3 text-xs">
+              <div>
+                <div className="font-semibold text-foreground">ربط أمازون بضغطة زر (SP-API OAuth)</div>
+                <div className="text-muted-foreground">سيتم توجيه التاجر لصفحة موافقة Seller Central وإعادته هنا تلقائياً.</div>
+              </div>
+              <a
+                href={amazonOAuth.oauthUrl}
+                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3.5 py-2 font-semibold text-primary-foreground"
+              >
+                <span>ربط Amazon الآن</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
             </div>
           )}
 
