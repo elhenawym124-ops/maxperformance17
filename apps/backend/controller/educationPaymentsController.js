@@ -362,6 +362,20 @@ const getDues = async (req, res) => {
 
     const prisma = getSharedPrismaClient();
     const now = new Date();
+    const startOfToday = new Date(now);
+    startOfToday.setHours(0, 0, 0, 0);
+
+    // Optional due-date window (dues-tab filters: overdue / today / next N days / custom range)
+    const parseDay = (value) => {
+      if (!value) return null;
+      const parsed = new Date(value);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    };
+    const rangeFrom = parseDay(req.query.from);
+    const rangeTo = parseDay(req.query.to);
+    if (rangeFrom) rangeFrom.setHours(0, 0, 0, 0);
+    if (rangeTo) rangeTo.setHours(23, 59, 59, 999);
+    const hasRange = Boolean(rangeFrom || rangeTo);
 
     const enrollments = await prisma.educationEnrollment.findMany({
       where: { companyId, isActive: true },
@@ -391,8 +405,31 @@ const getDues = async (req, res) => {
       const overdue = installments.filter((inst) => {
         if (String(inst?.status || '').toUpperCase() === 'PAID') return false;
         const due = inst?.dueDate ? new Date(inst.dueDate) : null;
-        return due && !Number.isNaN(due.getTime()) && due.getTime() < now.getTime();
+        return due && !Number.isNaN(due.getTime()) && due.getTime() < startOfToday.getTime();
       });
+
+      const unpaid = installments.filter((inst) => {
+        if (String(inst?.status || '').toUpperCase() === 'PAID') return false;
+        const due = inst?.dueDate ? new Date(inst.dueDate) : null;
+        return due && !Number.isNaN(due.getTime());
+      });
+
+      const dueToday = unpaid.filter((inst) => {
+        const due = new Date(inst.dueDate);
+        due.setHours(0, 0, 0, 0);
+        return due.getTime() === startOfToday.getTime();
+      });
+
+      const inWindow = unpaid.filter((inst) => {
+        const due = new Date(inst.dueDate);
+        if (rangeFrom && due.getTime() < rangeFrom.getTime()) return false;
+        if (rangeTo && due.getTime() > rangeTo.getTime()) return false;
+        return true;
+      });
+
+      // When a window is requested, only keep enrollments with at least one
+      // unpaid installment falling inside it.
+      if (hasRange && inWindow.length === 0) continue;
 
       dues.push({
         kind: 'ENROLLMENT',
@@ -411,6 +448,10 @@ const getDues = async (req, res) => {
         installmentCount: enrollment.installmentCount || 1,
         overdueCount: overdue.length,
         overdueAmount: money(overdue.reduce((sum, inst) => sum + money(inst.amount), 0)),
+        dueTodayCount: dueToday.length,
+        dueTodayAmount: money(dueToday.reduce((sum, inst) => sum + money(inst.amount), 0)),
+        windowCount: inWindow.length,
+        windowAmount: money(inWindow.reduce((sum, inst) => sum + money(inst.amount), 0)),
         nextDueDate: overdue[0]?.dueDate
           || installments.find((inst) => String(inst?.status || '').toUpperCase() !== 'PAID' && inst?.dueDate)?.dueDate
           || null,
@@ -464,16 +505,36 @@ const getDues = async (req, res) => {
       console.warn('[EducationPayments] group renewals query skipped:', rawError.message);
     }
 
+    if (hasRange) {
+      groupRenewals = groupRenewals.filter((row) => {
+        const due = row.nextRenewalDate ? new Date(row.nextRenewalDate) : null;
+        if (!due || Number.isNaN(due.getTime())) return false;
+        if (rangeFrom && due.getTime() < rangeFrom.getTime()) return false;
+        if (rangeTo && due.getTime() > rangeTo.getTime()) return false;
+        return true;
+      });
+    }
+
     res.json({
       success: true,
       data: {
         enrollments: dues,
         groupRenewals,
+        range: {
+          from: rangeFrom ? rangeFrom.toISOString() : null,
+          to: rangeTo ? rangeTo.toISOString() : null,
+        },
         totals: {
           enrollmentsRemaining: money(dues.reduce((sum, item) => sum + item.remaining, 0)),
           enrollmentsCount: dues.length,
           groupRenewalsRemaining: money(groupRenewals.reduce((sum, item) => sum + item.remaining, 0)),
           groupRenewalsCount: groupRenewals.length,
+          overdueAmount: money(dues.reduce((sum, item) => sum + money(item.overdueAmount), 0)),
+          overdueStudents: dues.filter((item) => item.overdueCount > 0).length,
+          dueTodayAmount: money(dues.reduce((sum, item) => sum + money(item.dueTodayAmount), 0)),
+          dueTodayCount: dues.reduce((sum, item) => sum + (item.dueTodayCount || 0), 0),
+          windowAmount: money(dues.reduce((sum, item) => sum + money(item.windowAmount), 0)),
+          windowCount: dues.reduce((sum, item) => sum + (item.windowCount || 0), 0),
         },
       },
     });

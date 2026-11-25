@@ -58,6 +58,10 @@ export interface EnrollmentDue {
   installmentCount?: number | null;
   overdueCount: number;
   overdueAmount: number;
+  dueTodayCount?: number;
+  dueTodayAmount?: number;
+  windowCount?: number;
+  windowAmount?: number;
   nextDueDate?: string | null;
 }
 
@@ -81,11 +85,18 @@ export interface GroupRenewalDue {
 export interface DuesResponse {
   enrollments: EnrollmentDue[];
   groupRenewals: GroupRenewalDue[];
+  range?: { from: string | null; to: string | null };
   totals: {
     enrollmentsRemaining: number;
     enrollmentsCount: number;
     groupRenewalsRemaining: number;
     groupRenewalsCount: number;
+    overdueAmount?: number;
+    overdueStudents?: number;
+    dueTodayAmount?: number;
+    dueTodayCount?: number;
+    windowAmount?: number;
+    windowCount?: number;
   };
 }
 

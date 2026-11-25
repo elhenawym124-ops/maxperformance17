@@ -1,9 +1,18 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, CalendarClock, RefreshCw, Wallet } from "lucide-react";
+import { AlertTriangle, CalendarClock, Download, RefreshCw, Wallet } from "lucide-react";
 import { downloadStatement, fetchDues, notifyStatementDue, setMemberDiscount } from "./api";
 import { EmptyState, StatusPill, formatDate, money } from "./shared";
 import type { DuesResponse } from "./types";
+
+type RangePreset = "all" | "overdue" | "today" | "7" | "30" | "custom";
+
+const isoDay = (offsetDays = 0) => {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+};
 
 export interface CollectTarget {
   enrollmentId?: string;
@@ -25,24 +34,110 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
   const [data, setData] = useState<DuesResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [preset, setPreset] = useState<RangePreset>("all");
+  const [customFrom, setCustomFrom] = useState("");
+  const [customTo, setCustomTo] = useState("");
+
+  const range = useMemo(() => {
+    switch (preset) {
+      case "overdue":
+        return { from: undefined, to: isoDay(-1) };
+      case "today":
+        return { from: isoDay(0), to: isoDay(0) };
+      case "7":
+        return { from: isoDay(0), to: isoDay(7) };
+      case "30":
+        return { from: isoDay(0), to: isoDay(30) };
+      case "custom":
+        return { from: customFrom || undefined, to: customTo || undefined };
+      default:
+        return {};
+    }
+  }, [preset, customFrom, customTo]);
 
   const load = useCallback(() => {
     let alive = true;
     setLoading(true);
     setError("");
-    fetchDues()
+    fetchDues(range)
       .then((res) => alive && setData(res))
       .catch((e) => alive && setError(e.message || "فشل جلب المستحقات"))
       .finally(() => alive && setLoading(false));
     return () => {
       alive = false;
     };
-  }, [reloadKey]);
+  }, [reloadKey, range.from, range.to]);
 
   useEffect(() => {
     const cleanup = load();
     return cleanup;
   }, [load]);
+
+  const hasRows =
+    (data?.enrollments.length || 0) > 0 || (data?.groupRenewals.length || 0) > 0;
+
+  const exportCsv = () => {
+    const escape = (value: unknown) => {
+      const text = value === null || value === undefined ? "" : String(value);
+      return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+    };
+    const header = isEn
+      ? ["Kind", "Student", "Code", "Group", "Package", "Remaining", "Overdue count", "Overdue amount", "Due today", "In range", "Next due"]
+      : ["النوع", "الطالب", "الكود", "الجروب", "الباقة", "المتبقي", "أقساط متأخرة", "قيمة المتأخر", "مستحق اليوم", "مستحق في الفترة", "أقرب استحقاق"];
+    const lines = [header.join(",")];
+    for (const row of data?.enrollments || []) {
+      lines.push(
+        [
+          isEn ? "Package" : "باقة",
+          row.studentName,
+          row.studentCode || "",
+          "",
+          [row.packageName, row.subjectName].filter(Boolean).join(" / "),
+          row.remaining,
+          row.overdueCount || 0,
+          row.overdueAmount || 0,
+          row.dueTodayAmount || 0,
+          row.windowAmount || 0,
+          row.nextDueDate ? new Date(row.nextDueDate).toISOString().slice(0, 10) : "",
+        ].map(escape).join(","),
+      );
+    }
+    for (const row of data?.groupRenewals || []) {
+      lines.push(
+        [
+          isEn ? "Group renewal" : "تجديد جروب",
+          row.studentName,
+          "",
+          row.groupName || "",
+          `${isEn ? "Fee" : "رسوم"}: ${row.feeAmount} / ${isEn ? "Paid" : "مدفوع"}: ${row.paid}`,
+          row.remaining,
+          "",
+          "",
+          "",
+          "",
+          row.nextRenewalDate ? new Date(row.nextRenewalDate).toISOString().slice(0, 10) : "",
+        ].map(escape).join(","),
+      );
+    }
+    const blob = new Blob([`\uFEFF${lines.join("\r\n")}`], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `education-dues-${isoDay(0)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+  };
+
+  const presets: Array<{ key: RangePreset; ar: string; en: string }> = [
+    { key: "all", ar: "الكل", en: "All" },
+    { key: "overdue", ar: "متأخر", en: "Overdue" },
+    { key: "today", ar: "النهارده", en: "Today" },
+    { key: "7", ar: "خلال 7 أيام", en: "Next 7 days" },
+    { key: "30", ar: "خلال 30 يوم", en: "Next 30 days" },
+    { key: "custom", ar: "مدى مخصص", en: "Custom" },
+  ];
 
   return (
     <div className="space-y-4">
@@ -56,7 +151,55 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
         </div>
       ) : null}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border/70 bg-card px-3 py-2">
+        <span className="text-[11px] font-semibold text-muted-foreground">
+          {isEn ? "Due window" : "فترة الاستحقاق"}
+        </span>
+        {presets.map((item) => (
+          <button
+            key={item.key}
+            type="button"
+            onClick={() => setPreset(item.key)}
+            className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors ${
+              preset === item.key
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {isEn ? item.en : item.ar}
+          </button>
+        ))}
+        {preset === "custom" ? (
+          <div className="flex items-center gap-1.5">
+            <input
+              type="date"
+              value={customFrom}
+              onChange={(e) => setCustomFrom(e.target.value)}
+              className="bg-background border border-input rounded-lg px-2 py-1 text-[11px] text-foreground"
+              aria-label={isEn ? "From" : "من"}
+            />
+            <span className="text-[11px] text-muted-foreground">→</span>
+            <input
+              type="date"
+              value={customTo}
+              onChange={(e) => setCustomTo(e.target.value)}
+              className="bg-background border border-input rounded-lg px-2 py-1 text-[11px] text-foreground"
+              aria-label={isEn ? "To" : "إلى"}
+            />
+          </div>
+        ) : null}
+        <button
+          type="button"
+          onClick={exportCsv}
+          disabled={!hasRows}
+          className="ms-auto inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border text-[11px] font-semibold text-foreground hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <Download className="w-3.5 h-3.5" />
+          {isEn ? "Export CSV" : "تصدير CSV"}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="rounded-xl border border-border/70 bg-card p-4">
           <div className="flex items-center gap-2 text-muted-foreground text-[11px]">
             <Wallet className="w-3.5 h-3.5" />
@@ -67,6 +210,32 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
           </p>
           <p className="text-[11px] text-muted-foreground font-mono">
             {data?.totals.enrollmentsCount || 0} {isEn ? "enrollments" : "تسجيل"}
+          </p>
+        </div>
+        <div className="rounded-xl border border-border/70 bg-card p-4">
+          <div className="flex items-center gap-2 text-muted-foreground text-[11px]">
+            <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
+            <span>{isEn ? "Overdue" : "متأخرات"}</span>
+          </div>
+          <p className="text-lg font-bold font-mono tabular-nums text-destructive mt-1">
+            {money(data?.totals.overdueAmount || 0)} {isEn ? "EGP" : "ج.م"}
+          </p>
+          <p className="text-[11px] text-muted-foreground font-mono">
+            {data?.totals.overdueStudents || 0} {isEn ? "students" : "طالب"}
+          </p>
+        </div>
+        <div className="rounded-xl border border-border/70 bg-card p-4">
+          <div className="flex items-center gap-2 text-muted-foreground text-[11px]">
+            <CalendarClock className="w-3.5 h-3.5" />
+            <span>{isEn ? "Due today / in window" : "النهارده / في الفترة"}</span>
+          </div>
+          <p className="text-lg font-bold font-mono tabular-nums text-foreground mt-1">
+            {money(data?.totals.windowAmount || 0)} {isEn ? "EGP" : "ج.م"}
+          </p>
+          <p className="text-[11px] text-muted-foreground font-mono">
+            {isEn
+              ? `${data?.totals.dueTodayCount || 0} today · ${data?.totals.windowCount || 0} in range`
+              : `${data?.totals.dueTodayCount || 0} النهارده · ${data?.totals.windowCount || 0} في الفترة`}
           </p>
         </div>
         <div className="rounded-xl border border-border/70 bg-card p-4">
@@ -127,6 +296,11 @@ const DuesTab: React.FC<Props> = ({ reloadKey, onCollect }) => {
                     {due.overdueCount > 0 ? (
                       <StatusPill tone="danger">
                         {isEn ? `${due.overdueCount} overdue` : `${due.overdueCount} قسط متأخر`}
+                      </StatusPill>
+                    ) : null}
+                    {(range.from || range.to) && (due.windowCount || 0) > 0 ? (
+                      <StatusPill tone="warning">
+                        {isEn ? `${due.windowCount} in range` : `${due.windowCount} في الفترة`}
                       </StatusPill>
                     ) : null}
                   </div>
