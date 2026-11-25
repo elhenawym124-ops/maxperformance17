@@ -15,6 +15,7 @@ const {
     extractContentTokens,
     buildConversationSearchWhere,
     searchMessageConversationIds,
+    SEARCH_MAX_CONVERSATIONS,
 } = require('./conversationSearchWhere');
 const { computeFacebookWindow, resolveFacebookLastInboundAt } = require('../../utils/facebookWindow');
 const {
@@ -263,7 +264,7 @@ const getConversations = async (req, res) => {
                     channel: where.channel,
                     search: search.trim(),
                     days: parseInt(searchDays, 10) || 180,
-                    limit: 200,
+                    limit: SEARCH_MAX_CONVERSATIONS,
                 });
             } catch (contentSearchErr) {
                 // A failed content search must never look like "no results".

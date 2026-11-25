@@ -3,6 +3,7 @@ const {
   buildConversationSearchWhere,
   searchMessageConversationIds,
   SEARCH_STATEMENT_TIMEOUT_MS,
+  SEARCH_MAX_CONVERSATIONS,
 } = require('../controller/conversation/conversationSearchWhere');
 
 describe('conversationSearchWhere', () => {
@@ -140,7 +141,7 @@ describe('conversationSearchWhere', () => {
       expect(limit).toBe(200);
     });
 
-    it('applies the tenant filter INSIDE the CTE, before the 1000-row cap', async () => {
+    it('applies the tenant filter INSIDE the CTE and aggregates one row per conversation (no 1000-row message cap)', async () => {
       const mockPrisma = { $queryRawUnsafe: jest.fn().mockResolvedValue([]) };
 
       await searchMessageConversationIds(mockPrisma, {
@@ -150,13 +151,46 @@ describe('conversationSearchWhere', () => {
       });
 
       const [queryStr] = mockPrisma.$queryRawUnsafe.mock.calls[0];
-      const cte = queryStr.split('WITH matched_messages AS (')[1].split(')')[0];
+      // NOTE: don't split on the first ')' — MAX(m."createdAt") contains one.
+      const cte = queryStr.split('WITH matched_messages AS (')[1].split('SELECT c.id')[0];
       expect(cte).toContain('JOIN conversations c2');
       expect(cte).toContain('c2."companyId" = $');
       expect(cte).toContain('c2.channel = $');
-      // companyId placeholder must appear before the LIMIT 1000 inside the CTE
-      expect(cte.indexOf('companyId')).toBeLessThan(cte.indexOf('LIMIT 1000'));
-      expect(cte).toContain('ORDER BY m."createdAt" DESC');
+      // one row per conversation, most recent hit first — not 1000 raw message rows
+      expect(cte).toContain('GROUP BY m."conversationId"');
+      expect(cte).toContain('MAX(m."createdAt")');
+      expect(cte).toContain('ORDER BY "lastHitAt" DESC');
+      expect(queryStr).not.toContain('LIMIT 1000');
+      expect(queryStr).not.toContain('SELECT DISTINCT c.id');
+    });
+
+    it('returns every matching conversation (300) instead of capping at 200', async () => {
+      const rows = Array.from({ length: 300 }, (_, i) => ({ id: 'conv-' + i }));
+      const mockPrisma = { $queryRawUnsafe: jest.fn().mockResolvedValue(rows) };
+
+      const ids = await searchMessageConversationIds(mockPrisma, {
+        companyId: 'comp1',
+        channel: 'FACEBOOK',
+        search: 'المقاسات',
+      });
+
+      expect(ids).toHaveLength(300);
+      const params = mockPrisma.$queryRawUnsafe.mock.calls[0];
+      expect(params[params.length - 1]).toBe(SEARCH_MAX_CONVERSATIONS);
+      expect(SEARCH_MAX_CONVERSATIONS).toBe(5000);
+    });
+
+    it('clamps an oversized limit to SEARCH_MAX_CONVERSATIONS', async () => {
+      const mockPrisma = { $queryRawUnsafe: jest.fn().mockResolvedValue([]) };
+
+      await searchMessageConversationIds(mockPrisma, {
+        companyId: 'comp1',
+        search: 'المقاسات',
+        limit: 99999,
+      });
+
+      const params = mockPrisma.$queryRawUnsafe.mock.calls[0];
+      expect(params[params.length - 1]).toBe(SEARCH_MAX_CONVERSATIONS);
     });
 
     it('sets a server-side statement_timeout in a pipelined (array-form) transaction', async () => {

@@ -12,6 +12,15 @@
 const SEARCH_STATEMENT_TIMEOUT_MS = 5000;
 
 /**
+ * Hard ceiling on how many distinct conversations a message-content search may
+ * feed back into the conversation query. It is a memory/parameter guard only
+ * (Postgres allows 65535 bind params) — NOT a result cap: a merchant whose term
+ * matches fewer conversations always gets every match. The old 1000-message-row
+ * cap inside the CTE silently dropped ~90% of a busy merchant's matches.
+ */
+const SEARCH_MAX_CONVERSATIONS = 5000;
+
+/**
  * Extracts tokens eligible for trigram-indexed message content search (length >= 3).
  * @param {string|unknown} rawTerm
  * @returns {string[]}
@@ -59,8 +68,10 @@ function buildConversationSearchWhere(rawTerm) {
  * Searches messages for matching content tokens using the PostgreSQL GIN trigram
  * index `idx_messages_content_trgm` (created by scripts/ensure_trgm_indexes.sql).
  * The tenant filter (`companyId`, and `channel` when given) is applied INSIDE the
- * CTE, before the 1000-row cap, so another tenant's messages can never crowd out
- * the caller's matches. Rows are capped to the most recent 1000 hits.
+ * CTE, and the CTE aggregates one row per conversation instead of capping raw
+ * message rows — so another tenant's messages can never crowd out the caller's
+ * matches and a conversation whose only hit is old is not dropped.
+ * Conversations are ordered by their most recent matching message.
  *
  * Database failures are propagated to the caller (no silent empty result): the
  * controller turns them into HTTP 422 (`MESSAGE_SEARCH_TIMEOUT`/`MESSAGE_SEARCH_UNAVAILABLE`)
@@ -72,11 +83,12 @@ function buildConversationSearchWhere(rawTerm) {
  * @param {string} [params.channel]
  * @param {string} params.search - raw search term
  * @param {number|string} [params.days=180] - time limit in days (default: 180 days)
- * @param {number|string} [params.limit=200] - maximum distinct conversation IDs (default: 200)
+ * @param {number|string} [params.limit] - maximum distinct conversation IDs
+ *        (default and ceiling: SEARCH_MAX_CONVERSATIONS)
  * @returns {Promise<string[]>} array of conversation IDs
  * @throws {Error} when the underlying query fails (timeout, missing index, connection)
  */
-async function searchMessageConversationIds(prisma, { companyId, channel, search, days = 180, limit = 200 }) {
+async function searchMessageConversationIds(prisma, { companyId, channel, search, days = 180, limit = SEARCH_MAX_CONVERSATIONS }) {
     if (!prisma || !search || !companyId) {
         return [];
     }
@@ -88,7 +100,7 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
 
     const cutoffDays = Math.max(1, Math.min(parseInt(days, 10) || 180, 730));
     const cutoffDate = new Date(Date.now() - cutoffDays * 86400000);
-    const maxLimit = Math.max(1, Math.min(parseInt(limit, 10) || 200, 500));
+    const maxLimit = Math.max(1, Math.min(parseInt(limit, 10) || SEARCH_MAX_CONVERSATIONS, SEARCH_MAX_CONVERSATIONS));
 
     // Build parameterized CTE query with escaped wildcards
     const conditions = contentTokens.map((_, i) => `m.content ILIKE $${i + 1}`).join(' AND ');
@@ -114,21 +126,23 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
 
     const query = `
         WITH matched_messages AS (
-            SELECT m."conversationId"
+            SELECT m."conversationId" AS "conversationId", MAX(m."createdAt") AS "lastHitAt"
             FROM messages m
             JOIN conversations c2 ON c2.id = m."conversationId"
             WHERE ${conditions}
               AND m."createdAt" >= $${dateParamIdx}
               AND c2."companyId" = $${companyParamIdx}
               ${cteChannelClause}
-            ORDER BY m."createdAt" DESC
-            LIMIT 1000
+            GROUP BY m."conversationId"
+            ORDER BY "lastHitAt" DESC
+            LIMIT $${limitParamIdx}
         )
-        SELECT DISTINCT c.id
+        SELECT c.id
         FROM conversations c
         JOIN matched_messages mm ON c.id = mm."conversationId"
         WHERE c."companyId" = $${companyParamIdx}
           ${channelClause}
+        ORDER BY mm."lastHitAt" DESC
         LIMIT $${limitParamIdx};
     `;
 
@@ -163,4 +177,5 @@ module.exports = {
     buildConversationSearchWhere,
     searchMessageConversationIds,
     SEARCH_STATEMENT_TIMEOUT_MS,
+    SEARCH_MAX_CONVERSATIONS,
 };
