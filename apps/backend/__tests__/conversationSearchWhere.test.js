@@ -216,6 +216,31 @@ describe('conversationSearchWhere', () => {
       expect(query.mock.calls[0][0]).toContain('WITH matched_messages AS');
     });
 
+    it('falls back to a plain query when the pipelined transaction is rejected (PgBouncer)', async () => {
+      const tx = jest.fn().mockImplementation(() => Promise.reject(new Error('Transaction API error: transaction already closed')));
+      const query = jest.fn().mockResolvedValue([{ id: 'conv-fb' }]);
+      const mockPrisma = {
+        $executeRawUnsafe: jest.fn().mockResolvedValue(1),
+        $queryRawUnsafe: query,
+        $transaction: tx,
+      };
+
+      const ids = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'المقاسات' });
+
+      expect(ids).toEqual(['conv-fb']);
+      expect(tx).toHaveBeenCalledTimes(1);
+      // once to build the array-form transaction, once as the plain fallback
+      expect(query).toHaveBeenCalledTimes(2);
+    });
+
+    it('still throws when the query itself fails (no silent empty result)', async () => {
+      const query = jest.fn().mockImplementation(() => Promise.reject(new Error('DB connection failed')));
+      const mockPrisma = { $queryRawUnsafe: query };
+
+      await expect(searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'المقاسات' }))
+        .rejects.toThrow('DB connection failed');
+    });
+
     it('keeps the server deadline at or below the 5s acceptance target', () => {
       expect(SEARCH_STATEMENT_TIMEOUT_MS).toBeLessThanOrEqual(5000);
     });

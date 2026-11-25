@@ -154,20 +154,37 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
  * Runs the raw search with a hard server-side deadline instead of relying on the
  * pooler/role default (the SPA gives up at 30s).
  *
- * Uses a single pipelined (array-form) transaction: BEGIN + SET LOCAL + query are
- * sent as one batch to the pooler, so the pooled server connection is held only for
- * that round trip. The callback form (`$transaction(async tx => ...)`) is avoided on
- * purpose: this repo's PgBouncer hardening removed interactive transactions because
- * they held pool connections and produced 30s `query_wait_timeout` errors.
- * Simple/mock clients without `$transaction` fall back to a plain call.
+ * Preferred path: a single pipelined (array-form) transaction — BEGIN + SET LOCAL +
+ * query are sent as one batch to the pooler, so the pooled server connection is
+ * held only for that round trip. The callback form (`$transaction(async tx => ...)`)
+ * is avoided on purpose: this repo's PgBouncer hardening removed interactive
+ * transactions because they held pool connections and produced 30s
+ * `query_wait_timeout` errors.
+ *
+ * Production fallback (2026-11-25): on a transaction-pooling PgBouncer the array
+ * transaction can be rejected outright (every content search answered 422
+ * MESSAGE_SEARCH_UNAVAILABLE in <1s after 9d7bfd922 shipped, while the plain path
+ * worked before it). So a failed transaction is retried as a plain
+ * `$queryRawUnsafe` — the pooler default deadline then applies, and a genuinely
+ * broken query still throws (the caller maps it to 422).
+ * Simple/mock clients without `$transaction` use the plain call directly.
  */
 async function runWithStatementTimeout(prisma, query, params, timeoutMs = SEARCH_STATEMENT_TIMEOUT_MS) {
     if (typeof prisma.$transaction === 'function' && typeof prisma.$executeRawUnsafe === 'function') {
-        const [, rows] = await prisma.$transaction([
-            prisma.$executeRawUnsafe(`SET LOCAL statement_timeout = ${Number(timeoutMs)}`),
-            prisma.$queryRawUnsafe(query, ...params),
-        ], { timeout: timeoutMs + 2000 });
-        return rows;
+        try {
+            const [, rows] = await prisma.$transaction([
+                prisma.$executeRawUnsafe(`SET LOCAL statement_timeout = ${Number(timeoutMs)}`),
+                prisma.$queryRawUnsafe(query, ...params),
+            ], { timeout: timeoutMs + 2000 });
+            return rows;
+        } catch (txErr) {
+            const fallback = await prisma.$queryRawUnsafe(query, ...params);
+            if (typeof console !== 'undefined' && process.env.DEBUG_CONV_SEARCH === 'true') {
+                console.warn('⚠️ [CONV-SEARCH] pipelined transaction failed, plain query used:',
+                    (txErr && txErr.message || '').slice(0, 200));
+            }
+            return fallback;
+        }
     }
     return prisma.$queryRawUnsafe(query, ...params);
 }
