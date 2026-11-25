@@ -157,7 +157,7 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
                     <Label>{t("whatsappJourney.steps.replyKeywords")}</Label>
                     <Input
                       type="text"
-                      value={(currentStep.replyKeywords ?? []).join("، ")}
+                      value={(() => { const kw = currentStep.replyKeywords; if (!kw) return ""; if (Array.isArray(kw)) return kw.join("، "); try { const p = JSON.parse(kw as unknown as string); return Array.isArray(p) ? p.join("، ") : String(kw); } catch { return String(kw); } })()}
                       onChange={(event) =>
                         setCurrentStep((previous) => ({
                           ...previous,

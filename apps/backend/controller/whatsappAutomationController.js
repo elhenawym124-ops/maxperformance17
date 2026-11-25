@@ -171,7 +171,13 @@ class WhatsAppAutomationController {
                 orderBy: { stepOrder: 'asc' }
             });
 
-            res.json({ success: true, data: steps });
+            // Parse JSON-string fields back to arrays for the frontend
+            const parsed = steps.map(s => ({
+                ...s,
+                replyKeywords: s.replyKeywords ? (() => { try { const v = JSON.parse(s.replyKeywords); return Array.isArray(v) ? v : []; } catch { return []; } })() : null,
+                buttons: s.buttons ? (() => { try { const v = JSON.parse(s.buttons); return Array.isArray(v) ? v : []; } catch { return []; } })() : null,
+            }));
+            res.json({ success: true, data: parsed });
         } catch (error) {
             console.error('❌ [WHATSAPP-AUTOMATION] getFlowSteps error:', error.message);
             res.status(500).json({ success: false, message: error.message });

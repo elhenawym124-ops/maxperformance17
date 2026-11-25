@@ -215,6 +215,11 @@ class WhatsAppJourneyService {
             console.log(`[JOURNEY] Processing ${journeys.length} pending journeys...`);
 
             for (const journey of journeys) {
+                // Guard: skip journeys whose flow has been disabled
+                if (journey.flow && !journey.flow.isEnabled) {
+                    console.log(`[JOURNEY] Skipping journey ${journey.id} — flow "${journey.flow.name}" is disabled`);
+                    continue;
+                }
                 await this.sendNextStep(journey);
             }
         } catch (error) {
@@ -333,6 +338,9 @@ class WhatsAppJourneyService {
                 recipientName: `${journey.customer.firstName || ''} ${journey.customer.lastName || ''}`.trim(),
                 recipientType: 'CUSTOMER',
                 category: 'OCCASION',
+                // ⚠️ KNOWN ISSUE (2026-11-25): قالب المناسبة CUSTOMER_OCCASION_msvsy2ut يحتوي
+                // أزرار "تأكيد الأوردر" و"إلغاء الأوردر" — غير مناسبة لرسائل متابعة ما بعد التسليم.
+                // الحل: إنشاء قالب Meta مخصص (POST_DELIVERY_FOLLOWUP) بدون أزرار طلب.
                 // NOTE: مؤقتاً نستخدم قالب المناسبة المعتمد CUSTOMER_OCCASION_msvsy2ut
                 // حتى يُنشأ قالب مخصص (POST_DELIVERY_FOLLOWUP / CATEGORY_FOLLOWUP) ومعتمد على Meta.
                 eventType: 'CUSTOMER_OCCASION_msvsy2ut',
