@@ -12,6 +12,7 @@ import { EGYPT_GOVERNORATES, getGovernorateByName } from "../../constants/egyptG
 
 const GEO_API_URL = "https://ipwho.is/";
 const CACHE_KEY = "sf-ip-governorate";
+const SESSION_ATTEMPTED_KEY = "sf-ip-governorate-attempted";
 
 export interface IpGovernorateResult {
   governorate: string | null;
@@ -270,6 +271,14 @@ export const detectGovernorateByIp = async (): Promise<IpGovernorateResult> => {
     return cached.result;
   }
 
+  try {
+    if (window.sessionStorage?.getItem(SESSION_ATTEMPTED_KEY) === "1") {
+      return { governorate: null, city: null };
+    }
+  } catch {
+    // Ignore storage failures.
+  }
+
   if (inFlight) {
     return inFlight;
   }
@@ -295,6 +304,12 @@ export const detectGovernorateByIp = async (): Promise<IpGovernorateResult> => {
           ip = fallbackGeo.ip || ip;
         }
       }
+    }
+
+    try {
+      window.sessionStorage?.setItem(SESSION_ATTEMPTED_KEY, "1");
+    } catch {
+      // Ignore storage failures.
     }
 
     if (!governorate) {

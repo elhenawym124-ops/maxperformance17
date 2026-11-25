@@ -13,14 +13,26 @@ import {
   resolveThemeBuilderTemplate,
   type ThemeBuilderTemplate,
 } from '../studio/utils/themeBuilder';
-import ProductImageLandingPage from '../pages/ProductImageLandingPage';
-import FunnelCodSalesPage from '../pages/FunnelCodSalesPage';
-import ReturnsPage from '../pages/ReturnsPage';
-import PostPurchaseOfferPage from '../pages/PostPurchaseOfferPage';
 import StorefrontNotFound from '../components/StorefrontNotFound';
-import DynamicStorefrontPage from '../pages/DynamicStorefrontPage';
-import CollectionCategoryPage from '../pages/CollectionCategoryPage';
+import StorefrontSkeleton from '../components/StorefrontSkeleton';
 import type { StorefrontPageLayout } from '../types/theme.types';
+
+const ProductImageLandingPage = React.lazy(
+  () => import('../pages/ProductImageLandingPage'),
+);
+const FunnelCodSalesPage = React.lazy(
+  () => import('../pages/FunnelCodSalesPage'),
+);
+const ReturnsPage = React.lazy(() => import('../pages/ReturnsPage'));
+const PostPurchaseOfferPage = React.lazy(
+  () => import('../pages/PostPurchaseOfferPage'),
+);
+const DynamicStorefrontPage = React.lazy(
+  () => import('../pages/DynamicStorefrontPage'),
+);
+const CollectionCategoryPage = React.lazy(
+  () => import('../pages/CollectionCategoryPage'),
+);
 import {
   sproutRoomPageBanner,
   harvestFoldPageBanner,
@@ -627,19 +639,75 @@ export const StorefrontRoutes: React.FC<StorefrontRoutesProps> = ({
           path={scopedPath('shop/products/:id/:presentationSlug')}
           element={<PresentationRouteWrapper element={productPageElement} />}
         />
-        <Route path={scopedPath('lp/:id')} element={<ProductImageLandingPage />} />
-        <Route path={scopedPath('landing/:id')} element={<ProductImageLandingPage />} />
-        <Route path={scopedPath('funnel/:slug')} element={<FunnelCodSalesPage />} />
-        <Route path={scopedPath('p/:slug')} element={<FunnelCodSalesPage />} />
+        <Route
+          path={scopedPath('lp/:id')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <ProductImageLandingPage />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path={scopedPath('landing/:id')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <ProductImageLandingPage />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path={scopedPath('funnel/:slug')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <FunnelCodSalesPage />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path={scopedPath('p/:slug')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <FunnelCodSalesPage />
+            </React.Suspense>
+          }
+        />
         <Route path={scopedPath('shop/products/:id')} element={productPageElement} />
         <Route path={scopedPath('cart')} element={cartPageElement} />
         <Route path={scopedPath('checkout')} element={checkoutPageElement} />
-        <Route path={scopedPath('order-offer')} element={<PostPurchaseOfferPage />} />
+        <Route
+          path={scopedPath('order-offer')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <PostPurchaseOfferPage />
+            </React.Suspense>
+          }
+        />
         <Route path={scopedPath('thank-you')} element={thankYouPageElement} />
         <Route path={scopedPath('registration')} element={registrationPageElement} />
-        <Route path={scopedPath('collections/:categorySlug')} element={<CollectionCategoryPage />} />
-        <Route path={scopedPath('shop/page/:pageSlug/*')} element={<DynamicStorefrontPage />} />
-        <Route path={scopedPath('pages/:pageSlug/*')} element={<DynamicStorefrontPage />} />
+        <Route
+          path={scopedPath('collections/:categorySlug')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <CollectionCategoryPage />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path={scopedPath('shop/page/:pageSlug/*')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <DynamicStorefrontPage />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path={scopedPath('pages/:pageSlug/*')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <DynamicStorefrontPage />
+            </React.Suspense>
+          }
+        />
         <Route
           path={scopedPath('articles/:slug')}
           element={
@@ -648,8 +716,22 @@ export const StorefrontRoutes: React.FC<StorefrontRoutesProps> = ({
             </React.Suspense>
           }
         />
-        <Route path={scopedPath('returns')} element={<ReturnsPage />} />
-        <Route path={scopedPath(':pageSlug/*')} element={<DynamicStorefrontPage />} />
+        <Route
+          path={scopedPath('returns')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <ReturnsPage />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path={scopedPath(':pageSlug/*')}
+          element={
+            <React.Suspense fallback={<StorefrontSkeleton />}>
+              <DynamicStorefrontPage />
+            </React.Suspense>
+          }
+        />
       </>
     );
   };

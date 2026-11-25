@@ -187,7 +187,7 @@ export const OptimizedGalleryImage: React.FC<OptimizedGalleryImageProps> = ({
   return (
     <StorefrontProductImage
       candidates={[source]}
-      requestedWidth={mode === 'thumb' ? 160 : mode === 'hero' ? 1280 : 960}
+      requestedWidth={mode === 'thumb' ? 160 : mode === 'hero' ? 720 : 960}
       responsiveWidths={
         mode === 'thumb'
           ? undefined

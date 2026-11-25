@@ -149,24 +149,24 @@ describe('StorefrontShell Modular Component', () => {
     expect(screen.getByText('Try Again')).toBeTruthy();
   });
 
-  it('renders standalone product image landing page on /lp/:id route', () => {
+  it('renders standalone product image landing page on /lp/:id route', async () => {
     renderWithProviders(
       <MemoryRouter initialEntries={['/lp/test-landing-123']}>
         <StorefrontShell />
       </MemoryRouter>
     );
 
-    expect(screen.getByTestId('landing-page-component')).toBeTruthy();
+    expect(await screen.findByTestId('landing-page-component')).toBeTruthy();
   });
 
-  it('renders standalone funnel page on /funnel/:slug route', () => {
+  it('renders standalone funnel page on /funnel/:slug route', async () => {
     renderWithProviders(
       <MemoryRouter initialEntries={['/funnel/summer-sale']}>
         <StorefrontShell />
       </MemoryRouter>
     );
 
-    expect(screen.getByTestId('funnel-page-component')).toBeTruthy();
+    expect(await screen.findByTestId('funnel-page-component')).toBeTruthy();
   });
 
   it('renders standard storefront shell with theme provider and header', () => {

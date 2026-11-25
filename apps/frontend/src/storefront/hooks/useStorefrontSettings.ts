@@ -196,10 +196,11 @@ export const fetchStorefrontSettings = async (
   }
 
   try {
-    const [storefrontRes, publicSettingsRes] = await Promise.all([
-      storefrontFetch('/storefront/settings').catch((err) => ({ success: false, error: err, message: err?.message })),
-      storefrontSettingsService.getPublicSettings().catch(() => null),
-    ]);
+    const storefrontRes = await storefrontFetch('/storefront/settings').catch((err) => ({
+      success: false,
+      error: err,
+      message: err?.message,
+    }));
 
     if (storefrontRes && storefrontRes.success) {
       const data = storefrontRes.data;
@@ -211,6 +212,11 @@ export const fetchStorefrontSettings = async (
           // Ignore storage failures in restricted browser contexts.
         }
       }
+
+      // Only query /storefront-settings/public if /storefront/settings did not include storefrontSettings.
+      const publicSettingsRes = data?.storefrontSettings
+        ? null
+        : await storefrontSettingsService.getPublicSettings().catch(() => null);
 
       // Merge public designTokens (global, pages, pageStyles, i18n, etc.) from public config (HF-1.1)
       if (publicSettingsRes?.success && publicSettingsRes.data?.designTokens) {
@@ -277,8 +283,11 @@ export const fetchStorefrontSettings = async (
       return finalSettings;
     }
 
-    if (publicSettingsRes?.success && publicSettingsRes.data) {
-      const pubData = publicSettingsRes.data;
+    const fallbackPublicRes = await storefrontSettingsService
+      .getPublicSettings()
+      .catch(() => null);
+    if (fallbackPublicRes?.success && fallbackPublicRes.data) {
+      const pubData = fallbackPublicRes.data;
       const fallbackSettings: StorefrontSettings = {
         company: {
           id: pubData.companyId || 'company',

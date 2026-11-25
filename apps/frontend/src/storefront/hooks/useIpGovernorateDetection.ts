@@ -7,9 +7,12 @@ import { detectGovernorateByIp } from "../utils/ipGovernorate";
  * storefront boots. Only fills the field when it is still empty so a value the
  * buyer already chose (or one they start typing) is never overwritten.
  */
-export const useIpGovernorateDetection = (): void => {
+export const useIpGovernorateDetection = (
+  options?: { deferUntilIdle?: boolean },
+): void => {
   // Guard against double-invocation in StrictMode / repeated mounts.
   const ran = useRef(false);
+  const deferUntilIdle = options?.deferUntilIdle === true;
 
   useEffect(() => {
     if (ran.current) return;
@@ -22,8 +25,11 @@ export const useIpGovernorateDetection = (): void => {
     if (formData?.governorate?.trim() && isManuallySelected) return;
 
     let active = true;
+    let idleId: number | null = null;
+    let timerId: number | null = null;
 
     const runDetection = () => {
+      if (!active) return;
       void detectGovernorateByIp().then(({ governorate, city }) => {
         if (!active || !governorate) return;
 
@@ -51,11 +57,29 @@ export const useIpGovernorateDetection = (): void => {
       });
     };
 
-    // Run detection immediately so governorate is pre-selected when user views the checkout form
-    runDetection();
+    if (deferUntilIdle && typeof window !== "undefined") {
+      const idleWindow = window as Window & {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+        cancelIdleCallback?: (id: number) => void;
+      };
+      if (typeof idleWindow.requestIdleCallback === "function") {
+        idleId = idleWindow.requestIdleCallback(runDetection, { timeout: 2500 });
+      } else {
+        timerId = window.setTimeout(runDetection, 1500);
+      }
+    } else {
+      // Run detection immediately so governorate is pre-selected when user views the checkout form
+      runDetection();
+    }
 
     return () => {
       active = false;
+      if (idleId !== null && typeof window !== "undefined") {
+        (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback?.(idleId);
+      }
+      if (timerId !== null && typeof window !== "undefined") {
+        window.clearTimeout(timerId);
+      }
     };
-  }, []);
+  }, [deferUntilIdle]);
 };

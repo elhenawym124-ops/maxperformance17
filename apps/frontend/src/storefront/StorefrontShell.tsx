@@ -2,9 +2,15 @@ import React from 'react';
 import { StorefrontThemeProvider } from './engine/ThemeProvider';
 import { StudioVariablesStyle } from './studio/StudioVariablesStyle';
 import { StorefrontHead } from './engine/StorefrontHead';
-import ProductImageLandingPage from './pages/ProductImageLandingPage';
-import FunnelCodSalesPage from './pages/FunnelCodSalesPage';
+import ProductImageLandingPageFallback from './components/StorefrontSkeleton';
 import StorefrontSkeleton from './components/StorefrontSkeleton';
+
+const ProductImageLandingPage = React.lazy(
+  () => import('./pages/ProductImageLandingPage'),
+);
+const FunnelCodSalesPage = React.lazy(
+  () => import('./pages/FunnelCodSalesPage'),
+);
 import { shouldStorefrontForceDocumentNavigation } from './utils/navigationGuards';
 import {
   resolveStorefrontPageLayout,
@@ -39,11 +45,19 @@ export const StorefrontShell: React.FC<StorefrontShellProps> = (props) => {
   } = useStorefrontShellController(props);
 
   if (isStandaloneProductLanding) {
-    return <ProductImageLandingPage />;
+    return (
+      <React.Suspense fallback={<ProductImageLandingPageFallback />}>
+        <ProductImageLandingPage />
+      </React.Suspense>
+    );
   }
 
   if (isStandaloneFunnel) {
-    return <FunnelCodSalesPage />;
+    return (
+      <React.Suspense fallback={<StorefrontSkeleton />}>
+        <FunnelCodSalesPage />
+      </React.Suspense>
+    );
   }
 
   if (isLoading) {

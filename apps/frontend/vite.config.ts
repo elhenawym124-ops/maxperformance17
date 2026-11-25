@@ -65,7 +65,7 @@ const STOREFRONT_DEFERRED_PRELOAD_CHUNKS = [
 ];
 const STOREFRONT_THEME_PRESET_MODULE_PATTERN = /\/src\/storefront\/themes\//;
 const STOREFRONT_THEME_DEFAULTS_MODULE_PATTERN =
-  /\/src\/storefront\/engine\/themeDefaults\.ts$/;
+  /\/src\/storefront\/(?:engine\/themeDefaults|themes\/(?:themeNormalization|checkoutPageSettings))\.ts$/;
 const STOREFRONT_RUNTIME_THEME_MODULE_PATTERN =
   /\/src\/storefront\/themes\/[^/]+\.json(?:\?url)?$/;
 const APP_UI_PRIMITIVES_MODULE_PATTERN =
@@ -468,35 +468,77 @@ export default defineConfig(({ mode }) => {
           const bundle = ctx.bundle;
           if (!bundle) return html;
           const baseName = (f: string) => f.split('/').pop() || '';
-          const shellFiles: string[] = [];
-          const seen = new Set<string>();
-          const addStaticClosure = (fileName: string) => {
+          const adminFiles: string[] = [];
+          const storefrontFiles: string[] = [];
+          const collectClosure = (
+            fileName: string,
+            out: string[],
+            seen: Set<string>,
+            includeCss = false,
+          ) => {
             if (seen.has(fileName)) return;
             const chunk = bundle[fileName];
             if (!chunk || chunk.type !== 'chunk') return;
             seen.add(fileName);
-            shellFiles.push(fileName);
-            for (const dep of chunk.imports ?? []) addStaticClosure(dep);
+            out.push(fileName);
+            if (includeCss && Array.isArray(chunk.viteMetadata?.importedCss)) {
+              for (const cssFile of chunk.viteMetadata.importedCss) {
+                if (!seen.has(cssFile)) {
+                  seen.add(cssFile);
+                  out.push(cssFile);
+                }
+              }
+            }
+            for (const dep of chunk.imports ?? []) {
+              collectClosure(dep, out, seen, includeCss);
+            }
           };
+
+          const adminSeen = new Set<string>();
+          const storefrontSeen = new Set<string>();
           for (const [fileName, b] of Object.entries(bundle)) {
+            const base = baseName(fileName);
+            if (b.type === 'asset' && /^storefront-[^/]+\.css$/.test(base)) {
+              if (!storefrontSeen.has(fileName)) {
+                storefrontSeen.add(fileName);
+                storefrontFiles.push(fileName);
+              }
+              continue;
+            }
             if (b.type !== 'chunk') continue;
-            // bundle keys carry the 'assets/' prefix — match on basename.
-            if (!/^AdminAppBootstrap(?:-|\.)/.test(baseName(fileName))) continue;
-            addStaticClosure(fileName);
-            for (const dyn of b.dynamicImports ?? []) {
-              // The App chunk hosts the router and mounts on every page.
-              if (/^App(?:-|\.)/.test(baseName(dyn))) addStaticClosure(dyn);
+            if (/^AdminAppBootstrap(?:-|\.)/.test(base)) {
+              collectClosure(fileName, adminFiles, adminSeen);
+              for (const dyn of b.dynamicImports ?? []) {
+                if (/^App(?:-|\.)/.test(baseName(dyn))) {
+                  collectClosure(dyn, adminFiles, adminSeen);
+                }
+              }
+            }
+            if (
+              /^(?:StorefrontBootstrap|storefront-bootstrap|route-storefront)(?:-|\.)/.test(base)
+            ) {
+              collectClosure(fileName, storefrontFiles, storefrontSeen, true);
             }
           }
-          // Defensive: never preload route/storefront chunks at boot.
-          const urls = shellFiles.filter(
-            (f) => !/^(?:route-|storefront-)[^/]*\.js$/.test(f.split('/').pop() || ''),
+
+          const adminUrls = adminFiles.filter(
+            (f) => !/^(?:route-|storefront-)[^/]*\.js$/.test(baseName(f)),
           );
-          if (urls.length === 0) return html;
+          const storefrontUrls = filterStorefrontDeferredPreloads(storefrontFiles).filter(
+            (f) => {
+              const base = baseName(f);
+              if (base.endsWith('.css')) return true;
+              return !/^(?:route-(?!storefront)|storefront-(?:themes|manifest|preview))[^/]*\.js$/.test(base);
+            },
+          );
+
+          if (adminUrls.length === 0 && storefrontUrls.length === 0) return html;
           const preloadCode =
-            '(function(){if(window.__MAXP_IS_STOREFRONT__)return;var h=document.head;[' +
-            urls.map((f) => `'/${f}'`).join(',') +
-            '].forEach(function(u){var l=document.createElement("link");l.rel="modulepreload";l.crossOrigin="";l.href=u;h.appendChild(l);});})();';
+            '(function(){var h=document.head;var u=window.__MAXP_IS_STOREFRONT__?[' +
+            storefrontUrls.map((f) => `'/${f}'`).join(',') +
+            ']:[' +
+            adminUrls.map((f) => `'/${f}'`).join(',') +
+            '];u.forEach(function(x){if(h.querySelector("link[href=\\""+x+"\\"]"))return;var l=document.createElement("link");if(x.slice(-4)===".css"){l.rel="preload";l.as="style";l.href=x;}else{l.rel="modulepreload";l.crossOrigin="";l.href=x;}h.appendChild(l);});})();';
 
           const preloadHash = crypto.createHash('sha256').update(preloadCode).digest('hex').slice(0, 8);
           const preloadFileName = `assets/app-shell-preload-${preloadHash}.js`;
@@ -762,7 +804,8 @@ export default defineConfig(({ mode }) => {
             // visitors included — download the charting library at boot.
             if (
               normalizedId.includes('/src/components/ui/chart.tsx') ||
-              normalizedId.includes('/src/components/ui/DeferredResponsiveContainer.tsx')
+              normalizedId.includes('/src/components/ui/DeferredResponsiveContainer.tsx') ||
+              normalizedId.includes('/src/components/ui/luxury/')
             ) {
               return undefined;
             }
@@ -854,21 +897,70 @@ if (normalizedId.includes('SuperAdminAIKeyManager')) return 'route-ai-key-manage
                 normalizedId.endsWith('/src/storefront/studio/StudioVariablesStyle.tsx') ||
                 normalizedId.endsWith('/src/storefront/studio/StudioIcon.tsx') ||
                 (normalizedId.includes('/src/storefront/studio/utils/') &&
-                  !/\/(?:studioPageTemplates|studioPageExportImport|a11yAudit|seoAudit|linkAudit|performanceScore|studioKeymap|studioPermissions|studioSearchReplace)\.tsx?$/.test(
+                  !/\/(?:studioPageTemplates|studioPageExportImport|studioThemeSerializer|a11yAudit|seoAudit|linkAudit|performanceScore|studioKeymap|studioPermissions|studioSearchReplace)\.tsx?$/.test(
                     normalizedId,
                   ))
               ) {
                 return 'storefront-studio-runtime';
               }
-              // 2026-08 perf patch 3 REVERTED: per-section splitting caused circular
-              // chunk TDZ runtime error ("Cannot access ... before initialization")
-              // and broke storefront rendering. Sections stay in one chunk.
-              if (normalizedId.includes('/src/storefront/sections/')) return 'storefront-sections';
+              // Isolate section manifest metadata so Studio/validation imports
+              // never merge all lazy storefront sections into one giant chunk.
+              if (normalizedId.endsWith('/src/storefront/sections/manifest.ts')) {
+                return 'storefront-manifest';
+              }
+              if (normalizedId.includes('/src/storefront/sections/')) {
+                return undefined;
+              }
+              if (STOREFRONT_THEME_DEFAULTS_MODULE_PATTERN.test(normalizedId)) {
+                return 'storefront-theme-runtime';
+              }
+              if (STOREFRONT_RUNTIME_THEME_MODULE_PATTERN.test(normalizedId)) {
+                return undefined;
+              }
               if (normalizedId.includes('/src/storefront/themes/')) return 'storefront-themes';
               if (normalizedId.includes('/src/storefront/blueprints/')) return 'storefront-blueprints';
-              if (normalizedId.includes('/src/storefront/engine/')) return 'storefront-engine';
-              if (normalizedId.includes('/src/storefront/components/')) return 'storefront-components';
+              // Keep themeResolver.ts and themeValidation.ts (admin/studio/compiler only)
+              // out of storefront-engine and route-storefront so public storefronts never pull storefront-themes.
+              if (
+                normalizedId.endsWith('/src/storefront/engine/themeResolver.ts') ||
+                normalizedId.endsWith('/src/storefront/engine/themeValidation.ts')
+              ) {
+                return undefined;
+              }
+              if (normalizedId.includes('/src/storefront/engine/')) {
+                return 'storefront-engine';
+              }
+              if (
+                /\/src\/storefront\/components\/(?:CartDrawer|CartUpsellHost|GlobalConversionHost|StickyAddToCartHost|QuickViewModal|WriteReviewDialog|PostPurchaseUpsellBlock|StorefrontPreviewBanner)(?:\.tsx?)?$|\/src\/storefront\/components\/preview\//.test(
+                  normalizedId,
+                )
+              ) {
+                return undefined;
+              }
+              if (normalizedId.includes('/src/storefront/components/')) {
+                return 'storefront-components';
+              }
               if (normalizedId.includes('/src/storefront/studio/')) return 'route-storefront-studio';
+              // Keep heavy marketplace preview sample datasets lazy and isolated from route-storefront.
+              if (
+                normalizedId.includes('/src/storefront/preview/') &&
+                !normalizedId.endsWith('/src/storefront/preview/previewContext.ts') &&
+                !normalizedId.endsWith('/src/storefront/preview/themePreviewData.ts')
+              ) {
+                return 'storefront-preview';
+              }
+              if (normalizedId.endsWith('/src/storefront/StorefrontBootstrap.tsx')) {
+                return 'storefront-bootstrap';
+              }
+              // Keep standalone/secondary storefront pages lazy-loaded in their own chunks.
+              if (
+                normalizedId.includes('/src/storefront/pages/') &&
+                /(?:ProductImageLandingPage|FunnelCodSalesPage|PostPurchaseOfferPage|DynamicStorefrontPage|CollectionCategoryPage|ReturnsPage|StorefrontArticlePage)\.tsx?$/.test(
+                  normalizedId,
+                )
+              ) {
+                return undefined;
+              }
               if (normalizedId.includes('/src/storefront/')) return 'route-storefront';
               if (normalizedId.includes('/src/pages/profile/')) return 'route-profile';
               if (normalizedId.includes('/src/pages/dashboard/')) return 'route-dashboard';

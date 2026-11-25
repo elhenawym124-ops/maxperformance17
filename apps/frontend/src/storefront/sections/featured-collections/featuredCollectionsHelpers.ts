@@ -35,7 +35,7 @@ export const prepareCollectionCardImage = (imageUrl: string): string =>
   buildOptimizedStorefrontImageUrl(
     buildVersionedStorefrontStaticAssetUrl(imageUrl),
     {
-      width: 900,
+      width: 400,
       quality: 72,
     },
   );

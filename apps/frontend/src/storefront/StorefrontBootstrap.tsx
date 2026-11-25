@@ -453,8 +453,8 @@ const DeferredStorefrontToaster: React.FC = () => {
 };
 
 const StorefrontBootstrap: React.FC = () => {
-  // Pre-select the visitor's governorate from their IP on first entry.
-  useIpGovernorateDetection();
+  // Defer IP governorate pre-detection until idle so boot doesn't compete with critical requests.
+  useIpGovernorateDetection({ deferUntilIdle: true });
 
   // Real-user performance monitoring (LCP/CLS/INP/TTFB) — storefront only.
   React.useEffect(() => {

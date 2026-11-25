@@ -3,6 +3,7 @@ import type { StorefrontTheme } from '../types/theme.types';
 import StorefrontSkeleton from '../components/StorefrontSkeleton';
 import {
   extractStorefrontThemePresetId,
+  getCachedRuntimeStorefrontTheme,
   resolveRuntimeStorefrontTheme,
   type StorefrontThemeInput,
 } from './runtimeThemeResolver';
@@ -249,9 +250,11 @@ export const StorefrontThemeProvider: React.FC<{
       window.removeEventListener('popstate', handleLocationChange);
     };
   }, [propActivePageKey]);
-  const [theme, setTheme] = useState<StorefrontTheme | null>(() =>
-    blockUntilResolved ? null : createStorefrontThemeFallback(initialTheme),
-  );
+  const [theme, setTheme] = useState<StorefrontTheme | null>(() => {
+    const syncCached = getCachedRuntimeStorefrontTheme(initialTheme);
+    if (syncCached) return syncCached;
+    return blockUntilResolved ? null : createStorefrontThemeFallback(initialTheme);
+  });
 
   const [activeLocale, setActiveLocale] = useState<StorefrontLocale>(() =>
     typeof window !== 'undefined'
@@ -289,6 +292,14 @@ export const StorefrontThemeProvider: React.FC<{
 
   useEffect(() => {
     let isActive = true;
+
+    const syncCached = getCachedRuntimeStorefrontTheme(initialTheme);
+    if (syncCached) {
+      setTheme(syncCached);
+      return () => {
+        isActive = false;
+      };
+    }
 
     if (blockUntilResolved) {
       setTheme(null);
