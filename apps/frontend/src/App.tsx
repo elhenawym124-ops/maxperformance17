@@ -219,6 +219,27 @@ const AmazonAffiliateImport = React.lazy(
 const AmazonAffiliateProducts = React.lazy(
   () => import("./pages/amazon-affiliate/AmazonProducts"),
 );
+const MarketplaceHubHome = React.lazy(
+  () => import("./pages/marketplace-hub/MarketplaceHubHome"),
+);
+const MarketplaceCalculatorPage = React.lazy(
+  () => import("./pages/marketplace-hub/MarketplaceCalculatorPage"),
+);
+const QrBarcodePage = React.lazy(
+  () => import("./pages/marketplace-hub/QrBarcodePage"),
+);
+const SellingOpportunitiesPage = React.lazy(
+  () => import("./pages/marketplace-hub/SellingOpportunitiesPage"),
+);
+const MarketplaceStudioPage = React.lazy(
+  () => import("./pages/marketplace-hub/MarketplaceStudioPage"),
+);
+const MarketplaceMarketOpsPage = React.lazy(
+  () => import("./pages/marketplace-hub/MarketplaceMarketOpsPage"),
+);
+const MarketplaceChannelsPage = React.lazy(
+  () => import("./pages/marketplace-hub/MarketplaceChannelsPage"),
+);
 const AffiliatesManagement = React.lazy(
   () => import("./pages/affiliates/AffiliatesManagement"),
 );
@@ -5428,6 +5449,63 @@ const AppContent = () => {
                       <AppAccessRoute requiredAppSlugs={['amazon-affiliate-pro']}>
                         <AmazonAffiliateProducts />
                       </AppAccessRoute>
+                    </Layout>
+                  }
+                />
+                {/* Marketplace Hub Routes (Phase 1) */}
+                <Route
+                  path="/marketplace-hub"
+                  element={
+                    <Layout>
+                      <MarketplaceHubHome />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/marketplace-hub/calculator"
+                  element={
+                    <Layout>
+                      <MarketplaceCalculatorPage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/marketplace-hub/qr-barcode"
+                  element={
+                    <Layout>
+                      <QrBarcodePage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/marketplace-hub/opportunities"
+                  element={
+                    <Layout>
+                      <SellingOpportunitiesPage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/marketplace-hub/studio"
+                  element={
+                    <Layout>
+                      <MarketplaceStudioPage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/marketplace-hub/market-ops"
+                  element={
+                    <Layout>
+                      <MarketplaceMarketOpsPage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/marketplace-hub/channels"
+                  element={
+                    <Layout>
+                      <MarketplaceChannelsPage />
                     </Layout>
                   }
                 />

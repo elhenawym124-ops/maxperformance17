@@ -1,0 +1,63 @@
+model MarketplaceCreditWallet {
+  id               String                         @id @default(cuid())
+  companyId        String                         @unique
+  balance          Int                            @default(30)
+  monthlyAllowance Int                            @default(30)
+  planTier         String                         @default("FREE_TRIAL")
+  trialEndsAt      DateTime?
+  createdAt        DateTime                       @default(now())
+  updatedAt        DateTime                       @updatedAt
+  transactions     MarketplaceCreditTransaction[]
+
+  @@map("marketplace_credit_wallets")
+}
+
+model MarketplaceCreditTransaction {
+  id           String                  @id @default(cuid())
+  walletId     String
+  companyId    String
+  tool         String
+  creditsDelta Int
+  balanceAfter Int
+  description  String?
+  createdAt    DateTime                @default(now())
+  wallet       MarketplaceCreditWallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, createdAt])
+  @@map("marketplace_credit_transactions")
+}
+
+model MarketplaceStudioDraft {
+  id                      String   @id @default(cuid())
+  companyId               String
+  workflow                String   @default("AI_COMPLETE")
+  title                   String
+  sourceImageUrl          String?
+  generatedImagesJson     String?
+  seoContentJson          String?
+  marketplacePayloadsJson String?
+  status                  String   @default("DRAFT")
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@index([companyId, createdAt])
+  @@map("marketplace_studio_drafts")
+}
+
+model MarketplaceChannelConnection {
+  id              String    @id @default(cuid())
+  companyId       String
+  platform        String
+  country         String
+  storeName       String?
+  status          String    @default("DISCONNECTED")
+  authMode        String    @default("OAUTH")
+  encryptedConfig String?
+  lastSyncAt      DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([companyId, platform, country])
+  @@index([companyId])
+  @@map("marketplace_channel_connections")
+}

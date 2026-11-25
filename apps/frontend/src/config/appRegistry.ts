@@ -766,6 +766,19 @@ export const APP_REGISTRY: AppDefinition[] = [
     displayDescription: 'إدارة أسطول مناديب التوصيل الداخلي، رحلات التوزيع، مانيفست التسليم، ومتابعة التحصيل والتسوية مع الخزينة',
     route: '/shipping/couriers',
   },
+  {
+    id: 'marketplace-hub',
+    nameKey: 'sidebar.marketplaceHubSection',
+    descriptionKey: 'appDashboard.app.marketplaceHub.description',
+    icon: ShoppingBagIcon,
+    color: 'emerald',
+    bgGradient: 'from-emerald-600 to-teal-700',
+    sectionIds: ['marketplace-hub'],
+    category: 'sales',
+    displayName: 'مركز منصات البيع والأدوات',
+    displayDescription: 'حاسبة أرباح أمازون ونون وجوميا وترينديول، مولد QR والباركود، ودليل فرص البيع',
+    route: '/marketplace-hub',
+  },
 ];
 
 export const getAppById = (id: string): AppDefinition | undefined => {

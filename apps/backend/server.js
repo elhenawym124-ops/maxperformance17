@@ -2195,6 +2195,9 @@ app.use("/api/v1/youtube/publish", require("./routes/youtubePublishRoutes"));
 // Amazon Affiliate (Amazon Associates product import / buy-on-Amazon)
 app.use("/api/v1/amazon-affiliate", require("./routes/amazonAffiliateRoutes"));
 
+// Marketplace Hub (Multi-marketplace calculator, QR/Barcode, Bestsellers, future AI & SP-API)
+app.use("/api/v1/marketplace-hub", require("./routes/marketplaceHubRoutes"));
+
 // 404 Handler - Must return JSON, not HTML
 app.use((req, res, next) => {
   res.status(404).json({

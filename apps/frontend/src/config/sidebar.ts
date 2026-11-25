@@ -145,6 +145,7 @@ const DOMAIN_PERMISSIONS: Record<string, string[]> = {
     'wholesale': ['wholesale.view', 'wholesale.manage'],
     'affiliate': ['marketing.campaigns', 'marketing.coupons'],
     'amazon-affiliate': ['marketing.campaigns'],
+    'marketplace-hub': ['products.view', 'dashboard.view'],
     'platform-partner': ['marketing.campaigns'],
     'inventory': ['inventory.view', 'inventory.manage'],
     'marketing-agency': ['dashboard.view', 'settings.view', 'marketing.campaigns'],
@@ -1509,6 +1510,23 @@ export const getSidebarConfig = (
                 { to: '/amazon-affiliate/settings', icon: Cog, label: t('sidebar.amazonAffiliateSettings') },
                 { to: '/amazon-affiliate/import', icon: Download, label: t('sidebar.amazonAffiliateImport') },
                 { to: '/amazon-affiliate/products', icon: Package, label: t('sidebar.amazonAffiliateProducts') },
+            ]
+        },
+
+        // 4️⃣.6.5 مركز منصات البيع والأدوات (Marketplace Hub)
+        {
+            id: 'marketplace-hub',
+            title: t('sidebar.marketplaceHubSection', 'منصات البيع والأدوات'),
+            icon: Store,
+            hidden: false,
+            items: [
+                { to: '/marketplace-hub', icon: LayoutDashboard, label: t('sidebar.marketplaceHubHome', 'نظرة عامة') },
+                { to: '/marketplace-hub/calculator', icon: Calculator, label: t('sidebar.marketplaceHubCalculator', 'حاسبة أرباح المنصات') },
+                { to: '/marketplace-hub/studio', icon: Sparkles, label: t('sidebar.marketplaceHubStudio', 'استوديو الصور والمحتوى AI') },
+                { to: '/marketplace-hub/qr-barcode', icon: ScanLine, label: t('sidebar.marketplaceHubQrBarcode', 'مولد QR والباركود') },
+                { to: '/marketplace-hub/opportunities', icon: TrendingUp, label: t('sidebar.marketplaceHubOpportunities', 'دليل فرص البيع') },
+                { to: '/marketplace-hub/market-ops', icon: Building2, label: t('sidebar.marketplaceHubMarketOps', 'الاستيراد والموردين') },
+                { to: '/marketplace-hub/channels', icon: PlugZap, label: t('sidebar.marketplaceHubChannels', 'ربط المنصات والكريدت') },
             ]
         },
 
