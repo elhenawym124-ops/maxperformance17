@@ -37,6 +37,10 @@ const mockPrisma = {
   orderStatusConfig: {
     findFirst: jest.fn(),
   },
+  company: {
+    findUnique: jest.fn(),
+  },
+  $queryRawUnsafe: jest.fn(),
 };
 
 jest.mock("../../utils/verifyToken", () => ({
@@ -187,6 +191,46 @@ describe("GET /api/v1/order-status-rules (read-only, no requireRole)", () => {
       where: { companyId: "company-1" },
       orderBy: { createdAt: "desc" },
     });
+  });
+
+  test("GET /reports returns automation performance metrics and logs", async () => {
+    mockCurrentUser.role = "AGENT";
+    mockPrisma.company.findUnique.mockResolvedValue({
+      settings: JSON.stringify({ printAutomationEnabled: true, printAutomationStatus: "PROCESSING" }),
+    });
+    mockPrisma.orderStatusAutoChangeRule.findMany.mockResolvedValue([
+      { id: "rule-1", fromStatus: "PENDING", toStatus: "CONFIRMED", waitTime: 30, timeUnit: "Minutes", isActive: true },
+    ]);
+    mockPrisma.$queryRawUnsafe
+      .mockResolvedValueOnce([{ totalTransitions: 10, autoTransitions: 6 }]) // totals
+      .mockResolvedValueOnce([ // autoRows
+        {
+          id: "log-1",
+          orderId: "order-1",
+          orderNumber: "ORD-101",
+          customerName: "Ahmed",
+          customerPhone: "01000000000",
+          total: 500,
+          currentOrderStatus: "CONFIRMED",
+          oldStatus: "PENDING",
+          newStatus: "CONFIRMED",
+          changedBy: "SYSTEM_AUTO",
+          userName: "System Automation",
+          reason: "Auto-changed by rule: after 30 Minutes",
+          createdAt: new Date().toISOString(),
+        },
+      ])
+      .mockResolvedValueOnce([{ count: 2 }]); // pending count
+
+    const res = await request(app).get("/api/v1/order-status-rules/reports");
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.kpis.totalTransitions).toBe(6);
+    expect(res.body.data.kpis.autoRate).toBe(60);
+    expect(res.body.data.rulesPerformance.length).toBe(1);
+    expect(res.body.data.rulesPerformance[0].executionsCount).toBe(1);
+    expect(res.body.data.eventsSummary.print.enabled).toBe(true);
   });
 });
 

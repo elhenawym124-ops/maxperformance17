@@ -19,6 +19,9 @@ router.use(verifyToken.authenticateToken);
 router.use(checkAppAccess("order-core"));
 
 // CRUD operations
+// GET /reports: تقارير أداء ومؤشرات الأتمتة
+router.get("/reports", orderStatusRuleController.getAutomationReports);
+
 // GET: أي user معاه app access يقدر يشوف الـ rules
 router.get("/", orderStatusRuleController.getRules);
 

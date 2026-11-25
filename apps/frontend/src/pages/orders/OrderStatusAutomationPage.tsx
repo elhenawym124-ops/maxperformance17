@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { apiClient } from "../../services/apiClient";
-import { Zap } from "lucide-react";
+import { Zap, BarChart3 } from "lucide-react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import {
@@ -196,18 +197,28 @@ export default function OrderStatusAutomationPage() {
   return (
     <div className="flex flex-col p-4 sm:p-6 max-w-6xl mx-auto w-full space-y-5" dir="rtl">
       {/* Top Header */}
-      <div className="flex items-center gap-3 border-b border-border/70 pb-4">
-        <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0">
-          <Zap className="w-5 h-5" />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-border/70 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0">
+            <Zap className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-xl font-black text-foreground">
+              {t("orders.automationTitle") || "أتمتة حالات الطلبات"}
+            </h1>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {t("orders.automationSubtitle") || "قواعد ذكية لتغيير حالات الطلبات تلقائياً وفق جدول زمني وأحداث التشغيل"}
+            </p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-xl font-black text-foreground">
-            {t("orders.automationTitle") || "أتمتة حالات الطلبات"}
-          </h1>
-          <p className="text-xs text-muted-foreground mt-0.5">
-            {t("orders.automationSubtitle") || "قواعد ذكية لتغيير حالات الطلبات تلقائياً وفق جدول زمني وأحداث التشغيل"}
-          </p>
-        </div>
+
+        <Link
+          to="/orders/automation/reports"
+          className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-lg border border-border/70 bg-card px-3 py-2 text-xs font-semibold text-foreground transition-all hover:bg-muted active:scale-95 shadow-2xs"
+        >
+          <BarChart3 className="h-4 w-4 text-primary" />
+          <span>{t("orders.automationReportsTitle", "تقارير الأتمتة")}</span>
+        </Link>
       </div>
 
       {/* Event-Based Automation Section */}

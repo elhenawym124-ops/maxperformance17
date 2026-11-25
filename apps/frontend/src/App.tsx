@@ -323,6 +323,10 @@ const OrderStatusAutomationPage = React.lazy(
   () => import("./pages/orders/OrderStatusAutomationPage"),
 );
 
+const OrderAutomationReportsPage = React.lazy(
+  () => import("./pages/orders/reports/automation/OrderAutomationReportsPage"),
+);
+
 const OrderStatusTemplatesPage = React.lazy(
   () => import("./pages/orders/OrderStatusTemplatesPage"),
 );
@@ -5675,6 +5679,16 @@ const AppContent = () => {
                     <Layout>
                       <AppAccessRoute requiredAppSlugs={['order-automation']}>
                         <OrderStatusAutomationPage />
+                      </AppAccessRoute>
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/orders/automation/reports"
+                  element={
+                    <Layout>
+                      <AppAccessRoute requiredAppSlugs={['order-automation']}>
+                        <OrderAutomationReportsPage />
                       </AppAccessRoute>
                     </Layout>
                   }
