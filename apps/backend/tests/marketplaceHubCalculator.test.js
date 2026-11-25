@@ -124,6 +124,11 @@ async function runTests() {
   assert.ok(searchUrls.noon.includes('noon.com/egypt-en'));
   assert.ok(searchUrls.jumia.includes('jumia.com.eg'));
 
+  const catalogRows = await opsService.listCompanyCatalogProducts('test-co-1', '', null);
+  assert.ok(Array.isArray(catalogRows));
+  const pushPreview = await opsService.pushCsvRowsToMaxpCatalog('test-co-1', [{ sku: 'S1', title: 'Lamp', price: 100, stock: 5 }], null);
+  assert.strictEqual(pushPreview.mode, 'preview_only');
+
   try {
     const qrPng = await generateQrCode({ content: 'https://maxp.online', size: 240, format: 'png' });
     assert.strictEqual(qrPng.mimeType, 'image/png');

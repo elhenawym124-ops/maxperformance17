@@ -4,6 +4,7 @@ import JsBarcode from 'jsbarcode';
 import { toast } from 'sonner';
 import { Copy, Download, QrCode, Barcode as BarcodeIcon } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
+import { CompanyCatalogProduct, marketplaceHubService } from '../../services/marketplaceHubService';
 import {
   BARCODE_STANDARDS,
   BarcodeStandard,
@@ -32,7 +33,16 @@ export const QrBarcodePage: React.FC = () => {
   const [moduleHeight, setModuleHeight] = useState<number>(72);
   const [fontSize, setFontSize] = useState<number>(14);
   const [barcodeError, setBarcodeError] = useState<string | null>(null);
+  const [catalogProducts, setCatalogProducts] = useState<CompanyCatalogProduct[]>([]);
   const barcodeCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (mode !== 'barcode' || catalogProducts.length > 0) return;
+    marketplaceHubService
+      .getCompanyCatalog()
+      .then(setCatalogProducts)
+      .catch(() => {});
+  }, [mode, catalogProducts.length]);
 
   useEffect(() => {
     if (mode !== 'barcode' || !barcodeCanvasRef.current) return;
@@ -255,6 +265,27 @@ export const QrBarcodePage: React.FC = () => {
             </>
           ) : (
             <>
+              {catalogProducts.length > 0 && (
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-muted-foreground">اختيار منتج من مخزون MaxP</label>
+                  <select
+                    defaultValue=""
+                    onChange={(e) => {
+                      const prod = catalogProducts.find((p) => p.id === e.target.value);
+                      if (prod) setBarcodeValue(prod.barcode || prod.sku || prod.id);
+                    }}
+                    className="w-full rounded-md border border-border/70 bg-card px-3 py-2 text-xs"
+                  >
+                    <option value="">-- اختر منتجاً لتوليد باركوده --</option>
+                    {catalogProducts.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.name} ({p.barcode || p.sku || p.id})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
                   <label className="mb-1 block text-xs font-medium text-muted-foreground">قيمة الباركود (SKU / EAN)</label>

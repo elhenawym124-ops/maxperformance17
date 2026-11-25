@@ -4,6 +4,7 @@ import { Calculator, RefreshCw } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
 import {
   CalculateProfitPayload,
+  CompanyCatalogProduct,
   CountryCode,
   MarketplaceHubMetadata,
   MarketplacePlatform,
@@ -54,12 +55,17 @@ export const MarketplaceCalculatorPage: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [result, setResult] = useState<ProfitCalculationResult | null>(null);
+  const [catalogProducts, setCatalogProducts] = useState<CompanyCatalogProduct[]>([]);
 
   useEffect(() => {
     marketplaceHubService
       .getMetadata()
       .then((data) => setMetadata(data))
       .catch(() => toast.error('تعذر تحميل بيانات المنصات'));
+    marketplaceHubService
+      .getCompanyCatalog()
+      .then(setCatalogProducts)
+      .catch(() => {});
   }, []);
 
   const handlePlatformChange = (next: MarketplacePlatform) => {
@@ -153,6 +159,32 @@ export const MarketplaceCalculatorPage: React.FC = () => {
           onSubmit={handleCalculate}
           className="space-y-4 border-t border-border/70 pt-4 lg:col-span-7 lg:rounded-md lg:border lg:bg-background lg:p-5"
         >
+          {catalogProducts.length > 0 && (
+            <div>
+              <label className="mb-1 block text-xs font-medium text-muted-foreground">جلب تكلفة ووزن من كتالوج MaxP</label>
+              <select
+                defaultValue=""
+                onChange={(e) => {
+                  const prod = catalogProducts.find((p) => p.id === e.target.value);
+                  if (!prod) return;
+                  setProductCost(prod.cost ?? prod.price);
+                  if (prod.weight && prod.weight > 0) {
+                    setWeightKg(prod.weight);
+                    setWeightGrams(Math.round(prod.weight * 1000));
+                  }
+                }}
+                className="w-full rounded-md border border-border/70 bg-card px-3 py-2 text-xs text-foreground"
+              >
+                <option value="">-- حساب يدوي أو اختر منتجاً --</option>
+                {catalogProducts.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name} ({p.cost ?? p.price})
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-medium text-muted-foreground">الدولة</label>

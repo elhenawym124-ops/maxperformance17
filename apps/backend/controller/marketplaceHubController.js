@@ -248,3 +248,36 @@ exports.exchangeAmazonOAuth = async (req, res) => {
     return handleError(res, error, 'Failed to complete Amazon OAuth');
   }
 };
+
+exports.getCompanyCatalog = async (req, res) => {
+  try {
+    const data = await marketplaceHubOpsService.listCompanyCatalogProducts(
+      getCompanyId(req),
+      req.query?.search || ''
+    );
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load company catalog');
+  }
+};
+
+exports.pushToCompanyCatalog = async (req, res) => {
+  try {
+    const data = await marketplaceHubOpsService.pushCsvRowsToMaxpCatalog(
+      getCompanyId(req),
+      req.body?.rows || []
+    );
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to push products to MaxP catalog');
+  }
+};
+
+exports.lookupAmazonCatalog = async (req, res) => {
+  try {
+    const data = await marketplaceHubOpsService.lookupAmazonCatalog(req.body || {});
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to lookup Amazon catalog');
+  }
+};

@@ -462,6 +462,151 @@ async function exchangeAmazonOAuthCode({ companyId, code, sellingPartnerId, coun
   }, prisma);
 }
 
+async function listCompanyCatalogProducts(companyId, search = '', prisma = safeGetPrisma()) {
+  const key = String(companyId || '');
+  if (!key || !prisma?.product?.findMany) {
+    return [];
+  }
+  const q = String(search || '').trim();
+  const rows = await prisma.product.findMany({
+    where: {
+      companyId: key,
+      deletedAt: null,
+      ...(q
+        ? {
+            OR: [
+              { name: { contains: q, mode: 'insensitive' } },
+              { sku: { contains: q, mode: 'insensitive' } },
+              { barcode: { contains: q, mode: 'insensitive' } },
+            ],
+          }
+        : {}),
+    },
+    select: {
+      id: true,
+      name: true,
+      sku: true,
+      barcode: true,
+      price: true,
+      cost: true,
+      stock: true,
+      weight: true,
+    },
+    orderBy: { updatedAt: 'desc' },
+    take: 50,
+  });
+  return rows.map((p) => ({
+    ...p,
+    price: Number(p.price || 0),
+    cost: p.cost !== null && p.cost !== undefined ? Number(p.cost) : null,
+    weight: p.weight !== null && p.weight !== undefined ? Number(p.weight) : null,
+  }));
+}
+
+async function pushCsvRowsToMaxpCatalog(companyId, rows = [], prisma = safeGetPrisma()) {
+  const key = String(companyId || '');
+  const list = Array.isArray(rows) ? rows : [];
+  if (list.length === 0) {
+    const err = new Error('لا توجد صفوف صالحة لإضافتها للكتالوج');
+    err.statusCode = 400;
+    throw err;
+  }
+
+  if (!key || !prisma?.product?.findFirst || !prisma?.product?.create) {
+    return { created: 0, updated: 0, skipped: list.length, mode: 'preview_only' };
+  }
+
+  let created = 0;
+  let updated = 0;
+  for (const item of list.slice(0, 100)) {
+    const sku = String(item.sku || '').trim();
+    const title = String(item.title || '').trim();
+    if (!title) continue;
+
+    const price = Math.max(0, Number(item.price || 0));
+    const stock = Math.max(0, Math.floor(Number(item.stock || 0)));
+
+    const existing = sku
+      ? await prisma.product.findFirst({ where: { companyId: key, sku, deletedAt: null }, select: { id: true } })
+      : null;
+
+    if (existing) {
+      await prisma.product.update({
+        where: { id: existing.id },
+        data: { name: title, price, stock },
+      });
+      updated += 1;
+    } else {
+      await prisma.product.create({
+        data: {
+          companyId: key,
+          name: title,
+          sku: sku || null,
+          barcode: sku || null,
+          price,
+          stock,
+          source: 'marketplace-hub-csv',
+          isActive: true,
+        },
+      });
+      created += 1;
+    }
+  }
+  return { created, updated, skipped: 0, mode: 'database' };
+}
+
+async function lookupAmazonCatalog({ clientId, clientSecret, refreshToken, region = 'na', mode = 'sandbox', keywords = '', asin = '' }) {
+  const cleanId = String(clientId || '').trim();
+  const cleanSecret = String(clientSecret || '').trim();
+  const cleanToken = String(refreshToken || '').trim();
+  if (!cleanId || !cleanSecret || !cleanToken) {
+    const err = new Error('بيانات SP-API مطلوبة للبحث في كتالوج أمازون');
+    err.statusCode = 400;
+    throw err;
+  }
+  const normalizedRegion = ['na', 'eu', 'fe'].includes(String(region).toLowerCase()) ? String(region).toLowerCase() : 'na';
+  const marketplaceByRegion = { na: 'ATVPDKIKX0DER', eu: 'ARBP9OOSHTCHU', fe: 'A1VC38T7YXB528' };
+  const marketplaceId = marketplaceByRegion[normalizedRegion];
+
+  const tokenParams = new URLSearchParams({
+    grant_type: 'refresh_token',
+    refresh_token: cleanToken,
+    client_id: cleanId,
+    client_secret: cleanSecret,
+  });
+  const lwaRes = await fetch('https://api.amazon.com/auth/o2/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    body: tokenParams.toString(),
+  });
+  const lwaJson = await lwaRes.json();
+  if (!lwaRes.ok || !lwaJson.access_token) {
+    const err = new Error(`فشل مصادقة Amazon LWA: ${lwaJson.error_description || lwaJson.error || lwaRes.status}`);
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const hostPrefix = mode === 'production' ? 'sellingpartnerapi' : 'sandbox.sellingpartnerapi';
+  const query = new URLSearchParams({ marketplaceIds: marketplaceId });
+  if (asin) query.set('identifiers', String(asin).trim()), query.set('identifiersType', 'ASIN');
+  else query.set('keywords', String(keywords || 'headphones').trim());
+
+  const spRes = await fetch(`https://${hostPrefix}-${normalizedRegion}.amazon.com/catalog/2022-04-01/items?${query.toString()}`, {
+    method: 'GET',
+    headers: { 'x-amz-access-token': lwaJson.access_token, Accept: 'application/json' },
+  });
+  const spJson = await spRes.json();
+  if (!spRes.ok) {
+    const err = new Error(spJson?.errors?.[0]?.message || `SP-API Catalog HTTP ${spRes.status}`);
+    err.statusCode = 400;
+    throw err;
+  }
+  return {
+    marketplaceId,
+    items: spJson?.items || [],
+  };
+}
+
 module.exports = {
   getVendors,
   parseMarketplaceCsv,
@@ -473,4 +618,7 @@ module.exports = {
   testAmazonSandbox,
   getChannelAnalytics,
   aggregateOrdersToAnalytics,
+  listCompanyCatalogProducts,
+  pushCsvRowsToMaxpCatalog,
+  lookupAmazonCatalog,
 };

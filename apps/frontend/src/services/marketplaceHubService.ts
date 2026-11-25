@@ -211,6 +211,17 @@ export interface PriceCompareEntry {
   createdAt: string;
 }
 
+export interface CompanyCatalogProduct {
+  id: string;
+  name: string;
+  sku: string | null;
+  barcode: string | null;
+  price: number;
+  cost: number | null;
+  stock: number;
+  weight: number | null;
+}
+
 export const marketplaceHubService = {
   async getMetadata(): Promise<MarketplaceHubMetadata> {
     const res = await apiClient.get<{ data: MarketplaceHubMetadata }>('/marketplace-hub/metadata');
@@ -404,6 +415,21 @@ export const marketplaceHubService = {
 
   async exchangeAmazonOAuth(payload: { code: string; sellingPartnerId?: string; country: CountryCode }) {
     const res = await apiClient.post<{ data: ChannelConnection }>('/marketplace-hub/connections/amazon-oauth-exchange', payload);
+    return res.data.data;
+  },
+
+  async getCompanyCatalog(search = ''): Promise<CompanyCatalogProduct[]> {
+    const res = await apiClient.get<{ data: CompanyCatalogProduct[] }>('/marketplace-hub/catalog/products', {
+      params: { search },
+    });
+    return res.data.data;
+  },
+
+  async pushCsvToCompanyCatalog(rows: Array<{ sku: string; title: string; price: number; stock: number }>) {
+    const res = await apiClient.post<{ data: { created: number; updated: number; skipped: number; mode: string } }>(
+      '/marketplace-hub/catalog/push-products',
+      { rows },
+    );
     return res.data.data;
   },
 };

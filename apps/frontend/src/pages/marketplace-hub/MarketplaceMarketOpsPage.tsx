@@ -70,6 +70,20 @@ export const MarketplaceMarketOpsPage: React.FC = () => {
     }
   };
 
+  const handlePushCsvToCatalog = async () => {
+    if (!csvResult?.previewRows.length) return;
+    try {
+      const res = await marketplaceHubService.pushCsvToCompanyCatalog(csvResult.previewRows);
+      if (res.mode === 'preview_only') {
+        toast.info('تم فحص الصفوف (قاعدة البيانات غير مفعلة محلياً)');
+      } else {
+        toast.success(`تم الحفظ في كتالوج MaxP (جديد: ${res.created}، محدّث: ${res.updated})`);
+      }
+    } catch {
+      toast.error('تعذر دفع المنتجات للكتالوج');
+    }
+  };
+
   const toggleBekamPlatform = (p: MarketplacePlatform) => {
     setBekamPlatforms((prev) => (prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p]));
   };
@@ -166,14 +180,25 @@ export const MarketplaceMarketOpsPage: React.FC = () => {
             className="w-full rounded-md border border-border/70 bg-background p-3 font-mono text-xs text-foreground"
           />
 
-          <button
-            type="button"
-            onClick={() => void handleParseCsv()}
-            className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
-          >
-            <Upload className="h-3.5 w-3.5" />
-            <span>تحليل ومعاينة الصفوف</span>
-          </button>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => void handleParseCsv()}
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
+            >
+              <Upload className="h-3.5 w-3.5" />
+              <span>تحليل ومعاينة الصفوف</span>
+            </button>
+            {csvResult && csvResult.previewRows.length > 0 && (
+              <button
+                type="button"
+                onClick={() => void handlePushCsvToCatalog()}
+                className="inline-flex items-center gap-2 rounded-md border border-border/70 bg-card px-4 py-2 text-xs font-semibold hover:border-primary/60"
+              >
+                <span>دفع المنتجات لكتالوج MaxP</span>
+              </button>
+            )}
+          </div>
 
           {csvResult && (
             <div className="overflow-x-auto border-t border-border/70 sm:rounded-md sm:border">

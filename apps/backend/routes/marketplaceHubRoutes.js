@@ -35,5 +35,8 @@ router.post('/connections/test-amazon-sandbox', controller.testAmazonSandbox);
 router.delete('/connections/:platform/:country', controller.deleteConnection);
 router.get('/dashboard/analytics', controller.getDashboardAnalytics);
 router.post('/dashboard/analytics', controller.getDashboardAnalytics);
+router.get('/catalog/products', controller.getCompanyCatalog);
+router.post('/catalog/push-products', controller.pushToCompanyCatalog);
+router.post('/catalog/amazon-lookup', controller.lookupAmazonCatalog);
 
 module.exports = router;
