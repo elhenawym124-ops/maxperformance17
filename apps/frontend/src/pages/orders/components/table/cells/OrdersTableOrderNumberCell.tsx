@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { DocumentDuplicateIcon, GiftIcon } from "@heroicons/react/24/outline";
 import { summarizeOrderDocumentItems } from "../../../../../utils/orderDocumentQuantityOffers";
 import { hasPostPurchaseOffer } from "../../../../../utils/postPurchaseOfferBadge";
 import type { Order } from "../../../Orders";
@@ -31,7 +30,7 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
   return (
     <td className={cellPadding}>
       <div className="flex flex-col gap-0.5">
-        <div className="flex flex-wrap items-center gap-1.5 min-w-0 max-w-[300px] whitespace-nowrap">
+        <div className="flex flex-wrap items-center gap-1 min-w-0 max-w-[190px] whitespace-nowrap">
           <span
             dir="ltr"
             className="inline-block whitespace-nowrap font-mono text-xs sm:text-[13px] font-bold tabular-nums text-foreground tracking-tight"
@@ -89,7 +88,7 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
         </div>
         {orderItemsSummary.hasQuantityOffers && (
           <div
-            className="max-w-[220px] truncate text-[11px] text-muted-foreground"
+            className="max-w-[175px] truncate text-[11px] text-muted-foreground"
             title={orderItemsSummary.primaryLabel}
           >
             {orderItemsSummary.primaryLabel}
@@ -97,7 +96,7 @@ export const OrdersTableOrderNumberCell: React.FC<OrdersTableOrderNumberCellProp
         )}
         {order.notes && (
           <div
-            className="max-w-[240px] truncate text-[11px] text-muted-foreground"
+            className="max-w-[180px] truncate text-[11px] text-muted-foreground"
             title={order.notes}
           >
             {order.notes}

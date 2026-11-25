@@ -155,7 +155,7 @@ export const useOrdersPageController = () => {
   });
 
   const fieldClassName =
-    "theme-native-control w-full rounded-xl border /80/80border-border bg-white/90 px-3 py-2 text-sm text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] transition focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15 dark:dark:border-border dark:dark:bg-muted dark:dark:text-muted-foreground";
+    "theme-native-control w-full rounded-xl border border-border/80 bg-card px-3 py-2 text-sm text-foreground transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
 
   const {
     showOrderSourceFilter,

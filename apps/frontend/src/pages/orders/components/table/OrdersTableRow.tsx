@@ -101,7 +101,7 @@ export const OrdersTableRow: React.FC<OrdersTableRowProps> = ({
         <td className={cellPadding}>
           <div className="flex flex-col gap-1 leading-tight">
             <div className="flex items-center gap-1.5 min-w-0">
-              <span className="truncate max-w-[190px] text-sm font-medium text-foreground">
+              <span className="truncate max-w-[140px] text-sm font-medium text-foreground">
                 {getCustomerDisplayName(order)}
               </span>
               {!columns.includes("customerRating") && (
@@ -183,7 +183,7 @@ export const OrdersTableRow: React.FC<OrdersTableRowProps> = ({
           >
             <span
               className="h-2 w-2 rounded-full shrink-0"
-              style={getPaymentStatusDotStyle(order.paymentStatus || "pending")}
+              style={getPaymentStatusDotStyle?.(order.paymentStatus || "pending")}
             />
             {getPaymentStatusText((order.paymentStatus || "pending").toLowerCase())}
           </span>

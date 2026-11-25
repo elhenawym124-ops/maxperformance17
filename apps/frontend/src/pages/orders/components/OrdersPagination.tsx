@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface OrdersPaginationProps {
   variant: "desktop" | "mobile";
@@ -43,7 +43,7 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
 
   if (variant === "mobile") {
     return (
-      <div className="mt-2.5 mb-4 rounded-xl border border-border/70 bg-card/95 p-2 shadow-xs backdrop-blur-md lg:hidden relative z-20">
+      <div className="mt-2.5 mb-4 rounded-xl border border-border/70 bg-card p-2 shadow-xs lg:hidden relative z-20">
         {isJumping ? (
           <form onSubmit={handleJumpSubmit} className="flex items-center justify-between gap-2">
             <button
@@ -105,8 +105,9 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
                   <span className="text-muted-foreground">/</span>
                   <span>{Math.max(totalPages, 1)}</span>
                 </div>
-                <div className="text-[10px] font-medium text-muted-foreground font-mono tabular-nums">
-                  {totalOrders.toLocaleString()} {t("orders.ordersCountLabel", { defaultValue: "طلب" })}
+                <div className="text-[10px] font-medium text-muted-foreground">
+                  <span className="font-mono tabular-nums">{totalOrders.toLocaleString("en-US")}</span>{" "}
+                  {t("orders.ordersCountLabel", { defaultValue: "طلب" })}
                 </div>
               </button>
             </div>
@@ -117,7 +118,7 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
                 aria-label={String(t("orders.ordersPerPage"))}
                 value={limit}
                 onChange={(e) => onLimitChange(parseInt(e.target.value, 10))}
-                className="h-9 appearance-none rounded-lg border border-border/70 bg-background pe-2.5 ps-6 text-xs font-semibold font-mono tabular-nums text-foreground shadow-2xs focus:border-primary focus:outline-hidden"
+                className="h-9 rounded-lg border border-border/70 bg-background px-2 text-xs font-semibold text-foreground shadow-2xs focus:border-primary focus:outline-hidden"
               >
                 {LIMIT_OPTIONS.map((value) => (
                   <option key={value} value={value}>
@@ -125,7 +126,6 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
                   </option>
                 ))}
               </select>
-              <ChevronDown className="pointer-events-none absolute left-1.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
             </div>
 
             {/* Next Button (Left in RTL, primary action!) */}
@@ -146,12 +146,16 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
   }
 
   return (
-    <div className="bg-card/90 px-3 py-2.5 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 lg:px-4 relative z-20">
+    <div className="bg-card px-3 py-2.5 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 lg:px-4 relative z-20">
       <div className="flex items-center gap-4">
-        <div className="text-xs sm:text-sm text-muted-foreground font-mono tabular-nums">
-          {t("orders.showing")} {(page - 1) * limit + 1} {t("orders.to")}{" "}
-          {Math.min(page * limit, totalOrders)} {t("orders.of")}{" "}
-          {totalOrders} {t("orders.orders2")}
+        <div className="text-xs sm:text-sm text-muted-foreground">
+          {t("orders.showing")}{" "}
+          <span className="font-mono tabular-nums">{(page - 1) * limit + 1}</span>{" "}
+          {t("orders.to")}{" "}
+          <span className="font-mono tabular-nums">{Math.min(page * limit, totalOrders)}</span>{" "}
+          {t("orders.of")}{" "}
+          <span className="font-mono tabular-nums">{totalOrders.toLocaleString("en-US")}</span>{" "}
+          {t("orders.orders2")}
         </div>
         <div className="flex items-center gap-2">
           <label className="text-xs sm:text-sm text-muted-foreground">
@@ -205,11 +209,13 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
       </div>
       <div className="flex items-center gap-1.5">
         <button
+          type="button"
           onClick={() => onPageChange(page - 1)}
           disabled={page === 1}
-          className="p-1.5 sm:p-2 border border-border/70 bg-background rounded-lg hover:bg-muted disabled:opacity-35 disabled:cursor-not-allowed transition-colors text-foreground"
+          aria-label={String(t("orders.previous"))}
+          className="p-1.5 sm:p-2 border border-border/70 bg-background rounded-lg hover:bg-muted disabled:opacity-35 disabled:cursor-not-allowed transition-colors text-foreground active:scale-[0.97]"
         >
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="w-4 h-4 rtl:rotate-0 ltr:rotate-180" />
         </button>
 
         <div className="flex items-center gap-1">
@@ -222,9 +228,10 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
 
             return (
               <button
+                type="button"
                 key={p}
                 onClick={() => onPageChange(p)}
-                className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold font-mono tabular-nums transition-colors ${
+                className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold font-mono tabular-nums transition-colors active:scale-[0.97] ${
                   page === p
                     ? "bg-primary text-primary-foreground shadow-xs"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -237,11 +244,13 @@ export const OrdersPagination: React.FC<OrdersPaginationProps> = ({
         </div>
 
         <button
+          type="button"
           onClick={() => onPageChange(page + 1)}
           disabled={page === totalPages}
-          className="p-1.5 sm:p-2 border border-border/70 bg-background rounded-lg hover:bg-muted disabled:opacity-35 disabled:cursor-not-allowed transition-colors text-foreground"
+          aria-label={String(t("orders.next"))}
+          className="p-1.5 sm:p-2 border border-border/70 bg-background rounded-lg hover:bg-muted disabled:opacity-35 disabled:cursor-not-allowed transition-colors text-foreground active:scale-[0.97]"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="w-4 h-4 rtl:rotate-0 ltr:rotate-180" />
         </button>
       </div>
     </div>

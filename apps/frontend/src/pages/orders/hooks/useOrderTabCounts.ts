@@ -40,14 +40,14 @@ export const useOrderTabCounts = (): OrderTabCounts => {
       .catch(() => ({}));
 
     const unpaidPromise = apiClient
-      .get("/orders-enhanced", { params: { paymentStatus: "PENDING", page: 1, limit: 1 } })
+      .get("/orders-new/simple", { params: { paymentStatus: "PENDING", page: 1, limit: 1 } })
       .then((res: any) => ({
         unpaid: Number(res.data?.pagination?.total) || undefined,
       }))
       .catch(() => ({}));
 
     const allPromise = apiClient
-      .get("/orders-enhanced", { params: { page: 1, limit: 1 } })
+      .get("/orders-new/simple", { params: { page: 1, limit: 1 } })
       .then((res: any) => ({
         all: Number(res.data?.pagination?.total) || undefined,
       }))

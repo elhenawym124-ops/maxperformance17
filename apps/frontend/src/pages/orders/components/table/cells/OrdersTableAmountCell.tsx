@@ -54,7 +54,7 @@ export const OrdersTableAmountCell: React.FC<OrdersTableAmountCellProps> = ({
           </span>
           {discount > 0 && (
             <div
-              className="inline-flex items-center gap-1 text-[11px] font-medium text-destructive dark:text-destructive max-w-[170px] truncate"
+              className="inline-flex items-center gap-1 text-[11px] font-medium text-destructive dark:text-destructive max-w-[120px] truncate"
               title={
                 discountReason
                   ? `خصم: -${formatPrice(discount)} (${discountReason})`
@@ -65,14 +65,14 @@ export const OrdersTableAmountCell: React.FC<OrdersTableAmountCellProps> = ({
                 -{formatPrice(discount)}
               </span>
               {discountReason && (
-                <span className="truncate text-foreground text-[10px] bg-destructive/10 dark:bg-destructive/40 px-1 py-0.5 rounded border border-destructive/80 dark:border-destructive/50 font-normal">
+                <span className="truncate text-foreground text-[10px] bg-destructive/10 px-1 py-0.5 rounded border border-destructive/25 font-normal">
                   {discountReason}
                 </span>
               )}
             </div>
           )}
           {isPendingDiscountApproval && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-warning dark:text-warning bg-warning dark:bg-warning/60 px-1.5 py-0.5 rounded border border-warning dark:border-warning">
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-warning bg-warning/10 px-1.5 py-0.5 rounded border border-warning/30">
               بانتظار اعتماد الخصم
             </span>
           )}

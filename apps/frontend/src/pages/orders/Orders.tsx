@@ -35,7 +35,7 @@ const Orders: React.FC = () => {
   return (
     <div
       data-orders-page="true"
-      className="orders-page-root flex-1 h-full min-h-0 overflow-y-auto /60/60bg-muted dark:dark:bg-muted px-2 py-2 sm:px-3 sm:py-2.5"
+      className="orders-page-root flex-1 h-full min-h-0 overflow-y-auto bg-muted/60 px-2 py-2 sm:px-3 sm:py-2.5"
     >
       <div className="w-full max-w-none">
         <div className="flex justify-end mb-2">

@@ -15,6 +15,8 @@ export type { OrderStatusFilterOption, MerchantFilterOption, AffiliateFilterOpti
 export interface FilterChipsProps extends UseFilterChipsOptions {
   /** Clear the advanced filters (and the chip strip in one go). */
   onClearAdvancedFilters: () => void;
+  /** Render flat inside an existing card without outer border/radius. */
+  embedded?: boolean;
 }
 
 /**
@@ -29,6 +31,7 @@ export const FilterChips: React.FC<FilterChipsProps> = ({
   affiliateOptions = [],
   onFilterChange,
   onClearAdvancedFilters,
+  embedded = false,
 }) => {
   const { t } = useTranslation();
 
@@ -47,9 +50,13 @@ export const FilterChips: React.FC<FilterChipsProps> = ({
     <div
       role="region"
       aria-label={String(t("orders.activeFilters", { defaultValue: "الفلاتر النشطة" }))}
-      className="flex flex-wrap items-center gap-1.5 rounded-xl border border-border/70 bg-card/80 px-3 py-2 text-xs shadow-xs backdrop-blur-sm"
+      className={
+        embedded
+          ? "flex flex-wrap items-center gap-1.5 border-b border-border/70 bg-muted/20 px-3 py-2 text-xs"
+          : "flex flex-wrap items-center gap-1.5 rounded-xl border border-border/70 bg-card px-3 py-2 text-xs shadow-xs"
+      }
     >
-      <span className="inline-flex items-center gap-1.5 px-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+      <span className="inline-flex items-center gap-1.5 px-1 text-[11px] font-semibold text-muted-foreground">
         <Filter className="h-3.5 w-3.5" />
         {t("orders.activeFilters", { defaultValue: "فلاتر نشطة" })}
         <span className="ms-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-primary/10 px-1.5 text-[10px] font-bold font-mono tabular-nums text-primary">

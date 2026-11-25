@@ -2,20 +2,23 @@ import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  PlusIcon,
-  ArrowDownTrayIcon,
-  ArrowPathIcon,
-  MagnifyingGlassIcon,
-  FunnelIcon,
-  XMarkIcon,
-  ChartBarIcon,
-} from "@heroicons/react/24/outline";
-import { Loader2, AlertTriangle } from "lucide-react";
+  Plus,
+  Download,
+  RefreshCw,
+  Search,
+  SlidersHorizontal,
+  X,
+  BarChart3,
+  Loader2,
+  AlertTriangle,
+} from "lucide-react";
 import { ShopifyPageHeader } from "../../components/layout/ShopifyPageHeader";
 import { OrderStatusAlertBell } from "./components/OrderStatusAlertBell";
 import { BulkActionBar } from "./components/BulkActionBar";
+import { OrdersBulkCommandPalette } from "./components/OrdersBulkCommandPalette";
 import { OrdersTable } from "./components/OrdersTable";
 import { OrdersMobileList } from "./components/OrdersMobileList";
+import { OrdersPagination } from "./components/OrdersPagination";
 import { OrdersModalsContainer } from "./components/OrdersModalsContainer";
 import { OrdersFilterDrawer } from "./components/OrdersFilterDrawer";
 import { FilterChips } from "./components/FilterChips";
@@ -163,11 +166,16 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
   const activeTab = useMemo(() => {
     const st = filters.status || [];
     const pay = filters.paymentStatus || [];
-    if (pay.includes("PENDING") || pay.includes("UNPAID")) return "unpaid";
-    if (st.includes("CONFIRMED") || st.includes("PROCESSING")) return "unfulfilled";
-    if (st.includes("DELIVERED") || st.includes("COMPLETED")) return "completed";
-    if (st.includes("CANCELLED")) return "cancelled";
-    return "all";
+    if (pay.length > 0 && st.length === 0 && (pay.includes("PENDING") || pay.includes("UNPAID"))) {
+      return "unpaid";
+    }
+    if (st.length > 0 && pay.length === 0) {
+      if (st.includes("CONFIRMED") || st.includes("PROCESSING")) return "unfulfilled";
+      if (st.includes("DELIVERED") || st.includes("COMPLETED")) return "completed";
+      if (st.includes("CANCELLED")) return "cancelled";
+    }
+    if (st.length === 0 && pay.length === 0) return "all";
+    return "custom";
   }, [filters.status, filters.paymentStatus]);
 
   const handleTabClick = (tabKey: string) => {
@@ -176,28 +184,30 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
         onApplyFilters({ status: [], paymentStatus: [] });
         break;
       case "unpaid":
-        onApplyFilters({ paymentStatus: ["PENDING"] });
+        onApplyFilters({ status: [], paymentStatus: ["PENDING"] });
         break;
       case "unfulfilled":
-        onApplyFilters({ status: ["CONFIRMED", "PROCESSING"] });
+        onApplyFilters({ status: ["CONFIRMED", "PROCESSING"], paymentStatus: [] });
         break;
       case "completed":
-        onApplyFilters({ status: ["DELIVERED"] });
+        onApplyFilters({ status: ["DELIVERED"], paymentStatus: [] });
         break;
       case "cancelled":
-        onApplyFilters({ status: ["CANCELLED"] });
+        onApplyFilters({ status: ["CANCELLED"], paymentStatus: [] });
         break;
       default:
         break;
     }
   };
 
+  const canShowMerchantStats = Boolean(isAdmin && !isMerchant && filters.merchantId?.[0]);
+
   return (
     <div
       data-orders-polaris-view="true"
-      className="polaris-orders-container w-full max-w-7xl min-w-0 mx-auto h-full min-h-0 overflow-y-auto px-2 sm:px-4 lg:px-6 py-4 space-y-4"
+      className="polaris-orders-container w-full max-w-[1440px] min-w-0 mx-auto space-y-4 pb-6"
     >
-      {/* 1. Authentic Shopify Polaris Page Header */}
+      {/* 1. Shopify Polaris Page Header */}
       <ShopifyPageHeader
         title={t("orders.title") || "الطلبات"}
         badges={
@@ -206,35 +216,37 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
           </span>
         }
         actions={
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar max-w-full">
             <OrderStatusAlertBell />
 
-            <button
-              type="button"
-              onClick={() => setShowStats(!showStats)}
-              className={`inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border text-xs font-medium transition-all active:scale-95 ${
-                showStats
-                  ? "border-primary bg-primary/10 text-primary"
-                  : "border-border/80 bg-card hover:bg-muted text-foreground"
-              }`}
-              title="إحصائيات المبيعات والطلبات"
-            >
-              <ChartBarIcon className="w-4 h-4" />
-              <span className="hidden sm:inline">الإحصائيات</span>
-            </button>
+            {canShowMerchantStats && (
+              <button
+                type="button"
+                onClick={() => setShowStats(!showStats)}
+                className={`inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border px-2.5 text-xs font-medium transition-all active:scale-95 ${
+                  showStats
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border/80 bg-card hover:bg-muted text-foreground"
+                }`}
+                title="إحصائيات المبيعات والطلبات"
+              >
+                <BarChart3 className="w-4 h-4 shrink-0" />
+                <span className="hidden sm:inline">الإحصائيات</span>
+              </button>
+            )}
 
             {onExportExcel && (
               <button
                 type="button"
                 onClick={onExportExcel}
                 disabled={Boolean(isExporting)}
-                className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-border/80 bg-card hover:bg-muted text-xs font-medium text-foreground transition-all active:scale-95 shadow-2xs disabled:opacity-50"
+                className="inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-border/80 bg-card hover:bg-muted px-2.5 text-xs font-medium text-foreground transition-all active:scale-95 shadow-2xs disabled:opacity-50"
                 title={t("orders.exportExcel") || "تصدير Excel"}
               >
                 {isExporting ? (
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-primary shrink-0" />
                 ) : (
-                  <ArrowDownTrayIcon className="w-3.5 h-3.5 text-muted-foreground" />
+                  <Download className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                 )}
                 <span className="hidden sm:inline">{t("orders.exportExcel") || "تصدير"}</span>
               </button>
@@ -243,26 +255,27 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
             <button
               type="button"
               onClick={onRefresh}
-              className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-border/80 bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-95 shadow-2xs"
+              aria-label="تحديث البيانات"
+              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/80 bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-95 shadow-2xs"
               title="تحديث البيانات"
             >
-              <ArrowPathIcon className="w-4 h-4" />
+              <RefreshCw className="w-3.5 h-3.5" />
             </button>
 
             <button
               type="button"
               onClick={() => navigate("/orders/new")}
-              className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-[var(--p-action-primary,#008060)] hover:bg-[#006e52] text-white text-xs font-semibold transition-all active:scale-95 shadow-xs"
+              className="inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground px-3 text-xs font-semibold transition-all active:scale-95 shadow-xs"
             >
-              <PlusIcon className="w-4 h-4" />
+              <Plus className="w-4 h-4 shrink-0" />
               <span>إنشاء طلب</span>
             </button>
           </div>
         }
       />
 
-      {/* Optional Collapsible Stats Bar */}
-      {showStats && (
+      {/* Optional Collapsible Stats Bar (Admin + specific merchant selected) */}
+      {canShowMerchantStats && showStats && (
         <div className="motion-safe:animate-fade-in">
           <OrdersStatsBar
             isAdmin={isAdmin}
@@ -297,50 +310,66 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
         </div>
       )}
 
-      {/* 2. Authentic Shopify Polaris Single Card Container */}
+      {/* 2. Shopify Polaris Single Card Container (Tabs + Filter + Desktop Table) */}
       <div className="bg-card rounded-xl border border-border/70 shadow-xs overflow-hidden flex flex-col">
         {/* Segmented View Tabs */}
-        <div className="flex items-center border-b border-border/70 px-3 overflow-x-auto scrollbar-none bg-card">
-          {[
-            { key: "all", label: "الكل" },
-            { key: "unpaid", label: "غير مدفوع" },
-            { key: "unfulfilled", label: "قيد التجهيز" },
-            { key: "completed", label: "مكتمل" },
-            { key: "cancelled", label: "ملغي" },
-          ].map((tab) => {
-            const isActive = activeTab === tab.key;
-            return (
-              <button
-                key={tab.key}
-                type="button"
-                onClick={() => handleTabClick(tab.key)}
-                className={`flex items-center gap-1.5 px-3.5 py-2.5 text-xs font-medium border-b-2 transition-all whitespace-nowrap cursor-pointer ${
-                  isActive
-                    ? "border-[var(--petrol,#013735)] dark:border-[#3ec8b7] text-foreground font-semibold"
-                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-border/60"
-                }`}
-              >
-                <span>{tab.label}</span>
-                {typeof tabCounts[tab.key as keyof typeof tabCounts] === "number" && (
-                  <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-mono font-medium tabular-nums text-muted-foreground">
-                    {tabCounts[tab.key as keyof typeof tabCounts]}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+        <div className="relative border-b border-border/70 bg-card">
+          <div className="flex items-center px-2 sm:px-3 overflow-x-auto no-scrollbar">
+            {[
+              { key: "all", label: "الكل" },
+              { key: "unpaid", label: "غير مدفوع" },
+              { key: "unfulfilled", label: "قيد التجهيز" },
+              { key: "completed", label: "مكتمل" },
+              { key: "cancelled", label: "ملغي" },
+            ].map((tab) => {
+              const isActive = activeTab === tab.key;
+              const rawCount = tabCounts[tab.key as keyof typeof tabCounts];
+              return (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => handleTabClick(tab.key)}
+                  className={`flex items-center gap-1 px-2.5 sm:px-3.5 py-2.5 text-xs font-medium border-b-2 transition-all whitespace-nowrap shrink-0 cursor-pointer ${
+                    isActive
+                      ? "border-primary text-foreground font-semibold"
+                      : "border-transparent text-muted-foreground hover:text-foreground hover:border-border/60"
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                  {typeof rawCount === "number" && (
+                    <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-mono font-medium tabular-nums text-muted-foreground">
+                      {rawCount.toLocaleString("en-US")}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 end-0 w-6 ltr:bg-gradient-to-l rtl:bg-gradient-to-r from-card to-transparent sm:hidden"
+          />
         </div>
 
         {/* Integrated Filter & Search Bar */}
-        <div className="p-2.5 sm:p-3 border-b border-border/70 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex-1 min-w-[220px] max-w-md relative">
-            <MagnifyingGlassIcon className="absolute top-1/2 start-2.5 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+        <div
+          className={`p-2.5 sm:p-3 flex flex-wrap items-center justify-between gap-2 lg:border-b lg:border-border/70 ${
+            advancedFilterCount > 0 ||
+            filters.onlyUnseen ||
+            filters.onlyPostPurchaseOffer ||
+            (canSelectOrders && selectedOrders.length > 0)
+              ? "border-b border-border/70"
+              : ""
+          }`}
+        >
+          <div className="flex-1 min-w-[180px] max-w-md relative">
+            <Search className="absolute top-1/2 start-2.5 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
             <input
               type="search"
               value={search}
               onChange={(e) => onFilterChange("search", e.target.value)}
-              placeholder="تصفية برقم الطلب، العميل، الهاتف…"
-              className="w-full h-8 ps-8 pe-3 text-xs bg-card border border-border/70 rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+              placeholder="بحث برقم الطلب، العميل، الهاتف…"
+              className="w-full h-8 ps-8 pe-3 text-xs bg-card border border-border/70 rounded-lg text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
             />
           </div>
 
@@ -348,16 +377,16 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
             <button
               type="button"
               onClick={onToggleAdvancedFilters}
-              className={`inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border text-xs font-medium transition-all active:scale-95 cursor-pointer ${
+              className={`inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border px-2.5 text-xs font-medium transition-all active:scale-95 cursor-pointer ${
                 advancedFilterCount > 0
-                  ? "border-[var(--petrol,#013735)] bg-[var(--petrol-tint,#e6f1ef)] text-[var(--petrol,#013735)] dark:bg-[#112d2a] dark:text-[#3ec8b7]"
+                  ? "border-primary bg-primary/10 text-primary"
                   : "border-border/70 bg-card hover:bg-muted text-foreground"
               }`}
             >
-              <FunnelIcon className="w-3.5 h-3.5" />
+              <SlidersHorizontal className="w-3.5 h-3.5 shrink-0" />
               <span>تصفية</span>
               {advancedFilterCount > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-primary text-primary-foreground">
+                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-mono tabular-nums bg-primary text-primary-foreground">
                   {advancedFilterCount}
                 </span>
               )}
@@ -367,60 +396,59 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="inline-flex items-center gap-1 h-8 px-2 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+                className="inline-flex h-8 shrink-0 items-center gap-1 whitespace-nowrap rounded-lg px-2 text-xs text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
                 title="إلغاء جميع الفلاتر"
               >
-                <XMarkIcon className="w-3.5 h-3.5" />
+                <X className="w-3.5 h-3.5 shrink-0" />
                 <span className="hidden sm:inline">مسح</span>
               </button>
             )}
           </div>
         </div>
 
-        {/* Active Filter Chips */}
+        {/* Active Filter Chips (embedded flat inside card) */}
         {(advancedFilterCount > 0 || filters.onlyUnseen || filters.onlyPostPurchaseOffer) && (
-          <div className="px-3 py-2 border-b border-border/70">
-            <FilterChips
-              filters={filters}
-              filterableOrderStatuses={filterableOrderStatuses}
-              filterablePaymentStatuses={filterablePaymentStatuses}
-              merchantOptions={merchantOptions}
-              affiliateOptions={affiliateOptions}
-              onFilterChange={onFilterChange as never}
-              onClearAdvancedFilters={onClearAdvancedFilters}
-            />
-          </div>
+          <FilterChips
+            embedded
+            filters={filters}
+            filterableOrderStatuses={filterableOrderStatuses}
+            filterablePaymentStatuses={filterablePaymentStatuses}
+            merchantOptions={merchantOptions}
+            affiliateOptions={affiliateOptions}
+            onFilterChange={onFilterChange as never}
+            onClearAdvancedFilters={onClearAdvancedFilters}
+          />
         )}
 
-        {/* Bulk Action Bar */}
+        {/* Bulk Action Bar (embedded flat inside card) */}
         {canSelectOrders && selectedOrders.length > 0 && (
-          <div className="border-b border-border/70">
-            <BulkActionBar
-              count={selectedOrders.length}
-              statuses={bulkUpdatableStatuses}
-              isTrashView={isTrashView}
-              busy={bulkProcessing}
-              printing={printingInvoices}
-              onClearSelection={onClearSelection}
-              onStatusChange={onBulkStatusUpdate}
-              onPrintInvoices={onBulkPrintInvoices}
-              onCreateTurboShipments={
-                hasActiveTurbo ? handleBulkCreateTurboShipments : undefined
-              }
-              onCreateQpExpressShipments={
-                hasActiveQpExpress ? handleBulkCreateQpExpressShipments : undefined
-              }
-              onCreateBostaShipments={
-                hasActiveBosta ? handleBulkCreateBostaShipments : undefined
-              }
-              onDelete={onBulkDelete}
-            />
-          </div>
+          <BulkActionBar
+            embedded
+            count={selectedOrders.length}
+            statuses={bulkUpdatableStatuses}
+            isTrashView={isTrashView}
+            busy={bulkProcessing}
+            printing={printingInvoices}
+            onClearSelection={onClearSelection}
+            onStatusChange={onBulkStatusUpdate}
+            onPrintInvoices={onBulkPrintInvoices}
+            onCreateTurboShipments={
+              hasActiveTurbo ? handleBulkCreateTurboShipments : undefined
+            }
+            onCreateQpExpressShipments={
+              hasActiveQpExpress ? handleBulkCreateQpExpressShipments : undefined
+            }
+            onCreateBostaShipments={
+              hasActiveBosta ? handleBulkCreateBostaShipments : undefined
+            }
+            onDelete={onBulkDelete}
+          />
         )}
 
-        {/* Desktop Table View */}
-        <div className="hidden lg:block overflow-x-auto">
+        {/* Desktop Table View (embedded inside outer card — no duplicate card border) */}
+        <div className="hidden lg:block">
           <OrdersTable
+            embedded
             orders={displayedOrders}
             loading={loading}
             ordersLoadError={ordersLoadError}
@@ -448,28 +476,56 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
             onCustomerRatingChange={handleCustomerRatingChange}
           />
         </div>
-
-        {/* Mobile List View */}
-        <div className="lg:hidden">
-          <OrdersMobileList
-            orders={displayedOrders}
-            loading={loading}
-            ordersLoadError={ordersLoadError}
-            selectedOrders={selectedOrders}
-            canSelectOrders={canSelectOrders}
-            isMerchant={isMerchant}
-            activeFilterCount={activeFilterCount}
-            search={search}
-            density={tableDensity}
-            helpers={mobileListHelpers}
-            onOpenOrder={onOpenOrder}
-            onToggleSelection={toggleOrderSelection}
-            onMarkAsViewed={onMarkAsViewed}
-            onClearFilters={clearAllFilters}
-            onCustomerRatingChange={handleCustomerRatingChange}
-          />
-        </div>
       </div>
+
+      {/* Mobile List View + Pagination (directly on Polaris canvas — zero box-in-box) */}
+      <div className="lg:hidden space-y-2">
+        <OrdersMobileList
+          orders={displayedOrders}
+          loading={loading}
+          ordersLoadError={ordersLoadError}
+          selectedOrders={selectedOrders}
+          canSelectOrders={canSelectOrders}
+          isMerchant={isMerchant}
+          activeFilterCount={activeFilterCount}
+          search={search}
+          density={tableDensity}
+          helpers={mobileListHelpers}
+          onOpenOrder={onOpenOrder}
+          onToggleSelection={toggleOrderSelection}
+          onMarkAsViewed={onMarkAsViewed}
+          onClearFilters={clearAllFilters}
+          onCustomerRatingChange={handleCustomerRatingChange}
+        />
+
+        {!loading && displayedOrders.length > 0 && (
+          <OrdersPagination
+            variant="mobile"
+            page={page}
+            totalPages={totalPages}
+            totalOrders={totalOrders}
+            limit={limit}
+            density={tableDensity}
+            onPageChange={handlePageChange}
+            onLimitChange={handleLimitChange}
+            onDensityChange={changeTableDensity}
+          />
+        )}
+      </div>
+
+      {/* Command Palette Bulk Shortcuts */}
+      {canSelectOrders && (
+        <OrdersBulkCommandPalette
+          hasActiveTurbo={hasActiveTurbo}
+          hasActiveQpExpress={hasActiveQpExpress}
+          hasActiveBosta={hasActiveBosta}
+          handleBulkPrintInvoices={onBulkPrintInvoices}
+          handleBulkCreateTurboShipments={handleBulkCreateTurboShipments}
+          handleBulkCreateQpExpressShipments={handleBulkCreateQpExpressShipments}
+          handleBulkCreateBostaShipments={handleBulkCreateBostaShipments}
+          handleBulkDelete={onBulkDelete}
+        />
+      )}
 
       {/* Filter Drawer */}
       <OrdersFilterDrawer

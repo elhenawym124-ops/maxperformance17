@@ -7,6 +7,7 @@ export interface OrdersTableHelpers {
   getRelativeTime: (dateString: string) => string;
   formatDate: (date: Date | string | number) => string;
   getPaymentStatusBadgeStyle: (status: string) => React.CSSProperties | undefined;
+  getPaymentStatusDotStyle?: (status: string) => React.CSSProperties | undefined;
   getPaymentStatusColor: (status: string) => string;
   getPaymentStatusText: (status: string) => string;
   getUnifiedStatusDisplay: (

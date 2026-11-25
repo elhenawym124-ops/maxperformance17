@@ -26,10 +26,10 @@ export const OrdersTableHeader: React.FC<OrdersTableHeaderProps> = ({
     orders.every((o) => selectedOrders.includes(o.orderNumber));
 
   return (
-    <thead className="sticky top-0 z-10 bg-muted/60 backdrop-blur-md border-b border-border/70">
+    <thead className="sticky top-0 z-10 bg-muted/95 border-b border-border/70">
       <tr>
         {canSelectOrders && (
-          <th className={`w-10 ${headerPadding}`}>
+          <th className={`w-9 ${headerPadding} text-start`}>
             <input
               type="checkbox"
               aria-label={String(t("orders.selectAllOrders"))}
@@ -40,42 +40,42 @@ export const OrdersTableHeader: React.FC<OrdersTableHeaderProps> = ({
           </th>
         )}
         {columns.includes("orderNumber") && (
-          <th className={`${headerPadding} text-[11px] font-semibold text-muted-foreground uppercase tracking-wider`}>
+          <th className={`${headerPadding} text-start text-xs font-medium text-muted-foreground`}>
             {t("orders.orderNumber")}
           </th>
         )}
         {columns.includes("customer") && (
-          <th className={`${headerPadding} text-[11px] font-semibold text-muted-foreground uppercase tracking-wider`}>
+          <th className={`${headerPadding} text-start text-xs font-medium text-muted-foreground`}>
             {t("orders.customer")}
           </th>
         )}
         {columns.includes("customerRating") && (
-          <th className={`${headerPadding} whitespace-nowrap text-[11px] font-semibold text-muted-foreground uppercase tracking-wider`}>
+          <th className={`${headerPadding} text-start whitespace-nowrap text-xs font-medium text-muted-foreground`}>
             {t("orders.customerRating", "تقييم العملاء")}
           </th>
         )}
         {columns.includes("amount") && (
-          <th className={`${headerPadding} whitespace-nowrap text-[11px] font-semibold text-muted-foreground uppercase tracking-wider`}>
+          <th className={`${headerPadding} text-start whitespace-nowrap text-xs font-medium text-muted-foreground`}>
             {t("orders.amount")}
           </th>
         )}
         {columns.includes("status") && (
-          <th className={`${headerPadding} text-[11px] font-semibold text-muted-foreground uppercase tracking-wider`}>
+          <th className={`${headerPadding} text-start text-xs font-medium text-muted-foreground`}>
             {t("orders.orderStatus")}
           </th>
         )}
         {columns.includes("payment") && (
-          <th className={`${headerPadding} text-[11px] font-semibold text-muted-foreground uppercase tracking-wider`}>
+          <th className={`${headerPadding} text-start text-xs font-medium text-muted-foreground`}>
             {t("orders.payment")}
           </th>
         )}
         {columns.includes("date") && (
-          <th className={`hidden ${headerPadding} text-[11px] font-semibold text-muted-foreground uppercase tracking-wider xl:table-cell`}>
+          <th className={`hidden ${headerPadding} text-start text-xs font-medium text-muted-foreground xl:table-cell`}>
             {t("orders.date")}
           </th>
         )}
         {columns.includes("actions") && (
-          <th className={`${headerPadding} text-[11px] font-semibold text-muted-foreground uppercase tracking-wider`}>
+          <th className={`${headerPadding} text-start text-xs font-medium text-muted-foreground`}>
             {t("orders.actions")}
           </th>
         )}

@@ -41,6 +41,8 @@ export interface BulkActionBarProps {
   onCreateBostaShipments?: () => void;
   /** Soft-delete the selection (or hard-delete when in trash view). */
   onDelete: () => void;
+  /** Render flat inside an existing card without outer border/radius/shadow. */
+  embedded?: boolean;
 }
 
 export const BulkActionBar: React.FC<BulkActionBarProps> = ({
@@ -56,6 +58,7 @@ export const BulkActionBar: React.FC<BulkActionBarProps> = ({
   onCreateQpExpressShipments,
   onCreateBostaShipments,
   onDelete,
+  embedded = false,
 }) => {
   const { t } = useTranslation();
 
@@ -65,7 +68,11 @@ export const BulkActionBar: React.FC<BulkActionBarProps> = ({
     <div
       role="region"
       aria-label={String(t("orders.bulkActionsBar"))}
-      className="data-[state=open]:animate-in data-[state=open]:slide-in-from-top-2 data-[state=open]:fade-in-0 sticky top-2 z-20 mb-3 flex flex-col gap-2.5 rounded-xl border border-primary/30 bg-card/95 p-2.5 text-card-foreground shadow-lg backdrop-blur-md duration-200 sm:flex-row sm:items-center sm:justify-between sm:p-3"
+      className={
+        embedded
+          ? "flex flex-col gap-2.5 border-b border-primary/20 bg-primary/5 p-2.5 text-card-foreground sm:flex-row sm:items-center sm:justify-between sm:px-3 sm:py-2.5"
+          : "data-[state=open]:animate-in data-[state=open]:slide-in-from-top-2 data-[state=open]:fade-in-0 sticky top-2 z-20 mb-3 flex flex-col gap-2.5 rounded-xl border border-primary/30 bg-card p-2.5 text-card-foreground shadow-lg duration-200 sm:flex-row sm:items-center sm:justify-between sm:p-3"
+      }
     >
       <div className="flex items-center justify-between gap-2 sm:justify-start sm:gap-3">
         <div className="flex items-center gap-2">
@@ -73,10 +80,10 @@ export const BulkActionBar: React.FC<BulkActionBarProps> = ({
             <CheckCircle2 className="h-4 w-4 sm:h-4.5 sm:w-4.5" aria-hidden />
           </div>
           <div className="min-w-0">
-            <p className="text-xs font-bold text-foreground sm:text-sm font-mono tabular-nums">
+            <p className="text-xs font-bold text-foreground sm:text-sm tabular-nums">
               {t("orders.ordersSelected", { count })}
             </p>
-            <p className="hidden text-[11px] text-muted-foreground sm:block font-mono tabular-nums">
+            <p className="hidden text-[11px] text-muted-foreground sm:block tabular-nums">
               {t("orders.bulkActionsHint", { count })}
             </p>
           </div>

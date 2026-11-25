@@ -222,8 +222,8 @@ export const OrdersStatsBar: React.FC<OrdersStatsBarProps> = ({
                 <p className="text-xs font-semibold truncate">{card.label}</p>
                 <Icon className="h-3.5 w-3.5 opacity-70 shrink-0" />
               </div>
-              <p className="mt-1.5 text-base font-bold font-mono tabular-nums leading-tight">{card.value}</p>
-              <p className="mt-1 text-[11px] opacity-75 font-mono tabular-nums">{card.subValue}</p>
+              <p className="mt-1.5 text-base font-bold tabular-nums leading-tight">{card.value}</p>
+              <p className="mt-1 text-[11px] opacity-75 tabular-nums">{card.subValue}</p>
             </div>
           );
         })}
@@ -235,7 +235,7 @@ export const OrdersStatsBar: React.FC<OrdersStatsBarProps> = ({
             <span className="font-semibold">
               {t("orders.pendingWithdrawalRequests", { count: formatMerchantPieces(pendingPayouts.length) })}
             </span>
-            <span className="text-[11px] opacity-80 font-mono tabular-nums">
+            <span className="text-[11px] opacity-80 tabular-nums">
               {t("orders.lastPayout")}: {payoutStatusLabels[pendingPayouts[0]?.status] || pendingPayouts[0]?.status} •{" "}
               {formatPrice(Number(pendingPayouts[0]?.amount || 0))}
             </span>

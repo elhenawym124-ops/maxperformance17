@@ -31,30 +31,30 @@ export const ShopifyPageHeader: React.FC<ShopifyPageHeaderProps> = ({
 }) => {
   return (
     <div
-      className={`polaris-page-header flex flex-col gap-2 pb-4 mb-4 border-b border-[var(--p-border-subdued,#e1e3e5)] dark:border-[#1c2e2c] ${className}`}
+      className={`polaris-page-header flex flex-col gap-2 pb-4 mb-4 border-b border-border/70 ${className}`}
     >
       {/* Breadcrumbs */}
       {breadcrumbs && breadcrumbs.length > 0 && (
         <nav
           aria-label="Breadcrumb"
-          className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 font-medium"
+          className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium"
         >
           {breadcrumbs.map((crumb, idx) => {
             const isLast = idx === breadcrumbs.length - 1;
             return (
               <React.Fragment key={crumb.label}>
                 {idx > 0 && (
-                  <ChevronRightIcon className="w-3.5 h-3.5 text-gray-400 rtl:rotate-180" />
+                  <ChevronRightIcon className="w-3.5 h-3.5 text-muted-foreground/70 rtl:rotate-180" />
                 )}
                 {crumb.to && !isLast ? (
                   <Link
                     to={crumb.to}
-                    className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+                    className="hover:text-foreground transition-colors"
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className={isLast ? "text-gray-900 dark:text-gray-100 font-semibold" : ""}>
+                  <span className={isLast ? "text-foreground font-semibold" : ""}>
                     {crumb.label}
                   </span>
                 )}
@@ -68,7 +68,7 @@ export const ShopifyPageHeader: React.FC<ShopifyPageHeaderProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-2.5 flex-wrap">
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 font-heading">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground font-heading">
               {title}
             </h1>
             {badges && (
@@ -80,12 +80,12 @@ export const ShopifyPageHeader: React.FC<ShopifyPageHeaderProps> = ({
                         const variant = (b as any).variant;
                         const variantClasses =
                           variant === "destructive"
-                            ? "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-800"
+                            ? "bg-destructive/10 text-destructive border-destructive/20"
                             : variant === "secondary"
-                            ? "bg-slate-100 text-slate-700 border-slate-200 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700"
+                            ? "bg-muted text-muted-foreground border-border/70"
                             : variant === "warning" || variant === "amber"
-                            ? "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800"
-                            : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800";
+                            ? "bg-warning/10 text-warning border-warning/20"
+                            : "bg-success/10 text-success border-success/20";
                         return (
                           <span
                             key={idx}
@@ -102,14 +102,14 @@ export const ShopifyPageHeader: React.FC<ShopifyPageHeaderProps> = ({
             )}
           </div>
           {subtitle && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 font-normal">
+            <p className="text-xs text-muted-foreground font-normal">
               {subtitle}
             </p>
           )}
         </div>
 
         {actions && (
-          <div className="flex items-center gap-2 flex-wrap flex-shrink-0">
+          <div className="flex items-center gap-2 flex-wrap min-w-0">
             {actions}
           </div>
         )}

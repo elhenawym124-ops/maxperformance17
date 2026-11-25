@@ -136,6 +136,10 @@ export const OrderStatusAlertBell: React.FC = () => {
       });
     };
 
+    if (typeof on !== "function" || typeof off !== "function") {
+      return;
+    }
+
     on("order:status_alert", handleRealtimeAlert);
     return () => {
       off("order:status_alert", handleRealtimeAlert);
@@ -178,18 +182,18 @@ export const OrderStatusAlertBell: React.FC = () => {
         aria-label="تنبيهات حالات الطلبات"
         aria-expanded={open}
         data-testid="order-status-alert-bell-btn"
-        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border/80 bg-card hover:bg-muted/60 text-xs font-medium text-foreground shadow-2xs transition-colors cursor-pointer"
+        className="inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-border/80 bg-card px-2.5 text-xs font-medium text-foreground shadow-2xs transition-colors hover:bg-muted/60 active:scale-[0.97] cursor-pointer"
       >
         {unreadCount > 0 ? (
-          <BellRing className="w-3.5 h-3.5 text-primary animate-pulse" />
+          <BellRing className="h-3.5 w-3.5 shrink-0 text-primary" />
         ) : (
-          <Bell className="w-3.5 h-3.5 text-muted-foreground" />
+          <Bell className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
         )}
-        <span>تنبيهات الحالات</span>
+        <span className="hidden sm:inline">تنبيهات الحالات</span>
         {unreadCount > 0 && (
           <span
             data-testid="order-status-alert-unread-badge"
-            className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold tabular-nums"
+            className="inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold font-mono tabular-nums text-primary-foreground"
           >
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
@@ -199,7 +203,7 @@ export const OrderStatusAlertBell: React.FC = () => {
       {open && (
         <div
           data-testid="order-status-alert-dropdown"
-          className="absolute left-0 top-full mt-1.5 w-80 sm:w-96 rounded-xl border border-border bg-card text-foreground shadow-lg z-50 overflow-hidden"
+          className="absolute end-0 top-full z-50 mt-1.5 w-80 max-w-[calc(100vw-2rem)] sm:w-96 overflow-hidden rounded-xl border border-border bg-card text-foreground shadow-lg"
         >
           <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-border/70 bg-muted/30">
             <div className="flex items-center gap-1.5 text-xs font-semibold">
@@ -242,7 +246,7 @@ export const OrderStatusAlertBell: React.FC = () => {
                   key={item.id}
                   type="button"
                   onClick={() => void handleOpenAlert(item)}
-                  className={`w-full text-right px-3.5 py-2.5 hover:bg-muted/50 transition-colors flex items-start justify-between gap-2 cursor-pointer ${
+                  className={`w-full text-start px-3.5 py-2.5 hover:bg-muted/50 transition-colors flex items-start justify-between gap-2 cursor-pointer ${
                     item.isRead ? "opacity-75" : "bg-primary/5"
                   }`}
                 >
