@@ -3,13 +3,14 @@
  * Logs only in development mode by default
  */
 
-type LogLevel = "error" | "warn" | "info" | "log";
+type LogLevel = "error" | "warn" | "info" | "log" | "debug";
 
 interface Logger {
   error: (...args: any[]) => void;
   warn: (...args: any[]) => void;
   info: (...args: any[]) => void;
   log: (...args: any[]) => void;
+  debug: (...args: any[]) => void;
 }
 
 const isDevelopment = import.meta.env.DEV;
@@ -33,6 +34,9 @@ const createLogger = (): Logger => {
       case "info":
         console.info(...args);
         break;
+      case "debug":
+        console.debug(...args);
+        break;
       case "log":
       default:
         console.log(...args);
@@ -45,6 +49,7 @@ const createLogger = (): Logger => {
     warn: (...args: any[]) => log("warn", ...args),
     info: (...args: any[]) => log("info", ...args),
     log: (...args: any[]) => log("log", ...args),
+    debug: (...args: any[]) => log("debug", ...args),
   };
 };
 

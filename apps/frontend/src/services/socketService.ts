@@ -145,7 +145,6 @@ class SocketService {
       // 🔐 لا تعاود الاتصال إلا إذا كان هناك مستخدم مسجل يملك Access Token
       if (!tokenManager.getAccessToken()) return;
       if (!this.isConnected() && !this.isConnecting) {
-        console.log("🔄 [SOCKET] Auto-reconnecting on window wakeup/online event");
         this.connect();
       }
     };
@@ -180,7 +179,6 @@ class SocketService {
         window.AudioContext || window.webkitAudioContext;
       if (AudioContextClass) {
         this.audioContext = new AudioContextClass();
-        console.log("🔊 [SOUND] Audio context initialized");
       }
     } catch (error) {
       console.error("❌ [SOUND] Failed to initialize audio context:", error);
@@ -205,13 +203,10 @@ class SocketService {
       .then(() => {
         this.primeSilentBuffer(ctx);
         this.markAudioUnlocked();
-        if (!this.audioUnlockedLogged) {
-          this.audioUnlockedLogged = true;
-          console.log("🔊 [SOUND] Audio context resumed");
-        }
+        this.audioUnlockedLogged = true;
       })
-      .catch((error) => {
-        console.debug("⚠️ [SOUND] Audio context pending user gesture:", error);
+      .catch(() => {
+        // Pending user gesture (browser autoplay policy)
       });
   }
 
@@ -260,7 +255,6 @@ class SocketService {
           .then(() => {
             this.primeSilentBuffer(ctx);
             this.markAudioUnlocked();
-            console.log("🔊 [SOUND] Audio context resumed");
             this.playSoundInternal();
           })
           .catch((error) => {
@@ -304,8 +298,6 @@ class SocketService {
 
       oscillator.start(this.audioContext.currentTime);
       oscillator.stop(this.audioContext.currentTime + 0.3);
-
-      console.log("🔔 [SOUND] Notification sound played successfully");
     } catch (error) {
       console.error("❌ [SOUND] Error in playSoundInternal:", error);
     }
@@ -482,14 +474,6 @@ class SocketService {
       }
 
       this.alarmStopTimer = setTimeout(stopAll, durationMs + 300);
-      console.log("🚨 [SOUND] Order alarm played", {
-        pattern,
-        volume,
-        durationMs,
-        loop,
-        boost,
-        audioFile: audioUrl ?? null,
-      });
     };
 
     if (audioContext.state === "suspended") {
@@ -754,9 +738,6 @@ class SocketService {
     socketConfig.auth = (cb: (data: { token: string | null; deviceFingerprint?: string }) => void) => {
       const currentToken = tokenManager.getAccessToken();
       const deviceFingerprint = getDeviceFingerprint();
-      if (currentToken) {
-        console.log("🔐 [SOCKET] Connecting with authentication token & device fingerprint");
-      }
       cb({ token: currentToken, deviceFingerprint });
     };
 
@@ -766,7 +747,6 @@ class SocketService {
 
     this.socket.on("connect", () => {
       this.isConnecting = false;
-      console.log("✅ [SOCKET] Connected to server (id: " + this.socket?.id + ")");
 
       // إعادة ربط كافة المستمعين المسجلين مسبقاً (مهم جداً للهواتف بعد انقطاع الاتصال)
       this.rebindAllListeners();
@@ -775,9 +755,8 @@ class SocketService {
       this.sendUserJoinEvent();
     });
 
-    this.socket.on("disconnect", (reason: string) => {
+    this.socket.on("disconnect", () => {
       this.isConnecting = false;
-      console.log("🔌 [SOCKET] Disconnected from server:", reason);
     });
 
     this.socket.on("connect_error", (error: any) => {
@@ -822,10 +801,6 @@ class SocketService {
           companyId: userData.companyId,
         };
 
-        console.log(
-          "🔌 [SOCKET-SERVICE] Sending user_join with company isolation:",
-          userJoinData,
-        );
         this.socket.emit("user_join", userJoinData);
       } catch (error) {
         console.error("❌ [SOCKET-SERVICE] Error parsing user data:", error);
@@ -833,13 +808,6 @@ class SocketService {
         if (storedUserId) {
           this.socket.emit("user_join", { userId: storedUserId });
         }
-      }
-    } else {
-      // تجاهل التحذير - هذا طبيعي أثناء تحميل بيانات المستخدم أو بعد تسجيل الخروج
-      if (import.meta.env.DEV) {
-        console.debug(
-          "🔍 [SOCKET-SERVICE] User data not yet available for Socket.IO connection",
-        );
       }
     }
   }
@@ -964,7 +932,6 @@ class SocketService {
           this.socket?.on(event as any, cb as any);
         });
       });
-      console.log(`🔌 [SOCKET] Re-bound ${this.registeredListeners.size} persistent event listener categories`);
     } catch (err) {
       console.warn("⚠️ [SOCKET] Failed to rebind listeners:", err);
     }
@@ -1013,7 +980,6 @@ class SocketService {
   }
 
   reconnect() {
-    console.log("🔄 [SOCKET] Explicit reconnect requested");
     this.disconnect();
     return this.connect();
   }

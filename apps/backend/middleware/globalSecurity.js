@@ -55,9 +55,11 @@ class SecurityLogger {
     // Check for suspicious activity
     this.checkSuspiciousActivity(eventType, details);
 
-    // Console logging with security level
+    // Console logging with security level (LOW events only logged when DEBUG_AUTH=true)
     const securityLevel = this.getSecurityLevel(eventType);
-    console.log(`🔒 [SECURITY-${securityLevel}] ${eventType}:`, details);
+    if (securityLevel !== 'LOW' || isAuthDebugEnabled()) {
+      console.log(`🔒 [SECURITY-${securityLevel}] ${eventType}:`, details);
+    }
 
     // Write critical events to file
     if (securityLevel === 'CRITICAL') {
@@ -285,10 +287,10 @@ function setCachedUserCompany(userId, data) {
 function invalidateUserCompanyCache(userId) {
   if (userId) {
     userCompanyCache.delete(userId);
-    console.log(`[SECURITY-CACHE] Invalidated cache for user ${userId}`);
+    logAuthDebug(`[SECURITY-CACHE] Invalidated cache for user ${userId}`);
   } else {
     userCompanyCache.clear();
-    console.log(`[SECURITY-CACHE] Invalidated entire user/company cache`);
+    logAuthDebug(`[SECURITY-CACHE] Invalidated entire user/company cache`);
   }
 }
 

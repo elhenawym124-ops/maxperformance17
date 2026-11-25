@@ -63,7 +63,6 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
     // Connection event handlers
     newSocket.on("connect", () => {
-      console.log("Socket connected:", newSocket.id);
       setIsConnected(true);
 
       // 🔐 Send user_join with company isolation support
@@ -74,16 +73,11 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
           companyId: user.companyId,
         };
 
-        console.log(
-          "🏢 [SOCKET-CONTEXT] Sending user_join with company isolation:",
-          userJoinData,
-        );
         newSocket.emit("user_join", userJoinData);
       }
     });
 
-    newSocket.on("disconnect", (reason) => {
-      console.log("Socket disconnected:", reason);
+    newSocket.on("disconnect", () => {
       setIsConnected(false);
     });
 
@@ -92,8 +86,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
       setIsConnected(false);
     });
 
-    newSocket.on("reconnect", (attemptNumber) => {
-      console.log("Socket reconnected after", attemptNumber, "attempts");
+    newSocket.on("reconnect", () => {
       setIsConnected(true);
     });
 
@@ -107,9 +100,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     });
 
     // Authentication events
-    newSocket.on("authenticated", (data) => {
-      console.log("Socket authenticated:", data);
-    });
+    newSocket.on("authenticated", () => {});
 
     newSocket.on("unauthorized", (error) => {
       console.error("Socket authentication failed:", error);
@@ -117,23 +108,11 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     });
 
     // Global event handlers
-    newSocket.on("notification", (notification) => {
-      // Handle global notifications
-      console.log("Received notification:", notification);
+    newSocket.on("notification", () => {});
 
-      // You can dispatch to a notification store or show toast
-      // notificationStore.addNotification(notification);
-    });
+    newSocket.on("system_announcement", () => {});
 
-    newSocket.on("system_announcement", (announcement) => {
-      // Handle system announcements
-      console.log("System announcement:", announcement);
-    });
-
-    newSocket.on("user_status_changed", (data) => {
-      // Handle user status changes
-      console.log("User status changed:", data);
-    });
+    newSocket.on("user_status_changed", () => {});
 
     setSocket(newSocket);
 

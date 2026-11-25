@@ -2,7 +2,6 @@ import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { Lock, Loader2 } from "lucide-react";
 import { useAuth } from "../hooks/useAuthSimple";
-import tokenManager from "../utils/tokenManager";
 import LoadingSpinner from "./LoadingSpinner";
 import Layout from "./Layout";
 import AccessDenied from "./protection/AccessDenied";
@@ -21,7 +20,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const [showRedirectMessage, setShowRedirectMessage] = React.useState(false);
   const currentPath = location.pathname;
   const isReviewRoute = currentPath === "/products/reviews";
-  const hasAccessToken = tokenManager.hasAccessToken();
 
   React.useEffect(() => {
     if (!isReviewRoute || isLoading || isAuthenticated) {
@@ -30,27 +28,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     }
 
     setShowRedirectMessage(true);
-    const timer = setTimeout(() => {
-      console.log("[ProtectedRoute] Redirecting now...");
-    }, 3000);
-
-    return () => clearTimeout(timer);
   }, [isAuthenticated, isLoading, isReviewRoute]);
-
-  // Debug logging
-  if (isReviewRoute) {
-    console.log("[ProtectedRoute] /products/reviews accessed");
-    console.log("[ProtectedRoute] isLoading:", isLoading);
-    console.log("[ProtectedRoute] isAuthenticated:", isAuthenticated);
-    console.log("[ProtectedRoute] user:", user ? "exists" : "null");
-    console.log("[ProtectedRoute] token:", hasAccessToken ? "exists" : "missing");
-  }
 
   // Show loading spinner while checking authentication
   if (isLoading) {
-    if (isReviewRoute) {
-      console.log("[ProtectedRoute] Still loading, showing spinner...");
-    }
     return (
       <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
         <LoadingSpinner size="lg" />
@@ -60,14 +41,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
-    if (isReviewRoute) {
-      console.error(
-        "[ProtectedRoute] Not authenticated, redirecting to login",
-      );
-      console.error("[ProtectedRoute] User:", user);
-      console.error("[ProtectedRoute] Token:", hasAccessToken ? "exists" : "missing");
-
-      if (showRedirectMessage) {
+    if (isReviewRoute && showRedirectMessage) {
         return (
           <div className="min-h-screen flex items-center justify-center bg-background/95 p-4" dir="rtl">
             <div className="text-center p-6 bg-card border border-border/80 rounded-2xl shadow-xl max-w-md w-full space-y-4">
@@ -89,7 +63,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
             </div>
           </div>
         );
-      }
     }
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }

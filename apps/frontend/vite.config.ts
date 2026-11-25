@@ -394,6 +394,12 @@ export default defineConfig(({ mode }) => {
     esbuild: {
       sourcemap: false,
       keepNames: true,
+      ...(mode === 'production'
+        ? {
+            drop: ['debugger'],
+            pure: ['console.log', 'console.debug', 'console.info'],
+          }
+        : {}),
     },
     root: '.',
     worker: {

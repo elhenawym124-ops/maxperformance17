@@ -8,19 +8,8 @@
  */
 
 const nativeConsole = globalThis.console;
-const isLocalDevelopmentHost = (): boolean => {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  return ["localhost", "127.0.0.1"].includes(window.location.hostname);
-};
 
 const isFacebookPixelDebugEnabled = (): boolean => {
-  if (isLocalDevelopmentHost()) {
-    return true;
-  }
-
   if (typeof window === "undefined") {
     return false;
   }
@@ -44,9 +33,7 @@ const console = {
     }
   },
   error: (...args: unknown[]) => {
-    if (isFacebookPixelDebugEnabled()) {
-      nativeConsole.error(...args);
-    }
+    nativeConsole.error(...args);
   },
 };
 

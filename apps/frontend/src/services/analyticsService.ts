@@ -218,7 +218,6 @@ class AnalyticsService {
       }
     }
 
-    console.warn("⚠️ [Analytics] No companyId found in localStorage");
     return null;
   }
 
@@ -226,9 +225,6 @@ class AnalyticsService {
     try {
       const companyId = this.getCompanyId();
       if (!companyId) {
-        console.warn(
-          "📊 [Analytics] No companyId found, skipping store visit tracking",
-        );
         return;
       }
 
@@ -241,11 +237,6 @@ class AnalyticsService {
       if (this.hasTrackedKey("sessionStorage", dedupeKey)) {
         return dedupeKey;
       }
-
-      console.log("📊 [Analytics] Tracking store visit...", {
-        companyId,
-        landingPage,
-      });
 
       await apiClient.post(
         "/analytics/track/store-visit",
@@ -264,7 +255,6 @@ class AnalyticsService {
 
       this.markTracked("sessionStorage", dedupeKey);
 
-      console.log("✅ [Analytics] Store visit tracked successfully");
       return dedupeKey;
     } catch (error) {
       console.error("❌ [Analytics] Error tracking store visit:", error);
@@ -275,19 +265,10 @@ class AnalyticsService {
     try {
       const companyId = this.getCompanyId();
       if (!companyId) {
-        console.warn(
-          "📊 [Analytics] No companyId found, skipping product view tracking",
-        );
         return;
       }
 
       const sessionId = this.getSessionId();
-
-      console.log("📊 [Analytics] Tracking product view...", {
-        companyId,
-        productId,
-        source,
-      });
 
       await apiClient.post(
         "/analytics/track/product-view",
@@ -301,8 +282,6 @@ class AnalyticsService {
           headers: { "x-company-id": companyId },
         },
       );
-
-      console.log("✅ [Analytics] Product view tracked successfully");
     } catch (error) {
       console.error("❌ [Analytics] Error tracking product view:", error);
     }
@@ -312,19 +291,10 @@ class AnalyticsService {
     try {
       const companyId = this.getCompanyId();
       if (!companyId) {
-        console.warn(
-          "📊 [Analytics] No companyId found, skipping add to cart tracking",
-        );
         return;
       }
 
       const sessionId = this.getSessionId();
-
-      console.log("📊 [Analytics] Tracking add to cart...", {
-        companyId,
-        productId,
-        value,
-      });
 
       await apiClient.post(
         "/analytics/track/conversion",
@@ -339,8 +309,6 @@ class AnalyticsService {
           headers: { "x-company-id": companyId },
         },
       );
-
-      console.log("✅ [Analytics] Add to cart tracked successfully");
     } catch (error) {
       console.error("❌ [Analytics] Error tracking add to cart:", error);
     }
@@ -350,9 +318,6 @@ class AnalyticsService {
     try {
       const companyId = this.getCompanyId();
       if (!companyId) {
-        console.warn(
-          "📊 [Analytics] No companyId found, skipping checkout tracking",
-        );
         return;
       }
 
@@ -371,12 +336,6 @@ class AnalyticsService {
         return dedupeKey;
       }
 
-      console.log("📊 [Analytics] Tracking checkout...", {
-        companyId,
-        value,
-        productIds: normalizedProductIds,
-      });
-
       await apiClient.post(
         "/analytics/track/conversion",
         {
@@ -393,7 +352,6 @@ class AnalyticsService {
 
       this.markTracked("sessionStorage", dedupeKey);
 
-      console.log("✅ [Analytics] Checkout tracked successfully");
       return dedupeKey;
     } catch (error) {
       console.error("❌ [Analytics] Error tracking checkout:", error);
@@ -408,9 +366,6 @@ class AnalyticsService {
     try {
       const companyId = this.getCompanyId();
       if (!companyId) {
-        console.warn(
-          "📊 [Analytics] No companyId found, skipping purchase tracking",
-        );
         return;
       }
 

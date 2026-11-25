@@ -8,6 +8,13 @@ const { getSharedPrismaClient, safeQuery } = require('./sharedDatabase');
 const { getJwtSecret } = require('../utils/jwtSecret');
 const { canViewConversation } = require('../middleware/rbacMiddleware');
 
+const isSocketDebugEnabled = () => process.env.DEBUG_SOCKET === 'true';
+const logSocketDebug = (...args) => {
+  if (isSocketDebugEnabled()) {
+    console.log(...args);
+  }
+};
+
 class SocketService {
   constructor() {
     this.io = null;
@@ -101,7 +108,7 @@ class SocketService {
         socket.userName = 'Developer';
         socket.role = 'COMPANY_ADMIN';
 
-        console.log(`✅ [SOCKET-AUTH] Mock authentication for socket ${socket.id}`);
+        logSocketDebug(`✅ [SOCKET-AUTH] Mock authentication for socket ${socket.id}`);
         return next();
       }
 
@@ -158,7 +165,7 @@ class SocketService {
             console.warn(`❌ [SOCKET-AUTH] Access revoked for user ${user.email} to company ${activeCompanyId}`);
             return next(new Error('Access to the requested company has been revoked'));
           }
-          console.log(`✅ [SOCKET-AUTH] Legacy primary company access allowed for user ${user.email}`);
+          logSocketDebug(`✅ [SOCKET-AUTH] Legacy primary company access allowed for user ${user.email}`);
         }
       }
 
@@ -479,7 +486,7 @@ class SocketService {
     }
     this.companyRooms.get(companyId).add(socket.id);
 
-    console.log(`✅ [SOCKET-JOIN] User ${socket.userName} (${userId}) joined company ${companyId} room successfully`);
+    logSocketDebug(`✅ [SOCKET-JOIN] User ${socket.userName} (${userId}) joined company ${companyId} room successfully`);
     //console.log(`📊 [SOCKET-JOIN] Company ${companyId} now has ${this.companyRooms.get(companyId).size} connected users`);
 
     // إشعار المستخدمين الآخرين في نفس الشركة فقط
@@ -501,11 +508,11 @@ class SocketService {
           const WhatsAppManager = require('./whatsapp/WhatsAppManager');
           if (typeof WhatsAppManager.emitSessionStatusesForCompany === 'function') {
             WhatsAppManager.emitSessionStatusesForCompany(companyId);
-            console.log(`📡 [SOCKET] Emitted WhatsApp session statuses for company ${companyId} to newly joined user`);
+            logSocketDebug(`📡 [SOCKET] Emitted WhatsApp session statuses for company ${companyId} to newly joined user`);
           }
         } catch (waErr) {
           // WhatsAppManager might not be loaded yet - that's OK
-          console.log(`⚠️ [SOCKET] Could not emit WhatsApp statuses: ${waErr.message}`);
+          logSocketDebug(`⚠️ [SOCKET] Could not emit WhatsApp statuses: ${waErr.message}`);
         }
 
     this.logSecurityEvent('user_joined', {
@@ -992,14 +999,14 @@ class SocketService {
       return;
     }
 
-    console.log(`📤 [NEW-CONVERSATION] Attempting to send to company ${companyId}:`, conversation.id);
+    logSocketDebug(`📤 [NEW-CONVERSATION] Attempting to send to company ${companyId}:`, conversation.id);
 
     const companyRoomName = `company_${companyId}`;
     const localRooms = this.io?.sockets?.adapter?.rooms;
     const companyRoom = localRooms?.get(companyRoomName);
     const companySocketIds = this.companyRooms.get(companyId);
 
-    console.log(`📊 [NEW-CONVERSATION] Company room status:`, {
+    logSocketDebug(`📊 [NEW-CONVERSATION] Company room status:`, {
       companyId,
       roomExists: !!companyRoom,
       roomSize: companyRoom?.size || 0,
@@ -1009,17 +1016,17 @@ class SocketService {
 
     // Method 1: Send to company room (standard approach)
     io.to(companyRoomName).emit('conversation:new', conversation);
-    console.log(`📤 [NEW-CONVERSATION] Sent to ${companyRoomName} room`);
+    logSocketDebug(`📤 [NEW-CONVERSATION] Sent to ${companyRoomName} room`);
 
     // Log room info for debugging
-    console.log(`📊 [NEW-CONVERSATION] Room size: ${companyRoom?.size || 0}, Tracked sockets: ${companySocketIds?.size || 0}`);
+    logSocketDebug(`📊 [NEW-CONVERSATION] Room size: ${companyRoom?.size || 0}, Tracked sockets: ${companySocketIds?.size || 0}`);
 
     // Method 2: Direct delivery - REMOVED to prevent duplicate events
     // (Sockets in room would receive twice: once from room, once from direct)
 
     // Method 3: Broadcast - REMOVED to prevent duplicate events
 
-    console.log(`✅ [NEW-CONVERSATION] Event sent successfully via company room`);
+    logSocketDebug(`✅ [NEW-CONVERSATION] Event sent successfully via company room`);
   }
 
   // إرسال أي event للشركة (دالة عامة)
@@ -1035,7 +1042,7 @@ class SocketService {
       return;
     }
 
-    console.log(`🔌 [SOCKET] Emitting '${eventName}' to company ${companyId}`);
+    logSocketDebug(`🔌 [SOCKET] Emitting '${eventName}' to company ${companyId}`);
     io.to(`company_${companyId}`).emit(eventName, data);
   }
 

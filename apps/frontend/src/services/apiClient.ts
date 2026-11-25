@@ -412,9 +412,11 @@ class ApiClient {
             originalRequest._retryCount = retryCount + 1;
             const delay = Math.min(1000 * Math.pow(2, retryCount), 5000); // Exponential backoff: 1s, 2s, 4s (max 5s)
 
-            console.log(
-              `🔄 Retrying request (${retryCount + 1}/${maxRetries}) after ${delay}ms...`,
-            );
+            if (import.meta.env.DEV) {
+              console.debug(
+                `🔄 Retrying request (${retryCount + 1}/${maxRetries}) after ${delay}ms...`,
+              );
+            }
 
             await new Promise((resolve) => setTimeout(resolve, delay));
             return this.client(originalRequest);

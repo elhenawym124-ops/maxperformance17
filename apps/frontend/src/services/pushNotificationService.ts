@@ -26,7 +26,6 @@ class PushNotificationService {
     }
 
     this.isInitialized = true;
-    console.log("📱 [PUSH] Initializing Native Push Notifications...");
 
     try {
       this.setupListeners();
@@ -60,7 +59,6 @@ class PushNotificationService {
       }
 
       await pushPlugin.register();
-      console.log("✅ [PUSH] Registered with FCM service");
 
       // إنشاء قنوات الإشعارات لنظام أندرويد لتمكين التخصيص والتحكم في النغمات
       try {
@@ -106,7 +104,6 @@ class PushNotificationService {
             lights: true,
           }),
         ]);
-        console.log("✅ [PUSH] All Android notification channels configured successfully");
       } catch (channelError) {
         console.warn("⚠️ [PUSH] Notification channel setup warning:", channelError);
       }
@@ -127,7 +124,6 @@ class PushNotificationService {
 
     // 1. استلام توكن الـ FCM من جوجل
     pushPlugin.addListener("registration", async (token: any) => {
-      console.log("📲 [PUSH] FCM Device Token received:", token.value?.substring(0, 16) + "...");
       this.currentDeviceToken = token.value;
       await this.syncTokenWithBackend(token.value);
     });
@@ -162,8 +158,6 @@ class PushNotificationService {
 
     // 3. وصول إشعار والتطبيق مفتوح في المقدمة (Foreground)
     pushPlugin.addListener("pushNotificationReceived", async (notification: any) => {
-      console.log("🔔 [PUSH] Notification received in foreground:", notification.title);
-
       // التطبيق مفتوح: أندرويد مش بيعرض إشعار نظام ولا بيشغّل صوت،
       // فلازم نشغّل نغمة الإشعار من التطبيق نفسه.
       try {
@@ -201,7 +195,6 @@ class PushNotificationService {
     // 4. نقر المستخدم على الإشعار من شريط الهاتف أو شاشة القفل
     pushPlugin.addListener("pushNotificationActionPerformed", (action: any) => {
       const data = action.notification?.data || {};
-      console.log("👆 [PUSH] Notification clicked by user:", data);
 
       const targetUrl =
         data.url ||
@@ -224,7 +217,6 @@ class PushNotificationService {
 
     // التأكد من تسجيل دخول المستخدم أولاً
     if (!tokenManager.hasAccessToken()) {
-      console.log("⏳ [PUSH] User not logged in yet, token will be synced after login");
       return;
     }
 
@@ -234,7 +226,6 @@ class PushNotificationService {
         platform: getCapacitor()?.getPlatform?.() || "android",
         userAgent: navigator.userAgent,
       });
-      console.log("✅ [PUSH] Device token successfully registered on MaxP backend");
     } catch (error) {
       console.error("⚠️ [PUSH] Failed to sync device token with backend:", error);
     }

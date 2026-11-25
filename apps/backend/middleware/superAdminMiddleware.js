@@ -8,6 +8,13 @@ const { getJwtSecret, isMissingAuthSecretError } = require('../utils/jwtSecret')
 
 const devSettingsService = require('../services/devSettingsService');
 
+const isAuthDebugEnabled = () => process.env.DEBUG_AUTH === 'true';
+const logAuthDebug = (...args) => {
+  if (isAuthDebugEnabled()) {
+    console.log(...args);
+  }
+};
+
 /**
  * 🔐 Helper to normalize role name for case-insensitive matching
  * MUST be defined FIRST before other functions use it
@@ -49,12 +56,12 @@ const getRoleLevel = (role) => ROLE_HIERARCHY[normalizeRole(role)] || ROLE_HIERA
 // Authenticate token middleware
 const authenticateToken = async (req, res, next) => {
   try {
-    console.log('🔐 [SUPER-ADMIN-MIDDLEWARE] authenticateToken called for:', req.method, req.path);
+    logAuthDebug('🔐 [SUPER-ADMIN-MIDDLEWARE] authenticateToken called for:', req.method, req.path);
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-      console.log('❌ [SUPER-ADMIN-MIDDLEWARE] No token provided');
+      logAuthDebug('❌ [SUPER-ADMIN-MIDDLEWARE] No token provided');
       return res.status(401).json({
         success: false,
         message: 'رمز الوصول مطلوب'
@@ -62,7 +69,7 @@ const authenticateToken = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, getJwtSecret());
-    console.log('✅ [SUPER-ADMIN-MIDDLEWARE] Token decoded, userId:', decoded.userId);
+    logAuthDebug('✅ [SUPER-ADMIN-MIDDLEWARE] Token decoded, userId:', decoded.userId);
 
     // Get user from database
     const prisma = await getSharedPrismaClientAsync();
@@ -74,14 +81,14 @@ const authenticateToken = async (req, res, next) => {
     });
 
     if (!user || !user.isActive) {
-      console.log('❌ [SUPER-ADMIN-MIDDLEWARE] User not found or inactive');
+      logAuthDebug('❌ [SUPER-ADMIN-MIDDLEWARE] User not found or inactive');
       return res.status(401).json({
         success: false,
         message: 'رمز الوصول غير صالح'
       });
     }
 
-    console.log('✅ [SUPER-ADMIN-MIDDLEWARE] User authenticated:', user.email, 'Role:', user.role);
+    logAuthDebug('✅ [SUPER-ADMIN-MIDDLEWARE] User authenticated:', user.email, 'Role:', user.role);
     req.user = user;
     next();
   } catch (error) {
@@ -105,9 +112,9 @@ const authenticateToken = async (req, res, next) => {
 // Super Admin access control middleware - Now with dynamic roles!
 const requireSuperAdmin = async (req, res, next) => {
   try {
-    console.log('👑 [SUPER-ADMIN-MIDDLEWARE] requireSuperAdmin called');
+    logAuthDebug('👑 [SUPER-ADMIN-MIDDLEWARE] requireSuperAdmin called');
     if (!req.user) {
-      console.log('❌ [SUPER-ADMIN-MIDDLEWARE] No user in request');
+      logAuthDebug('❌ [SUPER-ADMIN-MIDDLEWARE] No user in request');
       return res.status(401).json({
         success: false,
         message: 'غير مصرح بالوصول - يجب تسجيل الدخول أولاً'
@@ -132,7 +139,7 @@ const requireSuperAdmin = async (req, res, next) => {
     const hasSystemRole = systemRoles.includes(req.user.role);
 
     if (!hasSystemRole) {
-      console.log(`❌ [SUPER-ADMIN-MIDDLEWARE] Access denied for role: ${req.user.role}`);
+      logAuthDebug(`❌ [SUPER-ADMIN-MIDDLEWARE] Access denied for role: ${req.user.role}`);
       return res.status(403).json({
         success: false,
         message: 'ليس لديك صلاحية الوصول للوحة تحكم إدارة النظام'
@@ -150,8 +157,8 @@ const requireSuperAdmin = async (req, res, next) => {
       const permissions = settings.permissions || {};
       let rolePermissions = permissions[originalRole] || permissions[normalizedRole];
 
-      console.log(`🔍 [PERMISSION-LOOKUP] Looking for role: ${originalRole}, normalized: ${normalizedRole}`);
-      console.log(`🔍 [PERMISSION-LOOKUP] Found permissions:`, rolePermissions ? 'YES' : 'NO');
+      logAuthDebug(`🔍 [PERMISSION-LOOKUP] Looking for role: ${originalRole}, normalized: ${normalizedRole}`);
+      logAuthDebug(`🔍 [PERMISSION-LOOKUP] Found permissions:`, rolePermissions ? 'YES' : 'NO');
 
       req.userPermissions = req.user.role === 'SUPER_ADMIN'
         ? { viewScope: 'all', canCreate: true, canEdit: true, canDelete: true, canComment: true, canAssign: true, canChangeStatus: true, canArchive: true, canViewReports: true, canManageProjects: true, canExport: true, canAccessSettings: true, canManageTaskSettings: true, canViewAll: true }
@@ -161,7 +168,7 @@ const requireSuperAdmin = async (req, res, next) => {
       req.userPermissions = { viewScope: 'assigned_only' };
     }
 
-    console.log(`✅ [SUPER-ADMIN-MIDDLEWARE] Access granted for role: ${req.user.role}, viewScope: ${req.userPermissions.viewScope}`);
+    logAuthDebug(`✅ [SUPER-ADMIN-MIDDLEWARE] Access granted for role: ${req.user.role}, viewScope: ${req.userPermissions.viewScope}`);
 
     // 🛡️ CRITICAL: Auto-Tenant Isolation must never constrain super admin operations to a caller's accidental token company.
     // If a specific target company is provided in params or query, scope the context to that company.
@@ -267,14 +274,14 @@ const getViewScopeFilter = async (req) => {
       const settings = await devSettingsService.getSettings();
       const rolePermissions = settings.permissions[userRole] || settings.permissions[req.user?.role];
       viewScope = rolePermissions?.viewScope || 'assigned_only';
-      console.log(`🔒 [getViewScopeFilter] User: ${req.user?.email}, Role: ${req.user?.role} → Normalized: ${userRole}, viewScope: ${viewScope}`);
+      logAuthDebug(`🔒 [getViewScopeFilter] User: ${req.user?.email}, Role: ${req.user?.role} → Normalized: ${userRole}, viewScope: ${viewScope}`);
     } catch (e) {
       console.warn('⚠️ Could not load permissions for viewScope:', e.message);
     }
 
     // SUPER_ADMIN or viewScope 'all' = no filter
     if (req.user?.role === 'SUPER_ADMIN' || viewScope === 'all') {
-      console.log(`🔓 [getViewScopeFilter] No filter applied (SUPER_ADMIN or viewScope=all)`);
+      logAuthDebug(`🔓 [getViewScopeFilter] No filter applied (SUPER_ADMIN or viewScope=all)`);
       return {};
     }
 
@@ -285,7 +292,7 @@ const getViewScopeFilter = async (req) => {
         where: { userId: userId }
       });
       teamMemberId = teamMember?.id;
-      console.log(`👤 [getViewScopeFilter] TeamMember ID for user ${userId}: ${teamMemberId || 'NOT FOUND'}`);
+      logAuthDebug(`👤 [getViewScopeFilter] TeamMember ID for user ${userId}: ${teamMemberId || 'NOT FOUND'}`);
     } catch (e) {
       console.warn('⚠️ Could not find team member for user:', userId, e.message);
     }
@@ -293,13 +300,13 @@ const getViewScopeFilter = async (req) => {
     if (viewScope === 'assigned_only') {
       // Only see tasks assigned to this user
       if (!teamMemberId) {
-        console.log(`🚫 [getViewScopeFilter] No TeamMember found for user ${userId}, returning NO ACCESS filter`);
+        logAuthDebug(`🚫 [getViewScopeFilter] No TeamMember found for user ${userId}, returning NO ACCESS filter`);
         // Return a filter that will match nothing - empty array in 'in' clause matches nothing
         return {
           id: { in: [] }  // Empty array = no matches
         };
       }
-      console.log(`🔒 [getViewScopeFilter] Filtering by assigneeId: ${teamMemberId}`);
+      logAuthDebug(`🔒 [getViewScopeFilter] Filtering by assigneeId: ${teamMemberId}`);
       return { assigneeId: teamMemberId };
     }
 
@@ -317,7 +324,7 @@ const getViewScopeFilter = async (req) => {
       // Get unique project IDs
       const projectIds = [...new Set(userProjects.map(t => t.projectId).filter(Boolean))];
 
-      console.log(`🔒 [getViewScopeFilter] User has tasks in projects: ${projectIds.join(', ') || 'none'}`);
+      logAuthDebug(`🔒 [getViewScopeFilter] User has tasks in projects: ${projectIds.join(', ') || 'none'}`);
       return projectIds.length > 0 ? { projectId: { in: projectIds } } : { assigneeId: teamMemberId };
     }
 
