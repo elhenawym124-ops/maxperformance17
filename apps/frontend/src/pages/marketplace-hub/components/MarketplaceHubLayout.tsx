@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Calculator, QrCode, TrendingUp, LayoutGrid, Sparkles, Database, PlugZap, Coins } from 'lucide-react';
+import { Calculator, QrCode, TrendingUp, LayoutGrid, Sparkles, Database, PlugZap, Coins, BarChart3 } from 'lucide-react';
 import { marketplaceHubService } from '../../../services/marketplaceHubService';
 import { SellerCopilotDrawer } from './SellerCopilotDrawer';
 
@@ -11,6 +11,7 @@ interface MarketplaceHubLayoutProps {
 
 const HUB_TABS = [
   { path: '/marketplace-hub', label: 'نظرة عامة', icon: LayoutGrid },
+  { path: '/marketplace-hub/dashboard', label: 'تحليلات القنوات', icon: BarChart3 },
   { path: '/marketplace-hub/calculator', label: 'حاسبة الأرباح', icon: Calculator },
   { path: '/marketplace-hub/studio', label: 'استوديو AI', icon: Sparkles },
   { path: '/marketplace-hub/qr-barcode', label: 'QR والباركود', icon: QrCode },

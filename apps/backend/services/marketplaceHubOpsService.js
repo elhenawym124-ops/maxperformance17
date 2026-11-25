@@ -35,15 +35,30 @@ const VENDOR_CATEGORIES = [
 
 const memoryConnections = new Map();
 
-function encryptConfig(obj) {
+function deriveAesKey() {
   const secretSeed = process.env.JWT_SECRET || process.env.ENCRYPTION_KEY || 'maxp-marketplace-hub-local-key';
-  const key = crypto.createHash('sha256').update(secretSeed).digest();
+  return crypto.createHash('sha256').update(secretSeed).digest();
+}
+
+function encryptConfig(obj) {
+  const key = deriveAesKey();
   const iv = crypto.randomBytes(12);
   const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
   const plaintext = JSON.stringify(obj || {});
   const encrypted = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final()]);
   const tag = cipher.getAuthTag();
   return `${iv.toString('hex')}:${tag.toString('hex')}:${encrypted.toString('hex')}`;
+}
+
+function decryptConfig(payload) {
+  if (!payload || typeof payload !== 'string') return {};
+  const parts = payload.split(':');
+  if (parts.length !== 3) return {};
+  const [ivHex, tagHex, encHex] = parts;
+  const decipher = crypto.createDecipheriv('aes-256-gcm', deriveAesKey(), Buffer.from(ivHex, 'hex'));
+  decipher.setAuthTag(Buffer.from(tagHex, 'hex'));
+  const plain = Buffer.concat([decipher.update(Buffer.from(encHex, 'hex')), decipher.final()]).toString('utf8');
+  return JSON.parse(plain);
 }
 
 function getVendors({ country = 'EGY', category = '', search = '' }) {
@@ -121,7 +136,23 @@ async function listConnections(companyId, prisma = safeGetPrisma()) {
     });
     return rows;
   }
-  return memoryConnections.get(key) || [];
+  return (memoryConnections.get(key) || []).map(({ encryptedConfig: _omit, ...safe }) => safe);
+}
+
+async function getSavedConnectionCredentials(companyId, platform, country, prisma = safeGetPrisma()) {
+  const key = String(companyId || 'default');
+  const plat = String(platform || 'amazon').toLowerCase();
+  const ctry = String(country || 'EGY').toUpperCase();
+  if (prisma?.marketplaceChannelConnection?.findFirst) {
+    const row = await prisma.marketplaceChannelConnection.findFirst({
+      where: { companyId: key, platform: plat, country: ctry },
+    });
+    return row?.encryptedConfig ? decryptConfig(row.encryptedConfig) : null;
+  }
+  const found = (memoryConnections.get(key) || []).find(
+    (item) => item.platform === plat && (item.country === ctry || !country)
+  );
+  return found?.encryptedConfig ? decryptConfig(found.encryptedConfig) : null;
 }
 
 async function saveConnection({ companyId, platform, country = 'EGY', storeName, authMode = 'API_KEY', credentials }, prisma = safeGetPrisma()) {
@@ -154,13 +185,15 @@ async function saveConnection({ companyId, platform, country = 'EGY', storeName,
     storeName: storeName || `${plat.toUpperCase()} (${ctry})`,
     status,
     authMode,
+    encryptedConfig,
     updatedAt: new Date().toISOString(),
   };
   const idx = list.findIndex((item) => item.platform === plat && item.country === ctry);
   if (idx >= 0) list[idx] = next;
   else list.push(next);
   memoryConnections.set(key, list);
-  return next;
+  const { encryptedConfig: _omit, ...safeNext } = next;
+  return safeNext;
 }
 
 async function removeConnection(companyId, platform, country = 'EGY', prisma = safeGetPrisma()) {
@@ -198,12 +231,12 @@ function buildAmazonOAuthConsentUrl(country = 'EGY', appId = process.env.AMAZON_
   };
 }
 
-async function testAmazonSandbox({ clientId, clientSecret, refreshToken, region = 'na' }) {
+async function fetchAmazonOrders({ clientId, clientSecret, refreshToken, region = 'na', mode = 'sandbox', dateRangeDays = 30 }) {
   const cleanId = String(clientId || '').trim();
   const cleanSecret = String(clientSecret || '').trim();
   const cleanToken = String(refreshToken || '').trim();
   if (!cleanId || !cleanSecret || !cleanToken) {
-    const err = new Error('Client ID و Client Secret و Refresh Token مطلوبة لاختبار SP-API Sandbox');
+    const err = new Error('Client ID و Client Secret و Refresh Token مطلوبة');
     err.statusCode = 400;
     throw err;
   }
@@ -233,7 +266,12 @@ async function testAmazonSandbox({ clientId, clientSecret, refreshToken, region 
     throw err;
   }
 
-  const spUrl = `https://sandbox.sellingpartnerapi-${normalizedRegion}.amazon.com/orders/v0/orders?MarketplaceIds=${marketplaceId}&CreatedAfter=TEST_CASE_200`;
+  const hostPrefix = mode === 'production' ? 'sellingpartnerapi' : 'sandbox.sellingpartnerapi';
+  const createdAfter = mode === 'production'
+    ? new Date(Date.now() - Math.max(1, Number(dateRangeDays || 30)) * 86400000).toISOString()
+    : 'TEST_CASE_200';
+  const spUrl = `https://${hostPrefix}-${normalizedRegion}.amazon.com/orders/v0/orders?MarketplaceIds=${marketplaceId}&CreatedAfter=${encodeURIComponent(createdAfter)}`;
+
   const spRes = await fetch(spUrl, {
     method: 'GET',
     headers: {
@@ -244,20 +282,140 @@ async function testAmazonSandbox({ clientId, clientSecret, refreshToken, region 
   const spJson = await spRes.json();
   if (!spRes.ok) {
     const errMsg = spJson?.errors?.[0]?.message || `SP-API HTTP ${spRes.status}`;
-    const err = new Error(`فشل استدعاء SP-API Sandbox: ${errMsg}`);
+    const err = new Error(`فشل استدعاء SP-API: ${errMsg}`);
     err.statusCode = 400;
     throw err;
   }
 
-  const orders = spJson?.payload?.Orders || [];
   return {
-    connected: true,
     region: normalizedRegion,
     marketplaceId,
+    mode,
     tokenExpiresIn: lwaJson.expires_in,
-    ordersCount: orders.length,
-    sampleOrders: orders.slice(0, 5),
+    orders: spJson?.payload?.Orders || [],
   };
+}
+
+async function testAmazonSandbox({ clientId, clientSecret, refreshToken, region = 'na' }) {
+  const res = await fetchAmazonOrders({ clientId, clientSecret, refreshToken, region, mode: 'sandbox' });
+  return {
+    connected: true,
+    region: res.region,
+    marketplaceId: res.marketplaceId,
+    tokenExpiresIn: res.tokenExpiresIn,
+    ordersCount: res.orders.length,
+    sampleOrders: res.orders.slice(0, 5),
+  };
+}
+
+function aggregateOrdersToAnalytics(orders, { region, marketplaceId, mode, country, dateRange }) {
+  const list = Array.isArray(orders) ? orders : [];
+  const round2 = (n) => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
+
+  let totalRevenue = 0;
+  let unshippedCount = 0;
+  let shippedCount = 0;
+  let itemsOrdered = 0;
+  const currency = list[0]?.OrderTotal?.CurrencyCode || (country === 'KSA' ? 'SAR' : country === 'UAE' ? 'AED' : 'EGP');
+  const channelMap = new Map();
+
+  const sales = list.map((o) => {
+    const amount = Number(o?.OrderTotal?.Amount || 0);
+    const items = Number(o?.NumberOfItemsShipped || 0) + Number(o?.NumberOfItemsUnshipped || 0);
+    totalRevenue += amount;
+    itemsOrdered += items;
+    if (String(o?.OrderStatus || '').toLowerCase() === 'shipped') shippedCount += 1;
+    else unshippedCount += 1;
+
+    const ch = `${o?.SalesChannel || 'Amazon'} · ${o?.FulfillmentChannel || 'MFN'}`;
+    const prev = channelMap.get(ch) || { channel: ch, ordersCount: 0, units: 0, revenue: 0 };
+    prev.ordersCount += 1;
+    prev.units += items;
+    prev.revenue = round2(prev.revenue + amount);
+    channelMap.set(ch, prev);
+
+    return {
+      orderId: o.AmazonOrderId,
+      purchaseDate: o.PurchaseDate,
+      status: o.OrderStatus,
+      fulfillmentChannel: o.FulfillmentChannel,
+      salesChannel: o.SalesChannel,
+      amount: round2(amount),
+      currency: o?.OrderTotal?.CurrencyCode || currency,
+      itemsCount: items,
+    };
+  });
+
+  const gross = round2(totalRevenue);
+  const estimatedCommission = round2(gross * 0.13);
+  const estimatedShipping = round2(list.length * (currency === 'USD' ? 3.5 : 45));
+  const netPayout = round2(Math.max(0, gross - estimatedCommission - estimatedShipping));
+
+  return {
+    connected: true,
+    mode,
+    region,
+    marketplaceId,
+    country,
+    dateRange,
+    currency,
+    overview: {
+      totalOrders: list.length,
+      totalRevenue: gross,
+      itemsOrdered,
+      unshippedCount,
+      shippedCount,
+      averageOrderValue: list.length > 0 ? round2(gross / list.length) : 0,
+    },
+    sales,
+    productsPerformance: Array.from(channelMap.values()),
+    payments: {
+      grossSales: gross,
+      estimatedCommission,
+      estimatedShipping,
+      netPayout,
+    },
+  };
+}
+
+async function getChannelAnalytics({ companyId, country = 'EGY', dateRange = '30d', credentials, region = 'na', mode = 'sandbox' }, prisma = safeGetPrisma()) {
+  let activeCreds = credentials;
+  if (!activeCreds || !activeCreds.apiKey || !activeCreds.apiSecret || !activeCreds.refreshToken) {
+    const saved = await getSavedConnectionCredentials(companyId, 'amazon', country, prisma);
+    if (saved?.apiKey && saved?.apiSecret && saved?.refreshToken) {
+      activeCreds = saved;
+    }
+  }
+
+  if (!activeCreds || !activeCreds.apiKey || !activeCreds.apiSecret || !activeCreds.refreshToken) {
+    return {
+      connected: false,
+      country,
+      dateRange,
+      overview: null,
+      sales: [],
+      productsPerformance: [],
+      payments: null,
+    };
+  }
+
+  const daysMap = { '1d': 1, '7d': 7, '15d': 15, '30d': 30, '60d': 60 };
+  const fetched = await fetchAmazonOrders({
+    clientId: activeCreds.apiKey,
+    clientSecret: activeCreds.apiSecret,
+    refreshToken: activeCreds.refreshToken,
+    region,
+    mode,
+    dateRangeDays: daysMap[dateRange] || 30,
+  });
+
+  return aggregateOrdersToAnalytics(fetched.orders, {
+    region: fetched.region,
+    marketplaceId: fetched.marketplaceId,
+    mode: fetched.mode,
+    country,
+    dateRange,
+  });
 }
 
 module.exports = {
@@ -268,4 +426,6 @@ module.exports = {
   removeConnection,
   buildAmazonOAuthConsentUrl,
   testAmazonSandbox,
+  getChannelAnalytics,
+  aggregateOrdersToAnalytics,
 };

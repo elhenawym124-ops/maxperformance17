@@ -1,9 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, QrCode, TrendingUp, ArrowUpLeft, Sparkles, Database, PlugZap } from 'lucide-react';
+import { Calculator, QrCode, TrendingUp, ArrowUpLeft, Sparkles, Database, PlugZap, BarChart3 } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
 
 const ALL_MODULES = [
+  {
+    to: '/marketplace-hub/dashboard',
+    title: 'لوحة تحليلات القنوات الموحدة',
+    badge: 'SP-API Ready',
+    icon: BarChart3,
+    metrics: 'Overview+ · Sales · Payments',
+  },
   {
     to: '/marketplace-hub/calculator',
     title: 'حاسبة أرباح المنصات',
@@ -54,7 +61,7 @@ export const MarketplaceHubHome: React.FC = () => {
       <section>
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-foreground">وحدات المنصة المتاحة</h2>
-          <span className="font-mono text-xs tabular-nums text-muted-foreground">6 / 6</span>
+          <span className="font-mono text-xs tabular-nums text-muted-foreground">{ALL_MODULES.length} / {ALL_MODULES.length}</span>
         </div>
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">

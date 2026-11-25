@@ -1,5 +1,5 @@
 import { WhatsAppIcon, TelegramIcon, FacebookIcon, InstagramIcon } from '../components/icons/brands';
-import { AlertTriangle, Archive, ArrowLeftRight, Award, BadgePercent, Ban, Banknote, BarChart3, Bell, BellPlus, BellRing, BookOpen, Bot, Box, Briefcase, Building, Building2, Calculator, Calendar, CalendarDays, CheckCircle2, HelpCircle, CircleUser, ClipboardCheck, ClipboardList, Clock, Columns3, Clapperboard, Cog, CreditCard, DollarSign, DoorOpen, Download, Eye, FileBarChart, FileText, Filter, FlaskConical, FolderOpen, FolderTree, Gift, GitBranch, Globe, GraduationCap, Grid3x3, Heart, Home, Dna, Image, Inbox, Key, LayoutDashboard, Lightbulb, LineChart, Link, ListChecks, ListOrdered, ListTree, MapPin, Megaphone, MessageSquare, Monitor, Network, Paintbrush, Palette, Package, PackageCheck, Percent, Plus, PlugZap, Presentation, Printer, Radio, Receipt, RefreshCcw, Rocket, Ruler, ScanLine, Search, Send, Settings, Settings2, ShieldAlert, ShieldCheck, ShoppingBag, ShoppingCart, Sparkles, Volume2, SquarePen, Star, Store, Table2, Tag, Target, Terminal, Ticket, TrendingUp, Trophy, Truck, Undo2, UserPlus, Users, Wallet, Wrench, XCircle, Zap, Radiation, Landmark, Stethoscope, Coffee, Sliders, Trash2, History, Factory, Layers } from 'lucide-react'
+import { AlertTriangle, Archive, ArrowLeftRight, Award, BadgePercent, Ban, Banknote, BarChart3, Bell, BellPlus, BellRing, BookOpen, Bot, Box, Briefcase, Building, Building2, Calculator, Calendar, CalendarDays, CheckCircle2, HelpCircle, CircleUser, ClipboardCheck, ClipboardList, Clock, Coins, Columns3, Clapperboard, Cog, CreditCard, DollarSign, DoorOpen, Download, Eye, FileBarChart, FileText, Filter, FlaskConical, FolderOpen, FolderTree, Gift, GitBranch, Globe, GraduationCap, Grid3x3, Heart, Home, Dna, Image, Inbox, Key, LayoutDashboard, Lightbulb, LineChart, Link, ListChecks, ListOrdered, ListTree, MapPin, Megaphone, MessageSquare, Monitor, Network, Paintbrush, Palette, Package, PackageCheck, Percent, Plus, PlugZap, Presentation, Printer, Radio, Receipt, RefreshCcw, Rocket, Ruler, ScanLine, Search, Send, Settings, Settings2, ShieldAlert, ShieldCheck, ShoppingBag, ShoppingCart, Sparkles, Volume2, SquarePen, Star, Store, Table2, Tag, Target, Terminal, Ticket, TrendingUp, Trophy, Truck, Undo2, UserPlus, Users, Wallet, Wrench, XCircle, Zap, Radiation, Landmark, Stethoscope, Coffee, Sliders, Trash2, History, Factory, Layers } from 'lucide-react'
 import {
     EducationSettingsData,
     EducationTabSetting,
@@ -1060,6 +1060,7 @@ export const getSidebarConfig = (
             icon: Sparkles,
             items: [
                 { to: '/admin/agent-chat', icon: MessageSquare, label: isEn ? 'Agent Conversations' : 'محادثات الإيجنت' },
+                { to: '/admin/ai-credits', icon: Coins, label: isEn ? 'AI Credits & Top-Up' : 'رصيد وكريدت الذكاء الاصطناعي' },
                 { to: '/admin/agent-profiles', icon: Users, label: t('sidebar.agentProfiles') },
                 { to: '/marketplace/agents', icon: Bot, label: isEn ? 'Agents Marketplace' : 'سوق الإيجنت' },
                 { to: '/advertising/creative-studio', icon: Palette, label: isEn ? 'AI Creative Studio' : 'استوديو التصاميم الذكي' },
@@ -1521,6 +1522,7 @@ export const getSidebarConfig = (
             hidden: false,
             items: [
                 { to: '/marketplace-hub', icon: LayoutDashboard, label: t('sidebar.marketplaceHubHome', 'نظرة عامة') },
+                { to: '/marketplace-hub/dashboard', icon: BarChart3, label: t('sidebar.marketplaceHubDashboard', 'تحليلات القنوات') },
                 { to: '/marketplace-hub/calculator', icon: Calculator, label: t('sidebar.marketplaceHubCalculator', 'حاسبة أرباح المنصات') },
                 { to: '/marketplace-hub/studio', icon: Sparkles, label: t('sidebar.marketplaceHubStudio', 'استوديو الصور والمحتوى AI') },
                 { to: '/marketplace-hub/qr-barcode', icon: ScanLine, label: t('sidebar.marketplaceHubQrBarcode', 'مولد QR والباركود') },

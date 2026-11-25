@@ -111,6 +111,14 @@ async function runTests() {
   assert.strictEqual(oauthConfigured.ready, true);
   assert.ok(oauthConfigured.oauthUrl.includes('sellercentral.amazon.eg'));
 
+  const agg = opsService.aggregateOrdersToAnalytics([
+    { AmazonOrderId: '902-1', OrderStatus: 'Unshipped', FulfillmentChannel: 'MFN', SalesChannel: 'Amazon.com', OrderTotal: { CurrencyCode: 'USD', Amount: '11.01' }, NumberOfItemsShipped: 0, NumberOfItemsUnshipped: 1, PurchaseDate: '2026-11-25T10:00:00Z' },
+  ], { region: 'na', marketplaceId: 'ATVPDKIKX0DER', mode: 'sandbox', country: 'EGY', dateRange: '30d' });
+  assert.strictEqual(agg.overview.totalOrders, 1);
+  assert.strictEqual(agg.overview.totalRevenue, 11.01);
+  assert.strictEqual(agg.payments.grossSales, 11.01);
+  assert.ok(agg.payments.netPayout > 0);
+
   try {
     const qrPng = await generateQrCode({ content: 'https://maxp.online', size: 240, format: 'png' });
     assert.strictEqual(qrPng.mimeType, 'image/png');

@@ -198,3 +198,20 @@ exports.testAmazonSandbox = async (req, res) => {
     return handleError(res, error, 'Failed to test Amazon SP-API Sandbox');
   }
 };
+
+exports.getDashboardAnalytics = async (req, res) => {
+  try {
+    const source = req.method === 'GET' ? req.query || {} : req.body || {};
+    const data = await marketplaceHubOpsService.getChannelAnalytics({
+      companyId: getCompanyId(req),
+      country: source.country || 'EGY',
+      dateRange: source.dateRange || '30d',
+      region: source.region || 'na',
+      mode: source.mode || 'sandbox',
+      credentials: source.credentials,
+    });
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load channel analytics');
+  }
+};

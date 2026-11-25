@@ -240,6 +240,9 @@ const MarketplaceMarketOpsPage = React.lazy(
 const MarketplaceChannelsPage = React.lazy(
   () => import("./pages/marketplace-hub/MarketplaceChannelsPage"),
 );
+const MarketplaceDashboardPage = React.lazy(
+  () => import("./pages/marketplace-hub/MarketplaceDashboardPage"),
+);
 const AffiliatesManagement = React.lazy(
   () => import("./pages/affiliates/AffiliatesManagement"),
 );
@@ -1226,6 +1229,12 @@ const SuperAdminAIKeyManager = React.lazy(
 );
 const SuperAdminVideoStudioSettings = React.lazy(
   () => import("./pages/super-admin/SuperAdminVideoStudioSettings"),
+);
+const SuperAdminAiPricingPage = React.lazy(
+  () => import("./pages/super-admin/ai-pricing/SuperAdminAiPricingPage"),
+);
+const MerchantAiCreditsPage = React.lazy(
+  () => import("./pages/admin/ai-credits/MerchantAiCreditsPage"),
 );
 const SuperAdminAIKeyLogs = React.lazy(
   () => import("./pages/super-admin/SuperAdminAIKeyLogs"),
@@ -3005,6 +3014,16 @@ const AppContent = () => {
               element={
                 <Layout>
                   <SuperAdminVideoStudioSettings />
+                </Layout>
+              }
+            />
+            <Route
+              path="/super-admin/ai-pricing"
+              element={
+                <Layout>
+                  <React.Suspense fallback={<div className="flex items-center justify-center min-h-[400px]"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>}>
+                    <SuperAdminAiPricingPage />
+                  </React.Suspense>
                 </Layout>
               }
             />
@@ -5506,6 +5525,14 @@ const AppContent = () => {
                   element={
                     <Layout>
                       <MarketplaceChannelsPage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/marketplace-hub/dashboard"
+                  element={
+                    <Layout>
+                      <MarketplaceDashboardPage />
                     </Layout>
                   }
                 />
@@ -9496,6 +9523,16 @@ const AppContent = () => {
                   element={
                     <Layout fullWidth>
                       <AgentChatStudioPage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/admin/ai-credits"
+                  element={
+                    <Layout fullWidth>
+                      <React.Suspense fallback={<div className="flex items-center justify-center min-h-[400px]"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>}>
+                        <MerchantAiCreditsPage />
+                      </React.Suspense>
                     </Layout>
                   }
                 />

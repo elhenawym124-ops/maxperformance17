@@ -156,6 +156,46 @@ export interface AmazonOAuthInfo {
   oauthUrl?: string;
 }
 
+export interface ChannelAnalyticsResponse {
+  connected: boolean;
+  mode?: 'sandbox' | 'production';
+  region?: string;
+  marketplaceId?: string;
+  country: CountryCode;
+  dateRange: string;
+  currency?: string;
+  overview: {
+    totalOrders: number;
+    totalRevenue: number;
+    itemsOrdered: number;
+    unshippedCount: number;
+    shippedCount: number;
+    averageOrderValue: number;
+  } | null;
+  sales: Array<{
+    orderId: string;
+    purchaseDate: string;
+    status: string;
+    fulfillmentChannel: string;
+    salesChannel: string;
+    amount: number;
+    currency: string;
+    itemsCount: number;
+  }>;
+  productsPerformance: Array<{
+    channel: string;
+    ordersCount: number;
+    units: number;
+    revenue: number;
+  }>;
+  payments: {
+    grossSales: number;
+    estimatedCommission: number;
+    estimatedShipping: number;
+    netPayout: number;
+  } | null;
+}
+
 export const marketplaceHubService = {
   async getMetadata(): Promise<MarketplaceHubMetadata> {
     const res = await apiClient.get<{ data: MarketplaceHubMetadata }>('/marketplace-hub/metadata');
@@ -315,6 +355,23 @@ export const marketplaceHubService = {
         sampleOrders: Array<Record<string, unknown>>;
       };
     }>('/marketplace-hub/connections/test-amazon-sandbox', payload);
+    return res.data.data;
+  },
+
+  async getDashboardAnalytics(params: {
+    country: CountryCode;
+    dateRange: string;
+    region?: 'na' | 'eu';
+    mode?: 'sandbox' | 'production';
+    credentials?: { apiKey: string; apiSecret: string; refreshToken: string };
+  }): Promise<ChannelAnalyticsResponse> {
+    if (params.credentials) {
+      const res = await apiClient.post<{ data: ChannelAnalyticsResponse }>('/marketplace-hub/dashboard/analytics', params);
+      return res.data.data;
+    }
+    const res = await apiClient.get<{ data: ChannelAnalyticsResponse }>('/marketplace-hub/dashboard/analytics', {
+      params: { country: params.country, dateRange: params.dateRange, region: params.region || 'na', mode: params.mode || 'sandbox' },
+    });
     return res.data.data;
   },
 };

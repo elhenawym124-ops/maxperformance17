@@ -30,5 +30,7 @@ router.get('/connections', controller.listConnections);
 router.post('/connections', controller.saveConnection);
 router.post('/connections/test-amazon-sandbox', controller.testAmazonSandbox);
 router.delete('/connections/:platform/:country', controller.deleteConnection);
+router.get('/dashboard/analytics', controller.getDashboardAnalytics);
+router.post('/dashboard/analytics', controller.getDashboardAnalytics);
 
 module.exports = router;
