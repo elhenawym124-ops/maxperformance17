@@ -942,7 +942,11 @@ export default function EducationGroupsPage({
   }, [groups]);
 
   return (
-    <div className={`w-full max-w-[1600px] mx-auto p-4 sm:p-6 space-y-6 font-sans ${embedded ? "" : "pb-24"}`} dir={isEn ? "ltr" : "rtl"}>
+    <div
+      className={embedded ? "font-sans" : "w-full h-full min-h-0 flex-1 overflow-y-auto overflow-x-hidden font-sans"}
+      dir={isEn ? "ltr" : "rtl"}
+    >
+    <div className="w-full max-w-[1600px] mx-auto p-3.5 sm:p-5 lg:p-6 pb-24 sm:pb-12 space-y-4 sm:space-y-5">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/80">
         {!embedded && (
@@ -2919,6 +2923,7 @@ export default function EducationGroupsPage({
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

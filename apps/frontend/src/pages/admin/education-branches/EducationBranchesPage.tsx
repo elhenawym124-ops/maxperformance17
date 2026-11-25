@@ -133,7 +133,8 @@ export default function EducationBranchesPage() {
   };
 
   return (
-    <div className="p-3 sm:p-6 space-y-4 max-w-7xl mx-auto" dir={isEn ? "ltr" : "rtl"}>
+    <div className="w-full h-full min-h-0 flex-1 overflow-y-auto overflow-x-hidden font-sans" dir={isEn ? "ltr" : "rtl"}>
+    <div className="p-3.5 sm:p-5 lg:p-6 pb-24 sm:pb-12 space-y-4 max-w-7xl mx-auto">
       {/* Top Header & Metrics Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-border">
         <div>
@@ -492,6 +493,7 @@ export default function EducationBranchesPage() {
         cancelLabel={isEn ? "Cancel" : "إلغاء"}
         confirmColor="error"
       />
+      </div>
     </div>
   );
 }

@@ -155,7 +155,8 @@ export const EducationRoomsAvailabilityPage: React.FC = () => {
   );
 
   return (
-    <div className="mx-auto w-full max-w-[1400px] px-3 py-4 sm:px-6 sm:py-6 space-y-4" dir={isEn ? "ltr" : "rtl"}>
+    <div className="w-full h-full min-h-0 flex-1 overflow-y-auto overflow-x-hidden font-sans" dir={isEn ? "ltr" : "rtl"}>
+    <div className="mx-auto w-full max-w-[1400px] px-3 py-4 pb-24 sm:px-6 sm:py-6 sm:pb-12 space-y-4">
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-border/70 pb-3">
         <div className="space-y-1">
           <h1 className="flex items-center gap-2 text-lg font-bold text-foreground sm:text-xl">
@@ -351,6 +352,7 @@ export const EducationRoomsAvailabilityPage: React.FC = () => {
           </section>
         ))}
       </div>
+    </div>
     </div>
   );
 };

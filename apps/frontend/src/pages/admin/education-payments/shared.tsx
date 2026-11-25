@@ -67,7 +67,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({ label, value, sub, tone = "def
   return (
     <div className="rounded-xl border border-border/80 bg-card p-3.5 space-y-1.5 shadow-xs">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-xs text-muted-foreground truncate">{label}</span>
+        <span className="text-xs text-muted-foreground">{label}</span>
         <span className={`w-7 h-7 rounded-lg flex items-center justify-center border shrink-0 ${toneChip}`}>
           <Icon className="w-3.5 h-3.5" aria-hidden="true" />
         </span>

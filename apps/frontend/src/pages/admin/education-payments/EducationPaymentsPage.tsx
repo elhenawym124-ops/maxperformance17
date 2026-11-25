@@ -152,7 +152,7 @@ const EducationPaymentsPage: React.FC = () => {
           </div>
         </div>
 
-        {summaryError ? (
+        {summaryError && tab !== "ledger" ? (
           <div className="flex items-center gap-2 rounded-xl border border-destructive/20 bg-destructive/10 p-2.5 text-[11px] text-destructive">
             <AlertTriangle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             <span>{summaryError}</span>
@@ -160,7 +160,7 @@ const EducationPaymentsPage: React.FC = () => {
         ) : null}
 
         {/* Telemetry ribbon */}
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-3">
           <KpiCard
             icon={TrendingUp}
             label={isEn ? "Collected today" : "محصّل اليوم"}

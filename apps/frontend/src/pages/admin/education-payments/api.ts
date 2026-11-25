@@ -1,4 +1,5 @@
-import { api, getAuthHeaders, fetchJson } from "../education-management/api";
+import i18n from "../../../i18n";
+import { api, getAuthHeaders, fetchJson as fetchJsonRaw } from "../education-management/api";
 import type {
   AttendanceLinkReport,
   CollectionReport,
@@ -18,6 +19,29 @@ import type {
   WinbackPerformance,
 } from "./types";
 
+const PERMISSION_DENIED = /insufficient permissions|forbidden|not authorized|unauthorized/i;
+
+const localizeApiError = (message: string): string => {
+  if (!message || !PERMISSION_DENIED.test(message)) return message;
+  return i18n.language === "en"
+    ? "You don't have permission to view or change collections data. Ask your account admin to grant the education financials permission."
+    : "مش عندك صلاحية لعرض أو تعديل بيانات التحصيل. اطلب من مدير الحساب يفعّل صلاحية «الحسابات المالية للتعليم».";
+};
+
+const toApiError = (message: string | undefined, fallback: string): Error => {
+  const raw = (message || "").trim();
+  return new Error(localizeApiError(raw) || fallback);
+};
+
+const fetchJson = async (url: string): Promise<any> => {
+  try {
+    return await fetchJsonRaw(url);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw toApiError(message, message);
+  }
+};
+
 const query = (params: Record<string, string | number | undefined>) => {
   const search = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
@@ -35,7 +59,7 @@ const post = async (url: string, body?: unknown) => {
   });
   const json = await res.json().catch(() => ({}));
   if (!res.ok || !json.success) {
-    throw new Error(json.error || json.message || "فشل العملية");
+    throw toApiError(json.error || json.message, "فشل العملية");
   }
   return json.data;
 };
@@ -63,14 +87,20 @@ export const fetchPayments = async (
     headers: getAuthHeaders(),
   });
   const json = await res.json();
-  if (!json.success) throw new Error(json.error || "فشل جلب المدفوعات");
+  if (!json.success) throw toApiError(json.error, "فشل جلب المدفوعات");
   return {
     items: json.data || [],
     pagination: json.pagination || { total: 0, page: 1, limit: 25, totalPages: 1 },
   };
 };
 
-export const fetchDues = (): Promise<DuesResponse> => fetchJson(api("finance/dues"));
+export const fetchDues = (params?: { from?: string; to?: string }): Promise<DuesResponse> => {
+  const query = new URLSearchParams();
+  if (params?.from) query.set("from", params.from);
+  if (params?.to) query.set("to", params.to);
+  const suffix = query.toString();
+  return fetchJson(api(`finance/dues${suffix ? `?${suffix}` : ""}`));
+};
 
 export const recordPayment = (
   payload: {
@@ -106,7 +136,7 @@ export const closeCashierShift = (id: string, closingBalance: number, notes?: st
 export const fetchCashierShifts = async (params: { page?: number; limit?: number; status?: string } = {}) => {
   const res = await fetch(api(`finance/shifts${query(params as any)}`), { headers: getAuthHeaders() });
   const json = await res.json();
-  if (!json.success) throw new Error(json.error || "فشل جلب الشيفتات");
+  if (!json.success) throw toApiError(json.error, "فشل جلب الشيفتات");
   return {
     items: (json.data || []) as import("./types").CashierShiftRecord[],
     pagination: json.pagination || { total: 0, page: 1, limit: 20, totalPages: 1 },
@@ -167,7 +197,7 @@ export const downloadStatement = async (
     } catch {
       /* ignore */
     }
-    throw new Error(message);
+    throw toApiError(message, "فشل تصدير كشف الحساب");
   }
   const blob = await res.blob();
   const url = URL.createObjectURL(blob);
@@ -216,7 +246,7 @@ const sendJson = async (url: string, method: "PUT" | "POST" | "DELETE", body?: u
   });
   const json = await res.json().catch(() => ({}));
   if (!res.ok || !json.success) {
-    throw new Error(json.error || json.message || "فشل العملية");
+    throw toApiError(json.error || json.message, "فشل العملية");
   }
   return json.data;
 };
