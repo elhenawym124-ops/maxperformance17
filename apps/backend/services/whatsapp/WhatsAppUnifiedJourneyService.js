@@ -76,7 +76,6 @@ class WhatsAppUnifiedJourneyService {
       notifSettings,
       leadFollowUp,
       company,
-      birthdaySetting,
       occasions,
       sessions,
       recentLogs,
@@ -122,12 +121,7 @@ class WhatsAppUnifiedJourneyService {
       safeQuery(() =>
         this.prisma.company.findUnique({
           where: { id: companyId },
-          select: { loyaltySettings: true },
-        }),
-      ),
-      safeQuery(() =>
-        this.prisma.storeSetting.findFirst({
-          where: { companyId, key: 'whatsapp_birthday_automation' },
+          select: { loyaltySettings: true, settings: true },
         }),
       ),
       safeQuery(() =>
@@ -182,7 +176,8 @@ class WhatsAppUnifiedJourneyService {
     const cadenceConfig = retentionCadenceService.normalizeConfig(
       safeJsonParse(company?.loyaltySettings, {}).cadence || {},
     );
-    const birthdayData = safeJsonParse(birthdaySetting?.value, null) || {
+    const companySettingsJson = safeJsonParse(company?.settings, {});
+    const birthdayData = companySettingsJson.whatsappBirthdayAutomation || {
       isEnabled: false,
       dailySendTime: '12:00',
       metaTemplateName: 'birthday_greeting_v1',
@@ -490,21 +485,18 @@ class WhatsAppUnifiedJourneyService {
         return { engineKey, isEnabled: next };
 
       case 'birthday_automation': {
-        const existing = await this.prisma.storeSetting.findFirst({
-          where: { companyId, key: 'whatsapp_birthday_automation' },
+        const comp = await this.prisma.company.findUnique({
+          where: { id: companyId },
+          select: { settings: true },
         });
-        const current = safeJsonParse(existing?.value, {});
+        const parsedSettings = safeJsonParse(comp?.settings, {});
+        const current = parsedSettings.whatsappBirthdayAutomation || {};
         const merged = { ...current, isEnabled: next, updatedAt: new Date().toISOString() };
-        if (existing) {
-          await this.prisma.storeSetting.update({
-            where: { id: existing.id },
-            data: { value: JSON.stringify(merged) },
-          });
-        } else {
-          await this.prisma.storeSetting.create({
-            data: { companyId, key: 'whatsapp_birthday_automation', value: JSON.stringify(merged) },
-          });
-        }
+        parsedSettings.whatsappBirthdayAutomation = merged;
+        await this.prisma.company.update({
+          where: { id: companyId },
+          data: { settings: JSON.stringify(parsedSettings) },
+        });
         return { engineKey, isEnabled: next };
       }
 

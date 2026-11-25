@@ -85,19 +85,13 @@ export const JourneyFlowsListCard: React.FC<JourneyFlowsListCardProps> = ({
       <div className="space-y-2">
         <div className="relative">
           <Search
-            className={cn(
-              "pointer-events-none absolute top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground",
-              isRtl ? "right-2.5" : "left-2.5",
-            )}
+            className="pointer-events-none absolute start-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground"
           />
           <Input
             value={searchTerm}
             onChange={(event) => onSearchChange(event.target.value)}
             placeholder={t("common.search") as string}
-            className={cn(
-              "h-8 bg-[color:var(--color-card)]/75 text-xs",
-              isRtl ? "pe-8 ps-3" : "ps-8 pe-3",
-            )}
+            className="h-8 bg-[color:var(--color-card)]/75 pe-3 ps-8 text-xs"
           />
         </div>
 

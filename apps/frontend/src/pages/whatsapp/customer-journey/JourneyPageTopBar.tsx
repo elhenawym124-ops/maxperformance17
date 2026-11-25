@@ -8,7 +8,6 @@ import {
   Plus,
   RefreshCw,
   Send,
-  Sparkles,
   Workflow,
 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -43,8 +42,8 @@ export const JourneyPageTopBar: React.FC<JourneyPageTopBarProps> = ({
   onRefresh,
   onOpenTimeline,
   onOpenTestSend,
-  onOpenCopilot,
-  copilotTitle,
+  onOpenCopilot: _onOpenCopilot,
+  copilotTitle: _copilotTitle,
   isAdmin,
   onAddNewFlow,
   refreshLabel,
@@ -78,7 +77,7 @@ export const JourneyPageTopBar: React.FC<JourneyPageTopBarProps> = ({
         </div>
       </div>
 
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none sm:pb-0">
+      <div className="flex flex-wrap items-center gap-2">
         <div
           role="tablist"
           aria-label="وضع العرض"
@@ -134,17 +133,6 @@ export const JourneyPageTopBar: React.FC<JourneyPageTopBarProps> = ({
         >
           <MessageSquareText className="size-3.5" />
           <span>رسايل عميل</span>
-        </Button>
-
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onOpenCopilot}
-          title={copilotTitle + " (⌘K)"}
-          className="shrink-0 active:scale-[0.97] transition-transform duration-150"
-        >
-          <Sparkles className="size-3.5" />
-          <span>{copilotTitle}</span>
         </Button>
 
         <Button

@@ -1579,11 +1579,15 @@ exports.getBirthdayAutomationSettings = async (req, res) => {
         if (!settings) {
             // Ù…Ø­Ø§ÙˆÙ„Ø© Ø¬Ù„Ø¨ Ù…Ù† DB Ø¥Ù† ÙˆØ¬Ø¯ ÙÙŠ StoreSetting Ø£Ùˆ Ø§ÙØªØ±Ø§Ø¶ÙŠ
             try {
-                const storeSetting = await prisma.storeSetting.findFirst({
-                    where: { companyId, key: 'whatsapp_birthday_automation' }
+                const company = await prisma.company.findUnique({
+                    where: { id: companyId },
+                    select: { settings: true }
                 });
-                if (storeSetting && storeSetting.value) {
-                    settings = typeof storeSetting.value === 'string' ? JSON.parse(storeSetting.value) : storeSetting.value;
+                if (company?.settings) {
+                    const parsed = typeof company.settings === 'string' ? JSON.parse(company.settings) : company.settings;
+                    if (parsed?.whatsappBirthdayAutomation) {
+                        settings = parsed.whatsappBirthdayAutomation;
+                    }
                 }
             } catch (e) {
                 // Ignore DB error fallback to default
@@ -1634,10 +1638,18 @@ exports.saveBirthdayAutomationSettings = async (req, res) => {
         birthdaySettingsStore.set(companyId, updatedSettings);
 
         try {
-            await prisma.storeSetting.upsert({
-                where: { companyId_key: { companyId, key: 'whatsapp_birthday_automation' } },
-                update: { value: JSON.stringify(updatedSettings) },
-                create: { companyId, key: 'whatsapp_birthday_automation', value: JSON.stringify(updatedSettings) }
+            const company = await prisma.company.findUnique({
+                where: { id: companyId },
+                select: { settings: true }
+            });
+            let parsed = {};
+            if (company?.settings) {
+                try { parsed = typeof company.settings === 'string' ? JSON.parse(company.settings) : company.settings; } catch { parsed = {}; }
+            }
+            parsed.whatsappBirthdayAutomation = updatedSettings;
+            await prisma.company.update({
+                where: { id: companyId },
+                data: { settings: JSON.stringify(parsed) }
             });
         } catch (dbErr) {
             console.log('[CWA] DB save warning for birthday settings:', dbErr.message);
