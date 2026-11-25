@@ -22,6 +22,15 @@ export const MarketplaceChannelsPage: React.FC = () => {
   const [storeName, setStoreName] = useState('');
   const [apiKey, setApiKey] = useState('');
   const [apiSecret, setApiSecret] = useState('');
+  const [refreshToken, setRefreshToken] = useState('');
+  const [sandboxRegion, setSandboxRegion] = useState<'na' | 'eu'>('na');
+  const [sandboxTesting, setSandboxTesting] = useState(false);
+  const [sandboxResult, setSandboxResult] = useState<{
+    region: string;
+    marketplaceId: string;
+    ordersCount: number;
+    sampleOrders: Array<Record<string, unknown>>;
+  } | null>(null);
 
   // Custom Plan Builder
   const [usage, setUsage] = useState({ studio: 10, alpha: 30, leo: 50, emma: 100, bekam: 20 });
@@ -66,14 +75,38 @@ export const MarketplaceChannelsPage: React.FC = () => {
         country,
         storeName: storeName || `${platform.toUpperCase()} Store`,
         authMode: platform === 'amazon' ? 'SP_API_OAUTH' : 'API_KEY',
-        credentials: { apiKey, apiSecret },
+        credentials: { apiKey, apiSecret, refreshToken },
       });
       setApiKey('');
       setApiSecret('');
+      setRefreshToken('');
       toast.success('تم حفظ إعدادات القناة وتشفير المفاتيح');
       await loadAll();
     } catch {
       toast.error('تعذر حفظ الربط');
+    }
+  };
+
+  const handleTestAmazonSandbox = async () => {
+    if (!apiKey.trim() || !apiSecret.trim() || !refreshToken.trim()) {
+      toast.error('أدخل Client ID و Client Secret و Refresh Token أولاً');
+      return;
+    }
+    setSandboxTesting(true);
+    try {
+      const res = await marketplaceHubService.testAmazonSandbox({
+        clientId: apiKey,
+        clientSecret: apiSecret,
+        refreshToken,
+        region: sandboxRegion,
+      });
+      setSandboxResult(res);
+      toast.success(`نجح الاتصال بـ Amazon SP-API Sandbox (${res.ordersCount} طلبات تجريبية)`);
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message || 'فشل اختبار Sandbox';
+      toast.error(msg);
+    } finally {
+      setSandboxTesting(false);
     }
   };
 
@@ -186,14 +219,65 @@ export const MarketplaceChannelsPage: React.FC = () => {
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
-            >
-              <KeyRound className="h-3.5 w-3.5" />
-              <span>حفظ وتشفيـر بيانات الربط</span>
-            </button>
+            {platform === 'amazon' && (
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <div className="sm:col-span-2">
+                  <label className="mb-1 block text-xs font-medium text-muted-foreground">Refresh Token (LWA / Sandbox)</label>
+                  <input
+                    type="password"
+                    value={refreshToken}
+                    onChange={(e) => setRefreshToken(e.target.value)}
+                    dir="ltr"
+                    placeholder="Atzr|..."
+                    className="w-full rounded border border-border/70 bg-card px-3 py-2 font-mono text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-muted-foreground">إقليم Sandbox</label>
+                  <select
+                    value={sandboxRegion}
+                    onChange={(e) => setSandboxRegion(e.target.value as 'na' | 'eu')}
+                    className="w-full rounded border border-border/70 bg-card px-3 py-2 text-xs"
+                  >
+                    <option value="na">NA (ATVPDKIKX0DER)</option>
+                    <option value="eu">EU / EGY (ARBP9OOSHTCHU)</option>
+                  </select>
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
+              >
+                <KeyRound className="h-3.5 w-3.5" />
+                <span>حفظ وتشفيـر بيانات الربط</span>
+              </button>
+              {platform === 'amazon' && (
+                <button
+                  type="button"
+                  disabled={sandboxTesting}
+                  onClick={() => void handleTestAmazonSandbox()}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border/70 bg-card px-4 py-2 text-xs font-semibold text-foreground hover:border-primary/60 disabled:opacity-60"
+                >
+                  <span>{sandboxTesting ? 'جاري الاختبار...' : 'اختبار اتصال SP-API Sandbox'}</span>
+                </button>
+              )}
+            </div>
           </form>
+
+          {sandboxResult && (
+            <div className="rounded-md border border-border/70 bg-background p-3 text-xs">
+              <div className="flex items-center justify-between font-semibold text-primary">
+                <span>نتيجة اتصال Amazon SP-API Sandbox</span>
+                <span className="font-mono tabular-nums">{sandboxResult.ordersCount} Orders</span>
+              </div>
+              <div className="mt-1 font-mono text-[11px] text-muted-foreground" dir="ltr">
+                Region: {sandboxResult.region.toUpperCase()} · Marketplace: {sandboxResult.marketplaceId}
+              </div>
+            </div>
+          )}
 
           {/* Saved Connections */}
           <div className="divide-y divide-border/50 rounded-md border border-border/70 bg-background">

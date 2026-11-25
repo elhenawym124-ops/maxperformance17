@@ -298,4 +298,23 @@ export const marketplaceHubService = {
     );
     return res.data.data;
   },
+
+  async testAmazonSandbox(payload: {
+    clientId: string;
+    clientSecret: string;
+    refreshToken: string;
+    region?: 'na' | 'eu' | 'fe';
+  }) {
+    const res = await apiClient.post<{
+      data: {
+        connected: boolean;
+        region: string;
+        marketplaceId: string;
+        tokenExpiresIn: number;
+        ordersCount: number;
+        sampleOrders: Array<Record<string, unknown>>;
+      };
+    }>('/marketplace-hub/connections/test-amazon-sandbox', payload);
+    return res.data.data;
+  },
 };

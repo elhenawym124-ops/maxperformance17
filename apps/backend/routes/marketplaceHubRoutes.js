@@ -28,6 +28,7 @@ router.get('/vendors', controller.getVendors);
 router.post('/import-csv', controller.importCsv);
 router.get('/connections', controller.listConnections);
 router.post('/connections', controller.saveConnection);
+router.post('/connections/test-amazon-sandbox', controller.testAmazonSandbox);
 router.delete('/connections/:platform/:country', controller.deleteConnection);
 
 module.exports = router;

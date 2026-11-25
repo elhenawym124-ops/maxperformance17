@@ -189,3 +189,12 @@ exports.deleteConnection = async (req, res) => {
     return handleError(res, error, 'Failed to remove channel connection');
   }
 };
+
+exports.testAmazonSandbox = async (req, res) => {
+  try {
+    const data = await marketplaceHubOpsService.testAmazonSandbox(req.body || {});
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to test Amazon SP-API Sandbox');
+  }
+};

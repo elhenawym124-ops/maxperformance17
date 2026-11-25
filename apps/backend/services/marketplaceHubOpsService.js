@@ -198,6 +198,68 @@ function buildAmazonOAuthConsentUrl(country = 'EGY', appId = process.env.AMAZON_
   };
 }
 
+async function testAmazonSandbox({ clientId, clientSecret, refreshToken, region = 'na' }) {
+  const cleanId = String(clientId || '').trim();
+  const cleanSecret = String(clientSecret || '').trim();
+  const cleanToken = String(refreshToken || '').trim();
+  if (!cleanId || !cleanSecret || !cleanToken) {
+    const err = new Error('Client ID و Client Secret و Refresh Token مطلوبة لاختبار SP-API Sandbox');
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const normalizedRegion = ['na', 'eu', 'fe'].includes(String(region).toLowerCase())
+    ? String(region).toLowerCase()
+    : 'na';
+  const marketplaceByRegion = { na: 'ATVPDKIKX0DER', eu: 'ARBP9OOSHTCHU', fe: 'A1VC38T7YXB528' };
+  const marketplaceId = marketplaceByRegion[normalizedRegion];
+
+  const tokenParams = new URLSearchParams({
+    grant_type: 'refresh_token',
+    refresh_token: cleanToken,
+    client_id: cleanId,
+    client_secret: cleanSecret,
+  });
+
+  const lwaRes = await fetch('https://api.amazon.com/auth/o2/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    body: tokenParams.toString(),
+  });
+  const lwaJson = await lwaRes.json();
+  if (!lwaRes.ok || !lwaJson.access_token) {
+    const err = new Error(`فشل مصادقة Amazon LWA: ${lwaJson.error_description || lwaJson.error || lwaRes.status}`);
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const spUrl = `https://sandbox.sellingpartnerapi-${normalizedRegion}.amazon.com/orders/v0/orders?MarketplaceIds=${marketplaceId}&CreatedAfter=TEST_CASE_200`;
+  const spRes = await fetch(spUrl, {
+    method: 'GET',
+    headers: {
+      'x-amz-access-token': lwaJson.access_token,
+      Accept: 'application/json',
+    },
+  });
+  const spJson = await spRes.json();
+  if (!spRes.ok) {
+    const errMsg = spJson?.errors?.[0]?.message || `SP-API HTTP ${spRes.status}`;
+    const err = new Error(`فشل استدعاء SP-API Sandbox: ${errMsg}`);
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const orders = spJson?.payload?.Orders || [];
+  return {
+    connected: true,
+    region: normalizedRegion,
+    marketplaceId,
+    tokenExpiresIn: lwaJson.expires_in,
+    ordersCount: orders.length,
+    sampleOrders: orders.slice(0, 5),
+  };
+}
+
 module.exports = {
   getVendors,
   parseMarketplaceCsv,
@@ -205,4 +267,5 @@ module.exports = {
   saveConnection,
   removeConnection,
   buildAmazonOAuthConsentUrl,
+  testAmazonSandbox,
 };
