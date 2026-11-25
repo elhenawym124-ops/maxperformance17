@@ -210,36 +210,32 @@ exports.getAutomationReports = async (req, res) => {
       } catch (_) {}
     }
 
-    // 2. Fetch active rules
-    const rules = await prisma.orderStatusAutoChangeRule.findMany({
-      where: { companyId },
-      orderBy: { createdAt: "desc" },
-    });
+    // 2. Fetch active rules & status configs (to resolve custom -> system status mappings)
+    const [rules, statusConfigs] = await Promise.all([
+      prisma.orderStatusAutoChangeRule.findMany({
+        where: { companyId },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.orderStatusConfig
+        ? prisma.orderStatusConfig.findMany({
+            where: { companyId },
+            select: { code: true, mapsToSystem: true },
+          }).catch(() => [])
+        : Promise.resolve([]),
+    ]);
 
-    // 3. Count total status transitions vs automated transitions in date range
-    const totalsRaw = await prisma.$queryRawUnsafe(`
-      SELECT
-        COUNT(*)::int AS "totalTransitions",
-        COUNT(*) FILTER (
-          WHERE (
-            UPPER(COALESCE(h."changedBy", '') || ' ' || COALESCE(h."userName", '')) LIKE '%SYSTEM%'
-            OR UPPER(COALESCE(h."changedBy", '') || ' ' || COALESCE(h."userName", '')) LIKE '%AUTO%'
-            OR UPPER(COALESCE(h."changedBy", '') || ' ' || COALESCE(h."userName", '')) LIKE '%CRON%'
-          )
-        )::int AS "autoTransitions"
-      FROM "OrderStatusHistory" h
-      LEFT JOIN "orders" o ON o."id" = h."orderId"
-      LEFT JOIN "guest_orders" go ON go."id" = h."guestOrderId"
-      WHERE (o."companyId" = $1 OR go."companyId" = $1)
-        AND h."createdAt" >= $2
-        AND h."createdAt" <= $3
-    `, companyId, start, end);
+    const customToSystemMap = new Map();
+    for (const cfg of statusConfigs || []) {
+      if (cfg?.code && cfg?.mapsToSystem) {
+        customToSystemMap.set(String(cfg.code).trim().toUpperCase(), String(cfg.mapsToSystem).trim().toUpperCase());
+      }
+    }
 
-    const totalTransitions = totalsRaw?.[0]?.totalTransitions || 0;
-    const autoTransitionsCount = totalsRaw?.[0]?.autoTransitions || 0;
-    const autoRate = totalTransitions > 0 ? Math.round((autoTransitionsCount / totalTransitions) * 1000) / 10 : 0;
-
-    // 4. Fetch automated transition records
+    // 3. Fetch ONLY transitions produced by /orders/automation:
+    //    - Time-based rules cron: changedBy = 'SYSTEM_AUTO' or reason LIKE 'Auto-changed by rule:%'
+    //    - Print event automation: userName = 'System Automation' AND reason LIKE 'تغيير تلقائي للحالة بعد طباعة الطلب%'
+    //    - Turbo shipment creation automation: userName = 'System Automation' AND reason LIKE 'تغيير تلقائي للحالة بعد إنشاء شحنة تربو بنجاح%'
+    // Excludes Turbo tracking sync, WhatsApp bot, scheduled orders, and bulk/courier syncs.
     const autoRows = await prisma.$queryRawUnsafe(`
       SELECT
         h.id,
@@ -262,40 +258,55 @@ exports.getAutomationReports = async (req, res) => {
         AND h."createdAt" >= $2
         AND h."createdAt" <= $3
         AND (
-          UPPER(COALESCE(h."changedBy", '') || ' ' || COALESCE(h."userName", '')) LIKE '%SYSTEM%'
-          OR UPPER(COALESCE(h."changedBy", '') || ' ' || COALESCE(h."userName", '')) LIKE '%AUTO%'
-          OR UPPER(COALESCE(h."changedBy", '') || ' ' || COALESCE(h."userName", '')) LIKE '%CRON%'
+          h."changedBy" = 'SYSTEM_AUTO'
+          OR COALESCE(h."reason", '') LIKE 'Auto-changed by rule:%'
+          OR (
+            COALESCE(h."userName", '') = 'System Automation'
+            AND (
+              COALESCE(h."reason", '') LIKE 'تغيير تلقائي للحالة بعد طباعة الطلب%'
+              OR COALESCE(h."reason", '') LIKE 'تغيير تلقائي للحالة بعد إنشاء شحنة تربو بنجاح%'
+            )
+          )
         )
       ORDER BY h."createdAt" DESC
-      LIMIT 1000
     `, companyId, start, end);
 
-    // Classification helper
+    // Classification helper strictly limited to the 3 /orders/automation triggers
     const classify = (row) => {
-      const reason = String(row.reason || "").toLowerCase();
+      const reason = String(row.reason || "").trim();
+      const reasonLower = reason.toLowerCase();
       const changedBy = String(row.changedBy || "").toUpperCase();
-      if (reason.includes("auto-changed by rule") || changedBy === "SYSTEM_AUTO") return "RULE";
-      if (reason.includes("طباعة") || reason.includes("print")) return "PRINT";
-      if (reason.includes("تربو") || reason.includes("turbo")) return "TURBO";
-      return "OTHER_AUTO";
+      const userName = String(row.userName || "").trim();
+
+      if (changedBy === "SYSTEM_AUTO" || reasonLower.startsWith("auto-changed by rule:")) {
+        return "RULE";
+      }
+      if (userName === "System Automation" && reason.startsWith("تغيير تلقائي للحالة بعد طباعة الطلب")) {
+        return "PRINT";
+      }
+      if (userName === "System Automation" && reason.startsWith("تغيير تلقائي للحالة بعد إنشاء شحنة تربو بنجاح")) {
+        return "TURBO";
+      }
+      return null;
     };
 
     let rulesCount = 0;
     let printCount = 0;
     let turboCount = 0;
-    let otherCount = 0;
     let totalRevenue = 0;
     const uniqueOrdersSet = new Set();
     const dailyMap = new Map();
 
-    const enrichedRows = (autoRows || []).map((row) => {
+    const enrichedRows = [];
+    for (const row of autoRows || []) {
       const rowType = classify(row);
+      if (!rowType) continue;
+
       const total = Number(row.total || 0);
 
       if (rowType === "RULE") rulesCount++;
       else if (rowType === "PRINT") printCount++;
       else if (rowType === "TURBO") turboCount++;
-      else otherCount++;
 
       if (row.orderId && !uniqueOrdersSet.has(row.orderId)) {
         uniqueOrdersSet.add(row.orderId);
@@ -303,15 +314,14 @@ exports.getAutomationReports = async (req, res) => {
       }
 
       const dayKey = new Date(row.createdAt).toISOString().slice(0, 10);
-      const dayStat = dailyMap.get(dayKey) || { date: dayKey, rules: 0, print: 0, turbo: 0, other: 0, total: 0 };
+      const dayStat = dailyMap.get(dayKey) || { date: dayKey, rules: 0, print: 0, turbo: 0, total: 0 };
       if (rowType === "RULE") dayStat.rules++;
       else if (rowType === "PRINT") dayStat.print++;
       else if (rowType === "TURBO") dayStat.turbo++;
-      else dayStat.other++;
       dayStat.total++;
       dailyMap.set(dayKey, dayStat);
 
-      return {
+      enrichedRows.push({
         id: row.id,
         orderId: row.orderId,
         orderNumber: row.orderNumber,
@@ -324,20 +334,29 @@ exports.getAutomationReports = async (req, res) => {
         reason: row.reason,
         type: rowType,
         createdAt: row.createdAt,
-      };
-    });
+      });
+    }
 
-    // 5. Compute pending counts and outcomes for each rule
+    // 4. Compute pending counts and outcomes for each rule
     const rulesPerformance = await Promise.all(
       rules.map(async (rule) => {
         const fromUpper = String(rule.fromStatus || "").trim().toUpperCase();
         const toUpper = String(rule.toStatus || "").trim().toUpperCase();
+        const mappedFrom = customToSystemMap.get(fromUpper);
+        const expectedReasonSnippet = `after ${rule.waitTime} ${rule.timeUnit}`.toLowerCase();
 
-        const ruleExecutions = enrichedRows.filter(
-          (r) => r.type === "RULE" &&
-            String(r.oldStatus || "").toUpperCase() === fromUpper &&
-            String(r.newStatus || "").toUpperCase() === toUpper
-        );
+        const ruleExecutions = enrichedRows.filter((r) => {
+          if (r.type !== "RULE") return false;
+          const oldUpper = String(r.oldStatus || "").toUpperCase();
+          const newUpper = String(r.newStatus || "").toUpperCase();
+          if (newUpper !== toUpper) return false;
+          if (oldUpper === fromUpper) return true;
+          return Boolean(
+            mappedFrom &&
+            oldUpper === mappedFrom &&
+            String(r.reason || "").toLowerCase().includes(expectedReasonSnippet)
+          );
+        });
 
         let executionsRevenue = 0;
         const ruleOrders = new Set();
@@ -443,14 +462,12 @@ exports.getAutomationReports = async (req, res) => {
       success: true,
       data: {
         kpis: {
-          totalTransitions: autoTransitionsCount,
+          totalTransitions: enrichedRows.length,
           uniqueOrders: uniqueOrdersSet.size,
           totalRevenue: Math.round(totalRevenue * 100) / 100,
-          autoRate,
           rulesTransitions: rulesCount,
           printTransitions: printCount,
           turboTransitions: turboCount,
-          otherTransitions: otherCount,
         },
         rulesPerformance,
         eventsSummary,

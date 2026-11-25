@@ -23,9 +23,9 @@ export const AutomationReportsKpis: React.FC<AutomationReportsKpisProps> = ({
   const cards = [
     {
       id: "totalTransitions",
-      title: t("orders.kpiTotalTransitions", "إجمالي التحويلات التلقائية"),
+      title: t("orders.kpiTotalTransitions", "إجمالي تنفيذات الأتمتة"),
       value: kpis.totalTransitions.toLocaleString("ar-EG"),
-      subValue: `${kpis.autoRate}% من كل الحركات`,
+      subValue: "من قواعد وأحداث هذه الصفحة فقط",
       icon: Zap,
       accent: "text-primary",
       bgAccent: "bg-primary/10",
@@ -35,7 +35,7 @@ export const AutomationReportsKpis: React.FC<AutomationReportsKpisProps> = ({
       id: "uniqueOrders",
       title: t("orders.kpiUniqueOrders", "طلبات فريدة مؤتمتة"),
       value: kpis.uniqueOrders.toLocaleString("ar-EG"),
-      subValue: t("orders.kpiOrdersTouched", "طلب تلقى إجراء آلي"),
+      subValue: t("orders.kpiOrdersTouched", "طلب تم تغييره عبر الأتمتة"),
       icon: Activity,
       accent: "text-emerald-500",
       bgAccent: "bg-emerald-500/10",
@@ -45,7 +45,7 @@ export const AutomationReportsKpis: React.FC<AutomationReportsKpisProps> = ({
       id: "totalRevenue",
       title: t("orders.kpiTotalRevenue", "قيمة الطلبات المؤتمتة"),
       value: `${formatCurrency(kpis.totalRevenue)} ج.م`,
-      subValue: t("orders.kpiRevenueProtected", "إجمالي مبيعات مشمولة بالأتمتة"),
+      subValue: t("orders.kpiRevenueProtected", "إجمالي مبيعات الطلبات المنفذة"),
       icon: DollarSign,
       accent: "text-amber-500",
       bgAccent: "bg-amber-500/10",
@@ -53,7 +53,7 @@ export const AutomationReportsKpis: React.FC<AutomationReportsKpisProps> = ({
     },
     {
       id: "channelBreakdown",
-      title: t("orders.kpiChannels", "توزيع القنوات الذكية"),
+      title: t("orders.kpiChannels", "توزيع مسارات الأتمتة"),
       value: `${kpis.rulesTransitions.toLocaleString("ar-EG")} قواعد`,
       subValue: `${kpis.printTransitions} طباعة • ${kpis.turboTransitions} تربو`,
       icon: Layers,

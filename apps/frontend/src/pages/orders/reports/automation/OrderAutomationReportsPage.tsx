@@ -17,11 +17,9 @@ const INITIAL_REPORT_DATA: AutomationReportData = {
     totalTransitions: 0,
     uniqueOrders: 0,
     totalRevenue: 0,
-    autoRate: 0,
     rulesTransitions: 0,
     printTransitions: 0,
     turboTransitions: 0,
-    otherTransitions: 0,
   },
   rulesPerformance: [],
   eventsSummary: {
@@ -114,7 +112,8 @@ export default function OrderAutomationReportsPage() {
     } finally {
       setLoading(false);
     }
-  }, [getDateRange, t]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getDateRange]);
 
   useEffect(() => {
     fetchStatuses();

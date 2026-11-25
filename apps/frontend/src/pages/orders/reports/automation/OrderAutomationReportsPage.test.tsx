@@ -9,9 +9,11 @@ jest.mock("../../../../i18n", () => ({
   getDirection: () => "rtl",
 }));
 
+const stableT = (k: string, defaultValue?: string) => (typeof defaultValue === "string" ? defaultValue : k);
+
 jest.mock("react-i18next", () => ({
   useTranslation: () => ({
-    t: (k: string, defaultValue?: string) => (typeof defaultValue === "string" ? defaultValue : k),
+    t: stableT,
     i18n: { language: "ar" },
   }),
 }));
@@ -30,11 +32,9 @@ describe("OrderAutomationReportsPage", () => {
         totalTransitions: 42,
         uniqueOrders: 35,
         totalRevenue: 15400,
-        autoRate: 78.5,
         rulesTransitions: 25,
         printTransitions: 10,
         turboTransitions: 7,
-        otherTransitions: 0,
       },
       rulesPerformance: [
         {
@@ -64,7 +64,7 @@ describe("OrderAutomationReportsPage", () => {
           totalRevenue: 2000,
         },
       },
-      dailyTrends: [{ date: "2026-11-20", rules: 10, print: 3, turbo: 2, other: 0, total: 15 }],
+      dailyTrends: [{ date: "2026-11-20", rules: 10, print: 3, turbo: 2, total: 15 }],
       recentLogs: [
         {
           id: "log-1",
@@ -115,8 +115,8 @@ describe("OrderAutomationReportsPage", () => {
     expect(screen.getByText(/تقارير أتمتة حالات الطلبات/i)).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText(/42/)).toBeInTheDocument();
-      expect(screen.getByText(/35/)).toBeInTheDocument();
+      expect(screen.getByText((42).toLocaleString("ar-EG"))).toBeInTheDocument();
+      expect(screen.getByText((35).toLocaleString("ar-EG"))).toBeInTheDocument();
       expect(screen.getByText(/#10023/)).toBeInTheDocument();
       expect(screen.getByText(/محمد علي/)).toBeInTheDocument();
     });

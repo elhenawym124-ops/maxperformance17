@@ -45,13 +45,8 @@ export const AutomationLogsTable: React.FC<AutomationLogsTableProps> = ({
         };
       case "TURBO":
         return {
-          label: "تربو",
-          className: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-        };
-      default:
-        return {
-          label: "تلقائي",
-          className: "bg-muted text-muted-foreground border-border/70",
+          label: "إرسال تربو",
+          className: "bg-amber-500/10 text-amber-600 border-amber-500/20",
         };
     }
   };
@@ -108,7 +103,7 @@ export const AutomationLogsTable: React.FC<AutomationLogsTableProps> = ({
               <option value="all">كل المشغلات</option>
               <option value="RULE">قواعد زمنية</option>
               <option value="PRINT">طباعة</option>
-              <option value="TURBO">تربو</option>
+              <option value="TURBO">إرسال تربو</option>
             </select>
           </div>
         </div>
@@ -120,7 +115,7 @@ export const AutomationLogsTable: React.FC<AutomationLogsTableProps> = ({
         </div>
       ) : filteredLogs.length === 0 ? (
         <div className="py-10 text-center text-xs text-muted-foreground">
-          {t("orders.noLogsFound", "لا توجد سجلات مطابقة للبحث أو الفترة المحددة")}
+          {t("orders.noLogsFound", "لا توجد طلبات نُفذت بواسطة قواعد أو أحداث الأتمتة خلال هذه الفترة")}
         </div>
       ) : (
         <div className="mt-3 overflow-x-auto">

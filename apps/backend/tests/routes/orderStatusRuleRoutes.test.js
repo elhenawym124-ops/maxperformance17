@@ -193,7 +193,7 @@ describe("GET /api/v1/order-status-rules (read-only, no requireRole)", () => {
     });
   });
 
-  test("GET /reports returns automation performance metrics and logs", async () => {
+  test("GET /reports returns ONLY /orders/automation transitions (excludes Turbo Sync & WhatsApp Bot)", async () => {
     mockCurrentUser.role = "AGENT";
     mockPrisma.company.findUnique.mockResolvedValue({
       settings: JSON.stringify({ printAutomationEnabled: true, printAutomationStatus: "PROCESSING" }),
@@ -202,7 +202,6 @@ describe("GET /api/v1/order-status-rules (read-only, no requireRole)", () => {
       { id: "rule-1", fromStatus: "PENDING", toStatus: "CONFIRMED", waitTime: 30, timeUnit: "Minutes", isActive: true },
     ]);
     mockPrisma.$queryRawUnsafe
-      .mockResolvedValueOnce([{ totalTransitions: 10, autoTransitions: 6 }]) // totals
       .mockResolvedValueOnce([ // autoRows
         {
           id: "log-1",
@@ -219,6 +218,51 @@ describe("GET /api/v1/order-status-rules (read-only, no requireRole)", () => {
           reason: "Auto-changed by rule: after 30 Minutes",
           createdAt: new Date().toISOString(),
         },
+        {
+          id: "log-print",
+          orderId: "order-2",
+          orderNumber: "ORD-102",
+          customerName: "Mona",
+          customerPhone: "01000000001",
+          total: 300,
+          currentOrderStatus: "PROCESSING",
+          oldStatus: "CONFIRMED",
+          newStatus: "PROCESSING",
+          changedBy: "SYSTEM",
+          userName: "System Automation",
+          reason: "تغيير تلقائي للحالة بعد طباعة الطلب",
+          createdAt: new Date().toISOString(),
+        },
+        {
+          id: "log-turbo-sync-should-ignore",
+          orderId: "order-3",
+          orderNumber: "ORD-103",
+          customerName: "Omar",
+          customerPhone: "01000000002",
+          total: 900,
+          currentOrderStatus: "DELIVERED",
+          oldStatus: "SHIPPED",
+          newStatus: "DELIVERED",
+          changedBy: "SYSTEM",
+          userName: "Turbo Sync",
+          reason: "تحديث تلقائي من تربو (Delivered)",
+          createdAt: new Date().toISOString(),
+        },
+        {
+          id: "log-whatsapp-should-ignore",
+          orderId: "order-4",
+          orderNumber: "ORD-104",
+          customerName: "Sara",
+          customerPhone: "01000000003",
+          total: 200,
+          currentOrderStatus: "CANCELLED",
+          oldStatus: "PENDING",
+          newStatus: "CANCELLED",
+          changedBy: "SYSTEM_WHATSAPP",
+          userName: "WhatsApp Bot",
+          reason: "إلغاء الطلب من العميل عبر واتساب",
+          createdAt: new Date().toISOString(),
+        },
       ])
       .mockResolvedValueOnce([{ count: 2 }]); // pending count
 
@@ -226,11 +270,17 @@ describe("GET /api/v1/order-status-rules (read-only, no requireRole)", () => {
 
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
-    expect(res.body.data.kpis.totalTransitions).toBe(6);
-    expect(res.body.data.kpis.autoRate).toBe(60);
+    expect(res.body.data.kpis.totalTransitions).toBe(2);
+    expect(res.body.data.kpis.rulesTransitions).toBe(1);
+    expect(res.body.data.kpis.printTransitions).toBe(1);
+    expect(res.body.data.kpis.turboTransitions).toBe(0);
+    expect(res.body.data.kpis.totalRevenue).toBe(800);
+    expect(res.body.data.recentLogs.map((l) => l.id)).toEqual(["log-1", "log-print"]);
     expect(res.body.data.rulesPerformance.length).toBe(1);
     expect(res.body.data.rulesPerformance[0].executionsCount).toBe(1);
     expect(res.body.data.eventsSummary.print.enabled).toBe(true);
+    expect(res.body.data.eventsSummary.print.executionsCount).toBe(1);
+    expect(res.body.data.eventsSummary.turbo.executionsCount).toBe(0);
   });
 });
 

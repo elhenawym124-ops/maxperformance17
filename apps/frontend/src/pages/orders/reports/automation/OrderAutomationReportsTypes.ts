@@ -2,11 +2,9 @@ export interface AutomationReportKpis {
   totalTransitions: number;
   uniqueOrders: number;
   totalRevenue: number;
-  autoRate: number;
   rulesTransitions: number;
   printTransitions: number;
   turboTransitions: number;
-  otherTransitions: number;
 }
 
 export interface RuleOutcomes {
@@ -45,11 +43,10 @@ export interface AutomationDailyTrend {
   rules: number;
   print: number;
   turbo: number;
-  other: number;
   total: number;
 }
 
-export type AutomationTriggerType = "RULE" | "PRINT" | "TURBO" | "OTHER_AUTO";
+export type AutomationTriggerType = "RULE" | "PRINT" | "TURBO";
 
 export interface AutomationLogItem {
   id: string;
