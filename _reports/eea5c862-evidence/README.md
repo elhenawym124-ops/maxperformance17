@@ -1,41 +1,27 @@
 # eea5c862 — أدلة البحث في الإنبوكس (قبل/بعد) على قاعدة الإنتاج
 
 التاسك: «إصلاح فشل بحث الإنبوكس (timeout 30s) + فهرس trigram على messages».
-الكوميتات: `55ff2dedc` (إلغاء سقف 200 + تجميع الـCTE per conversation) و`1a935848d` + كوميت الـgate-4
-(scoped retry + client deadline).
+الكوميتات: `55ff2dedc` (إلغاء سقف 200 + تجميع per conversation) · `1a935848d` (fallback للـpooler) ·
+`829004a70` (retry مشروط + deadline 5s) · `77d641198` + كوميت الأدلة (الملفات اللي هنا).
 
-## 1) EXPLAIN قبل (٢٣/١١/٢٠٢٦ — الاستعلام القديم: LIMIT 1000 صف رسايل + LIMIT 200 محادثة)
+## 1) EXPLAIN قبل/بعد — نفس اليوم ونفس اللقطة (٢٥/١١/٢٠٢٦)
+| | الشكل القديم (`explain-before.md`) | الشكل الجديد (`explain-after.md`) |
+|---|---|---|
+| Execution Time | **337.380 ms** | **622.253 ms** |
+| المحادثات اللي بترجع | **200 كحد أقصى** (`LIMIT 200`) — والـCTE بيقصّ عند 1000 صف رسايل | **1858 محادثة** |
+| الخطة | Nested Loop + Limit 1000 → Sort → Limit 200 | Bitmap Index Scan على `idx_messages_content_trgm` (39285 صف) + GroupAggregate + 1858 loops |
 
-منسوخ من `maxp-qa/task-runner/state.json` → `prod_explain` (قياس read-only على إنتاج maxp):
-
-```
-query:        CTE «المقاسات» 180 يوم LIMIT 1000 + فلتر companyId/channel خارجي
-Execution Time: 5647.868 ms
-index:          Bitmap Index Scan on idx_messages_content_trgm
-rows_returned:  164        (إجمالي المحادثات اللي رجعت)
-rows_for_swan:  0          (صفر محادثة لشركة سوان)
-Nested Loop:    rows=0 loops=1000
-```
-
-## 2) EXPLAIN بعد (٢٥/١١/٢٠٢٦ — الاستعلام الجديد، نفس الفلتر والشركة)
-
-`explain-after.txt` = `EXPLAIN (ANALYZE, BUFFERS)` كامل، ملخصه:
-
-```
-Bitmap Index Scan on idx_messages_content_trgm   rows=39285
-Bitmap Index Scan on messages_createdAt_idx      rows=2074552
-Index Scan using conversations_pkey              loops=1858
-Execution Time: 621.380 ms
-```
+سياق تاريخي (٢٣/١١، قبل ما يبقى الفهرس سليم): نفس الشكل القديم كان `Execution Time 5647.868 ms`
+و`rows_for_swan = 0`. أرقام المقارنة الرسمية هي اللي فوق (نفس اليوم ونفس البيانات).
 
 ## 3) قياس API على maxp.online (٢٥/١١ — بعد النشر)
 
 | القياس | قبل | بعد |
 |---|---|---|
-| «المقاسات» scope=messages | 200 محادثة (سقف) | **1858** محادثة على 19 صفحة |
-| «المقاسات» scope=all | 329 | **1882** |
-| زمن «المقاسات» | 3.17s+ | p50 **2.09s** · max 3.7s |
-| «سناء» بالاسم | 1.35s | **1.63s** + `cmwfeltfp04cojuzz1iu2nac9` موجود |
+| «المقاسات» scope=messages | 200 محادثة (سقف) | **1860** محادثة على 19 صفحة |
+| «المقاسات» scope=all | 329 | **1884** |
+| زمن «المقاسات» | 3.17s+ | p50 **2.23s** · max 8.02s (صفحة عميقة) |
+| «سناء» بالاسم | 1.35s | **1.92s** + `cmwfeltfp04cojuzz1iu2nac9` موجود (`name-search.md`) |
 | كل بحث نص الرسايل | 422 MESSAGE_SEARCH_UNAVAILABLE (من ٢٤/١١) | 200 |
 
 ## 4) سكرين شوت قبل/بعد
@@ -43,9 +29,10 @@ Execution Time: 621.380 ms
 - `screens/before-2026-11-23_maqasat.png` — /facebook-inbox بحساب سوان، بحث «المقاسات» **قبل** الإصلاح
   (٢٣/١١ ١٦:٥٤، الكود بسقف 200).
 - `screens/after-2026-11-25_maqasat.png` — نفس الصفحة والنفس البحث **بعد** الإصلاح (٢٥/١١ ١١:٤٧).
+- `screens/after-2026-11-25_sanaa.png` — بحث «سناء» من الواجهة بعد الإصلاح (`ui-sanaa.md`).
 
 ## 5) الاختبارات
-`jest.log` = `npx jest __tests__/conversationSearchWhere.test.js` → **20 passed / 20 total**
+`jest-results.md` = `npx jest __tests__/conversationSearchWhere.test.js` → **20 passed / 20 total**
 (يشمل: مفيش سقف 1000، 300 نتيجة، قصّ 99999→5000، fallback للـtransaction، وعدم إعادة المحاولة عند
 timeout/cancel أو خطأ SQL حقيقي).
 
