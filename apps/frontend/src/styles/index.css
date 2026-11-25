@@ -3901,6 +3901,61 @@ select {
   box-shadow: var(--shell-control-shadow);
 }
 
+/* Polaris top-bar utilities & avatar trigger: flat, unboxed controls without outer pill/box borders */
+[data-theme="business-os-enterprise"] .polaris-top-header .business-icon-button,
+.dark [data-theme="business-os-enterprise"] .polaris-top-header .business-icon-button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 8px;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-muted-foreground);
+}
+
+[data-theme="business-os-enterprise"] .polaris-top-header .business-icon-button:hover,
+.dark [data-theme="business-os-enterprise"] .polaris-top-header .business-icon-button:hover {
+  background: var(--color-muted);
+  border-color: transparent;
+  color: var(--color-foreground);
+  transform: none;
+}
+
+[data-theme="business-os-enterprise"] .polaris-top-header .business-shell-language-button,
+.dark [data-theme="business-os-enterprise"] .polaris-top-header .business-shell-language-button {
+  width: auto;
+  min-width: 2rem;
+  padding-inline: 0.45rem;
+}
+
+[data-theme="business-os-enterprise"] .polaris-top-header .business-theme-toggle-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+[data-theme="business-os-enterprise"] .polaris-top-header .business-shell-profile-button,
+.dark [data-theme="business-os-enterprise"] .polaris-top-header .business-shell-profile-button {
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
+}
+
+[data-theme="business-os-enterprise"] .polaris-top-header .business-shell-profile-button:hover,
+.dark [data-theme="business-os-enterprise"] .polaris-top-header .business-shell-profile-button:hover {
+  background: transparent;
+  transform: none;
+  opacity: 0.9;
+}
+
+[data-theme="business-os-enterprise"] .polaris-top-header .business-shell-profile-button:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--color-background),
+    0 0 0 4px var(--color-primary);
+}
+
 [data-theme="business-os-enterprise"] .business-shell-avatar,
 [data-theme="business-os-enterprise"] .business-brand-glyph {
   display: inline-flex;

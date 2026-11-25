@@ -30,7 +30,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="business-icon-button business-shell-utility-button relative inline-flex items-center gap-1.5 px-2 py-1 rounded-lg border border-border/60 bg-muted/30 hover:bg-muted/60 transition-colors shadow-2xs active:scale-95"
+        className="business-icon-button business-shell-utility-button business-shell-language-button relative inline-flex items-center gap-1.5 px-2 py-1 rounded-lg border border-border/60 bg-muted/30 hover:bg-muted/60 transition-colors shadow-2xs active:scale-95"
         title="تغيير اللغة / Change language"
         aria-label="Change language"
       >

@@ -121,11 +121,11 @@ export const PolarisHeader: React.FC<PolarisHeaderProps> = ({
             href={storeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
             title={t("header.visitStore", "زيارة المتجر")}
             aria-label={t("header.visitStore", "زيارة المتجر")}
           >
-            <BuildingStorefrontIcon className="h-4 w-4" />
+            <BuildingStorefrontIcon className="h-[18px] w-[18px]" />
           </a>
         )}
 

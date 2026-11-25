@@ -588,7 +588,7 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
         className={`business-shell-profile-button ${
           isMobile ? "business-shell-profile-button--compact" : ""
         }`.trim()}
-        style={{ borderRadius: 8, padding: 4 }}
+        style={currentLayout === "polaris" ? undefined : { borderRadius: 8, padding: 4 }}
         aria-label={
           initials
             ? `${t("sidebar.profile")} ${initials}`
