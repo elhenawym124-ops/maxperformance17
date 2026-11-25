@@ -142,7 +142,20 @@ class WhatsAppJourneyService {
                 return;
             }
 
-            // 2. التأكد من عدم وجود رحلة نشطة لنفس الطلب (تجنب التكرار)
+            // 2. التأكد من حداثة تسليم الطلب (منع تسجيل طلبات قديمة تم تسليمها قبل أكثر من 48 ساعة)
+            if (orderId) {
+                const orderRec = await this.prisma.order.findUnique({
+                    where: { id: orderId },
+                    select: { deliveredAt: true, updatedAt: true }
+                });
+                const deliveredTs = orderRec?.deliveredAt || orderRec?.updatedAt;
+                if (deliveredTs && (Date.now() - new Date(deliveredTs).getTime() > 48 * 60 * 60 * 1000)) {
+                    console.log(`[JOURNEY] Skipping old order ${orderId} delivered > 48h ago (${new Date(deliveredTs).toISOString()})`);
+                    return;
+                }
+            }
+
+            // 3. التأكد من عدم وجود رحلة نشطة لنفس الطلب (تجنب التكرار)
             const existing = await this.prisma.customerJourney.findFirst({
                 where: {
                     companyId,
@@ -265,6 +278,56 @@ class WhatsAppJourneyService {
             return;
         }
 
+        // 🛡️ صمام أمان 1: احترام إلغاء الاشتراك (BotUnsubscribe)
+        const unsubscribed = await this.prisma.botUnsubscribe.findFirst({
+            where: { companyId: journey.companyId, customerId: journey.customerId, channel: 'WHATSAPP' },
+            select: { id: true }
+        }).catch(() => null);
+        if (unsubscribed) {
+            console.log(`[JOURNEY] Customer ${journey.customerId} unsubscribed — cancelling journey ${journey.id}`);
+            await this.prisma.customerJourney.update({
+                where: { id: journey.id },
+                data: { status: 'CANCELLED', logs: (journey.logs || '') + `\nCancelled: unsubscribed at ${new Date().toISOString()}` }
+            });
+            return;
+        }
+
+        // 🛡️ صمام أمان 2: لو فيه رسالة غير مقروءة في Inbox (العميل بيتواصل مع خدمة العملاء) نؤجل الخطوة 12 ساعة
+        const activeChat = await this.prisma.whatsAppContact.findFirst({
+            where: { customerId: journey.customerId, unreadCount: { gt: 0 } },
+            select: { id: true }
+        }).catch(() => null);
+        if (activeChat) {
+            const deferAt = new Date(Date.now() + 12 * 60 * 60 * 1000);
+            await this.prisma.customerJourney.update({
+                where: { id: journey.id },
+                data: { nextSendAt: deferAt, logs: (journey.logs || '') + `\nDeferred 12h: open unread chat in Inbox` }
+            });
+            console.log(`[JOURNEY] Deferred journey ${journey.id} 12h — open unread chat in Inbox`);
+            return;
+        }
+
+        // 🛡️ صمام أمان 3: السقف الأسبوعي الموحد (حد أقصى 3 رسائل تسويقية/متابعة/ولاء في آخر 7 أيام)
+        const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        const recentPromoCount = await this.prisma.whatsAppNotificationLog.count({
+            where: {
+                companyId: journey.companyId,
+                customerId: journey.customerId,
+                createdAt: { gte: weekAgo },
+                status: { in: ['SENT', 'DELIVERED', 'READ'] },
+                category: { in: ['MARKETING', 'OCCASION', 'CUSTOMER', 'ABANDONED_CART'] }
+            }
+        }).catch(() => 0);
+        if (recentPromoCount >= 3) {
+            const deferAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+            await this.prisma.customerJourney.update({
+                where: { id: journey.id },
+                data: { nextSendAt: deferAt, logs: (journey.logs || '') + `\nDeferred 24h: weekly frequency cap (${recentPromoCount}/3)` }
+            });
+            console.log(`[JOURNEY] Deferred journey ${journey.id} 24h — customer reached weekly cap (${recentPromoCount})`);
+            return;
+        }
+
         try {
             // 🎁 خط أنابيب الحوافز والخصم التلقائي والنقاط والروابط الذكية
             let discountPercent = '10';
@@ -330,20 +393,52 @@ class WhatsAppJourneyService {
                 console.warn(`⚠️ [JOURNEY-ENRICH] Could not enrich retention variables for customer ${journey.customerId}:`, enrichErr.message);
             }
 
-            // إرسال الرسالة باستخدام contentOverride
+            // 🔗 ربط صريح بالقالب: أولوية لـ step.templateId ثم step.eventType ثم POST_DELIVERY_FOLLOWUP المعتمد
+            // ممنوع الاعتماد الأعمى على CUSTOMER_OCCASION_msvsy2ut لأنه يحمل أزرار تأكيد/إلغاء أوردر
+            let boundTemplate = null;
+            if (step.templateId) {
+                boundTemplate = await this.prisma.whatsAppNotificationTemplate.findFirst({
+                    where: { id: step.templateId, companyId: journey.companyId, isActive: true }
+                }).catch(() => null);
+            }
+            let resolvedEventType = boundTemplate?.eventType || step.eventType || null;
+            if (!resolvedEventType) {
+                const postDeliveryTpl = await this.prisma.whatsAppNotificationTemplate.findFirst({
+                    where: {
+                        companyId: journey.companyId,
+                        eventType: 'POST_DELIVERY_FOLLOWUP',
+                        isActive: true,
+                        metaTemplateStatus: { equals: 'APPROVED', mode: 'insensitive' }
+                    }
+                }).catch(() => null);
+                if (postDeliveryTpl) {
+                    boundTemplate = postDeliveryTpl;
+                    resolvedEventType = postDeliveryTpl.eventType;
+                }
+            }
+            if (!resolvedEventType) {
+                console.warn(`⚠️ [JOURNEY] Step ${step.id} has no bound template or POST_DELIVERY_FOLLOWUP template — skipping to prevent wrong Meta buttons`);
+                const retryAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+                await this.prisma.customerJourney.update({
+                    where: { id: journey.id },
+                    data: {
+                        nextSendAt: retryAt,
+                        logs: (journey.logs || '') + `\nPaused step ${stepIndex + 1}: no approved template bound`
+                    }
+                });
+                return;
+            }
+
+            // إرسال الرسالة باستخدام contentOverride والقالب الصريح المرتبط بالخطوة
             const result = await WhatsAppNotificationService.sendNotification({
                 companyId: journey.companyId,
                 deliveryStrategy: 'platform-fallback',
                 recipientPhone: phone,
                 recipientName: `${journey.customer.firstName || ''} ${journey.customer.lastName || ''}`.trim(),
                 recipientType: 'CUSTOMER',
-                category: 'OCCASION',
-                // ⚠️ KNOWN ISSUE (2026-11-25): قالب المناسبة CUSTOMER_OCCASION_msvsy2ut يحتوي
-                // أزرار "تأكيد الأوردر" و"إلغاء الأوردر" — غير مناسبة لرسائل متابعة ما بعد التسليم.
-                // الحل: إنشاء قالب Meta مخصص (POST_DELIVERY_FOLLOWUP) بدون أزرار طلب.
-                // NOTE: مؤقتاً نستخدم قالب المناسبة المعتمد CUSTOMER_OCCASION_msvsy2ut
-                // حتى يُنشأ قالب مخصص (POST_DELIVERY_FOLLOWUP / CATEGORY_FOLLOWUP) ومعتمد على Meta.
-                eventType: 'CUSTOMER_OCCASION_msvsy2ut',
+                category: boundTemplate?.category || 'CUSTOMER',
+                eventType: resolvedEventType,
+                ...(boundTemplate ? { template: boundTemplate } : {}),
                 contentOverride: step.content,
                 variables: {
                     firstName: journey.customer.firstName || '',

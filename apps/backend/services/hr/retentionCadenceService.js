@@ -112,11 +112,16 @@ async function updateConfig(companyId, input = {}) {
  */
 async function buildCadenceHistory(prisma, companyId, type) {
   const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  // سقف موحد على مستوى العميل: نحسب كل رسائل التسويق والمناسبات والولاء والمتابعة في آخر 7 أيام
   const logs = await prisma.whatsAppNotificationLog.findMany({
     where: {
       companyId,
-      rawEventType: { in: CADENCE_TYPES },
-      createdAt: { gte: weekAgo }
+      createdAt: { gte: weekAgo },
+      status: { in: ['SENT', 'DELIVERED', 'READ'] },
+      OR: [
+        { rawEventType: { in: CADENCE_TYPES } },
+        { category: { in: ['MARKETING', 'OCCASION', 'CUSTOMER', 'ABANDONED_CART'] } }
+      ]
     },
     select: { customerId: true, rawEventType: true, createdAt: true }
   });

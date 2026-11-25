@@ -47,6 +47,8 @@ model WhatsAppFollowUpStep {
   content           String               @db.Text
   mediaUrl          String?
   buttons           String?              @db.Text // JSON array: [{title, payload}] — أزرار/quick replies
+  templateId        String?                                    // ربط صريح بقالب ميتا في whatsAppNotificationTemplate
+  eventType         String?                                    // eventType الصريح عند الإرسال
   stepOrder         Int                  @default(1)
   expectReply       Boolean              @default(false)       // الخطوة بتستنى رد العميل
   replyKeywords     String?              @db.Text              // JSON array — كلمات الفرع

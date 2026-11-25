@@ -63,6 +63,7 @@ router.post('/whatsapp-notify/occasions', verifyToken.authenticateToken, require
 router.put('/whatsapp-notify/occasions/:id', verifyToken.authenticateToken, requireDbPermission('customers.view'), occasionController.updateOccasion);
 router.delete('/whatsapp-notify/occasions/:id', verifyToken.authenticateToken, requireDbPermission('customers.view'), occasionController.deleteOccasion);
 router.post('/whatsapp-notify/occasions/:id/publish', verifyToken.authenticateToken, requireDbPermission('customers.view'), occasionController.publishOccasion);
+router.post('/whatsapp-notify/occasions/:id/pause', verifyToken.authenticateToken, requireDbPermission('customers.view'), occasionController.pauseOccasion);
 
 // Legacy manual send (kept for backward compat)
 router.post('/whatsapp-notify/send', verifyToken.authenticateToken, requireDbPermission('customers.view'), customerWhatsAppController.sendBulkWhatsAppNotification);

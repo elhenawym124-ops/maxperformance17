@@ -8,9 +8,12 @@ import {
   Flow,
   isNotFoundError,
   Journey,
+  JourneyStageKey,
+  JourneyViewMode,
   NoticeState,
   NoticeTone,
   Step,
+  UnifiedOverviewData,
 } from "./types";
 
 const adminRoles = new Set(["SUPER_ADMIN", "OWNER", "COMPANY_ADMIN"]);
@@ -24,6 +27,15 @@ export function useWhatsAppCustomerJourneyController() {
   const copilot = useCopilotShortcut();
 
   const [flows, setFlows] = useState<Flow[]>([]);
+  const [unifiedOverview, setUnifiedOverview] =
+    useState<UnifiedOverviewData | null>(null);
+  const [viewMode, setViewMode] = useState<JourneyViewMode>("canvas");
+  const [activeStage, setActiveStage] = useState<JourneyStageKey>("all");
+  const [togglingKey, setTogglingKey] = useState<string | null>(null);
+  const [pausingOccasionId, setPausingOccasionId] = useState<string | null>(
+    null,
+  );
+  const [testModalOpen, setTestModalOpen] = useState(false);
   const [metaModalOpen, setMetaModalOpen] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
   const [selectedFlow, setSelectedFlow] = useState<Flow | null>(null);
@@ -122,6 +134,22 @@ export function useWhatsAppCustomerJourneyController() {
     }
   }, [fetchSteps, showNotice, t]);
 
+  const fetchUnifiedOverview = useCallback(async () => {
+    try {
+      const response = await apiClient.get(
+        "/whatsapp/automation/unified-overview",
+      );
+      const payload = (response.data as { data?: UnifiedOverviewData })?.data;
+      setUnifiedOverview(
+        payload && !Array.isArray(payload) && Array.isArray(payload.engines)
+          ? payload
+          : null,
+      );
+    } catch {
+      // Optional enrichment: keep workspace functional if unavailable
+    }
+  }, []);
+
   const fetchJourneys = useCallback(async () => {
     try {
       const response = await apiClient.get("/whatsapp/automation/journeys");
@@ -139,7 +167,11 @@ export function useWhatsAppCustomerJourneyController() {
     const loadInitialData = async () => {
       try {
         if (isMounted) setLoading(true);
-        await Promise.all([fetchFlows(), fetchJourneys()]);
+        await Promise.all([
+          fetchFlows(),
+          fetchJourneys(),
+          fetchUnifiedOverview(),
+        ]);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -154,7 +186,11 @@ export function useWhatsAppCustomerJourneyController() {
   const handleRefreshWorkspace = async () => {
     try {
       setRefreshing(true);
-      await Promise.all([fetchFlows(), fetchJourneys()]);
+      await Promise.all([
+        fetchFlows(),
+        fetchJourneys(),
+        fetchUnifiedOverview(),
+      ]);
     } finally {
       setRefreshing(false);
     }
@@ -217,28 +253,78 @@ export function useWhatsAppCustomerJourneyController() {
     if (!selectedFlow || !currentStep.content?.trim()) return;
     try {
       setSubmitting(true);
-      if (currentStep.id) {
-        await apiClient.put(
-          `/whatsapp/automation/steps/${currentStep.id}`,
-          currentStep,
-        );
-      } else {
-        await apiClient.post(
-          `/whatsapp/automation/flows/${selectedFlow.id}/steps`,
-          {
-            ...currentStep,
-            flowId: selectedFlow.id,
-            stepOrder: steps.length + 1,
-          },
-        );
-      }
+      await apiClient.post(
+        `/whatsapp/automation/flows/${selectedFlow.id}/steps`,
+        {
+          ...currentStep,
+          flowId: selectedFlow.id,
+          stepOrder: currentStep.stepOrder ?? steps.length + 1,
+        },
+      );
       showNotice(t("whatsappJourney.actions.saveSuccess"));
       setStepDialogOpen(false);
-      await fetchSteps(selectedFlow.id);
+      await Promise.all([
+        fetchSteps(selectedFlow.id),
+        fetchUnifiedOverview(),
+      ]);
     } catch {
       showNotice(t("whatsappJourney.actions.saveError"), "error");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleToggleEngine = async (engineKey: string, nextEnabled: boolean) => {
+    try {
+      setTogglingKey(engineKey);
+      await apiClient.post(
+        `/whatsapp/automation/engines/${engineKey}/toggle`,
+        { isEnabled: nextEnabled },
+      );
+      showNotice(
+        nextEnabled ? "تم تفعيل المحرك بنجاح" : "تم إيقاف المحرك بنجاح",
+      );
+      await fetchUnifiedOverview();
+    } catch {
+      showNotice(t("common.error"), "error");
+    } finally {
+      setTogglingKey(null);
+    }
+  };
+
+  const handlePauseOccasion = async (occasionId: string) => {
+    try {
+      setPausingOccasionId(occasionId);
+      await apiClient.post(
+        `/customers/whatsapp-notify/occasions/${occasionId}/pause`,
+      );
+      showNotice("تم إيقاف جدولة المناسبة مؤقتاً");
+      await fetchUnifiedOverview();
+    } catch {
+      showNotice(t("common.error"), "error");
+    } finally {
+      setPausingOccasionId(null);
+    }
+  };
+
+  const handleSendTest = async (payload: {
+    recipientPhone: string;
+    templateId?: string;
+    eventType?: string;
+    content?: string;
+  }) => {
+    try {
+      const res = await apiClient.post("/whatsapp/automation/test-send", payload);
+      const body = res.data as { success?: boolean; message?: string };
+      return {
+        success: Boolean(body?.success),
+        message: body?.message,
+      };
+    } catch (err: any) {
+      return {
+        success: false,
+        message: err?.response?.data?.message || err?.message || "فشل الإرسال",
+      };
     }
   };
 
@@ -279,6 +365,15 @@ export function useWhatsAppCustomerJourneyController() {
     copilot,
     flows,
     filteredFlows,
+    unifiedOverview,
+    viewMode,
+    setViewMode,
+    activeStage,
+    setActiveStage,
+    togglingKey,
+    pausingOccasionId,
+    testModalOpen,
+    setTestModalOpen,
     selectedFlow,
     steps,
     setSteps,
@@ -316,5 +411,8 @@ export function useWhatsAppCustomerJourneyController() {
     handleSaveFlow,
     handleSaveStep,
     handleConfirmDelete,
+    handleToggleEngine,
+    handlePauseOccasion,
+    handleSendTest,
   };
 }

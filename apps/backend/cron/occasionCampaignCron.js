@@ -166,9 +166,24 @@ async function processDueOccasions() {
   for (const occ of occasions) {
     try {
       const tpl = occ.templateId ? templateMap.get(occ.templateId) : null;
-      const message = tpl && tpl.content ? tpl.content : occ.message;
+      if (!occ.templateId || !tpl) {
+        console.warn(`⚠️ [OCCASION-CRON] "${occ.name}" (${occ.id}) paused/skipped: no template bound (prevented fallback to order-button template)`);
+        await prisma.occasion.update({
+          where: { id: occ.id },
+          data: { status: 'draft', nextRunAt: null }
+        });
+        continue;
+      }
+      const message = tpl.content || occ.message;
       const listIds = parseListIds(occ.customerListIds);
-      const audience = await resolveOccasionAudience(prisma, occ.companyId, listIds);
+      const rawAudience = await resolveOccasionAudience(prisma, occ.companyId, listIds);
+      const unsubscribed = new Set(
+        (await prisma.botUnsubscribe.findMany({
+          where: { companyId: occ.companyId, channel: 'WHATSAPP' },
+          select: { customerId: true }
+        })).map(u => u.customerId)
+      );
+      const audience = rawAudience.filter(c => !unsubscribed.has(c.id));
 
       // تطبيق إعدادات الإرسال: حد أقصى للعملاء + معدل أقصى لكل جولة (كل ساعة)
       const limit = occ.sendLimit > 0 ? occ.sendLimit : audience.length;
@@ -211,9 +226,7 @@ async function processDueOccasions() {
           if (!phone) continue;
           const name = `${customer.firstName || ''} ${customer.lastName || ''}`.trim() || 'عزيزي العميل';
           try {
-            // eventType القالب المرتبط (إن وجد) — عشان ميتا يلقط القالب المحدد للمناسبة دي
-            // fallback: قالب ميتا مناسبة عام معتمد أو contentOverride بنص المناسبة
-            const tplEventType = tpl?.eventType || 'CUSTOMER_OCCASION_msvsy2ut';
+            const tplEventType = tpl.eventType;
             const result = await WhatsAppNotificationService.sendNotification({
               companyId: occ.companyId,
               deliveryStrategy: 'platform-fallback',
@@ -222,7 +235,9 @@ async function processDueOccasions() {
               recipientType: 'CUSTOMER',
               category: 'OCCASION',
               eventType: tplEventType,
+              template: tpl,
               contentOverride: message,
+              customerId: customer.id,
               variables: {
                 customerName: name,
                 firstName: customer.firstName || '',

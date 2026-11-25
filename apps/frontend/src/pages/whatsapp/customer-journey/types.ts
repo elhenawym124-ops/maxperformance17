@@ -16,6 +16,120 @@ export interface Flow {
 
 export interface Step extends FlowStep {
   flowId: string;
+  templateId?: string | null;
+  eventType?: string | null;
+  boundTemplate?: {
+    id: string;
+    name: string;
+    eventType: string;
+    metaTemplateName?: string | null;
+    metaTemplateStatus?: string | null;
+    health: TemplateHealthStatus;
+    hasButtons?: boolean;
+    buttons?: { title?: string; text?: string; payload?: string }[];
+  } | null;
+}
+
+export type JourneyStageKey =
+  | "all"
+  | "pre_purchase"
+  | "order_lifecycle"
+  | "post_delivery"
+  | "loyalty_retention"
+  | "occasions_campaigns";
+
+export type JourneyViewMode = "canvas" | "list";
+
+export type TemplateHealthStatus =
+  | "APPROVED"
+  | "REJECTED"
+  | "PENDING"
+  | "PENDING_DELETION"
+  | "UNBOUND"
+  | "INSIDE_24H"
+  | "UNKNOWN";
+
+export interface TelemetryStats {
+  sent: number;
+  delivered: number;
+  read: number;
+  failed: number;
+  responded: number;
+}
+
+export interface UnifiedEngineItem {
+  key: string;
+  stage: Exclude<JourneyStageKey, "all">;
+  title: string;
+  description: string;
+  isEnabled: boolean;
+  windowPolicy: "INSIDE_24H" | "OUTSIDE_24H_HSM";
+  templateHealth: TemplateHealthStatus;
+  metaTemplateName?: string | null;
+  canToggle: boolean;
+  manageHref?: string;
+  flowsCount?: number;
+  activeEnrollments?: number;
+  scheduledCount?: number;
+  unboundCount?: number;
+  items?: Array<{
+    eventType: string;
+    templateId?: string | null;
+    name: string;
+    metaTemplateName?: string | null;
+    health: TemplateHealthStatus;
+    hasButtons?: boolean;
+    stats: TelemetryStats;
+  }>;
+  stats: TelemetryStats;
+}
+
+export interface SelectableTemplate {
+  id: string;
+  name: string;
+  category: string;
+  eventType: string;
+  content: string;
+  metaTemplateName?: string | null;
+  metaTemplateStatus?: string | null;
+  health: TemplateHealthStatus;
+  hasButtons: boolean;
+  buttons: Array<{ title?: string; text?: string; type?: string }>;
+}
+
+export interface OccasionOverviewItem {
+  id: string;
+  name: string;
+  status: string;
+  templateId?: string | null;
+  scheduledAt: string;
+  nextRunAt?: string | null;
+  recurrence: string;
+  totalSent: number;
+  lastSentCount: number;
+}
+
+export interface UnifiedOverviewData {
+  hasMetaSession: boolean;
+  connectedSessionsCount: number;
+  guardrails: {
+    weeklyFrequencyCap: number;
+    deliveryWindowHours: number;
+    pauseOnUnreadInbox: boolean;
+    respectBotUnsubscribe: boolean;
+    blockUnboundOccasions: boolean;
+  };
+  journeyStatusSummary: Record<string, number>;
+  telemetry7d: TelemetryStats;
+  templateHealthSummary: {
+    total: number;
+    approved: number;
+    rejected: number;
+    unbound: number;
+  };
+  engines: UnifiedEngineItem[];
+  occasions: OccasionOverviewItem[];
+  selectableTemplates: SelectableTemplate[];
 }
 
 export interface Journey {

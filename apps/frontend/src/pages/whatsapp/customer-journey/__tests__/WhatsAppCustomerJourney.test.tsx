@@ -1,7 +1,7 @@
 /** @vitest-environment jsdom */
 import React from "react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import { MemoryRouter } from "react-router-dom";
 import WhatsAppCustomerJourney from "../../WhatsAppCustomerJourney";
@@ -98,6 +98,10 @@ const mockJourneysResponse = {
 };
 
 describe("WhatsAppCustomerJourney", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   beforeEach(() => {
     vi.clearAllMocks();
     (apiClient.get as any).mockImplementation((url: string) => {
@@ -198,6 +202,80 @@ describe("WhatsAppCustomerJourney", () => {
 
     await waitFor(() => {
       expect((apiClient.get as any).mock.calls.length).toBeGreaterThan(callsBefore);
+    });
+  });
+
+  it("renders unified cockpit telemetry, stage map, and engines directory toggle", async () => {
+    (apiClient.get as any).mockImplementation((url: string) => {
+      if (url.includes("/unified-overview")) {
+        return Promise.resolve({
+          data: {
+            data: {
+              hasMetaSession: true,
+              connectedSessionsCount: 1,
+              guardrails: {
+                weeklyFrequencyCap: 3,
+                deliveryWindowHours: 48,
+                pauseOnUnreadInbox: true,
+                respectBotUnsubscribe: true,
+                blockUnboundOccasions: true,
+              },
+              journeyStatusSummary: { ACTIVE: 2 },
+              telemetry7d: { sent: 40, delivered: 38, read: 20, failed: 2, responded: 10 },
+              templateHealthSummary: { total: 5, approved: 3, rejected: 1, unbound: 1 },
+              engines: [
+                {
+                  key: "retention_cadence",
+                  stage: "loyalty_retention",
+                  title: "الرسائل الدورية للاحتفاظ (Cadence)",
+                  description: "منتج جديد ورصيد النقاط",
+                  isEnabled: false,
+                  windowPolicy: "OUTSIDE_24H_HSM",
+                  templateHealth: "REJECTED",
+                  canToggle: true,
+                  stats: { sent: 10, delivered: 8, read: 5, failed: 2, responded: 1 },
+                },
+              ],
+              occasions: [
+                {
+                  id: "occ-1",
+                  name: "الإسراء والمعراج",
+                  status: "scheduled",
+                  templateId: null,
+                  scheduledAt: "2026-12-06T08:00:00.000Z",
+                  recurrence: "yearly",
+                  totalSent: 0,
+                  lastSentCount: 0,
+                },
+              ],
+              selectableTemplates: [],
+            },
+          },
+        });
+      }
+      if (url.includes("/steps")) return Promise.resolve({ data: mockStepsResponse });
+      if (url.includes("/journeys")) return Promise.resolve({ data: mockJourneysResponse });
+      if (url.includes("/flows")) return Promise.resolve({ data: mockFlowsResponse });
+      return Promise.resolve({ data: { data: [] } });
+    });
+
+    render(
+      <MemoryRouter>
+        <WhatsAppCustomerJourney FlowCanvasComponent={MockFlowCanvas} />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("غرفة قيادة رحلة العميل والمراسلة")).toBeInTheDocument();
+      expect(screen.getByText("الرسائل الدورية للاحتفاظ (Cadence)")).toBeInTheDocument();
+    });
+
+    const listTab = screen.getByRole("tab", { name: /دليل المحركات/ });
+    fireEvent.click(listTab);
+
+    await waitFor(() => {
+      expect(screen.getByText("المناسبات المجدولة وفحص القوالب (1)")).toBeInTheDocument();
+      expect(screen.getByText("الإسراء والمعراج")).toBeInTheDocument();
     });
   });
 });

@@ -7,46 +7,56 @@
  */
 
 const { getSharedPrismaClient } = require('../sharedDatabase');
-const MetaCloudProvider = require('../whatsapp/providers/MetaCloudProvider');
-// ╪«╪»┘à╪⌐ ╪º┘ä┘ê┘ä╪º╪í (┘à╪╡╪»┘æ╪▒╪⌐ ┘â┘Ç instance) ΓÇö ╪¬┘Å╪╢╪º┘ü ╪Ñ┘ä┘è┘ç╪º getExpiringPoints ┘à┘å ┘ê┘â┘è┘ä ╪ó╪«╪▒
+const WhatsAppNotificationService = require('../whatsapp/WhatsAppNotificationService');
 const customerLoyaltyService = require('./customerLoyaltyService');
 
 /**
- * ╪Ñ╪▒╪│╪º┘ä ╪▒╪│╪º┘ä╪⌐ ┘å╪╡┘è╪⌐ ╪╣╪¿╪▒ ┘ê╪º╪¬╪│╪º╪¿ ┘ä╪╣┘à┘è┘ä ╪¬╪º╪¿╪╣ ┘ä╪┤╪▒┘â╪⌐ ┘à╪╣┘è┘æ┘å╪⌐.
- * ┘è┘é╪▒╪ú ╪▒┘à╪▓ ╪º┘ä┘ê╪╡┘ê┘ä ┘ê╪▒┘é┘à ╪º┘ä┘ç╪º╪¬┘ü ┘à┘å ╪¼┘ä╪│╪⌐ ┘ê╪º╪¬╪│╪º╪¿ (whatsAppSessions) ╪º┘ä╪«╪º╪╡╪⌐ ╪¿╪º┘ä╪┤╪▒┘â╪⌐.
- * ╪»┘ü╪º╪╣┘è: ╪Ñ┘å ┘ä┘à ╪¬╪¬┘ê┘ü╪▒ ╪¼┘ä╪│╪⌐/╪▒┘à╪▓ ╪╡╪º┘ä╪¡ ┘è╪╖╪¿╪╣ ╪¬╪¡╪░┘è╪▒╪º┘ï ┘ê┘ä╪º ┘è╪▒┘à┘è ╪«╪╖╪ú (no-op).
- *
- * @param {string} companyId  ┘à╪╣╪▒┘æ┘ü ╪º┘ä╪┤╪▒┘â╪⌐
- * @param {string} phone      ╪▒┘é┘à ╪º┘ä╪╣┘à┘è┘ä (╪¿╪╡┘è╪║╪⌐ ╪»┘ê┘ä┘è╪⌐)
- * @param {string} text       ┘å╪╡ ╪º┘ä╪▒╪│╪º┘ä╪⌐ (┘è╪»╪╣┘à ┘à╪╣╪º┘è┘å╪⌐ ╪º┘ä╪▒┘ê╪º╪¿╪╖)
- * @returns {Promise<{sent:Boolean, messageId?:string|null, error?:string}>}
+ * إرسال رسالة تذكير انتهاء نقاط الولاء عبر البوابة الموحدة WhatsAppNotificationService
+ * مع احترام BotUnsubscribe وقواعد قوالب Meta Cloud وكتابة سجل الإشعارات.
  */
-async function sendWhatsAppMessage(companyId, phone, text) {
+async function sendWhatsAppMessage(companyId, phone, text, meta = {}) {
     if (!companyId || !phone || !text) {
-        console.warn('ΓÜá∩╕Å [Loyalty Notify] sendWhatsAppMessage skipped: missing companyId/phone/text');
+        console.warn('⚠️ [Loyalty Notify] sendWhatsAppMessage skipped: missing companyId/phone/text');
         return { sent: false, error: 'missing companyId/phone/text' };
     }
 
     try {
         const prisma = getSharedPrismaClient();
-
-        // ┘å╪¿╪¡╪½ ╪╣┘å ╪¼┘ä╪│╪⌐ ┘ê╪º╪¬╪│╪º╪¿ ┘à┘ê╪╡┘ê┘ä╪⌐ ┘ä┘ä╪┤╪▒┘â╪⌐ (╪¬╪¡╪¬┘ê┘è ╪▒┘à╪▓ Meta ┘ê╪º┘ä┘Ç phone number id)
-        const session = await prisma.whatsAppSession.findFirst({
-            where: { companyId, status: 'CONNECTED' },
-            orderBy: { updatedAt: 'desc' }
-        });
-
-        if (!session) {
-            console.warn(`ΓÜá∩╕Å [Loyalty Notify] No CONNECTED WhatsApp session for company ${companyId} ΓÇö skipping message`);
-            return { sent: false, error: 'no whatsapp session' };
+        if (meta.customerId) {
+            const unsub = await prisma.botUnsubscribe.findFirst({
+                where: { companyId, customerId: meta.customerId, channel: 'WHATSAPP' },
+                select: { id: true }
+            }).catch(() => null);
+            if (unsub) {
+                return { sent: false, error: 'unsubscribed' };
+            }
         }
 
-        // ┘å┘ü┘ê┘æ╪╢ ╪º┘ä╪Ñ╪▒╪│╪º┘ä ┘ä┘ä┘Ç helper ╪º┘ä┘à┘ê╪¼┘ê╪» ┘ü┘è MetaCloudProvider (┘è╪▒┘à┘æ┘à ╪º┘ä╪▒┘à╪▓ ╪º┘ä┘à╪┤┘ü┘æ╪▒ ╪»╪º╪«┘ä┘è╪º┘ï)
-        const result = await MetaCloudProvider.sendText(session.id, phone, text, { previewUrl: true });
+        const result = await WhatsAppNotificationService.sendNotification({
+            companyId,
+            deliveryStrategy: 'platform-fallback',
+            recipientPhone: phone,
+            recipientName: meta.customerName || 'عميلنا العزيز',
+            recipientType: 'CUSTOMER',
+            category: 'MARKETING',
+            eventType: 'LOYALTY_POINTS_EXPIRY_WARNING',
+            contentOverride: text,
+            variables: {
+                customerName: meta.customerName || '',
+                points: String(meta.expiringPoints ?? 0),
+                daysLeft: String(meta.daysLeft ?? 0),
+                storeLink: meta.deepLink || ''
+            },
+            customerId: meta.customerId || null,
+            priority: 3
+        });
 
-        return { sent: true, messageId: result?.messageId || null };
+        if (result?.success) {
+            return { sent: true, messageId: result.messageId || result.logId || null };
+        }
+        return { sent: false, error: result?.reason || result?.message || 'send_failed' };
     } catch (error) {
-        console.error(`Γ¥î [Loyalty Notify] Failed to send WhatsApp to ${phone}:`, error?.message || error);
+        console.error(`❌ [Loyalty Notify] Failed to send WhatsApp to ${phone}:`, error?.message || error);
         return { sent: false, error: error?.message || String(error) };
     }
 }
@@ -78,9 +88,15 @@ function buildExpiryReminderText({ customerName, expiringPoints, daysLeft, deepL
  * @param {string} [params.deepLink]   ╪▒╪º╪¿╪╖ ╪º┘ä┘à╪¬╪¼╪▒ ╪º┘ä┘à╪¡┘à┘æ┘ä ╪¿╪º┘ä╪«╪╡┘à
  * @returns {Promise<{sent:Boolean, error?:string}>}
  */
-async function sendPointsExpiryReminder({ companyId, phone, customerName, expiringPoints, daysLeft, deepLink }) {
+async function sendPointsExpiryReminder({ companyId, customerId = null, phone, customerName, expiringPoints, daysLeft, deepLink }) {
     const text = buildExpiryReminderText({ customerName, expiringPoints, daysLeft, deepLink });
-    const result = await sendWhatsAppMessage(companyId, phone, text);
+    const result = await sendWhatsAppMessage(companyId, phone, text, {
+        customerId,
+        customerName,
+        expiringPoints,
+        daysLeft,
+        deepLink
+    });
     return result;
 }
 
@@ -111,6 +127,7 @@ async function notifyExpiringCustomers(companyId, days) {
         if (!c || !c.phone) continue;
         const res = await sendPointsExpiryReminder({
             companyId: c.companyId || companyId,
+            customerId: c.customerId || c.id || null,
             phone: c.phone,
             customerName: c.customerName,
             expiringPoints: c.expiringPoints,

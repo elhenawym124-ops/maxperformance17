@@ -25,4 +25,9 @@ router.delete('/steps/:id', verifyToken.authenticateToken, (req, res) => whatsap
 router.get('/journeys', verifyToken.authenticateToken, (req, res) => whatsappAutomationController.getJourneys(req, res));
 router.post('/journeys/re-enroll', verifyToken.authenticateToken, (req, res) => whatsappAutomationController.reEnrollJourney(req, res));
 
+// Unified Journey Cockpit
+router.get('/unified-overview', verifyToken.authenticateToken, (req, res) => whatsappAutomationController.getUnifiedOverview(req, res));
+router.post('/engines/:engineKey/toggle', verifyToken.authenticateToken, (req, res) => whatsappAutomationController.toggleEngine(req, res));
+router.post('/test-send', verifyToken.authenticateToken, (req, res) => whatsappAutomationController.sendTestStep(req, res));
+
 module.exports = router;

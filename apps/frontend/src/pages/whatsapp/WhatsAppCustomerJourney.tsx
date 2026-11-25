@@ -6,6 +6,9 @@ import { cn } from "@/lib/utils";
 import {
   useWhatsAppCustomerJourneyController,
   JourneyPageTopBar,
+  UnifiedTelemetryStrip,
+  UnifiedStageMapCanvas,
+  UnifiedEnginesListView,
   JourneyFlowsListCard,
   JourneyStepsCanvasCard,
   JourneyMonitoringGridCard,
@@ -29,6 +32,15 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
     copilot,
     flows,
     filteredFlows,
+    unifiedOverview,
+    viewMode,
+    setViewMode,
+    activeStage,
+    setActiveStage,
+    togglingKey,
+    pausingOccasionId,
+    testModalOpen,
+    setTestModalOpen,
     selectedFlow,
     steps,
     setSteps,
@@ -66,21 +78,27 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
     handleSaveFlow,
     handleSaveStep,
     handleConfirmDelete,
+    handleToggleEngine,
+    handlePauseOccasion,
+    handleSendTest,
   } = useWhatsAppCustomerJourneyController();
 
   if (loading) {
     return (
       <section
         dir={i18n.dir()}
-        className="min-h-full space-y-space-4 overflow-x-hidden px-space-1 py-space-2 pb-[calc(var(--space-4)+env(safe-area-inset-bottom))] sm:space-y-space-6 sm:px-space-6 sm:py-space-4 lg:px-space-8"
+        className="w-full space-y-6 pb-8 px-1 py-2 sm:px-6 sm:py-4 lg:px-8"
       >
         <JourneyPageTopBar
           backHref="/orders/status-templates"
           backLabel={t("common.back") as string}
           isRtl={isRtl}
+          viewMode={viewMode}
+          onChangeViewMode={setViewMode}
           refreshing={refreshing}
           onRefresh={() => void handleRefreshWorkspace()}
           onOpenTimeline={() => setTimelineOpen(true)}
+          onOpenTestSend={() => setTestModalOpen(true)}
           onOpenCopilot={() => copilot.setOpen(true)}
           copilotTitle={t("whatsappJourney.copilot.title")}
           isAdmin={isAdmin}
@@ -89,26 +107,67 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
           addNewFlowLabel={t("whatsappJourney.flows.addNew")}
         />
         <div className="space-y-4">
-          <Skeleton className="h-[26rem] rounded-xl sm:rounded-xl" />
-          <Skeleton className="h-[22rem] rounded-xl sm:rounded-xl" />
-          <Skeleton className="h-56 rounded-xl sm:rounded-xl" />
+          <Skeleton className="h-24 rounded-xl" />
+          <Skeleton className="h-[22rem] rounded-xl" />
+          <Skeleton className="h-56 rounded-xl" />
         </div>
       </section>
     );
   }
 
+  const postDeliveryEditor = (
+    <div className="grid gap-4 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.55fr)]">
+      <JourneyFlowsListCard
+        flows={flows}
+        filteredFlows={filteredFlows}
+        selectedFlow={selectedFlow}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        onSelectFlow={handleFlowClick}
+        onEditFlow={openEditFlowDialog}
+        onDeleteFlow={(flow) =>
+          setDeleteTarget({ type: "flow", id: flow.id })
+        }
+        onOpenCreateFlow={openCreateFlowDialog}
+        isAdmin={isAdmin}
+        isRtl={isRtl}
+        t={t}
+      />
+
+      <JourneyStepsCanvasCard
+        selectedFlow={selectedFlow}
+        steps={steps}
+        stepsLoading={stepsLoading}
+        isAdmin={isAdmin}
+        onOpenCopilot={() => copilot.setOpen(true)}
+        onReorderSteps={setSteps}
+        onEditStep={openEditStepDialog}
+        onAddStep={openCreateStepDialog}
+        onDeleteStep={(step) =>
+          setDeleteTarget({ type: "step", id: step.id || "" })
+        }
+        onOpenCreateFlow={openCreateFlowDialog}
+        t={t}
+        FlowCanvasComponent={FlowCanvasComponent}
+      />
+    </div>
+  );
+
   return (
     <section
       dir={i18n.dir()}
-      className="min-h-full space-y-space-4 overflow-x-hidden px-space-1 py-space-2 pb-[calc(var(--space-4)+env(safe-area-inset-bottom))] sm:space-y-space-6 sm:px-space-6 sm:py-space-4 lg:px-space-8"
+      className="w-full space-y-6 overflow-x-hidden px-1 py-2 pb-[calc(var(--space-4)+env(safe-area-inset-bottom))] sm:px-6 sm:py-4 lg:px-8"
     >
       <JourneyPageTopBar
         backHref="/orders/status-templates"
         backLabel={t("common.back") as string}
         isRtl={isRtl}
+        viewMode={viewMode}
+        onChangeViewMode={setViewMode}
         refreshing={refreshing}
         onRefresh={() => void handleRefreshWorkspace()}
         onOpenTimeline={() => setTimelineOpen(true)}
+        onOpenTestSend={() => setTestModalOpen(true)}
         onOpenCopilot={() => copilot.setOpen(true)}
         copilotTitle={t("whatsappJourney.copilot.title")}
         isAdmin={isAdmin}
@@ -141,42 +200,28 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
         </div>
       ) : null}
 
-      {/* MASTER-DETAIL: flows + steps editor side by side */}
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.55fr)]">
-        <JourneyFlowsListCard
-          flows={flows}
-          filteredFlows={filteredFlows}
-          selectedFlow={selectedFlow}
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          onSelectFlow={handleFlowClick}
-          onEditFlow={openEditFlowDialog}
-          onDeleteFlow={(flow) =>
-            setDeleteTarget({ type: "flow", id: flow.id })
-          }
-          onOpenCreateFlow={openCreateFlowDialog}
-          isAdmin={isAdmin}
-          isRtl={isRtl}
-          t={t}
-        />
+      {/* Unified Telemetry Strip */}
+      <UnifiedTelemetryStrip overview={unifiedOverview} />
 
-        <JourneyStepsCanvasCard
-          selectedFlow={selectedFlow}
-          steps={steps}
-          stepsLoading={stepsLoading}
-          isAdmin={isAdmin}
-          onOpenCopilot={() => copilot.setOpen(true)}
-          onReorderSteps={setSteps}
-          onEditStep={openEditStepDialog}
-          onAddStep={openCreateStepDialog}
-          onDeleteStep={(step) =>
-            setDeleteTarget({ type: "step", id: step.id || "" })
-          }
-          onOpenCreateFlow={openCreateFlowDialog}
-          t={t}
-          FlowCanvasComponent={FlowCanvasComponent}
+      {/* Main Workspace: Unified Map View OR Engines Directory List */}
+      {viewMode === "canvas" ? (
+        <UnifiedStageMapCanvas
+          overview={unifiedOverview}
+          activeStage={activeStage}
+          onSelectStage={setActiveStage}
+          onToggleEngine={(key, next) => void handleToggleEngine(key, next)}
+          togglingKey={togglingKey}
+          postDeliverySlot={postDeliveryEditor}
         />
-      </div>
+      ) : (
+        <UnifiedEnginesListView
+          overview={unifiedOverview}
+          onToggleEngine={(key, next) => void handleToggleEngine(key, next)}
+          onPauseOccasion={(id) => void handlePauseOccasion(id)}
+          togglingKey={togglingKey}
+          pausingOccasionId={pausingOccasionId}
+        />
+      )}
 
       {/* MONITORING — full width below */}
       <JourneyMonitoringGridCard
@@ -201,6 +246,7 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
         setCurrentStep={setCurrentStep}
         onSaveStep={() => void handleSaveStep()}
         steps={steps}
+        selectableTemplates={unifiedOverview?.selectableTemplates ?? []}
         deleteTarget={deleteTarget}
         onDeleteTargetChange={setDeleteTarget}
         onConfirmDelete={() => void handleConfirmDelete()}
@@ -222,6 +268,9 @@ const WhatsAppCustomerJourney: React.FC<WhatsAppCustomerJourneyProps> = ({
         }
         timelineOpen={timelineOpen}
         onTimelineClose={() => setTimelineOpen(false)}
+        testModalOpen={testModalOpen}
+        onTestModalChange={setTestModalOpen}
+        onSendTest={handleSendTest}
         t={t}
       />
     </section>

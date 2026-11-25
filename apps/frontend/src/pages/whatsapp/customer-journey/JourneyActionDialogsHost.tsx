@@ -14,10 +14,11 @@ import {
 import { CopilotDrawer } from "../components/journey/CopilotDrawer";
 import MetaTemplatesModal from "../../customers/components/MetaTemplatesModal";
 import CustomerMessageTimeline from "../components/CustomerMessageTimeline";
-import { DeleteTarget, Flow, Journey, Step } from "./types";
+import { DeleteTarget, Flow, Journey, SelectableTemplate, Step } from "./types";
 import { JourneyDetailsDialog } from "./dialogs/JourneyDetailsDialog";
 import { FlowEditDialog } from "./dialogs/FlowEditDialog";
 import { StepEditDialog } from "./dialogs/StepEditDialog";
+import { JourneyTestSendModal } from "./dialogs/JourneyTestSendModal";
 
 export interface JourneyActionDialogsHostProps {
   selectedJourney: Journey | null;
@@ -34,6 +35,7 @@ export interface JourneyActionDialogsHostProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<Partial<Step>>>;
   onSaveStep: () => void;
   steps: Step[];
+  selectableTemplates?: SelectableTemplate[];
   deleteTarget: DeleteTarget;
   onDeleteTargetChange: (target: DeleteTarget) => void;
   onConfirmDelete: () => void;
@@ -49,6 +51,14 @@ export interface JourneyActionDialogsHostProps {
   onPickMetaTemplate: (content: string) => void;
   timelineOpen: boolean;
   onTimelineClose: () => void;
+  testModalOpen: boolean;
+  onTestModalChange: (open: boolean) => void;
+  onSendTest: (payload: {
+    recipientPhone: string;
+    templateId?: string;
+    eventType?: string;
+    content?: string;
+  }) => Promise<{ success: boolean; message?: string }>;
   t: (key: string, options?: any) => string;
 }
 
@@ -67,6 +77,7 @@ export const JourneyActionDialogsHost: React.FC<JourneyActionDialogsHostProps> =
   setCurrentStep,
   onSaveStep,
   steps,
+  selectableTemplates = [],
   deleteTarget,
   onDeleteTargetChange,
   onConfirmDelete,
@@ -82,6 +93,9 @@ export const JourneyActionDialogsHost: React.FC<JourneyActionDialogsHostProps> =
   onPickMetaTemplate,
   timelineOpen,
   onTimelineClose,
+  testModalOpen,
+  onTestModalChange,
+  onSendTest,
   t,
 }) => {
   const flowDeleteTitle =
@@ -123,6 +137,7 @@ export const JourneyActionDialogsHost: React.FC<JourneyActionDialogsHostProps> =
         onSaveStep={onSaveStep}
         submitting={submitting}
         steps={steps}
+        selectableTemplates={selectableTemplates}
         onOpenMetaModal={onOpenMetaModal}
         t={t}
       />
@@ -189,6 +204,14 @@ export const JourneyActionDialogsHost: React.FC<JourneyActionDialogsHostProps> =
 
       {/* ─── Customer Message Timeline Drawer ─── */}
       <CustomerMessageTimeline open={timelineOpen} onClose={onTimelineClose} />
+
+      {/* ─── Live Test Send Modal ─── */}
+      <JourneyTestSendModal
+        open={testModalOpen}
+        onOpenChange={onTestModalChange}
+        templates={selectableTemplates}
+        onSendTest={onSendTest}
+      />
     </>
   );
 };

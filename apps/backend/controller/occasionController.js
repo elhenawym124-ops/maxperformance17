@@ -250,10 +250,34 @@ async function publishOccasion(req, res) {
     }
 }
 
+async function pauseOccasion(req, res) {
+    try {
+        const { companyId } = req.user;
+        const { id } = req.params;
+        const prisma = getSharedPrismaClient();
+        const existing = await prisma.occasion.findFirst({ where: { id, companyId } });
+        if (!existing) return res.status(404).json({ success: false, message: 'المناسبة غير موجودة' });
+
+        const updated = await prisma.occasion.update({
+            where: { id },
+            data: { status: 'draft', nextRunAt: null },
+        });
+        return res.json({
+            success: true,
+            data: { ...updated, customerListIds: parseListIds(updated.customerListIds) },
+            message: 'تم إيقاف جدولة المناسبة مؤقتاً',
+        });
+    } catch (error) {
+        console.error('[OCCASION] pauseOccasion error:', error);
+        return res.status(500).json({ success: false, message: 'خطأ في إيقاف المناسبة' });
+    }
+}
+
 module.exports = {
     listOccasions,
     createOccasion,
     updateOccasion,
     deleteOccasion,
     publishOccasion,
+    pauseOccasion,
 };

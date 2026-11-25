@@ -193,7 +193,7 @@ class WhatsAppAutomationController {
             if (!companyId) return;
 
             const { flowId } = req.params;
-            const { id, delayDays, delayHours, delayUnit, content, mediaUrl, buttons, stepOrder, expectReply, replyKeywords, nextStepId, timeoutHours, timeoutNextStepId } = req.body;
+            const { id, delayDays, delayHours, delayUnit, content, mediaUrl, buttons, templateId, eventType, stepOrder, expectReply, replyKeywords, nextStepId, timeoutHours, timeoutNextStepId } = req.body;
 
             // Verify flow ownership
             const flow = await this.prisma.whatsAppFollowUpFlow.findUnique({
@@ -208,6 +208,8 @@ class WhatsAppAutomationController {
                 nextStepId: nextStepId || null,
                 timeoutHours: Number.isInteger(Number(timeoutHours)) ? Number(timeoutHours) : null,
                 timeoutNextStepId: timeoutNextStepId || null,
+                templateId: templateId || null,
+                eventType: eventType || null,
                 buttons: buttons && Array.isArray(buttons)
                     ? JSON.stringify(buttons.filter((b) => b && b.title))
                     : null,
@@ -363,6 +365,65 @@ class WhatsAppAutomationController {
             res.json({ success: true, data: withContact });
         } catch (error) {
             console.error('❌ [WHATSAPP-AUTOMATION] getJourneys error:', error.message);
+            res.status(500).json({ success: false, message: error.message });
+        }
+    }
+
+    /**
+     * Unified Customer Journey Overview (all engines, templates health, 7d telemetry)
+     */
+    async getUnifiedOverview(req, res) {
+        try {
+            const companyId = this._getCompanyId(req, res);
+            if (!companyId) return;
+
+            const unifiedService = require('../services/whatsapp/WhatsAppUnifiedJourneyService');
+            const data = await unifiedService.getUnifiedOverview(companyId);
+            res.json({ success: true, data });
+        } catch (error) {
+            console.error('❌ [WHATSAPP-AUTOMATION] getUnifiedOverview error:', error.message);
+            res.status(500).json({ success: false, message: error.message });
+        }
+    }
+
+    /**
+     * Toggle an automation engine or pause all scheduled occasions from unified cockpit
+     */
+    async toggleEngine(req, res) {
+        try {
+            const companyId = this._getCompanyId(req, res);
+            if (!companyId) return;
+
+            const { engineKey } = req.params;
+            const { isEnabled } = req.body || {};
+            const unifiedService = require('../services/whatsapp/WhatsAppUnifiedJourneyService');
+            const data = await unifiedService.toggleEngine(companyId, engineKey, isEnabled);
+            res.json({ success: true, data });
+        } catch (error) {
+            console.error('❌ [WHATSAPP-AUTOMATION] toggleEngine error:', error.message);
+            res.status(400).json({ success: false, message: error.message });
+        }
+    }
+
+    /**
+     * Live test send from Customer Journey canvas
+     */
+    async sendTestStep(req, res) {
+        try {
+            const companyId = this._getCompanyId(req, res);
+            if (!companyId) return;
+
+            const { recipientPhone, templateId, eventType, content } = req.body || {};
+            const unifiedService = require('../services/whatsapp/WhatsAppUnifiedJourneyService');
+            const result = await unifiedService.sendTestMessage(companyId, {
+                recipientPhone,
+                templateId,
+                eventType,
+                content,
+            });
+            res.json({ success: Boolean(result?.success), data: result, message: result?.message || result?.reason });
+        } catch (error) {
+            console.error('❌ [WHATSAPP-AUTOMATION] sendTestStep error:', error.message);
             res.status(500).json({ success: false, message: error.message });
         }
     }

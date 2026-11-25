@@ -18,6 +18,7 @@ import {
   parseInteger,
   previewBackgroundStyle,
   replaceVariables,
+  SelectableTemplate,
   Step,
   variableTokens,
 } from "../types";
@@ -48,6 +49,7 @@ export interface StepEditDialogProps {
   onSaveStep: () => void;
   submitting: boolean;
   steps: Step[];
+  selectableTemplates?: SelectableTemplate[];
   onOpenMetaModal: () => void;
   t: (key: string, options?: any) => string;
 }
@@ -60,9 +62,17 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
   onSaveStep,
   submitting,
   steps,
+  selectableTemplates = [],
   onOpenMetaModal,
   t,
 }) => {
+  const selectedTemplate = selectableTemplates.find(
+    (tpl) =>
+      tpl.id === currentStep.templateId ||
+      (!currentStep.templateId &&
+        currentStep.eventType &&
+        tpl.eventType === currentStep.eventType),
+  );
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[calc(100%-2rem)] rounded-xl border-border/70 bg-[var(--app-panel-bg)] p-0 sm:max-w-4xl">
@@ -100,6 +110,49 @@ export const StepEditDialog: React.FC<StepEditDialogProps> = ({
                 className="h-11 font-mono tabular-nums bg-[color:var(--color-card)]/75"
               />
             </div>
+
+            {selectableTemplates.length > 0 && (
+              <div className="space-y-2 rounded-xl border border-border/70 bg-[color:var(--color-card)]/70 p-4">
+                <Label htmlFor="step-meta-template">
+                  ربط قالب Meta الرسمي للخطوة
+                </Label>
+                <select
+                  id="step-meta-template"
+                  value={currentStep.templateId ?? ""}
+                  onChange={(event) => {
+                    const tpl = selectableTemplates.find(
+                      (item) => item.id === event.target.value,
+                    );
+                    setCurrentStep((previous) => ({
+                      ...previous,
+                      templateId: tpl ? tpl.id : null,
+                      eventType: tpl ? tpl.eventType : null,
+                    }));
+                  }}
+                  className="h-10 w-full rounded-lg border border-border/70 bg-background px-3 text-xs text-foreground"
+                >
+                  <option value="">
+                    تلقائي (POST_DELIVERY_FOLLOWUP المعتمد)
+                  </option>
+                  {selectableTemplates.map((tpl) => (
+                    <option key={tpl.id} value={tpl.id}>
+                      [{tpl.health}] {tpl.name} — {tpl.eventType}
+                      {tpl.hasButtons ? " (يحتوي أزرار)" : ""}
+                    </option>
+                  ))}
+                </select>
+                {selectedTemplate?.hasButtons && (
+                  <p className="rounded-lg border border-amber-500/20 bg-amber-500/10 p-2 text-[11px] text-amber-600 dark:text-amber-400">
+                    تحذير: القالب المختار يحتوي على أزرار ثابتة في Meta (
+                    {selectedTemplate.buttons
+                      .map((b) => b.text || b.title)
+                      .filter(Boolean)
+                      .join(" / ") || "أزرار تفاعلية"}
+                    ).
+                  </p>
+                )}
+              </div>
+            )}
 
             <div className="space-y-3 rounded-xl border border-border/70 bg-[color:var(--color-card)]/70 p-4">
               <div>
