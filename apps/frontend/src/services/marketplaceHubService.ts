@@ -258,7 +258,13 @@ export const marketplaceHubService = {
     return res.data.data;
   },
 
-  async generateCopy(payload: { mode: 'text' | 'image'; productInfo: string; contextLine?: string; language?: 'ar' | 'en' }) {
+  async generateCopy(payload: {
+    mode: 'text' | 'image';
+    productInfo: string;
+    contextLine?: string;
+    imageDataUrl?: string;
+    language?: 'ar' | 'en';
+  }) {
     const res = await apiClient.post<{
       data: {
         copy: { title: string; bulletPoints: string[]; description: string; searchKeywords: string[] };
@@ -274,6 +280,7 @@ export const marketplaceHubService = {
     prompt?: string;
     style?: string;
     removalMode?: 'standard' | 'ai_premium';
+    imageDataUrl?: string;
   }) {
     const res = await apiClient.post<{
       data: {

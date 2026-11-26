@@ -129,6 +129,13 @@ async function runTests() {
   const pushPreview = await opsService.pushCsvRowsToMaxpCatalog('test-co-1', [{ sku: 'S1', title: 'Lamp', price: 100, stock: 5 }], null);
   assert.strictEqual(pushPreview.mode, 'preview_only');
 
+  const candidates = aiService.buildAiCandidateList([
+    { provider: 'GOOGLE', apiKey: 'k1', baseUrl: 'https://generativelanguage.googleapis.com/v1beta/', aiModelConfigs: [{ modelName: 'gemini-2.0-flash' }] },
+  ], null);
+  assert.ok(candidates.length >= 2);
+  assert.strictEqual(candidates[0].baseUrl, 'https://generativelanguage.googleapis.com/v1beta');
+  assert.strictEqual(candidates[0].model, 'gemini-2.0-flash');
+
   try {
     const qrPng = await generateQrCode({ content: 'https://maxp.online', size: 240, format: 'png' });
     assert.strictEqual(qrPng.mimeType, 'image/png');

@@ -1,4 +1,30 @@
-const { resolveAiKey, callChatCompletion } = require('./radiologyAiDraftService');
+const { resolveAiKey, callChatCompletion, parseDraftResponse } = require('./radiologyAiDraftService');
+
+const BASE_URL_MAP = {
+  OPENROUTER: 'https://openrouter.ai/api/v1',
+  OPENAI: 'https://api.openai.com/v1',
+  GROQ: 'https://api.groq.com/openai/v1',
+  DEEPSEEK: 'https://api.deepseek.com/v1',
+  ANTHROPIC: 'https://api.anthropic.com/v1',
+  GOOGLE: 'https://generativelanguage.googleapis.com/v1beta',
+  MISTRAL: 'https://api.mistral.ai/v1',
+  NVIDIA: 'https://integrate.api.nvidia.com/v1',
+  HUGGINGFACE: 'https://router.huggingface.co/v1',
+  OLLAMA: 'http://localhost:11434/v1',
+};
+
+const FALLBACK_MODELS_BY_PROVIDER = {
+  GOOGLE: ['gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-1.5-flash'],
+  OPENROUTER: ['openai/gpt-4o-mini', 'google/gemini-2.0-flash-001'],
+  OPENAI: ['gpt-4o-mini'],
+  GROQ: ['llama-3.3-70b-versatile', 'qwen/qwen3.8-27b'],
+  DEEPSEEK: ['deepseek-chat'],
+  ANTHROPIC: ['claude-3-5-haiku-latest'],
+  MISTRAL: ['mistral-small-latest'],
+  NVIDIA: ['nvidia/llama-3.1-nemotron-70b-instruct'],
+  HUGGINGFACE: ['meta-llama/Meta-Llama-3.1-8B-Instruct'],
+  OLLAMA: ['llama3.1'],
+};
 
 let sharedDbModule = null;
 function safeGetPrisma() {
@@ -159,38 +185,177 @@ async function deductCredits(companyId, tool, amount, description, prisma = safe
   return { wallet, deducted: cost };
 }
 
-async function requireResolvedAiKey(companyId, prisma = safeGetPrisma()) {
-  const resolved = await resolveAiKey(prisma, companyId);
-  if (!resolved || !resolved.apiKey) {
+function normalizeBaseUrl(rawUrl, provider) {
+  const fallback = BASE_URL_MAP[provider] || 'https://api.openai.com/v1';
+  const cleaned = String(rawUrl || fallback).trim().replace(/\/+$/, '');
+  return cleaned || fallback;
+}
+
+function buildAiCandidateList(rows, primaryFallback) {
+  const candidates = [];
+  const seen = new Set();
+  const push = (provider, apiKey, baseUrl, model) => {
+    if (!apiKey || !model) return;
+    const prov = String(provider || 'GOOGLE').toUpperCase();
+    const normUrl = normalizeBaseUrl(baseUrl, prov);
+    const key = `${prov}:${apiKey}:${normUrl}:${model}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    candidates.push({ provider: prov, apiKey, baseUrl: normUrl, model });
+  };
+
+  for (const row of rows || []) {
+    const prov = String(row.provider || 'GOOGLE').toUpperCase();
+    const enabledModels = Array.isArray(row.aiModelConfigs)
+      ? row.aiModelConfigs.map((m) => m?.modelName).filter(Boolean)
+      : [];
+    const models = [...enabledModels, ...(FALLBACK_MODELS_BY_PROVIDER[prov] || ['gpt-4o-mini'])];
+    for (const model of models) {
+      push(prov, row.apiKey, row.baseUrl, model);
+    }
+  }
+
+  if (primaryFallback?.apiKey) {
+    const prov = String(primaryFallback.provider || 'GOOGLE').toUpperCase();
+    push(prov, primaryFallback.apiKey, primaryFallback.baseUrl, primaryFallback.model);
+    for (const model of FALLBACK_MODELS_BY_PROVIDER[prov] || []) {
+      push(prov, primaryFallback.apiKey, primaryFallback.baseUrl, model);
+    }
+  }
+  return candidates;
+}
+
+async function callVisionOrChat({ baseUrl, apiKey, model, system, user, imageDataUrl, maxTokens = 1500 }) {
+  const cleanDataUrl = typeof imageDataUrl === 'string' && imageDataUrl.startsWith('data:image/') ? imageDataUrl : '';
+  if (!cleanDataUrl) {
+    return callChatCompletion({ baseUrl, apiKey, model, system, user, maxTokens });
+  }
+
+  const match = cleanDataUrl.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/);
+  if (!match) {
+    return callChatCompletion({ baseUrl, apiKey, model, system, user, maxTokens });
+  }
+  const mimeType = match[1];
+  const base64Data = match[2];
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 35000);
+
+  try {
+    if (baseUrl.includes('generativelanguage')) {
+      const response = await fetch(`${baseUrl}/models/${model}:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            role: 'user',
+            parts: [
+              { text: `${system}\n\n${user}` },
+              { inlineData: { mimeType, data: base64Data } },
+            ],
+          }],
+          generationConfig: { temperature: 0.3, maxOutputTokens: Math.max(maxTokens, 2048) },
+        }),
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error(`AI HTTP ${response.status}`);
+      const json = await response.json();
+      return parseDraftResponse(json.candidates?.[0]?.content?.parts?.map((p) => p.text).join(''));
+    }
+
+    const response = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        temperature: 0.3,
+        max_tokens: maxTokens,
+        messages: [
+          { role: 'system', content: system },
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: user },
+              { type: 'image_url', image_url: { url: cleanDataUrl } },
+            ],
+          },
+        ],
+      }),
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error(`AI HTTP ${response.status}`);
+    const json = await response.json();
+    return parseDraftResponse(json.choices?.[0]?.message?.content);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function runMarketplaceAiCompletion({ companyId, system, user, imageDataUrl, maxTokens = 1500 }, prisma = safeGetPrisma()) {
+  let rows = [];
+  if (prisma?.aiKey?.findMany) {
+    rows = await prisma.aiKey.findMany({
+      where: {
+        isActive: true,
+        OR: [{ companyId }, { keyType: 'CENTRAL' }],
+      },
+      include: {
+        aiModelConfigs: {
+          where: { isEnabled: true },
+          orderBy: { priority: 'asc' },
+        },
+      },
+      orderBy: { priority: 'asc' },
+    }).catch(async () => prisma.aiKey.findMany({
+      where: { isActive: true, OR: [{ companyId }, { keyType: 'CENTRAL' }] },
+      orderBy: { priority: 'asc' },
+    }).catch(() => []));
+  }
+
+  const primary = await resolveAiKey(prisma, companyId).catch(() => null);
+  const candidates = buildAiCandidateList(rows, primary);
+
+  if (candidates.length === 0) {
     const err = new Error('لا يوجد مفتاح AI نشط في جدول public.ai_keys لهذه الشركة أو للمنصة');
     err.statusCode = 422;
     throw err;
   }
-  return resolved;
+
+  let lastError = null;
+  for (const cfg of candidates) {
+    try {
+      const text = await callVisionOrChat({ ...cfg, system, user, imageDataUrl, maxTokens });
+      return { text, modelUsed: cfg.model };
+    } catch (err) {
+      lastError = err;
+    }
+  }
+
+  const finalErr = new Error(lastError?.message || 'تعذر الاتصال بمزود الذكاء الاصطناعي');
+  finalErr.statusCode = 502;
+  throw finalErr;
 }
 
-async function generateProductCopy({ companyId, mode = 'text', productInfo, contextLine, language = 'ar' }, prisma = safeGetPrisma()) {
+async function generateProductCopy({ companyId, mode = 'text', productInfo, contextLine, imageDataUrl, language = 'ar' }, prisma = safeGetPrisma()) {
   const textInput = String(productInfo || contextLine || '').trim();
-  if (!textInput) {
+  if (!textInput && !imageDataUrl) {
     const err = new Error('يرجى إدخال وصف أو معلومات المنتج');
     err.statusCode = 400;
     throw err;
   }
 
-  const aiConfig = await requireResolvedAiKey(companyId, prisma);
   const system = language === 'en'
     ? 'You are an expert Amazon/Noon/Jumia e-commerce SEO copywriter. Return clean JSON with keys: title, bulletPoints (array of 5), description, searchKeywords (array of 8).'
     : 'أنت كاتب محتوى تجارة إلكترونية محترف لمنصات أمازون ونون وجوميا. أرجع JSON فقط بالمفاتيح: title، bulletPoints (مصفوفة من 5 نقاط)، description، searchKeywords (مصفوفة من 8 كلمات مفتاحية) باللغة العربية الواضحة.';
 
-  const user = `Mode: ${mode}\nProduct Info:\n${textInput}`;
-  const raw = await callChatCompletion({ ...aiConfig, system, user, maxTokens: 1500 });
+  const user = `Mode: ${mode}\nProduct Info:\n${textInput || 'وصف المنتج من الصورة المرفقة'}`;
+  const { text: raw, modelUsed } = await runMarketplaceAiCompletion({ companyId, system, user, imageDataUrl, maxTokens: 1500 }, prisma);
 
   let parsed;
   try {
     parsed = JSON.parse(raw);
   } catch {
     parsed = {
-      title: textInput.slice(0, 110),
+      title: (textInput || 'منتج').slice(0, 110),
       bulletPoints: [raw],
       description: raw,
       searchKeywords: [],
@@ -198,18 +363,17 @@ async function generateProductCopy({ companyId, mode = 'text', productInfo, cont
   }
 
   const { wallet } = await deductCredits(companyId, 'leo', TOOL_CREDIT_COSTS.leo, 'توليد وصف منتج بالـ AI', prisma);
-  return { copy: parsed, wallet, modelUsed: aiConfig.model };
+  return { copy: parsed, wallet, modelUsed };
 }
 
-async function generateImageBriefAndAsset({ companyId, action = 'image_to_image', prompt = '', style = 'Product Photo', removalMode = 'standard' }, prisma = safeGetPrisma()) {
+async function generateImageBriefAndAsset({ companyId, action = 'image_to_image', prompt = '', style = 'Product Photo', removalMode = 'standard', imageDataUrl }, prisma = safeGetPrisma()) {
   const isFreeBg = action === 'remove_bg' && removalMode === 'standard';
   const cost = isFreeBg ? 0 : action === 'pack5' ? TOOL_CREDIT_COSTS.alphaPack5 : TOOL_CREDIT_COSTS.alphaSingle;
 
-  const aiConfig = await requireResolvedAiKey(companyId, prisma);
   const system = 'أنت مخرج فني لتصوير منتجات التجارة الإلكترونية. أنشئ وصفاً تصويرياً دقيقاً (Prompt) وإرشادات إضاءة وزوايا متوافقة مع شروط صور أمازون ونون بصيغة JSON بالمفاتيح: enhancedPrompt, lightingSetup, angles (array of strings), complianceChecklist (array of strings).';
   const user = `Action: ${action}\nStyle: ${style}\nMerchant Notes: ${prompt || 'تحسين مظهر المنتج بخلفية احترافية'}`;
 
-  const raw = await callChatCompletion({ ...aiConfig, system, user, maxTokens: 1200 });
+  const { text: raw, modelUsed } = await runMarketplaceAiCompletion({ companyId, system, user, imageDataUrl, maxTokens: 1200 }, prisma);
   let artDirection;
   try {
     artDirection = JSON.parse(raw);
@@ -223,7 +387,7 @@ async function generateImageBriefAndAsset({ companyId, action = 'image_to_image'
   }
 
   const { wallet } = await deductCredits(companyId, 'alpha', cost, `استوديو الصور (${action})`, prisma);
-  return { artDirection, creditsUsed: cost, wallet, modelUsed: aiConfig.model };
+  return { artDirection, creditsUsed: cost, wallet, modelUsed };
 }
 
 async function generateMarketplacePrefill({ companyId, title, description, marketplaces = ['amazon'] }, prisma = safeGetPrisma()) {
@@ -236,11 +400,10 @@ async function generateMarketplacePrefill({ companyId, title, description, marke
 
   const targets = Array.isArray(marketplaces) && marketplaces.length > 0 ? marketplaces : ['amazon'];
   const cost = targets.length * TOOL_CREDIT_COSTS.prefill;
-  const aiConfig = await requireResolvedAiKey(companyId, prisma);
 
   const system = 'أنت خبير إدراج منتجات على أمازون ونون وجوميا وترينديول. أرجع JSON يحتوي على كائن لكل منصة مطلوبة بالحقول المقترحة: suggestedCategory, brandPlaceholder, bulletPoints, attributes (key-value).';
   const user = `Target Marketplaces: ${targets.join(', ')}\nTitle: ${cleanTitle}\nDescription: ${description || ''}`;
-  const raw = await callChatCompletion({ ...aiConfig, system, user, maxTokens: 1600 });
+  const { text: raw } = await runMarketplaceAiCompletion({ companyId, system, user, maxTokens: 1600 }, prisma);
 
   let payloads;
   try {
@@ -261,9 +424,8 @@ async function sellerCopilotChat({ companyId, message }, prisma = safeGetPrisma(
     throw err;
   }
 
-  const aiConfig = await requireResolvedAiKey(companyId, prisma);
   const system = 'أنت مساعد عمليات البائعين الذكي (Seller Copilot) داخل منصة MaxP للتجارة الإلكترونية في مصر والخليج (أمازون، نون، جوميا، ترينديول). أجب بإيجاز عملي دقيق بالعربية حول التسعير، العمولات، الشحن (FBA / Easy Ship / FBN)، وإعداد الكتالوج.';
-  const reply = await callChatCompletion({ ...aiConfig, system, user: cleanMsg, maxTokens: 1000 });
+  const { text: reply } = await runMarketplaceAiCompletion({ companyId, system, user: cleanMsg, maxTokens: 1000 }, prisma);
   const { wallet } = await deductCredits(companyId, 'emma', TOOL_CREDIT_COSTS.emma, 'استشارة مساعد التاجر', prisma);
   return { reply, wallet };
 }
@@ -340,11 +502,10 @@ async function compareMarketplacePrices({ companyId, country = 'EGY', platforms 
     throw err;
   }
 
-  const aiConfig = await requireResolvedAiKey(companyId, prisma);
   const selected = Array.isArray(platforms) && platforms.length > 0 ? platforms : ['amazon', 'noon', 'jumia'];
   const system = 'أنت محلل تسعير تجارة إلكترونية في مصر والخليج. أرجع JSON فقط بالمفاتيح: productTitle، estimatedRange ({ min, max, currency })، recommendedStrategy (string)، platformNotes (array of { platform, positioning, tip }).';
   const user = `Country: ${country}\nPlatforms: ${selected.join(', ')}\nProduct Query: ${cleanQuery}`;
-  const raw = await callChatCompletion({ ...aiConfig, system, user, maxTokens: 1200 });
+  const { text: raw, modelUsed } = await runMarketplaceAiCompletion({ companyId, system, user, maxTokens: 1200 }, prisma);
 
   let analysis;
   try {
@@ -374,7 +535,7 @@ async function compareMarketplacePrices({ companyId, country = 'EGY', platforms 
   hist.unshift(entry);
   memoryPriceComparisons.set(key, hist.slice(0, 20));
 
-  return { entry, wallet, modelUsed: aiConfig.model };
+  return { entry, wallet, modelUsed };
 }
 
 function getPriceCompareHistory(companyId) {
@@ -395,4 +556,5 @@ module.exports = {
   compareMarketplacePrices,
   getPriceCompareHistory,
   buildMarketplaceSearchUrls,
+  buildAiCandidateList,
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import JsBarcode from 'jsbarcode';
 import { toast } from 'sonner';
-import { Copy, Download, QrCode, Barcode as BarcodeIcon } from 'lucide-react';
+import { Copy, Download, Printer, QrCode, Barcode as BarcodeIcon } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
 import { CompanyCatalogProduct, marketplaceHubService } from '../../services/marketplaceHubService';
 import {
@@ -34,6 +34,7 @@ export const QrBarcodePage: React.FC = () => {
   const [fontSize, setFontSize] = useState<number>(14);
   const [barcodeError, setBarcodeError] = useState<string | null>(null);
   const [catalogProducts, setCatalogProducts] = useState<CompanyCatalogProduct[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<CompanyCatalogProduct | null>(null);
   const barcodeCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -271,7 +272,8 @@ export const QrBarcodePage: React.FC = () => {
                   <select
                     defaultValue=""
                     onChange={(e) => {
-                      const prod = catalogProducts.find((p) => p.id === e.target.value);
+                      const prod = catalogProducts.find((p) => p.id === e.target.value) || null;
+                      setSelectedProduct(prod);
                       if (prod) setBarcodeValue(prod.barcode || prod.sku || prod.id);
                     }}
                     className="w-full rounded-md border border-border/70 bg-card px-3 py-2 text-xs"
@@ -406,6 +408,28 @@ export const QrBarcodePage: React.FC = () => {
             >
               <Copy className="h-3.5 w-3.5" />
               <span>نسخ</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                const canvas = getActiveCanvas();
+                if (!canvas) return;
+                const dataUrl = canvas.toDataURL('image/png');
+                const win = window.open('', '_blank', 'width=420,height=320');
+                if (!win) return;
+                const title = selectedProduct ? `${selectedProduct.name} — ${selectedProduct.price}` : barcodeValue;
+                win.document.write(
+                  `<html dir="rtl"><body style="font-family:sans-serif;text-align:center;padding:16px;margin:0">` +
+                  `<div style="font-size:12px;font-weight:bold;margin-bottom:6px">${title}</div>` +
+                  `<img src="${dataUrl}" style="max-width:100%" onload="window.print()" />` +
+                  `</body></html>`
+                );
+                win.document.close();
+              }}
+              className="inline-flex items-center justify-center gap-1.5 rounded-md border border-border/70 bg-card px-3 py-2 text-xs font-medium hover:bg-muted/60 active:scale-[0.98]"
+            >
+              <Printer className="h-3.5 w-3.5" />
+              <span>طباعة ملصق</span>
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { Sparkles, Image as ImageIcon, FileText, Layers, Save } from 'lucide-react';
+import { Sparkles, Image as ImageIcon, FileText, Layers, Save, Upload, Download } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
 import {
   MarketplacePlatform,
@@ -44,6 +44,8 @@ export const MarketplaceStudioPage: React.FC = () => {
     complianceChecklist: string[];
   } | null>(null);
   const [alphaBusy, setAlphaBusy] = useState(false);
+  const [uploadedImageDataUrl, setUploadedImageDataUrl] = useState<string>('');
+  const [processedImageUrl, setProcessedImageUrl] = useState<string>('');
 
   // Leo state
   const [leoMode, setLeoMode] = useState<'text' | 'image'>('text');
@@ -119,14 +121,55 @@ export const MarketplaceStudioPage: React.FC = () => {
     }
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error('الحد الأقصى لحجم الصورة 10MB');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = String(reader.result || '');
+      setUploadedImageDataUrl(dataUrl);
+      setProcessedImageUrl('');
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const processLocalCanvas = (dataUrl: string, enhance: boolean) => {
+    if (!dataUrl) return;
+    const img = new window.Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 800;
+      canvas.height = 800;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      ctx.fillStyle = 'rgb(255, 255, 255)';
+      ctx.fillRect(0, 0, 800, 800);
+      if (enhance) ctx.filter = 'brightness(1.06) contrast(1.08) saturate(1.06)';
+      const scale = Math.min(680 / img.width, 680 / img.height);
+      const w = img.width * scale;
+      const h = img.height * scale;
+      ctx.drawImage(img, (800 - w) / 2, (800 - h) / 2, w, h);
+      setProcessedImageUrl(canvas.toDataURL('image/png'));
+    };
+    img.src = dataUrl;
+  };
+
   const handleAlphaRun = async () => {
     setAlphaBusy(true);
+    if (uploadedImageDataUrl) {
+      processLocalCanvas(uploadedImageDataUrl, alphaAction === 'enhance' || alphaStyle === 'Product Photo');
+    }
     try {
       const res = await marketplaceHubService.generateImageBrief({
         action: alphaAction,
         style: alphaStyle,
         prompt: alphaPrompt,
         removalMode,
+        imageDataUrl: uploadedImageDataUrl || undefined,
       });
       setAlphaResult(res.artDirection);
       toast.success(`تم التجهيز (الخصم: ${res.creditsUsed} Cr)`);
@@ -138,8 +181,8 @@ export const MarketplaceStudioPage: React.FC = () => {
   };
 
   const handleLeoRun = async () => {
-    if (!leoInfo.trim()) {
-      toast.error('أدخل معلومات المنتج أولاً');
+    if (!leoInfo.trim() && !(leoMode === 'image' && uploadedImageDataUrl)) {
+      toast.error('أدخل معلومات المنتج أو ارفع صورة أولاً');
       return;
     }
     setLeoBusy(true);
@@ -147,6 +190,7 @@ export const MarketplaceStudioPage: React.FC = () => {
       const res = await marketplaceHubService.generateCopy({
         mode: leoMode,
         productInfo: leoInfo,
+        imageDataUrl: leoMode === 'image' ? uploadedImageDataUrl || undefined : undefined,
         language: leoLang,
       });
       setLeoResult(res.copy);
@@ -378,6 +422,15 @@ export const MarketplaceStudioPage: React.FC = () => {
             </div>
 
             <div>
+              <label className="mb-1 block text-xs font-medium text-muted-foreground">رفع صورة المنتج (اختياري · حتى 10MB)</label>
+              <label className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-border/70 bg-card px-3 py-3 text-xs text-muted-foreground hover:border-primary/60">
+                <Upload className="h-4 w-4" />
+                <span>{uploadedImageDataUrl ? 'تغيير الصورة المرفوعة' : 'اختر صورة المنتج للتجهيز أو خلفية بيضاء 800×800'}</span>
+                <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+              </label>
+            </div>
+
+            <div>
               <label className="mb-1 block text-xs font-medium text-muted-foreground">وصف المشهد أو التعديل</label>
               <textarea
                 rows={3}
@@ -399,7 +452,24 @@ export const MarketplaceStudioPage: React.FC = () => {
             </button>
           </div>
 
-          <div className="border-t border-border/70 pt-4 lg:col-span-6 lg:rounded-md lg:border lg:bg-muted/20 lg:p-5">
+          <div className="space-y-4 border-t border-border/70 pt-4 lg:col-span-6 lg:rounded-md lg:border lg:bg-muted/20 lg:p-5">
+            {processedImageUrl && (
+              <div className="space-y-2 rounded-md border border-border/70 bg-card p-3">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-semibold text-foreground">صورة جاهزة لأمازون (800×800)</span>
+                  <a
+                    href={processedImageUrl}
+                    download={`marketplace-product-${Date.now()}.png`}
+                    className="inline-flex items-center gap-1 rounded bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground"
+                  >
+                    <Download className="h-3 w-3" />
+                    <span>تنزيل PNG</span>
+                  </a>
+                </div>
+                <img src={processedImageUrl} alt="Processed product" className="mx-auto max-h-56 rounded border border-border/50 object-contain" />
+              </div>
+            )}
+
             {alphaResult ? (
               <div className="space-y-3 text-xs">
                 <div>
@@ -465,6 +535,17 @@ export const MarketplaceStudioPage: React.FC = () => {
                 <option value="en">English</option>
               </select>
             </div>
+
+            {leoMode === 'image' && (
+              <div>
+                <label className="mb-1 block text-xs font-medium text-muted-foreground">صورة المنتج للتحليل بالذكاء الاصطناعي (Vision)</label>
+                <label className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-border/70 bg-card px-3 py-2.5 text-xs text-muted-foreground hover:border-primary/60">
+                  <Upload className="h-4 w-4" />
+                  <span>{uploadedImageDataUrl ? 'تم إرفاق الصورة — اضغط للتغيير' : 'اختر صورة المنتج'}</span>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                </label>
+              </div>
+            )}
 
             <div>
               <label className="mb-1 block text-xs font-medium text-muted-foreground">معلومات ومميزات المنتج *</label>
