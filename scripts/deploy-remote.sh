@@ -939,6 +939,9 @@ if [ "${CATALOG_CHANGED:-true}" = "true" ]; then
   echo "🧩 Syncing Marketplace Hub (marketplace-hub) brand name..."
   NODE_ENV=production timeout 60 node scripts/catalog/sync_marketplace_hub_app.js || echo "⚠️ sync_marketplace_hub_app skipped, continuing..."
 
+  echo "🧩 Syncing Financial Tools apps active state and routes..."
+  NODE_ENV=production timeout 60 node scripts/catalog/sync_financial_tools_apps.js || echo "⚠️ sync_financial_tools_apps skipped, continuing..."
+
   echo "🔍 Verifying marketplace catalog drift gate (zero changed entries required)..."
   NODE_ENV=production timeout 600 npm run catalog:diff -- --fail-on-changed || {
       echo "❌ Marketplace catalog drift detected — aborting deploy"

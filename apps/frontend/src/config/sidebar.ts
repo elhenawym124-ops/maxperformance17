@@ -1868,7 +1868,25 @@ export const getSidebarConfig = (
                 },
             ],
             // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
-            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['facebook-ads-pro', 'crm-basic', 'tiktok-integrations', 'ai-video-studio', 'ad-budget-planner', 'marketing-agency-pro'])
+            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive([
+                'facebook-ads-pro',
+                'crm-basic',
+                'tiktok-integrations',
+                'ai-video-studio',
+                'marketing-agency-pro',
+                'ad-budget-planner',
+                'product-break-even',
+                'campaign-calculator',
+                'monthly-pnl',
+                'upsell-planner',
+                'break-even',
+                'pricing-strategy',
+                'profitability-engine',
+                'discount-impact',
+                'shipping-optimizer',
+                'clv-calculator',
+                'refund-rate',
+            ])
         },
 
         // 5️⃣.5 تحليل المنافسين

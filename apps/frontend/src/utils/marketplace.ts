@@ -191,7 +191,7 @@ export const APP_ROUTE_MAP: Record<string, string> = {
   "product-break-even": "/tools/product-break-even",
   "pricing-strategy": "/tools/pricing-strategy",
   "profitability-engine": "/tools/profitability-engine",
-  "campaign-calculator": "/tools/campaign-prediction",
+  "campaign-calculator": "/campaign-calculator",
   "ad-budget-planner": "/tools/ad-budget-planner",
   "discount-impact": "/tools/discount-impact",
   "shipping-optimizer": "/tools/shipping-optimizer",

@@ -3617,16 +3617,18 @@
         "access": "PAID"
       }
     },
-    "isActive": false,
+    "isActive": true,
     "isPublic": true,
     "isFeatured": false,
     "isPopular": false,
     "icon": "dollar-sign",
     "logo": null,
     "coverImage": null,
+    "mainRoute": "/tools/product-break-even",
+    "adminRoute": "/tools/product-break-even",
     "engineCompatibility": null,
     "createdAt": "2026-08-10T00:00:00.000Z",
-    "updatedAt": "2026-08-10T00:00:00.000Z"
+    "updatedAt": "2026-11-26T08:00:00.000Z"
   },
   {
     "id": "cat-app-pricing-strategy",
@@ -3757,16 +3759,18 @@
         "access": "PAID"
       }
     },
-    "isActive": false,
+    "isActive": true,
     "isPublic": true,
     "isFeatured": false,
     "isPopular": false,
     "icon": "megaphone",
     "logo": null,
     "coverImage": null,
+    "mainRoute": "/campaign-calculator",
+    "adminRoute": "/campaign-calculator",
     "engineCompatibility": null,
     "createdAt": "2026-08-10T00:00:00.000Z",
-    "updatedAt": "2026-08-10T00:00:00.000Z"
+    "updatedAt": "2026-11-26T08:00:00.000Z"
   },
   {
     "id": "cat-app-ad-budget-planner",
@@ -3937,16 +3941,18 @@
         "access": "PAID"
       }
     },
-    "isActive": false,
+    "isActive": true,
     "isPublic": true,
     "isFeatured": false,
     "isPopular": false,
     "icon": "bar-chart",
     "logo": null,
     "coverImage": null,
+    "mainRoute": "/tools/monthly-pnl",
+    "adminRoute": "/tools/monthly-pnl",
     "engineCompatibility": null,
     "createdAt": "2026-08-10T00:00:00.000Z",
-    "updatedAt": "2026-08-10T00:00:00.000Z"
+    "updatedAt": "2026-11-26T08:00:00.000Z"
   },
   {
     "id": "cat-app-clv-calculator",
@@ -4029,16 +4035,18 @@
         "access": "PAID"
       }
     },
-    "isActive": false,
+    "isActive": true,
     "isPublic": true,
     "isFeatured": false,
     "isPopular": false,
     "icon": "shopping-cart",
     "logo": null,
     "coverImage": null,
+    "mainRoute": "/tools/upsell-planner",
+    "adminRoute": "/tools/upsell-planner",
     "engineCompatibility": null,
     "createdAt": "2026-08-10T00:00:00.000Z",
-    "updatedAt": "2026-08-10T00:00:00.000Z"
+    "updatedAt": "2026-11-26T08:00:00.000Z"
   },
   {
     "id": "cat-app-refund-rate",
