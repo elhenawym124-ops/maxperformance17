@@ -211,8 +211,9 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
   return (
     <div
       data-orders-polaris-view="true"
-      className="polaris-orders-container w-full max-w-[1440px] min-w-0 mx-auto space-y-4 pb-6"
+      className="flex-1 h-full min-h-0 w-full overflow-y-auto overflow-x-hidden bg-muted/40 px-3 py-3 sm:px-5 sm:py-4 pb-24 lg:pb-6"
     >
+      <div className="polaris-orders-container w-full max-w-[1440px] min-w-0 mx-auto space-y-4">
       {/* 1. Shopify Polaris Page Header */}
       <ShopifyPageHeader
         title={t("orders.title") || "الطلبات"}
@@ -590,6 +591,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
           />
         )}
       </Suspense>
+      </div>
     </div>
   );
 };
