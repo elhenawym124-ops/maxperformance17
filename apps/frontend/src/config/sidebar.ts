@@ -1868,7 +1868,7 @@ export const getSidebarConfig = (
                 },
             ],
             // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
-            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['facebook-ads-pro', 'crm-basic', 'tiktok-integrations', 'ai-video-studio'])
+            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['facebook-ads-pro', 'crm-basic', 'tiktok-integrations', 'ai-video-studio', 'ad-budget-planner', 'marketing-agency-pro'])
         },
 
         // 5️⃣.5 تحليل المنافسين

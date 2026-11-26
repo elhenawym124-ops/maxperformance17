@@ -3801,16 +3801,18 @@
         "access": "PAID"
       }
     },
-    "isActive": false,
+    "isActive": true,
     "isPublic": true,
     "isFeatured": false,
     "isPopular": false,
     "icon": "wallet",
     "logo": null,
     "coverImage": null,
+    "mainRoute": "/tools/ad-budget-planner",
+    "adminRoute": "/tools/ad-budget-planner",
     "engineCompatibility": null,
     "createdAt": "2026-08-10T00:00:00.000Z",
-    "updatedAt": "2026-08-10T00:00:00.000Z"
+    "updatedAt": "2026-11-26T00:00:00.000Z"
   },
   {
     "id": "cat-app-discount-impact",

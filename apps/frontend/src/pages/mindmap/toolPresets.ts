@@ -16,7 +16,7 @@ export const TOOL_PRESETS: Record<string, Partial<MapNode>> = {
     badge: "ميزانية إعلانات 💰",
     color: "border-blue-500 text-blue-300 bg-blue-950/40",
     iconName: "dollar-sign",
-    liveRoute: "/marketing/ad-budget-planner",
+    liveRoute: "/tools/ad-budget-planner",
     category: "calc",
   },
   creative_ai: {

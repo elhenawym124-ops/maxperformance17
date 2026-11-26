@@ -100,6 +100,7 @@ export const AppAccessRoute: React.FC<AppAccessRouteProps> = ({
       "product-break-even-calculator": "حاسبة نقطة التعادل للمنتج",
       "monthly-pnl": "حساب الأرباح والخسائر الشهري",
       "monthly-pnl-calculator": "حساب الأرباح والخسائر الشهري",
+      "ad-budget-planner": "مخطط الميزانية الإعلانية",
       "store-pro": "المتجر الاحترافي",
       "marketing-agency-pro": "نظام إدارة الوكالات والشركاء",
       "agency-system": "نظام إدارة الوكالات والشركاء",

@@ -933,6 +933,9 @@ if [ "${CATALOG_CHANGED:-true}" = "true" ]; then
   echo "🧩 Syncing POS app (pos-pro) active state and route..."
   NODE_ENV=production timeout 60 node scripts/catalog/sync_pos_pro_app.js || echo "⚠️ sync_pos_pro_app skipped, continuing..."
 
+  echo "🧩 Syncing Ad Budget Planner app (ad-budget-planner) active state and route..."
+  NODE_ENV=production timeout 60 node scripts/catalog/sync_ad_budget_planner_app.js || echo "⚠️ sync_ad_budget_planner_app skipped, continuing..."
+
   echo "🔍 Verifying marketplace catalog drift gate (zero changed entries required)..."
   NODE_ENV=production timeout 600 npm run catalog:diff -- --fail-on-changed || {
       echo "❌ Marketplace catalog drift detected — aborting deploy"
