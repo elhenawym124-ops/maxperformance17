@@ -58,24 +58,16 @@ export const QuickOrderProductCatalog: React.FC<
   return (
     <div className="flex flex-1 flex-col overflow-hidden min-w-0">
       {/* Search & Toolbar */}
-      <div
-        className="p-3 sm:p-4 flex items-center gap-2"
-        style={{
-          borderBottom: "1px solid var(--business-muted-line)",
-        }}
-      >
+      <div className="flex items-center gap-2 border-b border-border/70 bg-card px-3.5 sm:px-4 py-3">
         <div className="relative flex-1">
           <input
             type="text"
             placeholder="بحث عن منتج..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="business-chat-input w-full ps-4 pe-10 py-2 text-sm"
+            className="h-9 w-full rounded-lg border border-border/70 bg-background ps-3 pe-9 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           />
-          <MagnifyingGlassIcon
-            className="pointer-events-none absolute end-3 top-2.5 h-5 w-5"
-            style={mutedStyle}
-          />
+          <MagnifyingGlassIcon className="pointer-events-none absolute end-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
         </div>
 
         {/* Customer Previous Orders Quick Button */}
@@ -83,10 +75,10 @@ export const QuickOrderProductCatalog: React.FC<
           <button
             type="button"
             onClick={() => setShowHistoryDrawer((prev) => !prev)}
-            className={`business-chip-button flex items-center gap-1.5 px-2.5 sm:px-3 py-2 text-xs font-semibold shrink-0 transition-all ${
+            className={`inline-flex h-9 items-center gap-1.5 rounded-lg border px-2.5 sm:px-3 text-xs font-semibold shrink-0 transition-all active:scale-[0.97] cursor-pointer ${
               showHistoryDrawer
                 ? "bg-primary text-primary-foreground border-primary"
-                : "bg-primary/10 text-primary border-primary/30"
+                : "bg-primary/10 text-primary border-primary/30 hover:bg-primary/15"
             }`}
             title="سجل طلبات وبيانات العميل السابقة"
           >
@@ -94,7 +86,7 @@ export const QuickOrderProductCatalog: React.FC<
             <span className="hidden sm:inline">طلبات العميل</span>
             {previousOrders.length > 0 && (
               <span
-                className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono tabular-nums font-bold ${
+                className={`rounded-md px-1.5 py-0.5 text-[10px] font-mono tabular-nums font-bold ${
                   showHistoryDrawer
                     ? "bg-card text-primary"
                     : "bg-primary text-primary-foreground"
@@ -106,13 +98,13 @@ export const QuickOrderProductCatalog: React.FC<
           </button>
         )}
 
-        <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-lg border border-border/50 flex-shrink-0">
+        <div className="flex items-center gap-0.5 bg-muted/50 p-0.5 rounded-lg border border-border/70 flex-shrink-0">
           <button
             type="button"
             onClick={() => setViewMode("grid")}
-            className={`p-1.5 rounded-lg transition-colors ${
+            className={`inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors cursor-pointer ${
               viewMode === "grid"
-                ? "bg-primary text-primary-foreground shadow-sm font-bold"
+                ? "bg-card text-foreground shadow-2xs"
                 : "text-muted-foreground hover:text-foreground"
             }`}
             title="عرض الشبكة"
@@ -123,9 +115,9 @@ export const QuickOrderProductCatalog: React.FC<
           <button
             type="button"
             onClick={() => setViewMode("list")}
-            className={`p-1.5 rounded-lg transition-colors ${
+            className={`inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors cursor-pointer ${
               viewMode === "list"
-                ? "bg-primary text-primary-foreground shadow-sm font-bold"
+                ? "bg-card text-foreground shadow-2xs"
                 : "text-muted-foreground hover:text-foreground"
             }`}
             title="عرض القائمة"

@@ -100,24 +100,21 @@ export const QuickOrderPaymentForm: React.FC<QuickOrderPaymentFormProps> = ({
       />
 
       {/* Order Settings & Payment */}
-      <div className="business-page-panel p-3.5 sm:p-4">
-        <h3
-          className="mb-3 flex items-center gap-2 font-semibold text-sm sm:text-base"
-          style={headingStyle}
-        >
-          <BanknotesIcon className="h-5 w-5" style={mutedStyle} />
+      <div className="rounded-xl border border-border/70 bg-card p-4">
+        <h3 className="mb-3 flex items-center gap-2 font-semibold text-sm sm:text-base text-foreground">
+          <BanknotesIcon className="h-4 w-4 text-muted-foreground" />
           إعدادات الطلب والدفع
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label className="mb-1 block text-xs" style={mutedStyle}>
+            <label className="mb-1 block text-xs text-muted-foreground">
               طريقة الدفع
             </label>
             <select
               value={paymentMethod}
               onChange={(e) => setPaymentMethod(e.target.value)}
-              className="business-control-input w-full text-sm"
+              className="h-9 w-full rounded-lg border border-border/70 bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             >
               <option value="CASH">دفع عند الاستلام (كاش)</option>
               <option value="WALLET">محفظة إلكترونية</option>
@@ -126,13 +123,13 @@ export const QuickOrderPaymentForm: React.FC<QuickOrderPaymentFormProps> = ({
           </div>
 
           <div>
-            <label className="mb-1 block text-xs" style={mutedStyle}>
+            <label className="mb-1 block text-xs text-muted-foreground">
               حالة الطلب
             </label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="business-control-input w-full text-sm"
+              className="h-9 w-full rounded-lg border border-border/70 bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             >
               <option value="CONFIRMED">مؤكد (CONFIRMED)</option>
               <option value="PENDING">معلق (PENDING)</option>
@@ -141,7 +138,7 @@ export const QuickOrderPaymentForm: React.FC<QuickOrderPaymentFormProps> = ({
           </div>
 
           <div>
-            <label className="mb-1 block text-xs" style={mutedStyle}>
+            <label className="mb-1 block text-xs text-muted-foreground">
               نوع الطلب
             </label>
             <select
@@ -157,7 +154,7 @@ export const QuickOrderPaymentForm: React.FC<QuickOrderPaymentFormProps> = ({
                   setStatus("CONFIRMED");
                 }
               }}
-              className="business-control-input w-full text-sm"
+              className="h-9 w-full rounded-lg border border-border/70 bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             >
               <option value="delivery">شحن وتوصيل عادي</option>
               <option value="partial_delivery">طلب تسليم جزئي</option>

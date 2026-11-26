@@ -1,8 +1,8 @@
 import React from "react";
 
 export const overlayStyle: React.CSSProperties = {
-  background: "rgba(7, 17, 32, 0.58)",
-  backdropFilter: "blur(12px)",
+  background: "rgba(15, 23, 42, 0.52)",
+  backdropFilter: "blur(3px)",
 };
 
 export const headingStyle: React.CSSProperties = {
@@ -41,25 +41,23 @@ export const getVariantButtonStyle = (
 ): React.CSSProperties => {
   if (isActive) {
     return {
-      background:
-        "linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)",
-      borderColor: "transparent",
-      color: "white",
+      background: "var(--color-primary)",
+      borderColor: "var(--color-primary)",
+      color: "var(--color-primary-foreground, #ffffff)",
     };
   }
 
   if (isAvailable) {
     return {
-      background: "var(--business-surface-subtle)",
-      borderColor: "var(--business-card-border)",
+      background: "var(--color-card)",
+      borderColor: "var(--color-border)",
       color: "var(--color-foreground)",
     };
   }
 
   return {
-    background:
-      "color-mix(in srgb, var(--color-border) 18%, var(--color-background))",
-    borderColor: "color-mix(in srgb, var(--color-border) 40%, transparent)",
+    background: "color-mix(in srgb, var(--color-muted) 60%, transparent)",
+    borderColor: "color-mix(in srgb, var(--color-border) 50%, transparent)",
     color: "var(--color-muted-foreground)",
   };
 };

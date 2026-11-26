@@ -41,41 +41,38 @@ export const QuickOrderCustomerForm: React.FC<QuickOrderCustomerFormProps> = ({
   canOverrideBlockedCustomer,
 }) => {
   return (
-    <div className="business-page-panel p-3.5 sm:p-4">
-      <h3
-        className="mb-3 sm:mb-4 flex items-center gap-2 font-semibold text-sm sm:text-base"
-        style={headingStyle}
-      >
-        <UserIcon className="h-5 w-5" style={mutedStyle} />
+    <div className="rounded-xl border border-border/70 bg-card p-4">
+      <h3 className="mb-3 sm:mb-4 flex items-center gap-2 font-semibold text-sm sm:text-base text-foreground">
+        <UserIcon className="h-4 w-4 text-muted-foreground" />
         بيانات العميل
       </h3>
 
       <div className="space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div>
-            <label className="mb-1 block text-xs" style={mutedStyle}>
-              رقم الهاتف <span style={dangerStyle}>*</span>
+            <label className="mb-1 block text-xs text-muted-foreground">
+              رقم الهاتف <span className="text-destructive">*</span>
             </label>
             <div className="relative">
               <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="business-control-input w-full text-sm font-mono"
+                className="h-9 w-full rounded-lg border border-border/70 bg-background px-3 text-sm font-mono text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                 placeholder="01xxxxxxxxx"
                 dir="ltr"
               />
             </div>
           </div>
           <div>
-            <label className="mb-1 block text-xs" style={mutedStyle}>
-              اسم العميل <span style={dangerStyle}>*</span>
+            <label className="mb-1 block text-xs text-muted-foreground">
+              اسم العميل <span className="text-destructive">*</span>
             </label>
             <input
               type="text"
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
-              className="business-control-input w-full text-sm"
+              className="h-9 w-full rounded-lg border border-border/70 bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
               placeholder="اسم العميل"
             />
           </div>

@@ -29,12 +29,9 @@ export const QuickOrderCouponSection: React.FC<
   subtotal,
 }) => {
   return (
-    <div className="business-page-panel p-3.5 sm:p-4">
-      <h3
-        className="mb-3 flex items-center gap-2 font-semibold text-sm sm:text-base"
-        style={headingStyle}
-      >
-        <TicketIcon className="h-5 w-5" style={mutedStyle} />
+    <div className="rounded-xl border border-border/70 bg-card p-4">
+      <h3 className="mb-3 flex items-center gap-2 font-semibold text-sm sm:text-base text-foreground">
+        <TicketIcon className="h-4 w-4 text-muted-foreground" />
         الكوبونات والخصم
       </h3>
 
@@ -42,7 +39,7 @@ export const QuickOrderCouponSection: React.FC<
         {/* Coupon Input or Applied Chip */}
         {!appliedCoupon ? (
           <div>
-            <label className="mb-1 block text-xs" style={mutedStyle}>
+            <label className="mb-1 block text-xs text-muted-foreground">
               كود الكوبون
             </label>
             <div className="flex gap-2">
@@ -51,15 +48,14 @@ export const QuickOrderCouponSection: React.FC<
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                 placeholder="أدخل كود الكوبون..."
-                className="business-control-input flex-1 text-sm font-mono"
+                className="h-9 flex-1 rounded-lg border border-border/70 bg-background px-3 text-sm font-mono text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                 onKeyDown={(e) => e.key === "Enter" && handleApplyCoupon()}
               />
               <button
                 type="button"
                 onClick={handleApplyCoupon}
                 disabled={loadingCoupon || !couponCode.trim() || subtotal <= 0}
-                className="business-chip-button px-4 py-2 text-xs sm:text-sm font-semibold"
-                data-active="true"
+                className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-xs sm:text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.97] transition-all cursor-pointer"
               >
                 {loadingCoupon ? "جاري الفحص..." : "تطبيق"}
               </button>

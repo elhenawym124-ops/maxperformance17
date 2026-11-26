@@ -75,21 +75,18 @@ export const VariantSelectionModal: React.FC<VariantSelectionModalProps> = ({
       className="absolute inset-0 z-50 flex items-center justify-center p-4 variant-selection-modal"
       style={overlayStyle}
     >
-      <div className="business-modal-surface w-full max-w-md overflow-hidden">
-        <div
-          className="business-gallery-toolbar flex items-center justify-between"
-          style={{ borderBottom: "1px solid var(--business-muted-line)" }}
-        >
-          <h3 className="truncate pe-4 font-bold" style={headingStyle}>
+      <div className="w-full max-w-md overflow-hidden rounded-xl border border-border/70 bg-card text-foreground shadow-xl">
+        <div className="flex items-center justify-between border-b border-border/70 px-4 py-3">
+          <h3 className="truncate pe-4 text-sm sm:text-base font-bold text-foreground">
             {product.name}
           </h3>
           <button
             type="button"
             onClick={onClose}
-            className="business-icon-button business-icon-button--sm"
-            style={mutedStyle}
+            aria-label="إغلاق"
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-background text-muted-foreground hover:bg-muted/60 hover:text-foreground active:scale-[0.97] transition-all cursor-pointer"
           >
-            <XMarkIcon className="w-5 h-5" />
+            <XMarkIcon className="w-4 h-4" />
           </button>
         </div>
 
@@ -126,10 +123,10 @@ export const VariantSelectionModal: React.FC<VariantSelectionModalProps> = ({
                             key={value}
                             onClick={() => onAttributeSelect(attr.name, value)}
                             disabled={!isAvailable}
-                            className={`rounded-xl border-2 px-3 py-2 text-sm font-medium transition-all ${
+                            className={`rounded-lg border px-3 py-1.5 text-xs sm:text-sm font-medium transition-all active:scale-[0.97] ${
                               !isAvailable
-                                ? "cursor-not-allowed line-through"
-                                : ""
+                                ? "cursor-not-allowed line-through opacity-50"
+                                : "cursor-pointer"
                             }`}
                             style={getVariantButtonStyle(isActive, isAvailable)}
                           >

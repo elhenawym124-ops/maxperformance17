@@ -19,9 +19,9 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
       <div
         key={product.id}
         onClick={() => handleProductClick(product)}
-        className="business-product-card group cursor-pointer flex items-center gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-xl border border-transparent transition-all duration-150 active:scale-[0.99] hover:border-primary/30"
+        className="business-product-card group cursor-pointer flex items-center gap-3 p-2.5 rounded-xl border border-border/70 bg-card transition-all duration-150 active:scale-[0.99] hover:border-primary/50 hover:shadow-xs"
       >
-        <div className="business-product-card-media relative h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0 overflow-hidden rounded-lg sm:rounded-xl">
+        <div className="relative h-16 w-16 sm:h-18 sm:w-18 flex-shrink-0 overflow-hidden rounded-lg border border-border/50 bg-muted/25">
           {product.image ? (
             <img
               src={product.image}
@@ -30,15 +30,12 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
               loading="lazy"
             />
           ) : (
-            <div
-              className="flex h-full w-full items-center justify-center"
-              style={mutedStyle}
-            >
-              <ArchiveBoxIcon className="h-8 w-8 opacity-40" />
+            <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+              <ArchiveBoxIcon className="h-7 w-7 opacity-40" />
             </div>
           )}
           {product.variants.length > 0 && (
-            <div className="business-product-card-pill absolute bottom-1 end-1 text-[9px] px-1.5 py-0.5 rounded font-medium shadow-sm">
+            <div className="absolute bottom-1 end-1 rounded-md border border-border/70 bg-background/90 px-1.5 py-0.5 text-[9px] font-medium text-foreground shadow-2xs">
               خيارات
             </div>
           )}
@@ -47,8 +44,7 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
         <div className="min-w-0 flex-1 flex flex-col justify-between py-0.5">
           <div>
             <h3
-              className="line-clamp-2 text-xs sm:text-sm font-medium leading-snug"
-              style={headingStyle}
+              className="line-clamp-2 text-xs sm:text-sm font-medium text-foreground leading-snug"
               title={product.name}
             >
               {product.name}
@@ -60,14 +56,11 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
             )}
           </div>
           <div className="mt-1 flex items-center gap-2">
-            <span
-              className="text-xs sm:text-sm font-bold font-mono tabular-nums"
-              style={primaryStyle}
-            >
+            <span className="text-xs sm:text-sm font-bold text-foreground font-mono tabular-nums">
               {product.price} ج.م
             </span>
             {product.variants.length > 0 && (
-              <span className="text-[10px] text-primary bg-primary/10 px-1.5 py-0.5 rounded font-medium">
+              <span className="text-[10px] text-muted-foreground bg-muted/60 border border-border/50 px-1.5 py-0.5 rounded-md font-medium">
                 <span className="font-mono tabular-nums">{product.variants.length}</span> خيار
               </span>
             )}
@@ -76,15 +69,14 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
 
         <button
           type="button"
-          className="business-chip-button px-3 py-1.5 text-xs sm:text-sm font-semibold flex-shrink-0 flex items-center gap-1 shadow-sm"
-          data-active="true"
+          className="inline-flex h-8 items-center gap-1 rounded-lg bg-primary px-3 text-xs font-semibold text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all flex-shrink-0 cursor-pointer shadow-2xs"
           onClick={(e) => {
             e.stopPropagation();
             handleProductClick(product);
           }}
           aria-label="إضافة للطلب"
         >
-          <PlusIcon className="h-4 w-4" />
+          <PlusIcon className="h-3.5 w-3.5" />
           <span className="hidden sm:inline">إضافة</span>
         </button>
       </div>
@@ -95,9 +87,9 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
     <div
       key={product.id}
       onClick={() => handleProductClick(product)}
-      className="business-product-card group cursor-pointer flex flex-col justify-between overflow-hidden rounded-xl border border-transparent transition-all duration-150 active:scale-[0.98] h-full"
+      className="business-product-card group cursor-pointer flex flex-col justify-between overflow-hidden rounded-xl border border-border/70 bg-card transition-all duration-150 hover:border-primary/50 hover:shadow-xs active:scale-[0.98] h-full"
     >
-      <div className="business-product-card-media relative aspect-square w-full overflow-hidden">
+      <div className="relative aspect-square w-full overflow-hidden border-b border-border/50 bg-muted/25">
         {product.image ? (
           <img
             src={product.image}
@@ -106,45 +98,37 @@ export const QuickOrderProductCard: React.FC<QuickOrderProductCardProps> = ({
             loading="lazy"
           />
         ) : (
-          <div
-            className="flex h-full w-full items-center justify-center"
-            style={mutedStyle}
-          >
+          <div className="flex h-full w-full items-center justify-center text-muted-foreground">
             <ArchiveBoxIcon className="h-10 w-10 opacity-40" />
           </div>
         )}
         {product.variants.length > 0 && (
-          <div className="business-product-card-pill absolute bottom-2 end-2 text-[10px] px-2 py-0.5 rounded-md font-medium shadow-sm">
+          <div className="absolute bottom-2 end-2 rounded-md border border-border/70 bg-background/90 px-1.5 py-0.5 text-[10px] font-medium text-foreground shadow-2xs">
             خيارات
           </div>
         )}
       </div>
-      <div className="p-2 sm:p-2.5 flex flex-col justify-between flex-1">
+      <div className="p-2.5 flex flex-col justify-between flex-1 gap-2">
         <h3
-          className="line-clamp-2 text-xs sm:text-sm font-medium leading-snug"
-          style={headingStyle}
+          className="line-clamp-2 text-xs sm:text-sm font-medium text-foreground leading-snug"
           title={product.name}
         >
           {product.name}
         </h3>
-        <div className="mt-2 flex items-center justify-between gap-1">
-          <span
-            className="text-xs sm:text-sm font-bold font-mono tabular-nums truncate"
-            style={primaryStyle}
-          >
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-xs sm:text-sm font-bold text-foreground font-mono tabular-nums truncate">
             {product.price} ج.م
           </span>
           <button
             type="button"
-            className="business-icon-button business-icon-button--sm h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0"
-            data-tone="primary"
+            className="inline-flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-muted/40 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary active:scale-[0.97] transition-all cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               handleProductClick(product);
             }}
             aria-label="إضافة للطلب"
           >
-            <PlusIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <PlusIcon className="h-4 w-4" />
           </button>
         </div>
       </div>

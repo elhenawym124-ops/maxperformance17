@@ -29,12 +29,14 @@ export const QuickOrderHeader: React.FC<QuickOrderHeaderProps> = ({
   return (
     <>
       {/* Header */}
-      <div className="business-workflow-header flex items-center justify-between p-3.5 sm:p-4">
-        <div className="flex items-center gap-3">
-          <ShoppingCartIcon className="w-6 h-6 flex-shrink-0" />
+      <div className="flex items-center justify-between gap-3 border-b border-border/70 bg-card px-4 py-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <ShoppingCartIcon className="h-5 w-5" />
+          </div>
           <div className="min-w-0">
-            <h2 className="business-workflow-title truncate">طلب سريع</h2>
-            <p className="business-workflow-subtitle truncate">
+            <h2 className="truncate text-base font-bold text-foreground">طلب سريع</h2>
+            <p className="business-workflow-subtitle truncate text-xs text-muted-foreground">
               {initialCustomerName || convCustomerName
                 ? `${initialCustomerName || convCustomerName} - ${convPageName}`
                 : convPageName}
@@ -45,34 +47,41 @@ export const QuickOrderHeader: React.FC<QuickOrderHeaderProps> = ({
           type="button"
           onClick={onClose}
           aria-label="إغلاق"
-          className="business-icon-button flex-shrink-0 active:scale-[0.97] transition-transform"
-          style={{
-            background: "rgba(255, 255, 255, 0.14)",
-            borderColor: "rgba(255, 255, 255, 0.18)",
-            color: "white",
-          }}
+          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-background text-muted-foreground hover:bg-muted/60 hover:text-foreground active:scale-[0.97] transition-all cursor-pointer"
         >
-          <XMarkIcon className="w-6 h-6" />
+          <XMarkIcon className="h-4 w-4" />
         </button>
       </div>
 
       {/* Steps Indicator */}
       {!createdOrder && (
-        <div className="business-workflow-tabs">
+        <div className="flex items-center gap-1 border-b border-border/70 bg-muted/30 px-4">
           <button
             type="button"
             onClick={() => {
               setStep("products");
               setShowMobileCart(false);
             }}
-            className="business-workflow-tab flex-1 sm:flex-initial"
+            className={`relative flex-1 sm:flex-initial border-b-2 px-3 py-2.5 text-xs sm:text-sm transition-colors cursor-pointer ${
+              step === "products" && !showMobileCart
+                ? "border-primary font-semibold text-foreground"
+                : "border-transparent font-medium text-muted-foreground hover:text-foreground"
+            }`}
             data-active={step === "products" && !showMobileCart}
           >
             <span className="flex items-center justify-center gap-2">
-              <span className="business-workflow-badge">1</span>
-              المنتجات
+              <span
+                className={`inline-flex h-5 w-5 items-center justify-center rounded-md text-[11px] font-mono tabular-nums font-bold ${
+                  step === "products" && !showMobileCart
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground"
+                }`}
+              >
+                1
+              </span>
+              <span>المنتجات</span>
               {cartCount > 0 && (
-                <span className="business-gallery-count font-mono tabular-nums">
+                <span className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[11px] font-bold text-primary font-mono tabular-nums">
                   {cartCount}
                 </span>
               )}
@@ -87,13 +96,27 @@ export const QuickOrderHeader: React.FC<QuickOrderHeaderProps> = ({
               }
             }}
             disabled={cartCount === 0}
-            className="business-workflow-tab flex-1 sm:flex-initial"
+            className={`relative flex-1 sm:flex-initial border-b-2 px-3 py-2.5 text-xs sm:text-sm transition-colors ${
+              cartCount === 0
+                ? "cursor-not-allowed border-transparent font-medium text-muted-foreground/50"
+                : step === "checkout"
+                  ? "cursor-pointer border-primary font-semibold text-foreground"
+                  : "cursor-pointer border-transparent font-medium text-muted-foreground hover:text-foreground"
+            }`}
             data-active={step === "checkout"}
             data-disabled={cartCount === 0}
           >
             <span className="flex items-center justify-center gap-2">
-              <span className="business-workflow-badge">2</span>
-              الدفع والتوصيل
+              <span
+                className={`inline-flex h-5 w-5 items-center justify-center rounded-md text-[11px] font-mono tabular-nums font-bold ${
+                  step === "checkout"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground"
+                }`}
+              >
+                2
+              </span>
+              <span>الدفع والتوصيل</span>
             </span>
           </button>
         </div>

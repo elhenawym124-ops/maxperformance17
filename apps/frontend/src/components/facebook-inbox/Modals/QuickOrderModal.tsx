@@ -30,7 +30,7 @@ const QuickOrderModal: React.FC<QuickOrderModalProps> = (props) => {
         role="dialog"
         aria-modal="true"
         aria-label="طلب سريع"
-        className="business-modal-surface flex h-[95vh] sm:h-auto sm:max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl"
+        className="flex h-[95vh] sm:h-[88vh] sm:max-h-[820px] w-full max-w-5xl flex-col overflow-hidden rounded-xl border border-border/70 bg-card text-foreground shadow-xl"
       >
         {/* Header & Tabs */}
         <QuickOrderHeader

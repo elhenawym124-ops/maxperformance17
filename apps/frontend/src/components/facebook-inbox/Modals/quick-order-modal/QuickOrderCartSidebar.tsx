@@ -79,8 +79,7 @@ export const QuickOrderCartSidebar: React.FC<QuickOrderCartSidebarProps> = ({
           <button
             type="button"
             onClick={() => setShowMobileCart(true)}
-            className="business-chip-button px-4 py-2 text-xs sm:text-sm font-bold flex-shrink-0 shadow-sm"
-            data-active="true"
+            className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-xs sm:text-sm font-semibold text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all flex-shrink-0 shadow-xs cursor-pointer"
           >
             متابعة الطلب
           </button>
@@ -175,25 +174,19 @@ export const QuickOrderCartSidebar: React.FC<QuickOrderCartSidebarProps> = ({
       )}
 
       {/* Desktop Cart Sidebar (hidden on mobile, visible on md+) */}
-      <div className="hidden md:flex md:w-72 md:flex-col business-side-panel flex-shrink-0">
-        <div className="business-side-panel-header">
-          <h3
-            className="flex items-center gap-2 font-semibold"
-            style={headingStyle}
-          >
-            <ShoppingCartIcon className="h-5 w-5" />
-            السلة ({cartItems.length})
+      <div className="hidden md:flex md:w-80 md:flex-col border-s border-border/70 bg-muted/15 flex-shrink-0">
+        <div className="flex items-center justify-between border-b border-border/70 bg-card px-4 py-3">
+          <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+            <ShoppingCartIcon className="h-4 w-4 text-muted-foreground" />
+            <span>السلة ({cartItems.length})</span>
           </h3>
         </div>
 
-        <div className="flex-1 space-y-2 overflow-y-auto p-2">
+        <div className="flex-1 space-y-2 overflow-y-auto p-3">
           {cartItems.length === 0 ? (
-            <div className="business-inbox-empty py-8">
-              <ShoppingCartIcon
-                className="h-10 w-10 opacity-30"
-                style={mutedStyle}
-              />
-              <p className="text-sm">السلة فارغة</p>
+            <div className="flex h-full min-h-[180px] flex-col items-center justify-center gap-2 text-center text-muted-foreground">
+              <ShoppingCartIcon className="h-9 w-9 opacity-30" />
+              <p className="text-xs font-medium">السلة فارغة</p>
             </div>
           ) : (
             cartItems.map((item) => (
@@ -211,18 +204,17 @@ export const QuickOrderCartSidebar: React.FC<QuickOrderCartSidebarProps> = ({
 
         {/* Cart Total */}
         {cartItems.length > 0 && (
-          <div className="business-footer-bar">
-            <div className="mb-2 flex justify-between text-sm">
-              <span style={mutedStyle}>المجموع</span>
-              <span className="font-bold font-mono tabular-nums" style={headingStyle}>
+          <div className="border-t border-border/70 bg-card p-3.5">
+            <div className="mb-2.5 flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">المجموع</span>
+              <span className="font-bold text-foreground font-mono tabular-nums">
                 {subtotal.toLocaleString()} ج.م
               </span>
             </div>
             <button
               type="button"
               onClick={onProceedToCheckout}
-              className="business-chip-button w-full py-2 font-medium"
-              data-active="true"
+              className="inline-flex h-9 w-full items-center justify-center rounded-lg bg-primary text-xs sm:text-sm font-semibold text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all cursor-pointer shadow-xs"
             >
               متابعة الطلب
             </button>

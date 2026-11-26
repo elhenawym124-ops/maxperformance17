@@ -61,7 +61,7 @@ export const QuickOrderDeliveryForm: React.FC<QuickOrderDeliveryFormProps> = ({
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Shipping & Location Info */}
-      <div className="business-page-panel p-3.5 sm:p-4">
+      <div className="rounded-xl border border-border/70 bg-card p-4">
         <h3
           className="mb-3 sm:mb-4 flex items-center gap-2 font-semibold text-sm sm:text-base"
           style={headingStyle}
@@ -98,7 +98,7 @@ export const QuickOrderDeliveryForm: React.FC<QuickOrderDeliveryFormProps> = ({
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="business-control-input w-full text-sm"
+                className="h-9 w-full rounded-lg border border-border/70 bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
               >
                 <option value="">اختر المحافظة...</option>
                 {EGYPT_GOVERNORATES.map((gov) => (
@@ -118,7 +118,7 @@ export const QuickOrderDeliveryForm: React.FC<QuickOrderDeliveryFormProps> = ({
                 value={area}
                 onChange={(e) => setArea(e.target.value)}
                 placeholder="المدينة أو المنطقة"
-                className="business-control-input w-full text-sm"
+                className="h-9 w-full rounded-lg border border-border/70 bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
               />
             </div>
           </div>
@@ -130,7 +130,7 @@ export const QuickOrderDeliveryForm: React.FC<QuickOrderDeliveryFormProps> = ({
             <textarea
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="business-chat-input h-20 w-full resize-none text-sm"
+              className="h-20 w-full resize-none rounded-lg border border-border/70 bg-background p-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
               placeholder="اسم الشارع، رقم العمارة، علامة مميزة..."
             />
           </div>
@@ -180,7 +180,7 @@ export const QuickOrderDeliveryForm: React.FC<QuickOrderDeliveryFormProps> = ({
       </div>
 
       {/* Scheduled Order Section */}
-      <div className="business-page-panel p-3.5 sm:p-4">
+      <div className="rounded-xl border border-border/70 bg-card p-4">
         <label className="flex items-center gap-2 cursor-pointer select-none">
           <input
             type="checkbox"
@@ -241,7 +241,7 @@ export const QuickOrderDeliveryForm: React.FC<QuickOrderDeliveryFormProps> = ({
       </div>
 
       {/* Additional Notes */}
-      <div className="business-page-panel p-3.5 sm:p-4">
+      <div className="rounded-xl border border-border/70 bg-card p-4">
         <label className="mb-1 block text-xs" style={mutedStyle}>
           ملاحظات الطلب (اختياري)
         </label>
