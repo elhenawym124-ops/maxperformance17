@@ -3,6 +3,7 @@ const {
   sendNotification,
   isDuplicateNotification,
 } = require('../whatsapp/WhatsAppNotificationService');
+const { formatCartItemsText } = require('../whatsapp/orderItemFormatter');
 const {
   buildCartRecoveryUrl,
   isCartConvertedOrDismissed,
@@ -92,6 +93,7 @@ async function handleCartCreated(cart) {
     const name = pickFirst(checkoutData, NAME_KEYS);
     const total = typeof cart.total === 'string' ? parseFloat(cart.total) || 0 : Number(cart.total || 0);
     const itemCount = (Array.isArray(items) ? items.length : 0).toString();
+    const orderItems = formatCartItemsText(items);
     const cartUrl = await buildCartRecoveryUrl(cart.companyId, cart.cartId);
 
     const template = await safeQuery(() =>
@@ -120,6 +122,7 @@ async function handleCartCreated(cart) {
       ...(scheduleAt ? { scheduleAt } : {}),
       variables: {
         customerName: name || 'عميلنا العزيز',
+        orderItems,
         itemCount,
         itemsCount: itemCount,
         total: total.toString(),
@@ -127,6 +130,7 @@ async function handleCartCreated(cart) {
         currency: 'EGP',
         cartUrl,
         checkoutUrl: cartUrl,
+        cartId: cart.cartId,
       },
       cartId: cart.cartId,
       priority: 3,

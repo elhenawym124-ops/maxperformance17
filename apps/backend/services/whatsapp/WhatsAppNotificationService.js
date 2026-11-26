@@ -286,6 +286,7 @@ async function findNotificationTemplateForEvent(companyId, eventType, sessionPro
  */
 function buildOrderStatusButtonId(btn, variables) {
   const orderId = variables.orderId || '';
+  const cartId = variables.cartId || '';
 
   // التوافق القديم: أزرار تحتوي بالفعل على ID وظيفي جاهز (مثل confirm_order_{orderId})
   if (btn.id && !btn.action) {
@@ -293,6 +294,12 @@ function buildOrderStatusButtonId(btn, variables) {
   }
 
   const action = String(btn.action || 'CONFIRMED').toUpperCase();
+
+  if (!orderId && cartId) {
+    if (action === 'CONFIRMED') return `confirm_cart_${cartId}`;
+    if (action === 'CANCELLED') return `cancel_cart_${cartId}`;
+    return `cart_action_${action}_${cartId}`;
+  }
 
   if (action === 'CONFIRMED') return `confirm_order_${orderId}`;
   if (action === 'PROCESSING') return `delay_order_${orderId}`;
@@ -1307,9 +1314,12 @@ async function sendNotification(options) {
 
   const prisma = getSharedPrismaClient();
 
-  // Ensure orderId is in variables for variable replacement in buttons and content
+  // Ensure orderId and cartId are in variables for variable replacement in buttons and content
   if (orderId && !variables.orderId) {
     variables.orderId = orderId;
+  }
+  if (cartId && !variables.cartId) {
+    variables.cartId = cartId;
   }
 
   try {
@@ -2262,6 +2272,7 @@ async function sendNotification(options) {
       }
 
       const isOrderNotification = category === 'ORDER' || category === 'ORDERS' || eventType.startsWith('ORDER_');
+      const isCartNotification = category === 'ABANDONED_CART' || eventType.startsWith('CART_') || eventType === 'INCOMPLETE_CART_FIRST_APPEARANCE';
 
       let finalButtons = buttons;
 
@@ -2276,8 +2287,8 @@ async function sendNotification(options) {
               text: tplBtn && tplBtn.text ? replaceVariables(tplBtn.text, variables) : replaceVariables(btn.text, variables)
             };
           });
-        } else if (isOrderNotification) {
-          // أزرار القالب لحالات الطلبات: نبني ID وظيفي من حقل action
+        } else if (isOrderNotification || isCartNotification) {
+          // أزرار القالب لحالات الطلبات أو السلات غير المكتملة: نبني ID وظيفي من حقل action
           finalButtons = templateButtons.map(btn => ({
             id: buildOrderStatusButtonId(btn, variables),
             text: replaceVariables(btn.text || btn.id, variables)
@@ -2297,8 +2308,14 @@ async function sendNotification(options) {
         }));
       }
 
-      // 🔥 ضمان وجود أزرار لإشعارات الطلبات إذا لم يتم توفيرها (Default Fallback)
-      if ((!finalButtons || finalButtons.length === 0) && isOrderNotification) {
+      // 🔥 ضمان وجود أزرار لإشعارات الطلبات أو السلة غير المكتملة إذا لم يتم توفيرها (Default Fallback)
+      if ((!finalButtons || finalButtons.length === 0) && isCartNotification && variables.cartId) {
+        console.log(`[WHATSAPP-DEBUG] Injecting default buttons for incomplete cart notification: ${eventType}`);
+        finalButtons = [
+          { id: replaceVariables("confirm_cart_{cartId}", variables), text: "تأكيد الطلب" },
+          { id: replaceVariables("cancel_cart_{cartId}", variables), text: "إلغاء الطلب" }
+        ];
+      } else if ((!finalButtons || finalButtons.length === 0) && isOrderNotification) {
         console.log(`[WHATSAPP-DEBUG] Injecting default buttons for order notification: ${eventType}`);
         finalButtons = [
           { id: replaceVariables("confirm_order_{orderId}", variables), text: "تأكيد الأوردر" },
@@ -3219,16 +3236,20 @@ async function sendAbandonedCartNotification(cart, reminderType = 'CART_ABANDONE
     };
   }
 
+  const { formatCartItemsText } = require('./orderItemFormatter');
+  const orderItems = formatCartItemsText(cart.items);
   const cartUrl = await buildCartRecoveryUrl(cart.companyId, canonicalCartId, couponCode);
   const variables = {
     customerName,
     itemCount,
     itemsCount: itemCount,
+    orderItems,
     total: totalStr,
     cartTotal: totalStr,
     currency: cart.currency || 'EGP',
     cartUrl,
     checkoutUrl: cartUrl,
+    cartId: canonicalCartId,
     ...extraDiscountVars
   };
 

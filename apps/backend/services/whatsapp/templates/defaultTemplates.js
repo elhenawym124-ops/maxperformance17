@@ -195,73 +195,109 @@ const DEFAULT_TEMPLATES = {
 
   // العربة المتروكة
   CART_ABANDONED_1H: {
-    name: 'تذكير العربة - ساعة',
-    content: `مرحباً {customerName} 👋
+    name: 'تأكيد الطلب المتروك - التذكير الأول',
+    content: `أهلاً {customerName} 👋
 
-لاحظنا أنك تركت منتجات في عربة التسوق!
+طلبك مسجّل لدينا وفي انتظار تأكيدك:
 
-🛒 لديك {itemCount} منتج بقيمة {total} {currency}
+📦 تفاصيل المنتجات:
+{orderItems}
 
-أكمل طلبك الآن بنقرة واحدة قبل نفاد الكمية:
+💰 الإجمالي: {total} {currency}
+
+اضغط «تأكيد الطلب» لتثبيت الطلب فوراً أو أكمل من هنا:
 {cartUrl}`,
-    variables: ['customerName', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
+    hasButtons: true,
+    buttons: [
+      { id: 'confirm_cart_{cartId}', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel_cart_{cartId}', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
+    variables: ['customerName', 'orderItems', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
   },
 
   CART_ABANDONED_24H: {
     name: 'تذكير العربة - يوم',
-    content: `مرحباً {customerName} 👋
+    content: `أهلاً {customerName} 👋
 
-منتجاتك لا تزال في انتظارك! 🛒
+ما زالت منتجات طلبك محجوزة في انتظار تأكيدك:
 
-لديك {itemCount} منتج بقيمة {total} {currency}
+📦 تفاصيل المنتجات:
+{orderItems}
 
-لا تفوت الفرصة، أكمل طلبك الآن من هنا:
+💰 الإجمالي: {total} {currency}
+
+اضغط «تأكيد الطلب» أو أكمل من هنا:
 {cartUrl}`,
-    variables: ['customerName', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
+    hasButtons: true,
+    buttons: [
+      { id: 'confirm_cart_{cartId}', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel_cart_{cartId}', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
+    variables: ['customerName', 'orderItems', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
   },
 
   CART_ABANDONED_72H: {
     name: 'تذكير العربة - 72 ساعة',
-    content: `مرحباً {customerName} 👋
+    content: `أهلاً {customerName} 👋
 
-تذكير أخير بمنتجاتك المحجوزة في السلة 🛒
+تذكير أخير لمنتجات طلبك قبل انتهاء الحجز:
 
-لديك {itemCount} منتج بقيمة {total} {currency}
+📦 تفاصيل المنتجات:
+{orderItems}
 
-أكمل طلبك الآن قبل انتهاء الحجز:
+💰 الإجمالي: {total} {currency}
+
+اضغط «تأكيد الطلب» أو أكمل من هنا:
 {cartUrl}`,
-    variables: ['customerName', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
+    hasButtons: true,
+    buttons: [
+      { id: 'confirm_cart_{cartId}', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel_cart_{cartId}', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
+    variables: ['customerName', 'orderItems', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
   },
 
   CART_ABANDONED_WITH_DISCOUNT: {
     name: 'تذكير العربة مع خصم',
-    content: `مرحباً {customerName} 🎁
+    content: `هدية خاصة لك يا {customerName} 🎁
 
-هدية خاصة لك!
+خصم {discount}% لتأكيد طلبك الآن:
 
-خصم {discount}% على عربة التسوق الخاصة بك!
+📦 تفاصيل المنتجات:
+{orderItems}
 
-🛒 {itemCount} منتج
 💰 السعر بعد الخصم: {discountedTotal} {currency}
+كود الخصم: {couponCode}
 
-استخدم الكود: {couponCode}
-
-أكمل طلبك الآن قبل انتهاء العرض (24 ساعة):
+أكمل طلبك الآن من هنا:
 {cartUrl}`,
-    variables: ['customerName', 'itemCount', 'discount', 'discountedTotal', 'currency', 'couponCode', 'cartUrl']
+    hasButtons: true,
+    buttons: [
+      { id: 'confirm_cart_{cartId}', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel_cart_{cartId}', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
+    variables: ['customerName', 'orderItems', 'itemCount', 'discount', 'discountedTotal', 'currency', 'couponCode', 'cartUrl']
   },
 
   INCOMPLETE_CART_FIRST_APPEARANCE: {
-    name: 'رسالة أول ظهور - طلب غير مكتمل',
-    content: `مرحباً {customerName} 👋
+    name: 'تأكيد الطلب غير المكتمل - المتابعة الأولى',
+    content: `أهلاً {customerName} 👋
 
-لاحظنا أنك بدأت طلباً ولم تُكمله بعد!
+طلبك مسجّل لدينا وفي انتظار تأكيدك:
 
-🛒 لديك {itemCount} منتج بقيمة {total} {currency}
+📦 تفاصيل المنتجات:
+{orderItems}
 
-يمكنك إكمال طلبك مباشرة من هنا أو الرد علينا لأي استفسار:
+💰 الإجمالي: {total} {currency}
+
+اضغط «تأكيد الطلب» بالأسفل لتثبيت الطلب فوراً أو أكمل من هنا:
 {cartUrl}`,
-    variables: ['customerName', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
+    hasButtons: true,
+    buttons: [
+      { id: 'confirm_cart_{cartId}', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel_cart_{cartId}', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
+    variables: ['customerName', 'orderItems', 'itemCount', 'total', 'cartTotal', 'currency', 'cartUrl']
   },
 
   // التسويق

@@ -9,7 +9,9 @@ const WhatsAppInteractionService = require('../../services/whatsapp/WhatsAppInte
 describe('WhatsAppInteractionService quick-reply mapping', () => {
   test('يعرّف نصوص أزرار الـ quick reply', () => {
     expect(WhatsAppInteractionService._isQuickReplyText('تأكيد الأوردر')).toBe(true);
+    expect(WhatsAppInteractionService._isQuickReplyText('تأكيد الطلب الآن')).toBe(true);
     expect(WhatsAppInteractionService._isQuickReplyText('إلغاء الأوردر')).toBe(true);
+    expect(WhatsAppInteractionService._isQuickReplyText('إلغاء الطلب')).toBe(true);
     expect(WhatsAppInteractionService._isQuickReplyText('تأجيل التسليم')).toBe(true);
     expect(WhatsAppInteractionService._isQuickReplyText('confirm')).toBe(true);
     expect(WhatsAppInteractionService._isQuickReplyText('cancel')).toBe(true);

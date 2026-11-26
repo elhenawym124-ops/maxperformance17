@@ -82,17 +82,27 @@ async function getNotificationSettings(req, res) {
 async function updateNotificationSettings(req, res) {
   try {
     const { companyId } = req.user;
+    const payload = { ...req.body };
+
+    if (payload.incompleteCartGraceMinutes !== undefined) {
+      const mins = Number(payload.incompleteCartGraceMinutes);
+      payload.incompleteCartGraceMinutes = Number.isFinite(mins) ? Math.min(1440, Math.max(0, Math.round(mins))) : 15;
+    }
+    if (payload.abandonedCartMaxReminders !== undefined) {
+      const maxR = Number(payload.abandonedCartMaxReminders);
+      payload.abandonedCartMaxReminders = Number.isFinite(maxR) ? Math.min(3, Math.max(1, Math.round(maxR))) : 3;
+    }
 
     const settings = await safeQuery(() => getSharedPrismaClient().whatsAppNotificationSettings.upsert({
       where: { companyId },
       update: {
-        ...req.body,
+        ...payload,
         updatedAt: new Date()
       },
       create: {
         id: uuidv4(),
         companyId,
-        ...req.body,
+        ...payload,
         updatedAt: new Date()
       }
     }));

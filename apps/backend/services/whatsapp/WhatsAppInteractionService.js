@@ -194,6 +194,18 @@ const WhatsAppInteractionService = {
             });
         }
 
+        // 0-4. معالجة أزرار تأكيد/إلغاء الطلب غير المكتمل مباشرة (confirm_cart_ / cancel_cart_)
+        const cartButton = this._parseCartButtonPayload(id);
+        if (cartButton) {
+            return await this._handleCartButtonAction({
+                sessionId,
+                companyId,
+                remoteJid,
+                cartId: cartButton.cartId,
+                action: cartButton.action
+            });
+        }
+
         const taskResponse = parseTaskExecutionButtonId(id);
         if (taskResponse) {
             return await taskNotificationService.handleExecutionResponse({
@@ -316,7 +328,32 @@ const WhatsAppInteractionService = {
                 }
             }
 
-            // محاولة 2: أحدث طلب لهذا الرقم (نشط أولاً ثم مؤكد)
+            // محاولة 2: التحقق إن كان أحدث إشعار للعميل هو سلة متروكة غير مكتملة قبل مطابقة أي طلب قديم
+            if (!order && (action.status === 'CONFIRMED' || action.status === 'CANCELLED')) {
+                const { normalizePhoneSuffix } = require('../../utils/cartRecoveryHelper');
+                const phoneSuffix = normalizePhoneSuffix(remoteJid.split('@')[0].replace(/\D/g, ''));
+                if (phoneSuffix) {
+                    const latestNotif = await prisma.whatsAppNotificationLog.findFirst({
+                        where: {
+                            companyId,
+                            recipientPhone: { endsWith: phoneSuffix }
+                        },
+                        orderBy: { createdAt: 'desc' },
+                        select: { category: true, cartId: true, orderId: true }
+                    });
+                    if (latestNotif?.category === 'ABANDONED_CART' && latestNotif?.cartId) {
+                        return await this._handleCartButtonAction({
+                            sessionId,
+                            companyId,
+                            remoteJid,
+                            cartId: latestNotif.cartId,
+                            action: action.status
+                        });
+                    }
+                }
+            }
+
+            // محاولة 3: أحدث طلب لهذا الرقم (نشط أولاً ثم مؤكد)
             if (!order) {
                 const rawDigits = remoteJid.split('@')[0].replace(/\D/g, '');
                 const phoneCandidates = [rawDigits];
@@ -339,7 +376,19 @@ const WhatsAppInteractionService = {
             }
 
             if (!order) {
-                console.warn(`⚠️ [INTERACTION] Quick-reply "${id}" but no pending order found for ${remoteJid}`);
+                if (action.status === 'CONFIRMED' || action.status === 'CANCELLED') {
+                    const pendingCart = await this._findPendingCartByPhone(companyId, remoteJid);
+                    if (pendingCart) {
+                        return await this._handleCartButtonAction({
+                            sessionId,
+                            companyId,
+                            remoteJid,
+                            cartId: pendingCart.cartId || pendingCart.id,
+                            action: action.status
+                        });
+                    }
+                }
+                console.warn(`⚠️ [INTERACTION] Quick-reply "${id}" but no pending order or cart found for ${remoteJid}`);
                 return null;
             }
 
@@ -382,23 +431,128 @@ const WhatsAppInteractionService = {
 
     _isQuickReplyText(id) {
         const normalized = String(id || '').trim();
-        const confirmWords = ['تأكيد الأوردر', 'تأكيد', 'confirm', 'تأكيد الطلب'];
-        const cancelWords = ['إلغاء الأوردر', 'إلغاء', 'cancel', 'الغاء'];
+        const confirmWords = ['تأكيد الأوردر', 'تأكيد', 'confirm', 'تأكيد الطلب', 'تأكيد الطلب الآن'];
+        const cancelWords = ['إلغاء الأوردر', 'إلغاء', 'cancel', 'الغاء', 'إلغاء الطلب'];
         const delayWords = ['تأجيل', 'delay', 'postpone', 'تأجيل التسليم'];
         return [...confirmWords, ...cancelWords, ...delayWords].some(w => normalized === w);
     },
 
     _mapQuickReplyAction(id) {
         const normalized = String(id || '').trim();
-        if (['تأكيد الأوردر', 'تأكيد', 'confirm', 'تأكيد الطلب'].includes(normalized)) {
+        if (['تأكيد الأوردر', 'تأكيد', 'confirm', 'تأكيد الطلب', 'تأكيد الطلب الآن'].includes(normalized)) {
             return { status: 'CONFIRMED', note: 'تم تأكيد الطلب عبر الواتساب ✅' };
         }
-        if (['إلغاء الأوردر', 'إلغاء', 'cancel', 'الغاء'].includes(normalized)) {
+        if (['إلغاء الأوردر', 'إلغاء', 'cancel', 'الغاء', 'إلغاء الطلب'].includes(normalized)) {
             return { status: 'CANCELLED', note: 'العميل طلب إلغاء الطلب عبر الواتساب ❌' };
         }
         if (['تأجيل', 'delay', 'postpone', 'تأجيل التسليم'].includes(normalized)) {
             return { status: 'PROCESSING', note: 'العميل طلب تأجيل التسليم ⏳' };
         }
+        return null;
+    },
+
+    _parseCartButtonPayload(id) {
+        const strId = String(id || '').trim();
+        const lowerId = strId.toLowerCase();
+        if (lowerId.startsWith('confirm_cart_')) {
+            return { cartId: strId.slice(13), action: 'CONFIRMED' };
+        }
+        if (lowerId.startsWith('cancel_cart_')) {
+            return { cartId: strId.slice(12), action: 'CANCELLED' };
+        }
+        return null;
+    },
+
+    async _findPendingCartByPhone(companyId, remoteJid) {
+        const prisma = getSharedPrismaClient();
+        const { normalizePhoneSuffix, isCartConvertedOrDismissed } = require('../../utils/cartRecoveryHelper');
+        const phoneSuffix = normalizePhoneSuffix(remoteJid.split('@')[0].replace(/\D/g, ''));
+        if (!phoneSuffix || !companyId) return null;
+
+        const recentCarts = await prisma.guestCart.findMany({
+            where: { companyId },
+            orderBy: { updatedAt: 'desc' },
+            take: 25
+        });
+
+        for (const cart of recentCarts) {
+            if (normalizePhoneSuffix(cart.customerPhone) !== phoneSuffix) continue;
+            const guard = await isCartConvertedOrDismissed(prisma, {
+                companyId,
+                cartId: cart.cartId || cart.id,
+                customerPhone: cart.customerPhone
+            });
+            if (!guard.blocked) return cart;
+        }
+        return null;
+    },
+
+    async _handleCartButtonAction({ sessionId, companyId, remoteJid, cartId, action }) {
+        const prisma = getSharedPrismaClient();
+        const WhatsAppMessageHandler = require('./WhatsAppMessageHandler');
+        const { buildCartRecoveryUrl } = require('../../utils/cartRecoveryHelper');
+
+        if (!cartId || !companyId) return null;
+
+        if (action === 'CONFIRMED') {
+            const { convertSingleIncompleteCart } = require('../orders/incompleteCartAutoConvertService');
+            const converted = await convertSingleIncompleteCart({
+                companyId,
+                cartId,
+                forceConvert: true,
+                channel: 'whatsapp-confirm'
+            });
+
+            if (converted?.success && converted.data?.id) {
+                return await this.updateOrderStatus(
+                    converted.data.id,
+                    companyId,
+                    'CONFIRMED',
+                    'تم تأكيد الطلب غير المكتمل مباشرة عبر زر واتساب ✅'
+                );
+            }
+
+            if (converted?.code === 'CART_ALREADY_CONVERTED' && converted.orderId) {
+                return await this._handleGuardedOrderButton({
+                    sessionId,
+                    companyId,
+                    remoteJid,
+                    orderId: converted.orderId,
+                    buttonKind: 'CONFIRM',
+                    targetStatus: 'CONFIRMED',
+                    note: 'تم تأكيد الطلب عبر الواتساب ✅'
+                });
+            }
+
+            // تعذر التحويل التلقائي (بيانات ناقصة أو خطأ تحقق) — نرسل رابط إكمال البيانات
+            const cartUrl = await buildCartRecoveryUrl(companyId, cartId);
+            await WhatsAppMessageHandler.sendText(
+                sessionId,
+                remoteJid,
+                `لإتمام وتأكيد طلبك يرجى مراجعة البيانات عبر الرابط التالي:\n${cartUrl}`
+            );
+            return { success: false, requiresCheckoutUrl: true, cartId };
+        }
+
+        if (action === 'CANCELLED') {
+            await prisma.cartContactLog.create({
+                data: {
+                    companyId,
+                    cartId,
+                    employeeName: 'WhatsApp Bot',
+                    method: 'dismissed',
+                    result: 'cancelled',
+                    note: 'ألغى العميل الطلب غير المكتمل عبر زر واتساب ❌'
+                }
+            });
+            await WhatsAppMessageHandler.sendText(
+                sessionId,
+                remoteJid,
+                'تم إلغاء الطلب غير المكتمل بناءً على طلبك. نسعد بخدمتك في أي وقت 🙏'
+            );
+            return { success: true, cancelled: true, cartId };
+        }
+
         return null;
     },
 

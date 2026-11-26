@@ -82,8 +82,12 @@ describe('incompleteCartMessagingService.handleCartCreated', () => {
     expect(sendNotification).not.toHaveBeenCalled();
   });
 
-  test('sends INCOMPLETE_CART_FIRST_APPEARANCE with parsed cart data', async () => {
-    const result = await handleCartCreated(baseCart);
+  test('sends INCOMPLETE_CART_FIRST_APPEARANCE with parsed cart data and orderItems', async () => {
+    const cartWithDetails = {
+      ...baseCart,
+      items: JSON.stringify([{ productName: 'تيشيرت قطن', quantity: 2, price: 250, size: 'L', color: 'أسود' }]),
+    };
+    const result = await handleCartCreated(cartWithDetails);
     expect(result).toEqual({ success: true });
     expect(sendNotification).toHaveBeenCalledTimes(1);
     const args = sendNotification.mock.calls[0][0];
@@ -95,6 +99,8 @@ describe('incompleteCartMessagingService.handleCartCreated', () => {
     expect(args.cartId).toBe('cart-123');
     expect(args.variables.itemCount).toBe('1');
     expect(args.variables.total).toBe('500');
+    expect(args.variables.orderItems).toContain('تيشيرت قطن');
+    expect(args.variables.orderItems).toContain('الكمية: 2');
   });
 
   test('passes the template channel so the merchant choice reaches sendNotification', async () => {

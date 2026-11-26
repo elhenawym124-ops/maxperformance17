@@ -19,6 +19,8 @@ interface WhatsAppSettingsState {
   isEnabled: boolean;
   abandonedCartEnabled: boolean;
   incompleteCartImmediateMessage: boolean;
+  incompleteCartGraceMinutes: number;
+  abandonedCartMaxReminders: number;
   abandonedCartFirstReminder: number;
   abandonedCartSecondReminder: number;
   abandonedCartThirdReminder: number;
@@ -34,6 +36,8 @@ const DEFAULT_WA_SETTINGS: WhatsAppSettingsState = {
   isEnabled: true,
   abandonedCartEnabled: true,
   incompleteCartImmediateMessage: false,
+  incompleteCartGraceMinutes: 15,
+  abandonedCartMaxReminders: 3,
   abandonedCartFirstReminder: 1,
   abandonedCartSecondReminder: 24,
   abandonedCartThirdReminder: 72,
@@ -84,6 +88,12 @@ export default function IncompleteOrdersSettings() {
           isEnabled: s.isEnabled !== false,
           abandonedCartEnabled: Boolean(s.abandonedCartEnabled),
           incompleteCartImmediateMessage: Boolean(s.incompleteCartImmediateMessage),
+          incompleteCartGraceMinutes: s.incompleteCartGraceMinutes !== undefined && s.incompleteCartGraceMinutes !== null
+            ? Number(s.incompleteCartGraceMinutes)
+            : 15,
+          abandonedCartMaxReminders: s.abandonedCartMaxReminders !== undefined && s.abandonedCartMaxReminders !== null
+            ? Math.min(3, Math.max(1, Number(s.abandonedCartMaxReminders) || 3))
+            : 3,
           abandonedCartFirstReminder: Number(s.abandonedCartFirstReminder || 1),
           abandonedCartSecondReminder: Number(s.abandonedCartSecondReminder || 24),
           abandonedCartThirdReminder: Number(s.abandonedCartThirdReminder || 72),
@@ -120,6 +130,8 @@ export default function IncompleteOrdersSettings() {
           apiClient.put("/whatsapp-notifications/settings", {
             abandonedCartEnabled: waSettings.abandonedCartEnabled,
             incompleteCartImmediateMessage: waSettings.incompleteCartImmediateMessage,
+            incompleteCartGraceMinutes: Math.min(1440, Math.max(0, waSettings.incompleteCartGraceMinutes)),
+            abandonedCartMaxReminders: Math.min(3, Math.max(1, waSettings.abandonedCartMaxReminders)),
             abandonedCartFirstReminder: Math.max(1, waSettings.abandonedCartFirstReminder),
             abandonedCartSecondReminder: Math.max(2, waSettings.abandonedCartSecondReminder),
             abandonedCartThirdReminder: Math.max(3, waSettings.abandonedCartThirdReminder),
@@ -329,29 +341,70 @@ export default function IncompleteOrdersSettings() {
             </div>
 
             <div className="space-y-3">
-              <div className="flex items-center justify-between gap-4 rounded-lg border border-border/70 bg-muted/15 p-3.5">
-                <div>
-                  <p className="text-xs font-semibold text-foreground">
-                    تفعيل رسالة المتابعة الأولى (بعد 15 دقيقة من التوقف)
-                  </p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
-                    تُرسل مع رابط الشيك آوت فقط إذا لم يُكمل العميل الطلب خلال فترة السماح
-                  </p>
+              <div className="rounded-lg border border-border/70 bg-muted/15 p-3.5 space-y-3">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold text-foreground">
+                      تفعيل رسالة المتابعة الأولى (بعد {waSettings.incompleteCartGraceMinutes} دقيقة من التوقف)
+                    </p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                      تُرسل مع تفاصيل الطلب وأزرار التأكيد فقط إذا لم يُكمل العميل الطلب خلال فترة السماح
+                    </p>
+                  </div>
+                  <label className="relative inline-flex cursor-pointer items-center shrink-0">
+                    <input
+                      type="checkbox"
+                      checked={waSettings.incompleteCartImmediateMessage}
+                      onChange={() =>
+                        setWaSettings((prev) => ({
+                          ...prev,
+                          incompleteCartImmediateMessage: !prev.incompleteCartImmediateMessage,
+                        }))
+                      }
+                      className="peer sr-only"
+                    />
+                    <div className="h-5 w-9 rounded-full bg-muted border border-border/80 after:absolute after:start-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:bg-muted-foreground after:transition-all peer-checked:bg-primary peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:bg-primary-foreground" />
+                  </label>
                 </div>
-                <label className="relative inline-flex cursor-pointer items-center shrink-0">
-                  <input
-                    type="checkbox"
-                    checked={waSettings.incompleteCartImmediateMessage}
-                    onChange={() =>
-                      setWaSettings((prev) => ({
-                        ...prev,
-                        incompleteCartImmediateMessage: !prev.incompleteCartImmediateMessage,
-                      }))
-                    }
-                    className="peer sr-only"
-                  />
-                  <div className="h-5 w-9 rounded-full bg-muted border border-border/80 after:absolute after:start-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:bg-muted-foreground after:transition-all peer-checked:bg-primary peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:bg-primary-foreground" />
-                </label>
+
+                {waSettings.incompleteCartImmediateMessage && (
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-3">
+                    <label className="text-[11px] font-medium text-muted-foreground">
+                      توقيت إرسال الرسالة الأولى بعد توقف العميل (بالدقائق)
+                    </label>
+                    <div className="flex items-center gap-2">
+                      {[5, 15, 30, 60].map((preset) => (
+                        <button
+                          key={preset}
+                          type="button"
+                          onClick={() =>
+                            setWaSettings((prev) => ({ ...prev, incompleteCartGraceMinutes: preset }))
+                          }
+                          className={`rounded-md border px-2 py-1 text-[11px] font-mono tabular-nums transition-colors ${
+                            waSettings.incompleteCartGraceMinutes === preset
+                              ? "border-primary bg-primary text-primary-foreground"
+                              : "border-border/70 bg-background text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          {preset}د
+                        </button>
+                      ))}
+                      <input
+                        type="number"
+                        min={0}
+                        max={1440}
+                        value={waSettings.incompleteCartGraceMinutes}
+                        onChange={(e) =>
+                          setWaSettings((prev) => ({
+                            ...prev,
+                            incompleteCartGraceMinutes: Math.min(1440, Math.max(0, Number(e.target.value) || 0)),
+                          }))
+                        }
+                        className="w-20 rounded-lg border border-border/80 bg-background px-2.5 py-1 text-xs font-mono tabular-nums"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center justify-between gap-4 rounded-lg border border-border/70 bg-muted/15 p-3.5">
@@ -380,60 +433,90 @@ export default function IncompleteOrdersSettings() {
               </div>
 
               {waSettings.abandonedCartEnabled && (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                  <div>
-                    <label className="block text-[11px] font-medium text-muted-foreground mb-1">
-                      التذكير الأول (ساعة)
-                    </label>
-                    <input
-                      type="number"
-                      min={1}
-                      max={168}
-                      value={waSettings.abandonedCartFirstReminder}
-                      onChange={(e) =>
-                        setWaSettings((prev) => ({
-                          ...prev,
-                          abandonedCartFirstReminder: Number(e.target.value) || 1,
-                        }))
-                      }
-                      className="w-full rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-mono tabular-nums"
-                    />
+                <div className="space-y-3 pt-1">
+                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border/60 bg-background/60 px-3 py-2.5">
+                    <span className="text-[11px] font-medium text-muted-foreground">
+                      عدد رسائل المتابعة المجدولة لكل طلب
+                    </span>
+                    <div className="inline-flex items-center gap-1.5">
+                      {[1, 2, 3].map((count) => (
+                        <button
+                          key={count}
+                          type="button"
+                          onClick={() =>
+                            setWaSettings((prev) => ({ ...prev, abandonedCartMaxReminders: count }))
+                          }
+                          className={`rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors ${
+                            waSettings.abandonedCartMaxReminders === count
+                              ? "border-primary bg-primary text-primary-foreground"
+                              : "border-border/70 bg-background text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          {count === 1 ? "رسالة 1" : count === 2 ? "رسالتان" : "3 رسائل"}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-[11px] font-medium text-muted-foreground mb-1">
-                      التذكير الثاني (ساعة)
-                    </label>
-                    <input
-                      type="number"
-                      min={2}
-                      max={336}
-                      value={waSettings.abandonedCartSecondReminder}
-                      onChange={(e) =>
-                        setWaSettings((prev) => ({
-                          ...prev,
-                          abandonedCartSecondReminder: Number(e.target.value) || 24,
-                        }))
-                      }
-                      className="w-full rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-mono tabular-nums"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-medium text-muted-foreground mb-1">
-                      التذكير الثالث (ساعة)
-                    </label>
-                    <input
-                      type="number"
-                      min={3}
-                      max={720}
-                      value={waSettings.abandonedCartThirdReminder}
-                      onChange={(e) =>
-                        setWaSettings((prev) => ({
-                          ...prev,
-                          abandonedCartThirdReminder: Number(e.target.value) || 72,
-                        }))
-                      }
-                      className="w-full rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-mono tabular-nums"
-                    />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-medium text-muted-foreground mb-1">
+                        التذكير الأول (ساعة)
+                      </label>
+                      <input
+                        type="number"
+                        min={1}
+                        max={168}
+                        value={waSettings.abandonedCartFirstReminder}
+                        onChange={(e) =>
+                          setWaSettings((prev) => ({
+                            ...prev,
+                            abandonedCartFirstReminder: Number(e.target.value) || 1,
+                          }))
+                        }
+                        className="w-full rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-mono tabular-nums"
+                      />
+                    </div>
+                    {waSettings.abandonedCartMaxReminders >= 2 && (
+                      <div>
+                        <label className="block text-[11px] font-medium text-muted-foreground mb-1">
+                          التذكير الثاني (ساعة)
+                        </label>
+                        <input
+                          type="number"
+                          min={2}
+                          max={336}
+                          value={waSettings.abandonedCartSecondReminder}
+                          onChange={(e) =>
+                            setWaSettings((prev) => ({
+                              ...prev,
+                              abandonedCartSecondReminder: Number(e.target.value) || 24,
+                            }))
+                          }
+                          className="w-full rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-mono tabular-nums"
+                        />
+                      </div>
+                    )}
+                    {waSettings.abandonedCartMaxReminders >= 3 && (
+                      <div>
+                        <label className="block text-[11px] font-medium text-muted-foreground mb-1">
+                          التذكير الثالث (ساعة)
+                        </label>
+                        <input
+                          type="number"
+                          min={3}
+                          max={720}
+                          value={waSettings.abandonedCartThirdReminder}
+                          onChange={(e) =>
+                            setWaSettings((prev) => ({
+                              ...prev,
+                              abandonedCartThirdReminder: Number(e.target.value) || 72,
+                            }))
+                          }
+                          className="w-full rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-mono tabular-nums"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

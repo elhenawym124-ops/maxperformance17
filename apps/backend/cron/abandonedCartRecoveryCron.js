@@ -30,7 +30,9 @@ function extractGuestContact(cart) {
 }
 
 function buildCompanyWindows(companySettings) {
+  const maxReminders = Math.min(3, Math.max(1, Number(companySettings?.abandonedCartMaxReminders) || 3));
   return DEFAULT_WINDOWS
+    .slice(0, maxReminders)
     .map((w) => {
       const configured = Number(companySettings?.[w.settingKey]);
       const minHours = Number.isFinite(configured) && configured > 0 ? configured : w.defaultHours;
@@ -52,6 +54,7 @@ async function processAbandonedCarts() {
     where: { abandonedCartEnabled: true, isEnabled: true },
     select: {
       companyId: true,
+      abandonedCartMaxReminders: true,
       abandonedCartFirstReminder: true,
       abandonedCartSecondReminder: true,
       abandonedCartThirdReminder: true,

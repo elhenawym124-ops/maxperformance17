@@ -103,4 +103,37 @@ describe('abandonedCartRecoveryCron.processAbandonedCarts', () => {
     expect(res.sent).toBe(0);
     expect(sendAbandonedCartNotification).not.toHaveBeenCalled();
   });
+
+  test('limits scheduled windows according to abandonedCartMaxReminders and attaches discount to last active window', async () => {
+    mockPrisma.whatsAppNotificationSettings.findMany.mockResolvedValue([
+      {
+        companyId: 'cmp-1',
+        abandonedCartMaxReminders: 1,
+        abandonedCartFirstReminder: 2,
+        abandonedCartSecondReminder: 24,
+        abandonedCartThirdReminder: 72,
+        abandonedCartDiscountEnabled: true,
+        abandonedCartDiscountPercent: 15,
+      },
+    ]);
+
+    mockPrisma.guestCart.findMany.mockResolvedValueOnce([
+      {
+        id: 'cuid-10',
+        cartId: 'cart-max-1',
+        companyId: 'cmp-1',
+        items: JSON.stringify([{ productName: 'شنطة جلد', quantity: 1 }]),
+        total: '800',
+        checkoutData: JSON.stringify({ guestPhone: '01099998888' }),
+      },
+    ]);
+
+    const res = await processAbandonedCarts();
+    expect(mockPrisma.guestCart.findMany).toHaveBeenCalledTimes(1);
+    expect(res.sent).toBe(1);
+    expect(sendAbandonedCartNotification).toHaveBeenCalledWith(
+      expect.objectContaining({ cartId: 'cart-max-1' }),
+      'CART_ABANDONED_WITH_DISCOUNT'
+    );
+  });
 });

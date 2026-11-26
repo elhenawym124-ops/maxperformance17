@@ -201,9 +201,22 @@ function formatOrderItemsText(order, itemsSource = null) {
   return orderItemsText;
 }
 
+/**
+ * تنسيق مختصر لقائمة عناصر السلة غير المكتملة (مناسب للعرض داخل قوالب السلات)
+ */
+function formatCartItemsText(itemsSource = []) {
+  const source = Array.isArray(itemsSource) ? itemsSource : [];
+  if (source.length === 0) return 'المنتجات المختارة';
+  const lines = source
+    .map((item, index) => formatSingleOrderItem(item, index))
+    .filter(Boolean);
+  return lines.length > 0 ? lines.join('\n') : 'المنتجات المختارة';
+}
+
 module.exports = {
   extractCarModelFromNotes,
   extractCarModel,
   formatSingleOrderItem,
-  formatOrderItemsText
+  formatOrderItemsText,
+  formatCartItemsText
 };

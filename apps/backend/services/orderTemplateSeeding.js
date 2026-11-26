@@ -204,30 +204,38 @@ const META_ORDER_BLUEPRINTS = {
     ]
   },
   INCOMPLETE_CART_FIRST_APPEARANCE: {
-    metaTemplateName: 'cart_recovery_discount',
-    name: 'سلة متروكة - استعادة الطلب',
+    metaTemplateName: 'cart_confirm_first_ar',
+    name: 'تأكيد الطلب غير المكتمل - المتابعة الأولى',
     category: 'ABANDONED_CART',
-    regularContent: 'مرحباً {{customerName}} 👋\nلاحظنا أنك بدأت طلباً ولم تُكمله بعد!\n\n🛒 لديك {{itemCount}} منتج بقيمة {{total}} {{currency}}\n\nأكمل طلبك الآن من هنا:\n{{cartUrl}}',
-    content: 'أهلاً {{customerName}} 👋\nلاحظنا أنك تركت بعض المنتجات المميزة في سلة التسوق 🛍️\n\nإجمالي السلة: {{cartTotal}} {{currency}}\n\nالمنتجات لا تزال محجوزة لك لفترة محدودة، اضغط أدناه لإتمام طلبك قبل نفاد الكمية! ✨',
+    regularContent: 'أهلاً {{customerName}} 👋\nطلبك مسجّل لدينا وفي انتظار تأكيدك:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 الإجمالي: {{total}} {{currency}}\n\nاضغط «تأكيد الطلب» بالأسفل لتثبيت الطلب فوراً، أو أكمل عبر الرابط:\n{{cartUrl}}\n(نسعد بتأكيد طلبك للشحن الفوري)',
+    content: 'أهلاً {{customerName}} 👋\nطلبك مسجّل لدينا وفي انتظار تأكيدك:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 الإجمالي: {{cartTotal}} {{currency}}\n\nاضغط «تأكيد الطلب» بالأسفل لتثبيت الطلب فوراً أو أكمل من هنا: {{cartUrl}} — نسعد بتأكيد طلبك للشحن الفوري.',
     hasButtons: true,
-    buttons: [{ type: 'QUICK_REPLY', text: 'إتمام الشراء الآن' }],
+    buttons: [
+      { id: 'confirm', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
     variables: [
       { position: 1, name: 'customerName' },
-      { position: 2, name: 'cartTotal' },
-      { position: 3, name: 'currency' }
+      { position: 2, name: 'orderItems' },
+      { position: 3, name: 'cartTotal' },
+      { position: 4, name: 'currency' },
+      { position: 5, name: 'cartUrl' }
     ]
   },
   CART_ABANDONED_1H: {
-    metaTemplateName: 'cart_abandoned_1h',
-    name: 'تذكير السلة المتروكة - ساعة',
+    metaTemplateName: 'cart_confirm_1h_ar',
+    name: 'تأكيد الطلب المتروك - التذكير الأول',
     category: 'ABANDONED_CART',
-    regularContent: 'مرحباً {{customerName}} 👋\nلاحظنا أنك تركت منتجات في عربة التسوق!\n\n🛒 لديك {{itemCount}} منتج بقيمة {{total}} {{currency}}\n\nأكمل طلبك الآن بنقرة واحدة:\n{{cartUrl}}',
-    content: 'أهلاً {{customerName}} 👋\nمنتجاتك لا تزال في سلة التسوق 🛒\n\nعدد المنتجات: {{itemCount}}\nالإجمالي: {{cartTotal}} {{currency}}\n\nأكمل طلبك الآن من هنا: {{cartUrl}}',
+    regularContent: 'أهلاً {{customerName}} 👋\nطلبك مسجّل لدينا وفي انتظار تأكيدك:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 الإجمالي: {{total}} {{currency}}\n\nاضغط «تأكيد الطلب» بالأسفل لتأكيده فوراً، أو أكمل عبر الرابط:\n{{cartUrl}}\n(نسعد بتأكيد طلبك للشحن الفوري)',
+    content: 'أهلاً {{customerName}} 👋\nطلبك ما زال مسجلاً لدينا وفي انتظار تأكيدك:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 الإجمالي: {{cartTotal}} {{currency}}\n\nاضغط «تأكيد الطلب» بالأسفل لتثبيت الطلب فوراً أو أكمل من هنا: {{cartUrl}} — نسعد بتأكيد طلبك للشحن الفوري.',
     hasButtons: true,
-    buttons: [{ type: 'QUICK_REPLY', text: 'إتمام الشراء الآن' }],
+    buttons: [
+      { id: 'confirm', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
     variables: [
       { position: 1, name: 'customerName' },
-      { position: 2, name: 'itemCount' },
+      { position: 2, name: 'orderItems' },
       { position: 3, name: 'cartTotal' },
       { position: 4, name: 'currency' },
       { position: 5, name: 'cartUrl' }
@@ -237,47 +245,59 @@ const META_ORDER_BLUEPRINTS = {
     metaTemplateName: 'cart_abandoned_24h',
     name: 'تذكير السلة المتروكة - 24 ساعة',
     category: 'ABANDONED_CART',
-    regularContent: 'مرحباً {{customerName}} 👋\nمنتجاتك لا تزال في انتظارك! 🛒\n\nلديك {{itemCount}} منتج بقيمة {{total}} {{currency}}\n\nأكمل طلبك الآن:\n{{cartUrl}}',
-    content: 'أهلاً {{customerName}} 👋\nما زالت منتجاتك محجوزة لك 🛒\n\nالإجمالي: {{cartTotal}} {{currency}}\n\nلا تفوت الفرصة وأكمل طلبك الآن: {{cartUrl}}',
+    regularContent: 'أهلاً {{customerName}} 👋\nما زالت منتجات طلبك محجوزة في انتظار تأكيدك:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 الإجمالي: {{total}} {{currency}}\n\nاضغط «تأكيد الطلب» بالأسفل أو أكمل عبر الرابط:\n{{cartUrl}}\n(في انتظار تأكيدك للشحن)',
+    content: 'أهلاً {{customerName}} 👋\nما زالت منتجات طلبك محجوزة لك:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 الإجمالي: {{cartTotal}} {{currency}}\n\nاضغط «تأكيد الطلب» أو أكمل من هنا: {{cartUrl}} — في انتظار تأكيدك للشحن.',
     hasButtons: true,
-    buttons: [{ type: 'QUICK_REPLY', text: 'إتمام الشراء الآن' }],
+    buttons: [
+      { id: 'confirm', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
     variables: [
       { position: 1, name: 'customerName' },
-      { position: 2, name: 'cartTotal' },
-      { position: 3, name: 'currency' },
-      { position: 4, name: 'cartUrl' }
+      { position: 2, name: 'orderItems' },
+      { position: 3, name: 'cartTotal' },
+      { position: 4, name: 'currency' },
+      { position: 5, name: 'cartUrl' }
     ]
   },
   CART_ABANDONED_72H: {
     metaTemplateName: 'cart_abandoned_72h',
     name: 'تذكير السلة المتروكة - 72 ساعة',
     category: 'ABANDONED_CART',
-    regularContent: 'مرحباً {{customerName}} 👋\nتذكير أخير بمنتجاتك المحجوزة في السلة 🛒\n\nلديك {{itemCount}} منتج بقيمة {{total}} {{currency}}\n\nأكمل طلبك قبل انتهاء الحجز:\n{{cartUrl}}',
-    content: 'أهلاً {{customerName}} 👋\nتذكير أخير بمنتجاتك قبل انتهاء الحجز 🛒\n\nالإجمالي: {{cartTotal}} {{currency}}\n\nأكمل طلبك الآن: {{cartUrl}}',
+    regularContent: 'أهلاً {{customerName}} 👋\nتذكير أخير قبل إلغاء حجز منتجات طلبك:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 الإجمالي: {{total}} {{currency}}\n\nاضغط «تأكيد الطلب» لتثبيته الآن أو أكمل من هنا:\n{{cartUrl}}\n(شكراً لتعاملك معنا)',
+    content: 'أهلاً {{customerName}} 👋\nتذكير أخير لمنتجات طلبك قبل انتهاء الحجز:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 الإجمالي: {{cartTotal}} {{currency}}\n\nاضغط «تأكيد الطلب» أو أكمل الآن: {{cartUrl}} — شكراً لتعاملك معنا.',
     hasButtons: true,
-    buttons: [{ type: 'QUICK_REPLY', text: 'إتمام الشراء الآن' }],
+    buttons: [
+      { id: 'confirm', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
     variables: [
       { position: 1, name: 'customerName' },
-      { position: 2, name: 'cartTotal' },
-      { position: 3, name: 'currency' },
-      { position: 4, name: 'cartUrl' }
+      { position: 2, name: 'orderItems' },
+      { position: 3, name: 'cartTotal' },
+      { position: 4, name: 'currency' },
+      { position: 5, name: 'cartUrl' }
     ]
   },
   CART_ABANDONED_WITH_DISCOUNT: {
     metaTemplateName: 'cart_abandoned_discount',
     name: 'تذكير السلة المتروكة مع خصم',
     category: 'ABANDONED_CART',
-    regularContent: 'مرحباً {{customerName}} 🎁\nخصم {{discount}}% على سلة التسوق الخاصة بك!\n\n🛒 {{itemCount}} منتج — السعر بعد الخصم: {{discountedTotal}} {{currency}}\nاستخدم الكود: {{couponCode}}\n\nأكمل طلبك الآن:\n{{cartUrl}}',
-    content: 'هدية خاصة لك يا {{customerName}} 🎁\nخصم {{discount}}% على سلتك!\n\nالسعر بعد الخصم: {{discountedTotal}} {{currency}}\nالكود: {{couponCode}}\n\nأكمل طلبك الآن: {{cartUrl}}',
+    regularContent: 'هدية خاصة لك يا {{customerName}} 🎁\nخصم {{discount}}% لتأكيد طلبك الآن:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 السعر بعد الخصم: {{discountedTotal}} {{currency}}\nكود الخصم: {{couponCode}}\n\nأكمل طلبك الآن من هنا:\n{{cartUrl}}\n(العرض متاح لفترة محدودة)',
+    content: 'هدية خاصة لك يا {{customerName}} 🎁\nخصم {{discount}}% لتأكيد طلبك:\n\n📦 تفاصيل المنتجات:\n{{orderItems}}\n\n💰 السعر بعد الخصم: {{discountedTotal}} {{currency}}\nالكود: {{couponCode}}\n\nأكمل طلبك الآن: {{cartUrl}} — العرض متاح لفترة محدودة.',
     hasButtons: true,
-    buttons: [{ type: 'QUICK_REPLY', text: 'تطبيق الخصم والشراء' }],
+    buttons: [
+      { id: 'confirm', text: 'تأكيد الطلب', action: 'CONFIRMED', type: 'QUICK_REPLY' },
+      { id: 'cancel', text: 'إلغاء الطلب', action: 'CANCELLED', type: 'QUICK_REPLY' }
+    ],
     variables: [
       { position: 1, name: 'customerName' },
       { position: 2, name: 'discount' },
-      { position: 3, name: 'discountedTotal' },
-      { position: 4, name: 'currency' },
-      { position: 5, name: 'couponCode' },
-      { position: 6, name: 'cartUrl' }
+      { position: 3, name: 'orderItems' },
+      { position: 4, name: 'discountedTotal' },
+      { position: 5, name: 'currency' },
+      { position: 6, name: 'couponCode' },
+      { position: 7, name: 'cartUrl' }
     ]
   },
   STOCK_SHORTAGE: {
@@ -391,7 +411,8 @@ async function seedDefaultOrderTemplates(companyId, prisma = getSharedPrismaClie
             category: bp.category || 'ORDERS',
             content: regularContent,
             variables: JSON.stringify(regularVars),
-            hasButtons: false,
+            hasButtons: isAbandonedCart ? Boolean(bp.hasButtons) : false,
+            buttons: isAbandonedCart && bp.buttons ? JSON.stringify(bp.buttons) : null,
             channel: 'AUTO',
             isActive: true
           }

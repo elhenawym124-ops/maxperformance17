@@ -115,7 +115,9 @@ export interface SettingsForm {
   rateLimitPerMinute: number;
   stickySessionEnabled: boolean;
   incompleteCartImmediateMessage?: boolean;
+  incompleteCartGraceMinutes?: number;
   abandonedCartEnabled?: boolean;
+  abandonedCartMaxReminders?: number;
   abandonedCartFirstReminder?: number;
   abandonedCartSecondReminder?: number;
   abandonedCartThirdReminder?: number;

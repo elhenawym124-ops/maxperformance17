@@ -948,7 +948,9 @@ const getStatusesWithTemplates = async (req, res) => {
         orderCancelledEnabled: true,
         paymentReminderEnabled: true,
         incompleteCartImmediateMessage: true,
+        incompleteCartGraceMinutes: true,
         abandonedCartEnabled: true,
+        abandonedCartMaxReminders: true,
         abandonedCartDiscountEnabled: true
       }
     });
@@ -1014,11 +1016,16 @@ const getStatusesWithTemplates = async (req, res) => {
       };
     };
 
-    const resolveSettingNotify = (settingKey, defaultVal) => {
+    const resolveSettingNotify = (settingKey, defaultVal, eventCode = '') => {
       if (!waSettings || waSettings[settingKey] === undefined || waSettings[settingKey] === null) {
         return defaultVal;
       }
-      return waSettings[settingKey] === true;
+      const isEnabled = waSettings[settingKey] === true;
+      if (!isEnabled) return false;
+      const maxReminders = Math.min(3, Math.max(1, Number(waSettings.abandonedCartMaxReminders ?? 3) || 3));
+      if (eventCode === 'CART_ABANDONED_24H' && maxReminders < 2) return false;
+      if (eventCode === 'CART_ABANDONED_72H' && maxReminders < 3) return false;
+      return true;
     };
 
     const result = [
@@ -1032,7 +1039,7 @@ const getStatusesWithTemplates = async (req, res) => {
         color: '#013735',
         sortOrder: 999,
         statusType: 'order',
-        notifyCustomer: resolveSettingNotify(e.settingKey, e.defaultNotify),
+        notifyCustomer: resolveSettingNotify(e.settingKey, e.defaultNotify, e.code),
         isSystemStatus: true
       }, e.code)),
       ...INCOMPLETE_CART_EVENTS.map((e, idx) => buildStatus({
@@ -1042,7 +1049,7 @@ const getStatusesWithTemplates = async (req, res) => {
         color: '#0D9488',
         sortOrder: 1000 + idx,
         statusType: 'incomplete',
-        notifyCustomer: resolveSettingNotify(e.settingKey, e.defaultNotify),
+        notifyCustomer: resolveSettingNotify(e.settingKey, e.defaultNotify, e.code),
         isSystemStatus: true
       }, e.code))
     ];

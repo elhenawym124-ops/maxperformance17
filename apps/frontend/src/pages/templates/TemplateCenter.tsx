@@ -30,20 +30,23 @@ export { WhatsAppBubblePreview, resolveVariablesForPreview, buildLocalContentFro
 const LARGE_GROUP_THRESHOLD = 4;
 
 function getIncompleteTimingHint(code: string, settings: {
+  incompleteCartGraceMinutes?: number;
+  abandonedCartMaxReminders?: number;
   abandonedCartFirstReminder?: number;
   abandonedCartSecondReminder?: number;
   abandonedCartThirdReminder?: number;
   abandonedCartDiscountPercent?: number;
 } | null): string | null {
+  const maxR = Math.min(3, Math.max(1, Number(settings?.abandonedCartMaxReminders ?? 3) || 3));
   switch (code) {
     case "INCOMPLETE_CART_FIRST_APPEARANCE":
-      return "بعد 15 دقيقة من التوقف";
+      return `بعد ${settings?.incompleteCartGraceMinutes ?? 15} دقيقة من التوقف`;
     case "CART_ABANDONED_1H":
       return `بعد ${settings?.abandonedCartFirstReminder ?? 1} ساعة`;
     case "CART_ABANDONED_24H":
-      return `بعد ${settings?.abandonedCartSecondReminder ?? 24} ساعة`;
+      return maxR < 2 ? "متوقف (الحد: رسالة 1)" : `بعد ${settings?.abandonedCartSecondReminder ?? 24} ساعة`;
     case "CART_ABANDONED_72H":
-      return `بعد ${settings?.abandonedCartThirdReminder ?? 72} ساعة`;
+      return maxR < 3 ? `متوقف (الحد: ${maxR} رسائل)` : `بعد ${settings?.abandonedCartThirdReminder ?? 72} ساعة`;
     case "CART_ABANDONED_WITH_DISCOUNT":
       return `تذكير خصم ${settings?.abandonedCartDiscountPercent ?? 10}%`;
     default:

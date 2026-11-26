@@ -125,4 +125,29 @@ describe('getStatusesWithTemplates', () => {
     expect(byCode.ORDER_CREATED.notifyCustomer).toBe(true);
     expect(byCode.ORDER_CANCELLED.notifyCustomer).toBe(false);
   });
+
+  test('يحترم abandonedCartMaxReminders ويُعطّل تذكير 24س/72س عند ضبط الحد على رسالة واحدة', async () => {
+    const prisma = {
+      orderStatusConfig: { findMany: jest.fn().mockResolvedValue([]) },
+      whatsAppNotificationTemplate: { findMany: jest.fn().mockResolvedValue([]) },
+      whatsAppNotificationSettings: {
+        findUnique: jest.fn().mockResolvedValue({
+          incompleteCartImmediateMessage: true,
+          abandonedCartEnabled: true,
+          abandonedCartMaxReminders: 1,
+          abandonedCartDiscountEnabled: false,
+        }),
+      },
+    };
+
+    const { req, res } = makeReqRes(prisma);
+    await getStatusesWithTemplates(req, res);
+
+    const payload = res.json.mock.calls[0][0];
+    const byCode = Object.fromEntries(payload.data.map((s) => [s.code, s]));
+
+    expect(byCode.CART_ABANDONED_1H.notifyCustomer).toBe(true);
+    expect(byCode.CART_ABANDONED_24H.notifyCustomer).toBe(false);
+    expect(byCode.CART_ABANDONED_72H.notifyCustomer).toBe(false);
+  });
 });
