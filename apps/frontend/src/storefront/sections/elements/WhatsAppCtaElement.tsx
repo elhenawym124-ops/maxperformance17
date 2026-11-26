@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 export interface WhatsAppCtaElementSettings {
   phone?: string;
@@ -84,8 +84,29 @@ const WhatsAppCtaElement: React.FC<WhatsAppCtaElementProps> = ({ section, settin
   const fullWidth = Boolean(mergedSettings?.fullWidth);
   const customClass = mergedSettings?.className || '';
 
+  const linkRef = useRef<HTMLAnchorElement | null>(null);
+  const [resolvedPrimaryBg, setResolvedPrimaryBg] = useState<string>(
+    'hsl(var(--primary, 221 83% 53%))',
+  );
+
   const cleanDigits = cleanWhatsAppPhone(phone);
   const waUrl = buildWhatsAppUrl(phone, message);
+
+  useLayoutEffect(() => {
+    if (rawVariant !== 'primary' || !linkRef.current || typeof window === 'undefined') {
+      return;
+    }
+    const cs = window.getComputedStyle(linkRef.current);
+    const rawAccent =
+      cs.getPropertyValue('--store-accent').trim() ||
+      cs.getPropertyValue('--accent').trim();
+    if (!rawAccent) return;
+    if (/^\d+(?:\.\d+)?\s+\d+(?:\.\d+)?%\s+\d+(?:\.\d+)?%$/.test(rawAccent)) {
+      setResolvedPrimaryBg(`hsl(${rawAccent})`);
+      return;
+    }
+    setResolvedPrimaryBg(rawAccent);
+  }, [rawVariant]);
 
   // Variant styling complying with 5W Identity
   let variantClasses = '';
@@ -98,8 +119,8 @@ const WhatsAppCtaElement: React.FC<WhatsAppCtaElementProps> = ({ section, settin
     variantClasses = 'border-2 border-[#25D366] text-[#128C7E] dark:text-[#25D366] bg-transparent hover:bg-[#25D366]/10';
     buttonStyle.borderColor = '#25D366';
   } else if (rawVariant === 'primary') {
-    variantClasses = 'text-white bg-[var(--store-accent,#2563eb)] hover:opacity-90 shadow-sm';
-    buttonStyle.backgroundColor = 'var(--store-accent, #2563eb)';
+    variantClasses = 'text-white hover:opacity-90 shadow-sm';
+    buttonStyle.backgroundColor = resolvedPrimaryBg;
     buttonStyle.color = '#ffffff';
   } else {
     // Default green variant
@@ -126,6 +147,7 @@ const WhatsAppCtaElement: React.FC<WhatsAppCtaElementProps> = ({ section, settin
       dir="rtl"
     >
       <a
+        ref={linkRef}
         data-storefront-cta="true"
         href={waUrl}
         target="_blank"

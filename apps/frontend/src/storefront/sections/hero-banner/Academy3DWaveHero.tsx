@@ -536,8 +536,8 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
       )}
 
       {/* Copy + Live HUD */}
-      <div className="relative z-[4] max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pointer-events-none">
-        <div className="lg:col-span-8 pointer-events-auto space-y-4">
+      <div className="relative z-[4] max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-start pointer-events-none">
+        <div className="md:col-span-8 pointer-events-auto space-y-4">
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold text-white/95">
             {props.logoUrl ? (
               <img
@@ -587,7 +587,7 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
         {/* Live Synchronized HUD Card */}
         <aside
           aria-live="polite"
-          className="hidden lg:block lg:col-span-4 justify-self-end w-full max-w-xs rounded-2xl p-4 bg-black/45 border border-white/15 backdrop-blur-lg text-white pointer-events-auto"
+          className="hidden md:block md:col-span-4 justify-self-end w-full max-w-xs rounded-2xl p-4 bg-black/45 border border-white/15 backdrop-blur-lg text-white pointer-events-auto"
         >
           <div className="flex items-center justify-between text-xs text-white/70 mb-2">
             <span
