@@ -406,8 +406,10 @@ exports.getTurboSettings = async (req, res) => {
     }, 3);
 
     let turboAiAreaResolverEnabled = true;
+    let turboAiAreaResolverOnCreate = false;
     try {
       let carrierFlagFound = false;
+      let carrierOnCreateFound = false;
       if (prisma.shippingCompany?.findFirst) {
         const turboCarrier = await prisma.shippingCompany.findFirst({
           where: { companyId, providerKey: 'TURBO' },
@@ -419,14 +421,21 @@ exports.getTurboSettings = async (req, res) => {
             turboAiAreaResolverEnabled = cs.aiAreaResolverEnabled;
             carrierFlagFound = true;
           }
+          if (typeof cs?.aiAreaResolverOnCreate === 'boolean') {
+            turboAiAreaResolverOnCreate = cs.aiAreaResolverOnCreate;
+            carrierOnCreateFound = true;
+          }
         }
       }
-      if (!carrierFlagFound) {
+      if (!carrierFlagFound || !carrierOnCreateFound) {
         const compSettings = company?.settings
           ? (typeof company.settings === 'string' ? JSON.parse(company.settings) : company.settings)
           : {};
-        if (typeof compSettings?.turboAiAreaResolverEnabled === 'boolean') {
+        if (!carrierFlagFound && typeof compSettings?.turboAiAreaResolverEnabled === 'boolean') {
           turboAiAreaResolverEnabled = compSettings.turboAiAreaResolverEnabled;
+        }
+        if (!carrierOnCreateFound && typeof compSettings?.turboAiAreaResolverOnCreate === 'boolean') {
+          turboAiAreaResolverOnCreate = compSettings.turboAiAreaResolverOnCreate;
         }
       }
     } catch {}
@@ -442,6 +451,7 @@ exports.getTurboSettings = async (req, res) => {
         turboEnabled: company?.turboEnabled || false,
         turboAutoCreate: company?.turboAutoCreate || false,
         turboAiAreaResolverEnabled,
+        turboAiAreaResolverOnCreate,
         turboMainClientCode: company?.turboMainClientCode || null,
         turboSenderNumber: company?.turboSenderNumber || null,
         turboWebhookUrl: company?.turboWebhookUrl || null,
@@ -479,7 +489,7 @@ exports.updateTurboSettings = async (req, res) => {
       });
     }
 
-    const { turboApiKey, turboMainClientCode, turboSenderNumber, turboEnabled, turboAutoCreate, turboAiAreaResolverEnabled, turboWebhookUrl, turboWebhookToken } = req.body;
+    const { turboApiKey, turboMainClientCode, turboSenderNumber, turboEnabled, turboAutoCreate, turboAiAreaResolverEnabled, turboAiAreaResolverOnCreate, turboWebhookUrl, turboWebhookToken } = req.body;
     const prisma = await getPrisma();
 
     const updateData = {};
@@ -527,7 +537,7 @@ exports.updateTurboSettings = async (req, res) => {
       updateData.turboWebhookToken = turboWebhookToken || null;
     }
 
-    if (turboAiAreaResolverEnabled !== undefined) {
+    if (turboAiAreaResolverEnabled !== undefined || turboAiAreaResolverOnCreate !== undefined) {
       const existingCompany = await safeQuery(() => prisma.company.findUnique({ where: { id: companyId }, select: { settings: true } }), 2).catch(() => null);
       let compSettings = {};
       try {
@@ -535,7 +545,12 @@ exports.updateTurboSettings = async (req, res) => {
           ? (typeof existingCompany.settings === 'string' ? JSON.parse(existingCompany.settings) : existingCompany.settings)
           : {};
       } catch {}
-      compSettings.turboAiAreaResolverEnabled = Boolean(turboAiAreaResolverEnabled);
+      if (turboAiAreaResolverEnabled !== undefined) {
+        compSettings.turboAiAreaResolverEnabled = Boolean(turboAiAreaResolverEnabled);
+      }
+      if (turboAiAreaResolverOnCreate !== undefined) {
+        compSettings.turboAiAreaResolverOnCreate = Boolean(turboAiAreaResolverOnCreate);
+      }
       updateData.settings = JSON.stringify(compSettings);
 
       if (prisma.shippingCompany?.findMany && prisma.shippingCompany?.update) {
@@ -548,7 +563,12 @@ exports.updateTurboSettings = async (req, res) => {
           try {
             cs = carrier.settings ? (typeof carrier.settings === 'string' ? JSON.parse(carrier.settings) : carrier.settings) : {};
           } catch {}
-          cs.aiAreaResolverEnabled = Boolean(turboAiAreaResolverEnabled);
+          if (turboAiAreaResolverEnabled !== undefined) {
+            cs.aiAreaResolverEnabled = Boolean(turboAiAreaResolverEnabled);
+          }
+          if (turboAiAreaResolverOnCreate !== undefined) {
+            cs.aiAreaResolverOnCreate = Boolean(turboAiAreaResolverOnCreate);
+          }
           await prisma.shippingCompany.update({
             where: { id: carrier.id },
             data: { settings: JSON.stringify(cs) }

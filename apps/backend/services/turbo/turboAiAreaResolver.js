@@ -164,11 +164,13 @@ function parseJsonResponse(rawText) {
 }
 
 async function loadTurboAiResolverConfig(prisma, companyId) {
-  const defaults = { aiEnabled: true, confidenceThreshold: 0.65, model: null };
+  const defaults = { aiEnabled: true, aiOnCreateEnabled: false, confidenceThreshold: 0.65, model: null };
   if (!prisma || !companyId) return defaults;
 
   let aiEnabled = defaults.aiEnabled;
+  let aiOnCreateEnabled = defaults.aiOnCreateEnabled;
   let explicitFlagFound = false;
+  let explicitOnCreateFound = false;
 
   // 1) Standalone toggle on ShippingCompany (TURBO) settings
   try {
@@ -183,12 +185,16 @@ async function loadTurboAiResolverConfig(prisma, companyId) {
           aiEnabled = parsed.aiAreaResolverEnabled;
           explicitFlagFound = true;
         }
+        if (parsed && typeof parsed.aiAreaResolverOnCreate === 'boolean') {
+          aiOnCreateEnabled = parsed.aiAreaResolverOnCreate;
+          explicitOnCreateFound = true;
+        }
       }
     }
   } catch {}
 
   // 2) Standalone toggle on Company.settings
-  if (!explicitFlagFound) {
+  if (!explicitFlagFound || !explicitOnCreateFound) {
     try {
       if (prisma.company?.findUnique) {
         const comp = await prisma.company.findUnique({
@@ -197,9 +203,13 @@ async function loadTurboAiResolverConfig(prisma, companyId) {
         });
         if (comp?.settings) {
           const parsed = typeof comp.settings === 'string' ? JSON.parse(comp.settings) : comp.settings;
-          if (parsed && typeof parsed.turboAiAreaResolverEnabled === 'boolean') {
+          if (!explicitFlagFound && parsed && typeof parsed.turboAiAreaResolverEnabled === 'boolean') {
             aiEnabled = parsed.turboAiAreaResolverEnabled;
             explicitFlagFound = true;
+          }
+          if (!explicitOnCreateFound && parsed && typeof parsed.turboAiAreaResolverOnCreate === 'boolean') {
+            aiOnCreateEnabled = parsed.turboAiAreaResolverOnCreate;
+            explicitOnCreateFound = true;
           }
         }
       }
@@ -220,6 +230,7 @@ async function loadTurboAiResolverConfig(prisma, companyId) {
         }
         return {
           aiEnabled,
+          aiOnCreateEnabled,
           confidenceThreshold:
             typeof raw.confidenceThreshold === 'number' && raw.confidenceThreshold > 0 && raw.confidenceThreshold <= 1
               ? raw.confidenceThreshold
@@ -230,7 +241,7 @@ async function loadTurboAiResolverConfig(prisma, companyId) {
     }
   } catch {}
 
-  return { ...defaults, aiEnabled };
+  return { ...defaults, aiEnabled, aiOnCreateEnabled };
 }
 
 function buildOrderAddressContext(order = {}, orderData = {}) {
@@ -558,9 +569,57 @@ async function resolveAndApplyTurboLocation({ prisma, turboService, companyId, o
   return resolution;
 }
 
+/**
+ * Optional hook for newly created orders (when merchant enables aiAreaResolverOnCreate / turboAiAreaResolverOnCreate).
+ */
+async function resolveTurboLocationOnOrderCreate({ prisma, companyId, order } = {}) {
+  if (!prisma || !companyId || !order) return { skipped: true, reason: 'MISSING_ARGS' };
+  const config = await loadTurboAiResolverConfig(prisma, companyId);
+  if (!config.aiEnabled || !config.aiOnCreateEnabled) {
+    return { skipped: true, reason: 'AI_ON_CREATE_DISABLED' };
+  }
+
+  let turboApiKey = null;
+  try {
+    const company = await prisma.company?.findUnique?.({
+      where: { id: companyId },
+      select: { turboApiKey: true },
+    });
+    turboApiKey = company?.turboApiKey || null;
+    if (!turboApiKey && prisma.shippingCompany?.findFirst) {
+      const carrier = await prisma.shippingCompany.findFirst({
+        where: { companyId, providerKey: 'TURBO', isActive: true },
+        select: { apiKey: true },
+      });
+      turboApiKey = carrier?.apiKey || null;
+    }
+  } catch {}
+
+  if (!turboApiKey) {
+    return { skipped: true, reason: 'NO_TURBO_API_KEY' };
+  }
+
+  const TurboService = require('../turboService');
+  const turboService = new TurboService(turboApiKey, companyId);
+  return resolveAndApplyTurboLocation({
+    prisma,
+    turboService,
+    companyId,
+    order,
+    orderData: {
+      governorate: order.governorate || '',
+      city: order.city || '',
+      shippingAddress: order.shippingAddress || order.customerAddress || '',
+      customerAddress: order.customerAddress || order.shippingAddress || '',
+    },
+  });
+}
+
 module.exports = {
   resolveTurboLocation,
   resolveAndApplyTurboLocation,
+  resolveTurboLocationOnOrderCreate,
+  loadTurboAiResolverConfig,
   isGenericOrEmptyLocation,
   matchAreaInList,
 };

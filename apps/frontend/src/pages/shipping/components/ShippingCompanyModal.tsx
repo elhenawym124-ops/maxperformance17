@@ -272,20 +272,38 @@ export const ShippingCompanyModal: React.FC<ShippingCompanyModalProps> = ({
 
           {/* Standalone AI Area Resolver Service Toggle (Turbo only) */}
           {formData.providerKey === 'TURBO' && (
-            <div className="flex items-start gap-2 p-3 rounded-xl border border-border bg-muted/40">
-              <input
-                type="checkbox"
-                id="modalTurboAiArea"
-                checked={formData.aiAreaResolverEnabled !== false}
-                onChange={(e) => setFormData((prev) => ({ ...prev, aiAreaResolverEnabled: e.target.checked }))}
-                className="mt-0.5 h-4 w-4 text-primary rounded border-border focus:ring-primary"
-              />
-              <label htmlFor="modalTurboAiArea" className="text-xs text-foreground cursor-pointer">
-                <span className="font-semibold text-foreground">خدمة تحديد منطقة تربو بالذكاء الاصطناعي (مستقلة)</span>
-                <span className="block text-[11px] text-muted-foreground">
-                  تخمين المدينة من عنوان العميل على خريطة تربو، تحديد المحافظة تلقائياً، ومراجعتها قبل الإرسال لتجنب حالة غير مكتمل
-                </span>
-              </label>
+            <div className="space-y-2 p-3 rounded-xl border border-border bg-muted/40">
+              <div className="flex items-start gap-2">
+                <input
+                  type="checkbox"
+                  id="modalTurboAiArea"
+                  checked={formData.aiAreaResolverEnabled !== false}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, aiAreaResolverEnabled: e.target.checked }))}
+                  className="mt-0.5 h-4 w-4 text-primary rounded border-border focus:ring-primary"
+                />
+                <label htmlFor="modalTurboAiArea" className="text-xs text-foreground cursor-pointer">
+                  <span className="font-semibold text-foreground">خدمة تحديد منطقة تربو بالذكاء الاصطناعي (مستقلة)</span>
+                  <span className="block text-[11px] text-muted-foreground">
+                    تخمين المدينة من عنوان العميل على خريطة تربو، تحديد المحافظة تلقائياً، ومراجعتها قبل الإرسال لتجنب حالة غير مكتمل
+                  </span>
+                </label>
+              </div>
+              <div className="flex items-start gap-2 ps-6 pt-1 border-t border-border/60">
+                <input
+                  type="checkbox"
+                  id="modalTurboAiAreaOnCreate"
+                  checked={Boolean(formData.aiAreaResolverOnCreate)}
+                  disabled={formData.aiAreaResolverEnabled === false}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, aiAreaResolverOnCreate: e.target.checked }))}
+                  className="mt-0.5 h-4 w-4 text-primary rounded border-border focus:ring-primary disabled:opacity-50"
+                />
+                <label
+                  htmlFor="modalTurboAiAreaOnCreate"
+                  className={`text-xs cursor-pointer ${formData.aiAreaResolverEnabled === false ? 'text-muted-foreground opacity-60' : 'text-foreground'}`}
+                >
+                  <span className="font-medium">توسيع التشغيل على الطلبات الجديدة فور وصولها (قبل التأكيد)</span>
+                </label>
+              </div>
             </div>
           )}
 

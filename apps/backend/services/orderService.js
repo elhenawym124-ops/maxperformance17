@@ -842,6 +842,17 @@ class OrderService {
       // تحديث إحصائيات العميل
       await this.updateCustomerStats(resolvedCustomerId, parseFloat(total));
 
+      // 🤖 تحديد منطقة تربو بالذكاء الاصطناعي للطلبات الجديدة (اختياري، غير معطّل)
+      setImmediate(() => {
+        try {
+          void turboAiAreaResolver.resolveTurboLocationOnOrderCreate({
+            prisma: this.getPrisma(),
+            companyId,
+            order,
+          }).catch((err) => console.warn('⚠️ [TURBO-AI-ON-CREATE]', err?.message));
+        } catch {}
+      });
+
       // 🛒 تصدير تلقائي لـ WooCommerce (في الخلفية) - تجاهل للطلبات المكررة
       if (!isDuplicate) {
         try {

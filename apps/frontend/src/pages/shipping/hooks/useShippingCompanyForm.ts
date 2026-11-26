@@ -21,6 +21,7 @@ export const INITIAL_SHIPPING_FORM_DATA: ShippingCompanyFormData = {
   linkedCompanyId: '',
   autoCreateShipments: false,
   aiAreaResolverEnabled: true,
+  aiAreaResolverOnCreate: false,
   shipmentCreateTrigger: 'ON_ORDER',
   logoUrl: '',
   isActive: true,
@@ -114,6 +115,7 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
       linkedCompanyId: company.linkedCompanyId || settings.linkedCompanyId || '',
       autoCreateShipments: Boolean(settings.autoCreateShipments),
       aiAreaResolverEnabled: settings.aiAreaResolverEnabled !== false,
+      aiAreaResolverOnCreate: Boolean(settings.aiAreaResolverOnCreate),
       shipmentCreateTrigger: validLoadedTrigger,
       logoUrl: settings.logoUrl || '',
       isActive: autoActivate ? true : company.isActive,
@@ -152,7 +154,12 @@ export const useShippingCompanyForm = (onSuccess: () => void) => {
 
       const settingsPayload = {
         autoCreateShipments: formData.autoCreateShipments,
-        ...(formData.providerKey === 'TURBO' ? { aiAreaResolverEnabled: formData.aiAreaResolverEnabled !== false } : {}),
+        ...(formData.providerKey === 'TURBO'
+          ? {
+              aiAreaResolverEnabled: formData.aiAreaResolverEnabled !== false,
+              aiAreaResolverOnCreate: Boolean(formData.aiAreaResolverOnCreate),
+            }
+          : {}),
         ...(formData.autoCreateShipments ? { shipmentCreateTrigger: validTrigger } : {}),
         logoUrl: formData.logoUrl || undefined,
         username: formData.username || formData.apiName || undefined,

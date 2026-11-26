@@ -2833,6 +2833,18 @@ router.post('/', async (req, res) => {
       console.error('❌ [NOTIFICATION] Failed to create order notification:', notifBootstrapError.message);
     }
 
+    // 🤖 تحديد منطقة تربو بالذكاء الاصطناعي للطلبات الجديدة (اختياري، غير معطّل للاستجابة)
+    setImmediate(() => {
+      try {
+        const { resolveTurboLocationOnOrderCreate } = require('../services/turbo/turboAiAreaResolver');
+        void resolveTurboLocationOnOrderCreate({
+          prisma,
+          companyId: company.id,
+          order: createdOrder,
+        }).catch((err) => console.warn('⚠️ [TURBO-AI-ON-CREATE]', err?.message));
+      } catch {}
+    });
+
     // 🛒 تصدير تلقائي لـ WooCommerce والأنظمة التابعة (في الخلفية)
     let dropshippingRoutingError = null;
     try {

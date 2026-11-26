@@ -90,7 +90,9 @@ const TurboSettings: React.FC = () => {
         <TurboAiAreaCard
           enabled={settings.turboEnabled}
           aiAreaEnabled={settings.turboAiAreaResolverEnabled}
+          aiAreaOnCreate={settings.turboAiAreaResolverOnCreate}
           onToggleAiArea={(checked) => setSettings((prev) => ({ ...prev, turboAiAreaResolverEnabled: checked }))}
+          onToggleAiAreaOnCreate={(checked) => setSettings((prev) => ({ ...prev, turboAiAreaResolverOnCreate: checked }))}
         />
 
         <TurboWebhookCard

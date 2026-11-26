@@ -363,4 +363,16 @@ describe('turboAiAreaResolver', () => {
     expect(logMeta.before).toEqual({ governorate: 'الإسكندرية', city: 'Alexandria' });
     expect(logMeta.after).toEqual({ governorate: 'الإسكندرية', city: 'كفر عبده' });
   });
+
+  test('resolveTurboLocationOnOrderCreate skips when on-create toggle is disabled (default)', async () => {
+    const { resolveTurboLocationOnOrderCreate } = require('../../../services/turbo/turboAiAreaResolver');
+    const prisma = createMockPrisma();
+    const res = await resolveTurboLocationOnOrderCreate({
+      prisma,
+      companyId: 'comp_1',
+      order: { id: 'ord_2', governorate: 'الإسكندرية', city: 'Alexandria', shippingAddress: '5 شارع نبيل شاكر' },
+    });
+    expect(res.skipped).toBe(true);
+    expect(res.reason).toBe('AI_ON_CREATE_DISABLED');
+  });
 });

@@ -29,6 +29,7 @@ export interface ShippingCompanyFormData {
   linkedCompanyId?: string;
   autoCreateShipments: boolean;
   aiAreaResolverEnabled?: boolean;
+  aiAreaResolverOnCreate?: boolean;
   shipmentCreateTrigger?: string;
   logoUrl?: string;
   isActive: boolean;

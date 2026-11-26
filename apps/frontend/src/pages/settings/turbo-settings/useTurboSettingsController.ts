@@ -26,6 +26,7 @@ export function useTurboSettingsController() {
           turboEnabled: d.turboEnabled || false,
           turboAutoCreate: d.turboAutoCreate || false,
           turboAiAreaResolverEnabled: d.turboAiAreaResolverEnabled !== false,
+          turboAiAreaResolverOnCreate: Boolean(d.turboAiAreaResolverOnCreate),
           turboApiKey: "",
           turboMainClientCode: d.turboMainClientCode || null,
           turboSenderNumber: d.turboSenderNumber || "",
@@ -67,6 +68,7 @@ export function useTurboSettingsController() {
         turboEnabled: settings.turboEnabled,
         turboAutoCreate: settings.turboAutoCreate,
         turboAiAreaResolverEnabled: settings.turboAiAreaResolverEnabled,
+        turboAiAreaResolverOnCreate: settings.turboAiAreaResolverOnCreate,
         turboWebhookUrl: settings.turboWebhookUrl || undefined,
         turboWebhookToken: settings.turboWebhookToken || undefined,
       });
