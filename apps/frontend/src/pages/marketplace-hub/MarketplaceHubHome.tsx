@@ -57,7 +57,7 @@ const ALL_MODULES = [
 
 export const MarketplaceHubHome: React.FC = () => {
   return (
-    <MarketplaceHubLayout title="مركز منصات البيع والأدوات">
+    <MarketplaceHubLayout title="OmniSeller — أفق التجارة">
       <section>
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-foreground">وحدات المنصة المتاحة</h2>

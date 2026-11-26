@@ -1514,10 +1514,10 @@ export const getSidebarConfig = (
             ]
         },
 
-        // 4️⃣.6.5 مركز منصات البيع والأدوات (Marketplace Hub)
+        // 4️⃣.6.5 أفق التجارة | OmniSeller
         {
             id: 'marketplace-hub',
-            title: t('sidebar.marketplaceHubSection', 'منصات البيع والأدوات'),
+            title: t('sidebar.marketplaceHubSection', 'OmniSeller · أفق التجارة'),
             icon: Store,
             hidden: !isAppActive('marketplace-hub'),
             items: [

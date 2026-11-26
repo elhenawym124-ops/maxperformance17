@@ -59,7 +59,7 @@ export const MarketplaceHubLayout: React.FC<MarketplaceHubLayoutProps> = ({ titl
             </div>
 
             <nav
-              aria-label="أقسام مركز المنصات"
+              aria-label="أقسام OmniSeller"
               className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none"
             >
               {HUB_TABS.map((tab) => {

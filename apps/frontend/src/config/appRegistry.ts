@@ -776,7 +776,7 @@ export const APP_REGISTRY: AppDefinition[] = [
     sectionIds: ['marketplace-hub'],
     category: 'sales',
     requiredApps: ['marketplace-hub'],
-    displayName: 'مركز منصات البيع والأدوات',
+    displayName: 'OmniSeller · أفق التجارة',
     displayDescription: 'حاسبة أرباح أمازون ونون وجوميا وترينديول، مولد QR والباركود، ودليل فرص البيع',
     route: '/marketplace-hub',
   },

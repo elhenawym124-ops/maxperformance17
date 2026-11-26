@@ -7939,8 +7939,8 @@
   {
     "id": "cat-app-marketplace-hub",
     "slug": "marketplace-hub",
-    "name": "مركز منصات البيع والأدوات",
-    "nameEn": "Marketplace Hub",
+    "name": "أفق التجارة | OmniSeller",
+    "nameEn": "OmniSeller",
     "description": "إدارة قنوات البيع الخارجية (أمازون ونون وجوميا وترينديول): حاسبة أرباح المنصات، استوديو الصور والمحتوى AI، مولد QR والباركود، دليل فرص البيع، والربط المباشر مع Amazon SP-API.",
     "descriptionEn": "Multi-marketplace seller hub for Amazon, Noon, Jumia, and Trendyol: fee & profit calculator, AI image & listing studio, QR & barcode generator, selling opportunities, and SP-API sync.",
     "category": "ECOMMERCE",
@@ -7954,7 +7954,7 @@
     "requiredApps": [],
     "positioning": {
       "audience": "التجار والشركات التي تبيع أو تخطط للبيع على أمازون ونون وجوميا وترينديول بجانب متجرها.",
-      "surface": "داخل قسم منصات البيع والأدوات: حاسبة الأرباح، استوديو AI، الباركود، الموردين، وربط القنوات.",
+      "surface": "داخل قسم OmniSeller: حاسبة الأرباح، استوديو AI، الباركود، الموردين، وربط القنوات.",
       "outcome": "تسعير مربح بدقة، محتوى وصور احترافية بالذكاء الاصطناعي، ومزامنة موحدة لمنتجات وطلبات الأسواق الخارجية."
     },
     "features": {
