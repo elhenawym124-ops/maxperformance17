@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/academy-stage.css';
 
 interface LabTarget {
   key: string;
@@ -243,22 +244,27 @@ const AcademyInteractiveLab: React.FC<AcademyInteractiveLabProps> = ({ settings 
     <section
       id="academy-lab"
       dir="rtl"
-      className="py-14 md:py-20 bg-[#0E1722] text-white border-y border-white/10"
+      className="relative acad-obsidian-canvas overflow-x-clip py-20 sm:py-28 border-t border-white/10"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div className="acad-grain" aria-hidden="true" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <div className="lg:col-span-5 space-y-5">
           <span
-            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold"
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono tracking-wider"
             style={{
-              backgroundColor: 'hsl(var(--accent) / 0.18)',
-              color: '#FFD5C7',
-              border: '1px solid hsl(var(--accent) / 0.4)',
+              backgroundColor: 'hsl(var(--accent) / 0.16)',
+              color: '#FFE4D9',
+              border: '1px solid hsl(var(--accent) / 0.45)',
             }}
           >
-            {settings?.badge || 'معمل التجربة التفاعلي'}
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ backgroundColor: 'hsl(var(--accent))' }}
+            />
+            {settings?.badge || 'LIVE LAB // معمل التجربة التفاعلي'}
           </span>
 
-          <h2 className="text-2xl sm:text-4xl font-bold leading-snug" style={{ letterSpacing: 0 }}>
+          <h2 className="text-2xl sm:text-4xl font-bold leading-snug text-white" style={{ letterSpacing: 0 }}>
             {settings?.title || 'شوف بنفسك كيف يبني الطالب ذكاءً اصطناعياً وألعاباً حية'}
           </h2>
 
@@ -267,12 +273,12 @@ const AcademyInteractiveLab: React.FC<AcademyInteractiveLabProps> = ({ settings 
               'بدل الكلام النظري، جرّب نموذج الرؤية الحاسوبية أو محاكاة الفيزياء التي ينفذها طلابنا خطوة بخطوة.'}
           </p>
 
-          <div className="inline-flex p-1 rounded-full bg-white/10 border border-white/15 gap-1">
+          <div className="acad-glass inline-flex p-1 rounded-full gap-1">
             <button
               type="button"
               onClick={() => setMode('vision')}
               className={`min-h-[40px] px-4 rounded-full text-xs sm:text-sm font-semibold transition-colors ${
-                mode === 'vision' ? 'bg-white text-[#0E1722]' : 'text-white/75 hover:text-white'
+                mode === 'vision' ? 'bg-white text-[#060913]' : 'text-white/75 hover:text-white'
               }`}
             >
               {settings?.visionTabLabel || 'كاشف الذكاء الاصطناعي'}
@@ -281,7 +287,7 @@ const AcademyInteractiveLab: React.FC<AcademyInteractiveLabProps> = ({ settings 
               type="button"
               onClick={() => setMode('rocket')}
               className={`min-h-[40px] px-4 rounded-full text-xs sm:text-sm font-semibold transition-colors ${
-                mode === 'rocket' ? 'bg-white text-[#0E1722]' : 'text-white/75 hover:text-white'
+                mode === 'rocket' ? 'bg-white text-[#060913]' : 'text-white/75 hover:text-white'
               }`}
             >
               {settings?.physicsTabLabel || 'برمجة الحركة والفيزياء'}
@@ -289,30 +295,40 @@ const AcademyInteractiveLab: React.FC<AcademyInteractiveLabProps> = ({ settings 
           </div>
 
           {settings?.ctaText && (
-            <div className="pt-1">
-              <Link
-                to={settings.ctaLink || '/registration'}
-                className="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-transform active:scale-[0.97]"
-                style={{ backgroundColor: 'hsl(var(--accent))' }}
-              >
-                {settings.ctaText}
+            <div className="pt-2">
+              <Link to={settings.ctaLink || '/registration'} className="acad-btn-roll">
+                <span className="acad-btn-roll__label">
+                  <span className="acad-btn-roll__inner">
+                    <span>{settings.ctaText}</span>
+                    <span aria-hidden="true">{settings.ctaText}</span>
+                  </span>
+                </span>
+                <span className="acad-btn-roll__chip" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                  </svg>
+                </span>
               </Link>
             </div>
           )}
         </div>
 
-        <div className="lg:col-span-7 rounded-3xl bg-white/[0.05] border border-white/15 backdrop-blur-xl overflow-hidden shadow-2xl">
-          <div className="h-10 px-4 border-b border-white/10 flex items-center justify-between text-xs text-white/65">
-            <div className="flex items-center gap-1.5" aria-hidden="true">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+        <div className="lg:col-span-7 acad-glass acad-glass--strong rounded-3xl overflow-hidden">
+          <div className="h-11 px-5 border-b border-white/10 flex items-center justify-between text-xs text-white/60 font-mono">
+            <div className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ backgroundColor: 'hsl(var(--accent))' }}
+              />
+              <span>SIMULATION // WORKBENCH</span>
             </div>
-            <span>بيئة التدريب التفاعلية · Live Canvas</span>
+            <span className="tabular-nums text-white/80">
+              {mode === 'vision' ? 'VISION AI' : 'PHYSICS 60FPS'}
+            </span>
           </div>
 
-          <div className="p-4 sm:p-5 space-y-4">
-            <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#071518]">
+          <div className="p-4 sm:p-6 space-y-4">
+            <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#040914]">
               <canvas
                 ref={canvasRef}
                 width={560}

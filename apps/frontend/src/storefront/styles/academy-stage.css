@@ -1,0 +1,191 @@
+/* MotionSites-inspired 2026 Academy Stage surfaces, choreography & texture */
+:root {
+  --acad-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --acad-ease-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --acad-canvas: #060913;
+}
+
+.acad-obsidian-canvas {
+  background-color: var(--acad-canvas);
+  color: #f8fafc;
+}
+
+/* 1. Liquid-Glass Surface with Gradient Hairline Rim (surfaces-and-buttons.md #1) */
+.acad-glass {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: rgba(255, 255, 255, 0.03);
+  background-blend-mode: luminosity;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.14);
+}
+
+.acad-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.25px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, var(--acad-rim-a, 0.42)) 0%,
+    rgba(255, 255, 255, var(--acad-rim-b, 0.14)) 22%,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(255, 255, 255, var(--acad-rim-b, 0.14)) 78%,
+    rgba(255, 255, 255, var(--acad-rim-a, 0.42)) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.acad-glass--strong {
+  background: rgba(8, 12, 24, 0.62);
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
+  box-shadow:
+    0 24px 64px -20px rgba(0, 0, 0, 0.68),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  --acad-rim-a: 0.48;
+  --acad-rim-b: 0.16;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .acad-glass {
+    background: rgba(12, 18, 32, 0.88);
+  }
+}
+
+/* 2. Film Grain Overlay (zero network fetches, anti-banding) */
+.acad-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* 3. MotionSites Text-Roll CTA Button with Rotating Arrow Chip */
+.acad-btn-roll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px;
+  padding-inline-start: 20px;
+  padding-inline-end: 6px;
+  border-radius: 999px;
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground, 0 0% 100%));
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px -10px hsl(var(--accent) / 0.65);
+  transition: transform 0.25s var(--acad-ease-quint), filter 0.25s ease, box-shadow 0.25s ease;
+}
+
+.acad-btn-roll:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 14px 36px -8px hsl(var(--accent) / 0.78);
+}
+
+.acad-btn-roll:active {
+  transform: scale(0.97);
+}
+
+.acad-btn-roll__label {
+  display: block;
+  height: 20px;
+  overflow: hidden;
+}
+
+.acad-btn-roll__inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.45s var(--acad-ease-expo);
+}
+
+.acad-btn-roll__inner > span {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.acad-btn-roll:hover .acad-btn-roll__inner,
+.acad-btn-roll:focus-visible .acad-btn-roll__inner {
+  transform: translateY(-50%);
+}
+
+.acad-btn-roll__chip {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0b101b;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.acad-btn-roll__chip svg {
+  transition: transform 0.45s var(--acad-ease-expo);
+}
+
+.acad-btn-roll:hover .acad-btn-roll__chip svg,
+.acad-btn-roll:focus-visible .acad-btn-roll__chip svg {
+  transform: rotate(-45deg);
+}
+
+/* 4. Staggered Blur-Rise Entrance Choreography (instant-readable rest state, zero invisible LCP frame) */
+@keyframes acadBlurRise {
+  from {
+    opacity: 0.78;
+    transform: translate3d(0, var(--acad-rise, 12px), 0);
+    filter: blur(var(--acad-blur, 4px));
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes acadFadeDown {
+  from {
+    opacity: 0.85;
+    transform: translate3d(0, -8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.acad-in-blur {
+  animation: acadBlurRise var(--acad-dur, 0.48s) var(--acad-ease-expo) var(--acad-d, 0ms) both;
+}
+
+.acad-in-down {
+  animation: acadFadeDown 0.42s var(--acad-ease-expo) var(--acad-d, 0ms) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acad-in-blur,
+  .acad-in-down {
+    animation: none;
+  }
+  .acad-btn-roll__inner,
+  .acad-btn-roll__chip svg {
+    transition: none;
+  }
+}

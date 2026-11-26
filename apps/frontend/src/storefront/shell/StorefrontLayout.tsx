@@ -68,6 +68,7 @@ export const StorefrontLayout: React.FC<StorefrontLayoutProps> = (props) => {
     previewProductId,
     isFastlyTheme,
     isGracefulTheme,
+    isAcademyStageTheme,
     legacyProductSlugAliasTarget,
     previewProduct,
     showMobileBottomNav,
@@ -82,7 +83,7 @@ export const StorefrontLayout: React.FC<StorefrontLayoutProps> = (props) => {
 
   return (
     <div
-      className="storefront-shell flex min-h-screen flex-col relative"
+      className={`storefront-shell flex min-h-screen flex-col relative ${isAcademyStageTheme ? 'bg-[#060913] text-slate-50' : ''}`}
       dir={currentDirection}
       data-storefront-locale={currentLocale}
       data-storefront-theme={theme?.id}

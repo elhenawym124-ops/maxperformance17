@@ -80,6 +80,8 @@ export const useHeroBannerController = (
     hintText: typeof settings?.hintText === 'string' ? settings.hintText : undefined,
     heroBgFrom: typeof settings?.heroBgFrom === 'string' ? settings.heroBgFrom : undefined,
     heroBgTo: typeof settings?.heroBgTo === 'string' ? settings.heroBgTo : undefined,
+    videoUrl: typeof settings?.videoUrl === 'string' ? settings.videoUrl : undefined,
+    titleHighlight: typeof settings?.titleHighlight === 'string' ? settings.titleHighlight : undefined,
     trustPills: Array.isArray(settings?.trustPills) ? (settings.trustPills as string[]) : undefined,
     academyCards: Array.isArray(settings?.cards)
       ? (settings.cards as HeroVariantProps['academyCards'])

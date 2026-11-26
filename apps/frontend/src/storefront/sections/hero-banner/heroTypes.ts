@@ -92,6 +92,8 @@ export interface HeroVariantProps {
   hintText?: string;
   heroBgFrom?: string;
   heroBgTo?: string;
+  videoUrl?: string;
+  titleHighlight?: string;
   trustPills?: string[];
   academyCards?: Array<{
     title: string;

@@ -109,6 +109,7 @@ export const useStorefrontFooterController = ({
   const isMenShoes = theme.id === 'men-shoes-eg';
   const isPcHub = theme.id === 'pc-hub-eg';
   const isMensGroomingPro = theme.id === 'mens-grooming-pro';
+  const isAcademyStageFooter = theme.id === 'academy-stage-3d';
   const footerVariant = theme.footer?.variant?.trim().toLowerCase() || 'default';
 
   const isEditorialSoftFooter = footerVariant === 'editorial-soft';
@@ -397,6 +398,7 @@ export const useStorefrontFooterController = ({
     isAutomotiveChassis,
     isMensGroomingPro,
     isPcHub,
+    isAcademyStageFooter,
     isSoleaFemme,
     isIntruderNft,
     isMenShoes,

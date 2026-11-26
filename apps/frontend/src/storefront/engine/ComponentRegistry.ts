@@ -93,6 +93,7 @@ const LookProgress = React.lazy(() => import('../sections/LookProgress'));
 const Dental3DShowcase = React.lazy(() => import('../sections/Dental3DShowcase'));
 const DentalSampleKit = React.lazy(() => import('../sections/DentalSampleKit'));
 const AcademyInteractiveLab = React.lazy(() => import('../sections/AcademyInteractiveLab'));
+const AcademyStoryStage = React.lazy(() => import('../sections/AcademyStoryStage'));
 
 // Independent element primitives (Ticket 5C)
 const HeadingElement = React.lazy(() => import('../sections/elements/HeadingElement'));
@@ -252,6 +253,7 @@ const baseComponentRegistry: Record<
   'dental-3d-showcase': Dental3DShowcase,
   'dental-sample-kit': DentalSampleKit,
   'academy-interactive-lab': AcademyInteractiveLab,
+  'academy-story-stage': AcademyStoryStage,
 
   // Independent element primitives
   heading: HeadingElement,

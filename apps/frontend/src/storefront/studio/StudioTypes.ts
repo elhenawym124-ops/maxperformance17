@@ -629,6 +629,7 @@ export const STUDIO_SECTION_CATEGORIES: StudioSectionCategory[] = [
       "member-registration",
       "dental-sample-kit",
       "academy-interactive-lab",
+      "academy-story-stage",
     ],
   },
 ];

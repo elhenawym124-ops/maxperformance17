@@ -74,6 +74,7 @@ export const useStorefrontHeaderController = (
   const isFastlyTheme = theme.id === "fastly-eg";
   const isMensGroomingPro = theme.id === "mens-grooming-pro";
   const isGracefulTheme = theme.id === "soft-graceful";
+  const isAcademyStageHeader = theme.id === "academy-stage-3d";
   const headerVariant =
     theme.header?.variant?.trim().toLowerCase() || "default";
   const isEditorialSoftHeader = headerVariant === "editorial-soft";
@@ -470,6 +471,7 @@ export const useStorefrontHeaderController = (
     isCheckoutPath,
     isActive,
     isGracefulTheme,
+    isAcademyStageHeader,
     isMensGroomingPro,
     isRedlineAutoHeader,
     isKhemetLuxe,

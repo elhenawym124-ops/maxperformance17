@@ -417,6 +417,18 @@ export const STUDIO_SECTION_THUMBNAILS: Record<string, string> = {
     </svg>
   `),
 
+  // 17c. Academy: Story Stage (مسرح القصة والمناهج المتراكبة)
+  "academy-story-stage": encodeSvg(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80">
+      <rect width="240" height="80" rx="8" fill="#060913"/>
+      <rect x="16" y="10" width="208" height="18" rx="6" fill="#111827" stroke="#334155" stroke-width="1"/>
+      <rect x="16" y="24" width="208" height="22" rx="7" fill="#172033" stroke="#9e1f63" stroke-width="1.2"/>
+      <rect x="16" y="42" width="208" height="28" rx="8" fill="#1e293b" stroke="#e2e8f0" stroke-opacity="0.35" stroke-width="1"/>
+      <rect x="30" y="52" width="94" height="7" rx="3.5" fill="#f8fafc"/>
+      <rect x="150" y="50" width="56" height="11" rx="5.5" fill="#9e1f63"/>
+    </svg>
+  `),
+
   // 18. Automotive: Car Model Matcher (مطابقة موديل السيارة)
   "car-model-matcher": encodeSvg(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80">

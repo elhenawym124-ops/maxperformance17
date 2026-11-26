@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import type { HeroVariantProps } from './heroTypes';
-import { renderHeroAction } from './heroActions';
+import { isExternalHref, renderHeroAction } from './heroActions';
+import { Link } from 'react-router-dom';
+import '../../styles/academy-stage.css';
+
+const DEFAULT_AMBIENT_VIDEO_URL =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261020_065130_c7de1c6f-c1d5-4abf-97d5-fd14ead36d75.mp4';
 
 export interface Academy3DCardItem {
   title: string;
@@ -183,6 +188,11 @@ function createCardTexture(card: Academy3DCardItem): THREE.CanvasTexture {
   g.font = '400 20px "IBM Plex Sans Arabic", sans-serif';
   g.fillText(card.desc.slice(0, 38), 470, 642);
 
+  // Subtle architectural luminous rim on card cover
+  g.strokeStyle = 'rgba(255,255,255,0.22)';
+  g.lineWidth = 3;
+  g.strokeRect(10, 10, 492, 680);
+
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = 4;
@@ -200,10 +210,15 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
       : DEFAULT_CARDS;
 
   const [hudCard, setHudCard] = useState<Academy3DCardItem>(cardsList[0]);
+  const [hudIndex, setHudIndex] = useState<number>(0);
   const [selectedCard, setSelectedCard] = useState<Academy3DCardItem | null>(null);
   const [webglReady, setWebglReady] = useState(true);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [allowVideo, setAllowVideo] = useState(false);
 
   const watermarkText = props.watermarkText || props.brandName || 'ACADEMY 3D';
+  const ambientVideoUrl = props.videoUrl ?? DEFAULT_AMBIENT_VIDEO_URL;
   const hintText =
     props.hintText || 'حرّك المؤشر أو اضغط على البطاقات ثلاثية الأبعاد لاستكشاف المسارات';
   const trustPills =
@@ -213,7 +228,14 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
 
   useEffect(() => {
     setHudCard(cardsList[0]);
+    setHudIndex(0);
   }, [cardsList]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setAllowVideo(!reduced && Boolean(ambientVideoUrl));
+  }, [ambientVideoUrl]);
 
   useEffect(() => {
     const heroWrap = wrapRef.current;
@@ -317,7 +339,7 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
         ]);
 
         const grp = new THREE.Group();
-        grp.position.set(2.05 + i * -0.48, -1.35, 1.1 + i * -0.22);
+        grp.position.set(2.05 + i * -0.48, -1.22, 1.1 + i * -0.22);
         grp.rotation.y = 0.34;
         mesh.position.y = -3.2;
         grp.add(mesh);
@@ -403,9 +425,9 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
         const targetCamY = pointer.active ? -pointer.ny * 0.24 : 0;
         camShiftX += (targetCamX - camShiftX) * 0.08;
         camShiftY += (targetCamY - camShiftY) * 0.08;
-        camera.position.x = (w < h ? 2.4 : 2.9) + camShiftX;
-        camera.position.y = 1.85 + camShiftY;
-        camera.lookAt(-1.2, w < h ? 0.05 : -0.35, -0.4);
+        camera.position.x = (w < h ? 2.4 : 2.85) + camShiftX;
+        camera.position.y = 1.72 + camShiftY;
+        camera.lookAt(-1.2, w < h ? 0.05 : -0.18, -0.4);
 
         let px = pointer.x;
         let py = pointer.y;
@@ -468,6 +490,7 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
         if (bestIdx !== activeIdx && bestInf > 0.25) {
           activeIdx = bestIdx;
           setHudCard(cards[bestIdx].card);
+          setHudIndex(bestIdx % cardsList.length);
         }
 
         renderer.render(scene, camera);
@@ -498,30 +521,61 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
     <section
       ref={wrapRef}
       dir="rtl"
-      className="relative overflow-hidden min-h-[82vh] md:min-h-[92vh] flex flex-col justify-between pt-10 pb-6 md:pt-14 md:pb-8 text-white"
+      className="relative overflow-hidden min-h-[88vh] md:min-h-[90vh] flex flex-col justify-between pt-20 pb-7 md:pt-24 md:pb-8 text-white bg-[#060913]"
       style={{
         background:
           props.heroBgFrom && props.heroBgTo
-            ? `radial-gradient(120% 95% at 50% 0%, ${props.heroBgFrom} 0%, ${props.heroBgTo} 62%, #080E16 100%)`
-            : 'radial-gradient(120% 95% at 50% 0%, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.72) 48%, #091318 100%)',
+            ? `radial-gradient(110% 85% at 50% 0%, ${props.heroBgFrom} 0%, ${props.heroBgTo} 58%, #060913 100%)`
+            : 'radial-gradient(110% 85% at 50% 0%, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.55) 45%, #060913 100%)',
       }}
     >
+      {/* Optional MotionSites Ambient Video Layer (fails silently under reduced motion or network block) */}
+      {allowVideo && !videoFailed && ambientVideoUrl && (
+        <video
+          aria-hidden="true"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onLoadedData={() => setVideoReady(true)}
+          onError={() => setVideoFailed(true)}
+          className={`pointer-events-none absolute inset-0 w-full h-full object-cover mix-blend-screen z-[0] transition-opacity duration-1000 ${
+            videoReady ? 'opacity-[0.22]' : 'opacity-0'
+          }`}
+          src={ambientVideoUrl}
+        />
+      )}
+
+      {/* Protective Calm Readability Scrim over Top Text Band */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background:
+            'radial-gradient(ellipse 75% 60% at 70% 24%, rgba(6, 9, 19, 0.72) 0%, rgba(6, 9, 19, 0.25) 65%, transparent 100%)',
+        }}
+      />
+
       {/* Interactive Cursor Spotlight */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
           background:
-            'radial-gradient(520px circle at var(--mx, 50%) var(--my, 55%), hsl(var(--accent) / 0.24), rgba(56,189,248,0.08) 42%, transparent 72%)',
+            'radial-gradient(560px circle at var(--mx, 50%) var(--my, 55%), hsl(var(--accent) / 0.24), rgba(56,189,248,0.08) 42%, transparent 72%)',
         }}
       />
+
+      {/* Studio Film Grain Overlay */}
+      <div className="acad-grain z-[1]" aria-hidden="true" />
 
       {/* Giant Architectural Watermark */}
       <div
         ref={watermarkRef}
         aria-hidden="true"
-        className="pointer-events-none select-none absolute inset-x-0 top-14 md:top-20 z-[1] text-center font-bold leading-none whitespace-nowrap text-white/[0.06]"
-        style={{ fontSize: 'clamp(76px, 19vw, 260px)', letterSpacing: 0 }}
+        className="pointer-events-none select-none absolute inset-x-0 top-20 md:top-24 z-[1] text-center font-bold leading-none whitespace-nowrap text-white/[0.04]"
+        style={{ fontSize: 'clamp(72px, 18vw, 240px)', letterSpacing: 0 }}
       >
         {watermarkText}
       </div>
@@ -535,10 +589,22 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
         />
       )}
 
-      {/* Copy + Live HUD */}
+      {/* Smooth Obsidian Bottom Edge Melt (eliminates sharp seam into next section) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-28 z-[3]"
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, #060913 100%)',
+        }}
+      />
+
+      {/* Copy + Liquid-Glass Telemetry HUD */}
       <div className="relative z-[4] max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-start pointer-events-none">
         <div className="md:col-span-8 pointer-events-auto space-y-4">
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold text-white/95">
+          <div
+            className="acad-glass acad-in-down inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-white/95"
+            style={{ '--acad-d': '0ms' } as React.CSSProperties}
+          >
             {props.logoUrl ? (
               <img
                 src={props.logoUrl}
@@ -555,23 +621,74 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
           </div>
 
           <h1
-            className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.18] max-w-3xl"
-            style={{ letterSpacing: 0 }}
+            className="acad-in-blur text-3xl sm:text-5xl lg:text-[58px] font-bold text-white leading-[1.12] max-w-3xl [text-wrap:balance]"
+            style={{ letterSpacing: 0, '--acad-d': '40ms' } as React.CSSProperties}
           >
-            {props.title}
+            <span>{props.title}</span>
+            {props.titleHighlight && (
+              <span
+                className="block mt-1.5 text-transparent bg-clip-text"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(90deg, #ffffff 0%, #f8fafc 45%, hsl(var(--accent)) 100%)',
+                }}
+              >
+                {props.titleHighlight}
+              </span>
+            )}
           </h1>
 
           {props.subtitle && (
-            <p className="text-sm sm:text-lg text-white/80 max-w-2xl leading-relaxed">
+            <p
+              className="acad-in-blur text-sm sm:text-lg text-white/80 max-w-2xl leading-relaxed"
+              style={{ '--acad-d': '80ms', '--acad-blur': '3px' } as React.CSSProperties}
+            >
               {props.subtitle}
             </p>
           )}
 
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            {renderHeroAction(
-              props.primaryHref || '/registration',
-              props.ctaText,
-              'inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-full font-semibold text-sm shadow-lg transition-transform active:scale-[0.97] bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground,0_0%_100%))] hover:opacity-95',
+          <div
+            className="acad-in-blur flex flex-wrap items-center gap-3 pt-2"
+            style={{ '--acad-d': '120ms', '--acad-blur': '2px' } as React.CSSProperties}
+          >
+            {props.ctaText && (
+              isExternalHref(props.primaryHref || '/registration') ? (
+                <a
+                  href={props.primaryHref || '/registration'}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="acad-btn-roll shadow-lg"
+                >
+                  <span className="acad-btn-roll__label">
+                    <span className="acad-btn-roll__inner">
+                      <span>{props.ctaText}</span>
+                      <span aria-hidden="true">{props.ctaText}</span>
+                    </span>
+                  </span>
+                  <span className="acad-btn-roll__chip" aria-hidden="true">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                  </span>
+                </a>
+              ) : (
+                <Link
+                  to={props.primaryHref || '/registration'}
+                  className="acad-btn-roll shadow-lg"
+                >
+                  <span className="acad-btn-roll__label">
+                    <span className="acad-btn-roll__inner">
+                      <span>{props.ctaText}</span>
+                      <span aria-hidden="true">{props.ctaText}</span>
+                    </span>
+                  </span>
+                  <span className="acad-btn-roll__chip" aria-hidden="true">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                  </span>
+                </Link>
+              )
             )}
             {props.secondaryCtaText &&
               renderHeroAction(
@@ -579,19 +696,27 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
                   ? `#${props.secondaryHref.split('#')[1]}`
                   : props.secondaryHref || '#academy-lab',
                 props.secondaryCtaText,
-                'inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-full font-semibold text-sm border border-white/30 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white transition-transform active:scale-[0.97]',
+                'acad-glass inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-full font-semibold text-sm text-white transition-transform hover:scale-[1.02] active:scale-[0.97]',
               )}
           </div>
         </div>
 
-        {/* Live Synchronized HUD Card */}
+        {/* Live Synchronized Liquid-Glass Telemetry HUD */}
         <aside
           aria-live="polite"
-          className="hidden md:block md:col-span-4 justify-self-end w-full max-w-xs rounded-2xl p-4 bg-black/45 border border-white/15 backdrop-blur-lg text-white pointer-events-auto"
+          className="hidden md:block md:col-span-4 justify-self-end w-full max-w-xs acad-glass acad-glass--strong acad-in-blur rounded-3xl p-5 text-white pointer-events-auto space-y-3"
+          style={{ '--acad-d': '140ms' } as React.CSSProperties}
         >
-          <div className="flex items-center justify-between text-xs text-white/70 mb-2">
+          <div className="flex items-center justify-between text-xs text-white/60 font-mono">
+            <span className="tabular-nums">
+              {`${String(hudIndex + 1).padStart(2, '0')} / ${String(cardsList.length).padStart(2, '0')}`}
+            </span>
+            <span className="font-mono tabular-nums text-white/75">{hudCard.age}</span>
+          </div>
+
+          <div className="flex items-center gap-2">
             <span
-              className="px-2.5 py-0.5 rounded-full font-semibold font-mono"
+              className="px-2.5 py-0.5 rounded-full font-semibold font-mono text-xs"
               style={{
                 backgroundColor: 'hsl(var(--accent) / 0.22)',
                 border: '1px solid hsl(var(--accent) / 0.5)',
@@ -600,18 +725,27 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
             >
               {hudCard.tag}
             </span>
-            <span className="font-mono tabular-nums">{hudCard.age}</span>
           </div>
-          <h3 className="text-base font-bold mb-1" style={{ letterSpacing: 0 }}>
+
+          <h3 className="text-base font-bold leading-snug" style={{ letterSpacing: 0 }}>
             {hudCard.title}
           </h3>
           <p className="text-xs text-white/75 leading-relaxed">{hudCard.desc}</p>
+
+          <button
+            type="button"
+            onClick={() => setSelectedCard(hudCard)}
+            className="w-full pt-2 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-white/85 hover:text-white transition-colors"
+          >
+            <span>معاينة تفاصيل المسار</span>
+            <span aria-hidden="true">←</span>
+          </button>
         </aside>
       </div>
 
       {/* Bottom Interactive Hint & Trust Pills */}
-      <div className="relative z-[4] max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-44 sm:pt-56 md:pt-64 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
-        <div className="pointer-events-auto inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/50 border border-white/15 backdrop-blur-md text-xs text-white/85">
+      <div className="relative z-[4] max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-40 sm:pt-48 md:pt-56 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
+        <div className="acad-glass pointer-events-auto inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs text-white/85">
           <span>{hintText}</span>
         </div>
 
@@ -619,7 +753,7 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = (props) => {
           {trustPills.map((pill) => (
             <span
               key={pill}
-              className="px-3 py-1.5 rounded-full bg-black/45 border border-white/15 backdrop-blur-md"
+              className="acad-glass px-3.5 py-1.5 rounded-full"
             >
               {pill}
             </span>

@@ -4165,6 +4165,26 @@ export const STOREFRONT_SECTION_MANIFEST = {
       { key: "ctaLink", label: "رابط زر الإجراء", type: "url", placeholder: "/registration" },
     ],
   },
+  "academy-story-stage": {
+    label: "مسرح القصة والمناهج المتراكبة (Academy Story Stage)",
+    component: "academy-story-stage",
+    icon: "✨",
+    category: "specialized",
+    note: "عرض تفاعلي يدمج الكشف التلقائي للكلمات مع السكرول وبطاقات المراحل المتراكبة وبنتو النتائج.",
+    pages: ["home", "about", "collections"],
+    variants: [
+      { value: "standard", label: "قياسي" },
+    ],
+    fields: [
+      { key: "manifestoEyebrow", label: "شارة المنهجية", type: "text" },
+      { key: "manifestoText", label: "نص المنهجية التفاعلي", type: "textarea" },
+      { key: "journeyBadge", label: "شارة المسار", type: "text" },
+      { key: "journeyTitle", label: "عنوان مسار التطور", type: "text" },
+      { key: "bentoTitle", label: "عنوان بطاقة الإنجاز", type: "text" },
+      { key: "ctaText", label: "نص زر الإجراء", type: "text" },
+      { key: "ctaLink", label: "رابط زر الإجراء", type: "url", placeholder: "/registration" },
+    ],
+  },
   "car-model-matcher": {
     label: "مطابقة موديل السيارة (Car Model Matcher)",
     component: "car-model-matcher",
@@ -4371,6 +4391,7 @@ const STOREFRONT_SECTION_VARIANT_ALIASES = {
   "dental-3d-showcase": {},
   "dental-sample-kit": {},
   "academy-interactive-lab": {},
+  "academy-story-stage": {},
 } as const satisfies Partial<Record<StorefrontSectionId, Record<string, string>>>;
 
 const normalizeVariantValue = (variant: string): string =>
@@ -4518,6 +4539,7 @@ const SECTION_CATEGORY_LOOKUP: Record<string, StudioSectionCategoryId> = {
   "member-registration": "specialized",
   "dental-sample-kit": "specialized",
   "academy-interactive-lab": "specialized",
+  "academy-story-stage": "specialized",
 };
 
 export const resolveStorefrontSectionCategory = (

@@ -47,18 +47,18 @@
     },
     "direction": "rtl",
     "previewColors": [
+      "224 44% 5%",
       "178 96% 11%",
-      "14 68% 54%",
-      "36 45% 97%"
+      "14 68% 54%"
     ],
     "previewImage": "/assets/themes/academy-stage-3d/preview.png",
     "pageStats": {
-      "homeSections": 8,
+      "homeSections": 4,
       "shopSections": 4,
       "checkoutSections": 0,
       "pdpSections": 3,
       "cartSections": 2,
-      "totalSections": 17
+      "totalSections": 13
     }
   },
   {

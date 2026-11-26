@@ -261,6 +261,7 @@ export const useStorefrontLayoutController = ({
   const previewProductId = searchParams.get('previewProductId');
   const isFastlyTheme = theme.id === 'fastly-eg';
   const isGracefulTheme = theme.id === 'soft-graceful';
+  const isAcademyStageTheme = theme.id === 'academy-stage-3d';
 
   const productRouteKey = getStorefrontProductRouteKey(normalizedPath);
   const legacyProductSlugAliasTarget = useMemo(
@@ -340,7 +341,8 @@ export const useStorefrontLayoutController = ({
     !isDistrictMarketShopRoute &&
     !isElessiPackTheme &&
     !isFastlyTheme &&
-    !isGracefulTheme;
+    !isGracefulTheme &&
+    !isAcademyStageTheme;
 
   const showPreviewThemeBanner =
     Boolean(previewThemeId) &&
@@ -387,6 +389,7 @@ export const useStorefrontLayoutController = ({
     previewProductId,
     isFastlyTheme,
     isGracefulTheme,
+    isAcademyStageTheme,
     legacyProductSlugAliasTarget,
     previewProduct,
     showMobileBottomNav,

@@ -9,6 +9,7 @@ import { LegacyDefaultFooter } from './storefrontFooter/LegacyDefaultFooter';
 import { AtelierNovaCommerceFooter } from './storefrontFooter/AtelierNovaCommerceFooter';
 import { VelaFashionFooter } from './storefrontFooter/VelaFashionFooter';
 import { PcHubFooter } from './storefrontFooter/PcHubFooter';
+import { AcademyStageFooter } from './storefrontFooter/AcademyStageFooter';
 import { StandardStorefrontFooter } from './storefrontFooter/StandardStorefrontFooter';
 
 const StorefrontFooter: React.FC<StorefrontFooterProps> = (props) => {
@@ -24,6 +25,7 @@ const StorefrontFooter: React.FC<StorefrontFooterProps> = (props) => {
     isAtelierNovaCommercePath,
     isVelaFashionFooter,
     isPcHub,
+    isAcademyStageFooter,
     displayStoreName,
     footerDescriptionText,
     footerCopyrightText,
@@ -77,6 +79,10 @@ const StorefrontFooter: React.FC<StorefrontFooterProps> = (props) => {
 
   if (isPcHub && !isMinimal) {
     return <PcHubFooter controller={controller} />;
+  }
+
+  if (isAcademyStageFooter && !isMinimal) {
+    return <AcademyStageFooter controller={controller} />;
   }
 
   return <StandardStorefrontFooter controller={controller} />;

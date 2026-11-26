@@ -7,18 +7,18 @@
     "colors": {
       "primary": "178 96% 11%",
       "primaryForeground": "0 0% 100%",
-      "secondary": "152 29% 92%",
-      "secondaryForeground": "178 96% 11%",
+      "secondary": "220 28% 14%",
+      "secondaryForeground": "210 40% 98%",
       "accent": "14 68% 54%",
       "accentForeground": "0 0% 100%",
-      "background": "36 45% 97%",
-      "foreground": "216 14% 8%",
-      "muted": "36 30% 92%",
-      "mutedForeground": "48 4% 33%",
-      "border": "36 18% 85%",
-      "card": "0 0% 100%",
-      "cardForeground": "216 14% 8%",
-      "ring": "178 96% 11%"
+      "background": "224 44% 5%",
+      "foreground": "210 40% 98%",
+      "muted": "224 30% 12%",
+      "mutedForeground": "215 20% 72%",
+      "border": "220 26% 18%",
+      "card": "224 38% 8%",
+      "cardForeground": "210 40% 98%",
+      "ring": "14 68% 54%"
     },
     "typography": {
       "headingFont": "\"IBM Plex Sans Arabic\", sans-serif",
@@ -40,15 +40,16 @@
     }
   },
   "header": {
+    "variant": "floating-dark",
+    "transparentOnHome": true,
     "brandName": "مسرح الأكاديمية 3D",
-    "showSearch": true,
-    "showCart": true,
+    "showSearch": false,
+    "showCart": false,
     "navigation": [
       { "label": "الرئيسية", "to": "/" },
-      { "label": "المسارات والدورات", "to": "/shop" },
-      { "label": "الفئات العمرية", "to": "/collections" },
-      { "label": "احجز تقييم مجاني", "to": "/registration" },
-      { "label": "تواصل معنا", "to": "/contact" }
+      { "label": "المناهج", "to": "/collections" },
+      { "label": "المعمل الحي", "to": "/#academy-lab" },
+      { "label": "احجز تقييم مجاني", "to": "/registration" }
     ]
   },
   "footer": {
@@ -78,7 +79,7 @@
     "description": "مسارات برمجة وذكاء اصطناعي وريادة أعمال بمشاريع تطبيقية وتجربة عرض 3D تفاعلية."
   },
   "preview": {
-    "colors": ["178 96% 11%", "14 68% 54%", "36 45% 97%"],
+    "colors": ["224 44% 5%", "178 96% 11%", "14 68% 54%"],
     "imageUrl": "/assets/themes/academy-stage-3d/preview.png"
   },
   "pages": {
@@ -89,98 +90,44 @@
           "variant": "academy-3d-wave",
           "settings": {
             "eyebrow": "من عمر 6 إلى 17 سنة · تدريب عملي ومشاريع حقيقية",
-            "title": "من الفضول الرقمي إلى بناء الألعاب والمشاريع الذكية",
+            "title": "من الفضول الرقمي إلى بناء",
+            "titleHighlight": "الألعاب والمشاريع الذكية",
             "subtitle": "مجموعات صغيرة وإشراف هندسي مباشر، ينتهي كل مستوى بمشروع تطبيقي يقدمه الطالب بثقة مع متابعة أسبوعية لولي الأمر.",
             "ctaText": "احجز حصة تقييم مجانية",
             "ctaLink": "/registration",
             "secondaryCtaText": "جرّب المعمل التفاعلي",
             "secondaryCtaLink": "#academy-lab",
             "watermarkText": "ACADEMY",
+            "heroBgFrom": "#073432",
+            "heroBgTo": "#060913",
             "hintText": "حرّك المؤشر أو اضغط على البطاقات ثلاثية الأبعاد لاستعراض المسارات"
           }
         },
         {
-          "type": "trusted-badges",
-          "variant": "balanced",
-          "settings": {
-            "title": "تجربة تعليمية متكاملة للأسرة",
-            "trustedBadgeItems": "مجموعات صغيرة بحد أقصى 6-10 طلاب،مشاريع عملية في نهاية كل مستوى،تقرير أسبوعي واضح لولي الأمر"
-          }
-        },
-        {
-          "type": "services-grid",
+          "type": "academy-story-stage",
           "variant": "standard",
           "settings": {
-            "badge": "أركان المنهج",
-            "title": "مهارات متكاملة تصنع الفارق",
-            "subtitle": "من التفكير المنطقي وكتابة الكود إلى بناء المنتجات وتقديمها أمام الجمهور.",
-            "columns": 4,
-            "items": [
-              { "title": "٠١ · البرمجة والتفكير", "description": "تأسيس عملي من الألعاب البصرية إلى Python وتطوير الويب." },
-              { "title": "٠٢ · الذكاء الاصطناعي", "description": "فهم وتدريب نماذج ذكية تتعرف على الصور والأصوات بأمان." },
-              { "title": "٠٣ · ريادة الأعمال", "description": "تحويل الأفكار التقنية إلى مشاريع واضحة القيمة." },
-              { "title": "٠٤ · مهارات العرض", "description": "تقديم المشروع النهائي بثقة في يوم العرض (Demo Day)." }
-            ]
+            "manifestoEyebrow": "PHILOSOPHY // المنهجية",
+            "manifestoText": "نحن لا نعلّم الأطفال حفظ الأوامر — بل نبني عقلية مهندس ورائد أعمال يصمم لعبته أو نموذج الذكاء الاصطناعي ويعرض مشروعه في Demo Day بثقة.",
+            "manifestoHighlights": ["مهندس ورائد أعمال", "الذكاء الاصطناعي", "Demo Day"],
+            "journeyBadge": "CURRICULUM ARCHITECTURE // مسار التطور",
+            "journeyTitle": "رحلة الطالب من الفكرة إلى منصة العرض",
+            "bentoBadge": "DEMO DAY // التخرج والعرض",
+            "bentoTitle": "لا ينتهي المسار باختبار — بل بعرض مشروع حقيقي أمام الجميع",
+            "bentoDescription": "كل طالب يبني مشروعاً عملياً ويقدم عرض Pitch متكامل يجمع البرمجة والذكاء الاصطناعي وريادة الأعمال.",
+            "ctaText": "احجز حصة التقييم المجانية",
+            "ctaLink": "/registration"
           }
         },
         {
           "type": "academy-interactive-lab",
           "variant": "standard",
           "settings": {
-            "badge": "معمل التجربة الحي",
+            "badge": "LIVE LAB // معمل التجربة التفاعلي",
             "title": "شوف بنفسك كيف يبني الطالب ذكاءً اصطناعياً وألعاباً حية",
             "subtitle": "جرّب نموذج الرؤية الحاسوبية أو محاكاة الفيزياء التي ينفذها طلابنا في الحصص التطبيقية.",
             "ctaText": "سجّل في حصة التقييم المجانية",
             "ctaLink": "/registration"
-          }
-        },
-        {
-          "type": "featured-products",
-          "variant": "editorial-card",
-          "settings": {
-            "title": "المسارات والدورات المتاحة",
-            "subtitle": "اختر المستوى المناسب لعمر الطالب وخبرته.",
-            "limit": 6
-          }
-        },
-        {
-          "type": "journal-strip",
-          "variant": "editorial-cards",
-          "settings": {
-            "badge": "مخرجات حقيقية",
-            "title": "مشاريع ينفذها الطلاب بأيديهم",
-            "subtitle": "نركز على التطبيق العملي وبناء معرض أعمال لكل طالب.",
-            "limit": 3,
-            "items": [
-              {
-                "title": "ألعاب تفاعلية بـ Scratch",
-                "meta": "المستوى التأسيسي",
-                "excerpt": "تصميم شخصيات ومستويات وقواعد لعب كاملة بالمنطق البرمجي.",
-                "image": "/assets/themes/academy-stage-3d/preview.png",
-                "link": "/shop"
-              },
-              {
-                "title": "تطبيقات الرؤية الحاسوبية",
-                "meta": "المستوى المتوسط",
-                "excerpt": "تدريب نماذج ذكاء اصطناعي لتمييز الصور وحركات اليد.",
-                "image": "/assets/themes/academy-stage-3d/preview.png",
-                "link": "/shop"
-              },
-              {
-                "title": "مواقع وتطبيقات بـ Python & Web",
-                "meta": "المستوى المتقدم",
-                "excerpt": "تطوير تطبيقات ويب كاملة وعرضها في يوم التخرج Demo Day.",
-                "image": "/assets/themes/academy-stage-3d/preview.png",
-                "link": "/collections"
-              }
-            ]
-          }
-        },
-        {
-          "type": "reviews",
-          "variant": "editorial",
-          "settings": {
-            "title": "آراء أولياء الأمور"
           }
         },
         {

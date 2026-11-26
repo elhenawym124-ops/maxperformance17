@@ -9,6 +9,7 @@ import { LegacyDefaultOldHeader } from "./subheaders/LegacyDefaultOldHeader";
 import { PcHubHeader } from "./subheaders/PcHubHeader";
 import { DigitalCommandHeader } from "./subheaders/DigitalCommandHeader";
 import { VelaFashionHeader } from "./subheaders/VelaFashionHeader";
+import { AcademyStageHeader } from "./subheaders/AcademyStageHeader";
 import { StandardStorefrontHeader } from "./subheaders/StandardStorefrontHeader";
 import { MarketplaceHeader } from "./subheaders/MarketplaceHeader";
 import { WarehouseMegaHeader } from "./subheaders/WarehouseMegaHeader";
@@ -27,7 +28,11 @@ import type { StorefrontHeaderProps } from "./storefrontHeaderTypes";
  */
 export const StorefrontHeader: React.FC<StorefrontHeaderProps> = (props) => {
   const controller = useStorefrontHeaderController(props);
-  const { isMinimal, isGracefulTheme, isMensGroomingPro, isRedlineAutoHeader, isKhemetLuxe, isKhemetUnifiedHeaderPath, isButcherAtelierHeader, isLegacyDefaultOldHeader, isPcHub, isDigitalCommandHeader, isVelaFashionHeader, isMarketplaceBazaarHeader, isWarehouseMegaHeader } = controller;
+  const { isMinimal, isAcademyStageHeader, isGracefulTheme, isMensGroomingPro, isRedlineAutoHeader, isKhemetLuxe, isKhemetUnifiedHeaderPath, isButcherAtelierHeader, isLegacyDefaultOldHeader, isPcHub, isDigitalCommandHeader, isVelaFashionHeader, isMarketplaceBazaarHeader, isWarehouseMegaHeader } = controller;
+
+  if (isAcademyStageHeader && !isMinimal) {
+    return <AcademyStageHeader controller={controller} />;
+  }
 
   // 0. Warehouse Mega-Search Header (Shopify Warehouse for wholesale / abayas)
   if (isWarehouseMegaHeader && !isMinimal) {

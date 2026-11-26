@@ -133,6 +133,7 @@ export const STOREFRONT_SECTION_COMPONENT_MAP: Readonly<Record<string, string>> 
   'dental-3d-showcase': 'dental-3d-showcase',
   'dental-sample-kit': 'dental-sample-kit',
   'academy-interactive-lab': 'academy-interactive-lab',
+  'academy-story-stage': 'academy-story-stage',
   'car-model-matcher': 'car-model-matcher',
   'automotive-bento': 'automotive-bento',
   'cookie-consent': 'cookie-consent',
