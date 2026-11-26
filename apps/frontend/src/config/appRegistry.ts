@@ -775,6 +775,7 @@ export const APP_REGISTRY: AppDefinition[] = [
     bgGradient: 'from-emerald-600 to-teal-700',
     sectionIds: ['marketplace-hub'],
     category: 'sales',
+    requiredApps: ['marketplace-hub'],
     displayName: 'مركز منصات البيع والأدوات',
     displayDescription: 'حاسبة أرباح أمازون ونون وجوميا وترينديول، مولد QR والباركود، ودليل فرص البيع',
     route: '/marketplace-hub',

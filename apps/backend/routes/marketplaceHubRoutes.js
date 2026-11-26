@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../utils/verifyToken');
+const { checkAppAccess } = require('../middleware/checkAppAccess');
 const controller = require('../controller/marketplaceHubController');
 
-// Isolated Marketplace Hub routes — authenticated & company-scoped
+// Isolated Marketplace Hub routes — authenticated, company-scoped & app-gated
 router.use(verifyToken.authenticateToken);
 router.use(verifyToken.requireCompanyAccess);
+router.use(checkAppAccess('marketplace-hub'));
 
 // Phase 1: Core Utilities
 router.get('/metadata', controller.getMetadata);

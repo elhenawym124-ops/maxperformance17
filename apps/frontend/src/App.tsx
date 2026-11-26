@@ -5471,12 +5471,14 @@ const AppContent = () => {
                     </Layout>
                   }
                 />
-                {/* Marketplace Hub Routes (Phase 1) */}
+                {/* Marketplace Hub Routes (Gated by marketplace-hub app subscription) */}
                 <Route
                   path="/marketplace-hub"
                   element={
                     <Layout>
-                      <MarketplaceHubHome />
+                      <AppAccessRoute requiredAppSlugs={['marketplace-hub']}>
+                        <MarketplaceHubHome />
+                      </AppAccessRoute>
                     </Layout>
                   }
                 />
@@ -5484,7 +5486,9 @@ const AppContent = () => {
                   path="/marketplace-hub/calculator"
                   element={
                     <Layout>
-                      <MarketplaceCalculatorPage />
+                      <AppAccessRoute requiredAppSlugs={['marketplace-hub']}>
+                        <MarketplaceCalculatorPage />
+                      </AppAccessRoute>
                     </Layout>
                   }
                 />
@@ -5492,7 +5496,9 @@ const AppContent = () => {
                   path="/marketplace-hub/qr-barcode"
                   element={
                     <Layout>
-                      <QrBarcodePage />
+                      <AppAccessRoute requiredAppSlugs={['marketplace-hub']}>
+                        <QrBarcodePage />
+                      </AppAccessRoute>
                     </Layout>
                   }
                 />
@@ -5500,7 +5506,9 @@ const AppContent = () => {
                   path="/marketplace-hub/opportunities"
                   element={
                     <Layout>
-                      <SellingOpportunitiesPage />
+                      <AppAccessRoute requiredAppSlugs={['marketplace-hub']}>
+                        <SellingOpportunitiesPage />
+                      </AppAccessRoute>
                     </Layout>
                   }
                 />
@@ -5508,7 +5516,9 @@ const AppContent = () => {
                   path="/marketplace-hub/studio"
                   element={
                     <Layout>
-                      <MarketplaceStudioPage />
+                      <AppAccessRoute requiredAppSlugs={['marketplace-hub']}>
+                        <MarketplaceStudioPage />
+                      </AppAccessRoute>
                     </Layout>
                   }
                 />
@@ -5516,7 +5526,9 @@ const AppContent = () => {
                   path="/marketplace-hub/market-ops"
                   element={
                     <Layout>
-                      <MarketplaceMarketOpsPage />
+                      <AppAccessRoute requiredAppSlugs={['marketplace-hub']}>
+                        <MarketplaceMarketOpsPage />
+                      </AppAccessRoute>
                     </Layout>
                   }
                 />
@@ -5524,7 +5536,9 @@ const AppContent = () => {
                   path="/marketplace-hub/channels"
                   element={
                     <Layout>
-                      <MarketplaceChannelsPage />
+                      <AppAccessRoute requiredAppSlugs={['marketplace-hub']}>
+                        <MarketplaceChannelsPage />
+                      </AppAccessRoute>
                     </Layout>
                   }
                 />
@@ -5532,7 +5546,9 @@ const AppContent = () => {
                   path="/marketplace-hub/dashboard"
                   element={
                     <Layout>
-                      <MarketplaceDashboardPage />
+                      <AppAccessRoute requiredAppSlugs={['marketplace-hub']}>
+                        <MarketplaceDashboardPage />
+                      </AppAccessRoute>
                     </Layout>
                   }
                 />

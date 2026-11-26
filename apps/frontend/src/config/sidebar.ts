@@ -1519,7 +1519,7 @@ export const getSidebarConfig = (
             id: 'marketplace-hub',
             title: t('sidebar.marketplaceHubSection', 'منصات البيع والأدوات'),
             icon: Store,
-            hidden: false,
+            hidden: !isAppActive('marketplace-hub'),
             items: [
                 { to: '/marketplace-hub', icon: LayoutDashboard, label: t('sidebar.marketplaceHubHome', 'نظرة عامة') },
                 { to: '/marketplace-hub/dashboard', icon: BarChart3, label: t('sidebar.marketplaceHubDashboard', 'تحليلات القنوات') },

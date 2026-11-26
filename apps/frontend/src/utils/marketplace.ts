@@ -177,6 +177,7 @@ export const APP_ROUTE_MAP: Record<string, string> = {
   "affiliate-program": "/affiliates/dashboard",
   "affiliate-pro": "/affiliates/dashboard",
   "amazon-affiliate-pro": "/amazon-affiliate",
+  "marketplace-hub": "/marketplace-hub",
   "medical-system": "/doctor/dashboard",
   "dental-lab-app": "/dental-lab",
   "dental-materials-pro": "/dental-lab/materials",
