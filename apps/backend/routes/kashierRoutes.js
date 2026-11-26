@@ -688,6 +688,31 @@ router.post('/kashier/webhook', async (req, res) => {
       return res.json({ success: true, ...activation });
     }
 
+    // 1.6 AI Credits Top-Up (AIC-<companyTail>-<ts> or metaData.type = AI_CREDITS_TOPUP)
+    const isAiCreditsTopup =
+      metaData.type === 'AI_CREDITS_TOPUP' ||
+      (orderNumber && orderNumber.startsWith('AIC-'));
+
+    if (isAiCreditsTopup) {
+      const aiCreditPricingService = require('../services/aiCreditPricingService');
+      if (!isSuccess) {
+        await prisma.aiCreditTransaction?.updateMany?.({
+          where: { referenceId: orderNumber, status: 'PENDING', type: 'PENDING_TOPUP' },
+          data: { status: 'FAILED' },
+        }).catch(() => {});
+        return res.json({ success: true, message: 'AI credits payment failure acknowledged' });
+      }
+      const result = await aiCreditPricingService.fulfillExternalTopup({
+        companyId: metaData.companyId || null,
+        referenceId: orderNumber,
+        method: 'KASHIER',
+        packageId: metaData.packageId || null,
+        amountEgp: Number(eventData.amount || rawBody.amount || metaData.amountEgp || 0) || null,
+        approvedBy: 'kashier_webhook',
+      });
+      return res.json({ success: true, aiCredits: { fulfilled: !result.alreadyFulfilled } });
+    }
+
     // 2. Order flow: Find order by orderNumber, or sessionId in metadata
     let order = null;
     let isGuest = false;

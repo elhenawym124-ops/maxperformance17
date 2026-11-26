@@ -409,6 +409,7 @@ const textGalleryRoutes = require("./routes/textGalleryRoutes");
 const turboRoutes = require("./routes/turboRoutes");
 const bostaRoutes = require("./routes/bostaRoutes");
 const qpExpressRoutes = require("./routes/qpExpressRoutes");
+const hashtagRoutes = require("./routes/hashtagRoutes");
 const lgRoutes = require("./routes/lgRoutes");
 const shippingCompaniesRoutes = require("./routes/shippingCompaniesRoutes");
 const shipmentsRoutes = require("./routes/shipmentsRoutes");
@@ -428,6 +429,7 @@ const bulkStatusUpdateRoutes = require("./routes/bulkStatusUpdateRoutes");
 const easyWarehouseRoutes = require("./routes/easyWarehouseRoutes");
 const turboWebhookRoutes = require("./routes/turboWebhook");
 const bostaWebhookRoutes = require("./routes/bostaWebhook");
+const hashtagWebhookRoutes = require("./routes/hashtagWebhook");
 const walletPaymentRoutes = require("./routes/walletPayment");
 const warehouseRoutes = require("./routes/warehouseRoutes");
 const webhookRoutes = require("./routes/webhookRoutes");
@@ -836,6 +838,7 @@ app.use("/api/v1/turbo-webhook", turboWebhookRoutes);
 app.use("/api/v1/turbo", turboWebhookRoutes);
 app.use("/api/v1/shipments", turboWebhookRoutes);
 app.use("/api/v1/bosta-webhook", bostaWebhookRoutes);
+app.use("/api/v1/hashtag-webhook", hashtagWebhookRoutes);
 app.use("/health", healthRoute);
 app.use("/api/v1/health", healthRoute);
 app.use("/api/health", healthRoute);
@@ -1180,6 +1183,7 @@ app.use("/api/v1/woocommerce", wooCommerceRoutes);
 app.use("/api/v1/turbo", turboRoutes);
 app.use("/api/v1/bosta", bostaRoutes);
 app.use("/api/v1/qp-express", qpExpressRoutes);
+app.use("/api/v1/hashtag", hashtagRoutes);
 app.use("/api/v1/lg", lgRoutes);
 
 // Professional Tools
@@ -1438,6 +1442,11 @@ app.use("/api/v1/ai-video", videoGenerationRoutes);
 const videoStudioRoutes = require("./routes/videoStudioRoutes");
 app.use("/api/v1/video-studio", videoStudioRoutes);
 app.use("/api/v1/video-studio/admin", videoStudioRoutes.superAdminRouter);
+
+// AI Agent, Token & Credit Pricing + Top-up
+const aiCreditsRoutes = require("./routes/aiCreditsRoutes");
+app.use("/api/v1/ai-credits", aiCreditsRoutes);
+app.use("/api/v1/ai-credits/admin", aiCreditsRoutes.superAdminRouter);
 
 // Frontend error tracking
 app.use("/api/v1/errors", errorRoutes);

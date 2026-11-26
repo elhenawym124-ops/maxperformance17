@@ -218,6 +218,13 @@ const CustomerPayments = () => {
         <div className="flex items-center gap-2">
           <button
             type="button"
+            onClick={() => navigate("/admin/ai-credits")}
+            className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg border border-border/70 bg-card text-foreground text-xs font-medium hover:bg-muted/50 active:scale-[0.98] transition-all shrink-0 cursor-pointer"
+          >
+            <span>كريدت الـ AI</span>
+          </button>
+          <button
+            type="button"
             onClick={() => setShowRechargeModal(true)}
             className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-primary text-primary-foreground text-xs font-medium hover:opacity-90 active:scale-[0.98] transition-all shrink-0 cursor-pointer shadow-xs"
           >

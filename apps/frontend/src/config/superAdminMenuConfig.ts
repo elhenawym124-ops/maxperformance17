@@ -42,6 +42,7 @@ import {
   ShieldAlert,
   Smartphone,
   Clapperboard,
+  Coins,
 } from "lucide-react";
 
 export interface SuperAdminMenuItem {
@@ -238,6 +239,11 @@ export const getSuperAdminMenuGroups = (
         text: t("superAdmin.sidebar.aiConsumption") || "استهلاك الذكاء الاصطناعي",
         icon: ic(BarChart3, "h-4 w-4"),
         path: "/super-admin/ai-consumption", // path="/super-admin/ai-consumption"
+      },
+      {
+        text: "تسعير الوكلاء والكريدت",
+        icon: ic(Coins, "h-4 w-4"),
+        path: "/super-admin/ai-pricing", // path="/super-admin/ai-pricing"
       },
       {
         text: t("superAdmin.selfReview.sidebar") || "المراجعة الذاتية ومتابعة AI",

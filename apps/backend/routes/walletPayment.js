@@ -490,7 +490,11 @@ router.post('/admin/review-receipt/:id', authenticateToken, requireSuperAdmin, a
           }
         });
 
-        // إذا تم الموافقة، تحديث حالة الفاتورة وإنشاء سجلات الدفع وإضافة رصيد المحفظة
+        const isAiCreditTopupInvoice =
+          String(receipt.invoice?.invoiceNumber || '').startsWith('AIC-') ||
+          String(receipt.invoice?.notes || '').startsWith('AI_CREDITS_TOPUP:');
+
+        // إذا تم الموافقة، تحديث حالة الفاتورة وإنشاء سجلات الدفع وإضافة الرصيد
         if (resolvedAction === 'approve') {
           const approvedAmount = Number(receipt.invoice.totalAmount);
           const companyId = receipt.invoice.companyId;
@@ -514,21 +518,23 @@ router.post('/admin/review-receipt/:id', authenticateToken, requireSuperAdmin, a
             }
           });
 
-          // 4. 💰 إضافة رصيد المحفظة للشركة وتحديث إجمالي الإيداع
-          const updatedWallet = await tx.companyWallet.upsert({
-            where: { companyId },
-            update: {
-              balance: { increment: approvedAmount },
-              totalDeposited: { increment: approvedAmount },
-              updatedAt: new Date()
-            },
-            create: {
-              companyId,
-              balance: approvedAmount,
-              totalDeposited: approvedAmount,
-              currency: receipt.invoice.currency || 'EGP'
-            }
-          });
+          if (!isAiCreditTopupInvoice) {
+            // 4. 💰 إضافة رصيد المحفظة للشركة وتحديث إجمالي الإيداع
+            const updatedWallet = await tx.companyWallet.upsert({
+              where: { companyId },
+              update: {
+                balance: { increment: approvedAmount },
+                totalDeposited: { increment: approvedAmount },
+                updatedAt: new Date()
+              },
+              create: {
+                companyId,
+                balance: approvedAmount,
+                totalDeposited: approvedAmount,
+                currency: receipt.invoice.currency || 'EGP'
+              }
+            });
+          }
 
           // 5. 🚀 إنشاء سجل BillingHistory لتفعيل نظام عمولات الشركاء
           const billing = await tx.billingHistory.create({
@@ -536,14 +542,39 @@ router.post('/admin/review-receipt/:id', authenticateToken, requireSuperAdmin, a
               companyId,
               type: 'PLATFORM_FEE',
               amount: approvedAmount,
-              description: 'دفع عبر المحفظة الإلكترونية - موافق عليه',
+              description: isAiCreditTopupInvoice
+                ? 'شحن رصيد كريدت AI عبر التحويل اليدوي - موافق عليه'
+                : 'دفع عبر المحفظة الإلكترونية - موافق عليه',
               status: 'SUCCESS'
             }
           });
           billingHistoryId = billing.id;
+        } else if (isAiCreditTopupInvoice && tx.aiCreditTransaction?.updateMany) {
+          await tx.aiCreditTransaction.updateMany({
+            where: { referenceId: receipt.invoiceId, status: 'PENDING', type: 'PENDING_TOPUP' },
+            data: { status: 'FAILED' }
+          });
         }
       });
     });
+
+    // إذا كان الإيصال خاصاً بشحن كريدت الذكاء الاصطناعي، فعّل الكريدت ذرياً
+    if (
+      resolvedAction === 'approve' &&
+      (String(receipt.invoice?.invoiceNumber || '').startsWith('AIC-') ||
+        String(receipt.invoice?.notes || '').startsWith('AI_CREDITS_TOPUP:'))
+    ) {
+      const aiCreditPricingService = require('../services/aiCreditPricingService');
+      const noteMatch = String(receipt.invoice?.notes || '').match(/^AI_CREDITS_TOPUP:([^:]+):/);
+      await aiCreditPricingService.fulfillExternalTopup({
+        companyId: receipt.invoice.companyId,
+        referenceId: receipt.invoiceId,
+        method: 'RECEIPT',
+        packageId: noteMatch ? noteMatch[1] : null,
+        amountEgp: Number(receipt.invoice.totalAmount),
+        approvedBy: req.user?.id || req.user?.email || 'admin',
+      });
+    }
 
     // 🚀 توزيع العمولات على شركاء الإحالة بشكل غير متزامن
     if (billingHistoryId) {

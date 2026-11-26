@@ -420,6 +420,21 @@ async function sendMessage(req, res) {
     let result = null;
     const targetAgentId = agentId || agentSlug || await resolveDefaultCopilotAgent(companyId);
 
+    // Pre-flight AI Credit allowance check (respects enforcementMode & BYOK)
+    const aiCreditPricingService = require('../services/aiCreditPricingService');
+    const creditAllowance = await aiCreditPricingService.checkCreditAllowance({
+      companyId,
+      estimatedCredits: 1,
+    }).catch(() => ({ allowed: true, billingMode: 'SHADOW' }));
+    if (!creditAllowance.allowed) {
+      return res.status(402).json({
+        success: false,
+        code: creditAllowance.reason || 'INSUFFICIENT_AI_CREDITS',
+        error: 'رصيد كريدت الذكاء الاصطناعي غير كافٍ. يرجى شحن الرصيد للمتابعة.',
+        topupUrl: '/admin/ai-credits',
+      });
+    }
+
     console.log('[AI-CHAT-REQ]', JSON.stringify({
       requestId,
       companyId,
@@ -610,6 +625,30 @@ async function sendMessage(req, res) {
       });
     }
 
+    let creditUsage = null;
+    try {
+      const toolCount = Array.isArray(result?.toolCalls) ? result.toolCalls.length : 0;
+      const estimatedIn = Math.max(100, Math.ceil(effectiveMessage.length * 1.2) + 800);
+      const estimatedOut = Math.max(40, Math.ceil(String(result?.reply || '').length * 1.2));
+      const metered = await aiCreditPricingService.meterAndDeductAiUsage({
+        companyId,
+        source: toolCount > 0 || (targetAgentId && targetAgentId !== 'CEO') ? 'AGENT_RUN' : 'CHAT',
+        modelName: result?.modelSelection?.model || 'deepseek-flash',
+        inputTokens: result?.usage?.input_tokens || result?.usage?.prompt_tokens || estimatedIn,
+        outputTokens: result?.usage?.output_tokens || result?.usage?.completion_tokens || estimatedOut,
+        agentSteps: toolCount,
+        referenceId: requestId,
+        description: `محادثة وكيل (${targetAgentId || 'copilot'})`,
+      });
+      creditUsage = {
+        deducted: metered?.deducted || 0,
+        billingMode: metered?.billingMode || 'PLATFORM',
+        balanceAfter: metered?.wallet ? (Number(metered.wallet.balance || 0) + Number(metered.wallet.includedBalance || 0)) : null,
+      };
+    } catch (meterErr) {
+      console.warn('[AI-CHAT-CTRL] AI credit metering warning:', meterErr.message);
+    }
+
     return res.json({
       success: true,
       reply: result.reply,
@@ -618,6 +657,7 @@ async function sendMessage(req, res) {
       toolCalls: result.toolCalls || [],
       agentInfo: result.agentInfo || null,
       modelSelection: result.modelSelection || null,
+      creditUsage,
       conversationId: activeSessionId,
       threadId: activeSessionId,
       session: { id: activeSessionId },
