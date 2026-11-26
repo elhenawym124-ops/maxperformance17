@@ -309,4 +309,58 @@ describe('turboAiAreaResolver', () => {
     expect(result.resolved).toBe(true);
     expect(result.area).toBe('كفر عبده');
   });
+
+  test('logs activity event with AI actor and before/after values when area or governorate is updated', async () => {
+    const { resolveAndApplyTurboLocation } = require('../../../services/turbo/turboAiAreaResolver');
+    const turboService = createMockTurboService({
+      governments: [{ id: '3', name: 'الإسكندرية' }],
+      areasByGov: { '3': [{ id: '301', name: 'كفر عبده' }] },
+    });
+    const prisma = createMockPrisma();
+    prisma.order = { update: jest.fn().mockResolvedValue({}) };
+    prisma.activityLog = { create: jest.fn().mockResolvedValue({ id: 'log_1' }) };
+
+    callChatCompletion.mockResolvedValueOnce(
+      JSON.stringify({
+        area: 'كفر عبده',
+        governorate: 'الإسكندرية',
+        confidence: 0.95,
+        reason: 'Matched Kafr Abdo in Alexandria',
+      })
+    );
+
+    const order = {
+      id: 'ord_1',
+      orderNumber: 'ORD-1001',
+      governorate: 'الإسكندرية',
+      city: 'Alexandria',
+      metadata: '{}',
+    };
+    const orderData = {
+      governorate: 'الإسكندرية',
+      city: 'Alexandria',
+      shippingAddress: '5 شارع نبيل شاكر - حي غير مكتوب',
+    };
+
+    const result = await resolveAndApplyTurboLocation({
+      prisma,
+      turboService,
+      companyId: 'comp_1',
+      order,
+      orderData,
+    });
+
+    expect(result.resolved).toBe(true);
+    expect(prisma.order.update).toHaveBeenCalledTimes(1);
+    expect(prisma.activityLog.create).toHaveBeenCalledTimes(1);
+    const logData = prisma.activityLog.create.mock.calls[0][0].data;
+    expect(logData.action).toBe('order.updated');
+    expect(logData.targetType).toBe('order');
+    expect(logData.targetId).toBe('ord_1');
+    const logMeta = JSON.parse(logData.metadata);
+    expect(logMeta.actorToken).toBe('AI');
+    expect(logMeta.userName).toBe('الذكاء الاصطناعي (Turbo Area Resolver)');
+    expect(logMeta.before).toEqual({ governorate: 'الإسكندرية', city: 'Alexandria' });
+    expect(logMeta.after).toEqual({ governorate: 'الإسكندرية', city: 'كفر عبده' });
+  });
 });

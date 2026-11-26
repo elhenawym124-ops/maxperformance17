@@ -7,6 +7,7 @@
 const { getBestShippingAddressFields, cleanLocationName } = require('../../utils/turbo/addressParser');
 const { getTurboGovernorateName, isUnspecified, normalizeArabic } = require('../../utils/turbo/governorateMapper');
 const { resolveAiKey, callChatCompletion } = require('../radiologyAiDraftService');
+const { logOrderEvent, ORDER_EVENT_ACTIONS } = require('../orderEventLogger');
 
 const AI_PROVIDER_PREFERENCE = ['GOOGLE', 'OPENROUTER', 'OPENAI', 'GROQ', 'ANTHROPIC', 'DEEPSEEK', 'MISTRAL', 'NVIDIA', 'HUGGINGFACE', 'OLLAMA'];
 const AI_BASE_URLS = {
@@ -506,6 +507,8 @@ async function resolveAndApplyTurboLocation({ prisma, turboService, companyId, o
         },
       });
 
+      const prevGovernorate = order.governorate || null;
+      const prevCity = order.city || null;
       const persistData = { metadata: updatedMeta };
       if (isUnspecified(order.governorate) || normalizeArabic(order.governorate) !== normalizeArabic(resolution.governorate)) {
         persistData.governorate = resolution.governorate;
@@ -525,6 +528,26 @@ async function resolveAndApplyTurboLocation({ prisma, turboService, companyId, o
         await prisma.order.update({ where: { id: order.id }, data: persistData }).catch(() => {});
         if (order.orderNumber && prisma.guestOrder?.updateMany) {
           await prisma.guestOrder.updateMany({ where: { orderNumber: order.orderNumber, companyId }, data: persistData }).catch(() => {});
+        }
+        if (persistData.governorate !== undefined || persistData.city !== undefined) {
+          await logOrderEvent({
+            prisma,
+            companyId,
+            orderId: order.id,
+            orderNumber: order.orderNumber || null,
+            action: ORDER_EVENT_ACTIONS.ORDER_UPDATED,
+            userId: 'AI',
+            actorId: 'AI',
+            userName: 'الذكاء الاصطناعي (Turbo Area Resolver)',
+            description: `تعديل منطقة/محافظة الطلب ${order.orderNumber || ''} تلقائياً عبر الذكاء الاصطناعي (${prevCity || 'غير محدد'} ← ${resolution.area})`,
+            before: { governorate: prevGovernorate, city: prevCity },
+            after: { governorate: resolution.governorate, city: resolution.area },
+            metadata: {
+              source: resolution.source || 'ai_turbo_map',
+              confidence: resolution.confidence,
+              reason: resolution.reason,
+            },
+          });
         }
       }
     } catch (persistErr) {
