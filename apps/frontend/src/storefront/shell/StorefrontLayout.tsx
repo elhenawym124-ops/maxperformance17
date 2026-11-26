@@ -6,6 +6,7 @@ import StorePromotionBar from '../components/StorePromotionBar';
 import { DeferredCartDrawerHost } from '../components/DeferredCartDrawerHost';
 import MobileBottomNav from '../components/MobileBottomNav';
 import GracefulScrollTop from '../components/GracefulScrollTop';
+import FloatingContactWidget from '../components/FloatingContactWidget';
 import IntruderNftBackground from './StorefrontBackgroundEffects';
 import StorefrontRoutes from './StorefrontRoutes';
 import { useStorefrontLayoutController } from './useStorefrontLayoutController';
@@ -172,6 +173,18 @@ export const StorefrontLayout: React.FC<StorefrontLayoutProps> = (props) => {
 
       {showMobileBottomNav && (
         <MobileBottomNav onSearchOpen={() => search.setIsOpen(true)} />
+      )}
+
+      {!isProductImageLandingPage && (
+        <FloatingContactWidget
+          designTokens={{
+            ...((theme as any)?.designTokens || {}),
+            ...(((settings as any)?.designTokens as Record<string, unknown>) || {}),
+            ...((settings?.storefront?.designTokens as Record<string, unknown>) || {}),
+          }}
+          locale={currentLocale === 'en' ? 'en' : 'ar'}
+          hasMobileBottomNav={showMobileBottomNav}
+        />
       )}
 
       {showMobileBottomNav && (

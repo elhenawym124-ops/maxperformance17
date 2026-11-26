@@ -127,6 +127,13 @@ const StoreSettings: React.FC<StoreSettingsProps> = ({
                 >) || {}
               }
               onSocialLinksChange={ctrl.handleChangeStorefrontSocialLinks}
+              designTokens={
+                (ctrl.storefrontSettings?.designTokens as Record<
+                  string,
+                  unknown
+                >) || {}
+              }
+              onDesignTokensChange={ctrl.handleChangeStorefrontDesignTokens}
               onSave={ctrl.handleSaveFooter}
               onReset={ctrl.handleResetFooter}
               loading={ctrl.loading}

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { hslTripletToHex, hexToHslTriplet } from "./utils/hslColorBridge";
 import { StudioThemeTokensEditor } from "./tokens/StudioThemeTokensEditor";
 import { ARABIC_FONT_DEFINITIONS } from "../utils/arabicTypography";
+import { FloatingContactSettingsEditor } from "../../components/store/FloatingContactSettingsEditor";
 import {
   ShoppingBagIcon,
   CheckCircleIcon,
-  ChatBubbleLeftRightIcon,
   SpeakerWaveIcon,
   LinkIcon,
   RocketLaunchIcon,
@@ -59,12 +59,6 @@ export const StudioThemeSettingsPanel: React.FC<StudioThemeSettingsPanelProps> =
   const announcement = (designTokens?.announcement as any) || {
     enabled: false,
     text: "شحن مجاني للطلبات فوق 500 جنيه لفترة محدودة!",
-  };
-
-  const whatsapp = (designTokens?.whatsapp as any) || {
-    enabled: false,
-    phoneNumber: "",
-    message: "مرحباً، أود الاستفسار عن منتج...",
   };
 
   const menuLinks = (designTokens?.navigation as any)?.menu || [
@@ -478,45 +472,12 @@ export const StudioThemeSettingsPanel: React.FC<StudioThemeSettingsPanelProps> =
         )}
       </div>
 
-      {/* 7. WhatsApp Floating Widget */}
-      <div className="rounded-2xl border border-border/80 bg-background/50 p-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <h3 className="font-black text-foreground flex items-center gap-1.5">
-            <ChatBubbleLeftRightIcon className="h-4 w-4 text-emerald-500" />
-            <span>زر واتساب العائم للتواصل السريع</span>
-          </h3>
-          <input
-            type="checkbox"
-            checked={whatsapp.enabled}
-            onChange={(e) => updateTokens({ whatsapp: { ...whatsapp, enabled: e.target.checked } })}
-            className="h-4 w-4 rounded border-border text-primary focus:ring-primary cursor-pointer"
-          />
-        </div>
-        {whatsapp.enabled && (
-          <div className="space-y-2 pt-2 border-t border-border/60">
-            <div>
-              <label className="mb-1 block text-[10px] text-muted-foreground">رقم الواتساب مع كود الدولة</label>
-              <input
-                type="text"
-                value={whatsapp.phoneNumber}
-                onChange={(e) => updateTokens({ whatsapp: { ...whatsapp, phoneNumber: e.target.value } })}
-                placeholder="201012345678"
-                className="w-full rounded-xl border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:border-primary focus:outline-none font-mono"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-[10px] text-muted-foreground">الرسالة المبدئية</label>
-              <input
-                type="text"
-                value={whatsapp.message}
-                onChange={(e) => updateTokens({ whatsapp: { ...whatsapp, message: e.target.value } })}
-                placeholder="مرحباً، أود الاستفسار عن منتج..."
-                className="w-full rounded-xl border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:border-primary focus:outline-none"
-              />
-            </div>
-          </div>
-        )}
-      </div>
+      {/* 7. Floating Contact Widget (WhatsApp & Multi-Channel) */}
+      <FloatingContactSettingsEditor
+        designTokens={designTokens}
+        onUpdateDesignTokens={(nextTokens) => onUpdateThemeTokens?.(nextTokens)}
+        compact
+      />
 
       {/* 8. Landing Page Mode */}
       <div className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-4 space-y-2">

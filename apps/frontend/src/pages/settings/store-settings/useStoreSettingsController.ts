@@ -843,6 +843,15 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
     }));
   };
 
+  const handleChangeStorefrontDesignTokens = (
+    nextDesignTokens: Record<string, unknown>,
+  ) => {
+    setStorefrontSettings((current) => ({
+      ...current,
+      designTokens: nextDesignTokens,
+    }));
+  };
+
   const handleSaveSeoSettings = async (seoData: {
     title: string;
     description: string;
@@ -954,6 +963,7 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
     handleToggleWishlist,
     handleToggleComparison,
     handleChangeStorefrontSocialLinks,
+    handleChangeStorefrontDesignTokens,
     handleSaveSeoSettings,
   };
 }
