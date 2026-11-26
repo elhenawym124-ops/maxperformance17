@@ -61,10 +61,10 @@ export default function TemplateFilterBar({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="ابحث بالاسم أو الكود..."
-            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 pe-9 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+            className="w-full rounded-lg border border-border/70 bg-background px-3 py-1.5 pe-9 text-sm text-foreground focus:border-primary focus:ring-1 focus:ring-primary"
           />
           <svg
-            className="absolute end-3 top-2.5 h-4 w-4 text-slate-400"
+            className="absolute end-3 top-2.5 h-4 w-4 text-muted-foreground"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -80,7 +80,7 @@ export default function TemplateFilterBar({
         </div>
 
         {config.features.enableFilterChips && (
-          <div className="flex flex-wrap items-center gap-1">
+          <div className="flex flex-wrap items-center gap-1 min-w-0 max-w-full">
             {([
               { key: "all", labelKey: "orders.statusChips.all", label: "الكل" },
               { key: "custom", labelKey: "orders.statusChips.custom", label: "مخصصة" },
@@ -94,8 +94,8 @@ export default function TemplateFilterBar({
                 onClick={() => setActiveChip(chip.key)}
                 className={`rounded-full px-3 py-1 text-xs font-medium transition ${
                   activeChip === chip.key
-                    ? "bg-indigo-600 text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
               >
                 {t(chip.labelKey, chip.label)}
@@ -107,7 +107,8 @@ export default function TemplateFilterBar({
         <select
           value={sortMode}
           onChange={(e) => setSortMode(e.target.value as SortMode)}
-          className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+          aria-label="ترتيب الحالات"
+          className="rounded-lg border border-border/70 bg-background px-2 py-1.5 text-xs text-foreground"
         >
           {config.features.sortModes.includes("statusType") && <option value="statusType">حسب التبويب</option>}
           {config.features.sortModes.includes("alphabetical") && <option value="alphabetical">أبجدي</option>}
@@ -115,12 +116,12 @@ export default function TemplateFilterBar({
         </select>
 
         {config.features.enableInternalToggle && (
-          <label className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+          <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <input
               type="checkbox"
               checked={showInternal}
               onChange={(e) => setShowInternal(e.target.checked)}
-              className="h-3.5 w-3.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+              className="h-3.5 w-3.5 rounded border-border/70 text-primary focus:ring-primary"
             />
             عرض الحالات الداخلية ({internalCount})
           </label>

@@ -263,7 +263,7 @@ export default function StatusReportTab({ statuses, config }: StatusReportTabPro
   };
 
   return (
-    <div className="space-y-4">
+    <div data-testid="status-report-tab" className="space-y-4">
       {/* Toolbar: تاريخ + فلترة + تصدير */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200/70 bg-white p-3 dark:border-white/10 dark:bg-slate-900/50">
         <div className="flex flex-wrap items-center gap-1.5">

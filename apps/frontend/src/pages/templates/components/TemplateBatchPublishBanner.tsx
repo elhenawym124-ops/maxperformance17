@@ -28,10 +28,10 @@ export default function TemplateBatchPublishBanner({
           <GlobeAltIcon className="size-5" />
         </div>
         <div className="min-w-0">
-          <p className="text-xs font-semibold text-slate-800 dark:text-slate-100">
+          <p className="text-xs font-semibold text-foreground">
             قوالب Meta الرسمية جاهزة ({unsubmittedCount} قالب جاهز)
           </p>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400">
+          <p className="text-[11px] text-muted-foreground">
             تم تجهيز قوالب الحالات تلقائياً بمعايير Meta المعتمدة. اضغط لإرسالها لميتا للمراجعة والاعتماد لأول مرة.
           </p>
         </div>
@@ -41,7 +41,7 @@ export default function TemplateBatchPublishBanner({
           <select
             value={selectedMetaSession}
             onChange={(e) => onSelectMetaSession(e.target.value)}
-            className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+            className="rounded-lg border border-border/70 bg-background px-2.5 py-1 text-xs text-foreground"
           >
             {metaSessions.map((s) => (
               <option key={s.id} value={s.id}>

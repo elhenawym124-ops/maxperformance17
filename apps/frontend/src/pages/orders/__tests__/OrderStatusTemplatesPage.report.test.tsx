@@ -2,7 +2,7 @@
  * تقارير الحالات — تبويب التقرير اليومي: الملخص + جدول الحالات + التفاصيل.
  */
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import OrderStatusTemplatesPage from "../OrderStatusTemplatesPage";
@@ -29,52 +29,35 @@ const { apiClient } = require("../../../services/apiClient") as {
 };
 
 const REPORT = {
-  success: true,
-  range: { startDate: "2026-08-11", endDate: "2026-08-11" },
-  summary: { total: 4, meta: 2, regular: 2, delivered: 2, sent: 1, read: 0, failed: 1, pending: 0 },
-  byStatus: [
-    { eventType: "ORDER_CONFIRMED", total: 2, meta: 2, regular: 0, delivered: 2, sent: 0, read: 0, failed: 0, pending: 0 },
-    { eventType: "ORDER_SHIPPED", total: 2, meta: 0, regular: 2, delivered: 0, sent: 1, read: 0, failed: 1, pending: 0 },
-  ],
+  totals: { total: 4, meta: 2, regular: 2, delivered: 2, failed: 1 },
+  byEvent: {
+    CONFIRMED: { total: 2, meta: 2, regular: 0, delivered: 2, failed: 0 },
+    SHIPPED: { total: 2, meta: 0, regular: 2, delivered: 0, failed: 1 },
+  },
   items: [
     {
       id: "l1",
-      eventType: "ORDER_CONFIRMED",
-      orderId: "o1",
+      eventType: "SHIPPED",
       orderNumber: "ORD-100",
       customerName: "أحمد",
-      recipientPhone: "201000000000",
-      templateName: "قالب التأكيد",
-      metaTemplateName: "order_confirm_ar",
-      templateChannel: "META_CLOUD",
-      headerUsesOrderProduct: true,
-      messageType: "TEMPLATE",
+      customerPhone: "201000000000",
+      provider: "META_CLOUD",
       status: "DELIVERED",
-      sentAt: "2026-08-11T10:00:00Z",
       createdAt: "2026-08-11T10:00:00Z",
-      failureReason: null,
-      errorCode: null,
+      errorMessage: null,
     },
     {
       id: "l2",
-      eventType: "ORDER_SHIPPED",
-      orderId: "o2",
+      eventType: "SHIPPED",
       orderNumber: "ORD-101",
       customerName: "محمد",
-      recipientPhone: "201111111111",
-      templateName: "قالب الشحن",
-      metaTemplateName: null,
-      templateChannel: "AUTO",
-      headerUsesOrderProduct: null,
-      messageType: "TEXT",
+      customerPhone: "201111111111",
+      provider: "BAILEYS",
       status: "FAILED",
-      sentAt: "2026-08-11T11:00:00Z",
       createdAt: "2026-08-11T11:00:00Z",
-      failureReason: "rejected",
-      errorCode: "131047",
+      errorMessage: "rejected",
     },
   ],
-  pagination: { page: 1, limit: 200, total: 2, pages: 1 },
 };
 
 function mockApi() {
@@ -100,7 +83,10 @@ function mockApi() {
       return Promise.resolve({ data: { sessions: [] } });
     }
     if (url === "/whatsapp/notifications/status-report") {
-      return Promise.resolve({ data: REPORT });
+      return Promise.resolve({ data: { success: true, data: REPORT } });
+    }
+    if (url === "/whatsapp-templates/templates/report/status-messages") {
+      return Promise.resolve({ data: { success: true, data: REPORT.items } });
     }
     return Promise.resolve({ data: {} });
   });
@@ -124,24 +110,24 @@ describe("OrderStatusTemplatesPage تقارير الحالات", () => {
     renderPage();
     const user = userEvent.setup();
 
-    await user.click(await screen.findByRole("button", { name: /تقارير الحالات/ }));
+    await user.click(await screen.findByRole("tab", { name: /تقارير الحالات/ }));
 
-    expect(await screen.findByTestId("status-report-tab")).toBeInTheDocument();
+    const tabPanel = await screen.findByTestId("status-report-tab");
     expect(apiClient.get).toHaveBeenCalledWith(
       expect.stringContaining("status-report"),
       expect.objectContaining({ params: expect.objectContaining({ startDate: expect.any(String) }) }),
     );
 
     await waitFor(() => {
-      expect(screen.getByText("إجمالي الإرسالات")).toBeInTheDocument();
+      expect(within(tabPanel).getByText("إجمالي الإرسالات")).toBeInTheDocument();
     });
-    expect(screen.getAllByText("قالب ميتا").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("واتساب عادي").length).toBeGreaterThanOrEqual(1);
+    expect(within(tabPanel).getAllByText("قوالب ميتا").length).toBeGreaterThanOrEqual(1);
+    expect(within(tabPanel).getAllByText("واتساب عادي").length).toBeGreaterThanOrEqual(1);
 
-    expect(screen.getByText("مؤكد")).toBeInTheDocument();
-    expect(screen.getByText("تم الشحن")).toBeInTheDocument();
+    expect(within(tabPanel).getByText("مؤكد")).toBeInTheDocument();
+    expect(within(tabPanel).getByText("تم الشحن")).toBeInTheDocument();
 
-    const orderConfirmedRow = screen.getAllByRole("row").find((r) => r.textContent?.includes("مؤكد"));
+    const orderConfirmedRow = within(tabPanel).getAllByRole("row").find((r) => r.textContent?.includes("مؤكد"));
     expect(orderConfirmedRow?.textContent).toContain("2");
   });
 
@@ -150,22 +136,22 @@ describe("OrderStatusTemplatesPage تقارير الحالات", () => {
     renderPage();
     const user = userEvent.setup();
 
-    await user.click(await screen.findByRole("button", { name: /تقارير الحالات/ }));
-    await screen.findByTestId("status-report-tab");
-    await waitFor(() => expect(screen.getByText("إجمالي الإرسالات")).toBeInTheDocument());
+    await user.click(await screen.findByRole("tab", { name: /تقارير الحالات/ }));
+    const tabPanel = await screen.findByTestId("status-report-tab");
+    await waitFor(() => expect(within(tabPanel).getByText("إجمالي الإرسالات")).toBeInTheDocument());
 
-    const row = screen.getAllByRole("row").find((r) => r.textContent?.includes("تم الشحن"));
+    const row = within(tabPanel).getAllByRole("row").find((r) => r.textContent?.includes("تم الشحن"));
     expect(row).toBeTruthy();
     await user.click(row!);
 
     await waitFor(() => {
-      expect(screen.getByText("ORD-101")).toBeInTheDocument();
-      expect(screen.getByText("محمد")).toBeInTheDocument();
+      expect(within(tabPanel).getByText("ORD-101")).toBeInTheDocument();
+      expect(within(tabPanel).getByText("محمد")).toBeInTheDocument();
     });
 
-    expect(screen.getAllByText("☁️ ميتا").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("📱 عادي").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("فشل").length).toBeGreaterThanOrEqual(1);
+    expect(within(tabPanel).getAllByText("ميتا (Cloud)").length).toBeGreaterThanOrEqual(1);
+    expect(within(tabPanel).getAllByText("واتساب عادي").length).toBeGreaterThanOrEqual(1);
+    expect(within(tabPanel).getAllByText("فشل").length).toBeGreaterThanOrEqual(1);
   });
 
   test("فلتر ميتا بيقصر الجدول على الإرسالات عبر قالب ميتا", async () => {
@@ -173,13 +159,13 @@ describe("OrderStatusTemplatesPage تقارير الحالات", () => {
     renderPage();
     const user = userEvent.setup();
 
-    await user.click(await screen.findByRole("button", { name: /تقارير الحالات/ }));
-    await screen.findByTestId("status-report-tab");
-    await waitFor(() => expect(screen.getByText("إجمالي الإرسالات")).toBeInTheDocument());
+    await user.click(await screen.findByRole("tab", { name: /تقارير الحالات/ }));
+    const tabPanel = await screen.findByTestId("status-report-tab");
+    await waitFor(() => expect(within(tabPanel).getByText("إجمالي الإرسالات")).toBeInTheDocument());
 
-    await user.selectOptions(screen.getByRole("combobox", { name: "فلترة نوع الإرسال" }), "meta");
+    await user.selectOptions(within(tabPanel).getByRole("combobox", { name: "فلترة نوع الإرسال" }), "meta");
 
-    expect(screen.getByText("مؤكد")).toBeInTheDocument();
-    expect(screen.queryByText("تم الشحن")).not.toBeInTheDocument();
+    expect(within(tabPanel).getByText("مؤكد")).toBeInTheDocument();
+    expect(within(tabPanel).queryByText("تم الشحن")).not.toBeInTheDocument();
   });
 });

@@ -117,17 +117,17 @@ export const StatusTemplateSlot: React.FC<StatusTemplateSlotProps> = ({
       <div className="mt-1.5 min-h-[2.75rem]">
         {template ? (
           <>
-            <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">
+            <p className="truncate text-sm font-semibold text-foreground">
               {template.name || "قالب غير مسمّى"}
             </p>
             {hasContent && (
-              <p className="mt-0.5 line-clamp-2 whitespace-pre-wrap break-words text-xs text-slate-600 dark:text-slate-400">
+              <p className="mt-0.5 line-clamp-2 whitespace-pre-wrap break-words text-xs text-muted-foreground">
                 {resolvedText}
               </p>
             )}
           </>
         ) : (
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-muted-foreground">
             {isMeta
               ? "لا يوجد قالب ميتا — اضغط «إنشاء قالب ميتا» لتأليف رسالة وإرسالها لميتا للمراجعة، أو «اختيار قالب معتمد» لربط قالب معتمد موجود"
               : "لا يوجد قالب واتساب عادي — استخدم زر الإنشاء"}
@@ -139,7 +139,7 @@ export const StatusTemplateSlot: React.FC<StatusTemplateSlotProps> = ({
         {hasContent && (
           <button
             onClick={onTogglePreview}
-            className="flex items-center gap-1 rounded-lg bg-white/70 px-2.5 py-1.5 text-[11px] font-medium text-slate-600 transition hover:bg-white dark:bg-white/10 dark:text-slate-300 dark:hover:bg-white/20"
+            className="flex items-center gap-1 rounded-lg bg-card/80 px-2.5 py-1.5 text-[11px] font-medium text-muted-foreground transition hover:bg-card"
           >
             <DocumentTextIcon className="h-3 w-3" />
             {isPreviewExpanded ? "إخفاء" : "معاينة"}
@@ -150,7 +150,7 @@ export const StatusTemplateSlot: React.FC<StatusTemplateSlotProps> = ({
             onClick={onSwitch}
             disabled={!status.notifyCustomer}
             title={!status.notifyCustomer ? "فعّل الإشعار أولاً" : ""}
-            className="flex items-center gap-1 rounded-lg bg-white/70 px-2.5 py-1.5 text-[11px] font-medium text-blue-600 transition hover:bg-white dark:bg-white/10 dark:text-blue-400 dark:hover:bg-white/20 disabled:opacity-50"
+            className="flex items-center gap-1 rounded-lg bg-card/80 px-2.5 py-1.5 text-[11px] font-medium text-blue-600 transition hover:bg-card dark:text-blue-400 disabled:opacity-50"
           >
             <GlobeAltIcon className="h-3 w-3" />
             {bound ? "تغيير القالب" : "اختيار قالب معتمد"}
@@ -169,8 +169,8 @@ export const StatusTemplateSlot: React.FC<StatusTemplateSlotProps> = ({
             onClick={onCreate}
             disabled={!status.notifyCustomer}
             title={!status.notifyCustomer ? "فعّل الإشعار أولاً" : ""}
-            className={`flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[11px] font-medium text-white transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 dark:disabled:bg-slate-800 dark:disabled:text-slate-500 ${
-              isMeta ? "bg-blue-600 hover:bg-blue-700" : "bg-indigo-600 hover:bg-indigo-700"
+            className={`flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[11px] font-medium transition disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground ${
+              isMeta ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-primary text-primary-foreground hover:bg-primary/90"
             }`}
           >
             <PlusIcon className="h-3 w-3" />
@@ -189,11 +189,11 @@ export const StatusTemplateSlot: React.FC<StatusTemplateSlotProps> = ({
       </div>
 
       {hasContent && isPreviewExpanded && (
-        <div className="mt-2 rounded-md bg-white/70 p-2 dark:bg-white/5">
-          <p className="mb-1 text-[10px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
+        <div className="mt-2 rounded-md bg-card/80 p-2">
+          <p className="mb-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
             المعاينة الكاملة
           </p>
-          <p className="whitespace-pre-wrap break-words text-xs text-slate-700 dark:text-slate-300">
+          <p className="whitespace-pre-wrap break-words text-xs text-foreground">
             {resolvedText}
           </p>
           {template?.hasButtons && (
@@ -201,7 +201,7 @@ export const StatusTemplateSlot: React.FC<StatusTemplateSlotProps> = ({
               {parseTemplateButtons(template?.buttons).map((b, i) => (
                 <span
                   key={i}
-                  className="rounded-full border border-indigo-100 bg-indigo-50 px-2 py-0.5 text-[10px] font-medium text-indigo-600 dark:border-indigo-900/30 dark:bg-indigo-900/20 dark:text-indigo-400"
+                  className="rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary"
                 >
                   {b.text || b.id}
                 </span>

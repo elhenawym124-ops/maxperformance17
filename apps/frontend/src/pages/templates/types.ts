@@ -114,6 +114,13 @@ export interface SettingsForm {
   quietHoursEnd: string;
   rateLimitPerMinute: number;
   stickySessionEnabled: boolean;
+  incompleteCartImmediateMessage?: boolean;
+  abandonedCartEnabled?: boolean;
+  abandonedCartFirstReminder?: number;
+  abandonedCartSecondReminder?: number;
+  abandonedCartThirdReminder?: number;
+  abandonedCartDiscountEnabled?: boolean;
+  abandonedCartDiscountPercent?: number;
 }
 
 /** تبويب في الصفحة الموحدة */

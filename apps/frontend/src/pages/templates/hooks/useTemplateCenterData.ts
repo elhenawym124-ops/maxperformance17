@@ -15,6 +15,7 @@ import type {
   TemplateSlot,
   SettingsForm,
   EventRow,
+  MetaAvailableTemplate,
 } from "../types";
 import type { EditingScheduleState } from "../components/TemplateScheduleTab";
 
@@ -136,12 +137,15 @@ export function useTemplateCenterData(config: TemplateScopeConfig) {
 
   const filters = useTemplateFilters({ statuses, config, activeTab });
 
+  const [availableMetaTemplates, setAvailableMetaTemplates] = useState<MetaAvailableTemplate[]>([]);
+  const fetchMetaSessionsRef = useRef<() => Promise<void>>(async () => {});
+
   const crud = useTemplateCrud({
     config,
-    availableMetaTemplates: [],
+    availableMetaTemplates,
     fetchData,
     bindMetaTemplate: async () => {},
-    fetchMetaSessions: async () => {},
+    fetchMetaSessions: () => fetchMetaSessionsRef.current(),
     onDirtyDialog,
   });
 
@@ -159,6 +163,12 @@ export function useTemplateCenterData(config: TemplateScopeConfig) {
     metaCategory: crud.templateForm.metaCategory,
     onDirtyDialog,
   });
+
+  fetchMetaSessionsRef.current = metaOps.fetchMetaSessions;
+
+  useEffect(() => {
+    setAvailableMetaTemplates(metaOps.availableMetaTemplates);
+  }, [metaOps.availableMetaTemplates]);
 
   const handleSave = async () => {
     if (!crud.selectedStatus) return;

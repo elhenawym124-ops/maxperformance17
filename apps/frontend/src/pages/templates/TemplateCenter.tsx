@@ -29,6 +29,28 @@ export { WhatsAppBubblePreview, resolveVariablesForPreview, buildLocalContentFro
 
 const LARGE_GROUP_THRESHOLD = 4;
 
+function getIncompleteTimingHint(code: string, settings: {
+  abandonedCartFirstReminder?: number;
+  abandonedCartSecondReminder?: number;
+  abandonedCartThirdReminder?: number;
+  abandonedCartDiscountPercent?: number;
+} | null): string | null {
+  switch (code) {
+    case "INCOMPLETE_CART_FIRST_APPEARANCE":
+      return "بعد 15 دقيقة من التوقف";
+    case "CART_ABANDONED_1H":
+      return `بعد ${settings?.abandonedCartFirstReminder ?? 1} ساعة`;
+    case "CART_ABANDONED_24H":
+      return `بعد ${settings?.abandonedCartSecondReminder ?? 24} ساعة`;
+    case "CART_ABANDONED_72H":
+      return `بعد ${settings?.abandonedCartThirdReminder ?? 72} ساعة`;
+    case "CART_ABANDONED_WITH_DISCOUNT":
+      return `تذكير خصم ${settings?.abandonedCartDiscountPercent ?? 10}%`;
+    default:
+      return null;
+  }
+}
+
 export default function TemplateCenter({ config }: { config: TemplateScopeConfig }) {
   const d = useTemplateCenterData(config);
 
@@ -207,7 +229,7 @@ export default function TemplateCenter({ config }: { config: TemplateScopeConfig
                 {[0, 1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 rounded-lg border border-slate-200/70 bg-white p-3.5 dark:border-white/10 dark:bg-slate-900/50"
+                    className="flex items-center gap-3 rounded-lg border border-border/70 bg-card p-3.5"
                   >
                     <Skeleton className="h-7 w-7 shrink-0 rounded-md" />
                     <div className="flex-1 space-y-2">
@@ -219,14 +241,14 @@ export default function TemplateCenter({ config }: { config: TemplateScopeConfig
                 ))}
               </div>
             ) : d.filters.filteredByChipAndSearch.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200/70 py-16 text-center dark:border-white/10">
-                <DocumentTextIcon className="mb-3 h-10 w-10 text-slate-300 dark:text-slate-600" />
-                <p className="text-sm font-semibold text-slate-800 dark:text-slate-300">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/70 py-16 text-center">
+                <DocumentTextIcon className="mb-3 h-10 w-10 text-muted-foreground/50" />
+                <p className="text-sm font-semibold text-foreground">
                   {d.filters.searchQuery || d.filters.activeChip !== "all"
                     ? `لا توجد ${d.noun.plural} مطابقة لبحثك`
                     : `لا توجد ${d.noun.plural} بعد`}
                 </p>
-                <p className="mt-1 max-w-xs text-xs text-slate-500 dark:text-slate-400">
+                <p className="mt-1 max-w-xs text-xs text-muted-foreground">
                   {d.filters.searchQuery || d.filters.activeChip !== "all"
                     ? "جرّب تغيير كلمات البحث أو إلغاء الفلاتر لرؤية كل النتائج."
                     : config.scope === "customers"
@@ -240,7 +262,7 @@ export default function TemplateCenter({ config }: { config: TemplateScopeConfig
                       d.filters.setSearchQuery("");
                       d.filters.setActiveChip("all");
                     }}
-                    className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-indigo-700"
+                    className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition hover:bg-primary/90"
                   >
                     <XCircleIcon className="h-3.5 w-3.5" />
                     مسح الفلاتر
@@ -283,6 +305,8 @@ export default function TemplateCenter({ config }: { config: TemplateScopeConfig
                       onUnbindMeta={d.metaOps.requestUnbindMeta}
                       sampleVariables={d.sampleVariables}
                       enableMetaSwitch={config.features.enableMetaSwitch}
+                      incompleteTimingHint={config.scope === "orders" ? getIncompleteTimingHint(status.code, d.settings) : null}
+                      incompleteSettingsHref={config.scope === "orders" ? "/orders/incomplete" : undefined}
                     />
                   ));
                 })}

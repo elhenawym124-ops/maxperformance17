@@ -92,7 +92,7 @@ describe("OrderStatusTemplatesPage internal statuses", () => {
     expect(screen.queryByTestId("status-row-st3")).not.toBeInTheDocument();
     expect(screen.queryByTestId("status-row-st4")).not.toBeInTheDocument();
 
-    expect(screen.getByRole("button", { name: /الكل 2/ })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: /الكل 2/ })).toBeInTheDocument();
     expect(screen.getByLabelText(/عرض الحالات الداخلية/)).toBeInTheDocument();
   });
 

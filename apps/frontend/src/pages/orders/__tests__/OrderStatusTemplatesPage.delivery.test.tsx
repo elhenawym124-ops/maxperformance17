@@ -131,7 +131,7 @@ describe("OrderStatusTemplatesPage delivery preview", () => {
     renderPage();
     const bindButton = await screen.findByRole("button", { name: /اربط بقالب ميتا/ });
     expect(bindButton).toBeInTheDocument();
-    expect(screen.getByText(/🔴/)).toBeInTheDocument();
+    expect(screen.getByText(/\[حرج\]/)).toBeInTheDocument();
     expect(screen.getByTitle(/ميتا بدون قالب معتمد/)).toBeInTheDocument();
   });
 
@@ -164,7 +164,7 @@ describe("OrderStatusTemplatesPage delivery preview", () => {
     renderPage();
     const user = userEvent.setup();
     await waitFor(() => expect(apiClient.get).toHaveBeenCalled());
-    await user.click(screen.getByRole("button", { name: /الإعدادات/ }));
+    await user.click(screen.getByRole("tab", { name: /الإعدادات/ }));
     expect(await screen.findByText(/Meta Cloud API/)).toBeInTheDocument();
     expect(screen.getByText(/طريقة الإرسال الحالية/)).toBeInTheDocument();
   });

@@ -120,11 +120,11 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
     const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
-    await user.click(within(metaSlot()).getByRole("button", { name: /إنشاء/ }));
+    await user.click(within(metaSlot()).getByRole("button", { name: /اختيار قالب معتمد/ }));
 
     await user.selectOptions(await screen.findByRole("combobox", { name: /قالب ميتا المعتمد/ }), "order_confirm_ar");
 
-    expect(await screen.findByText(/الرسالة اللي هتتبعت للعميل/)).toBeInTheDocument();
+    expect(await screen.findByText(/الرسالة التي ستصل للعميل/)).toBeInTheDocument();
     expect(screen.getAllByText(/أحمد محمد/).length).toBeGreaterThan(0);
   });
 
@@ -137,6 +137,7 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
           content: "مرحبا {{customerName}} أكد طلبك",
           eventType: "CONFIRMED",
           isActive: true,
+          hasButtons: false,
           channel: "AUTO",
           metaTemplateName: "order_confirm_ar",
           metaTemplateStatus: "APPROVED",
@@ -147,14 +148,13 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
     const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
-    // slot ميتا بيعرض الربط القديم على القالب العادي (توافق قديم) — فتح وضع تعديل المحتوى
     await user.click(within(metaSlot()).getByRole("button", { name: /تعديل المحتوى/ }));
 
-    expect(await screen.findByText(/الربط الحالي/)).toBeInTheDocument();
-    // resubmit button should NOT show yet — content hasn't changed
+    const select = await screen.findByRole("combobox", { name: /قالب ميتا المعتمد/ });
+    expect(select).toHaveValue("order_confirm_ar");
     expect(screen.queryByRole("button", { name: /إرسال للمراجعة من جديد/ })).not.toBeInTheDocument();
 
-    // edit the content to trigger resubmit button
+    await user.click(screen.getByRole("button", { name: /محتوى الرسالة/ }));
     const textarea = screen.getByRole("textbox", { name: /محتوى القالب المحلي/ });
     await user.clear(textarea);
     await user.type(textarea, "تم تحديث طلبك بنجاح - شكراً لك");
@@ -175,15 +175,29 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
     );
   });
 
-  test("المرجع المحلي بيظهر بالتوسيع في وضع ربط ميتا للتعديل", async () => {
-    mockApi(makeStatus({}));
+  test("المرجع المحلي بيظهر بالتوسيع في وضع تعديل قالب ميتا المربوط", async () => {
+    mockApi(
+      makeStatus({
+        template: {
+          id: "t1",
+          name: "t1",
+          content: "مرحبا {{customerName}} أكد طلبك",
+          eventType: "CONFIRMED",
+          isActive: true,
+          hasButtons: false,
+          channel: "AUTO",
+          metaTemplateName: "order_confirm_ar",
+          metaTemplateStatus: "APPROVED",
+        },
+      })
+    );
     renderPage();
     const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
-    await user.click(within(metaSlot()).getByRole("button", { name: /إنشاء/ }));
+    await user.click(within(metaSlot()).getByRole("button", { name: /تعديل المحتوى/ }));
 
-    await user.click(screen.getByRole("button", { name: /المرجع المحلي/ }));
+    await user.click(screen.getByRole("button", { name: /محتوى الرسالة/ }));
 
     const contentArea = screen.getByPlaceholderText(/اكتب رسالتك هنا/);
     expect(contentArea).toBeInTheDocument();
@@ -208,9 +222,9 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
     const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
-    await user.click(within(metaSlot()).getByRole("button", { name: /إنشاء/ }));
+    await user.click(within(metaSlot()).getByRole("button", { name: /اختيار قالب معتمد/ }));
     await user.selectOptions(await screen.findByRole("combobox", { name: /قالب ميتا المعتمد/ }), "order_confirm_ar");
-    await user.click(screen.getByRole("button", { name: /ربط بقالب ميتا/ }));
+    await user.click(screen.getByRole("button", { name: /حفظ وربط بقالب ميتا/ }));
 
     await waitFor(() =>
       expect(apiClient.post).toHaveBeenCalledWith(
@@ -299,20 +313,48 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
     const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
-    await user.click(within(metaSlot()).getByRole("button", { name: /إنشاء/ }));
+    await user.click(within(metaSlot()).getByRole("button", { name: /اختيار قالب معتمد/ }));
 
     const select = await screen.findByRole("combobox", { name: /قالب ميتا المعتمد/ });
     expect(within(select).getByText(/مربوط بـ SHIPPED/)).toBeInTheDocument();
-
-    await user.selectOptions(select, "order_confirm_ar");
-    expect(await screen.findByText(/القالب ده مربوط حالياً بكمان: SHIPPED/)).toBeInTheDocument();
   });
 
   test("اختيار قالب ميتا بيبني المحتوى المحلي تلقائياً لو القالب مربوط بحالة تانية (auto-fill)", async () => {
-    mockApi(makeStatus({}));
+    mockApi(
+      makeStatus({
+        metaTemplate: {
+          id: "mt1",
+          name: "قالب طلب جديد",
+          content: "مرحبا بدون متغيرات",
+          eventType: "CONFIRMED",
+          isActive: true,
+          channel: "META_CLOUD",
+          metaTemplateName: null,
+          metaTemplateStatus: null,
+        },
+      })
+    );
     apiClient.get.mockImplementation((url: string) => {
       if (url === "/order-status/with-templates") {
-        return Promise.resolve({ data: { success: true, data: [makeStatus({})] } });
+        return Promise.resolve({
+          data: {
+            success: true,
+            data: [
+              makeStatus({
+                metaTemplate: {
+                  id: "mt1",
+                  name: "قالب طلب جديد",
+                  content: "مرحبا بدون متغيرات",
+                  eventType: "CONFIRMED",
+                  isActive: true,
+                  channel: "META_CLOUD",
+                  metaTemplateName: null,
+                  metaTemplateStatus: null,
+                },
+              }),
+            ],
+          },
+        });
       }
       if (url === "/whatsapp/notifications/settings") {
         return Promise.resolve({ data: { success: true, settings: { defaultSessionId: "ms1" }, sessions: [] } });
@@ -351,30 +393,38 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
     const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
-    await user.click(within(metaSlot()).getByRole("button", { name: /إنشاء/ }));
+    await user.click(within(metaSlot()).getByRole("button", { name: /تعديل المحتوى/ }));
 
-    // توسيع المرجع المحلي عشان نشوف الـ textarea
-    await user.click(screen.getByRole("button", { name: /المرجع المحلي/ }));
     const textarea = await screen.findByRole("textbox", { name: /محتوى القالب المحلي/ });
-    expect(textarea).toHaveValue("مرحبا {{customerName}} أكد طلبك");
+    expect(textarea).toHaveValue("مرحبا بدون متغيرات");
 
     const select = await screen.findByRole("combobox", { name: /قالب ميتا المعتمد/ });
     await user.selectOptions(select, "order_confirm_ar");
 
-    // المحتوى اتبنى تلقائياً من محتوى القالب المربوط
     expect(textarea).toHaveValue("مرحباً {{customerName}}، طلبك {{orderNumber}} في الطريق");
-    expect(await screen.findByText(/اتبنى المحتوى المحلي تلقائياً/)).toBeInTheDocument();
   });
 
   test("اختيار قالب ميتا بدون ربط بيبني محتوى افتراضي من نص قالب ميتا", async () => {
-    mockApi(makeStatus({}));
+    mockApi(
+      makeStatus({
+        metaTemplate: {
+          id: "mt1",
+          name: "قالب طلب جديد",
+          content: "مرحبا",
+          eventType: "CONFIRMED",
+          isActive: true,
+          channel: "META_CLOUD",
+          metaTemplateName: null,
+          metaTemplateStatus: null,
+        },
+      })
+    );
     renderPage();
     const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
-    await user.click(within(metaSlot()).getByRole("button", { name: /إنشاء/ }));
+    await user.click(within(metaSlot()).getByRole("button", { name: /تعديل المحتوى/ }));
 
-    await user.click(screen.getByRole("button", { name: /المرجع المحلي/ }));
     const textarea = await screen.findByRole("textbox", { name: /محتوى القالب المحلي/ });
     const select = await screen.findByRole("combobox", { name: /قالب ميتا المعتمد/ });
     await user.selectOptions(select, "order_confirm_ar");
@@ -383,10 +433,21 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
   });
 
   test("بيمنع الحفظ لما المتغيرات المحلية أقل من قالب ميتا ويعرض رسالة", async () => {
-    mockApi(makeStatus({}));
+    const unboundMetaStatus = makeStatus({
+      metaTemplate: {
+        id: "mt1",
+        name: "قالب طلب جديد",
+        content: "مرحبا {{customerName}} أكد طلبك",
+        eventType: "CONFIRMED",
+        isActive: true,
+        channel: "META_CLOUD",
+        metaTemplateName: null,
+        metaTemplateStatus: null,
+      },
+    });
     apiClient.get.mockImplementation((url: string) => {
       if (url === "/order-status/with-templates") {
-        return Promise.resolve({ data: { success: true, data: [makeStatus({})] } });
+        return Promise.resolve({ data: { success: true, data: [unboundMetaStatus] } });
       }
       if (url === "/whatsapp/notifications/settings") {
         return Promise.resolve({ data: { success: true, settings: { defaultSessionId: "ms1" }, sessions: [] } });
@@ -408,13 +469,11 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
     const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
-    await user.click(within(metaSlot()).getByRole("button", { name: /إنشاء/ }));
+    await user.click(within(metaSlot()).getByRole("button", { name: /تعديل المحتوى/ }));
 
     const select = await screen.findByRole("combobox", { name: /قالب ميتا المعتمد/ });
     await user.selectOptions(select, "order_confirm_ar");
 
-    // المحتوى اتبنى تلقائياً بمتغيرين — نمسح المتغيرات نعكس الـ mismatch
-    await user.click(screen.getByRole("button", { name: /المرجع المحلي/ }));
     const textarea = screen.getByRole("textbox", { name: /محتوى القالب المحلي/ });
     await user.clear(textarea);
     await user.type(textarea, "نص من غير متغيرات");
@@ -445,13 +504,11 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
     await user.click(within(metaSlot()).getByRole("button", { name: /تغيير القالب/ }));
 
     expect(await screen.findByText(/تغيير قالب ميتا: مؤكد/)).toBeInTheDocument();
-    // وضع switch مفيش محرر محتوى
     expect(screen.queryByRole("textbox", { name: /محتوى القالب المحلي/ })).not.toBeInTheDocument();
-    // في زر ربط/حفظ بسيط
-    expect(screen.getByRole("button", { name: /حفظ التغيير/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /حفظ وربط بقالب ميتا/ })).toBeInTheDocument();
   });
 
-  test("الموت لا تظهر زر انشاء قالب في slot ميتا المربوط — الأزرار الأربعة منفصلة", async () => {
+  test("الأزرار الأربعة منفصلة في slot ميتا المربوط بدون زر إنشاء قالب", async () => {
     mockApi(
       makeStatus({
         metaTemplate: {
@@ -467,15 +524,13 @@ describe("OrderStatusTemplatesPage Meta template binding (two slots)", () => {
       })
     );
     renderPage();
-    const user = userEvent.setup();
 
     await screen.findByTestId("status-row-st1");
     const slot = metaSlot();
-    // أربعة أفعال مميزة: تغيير القالب + تعديل المحتوى + فك الربط (+ معاينة)
+    expect(within(slot).getByRole("button", { name: /معاينة/ })).toBeInTheDocument();
     expect(within(slot).getByRole("button", { name: /تغيير القالب/ })).toBeInTheDocument();
     expect(within(slot).getByRole("button", { name: /تعديل المحتوى/ })).toBeInTheDocument();
     expect(within(slot).getByRole("button", { name: /فك الربط/ })).toBeInTheDocument();
-    // زر إنشاء قالب متاح دائماً في slot المربوط (للإنشاء من جديد)
-    expect(within(slot).getByRole("button", { name: /إنشاء قالب/ })).toBeInTheDocument();
+    expect(within(slot).queryByRole("button", { name: /إنشاء قالب ميتا/ })).not.toBeInTheDocument();
   });
 });

@@ -122,7 +122,11 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
   );
 
   const handleTabChange = (tabId: TabId) => {
-    setSearchParams({ tab: tabId });
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("tab", tabId);
+      return next;
+    }, { replace: true });
     if (tabsRequiringScopedSession.has(tabId) && data.scopedSessionId) {
       void data.loadScopedTabData(tabId, data.scopedSessionId);
     }

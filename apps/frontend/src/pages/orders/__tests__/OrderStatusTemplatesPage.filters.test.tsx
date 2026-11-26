@@ -128,7 +128,7 @@ describe("OrderStatusTemplatesPage filters", () => {
 
     expect(await screen.findByTestId("status-row-st1")).toBeInTheDocument();
 
-    await user.type(screen.getByPlaceholderText(/ابحث باسم الحالة أو الكود/), "shipped");
+    await user.type(screen.getByPlaceholderText(/ابحث بالاسم أو الكود/), "shipped");
 
     expect(screen.getByTestId("status-row-st2")).toBeInTheDocument();
     expect(screen.queryByTestId("status-row-st1")).not.toBeInTheDocument();
@@ -196,7 +196,7 @@ describe("OrderStatusTemplatesPage filters", () => {
 
     await screen.findByTestId("status-row-st1");
 
-    await user.selectOptions(screen.getByRole("combobox"), "alphabetical");
+    await user.selectOptions(screen.getByRole("combobox", { name: "ترتيب الحالات" }), "alphabetical");
 
     expect(visibleRowIds()).toEqual(["status-row-st1", "status-row-st2"]);
   });
@@ -208,7 +208,7 @@ describe("OrderStatusTemplatesPage filters", () => {
 
     await screen.findByTestId("status-row-st1");
     await user.click(screen.getByRole("button", { name: "مخصصة" }));
-    await user.type(screen.getByPlaceholderText(/ابحث باسم الحالة أو الكود/), "SHIPPED");
+    await user.type(screen.getByPlaceholderText(/ابحث بالاسم أو الكود/), "SHIPPED");
 
     expect(await screen.findByText(/لا توجد حالات مطابقة لبحثك/)).toBeInTheDocument();
   });

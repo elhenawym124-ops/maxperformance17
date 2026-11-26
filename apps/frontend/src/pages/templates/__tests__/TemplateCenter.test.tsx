@@ -186,4 +186,49 @@ describe("TemplateCenter Domain Suite", () => {
     } as EventRow);
     expect(mockPut).toHaveBeenCalledWith("/whatsapp/notifications/settings", { orderCreatedEnabled: false });
   });
+
+  it("displays configured incomplete-cart timing hint and settings link when scope is orders", async () => {
+    const { default: OrderStatusTemplatesPage } = await import("../../orders/OrderStatusTemplatesPage");
+    mockApiGet.mockImplementation((url: string) => {
+      if (url === "/order-status/with-templates") {
+        return Promise.resolve({
+          data: {
+            success: true,
+            data: [
+              {
+                id: "CART_ABANDONED_1H",
+                code: "CART_ABANDONED_1H",
+                name: "تذكير السلة المتروكة - ساعة",
+                color: "#0D9488",
+                sortOrder: 94,
+                statusType: "incomplete",
+                notifyCustomer: true,
+                isSystemStatus: true,
+                hasTemplate: false,
+                template: null,
+              },
+            ],
+          },
+        });
+      }
+      if (url === "/whatsapp/notifications/settings") {
+        return Promise.resolve({
+          data: { success: true, settings: { abandonedCartFirstReminder: 3 }, sessions: [] },
+        });
+      }
+      return Promise.resolve({ data: { sessions: [] } });
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/orders/status-templates?tab=incomplete"]}>
+        <OrderStatusTemplatesPage />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("بعد 3 ساعة")).toBeTruthy();
+    });
+    const link = screen.getByRole("link", { name: /تعديل التوقيت/ });
+    expect(link.getAttribute("href")).toBe("/orders/incomplete");
+  });
 });

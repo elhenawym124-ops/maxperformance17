@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { BellIcon, BellSlashIcon } from "@heroicons/react/24/outline";
 import type { EventRow, DeliveryPreviewItem, TemplateSlot, Template } from "../types";
@@ -19,6 +20,8 @@ export interface StatusRowProps {
   onUnbindMeta: (status: EventRow) => void;
   sampleVariables?: Record<string, string>;
   enableMetaSwitch?: boolean;
+  incompleteTimingHint?: string | null;
+  incompleteSettingsHref?: string;
 }
 
 export function readableTextColor(hex: string): string {
@@ -63,6 +66,8 @@ export const StatusRow: React.FC<StatusRowProps> = ({
   onUnbindMeta,
   sampleVariables,
   enableMetaSwitch = true,
+  incompleteTimingHint,
+  incompleteSettingsHref,
 }) => {
   const { t } = useTranslation();
   const regular = status.template;
@@ -107,7 +112,7 @@ export const StatusRow: React.FC<StatusRowProps> = ({
                 </span>
               )}
             </div>
-            <div className="mt-1 flex items-center gap-2 text-[11px] text-muted-foreground">
+            <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground">
               <span className="font-mono">{status.code}</span>
               <button
                 onClick={() => onToggleNotify(status)}
@@ -127,6 +132,19 @@ export const StatusRow: React.FC<StatusRowProps> = ({
                 )}
                 {status.notifyCustomer ? "مفعل" : "متوقف"}
               </button>
+              {incompleteTimingHint && (
+                <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-foreground">
+                  {incompleteTimingHint}
+                </span>
+              )}
+              {incompleteTimingHint && incompleteSettingsHref && (
+                <Link
+                  to={incompleteSettingsHref}
+                  className="text-[10px] font-medium text-primary hover:underline"
+                >
+                  تعديل التوقيت
+                </Link>
+              )}
             </div>
           </div>
         </div>
