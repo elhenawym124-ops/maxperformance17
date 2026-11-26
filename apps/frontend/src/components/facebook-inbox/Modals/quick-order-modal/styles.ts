@@ -18,15 +18,15 @@ export const primaryStyle: React.CSSProperties = {
 };
 
 export const successStyle: React.CSSProperties = {
-  color: "color-mix(in srgb, var(--business-success) 74%, black)",
+  color: "var(--color-success, #16a34a)",
 };
 
 export const warningStyle: React.CSSProperties = {
-  color: "color-mix(in srgb, var(--business-warning) 74%, black)",
+  color: "var(--color-warning, #d97706)",
 };
 
 export const dangerStyle: React.CSSProperties = {
-  color: "color-mix(in srgb, var(--business-danger) 74%, black)",
+  color: "var(--color-destructive, #dc2626)",
 };
 
 export const sectionSurfaceStyle: React.CSSProperties = {

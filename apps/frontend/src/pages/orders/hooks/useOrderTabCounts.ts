@@ -14,7 +14,7 @@ export interface OrderTabCounts {
  * unaffected by the active table filters. Any failure degrades silently —
  * tabs simply render without counts.
  */
-export const useOrderTabCounts = (): OrderTabCounts => {
+export const useOrderTabCounts = (refreshTrigger = 0): OrderTabCounts => {
   const [counts, setCounts] = useState<OrderTabCounts>({});
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export const useOrderTabCounts = (): OrderTabCounts => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [refreshTrigger]);
 
   return counts;
 };

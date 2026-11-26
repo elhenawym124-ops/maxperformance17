@@ -58,7 +58,8 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
   const navigate = useNavigate();
   const [showStats, setShowStats] = React.useState(false);
   const [showQuickOrderModal, setShowQuickOrderModal] = React.useState(false);
-  const tabCounts = useOrderTabCounts();
+  const [tabCountsRefreshTick, setTabCountsRefreshTick] = React.useState(0);
+  const tabCounts = useOrderTabCounts(tabCountsRefreshTick);
 
   const {
     filters,
@@ -259,7 +260,10 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
 
             <button
               type="button"
-              onClick={onRefresh}
+              onClick={() => {
+                setTabCountsRefreshTick((v) => v + 1);
+                onRefresh();
+              }}
               aria-label="تحديث البيانات"
               className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/80 bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-95 shadow-2xs"
               title="تحديث البيانات"
@@ -579,7 +583,10 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
             onClose={() => setShowQuickOrderModal(false)}
             platform="manual"
             pageName="لوحة الطلبات"
-            onOrderCreated={() => onRefresh()}
+            onOrderCreated={() => {
+              setTabCountsRefreshTick((v) => v + 1);
+              onRefresh();
+            }}
           />
         )}
       </Suspense>

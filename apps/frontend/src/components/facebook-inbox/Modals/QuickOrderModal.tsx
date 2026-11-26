@@ -19,12 +19,43 @@ const QuickOrderModal: React.FC<QuickOrderModalProps> = (props) => {
   const { isOpen, onClose, conversation, customerName: initialCustomerName } = props;
   const state = useQuickOrderModal(props);
 
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (state.showVariantModal) {
+        state.setShowVariantModal(false);
+        state.setSelectedProduct(null);
+        state.setSelectedAttributes({});
+      } else if (state.showHistoryDrawer) {
+        state.setShowHistoryDrawer(false);
+      } else if (state.showMobileCart) {
+        state.setShowMobileCart(false);
+      } else {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [
+    isOpen,
+    onClose,
+    state.showVariantModal,
+    state.showHistoryDrawer,
+    state.showMobileCart,
+  ]);
+
   if (!isOpen) return null;
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 quick-order-modal"
       style={overlayStyle}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
     >
       <div
         role="dialog"
@@ -57,6 +88,7 @@ const QuickOrderModal: React.FC<QuickOrderModalProps> = (props) => {
               isScheduledOrder={state.isScheduledOrder}
               scheduledDeliveryDate={state.scheduledDeliveryDate}
               scheduledDeliveryTime={state.scheduledDeliveryTime}
+              isManualDashboard={state.convPlatform === "manual"}
               onClose={onClose}
               onReset={() => {
                 state.setCreatedOrder(null);

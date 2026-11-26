@@ -7,7 +7,6 @@ import {
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 import { CartItem } from "./types";
-import { headingStyle, mutedStyle } from "./styles";
 
 interface QuickOrderCartItemProps {
   item: CartItem;
@@ -41,18 +40,14 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
   return (
     <div
       key={`${item.productId}-${item.variantId || ""}`}
-      className={`business-cart-card p-2 sm:p-2.5 rounded-xl border transition-colors ${
+      className={`p-2.5 rounded-xl border transition-colors ${
         isOverStock
           ? "border-destructive/40 bg-destructive/10"
-          : ""
+          : "border-border/70 bg-card"
       }`}
-      style={{
-        background: isOverStock ? undefined : "var(--business-surface-panel)",
-        borderColor: isOverStock ? undefined : "var(--business-card-border)",
-      }}
     >
       <div className="flex gap-2.5">
-        <div className="business-product-card-media h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl">
+        <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border border-border/50 bg-muted/25">
           {item.image ? (
             <img
               src={item.image}
@@ -60,10 +55,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
               className="h-full w-full object-cover"
             />
           ) : (
-            <div
-              className="flex h-full w-full items-center justify-center"
-              style={mutedStyle}
-            >
+            <div className="flex h-full w-full items-center justify-center text-muted-foreground">
               <ArchiveBoxIcon className="h-6 w-6" />
             </div>
           )}
@@ -71,8 +63,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
         <div className="min-w-0 flex-1">
           <div className="flex justify-between items-start gap-1">
             <h4
-              className="line-clamp-1 text-xs font-semibold"
-              style={headingStyle}
+              className="line-clamp-1 text-xs font-semibold text-foreground"
               title={item.name}
             >
               {item.name}
@@ -80,8 +71,9 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
             <button
               type="button"
               onClick={() => removeFromCart(item.productId, item.variantId)}
-              className="text-muted-foreground hover:text-destructive p-0.5 rounded transition-colors flex-shrink-0"
+              className="text-muted-foreground hover:text-destructive p-0.5 rounded transition-colors flex-shrink-0 cursor-pointer"
               title="حذف من السلة"
+              aria-label="حذف من السلة"
             >
               <TrashIcon className="h-4 w-4" />
             </button>
@@ -90,12 +82,12 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
           {(item.color || item.size || item.variantName) && (
             <div className="flex flex-wrap gap-1 mt-1">
               {item.color && (
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary font-medium">
+                <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-primary/10 text-primary font-medium">
                   {item.color}
                 </span>
               )}
               {item.size && (
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-foreground dark:bg-muted dark:text-muted-foreground font-medium">
+                <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-muted text-foreground font-medium">
                   {item.size}
                 </span>
               )}
@@ -110,13 +102,13 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
           {isOverStock && (
             <div className="flex items-center gap-1 text-[10px] text-destructive font-medium mt-1">
               <ExclamationTriangleIcon className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>الكمية أكبر من المخزون ({item.stock})</span>
+              <span>الكمية أكبر من المخزون (<span className="font-mono tabular-nums">{item.stock}</span>)</span>
             </div>
           )}
 
           <div className="mt-2 flex items-center justify-between gap-1 flex-wrap">
             {/* Quantity controls */}
-            <div className="flex items-center gap-1 bg-muted/40 rounded-lg p-0.5 border border-border/40">
+            <div className="flex items-center gap-1 bg-muted/40 rounded-lg p-0.5 border border-border/50">
               <button
                 type="button"
                 onClick={() => {
@@ -126,21 +118,18 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
                     removeFromCart(item.productId, item.variantId);
                   }
                 }}
-                className="business-qty-button"
+                className="inline-flex h-6 w-6 items-center justify-center rounded-md text-foreground hover:bg-card active:scale-[0.95] transition-all cursor-pointer"
                 aria-label="تقليل الكمية"
               >
                 <MinusIcon className="h-3 w-3" />
               </button>
-              <span
-                className="w-7 text-center text-xs font-bold font-mono tabular-nums"
-                style={headingStyle}
-              >
+              <span className="w-6 text-center text-xs font-bold font-mono tabular-nums text-foreground">
                 {item.quantity}
               </span>
               <button
                 type="button"
                 onClick={() => updateQuantity(item.productId, item.variantId, 1)}
-                className="business-qty-button"
+                className="inline-flex h-6 w-6 items-center justify-center rounded-md text-foreground hover:bg-card active:scale-[0.95] transition-all cursor-pointer"
                 aria-label="زيادة الكمية"
               >
                 <PlusIcon className="h-3 w-3" />
@@ -157,10 +146,10 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
                     const val = parseFloat(e.target.value) || 0;
                     updateItemPrice(item.productId, item.variantId, val);
                   }}
-                  className={`w-16 text-xs text-center font-bold font-mono tabular-nums py-0.5 px-1 rounded border ${
+                  className={`w-16 text-xs text-center font-bold font-mono tabular-nums py-0.5 px-1 rounded-md border ${
                     isCustomPrice
-                      ? "border-amber-400 bg-warning/10 text-warning dark:bg-warning/30 dark:text-warning"
-                      : "border-border/60 bg-background text-foreground"
+                      ? "border-warning/60 bg-warning/10 text-warning"
+                      : "border-border/70 bg-background text-foreground"
                   }`}
                   title="سعر القطعة (قابل للتعديل)"
                   min="0"
@@ -177,7 +166,7 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
                     onClick={() =>
                       restoreItemPrice(item.productId, item.variantId)
                     }
-                    className="text-blue-500 hover:underline font-semibold"
+                    className="text-primary hover:underline font-semibold cursor-pointer"
                     title="استعادة السعر الأصلي"
                   >
                     استعادة
@@ -187,9 +176,9 @@ export const QuickOrderCartItem: React.FC<QuickOrderCartItemProps> = ({
             </div>
           </div>
 
-          <div className="mt-1.5 flex justify-between items-center text-xs border-t border-border/30 pt-1">
+          <div className="mt-1.5 flex justify-between items-center text-xs border-t border-border/50 pt-1">
             <span className="text-[10px] text-muted-foreground">المجموع:</span>
-            <span className="font-bold text-xs font-mono tabular-nums" style={headingStyle}>
+            <span className="font-bold text-xs font-mono tabular-nums text-foreground">
               {(item.price * item.quantity).toLocaleString()} ج.م
             </span>
           </div>

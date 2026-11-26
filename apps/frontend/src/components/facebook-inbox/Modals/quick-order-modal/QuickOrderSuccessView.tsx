@@ -1,7 +1,6 @@
 import React from "react";
 import { CheckCircleIcon, PrinterIcon } from "@heroicons/react/24/outline";
 import { CreatedOrderDetails } from "./types";
-import { headingStyle, mutedStyle } from "./styles";
 
 interface QuickOrderSuccessViewProps {
   createdOrder: CreatedOrderDetails;
@@ -11,6 +10,7 @@ interface QuickOrderSuccessViewProps {
   isScheduledOrder: boolean;
   scheduledDeliveryDate: string;
   scheduledDeliveryTime: string;
+  isManualDashboard?: boolean;
   onClose: () => void;
   onReset: () => void;
 }
@@ -23,70 +23,52 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
   isScheduledOrder,
   scheduledDeliveryDate,
   scheduledDeliveryTime,
+  isManualDashboard = false,
   onClose,
   onReset,
 }) => {
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-8 flex items-center justify-center">
-      <div
-        className="max-w-md w-full text-center space-y-6 business-page-panel p-6 sm:p-8 shadow-xl rounded-xl border"
-        style={{
-          background: "var(--business-surface-panel)",
-          borderColor: "var(--business-card-border)",
-        }}
-      >
-        <div
-          className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full flex items-center justify-center border"
-          style={{
-            background: "rgba(16, 185, 129, 0.12)",
-            borderColor: "rgba(16, 185, 129, 0.28)",
-            color: "var(--business-success)",
-          }}
-        >
-          <CheckCircleIcon className="w-10 h-10 sm:w-12 sm:h-12 text-success" />
+    <div className="flex-1 overflow-y-auto p-4 sm:p-8 flex items-center justify-center bg-muted/15">
+      <div className="max-w-md w-full text-center space-y-5 p-6 sm:p-8 shadow-sm rounded-xl border border-border/70 bg-card">
+        <div className="w-16 h-16 mx-auto rounded-full flex items-center justify-center border border-success/30 bg-success/10 text-success">
+          <CheckCircleIcon className="w-9 h-9 text-success" />
         </div>
 
         <div className="space-y-1.5">
-          <h3 className="text-xl sm:text-2xl font-bold" style={headingStyle}>
-            تم إنشاء الطلب بنجاح!
+          <h3 className="text-xl font-bold text-foreground">
+            تم إنشاء الطلب بنجاح
           </h3>
-          <p className="text-sm" style={mutedStyle}>
+          <p className="text-sm text-muted-foreground">
             رقم الطلب:{" "}
-            <span className="font-mono font-bold" style={headingStyle}>
+            <span className="font-mono font-bold text-foreground">
               #{createdOrder.orderNumber || createdOrder.id}
             </span>
           </p>
         </div>
 
-        <div
-          className="p-4 rounded-xl text-xs sm:text-sm text-start space-y-2 border"
-          style={{
-            background: "var(--business-surface-subtle)",
-            borderColor: "var(--business-card-border)",
-          }}
-        >
+        <div className="p-4 rounded-xl text-xs sm:text-sm text-start space-y-2 border border-border/70 bg-muted/30">
           <div className="flex justify-between">
-            <span style={mutedStyle}>العميل:</span>
-            <span className="font-medium" style={headingStyle}>
+            <span className="text-muted-foreground">العميل:</span>
+            <span className="font-medium text-foreground">
               {customerName}
             </span>
           </div>
           <div className="flex justify-between">
-            <span style={mutedStyle}>الهاتف:</span>
-            <span className="font-mono font-medium" style={headingStyle}>
+            <span className="text-muted-foreground">الهاتف:</span>
+            <span className="font-mono font-medium text-foreground" dir="ltr">
               {phone}
             </span>
           </div>
           <div className="flex justify-between">
-            <span style={mutedStyle}>إجمالي الطلب:</span>
-            <span className="font-bold text-success dark:text-success font-mono tabular-nums">
+            <span className="text-muted-foreground">إجمالي الطلب:</span>
+            <span className="font-bold text-success font-mono tabular-nums">
               {grandTotal.toLocaleString()} ج.م
             </span>
           </div>
           {isScheduledOrder && scheduledDeliveryDate && (
             <div className="flex justify-between">
-              <span style={mutedStyle}>موعد التوصيل:</span>
-              <span className="font-medium" style={headingStyle}>
+              <span className="text-muted-foreground">موعد التوصيل:</span>
+              <span className="font-medium text-foreground">
                 {scheduledDeliveryDate}{" "}
                 {scheduledDeliveryTime ? `(${scheduledDeliveryTime})` : ""}
               </span>
@@ -94,7 +76,7 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
           )}
         </div>
 
-        <div className="flex flex-col gap-3 pt-2">
+        <div className="flex flex-col gap-2.5 pt-1">
           <button
             type="button"
             onClick={() => {
@@ -103,9 +85,9 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
                 "_blank",
               );
             }}
-            className="w-full py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all flex items-center justify-center gap-2 font-bold text-sm cursor-pointer shadow-xs"
+            className="w-full h-10 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all flex items-center justify-center gap-2 font-bold text-sm cursor-pointer shadow-xs"
           >
-            <PrinterIcon className="w-5 h-5" />
+            <PrinterIcon className="w-4 h-4" />
             طباعة الفاتورة / البوليصة
           </button>
 
@@ -117,11 +99,7 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
                 "_blank",
               );
             }}
-            className="business-chip-button w-full py-2.5 flex items-center justify-center gap-2 text-sm border"
-            style={{
-              borderColor: "var(--business-card-border)",
-              color: "var(--business-text-primary)",
-            }}
+            className="w-full h-9 rounded-lg border border-border/70 bg-background text-foreground hover:bg-muted/60 active:scale-[0.97] transition-all flex items-center justify-center gap-2 text-sm font-medium cursor-pointer"
           >
             عرض تفاصيل الطلب
           </button>
@@ -132,10 +110,9 @@ export const QuickOrderSuccessView: React.FC<QuickOrderSuccessViewProps> = ({
               onReset();
               onClose();
             }}
-            className="text-xs pt-2 underline transition-colors"
-            style={mutedStyle}
+            className="text-xs pt-1.5 text-muted-foreground hover:text-foreground underline transition-colors cursor-pointer"
           >
-            إنهاء والعودة للمحادثة
+            {isManualDashboard ? "إغلاق والعودة للطلبات" : "إنهاء والعودة للمحادثة"}
           </button>
         </div>
       </div>
