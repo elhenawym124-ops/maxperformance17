@@ -43,9 +43,15 @@ import {
   PdpQuickOrderSettings,
 } from "../../../storefront/utils/pdpQuickOrderSettings";
 import {
+  DEFAULT_LOCATION_CAPTURE_SETTINGS,
+  getLocationCaptureSettingsFromDesignTokens,
+  LocationCaptureSettings,
+} from "../../../storefront/utils/locationCaptureSettings";
+import {
   GOVERNORATE_CODE_ALIASES,
   PromotionSettingsState,
   StoreSettingsTab,
+  applyLocationCaptureSettingsToStorefrontSettings,
   applyPdpCheckoutVisibilityToStorefrontSettings,
   applyPdpQuickOrderSettingsToStorefrontSettings,
   isExpectedOptionalLoadError,
@@ -726,6 +732,17 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
     );
   };
 
+  const handleChangeLocationCaptureSettings = (
+    nextLocationCaptureSettings: LocationCaptureSettings,
+  ) => {
+    setStorefrontSettings((current) =>
+      applyLocationCaptureSettingsToStorefrontSettings(
+        current,
+        nextLocationCaptureSettings,
+      ),
+    );
+  };
+
   const handleSaveCheckoutTabSettings = async () => {
     const checkoutFieldsSaved = await handleSaveCheckoutFormSettings(undefined, {
       silent: true,
@@ -738,12 +755,15 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
 
     try {
       setProcessingCheckoutTab(true);
-      const nextStorefrontDraft = applyPdpQuickOrderSettingsToStorefrontSettings(
-        applyPdpCheckoutVisibilityToStorefrontSettings(
-          storefrontSettings,
-          resolvePdpCheckoutEnabled(storefrontSettings),
+      const nextStorefrontDraft = applyLocationCaptureSettingsToStorefrontSettings(
+        applyPdpQuickOrderSettingsToStorefrontSettings(
+          applyPdpCheckoutVisibilityToStorefrontSettings(
+            storefrontSettings,
+            resolvePdpCheckoutEnabled(storefrontSettings),
+          ),
+          getPdpQuickOrderSettingsFromDesignTokens(storefrontSettings.designTokens),
         ),
-        getPdpQuickOrderSettingsFromDesignTokens(storefrontSettings.designTokens),
+        getLocationCaptureSettingsFromDesignTokens(storefrontSettings.designTokens),
       );
       const storefrontResponse = await storefrontSettingsService.updateSettings({
         themeId: resolveStorefrontThemeId(nextStorefrontDraft),
@@ -773,9 +793,12 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
       await checkoutFormSettingsService.resetSettings();
       await reloadCheckoutFormSettings();
 
-      const nextStorefrontDraft = applyPdpQuickOrderSettingsToStorefrontSettings(
-        applyPdpCheckoutVisibilityToStorefrontSettings(storefrontSettings, true),
-        DEFAULT_PDP_QUICK_ORDER_SETTINGS,
+      const nextStorefrontDraft = applyLocationCaptureSettingsToStorefrontSettings(
+        applyPdpQuickOrderSettingsToStorefrontSettings(
+          applyPdpCheckoutVisibilityToStorefrontSettings(storefrontSettings, true),
+          DEFAULT_PDP_QUICK_ORDER_SETTINGS,
+        ),
+        DEFAULT_LOCATION_CAPTURE_SETTINGS,
       );
       const storefrontResponse = await storefrontSettingsService.updateSettings({
         themeId: resolveStorefrontThemeId(nextStorefrontDraft),
@@ -958,6 +981,7 @@ export function useStoreSettingsController(forcedTab?: StoreSettingsTab) {
     handleResetFooter,
     handleToggleProductPageCheckout,
     handleChangePdpQuickOrderSettings,
+    handleChangeLocationCaptureSettings,
     handleSaveCheckoutTabSettings,
     handleResetCheckoutTabSettings,
     handleToggleWishlist,

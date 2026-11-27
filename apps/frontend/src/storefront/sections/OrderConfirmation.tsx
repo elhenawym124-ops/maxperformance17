@@ -1,4 +1,5 @@
 import React from 'react';
+import { PostOrderLocationCard } from '../components/PostOrderLocationCard';
 import {
   OrderConfirmationActions,
   OrderConfirmationHeader,
@@ -64,6 +65,16 @@ export const OrderConfirmation: React.FC<OrderConfirmationProps> = (props) => {
             prefersArabicCopy={ctrl.prefersArabicCopy}
             getDisplayItemName={ctrl.getDisplayItemName}
             getDisplayItemAttributes={ctrl.getDisplayItemAttributes}
+          />
+        ) : null}
+
+        {ctrl.showPostOrderLocationCard ? (
+          <PostOrderLocationCard
+            orderNumber={ctrl.resolvedOrderReference}
+            customerPhone={ctrl.trackPhone}
+            settings={ctrl.locationCaptureSettings}
+            prefersArabic={ctrl.prefersArabicCopy}
+            initialLocation={ctrl.existingOrderLocation}
           />
         ) : null}
 

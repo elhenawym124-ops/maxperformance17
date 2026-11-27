@@ -9,6 +9,10 @@ import { trackConversionSuiteUsage } from '../../../utils/conversionSuiteTrackin
 import { buildQuantityOfferCartItems } from '../../../utils/quantityOfferCartItems';
 import { persistPurchaseTracking } from '../../../utils/purchaseTrackingStorage';
 import type { CartItem } from '../../../store/useCartStore';
+import type {
+  CustomerLocationData,
+  LocationCaptureSettings,
+} from '../../../utils/locationCaptureSettings';
 import {
   buildQuickOrderNote,
   isValidEgyptianPhone,
@@ -33,6 +37,8 @@ export const useQuickOrderFormSubmit = ({
   resolvedAlternatePhone,
   resolvedGovernorate,
   resolvedAddress,
+  customerLocation,
+  locationCaptureSettings,
   minimumOrder,
   customAttributes,
   customAttributesSummary,
@@ -75,6 +81,8 @@ export const useQuickOrderFormSubmit = ({
   resolvedAlternatePhone: string;
   resolvedGovernorate: string;
   resolvedAddress: string;
+  customerLocation?: CustomerLocationData | null;
+  locationCaptureSettings?: LocationCaptureSettings;
   minimumOrder: any;
   customAttributes: any[];
   customAttributesSummary: string;
@@ -248,6 +256,19 @@ export const useQuickOrderFormSubmit = ({
       );
     }
 
+    if (
+      locationCaptureSettings?.mode === 'required' &&
+      locationCaptureSettings?.displayStyle !== 'post_order' &&
+      locationCaptureSettings?.applyToQuickOrder &&
+      !customerLocation
+    ) {
+      errors.push(
+        prefersArabicCopy
+          ? 'يرجى تحديد موقعك على الخريطة قبل تأكيد الطلب.'
+          : 'Please pin your location on the map before confirming your order.',
+      );
+    }
+
     if (minimumOrder.blocked) {
       errors.push(minimumOrder.message);
     }
@@ -411,6 +432,7 @@ export const useQuickOrderFormSubmit = ({
           governorate:
             resolvedGovernorate ||
             (!effectiveGovernorateField.enabled ? 'الإسكندرية / أونلاين' : ''),
+          customerLocation: customerLocation || null,
           notes: buildQuickOrderNote({
             alternatePhone:
               effectiveAlternatePhoneField.enabled && resolvedAlternatePhone
@@ -511,7 +533,9 @@ export const useQuickOrderFormSubmit = ({
             street: resolvedAddress || undefined,
             address: resolvedAddress || undefined,
             phone2: effectiveAlternatePhoneField.enabled && resolvedAlternatePhone ? resolvedAlternatePhone : undefined,
+            ...(customerLocation ? { location: customerLocation } : {}),
           },
+          ...(customerLocation ? { customerLocation } : {}),
           items: quickOrderItems.map((item) => ({
             productId: item.productId,
             variantId: item.variantId || undefined,

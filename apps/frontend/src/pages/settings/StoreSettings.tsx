@@ -109,6 +109,9 @@ const StoreSettings: React.FC<StoreSettingsProps> = ({
               handleChangePdpQuickOrderSettings={
                 ctrl.handleChangePdpQuickOrderSettings
               }
+              handleChangeLocationCaptureSettings={
+                ctrl.handleChangeLocationCaptureSettings
+              }
               handleSaveCheckoutTabSettings={ctrl.handleSaveCheckoutTabSettings}
               handleResetCheckoutTabSettings={
                 ctrl.handleResetCheckoutTabSettings

@@ -53,6 +53,10 @@ const {
   resolveDiscountApproval,
 } = require('../utils/orderDiscountUtils');
 const customerBlocklistService = require('../services/customerBlocklistService');
+const {
+  normalizeCustomerLocation,
+  resolveLocationLink,
+} = require('../utils/locationParser');
 
 /**
  * Public Orders Routes
@@ -176,6 +180,30 @@ router.post('/wallet-proof/upload', checkWalletProofRateLimit, walletProofUpload
   }
 });
 
+// Resolve Google Maps short or full links into normalized coordinates
+router.post('/resolve-location-link', async (req, res) => {
+  try {
+    const rawUrl = req.body?.url || req.body?.link || '';
+    const resolved = await resolveLocationLink(String(rawUrl));
+    if (!resolved) {
+      return res.status(400).json({
+        success: false,
+        error: 'تعذر استخراج الإحداثيات من الرابط. تأكد أنه رابط Google Maps صحيح.',
+      });
+    }
+    return res.json({
+      success: true,
+      data: resolved,
+    });
+  } catch (error) {
+    console.error('❌ [RESOLVE-LOCATION-LINK] Error:', error?.message);
+    return res.status(500).json({
+      success: false,
+      error: 'تعذر معالجة رابط الموقع حالياً',
+    });
+  }
+});
+
 // GET /api/v1/public/orders/checkout-draft/:cartId - استرجاع سلة غير مكتملة من رابط الواتساب
 router.get('/checkout-draft/:cartId', async (req, res) => {
   try {
@@ -231,6 +259,7 @@ router.get('/checkout-draft/:cartId', async (req, res) => {
           notes: rawCheckoutData.notes || '',
           paymentMethod: rawCheckoutData.paymentMethod || 'cod',
           couponCode: rawCheckoutData.couponCode || '',
+          customerLocation: rawCheckoutData.customerLocation || null,
         },
       },
     });
@@ -272,6 +301,11 @@ router.post('/checkout-draft', async (req, res) => {
     const { normalizeOrderLocation } = require('../utils/orderLocationNormalizer');
     const draftLoc = normalizeOrderLocation(req.body);
 
+    const draftCustomerLocation = normalizeCustomerLocation(
+      req.body?.customerLocation || req.body?.location,
+      req.body?.shippingAddress,
+    );
+
     const checkoutData = {
       customerName: normalizeCheckoutDraftText(req.body?.customerName, 120),
       email: normalizeCheckoutDraftText(req.body?.email, 160).toLowerCase(),
@@ -286,6 +320,7 @@ router.post('/checkout-draft', async (req, res) => {
       subtotal: toCheckoutDraftAmount(req.body?.subtotal, 0),
       shippingCost: toCheckoutDraftAmount(req.body?.shippingCost, 0),
       total: toCheckoutDraftAmount(req.body?.total, 0),
+      ...(draftCustomerLocation ? { customerLocation: draftCustomerLocation } : {}),
       ...(attribution ? { attribution } : {}),
       ...(sessionDetails ? { sessionDetails } : {}),
     };
@@ -939,7 +974,8 @@ router.post('/', async (req, res) => {
       useWallet,
       walletAmount,
       redeemPoints,
-      walletProof
+      walletProof,
+      customerLocation,
     } = req.body;
 
     const headerFbc = req.headers['x-fbc'];
@@ -2396,6 +2432,22 @@ router.post('/', async (req, res) => {
         };
       }
 
+      // Customer map/GPS location (optional or required per storefront settings)
+      const normalizedCustomerLocation = normalizeCustomerLocation(
+        customerLocation,
+        shippingAddress,
+      );
+      if (normalizedCustomerLocation) {
+        orderMetadata.customerLocation = normalizedCustomerLocation;
+      }
+      const persistedShippingAddress =
+        shippingAddress && typeof shippingAddress === 'object' && !Array.isArray(shippingAddress)
+          ? {
+              ...shippingAddress,
+              ...(normalizedCustomerLocation ? { location: normalizedCustomerLocation } : {}),
+            }
+          : shippingAddress;
+
       // 1. 🌟 CREATE PRIMARY ORDER (Single Source of Truth)
       // storeId: كل شركة عندها متجر واحد — نربط الأوردر بمتجر الشركة
       const companyStore = await tx.store.findFirst({
@@ -2411,8 +2463,8 @@ router.post('/', async (req, res) => {
           customerName: guestName,
           customerPhone: guestPhone,
           customerEmail: guestEmail || null,
-          customerAddress: typeof shippingAddress === 'object' ? JSON.stringify(shippingAddress) : (shippingAddress || ''),
-          shippingAddress: typeof shippingAddress === 'object' ? JSON.stringify(shippingAddress) : (shippingAddress || ''),
+          customerAddress: typeof persistedShippingAddress === 'object' ? JSON.stringify(persistedShippingAddress) : (persistedShippingAddress || ''),
+          shippingAddress: typeof persistedShippingAddress === 'object' ? JSON.stringify(persistedShippingAddress) : (persistedShippingAddress || ''),
           governorate: normalizedGovernorate || storeLocation.governorate || shippingQuote?.governorate || storeLocation.rawGovernorate || null,
           city: storeLocation.city || shippingAddress?.city || req.body?.city || '',
           subtotal: parseFloat(cartTotal),
@@ -2457,7 +2509,7 @@ router.post('/', async (req, res) => {
           shippingCost,
           discountAmount,
           finalTotal: finalTotalAfterPoints,
-          shippingAddress: JSON.stringify(shippingAddress),
+          shippingAddress: JSON.stringify(persistedShippingAddress),
           paymentMethod,
           status: isDuplicateOrder ? 'DUPLICATE_ORDER' : 'PENDING',
           notes,
@@ -3611,6 +3663,134 @@ const phoneMatchesGuest = (provided, stored) => {
 };
 
 const extractGuestPhone = (req) => req.query.phone || req.body?.phone || '';
+
+// Post-order customer location attachment (verifies guest phone before updating)
+router.post('/:orderNumber/location', async (req, res) => {
+  try {
+    const { company } = req;
+    const { orderNumber } = req.params;
+    const phone = extractGuestPhone(req);
+    if (!phone) {
+      return res.status(400).json({
+        success: false,
+        error: 'رقم الهاتف مطلوب لتأكيد ملكية الطلب',
+      });
+    }
+
+    const normalizedLocation = normalizeCustomerLocation(
+      req.body?.location || req.body,
+    );
+    if (!normalizedLocation) {
+      return res.status(400).json({
+        success: false,
+        error: 'إحداثيات الموقع غير صالحة',
+      });
+    }
+
+    const prisma = await getPrisma();
+    const [guestOrder, primaryOrder] = await Promise.all([
+      prisma.guestOrder.findFirst({
+        where: { orderNumber, companyId: company.id },
+      }),
+      prisma.order.findFirst({
+        where: {
+          companyId: company.id,
+          OR: [{ id: orderNumber }, { orderNumber }],
+        },
+        include: { customer: { select: { phone: true } } },
+      }),
+    ]);
+
+    const guestPhoneMatch = guestOrder && phoneMatchesGuest(phone, guestOrder.guestPhone);
+    const primaryPhoneMatch =
+      primaryOrder &&
+      phoneMatchesGuest(phone, primaryOrder.customerPhone || primaryOrder.customer?.phone);
+
+    if (!guestPhoneMatch && !primaryPhoneMatch) {
+      return res.status(404).json({
+        success: false,
+        error: 'الطلب غير موجود أو رقم الهاتف غير مطابق',
+      });
+    }
+
+    const attachLocationToAddress = (rawAddr) => {
+      if (!rawAddr) return JSON.stringify({ location: normalizedLocation });
+      if (typeof rawAddr === 'string') {
+        try {
+          const parsed = JSON.parse(rawAddr);
+          if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+            return JSON.stringify({ ...parsed, location: normalizedLocation });
+          }
+        } catch {
+          return JSON.stringify({ street: rawAddr, location: normalizedLocation });
+        }
+      }
+      if (typeof rawAddr === 'object' && !Array.isArray(rawAddr)) {
+        return JSON.stringify({ ...rawAddr, location: normalizedLocation });
+      }
+      return JSON.stringify({ location: normalizedLocation });
+    };
+
+    const attachLocationToMetadata = (rawMeta) => {
+      let base = {};
+      try {
+        base =
+          typeof rawMeta === 'string'
+            ? JSON.parse(rawMeta)
+            : rawMeta && typeof rawMeta === 'object'
+              ? { ...rawMeta }
+              : {};
+      } catch {
+        base = {};
+      }
+      return JSON.stringify({ ...base, customerLocation: normalizedLocation });
+    };
+
+    const updates = [];
+    if (primaryOrder) {
+      updates.push(
+        prisma.order.update({
+          where: { id: primaryOrder.id },
+          data: {
+            shippingAddress: attachLocationToAddress(primaryOrder.shippingAddress),
+            customerAddress: attachLocationToAddress(
+              primaryOrder.customerAddress || primaryOrder.shippingAddress,
+            ),
+            metadata: attachLocationToMetadata(primaryOrder.metadata),
+          },
+        }),
+      );
+    }
+    if (guestOrder) {
+      updates.push(
+        prisma.guestOrder.update({
+          where: { id: guestOrder.id },
+          data: {
+            shippingAddress: attachLocationToAddress(guestOrder.shippingAddress),
+            metadata: attachLocationToMetadata(guestOrder.metadata),
+          },
+        }),
+      );
+    }
+
+    await Promise.all(updates);
+
+    return res.json({
+      success: true,
+      data: {
+        orderNumber,
+        location: normalizedLocation,
+      },
+      message: 'تم حفظ موقع التوصيل بنجاح',
+    });
+  } catch (error) {
+    console.error('❌ [POST-ORDER-LOCATION] Error:', error?.message);
+    return res.status(500).json({
+      success: false,
+      error: 'تعذر حفظ الموقع حالياً',
+    });
+  }
+});
 
 // Track order by order number (legacy route)
 router.get('/:orderNumber/track', async (req, res) => {

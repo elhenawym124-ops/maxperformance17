@@ -16,6 +16,11 @@ import {
   PdpQuickOrderSettings,
   upsertPdpQuickOrderSettingsInDesignTokens,
 } from "../../../storefront/utils/pdpQuickOrderSettings";
+import {
+  DEFAULT_LOCATION_CAPTURE_SETTINGS,
+  LocationCaptureSettings,
+  upsertLocationCaptureSettingsInDesignTokens,
+} from "../../../storefront/utils/locationCaptureSettings";
 import type { StorefrontSectionConfig } from "../../../storefront/types/theme.types";
 
 export type StoreSettingsTab =
@@ -261,6 +266,23 @@ export const applyPdpQuickOrderSettingsToStorefrontSettings = (
     }
   }
 
+  return {
+    ...nextSettings,
+    designTokens: nextDesignTokens,
+  };
+};
+
+export const applyLocationCaptureSettingsToStorefrontSettings = (
+  currentSettings?: StorefrontSettings | null,
+  locationCaptureSettings?: LocationCaptureSettings,
+): StorefrontSettings => {
+  const nextSettings = {
+    ...(currentSettings || ({} as StorefrontSettings)),
+  };
+  const nextDesignTokens = upsertLocationCaptureSettingsInDesignTokens(
+    nextSettings.designTokens,
+    locationCaptureSettings || DEFAULT_LOCATION_CAPTURE_SETTINGS,
+  );
   return {
     ...nextSettings,
     designTokens: nextDesignTokens,

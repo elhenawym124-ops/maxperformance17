@@ -6,6 +6,8 @@ import { storefrontApi } from '../../../utils/storefrontApi';
 import { useStorefrontTheme } from '../../engine/ThemeProvider';
 import { isKhemetLuxeTheme } from '../../utils/navigationGuards';
 import { useTierProgress } from '../../hooks/useTierProgress';
+import type { CustomerLocationData } from '../../utils/locationCaptureSettings';
+import type { AutoFillAddressPatch } from '../../components/CustomerLocationPicker';
 import type { CheckoutFormProps } from './checkoutFormTypes';
 import {
   getStepWrapperClassName,
@@ -23,6 +25,32 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
   const location = useLocation();
   const { refreshTierProgress } = useTierProgress();
   const recoveredCartIdsRef = useRef<Set<string>>(new Set());
+
+  const handleLocationChange = useCallback(
+    (nextLocation: CustomerLocationData | null) => {
+      updateFormData({ customerLocation: nextLocation });
+    },
+    [updateFormData],
+  );
+
+  const handleLocationAddressAutoFill = useCallback(
+    (patch: AutoFillAddressPatch) => {
+      const updates: Record<string, string> = {};
+      if (patch.address && !formData.address?.trim()) {
+        updates.address = patch.address;
+      }
+      if (patch.city && !formData.city?.trim()) {
+        updates.city = patch.city;
+      }
+      if (patch.governorate && !formData.governorate?.trim()) {
+        updates.governorate = patch.governorate;
+      }
+      if (Object.keys(updates).length > 0) {
+        updateFormData(updates);
+      }
+    },
+    [formData.address, formData.city, formData.governorate, updateFormData],
+  );
 
   // استرجاع السلة وبيانات العميل تلقائياً عند فتح رابط واتساب (?recoverCart=...)
   useEffect(() => {
@@ -53,6 +81,7 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
           ...(checkoutData.city ? { city: checkoutData.city } : {}),
           ...(checkoutData.governorate ? { governorate: checkoutData.governorate } : {}),
           ...(checkoutData.notes ? { notes: checkoutData.notes } : {}),
+          ...(checkoutData.customerLocation ? { customerLocation: checkoutData.customerLocation } : {}),
         });
         if (
           checkoutData.paymentMethod === 'cod' ||
@@ -587,5 +616,7 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
     shippingGridClassName,
     notesTextareaClassName,
     loginStripClassName,
+    handleLocationChange,
+    handleLocationAddressAutoFill,
   };
 };

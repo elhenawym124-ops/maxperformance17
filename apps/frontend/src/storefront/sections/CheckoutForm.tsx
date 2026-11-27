@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { QueryClientContext } from '@tanstack/react-query';
 import type { CheckoutFormProps } from './checkout-form/checkoutFormTypes';
 import { useCheckoutFormController } from './checkout-form/useCheckoutFormController';
+import { useStorefrontSettings } from '../hooks/useStorefrontSettings';
+import { resolveLocationCaptureSettingsFromStorefront } from '../utils/locationCaptureSettings';
 import { CheckoutAssuranceBanner } from './checkout-form/CheckoutAssuranceBanner';
 import { CheckoutReturningCustomerBanner } from './checkout-form/CheckoutReturningCustomerBanner';
 import { CheckoutContactSection } from './checkout-form/CheckoutContactSection';
-import { CheckoutShippingSection } from './checkout-form/CheckoutShippingSection';
+import { CheckoutShippingSection, type CheckoutShippingSectionProps } from './checkout-form/CheckoutShippingSection';
 import { CheckoutColdChainSlotSection } from './checkout-form/CheckoutColdChainSlotSection';
 import { CheckoutNotesSection } from './checkout-form/CheckoutNotesSection';
 
+const CheckoutShippingWithStoreSettings: React.FC<CheckoutShippingSectionProps> = (props) => {
+  const { settings: storefrontSettings } = useStorefrontSettings();
+  const locationCaptureSettings = resolveLocationCaptureSettingsFromStorefront(storefrontSettings);
+  return (
+    <CheckoutShippingSection
+      {...props}
+      locationCaptureSettings={locationCaptureSettings}
+    />
+  );
+};
+
 export const CheckoutForm: React.FC<CheckoutFormProps> = ({ section, settings }) => {
   const ctrl = useCheckoutFormController({ section, settings });
+  const hasQueryClient = Boolean(useContext(QueryClientContext));
 
   if (!ctrl.items.length) {
     return null;
@@ -69,29 +84,61 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({ section, settings })
 
         {ctrl.isKhemetLuxe && <div className="border-t border-[#e5dacb] pt-2" />}
 
-        <CheckoutShippingSection
-          stepWrapperClassName={ctrl.stepWrapperClassName(ctrl.variant)}
-          stepHeadingClassName={ctrl.stepHeadingClassName}
-          introTextClassName={ctrl.introTextClassName}
-          labelClassName={ctrl.labelClassName}
-          inputClassName={ctrl.inputClassName}
-          shippingGridClassName={ctrl.shippingGridClassName}
-          autoHintClassName={ctrl.autoHintClassName}
-          autoSuccessClassName={ctrl.autoSuccessClassName}
-          shippingTitle={ctrl.shippingTitle}
-          shippingDescription={ctrl.shippingDescription}
-          addressLabel={ctrl.addressLabel}
-          addressPlaceholder={ctrl.addressPlaceholder}
-          cityLabel={ctrl.cityLabel}
-          cityPlaceholder={ctrl.cityPlaceholder}
-          governorateLabel={ctrl.governorateLabel}
-          governoratePlaceholder={ctrl.governoratePlaceholder}
-          autoDetectHint={ctrl.autoDetectHint}
-          autoDetectSuccessText={ctrl.autoDetectSuccessText}
-          formData={ctrl.formData}
-          renderStepNumber={ctrl.renderStepNumber}
-          handleChange={ctrl.handleChange}
-        />
+        {hasQueryClient ? (
+          <CheckoutShippingWithStoreSettings
+            stepWrapperClassName={ctrl.stepWrapperClassName(ctrl.variant)}
+            stepHeadingClassName={ctrl.stepHeadingClassName}
+            introTextClassName={ctrl.introTextClassName}
+            labelClassName={ctrl.labelClassName}
+            inputClassName={ctrl.inputClassName}
+            shippingGridClassName={ctrl.shippingGridClassName}
+            autoHintClassName={ctrl.autoHintClassName}
+            autoSuccessClassName={ctrl.autoSuccessClassName}
+            shippingTitle={ctrl.shippingTitle}
+            shippingDescription={ctrl.shippingDescription}
+            addressLabel={ctrl.addressLabel}
+            addressPlaceholder={ctrl.addressPlaceholder}
+            cityLabel={ctrl.cityLabel}
+            cityPlaceholder={ctrl.cityPlaceholder}
+            governorateLabel={ctrl.governorateLabel}
+            governoratePlaceholder={ctrl.governoratePlaceholder}
+            autoDetectHint={ctrl.autoDetectHint}
+            autoDetectSuccessText={ctrl.autoDetectSuccessText}
+            formData={ctrl.formData}
+            renderStepNumber={ctrl.renderStepNumber}
+            handleChange={ctrl.handleChange}
+            onLocationChange={ctrl.handleLocationChange}
+            onLocationAddressAutoFill={ctrl.handleLocationAddressAutoFill}
+            prefersArabic={ctrl.theme.direction === 'rtl'}
+          />
+        ) : (
+          <CheckoutShippingSection
+            stepWrapperClassName={ctrl.stepWrapperClassName(ctrl.variant)}
+            stepHeadingClassName={ctrl.stepHeadingClassName}
+            introTextClassName={ctrl.introTextClassName}
+            labelClassName={ctrl.labelClassName}
+            inputClassName={ctrl.inputClassName}
+            shippingGridClassName={ctrl.shippingGridClassName}
+            autoHintClassName={ctrl.autoHintClassName}
+            autoSuccessClassName={ctrl.autoSuccessClassName}
+            shippingTitle={ctrl.shippingTitle}
+            shippingDescription={ctrl.shippingDescription}
+            addressLabel={ctrl.addressLabel}
+            addressPlaceholder={ctrl.addressPlaceholder}
+            cityLabel={ctrl.cityLabel}
+            cityPlaceholder={ctrl.cityPlaceholder}
+            governorateLabel={ctrl.governorateLabel}
+            governoratePlaceholder={ctrl.governoratePlaceholder}
+            autoDetectHint={ctrl.autoDetectHint}
+            autoDetectSuccessText={ctrl.autoDetectSuccessText}
+            formData={ctrl.formData}
+            renderStepNumber={ctrl.renderStepNumber}
+            handleChange={ctrl.handleChange}
+            onLocationChange={ctrl.handleLocationChange}
+            onLocationAddressAutoFill={ctrl.handleLocationAddressAutoFill}
+            prefersArabic={ctrl.theme.direction === 'rtl'}
+          />
+        )}
 
         {ctrl.isButcherCheckout && (
           <CheckoutColdChainSlotSection

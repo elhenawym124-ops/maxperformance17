@@ -1,6 +1,7 @@
 import React from 'react';
 import { Car, ChevronDown, FileText } from 'lucide-react';
 import QuantitySelector from '../../components/QuantitySelector';
+import { CustomerLocationPicker } from '../../components/CustomerLocationPicker';
 import { EGYPT_GOVERNORATES } from '../../../constants/egyptGovernorates';
 import type { PdpQuickOrderController } from './usePdpQuickOrderController';
 
@@ -214,6 +215,18 @@ export const QuickOrderFields: React.FC<{
               }
             />
           </label>
+        ) : null}
+
+        {ctrl.showLocationPicker ? (
+          <CustomerLocationPicker
+            settings={ctrl.locationCaptureSettings}
+            value={ctrl.formData.customerLocation}
+            onChange={ctrl.handleLocationChange}
+            onAddressAutoFill={ctrl.handleLocationAddressAutoFill}
+            prefersArabic={ctrl.prefersArabicCopy}
+            compact
+            id="pdp-quick-order-location"
+          />
         ) : null}
 
         {ctrl.effectiveAlternatePhoneField.enabled ? (

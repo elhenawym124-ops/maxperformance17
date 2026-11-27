@@ -30,6 +30,10 @@ import {
   markPurchaseTracked,
 } from '../../utils/purchaseTrackingStorage';
 import {
+  resolveLocationCaptureSettingsFromStorefront,
+  type CustomerLocationData,
+} from '../../utils/locationCaptureSettings';
+import {
   asRecord,
   asTrimmedString,
   getPcHubStatusExperience,
@@ -1066,9 +1070,54 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
 
   const trackedOrderLocation = resolveShippingLocation(effectiveTrackedOrder?.shippingAddress);
 
+  const locationCaptureSettings = useMemo(
+    () => resolveLocationCaptureSettingsFromStorefront(storefrontSettings),
+    [storefrontSettings],
+  );
+
+  const existingOrderLocation = useMemo<CustomerLocationData | null>(() => {
+    const rawShipping = effectiveTrackedOrder?.shippingAddress;
+    let parsedShipping: Record<string, unknown> | null = null;
+    if (typeof rawShipping === 'string' && rawShipping.trim().startsWith('{')) {
+      try {
+        parsedShipping = JSON.parse(rawShipping);
+      } catch {
+        parsedShipping = null;
+      }
+    } else if (rawShipping && typeof rawShipping === 'object' && !Array.isArray(rawShipping)) {
+      parsedShipping = rawShipping as Record<string, unknown>;
+    }
+
+    const candidate =
+      parsedShipping?.location && typeof parsedShipping.location === 'object'
+        ? (parsedShipping.location as Record<string, unknown>)
+        : null;
+    if (candidate && Number.isFinite(Number(candidate.lat)) && Number.isFinite(Number(candidate.lng))) {
+      return {
+        lat: Number(candidate.lat),
+        lng: Number(candidate.lng),
+        googleMapsUrl:
+          typeof candidate.googleMapsUrl === 'string'
+            ? candidate.googleMapsUrl
+            : `https://www.google.com/maps?q=${Number(candidate.lat)},${Number(candidate.lng)}`,
+        source: (candidate.source as CustomerLocationData['source']) || 'map_pin',
+        ...(typeof candidate.label === 'string' ? { label: candidate.label } : {}),
+      };
+    }
+    return null;
+  }, [effectiveTrackedOrder?.shippingAddress]);
+
+  const showPostOrderLocationCard =
+    Boolean(resolvedOrderReference) &&
+    locationCaptureSettings.mode !== 'disabled' &&
+    (locationCaptureSettings.displayStyle === 'post_order' || !existingOrderLocation);
+
   return {
     theme,
     prefersArabicCopy,
+    locationCaptureSettings,
+    existingOrderLocation,
+    showPostOrderLocationCard,
     isBiteRush,
     isPcHub,
     isSoftAftercare,

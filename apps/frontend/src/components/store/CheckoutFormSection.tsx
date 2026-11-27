@@ -18,6 +18,8 @@ import {
   PdpQuickOrderSettings,
   PDP_QUICK_ORDER_SURFACE_MODE_OPTIONS,
 } from "../../storefront/utils/pdpQuickOrderSettings";
+import { LocationCaptureSettingsCard } from "./LocationCaptureSettingsCard";
+import type { LocationCaptureSettings } from "../../storefront/utils/locationCaptureSettings";
 
 interface CheckoutFormSectionProps {
   settings: Partial<CheckoutFormSettings>;
@@ -30,6 +32,8 @@ interface CheckoutFormSectionProps {
   onProductPageCheckoutToggle?: (enabled: boolean) => void;
   pdpQuickOrderSettings?: PdpQuickOrderSettings;
   onPdpQuickOrderSettingsChange?: (settings: PdpQuickOrderSettings) => void;
+  locationCaptureSettings?: LocationCaptureSettings;
+  onLocationCaptureSettingsChange?: (settings: LocationCaptureSettings) => void;
 }
 
 export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
@@ -43,6 +47,8 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
   onProductPageCheckoutToggle,
   pdpQuickOrderSettings,
   onPdpQuickOrderSettingsChange,
+  locationCaptureSettings,
+  onLocationCaptureSettingsChange,
 }) => {
   const { t } = useTranslation();
   const handleToggle = (field: keyof CheckoutFormSettings, value: boolean) => {
@@ -525,6 +531,14 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
           />
         </div>
       </section>
+
+      {locationCaptureSettings && onLocationCaptureSettingsChange ? (
+        <LocationCaptureSettingsCard
+          settings={locationCaptureSettings}
+          onChange={onLocationCaptureSettingsChange}
+          disabled={loading}
+        />
+      ) : null}
 
       {/* Additional Fields Section */}
       <section>

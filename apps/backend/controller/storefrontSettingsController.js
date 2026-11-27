@@ -2322,6 +2322,8 @@ const getPublicSettings = async (req, res) => {
       ...(rawTokens.themeId !== undefined ? { themeId: rawTokens.themeId } : {}),
       ...(rawTokens.tokens !== undefined ? { tokens: rawTokens.tokens } : {}),
       ...(rawTokens.seo !== undefined ? { seo: rawTokens.seo } : {}),
+      ...(rawTokens.pdpQuickOrder !== undefined ? { pdpQuickOrder: rawTokens.pdpQuickOrder } : {}),
+      ...(rawTokens.locationCapture !== undefined ? { locationCapture: rawTokens.locationCapture } : {}),
     };
 
     const themeId =

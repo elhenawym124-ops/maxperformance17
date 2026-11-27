@@ -12,6 +12,10 @@ import {
   getPdpQuickOrderSettingsFromDesignTokens,
   PdpQuickOrderSettings,
 } from "../../../storefront/utils/pdpQuickOrderSettings";
+import {
+  getLocationCaptureSettingsFromDesignTokens,
+  LocationCaptureSettings,
+} from "../../../storefront/utils/locationCaptureSettings";
 import { resolvePdpCheckoutEnabled } from "./types";
 
 interface StoreCheckoutTabProps {
@@ -23,6 +27,9 @@ interface StoreCheckoutTabProps {
   handleToggleProductPageCheckout: (enabled: boolean) => void;
   handleChangePdpQuickOrderSettings: (
     settings: PdpQuickOrderSettings,
+  ) => void;
+  handleChangeLocationCaptureSettings?: (
+    settings: LocationCaptureSettings,
   ) => void;
   handleSaveCheckoutTabSettings: () => Promise<boolean>;
   handleResetCheckoutTabSettings: () => Promise<void>;
@@ -38,6 +45,7 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
   storefrontSettings,
   handleToggleProductPageCheckout,
   handleChangePdpQuickOrderSettings,
+  handleChangeLocationCaptureSettings,
   handleSaveCheckoutTabSettings,
   handleResetCheckoutTabSettings,
   handleToggleWishlist,
@@ -49,6 +57,9 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
   const productPageCheckoutEnabled =
     resolvePdpCheckoutEnabled(storefrontSettings);
   const pdpQuickOrderSettings = getPdpQuickOrderSettingsFromDesignTokens(
+    storefrontSettings.designTokens,
+  );
+  const locationCaptureSettings = getLocationCaptureSettingsFromDesignTokens(
     storefrontSettings.designTokens,
   );
 
@@ -181,6 +192,8 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
           onProductPageCheckoutToggle={handleToggleProductPageCheckout}
           pdpQuickOrderSettings={pdpQuickOrderSettings}
           onPdpQuickOrderSettingsChange={handleChangePdpQuickOrderSettings}
+          locationCaptureSettings={locationCaptureSettings}
+          onLocationCaptureSettingsChange={handleChangeLocationCaptureSettings}
           onSave={() => {
             void handleSaveCheckoutTabSettings();
           }}

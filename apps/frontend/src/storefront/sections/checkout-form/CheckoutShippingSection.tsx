@@ -1,6 +1,14 @@
 import React from 'react';
 import { fieldIds, governorates } from './checkoutFormHelpers';
 import type { useCheckoutStore } from '../../store/useCheckoutStore';
+import {
+  CustomerLocationPicker,
+  type AutoFillAddressPatch,
+} from '../../components/CustomerLocationPicker';
+import type {
+  CustomerLocationData,
+  LocationCaptureSettings,
+} from '../../utils/locationCaptureSettings';
 
 export interface CheckoutShippingSectionProps {
   stepWrapperClassName: string;
@@ -24,6 +32,10 @@ export interface CheckoutShippingSectionProps {
   formData: ReturnType<typeof useCheckoutStore.getState>['formData'];
   renderStepNumber: (num: number, color: string) => React.ReactNode;
   handleChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+  locationCaptureSettings?: LocationCaptureSettings;
+  onLocationChange?: (location: CustomerLocationData | null) => void;
+  onLocationAddressAutoFill?: (patch: AutoFillAddressPatch) => void;
+  prefersArabic?: boolean;
 }
 
 export const CheckoutShippingSection: React.FC<CheckoutShippingSectionProps> = ({
@@ -48,6 +60,10 @@ export const CheckoutShippingSection: React.FC<CheckoutShippingSectionProps> = (
   formData,
   renderStepNumber,
   handleChange,
+  locationCaptureSettings,
+  onLocationChange,
+  onLocationAddressAutoFill,
+  prefersArabic = true,
 }) => {
   return (
     <div className={stepWrapperClassName}>
@@ -137,6 +153,22 @@ export const CheckoutShippingSection: React.FC<CheckoutShippingSectionProps> = (
           </div>
         </div>
       </div>
+
+      {locationCaptureSettings &&
+      onLocationChange &&
+      locationCaptureSettings.mode !== 'disabled' &&
+      locationCaptureSettings.displayStyle !== 'post_order' ? (
+        <div className="pt-1">
+          <CustomerLocationPicker
+            settings={locationCaptureSettings}
+            value={formData.customerLocation}
+            onChange={onLocationChange}
+            onAddressAutoFill={onLocationAddressAutoFill}
+            prefersArabic={prefersArabic}
+            id="checkout-customer-location"
+          />
+        </div>
+      ) : null}
     </div>
   );
 };

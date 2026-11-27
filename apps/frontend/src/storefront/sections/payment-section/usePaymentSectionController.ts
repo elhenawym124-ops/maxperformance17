@@ -15,6 +15,7 @@ import { getOrderAttributionPayload } from '../../utils/orderAttribution';
 import { useStorefrontTheme } from '../../engine/ThemeProvider';
 import { useCheckoutShippingQuote } from '../../hooks/useCheckoutShippingQuote';
 import { isValidStorefrontPhone } from '../../utils/phoneValidation';
+import { resolveLocationCaptureSettingsFromStorefront } from '../../utils/locationCaptureSettings';
 import { toast } from 'sonner';
 import {
   getMethodCardClassName,
@@ -567,6 +568,7 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
         city: formData.city,
         governorate: formData.governorate,
         notes: formData.notes,
+        customerLocation: formData.customerLocation || undefined,
         paymentMethod,
         couponCode: activeCoupon?.code || undefined,
         shippingCost: shipping,
@@ -718,8 +720,26 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
       errors.push('صيغة البريد الإلكتروني غير صحيحة. اتركه فارغًا أو أدخل عنوان صحيح.');
       if (!firstInvalidFieldId) firstInvalidFieldId = 'checkout-email';
     }
+    const locationSettings = resolveLocationCaptureSettingsFromStorefront(storefrontSettings);
+    if (
+      locationSettings.mode === 'required' &&
+      locationSettings.displayStyle !== 'post_order' &&
+      !formData.customerLocation
+    ) {
+      errors.push('يرجى تحديد موقعك على الخريطة قبل تأكيد الطلب.');
+      if (!firstInvalidFieldId) firstInvalidFieldId = 'checkout-customer-location';
+    }
     return { errors, firstInvalidFieldId };
-  }, [formData.customerName, formData.phone, formData.address, trimmedGovernorate, isPhoneValid, isEmailValid]);
+  }, [
+    formData.customerName,
+    formData.phone,
+    formData.address,
+    formData.customerLocation,
+    trimmedGovernorate,
+    isPhoneValid,
+    isEmailValid,
+    storefrontSettings,
+  ]);
 
   const handlePlaceOrder = async () => {
     const { errors, firstInvalidFieldId } = validateForm();

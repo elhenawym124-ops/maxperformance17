@@ -13,6 +13,7 @@ import {
   type StorefrontSessionDetails,
 } from '../utils/storefrontSessionTracker';
 import { persistPurchaseTracking } from '../utils/purchaseTrackingStorage';
+import type { CustomerLocationData } from '../utils/locationCaptureSettings';
 import { toast } from 'sonner';
 
 export interface CheckoutData {
@@ -26,6 +27,7 @@ export interface CheckoutData {
   area?: string;
   governorate: string;
   notes?: string;
+  customerLocation?: CustomerLocationData | null;
   paymentMethod: 'cod' | 'card' | 'wallet';
   couponCode?: string;
   shippingCost?: number;
@@ -165,7 +167,9 @@ export const buildCheckoutOrderPayload = (
       ...(data.area ? { area: data.area } : {}),
       governorate: data.governorate,
       ...(data.phone2 || data.alternativePhone ? { phone2: data.phone2 || data.alternativePhone } : {}),
+      ...(data.customerLocation ? { location: data.customerLocation } : {}),
     },
+    ...(data.customerLocation ? { customerLocation: data.customerLocation } : {}),
     paymentMethod: data.paymentMethod,
     ...(data.couponCode ? { couponCode: data.couponCode } : {}),
     ...(data.redeemPoints ? { redeemPoints: true } : {}),

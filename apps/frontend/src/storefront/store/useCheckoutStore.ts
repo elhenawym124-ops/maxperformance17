@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import type { CustomerLocationData } from "../utils/locationCaptureSettings";
 
 export interface CheckoutFormData {
   customerName: string;
@@ -10,6 +11,7 @@ export interface CheckoutFormData {
   governorate: string;
   notes?: string;
   deliverySlot?: string;
+  customerLocation?: CustomerLocationData | null;
 }
 
 export interface AppliedCheckoutCoupon {
@@ -80,6 +82,7 @@ const initialFormData: CheckoutFormData = {
   city: "",
   governorate: "",
   notes: "",
+  customerLocation: null,
 };
 
 export const useCheckoutStore = create<CheckoutStore>()(

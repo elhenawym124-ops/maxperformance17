@@ -7,6 +7,11 @@ import { useStorefrontTheme } from '../../engine/ThemeProvider';
 import { useStorefrontSettings } from '../../hooks/useStorefrontSettings';
 import { useStorefrontFacebookTracking } from '../../hooks/useStorefrontFacebookTracking';
 import { getPdpQuickOrderSettingsFromDesignTokens } from '../../utils/pdpQuickOrderSettings';
+import {
+  resolveLocationCaptureSettingsFromStorefront,
+  type CustomerLocationData,
+} from '../../utils/locationCaptureSettings';
+import type { AutoFillAddressPatch } from '../../components/CustomerLocationPicker';
 import { getGovernorateByName } from '../../../constants/egyptGovernorates';
 import { useIpGovernorateDetection } from '../../hooks/useIpGovernorateDetection';
 import { getCompanyId, storefrontApi } from '../../../utils/storefrontApi';
@@ -315,6 +320,34 @@ export const usePdpQuickOrderController = ({
   const pdpQuickOrderSettings = getPdpQuickOrderSettingsFromDesignTokens(
     storefrontSettings?.storefrontSettings?.designTokens,
   );
+  const locationCaptureSettings = useMemo(
+    () => resolveLocationCaptureSettingsFromStorefront(storefrontSettings),
+    [storefrontSettings],
+  );
+  const showLocationPicker =
+    locationCaptureSettings.mode !== 'disabled' &&
+    locationCaptureSettings.displayStyle !== 'post_order' &&
+    locationCaptureSettings.applyToQuickOrder;
+
+  const handleLocationChange = (nextLocation: CustomerLocationData | null) => {
+    updateFormData({ customerLocation: nextLocation });
+  };
+
+  const handleLocationAddressAutoFill = (patch: AutoFillAddressPatch) => {
+    const updates: Record<string, string> = {};
+    if (patch.address && !formData.address?.trim()) {
+      updates.address = patch.address;
+    }
+    if (patch.city && !formData.city?.trim()) {
+      updates.city = patch.city;
+    }
+    if (patch.governorate && !formData.governorate?.trim()) {
+      updates.governorate = patch.governorate;
+    }
+    if (Object.keys(updates).length > 0) {
+      updateFormData(updates);
+    }
+  };
   const fullNameField = pdpQuickOrderSettings.fields.fullName;
   const phoneField = pdpQuickOrderSettings.fields.phone;
   const governorateField = pdpQuickOrderSettings.fields.governorate;
@@ -533,6 +566,8 @@ export const usePdpQuickOrderController = ({
     resolvedAlternatePhone,
     resolvedGovernorate,
     resolvedAddress,
+    customerLocation: formData.customerLocation || null,
+    locationCaptureSettings,
     minimumOrder: pricingData.minimumOrder,
     customAttributes,
     customAttributesSummary,
@@ -649,6 +684,7 @@ export const usePdpQuickOrderController = ({
         address: resolvedAddress,
         city: resolvedGovernorate,
         governorate: resolvedGovernorate,
+        customerLocation: formData.customerLocation || undefined,
         notes: buildQuickOrderNote({
           alternatePhone: resolvedAlternatePhone,
           attributeSummary: pricingData.attributeSummary,
@@ -780,6 +816,10 @@ export const usePdpQuickOrderController = ({
     // Fields & State
     formData,
     handleFieldChange,
+    locationCaptureSettings,
+    showLocationPicker,
+    handleLocationChange,
+    handleLocationAddressAutoFill,
     showQuantityBlock,
     quantity,
     setQuantity,

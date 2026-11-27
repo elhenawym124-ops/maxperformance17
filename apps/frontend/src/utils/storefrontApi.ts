@@ -861,6 +861,28 @@ export const storefrontApi = {
       method: "GET",
     });
   },
+
+  resolveLocationLink: async (url: string) => {
+    return storefrontFetch("/orders/resolve-location-link", withJsonBody("POST", { url }));
+  },
+
+  updateOrderLocation: async (
+    orderNumber: string,
+    payload: {
+      phone: string;
+      lat: number;
+      lng: number;
+      accuracy?: number;
+      label?: string;
+      googleMapsUrl?: string;
+      source?: string;
+    },
+  ) => {
+    return storefrontFetch(
+      `/orders/${encodeURIComponent(orderNumber)}/location`,
+      withJsonBody("POST", payload),
+    );
+  },
 };
 
 export default storefrontApi;

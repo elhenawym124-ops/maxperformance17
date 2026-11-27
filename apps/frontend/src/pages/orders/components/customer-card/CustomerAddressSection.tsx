@@ -6,6 +6,7 @@ import {
   CheckIcon,
   SparklesIcon,
   ExclamationTriangleIcon,
+  ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 import { apiClient } from "../../../../services/apiClient";
@@ -30,6 +31,63 @@ function parseTurboAreaMeta(rawMetadata: unknown): any {
   }
 }
 
+interface ParsedCustomerLocation {
+  lat: number;
+  lng: number;
+  googleMapsUrl: string;
+  label?: string;
+  source?: string;
+}
+
+function parseCustomerLocation(order: OrderDetailsType): ParsedCustomerLocation | null {
+  const tryExtract = (raw: unknown): ParsedCustomerLocation | null => {
+    if (!raw) return null;
+    let obj: Record<string, unknown> | null = null;
+    if (typeof raw === "string" && raw.trim().startsWith("{")) {
+      try {
+        obj = JSON.parse(raw);
+      } catch {
+        obj = null;
+      }
+    } else if (typeof raw === "object" && !Array.isArray(raw)) {
+      obj = raw as Record<string, unknown>;
+    }
+    if (!obj) return null;
+
+    const candidate =
+      (obj.customerLocation && typeof obj.customerLocation === "object"
+        ? (obj.customerLocation as Record<string, unknown>)
+        : null) ||
+      (obj.location && typeof obj.location === "object"
+        ? (obj.location as Record<string, unknown>)
+        : null) ||
+      (obj.lat !== undefined && obj.lng !== undefined ? obj : null);
+
+    if (!candidate) return null;
+    const lat = Number(candidate.lat);
+    const lng = Number(candidate.lng);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng) || (lat === 0 && lng === 0)) {
+      return null;
+    }
+    return {
+      lat,
+      lng,
+      googleMapsUrl:
+        typeof candidate.googleMapsUrl === "string" && candidate.googleMapsUrl.trim()
+          ? candidate.googleMapsUrl.trim()
+          : `https://www.google.com/maps?q=${lat},${lng}`,
+      label: typeof candidate.label === "string" ? candidate.label.trim() : undefined,
+      source: typeof candidate.source === "string" ? candidate.source.trim() : undefined,
+    };
+  };
+
+  return (
+    tryExtract((order as any)?.metadata) ||
+    tryExtract(order.shippingAddress) ||
+    tryExtract(order.customerAddress)
+  );
+}
+
 interface CustomerAddressSectionProps {
   order: OrderDetailsType;
   isEditing: boolean;
@@ -47,6 +105,7 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
 }) => {
   const { t } = useTranslation();
   const [copiedAddr, setCopiedAddr] = useState(false);
+  const [copiedLocationUrl, setCopiedLocationUrl] = useState(false);
   const [resolvingAi, setResolvingAi] = useState(false);
   const [aiOverride, setAiOverride] = useState<{
     governorate?: string | null;
@@ -56,6 +115,7 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
   } | null>(null);
 
   const turboAreaMeta = parseTurboAreaMeta((order as any)?.metadata);
+  const customerLocation = parseCustomerLocation(order);
 
   const resolvedGov = (() => {
     if (aiOverride?.governorate) return aiOverride.governorate;
@@ -238,6 +298,42 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
           </button>
         )}
       </div>
+
+      {customerLocation && (
+        <div className="flex flex-wrap items-center justify-between gap-2 ps-6">
+          <a
+            href={customerLocation.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-semibold text-primary hover:bg-primary/15 transition active:scale-[0.98]"
+            title={`${customerLocation.lat.toFixed(5)}, ${customerLocation.lng.toFixed(5)}`}
+          >
+            <MapPinIcon className="w-3.5 h-3.5 shrink-0" />
+            <span>فتح موقع العميل (Google Maps)</span>
+            <ArrowTopRightOnSquareIcon className="w-3 h-3 shrink-0" />
+          </a>
+          <button
+            type="button"
+            onClick={() => {
+              navigator.clipboard?.writeText(customerLocation.googleMapsUrl);
+              setCopiedLocationUrl(true);
+              toast.success("تم نسخ رابط اللوكيشن");
+              setTimeout(() => setCopiedLocationUrl(false), 1800);
+            }}
+            className="inline-flex items-center gap-1 rounded-lg border border-border/70 bg-muted/40 px-2 py-1 text-[11px] font-mono tabular-nums text-muted-foreground hover:text-foreground hover:bg-muted transition active:scale-95"
+            title="نسخ رابط Google Maps"
+          >
+            {copiedLocationUrl ? (
+              <CheckIcon className="w-3 h-3 text-success shrink-0" />
+            ) : (
+              <ClipboardDocumentIcon className="w-3 h-3 shrink-0" />
+            )}
+            <span>
+              {customerLocation.lat.toFixed(4)}, {customerLocation.lng.toFixed(4)}
+            </span>
+          </button>
+        </div>
+      )}
 
       {(needsAddressDetails || showAiResolveButton) && (
         <div className="flex flex-wrap items-center justify-between gap-2 ps-6">
