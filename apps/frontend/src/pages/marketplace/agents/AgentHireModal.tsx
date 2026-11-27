@@ -1,18 +1,5 @@
-/**
- * AgentHireModal.tsx
- * ─────────────────────────────────────────────────────────────────────────────
- * Minimalist, high-density modal for deploying an agent into the company.
- * Configures department routing, safety governance mode, and initiates
- * the backend spawn request via /api/agent-manager/hire.
- * 
- * Strict 2026 Anti-AI-Slop compliance:
- * - Zero Emojis
- * - Tactile buttons with physical active press
- * - Clear governance safety indicators
- * ─────────────────────────────────────────────────────────────────────────────
- */
-
 import React from "react";
+import { Users } from "lucide-react";
 import { AgentListing } from "./agentMarketplaceData";
 import { useAgentHireModal } from "./hooks/useAgentHireModal";
 import { AgentHireHeader } from "./components/hire/AgentHireHeader";
@@ -23,6 +10,7 @@ import { AgentHireFooter } from "./components/hire/AgentHireFooter";
 export interface AgentHireModalProps {
   agent: AgentListing | null;
   open: boolean;
+  initialWalletBalance?: number | null;
   onClose: () => void;
   onHired: (agentSlug: string, agentName: string) => void;
 }
@@ -30,6 +18,7 @@ export interface AgentHireModalProps {
 export const AgentHireModal: React.FC<AgentHireModalProps> = ({
   agent,
   open,
+  initialWalletBalance = null,
   onClose,
   onHired,
 }) => {
@@ -41,43 +30,51 @@ export const AgentHireModal: React.FC<AgentHireModalProps> = ({
     safetyMode,
     setSafetyMode,
     loading,
-    imgError,
-    setImgError,
     walletBalance,
     walletLoading,
+    walletError,
+    fetchWalletBalance,
     isPro,
     hasEnoughBalance,
     navigateToRecharge,
     handleConfirmHire,
-  } = useAgentHireModal({ agent, open, onClose, onHired });
+  } = useAgentHireModal({ agent, open, initialWalletBalance, onClose, onHired });
 
   if (!open || !agent) return null;
+
+  const isSquad = agent.kind === "squad";
 
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-labelledby="hire-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-sm p-4 text-start select-none animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 backdrop-blur-sm p-4 text-start"
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-lg rounded-xl border border-border/80 bg-background p-6 shadow-2xl space-y-5"
+        className="relative w-full max-w-lg rounded-xl border border-border bg-card text-card-foreground p-5 shadow-2xl space-y-4"
       >
-        <AgentHireHeader
-          agent={agent}
-          imgError={imgError}
-          onImgError={() => setImgError(true)}
-          onClose={onClose}
-        />
+        <AgentHireHeader agent={agent} onClose={onClose} />
+
+        {isSquad && agent.squadMemberDetails && agent.squadMemberDetails.length > 0 && (
+          <div className="rounded-lg border border-primary/20 bg-primary/5 px-3.5 py-2.5 text-xs flex items-center gap-2 text-foreground">
+            <Users className="size-4 text-primary shrink-0 stroke-[1.5]" />
+            <span>
+              سيتم تفعيل حزمة الفريق كاملة ({agent.squadMemberDetails.length} وكلاء مترابطين) دفعة واحدة.
+            </span>
+          </div>
+        )}
 
         <AgentHirePricingGuard
           agent={agent}
           isPro={isPro}
           walletBalance={walletBalance}
           walletLoading={walletLoading}
+          walletError={walletError}
           hasEnoughBalance={hasEnoughBalance}
+          onRetryWallet={fetchWalletBalance}
           onNavigateToRecharge={navigateToRecharge}
         />
 
@@ -93,6 +90,9 @@ export const AgentHireModal: React.FC<AgentHireModalProps> = ({
         <AgentHireFooter
           loading={loading}
           isPro={isPro}
+          isSquad={isSquad}
+          walletLoading={walletLoading}
+          walletError={walletError}
           hasEnoughBalance={hasEnoughBalance}
           onClose={onClose}
           onConfirmHire={handleConfirmHire}

@@ -4,36 +4,21 @@ import { AgentListing, getArabicInitials } from "../../agentMarketplaceData";
 
 interface AgentHireHeaderProps {
   agent: AgentListing;
-  imgError: boolean;
-  onImgError: () => void;
   onClose: () => void;
 }
 
 export const AgentHireHeader: React.FC<AgentHireHeaderProps> = ({
   agent,
-  imgError,
-  onImgError,
   onClose,
 }) => {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-4">
-      <div className="flex items-center gap-3">
-        <div className="size-12 rounded-xl overflow-hidden border border-border shrink-0 bg-muted">
-          {imgError ? (
-            <div className="size-full flex items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-950 text-white font-bold text-sm tracking-wider select-none">
-              <span>{getArabicInitials(agent.name)}</span>
-            </div>
-          ) : (
-            <img
-              src={agent.avatarUrl}
-              alt={agent.name}
-              onError={onImgError}
-              className="size-full object-cover"
-            />
-          )}
+    <div className="flex items-start justify-between gap-3 border-b border-border/70 pb-4">
+      <div className="flex items-center gap-3 min-w-0">
+        <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-primary font-bold text-sm">
+          {getArabicInitials(agent.name)}
         </div>
-        <div>
-          <h2 id="hire-modal-title" className="text-base font-bold text-foreground">
+        <div className="min-w-0">
+          <h2 id="hire-modal-title" className="text-base font-bold text-foreground truncate">
             توظيف {agent.name}
           </h2>
           <p className="text-xs text-muted-foreground line-clamp-1">{agent.position}</p>
@@ -43,8 +28,8 @@ export const AgentHireHeader: React.FC<AgentHireHeaderProps> = ({
       <button
         type="button"
         onClick={onClose}
-        className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground active:scale-[0.97] transition-all"
-        aria-label="إلغاء"
+        aria-label="إغلاق النافذة"
+        className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border/70 text-muted-foreground hover:bg-muted hover:text-foreground active:scale-[0.97] transition-all"
       >
         <X className="size-4 stroke-[1.5]" />
       </button>

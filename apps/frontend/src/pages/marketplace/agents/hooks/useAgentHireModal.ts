@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { apiClient } from "../../../../services/apiClient";
@@ -8,6 +8,7 @@ import { handleInsufficientWalletBalance } from "../../../../utils/marketplaceWa
 export interface UseAgentHireModalProps {
   agent: AgentListing | null;
   open: boolean;
+  initialWalletBalance?: number | null;
   onClose: () => void;
   onHired: (agentSlug: string, agentName: string) => void;
 }
@@ -15,62 +16,70 @@ export interface UseAgentHireModalProps {
 export function useAgentHireModal({
   agent,
   open,
+  initialWalletBalance = null,
   onClose,
   onHired,
 }: UseAgentHireModalProps) {
   const navigate = useNavigate();
   const [customName, setCustomName] = useState<string>(agent?.name || "");
-  const [department, setDepartment] = useState<string>("general");
+  const [department, setDepartment] = useState<string>(agent?.department || "operations");
   const [safetyMode, setSafetyMode] = useState<"draft" | "autonomous">("draft");
   const [loading, setLoading] = useState<boolean>(false);
-  const [imgError, setImgError] = useState<boolean>(false);
 
-  // Commercial wallet balance guard
-  const [walletBalance, setWalletBalance] = useState<number | null>(null);
+  const [walletBalance, setWalletBalance] = useState<number | null>(initialWalletBalance);
   const [walletLoading, setWalletLoading] = useState<boolean>(false);
+  const [walletError, setWalletError] = useState<string | null>(null);
 
   useEffect(() => {
     if (agent) {
       setCustomName(agent.name);
-      setImgError(false);
-      if (agent.category === "marketing") setDepartment("marketing");
-      else if (agent.category === "sales") setDepartment("sales");
-      else if (agent.category === "operations") setDepartment("operations");
-      else if (agent.category === "healthcare") setDepartment("medical");
-      else setDepartment("executive");
+      setDepartment(agent.department || "operations");
+      setSafetyMode(agent.governance === "autonomous" ? "autonomous" : "draft");
     }
   }, [agent]);
 
+  const fetchWalletBalance = useCallback(async () => {
+    setWalletLoading(true);
+    setWalletError(null);
+    try {
+      const res = await apiClient.get("/wallet/balance");
+      const bal =
+        res.data?.data?.balance ?? res.data?.balance ?? res.data?.wallet?.balance;
+      if (typeof bal === "number" && Number.isFinite(bal)) {
+        setWalletBalance(bal);
+      } else if (typeof bal === "string" && !Number.isNaN(parseFloat(bal))) {
+        setWalletBalance(parseFloat(bal));
+      } else {
+        setWalletBalance(null);
+        setWalletError("تعذر قراءة رصيد المحفظة من الخادم.");
+      }
+    } catch {
+      setWalletBalance(null);
+      setWalletError("تعذر التحقق من رصيد المحفظة حالياً.");
+    } finally {
+      setWalletLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (open) {
-      setWalletLoading(true);
-      apiClient
-        .get("/wallet/balance")
-        .then((res) => {
-          const bal =
-            res.data?.data?.balance ?? res.data?.balance ?? res.data?.wallet?.balance;
-          if (typeof bal === "number") {
-            setWalletBalance(bal);
-          } else if (typeof bal === "string" && !isNaN(parseFloat(bal))) {
-            setWalletBalance(parseFloat(bal));
-          } else {
-            setWalletBalance(2400); // graceful default
-          }
-        })
-        .catch(() => {
-          setWalletBalance(2400);
-        })
-        .finally(() => {
-          setWalletLoading(false);
-        });
+      if (typeof initialWalletBalance === "number") {
+        setWalletBalance(initialWalletBalance);
+      }
+      fetchWalletBalance();
     }
-  }, [open]);
+  }, [open, initialWalletBalance, fetchWalletBalance]);
 
-  const isPro = agent?.tier === "pro";
-  const requiredAmount = isPro ? agent?.priceMonthly || 0 : 0;
-  const hasEnoughBalance = walletBalance === null || walletBalance >= requiredAmount;
+  const isPro = agent?.tier === "pro" && Number(agent?.priceMonthly || 0) > 0;
+  const requiredAmount = isPro ? Number(agent?.priceMonthly || 0) : 0;
+  const hasEnoughBalance =
+    !isPro || (walletBalance !== null && walletBalance >= requiredAmount);
 
-  const navigateToRecharge = () => {
+  const navigateToRecharge = (serverPayload?: {
+    requiredAmount?: number;
+    currentBalance?: number;
+    message?: string;
+  }) => {
     if (!agent) return;
     handleInsufficientWalletBalance(
       {
@@ -78,10 +87,12 @@ export function useAgentHireModal({
           status: 402,
           data: {
             code: "INSUFFICIENT_WALLET_BALANCE",
-            requiredAmount,
-            currentBalance: walletBalance,
-            currency: agent.currency || "EGP",
-            message: `رصيد المحفظة غير كافٍ. المطلوب: ${requiredAmount} ${agent.currency || "ج.م"}، المتوفر: ${walletBalance ?? 0} ${agent.currency || "ج.م"}`,
+            requiredAmount: serverPayload?.requiredAmount ?? requiredAmount,
+            currentBalance: serverPayload?.currentBalance ?? walletBalance ?? 0,
+            currency: "EGP",
+            message:
+              serverPayload?.message ||
+              `رصيد المحفظة غير كافٍ. المطلوب: ${requiredAmount} ${agent.currency || "ج.م"}، المتوفر: ${walletBalance ?? 0} ${agent.currency || "ج.م"}`,
           },
         },
       },
@@ -98,6 +109,11 @@ export function useAgentHireModal({
   const handleConfirmHire = async () => {
     if (!agent) return;
 
+    if (isPro && walletError) {
+      toast.error("يرجى إعادة التحقق من رصيد المحفظة أولاً.");
+      return;
+    }
+
     if (isPro && !hasEnoughBalance) {
       navigateToRecharge();
       return;
@@ -105,7 +121,6 @@ export function useAgentHireModal({
 
     setLoading(true);
     try {
-      // Call backend hire endpoint
       const res = await apiClient.post("/agent-manager/hire", {
         templateSlug: agent.slug,
         name: customName.trim() || agent.name,
@@ -115,20 +130,34 @@ export function useAgentHireModal({
       });
 
       if (res.data?.success || res.status === 200 || res.status === 201) {
-        toast.success(`تم توظيف الإيجنت ${customName || agent.name} بنجاح في فريق عملك.`);
-        onHired(agent.slug, customName || agent.name);
+        const finalName = customName.trim() || agent.name;
+        toast.success(
+          agent.kind === "squad"
+            ? `تم تفعيل الفريق «${finalName}» بنجاح في حساب شركتك.`
+            : `تم توظيف الوكيل «${finalName}» بنجاح في فريق عملك.`
+        );
+        onHired(agent.slug, finalName);
         onClose();
       } else {
-        const errorMsg = res.data?.error || res.data?.message || "تعذر إتمام التوظيف";
-        toast.error(errorMsg);
+        toast.error(res.data?.error || res.data?.message || "تعذر إتمام التوظيف.");
       }
     } catch (err: any) {
+      const status = err?.response?.status;
+      const data = err?.response?.data;
+      if (status === 402 || data?.code === "INSUFFICIENT_WALLET_BALANCE") {
+        navigateToRecharge({
+          requiredAmount: data?.requiredAmount,
+          currentBalance: data?.currentBalance,
+          message: data?.error || data?.message,
+        });
+        return;
+      }
       const errorMsg =
-        err?.response?.data?.error ||
-        err?.response?.data?.message ||
-        err?.response?.data?.detail ||
+        data?.error ||
+        data?.message ||
+        data?.detail ||
         err?.message ||
-        "تعذر توظيف الإيجنت حالياً";
+        "تعذر توظيف الوكيل حالياً.";
       toast.error(errorMsg);
     } finally {
       setLoading(false);
@@ -143,10 +172,10 @@ export function useAgentHireModal({
     safetyMode,
     setSafetyMode,
     loading,
-    imgError,
-    setImgError,
     walletBalance,
     walletLoading,
+    walletError,
+    fetchWalletBalance,
     isPro,
     requiredAmount,
     hasEnoughBalance,

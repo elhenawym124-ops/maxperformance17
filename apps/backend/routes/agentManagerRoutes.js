@@ -8,6 +8,7 @@ const verifyToken = require('../utils/verifyToken');
 const aiServiceAdminClient = require('../services/aiServiceAdminClient');
 const { getSharedPrismaClient } = require('../services/sharedDatabase');
 const agentRuntimeSettingsController = require('../controller/agentRuntimeSettingsController');
+const agentMarketplaceCatalogService = require('../services/agentMarketplaceCatalogService');
 
 const EMPTY_CONTEXT = () => ({ manager: null, agents: [], profiles: [], tools: [], skills: [], inbox: { active: 0, pending: 0 } });
 
@@ -425,17 +426,155 @@ router.post('/tasks/:id/fail', async (req, res) => {
   }
 });
 
-router.post('/hire', async (req, res) => {
+router.get('/catalog', async (req, res) => {
   try {
     const companyId = getCompanyId(req);
+    const isSuperAdmin = req.user?.role === 'SUPER_ADMIN';
+    const includeHidden = isSuperAdmin && String(req.query?.includeHidden || '') === 'true';
+    const catalog = await agentMarketplaceCatalogService.getCatalogForCompany(companyId, {
+      includeHidden,
+    });
+    return res.json({ success: true, ...catalog, isSuperAdmin });
+  } catch (error) {
+    return res.status(error.statusCode || 500).json({
+      success: false,
+      error: error.message || 'تعذر تحميل كتالوج الوكلاء',
+    });
+  }
+});
+
+router.patch('/catalog-settings', async (req, res) => {
+  try {
+    if (req.user?.role !== 'SUPER_ADMIN') {
+      return res.status(403).json({ success: false, error: 'صلاحية السوبر أدمن مطلوبة' });
+    }
+    const updated = await agentMarketplaceCatalogService.updateCatalogSettings(req.body || {});
+    return res.json({ success: true, ...updated });
+  } catch (error) {
+    return res.status(error.statusCode || 400).json({
+      success: false,
+      error: error.message || 'تعذر تحديث إعدادات السوق',
+    });
+  }
+});
+
+router.patch('/catalog/:slug', async (req, res) => {
+  try {
+    if (req.user?.role !== 'SUPER_ADMIN') {
+      return res.status(403).json({ success: false, error: 'صلاحية السوبر أدمن مطلوبة' });
+    }
+    const agent = await agentMarketplaceCatalogService.updateAgentOverride(
+      req.params.slug,
+      req.body || {}
+    );
+    return res.json({ success: true, agent });
+  } catch (error) {
+    return res.status(error.statusCode || 400).json({
+      success: false,
+      error: error.message || 'تعذر تحديث بيانات الوكيل في السوق',
+    });
+  }
+});
+
+router.post('/hire', async (req, res) => {
+  let walletCharge = null;
+  let companyId = null;
+  let catalogEntry = null;
+  try {
+    companyId = getCompanyId(req);
     if (!companyId) return res.status(400).json({ success: false, error: 'companyId is required' });
+
+    const templateSlug = req.body?.templateSlug;
+    const isSuperAdmin = req.user?.role === 'SUPER_ADMIN';
+
+    if (templateSlug) {
+      catalogEntry = await agentMarketplaceCatalogService.resolveCompanyCatalogEntry(templateSlug);
+      if (catalogEntry && !catalogEntry.visible && !isSuperAdmin) {
+        return res.status(403).json({
+          success: false,
+          code: 'AGENT_NOT_AVAILABLE',
+          error: 'هذا الوكيل غير متاح حالياً للتوظيف في السوق',
+        });
+      }
+      if (catalogEntry) {
+        walletCharge = await agentMarketplaceCatalogService.chargeCompanyWalletForAgentHire({
+          companyId,
+          agentEntry: catalogEntry,
+          userId: req.user?.id || null,
+        });
+      }
+    }
+
     const result = await agentManagerService.hireAgent(companyId, {
       ...req.body,
       requestedBy: req.user?.id || null,
     });
-    return res.status(201).json(result);
+
+    if (!result || result.success === false) {
+      if (walletCharge?.charged) {
+        await agentMarketplaceCatalogService.refundCompanyWalletForFailedHire({
+          companyId,
+          walletId: walletCharge.walletId,
+          amount: walletCharge.amount,
+          agentName: catalogEntry?.name || templateSlug,
+          refCode: walletCharge.refCode,
+        });
+      }
+      return res.status(400).json(result || { success: false, error: 'فشل تعيين الوكيل' });
+    }
+
+    // If hiring a Squad bundle, activate remaining squad members best-effort
+    const squadSpawned = [];
+    if (
+      catalogEntry?.kind === 'squad' &&
+      Array.isArray(catalogEntry.squadMembers) &&
+      catalogEntry.squadMembers.length > 1
+    ) {
+      const otherSlugs = catalogEntry.squadMembers.filter((s) => s !== templateSlug);
+      for (const memberSlug of otherSlugs) {
+        try {
+          const memberRes = await agentManagerService.hireAgent(companyId, {
+            templateSlug: memberSlug,
+            department: req.body?.department || catalogEntry.department,
+            safetyMode: req.body?.safetyMode || 'draft',
+            requestedBy: req.user?.id || null,
+          });
+          if (memberRes?.id) squadSpawned.push(memberRes.id);
+        } catch (_) {
+          // Member may already exist; non-fatal for squad activation
+        }
+      }
+    }
+
+    const responsePayload =
+      walletCharge?.charged || squadSpawned.length > 0
+        ? {
+            ...result,
+            ...(walletCharge?.charged
+              ? { chargedAmount: walletCharge.amount, walletBalanceAfter: walletCharge.balanceAfter }
+              : {}),
+            ...(squadSpawned.length > 0 ? { squadSpawned } : {}),
+          }
+        : result;
+
+    return res.status(201).json(responsePayload);
   } catch (error) {
-    return res.status(400).json({ success: false, error: error.message });
+    if (walletCharge?.charged) {
+      await agentMarketplaceCatalogService.refundCompanyWalletForFailedHire({
+        companyId,
+        walletId: walletCharge.walletId,
+        amount: walletCharge.amount,
+        agentName: catalogEntry?.name || req.body?.templateSlug || 'agent',
+        refCode: walletCharge.refCode,
+      });
+    }
+    const statusCode = error.statusCode || 400;
+    return res.status(statusCode).json({
+      success: false,
+      ...(error.code ? { code: error.code } : {}),
+      ...(error.details ? error.details : {}),
+      error: error.message,
+    });
   }
 });
 

@@ -1,89 +1,95 @@
 /**
  * AgentMarketplacePage.tsx
  * ─────────────────────────────────────────────────────────────────────────────
- * The 2026 MaxP Digital Workforce Marketplace Page.
- * Single-Surface Chassis with zero dead margins and ergonomic top control bar.
- * 
- * Strict 2026 Anti-AI-Slop compliance:
- * - Zero Emojis
- * - Real telemetry indicators (P95 latency, model routing)
- * - Bento-grid asymmetrical card display
- * - Micro-typography (text-wrap: balance, tabular-nums)
+ * MaxP Agents Marketplace — Shopify Polaris Track (taste-skill Section 16).
+ * - Single Source of Truth: GET /api/agent-manager/catalog (auto-discovers all
+ *   backend agents + SystemSettings Super Admin overrides + live company state).
+ * - Zero fake telemetry, zero localStorage hire drift, zero hardcoded 14-agent cap.
+ * - Inline Super Admin visibility & pricing controls without leaving the page.
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  Search, 
-  X, 
-  Cpu, 
-  Activity, 
-  ShieldCheck, 
-  Sparkles, 
-  Users, 
+import {
+  Search,
+  X,
+  Bot,
+  Wallet,
+  Users,
+  Shield,
+  RefreshCw,
+  AlertCircle,
   Filter,
-  Palette
+  Eye,
+  EyeOff,
 } from "lucide-react";
-import { apiClient } from "../../../services/apiClient";
-import { 
-  AGENT_LISTINGS, 
-  AGENT_CATEGORIES, 
-  AgentListing, 
-  AgentCategory, 
-  AgentTier 
+import "../../../styles/polaris-track.css";
+import {
+  AGENT_CATEGORIES,
+  AGENT_KIND_META,
+  AgentKind,
+  AgentListing,
+  formatEgp,
 } from "./agentMarketplaceData";
+import {
+  useAgentMarketplaceCatalog,
+  HireStatusFilter,
+  VisibilityFilter,
+} from "./hooks/useAgentMarketplaceCatalog";
 import { AgentMarketCard } from "./AgentMarketCard";
 import { AgentProfileDrawer } from "./AgentProfileDrawer";
 import { AgentHireModal } from "./AgentHireModal";
+import { AgentAdminConfigModal } from "./components/admin/AgentAdminConfigModal";
+
+const KIND_TABS: Array<{ id: "all" | AgentKind; label: string }> = [
+  { id: "all", label: "الكل" },
+  { id: "solo", label: AGENT_KIND_META.solo.label },
+  { id: "squad", label: AGENT_KIND_META.squad.label },
+  { id: "vertical", label: AGENT_KIND_META.vertical.label },
+];
 
 export default function AgentMarketplacePage() {
   const navigate = useNavigate();
-  const [search, setSearch] = useState<string>("");
-  const [activeCategory, setActiveCategory] = useState<AgentCategory>("all");
-  const [tierFilter, setTierFilter] = useState<"all" | AgentTier>("all");
+  const {
+    filteredAgents,
+    stats,
+    categoryCounts,
+    walletBalance,
+    defaultNewAgentVisible,
+    isSuperAdmin,
+    adminMode,
+    loading,
+    error,
+    updatingSlug,
+    updatingSettings,
+    search,
+    setSearch,
+    searchInputRef,
+    activeCategory,
+    setActiveCategory,
+    kindFilter,
+    setKindFilter,
+    tierFilter,
+    setTierFilter,
+    statusFilter,
+    setStatusFilter,
+    visibilityFilter,
+    setVisibilityFilter,
+    hasActiveFilters,
+    resetFilters,
+    fetchCatalog,
+    handleToggleAdminMode,
+    handleToggleVisibility,
+    handleUpdateAgentConfig,
+    handleToggleDefaultNewVisible,
+  } = useAgentMarketplaceCatalog();
+
   const [selectedAgent, setSelectedAgent] = useState<AgentListing | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const [hireModalOpen, setHireModalOpen] = useState<boolean>(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [agentToHire, setAgentToHire] = useState<AgentListing | null>(null);
-
-  // Track locally & remotely hired agents for seamless UI feedback
-  const [hiredSlugs, setHiredSlugs] = useState<Set<string>>(() => {
-    try {
-      const saved = localStorage.getItem("maxp_hired_agents");
-      return saved ? new Set(JSON.parse(saved)) : new Set<string>();
-    } catch {
-      return new Set<string>();
-    }
-  });
-
-  // Sync with company's backend agent context
-  useEffect(() => {
-    apiClient
-      .get("/agent-manager/context")
-      .then((res) => {
-        if (res.data?.success && Array.isArray(res.data?.context?.agents)) {
-          const backendAgents = res.data.context.agents;
-          const slugs = backendAgents
-            .map((a: any) => a.templateSlug || a.slug || a.id)
-            .filter(Boolean);
-          if (slugs.length > 0) {
-            setHiredSlugs((prev) => {
-              const next = new Set([...prev, ...slugs]);
-              try {
-                localStorage.setItem("maxp_hired_agents", JSON.stringify([...next]));
-              } catch {
-                // ignore
-              }
-              return next;
-            });
-          }
-        }
-      })
-      .catch(() => {
-        // graceful offline fallback
-      });
-  }, []);
+  const [hireModalOpen, setHireModalOpen] = useState(false);
+  const [adminEditingAgent, setAdminEditingAgent] = useState<AgentListing | null>(null);
 
   const handleOpenProfile = (agent: AgentListing) => {
     setSelectedAgent(agent);
@@ -95,229 +101,384 @@ export default function AgentMarketplacePage() {
     setHireModalOpen(true);
   };
 
-  const handleAgentHired = (agentSlug: string) => {
-    setHiredSlugs((prev) => {
-      const next = new Set(prev);
-      next.add(agentSlug);
-      try {
-        localStorage.setItem("maxp_hired_agents", JSON.stringify([...next]));
-      } catch {
-        // ignore
-      }
-      return next;
-    });
+  const handleManageHired = () => {
+    navigate("/admin/agent-profiles");
   };
 
-  // Filtered listings
-  const filteredListings = useMemo(() => {
-    return AGENT_LISTINGS.filter((agent) => {
-      // Category filter
-      if (activeCategory !== "all" && agent.category !== activeCategory) {
-        return false;
-      }
-      // Tier filter
-      if (tierFilter !== "all" && agent.tier !== tierFilter) {
-        return false;
-      }
-      // Search query
-      if (search.trim()) {
-        const q = search.trim().toLowerCase();
-        const matchName = agent.name.toLowerCase().includes(q);
-        const matchPos = agent.position.toLowerCase().includes(q);
-        const matchSum = agent.summary.toLowerCase().includes(q);
-        const matchTool = agent.tools.some((t) => t.toLowerCase().includes(q));
-        if (!matchName && !matchPos && !matchSum && !matchTool) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }, [activeCategory, tierFilter, search]);
-
-  const stats = useMemo(() => {
-    const total = AGENT_LISTINGS.length;
-    const freeCount = AGENT_LISTINGS.filter((a) => a.tier === "free").length;
-    const proCount = AGENT_LISTINGS.filter((a) => a.tier === "pro").length;
-    return { total, freeCount, proCount };
-  }, []);
+  const handleAgentHired = () => {
+    fetchCatalog({ includeHidden: adminMode, silent: true });
+  };
 
   return (
-    <div className="flex flex-col h-full w-full bg-background text-foreground select-none overflow-y-auto">
-      {/* ── Top Unified Control Bar ── */}
-      <header className="sticky top-0 z-30 border-b border-border/70 bg-background/95 backdrop-blur-md px-4 sm:px-6 py-3.5 space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          {/* Header Title & Telemetry summary */}
-          <div className="space-y-0.5">
-            <div className="flex items-center gap-2">
-              <h1 className="text-lg font-bold tracking-tight text-foreground">
-                سوق الإيجنت
-              </h1>
-              <span className="rounded-md border border-border px-2 py-0.5 text-[10px] font-mono font-medium text-muted-foreground bg-muted/40">
-                Digital Workforce OS
-              </span>
+    <div className="polaris-track business-shell-main w-full pb-12" dir="rtl">
+      <div className="mx-auto max-w-[1400px] space-y-4">
+        {/* ── Strip 1: Executive Action Header ── */}
+        <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-primary">
+              <Bot className="size-5 stroke-[1.5]" />
             </div>
-            <p className="text-xs text-muted-foreground line-clamp-1">
-              اختر الكوادر الرقمية المتخصصة ووظفها في حساب شركتك بضغطة زر واحدة.
-            </p>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                  سوق الوكلاء
+                </h1>
+                {!loading && (
+                  <span className="rounded-md bg-card border border-border/70 px-2 py-0.5 text-xs font-mono tabular-nums text-muted-foreground">
+                    {stats.total} متاح
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                توظيف الوكلاء والفرق المتخصصة المرتبطة مباشرة بأنظمة شركتك.
+              </p>
+            </div>
           </div>
 
-          {/* Hard Telemetry Badges */}
-          <div className="flex items-center gap-2 flex-wrap text-[11px] font-medium text-muted-foreground">
-            <div className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/30 px-2.5 py-1">
-              <Users className="size-3.5 opacity-70 stroke-[1.5]" />
-              <span className="tabular-nums font-semibold text-foreground">{stats.total}</span>
-              <span>وكلاء متخصصون</span>
-            </div>
-
-            <div className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/30 px-2.5 py-1">
-              <Activity className="size-3.5 text-success stroke-[1.5]" />
-              <span>سرعة المعالجة:</span>
-              <span className="tabular-nums font-semibold text-foreground">P95 &lt; 0.8s</span>
-            </div>
-
-            <div className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/30 px-2.5 py-1">
-              <Cpu className="size-3.5 text-primary stroke-[1.5]" />
-              <span>المحركات:</span>
-              <span className="font-semibold text-foreground">DeepSeek-V3 / Flash 2.5</span>
-            </div>
+          <div className="flex items-center gap-2 flex-wrap shrink-0">
+            {walletBalance !== null && (
+              <button
+                type="button"
+                onClick={() => navigate("/settings/wallet")}
+                className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border border-border/70 bg-card text-xs font-medium text-foreground hover:bg-muted active:scale-[0.97] transition-all whitespace-nowrap"
+                title="رصيد محفظة الشركة"
+              >
+                <Wallet className="size-3.5 text-primary stroke-[1.5]" />
+                <span className="font-mono tabular-nums font-semibold">
+                  {formatEgp(walletBalance)}
+                </span>
+              </button>
+            )}
 
             <button
               type="button"
-              onClick={() => navigate("/marketplace")}
-              className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/20 px-2.5 py-1 text-[11px] font-medium text-muted-foreground hover:bg-muted/60 hover:text-foreground active:scale-[0.97] transition-all"
-              title="تصفح قوالب وتصميمات المتاجر"
+              onClick={() => navigate("/admin/agent-profiles")}
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg border border-border/70 bg-card text-xs font-semibold text-foreground hover:bg-muted active:scale-[0.97] transition-all whitespace-nowrap"
             >
-              <Palette className="size-3.5 opacity-70 stroke-[1.5]" />
-              <span>قوالب المتاجر</span>
+              <Users className="size-3.5 text-primary stroke-[1.5]" />
+              <span>فريقي</span>
+              <span className="font-mono tabular-nums text-muted-foreground">
+                ({stats.hiredCount})
+              </span>
             </button>
-          </div>
-        </div>
 
-        {/* ── Search & Filter Controls ── */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5 pt-1">
-          {/* Category Tabs (Pills) */}
-          <div className="flex items-center gap-1 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
-            {AGENT_CATEGORIES.map((cat) => (
+            {isSuperAdmin && (
               <button
-                key={cat.id}
                 type="button"
-                onClick={() => setActiveCategory(cat.id)}
-                className={`whitespace-nowrap px-3.5 py-2 min-h-[36px] rounded-lg text-xs font-medium active:scale-[0.97] transition-all duration-160 flex items-center justify-center ${
-                  activeCategory === cat.id
-                    ? "bg-foreground text-background font-semibold shadow-sm dark:bg-white dark:text-black"
-                    : "border border-border/60 bg-card/40 text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                onClick={handleToggleAdminMode}
+                className={`inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-xs font-semibold active:scale-[0.97] transition-all whitespace-nowrap ${
+                  adminMode
+                    ? "bg-primary text-primary-foreground"
+                    : "border border-border/70 bg-card text-foreground hover:bg-muted"
                 }`}
               >
-                {cat.label}
+                <Shield className="size-3.5 stroke-[1.5]" />
+                <span>{adminMode ? "إنهاء وضع الإدارة" : "إدارة السوق"}</span>
               </button>
-            ))}
+            )}
           </div>
+        </header>
 
-          {/* Search + Tier Toggle */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0 w-full sm:w-auto">
-            {/* Tier Switch */}
-            <div className="flex items-center justify-between sm:justify-start rounded-lg border border-border/60 bg-muted/30 p-0.5 text-xs font-medium">
-              <button
-                type="button"
-                onClick={() => setTierFilter("all")}
-                className={`flex-1 sm:flex-initial text-center px-2.5 py-1 rounded-md transition-all ${
-                  tierFilter === "all"
-                    ? "bg-background font-semibold text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                الكل
-              </button>
-              <button
-                type="button"
-                onClick={() => setTierFilter("free")}
-                className={`flex-1 sm:flex-initial text-center px-2.5 py-1 rounded-md transition-all ${
-                  tierFilter === "free"
-                    ? "bg-background font-semibold text-success dark:text-success shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                مجاني ({stats.freeCount})
-              </button>
-              <button
-                type="button"
-                onClick={() => setTierFilter("pro")}
-                className={`flex-1 sm:flex-initial text-center px-2.5 py-1 rounded-md transition-all ${
-                  tierFilter === "pro"
-                    ? "bg-background font-semibold text-warning dark:text-warning shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                تخصصي Pro ({stats.proCount})
-              </button>
+        {/* ── Super Admin Controls Strip (Visible Only in Admin Mode) ── */}
+        {isSuperAdmin && adminMode && (
+          <section className="polaris-card p-3.5 sm:p-4 border-primary/30 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3 flex-wrap text-xs">
+                <span className="font-bold text-foreground">لوحة تحكم السوق (Super Admin)</span>
+                <span className="text-muted-foreground">
+                  إجمالي المكتشف:{" "}
+                  <strong className="font-mono tabular-nums text-foreground">
+                    {stats.totalDiscovered}
+                  </strong>
+                </span>
+                <span className="text-muted-foreground">
+                  ظاهر:{" "}
+                  <strong className="font-mono tabular-nums text-success">
+                    {stats.visibleCount}
+                  </strong>
+                </span>
+                <span className="text-muted-foreground">
+                  مخفي:{" "}
+                  <strong className="font-mono tabular-nums text-muted-foreground">
+                    {stats.hiddenCount}
+                  </strong>
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  type="button"
+                  disabled={updatingSettings}
+                  onClick={handleToggleDefaultNewVisible}
+                  className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg border border-border bg-background text-[11px] font-semibold text-foreground hover:bg-muted active:scale-[0.97] transition-all disabled:opacity-50"
+                >
+                  {defaultNewAgentVisible ? (
+                    <Eye className="size-3.5 text-success stroke-[1.5]" />
+                  ) : (
+                    <EyeOff className="size-3.5 text-muted-foreground stroke-[1.5]" />
+                  )}
+                  <span>
+                    الوكيل الجديد:{" "}
+                    {defaultNewAgentVisible ? "يظهر تلقائياً" : "مخفي حتى التفعيل"}
+                  </span>
+                </button>
+
+                <div className="flex items-center rounded-lg border border-border/70 bg-muted/40 p-0.5 text-[11px]">
+                  {(
+                    [
+                      { id: "all", label: "الكل" },
+                      { id: "visible", label: "الظاهر" },
+                      { id: "hidden", label: "المخفي" },
+                    ] as Array<{ id: VisibilityFilter; label: string }>
+                  ).map((opt) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setVisibilityFilter(opt.id)}
+                      className={`px-2.5 py-1 rounded-md font-medium transition-all ${
+                        visibilityFilter === opt.id
+                          ? "bg-card text-foreground font-semibold shadow-2xs"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
+          </section>
+        )}
 
+        {/* ── Strip 2: Unified Control Bar (Search + Kind + Tier + Status + Categories) ── */}
+        <section className="polaris-card p-3 sm:p-4 space-y-3">
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
             {/* Search Input */}
-            <div className="relative w-full sm:w-56">
-              <Search className="absolute start-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none stroke-[1.5]" />
+            <div className="relative flex-1 min-w-[220px]">
+              <Search className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground stroke-[1.5]" />
               <input
+                ref={searchInputRef}
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="بحث بالاسم أو التخصص…"
-                className="w-full h-8.5 sm:h-8 ps-8 pe-7 rounded-lg border border-border/60 bg-background text-xs text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+                placeholder="ابحث بالاسم أو القناة…"
+                className="w-full h-9 ps-9 pe-12 rounded-lg border border-border/80 bg-background text-xs text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
               />
-              {search && (
+              {search ? (
                 <button
                   type="button"
                   onClick={() => setSearch("")}
-                  className="absolute end-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-0.5"
                   aria-label="مسح البحث"
+                  className="absolute end-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-0.5"
                 >
-                  <X className="size-3" />
+                  <X className="size-3.5" />
                 </button>
+              ) : (
+                <kbd className="hidden sm:inline-flex pointer-events-none absolute end-2.5 top-1/2 -translate-y-1/2 items-center rounded border border-border/70 bg-muted/60 px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground">
+                  ⌘K
+                </kbd>
               )}
             </div>
-          </div>
-        </div>
-      </header>
 
-      {/* ── Main Asymmetrical Bento Grid ── */}
-      <main className="flex-1 p-4 sm:p-6 pb-28 sm:pb-8">
-        {filteredListings.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center space-y-3">
-            <div className="size-12 rounded-xl border border-border/60 bg-muted/30 flex items-center justify-center text-muted-foreground">
-              <Filter className="size-5 stroke-[1.5]" />
+            {/* Kind + Status + Tier Switches */}
+            <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-0.5 lg:pb-0">
+              {/* Kind Switch */}
+              <div className="flex items-center rounded-lg border border-border/70 bg-muted/40 p-0.5 text-xs shrink-0">
+                {KIND_TABS.map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setKindFilter(tab.id)}
+                    className={`px-2.5 py-1 rounded-md whitespace-nowrap font-medium transition-all ${
+                      kindFilter === tab.id
+                        ? "bg-card text-foreground font-semibold shadow-2xs"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+                {adminMode && (
+                  <button
+                    type="button"
+                    onClick={() => setKindFilter("internal")}
+                    className={`px-2.5 py-1 rounded-md whitespace-nowrap font-medium transition-all ${
+                      kindFilter === "internal"
+                        ? "bg-card text-foreground font-semibold shadow-2xs"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    داخلي
+                  </button>
+                )}
+              </div>
+
+              {/* Tier Switch */}
+              <div className="flex items-center rounded-lg border border-border/70 bg-muted/40 p-0.5 text-xs shrink-0">
+                {(
+                  [
+                    { id: "all", label: "الكل" },
+                    { id: "free", label: "مجاني" },
+                    { id: "pro", label: "Pro" },
+                  ] as const
+                ).map((t) => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setTierFilter(t.id)}
+                    className={`px-2.5 py-1 rounded-md whitespace-nowrap font-medium transition-all ${
+                      tierFilter === t.id
+                        ? "bg-card text-foreground font-semibold shadow-2xs"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Hire Status Switch */}
+              <div className="flex items-center rounded-lg border border-border/70 bg-muted/40 p-0.5 text-xs shrink-0">
+                {(
+                  [
+                    { id: "all", label: "الجميع" },
+                    { id: "available", label: "متاح" },
+                    { id: "hired", label: "في فريقك" },
+                  ] as Array<{ id: HireStatusFilter; label: string }>
+                ).map((st) => (
+                  <button
+                    key={st.id}
+                    type="button"
+                    onClick={() => setStatusFilter(st.id)}
+                    className={`px-2.5 py-1 rounded-md whitespace-nowrap font-medium transition-all ${
+                      statusFilter === st.id
+                        ? "bg-card text-foreground font-semibold shadow-2xs"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {st.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Horizontal Category Chips (MOB-015) */}
+          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pt-1 border-t border-border/50">
+            {AGENT_CATEGORIES.map((cat) => {
+              const count = categoryCounts[cat.id] || 0;
+              if (cat.id !== "all" && count === 0 && !adminMode) return null;
+              const active = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium active:scale-[0.97] transition-all shrink-0 ${
+                    active
+                      ? "bg-primary text-primary-foreground font-semibold"
+                      : "border border-border/70 bg-background text-muted-foreground hover:bg-muted hover:text-foreground"
+                  }`}
+                >
+                  <span>{cat.label}</span>
+                  <span
+                    className={`font-mono tabular-nums text-[11px] ${
+                      active ? "opacity-85" : "text-muted-foreground/80"
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── Main Content: Loading Skeletons / Error / Empty / Grid ── */}
+        {error ? (
+          <div className="polaris-card p-8 flex flex-col items-center justify-center text-center space-y-3">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-destructive/10 text-destructive">
+              <AlertCircle className="size-5 stroke-[1.5]" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-sm font-semibold text-foreground">لا توجد كوادر مطابقة للبحث</h3>
-              <p className="text-xs text-muted-foreground">
-                جرب تغيير التصنيف أو مصطلح البحث لاستعراض باقي الوكلاء الأذكياء.
-              </p>
+              <h2 className="text-sm font-bold text-foreground">تعذر تحميل سوق الوكلاء</h2>
+              <p className="text-xs text-muted-foreground">{error}</p>
             </div>
             <button
               type="button"
-              onClick={() => {
-                setSearch("");
-                setActiveCategory("all");
-                setTierFilter("all");
-              }}
-              className="h-8 px-4 text-xs font-medium rounded-lg border border-border hover:bg-muted active:scale-[0.97] transition-all"
+              onClick={() => fetchCatalog()}
+              className="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-primary text-xs font-semibold text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all"
             >
-              إعادة تعيين الفلاتر
+              <RefreshCw className="size-3.5 stroke-[1.5]" />
+              <span>إعادة المحاولة</span>
             </button>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {filteredListings.map((agent) => (
-              <AgentMarketCard
-                key={agent.id}
-                agent={agent}
-                onViewProfile={handleOpenProfile}
-                onHire={handleOpenHire}
-                isHired={hiredSlugs.has(agent.slug)}
-              />
+        ) : loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div key={idx} className="polaris-card p-5 space-y-4 animate-pulse">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="size-10 rounded-lg bg-muted" />
+                    <div className="space-y-1.5">
+                      <div className="h-3.5 w-32 rounded bg-muted" />
+                      <div className="h-3 w-44 rounded bg-muted/70" />
+                    </div>
+                  </div>
+                  <div className="h-5 w-14 rounded bg-muted" />
+                </div>
+                <div className="space-y-1.5">
+                  <div className="h-3 w-full rounded bg-muted/70" />
+                  <div className="h-3 w-4/5 rounded bg-muted/70" />
+                </div>
+                <div className="flex gap-2 pt-2 border-t border-border/50">
+                  <div className="h-9 flex-1 rounded-lg bg-muted/70" />
+                  <div className="h-9 flex-1 rounded-lg bg-muted" />
+                </div>
+              </div>
             ))}
           </div>
+        ) : filteredAgents.length === 0 ? (
+          <div className="polaris-card py-14 px-6 flex flex-col items-center justify-center text-center space-y-3">
+            <div className="flex size-11 items-center justify-center rounded-xl border border-border/70 bg-muted/40 text-muted-foreground">
+              <Filter className="size-5 stroke-[1.5]" />
+            </div>
+            <div className="space-y-1">
+              <h2 className="text-sm font-bold text-foreground">لا توجد وكلاء مطابقة للفلاتر</h2>
+              <p className="text-xs text-muted-foreground">
+                جرّب تعديل كلمة البحث أو اختيار قسم آخر لعرض باقي الكوادر المتاحة.
+              </p>
+            </div>
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="h-9 px-4 rounded-lg border border-border bg-card text-xs font-semibold text-foreground hover:bg-muted active:scale-[0.97] transition-all"
+              >
+                إعادة تعيين الفلاتر
+              </button>
+            )}
+          </div>
+        ) : (
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredAgents.map((agent) => (
+              <AgentMarketCard
+                key={agent.slug}
+                agent={agent}
+                adminMode={adminMode}
+                updating={updatingSlug === agent.slug}
+                onViewProfile={handleOpenProfile}
+                onHire={handleOpenHire}
+                onManageHired={handleManageHired}
+                onToggleVisibility={handleToggleVisibility}
+                onOpenAdminConfig={(a) => setAdminEditingAgent(a)}
+              />
+            ))}
+          </section>
         )}
-      </main>
+      </div>
 
-      {/* ── Drawer & Modals ── */}
+      {/* ── Drawers & Modals ── */}
       <AgentProfileDrawer
         agent={selectedAgent}
         open={drawerOpen}
@@ -326,14 +487,27 @@ export default function AgentMarketplacePage() {
           setDrawerOpen(false);
           handleOpenHire(agent);
         }}
-        isHired={selectedAgent ? hiredSlugs.has(selectedAgent.slug) : false}
+        onManageHired={() => {
+          setDrawerOpen(false);
+          handleManageHired();
+        }}
+        isHired={Boolean(selectedAgent?.isHired)}
       />
 
       <AgentHireModal
         agent={agentToHire}
         open={hireModalOpen}
+        initialWalletBalance={walletBalance}
         onClose={() => setHireModalOpen(false)}
         onHired={handleAgentHired}
+      />
+
+      <AgentAdminConfigModal
+        agent={adminEditingAgent}
+        open={Boolean(adminEditingAgent)}
+        saving={updatingSlug === adminEditingAgent?.slug}
+        onClose={() => setAdminEditingAgent(null)}
+        onSave={handleUpdateAgentConfig}
       />
     </div>
   );
