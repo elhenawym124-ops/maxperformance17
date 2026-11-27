@@ -123,7 +123,8 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
 
   const prefersArabicCopy = theme.direction === 'rtl';
   const isBiteRush = theme.id === 'restaurant-demo';
-  const isAcademyStage = theme.id === 'academy-stage-3d';
+  const isCodingAcademy = theme.id === 'academy-stage-3d';
+  const isAcademyStage = isCodingAcademy || theme.id === 'edu-academy-pro';
   const variant = normalizeOrderConfirmationVariant(section?.variant);
   const isMarketAftercare = variant === 'market-aftercare';
   const isNatureAftercare = variant === 'nature-aftercare';
@@ -311,7 +312,7 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
   const continueShoppingText =
     settings?.continueShoppingText ||
     (isAcademyStage
-      ? (prefersArabicCopy ? 'تصفح المستويات الـ 15' : 'Browse 15 levels')
+      ? (prefersArabicCopy ? (isCodingAcademy ? 'تصفح المستويات الـ 15' : 'تصفح البرامج المتاحة') : 'Browse programs')
       : isPcHub
       ? (prefersArabicCopy ? 'تابع تصفح الأجهزة' : 'Browse more gear')
       : isKhemetLuxe
@@ -1161,6 +1162,189 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
     !hasLocationFromPurchase &&
     Boolean(trackPhone);
 
+  const locationThemeClasses = useMemo(() => {
+    if (isBiteRush) {
+      return {
+        modalSurface:
+          'w-full max-w-md rounded-t-[1.8rem] border border-[#f8c08c] bg-[linear-gradient(180deg,#fffdfb_0%,#fff4e9_100%)] p-5 text-[#111111] shadow-2xl sm:rounded-[1.8rem] space-y-4 text-start',
+        cardSurface:
+          'rounded-[1.8rem] border border-[#f8c08c] bg-[linear-gradient(180deg,#fffdfb_0%,#fff2e4_100%)] p-5 text-start shadow-[0_18px_55px_-45px_rgba(247,115,22,0.3)] space-y-3',
+        primaryButton:
+          'inline-flex w-full items-center justify-center gap-2 rounded-full border-none bg-[linear-gradient(135deg,#f97316_0%,#ef4444_100%)] px-4 py-3 text-sm font-black text-white shadow-md transition hover:opacity-95 active:scale-[0.98] disabled:opacity-60',
+        secondaryButton:
+          'rounded-full border border-[#f8c08c] bg-white px-4 py-2 text-xs font-bold text-[#8a4b1f] hover:bg-[#fff4e9] transition',
+        saveButton:
+          'rounded-full bg-[#111111] px-5 py-2 text-xs font-black text-white hover:bg-[#f97316] transition disabled:opacity-60',
+        iconBadge:
+          'flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#fff1de] text-[#f97316] border border-[#f8c08c]',
+        input:
+          'w-full rounded-full border border-[#f8c08c] bg-white px-4 py-2.5 text-xs text-[#111111] placeholder:text-[#8a4b1f]/60 focus:border-[#f97316] focus:outline-none',
+        pickerClasses: {
+          modalSurface:
+            'w-full max-w-lg rounded-t-[1.8rem] border border-[#f8c08c] bg-[#fffdfb] p-4 text-[#111111] shadow-2xl sm:rounded-[1.8rem] space-y-3',
+          primaryButton:
+            'rounded-full bg-[#f97316] px-5 py-2 text-xs font-black text-white hover:bg-[#ea580c] transition',
+          secondaryButton:
+            'rounded-full border border-[#f8c08c] bg-white px-4 py-2 text-xs font-bold text-[#8a4b1f] hover:bg-[#fff4e9] transition',
+          accentText: 'text-[#f97316]',
+        },
+      };
+    }
+    if (isCafeDemo) {
+      return {
+        modalSurface:
+          'w-full max-w-md rounded-t-[1.8rem] border border-[#e6d0bc] bg-[linear-gradient(180deg,#fffdfb_0%,#f6ede3_100%)] p-5 text-[#2c1d14] shadow-2xl sm:rounded-[1.8rem] space-y-4 text-start',
+        cardSurface:
+          'rounded-[1.8rem] border border-[#e6d0bc] bg-[linear-gradient(180deg,#fffdfb_0%,#f5ece1_100%)] p-5 text-start shadow-[0_18px_55px_-45px_rgba(111,74,51,0.18)] space-y-3',
+        primaryButton:
+          'inline-flex w-full items-center justify-center gap-2 rounded-full border-none bg-[linear-gradient(135deg,#6f4a33_0%,#d6a77a_100%)] px-4 py-3 text-sm font-black text-white shadow-md transition hover:opacity-95 active:scale-[0.98] disabled:opacity-60',
+        secondaryButton:
+          'rounded-full border border-[#e6d0bc] bg-white px-4 py-2 text-xs font-bold text-[#6f4a33] hover:bg-[#f7efe6] transition',
+        saveButton:
+          'rounded-full bg-[#4b2e1f] px-5 py-2 text-xs font-black text-white hover:bg-[#6f4a33] transition disabled:opacity-60',
+        iconBadge:
+          'flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#f7eadc] text-[#6f4a33] border border-[#e6d0bc]',
+        input:
+          'w-full rounded-full border border-[#e6d0bc] bg-white px-4 py-2.5 text-xs text-[#2c1d14] focus:border-[#6f4a33] focus:outline-none',
+        pickerClasses: {
+          modalSurface:
+            'w-full max-w-lg rounded-t-[1.8rem] border border-[#e6d0bc] bg-[#fffdfb] p-4 text-[#2c1d14] shadow-2xl sm:rounded-[1.8rem] space-y-3',
+          primaryButton:
+            'rounded-full bg-[#4b2e1f] px-5 py-2 text-xs font-black text-white hover:bg-[#6f4a33] transition',
+          secondaryButton:
+            'rounded-full border border-[#e6d0bc] bg-white px-4 py-2 text-xs font-bold text-[#6f4a33] hover:bg-[#f7efe6] transition',
+          accentText: 'text-[#6f4a33]',
+        },
+      };
+    }
+    if (isPharmacy) {
+      return {
+        modalSurface:
+          'w-full max-w-md rounded-t-[1.8rem] border border-[#99f6e4] bg-[linear-gradient(180deg,#ffffff_0%,#effbf7_100%)] p-5 text-[#0f172a] shadow-2xl sm:rounded-[1.8rem] space-y-4 text-start',
+        cardSurface:
+          'rounded-[1.8rem] border border-[#99f6e4] bg-[linear-gradient(180deg,#ffffff_0%,#effbf7_100%)] p-5 text-start shadow-[0_18px_55px_-45px_rgba(20,184,166,0.18)] space-y-3',
+        primaryButton:
+          'inline-flex w-full items-center justify-center gap-2 rounded-full border-none bg-[linear-gradient(135deg,#14b8a6_0%,#0f766e_100%)] px-4 py-3 text-sm font-black text-white shadow-md transition hover:opacity-95 active:scale-[0.98] disabled:opacity-60',
+        secondaryButton:
+          'rounded-full border border-[#99f6e4] bg-white px-4 py-2 text-xs font-bold text-[#0f766e] hover:bg-[#ecfdf9] transition',
+        saveButton:
+          'rounded-full bg-[#0f766e] px-5 py-2 text-xs font-black text-white hover:bg-[#14b8a6] transition disabled:opacity-60',
+        iconBadge:
+          'flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#defdf7] text-[#0f766e] border border-[#99f6e4]',
+        input:
+          'w-full rounded-full border border-[#99f6e4] bg-white px-4 py-2.5 text-xs text-[#0f172a] focus:border-[#14b8a6] focus:outline-none',
+        pickerClasses: {
+          modalSurface:
+            'w-full max-w-lg rounded-t-[1.8rem] border border-[#99f6e4] bg-white p-4 text-[#0f172a] shadow-2xl sm:rounded-[1.8rem] space-y-3',
+          primaryButton:
+            'rounded-full bg-[#0f766e] px-5 py-2 text-xs font-black text-white hover:bg-[#14b8a6] transition',
+          secondaryButton:
+            'rounded-full border border-[#99f6e4] bg-white px-4 py-2 text-xs font-bold text-[#0f766e] hover:bg-[#ecfdf9] transition',
+          accentText: 'text-[#0f766e]',
+        },
+      };
+    }
+    if (isKhemetLuxe) {
+      return {
+        modalSurface:
+          'w-full max-w-md rounded-t-[1.85rem] border border-[#e7d6bf] bg-[linear-gradient(180deg,#fffefc_0%,#fff8f1_100%)] p-5 text-[#153628] shadow-2xl sm:rounded-[1.85rem] space-y-4 text-start',
+        cardSurface:
+          'rounded-[1.85rem] border border-[#e7d6bf] bg-[linear-gradient(180deg,#fffefc_0%,#fff8f2_100%)] p-5 text-start shadow-[0_20px_55px_-46px_rgba(21,54,40,0.1)] space-y-3',
+        primaryButton:
+          'inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#153628] bg-[#153628] px-4 py-3 text-sm font-black text-[#fff8ea] shadow-md transition hover:bg-[#123022] active:scale-[0.98] disabled:opacity-60',
+        secondaryButton:
+          'rounded-full border border-[#e7d6bf] bg-white px-4 py-2 text-xs font-bold text-[#6f5a47] hover:bg-[#fffaf2] transition',
+        saveButton:
+          'rounded-full bg-[#153628] px-5 py-2 text-xs font-black text-[#fff8ea] hover:bg-[#123022] transition disabled:opacity-60',
+        iconBadge:
+          'flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#fff6ea] text-[#153628] border border-[#e7d6bf]',
+        input:
+          'w-full rounded-full border border-[#e7d6bf] bg-white px-4 py-2.5 text-xs text-[#153628] focus:border-[#153628] focus:outline-none',
+        pickerClasses: {
+          modalSurface:
+            'w-full max-w-lg rounded-t-[1.85rem] border border-[#e7d6bf] bg-[#fffefc] p-4 text-[#153628] shadow-2xl sm:rounded-[1.85rem] space-y-3',
+          primaryButton:
+            'rounded-full bg-[#153628] px-5 py-2 text-xs font-black text-[#fff8ea] hover:bg-[#123022] transition',
+          secondaryButton:
+            'rounded-full border border-[#e7d6bf] bg-white px-4 py-2 text-xs font-bold text-[#6f5a47] hover:bg-[#fffaf2] transition',
+          accentText: 'text-[#9d7440]',
+        },
+      };
+    }
+    if (isSoftAftercare) {
+      return {
+        modalSurface:
+          'w-full max-w-md rounded-t-[1.8rem] border border-[#ead8cf] bg-[linear-gradient(180deg,#fffefd_0%,#fff7f4_100%)] p-5 text-[#3d2a2f] shadow-2xl sm:rounded-[1.8rem] space-y-4 text-start',
+        cardSurface:
+          'rounded-[1.8rem] border border-[#ead8cf] bg-[linear-gradient(180deg,#fffefd_0%,#fff7f4_100%)] p-5 text-start shadow-[0_18px_55px_-45px_rgba(107,33,49,0.12)] space-y-3',
+        primaryButton:
+          'inline-flex w-full items-center justify-center gap-2 rounded-full border-none bg-[linear-gradient(135deg,#5b323b_0%,#8f4d41_100%)] px-4 py-3 text-sm font-black text-white shadow-md transition hover:opacity-95 active:scale-[0.98] disabled:opacity-60',
+        secondaryButton:
+          'rounded-full border border-[#ead8cf] bg-white px-4 py-2 text-xs font-bold text-[#6d3d48] hover:bg-[#fff7f4] transition',
+        saveButton:
+          'rounded-full bg-[#6d3d48] px-5 py-2 text-xs font-black text-white hover:bg-[#8f4d41] transition disabled:opacity-60',
+        iconBadge:
+          'flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#8f4d41] border border-[#ead8cf]',
+        input:
+          'w-full rounded-full border border-[#ead8cf] bg-white px-4 py-2.5 text-xs text-[#3d2a2f] focus:border-[#b06456] focus:outline-none',
+        pickerClasses: {
+          modalSurface:
+            'w-full max-w-lg rounded-t-[1.8rem] border border-[#ead8cf] bg-[#fffefd] p-4 text-[#3d2a2f] shadow-2xl sm:rounded-[1.8rem] space-y-3',
+          primaryButton:
+            'rounded-full bg-[#6d3d48] px-5 py-2 text-xs font-black text-white hover:bg-[#8f4d41] transition',
+          secondaryButton:
+            'rounded-full border border-[#ead8cf] bg-white px-4 py-2 text-xs font-bold text-[#6d3d48] hover:bg-[#fff7f4] transition',
+          accentText: 'text-[#b06456]',
+        },
+      };
+    }
+    if (isPcHub) {
+      return {
+        modalSurface:
+          'w-full max-w-md rounded-t-[1.9rem] border border-[#ead89d] bg-[linear-gradient(180deg,#fffef9_0%,#fff6e1_100%)] p-5 text-[#111827] shadow-2xl sm:rounded-[1.9rem] space-y-4 text-start',
+        cardSurface:
+          'rounded-[1.9rem] border border-[#ead89d] bg-[linear-gradient(180deg,#fffef9_0%,#fff6e1_100%)] p-5 text-start shadow-[0_20px_60px_-46px_rgba(15,23,42,0.22)] space-y-3',
+        primaryButton:
+          'inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#111827] bg-[#111827] px-4 py-3 text-sm font-black text-[#f8d76a] shadow-md transition hover:bg-[#0b1220] active:scale-[0.98] disabled:opacity-60',
+        secondaryButton:
+          'rounded-full border border-[#ead89d] bg-white px-4 py-2 text-xs font-bold text-[#111827] hover:bg-[#fff8de] transition',
+        saveButton:
+          'rounded-full bg-[#111827] px-5 py-2 text-xs font-black text-[#f8d76a] hover:bg-[#0b1220] transition disabled:opacity-60',
+        iconBadge:
+          'flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#111827] text-[#f8d76a] border border-[#ead89d]',
+        input:
+          'w-full rounded-full border border-[#e7d89e] bg-white px-4 py-2.5 text-xs text-[#111827] focus:border-[#111827] focus:outline-none',
+        pickerClasses: {
+          modalSurface:
+            'w-full max-w-lg rounded-t-[1.9rem] border border-[#ead89d] bg-[#fffef9] p-4 text-[#111827] shadow-2xl sm:rounded-[1.9rem] space-y-3',
+          primaryButton:
+            'rounded-full bg-[#111827] px-5 py-2 text-xs font-black text-[#f8d76a] hover:bg-[#0b1220] transition',
+          secondaryButton:
+            'rounded-full border border-[#ead89d] bg-white px-4 py-2 text-xs font-bold text-[#111827] hover:bg-[#fff8de] transition',
+          accentText: 'text-[#111827]',
+        },
+      };
+    }
+
+    return {
+      modalSurface:
+        'w-full max-w-md rounded-t-[1.8rem] border border-border bg-card p-5 text-foreground shadow-2xl sm:rounded-[1.8rem] space-y-4 text-start',
+      cardSurface:
+        'rounded-[1.8rem] border border-border/70 bg-card p-5 text-start shadow-sm space-y-3',
+      primaryButton:
+        'inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-md transition hover:bg-primary/90 active:scale-[0.98] disabled:opacity-60',
+      secondaryButton:
+        'rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition',
+      saveButton:
+        'rounded-full bg-primary px-5 py-2 text-xs font-bold text-primary-foreground hover:bg-primary/90 transition disabled:opacity-60',
+      iconBadge:
+        'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary',
+      input:
+        'w-full rounded-full border border-border bg-background px-4 py-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+      pickerClasses: undefined,
+    };
+  }, [isBiteRush, isCafeDemo, isKhemetLuxe, isPcHub, isPharmacy, isSoftAftercare]);
+
   return {
     theme,
     prefersArabicCopy,
@@ -1168,6 +1352,7 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
     existingOrderLocation,
     showPostOrderLocationCard,
     showThankYouLocationPopup,
+    locationThemeClasses,
     isBiteRush,
     isPcHub,
     isSoftAftercare,

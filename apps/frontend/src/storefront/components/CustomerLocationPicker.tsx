@@ -27,6 +27,16 @@ export interface AutoFillAddressPatch {
   governorate?: string;
 }
 
+export interface LocationPickerThemeClasses {
+  container?: string;
+  primaryButton?: string;
+  secondaryButton?: string;
+  modalSurface?: string;
+  input?: string;
+  accentText?: string;
+  badge?: string;
+}
+
 export interface CustomerLocationPickerProps {
   settings: LocationCaptureSettings;
   value?: CustomerLocationData | null;
@@ -36,6 +46,7 @@ export interface CustomerLocationPickerProps {
   compact?: boolean;
   forceStyle?: "gps_button" | "map_modal" | "inline_map";
   id?: string;
+  themeClasses?: LocationPickerThemeClasses;
 }
 
 export const CustomerLocationPicker: React.FC<CustomerLocationPickerProps> = ({
@@ -47,6 +58,7 @@ export const CustomerLocationPicker: React.FC<CustomerLocationPickerProps> = ({
   compact = false,
   forceStyle,
   id = "checkout-customer-location",
+  themeClasses,
 }) => {
   const effectiveStyle = forceStyle || settings.displayStyle;
   const [gpsLoading, setGpsLoading] = useState(false);
@@ -263,9 +275,12 @@ export const CustomerLocationPicker: React.FC<CustomerLocationPickerProps> = ({
       id={id}
       ref={containerRef}
       tabIndex={-1}
-      className={`space-y-2.5 rounded-xl border border-border/70 bg-muted/20 ${
-        compact ? "p-3" : "p-3.5"
-      }`}
+      className={
+        themeClasses?.container ||
+        `space-y-2.5 rounded-xl border border-border/70 bg-muted/20 ${
+          compact ? "p-3" : "p-3.5"
+        }`
+      }
     >
       {/* Header Row */}
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -486,15 +501,24 @@ export const CustomerLocationPicker: React.FC<CustomerLocationPickerProps> = ({
       {/* Map Modal / Bottom Sheet */}
       {mapModalOpen ? (
         <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/45 p-0 backdrop-blur-[2px] sm:items-center sm:p-4"
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-0 backdrop-blur-xs sm:items-center sm:p-4"
           role="dialog"
           aria-modal="true"
           aria-label={prefersArabic ? "تحديد الموقع على الخريطة" : "Pick location on map"}
         >
-          <div className="w-full max-w-lg rounded-t-2xl border border-border bg-card p-4 shadow-2xl sm:rounded-2xl space-y-3">
+          <div
+            className={
+              themeClasses?.modalSurface ||
+              "w-full max-w-lg rounded-t-2xl border border-border bg-card p-4 text-foreground shadow-2xl sm:rounded-2xl space-y-3"
+            }
+            style={{
+              backgroundColor: "var(--color-card, var(--color-background, #ffffff))",
+              color: "var(--color-foreground, #111827)",
+            }}
+          >
             <div className="flex items-center justify-between gap-2 border-b border-border/60 pb-2.5">
               <div className="flex items-center gap-2 text-sm font-bold text-foreground">
-                <MapPin className="h-4 w-4 text-primary" />
+                <MapPin className={`h-4 w-4 ${themeClasses?.accentText || "text-primary"}`} />
                 <span>
                   {prefersArabic ? "حدد موقعك على الخريطة" : "Pin your location"}
                 </span>
@@ -525,7 +549,10 @@ export const CustomerLocationPicker: React.FC<CustomerLocationPickerProps> = ({
               <button
                 type="button"
                 onClick={() => setMapModalOpen(false)}
-                className="rounded-xl border border-border/70 bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted transition"
+                className={
+                  themeClasses?.secondaryButton ||
+                  "rounded-xl border border-border/70 bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted transition"
+                }
               >
                 {prefersArabic ? "إلغاء" : "Cancel"}
               </button>
@@ -536,7 +563,10 @@ export const CustomerLocationPicker: React.FC<CustomerLocationPickerProps> = ({
                   void commitLocation(target.lat, target.lng, target.source);
                   setMapModalOpen(false);
                 }}
-                className="rounded-xl bg-primary px-5 py-2 text-xs font-bold text-primary-foreground hover:bg-primary/90 transition active:scale-[0.98]"
+                className={
+                  themeClasses?.primaryButton ||
+                  "rounded-xl bg-primary px-5 py-2 text-xs font-bold text-primary-foreground hover:bg-primary/90 transition active:scale-[0.98]"
+                }
               >
                 {prefersArabic ? "تأكيد الموقع" : "Confirm location"}
               </button>

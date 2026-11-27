@@ -76,6 +76,7 @@ export const OrderConfirmation: React.FC<OrderConfirmationProps> = (props) => {
             prefersArabic={ctrl.prefersArabicCopy}
             initialLocation={ctrl.existingOrderLocation}
             showPopup={ctrl.showThankYouLocationPopup}
+            themeClasses={ctrl.locationThemeClasses}
           />
         ) : null}
 

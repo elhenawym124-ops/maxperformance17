@@ -64,6 +64,10 @@
   --color-secondary-foreground: #ffffff;
   --color-background: #ffffff;
   --color-foreground: #36454f;
+  --color-card: #ffffff;
+  --color-card-foreground: #36454f;
+  --color-accent: #f3f4f6;
+  --color-accent-foreground: #36454f;
   --color-muted: #d3d3d3;
   --color-muted-foreground: #708090;
   --color-border: #d3d3d3;
@@ -107,6 +111,10 @@
   --color-secondary-foreground: var(--color-secondary-foreground);
   --color-background: var(--color-background);
   --color-foreground: var(--color-foreground);
+  --color-card: var(--color-card);
+  --color-card-foreground: var(--color-card-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
   --color-muted: var(--color-muted);
   --color-muted-foreground: var(--color-muted-foreground);
   --color-border: var(--color-border);

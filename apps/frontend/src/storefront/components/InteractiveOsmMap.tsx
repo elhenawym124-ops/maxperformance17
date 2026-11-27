@@ -255,7 +255,13 @@ export const InteractiveOsmMap: React.FC<InteractiveOsmMapProps> = ({
         </div>
 
         {searchResults.length > 0 ? (
-          <div className="absolute inset-x-0 top-full z-20 mt-1 max-h-44 overflow-y-auto rounded-xl border border-border bg-card shadow-lg divide-y divide-border/60">
+          <div
+            className="absolute inset-x-0 top-full z-20 mt-1 max-h-44 overflow-y-auto rounded-xl border border-border bg-card shadow-lg divide-y divide-border/60"
+            style={{
+              backgroundColor: "var(--color-card, var(--color-background, #ffffff))",
+              color: "var(--color-foreground, #111827)",
+            }}
+          >
             {searchResults.map((item, idx) => (
               <button
                 key={`${item.lat}-${item.lng}-${idx}`}
