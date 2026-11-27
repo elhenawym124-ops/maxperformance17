@@ -262,7 +262,7 @@ function buildOrderAddressContext(order = {}, orderData = {}) {
  * Step 1: Deterministic exact check on Turbo's cached map (0 AI calls if matched).
  * Step 2: AI guesses the closest Turbo area from Turbo's map, auto-determines governorate, and verifies both against Turbo's area list.
  */
-async function resolveTurboLocation({ prisma, turboService, companyId, order = {}, orderData = {} }) {
+async function resolveTurboLocation({ prisma, turboService, companyId, order = {}, orderData = {}, bypassEnableCheck = false }) {
   if (!turboService || typeof turboService.getGovernments !== 'function' || typeof turboService.getAreas !== 'function') {
     return { skipped: true, resolved: false, reason: 'NO_LOCATION_SERVICE' };
   }
@@ -311,7 +311,7 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
 
   // 2) AI Map Guessing + Auto-Governorate + Review
   const config = await loadTurboAiResolverConfig(prisma, companyId);
-  if (!config.aiEnabled) {
+  if (!bypassEnableCheck && !config.aiEnabled) {
     return { skipped: true, resolved: false, reason: 'AI_DISABLED' };
   }
 
@@ -484,12 +484,71 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
   };
 }
 
+async function persistUnresolvedTurboLocation({ prisma, companyId, order, resolution }) {
+  if (!prisma || (!order?.id && !order?.orderNumber)) return;
+  try {
+    let existingMeta = {};
+    try {
+      existingMeta = typeof order.metadata === 'string'
+        ? JSON.parse(order.metadata || '{}')
+        : (order.metadata && typeof order.metadata === 'object' ? order.metadata : {});
+    } catch {}
+
+    const updatedMeta = JSON.stringify({
+      ...existingMeta,
+      turboAreaResolution: {
+        status: 'needs_details',
+        reason: resolution.reason || 'UNRESOLVED',
+        confidence: resolution.confidence ?? 0,
+        aiGuess: resolution.aiGuess || null,
+        message: 'العنوان غير واضح أو يحتاج تفاصيل لتحديد منطقة تربو',
+        checkedAt: new Date().toISOString(),
+      },
+    });
+    order.metadata = updatedMeta;
+
+    if (order.tableType === 'GuestOrder') {
+      if (prisma.guestOrder?.updateMany && order.orderNumber) {
+        await prisma.guestOrder.updateMany({ where: { orderNumber: order.orderNumber, companyId }, data: { metadata: updatedMeta } }).catch(() => {});
+      }
+    } else if (order.id && prisma.order?.update) {
+      await prisma.order.update({ where: { id: order.id }, data: { metadata: updatedMeta } }).catch(() => {});
+      if (order.orderNumber && prisma.guestOrder?.updateMany) {
+        await prisma.guestOrder.updateMany({ where: { orderNumber: order.orderNumber, companyId }, data: { metadata: updatedMeta } }).catch(() => {});
+      }
+      await logOrderEvent({
+        prisma,
+        companyId,
+        orderId: order.id,
+        orderNumber: order.orderNumber || null,
+        action: ORDER_EVENT_ACTIONS.ORDER_UPDATED,
+        userId: 'AI',
+        actorId: 'AI',
+        userName: 'الذكاء الاصطناعي (Turbo Area Resolver)',
+        description: `العنوان غير واضح أو يحتاج تفاصيل لتحديد منطقة تربو (${resolution.reason || 'UNRESOLVED'})`,
+        metadata: {
+          source: 'ai_turbo_map',
+          status: 'needs_details',
+          reason: resolution.reason || 'UNRESOLVED',
+        },
+      });
+    }
+  } catch (err) {
+    console.warn('⚠️ [TURBO-AI-AREA] Failed persisting needs_details status:', err.message);
+  }
+}
+
 /**
  * Resolve Turbo location, mutate orderData for dispatch, and persist resolved area/governorate on the order.
  */
-async function resolveAndApplyTurboLocation({ prisma, turboService, companyId, order = {}, orderData = {} }) {
-  const resolution = await resolveTurboLocation({ prisma, turboService, companyId, order, orderData });
-  if (!resolution.resolved) return resolution;
+async function resolveAndApplyTurboLocation({ prisma, turboService, companyId, order = {}, orderData = {}, bypassEnableCheck = false }) {
+  const resolution = await resolveTurboLocation({ prisma, turboService, companyId, order, orderData, bypassEnableCheck });
+  if (!resolution.resolved) {
+    if (!resolution.skipped) {
+      await persistUnresolvedTurboLocation({ prisma, companyId, order, resolution });
+    }
+    return resolution;
+  }
 
   orderData.governorate = resolution.governorate;
   orderData.area = resolution.area;
@@ -509,6 +568,7 @@ async function resolveAndApplyTurboLocation({ prisma, turboService, companyId, o
       const updatedMeta = JSON.stringify({
         ...existingMeta,
         turboAreaResolution: {
+          status: 'resolved',
           governorate: resolution.governorate,
           area: resolution.area,
           confidence: resolution.confidence,
@@ -569,16 +629,7 @@ async function resolveAndApplyTurboLocation({ prisma, turboService, companyId, o
   return resolution;
 }
 
-/**
- * Optional hook for newly created orders (when merchant enables aiAreaResolverOnCreate / turboAiAreaResolverOnCreate).
- */
-async function resolveTurboLocationOnOrderCreate({ prisma, companyId, order } = {}) {
-  if (!prisma || !companyId || !order) return { skipped: true, reason: 'MISSING_ARGS' };
-  const config = await loadTurboAiResolverConfig(prisma, companyId);
-  if (!config.aiEnabled || !config.aiOnCreateEnabled) {
-    return { skipped: true, reason: 'AI_ON_CREATE_DISABLED' };
-  }
-
+async function resolveTurboApiKey(prisma, companyId) {
   let turboApiKey = null;
   try {
     const company = await prisma.company?.findUnique?.({
@@ -594,7 +645,29 @@ async function resolveTurboLocationOnOrderCreate({ prisma, companyId, order } = 
       turboApiKey = carrier?.apiKey || null;
     }
   } catch {}
+  return turboApiKey;
+}
 
+function buildManualOrderData(order = {}) {
+  return {
+    governorate: order.governorate || '',
+    city: order.city || '',
+    shippingAddress: order.shippingAddress || order.customerAddress || '',
+    customerAddress: order.customerAddress || order.shippingAddress || '',
+  };
+}
+
+/**
+ * Optional hook for newly created orders (when merchant enables aiAreaResolverOnCreate / turboAiAreaResolverOnCreate).
+ */
+async function resolveTurboLocationOnOrderCreate({ prisma, companyId, order } = {}) {
+  if (!prisma || !companyId || !order) return { skipped: true, reason: 'MISSING_ARGS' };
+  const config = await loadTurboAiResolverConfig(prisma, companyId);
+  if (!config.aiEnabled || !config.aiOnCreateEnabled) {
+    return { skipped: true, reason: 'AI_ON_CREATE_DISABLED' };
+  }
+
+  const turboApiKey = await resolveTurboApiKey(prisma, companyId);
   if (!turboApiKey) {
     return { skipped: true, reason: 'NO_TURBO_API_KEY' };
   }
@@ -606,12 +679,29 @@ async function resolveTurboLocationOnOrderCreate({ prisma, companyId, order } = 
     turboService,
     companyId,
     order,
-    orderData: {
-      governorate: order.governorate || '',
-      city: order.city || '',
-      shippingAddress: order.shippingAddress || order.customerAddress || '',
-      customerAddress: order.customerAddress || order.shippingAddress || '',
-    },
+    orderData: buildManualOrderData(order),
+  });
+}
+
+/**
+ * Explicit manual AI area resolution triggered from Order Details UI.
+ */
+async function resolveOrderAreaManually({ prisma, companyId, order } = {}) {
+  if (!prisma || !companyId || !order) return { skipped: true, reason: 'MISSING_ARGS' };
+  const turboApiKey = await resolveTurboApiKey(prisma, companyId);
+  if (!turboApiKey) {
+    return { skipped: true, reason: 'NO_TURBO_API_KEY' };
+  }
+
+  const TurboService = require('../turboService');
+  const turboService = new TurboService(turboApiKey, companyId);
+  return resolveAndApplyTurboLocation({
+    prisma,
+    turboService,
+    companyId,
+    order,
+    orderData: buildManualOrderData(order),
+    bypassEnableCheck: true,
   });
 }
 
@@ -619,6 +709,7 @@ module.exports = {
   resolveTurboLocation,
   resolveAndApplyTurboLocation,
   resolveTurboLocationOnOrderCreate,
+  resolveOrderAreaManually,
   loadTurboAiResolverConfig,
   isGenericOrEmptyLocation,
   matchAreaInList,

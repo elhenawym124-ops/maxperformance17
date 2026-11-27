@@ -86,4 +86,60 @@ const searchAreaByTextPublic = async (req, res) => {
   }
 };
 
-module.exports = { getGovernments, getAreas, getBranches, searchAreaByText, searchAreaByTextPublic };
+const resolveOrderArea = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const companyId = req.user?.companyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'Company ID is required' });
+
+    const prisma = getSharedPrismaClient();
+    let order = await prisma.order.findFirst({
+      where: {
+        companyId,
+        OR: [{ id: orderId }, { orderNumber: orderId }],
+      },
+    });
+    if (!order) {
+      const guest = await prisma.guestOrder.findFirst({
+        where: {
+          companyId,
+          OR: [{ id: orderId }, { orderNumber: orderId }],
+        },
+      });
+      if (guest) {
+        order = { ...guest, tableType: 'GuestOrder' };
+      }
+    }
+    if (!order) {
+      return res.status(404).json({ success: false, error: 'الطلب غير موجود' });
+    }
+
+    const { resolveOrderAreaManually } = require('../../services/turbo/turboAiAreaResolver');
+    const resolution = await resolveOrderAreaManually({ prisma, companyId, order });
+
+    if (resolution?.skipped && resolution.reason === 'NO_TURBO_API_KEY') {
+      return res.status(400).json({ success: false, error: 'مفتاح Turbo API غير مضاف لهذه الشركة' });
+    }
+
+    return res.json({
+      success: true,
+      resolved: Boolean(resolution?.resolved),
+      data: {
+        governorate: order.governorate || resolution?.governorate || null,
+        area: order.city || resolution?.area || null,
+        confidence: resolution?.confidence ?? 0,
+        reason: resolution?.reason || null,
+        needsDetails: !resolution?.resolved,
+        message: resolution?.resolved
+          ? `تم تحديد المنطقة (${resolution.governorate} - ${resolution.area}) بنجاح`
+          : 'العنوان غير واضح أو يحتاج تفاصيل أكثر لتحديد منطقة تربو',
+        metadata: order.metadata || null,
+      },
+    });
+  } catch (error) {
+    console.error('❌ [TURBO-RESOLVE-AREA] Error:', error);
+    return res.status(500).json({ success: false, error: error.message || 'فشل تحديد المنطقة بالذكاء الاصطناعي' });
+  }
+};
+
+module.exports = { getGovernments, getAreas, getBranches, searchAreaByText, searchAreaByTextPublic, resolveOrderArea };

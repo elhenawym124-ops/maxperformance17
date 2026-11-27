@@ -131,6 +131,12 @@ router.get('/areas/:governmentId', verifyToken.authenticateToken, checkAppAccess
 router.get('/search-area', verifyToken.authenticateToken, checkAppAccess('order-shipping-turbo'), turboController.searchAreaByText);
 
 /**
+ * POST /api/v1/turbo/orders/:orderId/resolve-area
+ * تحديد وتخمين منطقة تربو بالذكاء الاصطناعي يدوياً لطلب محدد
+ */
+router.post('/orders/:orderId/resolve-area', verifyToken.authenticateToken, checkAppAccess('order-shipping-turbo'), turboController.resolveOrderArea);
+
+/**
  * GET /api/turbo/reports/shipping
  * جلب تقرير الشحن
  */

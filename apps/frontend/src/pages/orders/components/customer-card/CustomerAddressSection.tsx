@@ -4,10 +4,31 @@ import {
   MapPinIcon,
   ClipboardDocumentIcon,
   CheckIcon,
+  SparklesIcon,
+  ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
+import { apiClient } from "../../../../services/apiClient";
 import { GovernorateAreaSearch } from "../../../../components/ui/GovernorateAreaSearch";
 import { OrderDetailsType, Government } from "../types";
+
+const GENERIC_CITY_NAMES = new Set([
+  "", "cairo", "giza", "alexandria", "alex", "qalyubia", "sharqia", "dakahlia",
+  "gharbia", "monufia", "beheira", "kafr el-sheikh", "damietta", "port said",
+  "ismailia", "suez", "fayoum", "beni suef", "minya", "asyut", "sohag", "qena",
+  "luxor", "aswan", "red sea", "new valley", "matrouh", "north sinai", "south sinai",
+  "القاهرة", "الجيزة", "الاسكندرية", "الإسكندرية", "غير محدد", "غير معروف",
+]);
+
+function parseTurboAreaMeta(rawMetadata: unknown): any {
+  if (!rawMetadata) return null;
+  try {
+    const parsed = typeof rawMetadata === "string" ? JSON.parse(rawMetadata) : rawMetadata;
+    return parsed?.turboAreaResolution || null;
+  } catch {
+    return null;
+  }
+}
 
 interface CustomerAddressSectionProps {
   order: OrderDetailsType;
@@ -26,8 +47,18 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
 }) => {
   const { t } = useTranslation();
   const [copiedAddr, setCopiedAddr] = useState(false);
+  const [resolvingAi, setResolvingAi] = useState(false);
+  const [aiOverride, setAiOverride] = useState<{
+    governorate?: string | null;
+    city?: string | null;
+    needsDetails?: boolean;
+    message?: string;
+  } | null>(null);
+
+  const turboAreaMeta = parseTurboAreaMeta((order as any)?.metadata);
 
   const resolvedGov = (() => {
+    if (aiOverride?.governorate) return aiOverride.governorate;
     const val = order.governorate || (order.shippingAddress as any)?.governorate;
     if (!val) return "";
     const govId = parseInt(String(val));
@@ -38,9 +69,44 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
     return String(val).replace(/^\d+:/, "").trim();
   })();
 
-  const resolvedCity = order.city
-    ? String(order.city).replace(/^\d+:/, "").trim()
-    : "";
+  const resolvedCity = aiOverride?.city
+    ? String(aiOverride.city).replace(/^\d+:/, "").trim()
+    : order.city
+      ? String(order.city).replace(/^\d+:/, "").trim()
+      : "";
+
+  const isGenericOrMissingCity = GENERIC_CITY_NAMES.has(resolvedCity.toLowerCase());
+  const needsAddressDetails =
+    aiOverride?.needsDetails ?? (turboAreaMeta?.status === "needs_details" || (!order.turboTrackingNumber && isGenericOrMissingCity));
+  const showAiResolveButton = !order.turboTrackingNumber && (needsAddressDetails || isGenericOrMissingCity);
+
+  const handleResolveAreaWithAi = async () => {
+    const targetId = order.id || order.orderNumber;
+    if (!targetId || resolvingAi) return;
+    setResolvingAi(true);
+    try {
+      const response = await apiClient.post(`/turbo/orders/${encodeURIComponent(targetId)}/resolve-area`);
+      const payload = response.data;
+      if (payload?.resolved && payload?.data) {
+        setAiOverride({
+          governorate: payload.data.governorate,
+          city: payload.data.area,
+          needsDetails: false,
+        });
+        toast.success(payload.data.message || "تم تحديد المنطقة بالذكاء الاصطناعي");
+      } else {
+        setAiOverride({
+          needsDetails: true,
+          message: payload?.data?.message || "العنوان غير واضح أو يحتاج تفاصيل أكثر",
+        });
+        toast.warning(payload?.data?.message || "العنوان غير واضح أو يحتاج تفاصيل أكثر لتحديد منطقة تربو");
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.error || "تعذر تحديد المنطقة بالذكاء الاصطناعي");
+    } finally {
+      setResolvingAi(false);
+    }
+  };
 
   const resolvedDetailedAddress = (() => {
     if (!order.customerAddress) return "";
@@ -141,34 +207,61 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
   const locationSummary = [resolvedGov, resolvedCity].filter(Boolean).join(" · ");
 
   return (
-    <div className="flex items-start justify-between gap-2 pt-1.5 border-t border-border/50">
-      <div className="flex items-start gap-2 min-w-0 flex-1">
-        <MapPinIcon className="w-4 h-4 text-muted-foreground/80 shrink-0 mt-0.5" />
-        <div className="min-w-0 space-y-0.5">
-          <p className="text-xs sm:text-sm font-medium text-foreground break-words">
-            {locationSummary || t("orders.notSpecified")}
-          </p>
-          {resolvedDetailedAddress && (
-            <p className="text-xs sm:text-sm text-muted-foreground break-words leading-relaxed">
-              {resolvedDetailedAddress}
+    <div className="space-y-2 pt-1.5 border-t border-border/50">
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex items-start gap-2 min-w-0 flex-1">
+          <MapPinIcon className="w-4 h-4 text-muted-foreground/80 shrink-0 mt-0.5" />
+          <div className="min-w-0 space-y-0.5">
+            <p className="text-xs sm:text-sm font-medium text-foreground break-words">
+              {locationSummary || t("orders.notSpecified")}
             </p>
+            {resolvedDetailedAddress && (
+              <p className="text-xs sm:text-sm text-muted-foreground break-words leading-relaxed">
+                {resolvedDetailedAddress}
+              </p>
+            )}
+          </div>
+        </div>
+        {(locationSummary || resolvedDetailedAddress) && (
+          <button
+            type="button"
+            onClick={handleCopyAddress}
+            aria-label="نسخ العنوان"
+            title="نسخ العنوان كاملاً"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/70 bg-muted/40 text-muted-foreground hover:text-foreground hover:bg-muted transition active:scale-95 shrink-0"
+          >
+            {copiedAddr ? (
+              <CheckIcon className="w-3.5 h-3.5 text-success" />
+            ) : (
+              <ClipboardDocumentIcon className="w-3.5 h-3.5" />
+            )}
+          </button>
+        )}
+      </div>
+
+      {(needsAddressDetails || showAiResolveButton) && (
+        <div className="flex flex-wrap items-center justify-between gap-2 ps-6">
+          {needsAddressDetails && (
+            <span
+              className="inline-flex items-center gap-1 rounded-md border border-warning/30 bg-warning/10 px-2 py-0.5 text-[11px] font-medium text-warning"
+              title={aiOverride?.message || turboAreaMeta?.message || "العنوان غير واضح أو غير مطابق لمنطقة تربو"}
+            >
+              <ExclamationTriangleIcon className="w-3.5 h-3.5 shrink-0" />
+              <span>العنوان غير واضح — يحتاج تفاصيل أكثر</span>
+            </span>
+          )}
+          {showAiResolveButton && (
+            <button
+              type="button"
+              onClick={handleResolveAreaWithAi}
+              disabled={resolvingAi}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-semibold text-primary hover:bg-primary/15 disabled:opacity-50 transition active:scale-[0.98]"
+            >
+              <SparklesIcon className={`w-3.5 h-3.5 shrink-0 ${resolvingAi ? "animate-pulse" : ""}`} />
+              <span>{resolvingAi ? "جاري التحديد…" : "تحديد المنطقة بالذكاء الاصطناعي"}</span>
+            </button>
           )}
         </div>
-      </div>
-      {(locationSummary || resolvedDetailedAddress) && (
-        <button
-          type="button"
-          onClick={handleCopyAddress}
-          aria-label="نسخ العنوان"
-          title="نسخ العنوان كاملاً"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/70 bg-muted/40 text-muted-foreground hover:text-foreground hover:bg-muted transition active:scale-95 shrink-0"
-        >
-          {copiedAddr ? (
-            <CheckIcon className="w-3.5 h-3.5 text-success" />
-          ) : (
-            <ClipboardDocumentIcon className="w-3.5 h-3.5" />
-          )}
-        </button>
       )}
     </div>
   );
