@@ -1,6 +1,14 @@
 import { apiClient } from './apiClient';
 
-export type MarketplacePlatform = 'amazon' | 'noon' | 'jumia' | 'trendyol';
+export type MarketplacePlatform =
+  | 'amazon'
+  | 'noon'
+  | 'jumia'
+  | 'trendyol'
+  | 'shopify'
+  | 'zid'
+  | 'woocommerce'
+  | 'shein';
 export type CountryCode = 'EGY' | 'KSA' | 'UAE';
 
 export interface CountryMeta {
@@ -36,6 +44,8 @@ export interface CalculateProfitPayload {
   platform: MarketplacePlatform;
   country: CountryCode;
   productCost: number;
+  overheadCost?: number;
+  storageMonths?: number;
   profitMarginPct: number;
   shipmentType?: 'EASY_SHIP' | 'SELLER_FLEX' | 'FBA';
   category?: string;
@@ -220,6 +230,62 @@ export interface CompanyCatalogProduct {
   cost: number | null;
   stock: number;
   weight: number | null;
+}
+
+export interface CompareMarketplacesResult {
+  country: CountryCode;
+  currency: string;
+  productCost: number;
+  landedCost: number;
+  mostCompetitivePlatform: string | null;
+  lowestFeePlatform: string | null;
+  comparisons: ProfitCalculationResult[];
+}
+
+export interface ListingHealthResult {
+  audit: {
+    score: number;
+    grade: string;
+    checks: Array<{
+      id: string;
+      label: string;
+      passed: boolean;
+      points: number;
+      severity: string;
+      hint: string;
+    }>;
+  };
+  fixedListing: {
+    titleAr: string;
+    titleEn: string;
+    descriptionAr: string;
+    descriptionEn: string;
+    bulletPoints: string[];
+    seoKeywords: string[];
+  } | null;
+  creditsUsed: number;
+}
+
+export interface StockDistributionPlan {
+  warehouses: Array<{ id: string; name: string; location: string | null; type: string }>;
+  safetyBuffer: number;
+  shareSum: number;
+  shares: Record<string, number>;
+  activeChannels: string[];
+  conflictCount: number;
+  items: Array<{
+    productId: string;
+    sku: string | null;
+    name: string;
+    warehouseName: string;
+    totalQuantity: number;
+    reserved: number;
+    available: number;
+    distributable: number;
+    channelAllocations: Record<string, number>;
+    allocatedSum: number;
+    conflicts: string[];
+  }>;
 }
 
 export const marketplaceHubService = {
@@ -437,6 +503,50 @@ export const marketplaceHubService = {
       '/marketplace-hub/catalog/push-products',
       { rows },
     );
+    return res.data.data;
+  },
+
+  async compareMarketplaces(payload: CalculateProfitPayload & { platforms?: MarketplacePlatform[] }): Promise<CompareMarketplacesResult> {
+    const res = await apiClient.post<{ data: CompareMarketplacesResult }>('/marketplace-hub/calculate/compare', payload);
+    return res.data.data;
+  },
+
+  async assessListingHealth(payload: {
+    titleAr: string;
+    titleEn: string;
+    brand?: string;
+    category?: string;
+    descriptionAr?: string;
+    descriptionEn?: string;
+    bulletPoints?: string[];
+    imageCount?: number;
+    imageAltCoveragePct?: number;
+    attributesJson?: string;
+    fixWithAi?: boolean;
+  }): Promise<ListingHealthResult> {
+    const res = await apiClient.post<{ data: ListingHealthResult }>('/marketplace-hub/ai/health-assess', payload);
+    return res.data.data;
+  },
+
+  async testStoreConnection(payload: {
+    platform: MarketplacePlatform;
+    storeUrl?: string;
+    apiKey?: string;
+    apiSecret?: string;
+  }) {
+    const res = await apiClient.post<{
+      data: { connected: boolean; platform: string; storeTitle: string; currency: string | null };
+    }>('/marketplace-hub/connections/test-store', payload);
+    return res.data.data;
+  },
+
+  async getStockDistribution(): Promise<StockDistributionPlan> {
+    const res = await apiClient.get<{ data: StockDistributionPlan }>('/marketplace-hub/inventory/distribution');
+    return res.data.data;
+  },
+
+  async saveStockDistribution(payload: { safetyBuffer: number; channelShares: Record<string, number> }): Promise<StockDistributionPlan> {
+    const res = await apiClient.post<{ data: StockDistributionPlan }>('/marketplace-hub/inventory/distribute', payload);
     return res.data.data;
   },
 };

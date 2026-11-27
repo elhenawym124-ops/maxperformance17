@@ -51,6 +51,7 @@ const TOOL_CREDIT_COSTS = {
   prefill: 3,
   studioStart: 17,
   bekam: 3,
+  healthFix: 2,
 };
 
 // Local-only fallback store used strictly when Prisma models aren't generated yet
@@ -401,7 +402,7 @@ async function generateMarketplacePrefill({ companyId, title, description, marke
   const targets = Array.isArray(marketplaces) && marketplaces.length > 0 ? marketplaces : ['amazon'];
   const cost = targets.length * TOOL_CREDIT_COSTS.prefill;
 
-  const system = 'أنت خبير إدراج منتجات على أمازون ونون وجوميا وترينديول. أرجع JSON يحتوي على كائن لكل منصة مطلوبة بالحقول المقترحة: suggestedCategory, brandPlaceholder, bulletPoints, attributes (key-value).';
+  const system = 'أنت خبير إدراج منتجات على أمازون ونون وجوميا وترينديول وشوبيفاي وزد. أرجع JSON يحتوي على كائن لكل منصة مطلوبة بالحقول المقترحة: suggestedCategory، brandPlaceholder، bulletPoints، attributes (مصنف كمصفوفة كائنات { key, value, confidence } حيث confidence تكون High أو Medium أو Low).';
   const user = `Target Marketplaces: ${targets.join(', ')}\nTitle: ${cleanTitle}\nDescription: ${description || ''}`;
   const { text: raw } = await runMarketplaceAiCompletion({ companyId, system, user, maxTokens: 1600 }, prisma);
 
@@ -542,6 +543,127 @@ function getPriceCompareHistory(companyId) {
   return memoryPriceComparisons.get(String(companyId || 'default')) || [];
 }
 
+function evaluateListingRules(input = {}) {
+  const titleAr = String(input.titleAr || '').trim();
+  const titleEn = String(input.titleEn || '').trim();
+  const descAr = String(input.descriptionAr || '').trim();
+  const descEn = String(input.descriptionEn || '').trim();
+  const brand = String(input.brand || '').trim();
+  const bullets = Array.isArray(input.bulletPoints) ? input.bulletPoints.filter((b) => String(b || '').trim()) : [];
+  const imageCount = Math.max(0, Number(input.imageCount || 0));
+  const altPct = Math.min(100, Math.max(0, Number(input.imageAltCoveragePct || 0)));
+
+  let attrsValid = false;
+  let attrCount = 0;
+  if (input.attributesJson && typeof input.attributesJson === 'string' && input.attributesJson.trim()) {
+    try {
+      const parsed = JSON.parse(input.attributesJson);
+      if (parsed && typeof parsed === 'object') {
+        attrsValid = true;
+        attrCount = Array.isArray(parsed) ? parsed.length : Object.keys(parsed).length;
+      }
+    } catch {
+      attrsValid = false;
+    }
+  } else if (input.attributesJson && typeof input.attributesJson === 'object') {
+    attrsValid = true;
+    attrCount = Object.keys(input.attributesJson).length;
+  }
+
+  const checks = [
+    {
+      id: 'title_length',
+      label: 'طول العنوان الرئيسي والكلمات المفتاحية (40-180 حرف)',
+      passed: Math.max(titleAr.length, titleEn.length) >= 30 && Math.max(titleAr.length, titleEn.length) <= 200,
+      points: 20,
+      severity: 'high',
+      hint: 'يفضل أن يتضمن العنوان الماركة + الموديل + أبرز ميزة بطول 40-180 حرفاً.',
+    },
+    {
+      id: 'bilingual_coverage',
+      label: 'تغطية المحتوى ثنائي اللغة (العربية والإنجليزية)',
+      passed: titleAr.length >= 10 && titleEn.length >= 10,
+      points: 15,
+      severity: 'medium',
+      hint: 'منصات أمازون ونون في الخليج ومصر ترفع ظهور المنتج عند اكتمال النص العربي والإنجليزي.',
+    },
+    {
+      id: 'description_depth',
+      label: 'عمق الوصف التفصيلي (120+ حرفاً)',
+      passed: Math.max(descAr.length, descEn.length) >= 120,
+      points: 20,
+      severity: 'high',
+      hint: 'الوصف التفصيلي يزيد التحويل ويغطي أسئلة المشتري حول المقاس والخامة والضمان.',
+    },
+    {
+      id: 'bullet_points',
+      label: 'نقاط المميزات البيعية (3 نقاط على الأقل)',
+      passed: bullets.length >= 3,
+      points: 15,
+      severity: 'medium',
+      hint: 'أضف 3 إلى 5 نقاط تبرز الفوائد المباشرة بدلاً من السرد الطويل.',
+    },
+    {
+      id: 'visual_alt',
+      label: 'الصور والنص البديل SEO (3+ صور وتغطية Alt >= 80%)',
+      passed: imageCount >= 3 && altPct >= 80,
+      points: 15,
+      severity: 'high',
+      hint: 'استخدم 3+ صور عالية الدقة مع وصف بديل واضح لمحركات البحث.',
+    },
+    {
+      id: 'attributes_brand',
+      label: 'بيانات العلامة التجارية وخصائص الفئة JSON (2+ خصائص)',
+      passed: brand.length >= 2 && attrsValid && attrCount >= 2,
+      points: 15,
+      severity: 'medium',
+      hint: 'تأكد من تعبئة الماركة وكائن الخصائص بصيغة JSON صالحة (مثل color وmaterial).',
+    },
+  ];
+
+  const score = checks.reduce((acc, c) => acc + (c.passed ? c.points : 0), 0);
+  const grade = score >= 85 ? 'A' : score >= 70 ? 'B' : score >= 50 ? 'C' : 'D';
+  return { score, grade, checks };
+}
+
+async function assessAndFixListingHealth(input = {}, prisma = safeGetPrisma()) {
+  const audit = evaluateListingRules(input);
+  if (!input.fixWithAi) {
+    return { audit, fixedListing: null, creditsUsed: 0, wallet: null, modelUsed: null };
+  }
+
+  const companyId = String(input.companyId || 'default');
+  const failing = audit.checks.filter((c) => !c.passed).map((c) => c.label);
+  const system = 'أنت خبير تحسين صفحات المنتجات في OmniSeller لمنصات أمازون ونون وشوبيفاي. أرجع JSON فقط بالمفاتيح: titleAr, titleEn, descriptionAr, descriptionEn, bulletPoints (array of 5), attributes (object key-value), seoKeywords (array of 6).';
+  const user = `Fix failing checks: ${failing.join('; ') || 'Polish overall SEO'}\nCurrent Input:\n${JSON.stringify({
+    titleAr: input.titleAr || '',
+    titleEn: input.titleEn || '',
+    descriptionAr: input.descriptionAr || '',
+    descriptionEn: input.descriptionEn || '',
+    brand: input.brand || '',
+    category: input.category || '',
+  })}`;
+
+  const { text: raw, modelUsed } = await runMarketplaceAiCompletion({ companyId, system, user, maxTokens: 1500 }, prisma);
+  let fixedListing;
+  try {
+    fixedListing = JSON.parse(raw);
+  } catch {
+    fixedListing = {
+      titleAr: input.titleAr || raw.slice(0, 100),
+      titleEn: input.titleEn || '',
+      descriptionAr: raw,
+      descriptionEn: input.descriptionEn || '',
+      bulletPoints: [],
+      attributes: {},
+      seoKeywords: [],
+    };
+  }
+
+  const { wallet } = await deductCredits(companyId, 'healthFix', TOOL_CREDIT_COSTS.healthFix, 'إصلاح صحة الإدراج بالـ AI', prisma);
+  return { audit, fixedListing, creditsUsed: TOOL_CREDIT_COSTS.healthFix, wallet, modelUsed };
+}
+
 module.exports = {
   TOOL_CREDIT_COSTS,
   getWalletSummary,
@@ -557,4 +679,6 @@ module.exports = {
   getPriceCompareHistory,
   buildMarketplaceSearchUrls,
   buildAiCandidateList,
+  evaluateListingRules,
+  assessAndFixListingHealth,
 };

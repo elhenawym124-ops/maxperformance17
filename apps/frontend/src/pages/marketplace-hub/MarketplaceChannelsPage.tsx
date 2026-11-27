@@ -22,9 +22,11 @@ export const MarketplaceChannelsPage: React.FC = () => {
   // Quick connect form
   const [platform, setPlatform] = useState<MarketplacePlatform>('amazon');
   const [storeName, setStoreName] = useState('');
+  const [storeUrl, setStoreUrl] = useState('');
   const [apiKey, setApiKey] = useState('');
   const [apiSecret, setApiSecret] = useState('');
   const [refreshToken, setRefreshToken] = useState('');
+  const [storeTesting, setStoreTesting] = useState(false);
   const [sandboxRegion, setSandboxRegion] = useState<'na' | 'eu'>('na');
   const [sandboxTesting, setSandboxTesting] = useState(false);
   const [sandboxResult, setSandboxResult] = useState<{
@@ -96,7 +98,7 @@ export const MarketplaceChannelsPage: React.FC = () => {
         country,
         storeName: storeName || `${platform.toUpperCase()} Store`,
         authMode: platform === 'amazon' ? 'SP_API_OAUTH' : 'API_KEY',
-        credentials: { apiKey, apiSecret, refreshToken },
+        credentials: { apiKey, apiSecret, refreshToken, ...(storeUrl ? { storeUrl } : {}) },
       });
       setApiKey('');
       setApiSecret('');
@@ -219,6 +221,10 @@ export const MarketplaceChannelsPage: React.FC = () => {
                   <option value="noon">Noon (Partner API / JSON)</option>
                   <option value="jumia">Jumia (Vendor OAuth2)</option>
                   <option value="trendyol">Trendyol (Seller API)</option>
+                  <option value="shopify">Shopify (Admin API)</option>
+                  <option value="zid">Zid (Partner API)</option>
+                  <option value="woocommerce">WooCommerce (REST v3)</option>
+                  <option value="shein">Shein (Open API)</option>
                 </select>
               </div>
               <div>
@@ -283,14 +289,51 @@ export const MarketplaceChannelsPage: React.FC = () => {
               </div>
             )}
 
+            {(platform === 'shopify' || platform === 'woocommerce') && (
+              <div>
+                <label className="mb-1 block text-xs font-medium text-muted-foreground">
+                  {platform === 'shopify' ? 'نطاق متجر Shopify (example.myshopify.com)' : 'رابط متجر WooCommerce (https://...)'}
+                </label>
+                <input
+                  type="text"
+                  dir="ltr"
+                  value={storeUrl}
+                  onChange={(e) => setStoreUrl(e.target.value)}
+                  placeholder={platform === 'shopify' ? 'my-brand.myshopify.com' : 'https://my-store.com'}
+                  className="w-full rounded border border-border/70 bg-card px-3 py-2 font-mono text-xs"
+                />
+              </div>
+            )}
+
             <div className="flex flex-wrap gap-2">
               <button
                 type="submit"
                 className="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
               >
                 <KeyRound className="h-3.5 w-3.5" />
-                <span>حفظ وتشفيـر بيانات الربط</span>
+                <span>حفظ وتشفير بيانات الربط</span>
               </button>
+              {platform !== 'amazon' && (
+                <button
+                  type="button"
+                  disabled={storeTesting}
+                  onClick={async () => {
+                    setStoreTesting(true);
+                    try {
+                      const res = await marketplaceHubService.testStoreConnection({ platform, storeUrl, apiKey, apiSecret });
+                      toast.success(`الاتصال جاهز: ${res.storeTitle}`);
+                    } catch (err: unknown) {
+                      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message || 'تعذر التحقق من الاتصال';
+                      toast.error(msg);
+                    } finally {
+                      setStoreTesting(false);
+                    }
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border/70 bg-card px-4 py-2 text-xs font-semibold text-foreground hover:border-primary/60 disabled:opacity-60"
+                >
+                  <span>{storeTesting ? 'جاري التحقق...' : 'فحص جاهزية الاتصال'}</span>
+                </button>
+              )}
               {platform === 'amazon' && (
                 <button
                   type="button"

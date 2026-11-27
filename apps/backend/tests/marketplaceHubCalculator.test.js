@@ -2,6 +2,7 @@ const assert = require('assert');
 const {
   getMetadata,
   calculateMarketplaceProfit,
+  compareMarketplaces,
   getOpportunitiesCatalog,
   generateQrCode,
 } = require('../services/marketplaceHubCalculatorService');
@@ -135,6 +136,78 @@ async function runTests() {
   assert.ok(candidates.length >= 2);
   assert.strictEqual(candidates[0].baseUrl, 'https://generativelanguage.googleapis.com/v1beta');
   assert.strictEqual(candidates[0].model, 'gemini-2.0-flash');
+
+  // Rabta Stage 2 Tests: Compare, Landed Cost, 8 Connectors, Listing Health & Stock Distribution
+  const shopifyLanded = calculateMarketplaceProfit({
+    platform: 'shopify',
+    country: 'KSA',
+    productCost: 100,
+    overheadCost: 20,
+    storageMonths: 2,
+    profitMarginPct: 25,
+    weightKg: 1,
+  });
+  assert.strictEqual(shopifyLanded.landedCost, 128);
+  assert.strictEqual(shopifyLanded.netProfit, 32);
+
+  const cmpAll = compareMarketplaces({
+    country: 'KSA',
+    productCost: 100,
+    overheadCost: 10,
+    profitMarginPct: 25,
+    weightKg: 1,
+    platforms: ['amazon', 'noon', 'shopify', 'zid', 'shein'],
+  });
+  assert.strictEqual(cmpAll.comparisons.length, 5);
+  assert.ok(cmpAll.mostCompetitivePlatform && cmpAll.lowestFeePlatform);
+
+  const healthWeak = await aiService.assessAndFixListingHealth({
+    titleAr: 'منتج',
+    titleEn: 'Item',
+    descriptionAr: 'قصير',
+    imageCount: 1,
+    imageAltCoveragePct: 0,
+    attributesJson: 'invalid-json',
+    fixWithAi: false,
+  }, null);
+  assert.ok(healthWeak.audit.score < 30);
+  assert.strictEqual(healthWeak.audit.grade, 'D');
+
+  const healthStrong = await aiService.assessAndFixListingHealth({
+    titleAr: 'سماعة بلوتوث لاسلكية عازلة للضوضاء احترافية',
+    titleEn: 'Wireless Noise Cancelling Bluetooth Headphones Pro',
+    descriptionAr: 'سماعة رأس عالية الدقة تدعم العزل النشط للضوضاء وبطارية تدوم 40 ساعة متواصلة مع شحن سريع USB-C وحقيبة حماية أصلية للمنزل والسفر.',
+    brand: 'SoundCore',
+    bulletPoints: ['عزل ضوضاء', 'بطارية 40 ساعة', 'شحن سريع'],
+    imageCount: 5,
+    imageAltCoveragePct: 100,
+    attributesJson: JSON.stringify({ color: 'Black', connectivity: 'Bluetooth 5.3' }),
+    fixWithAi: false,
+  }, null);
+  assert.strictEqual(healthStrong.audit.score, 100);
+  assert.strictEqual(healthStrong.audit.grade, 'A');
+
+  const shopifyConn = await opsService.saveConnection({
+    companyId: 'test-co-1',
+    platform: 'shopify',
+    country: 'KSA',
+    storeName: 'My Shopify Store',
+    credentials: { storeUrl: 'demo.myshopify.com', apiSecret: 'shpat_demo' },
+  }, null);
+  assert.strictEqual(shopifyConn.platform, 'shopify');
+
+  const dist = opsService.computeAllocationMatrix(
+    [
+      { id: 'p1', sku: 'SKU-1', name: 'Espresso Maker', warehouseName: 'Riyadh WH', quantity: 20, reserved: 2, availableStock: 18 },
+      { id: 'p2', sku: 'SKU-2', name: 'Filter Pack', warehouseName: 'Riyadh WH', quantity: 2, reserved: 0, availableStock: 2 },
+    ],
+    ['amazon', 'noon'],
+    { safetyBuffer: 2, channelShares: { amazon: 60, noon: 40 } }
+  );
+  assert.strictEqual(dist.items[0].distributable, 16);
+  assert.strictEqual(dist.items[0].channelAllocations.amazon, 9);
+  assert.strictEqual(dist.items[0].channelAllocations.noon, 6);
+  assert.strictEqual(dist.items[1].conflicts.length, 1);
 
   try {
     const qrPng = await generateQrCode({ content: 'https://maxp.online', size: 240, format: 'png' });

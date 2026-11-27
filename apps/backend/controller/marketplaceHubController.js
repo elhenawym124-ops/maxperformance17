@@ -281,3 +281,54 @@ exports.lookupAmazonCatalog = async (req, res) => {
     return handleError(res, error, 'Failed to lookup Amazon catalog');
   }
 };
+
+exports.compareMarketplaces = async (req, res) => {
+  try {
+    const { productCost } = req.body || {};
+    if (productCost === undefined || productCost === null || Number(productCost) < 0) {
+      return res.status(400).json({ success: false, message: 'Valid productCost is required' });
+    }
+    return res.json({ success: true, data: marketplaceHubService.compareMarketplaces(req.body) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to compare marketplace fees');
+  }
+};
+
+exports.assessListingHealth = async (req, res) => {
+  try {
+    const data = await marketplaceHubAiService.assessAndFixListingHealth({
+      companyId: getCompanyId(req),
+      ...(req.body || {}),
+    });
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to assess listing health');
+  }
+};
+
+exports.testStoreConnection = async (req, res) => {
+  try {
+    const data = await marketplaceHubOpsService.testStoreConnection(req.body || {});
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to verify channel connection');
+  }
+};
+
+exports.getStockDistribution = async (req, res) => {
+  try {
+    const data = await marketplaceHubOpsService.getStockDistributionPlan(getCompanyId(req));
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load stock distribution plan');
+  }
+};
+
+exports.saveStockDistribution = async (req, res) => {
+  try {
+    const data = await marketplaceHubOpsService.saveStockDistributionRules(getCompanyId(req), req.body || {});
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to save stock distribution rules');
+  }
+};

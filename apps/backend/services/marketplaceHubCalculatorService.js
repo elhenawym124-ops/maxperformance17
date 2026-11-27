@@ -165,14 +165,18 @@ function calculateMarketplaceProfit(input) {
   const countryMeta = COUNTRY_CONFIG[country] || COUNTRY_CONFIG.EGY;
 
   const productCost = Math.max(0, Number(input.productCost || 0));
+  const overheadCost = Math.max(0, Number(input.overheadCost || 0));
+  const storageMonths = Math.max(0, Number(input.storageMonths || 0));
   const profitMarginPct = Math.max(0, Number(input.profitMarginPct || 0));
-  const targetProfit = round2(productCost * (profitMarginPct / 100));
-  const basePrice = round2(productCost + targetProfit);
+  const storageFee = round2(storageMonths * (country === 'EGY' ? 12 : 4));
+  const landedCost = round2(productCost + overheadCost + storageFee);
+  const targetProfit = round2(landedCost * (profitMarginPct / 100));
+  const basePrice = round2(landedCost + targetProfit);
 
   let commissionRate = 0.13;
   let shippingFee = 0;
   let tierType = 'standard';
-  let billableWeightKg = 0;
+  let billableWeightKg = round2(Math.max(0.1, Number(input.weightKg || (Number(input.weightGrams || 500) / 1000))));
 
   if (platform === 'amazon') {
     const cat = AMAZON_CATEGORIES.find((c) => c.id === input.category) || AMAZON_CATEGORIES[0];
@@ -180,7 +184,7 @@ function calculateMarketplaceProfit(input) {
     const ship = computeAmazonShipping(
       country,
       String(input.shipmentType || 'EASY_SHIP').toUpperCase(),
-      Math.max(1, Number(input.weightGrams || 500)),
+      Math.max(1, Number(input.weightGrams || billableWeightKg * 1000 || 500)),
       Math.max(0, Number(input.lengthCm || 0)),
       Math.max(0, Number(input.widthCm || 0)),
       Math.max(0, Number(input.heightCm || 0))
@@ -220,6 +224,19 @@ function calculateMarketplaceProfit(input) {
     billableWeightKg = round2(Math.max(weightKg, volKg));
     tierType = billableWeightKg > 5 ? 'heavy' : 'standard';
     shippingFee = round2(15 + Math.max(0, Math.ceil(billableWeightKg - 1)) * 3.5);
+  } else if (platform === 'shopify' || platform === 'woocommerce') {
+    commissionRate = platform === 'shopify' ? 0.029 : 0.025;
+    tierType = billableWeightKg > 5 ? 'heavy' : 'direct_store';
+    const baseShip = country === 'EGY' ? 50 : 18;
+    shippingFee = round2(baseShip + Math.max(0, Math.ceil(billableWeightKg - 1)) * (country === 'EGY' ? 10 : 3));
+  } else if (platform === 'zid') {
+    commissionRate = 0.02;
+    tierType = 'direct_store';
+    shippingFee = round2((country === 'KSA' ? 18 : 24) + Math.max(0, Math.ceil(billableWeightKg - 1)) * 3);
+  } else if (platform === 'shein') {
+    commissionRate = 0.16;
+    tierType = 'marketplace';
+    shippingFee = round2((country === 'EGY' ? 55 : 19) + Math.max(0, Math.ceil(billableWeightKg - 1)) * 4);
   }
 
   const finalSellingPrice = solveGrossSellingPrice({
@@ -233,8 +250,8 @@ function calculateMarketplaceProfit(input) {
   const commissionFee = round2(finalSellingPrice * commissionRate);
   const vatOnProduct = round2(finalSellingPrice - finalPriceExVat);
   const vatOnFees = round2((shippingFee + commissionFee) * countryMeta.vatRate);
-  const totalFees = round2(shippingFee + commissionFee + vatOnProduct);
-  const roiPct = productCost > 0 ? round2((targetProfit / productCost) * 100) : 0;
+  const totalFees = round2(shippingFee + commissionFee + vatOnProduct + storageFee);
+  const roiPct = landedCost > 0 ? round2((targetProfit / landedCost) * 100) : 0;
 
   return {
     platform,
@@ -243,6 +260,9 @@ function calculateMarketplaceProfit(input) {
     tierType,
     billableWeightKg,
     productCost,
+    overheadCost,
+    storageFee,
+    landedCost,
     profitMarginPct,
     roiPct,
     basePrice,
@@ -254,6 +274,7 @@ function calculateMarketplaceProfit(input) {
       shippingFee,
       commissionFee,
       vatAmount: vatOnProduct,
+      storageFee,
       totalFees,
     },
     vatBreakdown: {
@@ -261,6 +282,27 @@ function calculateMarketplaceProfit(input) {
       vatOnProduct,
       vatOnShippingAndReferral: vatOnFees,
     },
+  };
+}
+
+function compareMarketplaces(input = {}) {
+  const defaultPlatforms = ['amazon', 'noon', 'jumia', 'trendyol', 'shopify', 'zid', 'woocommerce', 'shein'];
+  const requested = Array.isArray(input.platforms) && input.platforms.length > 0
+    ? input.platforms.map((p) => String(p).toLowerCase())
+    : defaultPlatforms;
+
+  const comparisons = requested.map((plat) => calculateMarketplaceProfit({ ...input, platform: plat }));
+  const sortedByLowestPrice = [...comparisons].sort((a, b) => a.finalSellingPrice - b.finalSellingPrice);
+  const sortedByLowestFees = [...comparisons].sort((a, b) => a.feesBreakdown.totalFees - b.feesBreakdown.totalFees);
+
+  return {
+    country: sortedByLowestPrice[0]?.country || 'EGY',
+    currency: sortedByLowestPrice[0]?.currency || 'EGP',
+    productCost: sortedByLowestPrice[0]?.productCost || 0,
+    landedCost: sortedByLowestPrice[0]?.landedCost || 0,
+    mostCompetitivePlatform: sortedByLowestPrice[0]?.platform || null,
+    lowestFeePlatform: sortedByLowestFees[0]?.platform || null,
+    comparisons,
   };
 }
 
@@ -353,6 +395,7 @@ async function generateQrCode({
 module.exports = {
   getMetadata,
   calculateMarketplaceProfit,
+  compareMarketplaces,
   getOpportunitiesCatalog,
   generateQrCode,
 };

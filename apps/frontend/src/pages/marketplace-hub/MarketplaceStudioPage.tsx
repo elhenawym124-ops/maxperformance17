@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { Sparkles, Image as ImageIcon, FileText, Layers, Save, Upload, Download } from 'lucide-react';
+import { Sparkles, Image as ImageIcon, FileText, Layers, Save, Upload, Download, ShieldCheck } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
+import { ListingHealthPanel } from './components/ListingHealthPanel';
 import {
   MarketplacePlatform,
   StudioDraft,
   marketplaceHubService,
 } from '../../services/marketplaceHubService';
 
-type StudioTab = 'studio' | 'alpha' | 'leo';
+type StudioTab = 'studio' | 'alpha' | 'leo' | 'health';
 
-const IMAGE_STYLES = ['Product Photo', 'Lifestyle', 'Infographic', 'White Background'] as const;
+const IMAGE_STYLES = [
+  'Main Hero',
+  'Premium Studio',
+  'Clean Commercial',
+  'Lifestyle In Use',
+  'Feature Close-up',
+  'Size & Scale',
+  'Packaging & Contents',
+  'Infographic Style',
+] as const;
 const IMAGE_ACTIONS = [
   { id: 'image_to_image', label: 'صورة لصورة (3 Cr)' },
   { id: 'text_to_image', label: 'نص لصورة (3 Cr)' },
@@ -34,7 +44,7 @@ export const MarketplaceStudioPage: React.FC = () => {
 
   // Alpha state
   const [alphaAction, setAlphaAction] = useState<'image_to_image' | 'text_to_image' | 'remove_text' | 'remove_bg' | 'enhance' | 'pack5'>('image_to_image');
-  const [alphaStyle, setAlphaStyle] = useState<string>('Product Photo');
+  const [alphaStyle, setAlphaStyle] = useState<string>('Main Hero');
   const [alphaPrompt, setAlphaPrompt] = useState<string>('');
   const [removalMode, setRemovalMode] = useState<'standard' | 'ai_premium'>('standard');
   const [alphaResult, setAlphaResult] = useState<{
@@ -236,6 +246,16 @@ export const MarketplaceStudioPage: React.FC = () => {
           <FileText className="h-3.5 w-3.5" />
           <span>كاتب المحتوى (Leo)</span>
         </button>
+        <button
+          type="button"
+          onClick={() => setTab('health')}
+          className={`inline-flex shrink-0 items-center gap-1.5 rounded-md px-3.5 py-1.5 text-xs font-semibold ${
+            tab === 'health' ? 'bg-primary text-primary-foreground' : 'border border-border/70 bg-background text-muted-foreground'
+          }`}
+        >
+          <ShieldCheck className="h-3.5 w-3.5" />
+          <span>فحص الصحة AI</span>
+        </button>
       </div>
 
       {tab === 'studio' && (
@@ -287,7 +307,7 @@ export const MarketplaceStudioPage: React.FC = () => {
             <div>
               <div className="mb-1.5 text-xs font-medium text-muted-foreground">المنصات المستهدفة (3 Cr / منصة)</div>
               <div className="flex flex-wrap gap-2">
-                {(['amazon', 'noon', 'jumia', 'trendyol'] as MarketplacePlatform[]).map((m) => (
+                {(['amazon', 'noon', 'jumia', 'trendyol', 'shopify', 'zid'] as MarketplacePlatform[]).map((m) => (
                   <button
                     key={m}
                     type="button"
@@ -599,6 +619,8 @@ export const MarketplaceStudioPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {tab === 'health' && <ListingHealthPanel />}
     </MarketplaceHubLayout>
   );
 };

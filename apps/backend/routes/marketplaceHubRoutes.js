@@ -12,6 +12,7 @@ router.use(checkAppAccess('marketplace-hub'));
 // Phase 1: Core Utilities
 router.get('/metadata', controller.getMetadata);
 router.post('/calculate', controller.calculateProfit);
+router.post('/calculate/compare', controller.compareMarketplaces);
 router.get('/opportunities', controller.getOpportunities);
 router.post('/qr', controller.generateQr);
 
@@ -21,11 +22,12 @@ router.post('/wallet/calculate-plan', controller.calculateCustomPlan);
 router.post('/ai/copy', controller.generateCopy);
 router.post('/ai/image', controller.generateImageBrief);
 router.post('/ai/prefill', controller.generatePrefill);
+router.post('/ai/health-assess', controller.assessListingHealth);
 router.post('/ai/copilot', controller.sellerCopilot);
 router.get('/studio/drafts', controller.listDrafts);
 router.post('/studio/drafts', controller.saveDraft);
 
-// Phase 3 & 4: Vendors, CSV Import & Channel Connections
+// Phase 3 & 4: Vendors, CSV Import, Stock Distribution & Channel Connections
 router.get('/vendors', controller.getVendors);
 router.post('/import-csv', controller.importCsv);
 router.post('/price-compare', controller.comparePrices);
@@ -34,11 +36,14 @@ router.get('/connections', controller.listConnections);
 router.post('/connections', controller.saveConnection);
 router.post('/connections/amazon-oauth-exchange', controller.exchangeAmazonOAuth);
 router.post('/connections/test-amazon-sandbox', controller.testAmazonSandbox);
+router.post('/connections/test-store', controller.testStoreConnection);
 router.delete('/connections/:platform/:country', controller.deleteConnection);
 router.get('/dashboard/analytics', controller.getDashboardAnalytics);
 router.post('/dashboard/analytics', controller.getDashboardAnalytics);
 router.get('/catalog/products', controller.getCompanyCatalog);
 router.post('/catalog/push-products', controller.pushToCompanyCatalog);
 router.post('/catalog/amazon-lookup', controller.lookupAmazonCatalog);
+router.get('/inventory/distribution', controller.getStockDistribution);
+router.post('/inventory/distribute', controller.saveStockDistribution);
 
 module.exports = router;

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { Upload, Building2, Search, Scale, ExternalLink } from 'lucide-react';
+import { Upload, Building2, Search, Scale, ExternalLink, Boxes } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
+import { WarehouseStockPanel } from './components/WarehouseStockPanel';
 import {
   CountryCode,
   MarketplacePlatform,
@@ -11,7 +12,7 @@ import {
 } from '../../services/marketplaceHubService';
 
 export const MarketplaceMarketOpsPage: React.FC = () => {
-  const [tab, setTab] = useState<'csv' | 'vendors' | 'bekam'>('csv');
+  const [tab, setTab] = useState<'csv' | 'vendors' | 'bekam' | 'stock'>('csv');
 
   // CSV state
   const [csvPlatform, setCsvPlatform] = useState<MarketplacePlatform>('amazon');
@@ -143,6 +144,16 @@ export const MarketplaceMarketOpsPage: React.FC = () => {
         >
           <Scale className="h-3.5 w-3.5" />
           <span>مقارنة الأسعار (Bekam)</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setTab('stock')}
+          className={`inline-flex shrink-0 items-center gap-1.5 rounded-md px-3.5 py-1.5 text-xs font-semibold ${
+            tab === 'stock' ? 'bg-primary text-primary-foreground' : 'border border-border/70 bg-background text-muted-foreground'
+          }`}
+        >
+          <Boxes className="h-3.5 w-3.5" />
+          <span>توزيع المخزون</span>
         </button>
       </div>
 
@@ -363,6 +374,8 @@ export const MarketplaceMarketOpsPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {tab === 'stock' && <WarehouseStockPanel />}
     </MarketplaceHubLayout>
   );
 };

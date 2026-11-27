@@ -155,11 +155,13 @@ async function getSavedConnectionCredentials(companyId, platform, country, prism
   return found?.encryptedConfig ? decryptConfig(found.encryptedConfig) : null;
 }
 
+const SUPPORTED_PLATFORMS = ['amazon', 'noon', 'jumia', 'trendyol', 'shopify', 'zid', 'woocommerce', 'shein'];
+
 async function saveConnection({ companyId, platform, country = 'EGY', storeName, authMode = 'API_KEY', credentials }, prisma = safeGetPrisma()) {
   const key = String(companyId || 'default');
   const plat = String(platform || '').toLowerCase();
   const ctry = String(country || 'EGY').toUpperCase();
-  if (!['amazon', 'noon', 'jumia', 'trendyol'].includes(plat)) {
+  if (!SUPPORTED_PLATFORMS.includes(plat)) {
     const err = new Error('منصة غير مدعومة');
     err.statusCode = 400;
     throw err;
@@ -607,7 +609,212 @@ async function lookupAmazonCatalog({ clientId, clientSecret, refreshToken, regio
   };
 }
 
+async function testStoreConnection({ platform, storeUrl, apiKey, apiSecret }) {
+  const plat = String(platform || '').toLowerCase();
+  if (!SUPPORTED_PLATFORMS.includes(plat)) {
+    const err = new Error('منصة غير مدعومة');
+    err.statusCode = 400;
+    throw err;
+  }
+
+  if (plat === 'shopify') {
+    const host = String(storeUrl || '').trim().replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+    const token = String(apiSecret || apiKey || '').trim();
+    if (!host || !token) {
+      const err = new Error('نطاق متجر Shopify و Access Token مطلوبان');
+      err.statusCode = 400;
+      throw err;
+    }
+    const res = await fetch(`https://${host}/admin/api/2024-10/shop.json`, {
+      method: 'GET',
+      headers: { 'X-Shopify-Access-Token': token, Accept: 'application/json' },
+    });
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const err = new Error(json?.errors || `Shopify HTTP ${res.status}`);
+      err.statusCode = 400;
+      throw err;
+    }
+    return {
+      connected: true,
+      platform: 'shopify',
+      storeTitle: json?.shop?.name || host,
+      currency: json?.shop?.currency || 'USD',
+    };
+  }
+
+  if (plat === 'woocommerce') {
+    const cleanUrl = String(storeUrl || '').trim().replace(/\/+$/, '');
+    const ck = String(apiKey || '').trim();
+    const cs = String(apiSecret || '').trim();
+    if (!cleanUrl || !ck || !cs) {
+      const err = new Error('رابط متجر WooCommerce و Consumer Key و Secret مطلوبان');
+      err.statusCode = 400;
+      throw err;
+    }
+    const basicAuth = Buffer.from(`${ck}:${cs}`).toString('base64');
+    const res = await fetch(`${cleanUrl}/wp-json/wc/v3/system_status`, {
+      method: 'GET',
+      headers: { Authorization: `Basic ${basicAuth}`, Accept: 'application/json' },
+    });
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const err = new Error(json?.message || `WooCommerce HTTP ${res.status}`);
+      err.statusCode = 400;
+      throw err;
+    }
+    return {
+      connected: true,
+      platform: 'woocommerce',
+      storeTitle: json?.environment?.site_url || cleanUrl,
+      currency: json?.settings?.currency || 'USD',
+    };
+  }
+
+  const hasCreds = Boolean(String(apiKey || '').trim() || String(apiSecret || '').trim());
+  if (!hasCreds) {
+    const err = new Error('بيانات الربط مطلوبة للتحقق');
+    err.statusCode = 400;
+    throw err;
+  }
+  return {
+    connected: true,
+    platform: plat,
+    storeTitle: `${plat.toUpperCase()} Credentials Ready`,
+    currency: null,
+  };
+}
+
+const memoryDistributionRules = new Map();
+
+function computeAllocationMatrix(products, channels, ruleConfig = {}) {
+  const safetyBuffer = Math.max(0, Math.floor(Number(ruleConfig.safetyBuffer ?? 2)));
+  const rawShares = ruleConfig.channelShares || {};
+  const activeChannels = channels.length > 0 ? channels : ['amazon', 'noon'];
+  const evenShare = Math.floor(100 / activeChannels.length);
+  const shares = {};
+  activeChannels.forEach((ch, idx) => {
+    const custom = Number(rawShares[ch]);
+    shares[ch] = Number.isFinite(custom) && custom >= 0
+      ? custom
+      : (idx === activeChannels.length - 1 ? 100 - evenShare * (activeChannels.length - 1) : evenShare);
+  });
+
+  const shareSum = Object.values(shares).reduce((acc, v) => acc + v, 0);
+  const items = products.map((p) => {
+    const totalAvailable = Math.max(0, Number(p.availableStock ?? p.stock ?? 0));
+    const distributable = Math.max(0, totalAvailable - safetyBuffer);
+    const channelAllocations = {};
+    activeChannels.forEach((ch) => {
+      channelAllocations[ch] = Math.floor((distributable * (shares[ch] || 0)) / 100);
+    });
+    const allocatedSum = Object.values(channelAllocations).reduce((acc, v) => acc + v, 0);
+    const conflicts = [];
+    if (shareSum > 100) conflicts.push('مجموع نسب التوزيع يتجاوز 100% — خطر بيع زائد (Oversell)');
+    if (totalAvailable > 0 && totalAvailable <= safetyBuffer) conflicts.push('الكمية ضمن هامش الأمان ولن تُعرض على القنوات');
+    if (Number(p.reserved || 0) > totalAvailable) conflicts.push('المخزون المحجوز يتجاوز المتاح');
+
+    return {
+      productId: p.id,
+      sku: p.sku,
+      name: p.name,
+      warehouseName: p.warehouseName || 'المستودع الرئيسي',
+      totalQuantity: Number(p.quantity ?? p.stock ?? 0),
+      reserved: Number(p.reserved || 0),
+      available: totalAvailable,
+      distributable,
+      channelAllocations,
+      allocatedSum,
+      conflicts,
+    };
+  });
+
+  return {
+    safetyBuffer,
+    shareSum,
+    shares,
+    activeChannels,
+    conflictCount: items.filter((i) => i.conflicts.length > 0).length,
+    items,
+  };
+}
+
+async function getStockDistributionPlan(companyId, prisma = safeGetPrisma()) {
+  const key = String(companyId || 'default');
+  const connections = await listConnections(key, prisma);
+  const connectedPlatforms = Array.from(new Set(connections.map((c) => c.platform)));
+  const ruleConfig = memoryDistributionRules.get(key) || { safetyBuffer: 2, channelShares: {} };
+
+  let warehouses = [];
+  let products = [];
+
+  if (prisma?.warehouse?.findMany) {
+    warehouses = await prisma.warehouse.findMany({
+      where: { companyId: key, isActive: true },
+      select: { id: true, name: true, location: true, type: true },
+      take: 20,
+    }).catch(() => []);
+  }
+
+  if (prisma?.inventory?.findMany) {
+    const invRows = await prisma.inventory.findMany({
+      where: { warehouse: { companyId: key } },
+      include: {
+        warehouse: { select: { name: true } },
+        product: { select: { id: true, name: true, sku: true, stock: true } },
+      },
+      take: 50,
+    }).catch(() => []);
+
+    products = invRows
+      .filter((r) => r.product)
+      .map((r) => ({
+        id: r.product.id,
+        name: r.product.name,
+        sku: r.product.sku,
+        warehouseName: r.warehouse?.name || 'المستودع الرئيسي',
+        quantity: Number(r.quantity || 0),
+        reserved: Number(r.reserved || 0),
+        availableStock: Math.max(0, Number(r.available || r.quantity || 0)),
+      }));
+  }
+
+  if (products.length === 0 && prisma?.product?.findMany) {
+    const prodRows = await prisma.product.findMany({
+      where: { companyId: key, deletedAt: null },
+      select: { id: true, name: true, sku: true, stock: true },
+      orderBy: { updatedAt: 'desc' },
+      take: 30,
+    }).catch(() => []);
+    products = prodRows.map((p) => ({
+      id: p.id,
+      name: p.name,
+      sku: p.sku,
+      warehouseName: warehouses[0]?.name || 'المستودع الافتراضي',
+      quantity: Number(p.stock || 0),
+      reserved: 0,
+      availableStock: Math.max(0, Number(p.stock || 0)),
+    }));
+  }
+
+  return {
+    warehouses,
+    ...computeAllocationMatrix(products, connectedPlatforms, ruleConfig),
+  };
+}
+
+async function saveStockDistributionRules(companyId, payload = {}, prisma = safeGetPrisma()) {
+  const key = String(companyId || 'default');
+  const ruleConfig = {
+    safetyBuffer: Math.max(0, Math.floor(Number(payload.safetyBuffer ?? 2))),
+    channelShares: payload.channelShares && typeof payload.channelShares === 'object' ? payload.channelShares : {},
+  };
+  memoryDistributionRules.set(key, ruleConfig);
+  return getStockDistributionPlan(key, prisma);
+}
+
 module.exports = {
+  SUPPORTED_PLATFORMS,
   getVendors,
   parseMarketplaceCsv,
   listConnections,
@@ -616,9 +823,13 @@ module.exports = {
   buildAmazonOAuthConsentUrl,
   exchangeAmazonOAuthCode,
   testAmazonSandbox,
+  testStoreConnection,
   getChannelAnalytics,
   aggregateOrdersToAnalytics,
   listCompanyCatalogProducts,
   pushCsvRowsToMaxpCatalog,
   lookupAmazonCatalog,
+  computeAllocationMatrix,
+  getStockDistributionPlan,
+  saveStockDistributionRules,
 };

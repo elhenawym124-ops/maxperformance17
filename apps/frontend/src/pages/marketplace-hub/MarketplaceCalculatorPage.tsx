@@ -5,6 +5,7 @@ import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
 import {
   CalculateProfitPayload,
   CompanyCatalogProduct,
+  CompareMarketplacesResult,
   CountryCode,
   MarketplaceHubMetadata,
   MarketplacePlatform,
@@ -17,6 +18,10 @@ const PLATFORMS: { id: MarketplacePlatform; label: string }[] = [
   { id: 'noon', label: 'Noon' },
   { id: 'jumia', label: 'Jumia' },
   { id: 'trendyol', label: 'Trendyol' },
+  { id: 'shopify', label: 'Shopify' },
+  { id: 'zid', label: 'Zid' },
+  { id: 'woocommerce', label: 'WooCommerce' },
+  { id: 'shein', label: 'Shein' },
 ];
 
 export const MarketplaceCalculatorPage: React.FC = () => {
@@ -54,7 +59,10 @@ export const MarketplaceCalculatorPage: React.FC = () => {
   const [isNewSeller, setIsNewSeller] = useState<boolean>(false);
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [overheadCost, setOverheadCost] = useState<number>(0);
+  const [storageMonths, setStorageMonths] = useState<number>(0);
   const [result, setResult] = useState<ProfitCalculationResult | null>(null);
+  const [compareResult, setCompareResult] = useState<CompareMarketplacesResult | null>(null);
   const [catalogProducts, setCatalogProducts] = useState<CompanyCatalogProduct[]>([]);
 
   useEffect(() => {
@@ -82,6 +90,8 @@ export const MarketplaceCalculatorPage: React.FC = () => {
         platform,
         country,
         productCost,
+        overheadCost,
+        storageMonths,
         profitMarginPct,
         shipmentType,
         category: amazonCategory,
@@ -105,6 +115,26 @@ export const MarketplaceCalculatorPage: React.FC = () => {
       setResult(data);
     } catch {
       toast.error('تعذر حساب الرسوم');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCompareAll = async () => {
+    setLoading(true);
+    try {
+      const data = await marketplaceHubService.compareMarketplaces({
+        platform,
+        country,
+        productCost,
+        overheadCost,
+        storageMonths,
+        profitMarginPct,
+        weightKg,
+      });
+      setCompareResult(data);
+    } catch {
+      toast.error('تعذر مقارنة المنصات');
     } finally {
       setLoading(false);
     }
@@ -482,7 +512,7 @@ export const MarketplaceCalculatorPage: React.FC = () => {
             </div>
           )}
 
-          {platform === 'noon' && (
+          {(platform === 'noon' || platform === 'shopify' || platform === 'zid' || platform === 'woocommerce' || platform === 'shein') && (
             <div>
               <label className="mb-1 block text-xs font-medium text-muted-foreground">الوزن (كجم) *</label>
               <input
@@ -508,14 +538,47 @@ export const MarketplaceCalculatorPage: React.FC = () => {
             </label>
           )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:opacity-95 active:scale-[0.99] disabled:opacity-60"
-          >
-            {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Calculator className="h-4 w-4" />}
-            <span>احسب الرسوم وصافي الربح</span>
-          </button>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label className="mb-1 block text-xs font-medium text-muted-foreground">مصاريف تغليف/تشغيل إضافية</label>
+              <input
+                type="number"
+                min={0}
+                value={overheadCost}
+                onChange={(e) => setOverheadCost(Number(e.target.value))}
+                className="w-full rounded-md border border-border/70 bg-card px-3 py-2 font-mono text-sm tabular-nums text-foreground"
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-muted-foreground">أشهر التخزين</label>
+              <input
+                type="number"
+                min={0}
+                value={storageMonths}
+                onChange={(e) => setStorageMonths(Number(e.target.value))}
+                className="w-full rounded-md border border-border/70 bg-card px-3 py-2 font-mono text-sm tabular-nums text-foreground"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="submit"
+              disabled={loading}
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:opacity-95 active:scale-[0.99] disabled:opacity-60"
+            >
+              {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Calculator className="h-4 w-4" />}
+              <span>احسب الرسوم وصافي الربح</span>
+            </button>
+            <button
+              type="button"
+              disabled={loading}
+              onClick={() => void handleCompareAll()}
+              className="inline-flex items-center justify-center gap-2 rounded-md border border-border/70 bg-card px-4 py-2.5 text-xs font-semibold text-foreground hover:border-primary/60 disabled:opacity-60"
+            >
+              <span>مقارنة كل القنوات</span>
+            </button>
+          </div>
         </form>
 
         {/* Results Pane */}
@@ -615,6 +678,41 @@ export const MarketplaceCalculatorPage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {compareResult && (
+        <div className="mt-5 overflow-x-auto border-t border-border/70 pt-4 sm:rounded-md sm:border sm:bg-background sm:p-4">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <span className="font-semibold text-foreground">مقارنة المنصات جنباً إلى جنب</span>
+            <span className="font-mono text-primary">
+              الأقل سعراً للعميل: {compareResult.mostCompetitivePlatform}
+            </span>
+          </div>
+          <table className="w-full text-start text-xs">
+            <thead className="border-b border-border/70 bg-muted/30 text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2 text-start">المنصة</th>
+                <th className="px-3 py-2 text-end">سعر البيع المقترح</th>
+                <th className="px-3 py-2 text-end">العمولة</th>
+                <th className="px-3 py-2 text-end">إجمالي الرسوم</th>
+                <th className="px-3 py-2 text-end">صافي الربح</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border/50">
+              {compareResult.comparisons.map((row) => (
+                <tr key={row.platform}>
+                  <td className="px-3 py-2 font-semibold uppercase">{row.platform}</td>
+                  <td className="px-3 py-2 text-end font-mono font-bold tabular-nums">
+                    {row.finalSellingPrice.toFixed(2)} {row.currency}
+                  </td>
+                  <td className="px-3 py-2 text-end font-mono tabular-nums">{row.commissionRatePct}%</td>
+                  <td className="px-3 py-2 text-end font-mono tabular-nums">{row.feesBreakdown.totalFees.toFixed(2)}</td>
+                  <td className="px-3 py-2 text-end font-mono tabular-nums text-primary">{row.netProfit.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </MarketplaceHubLayout>
   );
 };
