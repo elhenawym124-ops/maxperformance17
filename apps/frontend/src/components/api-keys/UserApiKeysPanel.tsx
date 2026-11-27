@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Check, Copy, KeyRound, Plus, ShieldOff, Trash2 } from "lucide-react";
+import { BookOpen, Check, Copy, KeyRound, Plus, ShieldOff, Trash2 } from "lucide-react";
 import { getApiUrl } from "@/config/environment";
 import tokenManager from "@/utils/tokenManager";
 import { Button } from "@/components/ui/button";
@@ -92,8 +92,27 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
   const [creating, setCreating] = useState(false);
 
   const [revealedKey, setRevealedKey] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [guideOpen, setGuideOpen] = useState(!compact);
+  const [snippetTab, setSnippetTab] = useState<"curl" | "node" | "python">("curl");
   const [busyId, setBusyId] = useState<string | null>(null);
+
+  const apiBaseUrl = (() => {
+    const raw = getApiUrl();
+    if (raw.startsWith("http://") || raw.startsWith("https://")) return raw;
+    if (typeof window !== "undefined") return `${window.location.origin}${raw}`;
+    return raw;
+  })();
+
+  const copySnippet = async (tag: string, value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedId(tag);
+      setTimeout(() => setCopiedId((prev) => (prev === tag ? null : prev)), 2000);
+    } catch {
+      /* ignore clipboard error */
+    }
+  };
 
   const loadKeys = useCallback(async () => {
     setLoading(true);
@@ -163,7 +182,7 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
       setExpiresAt("");
       if (res.secret?.apiKey) {
         setRevealedKey(res.secret.apiKey);
-        setCopied(false);
+        setCopiedId(null);
       }
       await loadKeys();
     } catch (err) {
@@ -199,20 +218,16 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
     }
   };
 
-  const handleCopy = async () => {
-    if (!revealedKey) return;
-    try {
-      await navigator.clipboard.writeText(revealedKey);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* ignore clipboard error */
-    }
-  };
-
   if (forbidden) {
     return null;
   }
+
+  const exampleKey = revealedKey || "mxp_usr_YOUR_KEY";
+  const snippetMap: Record<"curl" | "node" | "python", string> = {
+    curl: `curl -H "Authorization: Bearer ${exampleKey}" \\\n  "${apiBaseUrl}/user-api-keys/whoami"`,
+    node: `const res = await fetch("${apiBaseUrl}/orders?limit=10", {\n  headers: { Authorization: "Bearer ${exampleKey}" },\n});\nconst data = await res.json();`,
+    python: `import requests\nres = requests.get(\n    "${apiBaseUrl}/user-api-keys/whoami",\n    headers={"x-api-key": "${exampleKey}"},\n)\nprint(res.json())`,
+  };
 
   return (
     <div dir="rtl" className={compact ? "space-y-3" : "space-y-4"}>
@@ -227,18 +242,95 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
                 : "مفاتيح API الشخصية"}
           </h3>
         </div>
-        <Button
-          type="button"
-          size="sm"
-          onClick={() => {
-            setError(null);
-            setCreateOpen(true);
-          }}
-        >
-          <Plus className="me-1.5 size-4" />
-          إنشاء مفتاح
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setGuideOpen((v) => !v)}
+          >
+            <BookOpen className="me-1.5 size-4" />
+            {guideOpen ? "إخفاء الإرشادات" : "إرشادات الاستخدام"}
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            onClick={() => {
+              setError(null);
+              setCreateOpen(true);
+            }}
+          >
+            <Plus className="me-1.5 size-4" />
+            إنشاء مفتاح
+          </Button>
+        </div>
       </div>
+
+      {guideOpen && (
+        <div className="divide-y divide-border/70 border-y border-border/70 bg-muted/30 text-xs">
+          <div className="grid gap-3 p-3 sm:grid-cols-3">
+            <div className="space-y-1">
+              <p className="font-semibold text-foreground">الصلاحيات الحية</p>
+              <p className="text-muted-foreground">
+                المفتاح يرث كل صلاحيات الموظف ودوره تلقائياً وأي صلاحية تُفتح أو تُسحب تتطبق فوراً.
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="font-semibold text-foreground">طريقة الإرسال</p>
+              <p className="text-muted-foreground">
+                مرّر المفتاح في هيدر <code dir="ltr" className="font-mono text-foreground">Authorization: Bearer</code> أو{" "}
+                <code dir="ltr" className="font-mono text-foreground">x-api-key</code>.
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="font-semibold text-foreground">نقاط البداية للـ Agent</p>
+              <div className="flex flex-col gap-1 font-mono text-[11px] text-foreground" dir="ltr">
+                <span>GET /api/v1/user-api-keys/whoami</span>
+                <span>GET /api/v1/auth/me</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2 p-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-1">
+                {(["curl", "node", "python"] as const).map((lang) => (
+                  <Button
+                    key={lang}
+                    type="button"
+                    size="sm"
+                    variant={snippetTab === lang ? "default" : "ghost"}
+                    className="h-7 px-2.5 text-[11px] font-mono"
+                    onClick={() => setSnippetTab(lang)}
+                  >
+                    {lang === "curl" ? "cURL" : lang === "node" ? "Node.js" : "Python"}
+                  </Button>
+                ))}
+              </div>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                className="h-7 px-2.5 text-[11px]"
+                onClick={() => copySnippet(`guide-${snippetTab}`, snippetMap[snippetTab])}
+              >
+                {copiedId === `guide-${snippetTab}` ? (
+                  <Check className="me-1 size-3.5" />
+                ) : (
+                  <Copy className="me-1 size-3.5" />
+                )}
+                {copiedId === `guide-${snippetTab}` ? "تم النسخ" : "نسخ المثال"}
+              </Button>
+            </div>
+            <pre
+              dir="ltr"
+              className="overflow-x-auto rounded-md border border-border/70 bg-card p-2.5 font-mono text-[11px] text-foreground"
+            >
+              {snippetMap[snippetTab]}
+            </pre>
+          </div>
+        </div>
+      )}
 
       {error && (
         <div className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
@@ -405,14 +497,41 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
               >
                 {revealedKey}
               </code>
-              <Button type="button" size="sm" variant="outline" onClick={handleCopy}>
-                {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={() => revealedKey && copySnippet("reveal-key", revealedKey)}
+              >
+                {copiedId === "reveal-key" ? <Check className="size-4" /> : <Copy className="size-4" />}
               </Button>
             </div>
-            <div className="rounded-lg border border-border/70 bg-card p-3">
-              <code dir="ltr" className="block overflow-x-auto font-mono text-[11px] text-muted-foreground">
-                Authorization: Bearer {revealedKey}
-              </code>
+            <div className="space-y-1.5 rounded-lg border border-border/70 bg-card p-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] font-medium text-muted-foreground">
+                  أمر اختبار الصلاحيات والهوية للـ Agent
+                </span>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-6 px-2 text-[11px]"
+                  onClick={() => copySnippet("reveal-curl", snippetMap.curl)}
+                >
+                  {copiedId === "reveal-curl" ? (
+                    <Check className="me-1 size-3" />
+                  ) : (
+                    <Copy className="me-1 size-3" />
+                  )}
+                  نسخ
+                </Button>
+              </div>
+              <pre
+                dir="ltr"
+                className="overflow-x-auto font-mono text-[11px] text-foreground"
+              >
+                {snippetMap.curl}
+              </pre>
             </div>
           </div>
           <DialogFooter>
