@@ -1068,8 +1068,6 @@ export const getSidebarConfig = (
                 { to: '/admin/ai-knowledge-questions', icon: Lightbulb, label: t('sidebar.aiKnowledgeQuestions') },
                 { to: '/admin/ai-hub?tab=train', icon: GraduationCap, label: t('sidebar.agentTraining') },
                 { to: '/admin/ai-hub?tab=widget', icon: Globe, label: t('sidebar.webChatWidget') },
-                { to: '/admin/faqs', icon: HelpCircle, label: t('sidebar.faqs') },
-                { to: '/admin/policies', icon: ClipboardCheck, label: t('sidebar.policies') },
                 { to: '/admin/ai-hub?tab=routing', icon: RefreshCcw, label: t('sidebar.channelRouting') },
                 { to: '/admin/ai-hub?tab=ignoreList', icon: Ban, label: t('sidebar.aiIgnoreList') },
                 { to: '/admin/ai-hub?tab=skills', icon: Palette, label: t('sidebar.aiAgentSkills'), hidden: !isFeatureEnabled('aiToolsEnabled') },
@@ -2306,7 +2304,6 @@ export const getSidebarConfig = (
                 { to: '/settings/security', icon: ShieldCheck, label: t('sidebar.securitySettings') },
                 { to: '/settings/appearance', icon: Paintbrush, label: t('sidebar.appearanceSettings') },
                 { to: '/settings/sidebar', icon: ListOrdered, label: t('sidebar.sidebarSettings') },
-                { to: '/notification-settings', icon: Bell, label: t('sidebar.notificationSettings') },
             ]
         },
 
