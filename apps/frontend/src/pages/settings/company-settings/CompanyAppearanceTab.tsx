@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ChartBarIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import { Type } from "lucide-react";
 import i18n from "../../../i18n";
 import {
   applyDashboardFont,
-  ensureGoogleFont,
   getStoredDashboardFont,
   setStoredDashboardFont,
 } from "../../../utils/dashboardFont";
 import {
   DASHBOARD_FONT_OPTIONS,
+  DEFAULT_DASHBOARD_FONT,
   SIDEBAR_LAYOUT_OPTIONS,
   SidebarLayout,
   type DashboardFontFamily,
@@ -38,6 +38,22 @@ export const CompanyAppearanceTab: React.FC<CompanyAppearanceTabProps> = ({
     setStoredDashboardFont(fontId);
     applyDashboardFont(fontId);
   }, []);
+
+  const activeFont = useMemo(
+    () =>
+      DASHBOARD_FONT_OPTIONS.find((f) => f.id === dashboardFont) ??
+      DASHBOARD_FONT_OPTIONS.find((f) => f.id === DEFAULT_DASHBOARD_FONT)!,
+    [dashboardFont],
+  );
+
+  const arabicFonts = useMemo(
+    () => DASHBOARD_FONT_OPTIONS.filter((f) => f.group === "ar"),
+    [],
+  );
+  const englishFonts = useMemo(
+    () => DASHBOARD_FONT_OPTIONS.filter((f) => f.group === "en"),
+    [],
+  );
 
   return (
     <>
@@ -88,55 +104,38 @@ export const CompanyAppearanceTab: React.FC<CompanyAppearanceTabProps> = ({
           <Type className="h-5 w-5 text-primary me-2" />
           خط الواجهة
         </h2>
-        <p className="text-sm text-muted-foreground mb-5">
-          اختر الخط المستخدم في لوحة التحكم — يُطبّق فوراً ويُحفظ على هذا الجهاز.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {DASHBOARD_FONT_OPTIONS.map((font) => {
-            const isActive = dashboardFont === font.id;
-            // Preload font CSS on hover
-            const handleMouseEnter = () => ensureGoogleFont(font.id, font.googleFontsUrl);
-            return (
-              <button
-                key={font.id}
-                type="button"
-                onClick={() => handleFontChange(font.id)}
-                onMouseEnter={handleMouseEnter}
-                className={`relative p-4 rounded-xl border-2 text-start transition-all duration-200 active:scale-[0.97] ${
-                  isActive
-                    ? "border-primary bg-primary/8 dark:bg-primary/15"
-                    : "border-border/70 hover:border-border dark:border-border hover:bg-muted/30"
-                }`}
-              >
-                {/* Font name */}
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span
-                    className={`text-sm font-bold ${isActive ? "text-primary" : "text-foreground"}`}
-                  >
-                    {font.label}
-                  </span>
-                  {isActive && (
-                    <div className="h-5 w-5 bg-primary rounded-full flex items-center justify-center shrink-0">
-                      <CheckCircleIcon className="h-3 w-3 text-white" />
-                    </div>
-                  )}
-                </div>
-                {/* Preview */}
-                <p
-                  className="text-xs text-muted-foreground leading-relaxed line-clamp-2"
-                  style={{ fontFamily: font.cssStack }}
-                >
-                  {font.arabic
-                    ? "أهلاً بك في لوحة التحكم — مرحباً 123"
-                    : "Welcome to your dashboard — Hello 123"}
-                </p>
-                {/* Tag */}
-                <span className="mt-2 inline-block rounded-full bg-muted/60 border border-border/50 px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
-                  {font.arabic ? "عربي" : "لاتيني"}
-                </span>
-              </button>
-            );
-          })}
+        <div className="max-w-md space-y-3">
+          <select
+            aria-label="خط الواجهة"
+            value={dashboardFont}
+            onChange={(e) => handleFontChange(e.target.value as DashboardFontFamily)}
+            className="w-full px-3.5 py-2.5 bg-card border border-border/70 text-foreground rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-2xs cursor-pointer"
+          >
+            <optgroup label="الخطوط العربية (الأكثر استخداماً 2026)">
+              {arabicFonts.map((font) => (
+                <option key={font.id} value={font.id}>
+                  {font.label}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="الخطوط الإنجليزية (الأكثر استخداماً 2026)">
+              {englishFonts.map((font) => (
+                <option key={font.id} value={font.id}>
+                  {font.label}
+                </option>
+              ))}
+            </optgroup>
+          </select>
+
+          <div
+            className="rounded-xl border border-border/70 bg-muted/30 px-4 py-3 text-sm text-foreground"
+            style={{ fontFamily: activeFont.cssStack }}
+          >
+            <p className="font-semibold">أهلاً بك في لوحة التحكم — 12,450 ج.م</p>
+            <p className="text-xs text-muted-foreground mt-1" dir="ltr">
+              Dashboard typography preview — 0123456789
+            </p>
+          </div>
         </div>
       </div>
     </>

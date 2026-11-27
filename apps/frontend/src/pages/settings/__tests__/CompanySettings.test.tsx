@@ -146,17 +146,20 @@ describe("CompanySettings Page (Batch 462)", () => {
     expect(screen.getByText("نظام القائمة الجانبية")).toBeTruthy();
     expect(screen.getByText("خط الواجهة")).toBeTruthy();
 
-    fireEvent.click(screen.getByText("Cairo"));
+    const fontSelect = screen.getByLabelText("خط الواجهة") as HTMLSelectElement;
+    expect(fontSelect).toBeTruthy();
+
+    fireEvent.change(fontSelect, { target: { value: "cairo" } });
     expect(document.documentElement.getAttribute("data-dashboard-font")).toBe("cairo");
     expect(document.documentElement.style.getPropertyValue("--dashboard-font-sans")).toContain("Cairo");
     expect(document.getElementById("gf-dashboard-cairo")).toBeTruthy();
 
-    fireEvent.click(screen.getByText("Inter"));
+    fireEvent.change(fontSelect, { target: { value: "inter" } });
     expect(document.documentElement.getAttribute("data-dashboard-font")).toBe("inter");
     expect(document.documentElement.style.getPropertyValue("--dashboard-font-sans")).toContain("Inter");
     expect(document.getElementById("gf-dashboard-inter")).toBeTruthy();
 
-    fireEvent.click(screen.getByText("IBM Plex Sans Arabic"));
+    fireEvent.change(fontSelect, { target: { value: "ibm-plex-sans-arabic" } });
     expect(document.documentElement.getAttribute("data-dashboard-font")).toBeNull();
     expect(document.documentElement.style.getPropertyValue("--dashboard-font-sans")).toBe("");
   });

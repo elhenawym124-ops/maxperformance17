@@ -1,69 +1,190 @@
 export type DashboardFontFamily =
-  | "ibm-plex-sans-arabic"
   | "cairo"
+  | "ibm-plex-sans-arabic"
   | "tajawal"
+  | "almarai"
+  | "noto-sans-arabic"
   | "noto-kufi-arabic"
+  | "rubik"
+  | "readex-pro"
+  | "alexandria"
+  | "changa"
+  | "amiri"
   | "inter"
-  | "geist";
+  | "roboto"
+  | "plus-jakarta-sans"
+  | "geist"
+  | "poppins"
+  | "dm-sans"
+  | "open-sans"
+  | "manrope"
+  | "outfit"
+  | "nunito";
 
 export interface DashboardFontOption {
   id: DashboardFontFamily;
   label: string;
-  labelEn: string;
   cssStack: string;
   googleFontsUrl: string | null;
-  arabic: boolean;
+  group: "ar" | "en";
 }
 
+const gf = (familyQuery: string) =>
+  `https://fonts.googleapis.com/css2?family=${familyQuery}&display=swap`;
+
+/**
+ * Ordered from most used to least used in 2026 within each language group.
+ */
 export const DASHBOARD_FONT_OPTIONS: DashboardFontOption[] = [
-  {
-    id: "ibm-plex-sans-arabic",
-    label: "IBM Plex Sans Arabic",
-    labelEn: "IBM Plex Sans Arabic",
-    cssStack: "'IBM Plex Sans Arabic', system-ui, sans-serif",
-    googleFontsUrl: null,
-    arabic: true,
-  },
+  // Arabic fonts (2026 popularity: most -> least)
   {
     id: "cairo",
-    label: "Cairo",
-    labelEn: "Cairo",
+    label: "Cairo (كايرو)",
     cssStack: "'Cairo', system-ui, sans-serif",
-    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap",
-    arabic: true,
+    googleFontsUrl: gf("Cairo:wght@400;500;600;700"),
+    group: "ar",
+  },
+  {
+    id: "ibm-plex-sans-arabic",
+    label: "IBM Plex Sans Arabic (الافتراضي)",
+    cssStack: "'IBM Plex Sans Arabic', system-ui, sans-serif",
+    googleFontsUrl: null,
+    group: "ar",
   },
   {
     id: "tajawal",
-    label: "Tajawal",
-    labelEn: "Tajawal",
+    label: "Tajawal (تجوال)",
     cssStack: "'Tajawal', system-ui, sans-serif",
-    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap",
-    arabic: true,
+    googleFontsUrl: gf("Tajawal:wght@400;500;700"),
+    group: "ar",
+  },
+  {
+    id: "almarai",
+    label: "Almarai (المراعي)",
+    cssStack: "'Almarai', system-ui, sans-serif",
+    googleFontsUrl: gf("Almarai:wght@400;700"),
+    group: "ar",
+  },
+  {
+    id: "noto-sans-arabic",
+    label: "Noto Sans Arabic",
+    cssStack: "'Noto Sans Arabic', system-ui, sans-serif",
+    googleFontsUrl: gf("Noto+Sans+Arabic:wght@400;500;600;700"),
+    group: "ar",
   },
   {
     id: "noto-kufi-arabic",
     label: "Noto Kufi Arabic",
-    labelEn: "Noto Kufi Arabic",
     cssStack: "'Noto Kufi Arabic', system-ui, sans-serif",
-    googleFontsUrl:
-      "https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700&display=swap",
-    arabic: true,
+    googleFontsUrl: gf("Noto+Kufi+Arabic:wght@400;600;700"),
+    group: "ar",
   },
+  {
+    id: "rubik",
+    label: "Rubik (روبيك)",
+    cssStack: "'Rubik', system-ui, sans-serif",
+    googleFontsUrl: gf("Rubik:wght@400;500;600;700"),
+    group: "ar",
+  },
+  {
+    id: "readex-pro",
+    label: "Readex Pro",
+    cssStack: "'Readex Pro', system-ui, sans-serif",
+    googleFontsUrl: gf("Readex+Pro:wght@400;500;600;700"),
+    group: "ar",
+  },
+  {
+    id: "alexandria",
+    label: "Alexandria (الإسكندرية)",
+    cssStack: "'Alexandria', system-ui, sans-serif",
+    googleFontsUrl: gf("Alexandria:wght@400;500;600;700"),
+    group: "ar",
+  },
+  {
+    id: "changa",
+    label: "Changa (تشانجا)",
+    cssStack: "'Changa', system-ui, sans-serif",
+    googleFontsUrl: gf("Changa:wght@400;500;600;700"),
+    group: "ar",
+  },
+  {
+    id: "amiri",
+    label: "Amiri (أميري)",
+    cssStack: "'Amiri', Georgia, serif",
+    googleFontsUrl: gf("Amiri:wght@400;700"),
+    group: "ar",
+  },
+
+  // English / Latin fonts (2026 popularity: most -> least)
   {
     id: "inter",
     label: "Inter",
-    labelEn: "Inter",
     cssStack: "'Inter', system-ui, sans-serif",
-    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
-    arabic: false,
+    googleFontsUrl: gf("Inter:wght@400;500;600;700"),
+    group: "en",
+  },
+  {
+    id: "roboto",
+    label: "Roboto",
+    cssStack: "'Roboto', system-ui, sans-serif",
+    googleFontsUrl: gf("Roboto:wght@400;500;700"),
+    group: "en",
+  },
+  {
+    id: "plus-jakarta-sans",
+    label: "Plus Jakarta Sans",
+    cssStack: "'Plus Jakarta Sans', system-ui, sans-serif",
+    googleFontsUrl: gf("Plus+Jakarta+Sans:wght@400;500;600;700"),
+    group: "en",
   },
   {
     id: "geist",
     label: "Geist",
-    labelEn: "Geist",
     cssStack: "'Geist Variable', system-ui, sans-serif",
     googleFontsUrl: null,
-    arabic: false,
+    group: "en",
+  },
+  {
+    id: "poppins",
+    label: "Poppins",
+    cssStack: "'Poppins', system-ui, sans-serif",
+    googleFontsUrl: gf("Poppins:wght@400;500;600;700"),
+    group: "en",
+  },
+  {
+    id: "dm-sans",
+    label: "DM Sans",
+    cssStack: "'DM Sans', system-ui, sans-serif",
+    googleFontsUrl: gf("DM+Sans:wght@400;500;700"),
+    group: "en",
+  },
+  {
+    id: "open-sans",
+    label: "Open Sans",
+    cssStack: "'Open Sans', system-ui, sans-serif",
+    googleFontsUrl: gf("Open+Sans:wght@400;500;600;700"),
+    group: "en",
+  },
+  {
+    id: "manrope",
+    label: "Manrope",
+    cssStack: "'Manrope', system-ui, sans-serif",
+    googleFontsUrl: gf("Manrope:wght@400;500;600;700"),
+    group: "en",
+  },
+  {
+    id: "outfit",
+    label: "Outfit",
+    cssStack: "'Outfit', system-ui, sans-serif",
+    googleFontsUrl: gf("Outfit:wght@400;500;600;700"),
+    group: "en",
+  },
+  {
+    id: "nunito",
+    label: "Nunito",
+    cssStack: "'Nunito', system-ui, sans-serif",
+    googleFontsUrl: gf("Nunito:wght@400;600;700"),
+    group: "en",
   },
 ];
 
