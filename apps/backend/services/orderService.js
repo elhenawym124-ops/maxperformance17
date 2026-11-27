@@ -3554,6 +3554,7 @@ class OrderService {
     let order = orderOrId;
     const targetOrderId = typeof orderOrId === 'string' ? orderOrId : (orderOrId?.id || orderOrId?.orderNumber);
     const lockKey = `${companyId}:${targetOrderId}`;
+    let canonicalKeys = [];
     let attempts = 0;
 
     if (targetOrderId && _inFlightTurboShipmentLocks.has(lockKey)) {
@@ -3601,6 +3602,14 @@ class OrderService {
         console.warn(`⚠️ [TURBO-AUTO] Order not found for company ${companyId}`);
         return { success: false, reason: 'ORDER_NOT_FOUND' };
       }
+
+      // 🛡️ Canonical lock on both order.id and order.orderNumber to prevent duplicate concurrent dispatches
+      canonicalKeys = [order.id, order.orderNumber].filter(Boolean).map((k) => `${companyId}:${k}`);
+      if (canonicalKeys.some((k) => k !== lockKey && _inFlightTurboShipmentLocks.has(k))) {
+        console.log(`ℹ️ [TURBO-AUTO] Canonical shipment creation already in-flight for ${order.orderNumber}`);
+        return { skipped: true, reason: 'IN_FLIGHT' };
+      }
+      for (const k of canonicalKeys) _inFlightTurboShipmentLocks.add(k);
 
       // 🛡️ Guard: Never ship original EXCHANGED orders or cancelled/duplicate orders
       const orderStatusUpper = String(order.status || '').toUpperCase();
@@ -3938,6 +3947,7 @@ class OrderService {
       return { success: false, error: err.message, errorInfo: classified, attempts: attempts || 1 };
     } finally {
       if (targetOrderId) _inFlightTurboShipmentLocks.delete(lockKey);
+      for (const k of canonicalKeys) _inFlightTurboShipmentLocks.delete(k);
     }
   }
 

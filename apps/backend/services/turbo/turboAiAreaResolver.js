@@ -95,9 +95,30 @@ const GENERIC_LOCATION_TOKENS = new Set([
   'غير محدد', 'غير معروف', 'غيرمعروف', 'unknown', 'none', 'null', 'undefined',
 ]);
 
+function isStreetLikeName(val) {
+  const cleaned = normalizeArabic(cleanLocationName(val));
+  if (!cleaned) return false;
+  return /^(?:شارع|ش|طريق|محور|ميدان|كوبري|كوبرى|حاره|حارة|زقاق|عزبه|عزبة)\s+/i.test(cleaned);
+}
+
 function isGenericOrEmptyLocation(val) {
   const cleaned = normalizeArabic(cleanLocationName(val));
   return !cleaned || cleaned.length < 2 || GENERIC_LOCATION_TOKENS.has(cleaned);
+}
+
+function detectExplicitGovInText(text, governments) {
+  if (!text || !Array.isArray(governments) || governments.length === 0) return null;
+  const nText = normalizeArabic(text);
+  const sortedGovs = [...governments].sort((a, b) => String(b.name || '').length - String(a.name || '').length);
+  for (const g of sortedGovs) {
+    const ng = normalizeArabic(g.name);
+    if (!ng || ng.length < 3) continue;
+    const bare = ng.startsWith('ال') ? ng.slice(2) : ng;
+    if (nText.includes(ng) || (bare.length >= 4 && nText.includes(bare))) {
+      return g;
+    }
+  }
+  return null;
 }
 
 function findMatchingGovernment(govName, governments) {
@@ -121,15 +142,21 @@ function matchAreaInList(areas, candidateArea, fullAddressText = '', govName = '
   const candidateIsGeneric = isGenericOrEmptyLocation(candidateArea) || nCandidate === nGov;
   const sorted = [...areas].sort((a, b) => String(b.name || '').length - String(a.name || '').length);
 
-  // 1. Direct match on candidateArea if it isn't a generic governorate name
-  if (!candidateIsGeneric) {
+  // 1. Direct match on candidateArea if it isn't a generic governorate name or street-like token
+  if (!candidateIsGeneric && !isStreetLikeName(nCandidate)) {
     const exact = sorted.find((a) => normalizeArabic(a.name) === nCandidate);
     if (exact) return exact;
 
     const bareMatch = sorted.find((a) => {
       const na = normalizeArabic(a.name);
+      if (isStreetLikeName(na)) return false;
       const bare = na.startsWith('ال') ? na.slice(2) : na;
-      return bare.length >= 3 && (nCandidate === bare || nCandidate.includes(bare));
+      return (
+        bare.length >= 3 &&
+        bare !== nGov &&
+        !GENERIC_LOCATION_TOKENS.has(bare) &&
+        (nCandidate === bare || nCandidate.includes(bare))
+      );
     });
     if (bareMatch) return bareMatch;
   }
@@ -139,7 +166,7 @@ function matchAreaInList(areas, candidateArea, fullAddressText = '', govName = '
     const nAddress = normalizeArabic(fullAddressText).replace(/كوبري\s*(?:6\s*|السادس\s*من\s*)?اكتوبر/g, ' ');
     for (const area of sorted) {
       const na = normalizeArabic(area.name);
-      if (!na || na === nGov || GENERIC_LOCATION_TOKENS.has(na)) continue;
+      if (!na || na === nGov || GENERIC_LOCATION_TOKENS.has(na) || isStreetLikeName(na)) continue;
       if (na.length >= 3 && nAddress.includes(na)) return area;
 
       const bare = na.startsWith('ال') ? na.slice(2) : na;
@@ -274,8 +301,9 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
   }
 
   const { rawGov, rawCity, rawArea, streetText, fullAddressText } = buildOrderAddressContext(order, orderData);
+  const explicitGovInStreet = detectExplicitGovInText(streetText, governments);
   const inferredGovName = getTurboGovernorateName(rawGov, rawCity, fullAddressText);
-  const initialGov = findMatchingGovernment(inferredGovName, governments);
+  const initialGov = explicitGovInStreet || findMatchingGovernment(inferredGovName, governments);
 
   const areaCacheByGovId = new Map();
   const getAreasForGov = async (gov) => {
@@ -366,7 +394,9 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
     '1) إذا كان العنوان بالإنجليزية أو الفرانكو (مثل Wahba Al Refiy Street أو Faisal أو Mohandessin)، حدد الحي المصري الصحيح واختر اسمه الرسمي بالعربية من قائمة تربو.',
     '2) يجب اختيار اسم (area) مطابق حرفياً لقائمة مناطق تربو المرفقة، ويجب أن تكون (governorate) هي المحافظة المالكة لهذه المنطقة في الخريطة (مثال: حدائق الأهرام / 6 أكتوبر / الشيخ زايد / التجمع / مدينتي تتبع «أطراف القاهرة والجيزة»؛ شارع العشرين فيصل / العمرانية / جزيرة الدهب تتبع «الجيزة»).',
     '3) إذا كان العنوان مبهماً تماماً ولا يدل على أي حي أو منطقة (مثل كلمة واحدة ناقصة)، أرجع confidence أقل من 0.4 وarea فارغة.',
-    '4) أرجع JSON صالح فقط بدون أي شرح إضافي بالشكل التالي:',
+    '4) لا تختر أبداً اسم شارع أو ميدان فرعي (مثل "شارع 25" أو "شارع الهرم" أو "ميدان الجيزة") بل اختر دائماً الحي أو المنطقة الرسمية الأوسع.',
+    '5) إذا ذُكرت محافظة صراحةً في نص العنوان (مثل "القليوبية") فيجب الالتزام بها وعدم توجيه الشحنة لمحافظة بعيدة.',
+    '6) أرجع JSON صالح فقط بدون أي شرح إضافي بالشكل التالي:',
     '{"area":"اسم المنطقة من القائمة","governorate":"اسم المحافظة من القائمة","confidence":0.85,"reason":"سبب مختصر"}',
   ].join('\n');
 

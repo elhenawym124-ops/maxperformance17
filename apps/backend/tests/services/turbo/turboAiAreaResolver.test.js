@@ -375,4 +375,52 @@ describe('turboAiAreaResolver', () => {
     expect(res.skipped).toBe(true);
     expect(res.reason).toBe('AI_ON_CREATE_DISABLED');
   });
+
+  test('does not match street-like candidate (ميدان الجيزة) against generic governorate bare name (جيزة)', () => {
+    const matched = matchAreaInList(
+      [{ id: '1', name: 'الجيزة' }, { id: '2', name: 'الدقي' }],
+      'ميدان الجيزة',
+      'ميدان الجيزة',
+      'الجيزة'
+    );
+    expect(matched).toBeNull();
+  });
+
+  test('prioritizes governorate explicitly mentioned in address text (القليوبية over سوهاج)', async () => {
+    const turboService = createMockTurboService({
+      governments: [
+        { id: '10', name: 'القليوبية' },
+        { id: '20', name: 'سوهاج' },
+      ],
+      areasByGov: {
+        '10': [{ id: '101', name: 'قليوب' }],
+        '20': [{ id: '201', name: 'السلمانى' }],
+      },
+    });
+    const prisma = createMockPrisma();
+    callChatCompletion.mockResolvedValueOnce(
+      JSON.stringify({
+        area: 'قليوب',
+        governorate: 'القليوبية',
+        confidence: 0.9,
+        reason: 'Explicitly mentions القليوبية in address',
+      })
+    );
+
+    const result = await resolveTurboLocation({
+      prisma,
+      turboService,
+      companyId: 'comp_1',
+      order: { governorate: 'القليوبية', city: 'Qalyubia' },
+      orderData: {
+        governorate: 'القليوبية',
+        city: 'Qalyubia',
+        shippingAddress: 'القليوبيه قرية السلمانيه مسجد التوحيد',
+      },
+    });
+
+    expect(result.resolved).toBe(true);
+    expect(result.governorate).toBe('القليوبية');
+    expect(result.area).toBe('قليوب');
+  });
 });
