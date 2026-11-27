@@ -60,6 +60,7 @@ export function useWhatsAppChatSocket({
   const markAsReadTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pendingMarkAsReadRef = useRef<{ sessionId: string; remoteJid: string } | null>(null);
   const recentInboundToastRef = useRef<{ key: string; at: number } | null>(null);
+  const notificationAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const selectedContactRef = useRef(selectedContact);
   const selectedSessionRef = useRef(selectedSession);
@@ -93,19 +94,22 @@ export function useWhatsAppChatSocket({
 
   const playNotificationSound = useCallback(() => {
     try {
-      const audio = new Audio('/notification.mp3');
-      audio.preload = 'auto';
-      audio.volume = 0.5;
+      if (!notificationAudioRef.current) {
+        const audio = new Audio('/notification.mp3');
+        audio.preload = 'none';
+        audio.volume = 0.5;
+        notificationAudioRef.current = audio;
+      }
+      const audio = notificationAudioRef.current;
+      audio.currentTime = 0;
       const playback = audio.play();
       if (playback && typeof playback.catch === 'function') {
-        playback.catch((e) => {
+        playback.catch(() => {
           // المتصفح رفض تشغيل الملف (سياسة autoplay على الموبايل) — نرجع لنغمة Web Audio
-          console.log('Audio play failed, falling back to Web Audio:', e?.name || e);
           socketService.playNotificationSound();
         });
       }
-    } catch (e) {
-      console.error('Error playing notification sound:', e);
+    } catch {
       socketService.playNotificationSound();
     }
   }, []);

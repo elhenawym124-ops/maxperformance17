@@ -302,16 +302,19 @@ export function useWhatsAppChatData() {
 
   // Catalog Products
   const loadProducts = useCallback(async () => {
-    if (!selectedSession || selectedSession === 'all') return;
+    const targetSid =
+      selectedContact?.sessionId ||
+      (selectedSession && selectedSession !== 'all' ? selectedSession : activeSessionId);
+    if (!targetSid) return;
     try {
       const res = await api.get('/whatsapp/catalog/products', {
-        params: { sessionId: selectedSession },
+        params: { sessionId: targetSid },
       });
       setProducts((res as any).data?.products || []);
     } catch (error) {
       console.error('Error loading products:', error);
     }
-  }, [selectedSession]);
+  }, [selectedContact?.sessionId, selectedSession, activeSessionId]);
 
   // Starred Messages
   const loadStarredMessages = useCallback(async () => {

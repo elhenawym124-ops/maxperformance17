@@ -777,7 +777,9 @@ export function useWhatsAppChatActions({
                 pages: old.pages.map((page: any) => ({
                   ...page,
                   conversations: (page.conversations || []).map((c: Contact) =>
-                    c.jid === contact.jid ? { ...c, unreadCount: 0 } : c,
+                    c.jid === contact.jid && (!c.sessionId || c.sessionId === sessionId)
+                      ? { ...c, unreadCount: 0 }
+                      : c,
                   ),
                   counts: page.counts
                     ? { ...page.counts, unread: Math.max(0, (page.counts.unread || 0) - 1) }
@@ -787,7 +789,9 @@ export function useWhatsAppChatActions({
             },
           );
           setSelectedContact((prev) =>
-            prev && prev.jid === contact.jid ? { ...prev, unreadCount: 0 } : prev,
+            prev && prev.jid === contact.jid && (!prev.sessionId || prev.sessionId === sessionId)
+              ? { ...prev, unreadCount: 0 }
+              : prev,
           );
           tToast.success("whatsapp.sidebar.markedAsReadSuccess", { defaultValue: "تم تحديد المحادثة كمقروءة" });
         } else {
@@ -805,7 +809,9 @@ export function useWhatsAppChatActions({
                 pages: old.pages.map((page: any) => ({
                   ...page,
                   conversations: (page.conversations || []).map((c: Contact) =>
-                    c.jid === contact.jid ? { ...c, unreadCount: 1 } : c,
+                    c.jid === contact.jid && (!c.sessionId || c.sessionId === sessionId)
+                      ? { ...c, unreadCount: 1 }
+                      : c,
                   ),
                   counts: page.counts
                     ? { ...page.counts, unread: (page.counts.unread || 0) + 1 }
@@ -815,7 +821,9 @@ export function useWhatsAppChatActions({
             },
           );
           setSelectedContact((prev) =>
-            prev && prev.jid === contact.jid ? { ...prev, unreadCount: 1 } : prev,
+            prev && prev.jid === contact.jid && (!prev.sessionId || prev.sessionId === sessionId)
+              ? { ...prev, unreadCount: 1 }
+              : prev,
           );
           tToast.success("whatsappChat.success_select_9a6b", { defaultValue: "تم تحديد المحادثة كغير مقروءة" });
         }

@@ -2,6 +2,7 @@ import React from "react";
 import { ArrowTopRightOnSquareIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { WhatsAppIcon } from "../../../components/icons/brands";
 import type { WorkspaceOrder } from "./types";
+import type { WhatsAppSession } from "./useWorkspaceWhatsAppController";
 
 export interface WorkspaceWhatsAppHeaderProps {
   order: WorkspaceOrder;
@@ -9,6 +10,9 @@ export interface WorkspaceWhatsAppHeaderProps {
   customerPhone: string;
   sessionDisplay: string;
   hasActiveSession: boolean;
+  sessions?: WhatsAppSession[];
+  activeSessionId?: string;
+  onSelectSession?: (sessionId: string) => void;
   externalWaUrl: string;
   onClose: () => void;
 }
@@ -19,6 +23,9 @@ export const WorkspaceWhatsAppHeader: React.FC<WorkspaceWhatsAppHeaderProps> = (
   customerPhone,
   sessionDisplay,
   hasActiveSession,
+  sessions = [],
+  activeSessionId,
+  onSelectSession,
   externalWaUrl,
   onClose,
 }) => {
@@ -39,11 +46,27 @@ export const WorkspaceWhatsAppHeader: React.FC<WorkspaceWhatsAppHeaderProps> = (
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono" dir="ltr">
             <span>{customerPhone}</span>
-            {hasActiveSession && (
-              <span className="flex items-center gap-1 rounded bg-success/10 px-1.5 py-0.5 text-[10px] font-semibold text-success dark:text-success">
-                <span className="h-1.5 w-1.5 rounded-full bg-success" />
-                <span>{sessionDisplay}</span>
-              </span>
+            {sessions.length > 1 && onSelectSession ? (
+              <select
+                value={activeSessionId || ""}
+                onChange={(e) => e.target.value && onSelectSession(e.target.value)}
+                aria-label={isArabic ? "اختيار قناة واتساب" : "Select WhatsApp channel"}
+                className="rounded border border-border/70 bg-success/10 px-1.5 py-0.5 text-[10px] font-semibold text-success dark:text-success cursor-pointer outline-none"
+              >
+                {sessions.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.provider === "META_CLOUD" ? "API" : "QR"} ·{" "}
+                    {s.name || s.metaDisplayPhoneNumber || s.phoneNumber || s.id}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              hasActiveSession && (
+                <span className="flex items-center gap-1 rounded bg-success/10 px-1.5 py-0.5 text-[10px] font-semibold text-success dark:text-success">
+                  <span className="h-1.5 w-1.5 rounded-full bg-success" />
+                  <span>{sessionDisplay}</span>
+                </span>
+              )
             )}
           </div>
         </div>

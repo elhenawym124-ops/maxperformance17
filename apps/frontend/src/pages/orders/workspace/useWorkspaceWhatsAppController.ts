@@ -36,6 +36,7 @@ export const useWorkspaceWhatsAppController = ({
   const [sessions, setSessions] = useState<WhatsAppSession[]>([]);
   const [activeSession, setActiveSession] = useState<WhatsAppSession | null>(null);
   const [conversationSessionId, setConversationSessionId] = useState<string | null>(null);
+  const [manualSessionId, setManualSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [templates, setTemplates] = useState<MetaTemplate[]>([]);
@@ -55,7 +56,17 @@ export const useWorkspaceWhatsAppController = ({
   // Reset conversation-matched session when switching orders or closing
   useEffect(() => {
     setConversationSessionId(null);
+    setManualSessionId(null);
   }, [order?.id, isOpen]);
+
+  const handleSelectSession = (sessionId: string) => {
+    const picked = sessions.find((s) => s.id === sessionId) || null;
+    setManualSessionId(sessionId);
+    setConversationSessionId(sessionId);
+    if (picked) {
+      setActiveSession(picked);
+    }
+  };
 
   // 1. Fetch Company WhatsApp Sessions on Open
   useEffect(() => {
@@ -93,16 +104,17 @@ export const useWorkspaceWhatsAppController = ({
     const loadConversation = async (silent = false) => {
       if (!silent) setLoadingMessages(true);
       try {
+        const searchSessionScope = manualSessionId || 'all';
         const convRes = await apiClient.get('/whatsapp/conversations', {
-          params: { search: cleanPhone, sessionId: 'all', limit: 5 },
+          params: { search: cleanPhone, sessionId: searchSessionScope, limit: 5 },
         });
         const convList: Array<{ jid?: string; sessionId?: string }> =
           convRes.data?.conversations || [];
         const conv = convList[0];
 
         if (conv?.jid) {
-          const resolvedSessionId = conv.sessionId || activeSession.id;
-          if (isMounted && conv.sessionId) {
+          const resolvedSessionId = manualSessionId || conv.sessionId || activeSession.id;
+          if (isMounted && !manualSessionId && conv.sessionId) {
             setConversationSessionId(conv.sessionId);
             const matchedSession = sessions.find((s) => s.id === conv.sessionId);
             if (matchedSession && matchedSession.id !== activeSession.id) {
@@ -134,7 +146,7 @@ export const useWorkspaceWhatsAppController = ({
       isMounted = false;
       clearInterval(pollId);
     };
-  }, [isOpen, cleanPhone, activeSession?.id, sessions]);
+  }, [isOpen, cleanPhone, activeSession?.id, manualSessionId, sessions]);
 
   // 3. Fetch Approved Templates for Session
   useEffect(() => {
@@ -324,8 +336,10 @@ export const useWorkspaceWhatsAppController = ({
   return {
     panelRef,
     isArabic,
+    sessions,
     activeSession,
     sessionDisplay,
+    handleSelectSession,
     messages,
     loadingMessages,
     messagesEndRef,

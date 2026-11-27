@@ -31,8 +31,10 @@ export const WorkspaceWhatsAppDrawer: React.FC<WorkspaceWhatsAppDrawerProps> = (
   const {
     panelRef,
     isArabic,
+    sessions,
     activeSession,
     sessionDisplay,
+    handleSelectSession,
     messages,
     loadingMessages,
     messagesEndRef,
@@ -78,6 +80,9 @@ export const WorkspaceWhatsAppDrawer: React.FC<WorkspaceWhatsAppDrawerProps> = (
           customerPhone={customerPhone}
           sessionDisplay={sessionDisplay}
           hasActiveSession={Boolean(activeSession)}
+          sessions={sessions}
+          activeSessionId={activeSession?.id}
+          onSelectSession={handleSelectSession}
           externalWaUrl={externalWaUrl}
           onClose={onClose}
         />

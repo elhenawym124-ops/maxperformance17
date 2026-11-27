@@ -1919,13 +1919,14 @@ async function getMessages(req, res) {
 async function pauseWhatsAppAiOnHumanReply(companyId, sessionId, to, userId, userName) {
     try {
         const jid = WhatsAppMessageHandler.formatJid ? WhatsAppMessageHandler.formatJid(to) : to;
+        const phoneDigits = String(to || '').replace(/\D/g, '');
         const prisma = getSharedPrismaClient();
         const contact = await prisma.whatsAppContact.findFirst({
             where: {
                 sessionId,
                 OR: [
                     { jid },
-                    { phone: to.replace(/\D/g, '') }
+                    ...(phoneDigits ? [{ phoneNumber: phoneDigits }] : [])
                 ]
             }
         });
@@ -1936,6 +1937,10 @@ async function pauseWhatsAppAiOnHumanReply(companyId, sessionId, to, userId, use
             for (const waConv of waConvs) {
                 let meta = {};
                 try { meta = typeof waConv.metadata === 'string' ? JSON.parse(waConv.metadata) : (waConv.metadata || {}); } catch (e) {}
+                const convSessionId = meta?.whatsappSessionId || meta?.sessionId || meta?.inboxRouting?.sessionId || null;
+                if (convSessionId && convSessionId !== sessionId) {
+                    continue;
+                }
                 const pauseHours = 2;
                 meta.aiPausedUntil = new Date(Date.now() + pauseHours * 60 * 60 * 1000).toISOString();
                 meta.lastHumanReplyAt = new Date().toISOString();
