@@ -19,8 +19,8 @@ export const ProfileSecurityTab: React.FC = () => {
 
   return (
     <div className="mt-0 space-y-5 focus-visible:outline-none">
-      <SectionCard icon={ShieldCheckIcon} title={t("profile.securityLog", "سجل الأمان")} accent="emerald">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+      <SectionCard icon={ShieldCheckIcon} title={t("profile.securityLog", "سجل الأمان")}>
+        <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
           <InfoField
             label={t("profile.lastLogin", "آخر تسجيل دخول")}
             value={snapshot.lastLoginAt ? formatDate(snapshot.lastLoginAt) : "—"}
@@ -32,7 +32,7 @@ export const ProfileSecurityTab: React.FC = () => {
         </div>
       </SectionCard>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-white/[0.06] dark:bg-slate-900/80">
+      <div className="border-t border-border/70 pt-5">
         <SecuritySettings />
       </div>
     </div>

@@ -389,6 +389,14 @@ html *::after {
 }
 
 @theme inline {
+  /* Petrol & Persimmon utilities — map the constitutional CSS variables to Tailwind colors */
+  --color-petrol: var(--petrol);
+  --color-petrol-hover: var(--petrol-hover);
+  --color-petrol-tint: var(--petrol-tint);
+  --color-on-petrol: var(--on-petrol);
+  --color-persimmon: var(--accent);
+  --color-persimmon-hover: var(--accent-hover);
+  --color-persimmon-tint: var(--accent-tint);
   --color-primary: var(--color-primary);
   --color-primary-50: oklch(0.966 0.016 262.8);
   --color-primary-100: oklch(0.921 0.038 265.8);

@@ -190,7 +190,7 @@ describe("MerchantProfileView", () => {
     expect(screen.getByDisplayValue("Mokhtar")).toBeInTheDocument();
     expect(screen.getByDisplayValue("01012345678")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: /employee\.common\.save/i }));
+    fireEvent.click(screen.getAllByRole("button", { name: /employee\.common\.save/i })[0]);
     expect(handleSave).toHaveBeenCalledTimes(1);
   });
 

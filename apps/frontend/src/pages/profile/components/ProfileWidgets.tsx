@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { ProfileIcon } from "./types";
-import { sectionAccents } from "./helpers";
 
 export const AnimatedNumber = ({ value, suffix = "" }: { value: number; suffix?: string }) => {
   const [display, setDisplay] = useState(0);
@@ -23,7 +21,12 @@ export const AnimatedNumber = ({ value, suffix = "" }: { value: number; suffix?:
     return () => clearInterval(timer);
   }, [value]);
 
-  return <span className="tabular-nums">{display}{suffix}</span>;
+  return (
+    <span className="tabular-nums">
+      {display}
+      {suffix}
+    </span>
+  );
 };
 
 export const InfoField = ({
@@ -42,20 +45,18 @@ export const InfoField = ({
   children?: React.ReactNode;
 }) => (
   <div className="group">
-    <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-      {label}
-    </p>
+    <p className="mb-1 text-xs text-muted-foreground">{label}</p>
     {editing && onChange ? (
       children || (
         <input
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/60 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all outline-none"
+          className="w-full rounded-lg border border-border/70 bg-card px-3 py-2 text-sm text-foreground outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
         />
       )
     ) : (
-      <p className="text-sm font-medium text-slate-900 dark:text-slate-200">{value || "—"}</p>
+      <p className="text-sm font-medium text-foreground">{value || "—"}</p>
     )}
   </div>
 );
@@ -76,11 +77,9 @@ export const SensitiveValue = ({
 
   return (
     <div className="group">
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-        {label}
-      </p>
+      <p className="mb-1 text-xs text-muted-foreground">{label}</p>
       <div className="flex items-center gap-1.5">
-        <p className="text-sm font-medium font-mono tabular-nums text-slate-900 dark:text-slate-200" dir="ltr">
+        <p className="font-mono text-sm font-medium tabular-nums text-foreground" dir="ltr">
           {revealed ? raw || "—" : masked}
         </p>
         {raw && (
@@ -88,9 +87,9 @@ export const SensitiveValue = ({
             type="button"
             onClick={() => setRevealed((current) => !current)}
             aria-label={revealed ? t("common.hide", "إخفاء") : t("common.show", "إظهار")}
-            className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 active:scale-[0.97] dark:hover:bg-white/5 dark:hover:text-slate-200"
+            className="rounded-md p-1 text-muted-foreground transition hover:bg-muted hover:text-foreground active:scale-[0.97]"
           >
-            {revealed ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+            {revealed ? <EyeSlashIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
           </button>
         )}
       </div>
@@ -98,39 +97,22 @@ export const SensitiveValue = ({
   );
 };
 
-const defaultSectionAccent = {  bar: "from-violet-500/20 to-violet-500/0",
-  text: "text-violet-600 dark:text-violet-400",
-  iconBg: "bg-violet-500/10 dark:bg-violet-500/15",
-};
-
 export const SectionCard = ({
   icon: Icon,
   title,
-  accent = "violet",
   children,
 }: {
   icon: ProfileIcon;
   title: string;
-  accent?: string;
   children: React.ReactNode;
-}) => {
-  const a = (accent ? sectionAccents[accent] : null) || sectionAccents["violet"] || defaultSectionAccent;
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-white dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-xl transition-all duration-300"
-    >
-      <div className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${a.bar}`} />
-      <div className="p-6">
-        <h3 className={`flex items-center gap-2.5 text-sm font-bold uppercase tracking-widest mb-6 ${a.text}`}>
-          <span className={`w-6 h-6 rounded-lg ${a.iconBg} flex items-center justify-center`}>
-            <Icon className="w-3.5 h-3.5" />
-          </span>
-          {title}
-        </h3>
-        {children}
-      </div>
-    </motion.div>
-  );
-};
+  /** @deprecated kept for backwards compatibility — the design system no longer uses per-section accents */
+  accent?: string;
+}) => (
+  <section className="border-t border-border/70 py-5 first:border-t-0 first:pt-0 last:pb-0">
+    <header className="mb-4 flex items-center gap-2">
+      <Icon className="h-4 w-4 text-muted-foreground" />
+      <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+    </header>
+    {children}
+  </section>
+);

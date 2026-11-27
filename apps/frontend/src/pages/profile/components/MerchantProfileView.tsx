@@ -1,7 +1,6 @@
-import React from "react";
+﻿import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
 import {
   PhoneIcon,
   EnvelopeIcon,
@@ -14,8 +13,8 @@ import {
   CheckIcon,
   XMarkIcon,
   CameraIcon,
+  ChevronLeftIcon,
 } from "@heroicons/react/24/outline";
-import { useTheme } from "../../../hooks/useTheme";
 import { DefaultPageSelector } from "../../../components/settings/DefaultPageSelector";
 import { ProfileFormData, MerchantUserExtras } from "./types";
 import { getInitials } from "./helpers";
@@ -53,30 +52,29 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
   onAvatarClick,
 }) => {
   const { t } = useTranslation();
-  const { derivedTheme } = useTheme();
 
   const isMerchantUser = user?.role === "MERCHANT";
   const externalUser = user as typeof user & MerchantUserExtras;
   const companyName = user?.company?.name || t("employee.profile.noCompany");
   const fullName = `${formData.firstName} ${formData.lastName}`.trim() || user?.email || t("employee.profile.userAccount");
   const portalPath = isMerchantUser ? "/merchant-portal" : "/affiliates/dashboard";
-  
-  // Legacy labels required for compatibility audit:
-  // حساب تاجر دروب شيبنج
-  // حساب مسوق أفليت
-  // الأدوات المتاحة للتاجر
-  // الأدوات المتاحة للمسوق
-  // لا تظهر هنا بيانات الموظفين أو الرواتب أو العهد أو ملفات الشركة الداخلية
+
   const accountTitle = isMerchantUser
-    ? (t("employee.profile.merchantAccount") || "حساب تاجر دروب شيبنج")
-    : (t("employee.profile.affiliateAccount") || "حساب مسوق أفليت");
+    ? t("employee.profile.merchantAccount", "Ø­Ø³Ø§Ø¨ ØªØ§Ø¬Ø± Ø¯Ø±ÙˆØ¨ Ø´ÙŠØ¨Ù†Ø¬")
+    : t("employee.profile.affiliateAccount", "Ø­Ø³Ø§Ø¨ Ù…Ø³ÙˆÙ‚ Ø£ÙÙ„ÙŠØª");
   const accountDescription = isMerchantUser
     ? t("employee.profile.merchantAccountDesc", { company: companyName })
     : t("employee.profile.affiliateAccountDesc", { company: companyName });
   const portalCta = isMerchantUser ? t("employee.profile.merchantPortal") : t("employee.profile.affiliateDashboard");
   const toolsHeading = isMerchantUser
-    ? (t("employee.profile.merchantTools") || "الأدوات المتاحة للتاجر")
-    : (t("employee.profile.affiliateTools") || "الأدوات المتاحة للمسوق");
+    ? t("employee.profile.merchantTools", "Ø§Ù„Ø£Ø¯ÙˆØ§Øª Ø§Ù„Ù…ØªØ§Ø­Ø© Ù„Ù„ØªØ§Ø¬Ø±")
+    : t("employee.profile.affiliateTools", "Ø§Ù„Ø£Ø¯ÙˆØ§Øª Ø§Ù„Ù…ØªØ§Ø­Ø© Ù„Ù„Ù…Ø³ÙˆÙ‚");
+
+  const contactRows = [
+    { label: t("employee.profile.email"), value: formData.email || "â€”", icon: EnvelopeIcon, editable: false },
+    { label: t("employee.profile.phone"), value: formData.phone || externalUser?.phone || "â€”", icon: PhoneIcon, editable: true },
+    { label: t("employee.profile.noCompany"), value: companyName, icon: BuildingOfficeIcon, editable: false },
+  ];
 
   const tools = isMerchantUser
     ? [
@@ -121,92 +119,72 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
       ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen bg-slate-50 dark:bg-[#080b14] transition-colors duration-300"
-      dir="rtl"
-    >
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10">
-        <section className="relative overflow-hidden rounded-3xl border border-amber-200/70 dark:border-amber-400/20 bg-white dark:bg-slate-950 shadow-sm dark:shadow-2xl">
-          <div
-            className="absolute inset-0 opacity-80"
-            style={{
-              background:
-                derivedTheme === "dark"
-                  ? "radial-gradient(circle at 15% 0%, rgba(245,158,11,0.24), transparent 34%), linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,41,59,0.98))"
-                  : "radial-gradient(circle at 15% 0%, rgba(245,158,11,0.18), transparent 34%), linear-gradient(135deg, #fffaf0, #ffffff)",
-            }}
-          />
-          <div className="relative p-6 sm:p-8">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-4">
+    <div className="min-h-screen bg-background">
+      <div className="mx-auto max-w-5xl px-4 pb-24 pt-4 sm:px-6 sm:pt-6 lg:px-8">
+        <header className="mb-4 overflow-hidden rounded-2xl border border-border/70 bg-card sm:mb-6">
+          <div className="bg-petrol px-4 pb-4 pt-4 sm:px-6 sm:pb-5 sm:pt-5">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                 <button
                   type="button"
                   onClick={onAvatarClick}
                   data-testid="profile-avatar"
-                  className="group relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 border-amber-300 shadow-lg shadow-amber-500/20 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
                   aria-label={t("employee.profile.updateAvatar")}
+                  className="group relative h-16 w-16 shrink-0 overflow-hidden rounded-xl ring-1 ring-inset ring-on-petrol/25 bg-on-petrol/10 text-on-petrol transition active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-petrol/40 sm:h-20 sm:w-20"
                 >
                   {externalUser?.avatar ? (
-                    <img
-                      src={externalUser.avatar}
-                      alt={fullName}
-                      className="h-full w-full object-cover"
-                    />
+                    <img src={externalUser.avatar} alt={fullName} className="h-full w-full object-cover" />
                   ) : (
-                    <span className="flex h-full w-full items-center justify-center bg-gradient-to-br from-amber-500 to-orange-600 text-2xl font-black text-white">
+                    <span className="flex h-full w-full items-center justify-center text-lg font-semibold sm:text-xl">
                       {getInitials(formData.firstName, formData.lastName) || "T"}
                     </span>
                   )}
                   {uploading ? (
-                    <span className="absolute inset-0 flex items-center justify-center bg-black/70">
-                      <span className="h-7 w-7 animate-spin rounded-full border-2 border-transparent border-t-amber-300" />
+                    <span className="absolute inset-0 flex items-center justify-center bg-petrol/80">
+                      <span className="h-5 w-5 animate-spin rounded-full border-2 border-on-petrol/30 border-t-on-petrol" />
                     </span>
                   ) : (
-                    <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/60 group-hover:opacity-100">
-                      <CameraIcon className="h-6 w-6 text-white" />
+                    <span className="absolute inset-0 flex items-center justify-center bg-petrol/70 opacity-0 transition group-hover:opacity-100">
+                      <CameraIcon className="h-5 w-5" />
                     </span>
                   )}
                 </button>
-                <div>
-                  <p className="mb-2 text-sm font-bold text-amber-600 dark:text-amber-300">{accountTitle}</p>
+
+                <div className="min-w-0">
+                  <p className="text-xs text-on-petrol/70">{accountTitle}</p>
                   {isEditing ? (
-                    <div className="flex flex-wrap gap-2">
+                    <div className="mt-1 flex flex-wrap gap-2">
                       <input
                         value={formData.firstName}
                         onChange={(e) => setFormData((prev) => ({ ...prev, firstName: e.target.value }))}
                         placeholder={t("employee.profile.firstNamePlaceholder")}
-                        className="w-32 rounded-xl border border-amber-300 bg-white px-3 py-1.5 text-lg font-bold text-slate-950 outline-none focus:ring-2 focus:ring-amber-500 dark:border-amber-400/40 dark:bg-slate-900 dark:text-white"
+                        className="w-28 rounded-lg ring-1 ring-inset ring-on-petrol/30 bg-petrol-hover px-2.5 py-1.5 text-base font-semibold text-on-petrol outline-none placeholder:text-on-petrol/50 focus:border-on-petrol/60"
                       />
                       <input
                         value={formData.lastName}
                         onChange={(e) => setFormData((prev) => ({ ...prev, lastName: e.target.value }))}
                         placeholder={t("employee.profile.lastNamePlaceholder")}
-                        className="w-32 rounded-xl border border-amber-300 bg-white px-3 py-1.5 text-lg font-bold text-slate-950 outline-none focus:ring-2 focus:ring-amber-500 dark:border-amber-400/40 dark:bg-slate-900 dark:text-white"
+                        className="w-28 rounded-lg ring-1 ring-inset ring-on-petrol/30 bg-petrol-hover px-2.5 py-1.5 text-base font-semibold text-on-petrol outline-none placeholder:text-on-petrol/50 focus:border-on-petrol/60"
                       />
                     </div>
                   ) : (
-                    <h1 className="text-2xl font-black text-slate-950 dark:text-white sm:text-3xl">{fullName}</h1>
+                    <h1 className="truncate text-xl font-semibold text-on-petrol sm:text-2xl">{fullName}</h1>
                   )}
-                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                    {accountDescription}
-                  </p>
+                  <p className="mt-1 line-clamp-2 text-xs text-on-petrol/60">{accountDescription}</p>
                 </div>
               </div>
 
-              <div className="flex flex-col items-stretch gap-2 sm:items-end">
+              <div className="flex shrink-0 flex-col items-stretch gap-2 sm:items-end">
                 {isEditing ? (
                   <div className="flex gap-2">
                     <button
                       type="button"
                       onClick={onSave}
                       disabled={saving}
-                      className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-slate-800 disabled:opacity-60 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-persimmon px-3 py-2 text-xs font-semibold text-white transition hover:bg-persimmon-hover active:scale-[0.97] disabled:opacity-60"
                     >
                       {saving ? (
-                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-transparent border-t-current" />
+                        <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
                       ) : (
                         <CheckIcon className="h-4 w-4" />
                       )}
@@ -216,7 +194,7 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
                       type="button"
                       onClick={() => setIsEditing(false)}
                       disabled={saving}
-                      className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-100 disabled:opacity-60 dark:border-white/15 dark:text-slate-200 dark:hover:bg-white/5"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-lg ring-1 ring-inset ring-on-petrol/30 px-3 py-2 text-xs font-semibold text-on-petrol transition hover:bg-on-petrol/10 active:scale-[0.97] disabled:opacity-60"
                     >
                       <XMarkIcon className="h-4 w-4" />
                       {t("employee.common.cancel")}
@@ -226,7 +204,7 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsEditing(true)}
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-100 dark:border-white/15 dark:text-slate-200 dark:hover:bg-white/5"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg ring-1 ring-inset ring-on-petrol/30 px-3 py-2 text-xs font-semibold text-on-petrol transition hover:bg-on-petrol/10 active:scale-[0.97]"
                   >
                     <PencilIcon className="h-4 w-4" />
                     {t("profile.editProfile")}
@@ -234,105 +212,107 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
                 )}
                 <Link
                   to={portalPath}
-                  className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-950/20 transition hover:bg-slate-800 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300"
+                  className="inline-flex items-center justify-center rounded-lg bg-persimmon px-3 py-2 text-xs font-semibold text-white transition hover:bg-persimmon-hover active:scale-[0.97]"
                 >
                   {portalCta}
                 </Link>
               </div>
             </div>
           </div>
-        </section>
+        </header>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {[
-            { label: t("employee.profile.email"), value: formData.email || "—", icon: EnvelopeIcon, editable: false },
-            { label: t("employee.profile.phone"), value: formData.phone || externalUser?.phone || "—", icon: PhoneIcon, editable: true },
-            { label: t("employee.profile.noCompany"), value: companyName, icon: BuildingOfficeIcon, editable: false },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition dark:border-white/[0.06] dark:bg-slate-900/80"
-            >
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-300">
-                <item.icon className="h-5 w-5" />
-              </div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{item.label}</p>
-              {item.editable && isEditing ? (
-                <input
-                  value={formData.phone}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
-                  inputMode="tel"
-                  dir="ltr"
-                  className="mt-2 w-full rounded-xl border border-amber-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-950 outline-none focus:ring-2 focus:ring-amber-500 dark:border-amber-400/40 dark:bg-slate-950 dark:text-white"
-                />
-              ) : (
-                <p className="mt-2 break-words text-sm font-semibold text-slate-950 dark:text-white">{item.value}</p>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {hasAffiliatePro ? (
-          <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/[0.06] dark:bg-slate-900/80">
-            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-sm font-bold text-amber-600 dark:text-amber-300">{toolsHeading}</p>
-                <h2 className="text-xl font-black text-slate-950 dark:text-white">{t("employee.profile.limitedPermissions")}</h2>
-              </div>
-              <p className="max-w-xl text-sm text-slate-500 dark:text-slate-400">
-                {t("employee.profile.companyDataNote") || "لا تظهر هنا بيانات الموظفين أو الرواتب أو العهد أو ملفات الشركة الداخلية"}
-              </p>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-3">
-              {tools.map((tool) => (
-                <Link
-                  key={tool.to}
-                  to={tool.to}
-                  className="group rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-0.5 hover:border-amber-300 hover:bg-amber-50 dark:border-white/[0.06] dark:bg-slate-950/60 dark:hover:border-amber-400/40 dark:hover:bg-amber-400/10"
-                >
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white transition group-hover:bg-amber-500 dark:bg-amber-400 dark:text-slate-950">
-                    <tool.icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="font-black text-slate-950 dark:text-white">{tool.label}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">{tool.description}</p>
-                </Link>
+        <div className="overflow-hidden rounded-2xl border border-border/70 bg-card">
+          <section className="px-4 py-4 sm:px-6">
+            <dl className="divide-y divide-border/70">
+              {contactRows.map((item) => (
+                <div key={item.label} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                  <item.icon className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <dt className="w-24 shrink-0 text-xs text-muted-foreground">{item.label}</dt>
+                  <dd className="min-w-0 flex-1">
+                    {item.editable && isEditing ? (
+                      <input
+                        value={formData.phone}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+                        inputMode="tel"
+                        dir="ltr"
+                        className="w-full rounded-lg border border-border/70 bg-card px-3 py-1.5 text-sm text-foreground outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
+                      />
+                    ) : (
+                      <p className="truncate text-sm font-medium text-foreground">{item.value}</p>
+                    )}
+                  </dd>
+                </div>
               ))}
-            </div>
+            </dl>
           </section>
-        ) : (
-          <section className="mt-6 rounded-3xl border border-amber-200/50 dark:border-amber-400/10 bg-amber-50/50 dark:bg-amber-500/5 p-6 shadow-sm">
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-300">
-                <ShoppingBagIcon className="h-6 w-6" />
+
+          {hasAffiliatePro ? (
+            <section className="border-t border-border/70 px-4 py-4 sm:px-6">
+              <h2 className="mb-1 text-sm font-semibold text-foreground">{toolsHeading}</h2>
+              <div className="divide-y divide-border/70">
+                {tools.map((tool) => (
+                  <Link
+                    key={tool.to}
+                    to={tool.to}
+                    className="flex items-center gap-3 py-3 first:pt-2 last:pb-0 transition-colors hover:text-primary"
+                  >
+                    <tool.icon className="h-4 w-4 shrink-0 text-muted-foreground" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium text-foreground">{tool.label}</span>
+                      <span className="block text-xs text-muted-foreground">{tool.description}</span>
+                    </span>
+                    <ChevronLeftIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  </Link>
+                ))}
               </div>
-              <h3 className="text-lg font-bold text-slate-950 dark:text-white mb-1">
+            </section>
+          ) : (
+            <section className="border-t border-border/70 px-4 py-4 sm:px-6">
+              <h2 className="text-sm font-semibold text-foreground">
                 {t("employee.profile.portalNotActivated", {
                   portal: isMerchantUser ? t("employee.profile.merchantPortalName") : t("employee.profile.affiliateBoardName"),
                 })}
-              </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+              </h2>
+              <p className="mt-1 text-xs text-muted-foreground">
                 {t("employee.profile.notActivatedDesc", {
                   role: isMerchantUser ? t("employee.profile.merchantRole") : t("employee.profile.affiliateRole"),
                 })}
               </p>
-            </div>
+            </section>
+          )}
+
+          <section className="border-t border-border/70 px-4 py-4 sm:px-6">
+            <DefaultPageSelector value={defaultPage} onChange={onDefaultPageChange} disabled={settingsLoading} />
           </section>
-        )}
 
-        {/* Default Landing Page - Merchant/Affiliate */}
-        <section className="mt-6 rounded-3xl border border-slate-200 dark:border-white/[0.06] bg-white dark:bg-slate-900/80 p-6 shadow-sm">
-          <DefaultPageSelector
-            value={defaultPage}
-            onChange={onDefaultPageChange}
-            disabled={settingsLoading}
-          />
-        </section>
-
-        <section className="mt-6">
-          <ProfileSecurityTab />
-        </section>
+          <section className="border-t border-border/70 px-4 py-4 sm:px-6">
+            <ProfileSecurityTab />
+          </section>
+        </div>
       </div>
-    </motion.div>
+
+      {isEditing && (
+        <div className="fixed inset-x-0 bottom-14 z-40 border-t border-border/70 bg-card px-4 py-3 shadow-sm sm:hidden">
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={onSave}
+              disabled={saving}
+              className="flex-1 rounded-lg bg-persimmon px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-persimmon-hover active:scale-[0.97] disabled:opacity-60"
+            >
+              {saving ? t("employee.common.saving") : t("employee.common.save")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsEditing(false)}
+              disabled={saving}
+              className="rounded-lg border border-border/70 px-4 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted active:scale-[0.97] disabled:opacity-60"
+            >
+              {t("employee.common.cancel")}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };

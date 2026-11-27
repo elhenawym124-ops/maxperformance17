@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
 import { useDateFormat } from "../../../hooks/useDateFormat";
 import { Employee } from "./types";
@@ -15,36 +14,30 @@ export const ProfileDocumentsTab: React.FC<ProfileDocumentsTabProps> = ({ employ
   const { formatDate } = useDateFormat();
 
   return (
-    <div className="mt-0 focus-visible:outline-none">
-      <SectionCard icon={DocumentTextIcon} title={t("employee.profile.myDocuments")} accent="indigo">
+    <div className="mt-0 space-y-5 focus-visible:outline-none">
+      <SectionCard icon={DocumentTextIcon} title={t("employee.profile.myDocuments")}>
         {!employee?.documents_rel?.length ? (
-          <div className="text-center py-16">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-2xl bg-indigo-500/10 flex items-center justify-center">
-              <DocumentTextIcon className="w-10 h-10 text-indigo-500/40" />
-            </div>
-            <p className="text-slate-500 text-sm">{t("employee.profile.noDocuments")}</p>
+          <div className="flex flex-col items-center justify-center py-10 text-center">
+            <DocumentTextIcon className="h-8 w-8 text-muted-foreground/50" />
+            <p className="mt-2 text-sm text-muted-foreground">{t("employee.profile.noDocuments")}</p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="divide-y divide-border/70">
             {employee.documents_rel.map((doc, idx) => (
-              <motion.div
+              <div
                 key={`${doc.type}-${idx}`}
-                whileHover={{ y: -2 }}
-                className="p-4 rounded-xl border border-slate-100 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer group"
+                className="flex items-start justify-between gap-3 py-3 first:pt-0 last:pb-0"
               >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600/10 dark:from-red-600/30 to-rose-600/10 dark:to-rose-600/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <DocumentTextIcon className="w-5 h-5 text-red-600 dark:text-red-400" />
-                  </div>
-                  <span className="text-xs px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full">
-                    {doc.type}
-                  </span>
+                <div className="min-w-0">
+                  <h4 className="truncate text-sm font-medium text-foreground">{doc.title || doc.name}</h4>
+                  <p className="mt-1 text-xs text-muted-foreground tabular-nums">
+                    {doc.createdAt ? formatDate(doc.createdAt) : "—"}
+                  </p>
                 </div>
-                <h4 className="font-semibold text-slate-900 dark:text-white truncate">{doc.title || doc.name}</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-500 mt-1 tabular-nums">
-                  {doc.createdAt ? formatDate(doc.createdAt) : "—"}
-                </p>
-              </motion.div>
+                <span className="shrink-0 rounded-lg bg-muted/60 px-2 py-0.5 text-xs text-muted-foreground">
+                  {doc.type}
+                </span>
+              </div>
             ))}
           </div>
         )}

@@ -32,74 +32,73 @@ export const ProfileWarningsTab: React.FC<ProfileWarningsTabProps> = ({
   };
 
   return (
-    <div className="mt-0 focus-visible:outline-none">
+    <div className="mt-0 space-y-5 focus-visible:outline-none">
       <SectionCard
         icon={BellAlertIcon}
         title={`${t("employee.profile.warningsLog")} ${warnings.length > 0 ? `(${warnings.length})` : ""}`}
-        accent="rose"
       >
         {warnings.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
-              <ShieldCheckIcon className="w-10 h-10 text-emerald-500/60" />
-            </div>
-            <p className="text-emerald-400 text-sm font-semibold">{t("employee.profile.noWarnings")}</p>
-            <p className="text-slate-500 text-xs mt-1">{t("employee.profile.cleanRecord")}</p>
+          <div className="flex flex-col items-center justify-center py-10 text-center">
+            <ShieldCheckIcon className="h-8 w-8 text-muted-foreground/50" />
+            <p className="mt-2 text-sm font-medium text-foreground">{t("employee.profile.noWarnings")}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{t("employee.profile.cleanRecord")}</p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="divide-y divide-border/70">
             {warnings.map((warning) => {
               const sev =
                 warning.severity === "critical"
                   ? {
-                      border: "border-red-500/30 dark:border-red-500/30 bg-red-50 dark:bg-red-500/5",
-                      badge: "bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400",
+                      border: "border-destructive/40",
+                      badge: "text-destructive",
                       label: t("employee.profile.warningSeverityCritical"),
                     }
                   : warning.severity === "major"
                   ? {
-                      border: "border-orange-500/30 dark:border-orange-500/30 bg-orange-50 dark:bg-orange-500/5",
-                      badge: "bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400",
+                      border: "border-warning/40",
+                      badge: "text-warning",
                       label: t("employee.profile.warningSeverityMajor"),
                     }
                   : {
-                      border: "border-blue-500/30 dark:border-blue-500/30 bg-blue-50 dark:bg-blue-500/5",
-                      badge: "bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400",
+                      border: "border-border/70",
+                      badge: "text-muted-foreground",
                       label: t("employee.profile.warningSeverityAlert"),
                     };
 
               return (
-                <div key={warning.id} className={`p-5 rounded-xl border ${sev.border} transition-all`}>
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h4 className="font-semibold text-slate-900 dark:text-white">{warning.title}</h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-500 mt-0.5 tabular-nums">
+                <div key={warning.id} className="py-4 first:pt-0 last:pb-0">
+                  <div className="mb-2 flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <h4 className="text-sm font-medium text-foreground">{warning.title}</h4>
+                      <p className="mt-0.5 text-xs text-muted-foreground tabular-nums">
                         {warning.incidentDate ? formatDate(warning.incidentDate) : "—"}
                       </p>
                     </div>
-                    <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${sev.badge}`}>{sev.label}</span>
+                    <span className={`shrink-0 rounded-lg border px-2 py-0.5 text-xs font-semibold ${sev.border} ${sev.badge}`}>
+                      {sev.label}
+                    </span>
                   </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{warning.description}</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{warning.description}</p>
                   {warning.actionTaken && (
-                    <div className="mt-3 pt-3 border-t border-slate-100 dark:border-white/[0.06]">
-                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-500 mb-1">
+                    <div className="mt-3 border-t border-border/70 pt-3">
+                      <p className="mb-1 text-xs font-medium text-muted-foreground">
                         {t("employee.profile.actionTaken")}
                       </p>
-                      <p className="text-sm text-slate-700 dark:text-slate-300">{warning.actionTaken}</p>
+                      <p className="text-sm text-foreground">{warning.actionTaken}</p>
                     </div>
                   )}
                   {!warning.acknowledgedAt ? (
-                    <div className="mt-4 flex justify-end">
+                    <div className="mt-3 flex justify-end">
                       <button
                         onClick={() => handleAcknowledge(warning.id)}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-all"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition hover:bg-primary/90 active:scale-[0.97]"
                       >
-                        <CheckIcon className="w-3.5 h-3.5" /> {t("employee.warnings.acknowledge")}
+                        <CheckIcon className="h-3.5 w-3.5" /> {t("employee.warnings.acknowledge")}
                       </button>
                     </div>
                   ) : (
-                    <div className="mt-3 flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-xs">
-                      <CheckIcon className="w-3.5 h-3.5" />
+                    <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <CheckIcon className="h-3.5 w-3.5" />
                       <span>{t("employee.warnings.acknowledged", { date: warning.acknowledgedAt ? formatDate(warning.acknowledgedAt) : "—" })}</span>
                     </div>
                   )}

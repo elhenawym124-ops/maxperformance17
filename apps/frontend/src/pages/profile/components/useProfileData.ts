@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -35,7 +35,7 @@ const initialFormData: ProfileFormData = {
 export const useProfileData = () => {
   const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [loading, setLoading] = useState(true);
   const [employee, setEmployee] = useState<Employee | null>(null);
@@ -76,10 +76,44 @@ export const useProfileData = () => {
   const hasAffiliatePro = activeApps.some((a) => a.toLowerCase() === "affiliate-pro");
   const hasHrBasic = activeApps.some((a) => a.toLowerCase() === "hr-basic");
 
+  const isDirty = useMemo(
+    () =>
+      Boolean(editSnapshotRef.current) &&
+      JSON.stringify(formData) !== JSON.stringify(editSnapshotRef.current),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [formData, isEditing]
+  );
+
+  useEffect(() => {
+    if (!isDirty) return;
+    const guard = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", guard);
+    return () => window.removeEventListener("beforeunload", guard);
+  }, [isDirty]);
+
   useEffect(() => {
     const tab = searchParams.get("tab");
     if (tab) setActiveTab(tab);
   }, [searchParams]);
+
+  // Keep the active tab in the URL so refreshes and shared links land on the same tab.
+  const changeTab = useCallback(
+    (next: string) => {
+      setActiveTab(next);
+      setSearchParams(
+        (prev) => {
+          const params = new URLSearchParams(prev);
+          params.set("tab", next);
+          return params;
+        },
+        { replace: true }
+      );
+    },
+    [setSearchParams]
+  );
 
   const fetchMyCustody = useCallback(async (employeeId: string) => {
     try {
@@ -272,8 +306,9 @@ export const useProfileData = () => {
     uploading,
     isEditing,
     setIsEditing: toggleEditing,
+    isDirty,
     activeTab,
-    setActiveTab,
+    setActiveTab: changeTab,
     myCustody,
     warnings,
     defaultPage,

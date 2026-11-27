@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
 import { ClipboardDocumentListIcon, ComputerDesktopIcon } from "@heroicons/react/24/outline";
 import { useDateFormat } from "../../../hooks/useDateFormat";
 import { CustodyAsset } from "./types";
@@ -15,63 +14,53 @@ export const ProfileCustodyTab: React.FC<ProfileCustodyTabProps> = ({ myCustody 
   const { formatDate } = useDateFormat();
 
   return (
-    <div className="mt-0 focus-visible:outline-none">
+    <div className="mt-0 space-y-5 focus-visible:outline-none">
       <SectionCard
         icon={ClipboardDocumentListIcon}
         title={`${t("employee.profile.myAssets")} ${myCustody.length > 0 ? `(${myCustody.length})` : ""}`}
-        accent="violet"
       >
         {myCustody.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-2xl bg-violet-500/10 flex items-center justify-center">
-              <ComputerDesktopIcon className="w-10 h-10 text-violet-500/40" />
-            </div>
-            <p className="text-slate-500 text-sm">{t("employee.profile.noCustody")}</p>
+          <div className="flex flex-col items-center justify-center py-10 text-center">
+            <ComputerDesktopIcon className="h-8 w-8 text-muted-foreground/50" />
+            <p className="mt-2 text-sm text-muted-foreground">{t("employee.profile.noCustody")}</p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="divide-y divide-border/70">
             {myCustody.map((asset) => (
-              <motion.div
-                key={asset.id}
-                whileHover={{ y: -2 }}
-                className="p-4 rounded-xl border border-slate-100 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600/10 dark:from-violet-600/30 to-indigo-600/10 dark:to-indigo-600/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <ComputerDesktopIcon className="w-5 h-5 text-violet-600 dark:text-violet-400" />
-                  </div>
+              <div key={asset.id} className="py-3 first:pt-0 last:pb-0">
+                <div className="flex items-start justify-between gap-3">
+                  <h4 className="min-w-0 truncate text-sm font-medium text-foreground">{asset.name}</h4>
                   <span
-                    className={`text-xs px-2 py-1 rounded-full font-medium ${
+                    className={`shrink-0 rounded-lg px-2 py-0.5 text-xs font-medium ${
                       asset.status === "ASSIGNED"
-                        ? "bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400"
-                        : "bg-slate-100 dark:bg-slate-500/15 text-slate-600 dark:text-slate-400"
+                        ? "bg-success/10 text-success"
+                        : "bg-muted/60 text-muted-foreground"
                     }`}
                   >
                     {asset.status === "ASSIGNED" ? t("employee.profile.statusAssigned") : asset.status}
                   </span>
                 </div>
-                <h4 className="font-semibold text-slate-900 dark:text-white mb-2">{asset.name}</h4>
-                <div className="space-y-1 text-xs text-slate-500">
+                <div className="mt-1.5 space-y-1 text-xs">
                   {asset.code && (
-                    <div className="flex justify-between">
-                      <span>{t("employee.custody.code")}</span>
-                      <span className="font-mono text-slate-600 dark:text-slate-400">{asset.code}</span>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-muted-foreground">{t("employee.custody.code")}</span>
+                      <span className="font-mono tabular-nums text-foreground">{asset.code}</span>
                     </div>
                   )}
                   {asset.serialNumber && (
-                    <div className="flex justify-between">
-                      <span>{t("employee.custody.serialNumber")}</span>
-                      <span className="font-mono text-slate-600 dark:text-slate-400">{asset.serialNumber}</span>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-muted-foreground">{t("employee.custody.serialNumber")}</span>
+                      <span className="font-mono tabular-nums text-foreground">{asset.serialNumber}</span>
                     </div>
                   )}
                   {asset.assignedDate && (
-                    <div className="flex justify-between">
-                      <span>{t("employee.custody.receiveDate")}</span>
-                      <span className="tabular-nums">{formatDate(asset.assignedDate)}</span>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-muted-foreground">{t("employee.custody.receiveDate")}</span>
+                      <span className="tabular-nums text-foreground">{formatDate(asset.assignedDate)}</span>
                     </div>
                   )}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         )}

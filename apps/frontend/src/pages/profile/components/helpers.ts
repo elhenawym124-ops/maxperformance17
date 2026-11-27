@@ -46,26 +46,26 @@ export const getInitials = (first?: string, last?: string) =>
 export const getStatusConfig = (t: TFunction): Record<string, { label: string; color: string; dot: string; glow: string }> => ({
   ACTIVE: {
     label: t("employee.common.statusActive"),
-    color: "bg-emerald-500/15 text-emerald-400 ring-emerald-500/30",
-    dot: "bg-emerald-400",
-    glow: "shadow-emerald-500/20",
+    color: "text-success",
+    dot: "bg-success",
+    glow: "",
   },
   ON_LEAVE: {
     label: t("employee.common.statusOnLeave"),
-    color: "bg-amber-500/15 text-amber-400 ring-amber-500/30",
-    dot: "bg-amber-400",
-    glow: "shadow-amber-500/20",
+    color: "text-warning",
+    dot: "bg-warning",
+    glow: "",
   },
   SUSPENDED: {
     label: t("employee.common.statusSuspended"),
-    color: "bg-red-500/15 text-red-400 ring-red-500/30",
-    dot: "bg-red-400",
-    glow: "shadow-red-500/20",
+    color: "text-destructive",
+    dot: "bg-destructive",
+    glow: "",
   },
   TERMINATED: {
     label: t("employee.common.statusTerminated"),
-    color: "bg-slate-500/15 text-slate-400 ring-slate-500/30",
-    dot: "bg-slate-400",
+    color: "text-muted-foreground",
+    dot: "bg-muted-foreground",
     glow: "",
   },
 });

@@ -27,23 +27,23 @@ export const ProfilePersonalTab: React.FC<ProfilePersonalTabProps> = ({
   const maritalLabels = getMaritalLabels(t);
 
   return (
-    <div className="mt-0 focus-visible:outline-none space-y-5">
-      <SectionCard icon={UserIcon} title={t("employee.common.personalInfo")} accent="violet">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+    <div className="mt-0 space-y-5 focus-visible:outline-none">
+      <SectionCard icon={UserIcon} title={t("employee.common.personalInfo")}>
+        <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
           <InfoField label={t("employee.profile.fullName")} value={`${formData.firstName} ${formData.lastName}`} />
 
           <div className="group">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+            <p className="mb-1 text-xs text-muted-foreground">
               {t("employee.profile.dateOfBirth")}
             </p>
             {isEditing ? (
               <DateInput
                 value={formData.dateOfBirth}
                 onChange={(e) => setFormData((p) => ({ ...p, dateOfBirth: e.target.value }))}
-                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/60 text-slate-900 dark:text-white focus:ring-2 focus:ring-violet-500 outline-none"
+                className="w-full rounded-lg border border-border/70 bg-card px-3 py-2 text-sm text-foreground outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
               />
             ) : (
-              <p className="text-sm font-medium text-slate-900 dark:text-slate-200">
+              <p className="text-sm font-medium text-foreground tabular-nums">
                 {employee?.dateOfBirth
                   ? `${formatDate(employee.dateOfBirth)} (${calculateAge(employee.dateOfBirth)} ${t("employee.profile.yearsOld")})`
                   : "—"}
@@ -52,21 +52,21 @@ export const ProfilePersonalTab: React.FC<ProfilePersonalTabProps> = ({
           </div>
 
           <div className="group">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+            <p className="mb-1 text-xs text-muted-foreground">
               {t("employee.profile.gender")}
             </p>
             {isEditing ? (
               <select
                 value={formData.gender}
                 onChange={(e) => setFormData((p) => ({ ...p, gender: e.target.value }))}
-                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/60 text-slate-900 dark:text-white focus:ring-2 focus:ring-violet-500 outline-none"
+                className="w-full rounded-lg border border-border/70 bg-card px-3 py-2 text-sm text-foreground outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
               >
                 <option value="">{t("employee.profile.genderNotSpecified")}</option>
                 <option value="MALE">{t("employee.profile.genderMale")}</option>
                 <option value="FEMALE">{t("employee.profile.genderFemale")}</option>
               </select>
             ) : (
-              <p className="text-sm font-medium text-slate-900 dark:text-slate-200">
+              <p className="text-sm font-medium text-foreground">
                 {formData.gender === "MALE"
                   ? t("employee.profile.genderMale")
                   : formData.gender === "FEMALE"
@@ -85,14 +85,14 @@ export const ProfilePersonalTab: React.FC<ProfilePersonalTabProps> = ({
 
           {/* Marital status with select */}
           <div className="group">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+            <p className="mb-1 text-xs text-muted-foreground">
               {t("employee.profile.maritalStatus")}
             </p>
             {isEditing ? (
               <select
                 value={formData.maritalStatus}
                 onChange={(e) => setFormData((p) => ({ ...p, maritalStatus: e.target.value }))}
-                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/60 text-slate-900 dark:text-white focus:ring-2 focus:ring-violet-500 outline-none"
+                className="w-full rounded-lg border border-border/70 bg-card px-3 py-2 text-sm text-foreground outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
               >
                 <option value="">{t("employee.profile.maritalNotSpecified")}</option>
                 <option value="SINGLE">{t("employee.common.maritalSingle")}</option>
@@ -101,7 +101,7 @@ export const ProfilePersonalTab: React.FC<ProfilePersonalTabProps> = ({
                 <option value="WIDOWED">{t("employee.common.maritalWidowed")}</option>
               </select>
             ) : (
-              <p className="text-sm font-medium text-slate-900 dark:text-slate-200">
+              <p className="text-sm font-medium text-foreground">
                 {maritalLabels[formData.maritalStatus] || "—"}
               </p>
             )}
@@ -111,16 +111,16 @@ export const ProfilePersonalTab: React.FC<ProfilePersonalTabProps> = ({
         </div>
       </SectionCard>
 
-      <SectionCard icon={MapPinIcon} title={t("employee.profile.addressTitle")} accent="indigo">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-6">
+      <SectionCard icon={MapPinIcon} title={t("employee.profile.addressTitle")}>
+        <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-3">
           <InfoField label={t("employee.profile.detailedAddress")} editing={isEditing} {...field("address")} />
           <InfoField label={t("employee.profile.city")} editing={isEditing} {...field("city")} />
           <InfoField label={t("employee.profile.country")} editing={isEditing} {...field("country")} />
         </div>
       </SectionCard>
 
-      <SectionCard icon={HeartIcon} title={t("employee.profile.emergencyContact")} accent="rose">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-6">
+      <SectionCard icon={HeartIcon} title={t("employee.profile.emergencyContact")}>
+        <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-3">
           <InfoField label={t("employee.profile.emergencyContactName")} editing={isEditing} {...field("emergencyContactName")} />
           <InfoField label={t("employee.profile.emergencyContactRelation")} editing={isEditing} {...field("emergencyContactRelation")} />
           <InfoField label={t("employee.profile.emergencyContactPhone")} editing={isEditing} {...field("emergencyContactPhone")} />
