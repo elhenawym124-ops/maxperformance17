@@ -4,7 +4,7 @@ import { UserIcon, MapPinIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { useDateFormat } from "../../../hooks/useDateFormat";
 import { Employee, ProfileFormData } from "./types";
 import { calculateAge, getMaritalLabels } from "./helpers";
-import { SectionCard, InfoField } from "./ProfileWidgets";
+import { SectionCard, InfoField, SensitiveValue } from "./ProfileWidgets";
 import { DateInput } from '../../../components/ui/DateInput';
 
 interface ProfilePersonalTabProps {
@@ -76,7 +76,11 @@ export const ProfilePersonalTab: React.FC<ProfilePersonalTabProps> = ({
             )}
           </div>
 
-          <InfoField label={t("employee.profile.nationalId")} editing={isEditing} {...field("nationalId")} />
+          {isEditing ? (
+            <InfoField label={t("employee.profile.nationalId")} editing {...field("nationalId")} />
+          ) : (
+            <SensitiveValue label={t("employee.profile.nationalId")} value={formData.nationalId} />
+          )}
           <InfoField label={t("employee.profile.email")} value={formData.email} />
 
           {/* Marital status with select */}

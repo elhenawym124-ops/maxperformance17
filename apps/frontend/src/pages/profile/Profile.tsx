@@ -9,6 +9,7 @@ import {
   BellAlertIcon,
   CakeIcon,
   KeyIcon,
+  ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 import { UserApiKeysPanel } from "../../components/api-keys/UserApiKeysPanel";
 import { useTheme } from "../../hooks/useTheme";
@@ -24,6 +25,7 @@ import {
   ProfileDocumentsTab,
   ProfileWarningsTab,
   ProfileEventsTab,
+  ProfileSecurityTab,
   TabConfig,
 } from "./components";
 
@@ -76,6 +78,7 @@ export const Profile: React.FC = () => {
       { value: "documents", label: t("employee.common.documents"), icon: DocumentTextIcon, requiresHr: true },
       { value: "warnings", label: t("employee.common.warnings"), icon: BellAlertIcon, requiresHr: true },
       { value: "events", label: t("employee.common.occasions"), icon: CakeIcon, requiresHr: true },
+      { value: "security", label: t("settings.securityTab", "الأمان"), icon: ShieldCheckIcon },
       { value: "api-keys", label: "مفاتيح API", icon: KeyIcon },
     ],
     [t]
@@ -223,6 +226,10 @@ export const Profile: React.FC = () => {
 
               <TabsContent value="events" className="mt-0 focus-visible:outline-none">
                 <ProfileEventsTab employee={employee} />
+              </TabsContent>
+
+              <TabsContent value="security" className="mt-0 focus-visible:outline-none">
+                <ProfileSecurityTab />
               </TabsContent>
 
               <TabsContent value="api-keys" className="mt-0 focus-visible:outline-none">

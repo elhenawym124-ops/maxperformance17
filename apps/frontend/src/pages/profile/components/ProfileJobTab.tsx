@@ -4,7 +4,7 @@ import { BriefcaseIcon, BanknotesIcon } from "@heroicons/react/24/outline";
 import { useDateFormat } from "../../../hooks/useDateFormat";
 import { Employee } from "./types";
 import { calculateTenure, getContractLabels } from "./helpers";
-import { SectionCard, InfoField, AnimatedNumber } from "./ProfileWidgets";
+import { SectionCard, InfoField, AnimatedNumber, SensitiveValue } from "./ProfileWidgets";
 
 interface ProfileJobTabProps {
   employee: Employee | null;
@@ -90,7 +90,7 @@ export const ProfileJobTab: React.FC<ProfileJobTabProps> = ({ employee }) => {
         {(employee?.bankName || employee?.bankIban) && (
           <div className="pt-5 border-t border-slate-100 dark:border-white/[0.06] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
             <InfoField label={t("employee.profile.bankName")} value={employee?.bankName || ""} />
-            <InfoField label={t("employee.profile.iban")} value={employee?.bankIban || ""} />
+            <SensitiveValue label={t("employee.profile.iban")} value={employee?.bankIban} />
           </div>
         )}
       </SectionCard>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { ProfileIcon } from "./types";
 import { sectionAccents } from "./helpers";
 
@@ -58,8 +60,45 @@ export const InfoField = ({
   </div>
 );
 
-const defaultSectionAccent = {
-  bar: "from-violet-500/20 to-violet-500/0",
+export const SensitiveValue = ({
+  label,
+  value,
+  visibleChars = 4,
+}: {
+  label: string;
+  value?: string | null;
+  visibleChars?: number;
+}) => {
+  const { t } = useTranslation();
+  const [revealed, setRevealed] = useState(false);
+  const raw = (value || "").trim();
+  const masked = raw ? `${"•".repeat(Math.max(raw.length - visibleChars, 0))}${raw.slice(-visibleChars)}` : "—";
+
+  return (
+    <div className="group">
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+        {label}
+      </p>
+      <div className="flex items-center gap-1.5">
+        <p className="text-sm font-medium font-mono tabular-nums text-slate-900 dark:text-slate-200" dir="ltr">
+          {revealed ? raw || "—" : masked}
+        </p>
+        {raw && (
+          <button
+            type="button"
+            onClick={() => setRevealed((current) => !current)}
+            aria-label={revealed ? t("common.hide", "إخفاء") : t("common.show", "إظهار")}
+            className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 active:scale-[0.97] dark:hover:bg-white/5 dark:hover:text-slate-200"
+          >
+            {revealed ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const defaultSectionAccent = {  bar: "from-violet-500/20 to-violet-500/0",
   text: "text-violet-600 dark:text-violet-400",
   iconBg: "bg-violet-500/10 dark:bg-violet-500/15",
 };

@@ -19,6 +19,7 @@ import { useTheme } from "../../../hooks/useTheme";
 import { DefaultPageSelector } from "../../../components/settings/DefaultPageSelector";
 import { ProfileFormData, MerchantUserExtras } from "./types";
 import { getInitials } from "./helpers";
+import { ProfileSecurityTab } from "./ProfileSecurityTab";
 
 interface MerchantProfileViewProps {
   user: any;
@@ -326,6 +327,10 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
             onChange={onDefaultPageChange}
             disabled={settingsLoading}
           />
+        </section>
+
+        <section className="mt-6">
+          <ProfileSecurityTab />
         </section>
       </div>
     </motion.div>

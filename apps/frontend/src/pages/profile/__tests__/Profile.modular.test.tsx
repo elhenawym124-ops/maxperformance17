@@ -14,6 +14,7 @@ import { AnimatedNumber, InfoField, SectionCard } from "../components/ProfileWid
 import { MerchantProfileView } from "../components/MerchantProfileView";
 import { ProfileHeroHeader } from "../components/ProfileHeroHeader";
 import { ProfileOverviewTab } from "../components/ProfileOverviewTab";
+import { ProfilePersonalTab } from "../components/ProfilePersonalTab";
 import { ProfileJobTab } from "../components/ProfileJobTab";
 import { ProfileCustodyTab } from "../components/ProfileCustodyTab";
 import { ProfileDocumentsTab } from "../components/ProfileDocumentsTab";
@@ -314,7 +315,32 @@ describe("Profile Subcomponents", () => {
     expect(screen.getByText("Senior Developer")).toBeInTheDocument();
     expect(screen.getByText("Tamer Hassan")).toBeInTheDocument();
     expect(screen.getByText("CIB")).toBeInTheDocument();
+  });
+
+  it("masks the IBAN until the user reveals it", () => {
+    render(<ProfileJobTab employee={dummyEmployee} />);
+    expect(screen.queryByText("EG123456789012345678901234567")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /common\.show/i }));
     expect(screen.getByText("EG123456789012345678901234567")).toBeInTheDocument();
+  });
+
+  it("masks the national ID until the user reveals it", () => {
+    render(
+      <ProfilePersonalTab
+        employee={dummyEmployee}
+        formData={dummyFormData}
+        setFormData={vi.fn()}
+        isEditing={false}
+        field={(key) => ({ value: dummyFormData[key], onChange: vi.fn() })}
+      />
+    );
+
+    expect(screen.queryByText("29206150100000")).not.toBeInTheDocument();
+    expect(screen.getByText(/••••••••••0000/)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /common\.show/i }));
+    expect(screen.getByText("29206150100000")).toBeInTheDocument();
   });
 
   it("renders ProfileCustodyTab with empty state and asset items", () => {

@@ -11,3 +11,4 @@ export * from "./ProfileCustodyTab";
 export * from "./ProfileDocumentsTab";
 export * from "./ProfileWarningsTab";
 export * from "./ProfileEventsTab";
+export * from "./ProfileSecurityTab";
