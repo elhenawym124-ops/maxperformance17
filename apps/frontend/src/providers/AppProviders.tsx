@@ -10,6 +10,7 @@ import { ThemeProvider } from "../hooks/useTheme";
 import { usePlatformSiteMetaPixel } from "../hooks/usePlatformSiteMetaPixel";
 import { VisualThemeProvider } from "../contexts/VisualThemeContext";
 import { TemplateProvider } from "../templates/TemplateProvider";
+import { initDashboardFont } from "../utils/dashboardFont";
 import "../templates/template-2/template.css";
 
 interface AppProvidersProps {
@@ -33,6 +34,7 @@ const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   useEffect(() => {
     if (shouldLoadI18n) {
       void import("../i18n");
+      initDashboardFont();
     }
   }, [shouldLoadI18n]);
 

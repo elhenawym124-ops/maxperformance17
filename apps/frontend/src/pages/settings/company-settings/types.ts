@@ -64,6 +64,14 @@ export const normalizeSidebarLayout = (value: unknown): SidebarLayout =>
     ? (value as SidebarLayout)
     : "three-tier";
 
+export {
+  DASHBOARD_FONT_OPTIONS,
+  DASHBOARD_FONT_STORAGE_KEY,
+  DEFAULT_DASHBOARD_FONT,
+  type DashboardFontFamily,
+  type DashboardFontOption,
+} from "../../../utils/dashboardFont";
+
 export type CompanyTab = "general" | "appearance" | "usage" | "ownership";
 
 export interface CompanyRecord {

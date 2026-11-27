@@ -144,6 +144,21 @@ describe("CompanySettings Page (Batch 462)", () => {
     fireEvent.click(screen.getByText("المظهر"));
 
     expect(screen.getByText("نظام القائمة الجانبية")).toBeTruthy();
+    expect(screen.getByText("خط الواجهة")).toBeTruthy();
+
+    fireEvent.click(screen.getByText("Cairo"));
+    expect(document.documentElement.getAttribute("data-dashboard-font")).toBe("cairo");
+    expect(document.documentElement.style.getPropertyValue("--dashboard-font-sans")).toContain("Cairo");
+    expect(document.getElementById("gf-dashboard-cairo")).toBeTruthy();
+
+    fireEvent.click(screen.getByText("Inter"));
+    expect(document.documentElement.getAttribute("data-dashboard-font")).toBe("inter");
+    expect(document.documentElement.style.getPropertyValue("--dashboard-font-sans")).toContain("Inter");
+    expect(document.getElementById("gf-dashboard-inter")).toBeTruthy();
+
+    fireEvent.click(screen.getByText("IBM Plex Sans Arabic"));
+    expect(document.documentElement.getAttribute("data-dashboard-font")).toBeNull();
+    expect(document.documentElement.style.getPropertyValue("--dashboard-font-sans")).toBe("");
   });
 
   it("switches to usage tab and shows resource consumption cards", async () => {

@@ -59,14 +59,14 @@
 /* Global Typography & Font Stacks */
 html,
 body {
-  font-family: var(--font-sans, 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-family: var(--dashboard-font-sans, var(--font-sans, 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif));
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 [dir="rtl"] {
-  font-family: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--dashboard-font-sans, 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
 /* 2026 Arabic Typography Guard: Cursive Arabic ligatures must never have letter-spacing or uppercase breaks */
@@ -1028,7 +1028,7 @@ html.dark {
 
 body {
   font-family:
-    'IBM Plex Sans Arabic',
+    var(--dashboard-font-sans, 'IBM Plex Sans Arabic'),
     var(--theme-font-body),
     ui-sans-serif,
     system-ui,
@@ -1056,7 +1056,7 @@ body {
 html[lang="ar"],
 html[dir="rtl"] body {
   font-family:
-    'IBM Plex Sans Arabic',
+    var(--dashboard-font-sans, 'IBM Plex Sans Arabic'),
     var(--theme-font-body),
     ui-sans-serif,
     system-ui,
