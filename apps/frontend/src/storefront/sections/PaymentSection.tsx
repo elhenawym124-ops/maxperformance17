@@ -84,6 +84,7 @@ export const PaymentSection: React.FC<PaymentSectionProps> = (props) => {
           subtotal={ctrl.subtotal}
           currency={ctrl.currency}
           shippingLabel={ctrl.shippingLabel}
+          hideShippingRow={ctrl.hideShippingRow}
           checkoutFreeShippingActive={ctrl.checkoutFreeShippingActive}
           loyaltyFreeShipping={ctrl.loyaltyFreeShipping}
           trimmedGovernorate={ctrl.trimmedGovernorate}

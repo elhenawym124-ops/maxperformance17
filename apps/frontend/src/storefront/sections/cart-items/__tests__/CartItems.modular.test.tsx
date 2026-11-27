@@ -99,7 +99,7 @@ describe('CartItems Modular Architecture', () => {
       </QueryClientProvider>,
     );
 
-    expect(screen.getByText('سلتك فارغة حالياً')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'سلتك فارغة حالياً' })).toBeInTheDocument();
     expect(screen.getByText('تصفح منتجاتنا المميزة وأضف ما يعجبك.')).toBeInTheDocument();
     expect(screen.getByText('ابدأ التسوق الآن')).toBeInTheDocument();
   });

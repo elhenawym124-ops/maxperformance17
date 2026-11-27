@@ -83,9 +83,9 @@ export const CartEmptyState: React.FC<CartEmptyStateProps> = ({
           <circle cx="19" cy="21" r="1" />
           <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
         </svg>
-        <h2 className="font-heading text-xl font-bold text-foreground">
+        <h1 className="font-heading text-xl font-bold text-foreground">
           {emptyTitle}
-        </h2>
+        </h1>
         <p className="max-w-xl text-sm text-muted-foreground">{emptyText}</p>
         <Link
           to={shopPath}

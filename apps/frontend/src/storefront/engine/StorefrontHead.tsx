@@ -12,6 +12,8 @@ const PAGE_NAME_MAP: Record<string, string> = {
   product: 'المنتج',
   category: 'التصنيف',
   collections: 'التصنيفات',
+  contact: 'تواصل معنا',
+  registration: 'التسجيل',
   articles: 'المدونة',
   article: 'المقال',
   blog: 'المدونة',

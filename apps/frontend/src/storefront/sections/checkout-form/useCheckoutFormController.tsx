@@ -399,9 +399,12 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
     settings?.cityLabel || (isAcademyStage ? 'نظام الحضور / المنطقة' : 'المدينة');
   const cityPlaceholder =
     settings?.cityPlaceholder || (isAcademyStage ? 'فؤاد / جليم / أونلاين' : 'مثال: مدينة نصر');
-  const governorateLabel = settings?.governorateLabel || 'المحافظة';
+  const governorateLabel =
+    settings?.governorateLabel ||
+    (isAcademyStage ? 'المحافظة (اختياري)' : 'المحافظة');
   const governoratePlaceholder =
-    settings?.governoratePlaceholder || 'اختر المحافظة';
+    settings?.governoratePlaceholder ||
+    (isAcademyStage ? 'اختر المحافظة أو أونلاين' : 'اختر المحافظة');
   const notesPlaceholder =
     settings?.notesPlaceholder ||
     (isAcademyStage ? 'ملاحظات حول الموعد المفضل أو خلفية الطالب' : 'أي ملاحظات خاصة بالتوصيل أو الطلب');
@@ -411,14 +414,18 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
   );
   const autoDetectHint =
     settings?.autoDetectHint ||
-    (isBiteRush
+    (isAcademyStage
+      ? ''
+      : isBiteRush
       ? 'اكتب المدينة أو جزءًا من العنوان وسنقترح المحافظة تلقائيًا.'
       : isMarketCheckout
         ? 'اكتب المدينة أو جزءًا من العنوان وسنساعدك في اقتراح المحافظة تلقائيًا.'
       : 'سنحاول اقتراح المحافظة تلقائيًا من المدينة أو العنوان.');
   const autoDetectSuccessText =
     settings?.autoDetectSuccessText ||
-    (isBiteRush
+    (isAcademyStage
+      ? ''
+      : isBiteRush
       ? 'حددنا المحافظة تلقائيًا؛ راجعها بسرعة ثم كمّل الطلب.'
       : isMarketCheckout
         ? 'تم اقتراح المحافظة تلقائيًا. راجعها بسرعة ثم أكمل تأكيد الطلب.'

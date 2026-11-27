@@ -80,4 +80,21 @@ describe('StorefrontHead', () => {
 
     expect(document.title).toBe('المتجر | Swan Store');
   });
+
+  it('sets Arabic titles for contact and registration routes', () => {
+    const first = render(
+      <MemoryRouter initialEntries={['/contact']}>
+        <StorefrontHead />
+      </MemoryRouter>,
+    );
+    expect(document.title).toBe('تواصل معنا | Swan Store');
+    first.unmount();
+
+    render(
+      <MemoryRouter initialEntries={['/registration']}>
+        <StorefrontHead />
+      </MemoryRouter>,
+    );
+    expect(document.title).toBe('التسجيل | Swan Store');
+  });
 });

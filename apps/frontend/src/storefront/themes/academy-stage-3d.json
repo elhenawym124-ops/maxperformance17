@@ -130,6 +130,11 @@
       ]
     },
     "shop": {
+      "title": "المستويات والبرامج التدريبية",
+      "seo": {
+        "title": "المستويات والبرامج التدريبية (15 مستوى)",
+        "description": "استعرض المسارات الأربعة والـ 15 مستوى العملي من Scratch وMicro:bit حتى الذكاء الاصطناعي وPython Pro."
+      },
       "layoutHint": "sidebar-left",
       "sections": [
         {
@@ -198,8 +203,25 @@
       ]
     },
     "cart": {
+      "title": "سلة التسجيل",
+      "seo": {
+        "title": "سلة التسجيل والمستويات المختارة",
+        "description": "راجع المستويات التي اخترتها وأكمل تسجيل الطالب في الأكاديمية."
+      },
       "sections": [
-        { "type": "cart-items", "variant": "compact", "settings": { "title": "المستويات المختارة" } },
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "المستويات المختارة",
+            "subtitle": "راجع المستويات التي اخترتها قبل تأكيد التسجيل في الأكاديمية.",
+            "emptyTitle": "سلة التسجيل فارغة",
+            "emptyText": "لم تختر أي مستوى تعليمي بعد — تصفح الـ 15 مستوى أو احجز حصة تقييم مجانية.",
+            "continueShoppingText": "تصفح المستويات الـ 15",
+            "productLabel": "المستوى",
+            "removeLabel": "إزالة المستوى"
+          }
+        },
         {
           "type": "order-summary",
           "variant": "highlighted",
@@ -218,6 +240,11 @@
       ]
     },
     "collections": {
+      "title": "المسارات التعليمية",
+      "seo": {
+        "title": "المسارات التعليمية والـ 15 مستوى",
+        "description": "خارطة المسارات الأربعة حسب الفئة العمرية من التأسيس في Scratch حتى Demo Day."
+      },
       "isSystemFallback": false,
       "sections": [
         {
@@ -232,6 +259,11 @@
       ]
     },
     "contact": {
+      "title": "فروعنا والتواصل",
+      "seo": {
+        "title": "فروعنا والتواصل",
+        "description": "فروع الأكاديمية بالحضور المباشر في فؤاد وجليم بالإسكندرية مع إتاحة الحصص المباشرة أونلاين."
+      },
       "isSystemFallback": false,
       "sections": [
         {
@@ -246,6 +278,11 @@
       ]
     },
     "registration": {
+      "title": "احجز حصة التقييم المجانية",
+      "seo": {
+        "title": "احجز حصة التقييم المجانية",
+        "description": "جلسة تقييم عملية مجانية لمدة 45 دقيقة لتحديد أنسب مسار ومستوى من بين 15 مستوى."
+      },
       "sections": [
         {
           "type": "member-registration",

@@ -29,6 +29,7 @@ export const useCartItemsController = ({ section, settings }: CartItemsProps) =>
   const isPharmacy = isPharmacyThemeId(theme.id);
   const isButcherCart = theme.id === 'butcher-counter-eg';
   const isSproutRoom = theme.id === 'elessi-sprout-room';
+  const isAcademyStage = theme.id === 'academy-stage-3d';
   const location = useLocation();
   const pharmacyBrandName = theme.header?.brandName || theme.name;
   const shopPath = buildStorefrontPath(location.pathname, '/shop', location.search);
@@ -54,10 +55,18 @@ export const useCartItemsController = ({ section, settings }: CartItemsProps) =>
   const isKhemetLuxe = isKhemetLuxeTheme(theme.id);
   const isWardrobeKhemet = isKhemetLuxe && variant === 'wardrobe-cart';
   const hasServiceCartTone = isCommandCart || isMarketCart || isNatureCart || isButcherCart;
-  const title = settings?.title || (prefersArabicCopy ? 'سلة التسوق' : 'Shopping Cart');
+  const title =
+    settings?.title ||
+    (isAcademyStage
+      ? 'المستويات المختارة'
+      : prefersArabicCopy
+        ? 'سلة التسوق'
+        : 'Shopping Cart');
   const subtitle =
     settings?.subtitle ||
-    (isSproutRoom
+    (isAcademyStage
+      ? 'راجع المستويات التي اخترتها قبل تأكيد التسجيل في الأكاديمية.'
+      : isSproutRoom
       ? 'راجع النباتات والأصص المختارة، عدّل الكميات، ثم انتقل للدفع بعد التأكد من حجم كل قطعة.'
       : isMarketCart
         ? 'راجع اختياراتك، عدّل الكميات، ثم أكمل الطلب بخطوة واضحة وسريعة.'
@@ -66,14 +75,36 @@ export const useCartItemsController = ({ section, settings }: CartItemsProps) =>
           : isCommandCart
             ? 'راجع الأجهزة والإضافات، ولو محتاج فاتورة أو تأكيد توافق سجّل ملاحظتك قبل اعتماد الطلب.'
             : 'راجع المنتجات اللي اخترتها، عدّل الكميات، وأكمل عملية الشراء لما تكون جاهز.');
-  const emptyTitle = settings?.emptyTitle || (prefersArabicCopy ? 'السلة فاضية' : 'Your cart is empty');
-  const emptyText = settings?.emptyText || (prefersArabicCopy ? 'يبدو إنك لسه ما ضفت أي منتج للسلة.' : 'You have not added any items to your cart yet.');
-  const continueShoppingText = settings?.continueShoppingText || (prefersArabicCopy ? 'كمّل تسوق' : 'Continue Shopping');
-  const productLabel = settings?.productLabel || (prefersArabicCopy ? 'المنتج' : 'Product');
+  const emptyTitle =
+    settings?.emptyTitle ||
+    (isAcademyStage
+      ? 'سلة التسجيل فارغة'
+      : prefersArabicCopy
+        ? 'السلة فاضية'
+        : 'Your cart is empty');
+  const emptyText =
+    settings?.emptyText ||
+    (isAcademyStage
+      ? 'لم تختر أي مستوى تعليمي بعد — تصفح الـ 15 مستوى أو احجز حصة تقييم مجانية.'
+      : prefersArabicCopy
+        ? 'يبدو إنك لسه ما ضفت أي منتج للسلة.'
+        : 'You have not added any items to your cart yet.');
+  const continueShoppingText =
+    settings?.continueShoppingText ||
+    (isAcademyStage
+      ? 'تصفح المستويات الـ 15'
+      : prefersArabicCopy
+        ? 'كمّل تسوق'
+        : 'Continue Shopping');
+  const productLabel =
+    settings?.productLabel ||
+    (isAcademyStage ? 'المستوى' : prefersArabicCopy ? 'المنتج' : 'Product');
   const priceLabel = settings?.priceLabel || (prefersArabicCopy ? 'السعر' : 'Price');
   const quantityLabel = settings?.quantityLabel || (prefersArabicCopy ? 'الكمية' : 'Quantity');
   const totalLabel = settings?.totalLabel || (prefersArabicCopy ? 'الإجمالي' : 'Subtotal');
-  const removeLabel = settings?.removeLabel || (prefersArabicCopy ? 'إزالة المنتج' : 'Remove');
+  const removeLabel =
+    settings?.removeLabel ||
+    (isAcademyStage ? 'إزالة المستوى' : prefersArabicCopy ? 'إزالة المنتج' : 'Remove');
   const couponPlaceholder = settings?.couponPlaceholder;
   const couponButtonText = settings?.couponButtonText;
   const headerBadge =

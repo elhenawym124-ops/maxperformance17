@@ -13,6 +13,7 @@ interface PaymentSummaryCardProps {
   subtotal: number;
   currency: string;
   shippingLabel: string;
+  hideShippingRow?: boolean;
   checkoutFreeShippingActive: boolean;
   loyaltyFreeShipping: boolean;
   trimmedGovernorate?: string;
@@ -55,6 +56,7 @@ export const PaymentSummaryCard: React.FC<PaymentSummaryCardProps> = ({
   subtotal,
   currency,
   shippingLabel,
+  hideShippingRow = false,
   checkoutFreeShippingActive,
   loyaltyFreeShipping,
   trimmedGovernorate,
@@ -104,20 +106,22 @@ export const PaymentSummaryCard: React.FC<PaymentSummaryCardProps> = ({
               {formatStorefrontCurrency(subtotal, currency)}
             </span>
           </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">{shippingLabel}</span>
-            <span
-              className={`font-medium ${
-                (checkoutFreeShippingActive || loyaltyFreeShipping) &&
-                trimmedGovernorate &&
-                !isShippingLoading
-                  ? 'text-emerald-600'
-                  : 'text-foreground'
-              }`}
-            >
-              {summaryShippingValueText}
-            </span>
-          </div>
+          {!hideShippingRow ? (
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">{shippingLabel}</span>
+              <span
+                className={`font-medium ${
+                  (checkoutFreeShippingActive || loyaltyFreeShipping) &&
+                  trimmedGovernorate &&
+                  !isShippingLoading
+                    ? 'text-emerald-600'
+                    : 'text-foreground'
+                }`}
+              >
+                {summaryShippingValueText}
+              </span>
+            </div>
+          ) : null}
           {loyaltyDiscount > 0 ? (
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">
@@ -185,8 +189,10 @@ export const PaymentSummaryCard: React.FC<PaymentSummaryCardProps> = ({
               {formatStorefrontCurrency(total, currency)}
             </span>
           </div>
-          <p className="text-xs text-muted-foreground">{shippingMessage}</p>
-          {requiresShippingSelection ? (
+          {shippingMessage ? (
+            <p className="text-xs text-muted-foreground">{shippingMessage}</p>
+          ) : null}
+          {requiresShippingSelection && !hideShippingRow && governorateRequiredText ? (
             <p className="text-xs font-medium text-amber-600">{governorateRequiredText}</p>
           ) : null}
           {!isEmailValid ? (

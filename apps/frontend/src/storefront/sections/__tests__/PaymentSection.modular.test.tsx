@@ -49,17 +49,25 @@ vi.mock('../../store/useCheckoutStore', () => ({
     selector ? selector(mockCheckoutStore) : mockCheckoutStore,
 }));
 
+const mockPlaceOrder = vi.fn();
+
 vi.mock('../../hooks/useCheckout', () => ({
   useCheckout: () => ({
-    placeOrder: vi.fn(),
+    placeOrder: mockPlaceOrder,
     isSubmitting: false,
     orderSuccess: null,
   }),
 }));
 
+const mockThemeState = {
+  id: 'default',
+  name: 'Default Store',
+  direction: 'rtl' as const,
+};
+
 vi.mock('../../engine/ThemeProvider', () => ({
   useStorefrontTheme: () => ({
-    theme: { id: 'default', name: 'Default Store', direction: 'rtl' },
+    theme: mockThemeState,
   }),
 }));
 
@@ -121,6 +129,10 @@ const renderWithProviders = (ui: React.ReactElement) => {
 describe('PaymentSection (Modular Architecture)', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockThemeState.id = 'default';
+    mockThemeState.name = 'Default Store';
+    mockCheckoutStore.formData.governorate = 'Cairo';
+    mockCheckoutStore.formData.address = '10 Cairo St';
   });
 
   afterEach(() => {
@@ -170,5 +182,27 @@ describe('PaymentSection (Modular Architecture)', () => {
     expect(parseListSetting(['a', 'b'], [])).toEqual(['a', 'b']);
     expect(parseListSetting('item1, item2', [])).toEqual(['item1', 'item2']);
     expect(parseListSetting(undefined, ['default'])).toEqual(['default']);
+  });
+
+  it('hides shipping and submits without governorate for academy-stage-3d', () => {
+    mockThemeState.id = 'academy-stage-3d';
+    mockThemeState.name = 'CodeTreps';
+    mockCheckoutStore.formData.governorate = '';
+
+    renderWithProviders(<PaymentSection />);
+
+    expect(screen.getByText('تأكيد التسجيل وطريقة السداد')).toBeDefined();
+    expect(screen.getByText('ملخص الرسوم الدراسية')).toBeDefined();
+    expect(screen.getByText('تأكيد الحجز والدفع بالفرع أو التحويل')).toBeDefined();
+    expect(screen.queryByText('الشحن')).toBeNull();
+    expect(screen.queryByText('اختر المحافظة')).toBeNull();
+
+    fireEvent.click(screen.getByRole('button', { name: 'تأكيد تسجيل الطالب' }));
+    expect(mockPlaceOrder).toHaveBeenCalledWith(
+      expect.objectContaining({
+        governorate: 'الإسكندرية',
+        shippingCost: 0,
+      }),
+    );
   });
 });

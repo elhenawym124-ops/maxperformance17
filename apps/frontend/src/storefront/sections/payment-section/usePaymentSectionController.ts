@@ -39,6 +39,7 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
   const isAirlume = theme.id === 'airlume-ai';
   const isZenOrganic = theme.id === 'zen-organic';
   const isBiteRush = theme.id === 'restaurant-demo';
+  const isAcademyStage = theme.id === 'academy-stage-3d';
   const isKhemetLuxe = isKhemetLuxeTheme(theme.id);
   const navigate = useNavigate();
   const location = useLocation();
@@ -125,6 +126,10 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
     storefrontSettings?.company?.currency ||
     'EGP';
   const trimmedGovernorate = formData.governorate?.trim();
+  const hideShippingRow = parseBooleanSetting(
+    sectionSettings?.hideShipping,
+    isAcademyStage,
+  );
   const hasCheckoutDraftSignal = Boolean(
     formData.customerName?.trim() ||
     formData.phone?.trim() ||
@@ -134,7 +139,8 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
     trimmedGovernorate ||
     formData.notes?.trim(),
   );
-  const requiresShippingSelection = subtotal > 0 && !trimmedGovernorate;
+  const requiresShippingSelection =
+    subtotal > 0 && !hideShippingRow && !trimmedGovernorate;
   const isPhoneValid = isValidStorefrontPhone(formData.phone || '');
   const isEmailValid = !formData.email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
   const variant = normalizeVariant(section?.variant);
@@ -148,10 +154,13 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
     isCommandPayment || isBoutiquePayment || isMarketPayment || isNaturePayment;
 
   const title =
-    sectionSettings?.title || (isBiteRush ? 'الدفع الأخير' : 'طريقة الدفع');
+    sectionSettings?.title ||
+    (isAcademyStage ? 'تأكيد التسجيل وطريقة السداد' : isBiteRush ? 'الدفع الأخير' : 'طريقة الدفع');
   const subtitle =
     sectionSettings?.subtitle ||
-    (isBiteRush
+    (isAcademyStage
+      ? 'اختر طريقة سداد الرسوم وأكمل تسجيل الطالب بدون مصاريف شحن.'
+      : isBiteRush
       ? 'اختَر وسيلة الدفع، راجع الإجمالي النهائي، ثم اقفل الطلب بخطوة واحدة.'
       : isMarketPayment
         ? 'اختر وسيلة الدفع الأنسب ثم راجع الإجمالي والشحن بخطوة أخيرة واضحة وسريعة.'
@@ -163,10 +172,13 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
         ? 'اختاري الطريقة الأنسب، ثم نكمل الطلب بهدوء مع مراجعة أخيرة واضحة.'
       : 'اختر طريقة الدفع المناسبة وأكمل الطلب بعد مراجعة الشحن والإجمالي.');
   const summaryTitle =
-    sectionSettings?.summaryTitle || (isBiteRush ? 'آخر مراجعة قبل الإرسال' : 'ملخص الطلب');
+    sectionSettings?.summaryTitle ||
+    (isAcademyStage ? 'ملخص الرسوم الدراسية' : isBiteRush ? 'آخر مراجعة قبل الإرسال' : 'ملخص الطلب');
   const summaryDescription =
     sectionSettings?.summaryDescription ||
-    (isBiteRush
+    (isAcademyStage
+      ? 'رسوم المستويات المختارة شاملة الحصص والمتابعة بدون أي مصاريف شحن.'
+      : isBiteRush
       ? 'السعر، الشحن، والخصم ظاهرين بوضوح قبل ما تضغط تأكيد.'
       : isMarketPayment
         ? 'ملخص واضح للسعر، الشحن، والخصم قبل تأكيد الطلب النهائي.'
@@ -179,7 +191,9 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
       : 'ملخص مباشر يعرض السعر، الشحن، وأي خصم قبل تأكيد الطلب.');
   const confirmOrderText =
     sectionSettings?.confirmOrderText ||
-    (isBiteRush
+    (isAcademyStage
+      ? 'تأكيد تسجيل الطالب'
+      : isBiteRush
       ? 'أكّد الطلب الآن'
       : isCommandPayment
         ? 'اعتماد الطلب'
@@ -190,18 +204,26 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
     sectionSettings?.payButtonPrefix || (isBiteRush ? 'ادفع الآن' : 'ادفع');
   const processingText =
     sectionSettings?.processingText ||
-    (isBiteRush ? 'جارٍ تثبيت الطلب وإرساله للمطبخ...' : 'جارٍ إرسال الطلب...');
+    (isAcademyStage
+      ? 'جارٍ تسجيل بيانات الطالب...'
+      : isBiteRush
+      ? 'جارٍ تثبيت الطلب وإرساله للمطبخ...'
+      : 'جارٍ إرسال الطلب...');
   const shippingPromptText =
     sectionSettings?.shippingPromptText ||
-    (isBiteRush ? 'اختر المحافظة أولًا لنثبت رسوم التوصيل قبل الإرسال.' : 'اختر المحافظة أولًا لحساب الشحن.');
+    (isAcademyStage
+      ? 'لا توجد مصاريف شحن — يشمل الاشتراك الحصص والمتابعة ومشروع التخرج.'
+      : isBiteRush
+      ? 'اختر المحافظة أولًا لنثبت رسوم التوصيل قبل الإرسال.'
+      : 'اختر المحافظة أولًا لحساب الشحن.');
   const enterGovernorateText =
     sectionSettings?.enterGovernorateText || 'اختر المحافظة';
   const subtotalLabel =
-    sectionSettings?.subtotalLabel || 'المجموع الفرعي';
+    sectionSettings?.subtotalLabel || (isAcademyStage ? 'رسوم المستويات' : 'المجموع الفرعي');
   const shippingLabel =
     sectionSettings?.shippingLabel || 'الشحن';
   const totalLabel =
-    sectionSettings?.totalLabel || 'الإجمالي';
+    sectionSettings?.totalLabel || (isAcademyStage ? 'الرسوم الإجمالية' : 'الإجمالي');
   const calculatingText =
     sectionSettings?.calculatingText || 'جارٍ الحساب...';
   const shippingCalculatedText =
@@ -221,7 +243,7 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
       : 'تعذر حساب الشحن الآن وسيتم تأكيده مع الطلب.');
   const governorateRequiredText =
     sectionSettings?.governorateRequiredText ||
-    'اختيار المحافظة مطلوب قبل تأكيد الطلب.';
+    (hideShippingRow ? '' : 'اختيار المحافظة مطلوب قبل تأكيد الطلب.');
   const invalidEmailText =
     sectionSettings?.invalidEmailText ||
     'صيغة البريد الإلكتروني غير صحيحة. اتركه فارغًا أو أدخل عنوان صحيح.';
@@ -230,7 +252,9 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
     'رقم الهاتف غير صحيح. يرجى إدخال رقم هاتف صحيح (مثال: 01xxxxxxxxx أو +201xxxxxxxxx).';
   const securityText =
     sectionSettings?.securityText ||
-    (isBiteRush
+    (isAcademyStage
+      ? 'بياناتك محفوظة وتأكيد الموعد يتم مع فريق الأكاديمية مباشرة.'
+      : isBiteRush
       ? 'تأكيد مشفّر وبياناتك محفوظة'
       : isMarketPayment
         ? 'بياناتك محفوظة والتأكيد النهائي يمر بمراجعة واضحة قبل التنفيذ'
@@ -244,13 +268,21 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
   const assuranceBadge = (sectionSettings?.assuranceBadge as string) || 'طمأنة قبل الدفع';
   const assuranceTitle =
     (sectionSettings?.assuranceTitle as string) ||
-    (isMarketPayment
+    (isAcademyStage
+      ? 'خطوات واضحة لتأكيد تسجيل الطالب والبدء في المستوى المختار.'
+      : isMarketPayment
       ? 'قبل ما تؤكد، نراجع الطلب والعنوان والشحن النهائي بخطوات واضحة.'
       : isNaturePayment
         ? 'قبل ما تؤكد، نراجع الطلب والشحن النهائي بهدوء ووضوح.'
         : 'قبل ما تؤكد، نراجع الطلب والعنوان والشحن النهائي خطوة بخطوة.');
   const assuranceItems = parseListSetting(sectionSettings?.assuranceItems, [
-    ...(isMarketPayment
+    ...(isAcademyStage
+      ? [
+          'تأكيد بيانات ولي الأمر والطالب',
+          'تحديد موعد الحضور بالفرع أو أونلاين',
+          'تقارير متابعة وعرض مشروع Demo Day',
+        ]
+      : isMarketPayment
       ? [
           'نراجع العنوان وبيانات التواصل',
           'نثبت تكلفة الشحن حسب المحافظة',
@@ -269,9 +301,16 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
           ]),
   ]);
   const postConfirmStepsTitle =
-    (sectionSettings?.postConfirmStepsTitle as string) || 'بعد تأكيد الطلب';
+    (sectionSettings?.postConfirmStepsTitle as string) ||
+    (isAcademyStage ? 'بعد تأكيد التسجيل' : 'بعد تأكيد الطلب');
   const postConfirmSteps = parseListSetting(sectionSettings?.postConfirmSteps, [
-    ...(isMarketPayment
+    ...(isAcademyStage
+      ? [
+          'يصلك رقم التسجيل فورًا',
+          'يتواصل معك فريق الأكاديمية لتأكيد الموعد والفرع',
+          'ينضم الطالب لأول حصة عملية وتقرير التقدم',
+        ]
+      : isMarketPayment
       ? [
           'يصلك رقم الطلب فورًا',
           'نراجع التجهيز والعنوان النهائي',
@@ -293,7 +332,7 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
   const {
     shippingCost,
     freeShippingDiscount,
-    shippingMessage,
+    shippingMessage: quotedShippingMessage,
     isShippingLoading,
     quantityOfferFreeShippingActive,
     quantityOfferFreeShippingText,
@@ -307,7 +346,8 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
       ? 'سيتم حساب الشحن بمجرد اكتمال تحميل بيانات المتجر.'
       : 'Shipping will be calculated once storefront details finish loading.',
   });
-  const shipping = shippingCost;
+  const shipping = hideShippingRow ? 0 : shippingCost;
+  const shippingMessage = hideShippingRow ? shippingPromptText : quotedShippingMessage;
 
   const tierProgress = useCheckoutStore((s) => s.tierProgress);
   const tiersEnabled = tierProgress?.tiersEnabled === true;
@@ -343,7 +383,11 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
     voucherDiscount = 0;
   }
   const effectiveShipping =
-    loyaltyFreeShipping && Number(shipping) > 0 ? 0 : Number(shipping);
+    hideShippingRow
+      ? 0
+      : loyaltyFreeShipping && Number(shipping) > 0
+        ? 0
+        : Number(shipping);
 
   const total = Math.max(0, subtotal + effectiveShipping - couponDiscount - loyaltyDiscount - voucherDiscount - walletDiscount);
 
@@ -709,10 +753,14 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
       if (!firstInvalidFieldId) firstInvalidFieldId = 'checkout-phone';
     }
     if (!formData.address?.trim()) {
-      errors.push('يرجى إدخال عنوان الشحن.');
+      errors.push(
+        isAcademyStage
+          ? 'يرجى إدخال اسم الطالب وعمره والفرع المفضل.'
+          : 'يرجى إدخال عنوان الشحن.',
+      );
       if (!firstInvalidFieldId) firstInvalidFieldId = 'checkout-address';
     }
-    if (!trimmedGovernorate) {
+    if (!hideShippingRow && !isAcademyStage && !trimmedGovernorate) {
       errors.push('يرجى اختيار المحافظة.');
       if (!firstInvalidFieldId) firstInvalidFieldId = 'checkout-governorate';
     }
@@ -736,6 +784,8 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
     formData.address,
     formData.customerLocation,
     trimmedGovernorate,
+    hideShippingRow,
+    isAcademyStage,
     isPhoneValid,
     isEmailValid,
     storefrontSettings,
@@ -781,6 +831,15 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
 
     await placeOrder({
       ...formData,
+      address:
+        formData.address?.trim() ||
+        (isAcademyStage ? 'تسجيل أكاديمية — حضوري أو أونلاين' : formData.address),
+      city:
+        formData.city?.trim() ||
+        (isAcademyStage ? 'الإسكندرية / أونلاين' : formData.city),
+      governorate:
+        trimmedGovernorate ||
+        (hideShippingRow || isAcademyStage ? 'الإسكندرية' : formData.governorate),
       paymentMethod,
       couponCode: activeCoupon?.code,
       shippingCost: effectiveShipping,
@@ -804,11 +863,17 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
   const allMethodOptions: PaymentMethodOption[] = [
     {
       id: 'cod',
-      label: (sectionSettings?.codLabel as string) || 'الدفع عند الاستلام',
+      label:
+        (sectionSettings?.codLabel as string) ||
+        (isAcademyStage
+          ? 'تأكيد الحجز والدفع بالفرع أو التحويل'
+          : 'الدفع عند الاستلام'),
       icon: '💵',
       desc:
         (sectionSettings?.codDesc as string) ||
-        (isBiteRush
+        (isAcademyStage
+          ? 'ثبّت مقعد الطالب الآن وسدّد الرسوم في الفرع (فؤاد / جليم) أو بالتحويل قبل بدء المجموعة.'
+          : isBiteRush
           ? 'اطلب الآن وادفع عند الاستلام من غير أي خطوة إضافية'
           : isMarketPayment
             ? 'اختيار واضح وسهل للطلبات التي تريد تأكيدها عند الاستلام'
@@ -902,6 +967,7 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
     loyaltyFreeShipping,
     checkoutFreeShippingActive,
     trimmedGovernorate,
+    hideShippingRow,
     isShippingLoading,
     summaryShippingValueText,
     shippingMessage,
