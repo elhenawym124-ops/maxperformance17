@@ -76,10 +76,11 @@ const updateAllConversationCaches = (
   queryClient: ReturnType<typeof useQueryClient>,
   remoteJid: string,
   updater: (contact: Contact) => Contact,
+  sessionId?: string,
 ) => {
   queryClient.setQueriesData<ConversationsCacheData | undefined>(
     { queryKey: ["whatsapp", "conversations"] },
-    (old) => updateConversationPages(old, remoteJid, updater),
+    (old) => updateConversationPages(old, remoteJid, updater, sessionId),
   );
 };
 
@@ -173,7 +174,7 @@ export const useSendMessage = (
         },
         lastMessageAt: now,
         unreadCount: 0,
-      }));
+      }), variables.sessionId);
 
       return { previousMessages };
     },
@@ -247,7 +248,7 @@ export const useSendMedia = (
         },
         lastMessageAt: timestamp,
         unreadCount: 0,
-      }));
+      }), variables.sessionId);
 
       // Invalidate queries to refetch
       queryClient.invalidateQueries({
@@ -290,7 +291,7 @@ export const useMarkAsRead = (
       updateAllConversationCaches(queryClient, variables.remoteJid, (conv) => ({
         ...conv,
         unreadCount: 0,
-      }));
+      }), variables.sessionId);
     },
     onSuccess: (_data, variables) => {
       // Invalidate to ensure consistency

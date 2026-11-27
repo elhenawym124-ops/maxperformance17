@@ -211,7 +211,7 @@ const waitForSessionLinkState = async (sessionId, maxAttempts = 240, pollInterva
 };
 
 const resolveActiveSessionId = async (companyId, sessionId, options = {}) => {
-    const { contactId } = options;
+    const { contactId, recipient } = options;
 
     if (sessionId && sessionId !== 'all') {
         const session = await getSharedPrismaClient().whatsAppSession.findFirst({
@@ -248,7 +248,7 @@ const resolveActiveSessionId = async (companyId, sessionId, options = {}) => {
         }
 
         if (!isAvailable) {
-            // Try safe auto-migration: old session is dead, try to find a connected one
+            // Try safe auto-migration ONLY within the same provider (never silently cross QR <-> META_CLOUD)
             const connectedSessions = await getSharedPrismaClient().whatsAppSession.findMany({
                 where: { companyId, status: 'CONNECTED' },
                 select: { id: true, provider: true, name: true, metaDisplayPhoneNumber: true, phoneNumber: true, metaAccessToken: true }
@@ -260,14 +260,15 @@ const resolveActiveSessionId = async (companyId, sessionId, options = {}) => {
                 return mem?.status === 'connected';
             });
 
-            if (viableSessions.length === 1 && contactId) {
-                // Safe: exactly one working session, auto-migrate contact
+            const sameProviderViable = viableSessions.filter(s => s.provider === session.provider);
+            if (sameProviderViable.length === 1 && contactId) {
+                // Safe: exactly one working session of the SAME provider, auto-migrate contact
                 await getSharedPrismaClient().whatsAppContact.update({
                     where: { id: contactId },
-                    data: { sessionId: viableSessions[0].id, updatedAt: new Date() }
+                    data: { sessionId: sameProviderViable[0].id, updatedAt: new Date() }
                 }).catch(() => {});
-                console.log(`↪️ [SESSION-FAILOVER] Auto-migrated contact ${contactId} from session ${sessionId} to ${viableSessions[0].id}`);
-                return viableSessions[0].id;
+                console.log(`↪️ [SESSION-FAILOVER] Auto-migrated contact ${contactId} from session ${sessionId} to ${sameProviderViable[0].id}`);
+                return sameProviderViable[0].id;
             }
 
             const availableList = viableSessions.map(s =>
@@ -281,6 +282,35 @@ const resolveActiveSessionId = async (companyId, sessionId, options = {}) => {
         }
 
         return sessionId;
+    }
+
+    // When virtual 'all' session is passed with a recipient, prefer the session
+    // that actually owns the most recent conversation with this recipient.
+    if (recipient) {
+        const normalizedJid = WhatsAppMessageHandler.formatJid ? WhatsAppMessageHandler.formatJid(recipient) : recipient;
+        const phoneDigits = normalizePhoneNumber(recipient);
+        const contactMatchers = [{ jid: recipient }];
+        if (normalizedJid && normalizedJid !== recipient) contactMatchers.push({ jid: normalizedJid });
+        if (phoneDigits) contactMatchers.push({ phoneNumber: phoneDigits });
+
+        const recentContact = await getSharedPrismaClient().whatsAppContact.findFirst({
+            where: {
+                OR: contactMatchers,
+                whatsAppSession: {
+                    companyId,
+                    status: { in: ['CONNECTED', 'CONNECTING'] }
+                }
+            },
+            orderBy: [
+                { lastCustomerMessageAt: 'desc' },
+                { lastMessageAt: 'desc' }
+            ],
+            select: { sessionId: true }
+        });
+
+        if (recentContact?.sessionId) {
+            return resolveActiveSessionId(companyId, recentContact.sessionId, { contactId });
+        }
     }
 
     let activeSession = await getSharedPrismaClient().whatsAppSession.findFirst({
@@ -1616,7 +1646,7 @@ async function getConversations(req, res) {
                     isMuted: true,
                     labels: true,
                     whatsAppSession: {
-                        select: { name: true, phoneNumber: true }
+                        select: { name: true, phoneNumber: true, provider: true, metaDisplayPhoneNumber: true }
                     },
                     customer: {
                         select: {
@@ -1955,8 +1985,8 @@ async function sendMessage(req, res) {
             return res.status(400).json({ error: 'البيانات غير مكتملة أو رقم المستلم غير صحيح', code: 'WA_INVALID_RECIPIENT' });
         }
 
-        // Resolve virtual session ID with optional auto-failover for contacts
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId, { contactId });
+        // Resolve virtual session ID with recipient-aware lookup and same-provider failover
+        const targetSessionId = await resolveActiveSessionId(companyId, sessionId, { contactId, recipient });
 
         // 🚨 PRODUCTION-FIX (C5): نافذة الـ 24 ساعة على الإرسال اليدوي لـ META_CLOUD فقط.
         // خارج النافذة Meta ترفض الإرسال الحر — نمنعه مبكراً بدل "SENT" الوهمي.
@@ -2025,7 +2055,7 @@ async function sendMedia(req, res) {
         }
 
         // Resolve virtual session ID and verify ownership
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId);
+        const targetSessionId = await resolveActiveSessionId(companyId, sessionId, { recipient: to });
 
         let message;
         const mediaSource = { url: mediaUrl };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Phone, PhoneCall, X, User, ShoppingBag, ExternalLink, AlertTriangle } from "lucide-react";
-import { registerPlugin } from "@capacitor/core";
 import { isCapacitorNative } from "../../config/environment";
+import { MaxPTelephony } from "../../services/telephonyService";
 
 interface DialEventData {
   sessionId: string;
@@ -11,16 +11,6 @@ interface DialEventData {
   customerPhone: string;
   deviceId?: string;
 }
-
-interface MaxPTelephonyNativePlugin {
-  dialCustomer(options: {
-    phone: string;
-    sessionId: string;
-    orderId: string;
-  }): Promise<{ success: boolean; sessionId: string }>;
-}
-
-const MaxPTelephony = registerPlugin<MaxPTelephonyNativePlugin>("MaxPTelephony");
 
 export const MobileCallOverlay: React.FC = () => {
   const [activeCall, setActiveCall] = useState<DialEventData | null>(null);

@@ -33,8 +33,43 @@ function autoHealDefaultSession(companyId, sessionId) {
 
 async function getOrAssignSession({ companyId, customerId, recipientPhone, connectedSessions, settings }) {
   const prisma = getSharedPrismaClient();
+  const liveBaileys = Array.isArray(connectedSessions) ? connectedSessions : [];
 
-  if (!connectedSessions || connectedSessions.length === 0) {
+  // 0. احترام القناة الأساسية المحددة صراحةً في إعدادات الإشعارات (defaultSessionId)
+  // حتى عند وجود قناة QR متصلة في الذاكرة بجانب قناة Meta Cloud API (التي لا تملك socket في الذاكرة).
+  if (settings?.defaultSessionId) {
+    const inLiveBaileys = liveBaileys.some((s) => s.sessionId === settings.defaultSessionId);
+    if (inLiveBaileys) {
+      return settings.defaultSessionId;
+    }
+
+    const explicitDefault = await safeQuery(() => prisma.whatsAppSession.findFirst({
+      where: {
+        id: settings.defaultSessionId,
+        ...(companyId ? { companyId } : {})
+      },
+      select: { id: true, provider: true, status: true }
+    }));
+
+    if (explicitDefault?.provider === 'META_CLOUD' && explicitDefault.status === 'CONNECTED') {
+      return explicitDefault.id;
+    }
+
+    if (explicitDefault && explicitDefault.provider !== 'META_CLOUD') {
+      const mem = WhatsAppManager.getSession(explicitDefault.id);
+      if (mem && mem.status === 'connected') {
+        return explicitDefault.id;
+      }
+    }
+
+    if (liveBaileys.length === 0) {
+      return settings.defaultSessionId;
+    }
+
+    console.warn(`⚠️ [SESSION-BALANCER] Explicit defaultSessionId=${settings.defaultSessionId} is not connected; falling back to available connected sessions.`);
+  }
+
+  if (liveBaileys.length === 0) {
     if (settings?.defaultSessionId) {
       return settings.defaultSessionId;
     }

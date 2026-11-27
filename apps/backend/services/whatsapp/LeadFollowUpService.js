@@ -209,16 +209,39 @@ class LeadFollowUpService {
             const templateLanguage = step.templateLanguage || settings.templateLanguage || 'ar';
             const templateParamsRaw = step.templateParams || settings.templateParams || null;
 
-            // Resolve company session
-            const session = await this.prisma.whatsAppSession.findFirst({
-                where: { companyId: enrollment.companyId, isDefault: true }
-            }) || await this.prisma.whatsAppSession.findFirst({
-                where: { companyId: enrollment.companyId, status: 'CONNECTED' },
-                orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }]
-            }) || await this.prisma.whatsAppSession.findFirst({
-                where: { companyId: enrollment.companyId },
-                orderBy: { createdAt: 'desc' }
-            });
+            // Resolve company session:
+            // 1) Lead's own contact channel if connected
+            // 2) Explicit notification defaultSessionId if connected
+            // 3) Session flagged isDefault=true
+            // 4) Latest CONNECTED / any session
+            let session = null;
+            if (contact.sessionId) {
+                session = await this.prisma.whatsAppSession.findFirst({
+                    where: { id: contact.sessionId, companyId: enrollment.companyId, status: 'CONNECTED' }
+                });
+            }
+            if (!session) {
+                const notifSettings = await this.prisma.whatsAppNotificationSettings.findUnique({
+                    where: { companyId: enrollment.companyId },
+                    select: { defaultSessionId: true }
+                }).catch(() => null);
+                if (notifSettings?.defaultSessionId) {
+                    session = await this.prisma.whatsAppSession.findFirst({
+                        where: { id: notifSettings.defaultSessionId, companyId: enrollment.companyId, status: 'CONNECTED' }
+                    });
+                }
+            }
+            if (!session) {
+                session = await this.prisma.whatsAppSession.findFirst({
+                    where: { companyId: enrollment.companyId, isDefault: true }
+                }) || await this.prisma.whatsAppSession.findFirst({
+                    where: { companyId: enrollment.companyId, status: 'CONNECTED' },
+                    orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }]
+                }) || await this.prisma.whatsAppSession.findFirst({
+                    where: { companyId: enrollment.companyId },
+                    orderBy: { createdAt: 'desc' }
+                });
+            }
 
             const isMetaSession = session?.provider === 'META_CLOUD';
 

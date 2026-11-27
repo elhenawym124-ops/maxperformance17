@@ -25,6 +25,7 @@ interface ChatSidebarConversationItemProps {
   contact: Contact;
   contactName: string;
   isSelected: boolean;
+  showSessionBadge?: boolean;
   multiSelectMode: boolean;
   isSelectedInMulti: boolean;
   swipedContactId: string | null;
@@ -47,6 +48,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
   contact,
   contactName,
   isSelected,
+  showSessionBadge = false,
   multiSelectMode,
   isSelectedInMulti,
   swipedContactId,
@@ -175,6 +177,15 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                   >
                     {contactName}
                   </p>
+                  {showSessionBadge && (contact.session?.provider || contact.session?.name) && (
+                    <Badge
+                      variant="outline"
+                      className="border-border/70 bg-[var(--whatsapp-surface-overlay)] px-1 py-0 text-[8px] font-mono uppercase text-muted-foreground shrink-0"
+                      title={contact.session?.name || contact.session?.provider || undefined}
+                    >
+                      {contact.session?.provider === 'META_CLOUD' ? 'API' : 'QR'}
+                    </Badge>
+                  )}
                   {contact.isGroup && (
                     <Badge
                       variant="outline"
@@ -254,7 +265,7 @@ export const ChatSidebarConversationItem: React.FC<ChatSidebarConversationItemPr
                     {contact.unreadCount}
                   </span>
                 )}
-                {contact.window && (
+                {contact.session?.provider === 'META_CLOUD' && contact.window && (
                   <span
                     className={cn(
                       'inline-flex shrink-0 items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[9px] font-medium font-mono tabular-nums',

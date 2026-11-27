@@ -7,6 +7,7 @@ interface UseWhatsAppChatNavigationParams {
   selectedContact: Contact | null;
   setSelectedContact: (contact: Contact | null) => void;
   selectedSession: string;
+  activeSessionId?: string;
   setSelectedSession: (sessionId: string) => void;
   loadingSessions: boolean;
   conversations: Contact[];
@@ -18,6 +19,7 @@ export function useWhatsAppChatNavigation({
   selectedContact,
   setSelectedContact,
   selectedSession,
+  activeSessionId,
   setSelectedSession,
   loadingSessions,
   conversations,
@@ -244,7 +246,11 @@ export function useWhatsAppChatNavigation({
       if (!isCancelled && targetJid) {
         deepLinkAppliedRef.current = true;
         setSearchParams({}, { replace: true });
-        const fallbackSession = sessionParam || selectedSession || '';
+        const fallbackSession =
+          (sessionParam && sessionParam !== 'all' ? sessionParam : null) ||
+          (selectedSession && selectedSession !== 'all' ? selectedSession : null) ||
+          (activeSessionId && activeSessionId !== 'all' ? activeSessionId : null) ||
+          '';
         const syntheticContact: Contact = {
           id: targetJid,
           jid: targetJid,
@@ -287,6 +293,7 @@ export function useWhatsAppChatNavigation({
     normalizeContactJid,
     searchParams,
     selectedSession,
+    activeSessionId,
     setNewMessage,
     setSearchParams,
     setSelectedContact,

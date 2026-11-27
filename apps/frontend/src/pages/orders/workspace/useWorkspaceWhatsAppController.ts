@@ -33,7 +33,9 @@ export const useWorkspaceWhatsAppController = ({
   const isArabic = i18n.language.toLowerCase().startsWith('ar');
   const panelRef = useModalA11y(isOpen, onClose);
 
+  const [sessions, setSessions] = useState<WhatsAppSession[]>([]);
   const [activeSession, setActiveSession] = useState<WhatsAppSession | null>(null);
+  const [conversationSessionId, setConversationSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [templates, setTemplates] = useState<MetaTemplate[]>([]);
@@ -50,6 +52,11 @@ export const useWorkspaceWhatsAppController = ({
   const { cleanPhone, standardPhone } = sanitizeWhatsAppPhone(customerPhone);
   const externalWaUrl = `https://wa.me/${standardPhone}`;
 
+  // Reset conversation-matched session when switching orders or closing
+  useEffect(() => {
+    setConversationSessionId(null);
+  }, [order?.id, isOpen]);
+
   // 1. Fetch Company WhatsApp Sessions on Open
   useEffect(() => {
     if (!isOpen) return;
@@ -60,7 +67,13 @@ export const useWorkspaceWhatsAppController = ({
         const res = await apiClient.get('/whatsapp/sessions');
         const list: WhatsAppSession[] = res.data?.sessions || [];
         const connected = list.find((s) => s.status === 'CONNECTED') || list[0] || null;
-        if (isMounted) setActiveSession(connected);
+        if (isMounted) {
+          setSessions(list);
+          setActiveSession((prev) => {
+            if (prev && list.some((s) => s.id === prev.id)) return prev;
+            return connected;
+          });
+        }
       } catch (err) {
         console.error('Failed to load WhatsApp sessions:', err);
       }
@@ -72,7 +85,7 @@ export const useWorkspaceWhatsAppController = ({
     };
   }, [isOpen]);
 
-  // 2. Fetch Conversation Messages for Customer Phone
+  // 2. Fetch Conversation Messages for Customer Phone (and bind reply session to the channel it came from)
   useEffect(() => {
     if (!isOpen || !cleanPhone || !activeSession?.id) return;
 
@@ -81,15 +94,25 @@ export const useWorkspaceWhatsAppController = ({
       if (!silent) setLoadingMessages(true);
       try {
         const convRes = await apiClient.get('/whatsapp/conversations', {
-          params: { search: cleanPhone, limit: 1 },
+          params: { search: cleanPhone, sessionId: 'all', limit: 5 },
         });
-        const conv = convRes.data?.conversations?.[0];
+        const convList: Array<{ jid?: string; sessionId?: string }> =
+          convRes.data?.conversations || [];
+        const conv = convList[0];
 
         if (conv?.jid) {
+          const resolvedSessionId = conv.sessionId || activeSession.id;
+          if (isMounted && conv.sessionId) {
+            setConversationSessionId(conv.sessionId);
+            const matchedSession = sessions.find((s) => s.id === conv.sessionId);
+            if (matchedSession && matchedSession.id !== activeSession.id) {
+              setActiveSession(matchedSession);
+            }
+          }
           const msgRes = await apiClient.get(
             `/whatsapp/conversations/${encodeURIComponent(conv.jid)}/messages`,
             {
-              params: { sessionId: conv.sessionId || activeSession.id, limit: 50 },
+              params: { sessionId: resolvedSessionId, limit: 50 },
             },
           );
           if (isMounted) {
@@ -111,7 +134,7 @@ export const useWorkspaceWhatsAppController = ({
       isMounted = false;
       clearInterval(pollId);
     };
-  }, [isOpen, cleanPhone, activeSession?.id]);
+  }, [isOpen, cleanPhone, activeSession?.id, sessions]);
 
   // 3. Fetch Approved Templates for Session
   useEffect(() => {
@@ -193,9 +216,10 @@ export const useWorkspaceWhatsAppController = ({
     }
 
     setIsSending(true);
+    const targetSessionId = conversationSessionId || activeSession?.id;
     try {
       const response = await apiClient.post('/whatsapp/messages/send-template', {
-        sessionId: activeSession?.id,
+        sessionId: targetSessionId,
         to: standardPhone,
         templateId: activeTemplate.name,
         parameters: {
@@ -237,7 +261,8 @@ export const useWorkspaceWhatsAppController = ({
   };
 
   const handleSendMessage = async () => {
-    if (!messageText.trim() || !activeSession?.id || !order) return;
+    const targetSessionId = conversationSessionId || activeSession?.id;
+    if (!messageText.trim() || !targetSessionId || !order) return;
     if (!standardPhone) {
       toast.error(isArabic ? 'رقم هاتف العميل غير متوفر' : 'Customer phone is required');
       return;
@@ -248,7 +273,7 @@ export const useWorkspaceWhatsAppController = ({
 
     try {
       const response = await apiClient.post('/whatsapp/messages/send', {
-        sessionId: activeSession.id,
+        sessionId: targetSessionId,
         to: standardPhone,
         text: textToSend,
       });

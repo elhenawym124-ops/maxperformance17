@@ -77,7 +77,7 @@ interface MaxPTelephonyNativePlugin {
   ): Promise<any>;
 }
 
-const MaxPTelephony = registerPlugin<MaxPTelephonyNativePlugin>("MaxPTelephony");
+export const MaxPTelephony = registerPlugin<MaxPTelephonyNativePlugin>("MaxPTelephony");
 /**
  * الانتظار الذكي لجسر Capacitor في الروابط السحابية البعيدة (Remote URLs)
  */

@@ -345,47 +345,104 @@ router.get('/conversations/:jid/pinned', verifyToken.authenticateToken, checkApp
 
 // رفع وإرسال ملف
 router.post('/messages/upload-send', verifyToken.authenticateToken, checkAppAccess('whatsapp-business'), requireDbPermission('whatsapp.reply'), upload.single('file'), messageSendLimiter, async (req, res) => {
+    const fsSync = require('fs');
+    const cleanupUploadedFile = () => {
+        if (req.file?.path && fsSync.existsSync(req.file.path)) {
+            try { fsSync.unlinkSync(req.file.path); } catch {}
+        }
+    };
+
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'لم يتم رفع ملف' });
         }
 
+        const companyId = req.user?.companyId || req.companyId;
         let { sessionId, to, caption, ptt } = req.body;
         if (!sessionId || !to) {
+            cleanupUploadedFile();
             return res.status(400).json({ error: 'sessionId و to مطلوبين' });
         }
 
         const { getSharedPrismaClient } = require('../services/sharedDatabase');
-        if (sessionId === 'all') {
-            const prisma = getSharedPrismaClient();
+        const prisma = getSharedPrismaClient();
+        const { WhatsAppMediaHandler, WhatsAppMessageHandler } = require('../services/whatsapp');
+        const { computeWindowStatus } = require('../services/whatsapp/WhatsAppWindowService');
+        const WhatsAppManager = require('../services/whatsapp/WhatsAppManager');
 
-            // 1. Try Baileys sessions connected in-memory first
-            const WhatsAppManager = require('../services/whatsapp/WhatsAppManager');
-            const companySessions = WhatsAppManager.getCompanySessions(req.companyId);
-            const connectedMemorySessions = companySessions.filter(s => s.status === 'connected');
-            if (connectedMemorySessions.length > 0) {
-                sessionId = connectedMemorySessions[0].sessionId;
+        if (sessionId === 'all') {
+            // 1. Prefer the session that owns the most recent conversation with this recipient
+            const normalizedJid = WhatsAppMessageHandler.formatJid ? WhatsAppMessageHandler.formatJid(to) : to;
+            const phoneDigits = String(to || '').replace(/\D/g, '');
+            const contactMatchers = [{ jid: to }];
+            if (normalizedJid && normalizedJid !== to) contactMatchers.push({ jid: normalizedJid });
+            if (phoneDigits.length >= 10) contactMatchers.push({ phoneNumber: phoneDigits });
+
+            const recentContact = await prisma.whatsAppContact.findFirst({
+                where: {
+                    OR: contactMatchers,
+                    whatsAppSession: { companyId, status: { in: ['CONNECTED', 'CONNECTING'] } }
+                },
+                orderBy: [{ lastCustomerMessageAt: 'desc' }, { lastMessageAt: 'desc' }],
+                select: { sessionId: true }
+            });
+
+            if (recentContact?.sessionId) {
+                sessionId = recentContact.sessionId;
             } else {
-                // 2. Fallback: find any CONNECTED session in DB (for META_CLOUD or recent Baileys)
-                const firstSession = await prisma.whatsAppSession.findFirst({
-                    where: { companyId: req.companyId, status: 'CONNECTED' },
-                    orderBy: { lastConnectedAt: 'desc' }
-                });
-                if (!firstSession) {
-                    return res.status(400).json({ error: 'لا توجد جلسة متصلة' });
-                }
-                // If Baileys session, verify it's actually in memory
-                if (firstSession.provider !== 'META_CLOUD') {
-                    const memSession = WhatsAppManager.getSession(firstSession.id);
-                    if (!memSession || memSession.status !== 'connected') {
-                        return res.status(400).json({ error: 'الجلسة غير متصلة حالياً، يرجى إعادة الاتصال' });
+                const companySessions = WhatsAppManager.getCompanySessions(companyId) || [];
+                const connectedMemorySessions = companySessions.filter(s => s.status === 'connected');
+                if (connectedMemorySessions.length > 0) {
+                    sessionId = connectedMemorySessions[0].sessionId;
+                } else {
+                    const firstSession = await prisma.whatsAppSession.findFirst({
+                        where: { companyId, status: 'CONNECTED' },
+                        orderBy: { lastConnectedAt: 'desc' }
+                    });
+                    if (!firstSession) {
+                        cleanupUploadedFile();
+                        return res.status(409).json({ error: 'لا توجد جلسة متصلة', code: 'WA_SESSION_NOT_READY' });
                     }
+                    sessionId = firstSession.id;
                 }
-                sessionId = firstSession.id;
             }
         }
 
-        const { WhatsAppMediaHandler, WhatsAppMessageHandler } = require('../services/whatsapp');
+        // Verify tenant ownership & provider readiness
+        const sessionRecord = await prisma.whatsAppSession.findFirst({
+            where: { id: sessionId, companyId },
+            select: { id: true, provider: true, status: true }
+        });
+        if (!sessionRecord) {
+            cleanupUploadedFile();
+            return res.status(404).json({ error: 'الجلسة غير موجودة أو لا تنتمي لهذه الشركة' });
+        }
+
+        if (sessionRecord.provider === 'META_CLOUD') {
+            const jid = WhatsAppMessageHandler.formatJid ? WhatsAppMessageHandler.formatJid(to) : to;
+            const contact = await prisma.whatsAppContact.findUnique({
+                where: { sessionId_jid: { sessionId, jid } },
+                select: { lastCustomerMessageAt: true }
+            });
+            const window = computeWindowStatus(contact);
+            if (!window.isOpen) {
+                cleanupUploadedFile();
+                return res.status(409).json({
+                    error: 'نافذة الـ 24 ساعة مع هذا العميل مغلقة. استخدم قالباً معتمداً من Meta لإرسال رسالة.',
+                    code: 'WA_24H_WINDOW_CLOSED',
+                    window
+                });
+            }
+        } else {
+            const memSession = WhatsAppManager.getSession(sessionId);
+            if (!memSession || memSession.status !== 'connected') {
+                cleanupUploadedFile();
+                return res.status(409).json({
+                    error: 'الجلسة غير متصلة حالياً، يرجى إعادة الاتصال',
+                    code: 'WA_SESSION_NOT_READY'
+                });
+            }
+        }
 
         // رفع الملف
         const media = await WhatsAppMediaHandler.uploadMedia(
@@ -395,10 +452,7 @@ router.post('/messages/upload-send', verifyToken.authenticateToken, checkAppAcce
         );
 
         // حذف الملف المؤقت بعد القراءة
-        const fsSync = require('fs');
-        if (req.file.path && fsSync.existsSync(req.file.path)) {
-            fsSync.unlinkSync(req.file.path);
-        }
+        cleanupUploadedFile();
 
         // تحديد نوع الوسائط
         let mediaType = media.type;
@@ -427,9 +481,12 @@ router.post('/messages/upload-send', verifyToken.authenticateToken, checkAppAcce
 
         res.json({ success: true, message });
     } catch (error) {
+        cleanupUploadedFile();
         console.error('❌ Error uploading and sending:', error);
-        res.status(500).json({
-            error: 'حدث خطأ أثناء رفع وإرسال الملف',
+        const statusCode = error.code === 'WA_SESSION_NOT_READY' ? 409 : (error.statusCode || 500);
+        res.status(statusCode).json({
+            error: error.message || 'حدث خطأ أثناء رفع وإرسال الملف',
+            code: error.code || 'WA_UPLOAD_SEND_ERROR',
             details: error.message || 'Unknown error'
         });
     }

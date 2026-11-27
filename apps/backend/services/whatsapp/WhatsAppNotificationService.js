@@ -3865,12 +3865,51 @@ async function processNotificationQueue() {
         }
 
         // التحقق من الجلسة — أعد حلّها وقت المعالجة (إصلاح §4.1):
-        // - META_CLOUD لا يملك socket في ذاكرة Baileys (getSession يرجع undefined).
-        // - الجلسة قد تنفصل بين الجدولة والمعالجة.
+        // - نحترم الجلسة المجدول عليها الإشعار أولاً (خصوصاً META_CLOUD التي لا تملك socket في ذاكرة Baileys).
+        // - لو غير متصلة، نحترم defaultSessionId من الإعدادات قبل أي fallback عام.
         let sessionId = notification.sessionId;
         let session = sessionId ? WhatsAppManager.getSession(sessionId) : null;
         // 🛡️ مزوّد الجلسة — لازم نعرفه عشان الحارس المركزي يمنع النص الحر عبر META_CLOUD
         let queueSessionProvider = session?.provider || null;
+
+        if (sessionId && (!session || session.status !== 'connected')) {
+          const scheduledSession = await safeQuery(() => prisma.whatsAppSession.findFirst({
+            where: { id: sessionId, companyId: notification.companyId },
+            select: { id: true, provider: true, status: true }
+          }));
+          if (scheduledSession?.provider === 'META_CLOUD' && scheduledSession.status === 'CONNECTED') {
+            session = { status: 'connected', provider: 'META_CLOUD', sessionId };
+            queueSessionProvider = 'META_CLOUD';
+          }
+        }
+
+        if (!session || session.status !== 'connected') {
+          const queueNotifSettings = await safeQuery(() => prisma.whatsAppNotificationSettings.findUnique({
+            where: { companyId: notification.companyId },
+            select: { defaultSessionId: true }
+          }));
+
+          if (queueNotifSettings?.defaultSessionId && queueNotifSettings.defaultSessionId !== sessionId) {
+            const defaultCandidate = await safeQuery(() => prisma.whatsAppSession.findFirst({
+              where: { id: queueNotifSettings.defaultSessionId, companyId: notification.companyId, status: 'CONNECTED' },
+              select: { id: true, provider: true }
+            }));
+            if (defaultCandidate?.id) {
+              if (defaultCandidate.provider === 'META_CLOUD') {
+                sessionId = defaultCandidate.id;
+                session = { status: 'connected', provider: 'META_CLOUD', sessionId };
+                queueSessionProvider = 'META_CLOUD';
+              } else {
+                const defaultMem = WhatsAppManager.getSession(defaultCandidate.id);
+                if (defaultMem && defaultMem.status === 'connected') {
+                  sessionId = defaultCandidate.id;
+                  session = defaultMem;
+                  queueSessionProvider = defaultCandidate.provider || 'BAILEYS';
+                }
+              }
+            }
+          }
+        }
 
         if (!session || session.status !== 'connected') {
           const connected = await prisma.whatsAppSession.findFirst({
@@ -3887,6 +3926,8 @@ async function processNotificationQueue() {
                 session = { status: 'connected', provider: 'META_CLOUD', sessionId };
                 queueSessionProvider = 'META_CLOUD';
               }
+            } else {
+              queueSessionProvider = connected.provider || 'BAILEYS';
             }
           }
         }

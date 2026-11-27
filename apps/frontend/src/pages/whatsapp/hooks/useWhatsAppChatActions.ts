@@ -147,7 +147,15 @@ export function useWhatsAppChatActions({
         return;
       }
 
-      const targetSid = selectedContact.sessionId || (selectedSession === 'all' ? null : selectedSession);
+      const contactSid =
+        selectedContact.sessionId && selectedContact.sessionId !== 'all'
+          ? selectedContact.sessionId
+          : null;
+      const targetSid =
+        contactSid ||
+        (selectedSession && selectedSession !== 'all' ? selectedSession : null) ||
+        activeSessionId ||
+        null;
       if (!targetSid) {
         tToast.error("whatsappChat.msg_1f79");
         return;
@@ -166,13 +174,18 @@ export function useWhatsAppChatActions({
             setNewMessage('');
             setReplyingTo(null);
           },
-          onError: () => {
-            tToast.error("whatsappChat.error_error_during_d123");
+          onError: (error: any) => {
+            const serverError = error?.response?.data?.error;
+            if (typeof serverError === 'string' && serverError.trim()) {
+              toast.error(serverError);
+            } else {
+              tToast.error("whatsappChat.error_error_during_d123");
+            }
           },
         },
       );
     },
-    [newMessage, selectedContact, selectedSession, sendMessageMutation, replyingTo, user?.id, setNewMessage, setReplyingTo],
+    [newMessage, selectedContact, selectedSession, activeSessionId, sendMessageMutation, replyingTo, user?.id, setNewMessage, setReplyingTo],
   );
 
   // Send file direct
@@ -184,7 +197,15 @@ export function useWhatsAppChatActions({
         return;
       }
 
-      const targetSid = selectedContact.sessionId || (selectedSession === 'all' ? null : selectedSession);
+      const contactSid =
+        selectedContact.sessionId && selectedContact.sessionId !== 'all'
+          ? selectedContact.sessionId
+          : null;
+      const targetSid =
+        contactSid ||
+        (selectedSession && selectedSession !== 'all' ? selectedSession : null) ||
+        activeSessionId ||
+        null;
       if (!targetSid) {
         tToast.error("whatsappChat.msg_1f79");
         return;
@@ -230,7 +251,15 @@ export function useWhatsAppChatActions({
       const files = event.target.files;
       if (!files || files.length === 0 || !selectedContact || !selectedSession) return;
 
-      const targetSid = selectedContact.sessionId || (selectedSession === 'all' ? null : selectedSession);
+      const contactSid =
+        selectedContact.sessionId && selectedContact.sessionId !== 'all'
+          ? selectedContact.sessionId
+          : null;
+      const targetSid =
+        contactSid ||
+        (selectedSession && selectedSession !== 'all' ? selectedSession : null) ||
+        activeSessionId ||
+        null;
       if (!targetSid) {
         tToast.error("whatsappChat.msg_1f79");
         return;
@@ -477,11 +506,17 @@ export function useWhatsAppChatActions({
   const handleDeleteMessage = useCallback(
     async (message: Message) => {
       if (!selectedSession || !selectedContact) return;
+      const targetSid =
+        (selectedContact.sessionId && selectedContact.sessionId !== 'all'
+          ? selectedContact.sessionId
+          : null) ||
+        (selectedSession !== 'all' ? selectedSession : activeSessionId);
+      if (!targetSid) return;
       if (!window.confirm('هل أنت متأكد من حذف هذه الرسالة للجميع؟')) return;
 
       try {
         await api.post('/whatsapp/messages/delete', {
-          sessionId: selectedSession,
+          sessionId: targetSid,
           to: message.remoteJid,
           key: {
             id: message.messageId,
@@ -509,19 +544,25 @@ export function useWhatsAppChatActions({
         tToast.error("whatsappChat.failed_delete_f800");
       }
     },
-    [selectedSession, selectedContact, targetSessionId, queryClient],
+    [selectedSession, activeSessionId, selectedContact, targetSessionId, queryClient],
   );
 
   // Forward
   const handleForwardMessage = useCallback(
     async (targetJids: string[]) => {
       if (!selectedSession || !selectedMessageForMenu || targetJids.length === 0) return;
+      const targetSid =
+        (selectedContact?.sessionId && selectedContact.sessionId !== 'all'
+          ? selectedContact.sessionId
+          : null) ||
+        (selectedSession !== 'all' ? selectedSession : activeSessionId);
+      if (!targetSid) return;
 
       try {
         await Promise.all(
           targetJids.map((jid) =>
             api.post('/whatsapp/messages/forward', {
-              sessionId: selectedSession,
+              sessionId: targetSid,
               to: jid,
               messageId: selectedMessageForMenu.messageId,
             }),
@@ -533,13 +574,17 @@ export function useWhatsAppChatActions({
         tToast.error("whatsappChat.msg_71a8");
       }
     },
-    [selectedSession, selectedMessageForMenu],
+    [selectedSession, activeSessionId, selectedContact?.sessionId, selectedMessageForMenu],
   );
 
   // Chat Actions: Clear, Delete, Bulk Delete, Delete All, Archive, Pin, Mute, Mark Unread, Block, Unblock
   const handleClearChat = useCallback(
     (contact: Contact) => {
       if (!selectedSession) return;
+      const targetSid =
+        (contact.sessionId && contact.sessionId !== 'all' ? contact.sessionId : null) ||
+        (selectedSession !== 'all' ? selectedSession : activeSessionId);
+      if (!targetSid) return;
       setConfirmData({
         open: true,
         title: t('whatsapp.dialogs.clearChatTitle'),
@@ -547,7 +592,7 @@ export function useWhatsAppChatActions({
         onConfirm: async () => {
           try {
             await api.post(`/whatsapp/conversations/${contact.jid}/clear`, {
-              sessionId: selectedSession,
+              sessionId: targetSid,
             });
             toast.success(t('whatsapp.dialogs.success'));
             if (selectedContact?.jid === contact.jid && targetSessionId) {
@@ -571,7 +616,7 @@ export function useWhatsAppChatActions({
         },
       });
     },
-    [selectedSession, t, selectedContact?.jid, targetSessionId, queryClient],
+    [selectedSession, activeSessionId, t, selectedContact?.jid, targetSessionId, queryClient],
   );
 
   const handleDeleteChat = useCallback(

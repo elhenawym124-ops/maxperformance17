@@ -132,6 +132,7 @@ export const useWhatsAppChatCoordinator = () => {
     selectedContact: chatData.selectedContact,
     setSelectedContact: chatData.setSelectedContact,
     selectedSession: chatData.selectedSession,
+    activeSessionId: chatData.activeSessionId,
     setSelectedSession: chatData.setSelectedSession,
     loadingSessions: chatData.loadingSessions,
     conversations: chatData.conversations,

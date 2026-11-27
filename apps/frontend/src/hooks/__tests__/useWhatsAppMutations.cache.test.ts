@@ -92,4 +92,37 @@ describe("WhatsApp mutation cache helpers", () => {
 
     expect(updated).toBe(cache);
   });
+
+  it("scopes updates to the matching sessionId when the same customer exists on API and QR channels", () => {
+    const cache = {
+      pages: [
+        {
+          conversations: [
+            buildContact({
+              id: "meta-contact",
+              sessionId: "session-meta",
+              jid: "201270388115@s.whatsapp.net",
+              unreadCount: 4,
+            }),
+            buildContact({
+              id: "qr-contact",
+              sessionId: "session-qr",
+              jid: "201270388115@s.whatsapp.net",
+              unreadCount: 2,
+            }),
+          ],
+        },
+      ],
+    };
+
+    const updated = updateConversationPages(
+      cache,
+      "201270388115@s.whatsapp.net",
+      (contact) => ({ ...contact, unreadCount: 0 }),
+      "session-qr",
+    );
+
+    expect(updated.pages[0].conversations[0].unreadCount).toBe(4);
+    expect(updated.pages[0].conversations[1].unreadCount).toBe(0);
+  });
 });

@@ -331,6 +331,16 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               <span className="hidden text-[11px] text-muted-foreground sm:inline" dir="ltr">
                 · {getContactDisplayPhone(selectedContact)}
               </span>
+              {selectedContact.session?.provider || selectedContact.session?.name ? (
+                <Badge
+                  variant="outline"
+                  className="border-border/70 bg-[var(--whatsapp-surface-overlay)] px-1.5 py-0 text-[9px] font-medium text-muted-foreground shrink-0"
+                  title={selectedContact.session?.name || selectedContact.session?.provider || undefined}
+                >
+                  {selectedContact.session?.provider === "META_CLOUD" ? "API" : "QR"}
+                  {selectedContact.session?.name ? ` · ${selectedContact.session.name}` : ""}
+                </Badge>
+              ) : null}
               {selectedContact.isMuted ? <span className="text-[10px] text-muted-foreground">مكتوم</span> : null}
             </div>
           </div>

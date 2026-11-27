@@ -18,10 +18,12 @@ export const updateConversationPages = <T extends ConversationsCacheData | undef
   old: T,
   remoteJid: string,
   updater: (contact: Contact) => Contact,
+  sessionId?: string,
 ): T => {
   if (!old?.pages?.length) return old;
 
   const targetJid = normalizeWhatsAppCacheJid(remoteJid);
+  const scopedSessionId = sessionId && sessionId !== "all" ? sessionId : null;
   let changed = false;
 
   const pages = old.pages.map((page) => {
@@ -31,6 +33,9 @@ export const updateConversationPages = <T extends ConversationsCacheData | undef
     let unreadCountReduction = 0;
     const conversations = page.conversations.map((contact) => {
       if (normalizeWhatsAppCacheJid(contact.jid) !== targetJid) {
+        return contact;
+      }
+      if (scopedSessionId && contact.sessionId && contact.sessionId !== scopedSessionId) {
         return contact;
       }
 

@@ -246,9 +246,13 @@ export function useWhatsAppChatSocket({
 
       if (message.fromMe) return;
 
+      const matchesCurrentContactSession =
+        !sessionId || !currentContact?.sessionId || currentContact.sessionId === sessionId;
+
       const isCurrentChat =
         currentContact &&
         msgJid === currentJid &&
+        matchesCurrentContactSession &&
         (currentSession === 'all' || sessionId === currentSession);
 
       if (isCurrentChat) {
@@ -289,9 +293,13 @@ export function useWhatsAppChatSocket({
           const sessionKey = currentSession === 'all' ? 'all' : currentSession;
           const conversationsQuery = findConversationsCache(sessionKey);
           const currentContacts = conversationsQuery?.pages?.[0]?.conversations ?? [];
+          const matchedContact =
+            currentContacts.find(
+              (c: Contact) => normalizeJid(c.jid) === msgJid && (!sessionId || c.sessionId === sessionId),
+            ) || currentContacts.find((c: Contact) => normalizeJid(c.jid) === msgJid);
           const contactName =
-            currentContacts.find((c: Contact) => normalizeJid(c.jid) === msgJid)?.name ||
-            currentContacts.find((c: Contact) => normalizeJid(c.jid) === msgJid)?.pushName ||
+            matchedContact?.name ||
+            matchedContact?.pushName ||
             getContactDisplayPhone({ jid: message.remoteJid });
           const messageText = message.content
             ? message.content.length > 50
@@ -315,7 +323,10 @@ export function useWhatsAppChatSocket({
                 const innerKey = currentSession === 'all' ? 'all' : currentSession;
                 const innerQuery = findConversationsCache(innerKey);
                 const innerContacts = innerQuery?.pages?.[0]?.conversations ?? [];
-                const contact = innerContacts.find((c: Contact) => normalizeJid(c.jid) === msgJid);
+                const contact =
+                  innerContacts.find(
+                    (c: Contact) => normalizeJid(c.jid) === msgJid && (!sessionId || c.sessionId === sessionId),
+                  ) || innerContacts.find((c: Contact) => normalizeJid(c.jid) === msgJid);
                 if (contact) {
                   setSelectedContact(contact);
                 }
@@ -333,74 +344,84 @@ export function useWhatsAppChatSocket({
         }
       }
 
-      const sessionKey = currentSession === 'all' ? 'all' : currentSession;
-      queryClient.setQueriesData<ConversationsCache>(
-        { queryKey: ['whatsapp', 'conversations', sessionKey] },
-        (old) => {
-          if (!old || !old.pages || old.pages.length === 0) return old;
-          const firstPage = old.pages[0];
-          if (!firstPage) return old;
-          const contactIndex = firstPage.conversations.findIndex(
-            (c: Contact) => normalizeJid(c.jid) === msgJid,
-          );
-          if (contactIndex > -1) {
-            const contact = firstPage.conversations[contactIndex];
-            if (!contact) return old;
-            const updatedContact = {
-              ...contact,
-              lastMessage: {
-                content: message.content,
-                messageType: message.messageType,
-                fromMe: message.fromMe,
-                timestamp: message.timestamp,
-              },
-              lastMessageAt: message.timestamp,
-              unreadCount: isCurrentChat ? 0 : (contact.unreadCount || 0) + 1,
-            };
-            const newContacts = [...firstPage.conversations];
-            newContacts.splice(contactIndex, 1);
-            const pinned = newContacts.filter((c: Contact) => c.isPinned);
-            const unpinned = newContacts.filter((c: Contact) => !c.isPinned);
-            if (updatedContact.isPinned) pinned.unshift(updatedContact);
-            else unpinned.unshift(updatedContact);
-            return {
-              ...old,
-              pages: [
-                {
-                  ...firstPage,
-                  conversations: [...pinned, ...unpinned],
+      if (currentSession === 'all' || !sessionId || sessionId === currentSession) {
+        const sessionKey = currentSession === 'all' ? 'all' : currentSession;
+        queryClient.setQueriesData<ConversationsCache>(
+          { queryKey: ['whatsapp', 'conversations', sessionKey] },
+          (old) => {
+            if (!old || !old.pages || old.pages.length === 0) return old;
+            const firstPage = old.pages[0];
+            if (!firstPage) return old;
+            const contactIndex = firstPage.conversations.findIndex(
+              (c: Contact) =>
+                normalizeJid(c.jid) === msgJid && (!sessionId || c.sessionId === sessionId),
+            );
+            if (contactIndex > -1) {
+              const contact = firstPage.conversations[contactIndex];
+              if (!contact) return old;
+              const updatedContact = {
+                ...contact,
+                lastMessage: {
+                  content: message.content,
+                  messageType: message.messageType,
+                  fromMe: message.fromMe,
+                  timestamp: message.timestamp,
                 },
-                ...old.pages.slice(1),
-              ],
-            };
-          } else if (data.contact) {
-            const newContact: Contact = {
-              ...data.contact,
-              lastMessage: {
-                content: message.content,
-                messageType: message.messageType,
-                fromMe: message.fromMe,
-                timestamp: message.timestamp,
-              },
-              lastMessageAt: message.timestamp,
-              unreadCount: isCurrentChat ? 0 : 1,
-            };
-            const pinned = firstPage.conversations.filter((c: Contact) => c.isPinned);
-            const unpinned = firstPage.conversations.filter((c: Contact) => !c.isPinned);
-            return {
-              ...old,
-              pages: [
-                {
-                  ...firstPage,
-                  conversations: [...pinned, newContact, ...unpinned],
+                lastMessageAt: message.timestamp,
+                lastCustomerMessageAt: message.fromMe
+                  ? contact.lastCustomerMessageAt
+                  : message.timestamp,
+                unreadCount: isCurrentChat ? 0 : (contact.unreadCount || 0) + 1,
+              };
+              const newContacts = [...firstPage.conversations];
+              newContacts.splice(contactIndex, 1);
+              const pinned = newContacts.filter((c: Contact) => c.isPinned);
+              const unpinned = newContacts.filter((c: Contact) => !c.isPinned);
+              if (updatedContact.isPinned) pinned.unshift(updatedContact);
+              else unpinned.unshift(updatedContact);
+              return {
+                ...old,
+                pages: [
+                  {
+                    ...firstPage,
+                    conversations: [...pinned, ...unpinned],
+                  },
+                  ...old.pages.slice(1),
+                ],
+              };
+            } else if (data.contact) {
+              const newContact: Contact = {
+                ...data.contact,
+                sessionId: data.contact.sessionId || sessionId,
+                lastMessage: {
+                  content: message.content,
+                  messageType: message.messageType,
+                  fromMe: message.fromMe,
+                  timestamp: message.timestamp,
                 },
-                ...old.pages.slice(1),
-              ],
-            };
-          }
-          return old;
-        },
-      );
+                lastMessageAt: message.timestamp,
+                lastCustomerMessageAt: message.fromMe
+                  ? data.contact.lastCustomerMessageAt
+                  : message.timestamp,
+                unreadCount: isCurrentChat ? 0 : 1,
+              };
+              const pinned = firstPage.conversations.filter((c: Contact) => c.isPinned);
+              const unpinned = firstPage.conversations.filter((c: Contact) => !c.isPinned);
+              return {
+                ...old,
+                pages: [
+                  {
+                    ...firstPage,
+                    conversations: [...pinned, newContact, ...unpinned],
+                  },
+                  ...old.pages.slice(1),
+                ],
+              };
+            }
+            return old;
+          },
+        );
+      }
 
       if (loadContactsTimeoutRef.current) {
         clearTimeout(loadContactsTimeoutRef.current);
@@ -442,9 +463,15 @@ export function useWhatsAppChatSocket({
             if (sessionId && sessionId !== currentSession) {
               setSelectedSession(sessionId);
             }
-            const contact = currentContacts.find(
-              (c: Contact) => c.name === contactName || c.pushName === contactName,
-            );
+            const contact =
+              currentContacts.find(
+                (c: Contact) =>
+                  (!sessionId || c.sessionId === sessionId) &&
+                  (c.name === contactName || c.pushName === contactName),
+              ) ||
+              currentContacts.find(
+                (c: Contact) => c.name === contactName || c.pushName === contactName,
+              );
             if (contact) {
               setSelectedContact(contact);
             }
@@ -482,6 +509,7 @@ export function useWhatsAppChatSocket({
       if (
         currentContact &&
         msgJid === currentJid &&
+        (!sessionId || !currentContact.sessionId || currentContact.sessionId === sessionId) &&
         (currentSession === 'all' || sessionId === currentSession)
       ) {
         const targetSid =
@@ -514,6 +542,7 @@ export function useWhatsAppChatSocket({
       if (
         currentContact &&
         msgJid === currentJid &&
+        (!sessionId || !currentContact.sessionId || currentContact.sessionId === sessionId) &&
         (currentSession === 'all' || sessionId === currentSession)
       ) {
         const targetSid =
@@ -538,50 +567,53 @@ export function useWhatsAppChatSocket({
         );
       }
 
-      const sessionKey = currentSession === 'all' ? 'all' : currentSession;
-      queryClient.setQueriesData<ConversationsCache>(
-        { queryKey: ['whatsapp', 'conversations', sessionKey] },
-        (old) => {
-          if (!old || !old.pages || old.pages.length === 0) return old;
-          const firstPage = old.pages[0];
-          if (!firstPage) return old;
-          const contactIndex = firstPage.conversations.findIndex(
-            (c: Contact) => normalizeJid(c.jid) === msgJid,
-          );
-          if (contactIndex > -1) {
-            const contact = firstPage.conversations[contactIndex];
-            if (!contact) return old;
-            const updatedContact = {
-              ...contact,
-              lastMessage: {
-                content: message.content,
-                messageType: message.messageType,
-                fromMe: message.fromMe,
-                timestamp: message.timestamp,
-              },
-              lastMessageAt: message.timestamp,
-              unreadCount: 0,
-            };
-            const newContacts = [...firstPage.conversations];
-            newContacts.splice(contactIndex, 1);
-            const pinned = newContacts.filter((c: Contact) => c.isPinned);
-            const unpinned = newContacts.filter((c: Contact) => !c.isPinned);
-            if (updatedContact.isPinned) pinned.unshift(updatedContact);
-            else unpinned.unshift(updatedContact);
-            return {
-              ...old,
-              pages: [
-                {
-                  ...firstPage,
-                  conversations: [...pinned, ...unpinned],
+      if (currentSession === 'all' || !sessionId || sessionId === currentSession) {
+        const sessionKey = currentSession === 'all' ? 'all' : currentSession;
+        queryClient.setQueriesData<ConversationsCache>(
+          { queryKey: ['whatsapp', 'conversations', sessionKey] },
+          (old) => {
+            if (!old || !old.pages || old.pages.length === 0) return old;
+            const firstPage = old.pages[0];
+            if (!firstPage) return old;
+            const contactIndex = firstPage.conversations.findIndex(
+              (c: Contact) =>
+                normalizeJid(c.jid) === msgJid && (!sessionId || c.sessionId === sessionId),
+            );
+            if (contactIndex > -1) {
+              const contact = firstPage.conversations[contactIndex];
+              if (!contact) return old;
+              const updatedContact = {
+                ...contact,
+                lastMessage: {
+                  content: message.content,
+                  messageType: message.messageType,
+                  fromMe: message.fromMe,
+                  timestamp: message.timestamp,
                 },
-                ...old.pages.slice(1),
-              ],
-            };
-          }
-          return old;
-        },
-      );
+                lastMessageAt: message.timestamp,
+                unreadCount: 0,
+              };
+              const newContacts = [...firstPage.conversations];
+              newContacts.splice(contactIndex, 1);
+              const pinned = newContacts.filter((c: Contact) => c.isPinned);
+              const unpinned = newContacts.filter((c: Contact) => !c.isPinned);
+              if (updatedContact.isPinned) pinned.unshift(updatedContact);
+              else unpinned.unshift(updatedContact);
+              return {
+                ...old,
+                pages: [
+                  {
+                    ...firstPage,
+                    conversations: [...pinned, ...unpinned],
+                  },
+                  ...old.pages.slice(1),
+                ],
+              };
+            }
+            return old;
+          },
+        );
+      }
 
       indexedDBStorage.removeItem(`whatsapp_conversations_${sessionId}`).catch(console.error);
       indexedDBStorage.removeItem('whatsapp_conversations_all').catch(console.error);
@@ -624,6 +656,9 @@ export function useWhatsAppChatSocket({
     }) => {
       const currentContact = selectedContactRef.current;
       if (!currentContact) return;
+      if (data.sessionId && currentContact.sessionId && currentContact.sessionId !== data.sessionId) {
+        return;
+      }
       const targetSid =
         currentContact.sessionId ||
         (selectedSessionRef.current === 'all' ? data.sessionId : selectedSessionRef.current);
@@ -659,6 +694,9 @@ export function useWhatsAppChatSocket({
     }) => {
       const currentContact = selectedContactRef.current;
       if (!currentContact) return;
+      if (data.sessionId && currentContact.sessionId && currentContact.sessionId !== data.sessionId) {
+        return;
+      }
       const targetSid =
         currentContact.sessionId ||
         (selectedSessionRef.current === 'all' ? data.sessionId : selectedSessionRef.current);
@@ -696,6 +734,9 @@ export function useWhatsAppChatSocket({
     }) => {
       const currentContact = selectedContactRef.current;
       if (!currentContact) return;
+      if (data.sessionId && currentContact.sessionId && currentContact.sessionId !== data.sessionId) {
+        return;
+      }
       const targetSid =
         currentContact.sessionId ||
         (selectedSessionRef.current === 'all' ? data.sessionId : selectedSessionRef.current);
@@ -738,6 +779,9 @@ export function useWhatsAppChatSocket({
       if (!data?.messageId) return;
       const currentContact = selectedContactRef.current;
       if (!currentContact) return;
+      if (data.sessionId && currentContact.sessionId && currentContact.sessionId !== data.sessionId) {
+        return;
+      }
       const targetSid =
         currentContact.sessionId ||
         (selectedSessionRef.current === 'all' ? data.sessionId : selectedSessionRef.current);

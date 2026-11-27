@@ -324,6 +324,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
                 contact={contact}
                 contactName={getBestContactDisplayName(contact)}
                 isSelected={selectedContact?.id === contact.id}
+                showSessionBadge={resolvedSessionValue === 'all' && sessionOptions.length > 1}
                 multiSelectMode={multiSelectMode}
                 isSelectedInMulti={selectedJids.has(contact.jid)}
                 swipedContactId={swipedContactId}
