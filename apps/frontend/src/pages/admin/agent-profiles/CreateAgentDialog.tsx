@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Loader2, Plus, AlertCircle, Bot, Sparkles } from "lucide-react";
+import { handleInsufficientWalletBalance } from "../../../utils/marketplaceWalletHelper";
 import {
   Dialog,
   DialogContent,
@@ -44,6 +46,7 @@ export default function CreateAgentDialog({
   onCreated,
 }: CreateAgentDialogProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [newAgentName, setNewAgentName] = useState("");
   const [newAgentIcon] = useState("agent");
   const [newAgentDesc, setNewAgentDesc] = useState("");
@@ -77,6 +80,19 @@ export default function CreateAgentDialog({
       });
 
       const data = await res.json().catch(() => ({}));
+      if (res.status === 402 || data?.code === "INSUFFICIENT_WALLET_BALANCE") {
+        onOpenChange(false);
+        handleInsufficientWalletBalance(
+          { response: { status: 402, data } },
+          navigate,
+          {
+            returnUrl: window.location.pathname + window.location.search,
+            appName: selectedTemplate?.name || trimmedName,
+            itemType: "agent",
+          },
+        );
+        return;
+      }
       if (!res.ok || data.success === false) {
         throw new Error(data.error || data.message || `Status: ${res.status}`);
       }

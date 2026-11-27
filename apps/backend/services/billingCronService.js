@@ -26,6 +26,7 @@ class BillingCronService {
       try {
         await this.processPlatformFees();
         await this.processAppSubscriptions();
+        await this.processAgentSubscriptions();
         await this.checkLowBalances();
 
         console.log('✅ [BILLING-CRON] Daily billing job completed successfully');
@@ -381,6 +382,24 @@ class BillingCronService {
   }
 
   /**
+   * خصم اشتراكات الوكلاء المدفوعين (Pro) الشهرية
+   */
+  async processAgentSubscriptions() {
+    console.log('🤖 [BILLING-CRON] Processing Pro agent subscriptions...');
+    try {
+      const agentCatalogSvc = require('./agentMarketplaceCatalogService');
+      const result = await agentCatalogSvc.processDueAgentSubscriptions(getSharedPrismaClient());
+      console.log(
+        `✅ [BILLING-CRON] Agent subscriptions completed (renewed: ${result.renewed}, suspended: ${result.suspended})`
+      );
+      return result;
+    } catch (error) {
+      console.error('❌ [BILLING-CRON] Error in processAgentSubscriptions:', error);
+      return { processed: 0, renewed: 0, suspended: 0 };
+    }
+  }
+
+  /**
    * التحقق من الأرصدة المنخفضة وإرسال تنبيهات
    */
   async checkLowBalances() {
@@ -430,6 +449,7 @@ class BillingCronService {
     try {
       await this.processPlatformFees();
       await this.processAppSubscriptions();
+      await this.processAgentSubscriptions();
       await this.checkLowBalances();
 
       console.log('✅ [BILLING-CRON] Manual billing job completed');

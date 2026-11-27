@@ -476,98 +476,46 @@ router.patch('/catalog/:slug', async (req, res) => {
   }
 });
 
-router.post('/hire', async (req, res) => {
-  let walletCharge = null;
-  let companyId = null;
-  let catalogEntry = null;
+router.get('/subscriptions', async (req, res) => {
   try {
-    companyId = getCompanyId(req);
+    const companyId = getCompanyId(req);
+    if (!companyId) return res.status(400).json({ success: false, error: 'companyId is required' });
+    const subscriptions = await agentMarketplaceCatalogService.listCompanyAgentSubscriptions(companyId);
+    return res.json({ success: true, subscriptions });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+router.post('/hire', async (req, res) => {
+  try {
+    const companyId = getCompanyId(req);
     if (!companyId) return res.status(400).json({ success: false, error: 'companyId is required' });
 
     const templateSlug = req.body?.templateSlug;
     const isSuperAdmin = req.user?.role === 'SUPER_ADMIN';
 
-    if (templateSlug) {
-      catalogEntry = await agentMarketplaceCatalogService.resolveCompanyCatalogEntry(templateSlug);
-      if (catalogEntry && !catalogEntry.visible && !isSuperAdmin) {
-        return res.status(403).json({
-          success: false,
-          code: 'AGENT_NOT_AVAILABLE',
-          error: 'هذا الوكيل غير متاح حالياً للتوظيف في السوق',
-        });
-      }
-      if (catalogEntry) {
-        walletCharge = await agentMarketplaceCatalogService.chargeCompanyWalletForAgentHire({
-          companyId,
-          agentEntry: catalogEntry,
-          userId: req.user?.id || null,
-        });
-      }
-    }
-
-    const result = await agentManagerService.hireAgent(companyId, {
-      ...req.body,
-      requestedBy: req.user?.id || null,
+    const responsePayload = await agentMarketplaceCatalogService.executeGovernedAgentHire({
+      companyId,
+      userId: req.user?.id || null,
+      isSuperAdmin,
+      templateSlug,
+      spawnFn: () =>
+        agentManagerService.hireAgent(companyId, {
+          ...req.body,
+          requestedBy: req.user?.id || null,
+        }),
+      onSquadMemberSpawn: (memberSlug, catalogEntry) =>
+        agentManagerService.hireAgent(companyId, {
+          templateSlug: memberSlug,
+          department: req.body?.department || catalogEntry.department,
+          safetyMode: req.body?.safetyMode || 'draft',
+          requestedBy: req.user?.id || null,
+        }),
     });
-
-    if (!result || result.success === false) {
-      if (walletCharge?.charged) {
-        await agentMarketplaceCatalogService.refundCompanyWalletForFailedHire({
-          companyId,
-          walletId: walletCharge.walletId,
-          amount: walletCharge.amount,
-          agentName: catalogEntry?.name || templateSlug,
-          refCode: walletCharge.refCode,
-        });
-      }
-      return res.status(400).json(result || { success: false, error: 'فشل تعيين الوكيل' });
-    }
-
-    // If hiring a Squad bundle, activate remaining squad members best-effort
-    const squadSpawned = [];
-    if (
-      catalogEntry?.kind === 'squad' &&
-      Array.isArray(catalogEntry.squadMembers) &&
-      catalogEntry.squadMembers.length > 1
-    ) {
-      const otherSlugs = catalogEntry.squadMembers.filter((s) => s !== templateSlug);
-      for (const memberSlug of otherSlugs) {
-        try {
-          const memberRes = await agentManagerService.hireAgent(companyId, {
-            templateSlug: memberSlug,
-            department: req.body?.department || catalogEntry.department,
-            safetyMode: req.body?.safetyMode || 'draft',
-            requestedBy: req.user?.id || null,
-          });
-          if (memberRes?.id) squadSpawned.push(memberRes.id);
-        } catch (_) {
-          // Member may already exist; non-fatal for squad activation
-        }
-      }
-    }
-
-    const responsePayload =
-      walletCharge?.charged || squadSpawned.length > 0
-        ? {
-            ...result,
-            ...(walletCharge?.charged
-              ? { chargedAmount: walletCharge.amount, walletBalanceAfter: walletCharge.balanceAfter }
-              : {}),
-            ...(squadSpawned.length > 0 ? { squadSpawned } : {}),
-          }
-        : result;
 
     return res.status(201).json(responsePayload);
   } catch (error) {
-    if (walletCharge?.charged) {
-      await agentMarketplaceCatalogService.refundCompanyWalletForFailedHire({
-        companyId,
-        walletId: walletCharge.walletId,
-        amount: walletCharge.amount,
-        agentName: catalogEntry?.name || req.body?.templateSlug || 'agent',
-        refCode: walletCharge.refCode,
-      });
-    }
     const statusCode = error.statusCode || 400;
     return res.status(statusCode).json({
       success: false,
@@ -831,6 +779,7 @@ router.delete('/agents/:id', async (req, res) => {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(400).json({ success: false, error: 'companyId is required' });
     const result = await agentManagerService.archiveAgent(companyId, req.params.id);
+    await agentMarketplaceCatalogService.cancelAgentSubscription({ companyId, agentId: req.params.id });
     return res.json(result);
   } catch (error) {
     return res.status(error.statusCode || 500).json({ success: false, error: error.message });

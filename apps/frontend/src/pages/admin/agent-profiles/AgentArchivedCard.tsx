@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { RefreshCw, Trash2 } from "lucide-react";
+import { RefreshCw, Trash2, Archive } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { tryApiFetch } from "./types";
@@ -51,9 +51,9 @@ export const AgentArchivedCard: React.FC<AgentArchivedCardProps> = ({
   };
 
   return (
-    <div className="max-w-md mx-auto my-12 p-6 bg-card border border-border rounded-xl text-center space-y-5 shadow-sm">
-      <div className="size-14 rounded-full bg-warning/10 text-warning flex items-center justify-center mx-auto text-2xl">
-        {draftIcon || "🤖"}
+    <div className="max-w-md mx-auto my-8 p-6 bg-card border border-border/70 rounded-xl text-center space-y-5">
+      <div className="size-12 rounded-xl bg-warning/10 border border-warning/25 text-warning flex items-center justify-center mx-auto">
+        <Archive className="size-5 stroke-[1.5]" />
       </div>
       <div className="space-y-1">
         <h3 className="text-base font-bold text-foreground">{draftName}</h3>

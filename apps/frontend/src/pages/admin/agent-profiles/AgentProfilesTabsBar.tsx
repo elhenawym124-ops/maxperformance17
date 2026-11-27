@@ -54,7 +54,7 @@ export const AgentProfilesTabsBar: React.FC<AgentProfilesTabsBarProps> = ({
   ];
 
   return (
-    <div className="border-b border-border/50 px-2 sm:px-4 lg:px-6 flex gap-1 sm:gap-2 bg-card/40 overflow-x-auto no-scrollbar shrink-0">
+    <div className="border-b border-border/70 px-2 sm:px-4 lg:px-6 flex gap-1 sm:gap-2 bg-card overflow-x-auto no-scrollbar shrink-0">
       {tabs.map(({ key, label, count, icon }) => (
         <button
           key={key}

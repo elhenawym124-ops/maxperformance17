@@ -15,6 +15,8 @@ import {
   GitFork,
   ChevronDown,
   Plus,
+  Bot,
+  CreditCard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +35,13 @@ interface AgentProfileHeaderProps {
   agentStatus: string;
   templateSlug: string | null;
   channels: string[];
+  subscription?: {
+    id: string;
+    monthlyPrice: number;
+    currency?: string;
+    status: string;
+    nextBillingAt?: string;
+  } | null;
   editing: boolean;
   setEditing: (v: boolean) => void;
   draftName: string;
@@ -61,6 +70,7 @@ export default function AgentProfileHeader({
   agentStatus,
   templateSlug,
   channels,
+  subscription = null,
   editing,
   setEditing,
   draftName,
@@ -85,7 +95,7 @@ export default function AgentProfileHeader({
   const active = agentStatus?.toUpperCase() === "ACTIVE";
 
   return (
-    <div className="px-3 sm:px-4 lg:px-6 py-3 sm:py-4 border-b border-border/50 bg-card/60 backdrop-blur-sm space-y-2.5 sm:space-y-3">
+    <div className="px-3 sm:px-4 lg:px-6 py-3 sm:py-4 border-b border-border/70 bg-card space-y-2.5 sm:space-y-3">
       {/* ── Mobile Identity Bar (Compact & Ergonomic) ── */}
       <div className="lg:hidden">
         {editing ? (
@@ -124,7 +134,9 @@ export default function AgentProfileHeader({
               className="flex items-center gap-2 py-1 px-1.5 -mx-1.5 rounded-lg hover:bg-muted/70 active:scale-97 transition-all text-start min-w-0 flex-1 group"
               aria-label={t("agentProfiles.sidebar.title", "فريق الايجنت")}
             >
-              <span className="text-2xl shrink-0 leading-none">{draftIcon || "🤖"}</span>
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-primary/10 text-primary">
+                <Bot className="size-4 stroke-[1.5]" />
+              </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
                   <h2 className="text-sm font-bold text-foreground truncate">{draftName}</h2>
@@ -196,7 +208,9 @@ export default function AgentProfileHeader({
               </div>
             </div>
           ) : (
-            <span className="text-3xl shrink-0 leading-none mt-0.5">{draftIcon || "🤖"}</span>
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-primary/10 text-primary mt-0.5">
+              <Bot className="size-5 stroke-[1.5]" />
+            </div>
           )}
 
           <div className="min-w-0 flex-1">
@@ -233,8 +247,30 @@ export default function AgentProfileHeader({
               ))}
 
               {templateSlug && (
-                <span className="text-[11px] font-mono text-muted-foreground/70 bg-muted/40 px-1.5 py-0.5 rounded border border-border/40">
+                <span className="text-[11px] font-mono text-muted-foreground/80 bg-muted/40 px-1.5 py-0.5 rounded border border-border/60">
                   {templateSlug}
+                </span>
+              )}
+
+              {subscription && (
+                <span
+                  className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-medium border ${
+                    subscription.status === "SUSPENDED"
+                      ? "border-destructive/30 bg-destructive/10 text-destructive"
+                      : "border-primary/25 bg-primary/10 text-primary"
+                  }`}
+                >
+                  <CreditCard className="size-3 stroke-[1.5]" />
+                  <span>
+                    {subscription.status === "SUSPENDED"
+                      ? "موقوف لنقص الرصيد"
+                      : "اشتراك Pro"}
+                  </span>
+                  {subscription.nextBillingAt && subscription.status === "ACTIVE" && (
+                    <span className="font-mono tabular-nums opacity-85">
+                      • {new Date(subscription.nextBillingAt).toLocaleDateString("en-CA")}
+                    </span>
+                  )}
                 </span>
               )}
             </div>

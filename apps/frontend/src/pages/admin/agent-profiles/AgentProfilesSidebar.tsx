@@ -42,10 +42,10 @@ export const AgentProfilesSidebar: React.FC<AgentProfilesSidebarProps> = ({
   return (
     <aside
       className={cn(
-        "h-full flex flex-col overflow-hidden",
+        "h-full flex flex-col overflow-hidden bg-card",
         isDrawer
-          ? "w-full bg-card"
-          : "w-64 shrink-0 border-e border-border/50 bg-card/40",
+          ? "w-full"
+          : "w-64 shrink-0 border-e border-border/70",
       )}
     >
       <div className="px-4 py-3 border-b border-border/50 flex items-center justify-between">
@@ -71,12 +71,12 @@ export const AgentProfilesSidebar: React.FC<AgentProfilesSidebarProps> = ({
 
       <div className="px-3 py-2">
         <div className="relative">
-          <Search className="absolute right-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/50 pointer-events-none" />
+          <Search className="absolute start-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/60 pointer-events-none" />
           <Input
             placeholder={t("agentProfiles.sidebar.search", "بحث...")}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="h-8 pe-8 text-xs"
+            className="h-8 ps-8 text-xs"
           />
         </div>
       </div>
@@ -158,7 +158,9 @@ export const AgentProfilesSidebar: React.FC<AgentProfilesSidebarProps> = ({
                     : "hover:bg-muted/50 border border-transparent text-foreground/80",
                 )}
               >
-                <span className="text-xl shrink-0">{agent.icon || "🤖"}</span>
+                <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-primary/10 text-primary">
+                  <Bot className="size-4 stroke-[1.5]" />
+                </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-1">
                     <p className="text-xs truncate font-medium">{agent.name}</p>

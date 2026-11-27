@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { AlertCircle, Plus, Menu } from "lucide-react";
+import { AlertCircle, Plus, Menu, Store } from "lucide-react";
+import "../../../styles/polaris-track.css";
+import { apiClient } from "../../../services/apiClient";
 import AgentProfileHeader from "./AgentProfileHeader";
 import AgentSettingsTab from "./AgentSettingsTab";
 import AgentSkillsTab from "./AgentSkillsTab";
@@ -17,7 +20,37 @@ import { AgentArchivedCard } from "./AgentArchivedCard";
 import { AgentActionConfirmModals } from "./AgentActionConfirmModals";
 import { AgentProfilesEmptyState } from "./AgentProfilesEmptyState";
 
+export interface AgentSubscriptionInfo {
+  id: string;
+  agentId: string;
+  templateSlug?: string | null;
+  monthlyPrice: number;
+  currency?: string;
+  status: string;
+  nextBillingAt?: string;
+}
+
 export default function AgentProfilesPage() {
+  const navigate = useNavigate();
+  const [subscriptions, setSubscriptions] = useState<AgentSubscriptionInfo[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    apiClient
+      ?.get?.("/agent-manager/subscriptions")
+      ?.then((res: any) => {
+        if (active && res?.data?.success && Array.isArray(res.data.subscriptions)) {
+          setSubscriptions(res.data.subscriptions);
+        }
+      })
+      ?.catch(() => {
+        // non-blocking
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const {
     t,
     isMobile,
@@ -80,8 +113,16 @@ export default function AgentProfilesPage() {
     setMobileDrawerOpen(false);
   };
 
+  const selectedSubscription = selectedAgent
+    ? subscriptions.find(
+        (s) =>
+          s.agentId === selectedAgent.id ||
+          (selectedAgent.templateSlug && s.templateSlug === selectedAgent.templateSlug),
+      ) || null
+    : null;
+
   return (
-    <div className="flex h-full w-full bg-muted dark:bg-muted overflow-hidden">
+    <div className="polaris-track business-shell-main flex h-full w-full overflow-hidden">
       {/* ── Mobile Drawer ── */}
       {isMobile && (
         <Sheet open={mobileDrawerOpen} onOpenChange={setMobileDrawerOpen}>
@@ -127,9 +168,25 @@ export default function AgentProfilesPage() {
 
       {/* ── Main Panel ── */}
       <main className="flex-1 flex flex-col overflow-hidden min-h-0 min-w-0">
-        <div className="px-3 sm:px-5 pt-3">
-          <h1 className="text-lg font-bold">{t("agentProfiles.page.title", "فريق الايجنت")}</h1>
-          <p className="text-xs text-muted-foreground">{t("agentProfiles.page.subtitle", "ملفات الوكلاء وأدواتهم وقنواتهم")}</p>
+        <div className="px-3 sm:px-5 pt-3 pb-2.5 flex items-center justify-between gap-3 border-b border-border/70 bg-card">
+          <div className="min-w-0">
+            <h1 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
+              {t("agentProfiles.page.title", "فريق الايجنت")}
+            </h1>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {t("agentProfiles.page.subtitle", "ملفات الوكلاء وأدواتهم وقنواتهم")}
+            </p>
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => navigate("/marketplace/agents")}
+            className="gap-1.5 h-8 text-xs shrink-0"
+          >
+            <Store className="size-3.5 text-primary stroke-[1.5]" />
+            <span>سوق الوكلاء</span>
+          </Button>
         </div>
 
         {/* Mobile Fallback Bar (Only when no agent profile is loaded) */}
@@ -164,6 +221,7 @@ export default function AgentProfilesPage() {
               agentStatus={profile.agent.status}
               templateSlug={profile.agent.templateSlug}
               channels={channels}
+              subscription={selectedSubscription}
               editing={editing}
               setEditing={setEditing}
               draftName={draftName}

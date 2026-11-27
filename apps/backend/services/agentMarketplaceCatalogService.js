@@ -14,6 +14,7 @@ const aiServiceAdminClient = require('./aiServiceAdminClient');
 
 const AGENTS_DIR = path.resolve(__dirname, '../agents');
 const SETTINGS_SYSTEM_NAME = 'agent_marketplace_catalog_overrides';
+const SUBSCRIPTIONS_SYSTEM_NAME = 'agent_marketplace_subscriptions';
 const CACHE_TTL_MS = 15_000;
 
 const VALID_KINDS = ['solo', 'squad', 'vertical', 'internal'];
@@ -1121,6 +1122,361 @@ async function refundCompanyWalletForFailedHire(
   }
 }
 
+async function getSubscriptionsStore(prisma = getSharedPrismaClient()) {
+  const fallback = [];
+  if (!prisma?.systemSettings?.findUnique) return fallback;
+  try {
+    const row = await prisma.systemSettings.findUnique({
+      where: { systemName: SUBSCRIPTIONS_SYSTEM_NAME },
+    });
+    if (!row?.config) return fallback;
+    const parsed = JSON.parse(row.config);
+    return Array.isArray(parsed?.subscriptions) ? parsed.subscriptions : fallback;
+  } catch (_) {
+    return fallback;
+  }
+}
+
+async function saveSubscriptionsStore(subscriptions, prisma = getSharedPrismaClient()) {
+  if (!prisma?.systemSettings?.upsert) return subscriptions;
+  const serialized = JSON.stringify({ subscriptions });
+  await prisma.systemSettings.upsert({
+    where: { systemName: SUBSCRIPTIONS_SYSTEM_NAME },
+    update: { config: serialized, lastStatusChange: new Date() },
+    create: {
+      systemName: SUBSCRIPTIONS_SYSTEM_NAME,
+      displayName: 'Agent Marketplace Pro Subscriptions',
+      description: 'Active recurring monthly subscriptions for Pro agents hired from /marketplace/agents',
+      category: 'marketplace',
+      isEnabled: true,
+      config: serialized,
+      lastStatusChange: new Date(),
+    },
+  });
+  return subscriptions;
+}
+
+function addOneMonthIso(fromDate = new Date()) {
+  const d = new Date(fromDate);
+  d.setMonth(d.getMonth() + 1);
+  return d.toISOString();
+}
+
+async function recordAgentSubscription(
+  { companyId, agentId, templateSlug, agentName, monthlyPrice, currency = 'EGP' },
+  prisma = getSharedPrismaClient()
+) {
+  if (!companyId || !agentId || !(Number(monthlyPrice) > 0)) return null;
+  if (!prisma?.systemSettings?.upsert) return null;
+
+  const list = await getSubscriptionsStore(prisma);
+  const nowIso = new Date().toISOString();
+  const nextIso = addOneMonthIso(nowIso);
+  const idx = list.findIndex((s) => s.companyId === companyId && s.agentId === agentId);
+
+  const entry = {
+    id: idx >= 0 ? list[idx].id : `agsub_${companyId}_${agentId}`,
+    companyId,
+    agentId,
+    templateSlug: templateSlug || null,
+    agentName: agentName || templateSlug || 'Pro Agent',
+    monthlyPrice: Number(monthlyPrice),
+    currency,
+    status: 'ACTIVE',
+    failedAttempts: 0,
+    startedAt: idx >= 0 ? list[idx].startedAt : nowIso,
+    lastBillingAt: nowIso,
+    nextBillingAt: nextIso,
+  };
+
+  if (idx >= 0) {
+    list[idx] = entry;
+  } else {
+    list.push(entry);
+  }
+  await saveSubscriptionsStore(list, prisma);
+  return entry;
+}
+
+async function cancelAgentSubscription({ companyId, agentId }, prisma = getSharedPrismaClient()) {
+  if (!companyId || !agentId || !prisma?.systemSettings?.findUnique) return false;
+  const list = await getSubscriptionsStore(prisma);
+  const idx = list.findIndex((s) => s.companyId === companyId && s.agentId === agentId && s.status !== 'CANCELLED');
+  if (idx < 0) return false;
+  list[idx] = {
+    ...list[idx],
+    status: 'CANCELLED',
+    cancelledAt: new Date().toISOString(),
+  };
+  await saveSubscriptionsStore(list, prisma);
+  return true;
+}
+
+async function listCompanyAgentSubscriptions(companyId, prisma = getSharedPrismaClient()) {
+  if (!companyId) return [];
+  const list = await getSubscriptionsStore(prisma);
+  return list.filter((s) => s.companyId === companyId && s.status !== 'CANCELLED');
+}
+
+/**
+ * Shared governed hire pipeline used by both POST /agent-manager/hire and POST /agent/agents.
+ * Prevents bypassing visibility or Pro wallet billing through alternate routes.
+ */
+async function executeGovernedAgentHire(
+  { companyId, userId, isSuperAdmin = false, templateSlug, spawnFn, onSquadMemberSpawn },
+  prisma = getSharedPrismaClient()
+) {
+  let walletCharge = null;
+  let catalogEntry = null;
+
+  try {
+    if (templateSlug) {
+      catalogEntry = await resolveCompanyCatalogEntry(templateSlug, prisma);
+      if (catalogEntry && !catalogEntry.visible && !isSuperAdmin) {
+        const err = new Error('هذا الوكيل غير متاح حالياً للتوظيف في السوق');
+        err.statusCode = 403;
+        err.code = 'AGENT_NOT_AVAILABLE';
+        throw err;
+      }
+      if (catalogEntry) {
+        walletCharge = await chargeCompanyWalletForAgentHire(
+          { companyId, agentEntry: catalogEntry, userId },
+          prisma
+        );
+      }
+    }
+
+    const result = await spawnFn();
+    if (!result || result.success === false) {
+      if (walletCharge?.charged) {
+        await refundCompanyWalletForFailedHire(
+          {
+            companyId,
+            walletId: walletCharge.walletId,
+            amount: walletCharge.amount,
+            agentName: catalogEntry?.name || templateSlug || 'agent',
+            refCode: walletCharge.refCode,
+          },
+          prisma
+        );
+      }
+      const err = new Error(result?.error || 'فشل تعيين الوكيل');
+      err.statusCode = 400;
+      throw err;
+    }
+
+    const spawnedAgentId = result.id || result.data?.id || result.agent?.id || null;
+    let subscription = null;
+    if (walletCharge?.charged && spawnedAgentId) {
+      try {
+        subscription = await recordAgentSubscription(
+          {
+            companyId,
+            agentId: spawnedAgentId,
+            templateSlug: catalogEntry?.slug || templateSlug,
+            agentName: result.name || catalogEntry?.name || templateSlug,
+            monthlyPrice: walletCharge.amount,
+          },
+          prisma
+        );
+      } catch (subErr) {
+        console.warn('[AGENT-MARKETPLACE] Subscription record failed:', subErr.message);
+      }
+    }
+
+    const squadSpawned = [];
+    if (
+      typeof onSquadMemberSpawn === 'function' &&
+      catalogEntry?.kind === 'squad' &&
+      Array.isArray(catalogEntry.squadMembers) &&
+      catalogEntry.squadMembers.length > 1
+    ) {
+      const otherSlugs = catalogEntry.squadMembers.filter((s) => s !== templateSlug);
+      for (const memberSlug of otherSlugs) {
+        try {
+          const memberRes = await onSquadMemberSpawn(memberSlug, catalogEntry);
+          if (memberRes?.id) squadSpawned.push(memberRes.id);
+        } catch (_) {
+          // Non-fatal if member already exists
+        }
+      }
+    }
+
+    return {
+      ...result,
+      ...(walletCharge?.charged
+        ? { chargedAmount: walletCharge.amount, walletBalanceAfter: walletCharge.balanceAfter }
+        : {}),
+      ...(subscription ? { subscription } : {}),
+      ...(squadSpawned.length > 0 ? { squadSpawned } : {}),
+    };
+  } catch (error) {
+    if (walletCharge?.charged) {
+      await refundCompanyWalletForFailedHire(
+        {
+          companyId,
+          walletId: walletCharge.walletId,
+          amount: walletCharge.amount,
+          agentName: catalogEntry?.name || templateSlug || 'agent',
+          refCode: walletCharge.refCode,
+        },
+        prisma
+      );
+    }
+    throw error;
+  }
+}
+
+/**
+ * Daily billing cron handler: renews due Pro agent subscriptions from CompanyWallet
+ * and pauses agents via ai-service when wallet balance is insufficient.
+ */
+async function processDueAgentSubscriptions(
+  prisma = getSharedPrismaClient(),
+  adminClient = aiServiceAdminClient
+) {
+  if (!prisma?.systemSettings?.findUnique || !prisma?.$transaction || !prisma?.companyWallet) {
+    return { processed: 0, renewed: 0, suspended: 0 };
+  }
+
+  const list = await getSubscriptionsStore(prisma);
+  if (list.length === 0) return { processed: 0, renewed: 0, suspended: 0 };
+
+  const tomorrow = new Date();
+  tomorrow.setHours(0, 0, 0, 0);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  let processed = 0;
+  let renewed = 0;
+  let suspended = 0;
+  let dirty = false;
+  const toPause = [];
+
+  for (let i = 0; i < list.length; i++) {
+    const sub = list[i];
+    if (sub.status !== 'ACTIVE' || !(Number(sub.monthlyPrice) > 0)) continue;
+    const dueAt = new Date(sub.nextBillingAt);
+    if (Number.isNaN(dueAt.getTime()) || dueAt > tomorrow) continue;
+
+    processed++;
+    const fee = Number(sub.monthlyPrice);
+    const refCode = `AGT-REN-${Date.now()}-${i}`;
+
+    try {
+      const outcome = await prisma.$transaction(async (tx) => {
+        const wallet = await tx.companyWallet.findUnique({ where: { companyId: sub.companyId } });
+        const currentBalance = wallet ? Number(wallet.balance) : 0;
+
+        if (!wallet || currentBalance < fee) {
+          if (tx.billingHistory?.create) {
+            await tx.billingHistory.create({
+              data: {
+                companyId: sub.companyId,
+                type: 'AGENT_SUBSCRIPTION',
+                amount: fee,
+                description: `فشل تجديد اشتراك الوكيل ${sub.agentName} - رصيد غير كافٍ`,
+                status: 'FAILED',
+                referenceId: sub.id,
+              },
+            });
+          }
+          return { ok: false };
+        }
+
+        const debited = await tx.companyWallet.updateMany({
+          where: { id: wallet.id, balance: { gte: fee } },
+          data: {
+            balance: { decrement: fee },
+            totalSpent: { increment: fee },
+          },
+        });
+        if (!debited || debited.count === 0) {
+          return { ok: false };
+        }
+
+        const updatedCw = await tx.companyWallet.findUnique({ where: { id: wallet.id } });
+        if (tx.transaction?.create) {
+          await tx.transaction.create({
+            data: {
+              walletId: wallet.id,
+              type: 'DEDUCT',
+              amount: fee,
+              status: 'COMPLETED',
+              description: `تجديد اشتراك الوكيل الذكي: ${sub.agentName}`,
+              referenceId: refCode,
+            },
+          });
+        }
+        if (tx.companyWalletTransaction?.create) {
+          await tx.companyWalletTransaction.create({
+            data: {
+              companyId: sub.companyId,
+              walletId: wallet.id,
+              type: 'WITHDRAW',
+              reason: 'AGENT_SUBSCRIPTION_RENEWAL',
+              code: refCode,
+              amount: fee,
+              balanceAfter: updatedCw ? updatedCw.balance : currentBalance - fee,
+              notes: `تجديد شهري للوكيل ${sub.agentName}`,
+            },
+          });
+        }
+        if (tx.billingHistory?.create) {
+          await tx.billingHistory.create({
+            data: {
+              companyId: sub.companyId,
+              type: 'AGENT_SUBSCRIPTION',
+              amount: fee,
+              description: `تجديد اشتراك الوكيل الذكي: ${sub.agentName}`,
+              status: 'SUCCESS',
+              referenceId: sub.id,
+            },
+          });
+        }
+        return { ok: true };
+      });
+
+      if (outcome.ok) {
+        const nowIso = new Date().toISOString();
+        list[i] = {
+          ...sub,
+          lastBillingAt: nowIso,
+          nextBillingAt: addOneMonthIso(sub.nextBillingAt),
+          failedAttempts: 0,
+        };
+        renewed++;
+        dirty = true;
+      } else {
+        list[i] = {
+          ...sub,
+          status: 'SUSPENDED',
+          failedAttempts: Number(sub.failedAttempts || 0) + 1,
+          suspendedAt: new Date().toISOString(),
+        };
+        suspended++;
+        dirty = true;
+        toPause.push(sub.agentId);
+      }
+    } catch (err) {
+      console.error(`[AGENT-BILLING] Error renewing subscription ${sub.id}:`, err.message);
+    }
+  }
+
+  if (dirty) {
+    await saveSubscriptionsStore(list, prisma);
+  }
+
+  for (const agentId of toPause) {
+    try {
+      await adminClient.updateAgentStatus(agentId, 'INACTIVE');
+    } catch (_) {
+      // Non-fatal if ai-service is temporarily unreachable
+    }
+  }
+
+  return { processed, renewed, suspended };
+}
+
 module.exports = {
   CATALOG_CATEGORIES,
   CATALOG_KINDS,
@@ -1135,4 +1491,9 @@ module.exports = {
   updateCatalogSettings,
   chargeCompanyWalletForAgentHire,
   refundCompanyWalletForFailedHire,
+  recordAgentSubscription,
+  cancelAgentSubscription,
+  listCompanyAgentSubscriptions,
+  executeGovernedAgentHire,
+  processDueAgentSubscriptions,
 };

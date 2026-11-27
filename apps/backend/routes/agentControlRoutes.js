@@ -8,6 +8,7 @@ const express = require('express');
 const verifyToken = require('../utils/verifyToken');
 const { getSharedPrismaClient } = require('../services/sharedDatabase');
 const aiServiceAdminClient = require('../services/aiServiceAdminClient');
+const agentMarketplaceCatalogService = require('../services/agentMarketplaceCatalogService');
 
 const router = express.Router();
 router.use(verifyToken.authenticateToken);
@@ -68,6 +69,7 @@ router.delete('/agents/:id', async (req, res) => {
         console.log('[AGENT] Agent archived via ai-service:', result.id);
       }
     }
+    await agentMarketplaceCatalogService.cancelAgentSubscription({ companyId, agentId: req.params.id });
     return res.json(result);
   } catch (error) {
     return res.status(error.statusCode || 500).json({ success: false, error: error.message });
@@ -270,22 +272,36 @@ router.post('/agents', async (req, res) => {
   try {
     const companyId = getCompanyId(req);
     if (!companyId) return res.status(400).json({ error: 'companyId is required' });
-    const result = await aiServiceAdminClient.spawnAgent({
-      companyId, name: req.body?.name, role: req.body?.role,
-      description: req.body?.description, icon: req.body?.icon,
-      templateSlug: req.body?.templateSlug, model: req.body?.model,
-      parentId: req.body?.parentId, allowedTools: req.body?.allowedTools,
-      allowedSkills: req.body?.allowedSkills, allowedChannels: req.body?.allowedChannels,
-      persona: req.body?.persona, guardrails: req.body?.guardrails,
-      budget: req.body?.budget, config: req.body?.config,
+    const templateSlug = req.body?.templateSlug || null;
+    const isSuperAdmin = req.user?.role === 'SUPER_ADMIN';
+
+    const result = await agentMarketplaceCatalogService.executeGovernedAgentHire({
+      companyId,
+      userId: req.user?.id || null,
+      isSuperAdmin,
+      templateSlug,
+      spawnFn: () =>
+        aiServiceAdminClient.spawnAgent({
+          companyId, name: req.body?.name, role: req.body?.role,
+          description: req.body?.description, icon: req.body?.icon,
+          templateSlug, model: req.body?.model,
+          parentId: req.body?.parentId, allowedTools: req.body?.allowedTools,
+          allowedSkills: req.body?.allowedSkills, allowedChannels: req.body?.allowedChannels,
+          persona: req.body?.persona, guardrails: req.body?.guardrails,
+          budget: req.body?.budget, config: req.body?.config,
+        }),
     });
-    // 2026: ai-service manages agents; no dual-write to public.company_agents
     if (result && result.id) {
       console.log('[AGENT] Agent spawned via ai-service:', result.id);
     }
     return res.status(201).json(result);
   } catch (error) {
-    return res.status(400).json({ success: false, error: error.message });
+    return res.status(error.statusCode || 400).json({
+      success: false,
+      ...(error.code ? { code: error.code } : {}),
+      ...(error.details ? error.details : {}),
+      error: error.message,
+    });
   }
 });
 
