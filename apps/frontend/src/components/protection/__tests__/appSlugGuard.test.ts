@@ -119,7 +119,6 @@ describe("App Slug CI Guard: requiredAppSlugs integrity", () => {
       "accounting-app",
       "manufacturing-app",
       "cat-app-manufacturing",
-      "youtube-publish",
     ];
 
     for (const fakeSlug of legacyFakeSlugs) {

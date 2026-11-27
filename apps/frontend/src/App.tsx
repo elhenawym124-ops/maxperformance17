@@ -5298,7 +5298,7 @@ const AppContent = () => {
                   path="/youtube/publish"
                   element={
                     <Layout>
-                      <AppAccessRoute requiredAppSlugs={['tiktok-integrations']}>
+                      <AppAccessRoute requiredAppSlugs={['youtube-publish']}>
                         <YoutubePublish />
                       </AppAccessRoute>
                     </Layout>

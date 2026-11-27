@@ -35,7 +35,8 @@ export const APP_SLUG_ALIASES: Record<string, string[]> = {
   "manufacturing": ["manufacturing-app", "cat-app-manufacturing"],
 
   // Social & Publishing
-  "youtube-publish": ["tiktok-integrations"],
+  // youtube-publish is its own catalog app — the TikTok alias made the YouTube page
+  // render a locked TikTok modal for companies that do not own TikTok.
 
   // Communication & Messaging
   "whatsapp-business": [
