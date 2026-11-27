@@ -1,85 +1,86 @@
 {
   "id": "academy-stage-3d",
-  "name": "مسرح الأكاديمية 3D",
-  "description": "قالب أكاديميات ومراكز تدريب إبداعية بموجة مشاريع ثلاثية الأبعاد تفاعلية (Three.js)، ومعمل تجربة حي، ومسارات تعليمية متدرجة حسب العمر.",
+  "name": "الورشة الزجاجية للأكاديميات",
+  "description": "قالب أكاديميات البرمجة والذكاء الاصطناعي بتصميم معماري شبكي مضاء، اختيار العمر التفاعلي، ومعمل محاكاة حي.",
   "direction": "rtl",
   "tokens": {
     "colors": {
-      "primary": "178 96% 11%",
+      "primary": "219 85% 27%",
       "primaryForeground": "0 0% 100%",
-      "secondary": "220 28% 14%",
-      "secondaryForeground": "210 40% 98%",
-      "accent": "14 68% 54%",
+      "secondary": "40 24% 92%",
+      "secondaryForeground": "221 39% 11%",
+      "accent": "328 67% 37%",
       "accentForeground": "0 0% 100%",
-      "background": "224 44% 5%",
-      "foreground": "210 40% 98%",
-      "muted": "224 30% 12%",
-      "mutedForeground": "215 20% 72%",
-      "border": "220 26% 18%",
-      "card": "224 38% 8%",
-      "cardForeground": "210 40% 98%",
-      "ring": "14 68% 54%"
+      "background": "40 24% 92%",
+      "foreground": "221 39% 11%",
+      "muted": "40 16% 86%",
+      "mutedForeground": "215 25% 27%",
+      "border": "221 39% 11%",
+      "card": "40 30% 95%",
+      "cardForeground": "221 39% 11%",
+      "ring": "219 85% 27%"
     },
     "typography": {
-      "headingFont": "\"IBM Plex Sans Arabic\", sans-serif",
-      "bodyFont": "\"IBM Plex Sans Arabic\", sans-serif",
+      "headingFont": "\"Alexandria\", \"IBM Plex Sans Arabic\", sans-serif",
+      "bodyFont": "\"IBM Plex Sans Arabic\", \"Cairo\", sans-serif",
       "baseSize": "16px",
       "direction": "rtl"
     },
     "shape": {
-      "borderRadius": "1.5rem",
-      "buttonRadius": "999px"
+      "borderRadius": "0px",
+      "buttonRadius": "0px"
     },
     "productCard": {
-      "borderRadius": "1.25rem",
-      "boxShadow": "0 18px 44px -34px rgba(1, 55, 53, 0.28)",
-      "hoverShadow": "0 24px 54px -28px rgba(1, 55, 53, 0.36)",
-      "badgeRadius": "999px",
-      "buttonRadius": "999px",
+      "borderRadius": "0px",
+      "boxShadow": "none",
+      "hoverShadow": "none",
+      "badgeRadius": "0px",
+      "buttonRadius": "0px",
       "surfaceOpacity": "1"
     }
   },
   "header": {
-    "variant": "floating-dark",
-    "transparentOnHome": true,
-    "brandName": "مسرح الأكاديمية 3D",
+    "variant": "clean-minimal",
+    "transparentOnHome": false,
+    "brandName": "أكاديمية المستقبل",
     "showSearch": false,
     "showCart": false,
     "navigation": [
       { "label": "الرئيسية", "to": "/" },
-      { "label": "المناهج", "to": "/collections" },
+      { "label": "المسارات", "to": "/collections" },
+      { "label": "المستويات", "to": "/shop" },
       { "label": "المعمل الحي", "to": "/#academy-lab" },
       { "label": "احجز تقييم مجاني", "to": "/registration" }
     ]
   },
   "footer": {
-    "description": "قالب أكاديميات ومراكز تعليم البرمجة والمهارات الرقمية بموجة 3D تفاعلية ومعمل تجربة حي للطلاب وأولياء الأمور.",
-    "copyrightText": "© 2026 مسرح الأكاديمية 3D — جميع الحقوق محفوظة.",
+    "description": "أكاديمية تطبيقية في البرمجة والذكاء الاصطناعي وريادة الأعمال للأعمار 6–17 عبر 15 مستوى ينتهي بعرض Demo Day.",
+    "copyrightText": "© 2026 أكاديمية المستقبل — جميع الحقوق محفوظة.",
     "socialLinks": {},
     "navigation": [
       {
-        "title": "المسارات التعليمية",
+        "title": "البرامج",
         "links": [
-          { "label": "تصفح كل البرامج", "to": "/shop" },
+          { "label": "كل المستويات", "to": "/shop" },
           { "label": "المراحل العمرية", "to": "/collections" },
-          { "label": "حجز حصة تقييم", "to": "/registration" }
+          { "label": "احجز تقييم مجاني", "to": "/registration" }
         ]
       },
       {
-        "title": "الدعم",
+        "title": "الأكاديمية",
         "links": [
           { "label": "تواصل معنا", "to": "/contact" },
-          { "label": "سلة التسجيل", "to": "/cart" }
+          { "label": "التسجيل", "to": "/cart" }
         ]
       }
     ]
   },
   "seo": {
-    "titleTemplate": "%s | مسرح الأكاديمية 3D",
-    "description": "مسارات برمجة وذكاء اصطناعي وريادة أعمال بمشاريع تطبيقية وتجربة عرض 3D تفاعلية."
+    "titleTemplate": "%s | أكاديمية المستقبل للبرمجة",
+    "description": "مسارات برمجة وذكاء اصطناعي وريادة أعمال عبر 15 مستوى عملي من التأسيس حتى Demo Day."
   },
   "preview": {
-    "colors": ["224 44% 5%", "178 96% 11%", "14 68% 54%"],
+    "colors": ["40 24% 92%", "219 85% 27%", "328 67% 37%"],
     "imageUrl": "/assets/themes/academy-stage-3d/preview.png"
   },
   "pages": {
@@ -89,30 +90,27 @@
           "type": "hero-banner",
           "variant": "academy-3d-wave",
           "settings": {
-            "eyebrow": "من عمر 6 إلى 17 سنة · تدريب عملي ومشاريع حقيقية",
-            "title": "من الفضول الرقمي إلى بناء",
-            "titleHighlight": "الألعاب والمشاريع الذكية",
-            "subtitle": "مجموعات صغيرة وإشراف هندسي مباشر، ينتهي كل مستوى بمشروع تطبيقي يقدمه الطالب بثقة مع متابعة أسبوعية لولي الأمر.",
-            "ctaText": "احجز حصة تقييم مجانية",
+            "title": "هنا يتعلّم ابنك البرمجة ويبني",
+            "titleHighlight": "مشروعه التقني الأول",
+            "subtitle": "من Scratch و App Inventor إلى الذكاء الاصطناعي و Python Pro عبر 15 مستوى تدريجي — ينتهي بعرض شركته الناشئة في Demo Day.",
+            "ctaText": "احجز جلسة التقييم المجانية",
             "ctaLink": "/registration",
-            "secondaryCtaText": "جرّب المعمل التفاعلي",
+            "secondaryCtaText": "جرّب المعمل الحي",
             "secondaryCtaLink": "#academy-lab",
-            "watermarkText": "ACADEMY",
-            "heroBgFrom": "#073432",
-            "heroBgTo": "#060913",
-            "hintText": "حرّك المؤشر أو اضغط على البطاقات ثلاثية الأبعاد لاستعراض المسارات"
+            "panelImage": "/assets/themes/academy-stage-3d/microbit-kit.jpg",
+            "panelTitle": "عدة Micro:bit ومشاريع الهاردوير",
+            "panelSubtitle": "تدريب عملي بأطقم الهاردوير والكود",
+            "panelMetricValue": "EARLY10",
+            "panelMetricLabel": "تقييم مجاني وخصم 15% للإخوة"
           }
         },
         {
           "type": "academy-story-stage",
           "variant": "standard",
           "settings": {
-            "manifestoEyebrow": "PHILOSOPHY // المنهجية",
             "manifestoText": "نحن لا نعلّم الأطفال حفظ الأوامر — بل نبني عقلية مهندس ورائد أعمال يصمم لعبته أو نموذج الذكاء الاصطناعي ويعرض مشروعه في Demo Day بثقة.",
             "manifestoHighlights": ["مهندس ورائد أعمال", "الذكاء الاصطناعي", "Demo Day"],
-            "journeyBadge": "CURRICULUM ARCHITECTURE // مسار التطور",
-            "journeyTitle": "رحلة الطالب من الفكرة إلى منصة العرض",
-            "bentoBadge": "DEMO DAY // التخرج والعرض",
+            "journeyTitle": "رحلة 15 مستوى من الفكرة إلى العرض",
             "bentoTitle": "لا ينتهي المسار باختبار — بل بعرض مشروع حقيقي أمام الجميع",
             "bentoDescription": "كل طالب يبني مشروعاً عملياً ويقدم عرض Pitch متكامل يجمع البرمجة والذكاء الاصطناعي وريادة الأعمال.",
             "ctaText": "احجز حصة التقييم المجانية",
@@ -123,19 +121,10 @@
           "type": "academy-interactive-lab",
           "variant": "standard",
           "settings": {
-            "badge": "LIVE LAB // معمل التجربة التفاعلي",
             "title": "شوف بنفسك كيف يبني الطالب ذكاءً اصطناعياً وألعاباً حية",
             "subtitle": "جرّب نموذج الرؤية الحاسوبية أو محاكاة الفيزياء التي ينفذها طلابنا في الحصص التطبيقية.",
             "ctaText": "سجّل في حصة التقييم المجانية",
             "ctaLink": "/registration"
-          }
-        },
-        {
-          "type": "whatsapp-cta",
-          "variant": "primary",
-          "settings": {
-            "label": "استفسر عبر واتساب عن المسار المناسب",
-            "message": "أرغب في معرفة المسار والمواعيد المناسبة لطفلي."
           }
         }
       ]

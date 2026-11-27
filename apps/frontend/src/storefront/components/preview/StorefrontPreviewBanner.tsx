@@ -30,7 +30,7 @@ export const StorefrontPreviewBanner: React.FC<StorefrontPreviewBannerProps> = (
     isMenShoes,
   } = controller;
 
-  if (isVelaFashion || theme.id === 'fastly-eg') {
+  if (isVelaFashion || theme.id === 'fastly-eg' || (theme.id === 'academy-stage-3d' && isMobileViewport)) {
     return null;
   }
 

@@ -1040,15 +1040,15 @@
       "updatedAt": "2026-11-25"
     },
     "academy-stage-3d": {
-      "cls": 0.071,
+      "cls": 0.024,
       "brokenImages": 0,
       "proxyBrokenImages": 0,
       "overflowX": 0,
       "tapsUnder24": 0,
       "minFontSize": 12,
       "firstProductScreen": null,
-      "updatedAt": "2026-11-26"
+      "updatedAt": "2026-11-27"
     }
   },
-  "updatedAt": "2026-11-26"
+  "updatedAt": "2026-11-27"
 }

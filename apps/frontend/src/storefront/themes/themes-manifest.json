@@ -32,8 +32,8 @@
   },
   {
     "id": "academy-stage-3d",
-    "name": "مسرح الأكاديمية 3D",
-    "description": "قالب أكاديميات ومراكز تدريب إبداعية بموجة مشاريع ثلاثية الأبعاد تفاعلية (Three.js)، ومعمل تجربة حي، ومسارات تعليمية متدرجة حسب العمر.",
+    "name": "الورشة الزجاجية للأكاديميات",
+    "description": "قالب أكاديميات البرمجة والذكاء الاصطناعي بتصميم معماري شبكي مضاء، اختيار العمر التفاعلي، ومعمل محاكاة حي.",
     "category": "education",
     "categoryMeta": {
       "primary": {
@@ -42,23 +42,23 @@
       },
       "secondary": {
         "id": "kids-coding-ai",
-        "label": "مسرح الأكاديمية 3D"
+        "label": "الورشة الزجاجية للأكاديميات"
       }
     },
     "direction": "rtl",
     "previewColors": [
-      "224 44% 5%",
-      "178 96% 11%",
-      "14 68% 54%"
+      "40 24% 92%",
+      "219 85% 27%",
+      "328 67% 37%"
     ],
     "previewImage": "/assets/themes/academy-stage-3d/preview.png",
     "pageStats": {
-      "homeSections": 4,
+      "homeSections": 3,
       "shopSections": 4,
       "checkoutSections": 0,
       "pdpSections": 3,
       "cartSections": 2,
-      "totalSections": 13
+      "totalSections": 17
     }
   },
   {
