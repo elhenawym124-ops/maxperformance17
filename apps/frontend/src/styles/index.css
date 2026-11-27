@@ -179,7 +179,7 @@ html *::after {
   --color-muted: oklch(0.921 0.018 250.6);
   --color-muted-foreground: oklch(0.505 0.042 252.0);
   --color-border: oklch(0.850 0.024 250.1);
-  --color-input: oklch(1.000 0.000 0.0);
+  --color-input: oklch(0.850 0.024 250.1);
   --color-ring: oklch(0.581 0.229 263.9);
   --color-destructive: oklch(0.577 0.215 27.3);
   --color-destructive-foreground: oklch(1.000 0.000 0.0);
@@ -1018,8 +1018,12 @@ html *::after {
 }
 
 /* Base styles */
-* {
-  border-color: var(--color-border);
+/* Kept inside `base` so Tailwind color utilities (border-destructive, border-transparent…)
+   can still win — an unlayered rule outranks every layered utility. */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
 }
 
 html {
