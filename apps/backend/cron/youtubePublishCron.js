@@ -48,6 +48,12 @@ async function runScheduledYouTubePublish() {
     });
 
     for (const v of dueVideos) {
+      // 🚦 Respect per-company enablement and the daily upload cap before claiming
+      const quota = await youtubePublishService.getUploadQuota(db, v.companyId);
+      if (!quota.isEnabled || quota.remaining <= 0) {
+        continue;
+      }
+
       // 🔒 Atomic claim to ensure zero-duplicate upload execution
       const claimed = await db.youTubeVideo.updateMany({
         where: { id: v.id, status: 'SCHEDULED' },

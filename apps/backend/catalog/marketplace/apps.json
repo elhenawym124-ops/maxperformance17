@@ -373,6 +373,60 @@
     "updatedAt": "2026-11-11T13:13:20.085Z"
   },
   {
+    "id": "cat-app-youtube-publish",
+    "slug": "youtube-publish",
+    "name": "نشر يوتيوب",
+    "nameEn": "YouTube Publishing",
+    "description": "ربط قناة YouTube وجدولة رفع ونشر مقاطع الفيديو تلقائياً ومتابعة حالة النشر.",
+    "descriptionEn": "Connect a YouTube channel, schedule automatic video uploads, and track publishing status.",
+    "category": "COMMUNICATION",
+    "pricingModel": "FREE",
+    "monthlyPrice": 0,
+    "yearlyPrice": 0,
+    "unitPrice": null,
+    "unitName": null,
+    "ppuBillingMethod": null,
+    "trialDays": 0,
+    "requiredApps": [],
+    "positioning": {
+      "audience": "الشركات والفرق التي تنشر فيديو دورياً على قناة YouTube وتريد جدولة النشر من لوحة واحدة.",
+      "surface": "داخل صفحة نشر YouTube — ربط القناة، جدولة الفيديو، ومتابعة الحالة.",
+      "outcome": "نشر مجدول بدون تدخل يدوي مع متابعة حالة كل فيديو حتى النشر."
+    },
+    "features": {
+      "channelConnect": {
+        "enabled": true,
+        "name": "ربط القناة",
+        "description": "ربط قناة YouTube عبر OAuth الرسمي.",
+        "access": "FREE"
+      },
+      "scheduledPublish": {
+        "enabled": true,
+        "name": "نشر مجدول",
+        "description": "جدولة رفع الفيديو ونشره تلقائياً في الموعد المحدد.",
+        "access": "FREE"
+      },
+      "statusTracking": {
+        "enabled": true,
+        "name": "متابعة الحالة",
+        "description": "تتبع حالة كل فيديو من الجدولة حتى النشر أو الفشل.",
+        "access": "FREE"
+      }
+    },
+    "isActive": true,
+    "isPublic": true,
+    "isFeatured": false,
+    "isPopular": false,
+    "icon": "youtube",
+    "logo": null,
+    "coverImage": null,
+    "mainRoute": "/youtube/publish",
+    "adminRoute": "/youtube/publish",
+    "engineCompatibility": null,
+    "createdAt": "2026-11-27T00:00:00.000Z",
+    "updatedAt": "2026-11-27T00:00:00.000Z"
+  },
+  {
     "id": "cat-app-facebook-ads-pro",
     "slug": "facebook-ads-pro",
     "name": "إعلانات فيسبوك وانستجرام",

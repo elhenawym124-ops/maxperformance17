@@ -27,6 +27,7 @@ import {
   type YouTubePrivacyStatus,
 } from "../../services/youtubePublishService";
 import YoutubePublishTable from "./YoutubePublishTable";
+import YoutubeSettingsPanel from "./YoutubeSettingsPanel";
 
 const POLL_INTERVAL_MS = 8000;
 const MAX_POLL_TRIES = 12;
@@ -333,6 +334,8 @@ export default function YoutubePublish() {
           <span>{error}</span>
         </div>
       )}
+
+      <YoutubeSettingsPanel />
 
       {/* Main Grid: Form + Video History Table */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

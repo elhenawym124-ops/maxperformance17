@@ -5,6 +5,8 @@ const verifyToken = require('../utils/verifyToken');
 const checkAppAccess = require('../middleware/checkAppAccess');
 
 router.get('/account', verifyToken.authenticateToken, checkAppAccess('youtube-publish'), c.getAccountStatus);
+router.get('/settings', verifyToken.authenticateToken, checkAppAccess('youtube-publish'), c.getSettings);
+router.put('/settings', verifyToken.authenticateToken, checkAppAccess('youtube-publish'), c.updateSettings);
 router.get('/', verifyToken.authenticateToken, checkAppAccess('youtube-publish'), c.listVideos);
 router.post('/', verifyToken.authenticateToken, checkAppAccess('youtube-publish'), c.createVideo);
 router.get('/:id', verifyToken.authenticateToken, checkAppAccess('youtube-publish'), c.getVideo);

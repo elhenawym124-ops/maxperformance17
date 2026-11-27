@@ -59,6 +59,7 @@ export function useWhatsAppChatSocket({
   const loadContactsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const markAsReadTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pendingMarkAsReadRef = useRef<{ sessionId: string; remoteJid: string } | null>(null);
+  const recentInboundToastRef = useRef<{ key: string; at: number } | null>(null);
 
   const selectedContactRef = useRef(selectedContact);
   const selectedSessionRef = useRef(selectedSession);
@@ -288,6 +289,11 @@ export function useWhatsAppChatSocket({
         if (notificationSettingsRef.current.notificationSound) {
           playNotificationSound();
         }
+
+        recentInboundToastRef.current = {
+          key: `${sessionId || ''}:${msgJid}`,
+          at: Date.now(),
+        };
       } else {
         if (currentSession === 'all' || sessionId === currentSession) {
           const sessionKey = currentSession === 'all' ? 'all' : currentSession;
@@ -315,7 +321,13 @@ export function useWhatsAppChatSocket({
                     ? 'ملف'
                     : 'رسالة جديدة';
 
+          recentInboundToastRef.current = {
+            key: `${sessionId || ''}:${msgJid}`,
+            at: Date.now(),
+          };
+
           toast.info(messageText, {
+            id: `wa-msg-${sessionId || 'all'}-${message.messageId || msgJid}`,
             duration: 5000,
             action: {
               label: 'فتح المحادثة',
@@ -437,6 +449,13 @@ export function useWhatsAppChatSocket({
     const handleNotification = (data: NotificationEventPayload) => {
       const { contactName, message, messageType, soundEnabled, notificationsEnabled, sessionId } =
         data;
+
+      // Avoid duplicating toast/sound when handleNewMessage already handled this message moments ago
+      const recent = recentInboundToastRef.current;
+      if (recent && Date.now() - recent.at < 2000 && (!sessionId || recent.key.startsWith(`${sessionId}:`))) {
+        return;
+      }
+
       const currentSession = selectedSessionRef.current;
       const sessionKey = currentSession === 'all' ? 'all' : currentSession;
       const conversationsQuery = findConversationsCache(sessionKey);

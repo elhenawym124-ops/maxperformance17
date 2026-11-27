@@ -22,6 +22,56 @@ const STATUS_MAP = {
 
 const RESUMABLE_UPLOAD_BASE = 'https://www.googleapis.com/upload/youtube/v3/videos';
 const YOUTUBE_VIDEOS_API = 'https://www.googleapis.com/youtube/v3/videos';
+const DEFAULT_MAX_UPLOADS_PER_DAY = 10;
+
+function startOfToday() {
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+  return start;
+}
+
+/**
+ * Reads the company's YouTube settings plus today's started uploads.
+ * Missing settings row => enabled, default daily cap.
+ */
+async function getUploadQuota(dbClient, companyId) {
+  const db = dbClient || prisma();
+  const [settings, used] = await Promise.all([
+    db.youTubeSettings.findUnique({ where: { companyId } }),
+    db.youTubeVideo.count({
+      where: { companyId, startedAt: { gte: startOfToday() } },
+    }),
+  ]);
+
+  const configuredMax = Number(settings?.maxUploadsPerDay);
+  const max = Number.isFinite(configuredMax) && configuredMax > 0 ? configuredMax : DEFAULT_MAX_UPLOADS_PER_DAY;
+
+  return {
+    settings: settings || null,
+    isEnabled: settings ? settings.isEnabled !== false : true,
+    max,
+    used,
+    remaining: Math.max(0, max - used),
+  };
+}
+
+async function assertUploadAllowed(dbClient, companyId) {
+  const quota = await getUploadQuota(dbClient, companyId);
+
+  if (!quota.isEnabled) {
+    const err = new Error('نشر YouTube معطّل لهذه الشركة');
+    err.code = 'PUBLISH_DISABLED';
+    throw err;
+  }
+
+  if (quota.remaining <= 0) {
+    const err = new Error(`تم الوصول للحد الأقصى للرفع اليومي (${quota.max} فيديو)`);
+    err.code = 'DAILY_LIMIT_REACHED';
+    throw err;
+  }
+
+  return quota;
+}
 
 function resolveLocalFilePath(mediaUrl) {
   if (!mediaUrl || typeof mediaUrl !== 'string') return null;
@@ -395,7 +445,10 @@ async function updateScheduledVideo({ companyId, id, title, description, tags, p
 
 module.exports = {
   STATUS_MAP,
+  DEFAULT_MAX_UPLOADS_PER_DAY,
   resolveLocalFilePath,
+  getUploadQuota,
+  assertUploadAllowed,
   initUpload,
   pollStatus,
   listPosts,

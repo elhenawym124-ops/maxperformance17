@@ -3789,17 +3789,38 @@ async function checkNumber(req, res) {
 async function getProfile(req, res) {
     try {
         const { companyId } = req.user;
-        let { sessionId } = req.query;
+        const { sessionId } = req.query;
 
         if (!sessionId) {
             return res.status(400).json({ error: 'Session ID is required' });
         }
 
-        // Resolve virtual session ID and verify ownership
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId);
+        // Verify ownership from DB without requiring an active in-memory socket
+        // (disconnected/reconnecting Baileys or META_CLOUD sessions return cached DB profile or null cleanly).
+        const prisma = getSharedPrismaClient();
+        const session = sessionId === 'all'
+            ? await prisma.whatsAppSession.findFirst({
+                where: { companyId },
+                orderBy: [{ isDefault: 'desc' }, { lastConnectedAt: 'desc' }, { createdAt: 'desc' }],
+                select: { id: true }
+            })
+            : await prisma.whatsAppSession.findFirst({
+                where: { id: sessionId, companyId },
+                select: { id: true }
+            });
 
-        const profile = await WhatsAppManager.getProfile(targetSessionId, companyId);
-        res.json({ success: true, profile });
+        if (!session) {
+            return res.status(404).json({ error: 'الجلسة غير موجودة' });
+        }
+
+        let profile = null;
+        try {
+            profile = await WhatsAppManager.getProfile(session.id, companyId);
+        } catch (profileErr) {
+            console.warn(`⚠️ [WA-PROFILE] Non-fatal profile fetch fallback for session ${session.id}:`, profileErr?.message);
+        }
+
+        res.json({ success: true, profile: profile || null });
     } catch (error) {
         console.error('❌ Error fetching profile:', error);
         res.status(500).json({ error: 'حدث خطأ أثناء جلب الملف الشخصي' });

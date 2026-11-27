@@ -38,6 +38,7 @@ describe('YouTube Publishing API Test Plan (A1 - A15)', () => {
     // Clean up test data for testCompanyId
     await prisma.youTubeVideo.deleteMany({ where: { companyId: testCompanyId } });
     await prisma.youTubeAccount.deleteMany({ where: { companyId: testCompanyId } });
+    await prisma.youTubeSettings.deleteMany({ where: { companyId: testCompanyId } });
 
     // Initialize express app with YouTube routes
     const express = require('express');
@@ -51,6 +52,7 @@ describe('YouTube Publishing API Test Plan (A1 - A15)', () => {
   afterAll(async () => {
     await prisma.youTubeVideo.deleteMany({ where: { companyId: testCompanyId } });
     await prisma.youTubeAccount.deleteMany({ where: { companyId: testCompanyId } });
+    await prisma.youTubeSettings.deleteMany({ where: { companyId: testCompanyId } });
   });
 
   // A1: GET /api/v1/youtube/publish/account -> { success: true, data: { connected: false } }
@@ -358,5 +360,126 @@ describe('YouTube Publishing API Test Plan (A1 - A15)', () => {
     expect(serverSource).toContain('app.use("/api/v1/youtube/auth"');
     expect(serverSource).toContain('app.use("/api/v1/youtube/publish"');
     expect(serverSource).toContain('startYouTubePublishCron');
+  });
+
+  // A17: Settings read/update — secrets never returned, /settings not shadowed by /:id
+  test('A17: GET/PUT /youtube/publish/settings persists values without leaking secrets', async () => {
+    const auth = { Authorization: `Bearer ${authToken}` };
+
+    const initial = await request(app).get('/api/v1/youtube/publish/settings').set(auth);
+    expect(initial.status).toBe(200);
+    expect(initial.body.success).toBe(true);
+    expect(initial.body.data.maxUploadsPerDay).toBeGreaterThan(0);
+    expect(initial.body.data.redirectUri).toContain('/api/v1/youtube/auth/callback');
+
+    const put = await request(app)
+      .put('/api/v1/youtube/publish/settings')
+      .set(auth)
+      .send({
+        isEnabled: true,
+        maxUploadsPerDay: 7,
+        defaultPrivacy: 'unlisted',
+        clientId: 'qa-client-id.apps.googleusercontent.com',
+        clientSecret: 'qa-client-secret',
+        redirectUri: 'https://maxp.online/api/v1/youtube/auth/callback',
+      });
+
+    expect(put.status).toBe(200);
+    expect(put.body.data.maxUploadsPerDay).toBe(7);
+    expect(put.body.data.defaultPrivacy).toBe('unlisted');
+    expect(put.body.data.hasCredentials).toBe(true);
+    expect(put.body.data.redirectUri).toBe('https://maxp.online/api/v1/youtube/auth/callback');
+    expect(put.body.data.clientSecret).toBeUndefined();
+    expect(JSON.stringify(put.body)).not.toContain('qa-client-secret');
+
+    const invalidMax = await request(app)
+      .put('/api/v1/youtube/publish/settings')
+      .set(auth)
+      .send({ maxUploadsPerDay: 0 });
+    expect(invalidMax.status).toBe(400);
+
+    const invalidPrivacy = await request(app)
+      .put('/api/v1/youtube/publish/settings')
+      .set(auth)
+      .send({ defaultPrivacy: 'internal' });
+    expect(invalidPrivacy.status).toBe(400);
+
+    // Default privacy now applies to scheduled videos that omit it
+    const created = await request(app)
+      .post('/api/v1/youtube/publish')
+      .set(auth)
+      .send({
+        title: 'Defaults From Settings',
+        mediaUrl: '/uploads/media/qa-sample.mp4',
+        scheduledAt: new Date(Date.now() + 3600000).toISOString(),
+      });
+    expect(created.status).toBe(201);
+    expect(created.body.data.privacyStatus).toBe('unlisted');
+
+    await prisma.youTubeSettings.deleteMany({ where: { companyId: testCompanyId } });
+    await prisma.youTubeVideo.deleteMany({ where: { id: created.body.data.id } });
+  });
+
+  // A18: Daily upload cap -> 429 DAILY_LIMIT_REACHED
+  test('A18: createVideo enforces the daily upload cap', async () => {
+    const auth = { Authorization: `Bearer ${authToken}` };
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+    const usedToday = await prisma.youTubeVideo.count({
+      where: { companyId: testCompanyId, startedAt: { gte: start } },
+    });
+
+    await prisma.youTubeSettings.upsert({
+      where: { companyId: testCompanyId },
+      create: { companyId: testCompanyId, maxUploadsPerDay: usedToday + 1, isEnabled: true },
+      update: { maxUploadsPerDay: usedToday + 1, isEnabled: true },
+    });
+
+    try {
+      const payload = {
+        title: 'Cap Slot',
+        mediaUrl: '/uploads/media/qa-sample.mp4',
+        scheduledAt: new Date(Date.now() + 3600000).toISOString(),
+      };
+
+      const first = await request(app).post('/api/v1/youtube/publish').set(auth).send(payload);
+      expect(first.status).toBe(201);
+
+      const second = await request(app)
+        .post('/api/v1/youtube/publish')
+        .set(auth)
+        .send({ ...payload, title: 'Cap Slot 2' });
+      expect(second.status).toBe(429);
+      expect(second.body.code).toBe('DAILY_LIMIT_REACHED');
+    } finally {
+      await prisma.youTubeSettings.deleteMany({ where: { companyId: testCompanyId } });
+    }
+  });
+
+  // A19: Publishing disabled per company -> 403 PUBLISH_DISABLED
+  test('A19: createVideo returns 403 when YouTube publishing is disabled', async () => {
+    const auth = { Authorization: `Bearer ${authToken}` };
+
+    await prisma.youTubeSettings.upsert({
+      where: { companyId: testCompanyId },
+      create: { companyId: testCompanyId, isEnabled: false },
+      update: { isEnabled: false },
+    });
+
+    try {
+      const res = await request(app)
+        .post('/api/v1/youtube/publish')
+        .set(auth)
+        .send({
+          title: 'Blocked By Switch',
+          mediaUrl: '/uploads/media/qa-sample.mp4',
+          scheduledAt: new Date(Date.now() + 3600000).toISOString(),
+        });
+
+      expect(res.status).toBe(403);
+      expect(res.body.code).toBe('PUBLISH_DISABLED');
+    } finally {
+      await prisma.youTubeSettings.deleteMany({ where: { companyId: testCompanyId } });
+    }
   });
 });

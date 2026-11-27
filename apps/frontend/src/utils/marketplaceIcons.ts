@@ -10,6 +10,7 @@ import {
   Clock, SquarePen, Search, ShieldAlert, ListOrdered,
   RefreshCcw, FileBarChart, Cog, ArrowLeftRight, Volume2,
   Calculator, Tag,
+  Youtube,
 } from "lucide-react";
 import { WhatsAppIcon, TelegramIcon, FacebookIcon, InstagramIcon } from "@/components/icons/brands";
 import type { ReactElement } from "react";
@@ -52,6 +53,7 @@ export const appIcons: Record<string, React.ElementType> = {
   "volume-2": Volume2,
   activity: Activity,
   "shopping-bag": ShoppingBag,
+  youtube: Youtube,
 };
 
 export const appIconsBySlug: Record<string, React.ElementType> = {
@@ -126,4 +128,5 @@ export const appIconsBySlug: Record<string, React.ElementType> = {
   "upsell-planner": ShoppingCart,
   "refund-rate": RefreshCcw,
   "executable-mindmap": GitBranch,
+  "youtube-publish": Youtube,
 };

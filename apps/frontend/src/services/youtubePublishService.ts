@@ -74,6 +74,28 @@ export interface YouTubeListParams {
   status?: string;
 }
 
+export interface YouTubeSettings {
+  isEnabled: boolean;
+  defaultPrivacy: YouTubePrivacyStatus | string;
+  defaultCategoryId: string;
+  maxUploadsPerDay: number;
+  usedToday: number;
+  remainingToday: number;
+  hasCredentials: boolean;
+  clientIdHint: string | null;
+  redirectUri: string;
+}
+
+export interface YouTubeSettingsUpdate {
+  isEnabled?: boolean;
+  defaultPrivacy?: YouTubePrivacyStatus;
+  defaultCategoryId?: string;
+  maxUploadsPerDay?: number;
+  clientId?: string;
+  clientSecret?: string;
+  redirectUri?: string;
+}
+
 export interface YouTubeApiResponse<T> {
   success: boolean;
   data: T;
@@ -158,6 +180,23 @@ export const retryVideo = async (id: string): Promise<YouTubeVideo> => {
 export const cancelVideo = async (id: string): Promise<YouTubeVideo> => {
   const res = await apiClient.delete<YouTubeApiResponse<YouTubeVideo>>(
     `/youtube/publish/${id}`
+  );
+  return res.data.data;
+};
+
+export const getSettings = async (): Promise<YouTubeSettings> => {
+  const res = await apiClient.get<YouTubeApiResponse<YouTubeSettings>>(
+    "/youtube/publish/settings"
+  );
+  return res.data.data;
+};
+
+export const updateSettings = async (
+  payload: YouTubeSettingsUpdate
+): Promise<YouTubeSettings> => {
+  const res = await apiClient.put<YouTubeApiResponse<YouTubeSettings>>(
+    "/youtube/publish/settings",
+    payload
   );
   return res.data.data;
 };
