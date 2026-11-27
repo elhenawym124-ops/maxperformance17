@@ -248,11 +248,17 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                     return (
                       <SelectItem key={s.id} value={s.id} className="text-xs font-mono">
                         {phone ? `${nameToUse} (${phone})` : nameToUse}
+                        {s.outboundEnabled === false ? ' [إرسال موقوف]' : ''}
                       </SelectItem>
                     );
                   })}
                 </SelectContent>
               </Select>
+              {sessions.find((s) => s.id === selectedSessionId)?.outboundEnabled === false && (
+                <p className="text-[11px] font-medium text-destructive">
+                  الإرسال موقوف على هذه القناة من إعدادات واتساب — لن يتم إرسال الحملة عبرها حتى تفعيله.
+                </p>
+              )}
             </div>
 
             <div className="space-y-1.5">

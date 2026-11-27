@@ -1053,6 +1053,7 @@ function buildNewsletterAdminAlertContent() {
 
 // موازنة الجلسات مستخرجة (sessionBalancer.js — §5.1)
 const { getOrAssignSession, ensureRuntimeSessionConnected, findAlternativeBaileysSession, isMetaWindowError } = require('./sessionBalancer');
+const { isSessionNotificationEligible } = require('./sessionChannelPolicy');
 const { isOrderCategory, getPersistedNotificationEventType, getPersistedNotificationCategory, getPersistedNotificationRecipientType } = require('./notificationTypes');
 const {
   buildMetaBodyParams,
@@ -1379,15 +1380,16 @@ async function sendNotification(options) {
     });
 
     if (!sessionId) {
-      // محاولة أخيرة: البحث عن أي جلسة متصلة في DB (fallback قديم)
-      const connected = await safeQuery(() => getSharedPrismaClient().whatsAppSession.findFirst({
+      // محاولة أخيرة: البحث عن أي جلسة متصلة ومؤهلة للإشعارات في DB (fallback قديم)
+      const connectedList = await safeQuery(() => getSharedPrismaClient().whatsAppSession.findMany({
         where: {
           companyId: deliveryCompanyId,
           status: 'CONNECTED'
         },
-        select: { id: true },
+        select: { id: true, metadata: true },
         orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }]
       }));
+      const connected = (connectedList || []).find(isSessionNotificationEligible);
 
       if (connected?.id) {
         sessionId = connected.id;
@@ -1408,7 +1410,7 @@ async function sendNotification(options) {
         reason: 'no_session',
         errorCode: 'NO_SESSION',
         suppressed: !sessionFailure.shouldRecord,
-        error: 'لا توجد جلسة واتساب متصلة للشركة — يرجى ربط حساب واتساب (Meta Cloud أو Baileys) من إعدادات الشركة أولاً'
+        error: 'لا توجد جلسة واتساب متصلة ومفعّلة للإشعارات — يرجى تفعيل الإشعارات على قناة متصلة من إعدادات واتساب'
       };
     }
 
@@ -1418,8 +1420,12 @@ async function sendNotification(options) {
     let sessionProvider = 'BAILEYS';
     const dbSessionForSend = await safeQuery(() => getSharedPrismaClient().whatsAppSession.findUnique({
       where: { id: sessionId },
-      select: { provider: true, status: true }
+      select: { provider: true, status: true, metadata: true }
     }));
+    if (dbSessionForSend && !isSessionNotificationEligible(dbSessionForSend)) {
+      console.warn(`🔇 [WHATSAPP-DEBUG] Selected session ${sessionId} has notifications/outbound disabled; skipping send.`);
+      return { success: false, reason: 'session_notifications_disabled' };
+    }
     if (dbSessionForSend?.provider) sessionProvider = dbSessionForSend.provider;
 
     let session = WhatsAppManager.getSession(sessionId);
@@ -1436,16 +1442,17 @@ async function sendNotification(options) {
       if (!session || session.status !== 'connected') {
         console.log(`⚠️ [WHATSAPP-DEBUG] Session not connected: ${sessionId}`);
 
-        // Try one more fallback: pick any CONNECTED session from DB and see if runtime is connected
-        const connected = await safeQuery(() => getSharedPrismaClient().whatsAppSession.findFirst({
+        // Try one more fallback: pick any CONNECTED & notification-eligible session from DB
+        const connectedCandidates = await safeQuery(() => getSharedPrismaClient().whatsAppSession.findMany({
           where: {
             companyId: deliveryCompanyId,
             status: 'CONNECTED',
             id: { not: sessionId }
           },
-          select: { id: true, provider: true },
+          select: { id: true, provider: true, metadata: true },
           orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }]
         }));
+        const connected = (connectedCandidates || []).find(isSessionNotificationEligible);
 
         if (connected?.id) {
           const fallbackId = connected.id;
@@ -2704,11 +2711,12 @@ async function scheduleNotification(options) {
     });
 
     if (!sessionId) {
-      const connected = await prisma.whatsAppSession.findFirst({
+      const connectedList = await prisma.whatsAppSession.findMany({
         where: { companyId: deliveryCompanyId, status: 'CONNECTED' },
-        select: { id: true },
+        select: { id: true, metadata: true },
         orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }]
       });
+      const connected = (connectedList || []).find(isSessionNotificationEligible);
       if (connected?.id) sessionId = connected.id;
     }
 
@@ -3872,12 +3880,15 @@ async function processNotificationQueue() {
         // 🛡️ مزوّد الجلسة — لازم نعرفه عشان الحارس المركزي يمنع النص الحر عبر META_CLOUD
         let queueSessionProvider = session?.provider || null;
 
-        if (sessionId && (!session || session.status !== 'connected')) {
+        if (sessionId) {
           const scheduledSession = await safeQuery(() => prisma.whatsAppSession.findFirst({
             where: { id: sessionId, companyId: notification.companyId },
-            select: { id: true, provider: true, status: true }
+            select: { id: true, provider: true, status: true, metadata: true }
           }));
-          if (scheduledSession?.provider === 'META_CLOUD' && scheduledSession.status === 'CONNECTED') {
+          if (scheduledSession && !isSessionNotificationEligible(scheduledSession)) {
+            session = null;
+            sessionId = null;
+          } else if (scheduledSession?.provider === 'META_CLOUD' && scheduledSession.status === 'CONNECTED') {
             session = { status: 'connected', provider: 'META_CLOUD', sessionId };
             queueSessionProvider = 'META_CLOUD';
           }
@@ -3892,9 +3903,9 @@ async function processNotificationQueue() {
           if (queueNotifSettings?.defaultSessionId && queueNotifSettings.defaultSessionId !== sessionId) {
             const defaultCandidate = await safeQuery(() => prisma.whatsAppSession.findFirst({
               where: { id: queueNotifSettings.defaultSessionId, companyId: notification.companyId, status: 'CONNECTED' },
-              select: { id: true, provider: true }
+              select: { id: true, provider: true, metadata: true }
             }));
-            if (defaultCandidate?.id) {
+            if (defaultCandidate?.id && isSessionNotificationEligible(defaultCandidate)) {
               if (defaultCandidate.provider === 'META_CLOUD') {
                 sessionId = defaultCandidate.id;
                 session = { status: 'connected', provider: 'META_CLOUD', sessionId };
@@ -3912,16 +3923,21 @@ async function processNotificationQueue() {
         }
 
         if (!session || session.status !== 'connected') {
-          const connected = await prisma.whatsAppSession.findFirst({
+          const connectedList = await prisma.whatsAppSession.findMany({
             where: { companyId: notification.companyId, status: 'CONNECTED' },
-            select: { id: true, provider: true },
+            select: { id: true, provider: true, metadata: true },
             orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }],
+          });
+          const connected = (connectedList || []).find((c) => {
+            if (!isSessionNotificationEligible(c)) return false;
+            if (c.provider === 'META_CLOUD') return true;
+            const mem = WhatsAppManager.getSession(c.id);
+            return Boolean(mem && mem.status === 'connected');
           });
           if (connected?.id) {
             sessionId = connected.id;
             session = WhatsAppManager.getSession(sessionId);
             if (!session || session.status !== 'connected') {
-              // META_CLOUD يُعتبر متصلاً إذا كان CONNECTED في DB (لا socket في الذاكرة)
               if (connected.provider === 'META_CLOUD') {
                 session = { status: 'connected', provider: 'META_CLOUD', sessionId };
                 queueSessionProvider = 'META_CLOUD';

@@ -116,7 +116,13 @@ export const WorkspaceWhatsAppDrawer: React.FC<WorkspaceWhatsAppDrawerProps> = (
 
         {/* Composer Footer */}
         <div className="border-t border-border/70 bg-card p-3">
-          {activeTemplate ? (
+          {activeSession?.outboundEnabled === false ? (
+            <div className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+              {isArabic
+                ? 'الإرسال موقوف على هذه القناة من إعدادات جلسات واتساب. اختر قناة أخرى أو فعّل الإرسال من الإعدادات.'
+                : 'Sending is paused on this WhatsApp channel. Switch channels or enable outbound in WhatsApp settings.'}
+            </div>
+          ) : activeTemplate ? (
             <WorkspaceWhatsAppTemplateComposer
               activeTemplate={activeTemplate}
               templateVarIndexes={templateVarIndexes}

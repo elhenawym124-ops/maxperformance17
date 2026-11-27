@@ -136,6 +136,8 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = (props) => {
           onOpenProductPicker={() => setShowProductPicker(true)}
           onOpenImageGallery={() => setShowImageGallery(true)}
           saving={saving}
+          outboundDisabled={conversation.sessionPolicy?.outboundEnabled === false}
+          inboundDisabled={conversation.sessionPolicy?.inboundEnabled === false}
           placeholder={copy.chat.replyPlaceholder}
           sendLabel={copy.chat.sendReply}
         />

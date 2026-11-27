@@ -86,8 +86,11 @@ exports.sendMessage = async (req, res) => {
     res.status(201).json({ success: true, message });
   } catch (error) {
     console.error('[InboxController] sendMessage error:', error.message);
-    const statusCode = error.message?.includes('locked') ? 403 : 500;
-    res.status(statusCode).json({ error: error.message || 'Failed to send message' });
+    const statusCode = error.statusCode || (error.message?.includes('locked') ? 403 : 500);
+    res.status(statusCode).json({
+      error: error.message || 'Failed to send message',
+      ...(error.code ? { code: error.code } : {})
+    });
   }
 };
 

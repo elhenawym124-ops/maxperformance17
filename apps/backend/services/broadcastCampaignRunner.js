@@ -1,6 +1,7 @@
 const { computeNextRunAt } = require('../utils/broadcastRecurrence');
 const { resolveAudience } = require('./broadcastAudienceResolver');
 const { getSharedPrismaClient } = require('./sharedDatabase');
+const { isSessionOutboundEnabled } = require('./whatsapp/sessionChannelPolicy');
 
 function generateId() {
   return 'cm' + Math.random().toString(36).substr(2, 9) + Math.random().toString(36).substr(2, 9);
@@ -10,14 +11,24 @@ function generateId() {
  * Resolve a usable WhatsApp session for the campaign (same fallback chain as the scheduler).
  */
 async function resolveSessionId(prisma, campaign) {
-  if (campaign.whatsAppSessionId) return campaign.whatsAppSessionId;
-  const meta = await prisma.whatsAppSession.findFirst({
-    where: { companyId: campaign.companyId, provider: 'META_CLOUD' },
+  if (campaign.whatsAppSessionId) {
+    const picked = await prisma.whatsAppSession.findUnique({
+      where: { id: campaign.whatsAppSessionId },
+      select: { id: true, metadata: true }
+    });
+    if (picked && !isSessionOutboundEnabled(picked)) {
+      return null;
+    }
+    return campaign.whatsAppSessionId;
+  }
+  const sessions = await prisma.whatsAppSession.findMany({
+    where: { companyId: campaign.companyId },
+    select: { id: true, provider: true, isDefault: true, status: true, metadata: true }
   });
+  const eligible = (sessions || []).filter(isSessionOutboundEnabled);
+  const meta = eligible.find((s) => s.provider === 'META_CLOUD');
   if (meta) return meta.id;
-  const def =
-    (await prisma.whatsAppSession.findFirst({ where: { companyId: campaign.companyId, isDefault: true } })) ||
-    (await prisma.whatsAppSession.findFirst({ where: { companyId: campaign.companyId } }));
+  const def = eligible.find((s) => s.isDefault) || eligible[0];
   return def?.id || null;
 }
 

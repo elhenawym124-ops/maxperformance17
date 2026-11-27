@@ -23,6 +23,7 @@ const {
 } = require('./whatsappInboxSettingsService');
 const { clearConversationAudienceCache } = require('./whatsappRealtimeAudienceService');
 const { sendText, sendImage } = require('./whatsapp/WhatsAppMessageHandler');
+const { getSessionChannelPolicy } = require('./whatsapp/sessionChannelPolicy');
 const { computeWindowStatus } = require('./whatsapp/WhatsAppWindowService');
 const { getMetaGraphApiVersion } = require('../config/metaApi');
 
@@ -103,11 +104,12 @@ class WhatsAppInboxService {
       getNormalizedSettings(companyId, prisma),
       prisma.whatsAppSession.findUnique({
         where: { id: sessionId },
-        select: { provider: true }
+        select: { provider: true, metadata: true }
       })
     ]);
 
     const isMetaSession = sessionRecord?.provider === 'META_CLOUD';
+    const sessionPolicy = getSessionChannelPolicy(sessionRecord);
     const customerIds = isMetaSession
       ? conversations.filter((c) => c.customerId).map((c) => c.customerId)
       : [];
@@ -129,6 +131,7 @@ class WhatsAppInboxService {
       conversations: conversations.map((conversation) => ({
         ...this._formatConversationSummary(conversation),
         sessionProvider: sessionRecord?.provider || null,
+        sessionPolicy,
         window: isMetaSession ? (windowByCustomerId[conversation.customerId] || computeWindowStatus(null)) : null
       })),
       pagination: {
@@ -197,11 +200,12 @@ class WhatsAppInboxService {
       sessionId ? whatsappAssignmentEngineService.getSessionModeratorPool(companyId, sessionId) : Promise.resolve([]),
       getNormalizedSettings(companyId, prisma),
       sessionId
-        ? prisma.whatsAppSession.findUnique({ where: { id: sessionId }, select: { provider: true } })
+        ? prisma.whatsAppSession.findUnique({ where: { id: sessionId }, select: { provider: true, metadata: true } })
         : Promise.resolve(null)
     ]);
 
     const isMetaSession = sessionRecord?.provider === 'META_CLOUD';
+    const sessionPolicy = getSessionChannelPolicy(sessionRecord);
     let window = isMetaSession ? computeWindowStatus(null) : null;
     if (isMetaSession && sessionId && conversation.customerId) {
       const contact = await prisma.whatsAppContact.findFirst({
@@ -221,6 +225,7 @@ class WhatsAppInboxService {
       canTransfer: SUPERVISOR_ROLES.includes(normalizedRole) || settings.ownershipConfig.allowModeratorTransferRequest,
       availableModerators: moderatorPool.map((candidate) => this._formatModeratorPoolItem(candidate)),
       sessionProvider: sessionRecord?.provider || null,
+      sessionPolicy,
       window
     };
   }
@@ -924,9 +929,21 @@ class WhatsAppInboxService {
     const prisma = getSharedPrismaClient();
 
     if (SUPERVISOR_ROLES.includes(normalizedRole)) {
-      return prisma.whatsAppSession.findMany({
+      const rows = await prisma.whatsAppSession.findMany({
         where: { companyId },
-        select: { id: true, phoneNumber: true, name: true, status: true }
+        select: { id: true, phoneNumber: true, name: true, status: true, metadata: true }
+      });
+      return rows.map((s) => {
+        const policy = getSessionChannelPolicy(s);
+        return {
+          id: s.id,
+          phoneNumber: s.phoneNumber,
+          name: s.name,
+          status: s.status,
+          inboundEnabled: policy.inboundEnabled,
+          outboundEnabled: policy.outboundEnabled,
+          notificationsEnabled: policy.notificationsEnabled,
+        };
       });
     }
 
@@ -937,7 +954,7 @@ class WhatsAppInboxService {
       },
       include: {
         session: {
-          select: { id: true, phoneNumber: true, name: true, status: true }
+          select: { id: true, phoneNumber: true, name: true, status: true, metadata: true }
         },
         team: {
           select: {
@@ -963,7 +980,22 @@ class WhatsAppInboxService {
       new Map(
         allowedSessions
           .filter((assignment) => assignment.session)
-          .map((assignment) => [assignment.session.id, assignment.session])
+          .map((assignment) => {
+            const s = assignment.session;
+            const policy = getSessionChannelPolicy(s);
+            return [
+              s.id,
+              {
+                id: s.id,
+                phoneNumber: s.phoneNumber,
+                name: s.name,
+                status: s.status,
+                inboundEnabled: policy.inboundEnabled,
+                outboundEnabled: policy.outboundEnabled,
+                notificationsEnabled: policy.notificationsEnabled,
+              }
+            ];
+          })
       ).values()
     );
   }

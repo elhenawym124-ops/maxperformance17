@@ -1,5 +1,6 @@
 const { getSharedPrismaClient } = require('../sharedDatabase');
 const WhatsAppNotificationService = require('./WhatsAppNotificationService');
+const { isSessionNotificationEligible } = require('./sessionChannelPolicy');
 
 class LeadFollowUpService {
     get prisma() {
@@ -216,9 +217,12 @@ class LeadFollowUpService {
             // 4) Latest CONNECTED / any session
             let session = null;
             if (contact.sessionId) {
-                session = await this.prisma.whatsAppSession.findFirst({
+                const candidate = await this.prisma.whatsAppSession.findFirst({
                     where: { id: contact.sessionId, companyId: enrollment.companyId, status: 'CONNECTED' }
                 });
+                if (candidate && isSessionNotificationEligible(candidate)) {
+                    session = candidate;
+                }
             }
             if (!session) {
                 const notifSettings = await this.prisma.whatsAppNotificationSettings.findUnique({
@@ -226,21 +230,26 @@ class LeadFollowUpService {
                     select: { defaultSessionId: true }
                 }).catch(() => null);
                 if (notifSettings?.defaultSessionId) {
-                    session = await this.prisma.whatsAppSession.findFirst({
+                    const candidate = await this.prisma.whatsAppSession.findFirst({
                         where: { id: notifSettings.defaultSessionId, companyId: enrollment.companyId, status: 'CONNECTED' }
                     });
+                    if (candidate && isSessionNotificationEligible(candidate)) {
+                        session = candidate;
+                    }
                 }
             }
             if (!session) {
-                session = await this.prisma.whatsAppSession.findFirst({
-                    where: { companyId: enrollment.companyId, isDefault: true }
-                }) || await this.prisma.whatsAppSession.findFirst({
-                    where: { companyId: enrollment.companyId, status: 'CONNECTED' },
-                    orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }]
-                }) || await this.prisma.whatsAppSession.findFirst({
+                const companySessions = await this.prisma.whatsAppSession.findMany({
                     where: { companyId: enrollment.companyId },
-                    orderBy: { createdAt: 'desc' }
+                    orderBy: [{ isDefault: 'desc' }, { lastConnectedAt: 'desc' }, { createdAt: 'desc' }]
                 });
+                const eligibleSessions = companySessions.filter(isSessionNotificationEligible);
+                session =
+                    eligibleSessions.find((s) => s.isDefault && s.status === 'CONNECTED') ||
+                    eligibleSessions.find((s) => s.status === 'CONNECTED') ||
+                    eligibleSessions.find((s) => s.isDefault) ||
+                    eligibleSessions[0] ||
+                    null;
             }
 
             const isMetaSession = session?.provider === 'META_CLOUD';

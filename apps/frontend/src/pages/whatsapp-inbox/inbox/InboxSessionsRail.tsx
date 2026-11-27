@@ -58,6 +58,25 @@ export const InboxSessionsRailDesktop: React.FC<InboxSessionsRailProps> = ({
                   {formatSessionStatus(item.status)}
                 </span>
               </div>
+              {(item.inboundEnabled === false || item.outboundEnabled === false || item.notificationsEnabled === false) && (
+                <div className="mt-1.5 flex flex-wrap gap-1">
+                  {item.inboundEnabled === false && (
+                    <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-[10px] font-medium text-destructive">
+                      استقبال موقوف
+                    </span>
+                  )}
+                  {item.outboundEnabled === false && (
+                    <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-[10px] font-medium text-destructive">
+                      إرسال موقوف
+                    </span>
+                  )}
+                  {item.notificationsEnabled === false && (
+                    <span className="rounded bg-warning/10 px-1.5 py-0.5 text-[10px] font-medium text-warning">
+                      بدون إشعارات
+                    </span>
+                  )}
+                </div>
+              )}
             </button>
           );
         })}
@@ -98,11 +117,40 @@ export const InboxSessionsRailMobile: React.FC<InboxSessionsRailProps> = ({
               <div className="mt-0.5 text-xs text-muted-foreground font-mono tabular-nums">
                 {item.phoneNumber}
               </div>
-              <div className="mt-1.5">
+              <div className="mt-1.5 flex flex-wrap items-center gap-1">
                 <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${getSessionTone(item.status)}`}>
                   {formatSessionStatus(item.status)}
                 </span>
+                {item.outboundEnabled === false && (
+                  <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-[10px] font-medium text-destructive">
+                    إرسال موقوف
+                  </span>
+                )}
+                {item.inboundEnabled === false && (
+                  <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-[10px] font-medium text-destructive">
+                    استقبال موقوف
+                  </span>
+                )}
               </div>
+              {(item.inboundEnabled === false || item.outboundEnabled === false || item.notificationsEnabled === false) && (
+                <div className="mt-1.5 flex flex-wrap gap-1">
+                  {item.inboundEnabled === false && (
+                    <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-[10px] font-medium text-destructive">
+                      استقبال موقوف
+                    </span>
+                  )}
+                  {item.outboundEnabled === false && (
+                    <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-[10px] font-medium text-destructive">
+                      إرسال موقوف
+                    </span>
+                  )}
+                  {item.notificationsEnabled === false && (
+                    <span className="rounded bg-warning/10 px-1.5 py-0.5 text-[10px] font-medium text-warning">
+                      بدون إشعارات
+                    </span>
+                  )}
+                </div>
+              )}
             </button>
           );
         })}

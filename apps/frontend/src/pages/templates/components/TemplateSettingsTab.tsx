@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Cog6ToothIcon,
   ClockIcon,
   BoltIcon,
   ArrowPathIcon,
+  ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 import { Switch } from "@/components/ui/switch";
 import type { SettingsForm, DefaultSessionInfo, DeliveryPreviewItem } from "../types";
@@ -13,7 +15,16 @@ export interface TemplateSettingsTabProps {
   settings: SettingsForm | null;
   settingsLoading: boolean;
   settingsSaving: boolean;
-  settingsSessions: { id: string; name: string; phoneNumber?: string; status: string; provider?: string }[];
+  settingsSessions: {
+    id: string;
+    name: string;
+    phoneNumber?: string;
+    status: string;
+    provider?: string;
+    inboundEnabled?: boolean;
+    outboundEnabled?: boolean;
+    notificationsEnabled?: boolean;
+  }[];
   defaultSessionInfo: DefaultSessionInfo | null;
   deliveryPreview: Record<string, DeliveryPreviewItem>;
   syncingStatus: boolean;
@@ -90,13 +101,41 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
               onChange={(e) => onUpdateSettings((p) => p ? { ...p, defaultSessionId: e.target.value || null } : p)}
               className="w-full rounded-lg border border-border/70 bg-background px-3 py-2 text-sm text-foreground cursor-pointer"
             >
-              <option value="">تلقائي (أي جلسة متصلة)</option>
-              {settingsSessions.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name} {s.phoneNumber ? `(${s.phoneNumber})` : ""} - {s.status === "CONNECTED" ? "متصل" : "غير متصل"}
-                </option>
-              ))}
+              <option value="">تلقائي (أي جلسة متصلة ومفعّلة للإشعارات)</option>
+              {settingsSessions.map((s) => {
+                const blockedTags: string[] = [];
+                if (s.outboundEnabled === false) blockedTags.push("إرسال موقوف");
+                else if (s.notificationsEnabled === false) blockedTags.push("إشعارات موقوفة");
+                return (
+                  <option key={s.id} value={s.id}>
+                    {s.name} {s.phoneNumber ? `(${s.phoneNumber})` : ""} - {s.status === "CONNECTED" ? "متصل" : "غير متصل"}
+                    {blockedTags.length > 0 ? ` [${blockedTags.join("، ")}]` : ""}
+                  </option>
+                );
+              })}
             </select>
+            {(() => {
+              const picked = settingsSessions.find((s) => s.id === settings.defaultSessionId);
+              if (picked && (picked.outboundEnabled === false || picked.notificationsEnabled === false)) {
+                return (
+                  <div className="mt-2 flex items-start justify-between gap-2 rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-xs text-warning">
+                    <div className="flex items-start gap-1.5">
+                      <ExclamationTriangleIcon className="mt-0.5 h-4 w-4 shrink-0" />
+                      <span>
+                        هذه القناة موقوف عليها {picked.outboundEnabled === false ? "الإرسال" : "إرسال الإشعارات"} من إعدادات واتساب، ولن يتم الإرسال منها تلقائياً.
+                      </span>
+                    </div>
+                    <Link
+                      to="/whatsapp/settings"
+                      className="shrink-0 font-semibold underline hover:opacity-80"
+                    >
+                      إعدادات القنوات
+                    </Link>
+                  </div>
+                );
+              }
+              return null;
+            })()}
             {defaultSessionInfo && (
               <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
                 <span className="text-muted-foreground">طريقة الإرسال الحالية:</span>

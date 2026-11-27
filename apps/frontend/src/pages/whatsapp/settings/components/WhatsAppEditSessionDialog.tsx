@@ -132,6 +132,63 @@ export const WhatsAppEditSessionDialog: React.FC<
                   )
                 }
               />
+              <SettingsToggle
+                label={t("whatsappSettings.dialogs.makeDefault")}
+                checked={editingSession.isDefault}
+                onCheckedChange={(checked) =>
+                  setEditingSession((previous) =>
+                    previous ? { ...previous, isDefault: checked } : previous,
+                  )
+                }
+              />
+            </div>
+
+            <div className="space-y-3 rounded-xl border border-border/70 bg-muted/20 p-4">
+              <div>
+                <p className="text-sm font-semibold text-foreground">
+                  التحكم في صلاحيات القناة (الاستقبال والإرسال والإشعارات)
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  يمكنك إيقاف الاستقبال أو الإرسال أو الإشعارات التلقائية على هذه القناة مع بقاء الاتصال نشطاً.
+                </p>
+              </div>
+              <div className="grid gap-3 md:grid-cols-3">
+                <SettingsToggle
+                  label="استقبال الرسائل الواردة"
+                  description="عند الإيقاف يتم تجاهل الرسائل الواردة وعدم الرد عليها."
+                  checked={editingSession.inboundEnabled ?? true}
+                  onCheckedChange={(checked) =>
+                    setEditingSession((previous) =>
+                      previous ? { ...previous, inboundEnabled: checked } : previous,
+                    )
+                  }
+                />
+                <SettingsToggle
+                  label="الإرسال والرد والحملات"
+                  description="عند الإيقاف يُمنع أي إرسال يدوي أو حملة من هذا الرقم."
+                  checked={editingSession.outboundEnabled ?? true}
+                  onCheckedChange={(checked) =>
+                    setEditingSession((previous) =>
+                      previous ? { ...previous, outboundEnabled: checked } : previous,
+                    )
+                  }
+                />
+                <SettingsToggle
+                  label="إرسال الإشعارات التلقائية"
+                  description="عند الإيقاف يُستبعد هذا الرقم من إشعارات الطلبات والموظفين حتى كبديل."
+                  checked={editingSession.notificationsEnabled ?? true}
+                  onCheckedChange={(checked) =>
+                    setEditingSession((previous) =>
+                      previous ? { ...previous, notificationsEnabled: checked } : previous,
+                    )
+                  }
+                />
+              </div>
+              {editingSession.outboundEnabled === false && (
+                <p className="text-xs font-medium text-warning">
+                  ملاحظة: إيقاف الإرسال يوقف أيضاً إرسال الإشعارات التلقائية من هذه القناة تلقائياً.
+                </p>
+              )}
             </div>
 
             <div className="grid gap-4 xl:grid-cols-2">
@@ -170,16 +227,6 @@ export const WhatsAppEditSessionDialog: React.FC<
                 />
               </div>
             </div>
-
-            <SettingsToggle
-              label={t("whatsappSettings.dialogs.makeDefault")}
-              checked={editingSession.isDefault}
-              onCheckedChange={(checked) =>
-                setEditingSession((previous) =>
-                  previous ? { ...previous, isDefault: checked } : previous,
-                )
-              }
-            />
 
             {editingSession.provider !== "META_CLOUD" && (
               <div className="space-y-3 rounded-xl border border-warning/30 bg-warning/5 p-4">

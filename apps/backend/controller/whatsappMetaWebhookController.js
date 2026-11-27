@@ -4,6 +4,7 @@
 
 const { getSharedPrismaClient } = require('../services/sharedDatabase');
 const { saveIncomingMessage, updateMessageStatus } = require('../services/whatsapp/WhatsAppInboundService');
+const { isSessionInboundEnabled } = require('../services/whatsapp/sessionChannelPolicy');
 const { verifyMetaWebhookSignature, shouldStrictlyEnforceMetaWebhookSignature } = require('../utils/webhookSignature');
 const facebookAppConfig = require('../config/facebookAppConfig');
 
@@ -377,8 +378,13 @@ async function postWebhook(req, res) {
         }
 
         const companyId = session.companyId;
-        const messages = value.messages || [];
+        const inboundAllowed = isSessionInboundEnabled(session);
+        const messages = inboundAllowed ? (value.messages || []) : [];
         const statuses = value.statuses || [];
+
+        if (!inboundAllowed && Array.isArray(value.messages) && value.messages.length > 0) {
+          console.log(`🔇 [META-WEBHOOK] Inbound paused for session ${session.id} — ignored ${value.messages.length} incoming message(s)`);
+        }
 
         for (const msg of messages) {
           const cleanFrom = msg.from && String(msg.from).replace(/\D/g, '');

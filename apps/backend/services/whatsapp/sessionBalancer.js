@@ -7,6 +7,7 @@
 const { getSharedPrismaClient, safeQuery } = require('../sharedDatabase');
 const WhatsAppManager = require('./WhatsAppManager');
 const { formatPhoneNumber } = require('../../utils/phoneFormat');
+const { isSessionNotificationEligible } = require('./sessionChannelPolicy');
 
 const sessionRotation = new Map();
 const SESSION_ROTATION_MAX_SIZE = 5000;
@@ -33,10 +34,35 @@ function autoHealDefaultSession(companyId, sessionId) {
 
 async function getOrAssignSession({ companyId, customerId, recipientPhone, connectedSessions, settings }) {
   const prisma = getSharedPrismaClient();
-  const liveBaileys = Array.isArray(connectedSessions) ? connectedSessions : [];
+  const rawLiveBaileys = Array.isArray(connectedSessions) ? connectedSessions : [];
+
+  // تصفية جلسات Baileys الحية حسب سياسة الإشعارات/الإرسال (مع إثراء metadata من DB إن أمكن)
+  let liveBaileys = rawLiveBaileys;
+  if (rawLiveBaileys.length > 0) {
+    let metaById = null;
+    const needsDbMeta = rawLiveBaileys.some((s) => s.metadata === undefined || s.metadata === null);
+    if (needsDbMeta && typeof prisma.whatsAppSession?.findMany === 'function') {
+      try {
+        const dbRows = await safeQuery(() => prisma.whatsAppSession.findMany({
+          where: { id: { in: rawLiveBaileys.map((s) => s.sessionId) } },
+          select: { id: true, metadata: true }
+        }));
+        if (Array.isArray(dbRows)) {
+          metaById = new Map(dbRows.map((row) => [row.id, row.metadata]));
+        }
+      } catch {}
+    }
+
+    liveBaileys = rawLiveBaileys.filter((s) => {
+      const merged = metaById && metaById.has(s.sessionId)
+        ? { ...s, metadata: metaById.get(s.sessionId) }
+        : s;
+      return isSessionNotificationEligible(merged);
+    });
+  }
 
   // 0. احترام القناة الأساسية المحددة صراحةً في إعدادات الإشعارات (defaultSessionId)
-  // حتى عند وجود قناة QR متصلة في الذاكرة بجانب قناة Meta Cloud API (التي لا تملك socket في الذاكرة).
+  // بشرط ألا تكون الإشعارات أو الإرسال موقوفة عليها.
   if (settings?.defaultSessionId) {
     const inLiveBaileys = liveBaileys.some((s) => s.sessionId === settings.defaultSessionId);
     if (inLiveBaileys) {
@@ -48,46 +74,72 @@ async function getOrAssignSession({ companyId, customerId, recipientPhone, conne
         id: settings.defaultSessionId,
         ...(companyId ? { companyId } : {})
       },
-      select: { id: true, provider: true, status: true }
+      select: { id: true, provider: true, status: true, metadata: true }
     }));
 
-    if (explicitDefault?.provider === 'META_CLOUD' && explicitDefault.status === 'CONNECTED') {
-      return explicitDefault.id;
-    }
-
-    if (explicitDefault && explicitDefault.provider !== 'META_CLOUD') {
-      const mem = WhatsAppManager.getSession(explicitDefault.id);
-      if (mem && mem.status === 'connected') {
+    if (explicitDefault && !isSessionNotificationEligible(explicitDefault)) {
+      console.warn(`🔇 [SESSION-BALANCER] Explicit defaultSessionId=${settings.defaultSessionId} has notifications/outbound disabled; skipping.`);
+    } else {
+      if (explicitDefault?.provider === 'META_CLOUD' && explicitDefault.status === 'CONNECTED') {
         return explicitDefault.id;
       }
-    }
 
-    if (liveBaileys.length === 0) {
-      return settings.defaultSessionId;
-    }
+      if (explicitDefault && explicitDefault.provider !== 'META_CLOUD') {
+        const mem = WhatsAppManager.getSession(explicitDefault.id);
+        if (mem && mem.status === 'connected') {
+          return explicitDefault.id;
+        }
+      }
 
-    console.warn(`⚠️ [SESSION-BALANCER] Explicit defaultSessionId=${settings.defaultSessionId} is not connected; falling back to available connected sessions.`);
+      if (liveBaileys.length === 0 && (!explicitDefault || isSessionNotificationEligible(explicitDefault))) {
+        return settings.defaultSessionId;
+      }
+
+      console.warn(`⚠️ [SESSION-BALANCER] Explicit defaultSessionId=${settings.defaultSessionId} is not connected; falling back to available connected sessions.`);
+    }
   }
 
   if (liveBaileys.length === 0) {
-    if (settings?.defaultSessionId) {
-      return settings.defaultSessionId;
-    }
     const defaultSession = await safeQuery(() => prisma.whatsAppSession.findFirst({
       where: { companyId, isDefault: true },
-      select: { id: true }
+      select: { id: true, metadata: true }
     }));
-    if (defaultSession?.id) {
+    if (defaultSession?.id && isSessionNotificationEligible(defaultSession)) {
       autoHealDefaultSession(companyId, defaultSession.id);
       return defaultSession.id;
+    }
+
+    if (typeof prisma.whatsAppSession?.findMany === 'function') {
+      const connectedCandidates = await safeQuery(() => prisma.whatsAppSession.findMany({
+        where: { companyId, status: 'CONNECTED' },
+        orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }],
+        select: { id: true, metadata: true }
+      }));
+      const eligibleConnected = (connectedCandidates || []).find(isSessionNotificationEligible);
+      if (eligibleConnected?.id) {
+        autoHealDefaultSession(companyId, eligibleConnected.id);
+        return eligibleConnected.id;
+      }
+
+      const anyCandidates = await safeQuery(() => prisma.whatsAppSession.findMany({
+        where: { companyId },
+        orderBy: [{ isDefault: 'desc' }, { createdAt: 'desc' }],
+        select: { id: true, metadata: true }
+      }));
+      const eligibleAny = (anyCandidates || []).find(isSessionNotificationEligible);
+      if (eligibleAny?.id) {
+        autoHealDefaultSession(companyId, eligibleAny.id);
+        return eligibleAny.id;
+      }
+      return null;
     }
 
     const singleConnected = await safeQuery(() => prisma.whatsAppSession.findFirst({
       where: { companyId, status: 'CONNECTED' },
       orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }],
-      select: { id: true }
+      select: { id: true, metadata: true }
     }));
-    if (singleConnected?.id) {
+    if (singleConnected?.id && isSessionNotificationEligible(singleConnected)) {
       autoHealDefaultSession(companyId, singleConnected.id);
       return singleConnected.id;
     }
@@ -95,19 +147,18 @@ async function getOrAssignSession({ companyId, customerId, recipientPhone, conne
     const anySession = await safeQuery(() => prisma.whatsAppSession.findFirst({
       where: { companyId },
       orderBy: [{ isDefault: 'desc' }, { createdAt: 'desc' }],
-      select: { id: true }
+      select: { id: true, metadata: true }
     }));
-    if (anySession?.id) {
+    if (anySession?.id && isSessionNotificationEligible(anySession)) {
       autoHealDefaultSession(companyId, anySession.id);
       return anySession.id;
     }
     return null;
   }
 
-  // 1. ╪º┘ä╪¿╪¡╪½ ╪╣┘å ╪¼┘ä╪│╪⌐ ┘à╪½╪¿╪¬╪⌐ (Sticky Session Affinity)
-  // ┘å╪╖╪¿┘é ┘ç╪░╪º ╪º┘ä┘à┘å╪╖┘é ┘ü┘é╪╖ ╪Ñ╪░╪º ┘â╪º┘å ╪º┘ä╪«┘è╪º╪▒ ┘à┘ü╪╣┘ä╪º┘ï ┘ü┘è ╪º┘ä╪Ñ╪╣╪»╪º╪»╪º╪¬
+  // 1. البحث عن جلسة مثبتة (Sticky Session Affinity) — فقط من الجلسات المؤهلة للإشعارات
   if (settings?.stickySessionEnabled !== false) {
-    const connectedSessionIds = connectedSessions.map(s => s.sessionId);
+    const connectedSessionIds = liveBaileys.map(s => s.sessionId);
 
     try {
       let existingSessionId = null;
@@ -138,21 +189,20 @@ async function getOrAssignSession({ companyId, customerId, recipientPhone, conne
       }
 
       if (existingSessionId) {
-        console.log(`≡ƒöù [WHATSAPP-AFFINITY] Sticky session matched: ${existingSessionId}`);
+        console.log(`🔗 [WHATSAPP-AFFINITY] Sticky session matched: ${existingSessionId}`);
         return existingSessionId;
       }
     } catch (err) {
-      console.error('Γ¥î [WHATSAPP-AFFINITY] Error checking affinity:', err);
+      console.error('❌ [WHATSAPP-AFFINITY] Error checking affinity:', err);
     }
   } else {
-    console.log(`ΓÜû∩╕Å [WHATSAPP-LB] Sticky sessions disabled, forcing load balancing for every message.`);
+    console.log(`⚖️ [WHATSAPP-LB] Sticky sessions disabled, forcing load balancing for every message.`);
   }
 
-  // 2. ╪Ñ╪░╪º ┘ä┘à ╪¬┘ê╪¼╪» ╪¼┘ä╪│╪⌐ ┘à╪½╪¿╪¬╪⌐ ╪ú┘ê ╪º┘ä╪«┘è╪º╪▒ ┘à╪╣╪╖┘ä╪î ┘å╪│╪¬╪«╪»┘à ╪º┘ä╪¬┘ê╪▓┘è╪╣ ╪º┘ä┘à┘ê╪▓┘ê┘å (Weighted Round Robin)
-  if (connectedSessions.length > 1) {
+  // 2. التوزيع الموزون (Weighted Round Robin) على الجلسات المؤهلة فقط
+  if (liveBaileys.length > 1) {
     let weightedPool = [];
-    connectedSessions.forEach(s => {
-      // ╪º┘ä╪ú┘ê┘ä┘ê┘è╪⌐ ┘ä┘Ç loadBalanceWeight ╪½┘à ┘ä┘Ç isDefault
+    liveBaileys.forEach(s => {
       const weight = s.loadBalanceWeight || (s.isDefault ? 3 : 1);
       for (let i = 0; i < weight; i++) {
         weightedPool.push(s.sessionId);
@@ -164,12 +214,12 @@ async function getOrAssignSession({ companyId, customerId, recipientPhone, conne
     setSessionRotation(companyId, nextIndex);
 
     const pickedId = weightedPool[nextIndex];
-    console.log(`ΓÜû∩╕Å [LOAD-BALANCER] New assignment via Weighted Round-Robin (Weight Strategy): ${pickedId} (Step ${nextIndex + 1}/${weightedPool.length})`);
+    console.log(`⚖️ [LOAD-BALANCER] New assignment via Weighted Round-Robin (Weight Strategy): ${pickedId} (Step ${nextIndex + 1}/${weightedPool.length})`);
     return pickedId;
   }
 
-  // إذا كان هناك رقم واحد فقط متصل
-  const singleSessionId = connectedSessions[0].sessionId;
+  // إذا كان هناك رقم واحد فقط متصل ومؤهل
+  const singleSessionId = liveBaileys[0].sessionId;
   if (!settings?.defaultSessionId) {
     autoHealDefaultSession(companyId, singleSessionId);
   }
@@ -216,14 +266,13 @@ async function findAlternativeBaileysSession(companyId, excludeSessionId) {
       status: 'CONNECTED',
       id: { not: excludeSessionId },
     },
-    select: { id: true, name: true, phoneNumber: true },
+    select: { id: true, name: true, phoneNumber: true, metadata: true },
   }));
 
   if (!candidates || candidates.length === 0) return null;
 
-  // ┘ü┘ä╪¬╪▒ ╪╣┘ä┘ë ╪º┘ä┘Ç in-memory connectivity (┘à╪½┘ä getOrAssignSession) ΓÇö
-  // ╪º┘ä╪¼┘ä╪│╪⌐ ┘ä╪º╪▓┘à ╪¬┘â┘ê┘å ┘ü╪╣┘ä╪º┘ï socket ┘à╪¬╪╡┘ä╪⌐ ┘ü┘è ╪º┘ä╪░╪º┘â╪▒╪⌐╪î ┘à╪┤ ╪¿╪│ CONNECTED ┘ü┘è DB.
   for (const c of candidates) {
+    if (!isSessionNotificationEligible(c)) continue;
     const live = WhatsAppManager.getSession(c.id);
     if (live && live.status === 'connected') {
       return { sessionId: c.id, name: c.name, phoneNumber: c.phoneNumber };

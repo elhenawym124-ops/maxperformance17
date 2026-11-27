@@ -16,6 +16,9 @@ export interface WhatsAppSession {
   provider: string;
   status: string;
   isDefault?: boolean;
+  inboundEnabled?: boolean;
+  outboundEnabled?: boolean;
+  notificationsEnabled?: boolean;
 }
 
 export interface UseWorkspaceWhatsAppControllerProps {
@@ -77,7 +80,11 @@ export const useWorkspaceWhatsAppController = ({
       try {
         const res = await apiClient.get('/whatsapp/sessions');
         const list: WhatsAppSession[] = res.data?.sessions || [];
-        const connected = list.find((s) => s.status === 'CONNECTED') || list[0] || null;
+        const connected =
+          list.find((s) => s.status === 'CONNECTED' && s.outboundEnabled !== false) ||
+          list.find((s) => s.status === 'CONNECTED') ||
+          list[0] ||
+          null;
         if (isMounted) {
           setSessions(list);
           setActiveSession((prev) => {

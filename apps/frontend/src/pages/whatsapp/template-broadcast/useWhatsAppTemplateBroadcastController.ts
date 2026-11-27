@@ -87,7 +87,10 @@ export function useWhatsAppTemplateBroadcastController({
         (s: any) => s.provider === 'META_CLOUD' || s.metaWabaId
       );
       setSessions(metaSessions);
-      if (metaSessions.length > 0 && !selectedSessionId) setSelectedSessionId(metaSessions[0].id);
+      if (metaSessions.length > 0 && !selectedSessionId) {
+        const preferred = metaSessions.find((s: any) => s.outboundEnabled !== false) || metaSessions[0];
+        setSelectedSessionId(preferred.id);
+      }
     } catch {
       // Graceful fallback
     }
@@ -442,6 +445,12 @@ export function useWhatsAppTemplateBroadcastController({
 
       const isRecurring = extraData?.['recurrence'] && extraData['recurrence'] !== 'none';
       const sendNow = (scheduleAt || isRecurring) ? 'false' : 'true';
+
+      const pickedSession = sessions.find((s) => s.id === selectedSessionId);
+      if (pickedSession?.outboundEnabled === false) {
+        toast.error('الإرسال موقوف على هذه القناة من إعدادات جلسات واتساب');
+        return;
+      }
 
       setSendProgress({ current: 0, total: recipients.length, status: 'sending' });
 

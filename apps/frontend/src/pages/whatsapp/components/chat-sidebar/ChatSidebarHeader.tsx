@@ -205,6 +205,8 @@ export const ChatSidebarHeader: React.FC<ChatSidebarHeaderProps> = ({
               {sessionOptions.map((session) => (
                 <SelectItem key={session.id} value={session.id}>
                   {session.name}
+                  {session.outboundEnabled === false ? ' [إرسال موقوف]' : ''}
+                  {session.inboundEnabled === false ? ' [استقبال موقوف]' : ''}
                 </SelectItem>
               ))}
             </SelectContent>

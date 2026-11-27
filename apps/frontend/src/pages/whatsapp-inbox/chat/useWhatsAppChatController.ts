@@ -153,6 +153,8 @@ export function useWhatsAppChatController({ companyId, superAdminMode }: WhatsAp
       );
       setDraft('');
       await loadConversation();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.error || error?.message || 'تعذر إرسال الرسالة');
     } finally {
       setSaving(false);
     }

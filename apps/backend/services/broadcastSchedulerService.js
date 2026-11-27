@@ -646,30 +646,32 @@ class BroadcastSchedulerService {
     let waSessionId = null;
 
     if (isWhatsApp) {
+      const { isSessionOutboundEnabled } = require('./whatsapp/sessionChannelPolicy');
       waSessionId = campaign.whatsAppSessionId;
-      if (!waSessionId) {
-        console.log(`🔍 [BroadcastScheduler] whatsAppSessionId not found on campaign, searching for default Meta session`);
-        const metaSession = await safeQuery(async () => {
-          return await getSharedPrismaClient().whatsAppSession.findFirst({
-            where: { companyId: campaign.companyId, provider: 'META_CLOUD' }
-          });
-        }, 3);
-        if (metaSession) {
-          waSessionId = metaSession.id;
-        } else {
-          const defaultSession = await safeQuery(async () => {
-            return await getSharedPrismaClient().whatsAppSession.findFirst({
-              where: { companyId: campaign.companyId, isDefault: true }
-            }) || await getSharedPrismaClient().whatsAppSession.findFirst({
-              where: { companyId: campaign.companyId }
-            });
-          }, 3);
-          waSessionId = defaultSession?.id || null;
+      if (waSessionId) {
+        const picked = await safeQuery(async () => getSharedPrismaClient().whatsAppSession.findUnique({
+          where: { id: waSessionId },
+          select: { id: true, metadata: true }
+        }), 3);
+        if (picked && !isSessionOutboundEnabled(picked)) {
+          throw new Error('الإرسال موقوف على قناة الواتساب المحددة لهذه الحملة');
         }
+      } else {
+        console.log(`🔍 [BroadcastScheduler] whatsAppSessionId not found on campaign, searching for outbound-eligible Meta session`);
+        const sessions = await safeQuery(async () => getSharedPrismaClient().whatsAppSession.findMany({
+          where: { companyId: campaign.companyId },
+          select: { id: true, provider: true, isDefault: true, metadata: true }
+        }), 3);
+        const eligible = (sessions || []).filter(isSessionOutboundEnabled);
+        const picked =
+          eligible.find((s) => s.provider === 'META_CLOUD') ||
+          eligible.find((s) => s.isDefault) ||
+          eligible[0];
+        waSessionId = picked?.id || null;
       }
       console.log(`📞 [BroadcastScheduler] Using WhatsApp session ID: ${waSessionId}`);
       if (!waSessionId) {
-        throw new Error('لا توجد جلسة واتساب نشطة متاحة لإرسال هذه الحملة المجدولة');
+        throw new Error('لا توجد جلسة واتساب نشطة ومفعّلة للإرسال لإرسال هذه الحملة المجدولة');
       }
     }
 

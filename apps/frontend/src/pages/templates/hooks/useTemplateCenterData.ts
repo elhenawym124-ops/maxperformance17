@@ -68,7 +68,18 @@ export function useTemplateCenterData(config: TemplateScopeConfig) {
 
   // Settings state
   const [settings, setSettings] = useState<SettingsForm | null>(null);
-  const [settingsSessions, setSettingsSessions] = useState<{ id: string; name: string; phoneNumber?: string; status: string; provider?: string }[]>([]);
+  const [settingsSessions, setSettingsSessions] = useState<
+    {
+      id: string;
+      name: string;
+      phoneNumber?: string;
+      status: string;
+      provider?: string;
+      inboundEnabled?: boolean;
+      outboundEnabled?: boolean;
+      notificationsEnabled?: boolean;
+    }[]
+  >([]);
   const [settingsLoading, setSettingsLoading] = useState(false);
   const [settingsSaving, setSettingsSaving] = useState(false);
 

@@ -208,6 +208,9 @@ const WhatsAppSettings: React.FC<WhatsAppSettingsProps> = ({
             onConnectSession={(session) => void data.handleConnectSession(session)}
             onDisconnectSession={(id) => void data.handleDisconnectSession(id)}
             onStartEditSession={data.handleStartEditSession}
+            onToggleChannelPolicy={(session, patch) =>
+              void data.handleToggleChannelPolicy(session, patch)
+            }
             onDeleteSession={(session) => {
               let defaultKeep = true;
               const sessMeta = session.metadata;

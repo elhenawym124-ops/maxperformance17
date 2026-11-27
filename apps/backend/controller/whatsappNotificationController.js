@@ -9,6 +9,7 @@ const { v4: uuidv4 } = require('uuid');
 const { mapVariablesByOrder, extractLocalVariableOrder } = require('../utils/metaTemplateVariables');
 const { buildMetaTemplatePayload } = require('../utils/metaTemplatePayload');
 const { isOrderCategory, VALID_WHATSAPP_EVENT_TYPES } = require('../services/whatsapp/notificationTypes');
+const { getSessionChannelPolicy, isSessionNotificationEligible } = require('../services/whatsapp/sessionChannelPolicy');
 
 function buildQueuedSuccessMessage(result) {
   if (!result?.queueId) {
@@ -52,13 +53,32 @@ async function getNotificationSettings(req, res) {
       }));
     }
 
-    const sessions = await safeQuery(() => getSharedPrismaClient().whatsAppSession.findMany({
+    const rawSessions = await safeQuery(() => getSharedPrismaClient().whatsAppSession.findMany({
       where: { companyId },
-      select: { id: true, name: true, phoneNumber: true, status: true, provider: true, isDefault: true }
+      select: { id: true, name: true, phoneNumber: true, status: true, provider: true, isDefault: true, metadata: true }
     }));
 
-    if (settings && !settings.defaultSessionId && sessions && sessions.length > 0) {
-      const candidate = sessions.find(s => s.isDefault) || sessions.find(s => s.status === 'CONNECTED') || sessions[0];
+    const sessions = (rawSessions || []).map((s) => {
+      const policy = getSessionChannelPolicy(s);
+      return {
+        id: s.id,
+        name: s.name,
+        phoneNumber: s.phoneNumber,
+        status: s.status,
+        provider: s.provider,
+        isDefault: s.isDefault,
+        inboundEnabled: policy.inboundEnabled,
+        outboundEnabled: policy.outboundEnabled,
+        notificationsEnabled: policy.notificationsEnabled,
+      };
+    });
+
+    if (settings && !settings.defaultSessionId && sessions.length > 0) {
+      const eligible = sessions.filter((s) => s.outboundEnabled && s.notificationsEnabled);
+      const candidate =
+        eligible.find((s) => s.isDefault) ||
+        eligible.find((s) => s.status === 'CONNECTED') ||
+        eligible[0];
       if (candidate) {
         settings.defaultSessionId = candidate.id;
         safeQuery(() => getSharedPrismaClient().whatsAppNotificationSettings.update({
@@ -1912,13 +1932,14 @@ async function getTemplatesDeliveryPreview(req, res) {
       },
     });
 
-    // 2. كل sessions الشركة المتصلة
-    const sessions = await prisma.whatsAppSession.findMany({
+    // 2. كل sessions الشركة المتصلة والمؤهلة للإشعارات
+    const rawSessions = await prisma.whatsAppSession.findMany({
       where: { companyId, status: 'CONNECTED' },
-      select: { id: true, name: true, provider: true, phoneNumber: true, status: true },
+      select: { id: true, name: true, provider: true, phoneNumber: true, status: true, metadata: true },
     });
+    const sessions = (rawSessions || []).filter(isSessionNotificationEligible);
 
-    // 3. default session (أو أول جلسة متصلة لو مش محدد)
+    // 3. default session (أو أول جلسة متصلة ومؤهلة للإشعارات)
     const settings = await prisma.whatsAppNotificationSettings.findUnique({
       where: { companyId },
       select: { defaultSessionId: true },
@@ -1933,9 +1954,12 @@ async function getTemplatesDeliveryPreview(req, res) {
       let message = '';
 
       if (!defaultSession) {
+        const hasAnyConnected = (rawSessions || []).length > 0;
         deliveryStatus = 'no_session';
         riskLevel = 'danger';
-        message = 'لا توجد جلسة واتساب متصلة';
+        message = hasAnyConnected
+          ? 'الإشعارات موقوفة على القنوات المتصلة — فعّل خيار الإشعارات لقناة متصلة'
+          : 'لا توجد جلسة واتساب متصلة';
       } else if (defaultSession.provider === 'BAILEYS') {
         deliveryStatus = 'baileys_free_text';
         provider = 'BAILEYS';

@@ -104,6 +104,7 @@ const WhatsAppChatContent: React.FC = () => {
 
         <div className="relative flex h-full min-h-0 flex-1 overflow-hidden ltr:lg:order-2 rtl:lg:order-2">
           <ChatWindow
+            sessions={chatData.sessions}
             showRightPanel={dialogs.showRightPanel}
             onToggleRightPanel={() => dialogs.setShowRightPanel((prev) => !prev)}
             className={cn(

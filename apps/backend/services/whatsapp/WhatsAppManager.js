@@ -28,6 +28,7 @@ const {
 const telegramAlertService = require('../telegramAlertService');
 const MetaCloudProvider = require('./providers/MetaCloudProvider');
 const WhatsAppReactionService = require('./WhatsAppReactionService');
+const { isSessionInboundEnabled, parseSessionMetadata } = require('./sessionChannelPolicy');
 const { buildConversationMetadata } = require('../whatsappInboxMetadata');
 const {
     claimInboundMessage,
@@ -2792,11 +2793,37 @@ async function handleIncomingMessages(sessionId, companyId, m, sock, options = {
 
     if (!Array.isArray(messages) || messages.length === 0) return result;
 
+    let inboundAllowed = true;
+    if (!importHistory) {
+        const activeSession = activeSessions.get(sessionId);
+        if (activeSession?.metadata !== undefined && activeSession?.metadata !== null) {
+            inboundAllowed = isSessionInboundEnabled(activeSession);
+        } else {
+            try {
+                const dbPolicy = await getSharedPrismaClient().whatsAppSession.findUnique({
+                    where: { id: sessionId },
+                    select: { metadata: true }
+                });
+                if (dbPolicy) {
+                    inboundAllowed = isSessionInboundEnabled(dbPolicy);
+                    if (activeSession) activeSession.metadata = parseSessionMetadata(dbPolicy.metadata);
+                }
+            } catch (policyErr) {
+                console.warn(`⚠️ [WhatsApp] Could not read inbound policy for session ${sessionId}:`, policyErr?.message);
+            }
+        }
+    }
+
     for (const msg of messages) {
         try {
             let remoteJid = msg.key.remoteJid;
             const fromMe = Boolean(msg.key.fromMe);
             const messageId = msg.key.id;
+
+            if (!importHistory && !fromMe && !inboundAllowed) {
+                result.skipped++;
+                continue;
+            }
             // في إصدارات Baileys الحديثة قد يكون راسل رسالة الجروب في msg.participant (المستوى الأعلى)
             // بدلاً من msg.key.participant — نقرأ من الاتنين لنضمن تخزين الراسل دائماً.
             const messageParticipant = msg?.key?.participant || msg?.participant || null;

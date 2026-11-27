@@ -5,6 +5,7 @@
 
 const { getSharedPrismaClient, safeQuery } = require('../sharedDatabase');
 const { formatPhoneNumber } = require('../../utils/phoneFormat');
+const { isSessionNotificationEligible } = require('./sessionChannelPolicy');
 const WhatsAppManager = require('./WhatsAppManager');
 const WhatsAppMessageHandler = require('./WhatsAppMessageHandler');
 const { formatInTimeZone, fromZonedTime } = require('date-fns-tz');
@@ -275,17 +276,18 @@ class PeriodicReportService {
         const preferred = await safeQuery(() => prisma.whatsAppSession.findFirst({
           where: { id: preferredSessionId, companyId, status: 'CONNECTED' }
         }));
-        if (preferred) return preferred;
+        if (preferred && isSessionNotificationEligible(preferred)) return preferred;
       } catch (_) {}
     }
 
-    // جلب أي جلسة متصلة تابعة للشركة
+    // جلب أي جلسة متصلة ومسموح لها بإرسال الإشعارات تابعة للشركة
     try {
-      const session = await safeQuery(() => prisma.whatsAppSession.findFirst({
+      const sessions = await safeQuery(() => prisma.whatsAppSession.findMany({
         where: { companyId, status: 'CONNECTED' },
         orderBy: [{ lastConnectedAt: 'desc' }, { createdAt: 'desc' }]
       }));
-      if (session) return session;
+      const eligible = (sessions || []).find(isSessionNotificationEligible);
+      if (eligible) return eligible;
     } catch (_) {}
 
     return null;

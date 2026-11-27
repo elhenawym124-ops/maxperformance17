@@ -2,14 +2,17 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import {
   AlertCircle,
+  BellOff,
   CheckCircle2,
   Edit,
   Globe,
+  Inbox,
   Link2,
   Link2Off,
   MoreVertical,
   Plus,
   RefreshCw,
+  Send,
   Smartphone,
   Trash2,
   Users,
@@ -52,6 +55,10 @@ interface WhatsAppSessionsTabProps {
   onConnectSession: (session: Session) => void;
   onDisconnectSession: (sessionId: string) => void;
   onStartEditSession: (session: Session) => void;
+  onToggleChannelPolicy?: (
+    session: Session,
+    patch: Partial<Pick<Session, "inboundEnabled" | "outboundEnabled" | "notificationsEnabled">>,
+  ) => void;
   onDeleteSession: (session: Session) => void;
 }
 
@@ -65,6 +72,7 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
   onConnectSession,
   onDisconnectSession,
   onStartEditSession,
+  onToggleChannelPolicy,
   onDeleteSession,
 }) => {
   const { t } = useTranslation();
@@ -198,6 +206,30 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                         className="rounded-full border-warning/70 bg-warning/10 text-[11px] font-medium text-warning dark:border-warning/40 dark:text-warning sm:text-xs"
                       >
                         {t("whatsappSettings.dialogs.autoReply")}
+                      </Badge>
+                    ) : null}
+                    {session.inboundEnabled === false ? (
+                      <Badge
+                        variant="outline"
+                        className="rounded-full border-destructive/60 bg-destructive/10 text-[11px] font-medium text-destructive sm:text-xs"
+                      >
+                        موقوف: الاستقبال
+                      </Badge>
+                    ) : null}
+                    {session.outboundEnabled === false ? (
+                      <Badge
+                        variant="outline"
+                        className="rounded-full border-destructive/60 bg-destructive/10 text-[11px] font-medium text-destructive sm:text-xs"
+                      >
+                        موقوف: الإرسال
+                      </Badge>
+                    ) : null}
+                    {session.notificationsEnabled === false ? (
+                      <Badge
+                        variant="outline"
+                        className="rounded-full border-warning/70 bg-warning/10 text-[11px] font-medium text-warning sm:text-xs"
+                      >
+                        بدون إشعارات
                       </Badge>
                     ) : null}
                   </div>
@@ -358,6 +390,56 @@ export const WhatsAppSessionsTab: React.FC<WhatsAppSessionsTabProps> = ({
                               <span>إعادة المزامنة</span>
                             </DropdownMenuItem>
                           )}
+                        {onToggleChannelPolicy && (
+                          <>
+                            <DropdownMenuSeparator className="my-1" />
+                            <DropdownMenuItem
+                              onClick={() =>
+                                onToggleChannelPolicy(session, {
+                                  inboundEnabled: !(session.inboundEnabled ?? true),
+                                })
+                              }
+                              className="flex cursor-pointer items-center gap-2 rounded-xl py-2 text-xs sm:text-sm"
+                            >
+                              <Inbox className="size-4 text-muted-foreground" />
+                              <span>
+                                {session.inboundEnabled === false
+                                  ? "تفعيل الاستقبال"
+                                  : "إيقاف الاستقبال"}
+                              </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() =>
+                                onToggleChannelPolicy(session, {
+                                  outboundEnabled: !(session.outboundEnabled ?? true),
+                                })
+                              }
+                              className="flex cursor-pointer items-center gap-2 rounded-xl py-2 text-xs sm:text-sm"
+                            >
+                              <Send className="size-4 text-muted-foreground" />
+                              <span>
+                                {session.outboundEnabled === false
+                                  ? "تفعيل الإرسال"
+                                  : "إيقاف الإرسال"}
+                              </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() =>
+                                onToggleChannelPolicy(session, {
+                                  notificationsEnabled: !(session.notificationsEnabled ?? true),
+                                })
+                              }
+                              className="flex cursor-pointer items-center gap-2 rounded-xl py-2 text-xs sm:text-sm"
+                            >
+                              <BellOff className="size-4 text-muted-foreground" />
+                              <span>
+                                {session.notificationsEnabled === false
+                                  ? "تفعيل الإشعارات"
+                                  : "إيقاف الإشعارات"}
+                              </span>
+                            </DropdownMenuItem>
+                          </>
+                        )}
                         <DropdownMenuSeparator className="my-1" />
                         <DropdownMenuItem
                           variant="destructive"

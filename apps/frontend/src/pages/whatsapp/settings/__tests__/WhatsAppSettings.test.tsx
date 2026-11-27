@@ -59,6 +59,9 @@ vi.mock("@/services/apiClient", () => ({
                   messages: 80,
                   contacts: 15,
                 },
+                inboundEnabled: false,
+                outboundEnabled: false,
+                notificationsEnabled: false,
               },
             ],
           },
@@ -244,5 +247,23 @@ describe("WhatsAppSettings Monolithic Deconstruction (Batch 326)", () => {
     expect(screen.getAllByText("الملف التجاري").length).toBeGreaterThan(0);
     expect(screen.getAllByText("الخصوصية").length).toBeGreaterThan(0);
     expect(screen.getAllByText("التصنيفات").length).toBeGreaterThan(0);
+  });
+
+  it("renders channel policy status badges when receive, send, or notifications are disabled", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={["/whatsapp/settings?tab=sessions"]}>
+          <WhatsAppSettings />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Sales Meta Cloud")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("موقوف: الاستقبال")).toBeInTheDocument();
+    expect(screen.getByText("موقوف: الإرسال")).toBeInTheDocument();
+    expect(screen.getByText("بدون إشعارات")).toBeInTheDocument();
   });
 });

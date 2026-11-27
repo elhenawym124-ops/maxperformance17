@@ -35,7 +35,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import { Contact, Message } from "../../../hooks/useWhatsAppQueries";
+import { Contact, Message, Session } from "../../../hooks/useWhatsAppQueries";
 import {
   getContactDisplayPhone,
 } from "../whatsappContactDisplay";
@@ -46,6 +46,7 @@ import MessageInput from "../../../components/facebook-inbox/MessageInput/Messag
 
 interface ChatWindowProps {
   className?: string;
+  sessions?: Session[];
   user?: any;
   onSendFile?: (file: File) => void;
   onSendMessageText?: (text: string) => void;
@@ -105,6 +106,7 @@ interface ChatWindowProps {
 
 const ChatWindow: React.FC<ChatWindowProps> = ({
   className,
+  sessions = [],
   user,
   onSendFile,
   onSendMessageText,
@@ -192,6 +194,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   }
 
   const replyPreview = replyingTo?.content || replyingTo?.mediaType || t("whatsapp.window.message");
+
+  const activeChannelSession = React.useMemo(
+    () => sessions.find((s) => s.id === selectedContact.sessionId) || null,
+    [sessions, selectedContact.sessionId],
+  );
+  const isChannelOutboundDisabled = activeChannelSession?.outboundEnabled === false;
+  const isChannelInboundDisabled = activeChannelSession?.inboundEnabled === false;
 
   const isUnresolvedLid = Boolean(
     selectedContact?.jid?.includes("@lid") &&
@@ -494,8 +503,29 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       </div>
 
       <div className="wa-input-bar border-t border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] bg-[color:var(--color-card)] shrink-0">
-        {(selectedContact?.session?.provider === 'META_CLOUD' && selectedContact?.window && !selectedContact.window.isOpen) || isUnresolvedLid ? (
+        {(selectedContact?.session?.provider === 'META_CLOUD' && selectedContact?.window && !selectedContact.window.isOpen) || isUnresolvedLid || isChannelOutboundDisabled || isChannelInboundDisabled ? (
           <div className="px-2 pt-2 sm:px-3 sm:pt-2.5 space-y-2">
+            {isChannelOutboundDisabled ? (
+              <div className="flex items-center justify-between gap-2 rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <AlertTriangle className="size-4 shrink-0" />
+                  <span className="truncate sm:whitespace-normal">
+                    الإرسال موقوف على هذه القناة من إعدادات جلسات واتساب. قم بتفعيله من الإعدادات لإرسال الردود.
+                  </span>
+                </div>
+              </div>
+            ) : null}
+
+            {isChannelInboundDisabled ? (
+              <div className="flex items-center justify-between gap-2 rounded-xl border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <AlertTriangle className="size-4 shrink-0" />
+                  <span className="truncate sm:whitespace-normal">
+                    الاستقبال موقوف حالياً على هذه القناة — الرسائل الواردة الجديدة من العملاء لن يتم استقبالها.
+                  </span>
+                </div>
+              </div>
+            ) : null}
             {selectedContact?.session?.provider === 'META_CLOUD' && selectedContact?.window && !selectedContact.window.isOpen ? (
               <div className="flex items-center justify-between gap-2 rounded-xl border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning dark:text-warning">
                 <div className="flex items-center gap-1.5 min-w-0">
@@ -550,8 +580,12 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           isSending={isSendingMessage}
           sending={isSendingMessage}
           uploadingFile={isUploadingMedia}
-          disabled={isUnresolvedLid}
-          disabledReason="يرجى حفظ رقم هاتف العميل أولاً لإرسال واستلام الرسائل"
+          disabled={isUnresolvedLid || isChannelOutboundDisabled}
+          disabledReason={
+            isChannelOutboundDisabled
+              ? "الإرسال موقوف على هذه القناة من إعدادات جلسات واتساب"
+              : "يرجى حفظ رقم هاتف العميل أولاً لإرسال واستلام الرسائل"
+          }
           draftMessage={newMessage}
           onDraftMessageHandled={() => setNewMessage("")}
           user={user}

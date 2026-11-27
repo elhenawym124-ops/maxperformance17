@@ -51,6 +51,9 @@ export interface Session {
   metadata?: string | null;
   callShieldEnabled?: boolean;
   callShieldMessage?: string | null;
+  inboundEnabled?: boolean;
+  outboundEnabled?: boolean;
+  notificationsEnabled?: boolean;
   _count: {
     messages: number;
     contacts: number;

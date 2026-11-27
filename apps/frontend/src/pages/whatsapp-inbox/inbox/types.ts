@@ -3,6 +3,9 @@ export type Session = {
   name: string;
   phoneNumber: string;
   status: string;
+  inboundEnabled?: boolean;
+  outboundEnabled?: boolean;
+  notificationsEnabled?: boolean;
 };
 
 export type QueueCounters = {

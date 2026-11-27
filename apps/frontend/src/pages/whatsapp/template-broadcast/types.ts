@@ -4,6 +4,9 @@ export interface Session {
   phoneNumber?: string;
   provider?: string;
   metaDisplayPhoneNumber?: string;
+  inboundEnabled?: boolean;
+  outboundEnabled?: boolean;
+  notificationsEnabled?: boolean;
 }
 
 export interface MetaTemplate {

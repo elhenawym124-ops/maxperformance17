@@ -57,6 +57,7 @@ export const WorkspaceWhatsAppHeader: React.FC<WorkspaceWhatsAppHeaderProps> = (
                   <option key={s.id} value={s.id}>
                     {s.provider === "META_CLOUD" ? "API" : "QR"} ·{" "}
                     {s.name || s.metaDisplayPhoneNumber || s.phoneNumber || s.id}
+                    {s.outboundEnabled === false ? (isArabic ? " [إرسال موقوف]" : " [Send off]") : ""}
                   </option>
                 ))}
               </select>

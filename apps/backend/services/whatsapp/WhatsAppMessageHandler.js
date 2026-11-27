@@ -20,6 +20,7 @@ const getIO = () => socketService.getIO();
 const { isPermissionError, getPermissionErrorMessage } = require('../../utils/dbPermissionHelper');
 const { normalizeWhatsAppContactIdentity } = require('./contactIdentity');
 const { emitToAudience, getConversationAudience } = require('../whatsappRealtimeAudienceService');
+const { assertSessionOutboundAllowed } = require('./sessionChannelPolicy');
 
 const DEFAULT_BAILEYS_SEND_RECONNECT_WAIT_MS = 10000;
 const BAILEYS_SEND_RECONNECT_POLL_MS = 500;
@@ -37,10 +38,14 @@ async function safeUpdateContact(sessionId, jid, options = {}) {
   }
 }
 
-async function getSessionProvider(sessionId) {
+async function getSessionProvider(sessionId, options = {}) {
+    const { requireOutbound = true } = options;
     const session = await getSharedPrismaClient().whatsAppSession.findUnique({
         where: { id: sessionId }
     });
+    if (requireOutbound) {
+        assertSessionOutboundAllowed(session, sessionId);
+    }
     const provider = session?.provider || 'BAILEYS';
     return { session, provider };
 }
@@ -1360,7 +1365,7 @@ async function resolveGroupParticipantNames(sessionId, messages) {
  */
 async function deleteMessage(sessionId, remoteJid, messageId, forEveryone = false) {
     try {
-        const { session: dbSession } = await getSessionProvider(sessionId);
+        const { session: dbSession } = await getSessionProvider(sessionId, { requireOutbound: false });
         let session = await getSendableBaileysSession(sessionId, dbSession);
 
         const jid = formatJid(remoteJid);
@@ -1784,7 +1789,7 @@ async function sendCatalog(sessionId, to, catalogData, options = {}) {
  */
 async function getCatalog(sessionId) {
     try {
-        const { session: dbSession } = await getSessionProvider(sessionId);
+        const { session: dbSession } = await getSessionProvider(sessionId, { requireOutbound: false });
         let session = await getSendableBaileysSession(sessionId, dbSession);
 
         const catalog = await session.sock.getCatalog();
@@ -1800,7 +1805,7 @@ async function getCatalog(sessionId) {
  */
 async function getProducts(sessionId, catalogId) {
     try {
-        const { session: dbSession } = await getSessionProvider(sessionId);
+        const { session: dbSession } = await getSessionProvider(sessionId, { requireOutbound: false });
         let session = await getSendableBaileysSession(sessionId, dbSession);
 
         const products = await session.sock.getProducts(catalogId);
@@ -1816,7 +1821,7 @@ async function getProducts(sessionId, catalogId) {
  */
 async function getCart(sessionId, cartId) {
     try {
-        const { session: dbSession } = await getSessionProvider(sessionId);
+        const { session: dbSession } = await getSessionProvider(sessionId, { requireOutbound: false });
         let session = await getSendableBaileysSession(sessionId, dbSession);
 
         const cart = await session.sock.getCart(cartId);
@@ -1973,7 +1978,7 @@ async function sendTemplateMessage(sessionId, to, templateId, parameters = {}, o
  */
 async function getMessageTemplate(sessionId) {
     try {
-        const { session: dbSession, provider } = await getSessionProvider(sessionId);
+        const { session: dbSession, provider } = await getSessionProvider(sessionId, { requireOutbound: false });
         if (provider === 'META_CLOUD') {
             const templates = await MetaCloudProvider.listTemplates(sessionId);
             return templates;

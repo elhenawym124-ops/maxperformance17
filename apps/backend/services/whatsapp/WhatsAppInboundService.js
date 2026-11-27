@@ -22,6 +22,7 @@ const {
   filterUnclaimedAutoReplyEntries,
   logDuplicateSkipped
 } = require('../inboundDeduplicationGuard');
+const { isSessionInboundEnabled } = require('./sessionChannelPolicy');
 
 const getIO = () => socketService.getIO();
 
@@ -115,6 +116,21 @@ async function saveIncomingMessage(payload) {
   } = payload;
 
   const { normalizedJid } = normalizeWhatsAppContactIdentity(remoteJid);
+
+  if (sessionId) {
+    try {
+      const sessionPolicyRecord = await getSharedPrismaClient().whatsAppSession.findUnique({
+        where: { id: sessionId },
+        select: { id: true, metadata: true }
+      });
+      if (sessionPolicyRecord && !isSessionInboundEnabled(sessionPolicyRecord)) {
+        console.log(`🔇 [WA-INBOUND] Inbound disabled for session ${sessionId} — skipping incoming message ${messageId || 'unknown'}`);
+        return { skipped: true, reason: 'session_inbound_disabled' };
+      }
+    } catch (policyErr) {
+      console.warn('⚠️ [WA-INBOUND] Could not verify session inbound policy:', policyErr?.message);
+    }
+  }
 
   let inboundClaim = null;
   if (companyId && messageId) {

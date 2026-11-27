@@ -10,6 +10,7 @@ const { getSharedPrismaClient, safeQuery } = require('../../services/sharedDatab
 const WhatsAppMessageHandler = require('../whatsapp/WhatsAppMessageHandler');
 const WhatsAppManager = require('../whatsapp/WhatsAppManager');
 const { formatPhoneNumber } = require('../../utils/phoneFormat');
+const { isSessionNotificationEligible } = require('./sessionChannelPolicy');
 
 const DEFAULT_NEW_PRODUCT_MESSAGE = `عزيزي {اسم العميل} ✨
 
@@ -26,19 +27,21 @@ async function getConnectedSessions(companyId) {
     const dbSessions = await safeQuery(() =>
       prisma.whatsAppSession.findMany({
         where: { companyId },
-        select: { id: true, phoneNumber: true, status: true },
+        select: { id: true, phoneNumber: true, status: true, metadata: true },
       })
     );
     const activeSessions = WhatsAppManager.getAllActiveSessions();
-    return dbSessions.map((ds) => {
-      const active = activeSessions[ds.id];
-      return {
-        sessionId: ds.id,
-        phoneNumber: ds.phoneNumber || 'غير معروف',
-        isConnected: active ? active.isConnected : false,
-        status: active ? active.status : ds.status,
-      };
-    });
+    return dbSessions
+      .filter(isSessionNotificationEligible)
+      .map((ds) => {
+        const active = activeSessions[ds.id];
+        return {
+          sessionId: ds.id,
+          phoneNumber: ds.phoneNumber || 'غير معروف',
+          isConnected: active ? active.isConnected : false,
+          status: active ? active.status : ds.status,
+        };
+      });
   } catch (err) {
     console.error('[OFFER] Error getting sessions:', err.message);
     return [];

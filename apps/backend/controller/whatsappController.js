@@ -18,7 +18,8 @@ const WhatsAppWindowPolicyService = require('../services/whatsapp/WhatsAppWindow
 const {
     getSessionChannelPolicy,
     applyChannelPolicyToMetadata,
-    assertSessionOutboundAllowed
+    assertSessionOutboundAllowed,
+    isSessionOutboundEnabled
 } = require('../services/whatsapp/sessionChannelPolicy');
 const smsGateway = require('../services/sms/smsGatewayService');
 const { encryptField, decryptField } = require('../utils/fieldEncryption');
@@ -230,6 +231,7 @@ const resolveActiveSessionId = async (companyId, sessionId, options = {}) => {
             where: { id: sessionId, companyId }
         });
         if (!session) throw new Error('الجلسة غير موجودة أو لا تنتمي لهذه الشركة');
+        assertSessionOutboundAllowed(session, sessionId);
 
         const isMetaCloud = session.provider === 'META_CLOUD';
         let memSession = WhatsAppManager.getSession(sessionId);
@@ -263,10 +265,11 @@ const resolveActiveSessionId = async (companyId, sessionId, options = {}) => {
             // Try safe auto-migration ONLY within the same provider (never silently cross QR <-> META_CLOUD)
             const connectedSessions = await getSharedPrismaClient().whatsAppSession.findMany({
                 where: { companyId, status: 'CONNECTED' },
-                select: { id: true, provider: true, name: true, metaDisplayPhoneNumber: true, phoneNumber: true, metaAccessToken: true }
+                select: { id: true, provider: true, name: true, metaDisplayPhoneNumber: true, phoneNumber: true, metaAccessToken: true, metadata: true }
             });
 
             const viableSessions = connectedSessions.filter(s => {
+                if (!isSessionOutboundEnabled(s)) return false;
                 if (s.provider === 'META_CLOUD') return !!s.metaAccessToken;
                 const mem = WhatsAppManager.getSession(s.id);
                 return mem?.status === 'connected';
@@ -325,13 +328,24 @@ const resolveActiveSessionId = async (companyId, sessionId, options = {}) => {
         }
     }
 
-    let activeSession = await getSharedPrismaClient().whatsAppSession.findFirst({
+    const activeCandidates = await getSharedPrismaClient().whatsAppSession.findMany({
         where: { companyId, status: { in: ['CONNECTED', 'CONNECTING'] } },
         orderBy: { updatedAt: 'desc' }
     });
+    const activeSession = activeCandidates.find(isSessionOutboundEnabled) || null;
 
     if (!activeSession) {
-        throw new Error('لا توجد جلسة نشطة متاحة. يرجى التأكد من ربط حساب واحد على الأقل.');
+        const hasAnyConnected = activeCandidates.length > 0;
+        const err = new Error(
+            hasAnyConnected
+                ? 'الإرسال موقوف على جميع القنوات المتصلة حالياً. فعّل خيار الإرسال لقناة من إعدادات واتساب.'
+                : 'لا توجد جلسة نشطة متاحة. يرجى التأكد من ربط حساب واحد على الأقل.'
+        );
+        if (hasAnyConnected) {
+            err.code = 'WA_SESSION_OUTBOUND_DISABLED';
+            err.statusCode = 403;
+        }
+        throw err;
     }
 
     if (activeSession.provider !== 'META_CLOUD') {

@@ -459,16 +459,38 @@ export function useWhatsAppSettingsData({
       }
     };
 
+    const handleSessionUpdated = (data: {
+      sessionId: string;
+      inboundEnabled?: boolean;
+      outboundEnabled?: boolean;
+      notificationsEnabled?: boolean;
+    }) => {
+      setSessions((previous) =>
+        previous.map((session) =>
+          session.id === data.sessionId
+            ? {
+                ...session,
+                ...(data.inboundEnabled !== undefined ? { inboundEnabled: data.inboundEnabled } : {}),
+                ...(data.outboundEnabled !== undefined ? { outboundEnabled: data.outboundEnabled } : {}),
+                ...(data.notificationsEnabled !== undefined ? { notificationsEnabled: data.notificationsEnabled } : {}),
+              }
+            : session,
+        ),
+      );
+    };
+
     socket.on("whatsapp:qr", handleQRCode);
     socket.on("whatsapp:pairing_code", handlePairingCode);
     socket.on("whatsapp:connection", handleConnectionUpdate);
     socket.on("whatsapp:sessions:status", handleSessionsStatus);
+    socket.on("whatsapp:session:updated", handleSessionUpdated);
 
     return () => {
       socket.off("whatsapp:qr", handleQRCode);
       socket.off("whatsapp:pairing_code", handlePairingCode);
       socket.off("whatsapp:connection", handleConnectionUpdate);
       socket.off("whatsapp:sessions:status", handleSessionsStatus);
+      socket.off("whatsapp:session:updated", handleSessionUpdated);
     };
   }, [socket, t, withCompanyConfig]);
 
@@ -634,7 +656,45 @@ export function useWhatsAppSettingsData({
       ...session,
       callShieldEnabled: session.callShieldEnabled ?? meta?.callShieldEnabled ?? false,
       callShieldMessage: session.callShieldMessage ?? meta?.callShieldMessage ?? "",
+      inboundEnabled: session.inboundEnabled ?? meta?.inboundEnabled ?? true,
+      outboundEnabled: session.outboundEnabled ?? meta?.outboundEnabled ?? true,
+      notificationsEnabled: session.notificationsEnabled ?? meta?.notificationsEnabled ?? true,
     });
+  };
+
+  const handleToggleChannelPolicy = async (
+    session: Session,
+    patch: Partial<Pick<Session, "inboundEnabled" | "outboundEnabled" | "notificationsEnabled">>,
+  ) => {
+    const payload = {
+      name: session.name,
+      aiEnabled: (session as any).aiEnabled,
+      autoReply: session.autoReply,
+      aiMode: (session as any).aiMode,
+      isDefault: session.isDefault,
+      ...patch,
+    };
+
+    try {
+      setSaving(true);
+      const response = await apiClient.put(
+        `/whatsapp/sessions/${session.id}`,
+        payload,
+        withCompanyConfig(),
+      );
+      const updated = (response as any).data?.session;
+      setSessions((previous) =>
+        previous.map((item) =>
+          item.id === session.id ? { ...item, ...patch, ...(updated || {}) } : item,
+        ),
+      );
+      toast.success(t("whatsappSettings.dialogs.sessionUpdated"));
+      void invalidateSessionsCache();
+    } catch (error) {
+      showError(error, t("common.error"));
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleUpdateSession = async () => {
@@ -644,15 +704,16 @@ export function useWhatsAppSettingsData({
 
     try {
       setSaving(true);
-      await apiClient.put(
+      const response = await apiClient.put(
         `/whatsapp/sessions/${editingSession.id}`,
         editingSession,
         withCompanyConfig(),
       );
+      const updated = (response as any).data?.session;
       setSessions((previous) =>
         previous.map((session) =>
           session.id === editingSession.id
-            ? { ...session, ...editingSession }
+            ? { ...session, ...editingSession, ...(updated || {}) }
             : session,
         ),
       );
@@ -1010,6 +1071,7 @@ export function useWhatsAppSettingsData({
     handleConnectSession,
     handleDisconnectSession,
     handleStartEditSession,
+    handleToggleChannelPolicy,
     handleUpdateSession,
     handleSaveSettings,
     handleSaveQuickReply,

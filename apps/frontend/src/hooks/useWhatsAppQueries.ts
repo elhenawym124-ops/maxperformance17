@@ -47,6 +47,9 @@ export interface Session {
   metaApiVersion?: string | null;
   callShieldEnabled?: boolean;
   callShieldMessage?: string | null;
+  inboundEnabled?: boolean;
+  outboundEnabled?: boolean;
+  notificationsEnabled?: boolean;
 }
 
 export interface Contact {

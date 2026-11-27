@@ -899,27 +899,37 @@ exports.sendCampaign = async (req, res) => {
     let waSessionId = campaign.whatsAppSessionId;
 
     if (isWhatsApp) {
-      if (!waSessionId) {
-        console.log(`🔍 [SEND CAMPAIGN] البحث عن جلسة واتساب للشركة`);
-        const metaSession = await getSharedPrismaClient().whatsAppSession.findFirst({
-          where: { companyId, provider: 'META_CLOUD' }
+      const { isSessionOutboundEnabled } = require('../services/whatsapp/sessionChannelPolicy');
+      if (waSessionId) {
+        const picked = await getSharedPrismaClient().whatsAppSession.findFirst({
+          where: { id: waSessionId, companyId },
+          select: { id: true, metadata: true }
         });
-        if (metaSession) {
-          waSessionId = metaSession.id;
-        } else {
-          const defaultSession = await getSharedPrismaClient().whatsAppSession.findFirst({
-            where: { companyId, isDefault: true }
-          }) || await getSharedPrismaClient().whatsAppSession.findFirst({
-            where: { companyId }
+        if (picked && !isSessionOutboundEnabled(picked)) {
+          return res.status(403).json({
+            success: false,
+            code: 'WA_SESSION_OUTBOUND_DISABLED',
+            message: 'الإرسال موقوف على هذه القناة من إعدادات جلسات واتساب'
           });
-          waSessionId = defaultSession?.id || null;
         }
+      } else {
+        console.log(`🔍 [SEND CAMPAIGN] البحث عن جلسة واتساب مفعّلة للإرسال للشركة`);
+        const sessions = await getSharedPrismaClient().whatsAppSession.findMany({
+          where: { companyId },
+          select: { id: true, provider: true, isDefault: true, metadata: true }
+        });
+        const eligible = (sessions || []).filter(isSessionOutboundEnabled);
+        const picked =
+          eligible.find((s) => s.provider === 'META_CLOUD') ||
+          eligible.find((s) => s.isDefault) ||
+          eligible[0];
+        waSessionId = picked?.id || null;
       }
 
       if (!waSessionId) {
         return res.status(400).json({
           success: false,
-          message: 'لا توجد جلسة واتساب نشطة متاحة لهذه الحملة'
+          message: 'لا توجد جلسة واتساب نشطة ومفعّلة للإرسال متاحة لهذه الحملة'
         });
       }
     }

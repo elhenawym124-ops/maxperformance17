@@ -81,6 +81,11 @@ export type ConversationDetail = {
   };
   canTransfer: boolean;
   sessionProvider?: string | null;
+  sessionPolicy?: {
+    inboundEnabled: boolean;
+    outboundEnabled: boolean;
+    notificationsEnabled: boolean;
+  } | null;
   window: {
     isOpen: boolean;
     remainingSeconds: number;
