@@ -37,6 +37,9 @@ export interface PostPurchaseOfferConfig {
   features: string[];
   acceptButtonText: string;
   declineButtonText: string;
+  stickyBarEnabled?: boolean;
+  stickyAcceptText?: string;
+  stickyDeclineText?: string;
   triggerCondition: 'all' | 'specific_products';
   triggerProductIds?: string[];
   product?: PostPurchaseOfferProduct;
@@ -65,6 +68,9 @@ export const DEFAULT_POST_PURCHASE_OFFER: PostPurchaseOfferConfig = {
   ],
   acceptButtonText: 'نعم! أضف هذا العرض إلى طلبي الآن',
   declineButtonText: 'لا شكراً، اكتفِ بطلبي الأصلي فقط',
+  stickyBarEnabled: true,
+  stickyAcceptText: 'إضافة للطلب',
+  stickyDeclineText: 'تجاهل',
   triggerCondition: 'all',
   triggerProductIds: []
 };

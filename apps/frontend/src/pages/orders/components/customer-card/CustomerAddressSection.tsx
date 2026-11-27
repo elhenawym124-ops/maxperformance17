@@ -299,7 +299,7 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
         )}
       </div>
 
-      {customerLocation && (
+      {customerLocation ? (
         <div className="flex flex-wrap items-center justify-between gap-2 ps-6">
           <a
             href={customerLocation.googleMapsUrl}
@@ -309,7 +309,7 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
             title={`${customerLocation.lat.toFixed(5)}, ${customerLocation.lng.toFixed(5)}`}
           >
             <MapPinIcon className="w-3.5 h-3.5 shrink-0" />
-            <span>فتح موقع العميل (Google Maps)</span>
+            <span>تم التفعيل — فتح موقع العميل (Google Maps)</span>
             <ArrowTopRightOnSquareIcon className="w-3 h-3 shrink-0" />
           </a>
           <button
@@ -332,6 +332,16 @@ export const CustomerAddressSection: React.FC<CustomerAddressSectionProps> = ({
               {customerLocation.lat.toFixed(4)}, {customerLocation.lng.toFixed(4)}
             </span>
           </button>
+        </div>
+      ) : (
+        <div className="flex items-center gap-2 ps-6">
+          <span
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-muted/40 px-2.5 py-1 text-[11px] font-medium text-muted-foreground"
+            title="لم يقم العميل بمشاركة موقعه على الخريطة أو عبر GPS لهذا الطلب"
+          >
+            <MapPinIcon className="w-3.5 h-3.5 shrink-0 opacity-70" />
+            <span>لم يفعّل العميل اللوكيشن لهذا الطلب</span>
+          </span>
         </div>
       )}
 

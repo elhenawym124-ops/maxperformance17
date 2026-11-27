@@ -113,6 +113,62 @@ export const PostPurchaseOfferCopywritingCard: React.FC<
           </div>
         </div>
 
+        <div className="rounded-xl border border-border/70 bg-muted/25 p-3 space-y-2.5">
+          <label className="flex items-center justify-between gap-2 cursor-pointer">
+            <span className="font-bold text-foreground">
+              شريط الأزرار المثبت أسفل الشاشة (إضافة / تجاهل)
+            </span>
+            <input
+              type="checkbox"
+              checked={offer.stickyBarEnabled !== false}
+              onChange={(e) =>
+                setOffer((prev) => ({
+                  ...prev,
+                  stickyBarEnabled: e.target.checked,
+                }))
+              }
+              className="h-4 w-4 accent-primary rounded cursor-pointer"
+            />
+          </label>
+
+          {offer.stickyBarEnabled !== false && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+              <div className="space-y-1">
+                <label className="font-medium text-muted-foreground">
+                  نص زر الإضافة المثبت:
+                </label>
+                <input
+                  type="text"
+                  value={offer.stickyAcceptText ?? "إضافة للطلب"}
+                  onChange={(e) =>
+                    setOffer((prev) => ({
+                      ...prev,
+                      stickyAcceptText: e.target.value,
+                    }))
+                  }
+                  className="w-full px-3 py-1.5 rounded-lg border border-border bg-background font-bold text-success dark:text-success"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="font-medium text-muted-foreground">
+                  نص زر التجاهل المثبت:
+                </label>
+                <input
+                  type="text"
+                  value={offer.stickyDeclineText ?? "تجاهل"}
+                  onChange={(e) =>
+                    setOffer((prev) => ({
+                      ...prev,
+                      stickyDeclineText: e.target.value,
+                    }))
+                  }
+                  className="w-full px-3 py-1.5 rounded-lg border border-border bg-background text-muted-foreground"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="space-y-1 pt-1">
           <label className="font-bold text-foreground flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5 text-warning" />

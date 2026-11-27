@@ -413,8 +413,13 @@ export default function PostPurchaseOfferPage() {
     return null;
   }
 
+  const showStickyBar = offer.stickyBarEnabled !== false;
+
   return (
-    <div className="min-h-screen bg-slate-50/70 dark:bg-zinc-950 py-6 sm:py-10 px-3 sm:px-6" dir={isRtl ? "rtl" : "ltr"}>
+    <div
+      className={`min-h-screen bg-slate-50/70 dark:bg-zinc-950 py-6 sm:py-10 px-3 sm:px-6 ${showStickyBar ? "pb-28 sm:pb-28" : ""}`}
+      dir={isRtl ? "rtl" : "ltr"}
+    >
       <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
 
         {/* 1. Step Indicator & Order Safeguard Notification */}
@@ -743,6 +748,48 @@ export default function PostPurchaseOfferPage() {
         </div>
 
       </div>
+
+      {showStickyBar && (
+        <div
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-border/80 bg-background/95 backdrop-blur-md shadow-[0_-8px_30px_rgba(0,0,0,0.08)] px-3 py-2.5 sm:px-6"
+          style={{ backgroundColor: "var(--color-card, var(--color-background, #ffffff))" }}
+        >
+          <div className="max-w-3xl mx-auto flex items-center gap-2.5">
+            <button
+              type="button"
+              disabled={accepting}
+              onClick={handleAcceptOffer}
+              className="flex-1 min-w-0 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-black text-sm sm:text-base shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {accepting ? (
+                <>
+                  <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin shrink-0" />
+                  <span className="truncate">جارٍ الإضافة...</span>
+                </>
+              ) : (
+                <>
+                  <Zap className="w-4 h-4 fill-white text-white shrink-0" />
+                  <span className="truncate">
+                    {offer.stickyAcceptText?.trim() || "إضافة للطلب"}
+                  </span>
+                  <span className="font-mono tabular-nums text-xs sm:text-sm opacity-95 shrink-0">
+                    ({formatStorefrontCurrency(offerPrice, currency)})
+                  </span>
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
+              disabled={accepting}
+              onClick={handleDeclineOffer}
+              className="shrink-0 py-3 px-4 sm:px-5 rounded-xl border border-border/80 bg-muted/50 hover:bg-muted active:scale-[0.98] text-foreground font-bold text-sm transition-all cursor-pointer disabled:opacity-50"
+            >
+              {offer.stickyDeclineText?.trim() || "تجاهل"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
