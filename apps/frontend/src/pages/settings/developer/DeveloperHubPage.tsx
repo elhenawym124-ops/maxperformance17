@@ -28,25 +28,25 @@ const DeveloperHubPage: React.FC = () => {
         <p className="mt-1 text-sm text-muted-foreground text-pretty">{s.hubSubtitle}</p>
       </header>
 
-      <Tabs value={tab} onValueChange={setTab} className="w-full">
-        <TabsList className="mb-4">
-          <TabsTrigger value="keys" className="gap-1.5">
+      <Tabs value={tab} onValueChange={setTab} className="w-full min-w-0">
+        <TabsList className="mb-4 flex w-full max-w-full justify-start overflow-x-auto scrollbar-none">
+          <TabsTrigger value="keys" className="shrink-0 gap-1.5 whitespace-nowrap">
             <KeyIcon className="h-4 w-4" />
             {s.tabs.keys}
           </TabsTrigger>
-          <TabsTrigger value="docs" className="gap-1.5">
+          <TabsTrigger value="docs" className="shrink-0 gap-1.5 whitespace-nowrap">
             <DocumentTextIcon className="h-4 w-4" />
             {s.tabs.docs}
           </TabsTrigger>
-          <TabsTrigger value="mcp" className="gap-1.5">
+          <TabsTrigger value="mcp" className="shrink-0 gap-1.5 whitespace-nowrap">
             <ServerStackIcon className="h-4 w-4" />
             {s.tabs.mcp}
           </TabsTrigger>
-          <TabsTrigger value="usage" className="gap-1.5">
+          <TabsTrigger value="usage" className="shrink-0 gap-1.5 whitespace-nowrap">
             <ChartBarIcon className="h-4 w-4" />
             {s.tabs.usage}
           </TabsTrigger>
-          <TabsTrigger value="employee-keys" className="gap-1.5">
+          <TabsTrigger value="employee-keys" className="shrink-0 gap-1.5 whitespace-nowrap">
             <UsersIcon className="h-4 w-4" />
             مفاتيح الموظفين
           </TabsTrigger>
