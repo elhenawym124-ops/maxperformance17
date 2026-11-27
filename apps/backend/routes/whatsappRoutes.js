@@ -479,6 +479,17 @@ router.post('/messages/upload-send', verifyToken.authenticateToken, checkAppAcce
                 }, { caption });
         }
 
+        // Auto-pause AI on human staff WhatsApp media/voice reply
+        if (typeof whatsappController.pauseWhatsAppAiOnHumanReply === 'function') {
+            whatsappController.pauseWhatsAppAiOnHumanReply(
+                companyId,
+                sessionId,
+                to,
+                req.body.userId || req.user?.userId || req.user?.id,
+                req.user?.firstName
+            );
+        }
+
         res.json({ success: true, message });
     } catch (error) {
         cleanupUploadedFile();

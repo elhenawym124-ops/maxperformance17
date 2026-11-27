@@ -235,9 +235,14 @@ export function useWhatsAppChatActions({
         setReplyingTo(null);
         queryClient.invalidateQueries({ queryKey: ['whatsapp', 'messages', selectedContact.jid] });
         queryClient.invalidateQueries({ queryKey: ['whatsapp', 'conversations'] });
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to upload/send file:', error);
-        tToast.error("whatsappChat.failed_send_8f23");
+        const serverError = error?.response?.data?.error;
+        if (typeof serverError === 'string' && serverError.trim()) {
+          toast.error(serverError);
+        } else {
+          tToast.error("whatsappChat.failed_send_8f23");
+        }
       } finally {
         setIsDirectUploading(false);
       }
@@ -289,8 +294,13 @@ export function useWhatsAppChatActions({
           onSuccess: () => {
             toast.success('تم إرسال الوسائط بنجاح');
           },
-          onError: () => {
-            tToast.error("whatsappChat.error_error_during_be74");
+          onError: (error: any) => {
+            const serverError = error?.response?.data?.error;
+            if (typeof serverError === 'string' && serverError.trim()) {
+              toast.error(serverError);
+            } else {
+              tToast.error("whatsappChat.error_error_during_be74");
+            }
           },
         },
       );

@@ -334,8 +334,16 @@ export function useWhatsAppChatData() {
   // Template Messages
   const handleOpenTemplateDialog = useCallback(async () => {
     if (!selectedSession) return;
-    const sessionId =
-      selectedContact?.sessionId || (selectedSession === 'all' ? null : selectedSession);
+    const candidateId =
+      selectedContact?.sessionId ||
+      (selectedSession === 'all' ? null : selectedSession) ||
+      activeSessionId;
+    const candidateSession = sessions.find((s) => s.id === candidateId);
+    const metaSession =
+      candidateSession?.provider === 'META_CLOUD'
+        ? candidateSession
+        : sessions.find((s) => s.provider === 'META_CLOUD');
+    const sessionId = metaSession?.id || candidateId;
     if (!sessionId) {
       tToast.error("whatsappChat.msg_f28c");
       return;
@@ -353,7 +361,7 @@ export function useWhatsAppChatData() {
     } finally {
       setLoadingTemplates(false);
     }
-  }, [selectedSession, selectedContact]);
+  }, [selectedSession, selectedContact, activeSessionId, sessions]);
 
   return {
     sessions,

@@ -2191,6 +2191,11 @@ async function markAsRead(req, res) {
     }
 }
 
+const getSendErrorStatusCode = (error) =>
+    error?.code === 'WA_SESSION_NOT_READY'
+        ? 409
+        : (error?.statusCode || error?.httpStatus || (error?.code === 'WA_INVALID_RECIPIENT' || error?.code === 'WA_UNRESOLVED_LID' ? 400 : 500));
+
 /**
  * إرسال رسالة بأزرار تفاعلية
  * POST /api/whatsapp/messages/send-buttons
@@ -2209,7 +2214,7 @@ async function sendButtons(req, res) {
         }
 
         // Resolve virtual session ID and verify ownership
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId);
+        const targetSessionId = await resolveActiveSessionId(companyId, sessionId, { recipient: to });
 
         const message = await WhatsAppMessageHandler.sendButtons(
             targetSessionId,
@@ -2222,7 +2227,11 @@ async function sendButtons(req, res) {
         res.json({ success: true, message });
     } catch (error) {
         console.error('❌ Error sending buttons:', error);
-        res.status(500).json({ error: 'حدث خطأ أثناء إرسال الأزرار' });
+        res.status(getSendErrorStatusCode(error)).json({
+            error: error.message || 'حدث خطأ أثناء إرسال الأزرار',
+            code: error.code || 'WA_BUTTONS_SEND_ERROR',
+            availableSessions: error.availableSessions
+        });
     }
 }
 
@@ -2244,7 +2253,7 @@ async function sendList(req, res) {
         }
 
         // Resolve virtual session ID and verify ownership
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId);
+        const targetSessionId = await resolveActiveSessionId(companyId, sessionId, { recipient: to });
 
         const message = await WhatsAppMessageHandler.sendList(
             targetSessionId,
@@ -2258,7 +2267,11 @@ async function sendList(req, res) {
         res.json({ success: true, message });
     } catch (error) {
         console.error('❌ Error sending list:', error);
-        res.status(500).json({ error: 'حدث خطأ أثناء إرسال القائمة' });
+        res.status(getSendErrorStatusCode(error)).json({
+            error: error.message || 'حدث خطأ أثناء إرسال القائمة',
+            code: error.code || 'WA_LIST_SEND_ERROR',
+            availableSessions: error.availableSessions
+        });
     }
 }
 
@@ -2280,7 +2293,7 @@ async function sendProduct(req, res) {
         }
 
         // Resolve virtual session ID and verify ownership
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId);
+        const targetSessionId = await resolveActiveSessionId(companyId, sessionId, { recipient: to });
         const session = await getSharedPrismaClient().whatsAppSession.findFirst({
             where: { id: targetSessionId, companyId }
         });
@@ -2299,7 +2312,11 @@ async function sendProduct(req, res) {
         res.json({ success: true, message });
     } catch (error) {
         console.error('❌ Error sending product:', error);
-        res.status(500).json({ error: 'حدث خطأ أثناء إرسال المنتج' });
+        res.status(getSendErrorStatusCode(error)).json({
+            error: error.message || 'حدث خطأ أثناء إرسال المنتج',
+            code: error.code || 'WA_PRODUCT_SEND_ERROR',
+            availableSessions: error.availableSessions
+        });
     }
 }
 
@@ -2317,7 +2334,7 @@ async function sendReaction(req, res) {
         }
 
         // Resolve virtual session ID and verify ownership
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId);
+        const targetSessionId = await resolveActiveSessionId(companyId, sessionId, { recipient: to });
 
         const result = await WhatsAppMessageHandler.sendReaction(
             targetSessionId,
@@ -2329,7 +2346,11 @@ async function sendReaction(req, res) {
         res.json({ success: true, ...result });
     } catch (error) {
         console.error('❌ Error sending reaction:', error);
-        res.status(500).json({ error: 'حدث خطأ أثناء إرسال التفاعل' });
+        res.status(getSendErrorStatusCode(error)).json({
+            error: error.message || 'حدث خطأ أثناء إرسال التفاعل',
+            code: error.code || 'WA_REACTION_SEND_ERROR',
+            availableSessions: error.availableSessions
+        });
     }
 }
 
@@ -5633,6 +5654,7 @@ module.exports = {
     refreshProfilePics,
     sendMessage,
     sendMedia,
+    pauseWhatsAppAiOnHumanReply,
     markAsRead,
     sendButtons,
     sendList,
@@ -6642,7 +6664,7 @@ async function sendInteractive(req, res) {
             return res.status(400).json({ error: 'البيانات غير مكتملة' });
         }
 
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId);
+        const targetSessionId = await resolveActiveSessionId(companyId, sessionId, { recipient: to });
         const message = await WhatsAppMessageHandler.sendInteractiveButtons(targetSessionId, to, {
             text,
             title,
@@ -6653,10 +6675,10 @@ async function sendInteractive(req, res) {
         res.json({ success: true, message });
     } catch (error) {
         console.error('❌ Error sending interactive message:', error);
-        const statusCode = error.statusCode || 500;
-        res.status(statusCode).json({
+        res.status(getSendErrorStatusCode(error)).json({
             error: error.message || 'حدث خطأ أثناء إرسال الرسالة التفاعلية',
-            code: error.code || 'WA_INTERACTIVE_SEND_ERROR'
+            code: error.code || 'WA_INTERACTIVE_SEND_ERROR',
+            availableSessions: error.availableSessions
         });
     }
 }
