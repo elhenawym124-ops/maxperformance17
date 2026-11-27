@@ -148,9 +148,13 @@ export const useWorkspaceWhatsAppController = ({
     };
   }, [isOpen, cleanPhone, activeSession?.id, manualSessionId, sessions]);
 
-  // 3. Fetch Approved Templates for Session
+  // 3. Fetch Approved Templates for META_CLOUD Session (QR/Baileys uses free-text quick templates)
   useEffect(() => {
     if (!isOpen || !activeSession?.id) return;
+    if (activeSession.provider !== 'META_CLOUD') {
+      setTemplates([]);
+      return;
+    }
 
     let isMounted = true;
     const loadTemplates = async () => {
@@ -174,7 +178,7 @@ export const useWorkspaceWhatsAppController = ({
     return () => {
       isMounted = false;
     };
-  }, [isOpen, activeSession?.id]);
+  }, [isOpen, activeSession?.id, activeSession?.provider]);
 
   // Auto scroll chat to bottom
   useEffect(() => {

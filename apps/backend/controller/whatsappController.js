@@ -15,6 +15,11 @@ const {
 } = require('../services/whatsapp');
 const { computeWindowStatus } = require('../services/whatsapp/WhatsAppWindowService');
 const WhatsAppWindowPolicyService = require('../services/whatsapp/WhatsAppWindowPolicyService');
+const {
+    getSessionChannelPolicy,
+    applyChannelPolicyToMetadata,
+    assertSessionOutboundAllowed
+} = require('../services/whatsapp/sessionChannelPolicy');
 const smsGateway = require('../services/sms/smsGatewayService');
 const { encryptField, decryptField } = require('../utils/fieldEncryption');
 
@@ -152,12 +157,19 @@ const mapSessionForResponse = (session, includeQrData = false) => {
         }
     }
 
+    const channelPolicy = getSessionChannelPolicy({ ...session, metadata });
+
     return {
         ...session,
         _count: count,
         provider,
         liveStatus,
         agentId: metadata?.agentId || null,
+        callShieldEnabled: Boolean(metadata?.callShieldEnabled),
+        callShieldMessage: metadata?.callShieldMessage || '',
+        inboundEnabled: channelPolicy.inboundEnabled,
+        outboundEnabled: channelPolicy.outboundEnabled,
+        notificationsEnabled: channelPolicy.notificationsEnabled,
         qrCode: includeQrData && provider !== 'META_CLOUD' ? (activeSession?.qrCode || null) : null,
         pairingCode: includeQrData && provider !== 'META_CLOUD' ? (activeSession?.pairingCode || null) : null
     };
@@ -1223,7 +1235,18 @@ async function updateSession(req, res) {
         }
 
         let updatedMetadata = undefined;
-        if (req.body.agentId !== undefined || req.body.callShieldEnabled !== undefined || req.body.callShieldMessage !== undefined || req.body.metadata !== undefined) {
+        const hasChannelPolicyUpdates =
+            req.body.inboundEnabled !== undefined ||
+            req.body.outboundEnabled !== undefined ||
+            req.body.notificationsEnabled !== undefined;
+
+        if (
+            req.body.agentId !== undefined ||
+            req.body.callShieldEnabled !== undefined ||
+            req.body.callShieldMessage !== undefined ||
+            hasChannelPolicyUpdates ||
+            req.body.metadata !== undefined
+        ) {
             let existingMeta = {};
             try {
                 existingMeta = existingSession.metadata
@@ -1235,6 +1258,10 @@ async function updateSession(req, res) {
             if (req.body.callShieldMessage !== undefined) existingMeta.callShieldMessage = req.body.callShieldMessage;
             if (typeof req.body.metadata === 'object' && req.body.metadata !== null) {
                 existingMeta = { ...existingMeta, ...req.body.metadata };
+            }
+            if (hasChannelPolicyUpdates) {
+                const applied = applyChannelPolicyToMetadata(existingMeta, req.body);
+                existingMeta = applied.metadata;
             }
             updatedMetadata = JSON.stringify(existingMeta);
             const active = WhatsAppManager.getSession(id);
@@ -1311,9 +1338,19 @@ async function updateSession(req, res) {
             }
         });
 
-        const safeSession = { ...session };
+        const safeSession = mapSessionForResponse(session);
         delete safeSession.metaAccessToken;
         delete safeSession.metaWebhookSecret;
+
+        const io = getIO();
+        if (io) {
+            io.to(`company_${companyId}`).emit('whatsapp:session:updated', {
+                sessionId: safeSession.id,
+                inboundEnabled: safeSession.inboundEnabled,
+                outboundEnabled: safeSession.outboundEnabled,
+                notificationsEnabled: safeSession.notificationsEnabled
+            });
+        }
 
         res.json({ success: true, session: safeSession });
     } catch (error) {
@@ -5329,7 +5366,11 @@ async function sendTemplateMessage(req, res) {
         res.json({ success: true, message });
     } catch (error) {
         console.error('❌ Error sending template message:', error);
-        res.status(500).json({ error: 'حدث خطأ أثناء إرسال رسالة القالب' });
+        const statusCode = error.statusCode || error.httpStatus || 500;
+        res.status(statusCode).json({
+            error: error.message || 'حدث خطأ أثناء إرسال رسالة القالب',
+            code: error.code || 'WA_TEMPLATE_SEND_ERROR'
+        });
     }
 }
 
@@ -5342,16 +5383,29 @@ async function getMessageTemplate(req, res) {
             return res.status(400).json({ error: 'البيانات غير مكتملة' });
         }
 
-        const targetSessionId = await resolveActiveSessionId(companyId, sessionId);
-        const session = await getSharedPrismaClient().whatsAppSession.findFirst({
-            where: { id: targetSessionId, companyId }
-        });
+        const prisma = getSharedPrismaClient();
+        const session = sessionId === 'all'
+            ? await prisma.whatsAppSession.findFirst({
+                where: { companyId, provider: 'META_CLOUD', status: 'CONNECTED' },
+                orderBy: { lastConnectedAt: 'desc' },
+                select: { id: true, provider: true }
+            })
+            : await prisma.whatsAppSession.findFirst({
+                where: { id: sessionId, companyId },
+                select: { id: true, provider: true }
+            });
 
         if (!session) {
-            return res.status(404).json({ error: 'الجلسة غير موجودة' });
+            return sessionId === 'all'
+                ? res.json({ success: true, templates: [] })
+                : res.status(404).json({ error: 'الجلسة غير موجودة' });
         }
 
-        const templates = await WhatsAppMessageHandler.getMessageTemplate(targetSessionId);
+        if (session.provider !== 'META_CLOUD') {
+            return res.json({ success: true, templates: [] });
+        }
+
+        const templates = await WhatsAppMessageHandler.getMessageTemplate(session.id);
         res.json({ success: true, templates });
     } catch (error) {
         console.error('❌ Error getting message templates:', error);
@@ -5854,6 +5908,8 @@ async function postStatus(req, res) {
         if (!session) {
             return res.status(404).json({ error: 'الجلسة غير موجودة' });
         }
+
+        assertSessionOutboundAllowed(session, targetSessionId);
 
         const sessionManager = WhatsAppManager.getSession(targetSessionId);
         if (!sessionManager || sessionManager.status !== 'connected') {
