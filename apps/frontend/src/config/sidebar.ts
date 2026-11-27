@@ -413,6 +413,52 @@ interface SavedSidebarCustomItem {
     labelEn?: string;
 }
 
+const EDUCATION_COLLISION_LABELS = new Set([
+    'إعدادات وتخصيص السكاشن',
+    'إعدادات النظام',
+    'Sections & System Settings',
+    'Education Settings',
+]);
+
+const CORE_TOP_SECTION_KEYS = new Set([
+    'main',
+    'dashboard',
+    'orders',
+    'products',
+    'customers',
+    'marketing',
+    'storefront',
+    'storefront-design',
+]);
+
+/**
+ * Compute anchored section sort orders so unsaved/newly added sections slot
+ * directly after their preceding section instead of jumping to 0 or 9999+.
+ */
+const computeAnchoredSectionOrders = (
+    sections: SidebarSection[],
+    getExplicitOrder: (section: SidebarSection) => number | undefined,
+): Map<string, number> => {
+    const orders = new Map<string, number>();
+    let anchorOrder = -1000;
+    let unsavedOffset = 0;
+
+    for (const section of sections) {
+        const explicit = getExplicitOrder(section);
+        if (typeof explicit === 'number' && Number.isFinite(explicit)) {
+            const scaled = explicit * 1000;
+            orders.set(section.id, scaled);
+            anchorOrder = scaled;
+            unsavedOffset = 0;
+        } else {
+            unsavedOffset += 1;
+            orders.set(section.id, anchorOrder + unsavedOffset);
+        }
+    }
+
+    return orders;
+};
+
 const applySidebarOverrides = (
     sections: SidebarSection[],
     managementData: SidebarManagementData | undefined | any,
@@ -521,13 +567,32 @@ const applySidebarOverrides = (
         const isSuperOrAdmin = ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER'].includes(user?.role || '');
         const userPerms = user?.permissions || [];
 
+        const hasCoreSections = Array.from(entryMap.keys()).some((k) => CORE_TOP_SECTION_KEYS.has(k));
+        const resolveSavedSectionEntry = (sectionKey: string): SavedSidebarCustomItem | undefined => {
+            const entry = entryMap.get(sectionKey);
+            if (!entry) return undefined;
+            if (sectionKey === 'settings') {
+                const ar = (entry.labelAr || '').trim();
+                const en = (entry.labelEn || '').trim();
+                if (EDUCATION_COLLISION_LABELS.has(ar) || EDUCATION_COLLISION_LABELS.has(en) || !hasCoreSections) {
+                    return undefined;
+                }
+            }
+            return entry;
+        };
+
+        const sectionOrders = computeAnchoredSectionOrders(permissionFilteredSections, (section) => {
+            const saved = resolveSavedSectionEntry(section.id.toLowerCase());
+            return saved !== undefined && typeof saved.order === 'number' ? saved.order : undefined;
+        });
+
         return permissionFilteredSections
             .map((section, secIdx) => {
                 const sectionKey = section.id.toLowerCase();
-                const savedSec = entryMap.get(sectionKey);
+                const savedSec = resolveSavedSectionEntry(sectionKey);
                 let customTitle = section.title;
                 let sectionHidden = section.hidden === true;
-                const sectionOrder = savedSec !== undefined ? savedSec.order : 9999 + secIdx;
+                const sectionOrder = sectionOrders.get(section.id) ?? secIdx;
 
                 const isEduAuthoritative = Boolean(
                     sectionKey === 'education' &&
@@ -686,21 +751,24 @@ const applySidebarOverrides = (
         }));
     }
 
+    const hasCoreDbSections = Object.keys(dbSections || {}).some((k) => CORE_TOP_SECTION_KEYS.has(k.toLowerCase())) ||
+        Object.keys(userSections || {}).some((k) => CORE_TOP_SECTION_KEYS.has(k.toLowerCase()));
+
+    const sectionOrders = computeAnchoredSectionOrders(permissionFilteredSections, (section) => {
+        const userOrder = userSections?.[section.id]?.order;
+        const dbOrder = dbSections?.[section.id]?.order;
+        const explicit = userOrder ?? dbOrder;
+        if (section.id === 'settings' && !hasCoreDbSections) return undefined;
+        return typeof explicit === 'number' ? explicit : undefined;
+    });
+
     return permissionFilteredSections
         .map((section) => {
             const dbSection = dbSections?.[section.id];
             const userSection = userSections?.[section.id];
             return mergeSectionOverrides(section, dbSection, userSection, userRole, user?.permissions);
         })
-        .sort((a, b) => {
-            const aDb = dbSections?.[a.id];
-            const bDb = dbSections?.[b.id];
-            const aUser = userSections?.[a.id];
-            const bUser = userSections?.[b.id];
-            const aOrder = aUser?.order ?? aDb?.order ?? 0;
-            const bOrder = bUser?.order ?? bDb?.order ?? 0;
-            return aOrder - bOrder;
-        });
+        .sort((a, b) => (sectionOrders.get(a.id) ?? 0) - (sectionOrders.get(b.id) ?? 0));
 };
 
 /**
