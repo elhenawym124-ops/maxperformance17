@@ -105,8 +105,15 @@ exports.login = async (req, res) => {
     });
 
     const settings = await youtubeOAuthService.getSettings(companyId);
-    const { clientId } = youtubeOAuthService.getAppCredentials(settings);
-    const redirectUri = youtubeOAuthService.getRedirectUri();
+    const { clientId, clientSecret } = youtubeOAuthService.getAppCredentials(settings);
+    if (!clientId || !clientSecret) {
+      return res.status(400).json({
+        success: false,
+        code: 'MISSING_CREDENTIALS',
+        error: 'أضف Google Client ID و Client Secret من إعدادات YouTube أولاً',
+      });
+    }
+    const redirectUri = youtubeOAuthService.resolveRedirectUri(settings, req);
     const authUrl = youtubeOAuthService.buildAuthUrl(clientId, redirectUri, state);
 
     if (req.query?.redirect === 'true') {
@@ -145,7 +152,7 @@ exports.callback = async (req, res) => {
     const companyId = verified.payload.cid;
     const settings = await youtubeOAuthService.getSettings(companyId);
     const { clientId, clientSecret } = youtubeOAuthService.getAppCredentials(settings);
-    const redirectUri = youtubeOAuthService.getRedirectUri();
+    const redirectUri = youtubeOAuthService.resolveRedirectUri(settings, req);
 
     const tokenData = await youtubeOAuthService.exchangeCodeForToken(
       code,

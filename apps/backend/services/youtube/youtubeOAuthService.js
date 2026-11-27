@@ -17,11 +17,27 @@ const YOUTUBE_SCOPES = [
 
 const prisma = () => getSharedPrismaClient();
 
-function getRedirectUri() {
+function getRedirectUri(req = null) {
   const envUri = (process.env.YOUTUBE_REDIRECT_URI || '').trim();
   if (envUri) return envUri;
+
+  // Derive the public callback from the incoming request (nginx forwards Host + X-Forwarded-Proto)
+  const hostHeader = req?.headers?.['x-forwarded-host'] || req?.headers?.host;
+  const host = String(hostHeader || '').split(',')[0].trim();
+  if (host) {
+    const protoHeader = req?.headers?.['x-forwarded-proto'];
+    const proto = String(protoHeader || req?.protocol || 'https').split(',')[0].trim();
+    return `${proto}://${host}/api/v1/youtube/auth/callback`;
+  }
+
   const port = process.env.PORT || '3101';
   return `http://127.0.0.1:${port}/api/v1/youtube/auth/callback`;
+}
+
+function resolveRedirectUri(settings, req = null) {
+  const configured = String(settings?.redirectUri || '').trim();
+  if (configured) return configured;
+  return getRedirectUri(req);
 }
 
 function getAppCredentials(settings) {
@@ -219,6 +235,7 @@ async function fetchChannel(accessToken) {
 
 module.exports = {
   getRedirectUri,
+  resolveRedirectUri,
   getAppCredentials,
   getSettings,
   getAccount,

@@ -19,7 +19,7 @@ function maskClientId(clientId) {
   return value.length <= 12 ? '••••' : `••••${value.slice(-12)}`;
 }
 
-async function serializeSettings(companyId) {
+async function serializeSettings(companyId, req = null) {
   const settings = await youtubeOAuthService.getSettings(companyId);
   const quota = await youtubePublishService.getUploadQuota(prisma(), companyId);
 
@@ -32,7 +32,7 @@ async function serializeSettings(companyId) {
     remainingToday: quota.remaining,
     hasCredentials: Boolean(settings?.clientId && settings?.clientSecret),
     clientIdHint: maskClientId(settings?.clientId),
-    redirectUri: settings?.redirectUri || youtubeOAuthService.getRedirectUri(),
+    redirectUri: youtubeOAuthService.resolveRedirectUri(settings, req),
   };
 }
 
@@ -316,7 +316,7 @@ exports.getSettings = async (req, res) => {
       return res.status(401).json({ success: false, error: 'غير مصرح' });
     }
 
-    return res.json({ success: true, data: await serializeSettings(companyId) });
+    return res.json({ success: true, data: await serializeSettings(companyId, req) });
   } catch (error) {
     console.error('❌ [YouTube Publish] getSettings error:', error);
     return res.status(500).json({ success: false, error: 'حدث خطأ أثناء جلب إعدادات YouTube' });
@@ -400,7 +400,7 @@ exports.updateSettings = async (req, res) => {
       });
     }
 
-    return res.json({ success: true, data: await serializeSettings(companyId) });
+    return res.json({ success: true, data: await serializeSettings(companyId, req) });
   } catch (error) {
     console.error('❌ [YouTube Publish] updateSettings error:', error);
     return res.status(500).json({ success: false, error: 'حدث خطأ أثناء حفظ إعدادات YouTube' });

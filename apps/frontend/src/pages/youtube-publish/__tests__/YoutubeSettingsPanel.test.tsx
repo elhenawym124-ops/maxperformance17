@@ -84,4 +84,17 @@ describe('YoutubeSettingsPanel', () => {
       expect(updateSettings).toHaveBeenCalledWith(expect.objectContaining({ isEnabled: false })),
     );
   });
+
+  it('replaces a localhost redirect URI with the current origin', async () => {
+    (getSettings as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+      ...baseSettings,
+      redirectUri: 'http://127.0.0.1:3007/api/v1/youtube/auth/callback',
+    });
+
+    render(<YoutubeSettingsPanel />);
+    fireEvent.click(screen.getByRole('button', { name: /إعدادات YouTube/ }));
+
+    const expected = `${window.location.origin}/api/v1/youtube/auth/callback`;
+    expect(await screen.findByDisplayValue(expected)).toBeTruthy();
+  });
 });

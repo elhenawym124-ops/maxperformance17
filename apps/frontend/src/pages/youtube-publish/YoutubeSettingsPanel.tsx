@@ -18,6 +18,13 @@ const PRIVACY_OPTIONS: { value: YouTubePrivacyStatus; label: string }[] = [
   { value: "public", label: "علني" },
 ];
 
+function resolveRedirectUri(configured?: string | null): string {
+  const fallback = `${window.location.origin}/api/v1/youtube/auth/callback`;
+  const value = String(configured || "").trim();
+  if (!value || /127\.0\.0\.1|localhost/i.test(value)) return fallback;
+  return value;
+}
+
 function extractError(err: unknown): string {
   if (err && typeof err === "object") {
     const e = err as {
@@ -54,7 +61,7 @@ export default function YoutubeSettingsPanel() {
       setIsEnabled(data.isEnabled);
       setMaxUploadsPerDay(String(data.maxUploadsPerDay));
       setDefaultPrivacy((data.defaultPrivacy as YouTubePrivacyStatus) || "private");
-      setRedirectUri(data.redirectUri || "");
+      setRedirectUri(resolveRedirectUri(data.redirectUri));
     } catch (err) {
       toast.error(extractError(err));
     } finally {
