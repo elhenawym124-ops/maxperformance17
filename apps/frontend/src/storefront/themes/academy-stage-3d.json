@@ -136,31 +136,32 @@
           "type": "shop-hero",
           "settings": {
             "title": "المسارات والبرامج التدريبية",
-            "subtitle": "تصفح البرامج حسب الفئة العمرية والمستوى.",
-            "ctaText": "عرض الكل",
-            "ctaLink": "/shop"
+            "subtitle": "تصفح الباقات والمستويات التدريجية من المستوى 1 حتى المستوى 15.",
+            "ctaText": "احجز تقييم مجاني لتحديد مستواك",
+            "ctaLink": "/registration"
           }
         },
         {
           "type": "shop-command-bar",
-          "variant": "minimal-toolbar",
+          "variant": "default-discovery",
           "settings": {
-            "title": "ابحث في البرامج",
-            "searchPlaceholder": "مثال: Python أو Scratch",
-            "allCategoriesLabel": "كل المستويات",
-            "resultsLabel": "برنامج",
+            "title": "دليل المستويات",
+            "searchPlaceholder": "مثال: Scratch أو Python أو Level 5",
+            "allCategoriesLabel": "كل المسارات",
+            "resultsLabel": "مستوى متاح",
             "clearButtonText": "مسح البحث"
           }
         },
         {
           "type": "filters-sidebar",
           "settings": {
-            "title": "تصفية المستويات",
-            "categoryLabel": "المسار",
-            "priceLabel": "الرسوم",
-            "allProductsLabel": "كل المستويات",
+            "title": "تصفية المسارات",
+            "categoryLabel": "المرحلة التعليمية",
+            "showSort": false,
+            "showPriceFilter": false,
+            "allProductsLabel": "كل المستويات (15)",
             "clearButtonText": "إعادة ضبط",
-            "showMobileLabel": "إظهار الفلاتر",
+            "showMobileLabel": "تصفية المسارات",
             "hideMobileLabel": "إخفاء الفلاتر"
           }
         },
@@ -168,8 +169,8 @@
           "type": "product-grid",
           "variant": "grid",
           "settings": {
-            "title": "البرامج المتاحة",
-            "limit": 12
+            "title": "المستويات والباقات المتاحة",
+            "limit": 16
           }
         }
       ]
@@ -184,7 +185,7 @@
             "ctaText": "احجز مقعد في هذا المستوى",
             "descriptionTitle": "تفاصيل المنهج والمخرجات",
             "shippingTitle": "نظام الحصص",
-            "shippingText": "متاح أونلاين أو بالحضور المباشر في المقر مع متابعة أسبوعية.",
+            "shippingText": "متاح أونلاين أو بالحضور المباشر في فروع الأكاديمية مع متابعة أسبوعية.",
             "guaranteesTitle": "مميزات التسجيل",
             "guaranteeItems": "مجموعات صغيرة|مشروع تخرج|تقرير لولي الأمر",
             "guaranteeStyle": "strip"
@@ -200,27 +201,29 @@
       ]
     },
     "collections": {
+      "isSystemFallback": false,
       "sections": [
-        { "type": "collection-tab", "variant": "pills", "settings": { "title": "التخصصات والأعمار" } },
-        { "type": "featured-collections", "variant": "tech-decision-lanes", "settings": { "title": "اختر نقطة البداية", "limit": 4 } }
+        {
+          "type": "featured-collections",
+          "variant": "glazier-tracks",
+          "settings": {
+            "title": "خارطة المسارات التعليمية — 15 مستوى عملي",
+            "subtitle": "من Scratch والمنطق التفاعلي حتى الذكاء الاصطناعي وتطبيقات Python Pro وعرض Demo Day.",
+            "limit": 4
+          }
+        }
       ]
     },
     "contact": {
+      "isSystemFallback": false,
       "sections": [
         {
           "type": "info-content",
+          "variant": "glazier-branches",
           "settings": {
-            "title": "تواصل مع فريق الأكاديمية",
-            "subtitle": "نساعدك في تحديد المستوى الأنسب لعمر الطالب وخبرته.",
-            "body": "راسلنا بعمر الطالب واهتمامه وسنرشح لك المجموعة والموعد المناسب."
-          }
-        },
-        {
-          "type": "whatsapp-cta",
-          "variant": "primary",
-          "settings": {
-            "label": "تحدث معنا على واتساب",
-            "message": "أرغب في الاستفسار عن المواعيد والمستويات."
+            "title": "تواصل مع الأكاديمية ومقار الحضور",
+            "subtitle": "نساعدك في تحديد المستوى الأنسب لعمر الطالب وخبرته — بالحضور في المقر أو أونلاين.",
+            "body": "اختر الفرع الأقرب أو راسلنا مباشرة عبر واتساب لتنسيق موعد حصة التقييم المجانية."
           }
         }
       ]
@@ -229,9 +232,10 @@
       "sections": [
         {
           "type": "member-registration",
+          "variant": "glazier-trial-booking",
           "settings": {
             "title": "احجز حصة التقييم المجانية",
-            "subtitle": "سجّل بيانات ولي الأمر وعمر الطالب لتحديد موعد الجلسة."
+            "subtitle": "جلسة عملية لمدة 45 دقيقة لتحديد أنسب مسار ومستوى من بين 15 مستوى."
           }
         }
       ]

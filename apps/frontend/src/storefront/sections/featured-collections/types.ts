@@ -105,7 +105,8 @@ export type FeaturedCollectionsVariant =
   | 'occasion-ribbon'
   | 'travel-postcards'
   | 'easyorders-circles'
-  | 'legacy-circle-categories';
+  | 'legacy-circle-categories'
+  | 'glazier-tracks';
 
 export const FEATURED_COLLECTIONS_FAMILY = 'FeaturedCollections';
 export const FEATURED_COLLECTIONS_DEFAULT =
@@ -146,7 +147,8 @@ export const normalizeFeaturedCollectionsVariant = (
       value === 'occasion-ribbon' ||
       value === 'travel-postcards' ||
       value === 'easyorders-circles' ||
-      value === 'legacy-circle-categories') &&
+      value === 'legacy-circle-categories' ||
+      value === 'glazier-tracks') &&
     hasRegisteredVariant(FEATURED_COLLECTIONS_FAMILY, value)
   ) {
     return value as FeaturedCollectionsVariant;

@@ -11,6 +11,7 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/outline';
 import { DateInput } from '../../components/ui/DateInput';
+import { GlazierTrialBookingSection } from './glazier/GlazierTrialBookingSection';
 
 interface EducationEntry {
   id: string;
@@ -31,7 +32,7 @@ interface MemberRegistrationProps {
   };
 }
 
-const MemberRegistration: React.FC<MemberRegistrationProps> = ({ settings }) => {
+const StandardMemberRegistration: React.FC<MemberRegistrationProps> = ({ settings }) => {
   const { theme } = useStorefrontTheme();
   
   // Theme-aware colors
@@ -424,6 +425,18 @@ const MemberRegistration: React.FC<MemberRegistrationProps> = ({ settings }) => 
       </div>
     </div>
   );
+};
+
+const MemberRegistration: React.FC<MemberRegistrationProps> = ({ section, settings }) => {
+  const variant = String(section?.variant || settings?.variant || '')
+    .trim()
+    .toLowerCase();
+
+  if (variant === 'glazier-trial-booking') {
+    return <GlazierTrialBookingSection section={section} settings={settings} />;
+  }
+
+  return <StandardMemberRegistration settings={settings} />;
 };
 
 export default MemberRegistration;

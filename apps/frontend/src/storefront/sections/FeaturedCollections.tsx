@@ -5,10 +5,11 @@ import { ButcherCutMapVariant } from './featured-collections/variants/ButcherCut
 import { EasyOrdersCirclesVariant } from './featured-collections/variants/EasyOrdersCirclesVariant';
 import { FeaturedCollectionsLayout } from './featured-collections/variants/FeaturedCollectionsLayout';
 import { MarketplaceCategoryTiles } from './featured-collections/variants/MarketplaceCategoryTiles';
+import { GlazierTracksSection } from './glazier/GlazierTracksSection';
 
 export * from './featured-collections';
 
-export const FeaturedCollections: React.FC<FeaturedCollectionsProps> = ({
+const StandardFeaturedCollections: React.FC<FeaturedCollectionsProps> = ({
   section,
   settings,
 }) => {
@@ -27,6 +28,21 @@ export const FeaturedCollections: React.FC<FeaturedCollectionsProps> = ({
   }
 
   return <FeaturedCollectionsLayout ctrl={ctrl} />;
+};
+
+export const FeaturedCollections: React.FC<FeaturedCollectionsProps> = ({
+  section,
+  settings,
+}) => {
+  const rawVariant = String(section?.variant || settings?.variant || '')
+    .trim()
+    .toLowerCase();
+
+  if (rawVariant === 'glazier-tracks') {
+    return <GlazierTracksSection section={section} settings={settings} />;
+  }
+
+  return <StandardFeaturedCollections section={section} settings={settings} />;
 };
 
 export default FeaturedCollections;

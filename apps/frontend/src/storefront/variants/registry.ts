@@ -2670,6 +2670,17 @@ export const storefrontVariantRegistry = {
       tone: 'nursery-routing',
       status: 'implemented-now',
     },
+    {
+      id: 'glazier-tracks',
+      section: 'FeaturedCollections',
+      purpose: 'Architectural Glazier Colorfield Grid displaying 4 age & discipline bays and a 15-level curriculum matrix for education storefronts',
+      bestPages: ['collections'],
+      bestArchetypes: ['education', 'kids-coding-ai'],
+      rtlSuitability: 'high',
+      density: 'medium',
+      tone: 'architectural-clean',
+      status: 'implemented-now',
+    },
   ],
   FeaturesBar: [
     {
@@ -3448,6 +3459,17 @@ export const storefrontVariantRegistry = {
       density: 'medium',
       tone: 'balanced',
       status: 'active',
+    },
+    {
+      id: 'glazier-branches',
+      section: 'InfoContent',
+      purpose: 'Architectural Glazier Colorfield branches and direct WhatsApp/map directory for multi-branch academies',
+      bestPages: ['contact'],
+      bestArchetypes: ['education', 'kids-coding-ai'],
+      rtlSuitability: 'high',
+      density: 'medium',
+      tone: 'architectural-clean',
+      status: 'implemented-now',
     },
   ],
 } satisfies StorefrontVariantRegistry;

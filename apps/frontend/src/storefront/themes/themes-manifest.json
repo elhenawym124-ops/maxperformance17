@@ -31,37 +31,6 @@
     }
   },
   {
-    "id": "academy-stage-3d",
-    "name": "الورشة الزجاجية للأكاديميات",
-    "description": "قالب أكاديميات البرمجة والذكاء الاصطناعي بتصميم معماري شبكي مضاء، اختيار العمر التفاعلي، ومعمل محاكاة حي.",
-    "category": "education",
-    "categoryMeta": {
-      "primary": {
-        "id": "education",
-        "label": "تعليم"
-      },
-      "secondary": {
-        "id": "kids-coding-ai",
-        "label": "الورشة الزجاجية للأكاديميات"
-      }
-    },
-    "direction": "rtl",
-    "previewColors": [
-      "40 24% 92%",
-      "219 85% 27%",
-      "328 67% 37%"
-    ],
-    "previewImage": "/assets/themes/academy-stage-3d/preview.png",
-    "pageStats": {
-      "homeSections": 3,
-      "shopSections": 4,
-      "checkoutSections": 0,
-      "pdpSections": 3,
-      "cartSections": 2,
-      "totalSections": 17
-    }
-  },
-  {
     "id": "academy-little-coders",
     "name": "أكاديمية كود كيدز",
     "description": "قالب أكاديمية أطفال (برمجة وروبوتات): مسارات ومستويات وباقات وحجز حصة تجريبية — 6 صفحات بزنس.",
@@ -90,6 +59,37 @@
       "pdpSections": 4,
       "cartSections": 3,
       "totalSections": 21
+    }
+  },
+  {
+    "id": "academy-stage-3d",
+    "name": "الورشة الزجاجية للأكاديميات",
+    "description": "قالب مسرح الأكاديمية 3D بموجة بطاقات مشاريع ثلاثية الأبعاد تفاعلية بالـ Three.js ومعمل تجربة حي للذكاء الاصطناعي والفيزياء.",
+    "category": "education",
+    "categoryMeta": {
+      "primary": {
+        "id": "education",
+        "label": "تعليم"
+      },
+      "secondary": {
+        "id": "kids-coding-ai",
+        "label": "مسرح الأكاديمية 3D"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "219 85% 27%",
+      "40 24% 92%",
+      "328 67% 37%"
+    ],
+    "previewImage": "/assets/themes/academy-stage-3d/preview.png",
+    "pageStats": {
+      "homeSections": 3,
+      "shopSections": 4,
+      "checkoutSections": 0,
+      "pdpSections": 3,
+      "cartSections": 2,
+      "totalSections": 12
     }
   },
   {

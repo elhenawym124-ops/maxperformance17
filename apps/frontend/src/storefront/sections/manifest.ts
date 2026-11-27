@@ -1099,6 +1099,7 @@ export const STOREFRONT_SECTION_MANIFEST = {
       { value: "playful-bubbles", label: "فقاعات مرحة (أطفال)" },
       { value: "marketplace-tiles", label: "بلاطات أقسام ماركت بليس (شريط صور)" },
       { value: "floating-bubbles", label: "فقاعات عائمة (أطفال)" },
+      { value: "glazier-tracks", label: "خريطة المسارات والأعمار (Glazier)" },
     ],
     fields: [
       {
@@ -3679,6 +3680,7 @@ export const STOREFRONT_SECTION_MANIFEST = {
       { value: "standard", label: "قياسي" },
       { value: "marketplace-simple", label: "نص بعمود واحد + اقرأ المزيد" },
       { value: "split-form-cards", label: "اتصل بنا — نموذج مقسّم وبطاقات معلومات" },
+      { value: "glazier-branches", label: "شبكة الفروع والتواصل (Glazier)" },
     ],
     fields: [
       {
@@ -3748,6 +3750,10 @@ export const STOREFRONT_SECTION_MANIFEST = {
     label: "تسجيل العضوية",
     component: "member-registration",
     pages: ["registration"],
+    variants: [
+      { value: "standard", label: "قياسي" },
+      { value: "glazier-trial-booking", label: "حجز حصة تقييم مجانية (Glazier)" },
+    ],
     fields: [
       {
         key: "title",

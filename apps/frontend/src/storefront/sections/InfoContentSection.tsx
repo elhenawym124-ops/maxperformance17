@@ -4,6 +4,7 @@ import { useStorefrontTheme } from '../engine/ThemeProvider';
 import { buildStorefrontPath } from '../utils/paths';
 import { resolveSectionContentAlign } from '../utils/contentAlignment';
 import { MarketplaceContactSplit } from './info-content/MarketplaceContactSplit';
+import { GlazierBranchesSection } from './glazier/GlazierBranchesSection';
 
 type DetailItem = {
   label?: string;
@@ -162,6 +163,11 @@ const InfoContentSection: React.FC<InfoContentSectionProps> = ({ section, settin
   const isSmartBazaar = theme.id === 'smart-bazaar';
 
   const rawVariant = String(section?.variant || settings?.variant || '').trim().toLowerCase();
+
+  if (rawVariant === 'glazier-branches') {
+    return <GlazierBranchesSection section={section} settings={settings} />;
+  }
+
   const isSplitFormCards = rawVariant === 'split-form-cards';
 
   if (isSplitFormCards) {

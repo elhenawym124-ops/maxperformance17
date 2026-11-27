@@ -219,6 +219,16 @@
   color: var(--glazier-ink);
 }
 
+:is(.glazier-pane-amber, .glazier-pane-emerald, .glazier-pane-cyan) .glazier-heading,
+:is(.glazier-pane-amber, .glazier-pane-emerald, .glazier-pane-cyan) .glazier-muted {
+  color: var(--glazier-ink);
+}
+
+.glazier-mullion-grid {
+  background-color: var(--glazier-mullion);
+  gap: 2px;
+}
+
 /* Darkroom optical glass chamber for telemetry lab */
 .glazier-chamber {
   background-color: var(--glazier-chamber);
@@ -227,6 +237,45 @@
 
 .glazier-photo-glass {
   background-color: var(--glazier-frosted);
+}
+
+/* Architectural Glazier harmonization across commerce routes (/shop, /product/:id, /cart) */
+[data-storefront-theme='academy-stage-3d'] .storefront-page-composer [class*="rounded-"] {
+  border-radius: 0 !important;
+}
+
+[data-storefront-theme='academy-stage-3d'] .storefront-page-composer :is(section, aside, article, form, input, select, button, [class*="border"]):not(.glazier-chamber):not(.glazier-pane-cobalt):not(.glazier-pane-berry) {
+  box-shadow: none !important;
+}
+
+[data-storefront-theme='academy-stage-3d'] .storefront-page-composer > section:first-child:not(.glazier-scope) {
+  background-color: var(--glazier-clear);
+  border-block-end: 2px solid var(--glazier-mullion);
+}
+
+[data-storefront-theme='academy-stage-3d'] .storefront-page-composer [data-testid*="product-card"],
+[data-storefront-theme='academy-stage-3d'] .storefront-page-composer :is(aside, .sticky) [class*="border"]:not(input):not(select):not(button) {
+  border-color: var(--glazier-mullion) !important;
+  border-width: 2px !important;
+  background-color: var(--glazier-clear) !important;
+}
+
+[data-storefront-theme='academy-stage-3d'] .storefront-page-composer :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea):not(.glazier-frame) {
+  border: 2px solid var(--glazier-mullion) !important;
+  background-color: var(--glazier-clear) !important;
+  color: var(--glazier-ink) !important;
+  border-radius: 0 !important;
+}
+
+[data-storefront-theme='academy-stage-3d'] .storefront-page-composer :is(.bg-primary, button[type="submit"]):not(.glazier-frame) {
+  background-color: var(--glazier-cobalt) !important;
+  color: var(--glazier-white) !important;
+  border: 2px solid var(--glazier-mullion) !important;
+  border-radius: 0 !important;
+}
+
+[data-storefront-theme='academy-stage-3d'] .storefront-page-composer :is(.bg-primary, button[type="submit"]):not(.glazier-frame):hover {
+  background-color: var(--glazier-cobalt-deep) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
