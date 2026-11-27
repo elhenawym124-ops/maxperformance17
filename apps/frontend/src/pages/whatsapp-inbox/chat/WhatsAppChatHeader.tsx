@@ -89,17 +89,19 @@ export const WhatsAppChatHeader: React.FC<WhatsAppChatHeaderProps> = ({
             </span>
           ) : null}
 
-          {conversation.window?.isOpen ? (
-            <span className="inline-flex items-center gap-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[11px] font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
-              <Clock className="size-3.5" />
-              <span>{conversation.window.remainingLabel}</span>
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1 rounded-md border border-rose-500/20 bg-rose-500/10 px-2 py-1 text-[11px] font-mono tabular-nums text-rose-600 dark:text-rose-400">
-              <XCircle className="size-3.5" />
-              <span>{conversation.window?.remainingLabel || 'نافذة منتهية'}</span>
-            </span>
-          )}
+          {conversation.window && (!conversation.sessionProvider || conversation.sessionProvider === 'META_CLOUD') ? (
+            conversation.window.isOpen ? (
+              <span className="inline-flex items-center gap-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[11px] font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+                <Clock className="size-3.5" />
+                <span>{conversation.window.remainingLabel}</span>
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 rounded-md border border-rose-500/20 bg-rose-500/10 px-2 py-1 text-[11px] font-mono tabular-nums text-rose-600 dark:text-rose-400">
+                <XCircle className="size-3.5" />
+                <span>{conversation.window.remainingLabel || 'نافذة منتهية'}</span>
+              </span>
+            )
+          ) : null}
 
           <div className="h-4 w-px bg-border/60 mx-1 hidden sm:block" />
 

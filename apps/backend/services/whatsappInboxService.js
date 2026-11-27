@@ -74,7 +74,7 @@ class WhatsAppInboxService {
     const limit = Math.min(Number(filters.limit || 50), 100);
     const skip = (page - 1) * limit;
 
-    const [conversations, total, queueCounters, moderatorPool, settings] = await Promise.all([
+    const [conversations, total, queueCounters, moderatorPool, settings, sessionRecord] = await Promise.all([
       prisma.conversation.findMany({
         where,
         include: {
@@ -100,15 +100,20 @@ class WhatsAppInboxService {
       prisma.conversation.count({ where }),
       this._getQueueCounters(prisma, visibleWhere),
       whatsappAssignmentEngineService.getSessionModeratorPool(companyId, sessionId),
-      getNormalizedSettings(companyId, prisma)
+      getNormalizedSettings(companyId, prisma),
+      prisma.whatsAppSession.findUnique({
+        where: { id: sessionId },
+        select: { provider: true }
+      })
     ]);
 
-    const customerIds = conversations
-      .filter((c) => c.customerId)
-      .map((c) => c.customerId);
+    const isMetaSession = sessionRecord?.provider === 'META_CLOUD';
+    const customerIds = isMetaSession
+      ? conversations.filter((c) => c.customerId).map((c) => c.customerId)
+      : [];
 
     let windowByCustomerId = {};
-    if (customerIds.length > 0) {
+    if (isMetaSession && customerIds.length > 0) {
       const contacts = await prisma.whatsAppContact.findMany({
         where: { customerId: { in: customerIds }, sessionId },
         select: { customerId: true, lastCustomerMessageAt: true }
@@ -123,7 +128,8 @@ class WhatsAppInboxService {
     return {
       conversations: conversations.map((conversation) => ({
         ...this._formatConversationSummary(conversation),
-        window: windowByCustomerId[conversation.customerId] || computeWindowStatus(null)
+        sessionProvider: sessionRecord?.provider || null,
+        window: isMetaSession ? (windowByCustomerId[conversation.customerId] || computeWindowStatus(null)) : null
       })),
       pagination: {
         page,
@@ -187,8 +193,17 @@ class WhatsAppInboxService {
 
     const sessionId = getSessionIdFromMetadata(conversation.metadata);
 
-    let window = computeWindowStatus(null);
-    if (sessionId && conversation.customerId) {
+    const [moderatorPool, settings, sessionRecord] = await Promise.all([
+      sessionId ? whatsappAssignmentEngineService.getSessionModeratorPool(companyId, sessionId) : Promise.resolve([]),
+      getNormalizedSettings(companyId, prisma),
+      sessionId
+        ? prisma.whatsAppSession.findUnique({ where: { id: sessionId }, select: { provider: true } })
+        : Promise.resolve(null)
+    ]);
+
+    const isMetaSession = sessionRecord?.provider === 'META_CLOUD';
+    let window = isMetaSession ? computeWindowStatus(null) : null;
+    if (isMetaSession && sessionId && conversation.customerId) {
       const contact = await prisma.whatsAppContact.findFirst({
         where: { customerId: conversation.customerId, sessionId },
         select: { lastCustomerMessageAt: true }
@@ -198,11 +213,6 @@ class WhatsAppInboxService {
       }
     }
 
-    const [moderatorPool, settings] = await Promise.all([
-      sessionId ? whatsappAssignmentEngineService.getSessionModeratorPool(companyId, sessionId) : Promise.resolve([]),
-      getNormalizedSettings(companyId, prisma)
-    ]);
-
     return {
       ...conversation,
       customer: this._formatCustomerSummary(conversation.customer),
@@ -210,6 +220,7 @@ class WhatsAppInboxService {
       queueKey: buildQueueKeyFromStatus(conversation.status),
       canTransfer: SUPERVISOR_ROLES.includes(normalizedRole) || settings.ownershipConfig.allowModeratorTransferRequest,
       availableModerators: moderatorPool.map((candidate) => this._formatModeratorPoolItem(candidate)),
+      sessionProvider: sessionRecord?.provider || null,
       window
     };
   }

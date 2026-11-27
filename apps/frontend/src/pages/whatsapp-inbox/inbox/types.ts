@@ -57,12 +57,13 @@ export type Conversation = {
     detectedCountry: string | null;
     detectedDepartment: string | null;
   };
+  sessionProvider?: string | null;
   window: {
     isOpen: boolean;
     remainingSeconds: number;
     remainingLabel: string;
     windowExpiresAt: string | null;
-  };
+  } | null;
 };
 
 export type SessionsApiResponse = {

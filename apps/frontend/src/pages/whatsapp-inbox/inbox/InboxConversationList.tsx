@@ -108,17 +108,19 @@ export const InboxConversationList: React.FC<InboxConversationListProps> = ({
                 </span>
               )}
 
-              {conversation.window?.isOpen ? (
-                <span className="inline-flex items-center gap-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
-                  <Clock className="size-2.5" />
-                  <span>{conversation.window.remainingLabel}</span>
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1 rounded-md border border-rose-500/20 bg-rose-500/10 px-1.5 py-0.5 text-[10px] font-mono tabular-nums text-rose-600 dark:text-rose-400">
-                  <XCircle className="size-2.5" />
-                  <span>{conversation.window.remainingLabel}</span>
-                </span>
-              )}
+              {conversation.window && (!conversation.sessionProvider || conversation.sessionProvider === 'META_CLOUD') ? (
+                conversation.window.isOpen ? (
+                  <span className="inline-flex items-center gap-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+                    <Clock className="size-2.5" />
+                    <span>{conversation.window.remainingLabel}</span>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 rounded-md border border-rose-500/20 bg-rose-500/10 px-1.5 py-0.5 text-[10px] font-mono tabular-nums text-rose-600 dark:text-rose-400">
+                    <XCircle className="size-2.5" />
+                    <span>{conversation.window.remainingLabel}</span>
+                  </span>
+                )
+              ) : null}
 
               {conversation.flags.detectedLanguage && (
                 <span className="rounded-md border border-border/40 bg-muted/20 px-1 py-0.5 text-[9px] font-mono uppercase">

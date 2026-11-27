@@ -80,12 +80,13 @@ export type ConversationDetail = {
     };
   };
   canTransfer: boolean;
+  sessionProvider?: string | null;
   window: {
     isOpen: boolean;
     remainingSeconds: number;
     remainingLabel: string;
     windowExpiresAt: string | null;
-  };
+  } | null;
 };
 
 export type ConversationApiResponse = {
