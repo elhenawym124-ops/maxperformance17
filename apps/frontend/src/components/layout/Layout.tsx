@@ -496,8 +496,19 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
       for (const item of section.items) {
         if (item.hidden) continue;
         const to = item.to || "";
-        if (!to) continue;
-        if (sidebarCurrentPath === to || sidebarCurrentPath.startsWith(to)) return section.id;
+        if (to && (sidebarCurrentPath === to || sidebarCurrentPath.startsWith(to))) {
+          return section.id;
+        }
+        if (
+          item.children?.some(
+            (child) =>
+              !child.hidden &&
+              child.to &&
+              (sidebarCurrentPath === child.to || sidebarCurrentPath.startsWith(child.to)),
+          )
+        ) {
+          return section.id;
+        }
       }
     }
     return null;

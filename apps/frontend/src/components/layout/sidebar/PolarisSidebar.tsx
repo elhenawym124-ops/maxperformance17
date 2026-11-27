@@ -213,15 +213,39 @@ export const PolarisSidebar: React.FC<PolarisSidebarProps> = ({
                 <div className="space-y-0.5">
                   {section.items.map((item) => {
                     if (item.hidden) return null;
+                    const visibleChildren = item.children?.filter((child) => !child.hidden) ?? [];
                     return (
-                      <PolarisNavItem
-                        key={item.itemId || item.to}
-                        item={item}
-                        currentPath={currentPath}
-                        user={user}
-                        isCollapsed={isCollapsed}
-                        onClick={mobileMode ? toggleSidebar : undefined}
-                      />
+                      <div key={item.itemId || item.to}>
+                        <PolarisNavItem
+                          item={item}
+                          currentPath={currentPath}
+                          user={user}
+                          isCollapsed={isCollapsed}
+                          onClick={mobileMode ? toggleSidebar : undefined}
+                        />
+                        {!isCollapsed && visibleChildren.length > 0 && (
+                          <div className="ms-5 mt-0.5 mb-1 ps-2.5 border-s border-border/70 space-y-0.5">
+                            {visibleChildren.map((child) => {
+                              const isChildActive = isSidebarPathActive(currentPath, child.to);
+                              return (
+                                <Link
+                                  key={child.to}
+                                  to={child.to}
+                                  aria-current={isChildActive ? "page" : undefined}
+                                  onClick={mobileMode ? toggleSidebar : undefined}
+                                  className={`block px-2 py-1 rounded-md text-xs font-medium truncate transition-colors ${
+                                    isChildActive
+                                      ? "bg-primary/10 text-primary font-semibold"
+                                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                                  }`}
+                                >
+                                  {child.label}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>

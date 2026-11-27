@@ -1292,7 +1292,7 @@ export const getSidebarConfig = (
                 {
                     to: '/orders/activity-log',
                     icon: Clock,
-                    label: isEn ? 'Bulk Ops & Tracking' : 'العمليات الجماعية والمتابعة',
+                    label: isEn ? 'Orders Activity & Bulk Ops' : 'سجل النشاط والعمليات الجماعية',
                     requiredPermissions: ['orders.view', 'bulkOrders.view', 'orders.bulk.create', 'orders.status.change', 'orders.quickstatus.view', 'orders.automation.view', 'orders.stats.view', 'orders.status-summary.view'],
                     children: [
                         { to: '/orders/bulk', label: t('sidebar.bulkOrders'), requiredPermissions: ['bulkOrders.view', 'orders.bulk.create'], hidden: !isAppActive('bulk-orders') },
@@ -1300,6 +1300,7 @@ export const getSidebarConfig = (
                         { to: '/orders/quick-status', label: t('sidebar.quickStatusChange'), requiredPermissions: ['orders.quickstatus.view'], hidden: !isAppActive('quick-status') },
                         { to: '/orders/automation', label: t('sidebar.orderAutomation'), requiredPermissions: ['orders.automation.view'], hidden: !isAppActive('order-automation') },
                         { to: '/orders/analytics', label: t('sidebar.orderAnalytics'), requiredPermissions: ['orders.stats.view'], hidden: !isAnyAppActive(['analytics-advanced', 'analytics-basic', 'orders-analytics']) },
+                        { to: '/analytics/orders/fulfillment-velocity', label: isEn ? 'Fulfillment Velocity & Vintage' : t('sidebar.fulfillmentVelocity', 'سرعة الإنجاز وشحن اليوم'), requiredPermissions: ['orders.stats.view'], hidden: isAnyAppActive(['analytics-advanced', 'analytics-basic', 'orders-analytics']) },
                         { to: '/orders/status-summary', label: t('sidebar.orderStatusSummary'), requiredPermissions: ['orders.status-summary.view'], hidden: !isAppActive('status-summary') },
                     ],
                 },
@@ -1318,7 +1319,7 @@ export const getSidebarConfig = (
                     ],
                 },
                 {
-                    to: '/orders/invoices',
+                    to: isAnyAppActive(['order-invoicing', 'store-pro']) ? '/orders/invoices' : isAnyAppActive(['returns-settings']) ? '/returns' : '/products/reviews',
                     icon: FileText,
                     label: isEn ? 'Invoices, Returns & Reviews' : 'الفواتير والمرتجعات والتقييمات',
                     requiredPermissions: ['orders.invoices.view', 'orders.returns.view', 'orders.return-settings.view', 'orders.product-reviews.view'],
