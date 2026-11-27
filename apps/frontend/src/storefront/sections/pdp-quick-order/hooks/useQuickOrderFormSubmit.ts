@@ -621,6 +621,7 @@ export const useQuickOrderFormSubmit = ({
         phone: contactPhone,
         customerName: resolvedFullName || fallbackCustomerName,
         paymentMethod,
+        hasCustomerLocation: Boolean(customerLocation),
         items: [
           ...quickOrderItems.map((item) => ({
             id: item.id,

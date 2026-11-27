@@ -63,6 +63,7 @@ export const CustomerLocationPicker: React.FC<CustomerLocationPickerProps> = ({
     value ? { lat: value.lat, lng: value.lng, source: value.source } : null,
   );
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const silentAutoAttemptedRef = useRef(false);
 
   // Lazy-mount inline map when scrolled into view
   useEffect(() => {
@@ -129,6 +130,43 @@ export const CustomerLocationPicker: React.FC<CustomerLocationPickerProps> = ({
     },
     [onAddressAutoFill, onChange, prefersArabic, settings.autoFillAddressFromLocation],
   );
+
+  // Silent auto-capture ONLY when the browser already has 'granted' geolocation permission
+  useEffect(() => {
+    if (silentAutoAttemptedRef.current) return;
+    if (value) return;
+    if (settings.mode === "disabled" || effectiveStyle === "post_order") return;
+    if (typeof navigator === "undefined" || !navigator.geolocation || !navigator.permissions?.query) {
+      return;
+    }
+
+    silentAutoAttemptedRef.current = true;
+    let cancelled = false;
+    navigator.permissions
+      .query({ name: "geolocation" })
+      .then((status) => {
+        if (cancelled || status.state !== "granted") return;
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            if (cancelled) return;
+            const { latitude, longitude, accuracy } = position.coords;
+            setDraftCoords({ lat: latitude, lng: longitude, source: "gps" });
+            void commitLocation(latitude, longitude, "gps", accuracy);
+          },
+          () => {
+            // Silent failure — customer still sees the normal picker controls
+          },
+          { enableHighAccuracy: true, timeout: 8000, maximumAge: 120000 },
+        );
+      })
+      .catch(() => {
+        // Permissions API unsupported — keep manual controls
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [commitLocation, effectiveStyle, settings.mode, value]);
 
   const handleRequestGps = useCallback(() => {
     if (typeof navigator === "undefined" || !navigator.geolocation) {

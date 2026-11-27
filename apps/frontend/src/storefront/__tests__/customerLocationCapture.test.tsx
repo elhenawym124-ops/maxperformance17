@@ -63,11 +63,17 @@ describe("Customer location capture", () => {
     expect(normalizeLocationCaptureSettings(null)).toEqual(
       DEFAULT_LOCATION_CAPTURE_SETTINGS,
     );
+    expect(DEFAULT_LOCATION_CAPTURE_SETTINGS).toMatchObject({
+      mode: "optional",
+      displayStyle: "gps_button",
+      thankYouPopupEnabled: true,
+    });
     expect(
       normalizeLocationCaptureSettings({
         mode: "required",
         displayStyle: "inline_map",
         allowMapsLinkPaste: false,
+        thankYouPopupEnabled: false,
       }),
     ).toMatchObject({
       mode: "required",
@@ -75,6 +81,7 @@ describe("Customer location capture", () => {
       allowMapsLinkPaste: false,
       autoFillAddressFromLocation: true,
       applyToQuickOrder: true,
+      thankYouPopupEnabled: false,
     });
     expect(matchEgyptGovernorate("محافظة القاهرة")?.nameEn).toBe("Cairo");
     expect(matchEgyptGovernorate("Giza Governorate")?.nameEn).toBe("Giza");
@@ -245,6 +252,77 @@ describe("Customer location capture", () => {
     });
 
     expect(await screen.findByText("تم ربط موقعك بالطلب بنجاح")).toBeTruthy();
+    updateSpy.mockRestore();
+  });
+
+  it("opens Thank-You popup automatically when showPopup=true and saves one-click GPS location", async () => {
+    const updateSpy = vi
+      .spyOn(storefrontApi, "updateOrderLocation")
+      .mockResolvedValueOnce({
+        success: true,
+        data: {
+          orderNumber: "ORD-POP-1",
+          location: {
+            lat: 30.0612,
+            lng: 31.3311,
+            googleMapsUrl: "https://www.google.com/maps?q=30.0612,31.3311",
+            source: "post_order",
+          },
+        },
+      });
+
+    const originalGeo = navigator.geolocation;
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      value: {
+        getCurrentPosition: (success: PositionCallback) => {
+          success({
+            coords: {
+              latitude: 30.0612,
+              longitude: 31.3311,
+              accuracy: 12,
+            },
+          } as GeolocationPosition);
+        },
+      },
+    });
+
+    render(
+      <PostOrderLocationCard
+        orderNumber="ORD-POP-1"
+        customerPhone="01012345678"
+        settings={DEFAULT_LOCATION_CAPTURE_SETTINGS}
+        showPopup={true}
+      />,
+    );
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeTruthy();
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /تفعيل وأخذ موقعي الحالي/ }),
+    );
+
+    await waitFor(() => {
+      expect(updateSpy).toHaveBeenCalledWith(
+        "ORD-POP-1",
+        expect.objectContaining({
+          phone: "01012345678",
+          lat: 30.0612,
+          lng: 31.3311,
+          source: "post_order",
+        }),
+      );
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).toBeNull();
+    });
+
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      value: originalGeo,
+    });
     updateSpy.mockRestore();
   });
 });

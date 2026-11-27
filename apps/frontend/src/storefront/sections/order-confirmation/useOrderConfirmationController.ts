@@ -123,6 +123,7 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
 
   const prefersArabicCopy = theme.direction === 'rtl';
   const isBiteRush = theme.id === 'restaurant-demo';
+  const isAcademyStage = theme.id === 'academy-stage-3d';
   const variant = normalizeOrderConfirmationVariant(section?.variant);
   const isMarketAftercare = variant === 'market-aftercare';
   const isNatureAftercare = variant === 'nature-aftercare';
@@ -279,14 +280,20 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
     (isPcHub
       ? pcHubStatusExperience?.heroTitle
       : settings?.title) ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'تم تأكيد تسجيلك بنجاح!' : 'Enrollment confirmed!')
+      : isPcHub
       ? (prefersArabicCopy ? 'تم تسجيل طلبك وجارٍ مراجعته' : 'Your order is now under review')
       : isRoseBoutique
         ? (prefersArabicCopy ? 'طلبك من روزا ثبت بنجاح' : 'Your Rosa order is confirmed')
       : (prefersArabicCopy ? 'تم تأكيد طلبك بنجاح!' : 'Order confirmed successfully!'));
   const description =
     (isPcHub ? pcHubStatusExperience?.heroDescription : settings?.description) ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy
+        ? `شكرًا لتسجيلك في ${storeName}. رقم الحجز جاهز، وسيتواصل معك فريق الأكاديمية لتأكيد موعد الحصة بالفرع أو أونلاين.`
+        : `Thanks for registering with ${storeName}. Our academic team will contact you to confirm your session schedule.`)
+      : isPcHub
       ? (prefersArabicCopy
         ? `شكرًا لتسوقك من ${storeName}. رقم الطلب جاهز، وفريقنا يراجع التوفر والتغليف والشحن قبل التنفيذ حتى تستلم التجهيزة بشكل واضح وآمن.`
         : `Thanks for shopping with ${storeName}. Your order is logged and our team is reviewing stock, protection, and shipping before fulfillment.`)
@@ -303,17 +310,25 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
         : `Thanks for shopping with ${storeName}. Our team is already preparing your order and will contact you to confirm shipping details.`));
   const continueShoppingText =
     settings?.continueShoppingText ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'تصفح المستويات الـ 15' : 'Browse 15 levels')
+      : isPcHub
       ? (prefersArabicCopy ? 'تابع تصفح الأجهزة' : 'Browse more gear')
       : isKhemetLuxe
         ? (prefersArabicCopy ? 'مواصلة التسوق' : 'Continue shopping')
       : isRoseBoutique
           ? (prefersArabicCopy ? 'تصفح المزيد من المنتجات' : 'Browse more looks')
         : (prefersArabicCopy ? 'مواصلة التسوق' : 'Continue shopping'));
-  const orderNumberPrefix = settings?.orderNumberPrefix || (prefersArabicCopy ? 'رقم الطلب:' : 'Order number:');
+  const orderNumberPrefix =
+    settings?.orderNumberPrefix ||
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'رقم التسجيل:' : 'Registration #')
+      : (prefersArabicCopy ? 'رقم الطلب:' : 'Order number:'));
   const supportText =
     settings?.supportText ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'لتنسيق الموعد أو تعديل الفرع تواصل معنا عبر' : 'Need a schedule or branch update? Reach us via')
+      : isPcHub
       ? (prefersArabicCopy
         ? 'لو محتاج تعديل موديل أو فاتورة شركة تواصل معنا عبر'
         : 'Need a spec change or company invoice? Reach us via')
@@ -326,7 +341,9 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
         : (prefersArabicCopy ? 'تحتاج مساعدة؟ تواصل معنا عبر' : 'Need help? Reach us via'));
   const statusLabel =
     (isPcHub ? pcHubStatusExperience?.pillLabel : settings?.statusLabel) ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'قيد التنسيق' : 'Scheduling')
+      : isPcHub
       ? (prefersArabicCopy ? 'مراجعة وتجهيز' : 'Review & prep')
       : isKhemetLuxe
         ? (prefersArabicCopy ? 'قيد التجهيز' : 'Preparing')
@@ -349,7 +366,9 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
   const showReorder = settings?.showReorder !== false;
   const trackOrderTitle =
     settings?.trackOrderTitle ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'متابعة حالة التسجيل' : 'Track registration')
+      : isPcHub
       ? (prefersArabicCopy ? 'تابع حالة التجهيز' : 'Track the prep status')
       : isKhemetLuxe
         ? (prefersArabicCopy ? 'متابعة حالة الطلب' : 'Review order status')
@@ -358,7 +377,11 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
         : (prefersArabicCopy ? 'تتبع هذا الطلب' : 'Track this order'));
   const trackOrderDescription =
     settings?.trackOrderDescription ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy
+        ? 'أدخل رقم الواتساب المستخدم أثناء التسجيل لعرض حالة التأكيد والموعد.'
+        : 'Use the registration WhatsApp number to check the confirmation and schedule status.')
+      : isPcHub
       ? (prefersArabicCopy
         ? 'أدخل نفس رقم الموبايل المستخدم وقت الطلب لمعرفة آخر تحديث على المراجعة والتجهيز والشحن.'
         : 'Use the same checkout phone number to see the latest prep, review, and shipping update.')
@@ -375,7 +398,9 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
         : 'Check the latest order status using the same phone number used during checkout.'));
   const trackOrderButtonText =
     settings?.trackOrderButtonText ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'عرض حالة التسجيل' : 'Check registration')
+      : isPcHub
       ? (prefersArabicCopy ? 'اعرض آخر تحديث' : 'Show latest update')
       : isKhemetLuxe
         ? (prefersArabicCopy ? 'اعرض حالة الطلب' : 'Show order status')
@@ -384,14 +409,18 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
         : (prefersArabicCopy ? 'تحقق من حالة الطلب' : 'Check order status'));
   const trackOrderPhoneLabel =
     settings?.trackOrderPhoneLabel ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'رقم الواتساب المستخدم في التسجيل' : 'Registration WhatsApp number')
+      : isPcHub
       ? (prefersArabicCopy ? 'رقم الموبايل المستخدم وقت الطلب' : 'Checkout mobile number')
       : (prefersArabicCopy ? 'رقم الهاتف المستخدم في الطلب' : 'Checkout phone number'));
   const trackOrderPhonePlaceholder =
     settings?.trackOrderPhonePlaceholder || (prefersArabicCopy ? '01xxxxxxxxx' : '01xxxxxxxxx');
   const reorderTitle =
     settings?.reorderTitle ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'إضافة نفس المستويات للسلة مجددًا' : 'Add the same levels back to cart')
+      : isPcHub
       ? (prefersArabicCopy ? 'أعد نفس التجهيزة بسرعة' : 'Rebuild the same setup fast')
       : isKhemetLuxe
         ? (prefersArabicCopy ? 'أعد نفس الاختيارات للسلة' : 'Bring the same picks back to cart')
@@ -400,7 +429,11 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
         : (prefersArabicCopy ? 'أعد طلب نفس المنتجات' : 'Reorder the same items'));
   const reorderDescription =
     settings?.reorderDescription ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy
+        ? 'أعد المستويات المختارة إلى السلة بضغطة واحدة لو كنت تسجل لطالب إضافي.'
+        : 'Return the selected levels to cart in one step if enrolling an additional student.')
+      : isPcHub
       ? (prefersArabicCopy
         ? 'ارجّع نفس الجهاز والإضافات إلى السلة مرة واحدة لو تريد تكرار الطلب أو تجهيز طلب مشابه.'
         : 'Return the same device and add-ons to the cart in one step for a repeat setup.')
@@ -417,7 +450,9 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
         : 'Add the original order items back to cart in one step and keep the momentum going.'));
   const reorderButtonText =
     settings?.reorderButtonText ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'أضف المستويات المختارة للسلة' : 'Add selected levels to cart')
+      : isPcHub
       ? (prefersArabicCopy ? 'أضف نفس التجهيزة للسلة' : 'Add the same setup to cart')
       : isKhemetLuxe
         ? (prefersArabicCopy ? 'أعد المنتجات للسلة' : 'Add the same picks to cart')
@@ -426,7 +461,9 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
         : (prefersArabicCopy ? 'أضف هذه المنتجات مرة أخرى' : 'Add these items again'));
   const reorderSuccessText =
     settings?.reorderSuccessText ||
-    (isPcHub
+    (isAcademyStage
+      ? (prefersArabicCopy ? 'تمت إضافة المستويات المختارة إلى السلة.' : 'Selected levels added back to cart.')
+      : isPcHub
       ? (prefersArabicCopy ? 'رجّعنا نفس التجهيزة إلى السلة.' : 'The same setup is back in the cart.')
       : isKhemetLuxe
         ? (prefersArabicCopy ? 'أعدنا نفس الاختيارات للسلة.' : 'The same picks are back in the cart.')
@@ -1107,10 +1144,22 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
     return null;
   }, [effectiveTrackedOrder?.shippingAddress]);
 
+  const hasLocationFromPurchase = Boolean(purchaseTracking?.hasCustomerLocation);
+
   const showPostOrderLocationCard =
     Boolean(resolvedOrderReference) &&
     locationCaptureSettings.mode !== 'disabled' &&
-    (locationCaptureSettings.displayStyle === 'post_order' || !existingOrderLocation);
+    (locationCaptureSettings.displayStyle === 'post_order' ||
+      (!existingOrderLocation && !hasLocationFromPurchase));
+
+  const showThankYouLocationPopup =
+    Boolean(resolvedOrderReference) &&
+    !previewThemeId &&
+    locationCaptureSettings.mode !== 'disabled' &&
+    locationCaptureSettings.thankYouPopupEnabled &&
+    !existingOrderLocation &&
+    !hasLocationFromPurchase &&
+    Boolean(trackPhone);
 
   return {
     theme,
@@ -1118,6 +1167,7 @@ export const useOrderConfirmationController = (props: OrderConfirmationProps) =>
     locationCaptureSettings,
     existingOrderLocation,
     showPostOrderLocationCard,
+    showThankYouLocationPopup,
     isBiteRush,
     isPcHub,
     isSoftAftercare,

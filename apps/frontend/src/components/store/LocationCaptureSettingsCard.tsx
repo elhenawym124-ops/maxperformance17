@@ -147,6 +147,12 @@ export const LocationCaptureSettingsCard: React.FC<
                   disabled={disabled}
                 />
               ) : null}
+              <ToggleSetting
+                label="إظهار نافذة تلقائية في صفحة الشكر إذا لم يُرسل العميل موقعه"
+                value={current.thankYouPopupEnabled}
+                onChange={(value) => update({ thankYouPopupEnabled: value })}
+                disabled={disabled}
+              />
             </div>
           </>
         ) : null}

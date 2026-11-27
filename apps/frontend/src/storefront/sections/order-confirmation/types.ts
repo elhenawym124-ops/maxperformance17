@@ -28,6 +28,7 @@ export interface PurchaseTrackingState {
   phone?: string;
   customerName?: string;
   paymentMethod?: string;
+  hasCustomerLocation?: boolean;
   items: PurchaseTrackingItem[];
   storePromotionDiscount?: number;
   storePromotionLabel?: string;

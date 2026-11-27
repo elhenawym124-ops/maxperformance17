@@ -31,14 +31,16 @@ export interface LocationCaptureSettings {
   allowMapsLinkPaste: boolean;
   autoFillAddressFromLocation: boolean;
   applyToQuickOrder: boolean;
+  thankYouPopupEnabled: boolean;
 }
 
 export const DEFAULT_LOCATION_CAPTURE_SETTINGS: LocationCaptureSettings = {
-  mode: "disabled",
+  mode: "optional",
   displayStyle: "gps_button",
   allowMapsLinkPaste: true,
   autoFillAddressFromLocation: true,
   applyToQuickOrder: true,
+  thankYouPopupEnabled: true,
 };
 
 export const LOCATION_CAPTURE_MODE_OPTIONS = [
@@ -107,6 +109,10 @@ export const normalizeLocationCaptureSettings = (
       typeof candidate["applyToQuickOrder"] === "boolean"
         ? candidate["applyToQuickOrder"]
         : DEFAULT_LOCATION_CAPTURE_SETTINGS.applyToQuickOrder,
+    thankYouPopupEnabled:
+      typeof candidate["thankYouPopupEnabled"] === "boolean"
+        ? candidate["thankYouPopupEnabled"]
+        : DEFAULT_LOCATION_CAPTURE_SETTINGS.thankYouPopupEnabled,
   };
 };
 

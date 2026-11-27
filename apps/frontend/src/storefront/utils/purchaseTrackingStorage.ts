@@ -28,6 +28,7 @@ export interface StorefrontPurchaseTrackingState {
   phone?: string;
   customerName?: string;
   paymentMethod?: string;
+  hasCustomerLocation?: boolean;
   items: StorefrontPurchaseTrackingItem[];
 }
 
@@ -198,6 +199,9 @@ const normalizePurchaseTracking = (
     phone: normalizeText(raw.phone) || undefined,
     customerName: normalizeText(raw.customerName) || undefined,
     paymentMethod: normalizeText(raw.paymentMethod) || undefined,
+    ...(typeof raw.hasCustomerLocation === "boolean"
+      ? { hasCustomerLocation: raw.hasCustomerLocation }
+      : {}),
     items,
   };
 };

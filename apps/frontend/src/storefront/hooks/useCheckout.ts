@@ -326,6 +326,7 @@ export const useCheckout = () => {
               phone: data.phone,
               customerName: data.customerName,
               paymentMethod: 'card',
+              hasCustomerLocation: Boolean(data.customerLocation),
               items: items.map((item) => ({
                 id: item.id || buildCartItemId(item),
                 productId: item.productId,
@@ -380,6 +381,7 @@ export const useCheckout = () => {
           phone: data.phone,
           customerName: data.customerName,
           paymentMethod: data.paymentMethod,
+          hasCustomerLocation: Boolean(data.customerLocation),
           items: items.map((item) => ({
             id: item.id || buildCartItemId(item),
             productId: item.productId,
