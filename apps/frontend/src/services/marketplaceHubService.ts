@@ -46,6 +46,7 @@ export interface CalculateProfitPayload {
   productCost: number;
   overheadCost?: number;
   storageMonths?: number;
+  costGroupItems?: CostGroupItem[];
   profitMarginPct: number;
   shipmentType?: 'EASY_SHIP' | 'SELLER_FLEX' | 'FBA';
   category?: string;
@@ -286,6 +287,63 @@ export interface StockDistributionPlan {
     allocatedSum: number;
     conflicts: string[];
   }>;
+}
+
+export interface CostGroupItem {
+  label: string;
+  type: 'FIXED' | 'PERCENT';
+  value: number;
+}
+
+export interface CostGroup {
+  id: string;
+  name: string;
+  items: CostGroupItem[];
+}
+
+export interface CurrencyPolicy {
+  reportingCurrency: string;
+  amountView: 'NATIVE' | 'REPORTING';
+  fxSource: string;
+  conversionTiming: string;
+  freezeHistoricalRates: boolean;
+  ratesToEgp: Record<string, number>;
+}
+
+export interface ProductCustomField {
+  id: string;
+  name: string;
+  fieldKey: string;
+  fieldType: 'TEXT' | 'NUMBER' | 'PERCENT' | 'SELECT';
+  scope: 'PRODUCT' | 'VARIANT';
+  options: string[];
+}
+
+export interface InventorySyncPolicy {
+  frequencyMin: number;
+  toleranceQty: number;
+  zeroAction: 'IGNORE' | 'DISABLE' | 'MARK_OUT_OF_STOCK';
+  conflictPolicy: 'MANUAL_REVIEW' | 'AUTO_RESOLVE';
+}
+
+export interface StockTicket {
+  id: string;
+  sku: string;
+  productName: string;
+  channel: string;
+  maxpQty: number;
+  channelQty: number;
+  diff: number;
+  status: 'UNRESOLVED' | 'RESOLVED';
+  resolution: string | null;
+  createdAt: string;
+}
+
+export interface BulkSkuZipGroup {
+  sku: string;
+  mainImage: { fileName: string; previewDataUrl: string | null } | null;
+  gallery: Array<{ fileName: string; previewDataUrl: string | null }>;
+  matchedProduct?: { id: string; name: string } | null;
 }
 
 export const marketplaceHubService = {
@@ -547,6 +605,89 @@ export const marketplaceHubService = {
 
   async saveStockDistribution(payload: { safetyBuffer: number; channelShares: Record<string, number> }): Promise<StockDistributionPlan> {
     const res = await apiClient.post<{ data: StockDistributionPlan }>('/marketplace-hub/inventory/distribute', payload);
+    return res.data.data;
+  },
+
+  async listCostGroups(): Promise<CostGroup[]> {
+    const res = await apiClient.get<{ data: CostGroup[] }>('/marketplace-hub/cost-groups');
+    return res.data.data;
+  },
+
+  async saveCostGroup(payload: { id?: string; name: string; items: CostGroupItem[] }): Promise<CostGroup> {
+    const res = await apiClient.post<{ data: CostGroup }>('/marketplace-hub/cost-groups', payload);
+    return res.data.data;
+  },
+
+  async deleteCostGroup(id: string) {
+    const res = await apiClient.delete<{ data: { removed: boolean } }>(`/marketplace-hub/cost-groups/${id}`);
+    return res.data.data;
+  },
+
+  async getCurrencyPolicy(): Promise<CurrencyPolicy> {
+    const res = await apiClient.get<{ data: CurrencyPolicy }>('/marketplace-hub/currency-policy');
+    return res.data.data;
+  },
+
+  async saveCurrencyPolicy(payload: Partial<CurrencyPolicy>): Promise<CurrencyPolicy> {
+    const res = await apiClient.post<{ data: CurrencyPolicy }>('/marketplace-hub/currency-policy', payload);
+    return res.data.data;
+  },
+
+  async importSkuZip(zipBase64: string) {
+    const res = await apiClient.post<{ data: { totalImages: number; skuCount: number; groups: BulkSkuZipGroup[] } }>(
+      '/marketplace-hub/import-sku-zip',
+      { zipBase64 },
+    );
+    return res.data.data;
+  },
+
+  async listCustomFields(): Promise<ProductCustomField[]> {
+    const res = await apiClient.get<{ data: ProductCustomField[] }>('/marketplace-hub/custom-fields');
+    return res.data.data;
+  },
+
+  async saveCustomField(payload: { name: string; fieldType: ProductCustomField['fieldType']; scope: ProductCustomField['scope']; options?: string[] }): Promise<ProductCustomField> {
+    const res = await apiClient.post<{ data: ProductCustomField }>('/marketplace-hub/custom-fields', payload);
+    return res.data.data;
+  },
+
+  async deleteCustomField(id: string) {
+    const res = await apiClient.delete<{ data: { removed: boolean } }>(`/marketplace-hub/custom-fields/${id}`);
+    return res.data.data;
+  },
+
+  async getInventorySyncPolicy(): Promise<InventorySyncPolicy> {
+    const res = await apiClient.get<{ data: InventorySyncPolicy }>('/marketplace-hub/inventory/sync-policy');
+    return res.data.data;
+  },
+
+  async saveInventorySyncPolicy(payload: Partial<InventorySyncPolicy>): Promise<InventorySyncPolicy> {
+    const res = await apiClient.post<{ data: InventorySyncPolicy }>('/marketplace-hub/inventory/sync-policy', payload);
+    return res.data.data;
+  },
+
+  async listStockTickets(): Promise<StockTicket[]> {
+    const res = await apiClient.get<{ data: StockTicket[] }>('/marketplace-hub/inventory/tickets');
+    return res.data.data;
+  },
+
+  async scanStockDiscrepancies(snapshots: Array<{ sku: string; productName?: string; channel: string; maxpQty?: number; channelQty: number }>) {
+    const res = await apiClient.post<{
+      data: { policy: InventorySyncPolicy; scannedCount: number; ticketsCreatedOrUpdated: number; tickets: StockTicket[] };
+    }>('/marketplace-hub/inventory/tickets/scan', { snapshots });
+    return res.data.data;
+  },
+
+  async resolveStockTicket(id: string, resolution = 'USE_MAXP'): Promise<StockTicket> {
+    const res = await apiClient.post<{ data: StockTicket }>(`/marketplace-hub/inventory/tickets/${id}/resolve`, { resolution });
+    return res.data.data;
+  },
+
+  async resolveAllStockTickets(resolution = 'USE_MAXP') {
+    const res = await apiClient.post<{ data: { resolvedCount: number; tickets: StockTicket[] } }>(
+      '/marketplace-hub/inventory/tickets/resolve-all',
+      { resolution },
+    );
     return res.data.data;
   },
 };

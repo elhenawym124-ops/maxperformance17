@@ -46,4 +46,21 @@ router.post('/catalog/amazon-lookup', controller.lookupAmazonCatalog);
 router.get('/inventory/distribution', controller.getStockDistribution);
 router.post('/inventory/distribute', controller.saveStockDistribution);
 
+// Stage 3: Cost Groups, Currency Policy, Bulk SKU ZIP Images, Custom Fields & Sync Tickets
+router.get('/cost-groups', controller.listCostGroups);
+router.post('/cost-groups', controller.saveCostGroup);
+router.delete('/cost-groups/:id', controller.deleteCostGroup);
+router.get('/currency-policy', controller.getCurrencyPolicy);
+router.post('/currency-policy', controller.saveCurrencyPolicy);
+router.post('/import-sku-zip', controller.importSkuZip);
+router.get('/custom-fields', controller.listCustomFields);
+router.post('/custom-fields', controller.saveCustomField);
+router.delete('/custom-fields/:id', controller.deleteCustomField);
+router.get('/inventory/sync-policy', controller.getInventorySyncPolicy);
+router.post('/inventory/sync-policy', controller.saveInventorySyncPolicy);
+router.get('/inventory/tickets', controller.listStockTickets);
+router.post('/inventory/tickets/scan', controller.scanStockDiscrepancies);
+router.post('/inventory/tickets/:id/resolve', controller.resolveStockTicket);
+router.post('/inventory/tickets/resolve-all', controller.resolveAllStockTickets);
+
 module.exports = router;

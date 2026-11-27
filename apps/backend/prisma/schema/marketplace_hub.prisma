@@ -61,3 +61,17 @@ model MarketplaceChannelConnection {
   @@index([companyId])
   @@map("marketplace_channel_connections")
 }
+
+model MarketplaceHubConfig {
+  id          String   @id @default(cuid())
+  companyId   String
+  category    String
+  itemKey     String
+  payloadJson String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([companyId, category, itemKey])
+  @@index([companyId, category])
+  @@map("marketplace_hub_configs")
+}

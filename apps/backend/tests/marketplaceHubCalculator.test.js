@@ -8,6 +8,7 @@ const {
 } = require('../services/marketplaceHubCalculatorService');
 const aiService = require('../services/marketplaceHubAiService');
 const opsService = require('../services/marketplaceHubOpsService');
+const stage3Service = require('../services/marketplaceHubStage3Service');
 
 async function runTests() {
   const meta = getMetadata();
@@ -208,6 +209,105 @@ async function runTests() {
   assert.strictEqual(dist.items[0].channelAllocations.amazon, 9);
   assert.strictEqual(dist.items[0].channelAllocations.noon, 6);
   assert.strictEqual(dist.items[1].conflicts.length, 1);
+
+  // Stage 3 Tests: Cost Groups, Currency Policy, ZIP SKU Unpacker, Custom Fields, Sync Policy & Tickets
+  const cg = await stage3Service.saveCostGroup('test-co-1', {
+    name: 'Small parcel',
+    items: [
+      { label: 'Packaging', type: 'FIXED', value: 15 },
+      { label: 'Payment fee', type: 'PERCENT', value: 2 },
+    ],
+  }, null);
+  assert.strictEqual(cg.name, 'Small parcel');
+  const cgCalc = calculateMarketplaceProfit({
+    platform: 'noon',
+    country: 'EGY',
+    productCost: 100,
+    profitMarginPct: 25,
+    costGroupItems: cg.items,
+  });
+  assert.strictEqual(cgCalc.costGroupFixed, 15);
+  assert.ok(cgCalc.costGroupPctFee > 0);
+  assert.strictEqual(cgCalc.landedCost, 115);
+
+  const curPolicy = await stage3Service.saveCurrencyPolicy('test-co-1', {
+    reportingCurrency: 'SAR',
+    amountView: 'REPORTING',
+    freezeHistoricalRates: true,
+  }, null);
+  assert.strictEqual(curPolicy.reportingCurrency, 'SAR');
+  assert.strictEqual(curPolicy.amountView, 'REPORTING');
+
+  const cf = await stage3Service.saveCustomField('test-co-1', {
+    name: 'Battery health (%)',
+    fieldType: 'PERCENT',
+    scope: 'VARIANT',
+  }, null);
+  assert.strictEqual(cf.scope, 'VARIANT');
+  assert.strictEqual((await stage3Service.listCustomFields('test-co-1', null)).length, 1);
+
+  // Minimal stored PKZIP builder (0-compression) verifying ZIP SKU folder parser
+  const makeTestZip = (files) => {
+    const locals = [];
+    const centrals = [];
+    let offset = 0;
+    for (const f of files) {
+      const nameBuf = Buffer.from(f.name, 'utf8');
+      const dataBuf = Buffer.from(f.data);
+      const lh = Buffer.alloc(30);
+      lh.writeUInt32LE(0x04034b50, 0);
+      lh.writeUInt16LE(20, 4);
+      lh.writeUInt16LE(0, 8);
+      lh.writeUInt32LE(dataBuf.length, 18);
+      lh.writeUInt32LE(dataBuf.length, 22);
+      lh.writeUInt16LE(nameBuf.length, 26);
+      locals.push(lh, nameBuf, dataBuf);
+
+      const ch = Buffer.alloc(46);
+      ch.writeUInt32LE(0x02014b50, 0);
+      ch.writeUInt16LE(20, 4);
+      ch.writeUInt16LE(20, 6);
+      ch.writeUInt32LE(dataBuf.length, 20);
+      ch.writeUInt32LE(dataBuf.length, 24);
+      ch.writeUInt16LE(nameBuf.length, 28);
+      ch.writeUInt32LE(offset, 42);
+      centrals.push(ch, nameBuf);
+      offset += lh.length + nameBuf.length + dataBuf.length;
+    }
+    const cdBuf = Buffer.concat(centrals);
+    const eocd = Buffer.alloc(22);
+    eocd.writeUInt32LE(0x06054b50, 0);
+    eocd.writeUInt16LE(files.length, 8);
+    eocd.writeUInt16LE(files.length, 10);
+    eocd.writeUInt32LE(cdBuf.length, 12);
+    eocd.writeUInt32LE(offset, 16);
+    return Buffer.concat([...locals, cdBuf, eocd]).toString('base64');
+  };
+  const zipRes = await stage3Service.processBulkSkuImagesZip('test-co-1', makeTestZip([
+    { name: 'SKU-500/1.jpg', data: 'fake-jpg-1' },
+    { name: 'SKU-500/2.jpg', data: 'fake-jpg-2' },
+    { name: 'SKU-600/1.png', data: 'fake-png-1' },
+  ]), null);
+  assert.strictEqual(zipRes.totalImages, 3);
+  assert.strictEqual(zipRes.skuCount, 2);
+  assert.strictEqual(zipRes.groups[0].mainImage.fileName, '1.jpg');
+  assert.strictEqual(zipRes.groups[0].gallery.length, 1);
+
+  await stage3Service.saveInventorySyncPolicy('test-co-1', {
+    frequencyMin: 30,
+    toleranceQty: 1,
+    zeroAction: 'DISABLE',
+    conflictPolicy: 'MANUAL_REVIEW',
+  }, null);
+  const scanRes = await stage3Service.scanStockDiscrepancies('test-co-1', {
+    snapshots: [
+      { sku: 'SKU-1', channel: 'amazon', maxpQty: 10, channelQty: 6 },
+      { sku: 'SKU-2', channel: 'noon', maxpQty: 10, channelQty: 11 },
+    ],
+  }, null);
+  assert.strictEqual(scanRes.ticketsCreatedOrUpdated, 1);
+  const resolvedAll = await stage3Service.resolveAllStockTickets('test-co-1', 'USE_MAXP', null);
+  assert.strictEqual(resolvedAll.resolvedCount, 1);
 
   try {
     const qrPng = await generateQrCode({ content: 'https://maxp.online', size: 240, format: 'png' });

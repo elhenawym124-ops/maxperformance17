@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { Calculator, RefreshCw } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
+import { CostGroupsBar } from './components/CostGroupsBar';
 import {
   CalculateProfitPayload,
   CompanyCatalogProduct,
   CompareMarketplacesResult,
+  CostGroupItem,
   CountryCode,
   MarketplaceHubMetadata,
   MarketplacePlatform,
@@ -61,6 +63,7 @@ export const MarketplaceCalculatorPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [overheadCost, setOverheadCost] = useState<number>(0);
   const [storageMonths, setStorageMonths] = useState<number>(0);
+  const [costGroupItems, setCostGroupItems] = useState<CostGroupItem[]>([]);
   const [result, setResult] = useState<ProfitCalculationResult | null>(null);
   const [compareResult, setCompareResult] = useState<CompareMarketplacesResult | null>(null);
   const [catalogProducts, setCatalogProducts] = useState<CompanyCatalogProduct[]>([]);
@@ -92,6 +95,7 @@ export const MarketplaceCalculatorPage: React.FC = () => {
         productCost,
         overheadCost,
         storageMonths,
+        costGroupItems,
         profitMarginPct,
         shipmentType,
         category: amazonCategory,
@@ -129,6 +133,7 @@ export const MarketplaceCalculatorPage: React.FC = () => {
         productCost,
         overheadCost,
         storageMonths,
+        costGroupItems,
         profitMarginPct,
         weightKg,
       });
@@ -182,6 +187,8 @@ export const MarketplaceCalculatorPage: React.FC = () => {
           </button>
         ))}
       </div>
+
+      <CostGroupsBar selectedGroupItems={costGroupItems} onApplyCostGroup={setCostGroupItems} />
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
         {/* Inputs Form */}

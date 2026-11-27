@@ -1,6 +1,7 @@
 const marketplaceHubService = require('../services/marketplaceHubCalculatorService');
 const marketplaceHubAiService = require('../services/marketplaceHubAiService');
 const marketplaceHubOpsService = require('../services/marketplaceHubOpsService');
+const marketplaceHubStage3Service = require('../services/marketplaceHubStage3Service');
 
 function getCompanyId(req) {
   return req.user?.companyId || req.user?.company?.id || 'default';
@@ -330,5 +331,127 @@ exports.saveStockDistribution = async (req, res) => {
     return res.json({ success: true, data });
   } catch (error) {
     return handleError(res, error, 'Failed to save stock distribution rules');
+  }
+};
+
+// ─── Stage 3: Cost Groups, Currency Policy, ZIP Images, Custom Fields & Sync Tickets ─
+exports.listCostGroups = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.listCostGroups(getCompanyId(req)) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load cost groups');
+  }
+};
+
+exports.saveCostGroup = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.saveCostGroup(getCompanyId(req), req.body || {}) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to save cost group');
+  }
+};
+
+exports.deleteCostGroup = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.deleteCostGroup(getCompanyId(req), req.params.id) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to delete cost group');
+  }
+};
+
+exports.getCurrencyPolicy = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.getCurrencyPolicy(getCompanyId(req)) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load currency policy');
+  }
+};
+
+exports.saveCurrencyPolicy = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.saveCurrencyPolicy(getCompanyId(req), req.body || {}) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to save currency policy');
+  }
+};
+
+exports.importSkuZip = async (req, res) => {
+  try {
+    const data = await marketplaceHubStage3Service.processBulkSkuImagesZip(getCompanyId(req), req.body?.zipBase64);
+    return res.json({ success: true, data });
+  } catch (error) {
+    return handleError(res, error, 'Failed to process SKU ZIP archive');
+  }
+};
+
+exports.listCustomFields = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.listCustomFields(getCompanyId(req)) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load custom fields');
+  }
+};
+
+exports.saveCustomField = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.saveCustomField(getCompanyId(req), req.body || {}) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to save custom field');
+  }
+};
+
+exports.deleteCustomField = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.deleteCustomField(getCompanyId(req), req.params.id) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to delete custom field');
+  }
+};
+
+exports.getInventorySyncPolicy = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.getInventorySyncPolicy(getCompanyId(req)) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load inventory sync policy');
+  }
+};
+
+exports.saveInventorySyncPolicy = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.saveInventorySyncPolicy(getCompanyId(req), req.body || {}) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to save inventory sync policy');
+  }
+};
+
+exports.listStockTickets = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.listStockTickets(getCompanyId(req)) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to load stock tickets');
+  }
+};
+
+exports.scanStockDiscrepancies = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.scanStockDiscrepancies(getCompanyId(req), req.body || {}) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to scan stock discrepancies');
+  }
+};
+
+exports.resolveStockTicket = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.resolveStockTicket(getCompanyId(req), req.params.id, req.body?.resolution) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to resolve stock ticket');
+  }
+};
+
+exports.resolveAllStockTickets = async (req, res) => {
+  try {
+    return res.json({ success: true, data: await marketplaceHubStage3Service.resolveAllStockTickets(getCompanyId(req), req.body?.resolution) });
+  } catch (error) {
+    return handleError(res, error, 'Failed to resolve stock tickets');
   }
 };

@@ -165,7 +165,16 @@ function calculateMarketplaceProfit(input) {
   const countryMeta = COUNTRY_CONFIG[country] || COUNTRY_CONFIG.EGY;
 
   const productCost = Math.max(0, Number(input.productCost || 0));
-  const overheadCost = Math.max(0, Number(input.overheadCost || 0));
+  const rawOverhead = Math.max(0, Number(input.overheadCost || 0));
+  const costGroupItems = Array.isArray(input.costGroupItems) ? input.costGroupItems : [];
+  let costGroupFixed = 0;
+  let costGroupPctRate = 0;
+  for (const item of costGroupItems) {
+    const val = Math.max(0, Number(item?.value || 0));
+    if (String(item?.type || '').toUpperCase() === 'PERCENT') costGroupPctRate += val / 100;
+    else costGroupFixed += val;
+  }
+  const overheadCost = round2(rawOverhead + costGroupFixed);
   const storageMonths = Math.max(0, Number(input.storageMonths || 0));
   const profitMarginPct = Math.max(0, Number(input.profitMarginPct || 0));
   const storageFee = round2(storageMonths * (country === 'EGY' ? 12 : 4));
@@ -242,15 +251,16 @@ function calculateMarketplaceProfit(input) {
   const finalSellingPrice = solveGrossSellingPrice({
     targetBasePrice: basePrice,
     shippingFee,
-    commissionRate,
+    commissionRate: Math.min(0.65, commissionRate + costGroupPctRate),
     vatRate: countryMeta.vatRate,
   });
 
   const finalPriceExVat = round2(finalSellingPrice / (1 + countryMeta.vatRate));
   const commissionFee = round2(finalSellingPrice * commissionRate);
+  const costGroupPctFee = round2(finalSellingPrice * costGroupPctRate);
   const vatOnProduct = round2(finalSellingPrice - finalPriceExVat);
   const vatOnFees = round2((shippingFee + commissionFee) * countryMeta.vatRate);
-  const totalFees = round2(shippingFee + commissionFee + vatOnProduct + storageFee);
+  const totalFees = round2(shippingFee + commissionFee + costGroupPctFee + vatOnProduct + storageFee);
   const roiPct = landedCost > 0 ? round2((targetProfit / landedCost) * 100) : 0;
 
   return {
@@ -261,6 +271,8 @@ function calculateMarketplaceProfit(input) {
     billableWeightKg,
     productCost,
     overheadCost,
+    costGroupFixed: round2(costGroupFixed),
+    costGroupPctFee,
     storageFee,
     landedCost,
     profitMarginPct,

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { Upload, Building2, Search, Scale, ExternalLink, Boxes } from 'lucide-react';
+import { Upload, Building2, Search, Scale, ExternalLink, Boxes, FolderArchive, ShieldAlert } from 'lucide-react';
 import { MarketplaceHubLayout } from './components/MarketplaceHubLayout';
 import { WarehouseStockPanel } from './components/WarehouseStockPanel';
+import { CatalogToolsPanel } from './components/CatalogToolsPanel';
+import { StockSyncTicketsPanel } from './components/StockSyncTicketsPanel';
 import {
   CountryCode,
   MarketplacePlatform,
@@ -12,7 +14,7 @@ import {
 } from '../../services/marketplaceHubService';
 
 export const MarketplaceMarketOpsPage: React.FC = () => {
-  const [tab, setTab] = useState<'csv' | 'vendors' | 'bekam' | 'stock'>('csv');
+  const [tab, setTab] = useState<'csv' | 'vendors' | 'bekam' | 'stock' | 'zip-fields' | 'tickets'>('csv');
 
   // CSV state
   const [csvPlatform, setCsvPlatform] = useState<MarketplacePlatform>('amazon');
@@ -154,6 +156,26 @@ export const MarketplaceMarketOpsPage: React.FC = () => {
         >
           <Boxes className="h-3.5 w-3.5" />
           <span>توزيع المخزون</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setTab('zip-fields')}
+          className={`inline-flex shrink-0 items-center gap-1.5 rounded-md px-3.5 py-1.5 text-xs font-semibold ${
+            tab === 'zip-fields' ? 'bg-primary text-primary-foreground' : 'border border-border/70 bg-background text-muted-foreground'
+          }`}
+        >
+          <FolderArchive className="h-3.5 w-3.5" />
+          <span>صور ZIP وحقول</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setTab('tickets')}
+          className={`inline-flex shrink-0 items-center gap-1.5 rounded-md px-3.5 py-1.5 text-xs font-semibold ${
+            tab === 'tickets' ? 'bg-primary text-primary-foreground' : 'border border-border/70 bg-background text-muted-foreground'
+          }`}
+        >
+          <ShieldAlert className="h-3.5 w-3.5" />
+          <span>تذاكر المزامنة</span>
         </button>
       </div>
 
@@ -376,6 +398,8 @@ export const MarketplaceMarketOpsPage: React.FC = () => {
       )}
 
       {tab === 'stock' && <WarehouseStockPanel />}
+      {tab === 'zip-fields' && <CatalogToolsPanel />}
+      {tab === 'tickets' && <StockSyncTicketsPanel />}
     </MarketplaceHubLayout>
   );
 };
