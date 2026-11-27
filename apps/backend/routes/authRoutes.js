@@ -63,6 +63,7 @@ router.get('/me', verifyToken.authenticateToken, authController.me);
 router.put('/me', verifyToken.authenticateToken, authController.updateMe);
 router.post('/refresh', authController.refresh);
 router.post('/logout', verifyToken.authenticateToken, authController.logout);
+router.post('/logout-all', verifyToken.authenticateToken, authController.logoutAllDevices);
 router.post('/forgot-password', authRateLimiter, authController.forgotPassword);
 router.post('/reset-password', authRateLimiter, authController.resetPassword);
 router.get('/verify-email', authController.verifyEmail);

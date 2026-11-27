@@ -448,7 +448,8 @@ const authenticateToken = async (req, res, next) => {
           role: true,
           merchantId: true,
           companyId: true,
-          isActive: true
+          isActive: true,
+          sessionsValidAfter: true
         }
       })
     );
@@ -467,6 +468,17 @@ const authenticateToken = async (req, res, next) => {
         success: false,
         message: 'الحساب غير نشط',
         code: 'USER_INACTIVE'
+      });
+    }
+
+    // 🔐 [SESSION-REVOCATION] A cut-off newer than this token's `iat` means the account
+    // signed out everywhere (or changed its password) after this token was minted.
+    const { isSessionRevoked } = require('./sessionRevocation');
+    if (isSessionRevoked(decoded.iat, user.sessionsValidAfter)) {
+      return res.status(401).json({
+        success: false,
+        message: 'انتهت صلاحية هذه الجلسة. سجّل الدخول مرة أخرى.',
+        code: 'SESSION_REVOKED'
       });
     }
 

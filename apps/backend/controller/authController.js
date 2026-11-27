@@ -13,6 +13,7 @@ const {
 } = require('../utils/companyOnboarding');
 const WhatsAppNotificationService = require('../services/whatsapp/WhatsAppNotificationService');
 const { getJwtSecret, getJwtRefreshSecret } = require('../utils/jwtSecret');
+const { isSessionRevoked } = require('../utils/sessionRevocation');
 const businessSpecialtyService = require('../services/businessSpecialtyService');
 const { filterActiveCompanyAppSlugs, isCompanyAppInstallationValid } = require('../middleware/checkAppAccess');
 const normalizeEmail = (value = '') => value.trim().toLowerCase();
@@ -1713,6 +1714,14 @@ const refresh = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid or inactive user' });
     }
 
+    if (isSessionRevoked(decoded.iat, user.sessionsValidAfter)) {
+      return res.status(401).json({
+        success: false,
+        message: 'انتهت صلاحية الجلسة. سجّل الدخول مرة أخرى.',
+        code: 'SESSION_REVOKED'
+      });
+    }
+
     const sessionConfig = getSessionExpiryConfig(req);
 
     // Generate NEW tokens
@@ -1769,6 +1778,40 @@ const logout = async (req, res) => {
     message: 'تم تسجيل الخروج بنجاح'
   });
 }
+
+// Sign out from every device: moves the account cut-off so all existing JWTs die.
+const logoutAllDevices = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'يجب تسجيل الدخول أولاً' });
+    }
+
+    await getSharedPrismaClient().user.update({
+      where: { id: userId },
+      data: { sessionsValidAfter: new Date() }
+    });
+
+    res.clearCookie('refreshToken', {
+      path: '/',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict'
+    });
+
+    return res.json({
+      success: true,
+      message: 'تم إنهاء كل الجلسات على جميع الأجهزة'
+    });
+  } catch (error) {
+    console.error('❌ [LOGOUT-ALL] Failed:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'تعذر إنهاء الجلسات',
+      error: error.message
+    });
+  }
+};
 
 // Forgot Password - Send reset token via email
 const forgotPassword = async (req, res) => {
@@ -2939,20 +2982,56 @@ const changePassword = async (req, res) => {
     // Hash new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update password
+    // Changing the password kills every other session, so the cut-off moves to now.
+    // The current device gets freshly minted tokens below to stay signed in.
+    const signedInAt = new Date();
+
     await getSharedPrismaClient().user.update({
       where: { id: userId },
       data: {
         password: hashedPassword,
-        passwordChangedAt: new Date()
+        passwordChangedAt: signedInAt,
+        sessionsValidAfter: signedInAt
       }
     });
 
     console.log('✅ [CHANGE-PASSWORD] Password changed successfully');
 
+    const sessionConfig = getSessionExpiryConfig(req);
+    const accessToken = jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+        merchantId: user.merchantId || null,
+        companyId: user.companyId
+      },
+      getJwtSecret(),
+      { expiresIn: sessionConfig.tokenExpiry }
+    );
+    const refreshToken = jwt.sign(
+      {
+        userId: user.id,
+        role: user.role,
+        merchantId: user.merchantId || null,
+        companyId: user.companyId
+      },
+      getJwtRefreshSecret(),
+      { expiresIn: sessionConfig.refreshTokenExpiry }
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: sessionConfig.refreshTokenMaxAge,
+      path: '/'
+    });
+
     res.json({
       success: true,
-      message: 'تم تغيير كلمة المرور بنجاح'
+      message: 'تم تغيير كلمة المرور بنجاح',
+      data: { accessToken, refreshToken }
     });
 
   } catch (error) {
@@ -3341,6 +3420,7 @@ module.exports = {
   me,
   updateMe,
   logout,
+  logoutAllDevices,
   refresh,
   forgotPassword,
   resetPassword,

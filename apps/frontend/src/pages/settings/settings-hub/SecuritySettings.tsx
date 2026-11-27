@@ -93,6 +93,15 @@ export const SecuritySettings: React.FC = () => {
         return;
       }
 
+      // The old token is revoked by the server once the password changes,
+      // so this device takes the freshly issued pair.
+      const issuedAccessToken = payload?.data?.accessToken;
+      const issuedRefreshToken = payload?.data?.refreshToken;
+      if (issuedAccessToken) {
+        tokenManager.setAccessToken(issuedAccessToken);
+        if (issuedRefreshToken) tokenManager.setRefreshToken(issuedRefreshToken);
+      }
+
       setFormData({
         currentPassword: '',
         newPassword: '',
