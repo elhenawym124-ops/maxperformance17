@@ -3243,7 +3243,7 @@ const recalculateCustomerRatingHandler = async (req, res) => {
     }
 
     const { calculateCustomerScore } = require('../services/customerRatingService');
-    const result = await calculateCustomerScore(customerId, companyId);
+    const result = await calculateCustomerScore(customerId, companyId, null, { clearManualOverride: true });
 
     res.json({
       success: true,

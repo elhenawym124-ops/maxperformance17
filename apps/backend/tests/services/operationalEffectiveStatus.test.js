@@ -71,11 +71,49 @@ describe('Operational Effective Status Integration (Wave 2 Item 4 Batch 3)', () 
 
       expect(mockPrisma.$queryRawUnsafe).toHaveBeenCalled();
       const sqlCall = mockPrisma.$queryRawUnsafe.mock.calls[0][0];
+      const phoneVariantsParam = mockPrisma.$queryRawUnsafe.mock.calls[0][3];
       expect(sqlCall).toContain('customStatusCode');
+      expect(sqlCall).toContain('ANY($3::text[])');
       expect(sqlCall).toContain('GROUP BY');
+      expect(phoneVariantsParam).toContain('01012345678');
+      expect(phoneVariantsParam).toContain('201012345678');
 
       expect(result.signals.cancelledCount).toBe(2);
       expect(result.signals.returnedCount).toBe(1);
+    });
+
+    test('includes RETURNED in repeat address check, uses string label, and detects PRIOR_BLOCK', async () => {
+      mockPrisma.$queryRawUnsafe
+        .mockResolvedValueOnce([{ status: 'DELIVERED', cnt: 0 }])
+        .mockResolvedValueOnce([{ cnt: 2 }]);
+      mockPrisma.customerBlockRule = {
+        findFirst: jest.fn().mockResolvedValue({ id: 'rule-1', status: 'LIFTED', reasonCode: 'REPEATED_RETURN' }),
+      };
+
+      const result = await scoreOrderDraft(
+        mockPrisma,
+        {
+          companyId: 'comp-1',
+          phone: '+201012345678',
+          address: '15 Tahrir Square Cairo Egypt',
+          city: 'Cairo',
+          total: 500,
+        },
+        {
+          enabled: true,
+          highThreshold: 70,
+          mediumThreshold: 40,
+          highValueThreshold: 5000,
+          historyWindowDays: 90,
+        }
+      );
+
+      const addrSql = mockPrisma.$queryRawUnsafe.mock.calls[1][0];
+      expect(addrSql).toContain("status ILIKE '%RETURN%'");
+      const repeatReason = result.reasons.find((r) => r.code === 'REPEAT_ADDRESS');
+      expect(typeof repeatReason.label).toBe('string');
+      expect(result.reasons.some((r) => r.code === 'PRIOR_BLOCK')).toBe(true);
+      expect(result.signals.priorBlock).toBe(true);
     });
   });
 

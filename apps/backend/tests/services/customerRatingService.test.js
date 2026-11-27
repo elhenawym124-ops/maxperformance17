@@ -384,5 +384,91 @@ describe('customerRatingService - Automated Classification Engine (2026 Standard
         expect(result.totalAttempts).toBe(1);
         expect(result.rating).toBe('UNKNOWN');
         expect(result.healthScore).toBe(7.5);
+        expect(result.earlyRisk).toBe(false);
+    });
+
+    test('18. تنبيه مبكر: عميل لديه مرتجعين متتاليين و 0 استلام (< 3 طلبات) -> earlyRisk=true و healthScore منخفض', async () => {
+        const orders = [
+            { id: 'ord-1', orderNumber: '1001', status: 'RETURNED', turboReturnReason: 'العميل لا يرد', returnRequests: [], createdAt: new Date('2026-01-01') },
+            { id: 'ord-2', orderNumber: '1002', status: 'RETURNED', turboReturnReason: 'رفض الاستلام', returnRequests: [], createdAt: new Date('2026-01-02') },
+        ];
+        const prisma = buildMockPrisma(baseCustomer, orders);
+
+        const result = await calculateCustomerScore(customerId, companyId, prisma);
+
+        expect(result.totalAttempts).toBe(2);
+        expect(result.rating).toBe('UNKNOWN');
+        expect(result.earlyRisk).toBe(true);
+        expect(result.healthScore).toBe(4.5);
+    });
+
+    test('19. إلغاء بعد الشحن للمندوب (SHIPPED / OUT_FOR_DELIVERY) بدون خطأ متجر يُخصم من العميل حتى لو لم تذكر الملاحظات كلمة مفتاحية', async () => {
+        const orders = [
+            { id: 'ord-1', orderNumber: '1001', status: 'DELIVERED', returnRequests: [], createdAt: new Date('2026-01-01') },
+            { id: 'ord-2', orderNumber: '1002', status: 'DELIVERED', returnRequests: [], createdAt: new Date('2026-01-02') },
+            {
+                id: 'ord-3',
+                orderNumber: '1003',
+                status: 'CANCELLED',
+                returnRequests: [],
+                statusHistory: [{ status: 'SHIPPED', oldStatus: 'CONFIRMED', createdAt: new Date('2026-01-03') }],
+                createdAt: new Date('2026-01-03')
+            },
+        ];
+        const prisma = buildMockPrisma(baseCustomer, orders);
+
+        const result = await calculateCustomerScore(customerId, companyId, prisma);
+
+        expect(result.totalDelivered).toBe(2);
+        expect(result.totalFailed).toBe(1);
+        expect(result.totalAttempts).toBe(3);
+        expect(result.deliveryRate).toBe(66.7);
+    });
+
+    test('20. احترام التقييم اليدوي (manualOverride=true) عند إعادة الحساب التلقائي وإلغاؤه عند clearManualOverride=true', async () => {
+        const manualCust = {
+            ...baseCustomer,
+            customerRating: 'EXCELLENT',
+            metadata: JSON.stringify({
+                ratingMetadata: {
+                    ratingVersion: 1,
+                    manualOverride: true,
+                    manualRating: 'EXCELLENT'
+                }
+            })
+        };
+        const orders = [
+            { id: 'ord-1', orderNumber: '1001', status: 'RETURNED', returnRequests: [], createdAt: new Date('2026-01-01') },
+            { id: 'ord-2', orderNumber: '1002', status: 'RETURNED', returnRequests: [], createdAt: new Date('2026-01-02') },
+            { id: 'ord-3', orderNumber: '1003', status: 'RETURNED', returnRequests: [], createdAt: new Date('2026-01-03') },
+        ];
+        const prisma = buildMockPrisma(manualCust, orders);
+
+        const kept = await calculateCustomerScore(customerId, companyId, prisma);
+        expect(kept.rating).toBe('EXCELLENT');
+        expect(kept.computedRating).toBe('POOR');
+        expect(kept.manualOverride).toBe(true);
+
+        const cleared = await calculateCustomerScore(customerId, companyId, prisma, { clearManualOverride: true });
+        expect(cleared.rating).toBe('POOR');
+        expect(cleared.manualOverride).toBe(false);
+    });
+
+    test('21. التقادم الزمني (Time Decay): الطلبات الأقدم من سنة تأخذ وزن 0.5 مقارنة بالطلبات الحديثة', async () => {
+        const orders = [
+            { id: 'ord-old-1', orderNumber: '1001', status: 'RETURNED', returnRequests: [], createdAt: new Date('2024-01-01') },
+            { id: 'ord-old-2', orderNumber: '1002', status: 'RETURNED', returnRequests: [], createdAt: new Date('2024-02-01') },
+            { id: 'ord-new-1', orderNumber: '1003', status: 'DELIVERED', returnRequests: [], createdAt: new Date('2026-10-01') },
+            { id: 'ord-new-2', orderNumber: '1004', status: 'DELIVERED', returnRequests: [], createdAt: new Date('2026-10-10') },
+            { id: 'ord-new-3', orderNumber: '1005', status: 'DELIVERED', returnRequests: [], createdAt: new Date('2026-10-20') },
+        ];
+        const prisma = buildMockPrisma(baseCustomer, orders);
+
+        const result = await calculateCustomerScore(customerId, companyId, prisma, { asOf: '2026-11-27T00:00:00.000Z' });
+
+        // 2 old returns (>730d = 0.25 each = 0.5 failed) + 3 recent delivered (1.0 each = 3.0 delivered) => 3.0 / 3.5 = 85.7%
+        expect(result.totalDelivered).toBe(3);
+        expect(result.totalFailed).toBe(0.5);
+        expect(result.deliveryRate).toBe(85.7);
     });
 });

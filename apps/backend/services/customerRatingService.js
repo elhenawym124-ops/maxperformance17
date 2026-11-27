@@ -1,11 +1,13 @@
 // Use shared database connection
 const { getSharedPrismaClient } = require('./sharedDatabase');
 const { getPhoneVariants, toCanonicalE164 } = require('../utils/phoneNormalization');
+const { computeEffectiveOrderStatus } = require('../utils/orderEffectiveStatus');
 
 /**
  * Global rules version for customer rating classification engine.
  */
-const CURRENT_RULES_VERSION = '2026.10.18.v3';
+const CURRENT_RULES_VERSION = '2026.11.27.v4';
+const VALID_RATINGS = new Set(['EXCELLENT', 'GOOD', 'AVERAGE', 'POOR', 'UNKNOWN']);
 
 /**
  * Terminal order statuses used to calculate delivery rate and customer quality tier.
@@ -66,16 +68,18 @@ function classifyReasonText(raw) {
 
     // 1. Store / Product / Shipping / Technical fault keywords (السبب من المتجر أو الشحن -> مستبعد ولا يُخصم من العميل)
     const storeShippingKeywords = [
-        'غير مطابق', 'مطابق للمواصفات', 'المواصفات',
-        'مقاس غلط', 'لون غلط', 'موديل غلط', 'صنف غلط', 'منتج غلط', 'مودريتور', 'تجهيز',
+        'غير مطابق', 'مطابق للمواصفات', 'المواصفات', 'مش نفس الشكل',
+        'مقاس غلط', 'مقاس مش مظبوط', 'لون غلط', 'موديل غلط', 'صنف غلط', 'منتج غلط', 'مودريتور', 'تجهيز',
         'الراسل', 'خدمة العملاء', 'خدمه العملاء',
         'سوء منتج', 'خامه سيئه', 'خامة سيئة', 'خامه مش حلوه', 'جوده المنتج', 'جودة المنتج',
-        'عيب صناعة', 'عيب صناعه', 'تالف', 'مكسور', 'باظ', 'كسر',
+        'عيب صناعة', 'عيب صناعه', 'تالف', 'مكسور', 'باظ', 'بايظ', 'كسر',
         'نفاذ كمية', 'نفاد كمية', 'غير متوفر', 'مش موجود في المخزن', 'خلص من المخزن',
         'مش متاكد عليه', 'غير مؤكد', 'خلاف فى سعر', 'خلاف في سعر', 'سعر الطرد',
         'خارج تغطية', 'خارج تغطيه', 'تغطية الشركة', 'تغطية الفرع', 'تحويله الى فرع', 'تحويله إلى فرع',
-        'مدير الفرع', 'تأخر المندوب', 'تاخر المندوب', 'مندوب لم يتصل', 'لم يتصل', 'تسليم وهمي',
-        'مرتجع بسبب الشحن', 'تلف الشحن', 'ضياع', 'مفقود', 'خط سير', 'طرد مكرر', 'طلب مكرر', 'مكرر'
+        'مدير الفرع', 'تأخر المندوب', 'تاخر المندوب', 'متاخر', 'مندوب لم يتصل', 'لم يتصل', 'تسليم وهمي',
+        'مرتجع بسبب الشحن', 'تلف الشحن', 'ضياع', 'مفقود', 'خط سير', 'طرد مكرر', 'طلب مكرر', 'مكرر',
+        'wrong size', 'wrong color', 'wrong item', 'defective', 'damaged', 'out of stock',
+        'courier delay', 'courier fault', 'lost in transit', 'duplicate'
     ];
 
     for (const kw of storeShippingKeywords) {
@@ -86,12 +90,14 @@ function classifyReasonText(raw) {
 
     // 2. Explicit Customer Fault keywords (فقط ما كان بامتناع العميل أو رفضه أو تهربه)
     const customerKeywords = [
-        'رفض الاستلام بدون سبب', 'رفض الاستلام ورفض يدفع', 'رفض الاستلام', 'رافض يستلم',
-        'لا يرد نهائيا', 'لا يرد بعد الذهاب', 'الرقم لا يرد', 'العميل لا يرد', 'مابيردش', 'مش بيرد',
-        'مغلق باستمرار', 'الموبايل مقفول', 'الرقم مغلق', 'مقفول', 'غير متاح', 'غير موجود بالخدمة',
-        'تهرب من العميل', 'تهرب', 'العميل لم يطلب', 'عنوان وهمي',
+        'رفض الاستلام بدون سبب', 'رفض الاستلام ورفض يدفع', 'رفض الاستلام', 'رافض يستلم', 'مش عايز يستلم', 'رافض يدفع',
+        'لا يرد نهائيا', 'لا يرد بعد الذهاب', 'الرقم لا يرد', 'العميل لا يرد', 'مابيردش', 'ما بيردش', 'مش بيرد', 'مردش',
+        'مغلق باستمرار', 'الموبايل مقفول', 'قفل الموبايل', 'الرقم مغلق', 'مقفول', 'غير متاح', 'غير موجود بالخدمة',
+        'تهرب من العميل', 'تهرب', 'العميل لم يطلب', 'عنوان وهمي', 'عنوان غلط',
         'العميل لاغي', 'العميل لغى', 'مش عايز الاوردر', 'تراجع عن الشراء',
-        'عدم تواجد العميل', 'تاجيل كذا مرة', 'تأجيل كذا مرة'
+        'عدم تواجد العميل', 'العميل مش موجود', 'تاجيل كذا مرة', 'تأجيل كذا مرة',
+        'customer refused', 'refused delivery', 'no answer', 'unreachable', 'phone off', 'switched off',
+        'cancelled at door', 'fake address'
     ];
 
     for (const kw of customerKeywords) {
@@ -263,7 +269,20 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
     try {
         const prisma = prismaClient || getSharedPrismaClient();
         const asOfDate = options.asOf ? new Date(options.asOf) : null;
-        const asOfIso = (asOfDate || new Date()).toISOString();
+        const referenceDate = asOfDate || new Date();
+        const asOfIso = referenceDate.toISOString();
+
+        /**
+         * Time decay weight: orders within 365 days carry full weight (1.0);
+         * orders 1-2 years old carry 0.5; orders > 2 years old carry 0.25.
+         */
+        const getTimeDecayWeight = (createdAt) => {
+            if (!createdAt) return 1.0;
+            const ageDays = (referenceDate.getTime() - new Date(createdAt).getTime()) / 86400000;
+            if (ageDays > 730) return 0.25;
+            if (ageDays > 365) return 0.5;
+            return 1.0;
+        };
 
         // 1. Fetch customer details
         const customer = await prisma.customer.findFirst({
@@ -291,27 +310,34 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
         const createdAtFilter = asOfDate ? { createdAt: { lte: asOfDate } } : {};
 
         // 2. Fetch all orders for this customer in terminal states (deterministic sort)
+        const terminalStatusCodes = [
+            'DELIVERED',
+            'PARTIALLY_DELIVERED',
+            'RETURNED',
+            'PARTIALLY_RETURNED',
+            'REFUNDED',
+            'LOST',
+            'CANCELLED'
+        ];
         const orders = await prisma.order.findMany({
             where: {
                 companyId,
                 OR: orderWhereConditions,
-                status: {
-                    in: [
-                        'DELIVERED',
-                        'PARTIALLY_DELIVERED',
-                        'RETURNED',
-                        'PARTIALLY_RETURNED',
-                        'REFUNDED',
-                        'LOST',
-                        'CANCELLED'
-                    ]
-                },
+                AND: [
+                    {
+                        OR: [
+                            { status: { in: terminalStatusCodes } },
+                            { customStatusCode: { in: terminalStatusCodes } }
+                        ]
+                    }
+                ],
                 ...createdAtFilter
             },
             select: {
                 id: true,
                 orderNumber: true,
                 status: true,
+                customStatusCode: true,
                 notes: true,
                 metadata: true,
                 turboReturnReason: true,
@@ -396,6 +422,8 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
                 continue;
             }
 
+            const effectiveStatus = computeEffectiveOrderStatus(order);
+            const weight = getTimeDecayWeight(order.createdAt);
             const fault = evaluateOrderFault(order);
             const hasExplicitCustomerFault = fault === 'CUSTOMER' || (order.returnRequests || []).some(
                 r => r.responsibleParty === 'CUSTOMER' && r.status === 'APPROVED'
@@ -405,87 +433,87 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
             );
 
             // Case A: Full Delivery
-            if (order.status === 'DELIVERED') {
+            if (effectiveStatus === 'DELIVERED') {
                 if (hasExplicitCustomerFault) {
-                    failedWeight += 1.0;
+                    failedWeight += weight;
                 } else {
-                    deliveredWeight += 1.0;
+                    deliveredWeight += weight;
                 }
                 continue;
             }
 
             // Case B: Partial Delivery (Weighted 0.5 delivered / 0.5 failed unless store/shipping fault)
-            if (order.status === 'PARTIALLY_DELIVERED') {
+            if (effectiveStatus === 'PARTIALLY_DELIVERED') {
                 if (hasExplicitCustomerFault) {
-                    failedWeight += 1.0;
+                    failedWeight += weight;
                 } else if (isStoreOrShippingFault) {
-                    deliveredWeight += 0.5;
+                    deliveredWeight += 0.5 * weight;
                 } else {
-                    deliveredWeight += 0.5;
-                    failedWeight += 0.5;
+                    deliveredWeight += 0.5 * weight;
+                    failedWeight += 0.5 * weight;
                 }
                 continue;
             }
 
             // Case C: Partial Return (Weighted 0.5 delivered unless store/shipping fault)
-            if (order.status === 'PARTIALLY_RETURNED') {
+            if (effectiveStatus === 'PARTIALLY_RETURNED') {
                 if (isStoreOrShippingFault) {
-                    deliveredWeight += 0.5;
+                    deliveredWeight += 0.5 * weight;
                 } else {
-                    deliveredWeight += 0.5;
-                    failedWeight += 0.5;
+                    deliveredWeight += 0.5 * weight;
+                    failedWeight += 0.5 * weight;
                 }
                 continue;
             }
 
             // Case D: LOST (Courier fault - neutral, NOT customer failure)
-            if (order.status === 'LOST') {
+            if (effectiveStatus === 'LOST') {
                 if (hasExplicitCustomerFault) {
-                    failedWeight += 1.0;
+                    failedWeight += weight;
                 }
                 // Default: Do NOT penalize customer for lost shipment
                 continue;
             }
 
             // Case E: REFUNDED (Merchant/defective refund - neutral, NOT customer failure)
-            if (order.status === 'REFUNDED') {
+            if (effectiveStatus === 'REFUNDED') {
                 if (hasExplicitCustomerFault) {
-                    failedWeight += 1.0;
+                    failedWeight += weight;
                 }
                 // Default: Do NOT penalize customer for refund
                 continue;
             }
 
             // Case F: Full RETURNED (linked to return reasons)
-            if (order.status === 'RETURNED') {
+            if (effectiveStatus === 'RETURNED') {
                 if (isStoreOrShippingFault) {
                     // Carrier or Store error acknowledged or matched in reason -> do not penalize (مستبعد)
                     continue;
                 }
                 // If fault is customer or unclassified returned:
-                failedWeight += 1.0;
+                failedWeight += weight;
                 continue;
             }
 
             // Case G: CANCELLED
-            if (order.status === 'CANCELLED') {
+            if (effectiveStatus === 'CANCELLED') {
                 if (isStoreOrShippingFault) {
                     // Store out of stock, courier delay, etc -> do not penalize (مستبعد)
                     continue;
                 }
                 if (hasExplicitCustomerFault) {
-                    failedWeight += 1.0;
+                    failedWeight += weight;
                     continue;
                 }
 
-                // Check if cancelled after dispatch / out for delivery
+                // Cancelled after dispatch to courier (SHIPPED / OUT_FOR_DELIVERY) without store/shipping fault
                 const historyStatuses = (order.statusHistory || []).map(h => String(h.status || '').toUpperCase());
-                const wasShippedOrDispatched = historyStatuses.some(s => 
-                    ['SHIPPED', 'OUT_FOR_DELIVERY', 'READY_TO_SHIP'].includes(s)
+                const wasDispatchedToCourier = historyStatuses.some(s =>
+                    ['SHIPPED', 'OUT_FOR_DELIVERY'].includes(s)
                 );
 
-                if (wasShippedOrDispatched && fault === 'CUSTOMER') {
-                    failedWeight += 1.0;
+                if (wasDispatchedToCourier) {
+                    failedWeight += weight;
                 }
                 // Pre-dispatch draft/pending cancellation is neutral
             }
@@ -496,22 +524,23 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
             if (isDuplicateOrder(guest)) {
                 continue;
             }
+            const weight = getTimeDecayWeight(guest.createdAt);
             const fault = evaluateOrderFault(guest);
             const isStoreOrShippingFault = fault === 'STORE_OR_SHIPPING';
 
             const st = String(guest.status || '').toUpperCase();
             if (st === 'DELIVERED') {
-                deliveredWeight += 1.0;
+                deliveredWeight += weight;
             } else if (st === 'PARTIALLY_DELIVERED' || st === 'PARTIALLY_RETURNED') {
                 if (isStoreOrShippingFault) {
-                    deliveredWeight += 0.5;
+                    deliveredWeight += 0.5 * weight;
                 } else {
-                    deliveredWeight += 0.5;
-                    failedWeight += 0.5;
+                    deliveredWeight += 0.5 * weight;
+                    failedWeight += 0.5 * weight;
                 }
             } else if (st === 'RETURNED') {
                 if (!isStoreOrShippingFault) {
-                    failedWeight += 1.0;
+                    failedWeight += weight;
                 }
             }
             // LOST / REFUNDED / CANCELLED on guest orders are not penalized by default
@@ -603,12 +632,24 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
             existingMetadata = {};
         }
 
-        const currentRatingVersion = (existingMetadata.ratingMetadata?.ratingVersion || 0) + 1;
+        const prevRatingMeta = existingMetadata.ratingMetadata || {};
+        const clearManualOverride = options.clearManualOverride === true;
+        const hasManualOverride = !clearManualOverride &&
+            prevRatingMeta.manualOverride === true &&
+            VALID_RATINGS.has(String(prevRatingMeta.manualRating || '').toUpperCase());
+        const finalRating = hasManualOverride
+            ? String(prevRatingMeta.manualRating).toUpperCase()
+            : rating;
+
+        const currentRatingVersion = (prevRatingMeta.ratingVersion || 0) + 1;
         const nowIso = new Date().toISOString();
 
         // Calculate continuous Health Score (0.0 to 10.0)
-        // If customer has fewer than minOrdersForRating, maintain default 7.5 (New Customer)
+        // If customer has fewer than minOrdersForRating:
+        // - 2+ consecutive failures with 0 deliveries -> earlyRisk warning & lowered healthScore
+        // - Otherwise maintain default 7.5 (New Customer)
         let healthScore = 7.5;
+        let earlyRisk = false;
         if (totalAttempts >= minOrdersForRating) {
             const rate = deliveredWeight / totalAttempts;
             let s;
@@ -622,16 +663,27 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
                 s = base - penalty;
             }
             healthScore = Math.min(9.9, Math.max(1.0, Math.round(s * 10) / 10));
+        } else if (deliveredWeight === 0 && failedWeight >= 2) {
+            earlyRisk = true;
+            healthScore = Math.max(2.5, Math.round((4.5 - (failedWeight - 2) * 0.5) * 10) / 10);
         } else {
             healthScore = 7.5;
         }
 
         const updatedRatingMetadata = {
+            ...(clearManualOverride ? {} : {
+                manualOverride: hasManualOverride ? true : undefined,
+                manualRating: hasManualOverride ? finalRating : undefined,
+                manualUpdatedAt: hasManualOverride ? prevRatingMeta.manualUpdatedAt : undefined,
+                manualUpdatedBy: hasManualOverride ? prevRatingMeta.manualUpdatedBy : undefined,
+            }),
             ratingVersion: currentRatingVersion,
             rulesVersion: CURRENT_RULES_VERSION,
             lastCalculatedAt: nowIso,
             lastCalculatedAsOf: asOfIso,
             healthScore,
+            earlyRisk,
+            computedRating: rating,
             ratingDirty: false
         };
 
@@ -646,7 +698,7 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
                 deliveryRate: deliveryRate,
                 totalDelivered: Math.floor(deliveredWeight),
                 totalOrdersCount: Math.round(totalAttempts),
-                customerRating: rating,
+                customerRating: finalRating,
                 successScore: deliveryRate,
                 metadata: updatedMetadataStr
             }
@@ -655,12 +707,15 @@ const calculateCustomerScore = async (customerId, companyId, prismaClient = null
         return {
             customerId: customer.id,
             healthScore,
+            earlyRisk,
             deliveryRate,
             totalDelivered: deliveredWeight,
             totalFailed: failedWeight,
             totalAttempts,
             totalOrdersCount: Math.round(totalAttempts),
-            rating,
+            rating: finalRating,
+            computedRating: rating,
+            manualOverride: hasManualOverride,
             rulesVersion: CURRENT_RULES_VERSION,
             ratingVersion: currentRatingVersion,
             lastCalculatedAt: nowIso,

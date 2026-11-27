@@ -12,6 +12,7 @@ const {
   parseStatusFilter
 } = require('../utils/orderStatusFilter');
 const { EFFECTIVE_ORDER_STATUS_SQL, effectiveOrderStatusSql } = require('../utils/orderEffectiveStatus');
+const { getPhoneVariants, normalizePhone } = require('../utils/phoneNormalization');
 
 const simpleOrderService = require('../services/simpleOrderService');
 const orderService = require('../services/orderService');
@@ -4568,7 +4569,7 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
         orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
         include: {
           customer: {
-            select: { id: true, firstName: true, lastName: true, phone: true, email: true, customerRating: true, successScore: true, deliveryRate: true, totalDelivered: true, totalOrdersCount: true }
+            select: { id: true, firstName: true, lastName: true, phone: true, email: true, customerRating: true, successScore: true, deliveryRate: true, totalDelivered: true, totalOrdersCount: true, metadata: true }
           },
           orderItems: {
             include: {
@@ -4869,6 +4870,9 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
       ...regularOrders.map(o => o.customerPhone || o.customer?.phone).filter(Boolean),
       ...guestOrders.map(o => o.guestPhone).filter(Boolean)
     ])];
+    const allPhoneVariants = [...new Set(
+      allPhones.flatMap(p => [p, ...getPhoneVariants(p)]).filter(Boolean)
+    )];
     const allCustomerIds = [...new Set(regularOrders.map(o => o.customerId || o.customer?.id).filter(Boolean))];
     const allAssignedToIds = [...new Set(regularOrders.map(o => o.assignedTo).filter(Boolean))];
 
@@ -4876,10 +4880,45 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
     const statsByPhone = new Map();
     const statsByCustomerId = new Map();
     const assignedUsersById = new Map();
+    let companyRatingThresholds = {
+      excellentThreshold: 90,
+      goodThreshold: 75,
+      averageThreshold: 50,
+      minOrdersForRating: 3,
+      minOrdersExcellent: 10,
+      minOrdersGood: 5,
+      minOrdersAverage: 3,
+    };
 
     try {
       const prismaClient = getSharedPrismaClient();
       const promises = [];
+
+      if (prismaClient.returnSettings) {
+        promises.push(
+          prismaClient.returnSettings.findUnique({
+            where: { companyId },
+            select: {
+              excellentThreshold: true,
+              goodThreshold: true,
+              minOrdersForRating: true,
+              reviewDisplayConfig: true,
+            }
+          }).then(settings => {
+            if (!settings) return;
+            if (typeof settings.excellentThreshold === 'number') companyRatingThresholds.excellentThreshold = settings.excellentThreshold;
+            if (typeof settings.goodThreshold === 'number') companyRatingThresholds.goodThreshold = settings.goodThreshold;
+            if (typeof settings.minOrdersForRating === 'number') companyRatingThresholds.minOrdersForRating = settings.minOrdersForRating;
+            const reviewCfg = typeof settings.reviewDisplayConfig === 'string'
+              ? JSON.parse(settings.reviewDisplayConfig || '{}')
+              : (settings.reviewDisplayConfig || {});
+            if (typeof reviewCfg.averageThreshold === 'number') companyRatingThresholds.averageThreshold = reviewCfg.averageThreshold;
+            if (typeof reviewCfg.minOrdersExcellent === 'number') companyRatingThresholds.minOrdersExcellent = reviewCfg.minOrdersExcellent;
+            if (typeof reviewCfg.minOrdersGood === 'number') companyRatingThresholds.minOrdersGood = reviewCfg.minOrdersGood;
+            if (typeof reviewCfg.minOrdersAverage === 'number') companyRatingThresholds.minOrdersAverage = reviewCfg.minOrdersAverage;
+          }).catch(() => {})
+        );
+      }
 
       if (allAssignedToIds.length > 0) {
         promises.push(
@@ -4894,14 +4933,18 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
         );
       }
 
-      if (allPhones.length > 0) {
+      if (allPhoneVariants.length > 0) {
         promises.push(
           prismaClient.customer.findMany({
-            where: { companyId, phone: { in: allPhones } },
-            select: { id: true, phone: true, customerRating: true, successScore: true, deliveryRate: true, totalDelivered: true, totalOrdersCount: true }
+            where: { companyId, phone: { in: allPhoneVariants } },
+            select: { id: true, phone: true, customerRating: true, successScore: true, deliveryRate: true, totalDelivered: true, totalOrdersCount: true, metadata: true }
           }).then(found => {
             found.forEach(c => {
-              if (c.phone) guestCustomerByPhone.set(c.phone, c);
+              if (c.phone) {
+                guestCustomerByPhone.set(c.phone, c);
+                const norm = normalizePhone(c.phone);
+                if (norm) guestCustomerByPhone.set(norm, c);
+              }
             });
           }).catch(err => {
             console.warn('⚠️ [ORDERS] Failed to batch fetch customers by phone:', err.message);
@@ -4916,7 +4959,7 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
                 AND "status" != 'DUPLICATE_ORDER'
                 AND ("metadata" IS NULL OR "metadata"::text NOT LIKE '%"duplicate":true%')
               GROUP BY "customerPhone", (${effectiveOrderStatusSql()})
-            `, companyId, allPhones).then(rows => {
+            `, companyId, allPhoneVariants).then(rows => {
               return (Array.isArray(rows) ? rows : []).map(r => ({
                 customerPhone: r.customerPhone,
                 status: r.status,
@@ -4928,7 +4971,7 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
           console.warn('⚠️ [ORDERS] Raw phone group failed, fallback to prisma groupBy:', err.message);
           return prismaClient.order.groupBy({
             by: ['customerPhone', 'status'],
-            where: { companyId, customerPhone: { in: allPhones }, status: { not: 'DUPLICATE_ORDER' } },
+            where: { companyId, customerPhone: { in: allPhoneVariants }, status: { not: 'DUPLICATE_ORDER' } },
             _count: { id: true }
           });
         });
@@ -4939,10 +4982,11 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
               if (!g.customerPhone) return;
               const st = String(g.status || '').toUpperCase();
               if (st === 'DUPLICATE_ORDER') return;
-              if (!statsByPhone.has(g.customerPhone)) {
-                statsByPhone.set(g.customerPhone, { delivered: 0, returned: 0, cancelled: 0, inFlight: 0, total: 0 });
+              const phoneKey = normalizePhone(g.customerPhone) || g.customerPhone;
+              if (!statsByPhone.has(phoneKey)) {
+                statsByPhone.set(phoneKey, { delivered: 0, returned: 0, cancelled: 0, inFlight: 0, total: 0 });
               }
-              const rec = statsByPhone.get(g.customerPhone);
+              const rec = statsByPhone.get(phoneKey);
               const count = g._count.id;
               rec.total += count;
               if (st === 'DELIVERED') rec.delivered += count;
@@ -5012,20 +5056,100 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
       console.warn('⚠️ [ORDERS] Failed in batch customer health aggregation:', batchErr.message);
     }
 
+    const parseCustomerRatingMeta = (customer) => {
+      if (!customer?.metadata) return {};
+      try {
+        const parsed = typeof customer.metadata === 'string'
+          ? JSON.parse(customer.metadata || '{}')
+          : customer.metadata;
+        return parsed?.ratingMetadata || {};
+      } catch {
+        return {};
+      }
+    };
+
+    const buildDiagnosis = (ratingTier, deliveryRate, delivered, attempts, returned, isDuplicate, earlyRisk) => {
+      const pct = deliveryRate != null ? Math.round(deliveryRate) : 0;
+      let diag;
+      if (earlyRisk) {
+        diag = `تنبيه مبكر: ${returned} مرتجع بدون أي استلام سابق`;
+      } else if (ratingTier === 'EXCELLENT') {
+        diag = `سجل استلام ممتاز (${pct}%) — ${Math.floor(delivered)} من ${Math.round(attempts)} طلب`;
+      } else if (ratingTier === 'GOOD') {
+        diag = `سجل استلام جيد (${pct}%) — ${Math.floor(delivered)} من ${Math.round(attempts)} طلب`;
+      } else if (ratingTier === 'AVERAGE') {
+        diag = `سجل استلام متوسط (${pct}%) — ${returned > 0 ? `${returned} مرتجع سابق` : ''}`.trim();
+      } else if (ratingTier === 'POOR') {
+        diag = `تحذير: مخاطرة مرتفعة (${pct}%) — ${returned} مرتجع سابق`;
+      } else if (attempts > 0) {
+        diag = `عميل جديد (${pct}% استلام) — لم يكتمل الحد الأدنى للتقييم (${companyRatingThresholds.minOrdersForRating} طلبات)`;
+      } else {
+        diag = 'عميل جديد — لم تكتمل له شحنات سابقة بعد';
+      }
+      if (isDuplicate) {
+        return `طلب مكرر لنفس العميل — ${diag}`;
+      }
+      return diag;
+    };
+
     // ⭐ الدالة المركزية لاحتساب مؤشر صحة العميل الحقيقي (0.0 - 10.0)
     const resolveOrderHealthStats = (order, customer) => {
       const isDuplicate =
         String(order.status || '').toUpperCase() === 'DUPLICATE_ORDER' ||
         Boolean(order.metadata?.duplicate);
       const phone = order.customerPhone || customer?.phone || order.guestPhone;
+      const phoneKey = phone ? (normalizePhone(phone) || phone) : null;
       const custId = order.customerId || customer?.id;
 
-      const phoneStat = phone ? statsByPhone.get(phone) : null;
+      const phoneStat = phoneKey ? statsByPhone.get(phoneKey) : null;
       const idStat = custId ? statsByCustomerId.get(custId) : null;
 
       const chosen = (phoneStat && (!idStat || phoneStat.total >= idStat.total))
         ? phoneStat
         : (idStat || phoneStat || { delivered: 0, returned: 0, cancelled: 0, inFlight: 0, total: 0 });
+
+      const ratingMeta = parseCustomerRatingMeta(customer);
+      const hasManualOverride = ratingMeta.manualOverride === true;
+      const hasAuthoritativeCustomerRating = Boolean(
+        customer && (
+          hasManualOverride ||
+          (customer.customerRating && customer.customerRating !== 'UNKNOWN') ||
+          (Number(customer.totalOrdersCount || 0) > 0 && ratingMeta.rulesVersion)
+        )
+      );
+
+      if (hasAuthoritativeCustomerRating) {
+        const authDelivered = Number(customer.totalDelivered ?? chosen.delivered ?? 0);
+        const authAttempts = Number(customer.totalOrdersCount || (chosen.delivered + chosen.returned) || 0);
+        const authRate = typeof customer.deliveryRate === 'number'
+          ? customer.deliveryRate
+          : (authAttempts > 0 ? Math.round((authDelivered / authAttempts) * 1000) / 10 : null);
+        const estReturned = authRate != null && authAttempts > 0
+          ? Math.max(0, Math.round(authAttempts - authDelivered))
+          : chosen.returned;
+        const authRating = hasManualOverride
+          ? (ratingMeta.manualRating || customer.customerRating || 'UNKNOWN')
+          : (customer.customerRating || 'UNKNOWN');
+        const authEarlyRisk = Boolean(ratingMeta.earlyRisk);
+        const authScore = typeof ratingMeta.healthScore === 'number'
+          ? ratingMeta.healthScore
+          : (authEarlyRisk ? 4.5 : 7.5);
+        return {
+          healthScore: authScore,
+          healthDiagnosis: hasManualOverride
+            ? `تقييم يدوي (${authRating})${authRate != null ? ` — استلام ${Math.round(authRate)}%` : ''}`
+            : buildDiagnosis(authRating, authRate, authDelivered, authAttempts, estReturned, isDuplicate, authEarlyRisk),
+          deliveryRate: authRate,
+          totalDelivered: Math.floor(authDelivered),
+          totalFailed: Math.ceil(estReturned),
+          totalCancelled: chosen.cancelled || 0,
+          totalAttempts: Math.round(authAttempts),
+          totalOrdersCount: Math.max(1, chosen.total || authAttempts),
+          customerRating: authRating,
+          earlyRisk: authEarlyRisk,
+          manualOverride: hasManualOverride,
+        };
+      }
 
       let delivered = chosen.delivered;
       let total = chosen.total;
@@ -5046,13 +5170,13 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
       const attempts = delivered + returned;
       let deliveryRate = null;
       let score = 7.5;
+      let earlyRisk = false;
+      let ratingTier = customer?.customerRating || 'UNKNOWN';
       let diagnosis = isDuplicate
         ? 'طلب مكرر لنفس العميل — غير محسوب في التقييم'
         : 'عميل جديد — لم تكتمل له شحنات سابقة بعد';
-      let ratingTier = 'UNKNOWN';
 
-      // الحكم على العميل يتطلب على الأقل 3 طلبات منتهية (minOrdersForRating >= 3)
-      if (attempts >= 3) {
+      if (attempts >= companyRatingThresholds.minOrdersForRating) {
         const rate = delivered / attempts;
         deliveryRate = Math.round(rate * 1000) / 10;
 
@@ -5069,31 +5193,27 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
 
         score = Math.min(9.9, Math.max(1.0, Math.round(s * 10) / 10));
 
-        if (attempts >= 10 && deliveryRate >= 90) {
+        if (attempts >= companyRatingThresholds.minOrdersExcellent && deliveryRate >= companyRatingThresholds.excellentThreshold) {
           ratingTier = 'EXCELLENT';
-          diagnosis = `سجل استلام ممتاز (${Math.round(deliveryRate)}%) — ${Math.floor(delivered)} من ${Math.round(attempts)} طلب`;
-        } else if (attempts >= 5 && deliveryRate >= 75) {
+        } else if (attempts >= companyRatingThresholds.minOrdersGood && deliveryRate >= companyRatingThresholds.goodThreshold) {
           ratingTier = 'GOOD';
-          diagnosis = `سجل استلام جيد (${Math.round(deliveryRate)}%) — ${Math.floor(delivered)} من ${Math.round(attempts)} طلب`;
-        } else if (deliveryRate >= 50) {
+        } else if (attempts >= companyRatingThresholds.minOrdersAverage && deliveryRate >= companyRatingThresholds.averageThreshold) {
           ratingTier = 'AVERAGE';
-          diagnosis = `سجل استلام متوسط (${Math.round(deliveryRate)}%) — ${returned > 0 ? `${returned} مرتجع سابق` : ''}`;
         } else {
           ratingTier = 'POOR';
-          diagnosis = `تحذير: مخاطرة مرتفعة (${Math.round(deliveryRate)}%) — ${returned} مرتجع سابق`;
         }
-
-        if (isDuplicate) {
-          diagnosis = `طلب مكرر لنفس العميل — ${diagnosis}`;
-        }
+        diagnosis = buildDiagnosis(ratingTier, deliveryRate, delivered, attempts, returned, isDuplicate, false);
       } else if (attempts > 0) {
         const rate = delivered / attempts;
         deliveryRate = Math.round(rate * 1000) / 10;
-        score = 7.5;
+        if (delivered === 0 && returned >= 2) {
+          earlyRisk = true;
+          score = Math.max(2.5, Math.round((4.5 - (returned - 2) * 0.5) * 10) / 10);
+        } else {
+          score = 7.5;
+        }
         ratingTier = 'UNKNOWN';
-        diagnosis = isDuplicate
-          ? 'طلب مكرر لنفس العميل — عميل جديد تحت الملاحظة'
-          : `عميل جديد (${Math.round(deliveryRate)}% استلام) — لم يكتمل الحد الأدنى للتقييم (3 طلبات)`;
+        diagnosis = buildDiagnosis(ratingTier, deliveryRate, delivered, attempts, returned, isDuplicate, earlyRisk);
       }
 
       return {
@@ -5105,7 +5225,9 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
         totalCancelled: cancelled,
         totalAttempts: Math.round(attempts),
         totalOrdersCount: Math.max(1, total),
-        customerRating: ratingTier
+        customerRating: ratingTier,
+        earlyRisk,
+        manualOverride: false,
       };
     };
 
@@ -5431,7 +5553,8 @@ router.get('/simple', verifyToken.authenticateToken, async (req, res) => {
         effectiveCodeForGuest(twinKey) || order.status || 'PENDING',
       ).toLowerCase();
 
-      const matchedCust = guestCustomerByPhone.get(order.guestPhone);
+      const guestPhoneNorm = order.guestPhone ? normalizePhone(order.guestPhone) : '';
+      const matchedCust = guestCustomerByPhone.get(order.guestPhone) || (guestPhoneNorm ? guestCustomerByPhone.get(guestPhoneNorm) : null);
       const healthStats = resolveOrderHealthStats(order, matchedCust);
       return applyOrderDetailFeatureAccess({
         id: order.orderNumber,
@@ -10269,10 +10392,32 @@ const handleCustomerRatingUpdate = async (req, res) => {
     let customer = regularOrder?.customer || null;
     let customerId = regularOrder?.customerId || regularOrder?.customer?.id;
 
+    const buildManualOverrideMeta = (existingMeta, ratingValue) => {
+      let meta = {};
+      try {
+        meta = typeof existingMeta === 'string' ? JSON.parse(existingMeta || '{}') : (existingMeta || {});
+      } catch {
+        meta = {};
+      }
+      return JSON.stringify({
+        ...meta,
+        ratingMetadata: {
+          ...(meta.ratingMetadata || {}),
+          manualOverride: true,
+          manualRating: ratingValue,
+          manualUpdatedAt: new Date().toISOString(),
+          manualUpdatedBy: req.user?.id || null,
+        }
+      });
+    };
+
     if (regularOrder && customerId) {
       customer = await prisma.customer.update({
         where: { id: customerId },
-        data: { customerRating: normalizedRating }
+        data: {
+          customerRating: normalizedRating,
+          metadata: buildManualOverrideMeta(regularOrder.customer?.metadata, normalizedRating)
+        }
       });
     } else {
       // 2. البحث عن رقم هاتف العميل من الطلب المسجل أو طلب الضيف
@@ -10302,7 +10447,10 @@ const handleCustomerRatingUpdate = async (req, res) => {
       if (customer) {
         customer = await prisma.customer.update({
           where: { id: customer.id },
-          data: { customerRating: normalizedRating }
+          data: {
+            customerRating: normalizedRating,
+            metadata: buildManualOverrideMeta(customer.metadata, normalizedRating)
+          }
         });
       } else {
         const nameParts = String(customerName || '').trim().split(/\s+/);
@@ -10315,7 +10463,8 @@ const handleCustomerRatingUpdate = async (req, res) => {
           data: {
             firstName,
             lastName,
-            customerRating: normalizedRating
+            customerRating: normalizedRating,
+            metadata: buildManualOverrideMeta(null, normalizedRating)
           }
         });
       }
@@ -10409,7 +10558,7 @@ const handleCustomerRatingRecalculate = async (req, res) => {
     }
 
     const { calculateCustomerScore } = require('../services/customerRatingService');
-    const result = await calculateCustomerScore(customerId, companyId, prisma);
+    const result = await calculateCustomerScore(customerId, companyId, prisma, { clearManualOverride: true });
 
     try {
       if (socketService?.getIO()) {

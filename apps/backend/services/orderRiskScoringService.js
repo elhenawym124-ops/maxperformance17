@@ -1,5 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const { effectiveOrderStatusSql } = require('../utils/orderEffectiveStatus');
+const { getPhoneVariants, normalizePhone: normalizePhoneCanonical } = require('../utils/phoneNormalization');
 
 // ─── طبقة «سكور الطلبات الوهمية» (MVP) ───
 // تُحسب عند إنشاء الأوردر فوق محرك حظر العملاء القائم — إعلامية بالكامل:
@@ -105,7 +106,7 @@ async function ensureRiskTables(prisma) {
       throw err;
     });
   }
-  return this._ensurePromise;
+  return _ensurePromise;
 }
 
 async function getSettings(prisma, companyId) {
@@ -144,16 +145,33 @@ async function collectHistorySignals(prisma, settings, companyId, phone, address
   const reasons = [];
   const signals = {};
   const phoneNorm = normalizePhone(phone);
+  const canonicalNorm = normalizePhoneCanonical(phone);
+  const variantSet = new Set(getPhoneVariants(phone));
+  if (phone) variantSet.add(String(phone).trim());
+  if (phoneNorm) {
+    variantSet.add(phoneNorm);
+    variantSet.add(`0${phoneNorm}`);
+    variantSet.add(`2${phoneNorm}`);
+    variantSet.add(`20${phoneNorm}`);
+    variantSet.add(`+20${phoneNorm}`);
+  }
+  if (canonicalNorm) {
+    variantSet.add(canonicalNorm);
+    if (canonicalNorm.startsWith('0')) {
+      variantSet.add(`+2${canonicalNorm}`);
+    }
+  }
+  const phoneVariants = Array.from(variantSet).filter(Boolean);
   const windowStart = new Date(Date.now() - settings.historyWindowDays * 86400000);
-  if (!phoneNorm) return { reasons, signals };
+  if (phoneVariants.length === 0) return { reasons, signals, delivered: 0, cancelled: 0, returned: 0, phoneVariants: [] };
 
   const historyRows = await prisma.$queryRawUnsafe(
     `SELECT (${effectiveOrderStatusSql()}) AS status, COUNT(*)::int AS cnt FROM "orders"
      WHERE "companyId" = $1
-       AND "customerPhone" IN (${[phoneNorm, '2' + phoneNorm, '20' + phoneNorm].map((p) => `'${p}'`).join(',')})
+       AND "customerPhone" = ANY($3::text[])
        AND "createdAt" >= $2
      GROUP BY (${effectiveOrderStatusSql()})`,
-    companyId, windowStart
+    companyId, windowStart, phoneVariants
   ).catch(() => []);
 
   let cancelled = 0, returned = 0, delivered = 0;
@@ -182,16 +200,16 @@ async function collectHistorySignals(prisma, settings, companyId, phone, address
       `SELECT COUNT(*)::int AS cnt FROM "orders"
        WHERE "companyId" = $1 AND "createdAt" >= $2
          AND ("customerAddress" ILIKE $3 OR "shippingAddress" ILIKE $3)
-         AND status ILIKE '%CANCEL%'`,
+         AND (status ILIKE '%CANCEL%' OR status ILIKE '%RETURN%')`,
       companyId, windowStart, addrPattern
     ).catch(() => []);
     if (addrHits && addrHits[0] && Number(addrHits[0].cnt) > 0) {
-      reasons.push({ code: 'REPEAT_ADDRESS', label: REASON_CODES.REPEAT_ADDRESS, weight: REASON_CODES.REPEAT_ADDRESS.weight || 10 });
+      reasons.push({ code: 'REPEAT_ADDRESS', label: REASON_CODES.REPEAT_ADDRESS.label, weight: REASON_CODES.REPEAT_ADDRESS.weight });
       signals.repeatAddress = true;
     }
   }
 
-  return { reasons, signals, delivered, cancelled, returned, phoneNorm };
+  return { reasons, signals, delivered, cancelled, returned, phoneNorm, phoneVariants };
 }
 
 /**
@@ -215,7 +233,8 @@ async function scoreOrderDraft(prisma, {
   };
 
   // 1) مطابقة قائمة الحظر (من تقييم المحرك الحالي — يُمرَّر من المسار)
-  if (blockEvaluation && blockEvaluation.payload && blockEvaluation.payload.code) {
+  const hasActiveBlockMatch = Boolean(blockEvaluation && blockEvaluation.payload && blockEvaluation.payload.code);
+  if (hasActiveBlockMatch) {
     add('BLOCKLIST_MATCH', { ruleAction: blockEvaluation.payload.action || null });
   }
 
@@ -223,6 +242,29 @@ async function scoreOrderDraft(prisma, {
   const hist = await collectHistorySignals(prisma, settings, companyId, phone, address);
   hist.reasons.forEach((r) => { reasons.push(r); score += r.weight; });
   Object.assign(signals, hist.signals);
+
+  // 4b) حظر أو محاولة حظر سابقة (غير مفعّلة حالياً حتى لا تتكرر مع BLOCKLIST_MATCH)
+  if (!hasActiveBlockMatch && prisma?.customerBlockRule?.findFirst) {
+    const priorOr = [];
+    if (customerId) priorOr.push({ customerId: String(customerId) });
+    if (hist.phoneVariants && hist.phoneVariants.length > 0) {
+      priorOr.push({ phoneNormalized: { in: hist.phoneVariants } });
+    }
+    if (email) {
+      priorOr.push({ emailNormalized: String(email).trim().toLowerCase() });
+    }
+    if (priorOr.length > 0) {
+      const priorRule = await prisma.customerBlockRule.findFirst({
+        where: { companyId, OR: priorOr },
+        select: { id: true, status: true, reasonCode: true },
+        orderBy: { createdAt: 'desc' },
+      }).catch(() => null);
+      if (priorRule) {
+        add('PRIOR_BLOCK', { ruleStatus: priorRule.status, reasonCode: priorRule.reasonCode });
+        signals.priorBlock = true;
+      }
+    }
+  }
 
   // 5) عنوان ناقص
   const addressText = String(address || '').trim();
