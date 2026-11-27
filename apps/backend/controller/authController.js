@@ -2966,6 +2966,109 @@ const changePassword = async (req, res) => {
 };
 
 
+// Self-service account update (PUT /auth/me).
+// Only display fields owned by the account holder are writable here.
+// Email, password, role, companyId and merchantId intentionally stay out of reach.
+const updateMe = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'يجب تسجيل الدخول أولاً' });
+    }
+
+    const body = req.body || {};
+    const data = {};
+
+    const readName = (value, label) => {
+      if (value === undefined) return null;
+      if (typeof value !== 'string') return { error: `${label} غير صالح` };
+      const normalized = value.trim().replace(/\s+/g, ' ');
+      if (normalized.length < 2 || normalized.length > 60) {
+        return { error: `${label} يجب أن يكون بين حرفين و60 حرفاً` };
+      }
+      return { value: normalized };
+    };
+
+    const firstName = readName(body.firstName, 'الاسم الأول');
+    if (firstName?.error) {
+      return res.status(400).json({ success: false, message: firstName.error, code: 'VALIDATION_ERROR' });
+    }
+    if (firstName) data.firstName = firstName.value;
+
+    const lastName = readName(body.lastName, 'اسم العائلة');
+    if (lastName?.error) {
+      return res.status(400).json({ success: false, message: lastName.error, code: 'VALIDATION_ERROR' });
+    }
+    if (lastName) data.lastName = lastName.value;
+
+    if (body.phone !== undefined) {
+      const rawPhone = typeof body.phone === 'string' ? body.phone.trim() : '';
+      if (rawPhone && !/^\+?[\d\s()-]{6,20}$/.test(rawPhone)) {
+        return res.status(400).json({ success: false, message: 'رقم الهاتف غير صالح', code: 'VALIDATION_ERROR' });
+      }
+      data.phone = rawPhone || null;
+    }
+
+    if (body.avatar !== undefined) {
+      const rawAvatar = typeof body.avatar === 'string' ? body.avatar.trim() : '';
+      if (rawAvatar && (!/^https?:\/\//i.test(rawAvatar) || rawAvatar.length > 2048)) {
+        return res.status(400).json({ success: false, message: 'رابط الصورة غير صالح', code: 'VALIDATION_ERROR' });
+      }
+      data.avatar = rawAvatar || null;
+    }
+
+    if (body.timezone !== undefined) {
+      const rawTimezone = typeof body.timezone === 'string' ? body.timezone.trim() : '';
+      let validTimezone = false;
+      try {
+        if (rawTimezone) {
+          new Intl.DateTimeFormat('en-US', { timeZone: rawTimezone });
+          validTimezone = true;
+        }
+      } catch (_) {
+        validTimezone = false;
+      }
+      if (!validTimezone) {
+        return res.status(400).json({ success: false, message: 'المنطقة الزمنية غير صالحة', code: 'VALIDATION_ERROR' });
+      }
+      data.timezone = rawTimezone;
+    }
+
+    if (Object.keys(data).length === 0) {
+      return res.status(400).json({ success: false, message: 'لا توجد بيانات صالحة للتحديث', code: 'VALIDATION_ERROR' });
+    }
+
+    const updatedUser = await getSharedPrismaClient().user.update({
+      where: { id: userId },
+      data,
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        phone: true,
+        avatar: true,
+        timezone: true,
+        role: true,
+        companyId: true,
+      },
+    });
+
+    return res.json({
+      success: true,
+      message: 'تم تحديث البيانات بنجاح',
+      data: { user: updatedUser },
+    });
+  } catch (error) {
+    console.error('❌ [UPDATE-ME] Failed to update account:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'خطأ في تحديث البيانات',
+      error: error.message,
+    });
+  }
+};
+
 // Verify email address
 const verifyEmail = async (req, res) => {
   try {
@@ -3236,6 +3339,7 @@ module.exports = {
   getBusinessSpecialties,
   login,
   me,
+  updateMe,
   logout,
   refresh,
   forgotPassword,

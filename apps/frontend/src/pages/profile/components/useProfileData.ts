@@ -34,7 +34,7 @@ const initialFormData: ProfileFormData = {
 
 export const useProfileData = () => {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const [searchParams] = useSearchParams();
 
   const [loading, setLoading] = useState(true);
@@ -50,6 +50,25 @@ export const useProfileData = () => {
   const [formData, setFormData] = useState<ProfileFormData>(initialFormData);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const loadedOnceRef = useRef(false);
+  const editSnapshotRef = useRef<ProfileFormData | null>(null);
+
+  // Cancelling an edit restores the values the user started from; saving keeps them.
+  const toggleEditing = useCallback(
+    (value: boolean) => {
+      if (value) {
+        editSnapshotRef.current = formData;
+        setIsEditing(true);
+        return;
+      }
+      if (editSnapshotRef.current) {
+        setFormData(editSnapshotRef.current);
+        editSnapshotRef.current = null;
+      }
+      setIsEditing(false);
+    },
+    [formData]
+  );
 
   const isMerchantUser = user?.role === "MERCHANT";
   const isAffiliateUser = user?.role === "AFFILIATE";
@@ -82,7 +101,7 @@ export const useProfileData = () => {
 
   const fetchProfileData = useCallback(async () => {
     try {
-      setLoading(true);
+      if (!loadedOnceRef.current) setLoading(true);
       if (user?.role === "MERCHANT" || user?.role === "AFFILIATE") {
         const merchantUser = user as typeof user & MerchantUserExtras;
         setEmployee(null);
@@ -129,6 +148,7 @@ export const useProfileData = () => {
         }));
       }
     } finally {
+      loadedOnceRef.current = true;
       setLoading(false);
     }
   }, [fetchMyCustody, fetchMyWarnings, user]);
@@ -170,9 +190,26 @@ export const useProfileData = () => {
   const handleSave = async () => {
     try {
       setSaving(true);
+      // Merchant / affiliate accounts have no HR employee record — their profile
+      // lives on the User row, so they save through the self-service endpoint.
+      if (isMerchantUser || isAffiliateUser) {
+        const response = await api.put("/auth/me", {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+        });
+        if ((response.data as any)?.success) {
+          toast.success(t("employee.profile.saveSuccess"));
+          editSnapshotRef.current = null;
+          setIsEditing(false);
+          await refreshUser();
+        }
+        return;
+      }
       const response = await api.put("/hr/employees/me", formData);
       if ((response.data as any)?.success) {
         toast.success(t("employee.profile.saveSuccess"));
+        editSnapshotRef.current = null;
         setIsEditing(false);
         fetchProfileData();
       }
@@ -201,9 +238,14 @@ export const useProfileData = () => {
       });
       const data = res.data as any;
       if (data?.success) {
-        if (employee?.id) {
-          await api.put(`/hr/employees/${employee.id}`, { avatar: data.image?.url });
+        const avatarUrl = data.image?.url;
+        if (avatarUrl && employee?.id) {
+          await api.put(`/hr/employees/${employee.id}`, { avatar: avatarUrl });
+        } else if (avatarUrl) {
+          // No employee record (merchant / affiliate): persist on the user account.
+          await api.put("/auth/me", { avatar: avatarUrl });
         }
+        await refreshUser();
         toast.success(t("employee.profile.avatarUpdated"));
         fetchProfileData();
       }
@@ -229,7 +271,7 @@ export const useProfileData = () => {
     saving,
     uploading,
     isEditing,
-    setIsEditing,
+    setIsEditing: toggleEditing,
     activeTab,
     setActiveTab,
     myCustody,

@@ -101,14 +101,24 @@ export const Profile: React.FC = () => {
 
   if (isMerchantUser || isAffiliateUser) {
     return (
-      <MerchantProfileView
-        user={user}
-        formData={formData}
-        defaultPage={defaultPage}
-        settingsLoading={settingsLoading}
-        onDefaultPageChange={handleDefaultPageChange}
-        hasAffiliatePro={hasAffiliatePro}
-      />
+      <>
+        <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*" />
+        <MerchantProfileView
+          user={user}
+          formData={formData}
+          setFormData={setFormData}
+          defaultPage={defaultPage}
+          settingsLoading={settingsLoading}
+          onDefaultPageChange={handleDefaultPageChange}
+          hasAffiliatePro={hasAffiliatePro}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          saving={saving}
+          uploading={uploading}
+          onSave={handleSave}
+          onAvatarClick={handleAvatarClick}
+        />
+      </>
     );
   }
 

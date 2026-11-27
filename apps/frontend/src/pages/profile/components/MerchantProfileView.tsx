@@ -10,6 +10,10 @@ import {
   ChartBarIcon,
   BanknotesIcon,
   ShoppingBagIcon,
+  PencilIcon,
+  CheckIcon,
+  XMarkIcon,
+  CameraIcon,
 } from "@heroicons/react/24/outline";
 import { useTheme } from "../../../hooks/useTheme";
 import { DefaultPageSelector } from "../../../components/settings/DefaultPageSelector";
@@ -19,19 +23,33 @@ import { getInitials } from "./helpers";
 interface MerchantProfileViewProps {
   user: any;
   formData: ProfileFormData;
+  setFormData: React.Dispatch<React.SetStateAction<ProfileFormData>>;
   defaultPage: string;
   settingsLoading: boolean;
   onDefaultPageChange: (page: string) => void;
   hasAffiliatePro: boolean;
+  isEditing: boolean;
+  setIsEditing: (value: boolean) => void;
+  saving: boolean;
+  uploading: boolean;
+  onSave: () => void;
+  onAvatarClick: () => void;
 }
 
 export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
   user,
   formData,
+  setFormData,
   defaultPage,
   settingsLoading,
   onDefaultPageChange,
   hasAffiliatePro,
+  isEditing,
+  setIsEditing,
+  saving,
+  uploading,
+  onSave,
+  onAvatarClick,
 }) => {
   const { t } = useTranslation();
   const { derivedTheme } = useTheme();
@@ -123,40 +141,112 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
           <div className="relative p-6 sm:p-8">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-4">
-                {externalUser?.avatar ? (
-                  <img
-                    src={externalUser.avatar}
-                    alt="avatar"
-                    className="h-20 w-20 rounded-2xl border-2 border-amber-300 object-cover shadow-lg shadow-amber-500/20"
-                  />
-                ) : (
-                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-2xl font-black text-white shadow-lg shadow-amber-500/30">
-                    {getInitials(formData.firstName, formData.lastName) || "T"}
-                  </div>
-                )}
+                <button
+                  type="button"
+                  onClick={onAvatarClick}
+                  data-testid="profile-avatar"
+                  className="group relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 border-amber-300 shadow-lg shadow-amber-500/20 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                  aria-label={t("employee.profile.updateAvatar")}
+                >
+                  {externalUser?.avatar ? (
+                    <img
+                      src={externalUser.avatar}
+                      alt={fullName}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex h-full w-full items-center justify-center bg-gradient-to-br from-amber-500 to-orange-600 text-2xl font-black text-white">
+                      {getInitials(formData.firstName, formData.lastName) || "T"}
+                    </span>
+                  )}
+                  {uploading ? (
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/70">
+                      <span className="h-7 w-7 animate-spin rounded-full border-2 border-transparent border-t-amber-300" />
+                    </span>
+                  ) : (
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/60 group-hover:opacity-100">
+                      <CameraIcon className="h-6 w-6 text-white" />
+                    </span>
+                  )}
+                </button>
                 <div>
                   <p className="mb-2 text-sm font-bold text-amber-600 dark:text-amber-300">{accountTitle}</p>
-                  <h1 className="text-2xl font-black text-slate-950 dark:text-white sm:text-3xl">{fullName}</h1>
+                  {isEditing ? (
+                    <div className="flex flex-wrap gap-2">
+                      <input
+                        value={formData.firstName}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, firstName: e.target.value }))}
+                        placeholder={t("employee.profile.firstNamePlaceholder")}
+                        className="w-32 rounded-xl border border-amber-300 bg-white px-3 py-1.5 text-lg font-bold text-slate-950 outline-none focus:ring-2 focus:ring-amber-500 dark:border-amber-400/40 dark:bg-slate-900 dark:text-white"
+                      />
+                      <input
+                        value={formData.lastName}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, lastName: e.target.value }))}
+                        placeholder={t("employee.profile.lastNamePlaceholder")}
+                        className="w-32 rounded-xl border border-amber-300 bg-white px-3 py-1.5 text-lg font-bold text-slate-950 outline-none focus:ring-2 focus:ring-amber-500 dark:border-amber-400/40 dark:bg-slate-900 dark:text-white"
+                      />
+                    </div>
+                  ) : (
+                    <h1 className="text-2xl font-black text-slate-950 dark:text-white sm:text-3xl">{fullName}</h1>
+                  )}
                   <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                     {accountDescription}
                   </p>
                 </div>
               </div>
-              <Link
-                to={portalPath}
-                className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-950/20 transition hover:bg-slate-800 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300"
-              >
-                {portalCta}
-              </Link>
+
+              <div className="flex flex-col items-stretch gap-2 sm:items-end">
+                {isEditing ? (
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={onSave}
+                      disabled={saving}
+                      className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-slate-800 disabled:opacity-60 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300"
+                    >
+                      {saving ? (
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-transparent border-t-current" />
+                      ) : (
+                        <CheckIcon className="h-4 w-4" />
+                      )}
+                      {saving ? t("employee.common.saving") : t("employee.common.save")}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsEditing(false)}
+                      disabled={saving}
+                      className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-100 disabled:opacity-60 dark:border-white/15 dark:text-slate-200 dark:hover:bg-white/5"
+                    >
+                      <XMarkIcon className="h-4 w-4" />
+                      {t("employee.common.cancel")}
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(true)}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-100 dark:border-white/15 dark:text-slate-200 dark:hover:bg-white/5"
+                  >
+                    <PencilIcon className="h-4 w-4" />
+                    {t("profile.editProfile")}
+                  </button>
+                )}
+                <Link
+                  to={portalPath}
+                  className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-950/20 transition hover:bg-slate-800 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-300"
+                >
+                  {portalCta}
+                </Link>
+              </div>
             </div>
           </div>
         </section>
 
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {[
-            { label: t("employee.profile.email"), value: formData.email || "—", icon: EnvelopeIcon },
-            { label: t("employee.profile.phone"), value: formData.phone || externalUser?.phone || "—", icon: PhoneIcon },
-            { label: t("employee.profile.noCompany"), value: companyName, icon: BuildingOfficeIcon },
+            { label: t("employee.profile.email"), value: formData.email || "—", icon: EnvelopeIcon, editable: false },
+            { label: t("employee.profile.phone"), value: formData.phone || externalUser?.phone || "—", icon: PhoneIcon, editable: true },
+            { label: t("employee.profile.noCompany"), value: companyName, icon: BuildingOfficeIcon, editable: false },
           ].map((item) => (
             <div
               key={item.label}
@@ -166,7 +256,17 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
                 <item.icon className="h-5 w-5" />
               </div>
               <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{item.label}</p>
-              <p className="mt-2 break-words text-sm font-semibold text-slate-950 dark:text-white">{item.value}</p>
+              {item.editable && isEditing ? (
+                <input
+                  value={formData.phone}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+                  inputMode="tel"
+                  dir="ltr"
+                  className="mt-2 w-full rounded-xl border border-amber-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-950 outline-none focus:ring-2 focus:ring-amber-500 dark:border-amber-400/40 dark:bg-slate-950 dark:text-white"
+                />
+              ) : (
+                <p className="mt-2 break-words text-sm font-semibold text-slate-950 dark:text-white">{item.value}</p>
+              )}
             </div>
           ))}
         </div>

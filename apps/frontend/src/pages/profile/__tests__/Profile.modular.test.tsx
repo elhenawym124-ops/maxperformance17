@@ -142,10 +142,17 @@ describe("MerchantProfileView", () => {
         <MerchantProfileView
           user={{ role: "MERCHANT", company: { name: "Dropship Co" } }}
           formData={dummyFormData}
+          setFormData={vi.fn()}
           defaultPage="/apps"
           settingsLoading={false}
           onDefaultPageChange={vi.fn()}
           hasAffiliatePro={true}
+          isEditing={false}
+          setIsEditing={vi.fn()}
+          saving={false}
+          uploading={false}
+          onSave={vi.fn()}
+          onAvatarClick={vi.fn()}
         />
       </BrowserRouter>
     );
@@ -157,16 +164,52 @@ describe("MerchantProfileView", () => {
     );
   });
 
+  it("lets a merchant edit name/phone and save the account", () => {
+    const handleSave = vi.fn();
+    render(
+      <BrowserRouter>
+        <MerchantProfileView
+          user={{ role: "MERCHANT", company: { name: "Dropship Co" } }}
+          formData={dummyFormData}
+          setFormData={vi.fn()}
+          defaultPage="/apps"
+          settingsLoading={false}
+          onDefaultPageChange={vi.fn()}
+          hasAffiliatePro={true}
+          isEditing={true}
+          setIsEditing={vi.fn()}
+          saving={false}
+          uploading={false}
+          onSave={handleSave}
+          onAvatarClick={vi.fn()}
+        />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByDisplayValue("Mokhtar")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("01012345678")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /employee\.common\.save/i }));
+    expect(handleSave).toHaveBeenCalledTimes(1);
+  });
+
   it("renders affiliate view with affiliate tools link", () => {
     render(
       <BrowserRouter>
         <MerchantProfileView
           user={{ role: "AFFILIATE", company: { name: "Affiliate Hub" } }}
           formData={dummyFormData}
+          setFormData={vi.fn()}
           defaultPage="/affiliates/dashboard"
           settingsLoading={false}
           onDefaultPageChange={vi.fn()}
           hasAffiliatePro={true}
+          isEditing={false}
+          setIsEditing={vi.fn()}
+          saving={false}
+          uploading={false}
+          onSave={vi.fn()}
+          onAvatarClick={vi.fn()}
         />
       </BrowserRouter>
     );

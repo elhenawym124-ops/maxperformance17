@@ -60,6 +60,7 @@ router.post(
 router.post('/signup-coupon/validate', authController.validateSignupCoupon);
 router.post('/login', authRateLimiter, authController.login);
 router.get('/me', verifyToken.authenticateToken, authController.me);
+router.put('/me', verifyToken.authenticateToken, authController.updateMe);
 router.post('/refresh', authController.refresh);
 router.post('/logout', verifyToken.authenticateToken, authController.logout);
 router.post('/forgot-password', authRateLimiter, authController.forgotPassword);
