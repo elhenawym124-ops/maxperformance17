@@ -368,6 +368,7 @@ router.post('/messages/upload-send', verifyToken.authenticateToken, checkAppAcce
         const prisma = getSharedPrismaClient();
         const { WhatsAppMediaHandler, WhatsAppMessageHandler } = require('../services/whatsapp');
         const { computeWindowStatus } = require('../services/whatsapp/WhatsAppWindowService');
+        const { assertSessionOutboundAllowed } = require('../services/whatsapp/sessionChannelPolicy');
         const WhatsAppManager = require('../services/whatsapp/WhatsAppManager');
 
         if (sessionId === 'all') {
@@ -408,17 +409,26 @@ router.post('/messages/upload-send', verifyToken.authenticateToken, checkAppAcce
             }
         }
 
-        // Verify tenant ownership & provider readiness
+        // Verify tenant ownership & provider readiness before uploading media
         const sessionRecord = await prisma.whatsAppSession.findFirst({
             where: { id: sessionId, companyId },
-            select: { id: true, provider: true, status: true }
+            select: { id: true, provider: true, status: true, metaAccessToken: true, metadata: true }
         });
         if (!sessionRecord) {
             cleanupUploadedFile();
             return res.status(404).json({ error: 'الجلسة غير موجودة أو لا تنتمي لهذه الشركة' });
         }
 
+        assertSessionOutboundAllowed(sessionRecord, sessionId);
+
         if (sessionRecord.provider === 'META_CLOUD') {
+            if (sessionRecord.status !== 'CONNECTED' || !sessionRecord.metaAccessToken) {
+                cleanupUploadedFile();
+                return res.status(409).json({
+                    error: 'جلسة Meta Cloud غير متصلة حالياً، يرجى التحقق من الربط',
+                    code: 'WA_SESSION_NOT_READY'
+                });
+            }
             const jid = WhatsAppMessageHandler.formatJid ? WhatsAppMessageHandler.formatJid(to) : to;
             const contact = await prisma.whatsAppContact.findUnique({
                 where: { sessionId_jid: { sessionId, jid } },
