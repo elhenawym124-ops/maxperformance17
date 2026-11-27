@@ -102,7 +102,6 @@ async function getCompanyActiveAppsState(companyId) {
                 select: {
                   slug: true,
                   name: true,
-                  nameEn: true,
                   category: true,
                   monthlyPrice: true,
                   pricingModel: true,
@@ -139,7 +138,7 @@ async function getCompanyActiveAppsState(companyId) {
       activeApps.push({
         slug,
         name: ca.app?.name || slug,
-        nameEn: ca.app?.nameEn || slug,
+        nameEn: ca.app?.name || slug,
         status: ca.status,
       });
     }
