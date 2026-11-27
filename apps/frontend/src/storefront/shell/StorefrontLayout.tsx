@@ -185,6 +185,8 @@ export const StorefrontLayout: React.FC<StorefrontLayoutProps> = (props) => {
           }}
           locale={currentLocale === 'en' ? 'en' : 'ar'}
           hasMobileBottomNav={showMobileBottomNav}
+          routePageKey={routePageKey}
+          pathname={location.pathname}
         />
       )}
 

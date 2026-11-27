@@ -6,7 +6,8 @@ export type FloatingContactChannelId =
   | 'phone'
   | 'messenger'
   | 'instagram'
-  | 'telegram';
+  | 'telegram'
+  | 'tiktok';
 
 export interface FloatingContactChannelInput {
   enabled?: boolean;
@@ -22,6 +23,7 @@ export interface FloatingContactConfig {
   messenger?: { enabled?: boolean; url?: string };
   instagram?: { enabled?: boolean; url?: string };
   telegram?: { enabled?: boolean; url?: string };
+  tiktok?: { enabled?: boolean; url?: string };
 }
 
 export interface ResolvedContactChannel {
@@ -84,11 +86,16 @@ export function resolveFloatingContactConfig(
       enabled: Boolean(fc.telegram?.enabled),
       url: fc.telegram?.url ?? '',
     },
+    tiktok: {
+      enabled: Boolean(fc.tiktok?.enabled),
+      url: fc.tiktok?.url ?? '',
+    },
   };
 }
 
 export function buildActiveContactChannels(
   config: FloatingContactConfig,
+  whatsappMessageOverride?: string,
 ): ResolvedContactChannel[] {
   if (!config.enabled) return [];
 
@@ -97,7 +104,7 @@ export function buildActiveContactChannels(
   if (config.whatsapp?.enabled && config.whatsapp.phoneNumber?.trim()) {
     const href = buildWhatsAppUrl(
       config.whatsapp.phoneNumber,
-      config.whatsapp.message,
+      whatsappMessageOverride ?? config.whatsapp.message,
     );
     if (href && href !== '#') {
       channels.push({
@@ -167,6 +174,20 @@ export function buildActiveContactChannels(
     }
   }
 
+  if (config.tiktok?.enabled && config.tiktok.url?.trim()) {
+    const href = normalizeExternalUrl(config.tiktok.url, 'https://tiktok.com/@');
+    if (href) {
+      channels.push({
+        id: 'tiktok',
+        labelAr: 'تيك توك',
+        labelEn: 'TikTok',
+        href,
+        external: true,
+        badgeClass: 'bg-slate-900 text-white hover:bg-black',
+      });
+    }
+  }
+
   return channels;
 }
 
@@ -207,30 +228,84 @@ const ChannelIcon: React.FC<{ id: FloatingContactChannelId; className?: string }
           <path d="M21.4 4.6 2.9 11.7c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.5c.2.6.1.9.8.9.6 0 .8-.3 1.1-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.5-1.8ZM8.4 14.3l9.9-6.2c.5-.3.9-.1.5.2l-8 7.2-.3 3.4-2.1-4.6Z" />
         </svg>
       );
+    case 'tiktok':
+      return (
+        <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+          <path d="M14.7 3h2.9c.2 1.7 1.3 3.2 3 3.8v2.9a7.06 7.06 0 0 1-3-.8v5.6a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v3a2.5 2.5 0 1 0 1.7 2.4V3Z" />
+        </svg>
+      );
   }
 };
+
+const ContactHubIcon: React.FC<{ className?: string }> = ({ className = 'h-6 w-6' }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" />
+    <circle cx="9.5" cy="11.5" r="0.8" fill="currentColor" stroke="none" />
+    <circle cx="12.5" cy="11.5" r="0.8" fill="currentColor" stroke="none" />
+    <circle cx="15.5" cy="11.5" r="0.8" fill="currentColor" stroke="none" />
+  </svg>
+);
 
 export interface FloatingContactWidgetProps {
   designTokens?: Record<string, unknown> | null;
   locale?: 'ar' | 'en';
   hasMobileBottomNav?: boolean;
+  routePageKey?: string;
+  pathname?: string;
 }
 
 export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
   designTokens,
   locale = 'ar',
   hasMobileBottomNav = false,
+  routePageKey,
+  pathname = '',
 }) => {
   const [open, setOpen] = useState(false);
+  const [pdpProductTitle, setPdpProductTitle] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const isCheckoutPage =
+    routePageKey === 'checkout' || /\/checkout(?:\/|$)/i.test(pathname);
+  const isProductPage = routePageKey === 'pdp';
+  const isArabic = locale !== 'en';
+
+  useEffect(() => {
+    setOpen(false);
+    if (!isProductPage || typeof document === 'undefined') {
+      setPdpProductTitle('');
+      return;
+    }
+    const readTitle = () => {
+      const h1Text = document.querySelector('h1')?.textContent?.trim() || '';
+      setPdpProductTitle(h1Text);
+    };
+    readTitle();
+    const timer = window.setTimeout(readTitle, 350);
+    return () => window.clearTimeout(timer);
+  }, [isProductPage, pathname]);
 
   const config = useMemo(
     () => resolveFloatingContactConfig(designTokens),
     [designTokens],
   );
+
+  const whatsappMessageOverride = useMemo(() => {
+    if (!isProductPage || typeof window === 'undefined') return undefined;
+    const pageUrl = window.location.href;
+    const title = pdpProductTitle || document.querySelector('h1')?.textContent?.trim() || '';
+    if (title) {
+      return isArabic
+        ? `مرحباً، أود الاستفسار عن: ${title}\n${pageUrl}`
+        : `Hello, I'd like to ask about: ${title}\n${pageUrl}`;
+    }
+    const base = config.whatsapp?.message?.trim();
+    return base ? `${base}\n${pageUrl}` : pageUrl;
+  }, [isProductPage, pdpProductTitle, isArabic, config.whatsapp?.message, open, pathname]);
+
   const channels = useMemo(
-    () => buildActiveContactChannels(config),
-    [config],
+    () => buildActiveContactChannels(config, whatsappMessageOverride),
+    [config, whatsappMessageOverride],
   );
 
   useEffect(() => {
@@ -251,11 +326,10 @@ export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
     };
   }, [open]);
 
-  if (channels.length === 0) {
+  if (isCheckoutPage || channels.length === 0) {
     return null;
   }
 
-  const isArabic = locale !== 'en';
   const sideClass = config.position === 'start' ? 'start-4 sm:start-6' : 'end-4 sm:end-6';
   const bottomClass = hasMobileBottomNav ? 'bottom-20 md:bottom-6' : 'bottom-5 sm:bottom-6';
 
@@ -289,15 +363,17 @@ export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
     <div
       ref={containerRef}
       data-testid="floating-contact-widget"
-      className={`fixed z-40 flex flex-col items-end gap-2.5 ${bottomClass} ${sideClass}`}
+      className={`fixed z-40 flex flex-col items-center gap-2.5 ${bottomClass} ${sideClass}`}
     >
+      <style>{`@keyframes fcPopIn{from{opacity:0;transform:translateY(10px) scale(.85)}to{opacity:1;transform:translateY(0) scale(1)}}`}</style>
       {open && (
         <div
           role="menu"
           className="flex flex-col items-center gap-2.5"
         >
-          {channels.map((ch) => {
+          {channels.map((ch, idx) => {
             const label = isArabic ? ch.labelAr : ch.labelEn;
+            const delayMs = (channels.length - 1 - idx) * 40;
             return (
               <a
                 key={ch.id}
@@ -308,6 +384,7 @@ export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
                 onClick={() => setOpen(false)}
                 aria-label={label}
                 title={label}
+                style={{ animation: `fcPopIn 180ms cubic-bezier(.22,1,.36,1) ${delayMs}ms both` }}
                 className={`flex h-11 w-11 items-center justify-center rounded-full shadow-lg transition-transform duration-150 hover:scale-105 active:scale-95 ${ch.badgeClass}`}
               >
                 <ChannelIcon id={ch.id} className="h-5 w-5" />
@@ -323,9 +400,9 @@ export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
         aria-expanded={open}
         aria-label={toggleLabel}
         title={toggleLabel}
-        className={`flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-transform duration-150 hover:scale-105 active:scale-95 ${
+        className={`flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 ${
           open
-            ? 'bg-foreground text-background'
+            ? 'bg-slate-900 text-white rotate-90'
             : primaryChannel.badgeClass
         }`}
       >
@@ -334,7 +411,7 @@ export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
             <path d="M18 6 6 18M6 6l12 12" />
           </svg>
         ) : (
-          <ChannelIcon id={primaryChannel.id} className="h-6 w-6" />
+          <ContactHubIcon className="h-6 w-6" />
         )}
       </button>
     </div>

@@ -1,15 +1,32 @@
 // @vitest-environment jsdom
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import FloatingContactWidget from '../components/FloatingContactWidget';
 import FloatingContactSettingsEditor from '../../components/store/FloatingContactSettingsEditor';
+
+afterEach(() => {
+  cleanup();
+});
 
 describe('FloatingContactWidget', () => {
   it('renders nothing when disabled or no channels configured', () => {
     const { container } = render(
       <FloatingContactWidget
         designTokens={{ floatingContact: { enabled: false } }}
+      />,
+    );
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('auto-hides on checkout page', () => {
+    const { container } = render(
+      <FloatingContactWidget
+        routePageKey="checkout"
+        pathname="/checkout"
+        designTokens={{
+          whatsapp: { enabled: true, phoneNumber: '01001234567' },
+        }}
       />,
     );
     expect(container.firstChild).toBeNull();
@@ -32,7 +49,28 @@ describe('FloatingContactWidget', () => {
     expect(link.getAttribute('href')).toContain('https://wa.me/201001234567');
   });
 
-  it('renders expandable multi-channel menu when 2+ channels are enabled', () => {
+  it('includes product title and URL in WhatsApp message on product pages (pdp)', () => {
+    render(
+      <div>
+        <h1>حذاء رياضي جلد طبيعي</h1>
+        <FloatingContactWidget
+          routePageKey="pdp"
+          pathname="/products/leather-sneaker"
+          designTokens={{
+            whatsapp: { enabled: true, phoneNumber: '01001234567' },
+          }}
+        />
+      </div>,
+    );
+
+    const link = screen.getByRole('link', { name: 'واتساب' });
+    const href = decodeURIComponent(link.getAttribute('href') || '');
+    expect(href).toContain('https://wa.me/201001234567?text=');
+    expect(href).toContain('حذاء رياضي جلد طبيعي');
+    expect(href).toContain('http://localhost');
+  });
+
+  it('renders expandable icon-only multi-channel menu including TikTok without email', () => {
     render(
       <FloatingContactWidget
         designTokens={{
@@ -43,6 +81,7 @@ describe('FloatingContactWidget', () => {
             messenger: { enabled: true, url: 'mystore' },
             instagram: { enabled: true, url: '@mystore' },
             telegram: { enabled: true, url: 'mystore_tg' },
+            tiktok: { enabled: true, url: '@mystore_tt' },
           },
         }}
       />,
@@ -53,6 +92,12 @@ describe('FloatingContactWidget', () => {
 
     fireEvent.click(toggleBtn);
     expect(screen.getByRole('menu')).toBeTruthy();
+
+    const items = screen.getAllByRole('menuitem');
+    expect(items).toHaveLength(6);
+    items.forEach((item) => {
+      expect(item.textContent?.trim()).toBe('');
+    });
 
     expect(screen.getByRole('menuitem', { name: 'واتساب' }).getAttribute('href')).toContain(
       'https://wa.me/201001234567',
@@ -66,13 +111,11 @@ describe('FloatingContactWidget', () => {
     expect(screen.getByRole('menuitem', { name: 'إنستجرام' }).getAttribute('href')).toBe(
       'https://instagram.com/mystore',
     );
-    const items = screen.getAllByRole('menuitem');
-    expect(items).toHaveLength(5);
-    items.forEach((item) => {
-      expect(item.textContent?.trim()).toBe('');
-    });
     expect(screen.getByRole('menuitem', { name: 'تيليجرام' }).getAttribute('href')).toBe(
       'https://t.me/mystore_tg',
+    );
+    expect(screen.getByRole('menuitem', { name: 'تيك توك' }).getAttribute('href')).toBe(
+      'https://tiktok.com/@mystore_tt',
     );
   });
 });
