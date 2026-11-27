@@ -12,10 +12,10 @@ interface FloatingContactSettingsEditorProps {
 }
 
 type ChannelRowConfig = {
-  key: "phone" | "messenger" | "instagram" | "telegram" | "email";
+  key: "phone" | "messenger" | "instagram" | "telegram";
   label: string;
   placeholder: string;
-  field: "number" | "url" | "address";
+  field: "number" | "url";
   mono?: boolean;
 };
 
@@ -44,13 +44,6 @@ const EXTRA_CHANNELS: ChannelRowConfig[] = [
     label: "تيليجرام",
     placeholder: "@yourstore أو https://t.me/yourstore",
     field: "url",
-  },
-  {
-    key: "email",
-    label: "البريد الإلكتروني",
-    placeholder: "support@yourstore.com",
-    field: "address",
-    mono: true,
   },
 ];
 
@@ -111,8 +104,7 @@ export const FloatingContactSettingsEditor: React.FC<
                 Boolean(config.phone?.enabled) ||
                 Boolean(config.messenger?.enabled) ||
                 Boolean(config.instagram?.enabled) ||
-                Boolean(config.telegram?.enabled) ||
-                Boolean(config.email?.enabled);
+                Boolean(config.telegram?.enabled);
               commitConfig({
                 ...config,
                 enabled: checked,

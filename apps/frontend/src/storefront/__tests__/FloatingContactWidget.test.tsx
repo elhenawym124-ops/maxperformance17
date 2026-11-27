@@ -43,7 +43,6 @@ describe('FloatingContactWidget', () => {
             messenger: { enabled: true, url: 'mystore' },
             instagram: { enabled: true, url: '@mystore' },
             telegram: { enabled: true, url: 'mystore_tg' },
-            email: { enabled: true, address: 'help@mystore.com' },
           },
         }}
       />,
@@ -67,12 +66,14 @@ describe('FloatingContactWidget', () => {
     expect(screen.getByRole('menuitem', { name: 'إنستجرام' }).getAttribute('href')).toBe(
       'https://instagram.com/mystore',
     );
+    const items = screen.getAllByRole('menuitem');
+    expect(items).toHaveLength(5);
+    items.forEach((item) => {
+      expect(item.textContent?.trim()).toBe('');
+    });
     expect(screen.getByRole('menuitem', { name: 'تيليجرام' }).getAttribute('href')).toBe(
       'https://t.me/mystore_tg',
     );
-    expect(
-      screen.getByRole('menuitem', { name: 'البريد الإلكتروني' }).getAttribute('href'),
-    ).toBe('mailto:help@mystore.com');
   });
 });
 

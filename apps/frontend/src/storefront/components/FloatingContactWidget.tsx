@@ -6,8 +6,7 @@ export type FloatingContactChannelId =
   | 'phone'
   | 'messenger'
   | 'instagram'
-  | 'telegram'
-  | 'email';
+  | 'telegram';
 
 export interface FloatingContactChannelInput {
   enabled?: boolean;
@@ -23,7 +22,6 @@ export interface FloatingContactConfig {
   messenger?: { enabled?: boolean; url?: string };
   instagram?: { enabled?: boolean; url?: string };
   telegram?: { enabled?: boolean; url?: string };
-  email?: { enabled?: boolean; address?: string };
 }
 
 export interface ResolvedContactChannel {
@@ -85,10 +83,6 @@ export function resolveFloatingContactConfig(
     telegram: {
       enabled: Boolean(fc.telegram?.enabled),
       url: fc.telegram?.url ?? '',
-    },
-    email: {
-      enabled: Boolean(fc.email?.enabled),
-      address: fc.email?.address ?? '',
     },
   };
 }
@@ -173,17 +167,6 @@ export function buildActiveContactChannels(
     }
   }
 
-  if (config.email?.enabled && config.email.address?.trim()) {
-    channels.push({
-      id: 'email',
-      labelAr: 'البريد الإلكتروني',
-      labelEn: 'Email',
-      href: `mailto:${config.email.address.trim()}`,
-      external: false,
-      badgeClass: 'bg-slate-700 text-white hover:bg-slate-800',
-    });
-  }
-
   return channels;
 }
 
@@ -222,13 +205,6 @@ const ChannelIcon: React.FC<{ id: FloatingContactChannelId; className?: string }
       return (
         <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
           <path d="M21.4 4.6 2.9 11.7c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.5c.2.6.1.9.8.9.6 0 .8-.3 1.1-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.5-1.8ZM8.4 14.3l9.9-6.2c.5-.3.9-.1.5.2l-8 7.2-.3 3.4-2.1-4.6Z" />
-        </svg>
-      );
-    case 'email':
-      return (
-        <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="3" y="5" width="18" height="14" rx="2" />
-          <path d="m4 7 8 6 8-6" />
         </svg>
       );
   }
@@ -318,7 +294,7 @@ export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
       {open && (
         <div
           role="menu"
-          className="flex flex-col gap-2 rounded-2xl border border-border/70 bg-card/95 p-2 shadow-xl backdrop-blur-md"
+          className="flex flex-col items-center gap-2.5"
         >
           {channels.map((ch) => {
             const label = isArabic ? ch.labelAr : ch.labelEn;
@@ -330,14 +306,11 @@ export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
                 target={ch.external ? '_blank' : undefined}
                 rel={ch.external ? 'noopener noreferrer' : undefined}
                 onClick={() => setOpen(false)}
-                className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-foreground transition-colors hover:bg-muted/70"
+                aria-label={label}
+                title={label}
+                className={`flex h-11 w-11 items-center justify-center rounded-full shadow-lg transition-transform duration-150 hover:scale-105 active:scale-95 ${ch.badgeClass}`}
               >
-                <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${ch.badgeClass}`}
-                >
-                  <ChannelIcon id={ch.id} className="h-4 w-4" />
-                </span>
-                <span className="whitespace-nowrap">{label}</span>
+                <ChannelIcon id={ch.id} className="h-5 w-5" />
               </a>
             );
           })}
