@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft, Clock, ExternalLink, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useStorefrontSettings } from "../../hooks/useStorefrontSettings";
+import { useStorefrontTheme } from "../../engine/ThemeProvider";
 import { buildStorefrontPath } from "../../utils/paths";
 import "../../styles/academy-stage.css";
 
@@ -72,6 +73,8 @@ export const GlazierBranchesSection: React.FC<GlazierBranchesSectionProps> = ({
   settings,
 }) => {
   const location = useLocation();
+  const { theme } = useStorefrontTheme();
+  const isGenericEdu = theme?.id === "edu-academy-pro";
   const { settings: storefrontSettings } = useStorefrontSettings();
 
   const companyPhone =
@@ -259,7 +262,9 @@ export const GlazierBranchesSection: React.FC<GlazierBranchesSectionProps> = ({
             <div className="space-y-1">
               <h3 className="glazier-heading text-lg font-bold">استشارة اختيار المستوى مجاناً</h3>
               <p className="glazier-muted text-sm leading-relaxed">
-                أخبرنا بعمر الطالب وهل لديه تجربة سابقة في Scratch أو Python لنرشح لك أنسب مجموعة.
+                {isGenericEdu
+                  ? "أخبرنا بعمر الطالب وخلفيته الدراسية لنرشح لك أنسب مسار ومجموعة."
+                  : "أخبرنا بعمر الطالب وهل لديه تجربة سابقة في Scratch أو Python لنرشح لك أنسب مجموعة."}
               </p>
             </div>
             <div>
@@ -277,7 +282,9 @@ export const GlazierBranchesSection: React.FC<GlazierBranchesSectionProps> = ({
             <div className="space-y-1">
               <h3 className="glazier-heading text-lg font-bold">متابعة أعمال الطلاب والصفحة الرسمية</h3>
               <p className="glazier-muted text-sm leading-relaxed">
-                تابع مشروعات Demo Day، جدول المسابقات، وورش العمل الأسبوعية في مقار الأكاديمية وأونلاين.
+                {isGenericEdu
+                  ? "تابع أنشطة الطلاب، جدول الدورات، وورش العمل الأسبوعية في الفروع وأونلاين."
+                  : "تابع مشروعات Demo Day، جدول المسابقات، وورش العمل الأسبوعية في مقار الأكاديمية وأونلاين."}
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -296,7 +303,7 @@ export const GlazierBranchesSection: React.FC<GlazierBranchesSectionProps> = ({
                 to={buildStorefrontPath(location.pathname, "/shop", location.search)}
                 className="glazier-frame glazier-clear inline-flex min-h-[44px] items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold"
               >
-                <span>تصفح الـ 15 مستوى والباقات</span>
+                <span>{isGenericEdu ? "تصفح البرامج والباقات" : "تصفح الـ 15 مستوى والباقات"}</span>
               </Link>
             </div>
           </div>

@@ -78,6 +78,7 @@ export const useQuickOrderThemeStyles = ({
     !isRedlineAutoQuickOrder;
   const isAcademyStageQuickOrder =
     (theme.id === 'academy-stage-3d' ||
+      theme.id === 'edu-academy-pro' ||
       configuredFormVariant === 'academy-stage-3d') &&
     !isRedlineAutoQuickOrder;
   const isMergedBuyboxSurface = configuredSurfaceMode === 'merged-buybox';

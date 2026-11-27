@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useStorefrontTheme } from "../engine/ThemeProvider";
 import "../styles/academy-stage.css";
 
 export interface StoryMilestone {
@@ -102,12 +103,63 @@ const DEFAULT_METRICS: StoryMetric[] = [
 const HARDWARE_PLATE =
   "/assets/themes/academy-stage-3d/arduino-uno.jpg";
 
+const GENERIC_MILESTONES: StoryMilestone[] = [
+  {
+    index: "01",
+    badge: "المرحلة التأسيسية",
+    title: "بناء الأساسيات واستيعاب المفاهيم الأولى",
+    subtitle: "تأهيل الطالب بخطوات واضحة وأنشطة تفاعلية تناسب مستواه وعمره.",
+    highlights: ["أساس قوي", "مجموعات صغيرة", "أنشطة تفاعلية"],
+    codeSnippet: "STAGE 01 · FOUNDATION",
+    metric: "STAGE 01",
+    metricLabel: "تقييم مبدئي وخطة تعليمية",
+  },
+  {
+    index: "02",
+    badge: "المرحلة المتوسطة",
+    title: "التطبيق العملي وبناء المهارات",
+    subtitle: "تطبيقات عملية وتدريبات متدرجة تحول المعرفة النظرية إلى مهارة حقيقية.",
+    highlights: ["تمارين عملية", "متابعة أسبوعية", "تقييم مرحلي"],
+    codeSnippet: "STAGE 02 · PRACTICE",
+    metric: "STAGE 02",
+    metricLabel: "تقارير تقدم دورية",
+  },
+  {
+    index: "03",
+    badge: "المرحلة المتقدمة",
+    title: "التعمق وتنفيذ المشاريع المتكاملة",
+    subtitle: "يعمل الطالب على مشاريع حقيقية تطور قدرته على التحليل وحل المشكلات.",
+    highlights: ["مشاريع تطبيقية", "توجيه فردي", "عمل جماعي"],
+    codeSnippet: "STAGE 03 · PROJECTS",
+    metric: "STAGE 03",
+    metricLabel: "مراجعة ومناقشة عملية",
+  },
+  {
+    index: "04",
+    badge: "مسار الإتقان",
+    title: "التأهيل النهائي واجتياز التقييم",
+    subtitle: "اختبارات محاكاة وتقييم ختامي يوثق تطور الطالب ويمنحه شهادة إتمام.",
+    highlights: ["اختبارات محاكاة", "تقييم ختامي", "شهادة إتمام"],
+    codeSnippet: "STAGE 04 · MASTERY",
+    metric: "STAGE 04",
+    metricLabel: "شهادة إتمام وتقرير شامل",
+  },
+];
+
+const GENERIC_METRICS: StoryMetric[] = [
+  { value: "4", label: "مراحل متدرجة من التأسيس إلى الإتقان" },
+  { value: "6–10", label: "الحد الأقصى للطلاب داخل المجموعة الواحدة" },
+  { value: "100%", label: "متابعة دورية وتقارير واضحة لولي الأمر" },
+];
+
 /**
  * Illuminated Glazier Partition Curriculum Wall:
  * Four structural colorfield bays span flush between steel mullions; hovering or selecting
  * a bay backlights its pigment and renders its hardware/code deliverable below.
  */
 const AcademyStoryStage: React.FC<AcademyStoryStageProps> = ({ settings }) => {
+  const { theme } = useStorefrontTheme();
+  const isGenericEdu = theme?.id === "edu-academy-pro";
   const manifestoText = settings?.manifestoText || DEFAULT_MANIFESTO;
   const highlights =
     Array.isArray(settings?.manifestoHighlights) &&
@@ -117,11 +169,15 @@ const AcademyStoryStage: React.FC<AcademyStoryStageProps> = ({ settings }) => {
   const milestones =
     Array.isArray(settings?.milestones) && settings.milestones.length > 0
       ? settings.milestones.slice(0, 4)
-      : DEFAULT_MILESTONES;
+      : isGenericEdu
+        ? GENERIC_MILESTONES
+        : DEFAULT_MILESTONES;
   const metrics =
     Array.isArray(settings?.metrics) && settings.metrics.length > 0
       ? settings.metrics.slice(0, 3)
-      : DEFAULT_METRICS;
+      : isGenericEdu
+        ? GENERIC_METRICS
+        : DEFAULT_METRICS;
 
   const [activeIdx, setActiveIdx] = useState(0);
   const activeStage = milestones[activeIdx] || milestones[0];

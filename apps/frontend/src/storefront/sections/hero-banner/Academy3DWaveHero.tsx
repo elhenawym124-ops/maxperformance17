@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import type { HeroVariantProps } from "./heroTypes";
 import { isExternalHref, renderHeroAction } from "./heroActions";
+import { useStorefrontTheme } from "../../engine/ThemeProvider";
 import "../../styles/academy-stage.css";
 
 interface AgeTrackPane {
@@ -43,6 +44,33 @@ const DEFAULT_AGE_TRACKS: AgeTrackPane[] = [
   },
 ];
 
+const GENERIC_AGE_TRACKS: AgeTrackPane[] = [
+  {
+    id: "juniors",
+    ageLabel: "المرحلة التأسيسية",
+    stageTitle: "بناء الأساسيات والمهارات الأولى",
+    levelsLabel: "STAGE 01",
+    toolsLine: "مجموعات صغيرة · تفاعل مباشر · متابعة فردية",
+    outcome: "يفهم الطالب المفاهيم الأساسية عبر أنشطة وتطبيقات عملية منذ الأسبوع الأول.",
+  },
+  {
+    id: "builders",
+    ageLabel: "المرحلة المتوسطة",
+    stageTitle: "التطبيق العملي وبناء المشاريع",
+    levelsLabel: "STAGE 02",
+    toolsLine: "تمارين تطبيقية · تقييم مرحلي · تقارير دورية",
+    outcome: "ينفّذ الطالب تدريبات ومشروعات متدرجة ترسّخ المهارة وتقيس تقدمه بدقة.",
+  },
+  {
+    id: "founders",
+    ageLabel: "المرحلة المتقدمة",
+    stageTitle: "الإتقان والاستعداد للاختبارات والشهادات",
+    levelsLabel: "STAGE 03",
+    toolsLine: "اختبارات محاكاة · مشروع تخرج · شهادة إتمام",
+    outcome: "يتقن الطالب المسار بالكامل مع تقييم ختامي وتقرير شامل لولي الأمر أو المتدرب.",
+  },
+];
+
 const DEFAULT_HERO_HARDWARE_PHOTO =
   "/assets/themes/academy-stage-3d/microbit-kit.jpg";
 
@@ -62,17 +90,21 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = ({
   panel,
   brandName,
 }) => {
+  const { theme } = useStorefrontTheme();
+  const isGenericEdu = theme?.id === "edu-academy-pro";
+  const trackList = isGenericEdu ? GENERIC_AGE_TRACKS : DEFAULT_AGE_TRACKS;
   const [selectedTrackId, setSelectedTrackId] = useState<string>(
-    DEFAULT_AGE_TRACKS[1].id,
+    trackList[1].id,
   );
 
   const activeTrack =
-    DEFAULT_AGE_TRACKS.find((t) => t.id === selectedTrackId) ||
-    DEFAULT_AGE_TRACKS[1];
+    trackList.find((t) => t.id === selectedTrackId) ||
+    trackList[1];
 
   const heroPhoto = panel?.image || DEFAULT_HERO_HARDWARE_PHOTO;
   const resolvedPrimaryLabel = ctaText || "احجز جلسة التقييم المجانية";
-  const resolvedSecondaryLabel = secondaryCtaText || "جرّب المعمل التفاعلي";
+  const resolvedSecondaryLabel =
+    secondaryCtaText || (isGenericEdu ? "تصفح البرامج المتاحة" : "جرّب المعمل التفاعلي");
   const bookingUrl = primaryHref.includes("?")
     ? `${primaryHref}&track=${activeTrack.id}`
     : `${primaryHref}?track=${activeTrack.id}`;
@@ -110,7 +142,7 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = ({
               aria-label="اختيار المرحلة العمرية"
               className="glazier-t grid grid-cols-3"
             >
-              {DEFAULT_AGE_TRACKS.map((track, idx) => {
+              {trackList.map((track, idx) => {
                 const isSelected = track.id === activeTrack.id;
                 return (
                   <button
@@ -120,7 +152,7 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = ({
                     aria-selected={isSelected}
                     onClick={() => setSelectedTrackId(track.id)}
                     className={`min-h-[72px] p-3 sm:p-4 flex flex-col items-start justify-between gap-1 text-start ${
-                      idx < DEFAULT_AGE_TRACKS.length - 1 ? "glazier-e" : ""
+                      idx < trackList.length - 1 ? "glazier-e" : ""
                     } ${isSelected ? "glazier-pane-cobalt" : "glazier-clear"}`}
                   >
                     <span className="font-mono tabular-nums text-xs font-semibold opacity-80">
@@ -233,7 +265,7 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = ({
                 {panel?.subtitle || "تدريب عملي بأطقم الهاردوير والكود"}
               </span>
               <span className="font-mono tabular-nums text-xs font-bold shrink-0">
-                <bdi dir="ltr">MICRO:BIT · PYTHON</bdi>
+                <bdi dir="ltr">{isGenericEdu ? "CAMPUS · ONLINE" : "MICRO:BIT · PYTHON"}</bdi>
               </span>
             </div>
 
@@ -249,10 +281,10 @@ export const Academy3DWaveHero: React.FC<HeroVariantProps> = ({
 
               <div className="glazier-pane-cobalt p-4 sm:p-5 flex flex-col items-start justify-between gap-1.5 text-start">
                 <span className="font-mono tabular-nums text-lg sm:text-xl font-bold">
-                  <bdi dir="ltr">01 — 15</bdi>
+                  <bdi dir="ltr">{isGenericEdu ? "01 — 04" : "01 — 15"}</bdi>
                 </span>
                 <span className="text-xs sm:text-sm font-medium leading-snug opacity-95">
-                  مستوى متدرج حتى Demo Day
+                  {isGenericEdu ? "مراحل تعليمية متدرجة بإشراف مباشر" : "مستوى متدرج حتى Demo Day"}
                 </span>
               </div>
             </div>

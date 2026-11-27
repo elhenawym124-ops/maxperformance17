@@ -1,0 +1,296 @@
+{
+  "id": "edu-academy-pro",
+  "name": "الأكاديمية المعمارية — قالب تعليمي عام",
+  "description": "قالب متكامل لأي مؤسسة تعليمية أو مركز تدريب أو أكاديمية: مسارات دراسية، حجز تقييم مجاني، الفروع، والتسجيل بدون شحن.",
+  "direction": "rtl",
+  "tokens": {
+    "colors": {
+      "primary": "219 85% 27%",
+      "primaryForeground": "0 0% 100%",
+      "secondary": "40 24% 92%",
+      "secondaryForeground": "221 39% 11%",
+      "accent": "328 67% 37%",
+      "accentForeground": "0 0% 100%",
+      "background": "40 24% 92%",
+      "foreground": "221 39% 11%",
+      "muted": "40 16% 86%",
+      "mutedForeground": "215 25% 27%",
+      "border": "221 39% 11%",
+      "card": "40 30% 95%",
+      "cardForeground": "221 39% 11%",
+      "ring": "219 85% 27%"
+    },
+    "typography": {
+      "headingFont": "\"Alexandria\", \"IBM Plex Sans Arabic\", sans-serif",
+      "bodyFont": "\"IBM Plex Sans Arabic\", \"Cairo\", sans-serif",
+      "baseSize": "16px",
+      "direction": "rtl"
+    },
+    "shape": {
+      "borderRadius": "0px",
+      "buttonRadius": "0px"
+    },
+    "productCard": {
+      "borderRadius": "0px",
+      "boxShadow": "none",
+      "hoverShadow": "none",
+      "badgeRadius": "0px",
+      "buttonRadius": "0px",
+      "surfaceOpacity": "1"
+    }
+  },
+  "header": {
+    "variant": "clean-minimal",
+    "transparentOnHome": false,
+    "brandName": "الأكاديمية التعليمية",
+    "showSearch": false,
+    "showCart": false,
+    "navigation": [
+      { "label": "الرئيسية", "to": "/" },
+      { "label": "المسارات", "to": "/collections" },
+      { "label": "البرامج", "to": "/shop" },
+      { "label": "الفروع", "to": "/contact" },
+      { "label": "احجز تقييم مجاني", "to": "/registration" }
+    ]
+  },
+  "footer": {
+    "description": "مؤسسة تعليمية تطبيقية تقدم برامج متدرجة للأعمار والمستويات المختلفة مع متابعة مستمرة بالحضور أو أونلاين.",
+    "copyrightText": "© 2026 الأكاديمية التعليمية — جميع الحقوق محفوظة.",
+    "socialLinks": {},
+    "navigation": [
+      {
+        "title": "البرامج",
+        "links": [
+          { "label": "كل البرامج", "to": "/shop" },
+          { "label": "المسارات الدراسية", "to": "/collections" },
+          { "label": "احجز تقييم مجاني", "to": "/registration" }
+        ]
+      },
+      {
+        "title": "المؤسسة",
+        "links": [
+          { "label": "فروعنا والتواصل", "to": "/contact" },
+          { "label": "سلة التسجيل", "to": "/cart" }
+        ]
+      }
+    ]
+  },
+  "seo": {
+    "titleTemplate": "%s | الأكاديمية التعليمية",
+    "description": "برامج تعليمية متدرجة ومجموعات صغيرة بمتابعة مستمرة في الفروع أو أونلاين."
+  },
+  "preview": {
+    "colors": ["40 24% 92%", "219 85% 27%", "328 67% 37%"],
+    "imageUrl": "/assets/themes/academy-stage-3d/preview.png"
+  },
+  "pages": {
+    "home": {
+      "sections": [
+        {
+          "type": "hero-banner",
+          "variant": "academy-3d-wave",
+          "settings": {
+            "title": "تعلّم منظم يبني المهارة",
+            "titleHighlight": "من التأسيس حتى الإتقان",
+            "subtitle": "برامج تعليمية متدرجة لمختلف الأعمار والمستويات — مجموعات صغيرة، تطبيق عملي، ومتابعة دورية في الفروع أو أونلاين.",
+            "ctaText": "احجز جلسة التقييم المجانية",
+            "ctaLink": "/registration",
+            "secondaryCtaText": "تصفح البرامج المتاحة",
+            "secondaryCtaLink": "/shop",
+            "panelTitle": "منهج تفاعلي ومتابعة فردية",
+            "panelSubtitle": "حضور مباشر في الفروع أو بث حي أونلاين",
+            "panelMetricValue": "FREE",
+            "panelMetricLabel": "تقييم مستوى مجاني وخصم للإخوة"
+          }
+        },
+        {
+          "type": "academy-story-stage",
+          "variant": "standard",
+          "settings": {
+            "manifestoText": "نحن لا نكتفي بالشرح النظري — بل نبني منهجية تعلم متكاملة تجمع الفهم العميق والتطبيق العملي وتقارير التقدم الدورية.",
+            "manifestoHighlights": ["منهج متدرج", "تطبيق عملي", "متابعة دورية"],
+            "journeyTitle": "رحلة تعليمية واضحة من التأسيس إلى التميز",
+            "bentoTitle": "تقييم حقيقي وتطبيق عملي في كل مرحلة",
+            "bentoDescription": "كل طالب يتدرج في مجموعات صغيرة متناسبة مع عمره ومستواه مع تقارير متابعة واضحة.",
+            "ctaText": "احجز جلسة التقييم المجانية",
+            "ctaLink": "/registration"
+          }
+        },
+        {
+          "type": "featured-collections",
+          "variant": "glazier-tracks",
+          "settings": {
+            "title": "المسارات والمراحل الدراسية",
+            "subtitle": "اختر المسار الأنسب لعمر الطالب ومستواه الحالي.",
+            "limit": 4
+          }
+        }
+      ]
+    },
+    "shop": {
+      "title": "البرامج والدورات التدريبية",
+      "seo": {
+        "title": "البرامج والدورات التدريبية",
+        "description": "استعرض جميع البرامج والمستويات المتاحة وسجل في المسار المناسب."
+      },
+      "layoutHint": "sidebar-left",
+      "sections": [
+        {
+          "type": "shop-hero",
+          "settings": {
+            "title": "البرامج والدورات التدريبية",
+            "subtitle": "تصفح البرامج والمستويات المتاحة بالحضور المباشر أو أونلاين.",
+            "ctaText": "احجز تقييم مجاني لتحديد مستواك",
+            "ctaLink": "/registration"
+          }
+        },
+        {
+          "type": "shop-command-bar",
+          "variant": "default-discovery",
+          "settings": {
+            "title": "دليل البرامج",
+            "searchPlaceholder": "ابحث عن برنامج أو مستوى...",
+            "allCategoriesLabel": "كل المسارات",
+            "resultsLabel": "برنامج متاح",
+            "clearButtonText": "مسح البحث"
+          }
+        },
+        {
+          "type": "filters-sidebar",
+          "settings": {
+            "title": "تصفية البرامج",
+            "categoryLabel": "المرحلة التعليمية",
+            "showSort": false,
+            "showPriceFilter": false,
+            "allProductsLabel": "كل البرامج",
+            "clearButtonText": "إعادة ضبط",
+            "showMobileLabel": "تصفية البرامج",
+            "hideMobileLabel": "إخفاء الفلاتر"
+          }
+        },
+        {
+          "type": "product-grid",
+          "variant": "grid",
+          "settings": {
+            "title": "البرامج والباقات المتاحة",
+            "limit": 16
+          }
+        }
+      ]
+    },
+    "pdp": {
+      "sections": [
+        { "type": "product-gallery", "variant": "standard" },
+        {
+          "type": "product-info",
+          "variant": "standard",
+          "settings": {
+            "addToCartText": "أضف إلى السلة",
+            "buyNowText": "احجز الآن",
+            "ctaText": "احجز مقعد في هذا البرنامج",
+            "descriptionTitle": "تفاصيل المنهج والمخرجات",
+            "shippingTitle": "نظام الحصص",
+            "shippingText": "متاح أونلاين أو بالحضور المباشر في فروع المؤسسة مع متابعة أسبوعية.",
+            "guaranteesTitle": "مميزات التسجيل",
+            "guaranteesSubtitle": "نظام تعليمي متكامل لولي الأمر والطالب",
+            "guaranteeItems": "[\"مجموعات صغيرة\",\"تطبيق عملي مستمر\",\"تقرير دوري لولي الأمر\"]",
+            "guaranteeStyle": "strip"
+          }
+        },
+        { "type": "related-products", "variant": "compact", "settings": { "title": "برامج مكملة", "limit": 3 } }
+      ]
+    },
+    "cart": {
+      "title": "سلة التسجيل",
+      "seo": {
+        "title": "سلة التسجيل والبرامج المختارة",
+        "description": "راجع البرامج التي اخترتها وأكمل تسجيل الطالب في المؤسسة."
+      },
+      "sections": [
+        {
+          "type": "cart-items",
+          "variant": "compact",
+          "settings": {
+            "title": "البرامج المختارة",
+            "subtitle": "راجع البرامج التي اخترتها قبل تأكيد التسجيل.",
+            "emptyTitle": "سلة التسجيل فارغة",
+            "emptyText": "لم تختر أي برنامج تعليمي بعد — تصفح البرامج المتاحة أو احجز جلسة تقييم مجانية.",
+            "continueShoppingText": "تصفح البرامج المتاحة",
+            "productLabel": "البرنامج",
+            "removeLabel": "إزالة البرنامج"
+          }
+        },
+        {
+          "type": "order-summary",
+          "variant": "highlighted",
+          "settings": {
+            "title": "ملخص الاشتراك",
+            "subtitle": "ملخص واضح للباقات المختارة بدون مصاريف شحن.",
+            "subtotalLabel": "رسوم البرامج",
+            "totalLabel": "الرسوم الإجمالية",
+            "hideShipping": true,
+            "shippingHelpText": "لا توجد مصاريف شحن — يشمل الاشتراك الحصص والمتابعة والتقييم.",
+            "checkoutButtonText": "تأكيد التسجيل",
+            "secureCheckoutText": "حجز مؤكد بالفرع أو أونلاين",
+            "returnsText": "متابعة وتقرير دوري لولي الأمر"
+          }
+        }
+      ]
+    },
+    "collections": {
+      "title": "المسارات التعليمية",
+      "seo": {
+        "title": "المسارات والبرامج التعليمية",
+        "description": "استعرض المسارات الدراسية المتدرجة حسب الفئة العمرية والمستوى."
+      },
+      "isSystemFallback": false,
+      "sections": [
+        {
+          "type": "featured-collections",
+          "variant": "glazier-tracks",
+          "settings": {
+            "title": "خارطة المسارات والبرامج التعليمية",
+            "subtitle": "مسارات متدرجة حسب العمر والمستوى مع متابعة فردية وتطبيق عملي.",
+            "limit": 4
+          }
+        }
+      ]
+    },
+    "contact": {
+      "title": "فروعنا والتواصل",
+      "seo": {
+        "title": "فروعنا والتواصل",
+        "description": "تواصل معنا لمعرفة الفروع المتاحة بالحضور المباشر أو مواعيد الفصول أونلاين."
+      },
+      "isSystemFallback": false,
+      "sections": [
+        {
+          "type": "info-content",
+          "variant": "glazier-branches",
+          "settings": {
+            "title": "تواصل معنا ومقار الحضور",
+            "subtitle": "نساعدك في تحديد البرنامج الأنسب لعمر الطالب وخبرته — بالحضور في المقر أو أونلاين.",
+            "body": "اختر الفرع الأقرب أو راسلنا مباشرة عبر واتساب لتنسيق موعد جلسة التقييم المجانية."
+          }
+        }
+      ]
+    },
+    "registration": {
+      "title": "احجز جلسة التقييم المجانية",
+      "seo": {
+        "title": "احجز جلسة التقييم المجانية",
+        "description": "جلسة تقييم عملية مجانية لتحديد أنسب مسار وبرنامج تعليمي."
+      },
+      "sections": [
+        {
+          "type": "member-registration",
+          "variant": "glazier-trial-booking",
+          "settings": {
+            "title": "احجز جلسة التقييم المجانية",
+            "subtitle": "جلسة عملية قصيرة لتحديد أنسب مسار ومستوى للطالب."
+          }
+        }
+      ]
+    }
+  }
+}

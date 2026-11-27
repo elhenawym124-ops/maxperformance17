@@ -29,7 +29,8 @@ export const useCartItemsController = ({ section, settings }: CartItemsProps) =>
   const isPharmacy = isPharmacyThemeId(theme.id);
   const isButcherCart = theme.id === 'butcher-counter-eg';
   const isSproutRoom = theme.id === 'elessi-sprout-room';
-  const isAcademyStage = theme.id === 'academy-stage-3d';
+  const isCodingAcademy = theme.id === 'academy-stage-3d';
+  const isAcademyStage = isCodingAcademy || theme.id === 'edu-academy-pro';
   const location = useLocation();
   const pharmacyBrandName = theme.header?.brandName || theme.name;
   const shopPath = buildStorefrontPath(location.pathname, '/shop', location.search);
@@ -85,14 +86,16 @@ export const useCartItemsController = ({ section, settings }: CartItemsProps) =>
   const emptyText =
     settings?.emptyText ||
     (isAcademyStage
-      ? 'لم تختر أي مستوى تعليمي بعد — تصفح الـ 15 مستوى أو احجز حصة تقييم مجانية.'
+      ? (isCodingAcademy
+        ? 'لم تختر أي مستوى تعليمي بعد — تصفح الـ 15 مستوى أو احجز حصة تقييم مجانية.'
+        : 'لم تختر أي برنامج تعليمي بعد — تصفح البرامج المتاحة أو احجز جلسة تقييم مجانية.')
       : prefersArabicCopy
         ? 'يبدو إنك لسه ما ضفت أي منتج للسلة.'
         : 'You have not added any items to your cart yet.');
   const continueShoppingText =
     settings?.continueShoppingText ||
     (isAcademyStage
-      ? 'تصفح المستويات الـ 15'
+      ? (isCodingAcademy ? 'تصفح المستويات الـ 15' : 'تصفح البرامج المتاحة')
       : prefersArabicCopy
         ? 'كمّل تسوق'
         : 'Continue Shopping');

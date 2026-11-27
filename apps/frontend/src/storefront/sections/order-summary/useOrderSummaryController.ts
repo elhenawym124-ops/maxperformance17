@@ -65,7 +65,8 @@ export function useOrderSummaryController({
   const isZenOrganic = theme.id === "zen-organic";
   const isBiteRush = theme.id === "restaurant-demo";
   const isSproutRoom = theme.id === "elessi-sprout-room";
-  const isAcademyStage = theme.id === "academy-stage-3d";
+  const isAcademyStage =
+    theme.id === "academy-stage-3d" || theme.id === "edu-academy-pro";
   const isWomenFashionSummary = theme.id === "women-fashion-eg";
   const isKhemetLuxe = isKhemetLuxeTheme(theme.id);
   const checkoutPath = buildStorefrontPath(

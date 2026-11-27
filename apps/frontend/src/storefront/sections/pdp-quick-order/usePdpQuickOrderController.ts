@@ -117,7 +117,9 @@ export const usePdpQuickOrderController = ({
   const isRedlineAuto =
     theme.id === 'redline-auto' || configuredFormVariant === 'redline-auto';
   const isAcademyStage =
-    theme.id === 'academy-stage-3d' || configuredFormVariant === 'academy-stage-3d';
+    theme.id === 'academy-stage-3d' ||
+    theme.id === 'edu-academy-pro' ||
+    configuredFormVariant === 'academy-stage-3d';
 
   const companyId = storefrontSettings?.company?.id || getCompanyId();
   const walletPaymentSettings =

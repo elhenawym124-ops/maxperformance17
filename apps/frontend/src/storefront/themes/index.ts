@@ -86,6 +86,7 @@ import cyberShieldAcademyData from "./cyber-shield-academy.json";
 import codeCampJuniorData from "./code-camp-junior.json";
 import frontendCraftStudioData from "./frontend-craft-studio.json";
 import academyStage3dData from "./academy-stage-3d.json";
+import eduAcademyProData from "./edu-academy-pro.json";
 import baladiMarketEgData from "./baladi-market-eg.json";
 import nileEleganceEgData from "./nile-elegance-eg.json";
 import primeButcherLuxeData from "./prime-butcher-luxe.json";
@@ -784,6 +785,7 @@ export const STOREFRONT_THEME_PRESETS: Record<string, StorefrontTheme> = {
   "code-camp-junior": asStorefrontTheme(codeCampJuniorData),
   "frontend-craft-studio": asStorefrontTheme(frontendCraftStudioData),
   "academy-stage-3d": asStorefrontTheme(academyStage3dData),
+  "edu-academy-pro": asStorefrontTheme(eduAcademyProData),
   kwrsat: asStorefrontTheme(kwrsatData),
   "baladi-market-eg": asStorefrontTheme(baladiMarketEgData),
   "nile-elegance-eg": asStorefrontTheme(nileEleganceEgData),

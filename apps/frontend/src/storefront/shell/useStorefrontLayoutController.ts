@@ -261,7 +261,8 @@ export const useStorefrontLayoutController = ({
   const previewProductId = searchParams.get('previewProductId');
   const isFastlyTheme = theme.id === 'fastly-eg';
   const isGracefulTheme = theme.id === 'soft-graceful';
-  const isAcademyStageTheme = theme.id === 'academy-stage-3d';
+  const isAcademyStageTheme =
+    theme.id === 'academy-stage-3d' || theme.id === 'edu-academy-pro';
 
   const productRouteKey = getStorefrontProductRouteKey(normalizedPath);
   const legacyProductSlugAliasTarget = useMemo(

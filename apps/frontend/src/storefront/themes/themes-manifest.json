@@ -899,6 +899,37 @@
     }
   },
   {
+    "id": "edu-academy-pro",
+    "name": "الأكاديمية المعمارية — قالب تعليمي عام",
+    "description": "قالب معماري عام يناسب أي مؤسسة تعليمية أو مركز تدريب أو أكاديمية: مسارات دراسية، حجز تقييم مجاني، الفروع، والتسجيل بدون شحن.",
+    "category": "education",
+    "categoryMeta": {
+      "primary": {
+        "id": "education",
+        "label": "تعليم"
+      },
+      "secondary": {
+        "id": "general-academy",
+        "label": "مؤسسة تعليمية — عام"
+      }
+    },
+    "direction": "rtl",
+    "previewColors": [
+      "219 85% 27%",
+      "40 24% 92%",
+      "328 67% 37%"
+    ],
+    "previewImage": "/assets/themes/academy-stage-3d/preview.png",
+    "pageStats": {
+      "homeSections": 3,
+      "shopSections": 4,
+      "checkoutSections": 0,
+      "pdpSections": 3,
+      "cartSections": 2,
+      "totalSections": 12
+    }
+  },
+  {
     "id": "electronics-demo",
     "name": "TECHZONE",
     "description": "Preset رسمي للـ storefront.",

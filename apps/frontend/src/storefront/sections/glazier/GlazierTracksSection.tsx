@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useCategories } from "../../hooks/useCategories";
+import { useStorefrontTheme } from "../../engine/ThemeProvider";
 import { buildStorefrontPath } from "../../utils/paths";
 import "../../styles/academy-stage.css";
 
@@ -98,6 +99,73 @@ const TRACK_STAGES: StageTrackSpec[] = [
   },
 ];
 
+const GENERIC_TRACK_STAGES: StageTrackSpec[] = [
+  {
+    id: "juniors",
+    stageCode: "01",
+    levelsCode: "STAGE 01",
+    ageCode: "المرحلة 1",
+    ageUnit: "تأسيس",
+    title: "المرحلة التأسيسية والمهارات الأساسية",
+    tools: "مجموعات صغيرة · شرح تفاعلي · تطبيق أولي",
+    outcome: "بناء قاعدة معرفية سليمة مع تقييم أسبوعي لمستوى الفهم والتطبيق.",
+    paneClass: "glazier-pane-emerald",
+    categoryKeywords: ["تأسيس", "تمهيد", "stage 1", "basic", "foundation"],
+    levels: [
+      { code: "UNIT 01", name: "تقييم البداية وبناء الأساس", focus: "تثبيت المفاهيم الأولية خطوة بخطوة", searchQuery: "1" },
+      { code: "UNIT 02", name: "تطبيقات وتمارين موجهة", focus: "ربط الشرح النظري بأنشطة عملية", searchQuery: "2" },
+    ],
+  },
+  {
+    id: "makers",
+    stageCode: "02",
+    levelsCode: "STAGE 02",
+    ageCode: "المرحلة 2",
+    ageUnit: "تطوير",
+    title: "المرحلة المتوسطة والتطبيق العملي",
+    tools: "ورش تطبيقية · مشاريع فردية · متابعة مباشرة",
+    outcome: "تعميق الفهم عبر تدريبات واقعية وحل مشكلات متدرجة الصعوبة.",
+    paneClass: "glazier-pane-cyan",
+    categoryKeywords: ["متوسط", "تطوير", "stage 2", "intermediate"],
+    levels: [
+      { code: "UNIT 03", name: "المهارات التطبيقية المتوسطة", focus: "تنفيذ مهام عملية بإشراف المحاضر", searchQuery: "3" },
+      { code: "UNIT 04", name: "تقييم منتصف المسار", focus: "مراجعة شاملة وقياس التقدم", searchQuery: "4" },
+    ],
+  },
+  {
+    id: "ai-web",
+    stageCode: "03",
+    levelsCode: "STAGE 03",
+    ageCode: "المرحلة 3",
+    ageUnit: "تخصص",
+    title: "المرحلة المتقدمة والتخصص المعمق",
+    tools: "مشاريع جماعية · محاكاة عملية · تغذية راجعة",
+    outcome: "إتقان المهارات المتقدمة وتنفيذ مشروعات متكاملة بمستوى احترافي.",
+    paneClass: "glazier-pane-amber",
+    categoryKeywords: ["متقدم", "تخصص", "stage 3", "advanced"],
+    levels: [
+      { code: "UNIT 05", name: "التطبيقات المتقدمة", focus: "معالجة حالات عملية حقيقية", searchQuery: "5" },
+      { code: "UNIT 06", name: "مشروع تطبيقي متكامل", focus: "بناء وعرض المخرج النهائي للمرحلة", searchQuery: "6" },
+    ],
+  },
+  {
+    id: "founders",
+    stageCode: "04",
+    levelsCode: "STAGE 04",
+    ageCode: "المرحلة 4",
+    ageUnit: "إتقان",
+    title: "مسار الإتقان والاعتماد النهائي",
+    tools: "اختبارات محاكاة · تقييم ختامي · شهادة إتمام",
+    outcome: "إتمام البرنامج بنجاح مع تقرير تقييم شامل وشهادة إتمام معتمدة.",
+    paneClass: "glazier-pane-berry",
+    categoryKeywords: ["إتقان", "تأهيل", "شهادة", "stage 4", "master"],
+    levels: [
+      { code: "UNIT 07", name: "المراجعة النهائية والمحاكاة", focus: "استعداد كامل للتقييم النهائي", searchQuery: "7" },
+      { code: "UNIT 08", name: "التقييم الختامي والشهادة", focus: "عرض المشروع أو اجتياز الاختبار", searchQuery: "8" },
+    ],
+  },
+];
+
 export interface GlazierTracksSectionProps {
   section?: {
     variant?: string;
@@ -118,6 +186,9 @@ export const GlazierTracksSection: React.FC<GlazierTracksSectionProps> = ({
   settings,
 }) => {
   const location = useLocation();
+  const { theme } = useStorefrontTheme();
+  const isGenericEdu = theme?.id === "edu-academy-pro";
+  const trackStages = isGenericEdu ? GENERIC_TRACK_STAGES : TRACK_STAGES;
   const { categories } = useCategories();
   const [activeStageId, setActiveStageId] = useState<string>("all");
 
@@ -126,7 +197,7 @@ export const GlazierTracksSection: React.FC<GlazierTracksSectionProps> = ({
 
   const stageCategories = useMemo(() => {
     const map = new Map<string, string>();
-    TRACK_STAGES.forEach((stage, index) => {
+    trackStages.forEach((stage, index) => {
       const matched = categories.find((cat) => {
         const hay = `${cat.name || ""} ${cat.slug || ""}`.toLowerCase();
         return stage.categoryKeywords.some((kw) => hay.includes(kw));
@@ -138,20 +209,22 @@ export const GlazierTracksSection: React.FC<GlazierTracksSectionProps> = ({
       }
     });
     return map;
-  }, [categories]);
+  }, [categories, trackStages]);
 
   const visibleStages = useMemo(
     () =>
       activeStageId === "all"
-        ? TRACK_STAGES
-        : TRACK_STAGES.filter((stage) => stage.id === activeStageId),
-    [activeStageId],
+        ? trackStages
+        : trackStages.filter((stage) => stage.id === activeStageId),
+    [activeStageId, trackStages],
   );
 
   const sectionTitle =
     typeof settings?.title === "string" && settings.title.trim()
       ? settings.title.trim()
-      : "خارطة المسارات التعليمية — 15 مستوى عملي";
+      : isGenericEdu
+        ? "خارطة المسارات والبرامج التعليمية"
+        : "خارطة المسارات التعليمية — 15 مستوى عملي";
   const sectionSubtitle =
     typeof settings?.subtitle === "string" && settings.subtitle.trim()
       ? settings.subtitle.trim()

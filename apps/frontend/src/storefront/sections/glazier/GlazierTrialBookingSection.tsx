@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { ArrowLeft, CheckCircle2, PhoneCall } from "lucide-react";
 import { useStorefrontSettings } from "../../hooks/useStorefrontSettings";
+import { useStorefrontTheme } from "../../engine/ThemeProvider";
 import { buildStorefrontPath } from "../../utils/paths";
 import "../../styles/academy-stage.css";
 
@@ -50,6 +51,33 @@ const DEFAULT_BRANCH_OPTIONS = [
   "حضوري — مقر الأكاديمية الرئيسي",
 ];
 
+const GENERIC_TRACK_CHOICES: TrackChoice[] = [
+  {
+    id: "juniors",
+    label: "المرحلة التأسيسية",
+    ageRange: "6–9",
+    summary: "تأسيس المهارات الأولى وبناء قاعدة معرفية قوية بأسلوب تفاعلي.",
+  },
+  {
+    id: "makers",
+    label: "المرحلة المتوسطة",
+    ageRange: "10–13",
+    summary: "تعميق الفهم عبر تطبيقات عملية ومشاريع موجهة بمجموعات صغيرة.",
+  },
+  {
+    id: "ai-web",
+    label: "المرحلة المتقدمة",
+    ageRange: "11–14",
+    summary: "تخصص معمّق وتنفيذ مهام عملية متدرجة بإشراف مباشر.",
+  },
+  {
+    id: "founders",
+    label: "مسار الإتقان والاعتماد",
+    ageRange: "14–17",
+    summary: "مراجعة شاملة واختبارات محاكاة وتقييم ختامي مع شهادة إتمام.",
+  },
+];
+
 const normalizeWaDigits = (raw?: string): string => {
   const digits = String(raw || "").replace(/[^\d]/g, "");
   if (!digits) return "";
@@ -83,11 +111,14 @@ export const GlazierTrialBookingSection: React.FC<GlazierTrialBookingProps> = ({
 }) => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const { theme } = useStorefrontTheme();
+  const isGenericEdu = theme?.id === "edu-academy-pro";
+  const trackChoices = isGenericEdu ? GENERIC_TRACK_CHOICES : TRACK_CHOICES;
   const { settings: storefrontSettings } = useStorefrontSettings();
 
   const urlTrack = (searchParams.get("track") || "").trim().toLowerCase();
   const matchedTrack =
-    TRACK_CHOICES.find((item) => item.id === urlTrack) || TRACK_CHOICES[1];
+    trackChoices.find((item) => item.id === urlTrack) || trackChoices[1];
 
   const [parentName, setParentName] = useState("");
   const [phone, setPhone] = useState("");
@@ -123,15 +154,15 @@ export const GlazierTrialBookingSection: React.FC<GlazierTrialBookingProps> = ({
   }, [branchOptions, preferredBranch]);
 
   useEffect(() => {
-    const nextMatch = TRACK_CHOICES.find((item) => item.id === urlTrack);
+    const nextMatch = trackChoices.find((item) => item.id === urlTrack);
     if (nextMatch) {
       setSelectedTrack(nextMatch.id);
       setStudentAge(nextMatch.ageRange);
     }
-  }, [urlTrack]);
+  }, [trackChoices, urlTrack]);
 
   const resolvedTrackObj =
-    TRACK_CHOICES.find((item) => item.id === selectedTrack) || TRACK_CHOICES[1];
+    trackChoices.find((item) => item.id === selectedTrack) || trackChoices[1];
 
   const resolvedWaPhone = normalizeWaDigits(
     settings?.whatsappPhone ||
@@ -258,7 +289,7 @@ export const GlazierTrialBookingSection: React.FC<GlazierTrialBookingProps> = ({
                 to={buildStorefrontPath(location.pathname, "/collections", location.search)}
                 className="glazier-clear glazier-frame inline-flex min-h-[46px] items-center gap-2 px-5 py-2.5 text-sm font-bold"
               >
-                <span>مراجعة الـ 15 مستوى أولاً</span>
+                <span>{isGenericEdu ? "مراجعة المسارات أولاً" : "مراجعة الـ 15 مستوى أولاً"}</span>
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
@@ -272,10 +303,10 @@ export const GlazierTrialBookingSection: React.FC<GlazierTrialBookingProps> = ({
             <div className="space-y-6">
               <div>
                 <div className="text-xs font-mono font-bold tracking-wide opacity-70 mb-2">
-                  <bdi dir="ltr">45 MIN · LIVE DIAGNOSTIC</bdi>
+                  <bdi dir="ltr">{isGenericEdu ? "ASSESSMENT · DIAGNOSTIC" : "45 MIN · LIVE DIAGNOSTIC"}</bdi>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold leading-snug">
-                  ماذا يحدث داخل حصة التقييم المجانية؟
+                  {isGenericEdu ? "ماذا يحدث داخل جلسة التقييم المجانية؟" : "ماذا يحدث داخل حصة التقييم المجانية؟"}
                 </h2>
               </div>
 
@@ -283,18 +314,22 @@ export const GlazierTrialBookingSection: React.FC<GlazierTrialBookingProps> = ({
                 {[
                   {
                     step: "01",
-                    head: "قياس المنطق وطريقة التفكير",
+                    head: isGenericEdu ? "تحديد المستوى والقدرات الحالية" : "قياس المنطق وطريقة التفكير",
                     body: "أسئلة تفاعلية تناسب عمر الطالب بدون ضغط امتحانات تقليدية.",
                   },
                   {
                     step: "02",
-                    head: "تجربة كود عملية مباشرة",
-                    body: "ينفّذ الطالب خطوة حقيقية في Scratch أو Python حسب مستواه الحالي.",
+                    head: isGenericEdu ? "نشاط تطبيقي تفاعلي" : "تجربة كود عملية مباشرة",
+                    body: isGenericEdu
+                      ? "يجرب الطالب نشاطاً تطبيقياً قصيراً يناسب مستواه وتخصص المسار."
+                      : "ينفّذ الطالب خطوة حقيقية في Scratch أو Python حسب مستواه الحالي.",
                   },
                   {
                     step: "03",
                     head: "تقرير واضح لولي الأمر",
-                    body: "نحدد المستوى الدقيق من بين 15 مستوى ونعرض أنسب موعد حضوري أو أونلاين.",
+                    body: isGenericEdu
+                      ? "نحدد المسار والمجموعة الأنسب ونعرض المواعيد المتاحة حضورياً أو أونلاين."
+                      : "نحدد المستوى الدقيق من بين 15 مستوى ونعرض أنسب موعد حضوري أو أونلاين.",
                   },
                 ].map((item) => (
                   <div
@@ -450,12 +485,12 @@ export const GlazierTrialBookingSection: React.FC<GlazierTrialBookingProps> = ({
                       onChange={(e) => {
                         const val = e.target.value;
                         setSelectedTrack(val);
-                        const match = TRACK_CHOICES.find((c) => c.id === val);
+                        const match = trackChoices.find((c) => c.id === val);
                         if (match) setStudentAge(match.ageRange);
                       }}
                       className="glazier-frame w-full min-h-[48px] px-4 text-sm font-medium bg-white focus:outline-none"
                     >
-                      {TRACK_CHOICES.map((choice) => (
+                      {trackChoices.map((choice) => (
                         <option key={choice.id} value={choice.id}>
                           {choice.label} ({choice.ageRange} سنوات)
                         </option>

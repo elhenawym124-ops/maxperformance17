@@ -108,7 +108,8 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
   const isAirlume = theme.id === 'airlume-ai';
   const isZenOrganic = theme.id === 'zen-organic';
   const isBiteRush = theme.id === 'restaurant-demo';
-  const isAcademyStage = theme.id === 'academy-stage-3d';
+  const isCodingAcademy = theme.id === 'academy-stage-3d';
+  const isAcademyStage = isCodingAcademy || theme.id === 'edu-academy-pro';
   const isKhemetLuxe = isKhemetLuxeTheme(theme.id);
   const isMarketCheckout = variant === 'market-checkout';
   const isNatureCheckout = variant === 'nature-checkout';
@@ -368,7 +369,9 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
   const notesDescription =
     settings?.notesDescription ||
     (isAcademyStage
-      ? 'اذكر إذا كان للطالب تجربة سابقة مع Scratch أو Python أو الوقت الأنسب للحصة.'
+      ? (isCodingAcademy
+        ? 'اذكر إذا كان للطالب تجربة سابقة مع Scratch أو Python أو الوقت الأنسب للحصة.'
+        : 'اذكر أي تفاصيل عن مستوى الطالب الحالي أو الوقت الأنسب للحصة.')
       : isBiteRush
       ? 'اكتب الدور أو علامة مميزة أو أي طلب خاص عشان الطلب يوصلك مضبوط.'
       : isMarketCheckout
@@ -394,11 +397,16 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
     (isAcademyStage ? 'اسم الطالب وعمره + الفرع المفضل' : 'العنوان بالتفصيل');
   const addressPlaceholder =
     settings?.addressPlaceholder ||
-    (isAcademyStage ? 'مثال: آدم (11 سنة) — فرع فؤاد أو أونلاين' : 'الشارع، المنطقة، ورقم العمارة');
+    (isAcademyStage
+      ? (isCodingAcademy ? 'مثال: آدم (11 سنة) — فرع فؤاد أو أونلاين' : 'مثال: آدم (11 سنة) — الفرع الرئيسي أو أونلاين')
+      : 'الشارع، المنطقة، ورقم العمارة');
   const cityLabel =
     settings?.cityLabel || (isAcademyStage ? 'نظام الحضور / المنطقة' : 'المدينة');
   const cityPlaceholder =
-    settings?.cityPlaceholder || (isAcademyStage ? 'فؤاد / جليم / أونلاين' : 'مثال: مدينة نصر');
+    settings?.cityPlaceholder ||
+    (isAcademyStage
+      ? (isCodingAcademy ? 'فؤاد / جليم / أونلاين' : 'الفرع المباشر / أونلاين')
+      : 'مثال: مدينة نصر');
   const governorateLabel =
     settings?.governorateLabel ||
     (isAcademyStage ? 'المحافظة (اختياري)' : 'المحافظة');
@@ -451,7 +459,7 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
       ? [
           'تأكيد بيانات ولي الأمر والطالب',
           'تنسيق موعد الحضور بالفرع أو أونلاين',
-          'تقارير متابعة ومشروع تخرج في Demo Day',
+          isCodingAcademy ? 'تقارير متابعة ومشروع تخرج في Demo Day' : 'تقارير متابعة وتقييم دوري',
         ]
       : isMarketCheckout
       ? [

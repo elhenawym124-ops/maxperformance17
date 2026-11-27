@@ -39,7 +39,8 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
   const isAirlume = theme.id === 'airlume-ai';
   const isZenOrganic = theme.id === 'zen-organic';
   const isBiteRush = theme.id === 'restaurant-demo';
-  const isAcademyStage = theme.id === 'academy-stage-3d';
+  const isCodingAcademy = theme.id === 'academy-stage-3d';
+  const isAcademyStage = isCodingAcademy || theme.id === 'edu-academy-pro';
   const isKhemetLuxe = isKhemetLuxeTheme(theme.id);
   const navigate = useNavigate();
   const location = useLocation();
@@ -280,7 +281,7 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
       ? [
           'تأكيد بيانات ولي الأمر والطالب',
           'تحديد موعد الحضور بالفرع أو أونلاين',
-          'تقارير متابعة وعرض مشروع Demo Day',
+          isCodingAcademy ? 'تقارير متابعة وعرض مشروع Demo Day' : 'تقارير متابعة وتقييم دوري',
         ]
       : isMarketPayment
       ? [
@@ -836,10 +837,10 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
         (isAcademyStage ? 'تسجيل أكاديمية — حضوري أو أونلاين' : formData.address),
       city:
         formData.city?.trim() ||
-        (isAcademyStage ? 'الإسكندرية / أونلاين' : formData.city),
+        (isAcademyStage ? (isCodingAcademy ? 'الإسكندرية / أونلاين' : 'الفرع / أونلاين') : formData.city),
       governorate:
         trimmedGovernorate ||
-        (hideShippingRow || isAcademyStage ? 'الإسكندرية' : formData.governorate),
+        (hideShippingRow || isAcademyStage ? (isCodingAcademy ? 'الإسكندرية' : 'غير محدد') : formData.governorate),
       paymentMethod,
       couponCode: activeCoupon?.code,
       shippingCost: effectiveShipping,
@@ -872,7 +873,9 @@ export const usePaymentSectionController = (props: PaymentSectionProps) => {
       desc:
         (sectionSettings?.codDesc as string) ||
         (isAcademyStage
-          ? 'ثبّت مقعد الطالب الآن وسدّد الرسوم في الفرع (فؤاد / جليم) أو بالتحويل قبل بدء المجموعة.'
+          ? (isCodingAcademy
+            ? 'ثبّت مقعد الطالب الآن وسدّد الرسوم في الفرع (فؤاد / جليم) أو بالتحويل قبل بدء المجموعة.'
+            : 'ثبّت مقعد الطالب الآن وسدّد الرسوم في الفرع أو بالتحويل قبل بدء البرنامج.')
           : isBiteRush
           ? 'اطلب الآن وادفع عند الاستلام من غير أي خطوة إضافية'
           : isMarketPayment
