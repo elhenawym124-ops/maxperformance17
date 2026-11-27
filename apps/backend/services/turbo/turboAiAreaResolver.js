@@ -348,24 +348,34 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
     return { resolved: false, reason: 'NO_ACTIVE_AI_KEY' };
   }
 
+const GREATER_CAIRO_GOVS = new Set(['القاهرة', 'الجيزة', 'أطراف القاهرة والجيزة']);
+
+function isAllowedGovForExplicit(govObj, explicitGov) {
+  if (!explicitGov) return true;
+  if (!govObj) return false;
+  if (govObj.id && explicitGov.id && String(govObj.id) === String(explicitGov.id)) return true;
+  if (normalizeArabic(govObj.name) === normalizeArabic(explicitGov.name)) return true;
+  return GREATER_CAIRO_GOVS.has(explicitGov.name) && GREATER_CAIRO_GOVS.has(govObj.name);
+}
+
   // Gather candidate governorates (explicit + Cairo/Giza/Outskirts siblings + searchAreaByText hits)
   const candidateGovsMap = new Map();
   const addCandidateGov = (g) => {
-    if (g?.id && !candidateGovsMap.has(String(g.id))) {
+    if (g?.id && !candidateGovsMap.has(String(g.id)) && isAllowedGovForExplicit(g, explicitGovInStreet)) {
       candidateGovsMap.set(String(g.id), g);
     }
   };
 
   if (initialGov) {
     addCandidateGov(initialGov);
-    if (['القاهرة', 'الجيزة', 'أطراف القاهرة والجيزة'].includes(initialGov.name)) {
+    if (GREATER_CAIRO_GOVS.has(initialGov.name)) {
       addCandidateGov(findMatchingGovernment('أطراف القاهرة والجيزة', governments));
       addCandidateGov(findMatchingGovernment('الجيزة', governments));
       addCandidateGov(findMatchingGovernment('القاهرة', governments));
     }
   }
 
-  if (typeof turboService.searchAreaByText === 'function' && fullAddressText.trim().length >= 3) {
+  if (!explicitGovInStreet && typeof turboService.searchAreaByText === 'function' && fullAddressText.trim().length >= 3) {
     const searchRes = await turboService.searchAreaByText(fullAddressText, { limit: 10 }).catch(() => null);
     for (const m of searchRes?.matches || []) {
       addCandidateGov(findMatchingGovernment(m.governorate, governments));
@@ -452,7 +462,9 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
   }
 
   // 3) Programmatic Review: verify guessedArea exists in Turbo's map & auto-resolve governorate from the area's owner
-  const targetGov = findMatchingGovernment(guessedGov, governments) || initialGov;
+  const guessedGovObj = findMatchingGovernment(guessedGov, governments);
+  const targetGov =
+    (guessedGovObj && isAllowedGovForExplicit(guessedGovObj, explicitGovInStreet) ? guessedGovObj : null) || initialGov;
   if (targetGov) {
     const targetAreas = await getAreasForGov(targetGov);
     const verifiedArea = matchAreaInList(targetAreas, guessedArea, '', targetGov.name);
@@ -472,6 +484,7 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
 
   // Auto-correct governorate if AI picked a valid area that belongs to an adjacent/candidate governorate
   for (const g of candidateGovsMap.values()) {
+    if (!isAllowedGovForExplicit(g, explicitGovInStreet)) continue;
     const areas = await getAreasForGov(g);
     const verifiedArea = matchAreaInList(areas, guessedArea, '', g.name);
     if (verifiedArea) {
@@ -488,11 +501,17 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
     }
   }
 
-  // Last review sweep via searchAreaByText across all governorates
+  // Last review sweep via searchAreaByText across all governorates (respecting explicit governorate lock)
   if (typeof turboService.searchAreaByText === 'function') {
     const verifySearch = await turboService.searchAreaByText(guessedArea, { limit: 3 }).catch(() => null);
     const top = verifySearch?.matches?.[0];
-    if (top && top.area && top.governorate && top.confidence >= 0.75) {
+    if (
+      top &&
+      top.area &&
+      top.governorate &&
+      top.confidence >= 0.75 &&
+      isAllowedGovForExplicit({ id: top.governorateId, name: top.governorate }, explicitGovInStreet)
+    ) {
       return {
         resolved: true,
         governorate: top.governorate,

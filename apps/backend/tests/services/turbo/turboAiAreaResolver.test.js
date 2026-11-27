@@ -423,4 +423,44 @@ describe('turboAiAreaResolver', () => {
     expect(result.governorate).toBe('القليوبية');
     expect(result.area).toBe('قليوب');
   });
+
+  test('blocks cross-governorate misrouting to سوهاج even if searchAreaByText returns السلمانى', async () => {
+    const turboService = createMockTurboService({
+      governments: [
+        { id: '10', name: 'القليوبية' },
+        { id: '20', name: 'سوهاج' },
+      ],
+      areasByGov: {
+        '10': [{ id: '101', name: 'قليوب' }],
+        '20': [{ id: '201', name: 'السلمانى' }],
+      },
+      searchAreaByText: jest.fn().mockResolvedValue({
+        matches: [{ governorate: 'سوهاج', governorateId: '20', area: 'السلمانى', areaId: '201', confidence: 0.9 }],
+      }),
+    });
+    const prisma = createMockPrisma();
+    callChatCompletion.mockResolvedValueOnce(
+      JSON.stringify({
+        area: 'السلمانى',
+        governorate: 'القليوبية',
+        confidence: 0.85,
+        reason: 'القرية المذكورة تقع ضمن محافظة القليوبية',
+      })
+    );
+
+    const result = await resolveTurboLocation({
+      prisma,
+      turboService,
+      companyId: 'comp_1',
+      order: { governorate: 'القليوبية', city: 'Qalyubia' },
+      orderData: {
+        governorate: 'القليوبية',
+        city: 'Qalyubia',
+        shippingAddress: 'القليوبيه قرية السلمانيه مسجد التوحيد',
+      },
+    });
+
+    expect(result.resolved).toBe(false);
+    expect(result.reason).toBe('AI_AREA_NOT_IN_TURBO_MAP');
+  });
 });
