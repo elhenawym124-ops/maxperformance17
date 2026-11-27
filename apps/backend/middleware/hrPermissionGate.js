@@ -71,7 +71,10 @@ module.exports = async function hrPermissionGate(req, res, next) {
     const companyId = user.companyId;
     if (!companyId) return next();
 
-    const permissions = await permissionService.getUserPermissions(user.id, companyId);
+    const permissions =
+      user.authType === 'USER_API_KEY' && user.permissionMode === 'SCOPED'
+        ? (Array.isArray(user.userPermissions) ? user.userPermissions : [])
+        : await permissionService.getUserPermissions(user.id, companyId);
     if (Array.isArray(permissions) && permissions.includes(rule.permission)) {
       // الأدوار المخصّصة (مثل TRIAL_HR_MANAGER) تأتي كـ role string مختلف،
       // فلا تعرفها requireRole القديمة. بما أن الصلاحية الدقيقة متحققة هنا،

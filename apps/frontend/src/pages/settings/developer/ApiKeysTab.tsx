@@ -47,6 +47,7 @@ const ApiKeysTab: React.FC = () => {
 
   const [credentials, setCredentials] = useState<DevCredential[]>([]);
   const [scopeDefs, setScopeDefs] = useState<DevScopeDef[]>([]);
+  const [unavailableScopesCount, setUnavailableScopesCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -66,10 +67,17 @@ const ApiKeysTab: React.FC = () => {
     try {
       const [credentialsResponse, scopesResponse] = await Promise.all([
         devFetch<{ credentials: DevCredential[] }>("/credentials?type=API"),
-        devFetch<{ scopes: DevScopeDef[] }>("/scopes"),
+        devFetch<{ scopes: DevScopeDef[]; unavailableScopes?: DevScopeDef[] }>("/scopes"),
       ]);
+      const availableScopes = scopesResponse.scopes || [];
       setCredentials(credentialsResponse.credentials || []);
-      setScopeDefs(scopesResponse.scopes || []);
+      setScopeDefs(availableScopes);
+      setUnavailableScopesCount((scopesResponse.unavailableScopes || []).length);
+      const availableKeys = new Set(availableScopes.map((item) => item.key));
+      setSelectedScopes((prev) => {
+        const filtered = prev.filter((k) => availableKeys.has(k));
+        return filtered.length > 0 ? filtered : availableScopes.filter((s) => DEFAULT_READ_SCOPES.includes(s.key)).map((s) => s.key);
+      });
     } catch (err) {
       setError((err as Error).message || s.common.loadFailed);
     } finally {
@@ -255,6 +263,13 @@ const ApiKeysTab: React.FC = () => {
             <div className="space-y-2">
               <Label>{s.keys.scopesLabel}</Label>
               <p className="text-xs text-muted-foreground">{s.keys.scopesHint}</p>
+              {unavailableScopesCount > 0 && (
+                <p className="text-[11px] text-muted-foreground">
+                  {lang === "en"
+                    ? `${unavailableScopesCount} scope(s) hidden because their apps are not active in this company.`
+                    : `تم إخفاء ${unavailableScopesCount} صلاحية لأن تطبيقاتها غير مفعّلة في هذه الشركة.`}
+                </p>
+              )}
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {apiScopes.map((scope) => (
                   <label key={scope.key} className="flex cursor-pointer items-center gap-2 text-sm">

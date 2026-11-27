@@ -59,6 +59,10 @@ model UserApiKey {
   name            String
   keyPrefix       String    @unique // e.g. mxp_usr_a1b2c3d4
   keyHash         String    @unique // SHA-256 hex of full raw key
+  permissionMode  String    @default("INHERIT_ALL") // INHERIT_ALL | SCOPED
+  scopes          String[]  @default([])
+  rateLimitPerMin Int       @default(60)
+  allowedIps      String[]  @default([])
   isActive        Boolean   @default(true)
   expiresAt       DateTime?
   revokedAt       DateTime?

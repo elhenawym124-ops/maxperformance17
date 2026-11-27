@@ -1,10 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { BookOpen, Check, Copy, KeyRound, Plus, ShieldOff, Trash2 } from "lucide-react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  BookOpen,
+  Check,
+  Copy,
+  KeyRound,
+  Pencil,
+  Plus,
+  Search,
+  ShieldCheck,
+  ShieldOff,
+  Trash2,
+} from "lucide-react";
 import { getApiUrl } from "@/config/environment";
 import tokenManager from "@/utils/tokenManager";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -19,6 +31,10 @@ export interface UserApiKeyRecord {
   userId: string;
   keyPrefix: string;
   maskedKey: string;
+  permissionMode: "INHERIT_ALL" | "SCOPED";
+  scopes: string[];
+  rateLimitPerMin: number;
+  allowedIps: string[];
   isActive: boolean;
   status: "ACTIVE" | "REVOKED" | "EXPIRED";
   expiresAt: string | null;
@@ -41,6 +57,37 @@ interface ManageableUserOption {
   email: string;
   role: string;
   roleName?: string;
+}
+
+interface CapabilityPermission {
+  key: string;
+  name: string;
+  domain: string;
+}
+
+interface CapabilityModule {
+  id: string;
+  labelAr: string;
+  labelEn: string;
+  isAppActive: boolean;
+  permissions: CapabilityPermission[];
+}
+
+interface UnavailableModule {
+  id: string;
+  labelAr: string;
+  labelEn: string;
+  permissionCount: number;
+}
+
+interface UserCapabilitiesData {
+  targetUserId: string;
+  targetRole: string;
+  isCompanyInActiveTrial: boolean;
+  activeApps: Array<{ slug: string; name: string; status: string }>;
+  modules: CapabilityModule[];
+  unavailableModules: UnavailableModule[];
+  totalAvailablePermissions: number;
 }
 
 interface UserApiKeysPanelProps {
@@ -85,11 +132,20 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
   const [forbidden, setForbidden] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [createOpen, setCreateOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
+  const [editingKey, setEditingKey] = useState<UserApiKeyRecord | null>(null);
   const [keyName, setKeyName] = useState("");
   const [selectedUserId, setSelectedUserId] = useState(targetUserId || "");
-  const [expiresAt, setExpiresAt] = useState("");
-  const [creating, setCreating] = useState(false);
+  const [permissionMode, setPermissionMode] = useState<"INHERIT_ALL" | "SCOPED">("INHERIT_ALL");
+  const [selectedScopes, setSelectedScopes] = useState<string[]>([]);
+  const [rateLimitPerMin, setRateLimitPerMin] = useState("60");
+  const [expiresInDays, setExpiresInDays] = useState("");
+  const [allowedIpsInput, setAllowedIpsInput] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const [capabilities, setCapabilities] = useState<UserCapabilitiesData | null>(null);
+  const [capsLoading, setCapsLoading] = useState(false);
+  const [permQuery, setPermQuery] = useState("");
 
   const [revealedKey, setRevealedKey] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -154,41 +210,152 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
     loadKeys();
   }, [loadKeys]);
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const effectiveTargetUserId = useMemo(() => {
+    if (editingKey) return editingKey.userId;
+    if (mode === "user" && targetUserId) return targetUserId;
+    if (mode === "company" && selectedUserId) return selectedUserId;
+    return "";
+  }, [editingKey, mode, targetUserId, selectedUserId]);
+
+  const loadCapabilities = useCallback(async (uid: string) => {
+    setCapsLoading(true);
+    try {
+      const qs = uid ? `?userId=${encodeURIComponent(uid)}` : "";
+      const res = await apiRequest<{ success: boolean; data: UserCapabilitiesData }>(
+        `/capabilities${qs}`,
+      );
+      setCapabilities(res.data || null);
+    } catch {
+      setCapabilities(null);
+    } finally {
+      setCapsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (formOpen) {
+      void loadCapabilities(effectiveTargetUserId);
+    }
+  }, [formOpen, effectiveTargetUserId, loadCapabilities]);
+
+  const openCreateModal = () => {
+    setError(null);
+    setEditingKey(null);
+    setKeyName("");
+    setPermissionMode("INHERIT_ALL");
+    setSelectedScopes([]);
+    setRateLimitPerMin("60");
+    setExpiresInDays("");
+    setAllowedIpsInput("");
+    setPermQuery("");
+    setFormOpen(true);
+  };
+
+  const openEditModal = (item: UserApiKeyRecord) => {
+    setError(null);
+    setEditingKey(item);
+    setKeyName(item.name);
+    setSelectedUserId(item.userId);
+    setPermissionMode(item.permissionMode || "INHERIT_ALL");
+    setSelectedScopes(Array.isArray(item.scopes) ? item.scopes : []);
+    setRateLimitPerMin(String(item.rateLimitPerMin || 60));
+    setExpiresInDays("");
+    setAllowedIpsInput((item.allowedIps || []).join(", "));
+    setPermQuery("");
+    setFormOpen(true);
+  };
+
+  const toggleScope = (key: string, checked: boolean) => {
+    setSelectedScopes((prev) =>
+      checked ? [...new Set([...prev, key])] : prev.filter((k) => k !== key),
+    );
+  };
+
+  const toggleModuleAll = (mod: CapabilityModule, selectAll: boolean) => {
+    const keysInMod = mod.permissions.map((p) => p.key);
+    setSelectedScopes((prev) => {
+      if (selectAll) return [...new Set([...prev, ...keysInMod])];
+      const modSet = new Set(keysInMod);
+      return prev.filter((k) => !modSet.has(k));
+    });
+  };
+
+  const filteredModules = useMemo(() => {
+    const modules = capabilities?.modules || [];
+    const q = permQuery.trim().toLowerCase();
+    if (!q) return modules;
+    return modules
+      .map((mod) => ({
+        ...mod,
+        permissions: mod.permissions.filter(
+          (p) =>
+            p.key.toLowerCase().includes(q) ||
+            p.name.toLowerCase().includes(q) ||
+            mod.labelAr.toLowerCase().includes(q) ||
+            mod.labelEn.toLowerCase().includes(q),
+        ),
+      }))
+      .filter((mod) => mod.permissions.length > 0);
+  }, [capabilities, permQuery]);
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!keyName.trim()) return;
-    setCreating(true);
+    if (permissionMode === "SCOPED" && selectedScopes.length === 0) {
+      setError("يرجى اختيار صلاحية واحدة على الأقل عند تحديد صلاحيات مخصّصة");
+      return;
+    }
+
+    setSaving(true);
     setError(null);
     try {
-      const payload: Record<string, string> = { name: keyName.trim() };
-      if (mode === "user" && targetUserId) {
-        payload.userId = targetUserId;
-      } else if (mode === "company" && selectedUserId) {
-        payload.userId = selectedUserId;
+      const payload: Record<string, unknown> = {
+        name: keyName.trim(),
+        permissionMode,
+        scopes: permissionMode === "SCOPED" ? selectedScopes : [],
+        rateLimitPerMin: Number(rateLimitPerMin) || 60,
+        allowedIps: allowedIpsInput
+          .split(/[\n,]+/)
+          .map((s) => s.trim())
+          .filter(Boolean),
+      };
+
+      if (expiresInDays.trim()) {
+        payload.expiresInDays = Number(expiresInDays);
       }
-      if (expiresAt) {
-        payload.expiresAt = new Date(expiresAt).toISOString();
-      }
-      const res = await apiRequest<{
-        success: boolean;
-        data: UserApiKeyRecord;
-        secret?: { apiKey?: string };
-      }>("", {
-        method: "POST",
-        body: JSON.stringify(payload),
-      });
-      setCreateOpen(false);
-      setKeyName("");
-      setExpiresAt("");
-      if (res.secret?.apiKey) {
-        setRevealedKey(res.secret.apiKey);
-        setCopiedId(null);
+
+      if (editingKey) {
+        await apiRequest(`/${encodeURIComponent(editingKey.id)}`, {
+          method: "PATCH",
+          body: JSON.stringify(payload),
+        });
+        setFormOpen(false);
+        setEditingKey(null);
+      } else {
+        if (mode === "user" && targetUserId) {
+          payload.userId = targetUserId;
+        } else if (mode === "company" && selectedUserId) {
+          payload.userId = selectedUserId;
+        }
+        const res = await apiRequest<{
+          success: boolean;
+          data: UserApiKeyRecord;
+          secret?: { apiKey?: string };
+        }>("", {
+          method: "POST",
+          body: JSON.stringify(payload),
+        });
+        setFormOpen(false);
+        if (res.secret?.apiKey) {
+          setRevealedKey(res.secret.apiKey);
+          setCopiedId(null);
+        }
       }
       await loadKeys();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "فشل إنشاء المفتاح");
+      setError(err instanceof Error ? err.message : "فشل حفظ المفتاح");
     } finally {
-      setCreating(false);
+      setSaving(false);
     }
   };
 
@@ -200,6 +367,22 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
       await loadKeys();
     } catch (err) {
       setError(err instanceof Error ? err.message : "فشل إيقاف المفتاح");
+    } finally {
+      setBusyId(null);
+    }
+  };
+
+  const handleReactivate = async (id: string) => {
+    setBusyId(id);
+    setError(null);
+    try {
+      await apiRequest(`/${encodeURIComponent(id)}`, {
+        method: "PATCH",
+        body: JSON.stringify({ isActive: true }),
+      });
+      await loadKeys();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "فشل تفعيل المفتاح");
     } finally {
       setBusyId(null);
     }
@@ -252,14 +435,7 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
             <BookOpen className="me-1.5 size-4" />
             {guideOpen ? "إخفاء الإرشادات" : "إرشادات الاستخدام"}
           </Button>
-          <Button
-            type="button"
-            size="sm"
-            onClick={() => {
-              setError(null);
-              setCreateOpen(true);
-            }}
-          >
+          <Button type="button" size="sm" onClick={openCreateModal}>
             <Plus className="me-1.5 size-4" />
             إنشاء مفتاح
           </Button>
@@ -272,7 +448,7 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
             <div className="space-y-1">
               <p className="font-semibold text-foreground">الصلاحيات الحية</p>
               <p className="text-muted-foreground">
-                المفتاح يرث كل صلاحيات الموظف ودوره تلقائياً وأي صلاحية تُفتح أو تُسحب تتطبق فوراً.
+                المفتاح يرث صلاحيات الموظف الحية أو مجموعة مختارة منها ضمن التطبيقات المفعّلة للشركة.
               </p>
             </div>
             <div className="space-y-1">
@@ -348,6 +524,7 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
         <div className="divide-y divide-border/70 border-y border-border/70">
           {keys.map((item) => {
             const isActive = item.status === "ACTIVE";
+            const isRevoked = item.status === "REVOKED";
             return (
               <div
                 key={item.id}
@@ -365,6 +542,11 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
                           ? "منتهي"
                           : "موقوف"}
                     </Badge>
+                    <Badge variant="outline" className="text-[11px]">
+                      {item.permissionMode === "SCOPED"
+                        ? `مقيّد (${item.scopes?.length || 0})`
+                        : "كل الصلاحيات"}
+                    </Badge>
                     {mode === "company" && item.user && (
                       <span className="text-xs text-muted-foreground">
                         {item.user.name} ({item.user.roleName || item.user.role})
@@ -375,6 +557,7 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
                     <code dir="ltr" className="font-mono tabular-nums text-foreground">
                       {item.maskedKey}
                     </code>
+                    <span className="tabular-nums">{item.rateLimitPerMin || 60} طلب/د</span>
                     <span className="tabular-nums">الطلبات: {item.requestCount}</span>
                     <span>
                       آخر استخدام:{" "}
@@ -390,11 +573,26 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
                         </span>
                       </span>
                     )}
+                    {item.allowedIps && item.allowedIps.length > 0 && (
+                      <span className="font-mono tabular-nums">
+                        IPs: {item.allowedIps.length}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="flex shrink-0 items-center gap-1.5">
-                  {isActive && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={busyId === item.id}
+                    onClick={() => openEditModal(item)}
+                  >
+                    <Pencil className="me-1 size-3.5" />
+                    تعديل
+                  </Button>
+                  {isActive ? (
                     <Button
                       type="button"
                       variant="outline"
@@ -405,7 +603,18 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
                       <ShieldOff className="me-1 size-3.5" />
                       إيقاف
                     </Button>
-                  )}
+                  ) : isRevoked ? (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      disabled={busyId === item.id}
+                      onClick={() => handleReactivate(item.id)}
+                    >
+                      <ShieldCheck className="me-1 size-3.5" />
+                      تفعيل
+                    </Button>
+                  ) : null}
                   <Button
                     type="button"
                     variant="ghost"
@@ -423,19 +632,24 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
         </div>
       )}
 
-      {/* Create Key Dialog */}
-      <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-        <DialogContent className="sm:max-w-md" dir="rtl">
+      {/* Create / Edit Key Dialog */}
+      <Dialog open={formOpen} onOpenChange={setFormOpen}>
+        <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl" dir="rtl">
           <DialogHeader>
-            <DialogTitle>إنشاء مفتاح API بصلاحيات الموظف</DialogTitle>
+            <DialogTitle>
+              {editingKey ? `تعديل مفتاح API — ${editingKey.name}` : "إنشاء مفتاح API بصلاحيات الموظف"}
+            </DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleCreate} className="space-y-4">
-            {mode === "company" && (
+          <form onSubmit={handleSave} className="space-y-4">
+            {mode === "company" && !editingKey && (
               <div className="space-y-1.5">
                 <label className="text-xs font-medium text-foreground">الموظف</label>
                 <select
                   value={selectedUserId}
-                  onChange={(e) => setSelectedUserId(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedUserId(e.target.value);
+                    setSelectedScopes([]);
+                  }}
                   required
                   className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm text-foreground"
                 >
@@ -460,23 +674,169 @@ export const UserApiKeysPanel: React.FC<UserApiKeysPanelProps> = ({
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-foreground">
-                تاريخ الانتهاء (اختياري)
-              </label>
-              <Input
-                type="date"
-                value={expiresAt}
-                onChange={(e) => setExpiresAt(e.target.value)}
-              />
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-foreground">نطاق الصلاحيات</label>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => setPermissionMode("INHERIT_ALL")}
+                  className={`rounded-lg border p-3 text-start text-xs transition-colors ${
+                    permissionMode === "INHERIT_ALL"
+                      ? "border-primary bg-primary/5 text-foreground"
+                      : "border-border/70 bg-card text-muted-foreground"
+                  }`}
+                >
+                  <div className="font-semibold text-foreground">كل صلاحيات الموظف الحية</div>
+                  <div className="mt-0.5 text-[11px]">
+                    يرث تلقائياً {capabilities?.totalAvailablePermissions ?? "جميع"} صلاحية متاحة ضمن تطبيقات الشركة وأي صلاحية تُفتح مستقبلاً.
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPermissionMode("SCOPED")}
+                  className={`rounded-lg border p-3 text-start text-xs transition-colors ${
+                    permissionMode === "SCOPED"
+                      ? "border-primary bg-primary/5 text-foreground"
+                      : "border-border/70 bg-card text-muted-foreground"
+                  }`}
+                >
+                  <div className="font-semibold text-foreground">صلاحيات محددة فقط</div>
+                  <div className="mt-0.5 text-[11px]">
+                    تقييد المفتاح بأقسام أو إجراءات معينة من صلاحيات الموظف وتطبيقات الشركة المفعّلة.
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {permissionMode === "SCOPED" && (
+              <div className="space-y-2 rounded-lg border border-border/70 bg-muted/20 p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="relative flex-1 min-w-[180px]">
+                    <Search className="pointer-events-none absolute inset-y-0 start-2.5 my-auto size-3.5 text-muted-foreground" />
+                    <Input
+                      value={permQuery}
+                      onChange={(e) => setPermQuery(e.target.value)}
+                      placeholder="بحث في الصلاحيات المفعّلة..."
+                      className="h-8 ps-8 text-xs"
+                    />
+                  </div>
+                  <span className="text-[11px] font-mono tabular-nums text-muted-foreground">
+                    المحدد: {selectedScopes.length}
+                  </span>
+                </div>
+
+                {capsLoading ? (
+                  <div className="py-4 text-center text-xs text-muted-foreground">
+                    جاري تحميل تطبيقات الشركة وصلاحيات الموظف...
+                  </div>
+                ) : filteredModules.length === 0 ? (
+                  <div className="py-4 text-center text-xs text-muted-foreground">
+                    لا توجد صلاحيات مطابقة للبحث
+                  </div>
+                ) : (
+                  <div className="max-h-64 space-y-2.5 overflow-y-auto pe-1">
+                    {filteredModules.map((mod) => {
+                      const modKeys = mod.permissions.map((p) => p.key);
+                      const selectedInMod = modKeys.filter((k) => selectedScopes.includes(k)).length;
+                      const allSelected = modKeys.length > 0 && selectedInMod === modKeys.length;
+                      return (
+                        <div key={mod.id} className="rounded-md border border-border/70 bg-card p-2.5">
+                          <div className="mb-2 flex items-center justify-between gap-2 border-b border-border/50 pb-1.5">
+                            <span className="text-xs font-semibold text-foreground">
+                              {mod.labelAr}{" "}
+                              <span className="font-mono text-[10px] text-muted-foreground">
+                                ({selectedInMod}/{modKeys.length})
+                              </span>
+                            </span>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 px-2 text-[11px]"
+                              onClick={() => toggleModuleAll(mod, !allSelected)}
+                            >
+                              {allSelected ? "إلغاء الكل" : "تحديد الكل"}
+                            </Button>
+                          </div>
+                          <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                            {mod.permissions.map((perm) => (
+                              <label
+                                key={perm.key}
+                                className="flex cursor-pointer items-center gap-2 text-xs text-foreground"
+                              >
+                                <Checkbox
+                                  checked={selectedScopes.includes(perm.key)}
+                                  onCheckedChange={(checked) =>
+                                    toggleScope(perm.key, checked === true)
+                                  }
+                                />
+                                <span className="truncate" title={perm.key}>
+                                  {perm.name}
+                                </span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {capabilities && capabilities.unavailableModules.length > 0 && (
+                  <p className="text-[11px] text-muted-foreground">
+                    تم إخفاء {capabilities.unavailableModules.length} أقسام لأن تطبيقاتها غير مفعّلة في هذه الشركة:{" "}
+                    {capabilities.unavailableModules.map((m) => m.labelAr).join("، ")}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-foreground">حد الطلبات (طلب/دقيقة)</label>
+                <Input
+                  type="number"
+                  min={10}
+                  max={600}
+                  value={rateLimitPerMin}
+                  onChange={(e) => setRateLimitPerMin(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-foreground">
+                  مدة الصلاحية (أيام، اختياري)
+                </label>
+                <Input
+                  type="number"
+                  min={1}
+                  max={3650}
+                  value={expiresInDays}
+                  onChange={(e) => setExpiresInDays(e.target.value)}
+                  placeholder="اتركه فارغاً لعدم الانتهاء"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-foreground">
+                  عناوين IP المسموحة (اختياري)
+                </label>
+                <Input
+                  dir="ltr"
+                  value={allowedIpsInput}
+                  onChange={(e) => setAllowedIpsInput(e.target.value)}
+                  placeholder="1.2.3.4, 5.6.7.8"
+                  className="font-mono text-xs"
+                />
+              </div>
             </div>
 
             <DialogFooter className="gap-2">
-              <Button type="button" variant="outline" onClick={() => setCreateOpen(false)}>
+              <Button type="button" variant="outline" onClick={() => setFormOpen(false)}>
                 إلغاء
               </Button>
-              <Button type="submit" disabled={creating || !keyName.trim()}>
-                {creating ? "جاري الإنشاء..." : "إنشاء"}
+              <Button type="submit" disabled={saving || !keyName.trim()}>
+                {saving ? "جاري الحفظ..." : editingKey ? "حفظ التعديلات" : "إنشاء"}
               </Button>
             </DialogFooter>
           </form>

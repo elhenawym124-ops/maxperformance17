@@ -18,6 +18,85 @@ const permissionService = require('./permissionService');
 
 const USER_API_KEY_PREFIX = 'mxp_usr_';
 const VISIBLE_PREFIX_LENGTH = 16; // e.g. "mxp_usr_a1b2c3d4"
+const VALID_PERMISSION_MODES = new Set(['INHERIT_ALL', 'SCOPED']);
+const DEFAULT_RATE_LIMIT_PER_MIN = 60;
+const MIN_RATE_LIMIT_PER_MIN = 10;
+const MAX_RATE_LIMIT_PER_MIN = 600;
+
+// In-memory 1-minute sliding bucket per key ID
+const keyRateLimitMap = new Map();
+const RATE_WINDOW_MS = 60 * 1000;
+const rateCleanupInterval = setInterval(() => {
+  const now = Date.now();
+  for (const [id, rec] of keyRateLimitMap.entries()) {
+    if (now > rec.resetTime + RATE_WINDOW_MS) keyRateLimitMap.delete(id);
+  }
+}, 5 * 60 * 1000);
+if (typeof rateCleanupInterval.unref === 'function') rateCleanupInterval.unref();
+
+function checkKeyRateLimit(keyId, maxPerMin = DEFAULT_RATE_LIMIT_PER_MIN) {
+  const limit = Math.min(Math.max(parseInt(maxPerMin, 10) || DEFAULT_RATE_LIMIT_PER_MIN, MIN_RATE_LIMIT_PER_MIN), MAX_RATE_LIMIT_PER_MIN);
+  const now = Date.now();
+  let rec = keyRateLimitMap.get(keyId);
+  if (!rec || now > rec.resetTime) {
+    rec = { count: 1, resetTime: now + RATE_WINDOW_MS };
+    keyRateLimitMap.set(keyId, rec);
+    return { allowed: true, limit, remaining: limit - 1, reset: Math.ceil(rec.resetTime / 1000) };
+  }
+  if (rec.count >= limit) {
+    return { allowed: false, limit, remaining: 0, reset: Math.ceil(rec.resetTime / 1000) };
+  }
+  rec.count += 1;
+  return { allowed: true, limit, remaining: limit - rec.count, reset: Math.ceil(rec.resetTime / 1000) };
+}
+
+function normalizeIpAddress(ip) {
+  return String(ip || '').replace(/^::ffff:/, '').trim();
+}
+
+function parseAllowedIps(value) {
+  if (!value) return [];
+  const rawList = Array.isArray(value)
+    ? value
+    : String(value)
+        .split(/[\n,]+/)
+        .map((s) => s.trim());
+  return [...new Set(rawList.map(normalizeIpAddress).filter(Boolean))].slice(0, 50);
+}
+
+function parseScopesList(value) {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.map((s) => String(s || '').trim()).filter(Boolean))];
+}
+
+function normalizeRateLimit(value) {
+  if (value === undefined || value === null || value === '') return DEFAULT_RATE_LIMIT_PER_MIN;
+  const parsed = parseInt(value, 10);
+  if (Number.isNaN(parsed)) return DEFAULT_RATE_LIMIT_PER_MIN;
+  return Math.min(Math.max(parsed, MIN_RATE_LIMIT_PER_MIN), MAX_RATE_LIMIT_PER_MIN);
+}
+
+function resolveExpiryDate({ expiresAt = null, expiresInDays = null }) {
+  if (expiresInDays !== undefined && expiresInDays !== null && String(expiresInDays).trim() !== '') {
+    const days = parseInt(expiresInDays, 10);
+    if (Number.isNaN(days) || days < 1 || days > 3650) {
+      const err = new Error('مدة الصلاحية بالأيام يجب أن تكون بين 1 و 3650 يوماً');
+      err.statusCode = 400;
+      throw err;
+    }
+    return new Date(Date.now() + days * 86400000);
+  }
+  if (expiresAt) {
+    const parsed = new Date(expiresAt);
+    if (Number.isNaN(parsed.getTime()) || parsed <= new Date()) {
+      const err = new Error('تاريخ الانتهاء يجب أن يكون تاريخاً مستقبلياً صالحاً');
+      err.statusCode = 400;
+      throw err;
+    }
+    return parsed;
+  }
+  return null;
+}
 
 const ROLE_RANK = Object.freeze({
   SUPER_ADMIN: 100,
@@ -103,6 +182,10 @@ function serializeKey(row, userMap = null) {
     companyId: row.companyId,
     keyPrefix: row.keyPrefix,
     maskedKey: maskKeyPrefix(row.keyPrefix),
+    permissionMode: VALID_PERMISSION_MODES.has(row.permissionMode) ? row.permissionMode : 'INHERIT_ALL',
+    scopes: Array.isArray(row.scopes) ? row.scopes : [],
+    rateLimitPerMin: row.rateLimitPerMin || DEFAULT_RATE_LIMIT_PER_MIN,
+    allowedIps: Array.isArray(row.allowedIps) ? row.allowedIps : [],
     isActive: row.isActive,
     status,
     expiresAt: row.expiresAt || null,
@@ -216,6 +299,10 @@ async function resolveAuthenticatedUserFromApiKey(rawKey, { ip = null } = {}) {
           companyId: true,
           name: true,
           keyPrefix: true,
+          permissionMode: true,
+          scopes: true,
+          rateLimitPerMin: true,
+          allowedIps: true,
           isActive: true,
           expiresAt: true,
           revokedAt: true,
@@ -234,6 +321,31 @@ async function resolveAuthenticatedUserFromApiKey(rawKey, { ip = null } = {}) {
 
   if (keyRow.expiresAt && new Date(keyRow.expiresAt) <= new Date()) {
     return { ok: false, status: 401, code: 'API_KEY_EXPIRED', message: 'انتهت صلاحية مفتاح API هذا' };
+  }
+
+  // IP Allowlist enforcement (if configured on the key)
+  const normalizedIp = normalizeIpAddress(ip);
+  const allowedIps = Array.isArray(keyRow.allowedIps) ? keyRow.allowedIps : [];
+  if (allowedIps.length > 0 && !allowedIps.includes('*')) {
+    if (!normalizedIp || !allowedIps.includes(normalizedIp)) {
+      return {
+        ok: false,
+        status: 403,
+        code: 'IP_NOT_ALLOWED',
+        message: `عنوان IP (${normalizedIp || 'unknown'}) غير مصرح له باستخدام هذا المفتاح`,
+      };
+    }
+  }
+
+  // Per-key rate limit enforcement
+  const rateLimit = checkKeyRateLimit(keyRow.id, keyRow.rateLimitPerMin);
+  if (!rateLimit.allowed) {
+    return {
+      ok: false,
+      status: 429,
+      code: 'RATE_LIMITED',
+      message: `تجاوزت الحد المسموح (${rateLimit.limit} طلب/دقيقة) لهذا المفتاح`,
+    };
   }
 
   const user = await runWithoutTenantContext(() =>
@@ -273,6 +385,9 @@ async function resolveAuthenticatedUserFromApiKey(rawKey, { ip = null } = {}) {
 
   const effectiveRole = membershipCheck.effectiveRole;
   const effectiveCompanyId = keyRow.companyId;
+  const permissionMode = VALID_PERMISSION_MODES.has(keyRow.permissionMode)
+    ? keyRow.permissionMode
+    : 'INHERIT_ALL';
 
   // Live RBAC permissions from DB/cache — automatically reflects newly granted or revoked permissions
   let userPermissions = [];
@@ -284,13 +399,27 @@ async function resolveAuthenticatedUserFromApiKey(rawKey, { ip = null } = {}) {
     }
   }
 
+  // When SCOPED mode is active, strictly intersect selected scopes with the employee's live
+  // permissions (for OWNER/SUPER_ADMIN, use selected scopes directly and remove admin bypass role
+  // so least-privilege enforcement is guaranteed).
+  let runtimeRole = effectiveRole;
+  if (permissionMode === 'SCOPED') {
+    const keyScopeSet = new Set(Array.isArray(keyRow.scopes) ? keyRow.scopes : []);
+    if (effectiveRole === 'SUPER_ADMIN' || effectiveRole === 'OWNER') {
+      userPermissions = Array.from(keyScopeSet);
+    } else {
+      userPermissions = userPermissions.filter((perm) => keyScopeSet.has(perm));
+    }
+    runtimeRole = 'SCOPED_API_KEY';
+  }
+
   // Non-blocking telemetry update
   runWithoutTenantContext(() =>
     prisma.userApiKey.update({
       where: { id: keyRow.id },
       data: {
         lastUsedAt: new Date(),
-        ...(ip ? { lastUsedIp: String(ip).slice(0, 64) } : {}),
+        ...(normalizedIp ? { lastUsedIp: normalizedIp.slice(0, 64) } : {}),
         requestCount: { increment: 1 },
       },
     })
@@ -305,11 +434,14 @@ async function resolveAuthenticatedUserFromApiKey(rawKey, { ip = null } = {}) {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      role: effectiveRole,
+      role: runtimeRole,
+      baseRole: effectiveRole,
       merchantId: user.merchantId || null,
       companyId: effectiveCompanyId,
       effectiveCompanyId,
       userPermissions,
+      permissionMode,
+      rateLimitPerMin: keyRow.rateLimitPerMin || DEFAULT_RATE_LIMIT_PER_MIN,
       deviceType: 'OFFICE',
       deviceId: null,
       deviceFingerprint: null,
@@ -400,7 +532,75 @@ async function getTargetUserInCompany(prisma, companyId, targetUserId) {
   return { user, effectiveRole: membership.effectiveRole };
 }
 
-async function createKey({ companyId, actorId, actorRole, targetUserId, name, expiresAt = null }) {
+async function getCapabilitiesForUser({ companyId, actorId, actorRole, targetUserId = null }) {
+  const prisma = await getSharedPrismaClientAsync();
+  const resolvedTargetId = targetUserId || actorId;
+  const { effectiveRole: targetRole } = await getTargetUserInCompany(
+    prisma,
+    companyId,
+    resolvedTargetId
+  );
+
+  if (!canManageTargetUser({ actorId, actorRole, targetUserId: resolvedTargetId, targetRole })) {
+    const err = new Error('ليس لديك صلاحية عرض قدرات هذا المستخدم');
+    err.statusCode = 403;
+    throw err;
+  }
+
+  let targetPermissions = [];
+  if (targetRole !== 'SUPER_ADMIN') {
+    try {
+      targetPermissions = await permissionService.getUserPermissions(resolvedTargetId, companyId);
+    } catch (_) {
+      targetPermissions = [];
+    }
+  }
+
+  const companyCapabilitiesService = require('./companyCapabilitiesService');
+  const capabilities = await companyCapabilitiesService.getCompanyUserCapabilities({
+    companyId,
+    targetUserId: resolvedTargetId,
+    targetRole,
+    targetPermissions,
+  });
+
+  return {
+    targetUserId: resolvedTargetId,
+    targetRole,
+    ...capabilities,
+  };
+}
+
+function filterRequestedScopesByCapabilities(requestedScopes, capabilities, targetRole) {
+  const cleaned = parseScopesList(requestedScopes);
+  if (cleaned.length === 0) return [];
+  const allowedSet = new Set();
+  for (const mod of capabilities.modules || []) {
+    for (const p of mod.permissions || []) {
+      allowedSet.add(p.key);
+    }
+  }
+  const normalizedRole = String(targetRole || '').trim().toUpperCase();
+  if (normalizedRole === 'SUPER_ADMIN' || normalizedRole === 'OWNER') {
+    // Allow any active-app permission or explicitly passed valid permission
+    return cleaned.filter((k) => allowedSet.size === 0 || allowedSet.has(k));
+  }
+  return cleaned.filter((k) => allowedSet.has(k));
+}
+
+async function createKey({
+  companyId,
+  actorId,
+  actorRole,
+  targetUserId,
+  name,
+  permissionMode = 'INHERIT_ALL',
+  scopes = [],
+  rateLimitPerMin = DEFAULT_RATE_LIMIT_PER_MIN,
+  allowedIps = [],
+  expiresInDays = null,
+  expiresAt = null,
+}) {
   const trimmedName = String(name || '').trim();
   if (!trimmedName || trimmedName.length < 2 || trimmedName.length > 100) {
     const err = new Error('اسم المفتاح مطلوب (من 2 إلى 100 حرف)');
@@ -408,15 +608,10 @@ async function createKey({ companyId, actorId, actorRole, targetUserId, name, ex
     throw err;
   }
 
-  let parsedExpiresAt = null;
-  if (expiresAt) {
-    parsedExpiresAt = new Date(expiresAt);
-    if (Number.isNaN(parsedExpiresAt.getTime()) || parsedExpiresAt <= new Date()) {
-      const err = new Error('تاريخ الانتهاء يجب أن يكون تاريخاً مستقبلياً صالحاً');
-      err.statusCode = 400;
-      throw err;
-    }
-  }
+  const normalizedMode = VALID_PERMISSION_MODES.has(permissionMode) ? permissionMode : 'INHERIT_ALL';
+  const parsedExpiresAt = resolveExpiryDate({ expiresAt, expiresInDays });
+  const parsedRateLimit = normalizeRateLimit(rateLimitPerMin);
+  const parsedIps = parseAllowedIps(allowedIps);
 
   const resolvedTargetId = targetUserId || actorId;
   const prisma = await getSharedPrismaClientAsync();
@@ -432,6 +627,22 @@ async function createKey({ companyId, actorId, actorRole, targetUserId, name, ex
     throw err;
   }
 
+  let validatedScopes = [];
+  if (normalizedMode === 'SCOPED') {
+    const capabilities = await getCapabilitiesForUser({
+      companyId,
+      actorId,
+      actorRole,
+      targetUserId: resolvedTargetId,
+    });
+    validatedScopes = filterRequestedScopesByCapabilities(scopes, capabilities, targetRole);
+    if (validatedScopes.length === 0) {
+      const err = new Error('يجب اختيار صلاحية واحدة على الأقل عند تفعيل الوضع المقيّد');
+      err.statusCode = 400;
+      throw err;
+    }
+  }
+
   const generated = generateUserApiKey();
   const created = await runWithoutTenantContext(() =>
     prisma.userApiKey.create({
@@ -441,6 +652,10 @@ async function createKey({ companyId, actorId, actorRole, targetUserId, name, ex
         name: trimmedName,
         keyPrefix: generated.keyPrefix,
         keyHash: generated.keyHash,
+        permissionMode: normalizedMode,
+        scopes: validatedScopes,
+        rateLimitPerMin: parsedRateLimit,
+        allowedIps: parsedIps,
         isActive: true,
         expiresAt: parsedExpiresAt,
         createdByUserId: actorId,
@@ -453,6 +668,104 @@ async function createKey({ companyId, actorId, actorRole, targetUserId, name, ex
     key: serializeKey(created, userMap),
     rawKey: generated.rawKey,
   };
+}
+
+async function updateKey({
+  companyId,
+  keyId,
+  actorId,
+  actorRole,
+  name,
+  permissionMode,
+  scopes,
+  rateLimitPerMin,
+  allowedIps,
+  isActive,
+  expiresInDays,
+  expiresAt,
+}) {
+  const prisma = await getSharedPrismaClientAsync();
+  const existing = await findAndAuthorizeKey(prisma, { companyId, keyId, actorId, actorRole });
+
+  const updateData = {};
+  if (name !== undefined) {
+    const trimmedName = String(name || '').trim();
+    if (!trimmedName || trimmedName.length < 2 || trimmedName.length > 100) {
+      const err = new Error('اسم المفتاح مطلوب (من 2 إلى 100 حرف)');
+      err.statusCode = 400;
+      throw err;
+    }
+    updateData.name = trimmedName;
+  }
+
+  const nextMode = permissionMode !== undefined
+    ? (VALID_PERMISSION_MODES.has(permissionMode) ? permissionMode : existing.permissionMode)
+    : existing.permissionMode;
+
+  if (permissionMode !== undefined) {
+    updateData.permissionMode = nextMode;
+    if (nextMode === 'INHERIT_ALL') {
+      updateData.scopes = [];
+    }
+  }
+
+  if (scopes !== undefined || (permissionMode === 'SCOPED' && nextMode === 'SCOPED')) {
+    const capabilities = await getCapabilitiesForUser({
+      companyId,
+      actorId,
+      actorRole,
+      targetUserId: existing.userId,
+    });
+    const candidateScopes = scopes !== undefined ? scopes : existing.scopes;
+    const validated = filterRequestedScopesByCapabilities(
+      candidateScopes,
+      capabilities,
+      capabilities.targetRole
+    );
+    if (nextMode === 'SCOPED' && validated.length === 0) {
+      const err = new Error('يجب اختيار صلاحية واحدة على الأقل عند تفعيل الوضع المقيّد');
+      err.statusCode = 400;
+      throw err;
+    }
+    updateData.scopes = validated;
+  }
+
+  if (rateLimitPerMin !== undefined) {
+    updateData.rateLimitPerMin = normalizeRateLimit(rateLimitPerMin);
+  }
+  if (allowedIps !== undefined) {
+    updateData.allowedIps = parseAllowedIps(allowedIps);
+  }
+  if (expiresInDays !== undefined || expiresAt !== undefined) {
+    if (expiresInDays === null && expiresAt === null) {
+      updateData.expiresAt = null;
+    } else if (expiresInDays === '' && expiresAt === '') {
+      updateData.expiresAt = null;
+    } else {
+      updateData.expiresAt = resolveExpiryDate({ expiresAt, expiresInDays });
+    }
+  }
+  if (isActive !== undefined) {
+    updateData.isActive = Boolean(isActive);
+    if (Boolean(isActive)) {
+      updateData.revokedAt = null;
+      updateData.revokedByUserId = null;
+      updateData.revokedReason = null;
+    } else {
+      updateData.revokedAt = new Date();
+      updateData.revokedByUserId = actorId;
+    }
+  }
+
+  const updated = await runWithoutTenantContext(() =>
+    prisma.userApiKey.update({
+      where: { id: keyId },
+      data: updateData,
+    })
+  );
+
+  const userMap = await fetchUsersSummaryMap(prisma, companyId, [updated.userId, updated.createdByUserId]);
+  return serializeKey(updated, userMap);
 }
 
 async function listKeys({ companyId, actorId, actorRole, targetUserId = null, scope = 'self', includeRevoked = false }) {
@@ -628,7 +941,9 @@ module.exports = {
   isManagementRole,
   canManageTargetUser,
   resolveAuthenticatedUserFromApiKey,
+  getCapabilitiesForUser,
   createKey,
+  updateKey,
   listKeys,
   revokeKey,
   deleteKey,

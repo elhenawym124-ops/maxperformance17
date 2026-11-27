@@ -9,6 +9,7 @@ const router = express.Router();
 
 const verifyToken = require('../utils/verifyToken');
 const developerApiService = require('../services/developerApiService');
+const companyCapabilitiesService = require('../services/companyCapabilitiesService');
 
 const resolveCompanyId = (req) =>
   req.user?.effectiveCompanyId || req.user?.companyId || null;
@@ -22,9 +23,23 @@ const requireCompany = (req, res, next) => {
 
 router.use(verifyToken.authenticateToken, requireCompany);
 
-// GET /api/v1/developer/scopes — available scopes for key creation UIs
-router.get('/scopes', (req, res) => {
-  return res.json({ success: true, scopes: developerApiService.SCOPE_DEFINITIONS });
+// GET /api/v1/developer/scopes — available scopes filtered by the company's active apps
+router.get('/scopes', async (req, res) => {
+  try {
+    const filtered = await companyCapabilitiesService.filterDeveloperScopesForCompany(
+      resolveCompanyId(req),
+      developerApiService.SCOPE_DEFINITIONS,
+    );
+    return res.json({
+      success: true,
+      scopes: filtered.scopes,
+      unavailableScopes: filtered.unavailableScopes,
+      activeApps: filtered.activeApps,
+    });
+  } catch (error) {
+    console.warn('[developer] filtered scopes failed, falling back:', error?.message);
+    return res.json({ success: true, scopes: developerApiService.SCOPE_DEFINITIONS });
+  }
 });
 
 // GET /api/v1/developer/credentials?type=API|MCP

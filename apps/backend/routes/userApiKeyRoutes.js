@@ -15,6 +15,16 @@ router.use(verifyToken.authenticateToken, verifyToken.requireCompanyAccess);
 
 const getCompanyId = (req) => req.user?.effectiveCompanyId || req.user?.companyId;
 
+const forbidScopedMutation = (req, res, next) => {
+  if (req.user?.permissionMode === 'SCOPED') {
+    return res.status(403).json({
+      success: false,
+      message: 'لا يمكن لمفتاح مقيّد الصلاحيات إنشاء أو تعديل مفاتيح API',
+    });
+  }
+  return next();
+};
+
 /**
  * GET /api/v1/user-api-keys/whoami
  * Live identity + permissions probe (ideal for AI agents verifying their key).
@@ -27,15 +37,40 @@ router.get('/whoami', (req, res) => {
       userId: u.id,
       email: u.email,
       name: `${u.firstName || ''} ${u.lastName || ''}`.trim() || u.email,
-      role: u.role,
+      role: u.baseRole || u.role,
+      runtimeRole: u.role,
       companyId: getCompanyId(req),
       authType: u.authType || 'JWT',
+      permissionMode: u.permissionMode || 'INHERIT_ALL',
+      rateLimitPerMin: u.rateLimitPerMin || null,
       apiKeyPrefix: u.apiKeyPrefix || null,
       deviceType: u.deviceType || 'OFFICE',
       permissions: Array.isArray(u.userPermissions) ? u.userPermissions : [],
-      canManageTeamKeys: userApiKeyService.isManagementRole(u.role),
+      canManageTeamKeys: userApiKeyService.isManagementRole(u.baseRole || u.role),
     },
   });
+});
+
+/**
+ * GET /api/v1/user-api-keys/capabilities?userId=...
+ * Returns the company's active apps and the target user's available permission modules.
+ */
+router.get('/capabilities', async (req, res) => {
+  try {
+    const targetUserId = req.query.userId ? String(req.query.userId).trim() : req.user.id;
+    const data = await userApiKeyService.getCapabilitiesForUser({
+      companyId: getCompanyId(req),
+      actorId: req.user.id,
+      actorRole: req.user.baseRole || req.user.role,
+      targetUserId,
+    });
+    return res.json({ success: true, data });
+  } catch (error) {
+    return res.status(error.statusCode || 500).json({
+      success: false,
+      message: error.message || 'فشل تحميل صلاحيات الشركة والموظف',
+    });
+  }
 });
 
 /**
@@ -136,15 +171,29 @@ router.get('/', async (req, res) => {
  * Create a personal API key for self or (if manager/admin/owner) for an employee.
  * Raw key is returned ONCE in `secret.apiKey`.
  */
-router.post('/', async (req, res) => {
+router.post('/', forbidScopedMutation, async (req, res) => {
   try {
-    const { name, userId, expiresAt } = req.body || {};
+    const {
+      name,
+      userId,
+      permissionMode,
+      scopes,
+      rateLimitPerMin,
+      allowedIps,
+      expiresInDays,
+      expiresAt,
+    } = req.body || {};
     const { key, rawKey } = await userApiKeyService.createKey({
       companyId: getCompanyId(req),
       actorId: req.user.id,
       actorRole: req.user.role,
       targetUserId: userId || req.user.id,
       name,
+      permissionMode,
+      scopes,
+      rateLimitPerMin,
+      allowedIps,
+      expiresInDays,
       expiresAt: expiresAt || null,
     });
 
@@ -165,10 +214,53 @@ router.post('/', async (req, res) => {
 });
 
 /**
+ * PATCH /api/v1/user-api-keys/:id
+ * Update key options (name, permissionMode, scopes, rateLimitPerMin, allowedIps, isActive, expiry).
+ */
+router.patch('/:id', forbidScopedMutation, async (req, res) => {
+  try {
+    const {
+      name,
+      permissionMode,
+      scopes,
+      rateLimitPerMin,
+      allowedIps,
+      isActive,
+      expiresInDays,
+      expiresAt,
+    } = req.body || {};
+    const updated = await userApiKeyService.updateKey({
+      companyId: getCompanyId(req),
+      keyId: req.params.id,
+      actorId: req.user.id,
+      actorRole: req.user.role,
+      name,
+      permissionMode,
+      scopes,
+      rateLimitPerMin,
+      allowedIps,
+      isActive,
+      expiresInDays,
+      expiresAt,
+    });
+    return res.json({
+      success: true,
+      message: 'تم تحديث إعدادات المفتاح بنجاح',
+      data: updated,
+    });
+  } catch (error) {
+    return res.status(error.statusCode || 500).json({
+      success: false,
+      message: error.message || 'فشل تحديث إعدادات المفتاح',
+    });
+  }
+});
+
+/**
  * POST /api/v1/user-api-keys/:id/revoke
  * Immediately revoke a key.
  */
-router.post('/:id/revoke', async (req, res) => {
+router.post('/:id/revoke', forbidScopedMutation, async (req, res) => {
   try {
     const updated = await userApiKeyService.revokeKey({
       companyId: getCompanyId(req),
@@ -194,7 +286,7 @@ router.post('/:id/revoke', async (req, res) => {
  * DELETE /api/v1/user-api-keys/:id
  * Delete a key record.
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', forbidScopedMutation, async (req, res) => {
   try {
     const result = await userApiKeyService.deleteKey({
       companyId: getCompanyId(req),
