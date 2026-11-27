@@ -33,6 +33,7 @@ export interface UseOrdersBulkOperationsReturn {
   handleBulkDelete: () => Promise<void>;
   handleBulkPrintInvoices: () => Promise<void>;
   handleBulkCreateTurboShipments: () => Promise<void>;
+  handleBulkResolveTurboAreas?: () => Promise<void>;
   handleBulkCreateQpExpressShipments: () => Promise<void>;
   handleBulkCreateBostaShipments: () => Promise<void>;
 }
@@ -67,6 +68,7 @@ export const useOrdersBulkOperations = ({
 
   const {
     handleBulkCreateTurboShipments,
+    handleBulkResolveTurboAreas,
     handleBulkCreateQpExpressShipments,
     handleBulkCreateBostaShipments,
   } = useOrdersBulkShipments({
@@ -277,6 +279,7 @@ export const useOrdersBulkOperations = ({
     handleBulkDelete,
     handleBulkPrintInvoices,
     handleBulkCreateTurboShipments,
+    handleBulkResolveTurboAreas,
     handleBulkCreateQpExpressShipments,
     handleBulkCreateBostaShipments,
   };

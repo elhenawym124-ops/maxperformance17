@@ -115,6 +115,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
     hasActiveQpExpress,
     hasActiveBosta,
     handleBulkCreateTurboShipments,
+    handleBulkResolveTurboAreas,
     handleBulkCreateQpExpressShipments,
     handleBulkCreateBostaShipments,
     displayedOrders,
@@ -451,6 +452,9 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
             onPrintInvoices={onBulkPrintInvoices}
             onCreateTurboShipments={
               hasActiveTurbo ? handleBulkCreateTurboShipments : undefined
+            }
+            onResolveTurboAreas={
+              hasActiveTurbo ? handleBulkResolveTurboAreas : undefined
             }
             onCreateQpExpressShipments={
               hasActiveQpExpress ? handleBulkCreateQpExpressShipments : undefined

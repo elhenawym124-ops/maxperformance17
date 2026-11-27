@@ -8,6 +8,7 @@ import {
   Trash2,
   RefreshCw,
   Truck,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -35,6 +36,8 @@ export interface BulkActionBarProps {
   onPrintInvoices: () => void;
   /** Create Turbo shipments for the whole selection. */
   onCreateTurboShipments?: () => void;
+  /** Resolve Turbo areas via AI for the whole selection. */
+  onResolveTurboAreas?: () => void;
   /** Create QP Express shipments for the whole selection. */
   onCreateQpExpressShipments?: () => void;
   /** Create Bosta shipments for the whole selection. */
@@ -55,6 +58,7 @@ export const BulkActionBar: React.FC<BulkActionBarProps> = ({
   onStatusChange,
   onPrintInvoices,
   onCreateTurboShipments,
+  onResolveTurboAreas,
   onCreateQpExpressShipments,
   onCreateBostaShipments,
   onDelete,
@@ -150,6 +154,20 @@ export const BulkActionBar: React.FC<BulkActionBarProps> = ({
           >
             <Rocket className="h-3.5 w-3.5" />
             <span>{busy ? t("orders.creating") : t("orders.createTurboShipments")}</span>
+          </Button>
+        )}
+
+        {!isTrashView && onResolveTurboAreas && (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={onResolveTurboAreas}
+            disabled={busy}
+            className="min-h-[36px] justify-center gap-1.5 text-xs font-semibold rounded-lg border-primary/30 text-primary hover:bg-primary/10"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>تحديد المناطق بالذكاء الاصطناعي</span>
           </Button>
         )}
 

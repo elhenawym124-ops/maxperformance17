@@ -21,6 +21,7 @@ export interface UseOrdersTableSectionPropsParams {
   hasActiveQpExpress: boolean;
   hasActiveBosta: boolean;
   handleBulkCreateTurboShipments: () => void;
+  handleBulkResolveTurboAreas?: () => void;
   handleBulkCreateQpExpressShipments: () => void;
   handleBulkCreateBostaShipments: () => void;
 
@@ -73,6 +74,7 @@ export function useOrdersTableSectionProps(
       hasActiveQpExpress: params.hasActiveQpExpress,
       hasActiveBosta: params.hasActiveBosta,
       handleBulkCreateTurboShipments: params.handleBulkCreateTurboShipments,
+      handleBulkResolveTurboAreas: params.handleBulkResolveTurboAreas,
       handleBulkCreateQpExpressShipments:
         params.handleBulkCreateQpExpressShipments,
       handleBulkCreateBostaShipments: params.handleBulkCreateBostaShipments,

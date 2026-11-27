@@ -120,6 +120,7 @@ export function useOrdersFilterActions({
       timeRange: "",
       onlyUnseen: false,
       onlyPostPurchaseOffer: false,
+      needsAddressDetails: false,
     }));
     setPage(1);
   };
@@ -144,6 +145,7 @@ export function useOrdersFilterActions({
       search: "",
       onlyUnseen: false,
       onlyPostPurchaseOffer: false,
+      needsAddressDetails: false,
     }));
     setPage(1);
   };

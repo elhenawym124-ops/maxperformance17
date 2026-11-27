@@ -142,4 +142,64 @@ const resolveOrderArea = async (req, res) => {
   }
 };
 
-module.exports = { getGovernments, getAreas, getBranches, searchAreaByText, searchAreaByTextPublic, resolveOrderArea };
+const bulkResolveOrderAreas = async (req, res) => {
+  try {
+    const companyId = req.user?.companyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'Company ID is required' });
+
+    const orderIds = Array.isArray(req.body?.orderIds) ? req.body.orderIds.slice(0, 25) : [];
+    if (orderIds.length === 0) {
+      return res.status(400).json({ success: false, error: 'يرجى تحديد طلب واحد على الأقل' });
+    }
+
+    const prisma = getSharedPrismaClient();
+    const { resolveOrderAreaManually } = require('../../services/turbo/turboAiAreaResolver');
+
+    let resolved = 0;
+    let needsDetails = 0;
+    let skipped = 0;
+    const results = [];
+
+    for (const rawId of orderIds) {
+      const targetId = String(rawId || '').trim();
+      if (!targetId) continue;
+
+      let order = await prisma.order.findFirst({
+        where: { companyId, OR: [{ id: targetId }, { orderNumber: targetId }] },
+      });
+      if (!order) {
+        const guest = await prisma.guestOrder.findFirst({
+          where: { companyId, OR: [{ id: targetId }, { orderNumber: targetId }] },
+        });
+        if (guest) order = { ...guest, tableType: 'GuestOrder' };
+      }
+      if (!order) {
+        skipped++;
+        results.push({ orderId: targetId, status: 'not_found' });
+        continue;
+      }
+
+      const resolution = await resolveOrderAreaManually({ prisma, companyId, order });
+      if (resolution?.skipped) {
+        skipped++;
+        results.push({ orderId: order.orderNumber || targetId, status: 'skipped', reason: resolution.reason });
+      } else if (resolution?.resolved) {
+        resolved++;
+        results.push({ orderId: order.orderNumber || targetId, status: 'resolved', governorate: resolution.governorate, area: resolution.area });
+      } else {
+        needsDetails++;
+        results.push({ orderId: order.orderNumber || targetId, status: 'needs_details', reason: resolution?.reason });
+      }
+    }
+
+    return res.json({
+      success: true,
+      data: { total: orderIds.length, resolved, needsDetails, skipped, results },
+    });
+  } catch (error) {
+    console.error('❌ [TURBO-BULK-RESOLVE-AREA] Error:', error);
+    return res.status(500).json({ success: false, error: error.message || 'فشل تحديد المناطق بالذكاء الاصطناعي' });
+  }
+};
+
+module.exports = { getGovernments, getAreas, getBranches, searchAreaByText, searchAreaByTextPublic, resolveOrderArea, bulkResolveOrderAreas };

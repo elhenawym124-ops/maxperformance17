@@ -24,11 +24,12 @@ export const buildQuickViews = (
     key: "all",
     label: String(t("orders.allOrders")),
     isActive: (f: OrdersFilters) =>
-      !f.timeRange && f.status.length === 0 && !f.onlyUnseen,
+      !f.timeRange && f.status.length === 0 && !f.onlyUnseen && !f.needsAddressDetails,
     apply: () => {
       onFilterChange("status", []);
       onFilterChange("timeRange", "");
       onFilterChange("onlyUnseen", false);
+      onFilterChange("needsAddressDetails", false);
     },
   },
   {
@@ -57,6 +58,12 @@ export const buildQuickViews = (
     isActive: (f: OrdersFilters) =>
       f.status.length === 1 && f.status[0]?.toUpperCase() === "CANCELLED",
     apply: () => onFilterChange("status", ["CANCELLED"]),
+  },
+  {
+    key: "needsAddressDetails",
+    label: "عناوين تحتاج توضيح",
+    isActive: (f: OrdersFilters) => Boolean(f.needsAddressDetails),
+    apply: () => onFilterChange("needsAddressDetails", true),
   },
 ];
 

@@ -188,6 +188,7 @@ export function useOrdersSectionsProps({
     hasActiveQpExpress,
     hasActiveBosta,
     handleBulkCreateTurboShipments: operations.handleBulkCreateTurboShipments,
+    handleBulkResolveTurboAreas: operations.handleBulkResolveTurboAreas,
     handleBulkCreateQpExpressShipments: operations.handleBulkCreateQpExpressShipments,
     handleBulkCreateBostaShipments: operations.handleBulkCreateBostaShipments,
     displayedOrders: operations.displayedOrders,

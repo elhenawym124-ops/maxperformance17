@@ -50,8 +50,15 @@ export function useOrdersFetchOperations({
   setShowIncompleteInOrders,
 }: UseOrdersFetchOperationsParams): UseOrdersFetchOperationsReturn {
   const fetchOrdersRef = useRef<() => Promise<void>>(async () => undefined);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const requestSeqRef = useRef(0);
 
   const fetchOrders = useCallback(async () => {
+    const requestId = ++requestSeqRef.current;
+    abortControllerRef.current?.abort();
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       const orderListCacheKey = [
         "orders-page-cache",
@@ -104,7 +111,7 @@ export function useOrdersFetchOperations({
           ...(filters.sourceType.length > 0 && {
             sourceType: filters.sourceType.join(","),
           }),
-          ...(filters.search && { search: filters.search }),
+          ...(effectiveFilters.search && { search: effectiveFilters.search }),
           ...(filters.extractionMethod && {
             extractionMethod: filters.extractionMethod,
           }),
@@ -115,12 +122,18 @@ export function useOrdersFetchOperations({
           ...(filters.endDate && { dateTo: filters.endDate }),
           ...(filters.onlyUnseen && { onlyUnseen: "true" }),
           ...(filters.onlyPostPurchaseOffer && { onlyPostPurchaseOffer: "true" }),
+          ...(filters.needsAddressDetails && { needsAddressDetails: "true" }),
         };
 
         const response = await apiClient.get("/orders-enhanced", {
           params: queryParams,
+          signal: controller.signal,
           _skipErrorToast: true,
         });
+
+        if (requestId !== requestSeqRef.current || controller.signal.aborted) {
+          return;
+        }
 
         const data = response.data;
 
@@ -188,7 +201,7 @@ export function useOrdersFetchOperations({
           queryParams.merchantOperationStatus = filters.merchantOperationStatus.join(",");
         if (filters.merchantSettlementStatus.length > 0)
           queryParams.merchantSettlementStatus = filters.merchantSettlementStatus.join(",");
-        if (filters.search) queryParams.search = filters.search;
+        if (effectiveFilters.search) queryParams.search = effectiveFilters.search;
         if (filters.startDate) queryParams.startDate = filters.startDate;
         if (filters.endDate) queryParams.endDate = filters.endDate;
         if (filters.onlyUnseen) queryParams.onlyUnseen = "true";
@@ -196,8 +209,13 @@ export function useOrdersFetchOperations({
 
         const response = await apiClient.get("/orders-new/simple", {
           params: queryParams,
+          signal: controller.signal,
           _skipErrorToast: true,
         });
+
+        if (requestId !== requestSeqRef.current || controller.signal.aborted) {
+          return;
+        }
 
         const data = response.data;
 
@@ -250,6 +268,16 @@ export function useOrdersFetchOperations({
         }
       }
     } catch (error: unknown) {
+      const errName = isRecord(error) && typeof error.name === "string" ? error.name : "";
+      const errCode = isRecord(error) && typeof error.code === "string" ? error.code : "";
+      if (
+        controller.signal.aborted ||
+        errName === "CanceledError" ||
+        errName === "AbortError" ||
+        errCode === "ERR_CANCELED"
+      ) {
+        return;
+      }
       console.error("Error fetching orders:", error);
       if (
         isRecord(error) &&
@@ -263,7 +291,9 @@ export function useOrdersFetchOperations({
       }
       setOrdersLoadError(getOrdersLoadErrorMessage(error));
     } finally {
-      setLoading(false);
+      if (requestId === requestSeqRef.current) {
+        setLoading(false);
+      }
     }
   }, [
     companyId,
@@ -289,6 +319,12 @@ export function useOrdersFetchOperations({
   useEffect(() => {
     void fetchOrdersRef.current();
   }, [page, limit, effectiveFilters]);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   return {
     fetchOrders,

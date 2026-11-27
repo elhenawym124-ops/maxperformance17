@@ -23,6 +23,7 @@ export interface OrdersTableSectionProps {
   hasActiveQpExpress: boolean;
   hasActiveBosta: boolean;
   handleBulkCreateTurboShipments: () => void;
+  handleBulkResolveTurboAreas?: () => void;
   handleBulkCreateQpExpressShipments: () => void;
   handleBulkCreateBostaShipments: () => void;
 
@@ -72,6 +73,7 @@ export const OrdersTableSection: React.FC<OrdersTableSectionProps> = ({
   hasActiveQpExpress,
   hasActiveBosta,
   handleBulkCreateTurboShipments,
+  handleBulkResolveTurboAreas,
   handleBulkCreateQpExpressShipments,
   handleBulkCreateBostaShipments,
 
@@ -119,6 +121,9 @@ export const OrdersTableSection: React.FC<OrdersTableSectionProps> = ({
           onPrintInvoices={onBulkPrintInvoices}
           onCreateTurboShipments={
             hasActiveTurbo ? handleBulkCreateTurboShipments : undefined
+          }
+          onResolveTurboAreas={
+            hasActiveTurbo ? handleBulkResolveTurboAreas : undefined
           }
           onCreateQpExpressShipments={
             hasActiveQpExpress ? handleBulkCreateQpExpressShipments : undefined

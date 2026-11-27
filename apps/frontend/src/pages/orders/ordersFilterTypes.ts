@@ -17,6 +17,7 @@ export interface OrdersFilters {
   onlyUnseen: boolean;
   timeRange: string;
   onlyPostPurchaseOffer: boolean;
+  needsAddressDetails?: boolean;
 }
 
 export interface OrdersListViewState {
@@ -45,6 +46,7 @@ export const DEFAULT_ORDERS_FILTERS: OrdersFilters = {
   onlyUnseen: false,
   timeRange: "",
   onlyPostPurchaseOffer: false,
+  needsAddressDetails: false,
 };
 
 export const ORDERS_LIST_QUERY_KEYS = [

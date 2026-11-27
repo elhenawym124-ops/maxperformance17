@@ -3,7 +3,7 @@ const { createShipment, bulkCreateShipments, cancelShipment, unlinkShipment, upd
 const { trackShipment, syncShipmentStatus } = require('./trackingHandlers');
 const { calculateShippingCost, getShippingComparison } = require('./shippingHandlers');
 const { printLabel, printWaybill } = require('./labelHandlers');
-const { getGovernments, getAreas, getBranches, searchAreaByText, searchAreaByTextPublic, resolveOrderArea } = require('./locationHandlers');
+const { getGovernments, getAreas, getBranches, searchAreaByText, searchAreaByTextPublic, resolveOrderArea, bulkResolveOrderAreas } = require('./locationHandlers');
 const {
   addTicket,
   getInquiriesTypes,
@@ -38,6 +38,7 @@ module.exports = {
   searchAreaByText,
   searchAreaByTextPublic,
   resolveOrderArea,
+  bulkResolveOrderAreas,
   updateShipment,
   addTicket,
   getInquiriesTypes,

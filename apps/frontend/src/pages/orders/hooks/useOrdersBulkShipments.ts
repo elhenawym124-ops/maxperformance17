@@ -13,6 +13,7 @@ export interface UseOrdersBulkShipmentsParams {
 
 export interface UseOrdersBulkShipmentsReturn {
   handleBulkCreateTurboShipments: () => Promise<void>;
+  handleBulkResolveTurboAreas: () => Promise<void>;
   handleBulkCreateQpExpressShipments: () => Promise<void>;
   handleBulkCreateBostaShipments: () => Promise<void>;
 }
@@ -132,8 +133,32 @@ export const useOrdersBulkShipments = ({
     }
   }, [selectedOrders, fetchOrders, setSelectedOrders, setBulkProcessing, getApiErrorMessage]);
 
+  const handleBulkResolveTurboAreas = useCallback(async () => {
+    if (selectedOrders.length === 0) return;
+    try {
+      setBulkProcessing(true);
+      const response = await apiClient.post("/turbo/bulk/resolve-areas", {
+        orderIds: selectedOrders.slice(0, 25),
+      });
+      if (response.data?.success) {
+        const { resolved, needsDetails, skipped } = response.data.data || {};
+        alert(
+          `تم تحديد ${resolved ?? 0} طلب بالذكاء الاصطناعي\nيحتاج تفاصيل أكثر: ${needsDetails ?? 0}\nتم التخطي: ${skipped ?? 0}`,
+        );
+        setSelectedOrders([]);
+        await fetchOrders();
+      }
+    } catch (error: unknown) {
+      console.error("Error bulk resolving Turbo areas:", error);
+      alert(getApiErrorMessage(error, "فشل تحديد المناطق بالذكاء الاصطناعي"));
+    } finally {
+      setBulkProcessing(false);
+    }
+  }, [selectedOrders, fetchOrders, setSelectedOrders, setBulkProcessing, getApiErrorMessage]);
+
   return {
     handleBulkCreateTurboShipments,
+    handleBulkResolveTurboAreas,
     handleBulkCreateQpExpressShipments,
     handleBulkCreateBostaShipments,
   };

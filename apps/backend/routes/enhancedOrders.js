@@ -283,6 +283,7 @@ router.get('/', async (req, res) => {
       extractionMethod,
       sourceType,
       onlyUnseen: onlyUnseen === 'true',
+      needsAddressDetails: req.query.needsAddressDetails === 'true',
       search,
       includeHeld: req.query.includeHeld === 'true',
     });

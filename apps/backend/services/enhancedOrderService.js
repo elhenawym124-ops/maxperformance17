@@ -2717,6 +2717,9 @@ class EnhancedOrderService {
       if (minConfidence) where.confidence = { gte: parseFloat(minConfidence) };
       if (extractionMethod) where.extractionMethod = extractionMethod;
       if (onlyUnseen === 'true' || onlyUnseen === true) where.isViewed = false;
+      if (options.needsAddressDetails === true || options.needsAddressDetails === 'true') {
+        where.metadata = { contains: '"needs_details"' };
+      }
 
       // 🔍 Search implementation
       if (search) {

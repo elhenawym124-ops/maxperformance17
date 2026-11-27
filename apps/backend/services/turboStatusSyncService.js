@@ -192,11 +192,26 @@ async function syncTurboStatusToOrder({
 
     const extractedGuestCost = payload.actual_shipping_cost ?? payload.shipping_cost ?? payload.delivery_cost ?? payload.shipping_fee ?? payload.total_shipping_cost ?? payload.delivery_fee ?? payload.cost;
 
+    const isTurboIncompleteSync =
+      rawStatusStr.includes('incomplet') ||
+      locationText.includes('غير مكتمل');
+
     const updatedMetadata = {
       ...existingMeta,
       turboWebhook: payload,
       turboStatus: canonicalTurboStatus,
       turboStatusCode: rawStatus,
+      ...(isTurboIncompleteSync
+        ? {
+            turboAreaResolution: {
+              ...(existingMeta.turboAreaResolution || {}),
+              status: 'needs_details',
+              reason: 'TURBO_INCOMPLETED_SYNC',
+              message: 'الشحنة بحالة غير مكتملة في تربو — يرجى مراجعة المنطقة',
+              checkedAt: new Date().toISOString(),
+            },
+          }
+        : {}),
       updatedAt: new Date().toISOString()
     };
 
@@ -455,9 +470,34 @@ async function syncTurboStatusToOrder({
     paymentStatus = 'COMPLETED';
   }
 
+  const isTurboIncompleteSync =
+    rawStatusStr.includes('incomplet') ||
+    locationText.includes('غير مكتمل');
+
+  let mergedOrderMetaJson;
+  if (isTurboIncompleteSync) {
+    let existingOrderMeta = {};
+    try {
+      existingOrderMeta = existingOrder.metadata
+        ? (typeof existingOrder.metadata === 'object' ? existingOrder.metadata : JSON.parse(existingOrder.metadata))
+        : {};
+    } catch (_) {}
+    mergedOrderMetaJson = JSON.stringify({
+      ...existingOrderMeta,
+      turboAreaResolution: {
+        ...(existingOrderMeta.turboAreaResolution || {}),
+        status: 'needs_details',
+        reason: 'TURBO_INCOMPLETED_SYNC',
+        message: 'الشحنة بحالة غير مكتملة في تربو — يرجى مراجعة المنطقة',
+        checkedAt: new Date().toISOString(),
+      },
+    });
+  }
+
   const updateData = {
     turboShipmentStatus: canonicalTurboStatus,
     turboMetadata: JSON.stringify(turboMetaObj),
+    ...(mergedOrderMetaJson ? { metadata: mergedOrderMetaJson } : {}),
     turboCaptainName: payload.captain_name || payload.captain || null,
     turboCaptainPhone: payload.captain_number1 || null,
     turboBranchName: payload.branch_name || payload.branch || null,
