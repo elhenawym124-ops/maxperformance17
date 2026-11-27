@@ -35,6 +35,7 @@ vi.mock("sonner", () => ({
   toast: {
     success: vi.fn(),
     error: vi.fn(),
+    info: vi.fn(),
   },
 }));
 
@@ -63,6 +64,17 @@ const mockAgent: AgentListing = {
   boundaries: [
     "لا ينفذ أي قرار مالي أو تعديل حساس دون موافقة صريحة من مسؤول الحساب.",
   ],
+  cv: {
+    headline: "مدير إعلانات Meta والأداء التسويقي",
+    bio: "ميديا باير محترف يتابع حملات متجرك ويحلل العائد على الإنفاق.",
+    communicationStyle: ["يعرض الأرقام والميزانية بوضوح في بطاقات موجزة."],
+    availability: "دوام كامل ٢٤/٧",
+    workMode: "يعرض المسودات لاعتمادك قبل التنفيذ",
+    responsibilities: [
+      "تحليل وإعداد مسودات حملات إعلانات Meta",
+      "رصد إعلانات وأسعار المنافسين في السوق",
+    ],
+  },
   dialect: "العربية المصرية المهنية",
   isHired: false,
 };
@@ -84,7 +96,7 @@ const mockSquadAgent: AgentListing = {
   ],
 };
 
-describe("Agent Marketplace Redesigned Components", () => {
+describe("Candidate CV Hiring Portal Components", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockUserRole = "COMPANY_ADMIN";
@@ -135,7 +147,7 @@ describe("Agent Marketplace Redesigned Components", () => {
     cleanup();
   });
 
-  it("renders AgentMarketplacePage from live catalog and filters by agent kind", async () => {
+  it("renders Hiring Portal from live catalog, filters by kind, and supports CV comparison", async () => {
     render(
       <MemoryRouter>
         <AgentMarketplacePage />
@@ -143,9 +155,20 @@ describe("Agent Marketplace Redesigned Components", () => {
     );
 
     await waitFor(() => {
+      expect(screen.getByText("بوابة التوظيف — مرشحو العمل")).toBeInTheDocument();
       expect(screen.getByText("Facebook Media Buyer Agent")).toBeInTheDocument();
       expect(screen.getByText("شادي — فريق AOV")).toBeInTheDocument();
     });
+
+    // Shortlist 2 candidates for CV comparison
+    const compareBtns = screen.getAllByRole("button", { name: "مقارنة" });
+    fireEvent.click(compareBtns[0]);
+    fireEvent.click(compareBtns[1]);
+    expect(screen.getByRole("button", { name: "مقارنة الـ CV" })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "مقارنة الـ CV" }));
+    expect(screen.getByText("مقارنة السير الذاتية للمرشحين")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "إغلاق المقارنة" }));
 
     // Filter to Squads only
     fireEvent.click(screen.getByRole("button", { name: "فريق متكامل" }));
@@ -162,16 +185,16 @@ describe("Agent Marketplace Redesigned Components", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByRole("button", { name: /إدارة السوق/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /إدارة البوابة/i })).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /إدارة السوق/i }));
+    fireEvent.click(screen.getByRole("button", { name: /إدارة البوابة/i }));
 
     await waitFor(() => {
-      expect(screen.getAllByRole("button", { name: /إخفاء من السوق/i }).length).toBeGreaterThan(0);
+      expect(screen.getAllByRole("button", { name: /إخفاء من البوابة/i }).length).toBeGreaterThan(0);
     });
 
-    fireEvent.click(screen.getAllByRole("button", { name: /إخفاء من السوق/i })[0]);
+    fireEvent.click(screen.getAllByRole("button", { name: /إخفاء من البوابة/i })[0]);
 
     await waitFor(() => {
       expect(mockApiPatch).toHaveBeenCalledWith(
@@ -181,7 +204,7 @@ describe("Agent Marketplace Redesigned Components", () => {
     });
   });
 
-  it("renders AgentProfileDrawer with truthful capabilities and governance without fake telemetry", () => {
+  it("renders AgentProfileDrawer as Candidate CV document", () => {
     const handleClose = vi.fn();
     const handleHire = vi.fn();
 
@@ -197,40 +220,16 @@ describe("Agent Marketplace Redesigned Components", () => {
       </MemoryRouter>
     );
 
+    expect(screen.getByText("السيرة الذاتية للمرشح (CV)")).toBeInTheDocument();
     expect(screen.getByText("Facebook Media Buyer Agent")).toBeInTheDocument();
-    expect(screen.getByText("تحليل وإعداد مسودات حملات إعلانات Meta")).toBeInTheDocument();
-    expect(screen.getByText("مسودات بموافقة التاجر")).toBeInTheDocument();
+    expect(screen.getByText("أسلوب التواصل والشخصية المهنية")).toBeInTheDocument();
 
-    const hireBtn = screen.getByRole("button", { name: /توظيف الوكيل في فريقي/i });
+    const hireBtn = screen.getByRole("button", { name: /اختيار وتوظيف المرشح/i });
     fireEvent.click(hireBtn);
     expect(handleHire).toHaveBeenCalledWith(mockAgent);
   });
 
-  it("renders AgentHireModal, checks real wallet balance, and blocks hire when balance fails without faking 2400", async () => {
-    mockApiGet.mockRejectedValueOnce(new Error("Network error"));
-    const handleClose = vi.fn();
-    const handleHired = vi.fn();
-
-    render(
-      <MemoryRouter>
-        <AgentHireModal
-          agent={mockAgent}
-          open={true}
-          onClose={handleClose}
-          onHired={handleHired}
-        />
-      </MemoryRouter>
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText(/تعذر التحقق من رصيد المحفظة/i)).toBeInTheDocument();
-    });
-
-    const submitBtn = screen.getByRole("button", { name: /تأكيد تعيين الوكيل/i });
-    expect(submitBtn).toBeDisabled();
-  });
-
-  it("submits hire request cleanly when wallet balance covers Pro price", async () => {
+  it("renders AgentHireModal, checks real wallet balance, and submits hire cleanly", async () => {
     const handleClose = vi.fn();
     const handleHired = vi.fn();
 

@@ -8,6 +8,9 @@ import {
   ArrowUpLeft,
   AlertTriangle,
   Radio,
+  Clock,
+  MessageSquareText,
+  Briefcase,
 } from "lucide-react";
 import {
   AGENT_KIND_META,
@@ -54,6 +57,10 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
       ? REQUIRED_APP_LABELS[agent.requiredAppSlug] || agent.requiredAppSlug
       : null;
 
+  const cvBio = agent.cv?.bio || agent.summary;
+  const communicationStyle = agent.cv?.communicationStyle || [];
+  const responsibilities = agent.cv?.responsibilities || agent.capabilities || [];
+
   return (
     <div
       role="dialog"
@@ -66,11 +73,11 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
         onClick={(e) => e.stopPropagation()}
         className="relative flex h-full w-full max-w-xl flex-col bg-card text-card-foreground border-s border-border shadow-2xl overflow-hidden text-start"
       >
-        {/* Top Bar */}
+        {/* Top CV Document Bar */}
         <div className="flex items-center justify-between border-b border-border/70 px-5 py-3.5 bg-muted/20">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-xs font-semibold text-foreground">
-              الملف التشغيلي للوكيل
+            <span className="text-xs font-bold text-foreground">
+              السيرة الذاتية للمرشح (CV)
             </span>
             <span className="rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
               {kindMeta.label}
@@ -79,29 +86,34 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
           <button
             type="button"
             onClick={onClose}
-            aria-label="إغلاق الملف"
+            aria-label="إغلاق السيرة الذاتية"
             className="flex size-8 items-center justify-center rounded-lg border border-border/70 bg-card text-muted-foreground hover:bg-muted hover:text-foreground active:scale-[0.97] transition-all"
           >
             <X className="size-4 stroke-[1.5]" />
           </button>
         </div>
 
-        {/* Scrollable Body */}
+        {/* Scrollable CV Body */}
         <div className="flex-1 overflow-y-auto px-5 py-5 space-y-5">
-          {/* Identity Header */}
+          {/* Candidate Header Card */}
           <div className="flex items-start gap-3.5">
-            <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-primary font-bold text-sm">
-              {getArabicInitials(agent.name)}
+            <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-primary font-bold text-base">
+              {isSquad ? (
+                <Users className="size-6 stroke-[1.5]" />
+              ) : (
+                getArabicInitials(agent.name)
+              )}
             </div>
             <div className="min-w-0 flex-1 space-y-1">
-              <div className="flex items-center justify-between gap-2 flex-wrap">
+              <div className="flex items-start justify-between gap-2 flex-wrap">
                 <h2
                   id="agent-dossier-title"
-                  className="text-lg font-bold tracking-tight text-foreground"
+                  dir="auto"
+                  className="text-lg font-bold tracking-tight text-foreground leading-snug"
                 >
                   {agent.name}
                 </h2>
-                <span className="text-xs font-bold text-foreground">
+                <span className="text-xs font-bold text-foreground shrink-0 rounded-md bg-muted/60 px-2.5 py-1 border border-border/70">
                   {isPro ? (
                     <>
                       <span className="font-mono tabular-nums">
@@ -110,11 +122,13 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
                       {agent.currency}/شهر
                     </>
                   ) : (
-                    "مجاني"
+                    <span className="text-success">مجاني بالباقة</span>
                   )}
                 </span>
               </div>
-              <p className="text-xs font-medium text-muted-foreground">{agent.position}</p>
+              <p className="text-xs font-semibold text-primary">
+                {agent.cv?.headline || agent.position}
+              </p>
               <div className="flex flex-wrap items-center gap-1.5 pt-1">
                 <span className="rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
                   {CATEGORY_LABEL_MAP[agent.category] || agent.category}
@@ -128,10 +142,16 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
             </div>
           </div>
 
-          {/* Summary */}
-          <p className="text-xs text-foreground/90 leading-relaxed border-t border-border/70 pt-4">
-            {agent.summary}
-          </p>
+          {/* Candidate Summary / Bio */}
+          <section className="space-y-1.5 border-t border-border/70 pt-4">
+            <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
+              <Briefcase className="size-3.5 text-primary stroke-[1.5]" />
+              <span>نبذة المرشح</span>
+            </h3>
+            <p className="text-xs text-foreground/90 leading-relaxed">
+              {cvBio}
+            </p>
+          </section>
 
           {/* Prerequisite notice */}
           {missingAppLabel && (
@@ -140,23 +160,21 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
               <div className="space-y-0.5">
                 <div className="font-semibold">متطلب تشغيل غير مفعّل</div>
                 <p className="text-[11px] opacity-90">
-                  يعمل هذا الوكيل بكامل صلاحياته بعد تفعيل {missingAppLabel} في حساب الشركة.
+                  يباشر هذا المرشح كامل مهامه بعد تفعيل {missingAppLabel} في حساب الشركة.
                 </p>
               </div>
             </div>
           )}
 
-          {/* Key Operational Facts Grid */}
-          <div className="grid grid-cols-2 gap-3 rounded-xl border border-border/70 bg-muted/20 p-3.5 text-xs">
+          {/* Work Conditions Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 rounded-xl border border-border/70 bg-muted/20 p-3.5 text-xs">
             <div className="space-y-1">
               <div className="text-[11px] text-muted-foreground flex items-center gap-1">
-                <ShieldCheck className="size-3.5 text-primary stroke-[1.5]" />
-                <span>نظام الحوكمة</span>
+                <Clock className="size-3.5 text-primary stroke-[1.5]" />
+                <span>ساعات العمل</span>
               </div>
               <div className="font-semibold text-foreground">
-                {agent.governance === "human_in_loop"
-                  ? "مسودات بموافقة التاجر"
-                  : "تنفيذ تلقائي منضبط"}
+                {agent.cv?.availability || "دوام كامل ٢٤/٧"}
               </div>
             </div>
 
@@ -169,7 +187,37 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
                 {agent.channelLabels.join("، ")}
               </div>
             </div>
+
+            <div className="space-y-1">
+              <div className="text-[11px] text-muted-foreground flex items-center gap-1">
+                <ShieldCheck className="size-3.5 text-primary stroke-[1.5]" />
+                <span>أسلوب العمل</span>
+              </div>
+              <div className="font-semibold text-foreground">
+                {agent.governance === "human_in_loop"
+                  ? "مسودات بموافقتك"
+                  : "تنفيذ مباشر منضبط"}
+              </div>
+            </div>
           </div>
+
+          {/* Communication Style from PERSONA.md */}
+          {communicationStyle.length > 0 && (
+            <section className="space-y-2 border-t border-border/70 pt-4">
+              <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                <MessageSquareText className="size-3.5 text-primary stroke-[1.5]" />
+                <span>أسلوب التواصل والشخصية المهنية</span>
+              </h3>
+              <ul className="space-y-1.5 rounded-xl border border-border/70 bg-background p-3.5">
+                {communicationStyle.map((line, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed">
+                    <span className="text-primary font-bold shrink-0">•</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Squad Members Section */}
           {isSquad && agent.squadMemberDetails && agent.squadMemberDetails.length > 0 && (
@@ -177,7 +225,7 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
                   <Users className="size-3.5 text-primary stroke-[1.5]" />
-                  <span>أعضاء الفريق المشمولون في التفعيل</span>
+                  <span>أعضاء الفريق المشمولون في التوظيف</span>
                 </h3>
                 <span className="text-[11px] font-mono tabular-nums text-muted-foreground">
                   {agent.squadMemberDetails.length}
@@ -194,20 +242,13 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
             </section>
           )}
 
-          {/* Authorized Real Capabilities */}
+          {/* Role Responsibilities */}
           <section className="space-y-2.5 border-t border-border/70 pt-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold text-foreground">
-                المهام والصلاحيات الفعلية في النظام
-              </h3>
-              {typeof agent.toolsCount === "number" && agent.toolsCount > 0 && (
-                <span className="text-[11px] text-muted-foreground">
-                  <span className="font-mono tabular-nums">{agent.toolsCount}</span> أداة مرتبطة
-                </span>
-              )}
-            </div>
+            <h3 className="text-xs font-bold text-foreground">
+              المهام والخبرات التي يتولاها في متجرك
+            </h3>
             <ul className="space-y-2">
-              {agent.capabilities.map((cap, idx) => (
+              {responsibilities.map((cap, idx) => (
                 <li
                   key={idx}
                   className="flex items-start gap-2 rounded-lg border border-border/70 bg-background px-3 py-2 text-xs text-foreground"
@@ -219,11 +260,11 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
             </ul>
           </section>
 
-          {/* Governance Boundaries */}
+          {/* Contract & Safety Terms */}
           <section className="space-y-2.5 border-t border-border/70 pt-4">
             <h3 className="text-xs font-bold text-foreground flex items-center gap-1.5">
               <Lock className="size-3.5 text-warning stroke-[1.5]" />
-              <span>ضوابط الأمان وحدود الصلاحية</span>
+              <span>ضوابط التعيين وحدود الصلاحية</span>
             </h3>
             <ul className="rounded-xl border border-warning/25 bg-warning/5 p-3.5 space-y-2 text-xs text-muted-foreground">
               {agent.boundaries.map((boundary, idx) => (
@@ -239,9 +280,9 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
         {/* Sticky Footer */}
         <div className="border-t border-border/70 bg-card px-5 py-3.5 pb-[calc(0.875rem+env(safe-area-inset-bottom))] flex items-center justify-between gap-4">
           <div className="min-w-0">
-            <div className="text-[11px] text-muted-foreground">حالة التعيين</div>
+            <div className="text-[11px] text-muted-foreground">قرار التعيين</div>
             <div className="text-xs font-semibold text-foreground truncate">
-              {effectiveHired ? "مفعّل في فريق شركتك" : "متاح للتوظيف الفوري"}
+              {effectiveHired ? "معيّن بالفعل في فريق متجرك" : "جاهز للبدء فوراً"}
             </div>
           </div>
 
@@ -251,7 +292,7 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
               onClick={() => onManageHired?.(agent)}
               className="inline-flex items-center justify-center gap-1.5 h-10 px-5 rounded-lg border border-success/30 bg-success/10 text-xs font-semibold text-success hover:bg-success/15 active:scale-[0.97] transition-all whitespace-nowrap"
             >
-              <span>إدارة في فريقي</span>
+              <span>إدارة الموظف في فريقي</span>
               <ArrowUpLeft className="size-3.5 stroke-[1.5]" />
             </button>
           ) : (
@@ -260,7 +301,7 @@ export const AgentProfileDrawer: React.FC<AgentProfileDrawerProps> = ({
               onClick={() => onHire(agent)}
               className="inline-flex items-center justify-center gap-1.5 h-10 px-5 rounded-lg bg-primary text-xs font-semibold text-primary-foreground hover:bg-primary/90 active:scale-[0.97] transition-all whitespace-nowrap"
             >
-              <span>{isSquad ? "تفعيل الفريق الآن" : "توظيف الوكيل في فريقي"}</span>
+              <span>{isSquad ? "اختيار وتوظيف الفريق" : "اختيار وتوظيف المرشح"}</span>
             </button>
           )}
         </div>

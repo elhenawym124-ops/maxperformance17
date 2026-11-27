@@ -3824,7 +3824,7 @@ const AppContent = () => {
                 <Route
                   path="/marketplace/agents"
                   element={
-                    <Layout fullWidth>
+                    <Layout>
                       <AgentMarketplacePage />
                     </Layout>
                   }

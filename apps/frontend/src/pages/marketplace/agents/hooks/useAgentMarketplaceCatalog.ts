@@ -50,6 +50,7 @@ export function useAgentMarketplaceCatalog() {
   const [tierFilter, setTierFilter] = useState<"all" | AgentTier>("all");
   const [statusFilter, setStatusFilter] = useState<HireStatusFilter>("all");
   const [visibilityFilter, setVisibilityFilter] = useState<VisibilityFilter>("all");
+  const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
 
   const searchInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -178,18 +179,9 @@ export function useAgentMarketplaceCatalog() {
     }
   };
 
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: agents.length };
-    for (const a of agents) {
-      counts[a.category] = (counts[a.category] || 0) + 1;
-    }
-    return counts;
-  }, [agents]);
-
-  const filteredAgents = useMemo(() => {
+  const preCategoryAgents = useMemo(() => {
     const q = search.trim().toLowerCase();
     return agents.filter((agent) => {
-      if (activeCategory !== "all" && agent.category !== activeCategory) return false;
       if (kindFilter !== "all" && agent.kind !== kindFilter) return false;
       if (tierFilter !== "all" && agent.tier !== tierFilter) return false;
       if (statusFilter === "hired" && !agent.isHired) return false;
@@ -203,6 +195,7 @@ export function useAgentMarketplaceCatalog() {
           agent.slug,
           agent.position,
           agent.summary,
+          agent.cv?.bio || "",
           ...(agent.channelLabels || []),
           ...(agent.capabilities || []),
         ]
@@ -212,16 +205,38 @@ export function useAgentMarketplaceCatalog() {
       }
       return true;
     });
-  }, [
-    agents,
-    activeCategory,
-    kindFilter,
-    tierFilter,
-    statusFilter,
-    visibilityFilter,
-    adminMode,
-    search,
-  ]);
+  }, [agents, kindFilter, tierFilter, statusFilter, visibilityFilter, adminMode, search]);
+
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: preCategoryAgents.length };
+    for (const a of preCategoryAgents) {
+      counts[a.category] = (counts[a.category] || 0) + 1;
+    }
+    return counts;
+  }, [preCategoryAgents]);
+
+  const filteredAgents = useMemo(() => {
+    if (activeCategory === "all") return preCategoryAgents;
+    return preCategoryAgents.filter((agent) => agent.category === activeCategory);
+  }, [preCategoryAgents, activeCategory]);
+
+  const toggleCompareSlug = useCallback((slug: string) => {
+    setCompareSlugs((prev) => {
+      if (prev.includes(slug)) return prev.filter((s) => s !== slug);
+      if (prev.length >= 3) {
+        toast.info("يمكنك مقارنة حتى 3 مرشحين في المرة الواحدة.");
+        return prev;
+      }
+      return [...prev, slug];
+    });
+  }, []);
+
+  const clearCompare = useCallback(() => setCompareSlugs([]), []);
+
+  const comparedAgents = useMemo(
+    () => compareSlugs.map((s) => agents.find((a) => a.slug === s)).filter(Boolean) as AgentListing[],
+    [compareSlugs, agents]
+  );
 
   const resetFilters = () => {
     setSearch("");
@@ -268,6 +283,10 @@ export function useAgentMarketplaceCatalog() {
     setVisibilityFilter,
     hasActiveFilters,
     resetFilters,
+    compareSlugs,
+    comparedAgents,
+    toggleCompareSlug,
+    clearCompare,
     fetchCatalog,
     handleToggleAdminMode,
     handleToggleVisibility,

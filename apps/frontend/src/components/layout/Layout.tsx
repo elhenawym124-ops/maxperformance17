@@ -240,8 +240,6 @@ const Layout: React.FC<LayoutProps> = ({ children, fullWidth = false }) => {
     location.pathname.startsWith("/tiktok-inbox") ||
     location.pathname.startsWith("/unified-inbox") ||
     location.pathname.startsWith("/conversations") ||
-    location.pathname.startsWith("/marketplace/agents") ||
-    location.pathname.startsWith("/agents/market") ||
     location.pathname.startsWith("/advertising/marketing-studio") ||
     location.pathname.startsWith("/advertising/creative-studio") ||
     location.pathname.startsWith("/advertising/video-studio") ||

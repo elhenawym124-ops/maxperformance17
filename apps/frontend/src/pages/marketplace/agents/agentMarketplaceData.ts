@@ -29,6 +29,15 @@ export interface SquadMemberSummary {
   role: string;
 }
 
+export interface CandidateCV {
+  headline: string;
+  bio: string;
+  communicationStyle: string[];
+  availability: string;
+  workMode: string;
+  responsibilities: string[];
+}
+
 export interface AgentListing {
   id: string;
   slug: string;
@@ -56,6 +65,7 @@ export interface AgentListing {
   toolsCount?: number;
   capabilities: string[];
   boundaries: string[];
+  cv?: CandidateCV;
   dialect?: string;
   isHired?: boolean;
   hiredAgentId?: string | null;

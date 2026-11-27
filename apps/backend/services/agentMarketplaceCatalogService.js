@@ -564,6 +564,16 @@ function readJsonSafe(filePath) {
   }
 }
 
+function sanitizeAgentCopy(text = '') {
+  return String(text)
+    .replace(/\{\{\s*company_name\s*\}\}/gi, 'متجرك')
+    .replace(/\*\*/g, '')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/^\s*[-•]\s*/gm, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function readSoulExcerpt(agentDir) {
   const soulPath = path.join(agentDir, 'SOUL.md');
   if (!fs.existsSync(soulPath)) return '';
@@ -573,9 +583,48 @@ function readSoulExcerpt(agentDir) {
       .split(/\r?\n/)
       .map((l) => l.trim())
       .filter((l) => l && !l.startsWith('#') && !l.startsWith('>') && !l.startsWith('---') && !l.startsWith('|'));
-    return lines.slice(0, 2).join(' ').replace(/\*\*/g, '').slice(0, 220);
+    return sanitizeAgentCopy(lines.slice(0, 2).join(' ')).slice(0, 220);
   } catch (_) {
     return '';
+  }
+}
+
+function readPersonaCv(agentDir) {
+  const personaPath = path.join(agentDir, 'PERSONA.md');
+  if (!fs.existsSync(personaPath)) {
+    return { bio: '', communicationStyle: [] };
+  }
+  try {
+    const rawLines = fs
+      .readFileSync(personaPath, 'utf8')
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(
+        (l) =>
+          l &&
+          !l.startsWith('#') &&
+          !l.startsWith('>') &&
+          !l.startsWith('---') &&
+          !l.startsWith('|')
+      );
+
+    const bullets = rawLines
+      .filter((l) => l.startsWith('-') || /^\d+\./.test(l))
+      .map((l) => sanitizeAgentCopy(l.replace(/^\d+\.\s*/, '')))
+      .filter((l) => l.length > 8 && !/^(who you are|how you speak)$/i.test(l))
+      .slice(0, 4);
+
+    const prose = rawLines
+      .filter((l) => !l.startsWith('-') && !/^\d+\./.test(l))
+      .map((l) => sanitizeAgentCopy(l))
+      .filter(Boolean);
+
+    return {
+      bio: prose.slice(0, 2).join(' ').slice(0, 280),
+      communicationStyle: bullets,
+    };
+  } catch (_) {
+    return { bio: '', communicationStyle: [] };
   }
 }
 
@@ -686,6 +735,7 @@ function loadDiskAgents(forceRefresh = false) {
     const tools = Array.isArray(raw.allowedTools) ? raw.allowedTools : [];
     const capabilities = mapToolsToCapabilities(tools);
     const soulExcerpt = readSoulExcerpt(agentDir);
+    const personaCv = readPersonaCv(agentDir);
     const guardrails = raw.guardrails || {};
     const governance =
       guardrails.requireExplicitConfirmation === false && guardrails.requireDraftOrders === false
@@ -698,13 +748,42 @@ function loadDiskAgents(forceRefresh = false) {
       builtin.summary ||
       raw.description ||
       soulExcerpt ||
-      'وكيل متخصص جاهز للعمل ضمن فريق شركتك.';
+      'مرشح متخصص جاهز للانضمام لفريق عمل متجرك.';
 
     const position =
       fileMarket.position ||
       builtin.position ||
       raw.description ||
       rawName;
+
+    const resolvedCapabilities =
+      capabilities.length > 0
+        ? capabilities
+        : ['العمل وفق قاعدة معرفة الشركة وصلاحيات الدور المحدد'];
+
+    const cvBio =
+      personaCv.bio ||
+      soulExcerpt ||
+      summary;
+
+    const cv = {
+      headline: position,
+      bio: cvBio,
+      communicationStyle:
+        personaCv.communicationStyle.length > 0
+          ? personaCv.communicationStyle
+          : [
+              governance === 'human_in_loop'
+                ? 'يعرض الإجراءات والقرارات المهمة عليك للموافقة قبل التنفيذ.'
+                : 'يتابع المهام اليومية وينفذ الردود مباشرة ضمن ضوابط المتجر.',
+            ],
+      availability: 'دوام كامل ٢٤/٧',
+      workMode:
+        governance === 'human_in_loop'
+          ? 'يعرض المسودات لاعتمادك قبل التنفيذ'
+          : 'تنفيذ مباشر ضمن حدود الدور',
+      responsibilities: resolvedCapabilities,
+    };
 
     items.push({
       id: `agent_${slug.replace(/[^a-z0-9]+/gi, '_')}`,
@@ -732,8 +811,9 @@ function loadDiskAgents(forceRefresh = false) {
         : [],
       governance,
       toolsCount: tools.length,
-      capabilities: capabilities.length > 0 ? capabilities : ['العمل وفق قاعدة معرفة الشركة وصلاحيات الدور المحدد'],
+      capabilities: resolvedCapabilities,
       boundaries: buildBoundaries(raw),
+      cv,
       dialect:
         raw.personaMeta?.dialect === 'egyptian_urban' || raw.personaMeta?.dialect === 'egyptian'
           ? 'العربية المصرية المهنية'
