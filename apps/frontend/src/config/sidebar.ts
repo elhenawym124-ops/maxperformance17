@@ -47,6 +47,26 @@ const getItemId = (item: { to: string; itemId?: string }): string => {
     return item.itemId || item.to.replace(/[^a-zA-Z0-9]/g, '_');
 };
 
+const filterChildItems = (
+    children: SidebarItem['children'],
+    userRole: string | undefined,
+    userPerms: string[] | undefined,
+): SidebarItem['children'] => {
+    if (!children || children.length === 0) return undefined;
+    const isSuperOrAdmin = ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER'].includes(userRole || '');
+    const perms = userPerms || [];
+    const mapped = children.map((child) => {
+        const roleAccess = hasRoleAccess(userRole, child.requiredRoles);
+        const permAccess = isSuperOrAdmin || !child.requiredPermissions || child.requiredPermissions.length === 0 ||
+            child.requiredPermissions.some(p => perms.includes(p));
+        return {
+            ...child,
+            hidden: !(roleAccess && permAccess) || child.hidden === true,
+        };
+    });
+    return mapped.some((c) => !c.hidden) ? mapped : undefined;
+};
+
 const mergeSectionOverrides = (
     section: SidebarSection,
     dbSection: SidebarSectionSettings | undefined,
@@ -87,10 +107,12 @@ const mergeSectionOverrides = (
             const itemPermissionAccess = isSuperOrAdmin || !item.requiredPermissions || item.requiredPermissions.length === 0 ||
                 (userPerms && item.requiredPermissions.some(p => userPerms.includes(p)));
 
+            const filteredChildren = filterChildItems(item.children, userRole, userPerms);
+
             if (!dbItem) {
                 // No DB override, just apply permission-based hiding
                 const isHidden = !itemPermissionAccess || item.hidden === true;
-                return { ...item, hidden: isHidden, itemId };
+                return { ...item, hidden: isHidden, itemId, ...(filteredChildren ? { children: filteredChildren } : { children: undefined }) };
             }
 
             const itemVisible = dbItem.visible !== false;
@@ -99,7 +121,7 @@ const mergeSectionOverrides = (
 
             const isHidden = !itemVisible || !itemEnabled || !itemRoleAccess || !itemPermissionAccess || item.hidden === true;
 
-            return { ...item, hidden: isHidden, itemId, requiredRoles: dbItem.requiredRoles };
+            return { ...item, hidden: isHidden, itemId, requiredRoles: dbItem.requiredRoles, ...(filteredChildren ? { children: filteredChildren } : { children: undefined }) };
         })
         .sort((a, b) => {
             const aId = getItemId(a);
@@ -619,10 +641,13 @@ const applySidebarOverrides = (
                             itemHidden = true;
                         }
 
+                        const filteredChildren = filterChildItems(item.children, user?.role, userPerms);
+
                         return {
                             ...item,
                             label: customItemLabel,
                             hidden: itemHidden,
+                            ...(filteredChildren ? { children: filteredChildren } : { children: undefined }),
                             _order: itemOrder,
                         };
                     })
@@ -651,7 +676,12 @@ const applySidebarOverrides = (
                 const itemRoleAccess = hasRoleAccess(user?.role, item.requiredRoles);
                 const itemPermissionAccess = isSuperOrAdmin || !item.requiredPermissions || item.requiredPermissions.length === 0 ||
                     userPerms.some(p => item.requiredPermissions!.includes(p));
-                return { ...item, hidden: !(itemRoleAccess && itemPermissionAccess) || item.hidden === true };
+                const filteredChildren = filterChildItems(item.children, user?.role, userPerms);
+                return {
+                    ...item,
+                    hidden: !(itemRoleAccess && itemPermissionAccess) || item.hidden === true,
+                    ...(filteredChildren ? { children: filteredChildren } : { children: undefined }),
+                };
             })
         }));
     }
@@ -1177,38 +1207,75 @@ export const getSidebarConfig = (
             title: t('sidebar.ordersSection'),
             icon: Archive,
             items: [
-                { to: '/orders', icon: Archive, label: t('sidebar.orders'), requiredPermissions: ['orders.view'] },
-                { to: '/orders/workspace', icon: CircleUser, label: t('sidebar.agentWorkspace'), requiredPermissions: ['orders.workspace.view'], hidden: !isAppActive('agent-workspace') },
-                { to: '/orders/preparation', icon: FlaskConical, label: t('sidebar.orderPreparation'), requiredPermissions: ['orders.preparation.view'] },
-                { to: '/orders/automation', icon: Zap, label: t('sidebar.orderAutomation'), requiredPermissions: ['orders.automation.view'], hidden: !isAppActive('order-automation') },
-                { to: '/orders/incomplete', icon: AlertTriangle, label: t('sidebar.incompleteOrders'), requiredPermissions: ['orders.incomplete.view'] },
-                { to: '/pos', icon: CreditCard, label: t('sidebar.pos'), requiredPermissions: ['orders.pos.view'], hidden: !isAppActive('pos-pro') },
-                { to: '/orders/invoices', icon: FileText, label: t('sidebar.orderInvoices'), requiredPermissions: ['orders.invoices.view'], hidden: !isAnyAppActive(['order-invoicing', 'store-pro']) },
-                { to: '/settings/order-invoice', icon: Cog, label: t('sidebar.orderInvoiceSettings'), requiredPermissions: ['orders.invoices.view'], hidden: !isAnyAppActive(['order-invoicing', 'store-pro']) },
-                { to: '/orders/manual', icon: SquarePen, label: t('sidebar.manualOrder'), requiredPermissions: ['orders.manual.create'], hidden: !isAnyAppActive(['manual-orders-pro', 'store-pro']) },
-                { to: '/bulk-search', icon: ListOrdered, label: t('sidebar.bulkSearch'), requiredPermissions: ['orders.bulk-search.view'], hidden: !isAppActive('bulk-search') },
-                { to: '/products/reviews', icon: Star, label: t('sidebar.productReviews'), requiredPermissions: ['orders.product-reviews.view'], hidden: !isAnyAppActive(['ugc-reviews-pro', 'store-pro']) },
-                { to: '/settings/orders', icon: Cog, label: t('sidebar.ordersSettings'), requiredPermissions: ['orders.settings.view'] },
-                { to: '/settings/orders/status-alerts', icon: BellRing, label: isEn ? 'Order Status Alerts' : 'تنبيهات حالات الطلبات', requiredPermissions: ['orders.settings.view'] },
-                { to: '/settings/customer-blocks', icon: ShieldAlert, label: t('sidebar.customerBlockSettings'), requiredPermissions: ['orders.customer-blocks.view'], hidden: !isAppActive('customer-blocks') },
-                { to: '/orders/shipments', icon: Truck, label: isEn ? 'Shipments & Delivery Logs' : 'سجلات الشحنات والتوصيل', requiredPermissions: ['orders.turbo.view', 'orders.shipping.view'], hidden: !isAnyAppActive(['order-shipping-turbo', 'order-shipping-hub', 'order-shipping-bosta', 'order-shipping-qpexpress', 'commerce-advanced', ...STORE_APP_SLUGS]) },
-                { to: '/tickets', icon: Ticket, label: isEn ? 'Shipping Tickets & Chat' : 'تذاكر ودعم الشحن (Turbo)', requiredPermissions: ['orders.turbo.view', 'orders.shipping.view'], hidden: !isAnyAppActive(['order-shipping-turbo', 'order-shipping-hub', 'order-shipping-bosta', 'order-shipping-qpexpress', 'commerce-advanced', ...STORE_APP_SLUGS]) },
-                { to: '/shipping/carrier-inbox', icon: MessageSquare, label: isEn ? 'Carrier Messages' : 'محادثات شركات الشحن', requiredPermissions: ['orders.turbo.view', 'orders.shipping.view'], hidden: !isAnyAppActive(['order-shipping-turbo', 'order-shipping-hub', 'order-shipping-bosta', 'order-shipping-qpexpress', 'commerce-advanced', ...STORE_APP_SLUGS]) },
-                { to: '/shipping-companies', icon: Building, label: t('sidebar.shippingCompanies'), requiredPermissions: ['orders.shipping.view'], hidden: !isAnyAppActive(['order-shipping-turbo', 'order-shipping-hub', 'order-shipping-bosta', 'order-shipping-qpexpress', 'commerce-advanced', ...STORE_APP_SLUGS]) },
-                { to: '/settings/turbo/status-mapping', icon: ArrowLeftRight, label: isEn ? 'Shipping Status Mapping' : 'ربط حالات الشحن (Turbo)', requiredPermissions: ['orders.shipping.view', 'orders.turbo.view'], hidden: !isAnyAppActive(['order-shipping-turbo', 'order-shipping-hub', 'order-shipping-bosta', 'order-shipping-qpexpress', 'commerce-advanced', ...STORE_APP_SLUGS]) },
-                { to: '/shipping-settlement', icon: Banknote, label: t('sidebar.shippingSettlement'), requiredPermissions: ['orders.shipping.view'], hidden: !isAnyAppActive(['order-shipping-turbo', 'order-shipping-hub', 'order-shipping-bosta', 'order-shipping-qpexpress', 'commerce-advanced', ...STORE_APP_SLUGS]) },
-                { to: '/returns', icon: CheckCircle2, label: t('sidebar.returnReviews'), requiredPermissions: ['orders.returns.view'], hidden: !isAnyAppActive(['returns-settings', 'store-pro']) },
-                { to: '/orders/bulk', icon: ListOrdered, label: t('sidebar.bulkOrders'), requiredPermissions: ['bulkOrders.view', 'orders.bulk.create'], hidden: !isAppActive('bulk-orders') },
-                { to: '/orders/bulk-status', icon: ArrowLeftRight, label: t('sidebar.bulkStatusUpdate'), requiredPermissions: ['orders.status.change'], hidden: !isAppActive('bulk-orders') },
-                { to: '/orders/activity-log', icon: Clock, label: isEn ? 'Orders Activity Log' : 'سجل نشاط الطلبات', requiredPermissions: ['orders.view'] },
-                { to: '/orders/quick-status', icon: RefreshCcw, label: t('sidebar.quickStatusChange'), requiredPermissions: ['orders.quickstatus.view'], hidden: !isAppActive('quick-status') },
-                { to: '/orders/analytics', icon: BarChart3, label: t('sidebar.orderAnalytics'), requiredPermissions: ['orders.stats.view'], hidden: !isAnyAppActive(['analytics-advanced', 'analytics-basic', 'orders-analytics']) },
-                { to: '/orders/status-summary', icon: FileBarChart, label: t('sidebar.orderStatusSummary'), requiredPermissions: ['orders.status-summary.view'], hidden: !isAppActive('status-summary') },
-                { to: '/returns/settings', icon: Cog, label: t('sidebar.returnSettings'), requiredPermissions: ['orders.return-settings.view'], hidden: !isAppActive('returns-settings') },
-                { to: '/platform-integrations', icon: Zap, label: t('sidebar.platformIntegrations'), requiredPermissions: ['orders.integrations.view'], hidden: !isAnyAppActive(['woocommerce-pro', 'webhooks-pro']) },
-                { to: '/settings/order-workflow', icon: ArrowLeftRight, label: t('sidebar.orderWorkflow'), requiredPermissions: ['orders.workflow.view'], hidden: !isAppActive('order-workflow') },
-                { to: '/settings/cod-deposit', icon: Banknote, label: t('sidebar.codDeposit'), requiredPermissions: ['orders.settings.view'], hidden: !isAppActive('cod-deposit') },
-                { to: '/orders/status-templates', icon: FileText, label: t('sidebar.orderStatusTemplates'), requiredPermissions: ['orders.whatsapp-notifications.view'], hidden: !isAppActive('whatsapp-business') },
+                {
+                    to: '/orders',
+                    icon: Archive,
+                    label: t('sidebar.orders'),
+                    requiredPermissions: ['orders.view', 'orders.workspace.view', 'orders.preparation.view', 'orders.incomplete.view', 'orders.manual.create', 'orders.pos.view', 'orders.bulk-search.view'],
+                    children: [
+                        { to: '/orders/workspace', label: t('sidebar.agentWorkspace'), requiredPermissions: ['orders.workspace.view'], hidden: !isAppActive('agent-workspace') },
+                        { to: '/orders/preparation', label: t('sidebar.orderPreparation'), requiredPermissions: ['orders.preparation.view'] },
+                        { to: '/orders/incomplete', label: t('sidebar.incompleteOrders'), requiredPermissions: ['orders.incomplete.view'] },
+                        { to: '/orders/manual', label: t('sidebar.manualOrder'), requiredPermissions: ['orders.manual.create'], hidden: !isAnyAppActive(['manual-orders-pro', 'store-pro']) },
+                        { to: '/pos', label: t('sidebar.pos'), requiredPermissions: ['orders.pos.view'], hidden: !isAppActive('pos-pro') },
+                        { to: '/bulk-search', label: t('sidebar.bulkSearch'), requiredPermissions: ['orders.bulk-search.view'], hidden: !isAppActive('bulk-search') },
+                    ],
+                },
+                {
+                    to: '/orders/activity-log',
+                    icon: Clock,
+                    label: isEn ? 'Bulk Ops & Tracking' : 'العمليات الجماعية والمتابعة',
+                    requiredPermissions: ['orders.view', 'bulkOrders.view', 'orders.bulk.create', 'orders.status.change', 'orders.quickstatus.view', 'orders.automation.view', 'orders.stats.view', 'orders.status-summary.view'],
+                    children: [
+                        { to: '/orders/bulk', label: t('sidebar.bulkOrders'), requiredPermissions: ['bulkOrders.view', 'orders.bulk.create'], hidden: !isAppActive('bulk-orders') },
+                        { to: '/orders/bulk-status', label: t('sidebar.bulkStatusUpdate'), requiredPermissions: ['orders.status.change'], hidden: !isAppActive('bulk-orders') },
+                        { to: '/orders/quick-status', label: t('sidebar.quickStatusChange'), requiredPermissions: ['orders.quickstatus.view'], hidden: !isAppActive('quick-status') },
+                        { to: '/orders/automation', label: t('sidebar.orderAutomation'), requiredPermissions: ['orders.automation.view'], hidden: !isAppActive('order-automation') },
+                        { to: '/orders/analytics', label: t('sidebar.orderAnalytics'), requiredPermissions: ['orders.stats.view'], hidden: !isAnyAppActive(['analytics-advanced', 'analytics-basic', 'orders-analytics']) },
+                        { to: '/orders/status-summary', label: t('sidebar.orderStatusSummary'), requiredPermissions: ['orders.status-summary.view'], hidden: !isAppActive('status-summary') },
+                    ],
+                },
+                {
+                    to: '/orders/shipments',
+                    icon: Truck,
+                    label: isEn ? 'Shipments & Carriers' : 'الشحنات وشركات التوصيل',
+                    requiredPermissions: ['orders.turbo.view', 'orders.shipping.view'],
+                    hidden: !isAnyAppActive(['order-shipping-turbo', 'order-shipping-hub', 'order-shipping-bosta', 'order-shipping-qpexpress', 'commerce-advanced', ...STORE_APP_SLUGS]),
+                    children: [
+                        { to: '/tickets', label: isEn ? 'Shipping Tickets & Chat' : 'تذاكر ودعم الشحن (Turbo)', requiredPermissions: ['orders.turbo.view', 'orders.shipping.view'] },
+                        { to: '/shipping/carrier-inbox', label: isEn ? 'Carrier Messages' : 'محادثات شركات الشحن', requiredPermissions: ['orders.turbo.view', 'orders.shipping.view'] },
+                        { to: '/shipping-companies', label: t('sidebar.shippingCompanies'), requiredPermissions: ['orders.shipping.view'] },
+                        { to: '/settings/turbo/status-mapping', label: isEn ? 'Shipping Status Mapping' : 'ربط حالات الشحن (Turbo)', requiredPermissions: ['orders.shipping.view', 'orders.turbo.view'] },
+                        { to: '/shipping-settlement', label: t('sidebar.shippingSettlement'), requiredPermissions: ['orders.shipping.view'] },
+                    ],
+                },
+                {
+                    to: '/orders/invoices',
+                    icon: FileText,
+                    label: isEn ? 'Invoices, Returns & Reviews' : 'الفواتير والمرتجعات والتقييمات',
+                    requiredPermissions: ['orders.invoices.view', 'orders.returns.view', 'orders.return-settings.view', 'orders.product-reviews.view'],
+                    hidden: !isAnyAppActive(['order-invoicing', 'returns-settings', 'ugc-reviews-pro', 'store-pro']),
+                    children: [
+                        { to: '/settings/order-invoice', label: t('sidebar.orderInvoiceSettings'), requiredPermissions: ['orders.invoices.view'], hidden: !isAnyAppActive(['order-invoicing', 'store-pro']) },
+                        { to: '/returns', label: t('sidebar.returnReviews'), requiredPermissions: ['orders.returns.view'], hidden: !isAnyAppActive(['returns-settings', 'store-pro']) },
+                        { to: '/returns/settings', label: t('sidebar.returnSettings'), requiredPermissions: ['orders.return-settings.view'], hidden: !isAppActive('returns-settings') },
+                        { to: '/products/reviews', label: t('sidebar.productReviews'), requiredPermissions: ['orders.product-reviews.view'], hidden: !isAnyAppActive(['ugc-reviews-pro', 'store-pro']) },
+                    ],
+                },
+                {
+                    to: '/settings/orders',
+                    icon: Cog,
+                    label: t('sidebar.ordersSettings'),
+                    requiredPermissions: ['orders.settings.view', 'orders.customer-blocks.view', 'orders.workflow.view', 'orders.whatsapp-notifications.view', 'orders.integrations.view'],
+                    children: [
+                        { to: '/settings/orders/status-alerts', label: isEn ? 'Order Status Alerts' : 'تنبيهات حالات الطلبات', requiredPermissions: ['orders.settings.view'] },
+                        { to: '/settings/customer-blocks', label: t('sidebar.customerBlockSettings'), requiredPermissions: ['orders.customer-blocks.view'], hidden: !isAppActive('customer-blocks') },
+                        { to: '/settings/order-workflow', label: t('sidebar.orderWorkflow'), requiredPermissions: ['orders.workflow.view'], hidden: !isAppActive('order-workflow') },
+                        { to: '/settings/cod-deposit', label: t('sidebar.codDeposit'), requiredPermissions: ['orders.settings.view'], hidden: !isAppActive('cod-deposit') },
+                        { to: '/orders/status-templates', label: t('sidebar.orderStatusTemplates'), requiredPermissions: ['orders.whatsapp-notifications.view'], hidden: !isAppActive('whatsapp-business') },
+                        { to: '/platform-integrations', label: t('sidebar.platformIntegrations'), requiredPermissions: ['orders.integrations.view'], hidden: !isAnyAppActive(['woocommerce-pro', 'webhooks-pro']) },
+                    ],
+                },
             ],
             // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
             hidden: user?.role === 'AFFILIATE' || isEducationOnlyCompany || (!isStoreActive() && !isAnyAppActive(['pos-pro', 'order-core', 'cafe-restaurant-pro']))
@@ -1416,282 +1483,92 @@ export const getSidebarConfig = (
             title: isEn ? 'Marketing & Advertising' : t('sidebar.marketingSection'),
             icon: Megaphone,
             items: [
-                // 1. مركز التسويق الذكي (AI Studio)
+                // 1. استوديو التسويق الذكي (AI Creative Suite)
                 {
                     to: '/advertising/marketing-studio',
                     icon: Sparkles,
                     label: isEn ? 'AI Marketing Studio' : 'مركز التسويق الذكي (AI Studio)',
+                    children: [
+                        { to: '/advertising/creative-studio', label: isEn ? 'AI Creative Studio' : 'استوديو التصاميم الإعلانية (AI)' },
+                        { to: '/advertising/video-studio', label: isEn ? 'AI Video Studio' : 'استوديو الفيديو AI', hidden: !isAppActive('ai-video-studio') },
+                    ],
                 },
-                // 1.5 استوديو التصاميم الذكي (AI Creative Studio)
-                {
-                    to: '/advertising/creative-studio',
-                    icon: Palette,
-                    label: isEn ? 'AI Creative Studio' : 'استوديو التصاميم الإعلانية (AI)',
-                },
-                // 1.6 استوديو الفيديو AI (Higgsfield)
-                {
-                    to: '/advertising/video-studio',
-                    icon: Clapperboard,
-                    label: isEn ? 'AI Video Studio' : 'استوديو الفيديو AI',
-                    hidden: !isAppActive('ai-video-studio'),
-                },
-                // 2. إعلانات فيسبوك (Meta Ads Cockpit)
+                // 2. إعلانات Meta (فيسبوك) والحملات
                 {
                     to: '/advertising/facebook-ads',
                     icon: Megaphone,
                     label: isEn ? 'Facebook Ads (Meta Ads)' : (t('sidebar.facebookAds') || 'إعلانات فيسبوك (Meta Ads)'),
+                    children: [
+                        { to: '/advertising/facebook-ads/create-ad', label: isEn ? 'Create Ad (Wizard)' : 'إنشاء إعلان جديد' },
+                        { to: '/advertising/facebook-ads/campaigns', label: isEn ? 'Campaigns List' : 'قائمة الحملات الإعلانية' },
+                        { to: '/advertising/facebook-ads/connection', label: isEn ? 'Meta Ads Connection' : (t('sidebar.metaAdsConnection') || 'ربط إعلانات Meta') },
+                        { to: '/advertising/facebook-ads/automation-rules', label: isEn ? 'Automation Rules' : 'قواعد الأتمتة الإعلانية' },
+                        { to: '/advertising/facebook-ads/budget-alerts', label: isEn ? 'WhatsApp Budget Alerts' : 'تنبيهات الرصيد WhatsApp' },
+                        { to: '/advertising/facebook-ads/decision-reports', label: isEn ? 'Decision Reports & Profit' : t('sidebar.facebookAdsReports', 'تقارير الأرباح والقرارات') },
+                        { to: '/advertising/facebook-ads/advantage-plus', label: isEn ? 'Advantage+ Shopping' : 'إعلانات Advantage+ والتسوق' },
+                        { to: '/advertising/facebook-ads/dco', label: isEn ? 'Dynamic Creative (DCO)' : 'التوليف الإبداعي الديناميكي (DCO)' },
+                        { to: '/advertising/facebook-ads/lead-forms', label: isEn ? 'Instant Lead Forms' : 'نماذج العملاء الفورية (Lead Forms)' },
+                    ],
                 },
-                // 3. إنشاء إعلان جديد
-                {
-                    to: '/advertising/facebook-ads/create-ad',
-                    icon: Plus,
-                    label: isEn ? 'Create Ad (Wizard)' : 'إنشاء إعلان جديد',
-                },
-                // 4. الحملات الإعلانية
-                {
-                    to: '/advertising/facebook-ads/campaigns',
-                    icon: BarChart3,
-                    label: isEn ? 'Campaigns List' : 'قائمة الحملات الإعلانية',
-                },
-                // 5. ربط إعلانات Meta (مفرد وغير مكرر)
-                {
-                    to: '/advertising/facebook-ads/connection',
-                    icon: PlugZap,
-                    label: isEn ? 'Meta Ads Connection' : (t('sidebar.metaAdsConnection') || 'ربط إعلانات Meta'),
-                },
-                // 6. قواعد الأتمتة الإعلانية
-                {
-                    to: '/advertising/facebook-ads/automation-rules',
-                    icon: Zap,
-                    label: isEn ? 'Automation Rules' : 'قواعد الأتمتة الإعلانية',
-                },
-                // 7. تنبيهات الرصيد WhatsApp
-                {
-                    to: '/advertising/facebook-ads/budget-alerts',
-                    icon: BellRing,
-                    label: isEn ? 'WhatsApp Budget Alerts' : 'تنبيهات الرصيد WhatsApp',
-                },
-                // 8. تقارير الأرباح والقرارات
-                {
-                    to: '/advertising/facebook-ads/decision-reports',
-                    icon: FileBarChart,
-                    label: isEn ? 'Decision Reports & Profit' : t('sidebar.facebookAdsReports', 'تقارير الأرباح والقرارات'),
-                },
-                // 9. التوليف الإبداعي الديناميكي (DCO)
-                {
-                    to: '/advertising/facebook-ads/dco',
-                    icon: Palette,
-                    label: isEn ? 'Dynamic Creative (DCO)' : 'التوليف الإبداعي الديناميكي (DCO)',
-                },
-                // 10. إعلانات Advantage+ والتسوق
-                {
-                    to: '/advertising/facebook-ads/advantage-plus',
-                    icon: Rocket,
-                    label: isEn ? 'Advantage+ Shopping' : 'إعلانات Advantage+ والتسوق',
-                },
-                // 11. نماذج العملاء الفورية (Lead Forms)
-                {
-                    to: '/advertising/facebook-ads/lead-forms',
-                    icon: FileText,
-                    label: isEn ? 'Instant Lead Forms' : 'نماذج العملاء الفورية (Lead Forms)',
-                },
-                // 12. إعدادات الإسناد ونوافذ التحويل
-                {
-                    to: '/advertising/facebook-ads/attribution',
-                    icon: CheckCircle2,
-                    label: isEn ? 'Attribution Settings' : 'إعدادات الإسناد ونوافذ التحويل',
-                },
-                // 13. الجماهير الإعلانية المخصصة والشبيهة
+                // 3. الجماهير والكتالوج والاختبارات
                 {
                     to: '/advertising/facebook-ads/audiences',
                     icon: Users,
-                    label: isEn ? 'Audiences' : 'الجماهير المخصصة والشبيهة',
+                    label: isEn ? 'Audiences & Ad Testing' : 'الجماهير والاختبارات',
+                    children: [
+                        { to: '/advertising/facebook-ads/saved-audiences', label: isEn ? 'Saved Audiences' : 'الجماهير المحفوظة (Saved Audiences)' },
+                        { to: '/advertising/facebook-ads/catalogs', label: isEn ? 'Product Catalogs' : 'كتالوجات المنتجات (Catalog)' },
+                        { to: '/advertising/facebook-ads/ad-preview', label: isEn ? 'Ad Preview & QA' : 'معاينة الإعلانات (Ad Preview)' },
+                        { to: '/advertising/facebook-ads/ad-library', label: isEn ? 'Ad Library & Research' : 'مكتبة الكرياتيف والبحث' },
+                        { to: '/advertising/facebook-ads/tests', label: isEn ? 'A/B Tests' : 'اختبارات A/B Tests' },
+                        { to: '/advertising/facebook-ads/geo', label: isEn ? 'Geographic Performance' : 'الأداء الجغرافي والمحافظات' },
+                        { to: '/advertising/facebook-ads/attribution', label: isEn ? 'Attribution Settings' : 'إعدادات الإسناد ونوافذ التحويل' },
+                    ],
                 },
-                // 14. الجماهير المحفوظة (Saved Audiences)
-                {
-                    to: '/advertising/facebook-ads/saved-audiences',
-                    icon: Users,
-                    label: isEn ? 'Saved Audiences' : 'الجماهير المحفوظة (Saved Audiences)',
-                },
-                // 15. كتالوجات المنتجات (Catalog)
-                {
-                    to: '/advertising/facebook-ads/catalogs',
-                    icon: ShoppingBag,
-                    label: isEn ? 'Product Catalogs' : 'كتالوجات المنتجات (Catalog)',
-                },
-                // 16. معاينة الإعلانات (Ad Preview)
-                {
-                    to: '/advertising/facebook-ads/ad-preview',
-                    icon: Eye,
-                    label: isEn ? 'Ad Preview & QA' : 'معاينة الإعلانات (Ad Preview)',
-                },
-                // 17. مكتبة الكرياتيف والبحث
-                {
-                    to: '/advertising/facebook-ads/ad-library',
-                    icon: FolderOpen,
-                    label: isEn ? 'Ad Library & Research' : 'مكتبة الكرياتيف والبحث',
-                },
-                // 18. اختبارات A/B Tests
-                {
-                    to: '/advertising/facebook-ads/tests',
-                    icon: FlaskConical,
-                    label: isEn ? 'A/B Tests' : 'اختبارات A/B Tests',
-                },
-                // 19. الأداء الجغرافي والمحافظات
-                {
-                    to: '/advertising/facebook-ads/geo',
-                    icon: Globe,
-                    label: isEn ? 'Geographic Performance' : 'الأداء الجغرافي والمحافظات',
-                },
-                // 20. البيكسل والتتبع (Pixel & CAPI)
+                // 4. التتبع وصفحات الهبوط
                 {
                     to: '/advertising/facebook-pixel',
                     icon: Target,
-                    label: isEn ? 'Facebook Pixel & CAPI' : t('sidebar.facebookPixel'),
+                    label: isEn ? 'Tracking & Landing Pages' : 'التتبع وصفحات الهبوط',
+                    children: [
+                        { to: '/advertising/google-tag-manager', label: isEn ? 'Google Tag Manager' : t('sidebar.googleTagManager') },
+                        { to: '/advertising/google-analytics', label: isEn ? 'Google Analytics & Ads' : t('sidebar.googleAnalytics') },
+                        { to: '/advertising/product-landing-pages', label: isEn ? 'Product Landing Pages' : (t('sidebar.productLandingPages') || 'صفحات هبوط المنتجات') },
+                        { to: '/advertising/funnel-wizard', label: isEn ? 'Quick Funnel' : (t('sidebar.quickFunnel') || 'مسار تحويل سريع') },
+                    ],
                 },
-                // 21. Google Tag Manager
-                {
-                    to: '/advertising/google-tag-manager',
-                    icon: Tag,
-                    label: isEn ? 'Google Tag Manager' : t('sidebar.googleTagManager'),
-                },
-                // 22. Google Analytics & Ads
-                {
-                    to: '/advertising/google-analytics',
-                    icon: BarChart3,
-                    label: isEn ? 'Google Analytics & Ads' : t('sidebar.googleAnalytics'),
-                },
-                // 23. صفحات هبوط المنتجات
-                {
-                    to: '/advertising/product-landing-pages',
-                    icon: Monitor,
-                    label: isEn ? 'Product Landing Pages' : (t('sidebar.productLandingPages') || 'صفحات هبوط المنتجات'),
-                },
-                // 24. مسار تحويل سريع (Quick Funnel)
-                {
-                    to: '/advertising/funnel-wizard',
-                    icon: Filter,
-                    label: isEn ? 'Quick Funnel' : (t('sidebar.quickFunnel') || 'مسار تحويل سريع'),
-                },
-                // 25. نشر حملات البث (Broadcast)
-                {
-                    to: '/broadcast',
-                    icon: Send,
-                    label: isEn ? 'Broadcast' : t('sidebar.broadcast'),
-                    hidden: !isAppActive('crm-basic'),
-                },
-                // 26. نشر منشورات Facebook
+                // 5. النشر والقنوات
                 {
                     to: '/facebook/create-post',
-                    icon: SquarePen,
-                    label: isEn ? 'Facebook Post' : (t('sidebar.facebookPost') || 'نشر منشورات Facebook'),
+                    icon: Send,
+                    label: isEn ? 'Publishing & Channels' : 'النشر والقنوات',
+                    children: [
+                        { to: '/broadcast', label: isEn ? 'Broadcast' : t('sidebar.broadcast'), hidden: !isAppActive('crm-basic') },
+                        { to: '/tiktok/publish', label: isEn ? 'TikTok Publish' : t('sidebar.tiktokPublish'), hidden: !isAppActive('tiktok-integrations') },
+                        { to: '/youtube/publish', label: isEn ? 'YouTube Publish' : (t('sidebar.youtubePublish') || 'نشر يوتيوب'), hidden: !isAppActive('youtube-publish') },
+                        { to: '/tiktok/shop', label: isEn ? 'TikTok Shop' : t('sidebar.tiktokShop'), hidden: !isAppActive('tiktok-integrations') },
+                        { to: '/tiktok-inbox', label: isEn ? 'TikTok Inbox' : t('sidebar.tiktokInbox'), hidden: !isAppActive('tiktok-integrations') },
+                        { to: '/tiktok/settings', label: isEn ? 'TikTok Settings' : t('sidebar.tiktokSettings'), hidden: !isAppActive('tiktok-integrations') },
+                    ],
                 },
-                // 27. نشر TikTok Publish
-                {
-                    to: '/tiktok/publish',
-                    icon: SquarePen,
-                    label: isEn ? 'TikTok Publish' : t('sidebar.tiktokPublish'),
-                    hidden: !isAppActive('tiktok-integrations'),
-                },
-                // 27.1 نشر YouTube
-                {
-                    to: '/youtube/publish',
-                    icon: Radio,
-                    label: isEn ? 'YouTube Publish' : (t('sidebar.youtubePublish') || 'نشر يوتيوب'),
-                    hidden: !isAppActive('youtube-publish'),
-                },
-                // 28. متجر TikTok Shop
-                {
-                    to: '/tiktok/shop',
-                    icon: Store,
-                    label: isEn ? 'TikTok Shop' : t('sidebar.tiktokShop'),
-                    hidden: !isAppActive('tiktok-integrations'),
-                },
-                // 29. صندوق وارد TikTok Inbox
-                {
-                    to: '/tiktok-inbox',
-                    icon: Inbox,
-                    label: isEn ? 'TikTok Inbox' : t('sidebar.tiktokInbox'),
-                    hidden: !isAppActive('tiktok-integrations'),
-                },
-                // 30. إعدادات TikTok Settings
-                {
-                    to: '/tiktok/settings',
-                    icon: Settings,
-                    label: isEn ? 'TikTok Settings' : t('sidebar.tiktokSettings'),
-                    hidden: !isAppActive('tiktok-integrations'),
-                },
-                // 31. محرك الربحية الشامل (Profitability Engine)
+                // 6. حاسبات الربحية والتسعير
                 {
                     to: '/tools/profitability-engine',
                     icon: Calculator,
-                    label: isEn ? 'Profitability Engine' : t('sidebar.profitabilityEngine'),
-                },
-                // 32. نقطة التعادل للمشروع
-                {
-                    to: '/tools/break-even',
-                    icon: TrendingUp,
-                    label: isEn ? 'Project Break-Even' : t('sidebar.projectBreakEven'),
-                },
-                // 33. نقطة التعادل للمنتج
-                {
-                    to: '/tools/product-break-even',
-                    icon: Package,
-                    label: isEn ? 'Product Break-Even' : t('sidebar.productBreakEven'),
-                },
-                // 34. استراتيجية التسعير
-                {
-                    to: '/tools/pricing-strategy',
-                    icon: DollarSign,
-                    label: isEn ? 'Pricing Strategy' : t('sidebar.pricingStrategy'),
-                },
-                // 35. حاسبة الحملات
-                {
-                    to: '/campaign-calculator',
-                    icon: Calculator,
-                    label: isEn ? 'Campaign Calculator' : t('sidebar.campaignCalculator'),
-                },
-                // 36. مخطط ميزانية الإعلانات
-                {
-                    to: '/tools/ad-budget-planner',
-                    icon: Wallet,
-                    label: isEn ? 'Ad Budget Planner' : t('sidebar.adBudgetPlanner'),
-                },
-                // 37. تأثير الخصومات
-                {
-                    to: '/tools/discount-impact',
-                    icon: Percent,
-                    label: isEn ? 'Discount Impact' : t('sidebar.discountImpact'),
-                },
-                // 38. مُحسّن تكلفة الشحن
-                {
-                    to: '/tools/shipping-optimizer',
-                    icon: Truck,
-                    label: isEn ? 'Shipping Optimizer' : t('sidebar.shippingOptimizer'),
-                },
-                // 39. الأرباح والخسائر الشهرية
-                {
-                    to: '/tools/monthly-pnl',
-                    icon: Receipt,
-                    label: isEn ? 'Monthly P&L' : t('sidebar.monthlyPnL'),
-                },
-                // 40. حساب القيمة الدائمة للعميل
-                {
-                    to: '/tools/clv-calculator',
-                    icon: Users,
-                    label: isEn ? 'CLV Calculator' : t('sidebar.clvCalculator'),
-                },
-                // 41. مخطط البيع الإضافي
-                {
-                    to: '/tools/upsell-planner',
-                    icon: BadgePercent,
-                    label: isEn ? 'Upsell Planner' : t('sidebar.upsellPlanner'),
-                },
-                // 42. حاسبة معدل المرتجعات
-                {
-                    to: '/tools/refund-rate',
-                    icon: Undo2,
-                    label: isEn ? 'Refund Rate Calculator' : t('sidebar.refundRateCalculator'),
+                    label: isEn ? 'Profitability & Pricing Tools' : 'حاسبات الربحية والتسعير',
+                    children: [
+                        { to: '/tools/break-even', label: isEn ? 'Project Break-Even' : t('sidebar.projectBreakEven') },
+                        { to: '/tools/product-break-even', label: isEn ? 'Product Break-Even' : t('sidebar.productBreakEven') },
+                        { to: '/tools/pricing-strategy', label: isEn ? 'Pricing Strategy' : t('sidebar.pricingStrategy') },
+                        { to: '/campaign-calculator', label: isEn ? 'Campaign Calculator' : t('sidebar.campaignCalculator') },
+                        { to: '/tools/ad-budget-planner', label: isEn ? 'Ad Budget Planner' : t('sidebar.adBudgetPlanner') },
+                        { to: '/tools/discount-impact', label: isEn ? 'Discount Impact' : t('sidebar.discountImpact') },
+                        { to: '/tools/shipping-optimizer', label: isEn ? 'Shipping Optimizer' : t('sidebar.shippingOptimizer') },
+                        { to: '/tools/monthly-pnl', label: isEn ? 'Monthly P&L' : t('sidebar.monthlyPnL') },
+                        { to: '/tools/clv-calculator', label: isEn ? 'CLV Calculator' : t('sidebar.clvCalculator') },
+                        { to: '/tools/upsell-planner', label: isEn ? 'Upsell Planner' : t('sidebar.upsellPlanner') },
+                        { to: '/tools/refund-rate', label: isEn ? 'Refund Rate Calculator' : t('sidebar.refundRateCalculator') },
+                    ],
                 },
             ],
             // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل

@@ -14,7 +14,7 @@ export interface SidebarItem {
   label: string;
   external?: boolean;
   badge?: string;
-  children?: { to: string; label: string; hidden?: boolean; requiredRoles?: string[] }[];
+  children?: { to: string; label: string; hidden?: boolean; requiredRoles?: string[]; requiredPermissions?: string[]; icon?: any }[];
   hidden?: boolean;
   requiredRoles?: string[];
   requiredApps?: string[];
