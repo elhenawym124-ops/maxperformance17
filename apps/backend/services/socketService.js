@@ -118,6 +118,21 @@ class SocketService {
         return next(new Error('Authentication failed'));
       }
 
+      const userApiKeyService = require('./userApiKeyService');
+      if (userApiKeyService.isUserApiKey(token)) {
+        const resolved = await userApiKeyService.resolveAuthenticatedUserFromApiKey(token);
+        if (!resolved.ok) {
+          return next(new Error(resolved.message || 'Authentication failed'));
+        }
+        socket.userId = resolved.user.id;
+        socket.companyId = resolved.user.companyId;
+        socket.userRole = resolved.user.role;
+        socket.userName = `${resolved.user.firstName || ''} ${resolved.user.lastName || ''}`.trim() || resolved.user.email;
+        socket.deviceType = 'OFFICE';
+        socket.deviceFingerprint = null;
+        return next();
+      }
+
       const decoded = jwt.verify(token, getJwtSecret());
 
       // Verify user exists and is active

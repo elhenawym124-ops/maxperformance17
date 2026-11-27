@@ -854,7 +854,10 @@ const requireSuperAdmin = (req, res, next) => {
 const optionalAuth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(' ')[1];
+    const token =
+      (authHeader && (authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : authHeader.split(' ')[1])) ||
+      req.headers['x-api-key'] ||
+      req.headers['X-Api-Key'];
     if (token) {
       return authenticateToken(req, res, next);
     }

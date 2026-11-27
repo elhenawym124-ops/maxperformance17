@@ -58,7 +58,10 @@ const authenticateToken = async (req, res, next) => {
   try {
     logAuthDebug('🔐 [SUPER-ADMIN-MIDDLEWARE] authenticateToken called for:', req.method, req.path);
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    const token =
+      (authHeader && (authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : authHeader.split(' ')[1])) ||
+      req.headers['x-api-key'] ||
+      req.headers['X-Api-Key'];
 
     if (!token) {
       logAuthDebug('❌ [SUPER-ADMIN-MIDDLEWARE] No token provided');
@@ -68,13 +71,29 @@ const authenticateToken = async (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, getJwtSecret());
-    logAuthDebug('✅ [SUPER-ADMIN-MIDDLEWARE] Token decoded, userId:', decoded.userId);
+    const userApiKeyService = require('../services/userApiKeyService');
+    let targetUserId = null;
+    if (userApiKeyService.isUserApiKey(token)) {
+      const clientIp = String(req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim();
+      const resolved = await userApiKeyService.resolveAuthenticatedUserFromApiKey(token, { ip: clientIp });
+      if (!resolved.ok) {
+        return res.status(resolved.status || 401).json({
+          success: false,
+          message: resolved.message,
+          code: resolved.code
+        });
+      }
+      targetUserId = resolved.user.id;
+    } else {
+      const decoded = jwt.verify(token, getJwtSecret());
+      logAuthDebug('✅ [SUPER-ADMIN-MIDDLEWARE] Token decoded, userId:', decoded.userId);
+      targetUserId = decoded.userId;
+    }
 
     // Get user from database
     const prisma = await getSharedPrismaClientAsync();
     const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
+      where: { id: targetUserId },
       include: {
         userCompanies: true
       }

@@ -1352,18 +1352,30 @@ const login = async (req, res) => {
 
 const me = async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(' ')[1];
+    let decoded = null;
+    if (req.user && req.user.authType === 'USER_API_KEY' && req.user.id) {
+      decoded = {
+        userId: req.user.id,
+        companyId: req.user.companyId,
+        role: req.user.role,
+      };
+    } else {
+      const authHeader = req.headers.authorization;
+      const token =
+        (authHeader && (authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : authHeader.split(' ')[1])) ||
+        req.headers['x-api-key'] ||
+        req.headers['X-Api-Key'];
 
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: 'ÃƒËœÃ‚Â±Ãƒâ„¢Ã¢â‚¬Â¦ÃƒËœÃ‚Â² ÃƒËœÃ‚Â§Ãƒâ„¢Ã¢â‚¬Å¾Ãƒâ„¢Ã¢â‚¬Â¦ÃƒËœÃ‚ÂµÃƒËœÃ‚Â§ÃƒËœÃ‚Â¯Ãƒâ„¢Ã¢â‚¬Å¡ÃƒËœÃ‚Â© Ãƒâ„¢Ã¢â‚¬Â¦ÃƒËœÃ‚Â·Ãƒâ„¢Ã¢â‚¬Å¾Ãƒâ„¢Ã‹â€ ÃƒËœÃ‚Â¨'
-      });
+      if (!token) {
+        return res.status(401).json({
+          success: false,
+          message: 'رمز المصادقة مطلوب'
+        });
+      }
+
+      // Verify token
+      decoded = jwt.verify(token, getJwtSecret());
     }
-
-    // Verify token
-    const decoded = jwt.verify(token, getJwtSecret());
 
     // Get user with company and userCompanies
     const user = await getSharedPrismaClient().user.findUnique({
