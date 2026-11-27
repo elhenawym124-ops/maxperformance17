@@ -49,3 +49,30 @@ model ApiUsageLog {
   @@index([companyId, createdAt])
   @@map("api_usage_logs")
 }
+
+// Personal Employee/User API Keys (mxp_usr_*) — dynamically inherit all live RBAC
+// permissions of the bound user inside the bound company (no browser/JWT needed).
+model UserApiKey {
+  id              String    @id @default(cuid())
+  userId          String
+  companyId       String
+  name            String
+  keyPrefix       String    @unique // e.g. mxp_usr_a1b2c3d4
+  keyHash         String    @unique // SHA-256 hex of full raw key
+  isActive        Boolean   @default(true)
+  expiresAt       DateTime?
+  revokedAt       DateTime?
+  revokedByUserId String?
+  revokedReason   String?
+  lastUsedAt      DateTime?
+  lastUsedIp      String?
+  requestCount    Int       @default(0)
+  createdByUserId String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([userId, companyId])
+  @@index([companyId, isActive])
+  @@index([expiresAt])
+  @@map("user_api_keys")
+}

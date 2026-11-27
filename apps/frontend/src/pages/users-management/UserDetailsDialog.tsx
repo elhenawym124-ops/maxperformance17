@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Eye, Pencil, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { UserApiKeysPanel } from "@/components/api-keys/UserApiKeysPanel";
 import { getImageUrl } from "../../utils/imageUrl";
 import {
   type UserRecord,
@@ -187,6 +188,15 @@ export const UserDetailsDialog: React.FC<UserDetailsDialogProps> = ({
                   <p className="mt-1 break-all font-mono">{user.id}</p>
                 </div>
               </div>
+            </div>
+
+            <div className="relative overflow-hidden rounded-xl border border-border/70 bg-card/80 p-4 md:col-span-2">
+              <UserApiKeysPanel
+                mode="user"
+                targetUserId={user.id}
+                targetUserName={`${user.firstName} ${user.lastName}`}
+                compact
+              />
             </div>
           </div>
         </ScrollArea>

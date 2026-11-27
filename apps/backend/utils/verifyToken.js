@@ -85,6 +85,10 @@ const authenticateToken = async (req, res, next) => {
     return next();
   }
 
+  if (req.user && req.user.authType === 'USER_API_KEY' && req.user.id && req.user.companyId) {
+    return require('../services/tenantContext').run(req.user.companyId, () => next());
+  }
+
   const authHeader = req.headers.authorization;
   const token =
     (authHeader && (authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : authHeader.split(' ')[1] || authHeader.trim())) ||
@@ -149,6 +153,23 @@ const authenticateToken = async (req, res, next) => {
     };
 
     return require('../services/tenantContext').run(companyId, () => next());
+  }
+
+  // 🔑 [USER-API-KEY] Personal employee API keys (mxp_usr_*) — inherit all live RBAC permissions
+  const userApiKeyService = require('../services/userApiKeyService');
+  if (userApiKeyService.isUserApiKey(token)) {
+    const clientIp = String(req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim();
+    const resolved = await userApiKeyService.resolveAuthenticatedUserFromApiKey(token, { ip: clientIp });
+    if (!resolved.ok) {
+      return res.status(resolved.status || 401).json({
+        success: false,
+        message: resolved.message,
+        code: resolved.code,
+      });
+    }
+    req.user = resolved.user;
+    req.companyId = resolved.user.companyId;
+    return require('../services/tenantContext').run(resolved.user.companyId, () => next());
   }
 
   try {
@@ -668,6 +689,14 @@ const requireCompanyAccess = async (req, res, next) => {
 
     if (!targetCompanyId) {
       return res.status(400).json({ success: false, message: 'معرف الشركة مطلوب' });
+    }
+
+    if (user.authType === 'USER_API_KEY' && user.apiKeyCompanyId && targetCompanyId !== user.apiKeyCompanyId) {
+      return res.status(403).json({
+        success: false,
+        message: 'مفتاح API مرتبط بشركة أخرى ولا يمكن استخدامه هنا',
+        code: 'ACCESS_REVOKED',
+      });
     }
 
     const prisma = await getSharedPrismaClientAsync();

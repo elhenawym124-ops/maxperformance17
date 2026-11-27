@@ -8,7 +8,9 @@ import {
   DocumentTextIcon,
   BellAlertIcon,
   CakeIcon,
+  KeyIcon,
 } from "@heroicons/react/24/outline";
+import { UserApiKeysPanel } from "../../components/api-keys/UserApiKeysPanel";
 import { useTheme } from "../../hooks/useTheme";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
 import {
@@ -74,6 +76,7 @@ export const Profile: React.FC = () => {
       { value: "documents", label: t("employee.common.documents"), icon: DocumentTextIcon, requiresHr: true },
       { value: "warnings", label: t("employee.common.warnings"), icon: BellAlertIcon, requiresHr: true },
       { value: "events", label: t("employee.common.occasions"), icon: CakeIcon, requiresHr: true },
+      { value: "api-keys", label: "مفاتيح API", icon: KeyIcon },
     ],
     [t]
   );
@@ -210,6 +213,10 @@ export const Profile: React.FC = () => {
 
               <TabsContent value="events" className="mt-0 focus-visible:outline-none">
                 <ProfileEventsTab employee={employee} />
+              </TabsContent>
+
+              <TabsContent value="api-keys" className="mt-0 focus-visible:outline-none">
+                <UserApiKeysPanel mode="self" />
               </TabsContent>
             </div>
           </Tabs>

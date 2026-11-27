@@ -1076,6 +1076,23 @@ const globalAuthentication = async (req, res, next) => {
       return tenantContext.run(companyId, () => next());
     }
 
+    // 🔑 [USER-API-KEY] Personal employee API keys (mxp_usr_*) — inherit all live RBAC permissions
+    const userApiKeyService = require('../services/userApiKeyService');
+    if (userApiKeyService.isUserApiKey(token)) {
+      const resolved = await userApiKeyService.resolveAuthenticatedUserFromApiKey(token, { ip });
+      if (!resolved.ok) {
+        return res.status(resolved.status || 401).json({
+          success: false,
+          message: resolved.message,
+          code: resolved.code,
+        });
+      }
+      req.user = resolved.user;
+      req.companyId = resolved.user.companyId;
+      logAuthDebug(`✅ [SECURITY] User API Key Auth Success: ${resolved.user.email} (${resolved.user.apiKeyPrefix}) on ${path}`);
+      return tenantContext.run(resolved.user.companyId, () => next());
+    }
+
     // 3. Verify Token
     let decoded;
     try {

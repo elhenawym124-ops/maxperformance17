@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ChartBarIcon, DocumentTextIcon, KeyIcon, ServerStackIcon } from "@heroicons/react/24/outline";
+import { ChartBarIcon, DocumentTextIcon, KeyIcon, ServerStackIcon, UsersIcon } from "@heroicons/react/24/outline";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UserApiKeysPanel } from "@/components/api-keys/UserApiKeysPanel";
 import { getDirection } from "../../../i18n";
 import { getDevStrings } from "./devI18n";
 import ApiKeysTab from "./ApiKeysTab";
@@ -45,6 +46,10 @@ const DeveloperHubPage: React.FC = () => {
             <ChartBarIcon className="h-4 w-4" />
             {s.tabs.usage}
           </TabsTrigger>
+          <TabsTrigger value="employee-keys" className="gap-1.5">
+            <UsersIcon className="h-4 w-4" />
+            مفاتيح الموظفين
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="keys">
@@ -58,6 +63,9 @@ const DeveloperHubPage: React.FC = () => {
         </TabsContent>
         <TabsContent value="usage">
           <UsageTab />
+        </TabsContent>
+        <TabsContent value="employee-keys">
+          <UserApiKeysPanel mode="company" />
         </TabsContent>
       </Tabs>
     </div>

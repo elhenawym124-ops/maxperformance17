@@ -104,6 +104,45 @@ async function authContextMiddleware(req, res, next) {
     }
   }
 
+  // ─── 1b. Personal Employee/User API Key (mxp_usr_...) ──────────────────────
+  const userApiKeyService = require('../../services/userApiKeyService');
+  if (userApiKeyService.isUserApiKey(rawToken)) {
+    try {
+      const clientIp = String(req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim();
+      const resolved = await userApiKeyService.resolveAuthenticatedUserFromApiKey(rawToken, { ip: clientIp });
+      if (!resolved.ok) {
+        const ErrorCls = resolved.status === 403 ? ForbiddenError : UnauthorizedError;
+        return next(new ErrorCls(resolved.message, { subCode: resolved.code }));
+      }
+
+      const u = resolved.user;
+      req.user = u;
+      req.authContext = {
+        actorType: 'USER',
+        actorId: u.id,
+        userId: u.id,
+        apiKeyId: u.apiKeyId,
+        keyPrefix: u.apiKeyPrefix,
+        authType: 'USER_API_KEY',
+        companyId: u.companyId,
+        role: u.role,
+        permissions: new Set(u.userPermissions || []),
+        deniedPermissions: new Set(),
+        deviceType: 'OFFICE',
+        branchId: null,
+        userName: `${u.firstName || ''} ${u.lastName || ''}`.trim() || u.email,
+      };
+
+      delete req.body?.companyId;
+      delete req.query?.companyId;
+      delete req.params?.companyId;
+
+      return tenantContext.run(u.companyId, next);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
   // ─── 2. User JWT Bearer Token ───────────────────────────────────────────────
   const secret = getJwtSecret();
   let decoded;
