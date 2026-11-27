@@ -39,20 +39,20 @@ export const StoreSettingsHeader: React.FC<StoreSettingsHeaderProps> = ({
 
   return (
     <>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-3xl font-extrabold text-foreground tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
             {pageTitle}
-          </h2>
-          <p className="mt-2 text-base text-muted-foreground">
+          </h1>
+          <p className="mt-1 text-xs text-muted-foreground">
             {pageDescription}
           </p>
         </div>
       </div>
 
       {!hideNavigation ? (
-        <div className="border-b border-border dark:border-border pb-1 mb-6">
-          <nav className="flex space-x-2 rtl:space-x-reverse overflow-x-auto no-scrollbar py-1">
+        <div className="mb-6">
+          <nav className="inline-flex max-w-full items-center gap-1 rounded-xl border border-border/70 bg-card p-1 shadow-2xs overflow-x-auto scrollbar-none">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.id;
               const Icon = tab.icon;
@@ -62,17 +62,17 @@ export const StoreSettingsHeader: React.FC<StoreSettingsHeaderProps> = ({
                   type="button"
                   onClick={() => onTabChange(tab.id as StoreSettingsTab)}
                   className={`
-                    flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 whitespace-nowrap shrink-0
+                    flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-150 whitespace-nowrap shrink-0 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1
                     ${
                       isActive
-                        ? "bg-indigo-600 text-white shadow-sm shadow-primary dark:shadow-none"
-                        : "bg-gray-100/80 dark:bg-muted text-muted-foreground hover:bg-muted dark:hover:bg-muted hover:text-foreground dark:hover:text-white"
+                        ? "bg-primary text-primary-foreground shadow-2xs"
+                        : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                     }
                   `}
                 >
                   <Icon
                     className={`h-4 w-4 ${
-                      isActive ? "text-white" : "text-muted-foreground"
+                      isActive ? "text-primary-foreground" : "text-muted-foreground"
                     }`}
                   />
                   <span>{tab.label}</span>

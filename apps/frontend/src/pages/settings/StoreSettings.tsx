@@ -46,6 +46,34 @@ const StoreSettings: React.FC<StoreSettingsProps> = ({
       />
 
       <main className="w-full">
+        {ctrl.activeTab === "checkout" ? (
+          <StoreCheckoutTab
+            checkoutFormSettings={ctrl.checkoutFormSettings}
+            checkoutFormSettingsLoading={ctrl.checkoutFormSettingsLoading}
+            checkoutTabBusy={
+              ctrl.checkoutFormSettingsLoading ||
+              ctrl.checkoutFormSettingsSaving ||
+              ctrl.processingCheckoutTab
+            }
+            applyCheckoutFormSettings={ctrl.applyCheckoutFormSettings}
+            storefrontSettings={ctrl.storefrontSettings}
+            handleToggleProductPageCheckout={
+              ctrl.handleToggleProductPageCheckout
+            }
+            handleChangePdpQuickOrderSettings={
+              ctrl.handleChangePdpQuickOrderSettings
+            }
+            handleChangeLocationCaptureSettings={
+              ctrl.handleChangeLocationCaptureSettings
+            }
+            handleSaveCheckoutTabSettings={ctrl.handleSaveCheckoutTabSettings}
+            handleResetCheckoutTabSettings={
+              ctrl.handleResetCheckoutTabSettings
+            }
+            handleToggleWishlist={ctrl.handleToggleWishlist}
+            handleToggleComparison={ctrl.handleToggleComparison}
+          />
+        ) : (
         <div className="bg-card/80 backdrop-blur-sm rounded-xl border border-border dark:border-border p-6 lg:p-8 shadow-xl shadow-gray-200/20 dark:shadow-none min-h-[600px]">
           {ctrl.activeTab === "branches" ? (
             <StoreBranchesTab
@@ -92,33 +120,6 @@ const StoreSettings: React.FC<StoreSettingsProps> = ({
               setShippingForm={ctrl.setShippingForm}
               isEditingShipping={Boolean(ctrl.editingShipping)}
             />
-          ) : ctrl.activeTab === "checkout" ? (
-            <StoreCheckoutTab
-              checkoutFormSettings={ctrl.checkoutFormSettings}
-              checkoutFormSettingsLoading={ctrl.checkoutFormSettingsLoading}
-              checkoutTabBusy={
-                ctrl.checkoutFormSettingsLoading ||
-                ctrl.checkoutFormSettingsSaving ||
-                ctrl.processingCheckoutTab
-              }
-              applyCheckoutFormSettings={ctrl.applyCheckoutFormSettings}
-              storefrontSettings={ctrl.storefrontSettings}
-              handleToggleProductPageCheckout={
-                ctrl.handleToggleProductPageCheckout
-              }
-              handleChangePdpQuickOrderSettings={
-                ctrl.handleChangePdpQuickOrderSettings
-              }
-              handleChangeLocationCaptureSettings={
-                ctrl.handleChangeLocationCaptureSettings
-              }
-              handleSaveCheckoutTabSettings={ctrl.handleSaveCheckoutTabSettings}
-              handleResetCheckoutTabSettings={
-                ctrl.handleResetCheckoutTabSettings
-              }
-              handleToggleWishlist={ctrl.handleToggleWishlist}
-              handleToggleComparison={ctrl.handleToggleComparison}
-            />
           ) : ctrl.activeTab === "footer" ? (
             <StoreFooterTab
               footerSettings={ctrl.footerSettings}
@@ -157,6 +158,7 @@ const StoreSettings: React.FC<StoreSettingsProps> = ({
             />
           ) : null}
         </div>
+        )}
       </main>
     </div>
   );

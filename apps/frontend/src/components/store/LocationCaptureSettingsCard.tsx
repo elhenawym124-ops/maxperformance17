@@ -27,28 +27,28 @@ export const LocationCaptureSettingsCard: React.FC<
   };
 
   return (
-    <section className="space-y-4">
-      <div className="flex items-center gap-3.5">
-        <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 border border-primary/25">
-          <MapPinIcon className="h-5 w-5 text-primary" />
+    <section className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start">
+      <div className="lg:col-span-4 flex items-start gap-3 pt-1">
+        <div className="h-8 w-8 rounded-lg bg-card border border-border/70 shadow-2xs flex items-center justify-center shrink-0">
+          <MapPinIcon className="h-4 w-4 text-muted-foreground" />
         </div>
-        <div>
-          <h4 className="text-base font-bold text-foreground leading-tight">
+        <div className="min-w-0">
+          <h4 className="text-sm font-semibold text-foreground leading-snug">
             تحديد موقع العميل على الخريطة (GPS & Maps)
           </h4>
-          <p className="text-xs text-muted-foreground mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
             إتاحة إرسال اللوكيشن كمكمل للعنوان النصي لتسريع المندوب وتقليل المرتجعات
           </p>
         </div>
       </div>
 
-      <div className="bg-card/50 rounded-xl p-5 border border-border space-y-5">
+      <div className="lg:col-span-8 bg-card border border-border/70 rounded-xl shadow-2xs divide-y divide-border/70 overflow-hidden">
         {/* Status Selector */}
-        <div className="space-y-2">
-          <label className="block text-xs font-bold text-foreground">
+        <div className="px-4 py-3.5 sm:px-5 sm:py-4 space-y-2.5">
+          <label className="block text-xs font-semibold text-foreground">
             حالة ميزة اللوكيشن
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {LOCATION_CAPTURE_MODE_OPTIONS.map((opt) => {
               const active = current.mode === opt.value;
               return (
@@ -59,10 +59,10 @@ export const LocationCaptureSettingsCard: React.FC<
                   onClick={() =>
                     update({ mode: opt.value as LocationCaptureMode })
                   }
-                  className={`rounded-xl border px-3.5 py-2.5 text-xs font-bold transition text-start active:scale-[0.98] disabled:opacity-50 ${
+                  className={`rounded-lg border px-3 py-2 text-xs font-semibold transition text-start active:scale-[0.97] disabled:opacity-50 ${
                     active
                       ? "border-primary bg-primary/10 text-primary"
-                      : "border-border bg-card text-foreground hover:bg-muted/60"
+                      : "border-border/70 bg-card text-foreground hover:bg-muted/60"
                   }`}
                 >
                   {opt.label}
@@ -75,11 +75,11 @@ export const LocationCaptureSettingsCard: React.FC<
         {/* Display Style Cards */}
         {isEnabled ? (
           <>
-            <div className="space-y-2 pt-3 border-t border-border/60">
-              <label className="block text-xs font-bold text-foreground">
+            <div className="px-4 py-3.5 sm:px-5 sm:py-4 space-y-2.5">
+              <label className="block text-xs font-semibold text-foreground">
                 طريقة عرض اللوكيشن للعميل
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {LOCATION_DISPLAY_STYLE_OPTIONS.map((opt) => {
                   const active = current.displayStyle === opt.value;
                   return (
@@ -92,15 +92,15 @@ export const LocationCaptureSettingsCard: React.FC<
                           displayStyle: opt.value as LocationDisplayStyle,
                         })
                       }
-                      className={`rounded-xl border p-3.5 text-start transition active:scale-[0.98] disabled:opacity-50 ${
+                      className={`rounded-lg border p-3 text-start transition active:scale-[0.97] disabled:opacity-50 ${
                         active
                           ? "border-primary bg-primary/10 ring-1 ring-primary/30"
-                          : "border-border bg-card hover:bg-muted/50"
+                          : "border-border/70 bg-card hover:bg-muted/50"
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
                         <span
-                          className={`text-xs font-bold ${
+                          className={`text-xs font-semibold ${
                             active ? "text-primary" : "text-foreground"
                           }`}
                         >
@@ -124,7 +124,7 @@ export const LocationCaptureSettingsCard: React.FC<
             </div>
 
             {/* Helper Toggles */}
-            <div className="space-y-3 pt-3 border-t border-border/60">
+            <div className="px-4 py-3 sm:px-5 sm:py-3.5 space-y-2">
               <ToggleSetting
                 label="السماح بلصق رابط Google Maps"
                 value={current.allowMapsLinkPaste}

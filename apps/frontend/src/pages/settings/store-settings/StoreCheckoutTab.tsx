@@ -64,22 +64,23 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
   );
 
   return (
-    <div className="space-y-6">
-      <div className="bg-gray-50/50 dark:bg-muted rounded-xl p-6 border border-border dark:border-border">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <h3 className="text-lg font-semibold text-foreground">
+    <div className="space-y-6 pb-8">
+      {/* Polaris Control Strip */}
+      <div className="bg-card border border-border/70 rounded-xl shadow-2xs px-4 py-4 sm:px-5">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div className="min-w-0">
+            <h3 className="text-base font-semibold text-foreground">
               {t("storeSettings.checkoutFieldsTitle")}
             </h3>
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-0.5">
               {t("storeSettings.checkoutFieldsDesc")}
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <button
               type="button"
               onClick={() => navigate("/settings/store/tools")}
-              className="px-4 py-2 rounded-md text-sm font-semibold bg-white text-foreground border border-border hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:border-border dark:hover:bg-muted"
+              className="px-3.5 py-2 rounded-lg text-xs font-semibold bg-card text-foreground border border-border/70 hover:bg-muted/60 transition active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
             >
               {t("storeSettings.openConversionTools")}
             </button>
@@ -89,11 +90,7 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
                 void handleResetCheckoutTabSettings();
               }}
               disabled={checkoutTabBusy}
-              className={`px-4 py-2 rounded-md text-sm font-semibold ${
-                checkoutTabBusy
-                  ? "bg-gray-200 text-muted-foreground dark:bg-muted dark:text-muted-foreground cursor-not-allowed"
-                  : "bg-white text-foreground border border-border hover:bg-muted dark:bg-muted dark:text-muted-foreground dark:border-border dark:hover:bg-muted"
-              }`}
+              className="px-3.5 py-2 rounded-lg text-xs font-semibold bg-card text-foreground border border-border/70 hover:bg-muted/60 transition active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
             >
               {t("storeSettings.resetToDefault")}
             </button>
@@ -101,43 +98,41 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
         </div>
       </div>
 
-      {/* Product Image Action Buttons: Wishlist & Comparison */}
-      <div className="bg-card/90 rounded-xl p-6 border border-border dark:border-border shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h4 className="text-base font-bold text-foreground">
-              {t(
-                "storeSettings.productPageActionsTitle",
-                "أزرار التفاعل على صور المنتج",
-              )}
-            </h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              {t(
-                "storeSettings.productPageActionsDesc",
-                "التحكم في ظهور زري المفضلة والمقارنة العائمين فوق صور المنتج في المتجر.",
-              )}
-            </p>
-          </div>
+      {/* Polaris Annotated Section: Product Image Action Buttons (Wishlist & Comparison) */}
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start">
+        <div className="lg:col-span-4 space-y-1.5 pt-1">
+          <h4 className="text-sm font-semibold text-foreground">
+            {t(
+              "storeSettings.productPageActionsTitle",
+              "أزرار التفاعل على صور المنتج",
+            )}
+          </h4>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            {t(
+              "storeSettings.productPageActionsDesc",
+              "التحكم في ظهور زري المفضلة والمقارنة العائمين فوق صور المنتج في المتجر.",
+            )}
+          </p>
           <button
             type="button"
             onClick={() => navigate("/settings/store/product-conversion")}
-            className="text-xs font-bold text-primary hover:text-primary dark:text-primary"
+            className="inline-flex items-center text-xs font-semibold text-primary hover:underline pt-1"
           >
             {t("storeSettings.viewInConversionTools", "عرض في أدوات التحويل")}
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-          <div className="flex items-center justify-between p-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-destructive/10 dark:bg-destructive/40 text-destructive dark:text-destructive flex items-center justify-center font-bold text-base shadow-sm">
-                <HeartIcon className="h-5 w-5" />
+        <div className="lg:col-span-8 bg-card border border-border/70 rounded-xl shadow-2xs divide-y divide-border/70 overflow-hidden">
+          <div className="flex items-center justify-between gap-4 px-4 py-3.5 sm:px-5 sm:py-4 hover:bg-muted/30 transition-colors">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="h-8 w-8 rounded-lg bg-muted/70 text-foreground flex items-center justify-center shrink-0">
+                <HeartIcon className="h-4 w-4 text-muted-foreground" />
               </div>
-              <div>
-                <p className="text-sm font-bold text-foreground">
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-foreground">
                   {t("storeSettings.wishlistToggle", "زر قائمة المفضلة")}
                 </p>
-                <p className="text-[11px] text-muted-foreground">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   {t(
                     "storeSettings.wishlistToggleDesc",
                     "إظهار أيقونة القلب لحفظ المنتج",
@@ -145,24 +140,28 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
                 </p>
               </div>
             </div>
-            <input
-              type="checkbox"
-              checked={storefrontSettings?.wishlistEnabled !== false}
-              onChange={(e) => handleToggleWishlist(e.target.checked)}
-              className="h-5 w-5 rounded border-border text-primary focus:ring-primary cursor-pointer"
-            />
+            <label className="relative inline-flex items-center cursor-pointer select-none shrink-0">
+              <input
+                type="checkbox"
+                aria-label={t("storeSettings.wishlistToggle", "زر قائمة المفضلة")}
+                checked={storefrontSettings?.wishlistEnabled !== false}
+                onChange={(e) => handleToggleWishlist(e.target.checked)}
+                className="sr-only peer"
+              />
+              <div className="w-9 h-5 bg-muted rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-background after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:border-border after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary shadow-2xs" />
+            </label>
           </div>
 
-          <div className="flex items-center justify-between p-4 rounded-xl border border-border dark:border-border bg-muted dark:bg-muted">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary/10 dark:bg-primary/40 text-primary dark:text-primary flex items-center justify-center font-bold text-base shadow-sm">
-                <ArrowsRightLeftIcon className="h-5 w-5" />
+          <div className="flex items-center justify-between gap-4 px-4 py-3.5 sm:px-5 sm:py-4 hover:bg-muted/30 transition-colors">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="h-8 w-8 rounded-lg bg-muted/70 text-foreground flex items-center justify-center shrink-0">
+                <ArrowsRightLeftIcon className="h-4 w-4 text-muted-foreground" />
               </div>
-              <div>
-                <p className="text-sm font-bold text-foreground">
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-foreground">
                   {t("storeSettings.comparisonToggle", "زر مقارنة المنتجات")}
                 </p>
-                <p className="text-[11px] text-muted-foreground">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   {t(
                     "storeSettings.comparisonToggleDesc",
                     "إظهار زر المقارنة بين المواصفات",
@@ -170,19 +169,23 @@ export const StoreCheckoutTab: React.FC<StoreCheckoutTabProps> = ({
                 </p>
               </div>
             </div>
-            <input
-              type="checkbox"
-              checked={storefrontSettings?.comparisonEnabled !== false}
-              onChange={(e) => handleToggleComparison(e.target.checked)}
-              className="h-5 w-5 rounded border-border text-primary focus:ring-primary cursor-pointer"
-            />
+            <label className="relative inline-flex items-center cursor-pointer select-none shrink-0">
+              <input
+                type="checkbox"
+                aria-label={t("storeSettings.comparisonToggle", "زر مقارنة المنتجات")}
+                checked={storefrontSettings?.comparisonEnabled !== false}
+                onChange={(e) => handleToggleComparison(e.target.checked)}
+                className="sr-only peer"
+              />
+              <div className="w-9 h-5 bg-muted rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-background after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:border-border after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary shadow-2xs" />
+            </label>
           </div>
         </div>
-      </div>
+      </section>
 
       {checkoutFormSettingsLoading && !checkoutFormSettings ? (
-        <div className="flex items-center justify-center min-h-[240px] rounded-xl border border-border bg-muted dark:border-border dark:bg-muted">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
+        <div className="flex items-center justify-center min-h-[240px] rounded-xl border border-border/70 bg-card shadow-2xs">
+          <div className="animate-spin rounded-full h-9 w-9 border-b-2 border-primary"></div>
         </div>
       ) : (
         <CheckoutFormSection

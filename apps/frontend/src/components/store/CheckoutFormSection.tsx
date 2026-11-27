@@ -119,16 +119,36 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
     });
   };
 
-  const SectionHeader = ({ icon: Icon, title, description }: { icon: React.ComponentType<React.SVGProps<SVGSVGElement>>, title: string, description: string }) => (
-    <div className="flex items-center gap-4 mb-6">
-      <div className="h-10 w-10 bg-primary/10 dark:bg-primary/30 rounded-xl flex items-center justify-center shrink-0 border border-primary dark:border-primary/20">
-        <Icon className="h-5 w-5 text-primary" />
+  const AnnotatedSection = ({
+    icon: Icon,
+    title,
+    description,
+    children,
+  }: {
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    title: string;
+    description: string;
+    children: React.ReactNode;
+  }) => (
+    <section className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start">
+      <div className="lg:col-span-4 flex items-start gap-3 pt-1">
+        <div className="h-8 w-8 rounded-lg bg-card border border-border/70 shadow-2xs flex items-center justify-center shrink-0">
+          <Icon className="h-4 w-4 text-muted-foreground" />
+        </div>
+        <div className="min-w-0">
+          <h4 className="text-sm font-semibold text-foreground leading-snug">
+            {title}
+          </h4>
+          <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+            {description}
+          </p>
+        </div>
       </div>
-      <div>
-        <h4 className="text-base font-bold text-foreground leading-tight">{title}</h4>
-        <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
+
+      <div className="lg:col-span-8 bg-card border border-border/70 rounded-xl shadow-2xs divide-y divide-border/70 overflow-hidden">
+        {children}
       </div>
-    </div>
+    </section>
   );
 
   const QuickOrderSettingRow = ({
@@ -150,19 +170,23 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
       { enabled: true, required: true };
 
     return (
-      <div className="group bg-card/50 rounded-xl p-5 border border-border dark:border-border hover:border-primary dark:hover:border-primary/30 transition-all duration-300">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-foreground">{label}</span>
+      <div className="px-4 py-3.5 sm:px-5 sm:py-4 hover:bg-muted/30 transition-colors">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm font-medium text-foreground">
+                {label}
+              </span>
               {fieldSettings.enabled && fieldSettings.required ? (
-                <span className="px-1.5 py-0.5 text-[10px] bg-destructive/10 dark:bg-destructive/20 text-destructive dark:text-destructive rounded-md font-bold uppercase tracking-wider">{t("storeCheckout.required")}</span>
+                <span className="px-2 py-0.5 text-[10px] bg-destructive/10 text-destructive rounded-md font-semibold">
+                  {t("storeCheckout.required")}
+                </span>
               ) : null}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">{description}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
           </div>
 
-          <div className="flex items-center gap-6 bg-muted dark:bg-muted p-2 px-4 rounded-xl shrink-0">
+          <div className="flex items-center gap-4 sm:gap-5 shrink-0">
             <ToggleSetting
               label={t("storeCheckout.enable")}
               value={fieldSettings.enabled ?? false}
@@ -173,18 +197,17 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
             />
 
             {fieldSettings.enabled ? (
-              <div className="w-px h-8 bg-muted dark:bg-muted mx-2" />
-            ) : null}
-
-            {fieldSettings.enabled ? (
-              <ToggleSetting
-                label={t("storeCheckout.mandatory")}
-                value={fieldSettings.required ?? false}
-                onChange={(value) =>
-                  handleQuickOrderFieldToggle(fieldKey, "required", value)
-                }
-                disabled={loading}
-              />
+              <>
+                <div className="w-px h-5 bg-border/70" />
+                <ToggleSetting
+                  label={t("storeCheckout.mandatory")}
+                  value={fieldSettings.required ?? false}
+                  onChange={(value) =>
+                    handleQuickOrderFieldToggle(fieldKey, "required", value)
+                  }
+                  disabled={loading}
+                />
+              </>
             ) : null}
           </div>
         </div>
@@ -192,20 +215,32 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
     );
   };
 
-  const SettingRow = ({ label, showKey, requireKey, description }: { label: string, showKey: keyof CheckoutFormSettings, requireKey?: keyof CheckoutFormSettings, description: string }) => (
-    <div className="group bg-card/50 rounded-xl p-5 border border-border dark:border-border hover:border-primary dark:hover:border-primary/30 transition-all duration-300">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-bold text-foreground">{label}</span>
+  const SettingRow = ({
+    label,
+    showKey,
+    requireKey,
+    description,
+  }: {
+    label: string;
+    showKey: keyof CheckoutFormSettings;
+    requireKey?: keyof CheckoutFormSettings;
+    description: string;
+  }) => (
+    <div className="px-4 py-3.5 sm:px-5 sm:py-4 hover:bg-muted/30 transition-colors">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-sm font-medium text-foreground">{label}</span>
             {settings[showKey] && settings[requireKey!] && (
-                <span className="px-1.5 py-0.5 text-[10px] bg-destructive/10 dark:bg-destructive/20 text-destructive dark:text-destructive rounded-md font-bold uppercase tracking-wider">{t("storeCheckout.required")}</span>
+              <span className="px-2 py-0.5 text-[10px] bg-destructive/10 text-destructive rounded-md font-semibold">
+                {t("storeCheckout.required")}
+              </span>
             )}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">{description}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
         </div>
 
-        <div className="flex items-center gap-6 bg-muted dark:bg-muted p-2 px-4 rounded-xl shrink-0">
+        <div className="flex items-center gap-4 sm:gap-5 shrink-0">
           <ToggleSetting
             label={t("storeCheckout.enable")}
             value={settings[showKey] as boolean}
@@ -213,15 +248,14 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
           />
 
           {requireKey && settings[showKey] && (
-            <div className="w-px h-8 bg-muted dark:bg-muted mx-2" />
-          )}
-
-          {requireKey && settings[showKey] && (
-            <ToggleSetting
-              label={t("storeCheckout.mandatory")}
-              value={settings[requireKey] as boolean}
-              onChange={(val) => handleToggle(requireKey, val)}
-            />
+            <>
+              <div className="w-px h-5 bg-border/70" />
+              <ToggleSetting
+                label={t("storeCheckout.mandatory")}
+                value={settings[requireKey] as boolean}
+                onChange={(val) => handleToggle(requireKey, val)}
+              />
+            </>
           )}
         </div>
       </div>
@@ -229,29 +263,26 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
   );
 
   return (
-    <div className="space-y-10" dir={getDirection()}>
+    <div className="space-y-6" dir={getDirection()}>
       {typeof productPageCheckoutEnabled === "boolean" &&
       onProductPageCheckoutToggle ? (
-        <section>
-          <SectionHeader
-            icon={SparklesIcon}
-            title={t("storeCheckout.integrationTitle")}
-            description={t("storeCheckout.integrationDesc")}
-          />
-          <div className="group bg-card/50 rounded-xl p-5 border border-border dark:border-border hover:border-primary dark:hover:border-primary/30 transition-all duration-300">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-foreground">
-                    {t("storeCheckout.enableCheckoutFormLabel")}
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">
+        <AnnotatedSection
+          icon={SparklesIcon}
+          title={t("storeCheckout.integrationTitle")}
+          description={t("storeCheckout.integrationDesc")}
+        >
+          <div className="px-4 py-3.5 sm:px-5 sm:py-4 hover:bg-muted/30 transition-colors">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex-1 min-w-0">
+                <span className="text-sm font-medium text-foreground">
+                  {t("storeCheckout.enableCheckoutFormLabel")}
+                </span>
+                <p className="text-xs text-muted-foreground mt-0.5">
                   {t("storeCheckout.enableCheckoutFormHelp")}
                 </p>
               </div>
 
-              <div className="flex items-center gap-6 bg-muted dark:bg-muted p-2 px-4 rounded-xl shrink-0">
+              <div className="shrink-0">
                 <ToggleSetting
                   label={t("storeCheckout.enable")}
                   value={productPageCheckoutEnabled}
@@ -261,19 +292,18 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
               </div>
             </div>
           </div>
-        </section>
+        </AnnotatedSection>
       ) : null}
 
       {pdpQuickOrderSettings && onPdpQuickOrderSettingsChange ? (
         <>
-          <section>
-            <SectionHeader
-              icon={Squares2X2Icon}
-              title={t("storeCheckout.formOrderTitle")}
-              description={t("storeCheckout.formOrderDesc")}
-            />
-            <div className="grid gap-4 lg:grid-cols-3">
-              <div className="group bg-card/50 rounded-xl p-5 border border-border dark:border-border hover:border-primary dark:hover:border-primary/30 transition-all duration-300">
+          <AnnotatedSection
+            icon={Squares2X2Icon}
+            title={t("storeCheckout.formOrderTitle")}
+            description={t("storeCheckout.formOrderDesc")}
+          >
+            <div className="grid gap-4 sm:grid-cols-2 px-4 py-4 sm:px-5">
+              <div>
                 <SelectSetting
                   label={t("storeCheckout.formOrderPlacement")}
                   value={pdpQuickOrderSettings.placement}
@@ -292,12 +322,12 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
                   }))}
                   disabled={loading}
                 />
-                <p className="mt-2 text-xs text-muted-foreground">
+                <p className="mt-1.5 text-xs text-muted-foreground">
                   {t("storeCheckout.formOrderPlacementDesc")}
                 </p>
               </div>
 
-              <div className="group bg-card/50 rounded-xl p-5 border border-border dark:border-border hover:border-primary dark:hover:border-primary/30 transition-all duration-300">
+              <div>
                 <SelectSetting
                   label={t("storeCheckout.formOrderSurfaceMode")}
                   value={pdpQuickOrderSettings.surfaceMode}
@@ -316,221 +346,220 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
                   }))}
                   disabled={loading}
                 />
-                <p className="mt-2 text-xs text-muted-foreground">
+                <p className="mt-1.5 text-xs text-muted-foreground">
                   {t("storeCheckout.formOrderSurfaceModeDesc")}
                 </p>
               </div>
-
-              <div className="group bg-card/50 rounded-xl p-5 border border-border dark:border-border hover:border-primary dark:hover:border-primary/30 transition-all duration-300 space-y-4">
-                <ToggleSetting
-                  label={t("storeCheckout.showQuantity")}
-                  value={pdpQuickOrderSettings.showQuantity ?? true}
-                  onChange={(value) =>
-                    onPdpQuickOrderSettingsChange({
-                      ...pdpQuickOrderSettings,
-                      showQuantity: value,
-                    })
-                  }
-                  disabled={loading}
-                />
-                <ToggleSetting
-                  label={t("storeCheckout.showOrderSummary")}
-                  value={pdpQuickOrderSettings.showOrderSummary ?? true}
-                  onChange={(value) =>
-                    onPdpQuickOrderSettingsChange({
-                      ...pdpQuickOrderSettings,
-                      showOrderSummary: value,
-                    })
-                  }
-                  disabled={loading}
-                />
-                <ToggleSetting
-                  label={t("storeCheckout.autoSelectVariants")}
-                  value={pdpQuickOrderSettings.autoSelectVariants ?? true}
-                  onChange={(value) =>
-                    onPdpQuickOrderSettingsChange({
-                      ...pdpQuickOrderSettings,
-                      autoSelectVariants: value,
-                    })
-                  }
-                  disabled={loading}
-                />
-              </div>
             </div>
-          </section>
 
-          <section>
-            <SectionHeader
-              icon={SparklesIcon}
-              title={t("storeCheckout.formFieldsTitle")}
-              description={t("storeCheckout.formFieldsDesc")}
+            <div className="px-4 py-3 sm:px-5 sm:py-3.5 space-y-2">
+              <ToggleSetting
+                label={t("storeCheckout.showQuantity")}
+                value={pdpQuickOrderSettings.showQuantity ?? true}
+                onChange={(value) =>
+                  onPdpQuickOrderSettingsChange({
+                    ...pdpQuickOrderSettings,
+                    showQuantity: value,
+                  })
+                }
+                disabled={loading}
+              />
+              <ToggleSetting
+                label={t("storeCheckout.showOrderSummary")}
+                value={pdpQuickOrderSettings.showOrderSummary ?? true}
+                onChange={(value) =>
+                  onPdpQuickOrderSettingsChange({
+                    ...pdpQuickOrderSettings,
+                    showOrderSummary: value,
+                  })
+                }
+                disabled={loading}
+              />
+              <ToggleSetting
+                label={t("storeCheckout.autoSelectVariants")}
+                value={pdpQuickOrderSettings.autoSelectVariants ?? true}
+                onChange={(value) =>
+                  onPdpQuickOrderSettingsChange({
+                    ...pdpQuickOrderSettings,
+                    autoSelectVariants: value,
+                  })
+                }
+                disabled={loading}
+              />
+            </div>
+          </AnnotatedSection>
+
+          <AnnotatedSection
+            icon={SparklesIcon}
+            title={t("storeCheckout.formFieldsTitle")}
+            description={t("storeCheckout.formFieldsDesc")}
+          >
+            <QuickOrderSettingRow
+              label={t("storeCheckout.pdpFullName")}
+              fieldKey="fullName"
+              description={t("storeCheckout.pdpFullNameDesc")}
             />
-            <div className="grid gap-4">
-              <QuickOrderSettingRow
-                label={t("storeCheckout.pdpFullName")}
-                fieldKey="fullName"
-                description={t("storeCheckout.pdpFullNameDesc")}
-              />
-              <QuickOrderSettingRow
-                label={t("storeCheckout.pdpPhone")}
-                fieldKey="phone"
-                description={t("storeCheckout.pdpPhoneDesc")}
-              />
-              <QuickOrderSettingRow
-                label={t("storeCheckout.pdpGovernorate")}
-                fieldKey="governorate"
-                description={t("storeCheckout.pdpGovernorateDesc")}
-              />
-              <QuickOrderSettingRow
-                label={t("storeCheckout.pdpAddress")}
-                fieldKey="address"
-                description={t("storeCheckout.pdpAddressDesc")}
-              />
-              <QuickOrderSettingRow
-                label={t("storeCheckout.pdpAlternatePhone")}
-                fieldKey="alternatePhone"
-                description={t("storeCheckout.pdpAlternatePhoneDesc")}
-              />
+            <QuickOrderSettingRow
+              label={t("storeCheckout.pdpPhone")}
+              fieldKey="phone"
+              description={t("storeCheckout.pdpPhoneDesc")}
+            />
+            <QuickOrderSettingRow
+              label={t("storeCheckout.pdpGovernorate")}
+              fieldKey="governorate"
+              description={t("storeCheckout.pdpGovernorateDesc")}
+            />
+            <QuickOrderSettingRow
+              label={t("storeCheckout.pdpAddress")}
+              fieldKey="address"
+              description={t("storeCheckout.pdpAddressDesc")}
+            />
+            <QuickOrderSettingRow
+              label={t("storeCheckout.pdpAlternatePhone")}
+              fieldKey="alternatePhone"
+              description={t("storeCheckout.pdpAlternatePhoneDesc")}
+            />
 
-              <div className="group bg-card/50 rounded-xl p-5 border border-border dark:border-border hover:border-primary dark:hover:border-primary/30 transition-all duration-300">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-foreground">
-                        {pdpQuickOrderSettings?.customField?.label || "حقل مخصص عام (مثل: نوع وموديل السيارة)"}
+            <div className="px-4 py-3.5 sm:px-5 sm:py-4 hover:bg-muted/30 transition-colors">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-medium text-foreground">
+                      {pdpQuickOrderSettings?.customField?.label ||
+                        "حقل مخصص عام (مثل: نوع وموديل السيارة)"}
+                    </span>
+                    <span className="px-2 py-0.5 text-[10px] bg-primary/10 text-primary rounded-md font-semibold">
+                      على مستوى المتجر
+                    </span>
+                    {pdpQuickOrderSettings?.customField?.enabled &&
+                    pdpQuickOrderSettings?.customField?.required ? (
+                      <span className="px-2 py-0.5 text-[10px] bg-destructive/10 text-destructive rounded-md font-semibold">
+                        {t("storeCheckout.required")}
                       </span>
-                      <span className="px-2 py-0.5 text-[10px] bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary rounded font-semibold">
-                        على مستوى المتجر
-                      </span>
-                      {pdpQuickOrderSettings?.customField?.enabled && pdpQuickOrderSettings?.customField?.required ? (
-                        <span className="px-1.5 py-0.5 text-[10px] bg-destructive/10 dark:bg-destructive/20 text-destructive dark:text-destructive rounded-md font-bold uppercase tracking-wider">
-                          {t("storeCheckout.required")}
-                        </span>
-                      ) : null}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      حقل مخصص إضافي يظهر في نموذج الطلب السريع لجمع مواصفات إضافية من العميل (مثل موديل وسنة صنع السيارة).
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-6 bg-muted dark:bg-muted p-2 px-4 rounded-xl shrink-0">
-                    <ToggleSetting
-                      label={t("storeCheckout.enable")}
-                      value={pdpQuickOrderSettings?.customField?.enabled ?? false}
-                      onChange={(value) =>
-                        handleQuickOrderCustomFieldChange("enabled", value)
-                      }
-                      disabled={loading}
-                    />
-
-                    {pdpQuickOrderSettings?.customField?.enabled ? (
-                      <div className="w-px h-8 bg-muted dark:bg-muted mx-2" />
                     ) : null}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    حقل مخصص إضافي يظهر في نموذج الطلب السريع لجمع مواصفات إضافية من العميل (مثل موديل وسنة صنع السيارة).
+                  </p>
+                </div>
 
-                    {pdpQuickOrderSettings?.customField?.enabled ? (
+                <div className="flex items-center gap-4 sm:gap-5 shrink-0">
+                  <ToggleSetting
+                    label={t("storeCheckout.enable")}
+                    value={pdpQuickOrderSettings?.customField?.enabled ?? false}
+                    onChange={(value) =>
+                      handleQuickOrderCustomFieldChange("enabled", value)
+                    }
+                    disabled={loading}
+                  />
+
+                  {pdpQuickOrderSettings?.customField?.enabled ? (
+                    <>
+                      <div className="w-px h-5 bg-border/70" />
                       <ToggleSetting
                         label={t("storeCheckout.mandatory")}
-                        value={pdpQuickOrderSettings?.customField?.required ?? false}
+                        value={
+                          pdpQuickOrderSettings?.customField?.required ?? false
+                        }
                         onChange={(value) =>
                           handleQuickOrderCustomFieldChange("required", value)
                         }
                         disabled={loading}
                       />
-                    ) : null}
+                    </>
+                  ) : null}
+                </div>
+              </div>
+
+              {pdpQuickOrderSettings?.customField?.enabled && (
+                <div className="mt-3.5 pt-3.5 border-t border-border/70 grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <label className="block text-xs font-semibold text-foreground mb-1">
+                      تسمية الحقل (عنوان الحقل الظاهر للعميل)
+                    </label>
+                    <input
+                      type="text"
+                      value={pdpQuickOrderSettings?.customField?.label ?? ""}
+                      onChange={(e) =>
+                        handleQuickOrderCustomFieldChange("label", e.target.value)
+                      }
+                      placeholder="مثال: نوع وموديل وسنة صنع السيارة"
+                      className="w-full text-xs rounded-lg border border-border/70 bg-background px-3 py-2 text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                      disabled={loading}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-foreground mb-1">
+                      نص توضيحي داخل الحقل (Placeholder)
+                    </label>
+                    <input
+                      type="text"
+                      value={
+                        pdpQuickOrderSettings?.customField?.placeholder ?? ""
+                      }
+                      onChange={(e) =>
+                        handleQuickOrderCustomFieldChange(
+                          "placeholder",
+                          e.target.value,
+                        )
+                      }
+                      placeholder="مثال: اكتب موديل وسنة صنع السيارة..."
+                      className="w-full text-xs rounded-lg border border-border/70 bg-background px-3 py-2 text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                      disabled={loading}
+                    />
                   </div>
                 </div>
-
-                {pdpQuickOrderSettings?.customField?.enabled && (
-                  <div className="mt-4 pt-4 border-t border-border dark:border-border grid gap-3 sm:grid-cols-2">
-                    <div>
-                      <label className="block text-xs font-semibold text-foreground mb-1">
-                        تسمية الحقل (عنوان الحقل الظاهر للعميل)
-                      </label>
-                      <input
-                        type="text"
-                        value={pdpQuickOrderSettings?.customField?.label ?? ""}
-                        onChange={(e) =>
-                          handleQuickOrderCustomFieldChange("label", e.target.value)
-                        }
-                        placeholder="مثال: نوع وموديل وسنة صنع السيارة"
-                        className="w-full text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted p-2.5 text-foreground focus:ring-2 focus:ring-primary"
-                        disabled={loading}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-foreground mb-1">
-                        نص توضيحي داخل الحقل (Placeholder)
-                      </label>
-                      <input
-                        type="text"
-                        value={pdpQuickOrderSettings?.customField?.placeholder ?? ""}
-                        onChange={(e) =>
-                          handleQuickOrderCustomFieldChange("placeholder", e.target.value)
-                        }
-                        placeholder="مثال: اكتب موديل وسنة صنع السيارة..."
-                        className="w-full text-xs rounded-xl border border-border dark:border-border bg-muted dark:bg-muted p-2.5 text-foreground focus:ring-2 focus:ring-primary"
-                        disabled={loading}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
+              )}
             </div>
-          </section>
+          </AnnotatedSection>
         </>
       ) : null}
 
       {/* Customer Info Section */}
-      <section>
-        <SectionHeader
-          icon={UserIcon}
-          title={t("storeCheckout.checkoutFullFieldsTitle")}
-          description={t("storeCheckout.checkoutFullFieldsDesc")}
+      <AnnotatedSection
+        icon={UserIcon}
+        title={t("storeCheckout.checkoutFullFieldsTitle")}
+        description={t("storeCheckout.checkoutFullFieldsDesc")}
+      >
+        <SettingRow
+          label={t("storeCheckout.fullName")}
+          showKey="showGuestName"
+          requireKey="requireGuestName"
+          description={t("storeCheckout.fullNameDesc")}
         />
-        <div className="grid gap-4">
-          <SettingRow
-            label={t("storeCheckout.fullName")}
-            showKey="showGuestName"
-            requireKey="requireGuestName"
-            description={t("storeCheckout.fullNameDesc")}
-          />
-          <SettingRow
-            label={t("storeCheckout.phoneNumber")}
-            showKey="showGuestPhone"
-            requireKey="requireGuestPhone"
-            description={t("storeCheckout.phoneNumberDesc")}
-          />
-          <SettingRow
-            label={t("storeCheckout.email")}
-            showKey="showGuestEmail"
-            requireKey="requireGuestEmail"
-            description={t("storeCheckout.emailDesc")}
-          />
-        </div>
-      </section>
+        <SettingRow
+          label={t("storeCheckout.phoneNumber")}
+          showKey="showGuestPhone"
+          requireKey="requireGuestPhone"
+          description={t("storeCheckout.phoneNumberDesc")}
+        />
+        <SettingRow
+          label={t("storeCheckout.email")}
+          showKey="showGuestEmail"
+          requireKey="requireGuestEmail"
+          description={t("storeCheckout.emailDesc")}
+        />
+      </AnnotatedSection>
 
       {/* Shipping Address Section */}
-      <section>
-        <SectionHeader
-          icon={MapPinIcon}
-          title={t("storeCheckout.shippingTitle")}
-          description={t("storeCheckout.shippingDesc")}
+      <AnnotatedSection
+        icon={MapPinIcon}
+        title={t("storeCheckout.shippingTitle")}
+        description={t("storeCheckout.shippingDesc")}
+      >
+        <SettingRow
+          label={t("storeCheckout.city")}
+          showKey="showCity"
+          requireKey="requireCity"
+          description={t("storeCheckout.cityDesc")}
         />
-        <div className="grid gap-4">
-          <SettingRow
-            label={t("storeCheckout.city")}
-            showKey="showCity"
-            requireKey="requireCity"
-            description={t("storeCheckout.cityDesc")}
-          />
-          <SettingRow
-            label={t("storeCheckout.address")}
-            showKey="showShippingAddress"
-            requireKey="requireShippingAddress"
-            description={t("storeCheckout.addressDesc")}
-          />
-        </div>
-      </section>
+        <SettingRow
+          label={t("storeCheckout.address")}
+          showKey="showShippingAddress"
+          requireKey="requireShippingAddress"
+          description={t("storeCheckout.addressDesc")}
+        />
+      </AnnotatedSection>
 
       {locationCaptureSettings && onLocationCaptureSettingsChange ? (
         <LocationCaptureSettingsCard
@@ -541,53 +570,50 @@ export const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
       ) : null}
 
       {/* Additional Fields Section */}
-      <section>
-        <SectionHeader
-          icon={PlusIcon}
-          title={t("storeCheckout.additionalTitle")}
-          description={t("storeCheckout.additionalDesc")}
+      <AnnotatedSection
+        icon={PlusIcon}
+        title={t("storeCheckout.additionalTitle")}
+        description={t("storeCheckout.additionalDesc")}
+      >
+        <SettingRow
+          label={t("storeCheckout.paymentMethod")}
+          showKey="showPaymentMethod"
+          description={t("storeCheckout.paymentMethodDesc")}
         />
-        <div className="grid gap-4">
-          <SettingRow
-            label={t("storeCheckout.paymentMethod")}
-            showKey="showPaymentMethod"
-            description={t("storeCheckout.paymentMethodDesc")}
-          />
-          <SettingRow
-            label={t("storeCheckout.notes")}
-            showKey="showNotes"
-            description={t("storeCheckout.notesDesc")}
-          />
-        </div>
-      </section>
+        <SettingRow
+          label={t("storeCheckout.notes")}
+          showKey="showNotes"
+          description={t("storeCheckout.notesDesc")}
+        />
+      </AnnotatedSection>
 
       {showLocalSave && (
-        <div className="pt-6 border-t border-border dark:border-border">
-          <div className="bg-indigo-50 dark:bg-primary/20 rounded-xl p-4 flex items-center justify-between border border-primary dark:border-primary/10">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center shadow-sm">
-                <CheckBadgeIcon className="h-5 w-5 text-white" />
-              </div>
-              <p className="text-sm font-medium text-primary dark:text-primary">{t("storeCheckout.simplicityTip")}</p>
+        <div className="sticky bottom-3 z-20 bg-card border border-border/70 rounded-xl shadow-sm px-4 py-3 sm:px-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="h-7 w-7 bg-primary/10 text-primary rounded-lg flex items-center justify-center shrink-0">
+              <CheckBadgeIcon className="h-4 w-4" />
             </div>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={onReset}
-                disabled={loading}
-                className="px-4 py-2.5 rounded-xl border border-primary text-primary font-semibold hover:bg-white/70 transition-all disabled:opacity-50 dark:border-primary/20 dark:text-primary dark:hover:bg-white/5"
-              >
-                {t("storeCheckout.reset")}
-              </button>
-              <button
-                type="button"
-                onClick={onSave}
-                disabled={loading}
-                className="px-6 py-2.5 bg-primary text-white rounded-xl font-bold hover:bg-primary transition-all shadow-lg shadow-primary dark:shadow-none disabled:opacity-50"
-              >
-                {loading ? t("storeCheckout.saving") : t("storeCheckout.save")}
-              </button>
-            </div>
+            <p className="text-xs font-medium text-muted-foreground">
+              {t("storeCheckout.simplicityTip")}
+            </p>
+          </div>
+          <div className="flex items-center justify-end gap-2.5 shrink-0">
+            <button
+              type="button"
+              onClick={onReset}
+              disabled={loading}
+              className="px-3.5 py-2 rounded-lg border border-border/70 bg-card text-foreground text-xs font-semibold hover:bg-muted/60 transition active:scale-[0.97] disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+            >
+              {t("storeCheckout.reset")}
+            </button>
+            <button
+              type="button"
+              onClick={onSave}
+              disabled={loading}
+              className="px-5 py-2 bg-primary text-primary-foreground rounded-lg text-xs font-semibold hover:opacity-95 transition active:scale-[0.97] disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+            >
+              {loading ? t("storeCheckout.saving") : t("storeCheckout.save")}
+            </button>
           </div>
         </div>
       )}
