@@ -486,6 +486,15 @@ const applySidebarOverrides = (
         if (entryMap.has('inbox') && !entryMap.has('unified-inbox-section')) {
             entryMap.set('unified-inbox-section', entryMap.get('inbox')!);
         }
+        if (entryMap.has('unified-inbox-section') && !entryMap.has('inbox')) {
+            entryMap.set('inbox', entryMap.get('unified-inbox-section')!);
+        }
+        if (entryMap.has('analytics') && !entryMap.has('orders-analytics')) {
+            entryMap.set('orders-analytics', entryMap.get('analytics')!);
+        }
+        if (entryMap.has('orders-analytics') && !entryMap.has('analytics')) {
+            entryMap.set('analytics', entryMap.get('orders-analytics')!);
+        }
 
         const isSuperOrAdmin = ['SUPER_ADMIN', 'COMPANY_ADMIN', 'OWNER'].includes(user?.role || '');
         const userPerms = user?.permissions || [];
@@ -1062,8 +1071,6 @@ export const getSidebarConfig = (
                 { to: '/admin/agent-chat', icon: MessageSquare, label: isEn ? 'Agent Conversations' : 'محادثات الإيجنت' },
                 { to: '/admin/ai-credits', icon: Coins, label: isEn ? 'AI Credits & Top-Up' : 'رصيد وكريدت الذكاء الاصطناعي' },
                 { to: '/admin/agent-profiles', icon: Users, label: t('sidebar.agentProfiles') },
-                { to: '/marketplace/agents', icon: Bot, label: isEn ? 'Agents Marketplace' : 'سوق الإيجنت' },
-                { to: '/advertising/creative-studio', icon: Palette, label: isEn ? 'AI Creative Studio' : 'استوديو التصاميم الذكي' },
                 { to: '/admin/ai-catalog', icon: ShoppingBag, label: t('sidebar.aiCatalog') },
                 { to: '/admin/ai-knowledge-questions', icon: Lightbulb, label: t('sidebar.aiKnowledgeQuestions') },
                 { to: '/admin/ai-hub?tab=train', icon: GraduationCap, label: t('sidebar.agentTraining') },
@@ -1196,7 +1203,6 @@ export const getSidebarConfig = (
                 { to: '/orders/activity-log', icon: Clock, label: isEn ? 'Orders Activity Log' : 'سجل نشاط الطلبات', requiredPermissions: ['orders.view'] },
                 { to: '/orders/quick-status', icon: RefreshCcw, label: t('sidebar.quickStatusChange'), requiredPermissions: ['orders.quickstatus.view'], hidden: !isAppActive('quick-status') },
                 { to: '/orders/analytics', icon: BarChart3, label: t('sidebar.orderAnalytics'), requiredPermissions: ['orders.stats.view'], hidden: !isAnyAppActive(['analytics-advanced', 'analytics-basic', 'orders-analytics']) },
-                { to: '/analytics/orders/fulfillment-velocity', icon: Zap, label: isEn ? 'Fulfillment Velocity & Vintage' : t('sidebar.fulfillmentVelocity', 'سرعة الإنجاز وشحن اليوم'), requiredPermissions: ['orders.stats.view'] },
                 { to: '/orders/status-summary', icon: FileBarChart, label: t('sidebar.orderStatusSummary'), requiredPermissions: ['orders.status-summary.view'], hidden: !isAppActive('status-summary') },
                 { to: '/returns/settings', icon: Cog, label: t('sidebar.returnSettings'), requiredPermissions: ['orders.return-settings.view'], hidden: !isAppActive('returns-settings') },
                 { to: '/platform-integrations', icon: Zap, label: t('sidebar.platformIntegrations'), requiredPermissions: ['orders.integrations.view'], hidden: !isAnyAppActive(['woocommerce-pro', 'webhooks-pro']) },
@@ -1313,11 +1319,6 @@ export const getSidebarConfig = (
                 { to: '/products', icon: ShoppingBag, label: t('sidebar.products') },
                 { to: '/products/products-availability', icon: Table2, label: t('sidebar.productsAvailability'), requiredPermissions: ['products.view'] },
                 { to: '/categories', icon: Tag, label: t('sidebar.categories') },
-                {
-                    to: '/inventory/studio',
-                    icon: Sparkles,
-                    label: isEn ? 'AI Product & Inventory Studio' : 'مركز المنتجات والمخزون الذكي (AI Studio)',
-                },
             ],
             hidden: user?.role === 'AFFILIATE' || isEducationOnlyCompany || (!isStoreActive() && !isAnyAppActive(['pos-pro', 'inventory-pro', 'cafe-restaurant-pro']))
         },
@@ -1378,7 +1379,6 @@ export const getSidebarConfig = (
                 },
                 { to: '/settings/custom-domain', icon: Link, label: t('sidebar.customDomain') },
                 { to: '/settings/store/tools', icon: Sparkles, label: t('sidebar.conversionTools') },
-                { to: '/analytics/aov-cockpit', icon: TrendingUp, label: isEn ? 'AOV Growth Cockpit' : 'مركز نمو السلة (AOV)' },
                 { to: '/settings/upsell', icon: TrendingUp, label: t('sidebar.upsellManagement') },
                 { to: '/settings/post-purchase-offer', icon: Zap, label: isEn ? 'Post-Purchase Offer' : 'العرض بعد الطلب (Upsell)' },
                 { to: '/admin/faqs', icon: HelpCircle, label: t('sidebar.faqs') },
@@ -1386,30 +1386,6 @@ export const getSidebarConfig = (
                 { to: '/settings/clarity', icon: BarChart3, label: t('sidebar.microsoftClarity') },
                 { to: '/offers-review', icon: ClipboardList, label: t('sidebar.offersReview') },
                 { to: '/coupons', icon: Ticket, label: t('sidebar.coupons'), hidden: !isAnyAppActive(['coupons-pro', 'store-pro']) },
-                {
-                    to: '/analytics/orders/coupons',
-                    icon: Ticket,
-                    label: t('sidebar.couponAnalytics'),
-                    hidden: !isAppActive('analytics-advanced')
-                },
-                {
-                    to: '/analytics/store',
-                    icon: LineChart,
-                    label: isEn ? 'Store & Funnel Analytics' : 'تحليلات المتجر ومسار التحويل',
-                    hidden: !isAppActive('analytics-advanced')
-                },
-                {
-                    to: '/analytics/store',
-                    icon: Filter,
-                    label: t('sidebar.conversionFunnel'),
-                    hidden: true
-                },
-                {
-                    to: '/analytics/orders/abandoned-cart',
-                    icon: ShoppingCart,
-                    label: t('sidebar.abandonedCart'),
-                    hidden: !isAppActive('analytics-advanced')
-                },
                 { to: '/settings/store-pages', icon: FileText, label: t('sidebar.storePages') },
                 { to: '/settings/store-payment-offers', icon: BadgePercent, label: t('sidebar.paymentOffers') },
             ],
@@ -2140,11 +2116,7 @@ export const getSidebarConfig = (
                     icon: ListChecks,
                     label: t('sidebar.radiologyGroupToday'),
                     children: [
-                        { to: '/radiology/exam-categories', label: t('sidebar.radiologyExamCategories') },
                         { to: '/radiology/rooms', label: t('sidebar.radiologyRooms'), icon: DoorOpen },
-                        { to: '/radiology/price-lists', label: t('sidebar.radiologyPriceLists') },
-                        { to: '/radiology/radiologists', label: t('sidebar.radiologyRadiologists') },
-                        { to: '/radiology/referring-physicians', label: t('sidebar.radiologyReferringPhysicians') },
                     ],
                 },
                 {

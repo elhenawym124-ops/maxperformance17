@@ -29,6 +29,14 @@ import {
   Loader2,
   GraduationCap,
   Sliders,
+  Truck,
+  Package,
+  Landmark,
+  Tag,
+  Briefcase,
+  CheckCircle2,
+  Calculator,
+  Share2,
 } from "lucide-react";
 import { apiClient } from "../../services/apiClient";
 import { useSidebarSettings } from "../../contexts/SidebarSettingsContext";
@@ -48,171 +56,36 @@ export interface SidebarConfigItem {
 }
 
 const DEFAULT_SIDEBAR_ITEMS: SidebarConfigItem[] = [
-  {
-    key: "dashboard",
-    defaultLabelAr: "لوحة التحكم",
-    defaultLabelEn: "Dashboard",
-    labelAr: "لوحة التحكم",
-    labelEn: "Dashboard",
-    order: 0,
-    visible: true,
-    locked: true,
-    iconName: "BarChart3",
-  },
-  {
-    key: "inbox",
-    defaultLabelAr: "صندوق المحادثات",
-    defaultLabelEn: "Inbox",
-    labelAr: "صندوق المحادثات",
-    labelEn: "Inbox",
-    order: 1,
-    visible: true,
-    locked: false,
-    iconName: "MessageSquare",
-  },
-  {
-    key: "orders",
-    defaultLabelAr: "الطلبات",
-    defaultLabelEn: "Orders",
-    labelAr: "الطلبات",
-    labelEn: "Orders",
-    order: 2,
-    visible: true,
-    locked: false,
-    iconName: "Archive",
-  },
-  {
-    key: "products",
-    defaultLabelAr: "المنتجات",
-    defaultLabelEn: "Products",
-    labelAr: "المنتجات",
-    labelEn: "Products",
-    order: 3,
-    visible: true,
-    locked: false,
-    iconName: "ShoppingBag",
-  },
-  {
-    key: "customers",
-    defaultLabelAr: "العملاء",
-    defaultLabelEn: "Customers",
-    labelAr: "العملاء",
-    labelEn: "Customers",
-    order: 4,
-    visible: true,
-    locked: false,
-    iconName: "Users",
-  },
-  {
-    key: "procurement",
-    defaultLabelAr: "المشتريات",
-    defaultLabelEn: "Procurement",
-    labelAr: "المشتريات",
-    labelEn: "Procurement",
-    order: 5,
-    visible: true,
-    locked: false,
-    iconName: "FileText",
-  },
-  {
-    key: "inventory",
-    defaultLabelAr: "المخزون",
-    defaultLabelEn: "Inventory",
-    labelAr: "المخزون",
-    labelEn: "Inventory",
-    order: 6,
-    visible: true,
-    locked: false,
-    iconName: "Box",
-  },
-  {
-    key: "analytics",
-    defaultLabelAr: "التحليلات والتقارير",
-    defaultLabelEn: "Analytics",
-    labelAr: "التحليلات والتقارير",
-    labelEn: "Analytics",
-    order: 7,
-    visible: true,
-    locked: false,
-    iconName: "TrendingUp",
-  },
-  {
-    key: "marketing",
-    defaultLabelAr: "التسويق والإعلانات",
-    defaultLabelEn: "Marketing",
-    labelAr: "التسويق والإعلانات",
-    labelEn: "Marketing",
-    order: 8,
-    visible: true,
-    locked: false,
-    iconName: "Megaphone",
-  },
-  {
-    key: "storefront",
-    defaultLabelAr: "المتجر والتصميم",
-    defaultLabelEn: "Storefront",
-    labelAr: "المتجر والتصميم",
-    labelEn: "Storefront",
-    order: 9,
-    visible: true,
-    locked: false,
-    iconName: "Store",
-  },
-  {
-    key: "education",
-    defaultLabelAr: "النظام التعليمي",
-    defaultLabelEn: "Education System",
-    labelAr: "النظام التعليمي",
-    labelEn: "Education System",
-    order: 10,
-    visible: true,
-    locked: false,
-    iconName: "GraduationCap",
-  },
-  {
-    key: "marketplace",
-    defaultLabelAr: "متجر التطبيقات",
-    defaultLabelEn: "App Marketplace",
-    labelAr: "متجر التطبيقات",
-    labelEn: "App Marketplace",
-    order: 11,
-    visible: true,
-    locked: false,
-    iconName: "Grid3x3",
-  },
-  {
-    key: "notifications",
-    defaultLabelAr: "الإشعارات",
-    defaultLabelEn: "Notifications",
-    labelAr: "الإشعارات",
-    labelEn: "Notifications",
-    order: 12,
-    visible: true,
-    locked: false,
-    iconName: "Bell",
-  },
-  {
-    key: "company",
-    defaultLabelAr: "إدارة الشركة",
-    defaultLabelEn: "Company Management",
-    labelAr: "إدارة الشركة",
-    labelEn: "Company Management",
-    order: 13,
-    visible: true,
-    locked: false,
-    iconName: "Building",
-  },
-  {
-    key: "settings",
-    defaultLabelAr: "الإعدادات",
-    defaultLabelEn: "Settings",
-    labelAr: "الإعدادات",
-    labelEn: "Settings",
-    order: 14,
-    visible: true,
-    locked: true,
-    iconName: "Cog",
-  },
+  { key: "dashboard", defaultLabelAr: "لوحة التحكم", defaultLabelEn: "Dashboard", labelAr: "لوحة التحكم", labelEn: "Dashboard", order: 0, visible: true, locked: true, iconName: "BarChart3" },
+  { key: "inbox", defaultLabelAr: "صندوق المحادثات", defaultLabelEn: "Inbox", labelAr: "صندوق المحادثات", labelEn: "Inbox", order: 1, visible: true, locked: false, iconName: "MessageSquare" },
+  { key: "ai-operator", defaultLabelAr: "الذكاء الاصطناعي والإيجنت", defaultLabelEn: "AI Operator", labelAr: "الذكاء الاصطناعي والإيجنت", labelEn: "AI Operator", order: 2, visible: true, locked: false, iconName: "Sparkles" },
+  { key: "facebook", defaultLabelAr: "فيسبوك", defaultLabelEn: "Facebook", labelAr: "فيسبوك", labelEn: "Facebook", order: 3, visible: true, locked: false, iconName: "Share2" },
+  { key: "instagram", defaultLabelAr: "إنستغرام", defaultLabelEn: "Instagram", labelAr: "إنستغرام", labelEn: "Instagram", order: 4, visible: true, locked: false, iconName: "Share2" },
+  { key: "whatsapp", defaultLabelAr: "واتساب", defaultLabelEn: "WhatsApp", labelAr: "واتساب", labelEn: "WhatsApp", order: 5, visible: true, locked: false, iconName: "MessageSquare" },
+  { key: "telegram", defaultLabelAr: "تليجرام", defaultLabelEn: "Telegram", labelAr: "تليجرام", labelEn: "Telegram", order: 6, visible: true, locked: false, iconName: "MessageSquare" },
+  { key: "orders", defaultLabelAr: "الطلبات", defaultLabelEn: "Orders", labelAr: "الطلبات", labelEn: "Orders", order: 7, visible: true, locked: false, iconName: "Archive" },
+  { key: "internal-courier-fleet", defaultLabelAr: "أسطول المناديب", defaultLabelEn: "Internal Courier Fleet", labelAr: "أسطول المناديب", labelEn: "Internal Courier Fleet", order: 8, visible: true, locked: false, iconName: "Truck" },
+  { key: "shipping-ops", defaultLabelAr: "عمليات الشحن", defaultLabelEn: "Shipping", labelAr: "عمليات الشحن", labelEn: "Shipping", order: 9, visible: true, locked: false, iconName: "Package" },
+  { key: "analytics", defaultLabelAr: "التحليلات والتقارير", defaultLabelEn: "Analytics", labelAr: "التحليلات والتقارير", labelEn: "Analytics", order: 10, visible: true, locked: false, iconName: "TrendingUp" },
+  { key: "products", defaultLabelAr: "المنتجات", defaultLabelEn: "Products", labelAr: "المنتجات", labelEn: "Products", order: 11, visible: true, locked: false, iconName: "ShoppingBag" },
+  { key: "inventory", defaultLabelAr: "المخزون", defaultLabelEn: "Inventory", labelAr: "المخزون", labelEn: "Inventory", order: 12, visible: true, locked: false, iconName: "Box" },
+  { key: "blog", defaultLabelAr: "المدونة والـ SEO", defaultLabelEn: "Blog & SEO", labelAr: "المدونة والـ SEO", labelEn: "Blog & SEO", order: 13, visible: true, locked: false, iconName: "FileText" },
+  { key: "storefront", defaultLabelAr: "المتجر والتصميم", defaultLabelEn: "Storefront", labelAr: "المتجر والتصميم", labelEn: "Storefront", order: 14, visible: true, locked: false, iconName: "Store" },
+  { key: "marketing", defaultLabelAr: "التسويق والإعلانات", defaultLabelEn: "Marketing", labelAr: "التسويق والإعلانات", labelEn: "Marketing", order: 15, visible: true, locked: false, iconName: "Megaphone" },
+  { key: "competitors", defaultLabelAr: "تحليل المنافسين", defaultLabelEn: "Competitors", labelAr: "تحليل المنافسين", labelEn: "Competitors", order: 16, visible: true, locked: false, iconName: "TrendingUp" },
+  { key: "customers", defaultLabelAr: "العملاء", defaultLabelEn: "Customers", labelAr: "العملاء", labelEn: "Customers", order: 17, visible: true, locked: false, iconName: "Users" },
+  { key: "procurement", defaultLabelAr: "المشتريات", defaultLabelEn: "Procurement", labelAr: "المشتريات", labelEn: "Procurement", order: 18, visible: true, locked: false, iconName: "FileText" },
+  { key: "treasury-expenses", defaultLabelAr: "الخزينة والنفقات", defaultLabelEn: "Treasury & Expenses", labelAr: "الخزينة والنفقات", labelEn: "Treasury & Expenses", order: 19, visible: true, locked: false, iconName: "Landmark" },
+  { key: "wholesale", defaultLabelAr: "البيع بالجملة", defaultLabelEn: "Wholesale", labelAr: "البيع بالجملة", labelEn: "Wholesale", order: 20, visible: true, locked: false, iconName: "Tag" },
+  { key: "affiliate", defaultLabelAr: "التسويق بالعمولة", defaultLabelEn: "Affiliate", labelAr: "التسويق بالعمولة", labelEn: "Affiliate", order: 21, visible: true, locked: false, iconName: "Share2" },
+  { key: "hr", defaultLabelAr: "الموارد البشرية", defaultLabelEn: "Human Resources", labelAr: "الموارد البشرية", labelEn: "Human Resources", order: 22, visible: true, locked: false, iconName: "Briefcase" },
+  { key: "accounting", defaultLabelAr: "المحاسبة", defaultLabelEn: "Accounting", labelAr: "المحاسبة", labelEn: "Accounting", order: 23, visible: true, locked: false, iconName: "Calculator" },
+  { key: "tasks", defaultLabelAr: "المهام والمشاريع", defaultLabelEn: "Tasks & Projects", labelAr: "المهام والمشاريع", labelEn: "Tasks & Projects", order: 24, visible: true, locked: false, iconName: "CheckCircle2" },
+  { key: "education", defaultLabelAr: "النظام التعليمي", defaultLabelEn: "Education System", labelAr: "النظام التعليمي", labelEn: "Education System", order: 25, visible: true, locked: false, iconName: "GraduationCap" },
+  { key: "marketplace", defaultLabelAr: "متجر التطبيقات", defaultLabelEn: "App Marketplace", labelAr: "متجر التطبيقات", labelEn: "App Marketplace", order: 26, visible: true, locked: false, iconName: "Grid3x3" },
+  { key: "notifications", defaultLabelAr: "الإشعارات", defaultLabelEn: "Notifications", labelAr: "الإشعارات", labelEn: "Notifications", order: 27, visible: true, locked: false, iconName: "Bell" },
+  { key: "company", defaultLabelAr: "إدارة الشركة", defaultLabelEn: "Company Management", labelAr: "إدارة الشركة", labelEn: "Company Management", order: 28, visible: true, locked: false, iconName: "Building" },
+  { key: "settings", defaultLabelAr: "الإعدادات", defaultLabelEn: "Settings", labelAr: "الإعدادات", labelEn: "Settings", order: 29, visible: true, locked: true, iconName: "Cog" },
 ];
 
 const renderItemIcon = (iconName: string) => {
@@ -221,8 +94,16 @@ const renderItemIcon = (iconName: string) => {
       return <BarChart3 className="w-5 h-5" />;
     case "MessageSquare":
       return <MessageSquare className="w-5 h-5" />;
+    case "Sparkles":
+      return <Sparkles className="w-5 h-5" />;
+    case "Share2":
+      return <Share2 className="w-5 h-5" />;
     case "Archive":
       return <Archive className="w-5 h-5" />;
+    case "Truck":
+      return <Truck className="w-5 h-5" />;
+    case "Package":
+      return <Package className="w-5 h-5" />;
     case "ShoppingBag":
       return <ShoppingBag className="w-5 h-5" />;
     case "Users":
@@ -237,6 +118,16 @@ const renderItemIcon = (iconName: string) => {
       return <Megaphone className="w-5 h-5" />;
     case "Store":
       return <Store className="w-5 h-5" />;
+    case "Landmark":
+      return <Landmark className="w-5 h-5" />;
+    case "Tag":
+      return <Tag className="w-5 h-5" />;
+    case "Briefcase":
+      return <Briefcase className="w-5 h-5" />;
+    case "Calculator":
+      return <Calculator className="w-5 h-5" />;
+    case "CheckCircle2":
+      return <CheckCircle2 className="w-5 h-5" />;
     case "GraduationCap":
       return <GraduationCap className="w-5 h-5" />;
     case "Grid3x3":
@@ -284,7 +175,7 @@ const SidebarSettings: React.FC = () => {
 
         const merged = DEFAULT_SIDEBAR_ITEMS.map((item, idx) => {
           const saved = savedMap.get(item.key.toLowerCase());
-          if (!saved) return { ...item, order: idx };
+          if (!saved) return { ...item, order: savedList.length + idx };
           return {
             ...item,
             order: typeof saved.order === "number" ? saved.order : idx,
