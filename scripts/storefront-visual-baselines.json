@@ -1048,6 +1048,16 @@
       "minFontSize": 12,
       "firstProductScreen": null,
       "updatedAt": "2026-11-27"
+    },
+    "edu-academy-pro": {
+      "cls": 0.127,
+      "brokenImages": 0,
+      "proxyBrokenImages": 0,
+      "overflowX": 0,
+      "tapsUnder24": 0,
+      "minFontSize": 11,
+      "firstProductScreen": null,
+      "updatedAt": "2026-11-27"
     }
   },
   "updatedAt": "2026-11-27"
