@@ -111,6 +111,8 @@ export const usePdpQuickOrderController = ({
 
   const isRedlineAuto =
     theme.id === 'redline-auto' || configuredFormVariant === 'redline-auto';
+  const isAcademyStage =
+    theme.id === 'academy-stage-3d' || configuredFormVariant === 'academy-stage-3d';
 
   const companyId = storefrontSettings?.company?.id || getCompanyId();
   const walletPaymentSettings =
@@ -246,8 +248,23 @@ export const usePdpQuickOrderController = ({
       ];
     }
 
+    if (isAcademyStage) {
+      return [
+        {
+          key: 'academyStudentBranch',
+          label: prefersArabicCopy
+            ? 'اسم الطالب وعمره + الفرع المفضل (أو أونلاين)'
+            : 'Student Name, Age & Preferred Branch',
+          placeholder: prefersArabicCopy
+            ? 'مثال: آدم (11 سنة) — فرع فؤاد أو أونلاين'
+            : 'e.g. Adam (11 yrs) — Online',
+          required: false,
+        },
+      ];
+    }
+
     return [];
-  }, [product, storePdpQuickOrderSettings, prefersArabicCopy, isRedlineAuto]);
+  }, [product, storePdpQuickOrderSettings, prefersArabicCopy, isRedlineAuto, isAcademyStage]);
 
   const [customAttributeValues, setCustomAttributeValues] = useState<Record<string, string>>({});
 
@@ -359,37 +376,48 @@ export const usePdpQuickOrderController = ({
         ? phoneOverride.required
         : phoneField.required,
   };
+  const rawQuickOrderTokenObj =
+    (storefrontSettings?.storefrontSettings?.designTokens as any)?.pdpQuickOrder ||
+    (storefrontSettings?.storefront?.settings?.designTokens as any)?.pdpQuickOrder ||
+    (storefrontSettings?.designTokens as any)?.pdpQuickOrder ||
+    null;
+  const hasExplicitQuickOrderFields = Boolean(rawQuickOrderTokenObj?.fields);
+
   const effectiveGovernorateField = {
     enabled:
       typeof governorateOverride.enabled === 'boolean'
         ? governorateOverride.enabled
-        : governorateField.enabled,
+        : isAcademyStage && !hasExplicitQuickOrderFields
+          ? false
+          : governorateField.enabled,
     required:
       typeof governorateOverride.required === 'boolean'
         ? governorateOverride.required
-        : governorateField.required,
+        : isAcademyStage && !hasExplicitQuickOrderFields
+          ? false
+          : governorateField.required,
   };
   const effectiveAddressField = {
     enabled:
       typeof addressOverride.enabled === 'boolean'
         ? addressOverride.enabled
-        : addressField.enabled,
+        : isAcademyStage && !hasExplicitQuickOrderFields
+          ? false
+          : addressField.enabled,
     required:
       typeof addressOverride.required === 'boolean'
         ? addressOverride.required
-        : addressField.required,
+        : isAcademyStage && !hasExplicitQuickOrderFields
+          ? false
+          : addressField.required,
   };
   const effectiveAlternatePhoneField = {
     enabled:
       typeof alternatePhoneOverride.enabled === 'boolean'
         ? alternatePhoneOverride.enabled
-        : isMenShoes
+        : isMenShoes || isKhemetLuxe || isVelaFashion || (isAcademyStage && !hasExplicitQuickOrderFields)
           ? false
-          : isKhemetLuxe
-            ? false
-          : isVelaFashion
-              ? false
-            : alternatePhoneField.enabled,
+          : alternatePhoneField.enabled,
     required:
       typeof alternatePhoneOverride.required === 'boolean'
         ? alternatePhoneOverride.required

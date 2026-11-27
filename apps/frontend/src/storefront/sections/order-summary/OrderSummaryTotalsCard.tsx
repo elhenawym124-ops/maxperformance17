@@ -5,6 +5,7 @@ import { formatStorefrontCurrency } from "../../utils/currency";
 export interface OrderSummaryTotalsCardProps {
   subtotal: number;
   currency: string;
+  hideShippingRow?: boolean;
   subtotalLabel: string;
   shippingLabel: string;
   totalLabel: string;
@@ -42,6 +43,7 @@ export interface OrderSummaryTotalsCardProps {
 export const OrderSummaryTotalsCard: React.FC<OrderSummaryTotalsCardProps> = ({
   subtotal,
   currency,
+  hideShippingRow = false,
   subtotalLabel,
   shippingLabel,
   totalLabel,
@@ -113,22 +115,24 @@ export const OrderSummaryTotalsCard: React.FC<OrderSummaryTotalsCardProps> = ({
             {formatStorefrontCurrency(subtotal, currency)}
           </span>
         </div>
-        <div className="flex justify-between text-foreground">
-          <span className="text-[#6f6455]">{shippingLabel}</span>
-          <span
-            className={
-              (checkoutFreeShippingActive || loyaltyFreeShipping) &&
-              trimmedGovernorate &&
-              !isShippingLoading
-                ? "text-emerald-600 font-mono tabular-nums"
-                : "text-[#6f6455] font-mono tabular-nums"
-            }
-          >
-            {loyaltyFreeShipping && Number(shippingCost) > 0
-              ? "مجاني (مستوى الولاء)"
-              : resolvedShippingValueText}
-          </span>
-        </div>
+        {!hideShippingRow ? (
+          <div className="flex justify-between text-foreground">
+            <span className="text-[#6f6455]">{shippingLabel}</span>
+            <span
+              className={
+                (checkoutFreeShippingActive || loyaltyFreeShipping) &&
+                trimmedGovernorate &&
+                !isShippingLoading
+                  ? "text-emerald-600 font-mono tabular-nums"
+                  : "text-[#6f6455] font-mono tabular-nums"
+              }
+            >
+              {loyaltyFreeShipping && Number(shippingCost) > 0
+                ? "مجاني (مستوى الولاء)"
+                : resolvedShippingValueText}
+            </span>
+          </div>
+        ) : null}
         {loyaltyDiscount > 0 ? (
           <div className="flex justify-between text-foreground">
             <span className="text-[#6f6455]">

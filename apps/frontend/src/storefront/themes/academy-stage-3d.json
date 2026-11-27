@@ -182,12 +182,15 @@
           "type": "product-info",
           "variant": "standard",
           "settings": {
+            "addToCartText": "أضف إلى السلة",
+            "buyNowText": "احجز الآن",
             "ctaText": "احجز مقعد في هذا المستوى",
             "descriptionTitle": "تفاصيل المنهج والمخرجات",
             "shippingTitle": "نظام الحصص",
             "shippingText": "متاح أونلاين أو بالحضور المباشر في فروع الأكاديمية مع متابعة أسبوعية.",
             "guaranteesTitle": "مميزات التسجيل",
-            "guaranteeItems": "مجموعات صغيرة|مشروع تخرج|تقرير لولي الأمر",
+            "guaranteesSubtitle": "نظام تعليمي متكامل لولي الأمر والطالب",
+            "guaranteeItems": "[\"مجموعات صغيرة (6–8 طلاب)\",\"مشروع تخرج عملي\",\"تقرير دوري لولي الأمر\"]",
             "guaranteeStyle": "strip"
           }
         },
@@ -197,7 +200,21 @@
     "cart": {
       "sections": [
         { "type": "cart-items", "variant": "compact", "settings": { "title": "المستويات المختارة" } },
-        { "type": "order-summary", "variant": "highlighted", "settings": { "title": "ملخص الاشتراك", "checkoutButtonText": "تأكيد التسجيل" } }
+        {
+          "type": "order-summary",
+          "variant": "highlighted",
+          "settings": {
+            "title": "ملخص الاشتراك",
+            "subtitle": "ملخص واضح للباقات المختارة بدون مصاريف شحن.",
+            "subtotalLabel": "رسوم المستويات",
+            "totalLabel": "الرسوم الإجمالية",
+            "hideShipping": true,
+            "shippingHelpText": "لا توجد مصاريف شحن — يشمل الاشتراك الحصص والمتابعة ومشروع التخرج.",
+            "checkoutButtonText": "تأكيد التسجيل",
+            "secureCheckoutText": "حجز مؤكد بالفرع أو أونلاين",
+            "returnsText": "متابعة وتقرير دوري لولي الأمر"
+          }
+        }
       ]
     },
     "collections": {

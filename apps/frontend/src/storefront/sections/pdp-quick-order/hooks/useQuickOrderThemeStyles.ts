@@ -76,6 +76,10 @@ export const useQuickOrderThemeStyles = ({
     (Boolean(theme.id && theme.id.includes('marketplace-avenue')) ||
       configuredFormVariant === 'marketplace-bazaar') &&
     !isRedlineAutoQuickOrder;
+  const isAcademyStageQuickOrder =
+    (theme.id === 'academy-stage-3d' ||
+      configuredFormVariant === 'academy-stage-3d') &&
+    !isRedlineAutoQuickOrder;
   const isMergedBuyboxSurface = configuredSurfaceMode === 'merged-buybox';
   const isKhemetMergedBuyboxQuickOrder =
     isKhemetLuxeQuickOrder && isMergedBuyboxSurface;
@@ -118,6 +122,8 @@ export const useQuickOrderThemeStyles = ({
         : 'Order details'
       : isMarketplaceQuickOrder
       ? configuredTitle || (prefersArabicCopy ? 'الطلب السريع المباشر' : 'Direct Quick Order')
+      : isAcademyStageQuickOrder
+      ? configuredTitle || (prefersArabicCopy ? 'تسجيل سريع في هذا المستوى' : 'Quick Seat Registration')
       : isVelaFashionQuickOrder
         ? prefersArabicCopy
           ? 'أكملي الطلب الآن'
@@ -135,7 +141,11 @@ export const useQuickOrderThemeStyles = ({
       : isKhemetMergedBuyboxQuickOrder
       ? ''
       : configuredSubtitle ||
-    (isSoleaFemmeQuickOrder
+    (isAcademyStageQuickOrder
+      ? prefersArabicCopy
+        ? 'اترك بيانات ولي الأمر وسنتواصل لتأكيد الموعد في الفرع أو أونلاين.'
+        : 'Leave parent details to confirm in-branch or online schedule.'
+      : isSoleaFemmeQuickOrder
       ? prefersArabicCopy
         ? 'بعد اختيار المقاس أو العرض، اتركي بياناتك وسنؤكد الطلب معك بسرعة.'
         : 'Choose the size or offer, then leave your details and we will confirm the order.'
@@ -151,14 +161,20 @@ export const useQuickOrderThemeStyles = ({
       ? ''
       : '');
 
-  const quantityLabel = isVelaFashionQuickOrder
+  const quantityLabel = isAcademyStageQuickOrder
+      ? prefersArabicCopy
+        ? 'عدد المقاعد'
+        : 'Seats'
+    : isVelaFashionQuickOrder
       ? prefersArabicCopy
         ? 'الكمية'
         : 'Quantity'
     : prefersArabicCopy
       ? 'عدد القطع'
       : 'Quantity';
-  const fullNameLabel = isRedlineAutoQuickOrder
+  const fullNameLabel = isAcademyStageQuickOrder
+    ? prefersArabicCopy ? 'اسم ولي الأمر' : 'Parent Name'
+    : isRedlineAutoQuickOrder
     ? prefersArabicCopy ? 'الاسم بالكامل' : 'Full Name'
     : isMenShoesQuickOrder || isVelaFashionQuickOrder || isKhemetLuxeQuickOrder
     ? prefersArabicCopy
@@ -167,7 +183,9 @@ export const useQuickOrderThemeStyles = ({
     : prefersArabicCopy
       ? 'الاسم بالكامل'
       : 'Full name';
-  const phoneLabel = isRedlineAutoQuickOrder
+  const phoneLabel = isAcademyStageQuickOrder
+    ? prefersArabicCopy ? 'رقم الواتساب' : 'WhatsApp Phone'
+    : isRedlineAutoQuickOrder
     ? prefersArabicCopy ? 'رقم الموبايل (للتواصل والشحن)' : 'Mobile Phone'
     : prefersArabicCopy ? 'رقم الهاتف' : 'Phone number';
   const governorateLabel = prefersArabicCopy ? 'المحافظة' : 'Governorate';
@@ -185,8 +203,12 @@ export const useQuickOrderThemeStyles = ({
     : prefersArabicCopy
     ? 'رقم هاتف بديل'
     : 'Alternate phone';
-  const shippingLabel = prefersArabicCopy ? 'تكلفة الشحن' : 'Shipping';
-  const totalLabel = prefersArabicCopy ? 'الإجمالي' : 'Total';
+  const shippingLabel = isAcademyStageQuickOrder
+    ? prefersArabicCopy ? 'نظام الحضور' : 'Attendance Mode'
+    : prefersArabicCopy ? 'تكلفة الشحن' : 'Shipping';
+  const totalLabel = isAcademyStageQuickOrder
+    ? prefersArabicCopy ? 'رسوم الاشتراك' : 'Tuition Fee'
+    : prefersArabicCopy ? 'الإجمالي' : 'Total';
 
   const addToCartLabel = isOutOfStock
     ? (prefersArabicCopy ? 'نفدت الكمية' : 'Out of stock')
@@ -204,7 +226,9 @@ export const useQuickOrderThemeStyles = ({
           ? `متابعة للدفع بالبطاقة 💳 (${formatStorefrontCurrency(total, currency)})`
           : `Proceed to Card Payment 💳 (${formatStorefrontCurrency(total, currency)})`)
       : configuredSubmitButtonText ||
-        (isSoleaFemmeQuickOrder && prefersArabicCopy
+        (isAcademyStageQuickOrder && prefersArabicCopy
+          ? 'تأكيد حجز المقعد'
+          : isSoleaFemmeQuickOrder && prefersArabicCopy
           ? 'تأكيد الطلب'
           : isKhemetLuxeQuickOrder && prefersArabicCopy
             ? 'تأكيد الطلب'

@@ -67,6 +67,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
     couponButtonText,
     hideCheckoutButton,
     checkoutButtonText,
+    hideShippingRow,
     subtotalLabel,
     shippingLabel,
     totalLabel,
@@ -193,6 +194,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
         <OrderSummaryTotalsCard
           subtotal={subtotal}
           currency={currency}
+          hideShippingRow={hideShippingRow}
           subtotalLabel={subtotalLabel}
           shippingLabel={shippingLabel}
           totalLabel={totalLabel}

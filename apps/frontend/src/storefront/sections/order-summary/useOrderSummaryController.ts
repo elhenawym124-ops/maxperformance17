@@ -65,6 +65,7 @@ export function useOrderSummaryController({
   const isZenOrganic = theme.id === "zen-organic";
   const isBiteRush = theme.id === "restaurant-demo";
   const isSproutRoom = theme.id === "elessi-sprout-room";
+  const isAcademyStage = theme.id === "academy-stage-3d";
   const isWomenFashionSummary = theme.id === "women-fashion-eg";
   const isKhemetLuxe = isKhemetLuxeTheme(theme.id);
   const checkoutPath = buildStorefrontPath(
@@ -251,13 +252,22 @@ export function useOrderSummaryController({
           if (isBoutiqueSummary) {
             return "ملخص هادئ يضم السعر والشحن والخطوة التالية من غير ازدحام بصري.";
           }
+          if (isAcademyStage) {
+            return "ملخص واضح للباقات المختارة بدون مصاريف شحن.";
+          }
           return "ملخص مرتب يجمع السعر والشحن والكوبون في مكان واحد.";
         })();
+  const hideShippingRow = parseBooleanSetting(
+    sectionSettings?.hideShipping,
+    isAcademyStage,
+  );
   const shippingHelpText =
     sectionSettings?.shippingHelpText ||
-    (isBiteRush
-      ? "رسوم التوصيل تتثبت حسب المحافظة في خطوة الدفع التالية."
-      : "سيظهر الشحن بعد اختيار المحافظة داخل صفحة الدفع.");
+    (isAcademyStage
+      ? "لا توجد مصاريف شحن — يشمل الاشتراك الحصص والمتابعة ومشروع التخرج."
+      : isBiteRush
+        ? "رسوم التوصيل تتثبت حسب المحافظة في خطوة الدفع التالية."
+        : "سيظهر الشحن بعد اختيار المحافظة داخل صفحة الدفع.");
   const couponPlaceholder =
     sectionSettings?.couponPlaceholder ||
     (isBiteRush ? "عندك كود؟" : "كود الخصم");
@@ -266,13 +276,19 @@ export function useOrderSummaryController({
   const checkoutButtonText =
     sectionSettings?.checkoutButtonText ||
     (isBiteRush ? "كمّل الطلب" : "إتمام الطلب");
-  const subtotalLabel = sectionSettings?.subtotalLabel || "المجموع الفرعي";
+  const subtotalLabel =
+    sectionSettings?.subtotalLabel ||
+    (isAcademyStage ? "رسوم المستويات" : "المجموع الفرعي");
   const shippingLabel = sectionSettings?.shippingLabel || "الشحن";
   const shippingValueText =
     sectionSettings?.shippingValueText || "يحسب عند الدفع";
   const totalLabel =
     sectionSettings?.totalLabel ||
-    (isBiteRush ? "الإجمالي المتوقع الآن" : "الإجمالي المتوقع");
+    (isAcademyStage
+      ? "الرسوم الإجمالية"
+      : isBiteRush
+        ? "الإجمالي المتوقع الآن"
+        : "الإجمالي المتوقع");
   const secureCheckoutText =
     sectionSettings?.secureCheckoutText ||
     (isBiteRush ? "إرسال آمن للطلب" : trustedItems[0]) ||
@@ -833,6 +849,7 @@ export function useOrderSummaryController({
     couponButtonText,
     hideCheckoutButton,
     checkoutButtonText,
+    hideShippingRow,
     subtotalLabel,
     shippingLabel,
     totalLabel,

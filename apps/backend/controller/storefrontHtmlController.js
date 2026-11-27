@@ -104,6 +104,8 @@ const STANDARD_THEME_STORE_PAGE_SLUGS = new Set([
   "faq",
   "contact",
   "contact-us",
+  "collections",
+  "registration",
   "lookbook",
   "size-guide",
   "shipping",

@@ -79,6 +79,7 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
   const isAirlume = theme.id === 'airlume-ai';
   const isZenOrganic = theme.id === 'zen-organic';
   const isBiteRush = theme.id === 'restaurant-demo';
+  const isAcademyStage = theme.id === 'academy-stage-3d';
   const isKhemetLuxe = isKhemetLuxeTheme(theme.id);
   const isMarketCheckout = variant === 'market-checkout';
   const isNatureCheckout = variant === 'nature-checkout';
@@ -287,7 +288,10 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
           ? 'mt-2 rounded-[1rem] border border-[#d7e7c5] bg-[#f4faed] px-3 py-2 text-xs font-medium text-[#52703d]'
         : 'mt-2 text-xs text-emerald-600';
 
-  const contactTitle = settings?.contactTitle || settings?.title || 'بيانات التواصل';
+  const contactTitle =
+    settings?.contactTitle ||
+    settings?.title ||
+    (isAcademyStage ? 'بيانات ولي الأمر والتواصل' : 'بيانات التواصل');
   const configuredContactDescription =
     typeof settings?.contactDescription === 'string'
       ? settings.contactDescription
@@ -296,7 +300,9 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
         : undefined;
   const contactDescription =
     configuredContactDescription ??
-    (isBiteRush
+    (isAcademyStage
+      ? 'أدخل اسم ولي الأمر ورقم الواتساب لتأكيد حجز المستوى وتحديد الموعد.'
+      : isBiteRush
       ? 'سيب اسمك ورقمك الصح مرة واحدة عشان نثبت الطلب ونوصله من أول محاولة.'
       : isMarketCheckout
         ? 'اكتب بياناتك الأساسية مرة واحدة وسنجهز الطلب بخطوات واضحة من غير لف كثير.'
@@ -306,14 +312,18 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
         ? 'اكتب الاسم والموبايل الصحيحين لتأكيد الموديل وموعد التوصيل أو أي مراجعة قبل الشحن.'
       : 'اكتب بيانات التواصل الرئيسية حتى نقدر نؤكد الطلب ونتابع التوصيل.');
 
-  const shippingTitle = settings?.shippingTitle || 'عنوان الشحن';
+  const shippingTitle =
+    settings?.shippingTitle ||
+    (isAcademyStage ? 'بيانات الطالب ونظام الحضور' : 'عنوان الشحن');
   const configuredShippingDescription =
     typeof settings?.shippingDescription === 'string'
       ? settings.shippingDescription
       : undefined;
   const shippingDescription =
     configuredShippingDescription ??
-    (isBiteRush
+    (isAcademyStage
+      ? 'اكتب اسم الطالب وعمره وحدد ما إذا كنت تفضل الحضور بالفرع أم أونلاين.'
+      : isBiteRush
       ? 'العنوان الدقيق يسرّع المندوب ويقلل أي مكالمة إضافية قبل الوصول.'
       : isMarketCheckout
         ? 'العنوان الواضح يسهّل تثبيت الشحن من أول مرة ويقلل أي تأخير قبل التسليم.'
@@ -323,10 +333,14 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
         ? 'العنوان الدقيق يقلل المكالمات ويُسرّع تسليم الأجهزة والإكسسوارات بأمان.'
       : 'هذه البيانات تساعدنا في تحديد المحافظة وحساب تكلفة الشحن بشكل أدق.');
 
-  const notesTitle = settings?.notesTitle || 'ملاحظات على الطلب';
+  const notesTitle =
+    settings?.notesTitle ||
+    (isAcademyStage ? 'ملاحظات المواعيد أو مستوى الطالب' : 'ملاحظات على الطلب');
   const notesDescription =
     settings?.notesDescription ||
-    (isBiteRush
+    (isAcademyStage
+      ? 'اذكر إذا كان للطالب تجربة سابقة مع Scratch أو Python أو الوقت الأنسب للحصة.'
+      : isBiteRush
       ? 'اكتب الدور أو علامة مميزة أو أي طلب خاص عشان الطلب يوصلك مضبوط.'
       : isMarketCheckout
         ? 'اكتب أي علامة مميزة أو وقت مناسب للتواصل أو ملاحظة تساعدنا نجهز الطلب أسرع.'
@@ -337,22 +351,31 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
       : 'يمكنك إضافة أي ملاحظات خاصة بالتوصيل أو تفاصيل إضافية عن الطلب.');
 
   const notesOptionalLabel = settings?.notesOptionalLabel || '(اختياري)';
-  const fullNameLabel = settings?.fullNameLabel || 'الاسم الكامل';
-  const fullNamePlaceholder = settings?.fullNamePlaceholder || 'مثال: سارة أحمد';
+  const fullNameLabel =
+    settings?.fullNameLabel || (isAcademyStage ? 'اسم ولي الأمر' : 'الاسم الكامل');
+  const fullNamePlaceholder =
+    settings?.fullNamePlaceholder || (isAcademyStage ? 'مثال: م. أحمد محمود' : 'مثال: سارة أحمد');
   const emailLabel = settings?.emailLabel || 'البريد الإلكتروني';
   const emailPlaceholder = settings?.emailPlaceholder || 'name@example.com';
-  const phoneLabel = settings?.phoneLabel || 'رقم الهاتف';
+  const phoneLabel =
+    settings?.phoneLabel || (isAcademyStage ? 'رقم الواتساب' : 'رقم الهاتف');
   const phonePlaceholder = settings?.phonePlaceholder || '01xxxxxxxxx';
-  const addressLabel = settings?.addressLabel || 'العنوان بالتفصيل';
+  const addressLabel =
+    settings?.addressLabel ||
+    (isAcademyStage ? 'اسم الطالب وعمره + الفرع المفضل' : 'العنوان بالتفصيل');
   const addressPlaceholder =
-    settings?.addressPlaceholder || 'الشارع، المنطقة، ورقم العمارة';
-  const cityLabel = settings?.cityLabel || 'المدينة';
-  const cityPlaceholder = settings?.cityPlaceholder || 'مثال: مدينة نصر';
+    settings?.addressPlaceholder ||
+    (isAcademyStage ? 'مثال: آدم (11 سنة) — فرع فؤاد أو أونلاين' : 'الشارع، المنطقة، ورقم العمارة');
+  const cityLabel =
+    settings?.cityLabel || (isAcademyStage ? 'نظام الحضور / المنطقة' : 'المدينة');
+  const cityPlaceholder =
+    settings?.cityPlaceholder || (isAcademyStage ? 'فؤاد / جليم / أونلاين' : 'مثال: مدينة نصر');
   const governorateLabel = settings?.governorateLabel || 'المحافظة';
   const governoratePlaceholder =
     settings?.governoratePlaceholder || 'اختر المحافظة';
   const notesPlaceholder =
-    settings?.notesPlaceholder || 'أي ملاحظات خاصة بالتوصيل أو الطلب';
+    settings?.notesPlaceholder ||
+    (isAcademyStage ? 'ملاحظات حول الموعد المفضل أو خلفية الطالب' : 'أي ملاحظات خاصة بالتوصيل أو الطلب');
   const showNotesSection = parseBooleanSetting(
     settings?.showNotesSection,
     true,
@@ -378,7 +401,9 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
   const assuranceBadge = settings?.assuranceBadge || 'إتمام آمن';
   const assuranceTitle =
     settings?.assuranceTitle ||
-    (isCommandCheckout
+    (isAcademyStage
+      ? 'خطوات واضحة من تأكيد الحجز حتى انضمام الطالب للمجموعة.'
+      : isCommandCheckout
       ? '3 خطوات واضحة من البيانات حتى اعتماد الطلب.'
       : isMarketCheckout
         ? 'تجهيز واضح من البيانات حتى تثبيت الطلب.'
@@ -386,7 +411,13 @@ export const useCheckoutFormController = ({ section, settings }: CheckoutFormPro
           ? 'تدفق هادئ من البيانات حتى التأكيد النهائي.'
           : '');
   const assuranceItems = parseListSetting(settings?.assuranceItems, [
-    ...(isMarketCheckout
+    ...(isAcademyStage
+      ? [
+          'تأكيد بيانات ولي الأمر والطالب',
+          'تنسيق موعد الحضور بالفرع أو أونلاين',
+          'تقارير متابعة ومشروع تخرج في Demo Day',
+        ]
+      : isMarketCheckout
       ? [
           'مراجعة الاسم والرقم قبل التنفيذ',
           'تثبيت المحافظة والشحن بوضوح',

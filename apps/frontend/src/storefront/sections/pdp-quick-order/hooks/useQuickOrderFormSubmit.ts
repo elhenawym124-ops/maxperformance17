@@ -402,9 +402,15 @@ export const useQuickOrderFormSubmit = ({
             effectiveAlternatePhoneField.enabled && resolvedAlternatePhone
               ? resolvedAlternatePhone
               : undefined,
-          address: resolvedAddress,
-          city: resolvedGovernorate,
-          governorate: resolvedGovernorate,
+          address:
+            resolvedAddress ||
+            (!effectiveAddressField.enabled ? 'تسجيل أكاديمية — حضوري أو أونلاين' : ''),
+          city:
+            resolvedGovernorate ||
+            (!effectiveGovernorateField.enabled ? 'الإسكندرية / أونلاين' : ''),
+          governorate:
+            resolvedGovernorate ||
+            (!effectiveGovernorateField.enabled ? 'الإسكندرية / أونلاين' : ''),
           notes: buildQuickOrderNote({
             alternatePhone:
               effectiveAlternatePhoneField.enabled && resolvedAlternatePhone
