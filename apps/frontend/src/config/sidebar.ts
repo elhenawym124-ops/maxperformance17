@@ -1322,6 +1322,29 @@ export const getSidebarConfig = (
             hidden: user?.role === 'AFFILIATE' || isEducationOnlyCompany || (!isStoreActive() && !isAnyAppActive(['pos-pro', 'inventory-pro', 'cafe-restaurant-pro']))
         },
 
+        // 4️⃣.7 المخزون
+        {
+            id: 'inventory',
+            title: t('sidebar.inventorySection'),
+            icon: ClipboardList,
+            items: [
+                { to: '/inventory', icon: Archive, label: t('sidebar.inventory') },
+                { to: '/inventory/movements', icon: ArrowLeftRight, label: t('sidebar.stockMovements') },
+                { to: '/inventory/warehouses', icon: Building, label: t('sidebar.warehouses'), hidden: !isAnyAppActive(['inventory-pro', 'multi-warehouse-pro', 'store-pro']) },
+                { to: '/inventory/audits', icon: ClipboardList, label: t('sidebar.inventoryAudits') },
+                { to: '/inventory/reorder-points', icon: AlertTriangle, label: t('sidebar.reorderPoints') },
+                { to: '/inventory/analytics', icon: BarChart3, label: t('sidebar.orderAnalytics') },
+                { to: '/inventory/reports', icon: BarChart3, label: t('sidebar.inventoryReports') },
+                {
+                    to: '/inventory/studio',
+                    icon: Sparkles,
+                    label: isEn ? 'AI Inventory & Pricing Studio' : 'مركز المخزون والتسعير الذكي (AI Studio)',
+                },
+            ],
+            // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
+            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['inventory-pro', 'multi-warehouse-pro', ...STORE_APP_SLUGS])
+        },
+
         // 4️⃣.0 المدونة والـ SEO (Blog & Affiliate) — mens-grooming-pro compatible
         {
             id: 'blog',
@@ -1392,176 +1415,6 @@ export const getSidebarConfig = (
             ],
             // 🔒 متاح للمالك والأدمن فقط لتغيير تصميم المتجر
             hidden: user?.role === 'AFFILIATE' || isEducationOnlyCompany || (!isStoreActive() && !isAppActive('conversion-suite'))
-        },
-
-        // 4️⃣.2 العملاء
-        {
-            id: 'customers',
-            title: t('sidebar.customers'),
-            icon: Users,
-            items: [
-                { to: '/customers', icon: Users, label: t('sidebar.customers') },
-                { to: '/leads/follow-ups', icon: ListChecks, label: 'متابعات الليدز' },
-                { to: '/leads/pipeline', icon: Columns3, label: 'كانبان الليدز' },
-                { to: '/customers/segments', icon: Filter, label: isEn ? 'Customer Segments' : (t('sidebar.customerSegments') || 'شرائح وتصنيف العملاء') },
-                { to: '/customers/lists', icon: ListChecks, label: t('sidebar.customerLists') },
-                { to: '/customers/points-center', icon: Trophy, label: isEn ? 'Loyalty Members & Points' : (t('sidebar.customerPointsCenter') || 'أعضاء ونقاط الولاء') },
-                { to: '/customers/customer-notifications', icon: Bell, label: isEn ? 'Customer Notifications & Campaigns' : (t('sidebar.customerNotifications') || 'إشعارات وحملات العملاء') },
-                { to: '/customers/settings', icon: Settings2, label: isEn ? 'Loyalty & Discount Settings' : (t('sidebar.customerLoyaltySettings') || 'إعدادات الولاء والخصم') },
-                ...(user?.role === 'CUSTOMER' ? [{ to: '/wallet', icon: Wallet, label: t('sidebar.wallet') }] : []),
-            ],
-            // 🔒 إخفاء القسم للمسوقين أو إذا كان CRM غير مفعل
-            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['crm-basic', 'crm-lite'])
-        },
-
-        // 4️⃣.3 المشتريات
-        {
-            id: 'procurement',
-            title: t('sidebar.procurement'),
-            icon: ClipboardList,
-            items: [
-                { to: '/procurement/dashboard', icon: BarChart3, label: t('dashboard.title') },
-                { to: '/procurement/suppliers', icon: Users, label: t('sidebar.suppliers') },
-                { to: '/procurement/purchase-orders', icon: FileText, label: t('sidebar.purchaseOrders') },
-                { to: '/procurement/purchase-invoices', icon: ClipboardCheck, label: t('sidebar.purchaseInvoices') },
-                { to: '/procurement/supplier-payments', icon: Banknote, label: t('sidebar.supplierPayments') },
-                { to: '/procurement/reports', icon: FileBarChart, label: isEn ? 'Procurement Reports' : 'تقارير المشتريات' },
-                { to: '/procurement/settings', icon: Printer, label: isEn ? 'Invoice & Order Templates' : 'قوالب الفواتير والطباعة' },
-            ],
-            // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
-            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['procurement-pro', 'store-pro'])
-        },
-
-        // 4️⃣.34 الكافيه والمطعم
-        {
-            id: 'cafe',
-            title: isEn ? 'Cafe & Restaurant' : 'الكافيه والمطعم',
-            icon: Coffee,
-            items: [
-                { to: '/cafe/recipes', icon: FlaskConical, label: isEn ? 'Recipes (BOM)' : 'معايير الرسيبي' },
-                { to: '/cafe/audits', icon: ClipboardCheck, label: isEn ? 'Stock Audits' : 'جلسات الجرد' },
-                { to: '/cafe/modifiers', icon: Sliders, label: isEn ? 'Drink Modifiers' : 'خيارات المشروبات' },
-                { to: '/cafe/waste', icon: Trash2, label: isEn ? 'Operational Waste' : 'هدر وتالف البار' },
-                { to: '/pos', icon: CreditCard, label: isEn ? 'Cloud POS' : 'نقطة البيع POS' },
-            ],
-            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['cafe-restaurant-pro'])
-        },
-
-        // 4️⃣.35 الخزينة والنفقات ورأس المال
-        {
-            id: 'treasury-expenses',
-            title: isEn ? 'Treasury & Expenses' : 'الخزينة والنفقات ورأس المال',
-            icon: Landmark,
-            items: [
-                { to: '/treasury-expenses?tab=expenses', icon: Receipt, label: isEn ? 'Expenses & Outflows' : 'النفقات والمصروفات' },
-                { to: '/treasury-expenses?tab=treasury', icon: Landmark, label: isEn ? 'Treasury & Capital' : 'الخزنة ورأس المال' },
-            ],
-            hidden: user?.role === 'AFFILIATE'
-        },
-
-        // 4️⃣.4 البيع بالجملة
-        {
-            id: 'wholesale',
-            title: t('sidebar.wholesale'),
-            icon: Tag,
-            items: [
-                { to: '/wholesale/dashboard', icon: BarChart3, label: t('dashboard.title') },
-                { to: '/wholesale/price-lists', icon: FileText, label: t('sidebar.priceLists') },
-                { to: '/wholesale/customers', icon: Users, label: t('sidebar.wholesaleCustomers') },
-                { to: '/wholesale/statements', icon: ClipboardCheck, label: t('sidebar.customerStatements') },
-                { to: '/wholesale/debts', icon: AlertTriangle, label: t('sidebar.debtTracking') },
-            ],
-            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['wholesale-pro'])
-        },
-
-        // 4️⃣.5 الافليت والدروب شيبنج
-        {
-            id: 'affiliate',
-            title: t('sidebar.affiliateSection'),
-            icon: DollarSign,
-            hidden: !isAnyAppActive(['affiliate-pro', 'affiliate-program']),
-            items: [
-                ...(user?.role === 'OWNER' || user?.role === 'COMPANY_ADMIN' || user?.role === 'SUPER_ADMIN' ? [
-                    { to: '/affiliates/management', icon: Users, label: t('sidebar.affiliateManagement') },
-                    { to: '/affiliates/quick-actions', icon: Zap, label: t('sidebar.quickActions') },
-                    { to: '/merchants', icon: Store, label: t('sidebar.merchants') },
-                    { to: '/platform/commissions', icon: DollarSign, label: t('sidebar.commissions') },
-                    { to: '/affiliates/settings', icon: Cog, label: t('sidebar.affiliateSettings') },
-                    { to: '/affiliates/products/visibility', icon: Globe, label: t('sidebar.affiliateProductVisibility') },
-                    { to: '/company-affiliates', icon: Store, label: t('sidebar.relatedCompanies') },
-                ] : []),
-                ...(user?.role === 'AFFILIATE' ? [
-                    { to: '/affiliates/dashboard', icon: BarChart3, label: t('dashboard.title') },
-                    { to: '/affiliates/orders', icon: Archive, label: t('sidebar.myOrders') },
-                    { to: '/affiliates/orders/create', icon: SquarePen, label: t('sidebar.affiliateCreateOrder') },
-                    { to: '/affiliates/commission', icon: Banknote, label: t('sidebar.commissions') },
-                ] : [])
-            ]
-        },
-
-        // 4️⃣.6 أمازون أفليت (Amazon Associates)
-        {
-            id: 'amazon-affiliate',
-            title: t('sidebar.amazonAffiliateSection'),
-            icon: Globe,
-            hidden: !isAppActive('amazon-affiliate-pro'),
-            items: [
-                { to: '/amazon-affiliate/settings', icon: Cog, label: t('sidebar.amazonAffiliateSettings') },
-                { to: '/amazon-affiliate/import', icon: Download, label: t('sidebar.amazonAffiliateImport') },
-                { to: '/amazon-affiliate/products', icon: Package, label: t('sidebar.amazonAffiliateProducts') },
-            ]
-        },
-
-        // 4️⃣.6.5 أفق التجارة | OmniSeller
-        {
-            id: 'marketplace-hub',
-            title: t('sidebar.marketplaceHubSection', 'OmniSeller · أفق التجارة'),
-            icon: Store,
-            hidden: !isAppActive('marketplace-hub'),
-            items: [
-                { to: '/marketplace-hub', icon: LayoutDashboard, label: t('sidebar.marketplaceHubHome', 'نظرة عامة') },
-                { to: '/marketplace-hub/dashboard', icon: BarChart3, label: t('sidebar.marketplaceHubDashboard', 'تحليلات القنوات') },
-                { to: '/marketplace-hub/calculator', icon: Calculator, label: t('sidebar.marketplaceHubCalculator', 'حاسبة أرباح المنصات') },
-                { to: '/marketplace-hub/studio', icon: Sparkles, label: t('sidebar.marketplaceHubStudio', 'استوديو الصور والمحتوى AI') },
-                { to: '/marketplace-hub/qr-barcode', icon: ScanLine, label: t('sidebar.marketplaceHubQrBarcode', 'مولد QR والباركود') },
-                { to: '/marketplace-hub/opportunities', icon: TrendingUp, label: t('sidebar.marketplaceHubOpportunities', 'دليل فرص البيع') },
-                { to: '/marketplace-hub/market-ops', icon: Building2, label: t('sidebar.marketplaceHubMarketOps', 'الاستيراد والموردين') },
-                { to: '/marketplace-hub/channels', icon: PlugZap, label: t('sidebar.marketplaceHubChannels', 'ربط المنصات والكريدت') },
-            ]
-        },
-
-        // 4️⃣.7 برنامج شركاء المنصة (Platform Partner Program)
-        {
-            id: 'platform-partner',
-            title: t('sidebar.partnerProgram'),
-            icon: UserPlus,
-            items: [
-                { to: '/partner-dashboard', icon: Users, label: t('sidebar.partnerDashboard') },
-            ],
-            hidden: !isAppActive('partner-program'),
-        },
-
-        // 4️⃣.7 المخزون
-        {
-            id: 'inventory',
-            title: t('sidebar.inventorySection'),
-            icon: ClipboardList,
-            items: [
-                { to: '/inventory', icon: Archive, label: t('sidebar.inventory') },
-                { to: '/inventory/movements', icon: ArrowLeftRight, label: t('sidebar.stockMovements') },
-                { to: '/inventory/warehouses', icon: Building, label: t('sidebar.warehouses'), hidden: !isAnyAppActive(['inventory-pro', 'multi-warehouse-pro', 'store-pro']) },
-                { to: '/inventory/audits', icon: ClipboardList, label: t('sidebar.inventoryAudits') },
-                { to: '/inventory/reorder-points', icon: AlertTriangle, label: t('sidebar.reorderPoints') },
-                { to: '/inventory/analytics', icon: BarChart3, label: t('sidebar.orderAnalytics') },
-                { to: '/inventory/reports', icon: BarChart3, label: t('sidebar.inventoryReports') },
-                {
-                    to: '/inventory/studio',
-                    icon: Sparkles,
-                    label: isEn ? 'AI Inventory & Pricing Studio' : 'مركز المخزون والتسعير الذكي (AI Studio)',
-                },
-            ],
-            // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
-            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['inventory-pro', 'multi-warehouse-pro', ...STORE_APP_SLUGS])
         },
 
         // 4️⃣.9️⃣ إدارة الوكالة (Agency OS)
@@ -1899,6 +1752,153 @@ export const getSidebarConfig = (
                 { to: '/competitors/settings', icon: Settings, label: t('sidebar.competitorSettings') },
             ],
             hidden: user?.role === 'AFFILIATE' || !isAppActive('competitor-analysis')
+        },
+
+        // 4️⃣.2 العملاء
+        {
+            id: 'customers',
+            title: t('sidebar.customers'),
+            icon: Users,
+            items: [
+                { to: '/customers', icon: Users, label: t('sidebar.customers') },
+                { to: '/leads/follow-ups', icon: ListChecks, label: 'متابعات الليدز' },
+                { to: '/leads/pipeline', icon: Columns3, label: 'كانبان الليدز' },
+                { to: '/customers/segments', icon: Filter, label: isEn ? 'Customer Segments' : (t('sidebar.customerSegments') || 'شرائح وتصنيف العملاء') },
+                { to: '/customers/lists', icon: ListChecks, label: t('sidebar.customerLists') },
+                { to: '/customers/points-center', icon: Trophy, label: isEn ? 'Loyalty Members & Points' : (t('sidebar.customerPointsCenter') || 'أعضاء ونقاط الولاء') },
+                { to: '/customers/customer-notifications', icon: Bell, label: isEn ? 'Customer Notifications & Campaigns' : (t('sidebar.customerNotifications') || 'إشعارات وحملات العملاء') },
+                { to: '/customers/settings', icon: Settings2, label: isEn ? 'Loyalty & Discount Settings' : (t('sidebar.customerLoyaltySettings') || 'إعدادات الولاء والخصم') },
+                ...(user?.role === 'CUSTOMER' ? [{ to: '/wallet', icon: Wallet, label: t('sidebar.wallet') }] : []),
+            ],
+            // 🔒 إخفاء القسم للمسوقين أو إذا كان CRM غير مفعل
+            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['crm-basic', 'crm-lite'])
+        },
+
+        // 4️⃣.3 المشتريات
+        {
+            id: 'procurement',
+            title: t('sidebar.procurement'),
+            icon: ClipboardList,
+            items: [
+                { to: '/procurement/dashboard', icon: BarChart3, label: t('dashboard.title') },
+                { to: '/procurement/suppliers', icon: Users, label: t('sidebar.suppliers') },
+                { to: '/procurement/purchase-orders', icon: FileText, label: t('sidebar.purchaseOrders') },
+                { to: '/procurement/purchase-invoices', icon: ClipboardCheck, label: t('sidebar.purchaseInvoices') },
+                { to: '/procurement/supplier-payments', icon: Banknote, label: t('sidebar.supplierPayments') },
+                { to: '/procurement/reports', icon: FileBarChart, label: isEn ? 'Procurement Reports' : 'تقارير المشتريات' },
+                { to: '/procurement/settings', icon: Printer, label: isEn ? 'Invoice & Order Templates' : 'قوالب الفواتير والطباعة' },
+            ],
+            // 🔒 إخفاء القسم للمسوقين أو إذا كان غير مفعل
+            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['procurement-pro', 'store-pro'])
+        },
+
+        // 4️⃣.34 الكافيه والمطعم
+        {
+            id: 'cafe',
+            title: isEn ? 'Cafe & Restaurant' : 'الكافيه والمطعم',
+            icon: Coffee,
+            items: [
+                { to: '/cafe/recipes', icon: FlaskConical, label: isEn ? 'Recipes (BOM)' : 'معايير الرسيبي' },
+                { to: '/cafe/audits', icon: ClipboardCheck, label: isEn ? 'Stock Audits' : 'جلسات الجرد' },
+                { to: '/cafe/modifiers', icon: Sliders, label: isEn ? 'Drink Modifiers' : 'خيارات المشروبات' },
+                { to: '/cafe/waste', icon: Trash2, label: isEn ? 'Operational Waste' : 'هدر وتالف البار' },
+                { to: '/pos', icon: CreditCard, label: isEn ? 'Cloud POS' : 'نقطة البيع POS' },
+            ],
+            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['cafe-restaurant-pro'])
+        },
+
+        // 4️⃣.35 الخزينة والنفقات ورأس المال
+        {
+            id: 'treasury-expenses',
+            title: isEn ? 'Treasury & Expenses' : 'الخزينة والنفقات ورأس المال',
+            icon: Landmark,
+            items: [
+                { to: '/treasury-expenses?tab=expenses', icon: Receipt, label: isEn ? 'Expenses & Outflows' : 'النفقات والمصروفات' },
+                { to: '/treasury-expenses?tab=treasury', icon: Landmark, label: isEn ? 'Treasury & Capital' : 'الخزنة ورأس المال' },
+            ],
+            hidden: user?.role === 'AFFILIATE'
+        },
+
+        // 4️⃣.4 البيع بالجملة
+        {
+            id: 'wholesale',
+            title: t('sidebar.wholesale'),
+            icon: Tag,
+            items: [
+                { to: '/wholesale/dashboard', icon: BarChart3, label: t('dashboard.title') },
+                { to: '/wholesale/price-lists', icon: FileText, label: t('sidebar.priceLists') },
+                { to: '/wholesale/customers', icon: Users, label: t('sidebar.wholesaleCustomers') },
+                { to: '/wholesale/statements', icon: ClipboardCheck, label: t('sidebar.customerStatements') },
+                { to: '/wholesale/debts', icon: AlertTriangle, label: t('sidebar.debtTracking') },
+            ],
+            hidden: user?.role === 'AFFILIATE' || !isAnyAppActive(['wholesale-pro'])
+        },
+
+        // 4️⃣.5 الافليت والدروب شيبنج
+        {
+            id: 'affiliate',
+            title: t('sidebar.affiliateSection'),
+            icon: DollarSign,
+            hidden: !isAnyAppActive(['affiliate-pro', 'affiliate-program']),
+            items: [
+                ...(user?.role === 'OWNER' || user?.role === 'COMPANY_ADMIN' || user?.role === 'SUPER_ADMIN' ? [
+                    { to: '/affiliates/management', icon: Users, label: t('sidebar.affiliateManagement') },
+                    { to: '/affiliates/quick-actions', icon: Zap, label: t('sidebar.quickActions') },
+                    { to: '/merchants', icon: Store, label: t('sidebar.merchants') },
+                    { to: '/platform/commissions', icon: DollarSign, label: t('sidebar.commissions') },
+                    { to: '/affiliates/settings', icon: Cog, label: t('sidebar.affiliateSettings') },
+                    { to: '/affiliates/products/visibility', icon: Globe, label: t('sidebar.affiliateProductVisibility') },
+                    { to: '/company-affiliates', icon: Store, label: t('sidebar.relatedCompanies') },
+                ] : []),
+                ...(user?.role === 'AFFILIATE' ? [
+                    { to: '/affiliates/dashboard', icon: BarChart3, label: t('dashboard.title') },
+                    { to: '/affiliates/orders', icon: Archive, label: t('sidebar.myOrders') },
+                    { to: '/affiliates/orders/create', icon: SquarePen, label: t('sidebar.affiliateCreateOrder') },
+                    { to: '/affiliates/commission', icon: Banknote, label: t('sidebar.commissions') },
+                ] : [])
+            ]
+        },
+
+        // 4️⃣.6 أمازون أفليت (Amazon Associates)
+        {
+            id: 'amazon-affiliate',
+            title: t('sidebar.amazonAffiliateSection'),
+            icon: Globe,
+            hidden: !isAppActive('amazon-affiliate-pro'),
+            items: [
+                { to: '/amazon-affiliate/settings', icon: Cog, label: t('sidebar.amazonAffiliateSettings') },
+                { to: '/amazon-affiliate/import', icon: Download, label: t('sidebar.amazonAffiliateImport') },
+                { to: '/amazon-affiliate/products', icon: Package, label: t('sidebar.amazonAffiliateProducts') },
+            ]
+        },
+
+        // 4️⃣.6.5 أفق التجارة | OmniSeller
+        {
+            id: 'marketplace-hub',
+            title: t('sidebar.marketplaceHubSection', 'OmniSeller · أفق التجارة'),
+            icon: Store,
+            hidden: !isAppActive('marketplace-hub'),
+            items: [
+                { to: '/marketplace-hub', icon: LayoutDashboard, label: t('sidebar.marketplaceHubHome', 'نظرة عامة') },
+                { to: '/marketplace-hub/dashboard', icon: BarChart3, label: t('sidebar.marketplaceHubDashboard', 'تحليلات القنوات') },
+                { to: '/marketplace-hub/calculator', icon: Calculator, label: t('sidebar.marketplaceHubCalculator', 'حاسبة أرباح المنصات') },
+                { to: '/marketplace-hub/studio', icon: Sparkles, label: t('sidebar.marketplaceHubStudio', 'استوديو الصور والمحتوى AI') },
+                { to: '/marketplace-hub/qr-barcode', icon: ScanLine, label: t('sidebar.marketplaceHubQrBarcode', 'مولد QR والباركود') },
+                { to: '/marketplace-hub/opportunities', icon: TrendingUp, label: t('sidebar.marketplaceHubOpportunities', 'دليل فرص البيع') },
+                { to: '/marketplace-hub/market-ops', icon: Building2, label: t('sidebar.marketplaceHubMarketOps', 'الاستيراد والموردين') },
+                { to: '/marketplace-hub/channels', icon: PlugZap, label: t('sidebar.marketplaceHubChannels', 'ربط المنصات والكريدت') },
+            ]
+        },
+
+        // 4️⃣.7 برنامج شركاء المنصة (Platform Partner Program)
+        {
+            id: 'platform-partner',
+            title: t('sidebar.partnerProgram'),
+            icon: UserPlus,
+            items: [
+                { to: '/partner-dashboard', icon: Users, label: t('sidebar.partnerDashboard') },
+            ],
+            hidden: !isAppActive('partner-program'),
         },
 
         // 6️⃣ حسابي (للموظف)
