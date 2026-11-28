@@ -81,6 +81,11 @@ const getAllOrders = async (req, res) => {
       }
     }
 
+    if (req.query.needsAddressDetails === 'true') {
+      where.metadata = { contains: '"needs_details"' };
+      guestWhere.metadata = { contains: '"needs_details"' };
+    }
+
     // "Fetch Top N" Strategy:
     // To properly merge and slice across both tables, fetch top records from both
     const fetchLimit = Math.max(limit, (page * limit) + limit);
@@ -563,7 +568,17 @@ const getOneOrder = async (req, res) => {
       include: {
         customer: true,
         orderItems: { include: { product: true } },
-        statusHistory: true
+        statusHistory: true,
+        shippingCompany: { select: { id: true, name: true, providerKey: true } },
+        courier: { select: { id: true, name: true, phone: true } },
+        shipments: {
+          orderBy: { createdAt: 'desc' },
+          take: 3,
+          include: {
+            shippingCompany: { select: { id: true, name: true, providerKey: true } },
+            courier: { select: { id: true, name: true, phone: true } },
+          },
+        },
       }
     });
 

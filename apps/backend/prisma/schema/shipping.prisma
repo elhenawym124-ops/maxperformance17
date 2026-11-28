@@ -14,6 +14,7 @@ model ShippingCompany {
   companyId       String
   company         Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
   shipments       Shipment[]
+  orders          Order[]    @relation("OrderShippingCompany")
   returnTypes     ReturnType[]
   returnRequests  ReturnRequest[]
   createdAt       DateTime   @default(now())

@@ -272,7 +272,32 @@ const createTurboShipment = async (shipment, options = {}) => {
   }
 
   const turboService = new TurboService(turboApiKey || null, shipment.companyId);
-  return turboService.createShipment(buildTurboOrderPayload(shipment));
+  const orderData = buildTurboOrderPayload(shipment);
+  if (shipment.order) {
+    try {
+      const { resolveAndApplyTurboLocation } = require('./turbo/turboAiAreaResolver');
+      await resolveAndApplyTurboLocation({
+        prisma: getSharedPrismaClient(),
+        turboService,
+        companyId: shipment.companyId,
+        order: shipment.order,
+        orderData,
+      });
+    } catch (aiErr) {
+      console.warn('⚠️ [SHIPPING-PROVIDER] Turbo AI area resolution skipped:', aiErr?.message);
+    }
+  }
+  const { validateOrderForTurbo } = require('../utils/turbo/shipmentValidator');
+  const validation = validateOrderForTurbo(shipment.order || {}, orderData);
+  if (!validation.isValid) {
+    return {
+      success: false,
+      skipped: true,
+      reason: `VALIDATION_FAILED: ${validation.missingFields.join('، ')}`,
+      missingFields: validation.missingFields,
+    };
+  }
+  return turboService.createShipment(orderData);
 };
 
 const loadShipment = (prisma, shipmentOrId) => {
@@ -603,10 +628,14 @@ const createProviderShipment = async (prisma, shipmentOrId, options = {}) => {
     }
 
     const HashtagService = require('./hashtagService');
+    const { decryptHashtagSettings } = require('./hashtag/hashtagCredentials');
+    const hashtagSettings = decryptHashtagSettings(settings);
     const hashtagService = new HashtagService({
-      apiName: settings.apiName || settings.apiKey || settings.username || shippingCompany.apiKey,
-      apiPassword: settings.apiPassword || settings.password,
-      apiUrl: shippingCompany.apiUrl || settings.apiUrl,
+      apiName: hashtagSettings.apiName || hashtagSettings.apiKey || hashtagSettings.username || shippingCompany.apiKey,
+      apiPassword: hashtagSettings.apiPassword || hashtagSettings.password,
+      apiUrl: shippingCompany.apiUrl || hashtagSettings.apiUrl,
+      createPath: hashtagSettings.createPath,
+      trackPath: hashtagSettings.trackPath,
     }, shipment.companyId);
 
     const formattedOrder = hashtagService.formatOrderForHashtag(
@@ -767,6 +796,113 @@ function getTicketAdapter({ providerKey, integrationMode, credentials } = {}) {
   return TICKET_PROVIDERS.MANUAL;
 }
 
+const NON_TURBO_INVALID_ORDER_STATUSES = new Set([
+  'EXCHANGED', 'CANCELLED', 'DUPLICATE_ORDER', 'RETURNED', 'REFUNDED', 'TRASH', 'LOST',
+]);
+
+/**
+ * Auto-create shipments for any active non-Turbo integrated carrier (BOSTA, QP_EXPRESS,
+ * HASHTAG, LG_EXPRESS, MAXP_NETWORK, or *_DEMO) configured with autoCreateShipments + matching stage.
+ */
+const autoCreateNonTurboShipmentsForOrder = async (prisma, orderOrId, companyId, options = {}) => {
+  if (!prisma || !companyId || !options.stage) {
+    return { skipped: true, reason: 'MISSING_ARGS' };
+  }
+  if (!prisma.shippingCompany?.findMany || !prisma.shipment?.findFirst) {
+    return { skipped: true, reason: 'PRISMA_MODELS_UNAVAILABLE' };
+  }
+
+  const orderId = typeof orderOrId === 'string' ? orderOrId : orderOrId?.id;
+  if (!orderId) return { skipped: true, reason: 'MISSING_ORDER_ID' };
+
+  const activeCarriers = await prisma.shippingCompany.findMany({
+    where: {
+      companyId,
+      isActive: true,
+      providerKey: { not: PROVIDER_KEYS.TURBO },
+      integrationMode: { not: 'MANUAL' },
+    },
+  }).catch(() => []);
+
+  const eligibleCarriers = (activeCarriers || []).filter((carrier) => {
+    const pKey = normalizeProviderKey(carrier.providerKey, carrier);
+    if (pKey === PROVIDER_KEYS.TURBO || pKey === PROVIDER_KEYS.MANUAL) return false;
+    return shouldCreateShipmentNow(
+      {
+        settings: carrier.settings,
+        providerKey: pKey,
+        integrationMode: normalizeIntegrationMode(carrier.integrationMode, pKey),
+      },
+      options.stage,
+    );
+  });
+
+  if (eligibleCarriers.length === 0) {
+    return { skipped: true, reason: 'NO_ELIGIBLE_CARRIER' };
+  }
+
+  const { acquireDispatchLock, releaseDispatchLock } = require('./shipping/shipmentDispatchLock');
+  const lock = await acquireDispatchLock([`provider:${companyId}:${orderId}`]);
+  if (!lock.acquired) {
+    return { skipped: true, reason: 'IN_FLIGHT' };
+  }
+
+  try {
+    const order = await prisma.order.findFirst({
+      where: { id: orderId, companyId },
+      include: { shipments: { select: { id: true, trackingNumber: true, externalShipmentId: true } } },
+    });
+    if (!order) return { skipped: false, reason: 'ORDER_NOT_FOUND' };
+
+    const statusUpper = String(order.status || '').toUpperCase();
+    if (NON_TURBO_INVALID_ORDER_STATUSES.has(statusUpper)) {
+      return { skipped: true, reason: 'INVALID_STATUS', status: statusUpper };
+    }
+
+    const orderMeta = safeJsonParse(order.metadata, {});
+    if (orderMeta.discountApprovalStatus === 'PENDING_APPROVAL') {
+      return { skipped: true, reason: 'DISCOUNT_APPROVAL_PENDING' };
+    }
+
+    const existingDispatched = (order.shipments || []).find(
+      (s) => s.trackingNumber || s.externalShipmentId,
+    );
+    if (existingDispatched) {
+      return { skipped: true, reason: 'ALREADY_HAS_SHIPMENT', trackingNumber: existingDispatched.trackingNumber };
+    }
+
+    const carrier = eligibleCarriers[0];
+    const pKey = normalizeProviderKey(carrier.providerKey, carrier);
+    let shipment = await prisma.shipment.findFirst({
+      where: { orderId: order.id, companyId },
+    });
+
+    if (!shipment) {
+      shipment = await prisma.shipment.create({
+        data: {
+          companyId,
+          orderId: order.id,
+          shippingCompanyId: carrier.id,
+          carrierType: pKey,
+          status: 'PENDING',
+          destinationGovernorate: order.governorate || null,
+          destinationCity: order.city || null,
+          destinationAddress: order.customerAddress || order.shippingAddress || null,
+          cost: order.shipping !== undefined && order.shipping !== null ? Number(order.shipping) : null,
+          currency: order.currency || 'EGP',
+        },
+      });
+    }
+
+    return await createProviderShipment(prisma, shipment.id, {
+      allowLiveCreate: true,
+      force: Boolean(options.force),
+    });
+  } finally {
+    await releaseDispatchLock(lock);
+  }
+};
+
 module.exports = {
   PROVIDER_KEYS,
   SHIPMENT_CREATE_TRIGGERS,
@@ -777,6 +913,7 @@ module.exports = {
   normalizeSettings,
   shouldCreateShipmentNow,
   createProviderShipment,
+  autoCreateNonTurboShipmentsForOrder,
   ensureDemoShippingCompanies,
   getTicketAdapter,
   safeJsonParse,

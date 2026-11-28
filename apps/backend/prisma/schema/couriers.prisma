@@ -28,6 +28,7 @@ model Courier {
 
   company          Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   shipments        Shipment[]
+  orders           Order[]       @relation("OrderCourier")
   deliveryRuns     DeliveryRun[]
   commissions      CourierCommission[]
   documents        CourierDocument[]
