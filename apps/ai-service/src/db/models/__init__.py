@@ -18,6 +18,7 @@ from src.db.models.skill import Skill
 from src.db.models.task import AiAgentRun, AiAgentTask
 from src.db.models.thread import Thread
 from src.db.models.tool_call import ToolCall
+from src.db.models.usage import AiUsageEvent
 
 __all__ = [
     "FAQ",
@@ -33,6 +34,7 @@ __all__ = [
     "AiKey",
     "AiModelConfig",
     "AiSetting",
+    "AiUsageEvent",
     "Approval",
     "Base",
     "Checkpoint",

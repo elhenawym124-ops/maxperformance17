@@ -9,6 +9,10 @@ from sqlalchemy import text
 
 from src.tools.repositories.base import BaseRepository
 
+# Employee has no emergency-leave balance column; Egyptian Labour Law caps
+# casual/emergency leave at 6 days per year, so that is the entitlement.
+EMERGENCY_LEAVE_DEFAULT_DAYS = 6
+
 
 class HrRepository(BaseRepository):
     async def get_employee(
@@ -154,7 +158,9 @@ class HrRepository(BaseRepository):
             "sick_balance": max(0, sick_total - sick_taken),
             "sick_total": sick_total,
             "sick_taken": sick_taken,
+            "emergency_total": EMERGENCY_LEAVE_DEFAULT_DAYS,
             "emergency_taken": emergency_taken,
+            "emergency_remaining": max(0, EMERGENCY_LEAVE_DEFAULT_DAYS - emergency_taken),
         }
 
     async def create_leave_request(

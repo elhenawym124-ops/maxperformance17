@@ -52,6 +52,10 @@ OPENAI_COMPAT_PROVIDERS: dict[str, str] = {
     "GITHUB": "https://models.github.ai/inference",
     "SAMBANOVA": "https://api.sambanova.ai/v1",
     "MISTRAL": "https://api.mistral.ai/v1",
+    # OpenCode Console (OpenAI-compatible). The runtime smoke/health path uses
+    # src.llm.opencode with an env/vault key; this entry keeps raw-key testing
+    # and any explicit LLMClient(provider="OPENCODE") caller working.
+    "OPENCODE": "https://opencode.ai/inference/openai/v1",
 }
 
 
