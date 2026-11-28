@@ -57,7 +57,7 @@ async function main() {
   await closeSharedDatabase();
 }
 
-main().catch((err) => {
+main().then(() => process.exit(0)).catch((err) => {
   console.error(`❌ [delete:${SLUG}] Error:`, err);
   process.exit(1);
 });
