@@ -905,6 +905,23 @@ router.post('/kashier/webhook', async (req, res) => {
       isSuccess: isSuccess || isRefunded,
     });
 
+    // 🚚 توليد كود الشحن تلقائياً إذا تمت ترقية الطلب إلى CONFIRMED بعد نجاح الدفع الإلكتروني
+    if (isSuccess && updateData.status === 'CONFIRMED' && order?.id && order?.companyId) {
+      setImmediate(async () => {
+        try {
+          if (isGuest) {
+            await orderService.autoCreateTurboShipmentForGuestOrder(order.id, order.companyId, { stage: 'ON_CONFIRM' });
+          } else {
+            await orderService.autoCreateTurboShipmentForOrder(order.id, order.companyId, { stage: 'ON_CONFIRM' });
+            const { autoCreateNonTurboShipmentsForOrder } = require('../services/shippingProviderService');
+            await autoCreateNonTurboShipmentsForOrder(prisma, order.id, order.companyId, { stage: 'ON_CONFIRM' }).catch(() => {});
+          }
+        } catch (shipErr) {
+          console.warn('[KASHIER-WEBHOOK] Auto-shipment on payment confirmation failed:', shipErr.message);
+        }
+      });
+    }
+
     // 🎓 أكاديمية: تسجيل تلقائي فوري بعد إتمام السداد الإلكتروني عبر كاشير
     if (isSuccess) {
       try {

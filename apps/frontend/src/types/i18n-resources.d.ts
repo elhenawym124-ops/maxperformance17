@@ -18693,6 +18693,7 @@ declare module 'react-i18next' {
         educationSubjects: string;
         educationPackages: string;
         educationGroups: string;
+        educationRoomsLive: string;
         educationStudents: string;
         educationTeachers: string;
         educationEnrollments: string;

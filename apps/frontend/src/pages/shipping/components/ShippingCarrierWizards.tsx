@@ -225,11 +225,15 @@ export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "set
             ربط مباشر حقيقي (LIVE)
           </span>
         </div>
-        {(formData.apiName || formData.username) && (
+        {(formData.apiName || formData.username) ? (
           <span className="text-xs font-mono font-bold text-success dark:text-success bg-success dark:bg-success/60 px-2.5 py-0.5 rounded-md">
             الحساب: #{formData.apiName || formData.username}
           </span>
-        )}
+        ) : editingCompany?.hasApiCredentials ? (
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/10 text-success font-bold">
+            بيانات الاعتماد محفوظة مشفرة
+          </span>
+        ) : null}
       </div>
 
       <p className="text-xs text-success dark:text-success/90 leading-relaxed">
@@ -244,13 +248,17 @@ export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "set
         </label>
         <input
           type="text"
-          required
+          required={!editingCompany?.hasApiCredentials}
           value={formData.apiName || formData.username}
           onChange={(e) => {
             const val = e.target.value;
             setFormData((prev) => ({ ...prev, apiName: val, username: val, apiKey: val }));
           }}
-          placeholder="مثال: 429010599"
+          placeholder={
+            editingCompany?.hasApiCredentials
+              ? "•••••••• (محفوظ مشفر — اتركه فارغاً للإبقاء على الحالي)"
+              : "مثال: 429010599"
+          }
           className="w-full px-3 py-2 text-xs sm:text-sm border border-border rounded-lg bg-white dark:bg-muted text-foreground font-mono focus:ring-2 focus:ring-success"
         />
         <p className="text-[11px] text-muted-foreground mt-0.5">كود أو اسم الـ API المعطى لك من هاشتاج</p>
@@ -262,7 +270,7 @@ export const HashtagWizard: React.FC<Pick<CarrierWizardsProps, "formData" | "set
         </label>
         <input
           type="password"
-          required={!editingCompany || (!formData.apiPassword && !formData.password)}
+          required={!editingCompany || !editingCompany.hasApiCredentials}
           value={formData.apiPassword || formData.password}
           onChange={(e) => {
             const val = e.target.value;

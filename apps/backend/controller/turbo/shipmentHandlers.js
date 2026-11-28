@@ -224,7 +224,7 @@ const createShipment = async (req, res) => {
 const bulkCreateShipments = async (req, res) => {
   try {
     const { orderIds } = req.body;
-    const companyId = req.user?.companyId || req.companyId || req.headers?.['x-company-id'];
+    const companyId = req.user?.companyId || req.companyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'معرف الشركة مطلوب' });
     if (!orderIds || !Array.isArray(orderIds) || orderIds.length === 0) return res.status(400).json({ success: false, error: 'يرجى تحديد طلب واحد على الأقل لإرساله لتربو' });
     const prisma = getSharedPrismaClient();
@@ -297,8 +297,18 @@ const bulkCreateShipments = async (req, res) => {
     const results = { success: [], failed: [], skipped: [] };
     const processedPhonesInBatch = new Set();
 
-    // 1. Process regular orders
-    for (const order of regularOrders) {
+    const runWithConcurrency = async (items, limit, worker) => {
+      let idx = 0;
+      const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+        while (idx < items.length) {
+          const current = items[idx++];
+          await worker(current);
+        }
+      });
+      await Promise.all(workers);
+    };
+
+    const processRegularOrder = async (order) => {
       try {
         if (order.turboShipmentId) {
           results.skipped.push({ orderNumber: order.orderNumber, reason: 'يوجد شحنة تربو مسجلة بالفعل' });

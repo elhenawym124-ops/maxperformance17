@@ -1278,7 +1278,7 @@ router.patch('/:id/status', async (req, res) => {
           where: { companyId, providerKey: 'TURBO', isActive: true },
           select: { settings: true }
         });
-        const { shouldCreateShipmentNow } = require('../services/shippingProviderService');
+        const { shouldCreateShipmentNow, autoCreateNonTurboShipmentsForOrder } = require('../services/shippingProviderService');
         const targetStage = readyStatusCodes.includes(upperStatus) ? 'ON_READY' : 'ON_CONFIRM';
 
         if (shouldCreateShipmentNow(carrier?.settings, targetStage)) {
@@ -1287,6 +1287,7 @@ router.patch('/:id/status', async (req, res) => {
             console.warn(`⚠️ [TURBO-AUTO] enhancedOrders route error:`, turboErr.message);
           });
         }
+        autoCreateNonTurboShipmentsForOrder(enhancedOrderService.getPrisma(), updatedOrder.id, companyId, { stage: targetStage }).catch(() => {});
       } catch (err) {}
     }
 

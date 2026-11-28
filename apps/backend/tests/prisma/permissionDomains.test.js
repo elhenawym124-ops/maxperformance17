@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { validatePermissionDomains } = require('../../prisma/seeds/validatePermissionDomains');
 
 describe('Permission Domains Validation (PERM-1 Regression Test)', () => {
   const prismaSchemaPath = path.resolve(__dirname, '../../prisma/schema/permissions.prisma');
@@ -42,5 +43,10 @@ describe('Permission Domains Validation (PERM-1 Regression Test)', () => {
     }
 
     expect(missingDomains).toEqual([]);
+  });
+
+  test('runtime preflight rejects an injected fake domain and names it', () => {
+    expect(() => validatePermissionDomains([{ key: 'fake.key', domain: 'FAKE_DOMAIN' }]))
+      .toThrow(/FAKE_DOMAIN/);
   });
 });

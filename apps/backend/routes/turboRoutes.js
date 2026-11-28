@@ -45,15 +45,10 @@ const safeImageUpload = (req, res, next) => {
 };
 
 /**
- * Public Routes (No Authentication Required)
- * المسارات العامة (لا تتطلب مصادقة)
- */
-
-/**
  * GET /api/turbo/orders/:orderId/waybill
- * طباعة بوليصة الشحنة - عام بدون مصادقة
+ * طباعة بوليصة الشحنة - تتطلب مصادقة ومطابقة الشركة
  */
-router.get('/orders/:orderId/waybill', turboController.printWaybill);
+router.get('/orders/:orderId/waybill', verifyToken.authenticateToken, checkAppAccess('order-shipping-turbo'), turboController.printWaybill);
 
 // جميع المسارات التالية تتطلب المصادقة
 

@@ -3012,7 +3012,7 @@ router.post('/', async (req, res) => {
 
           // 🚚 Turbo Auto-Create shipment if trigger is ON_ORDER
           try {
-            const { shouldCreateShipmentNow } = require('../services/shippingProviderService');
+            const { shouldCreateShipmentNow, autoCreateNonTurboShipmentsForOrder } = require('../services/shippingProviderService');
             const turboCarrier = await prisma.shippingCompany.findFirst({
               where: { companyId: company.id, providerKey: 'TURBO', isActive: true },
               select: { settings: true, providerKey: true, integrationMode: true }
@@ -3023,6 +3023,7 @@ router.post('/', async (req, res) => {
                 console.warn('⚠️ [TURBO-AUTO-STOREFRONT] Failed to auto-create shipment on order creation:', turboErr.message);
               });
             }
+            autoCreateNonTurboShipmentsForOrder(prisma, createdOrder.id, company.id, { stage: 'ON_ORDER' }).catch(() => {});
           } catch (carrierErr) {
             console.warn('⚠️ [TURBO-AUTO-STOREFRONT] Carrier check error:', carrierErr.message);
           }

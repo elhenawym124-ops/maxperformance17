@@ -33,12 +33,14 @@ const printLabel = async (req, res) => {
 const printWaybill = async (req, res) => {
   try {
     const { orderId } = req.params;
+    const companyId = req.user?.companyId;
+    if (!companyId) return res.status(403).json({ success: false, error: 'Company ID is required' });
     const prisma = getSharedPrismaClient();
     let order = null;
     if (String(orderId).startsWith('ORD-')) {
-      order = await safeQuery(() => prisma.order.findFirst({ where: { orderNumber: orderId }, include: { company: { select: { id: true, turboApiKey: true, turboEnabled: true } }, customer: true, orderItems: { include: { product: true, productVariant: true } } } }), 3);
+      order = await safeQuery(() => prisma.order.findFirst({ where: { orderNumber: orderId, companyId }, include: { company: { select: { id: true, turboApiKey: true, turboEnabled: true } }, customer: true, orderItems: { include: { product: true, productVariant: true } } } }), 3);
       if (!order) {
-        const guestOrder = await safeQuery(() => prisma.guestOrder.findFirst({ where: { orderNumber: orderId } }), 3);
+        const guestOrder = await safeQuery(() => prisma.guestOrder.findFirst({ where: { orderNumber: orderId, companyId } }), 3);
         if (guestOrder) {
           let items = guestOrder.items || [];
           if (typeof items === 'string') { try { items = JSON.parse(items); } catch (e) { items = []; } }
@@ -51,6 +53,7 @@ const printWaybill = async (req, res) => {
       order = await safeQuery(() => prisma.order.findUnique({ where: { id: orderId }, include: { company: { select: { id: true, turboApiKey: true, turboEnabled: true } }, customer: true, orderItems: { include: { product: true, productVariant: true } } } }), 3);
     }
     if (!order) return res.status(404).json({ success: false, error: 'Order not found', searchedValue: orderId });
+    if (order.companyId !== companyId) return res.status(403).json({ success: false, error: 'Unauthorized access to this order' });
     const turboService = new TurboService(order.company?.turboApiKey || null, order.companyId);
     const orderData = turboService.formatOrderForTurbo(order, order.customer, order.orderItems || order.items || []);
     const shipmentId = order.turboShipmentId || order.turboTrackingNumber || order.orderNumber;

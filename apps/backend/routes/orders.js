@@ -1437,15 +1437,17 @@ const updateAnyOrderStatus = async ({
         });
       });
 
-      // 🚚 Auto-Create Turbo shipment when transitioning to READY_TO_SHIP if Turbo is configured
+      // 🚚 Auto-Create shipment when transitioning to READY_TO_SHIP according to company settings
       const readyStatusCodes = ['READY', 'READY_TO_SHIP', 'READY_FOR_SHIPPING'];
       if (readyStatusCodes.includes(normalizedStatus) && !order.turboTrackingNumber && !order.turboShipmentId) {
         setImmediate(async () => {
           try {
             const orderService = require('../services/orderService');
-            await orderService.autoCreateTurboShipmentForOrder(order.id, companyId, { stage: 'ON_READY', force: true }).catch(err => {
+            await orderService.autoCreateTurboShipmentForOrder(order.id, companyId, { stage: 'ON_READY' }).catch(err => {
               console.warn(`[BULK-STATUS-TURBO] Turbo create failed for ${order.id}:`, err.message);
             });
+            const { autoCreateNonTurboShipmentsForOrder } = require('../services/shippingProviderService');
+            await autoCreateNonTurboShipmentsForOrder(getSharedPrismaClient(), order.id, companyId, { stage: 'ON_READY' }).catch(() => {});
           } catch (err) {
             console.warn('[BULK-STATUS-TURBO] Error:', err.message);
           }
@@ -1552,6 +1554,21 @@ const updateAnyOrderStatus = async ({
           status: normalizedStatus
         });
       });
+
+      // 🚚 Auto-Create Turbo shipment for guest order when transitioning to READY_TO_SHIP
+      const readyStatusCodesGuest = ['READY', 'READY_TO_SHIP', 'READY_FOR_SHIPPING'];
+      if (readyStatusCodesGuest.includes(normalizedStatus) && !updatedGuestOrder.turboTrackingNumber && !updatedGuestOrder.turboShipmentId) {
+        setImmediate(async () => {
+          try {
+            const orderService = require('../services/orderService');
+            await orderService.autoCreateTurboShipmentForGuestOrder(updatedGuestOrder.id, companyId, { stage: 'ON_READY' }).catch(err => {
+              console.warn(`[BULK-STATUS-TURBO-GUEST] Turbo create failed for ${updatedGuestOrder.id}:`, err.message);
+            });
+          } catch (err) {
+            console.warn('[BULK-STATUS-TURBO-GUEST] Error:', err.message);
+          }
+        });
+      }
 
       return { orderType: 'guest', order: updatedGuestOrder };
     }
@@ -6145,13 +6162,14 @@ router.post('/simple/:orderNumber/status', verifyToken.authenticateToken, requir
                 where: { companyId, providerKey: 'TURBO', isActive: true },
                 select: { settings: true }
               });
-              const { shouldCreateShipmentNow } = require('../services/shippingProviderService');
+              const { shouldCreateShipmentNow, autoCreateNonTurboShipmentsForOrder } = require('../services/shippingProviderService');
               if (shouldCreateShipmentNow(carrier?.settings, targetStage)) {
                 const orderService = require('../services/orderService');
                 orderService.autoCreateTurboShipmentForOrder(order.id, companyId, { stage: targetStage }).catch(err => {
                   console.warn(`[SIMPLE-STATUS-PREP] Turbo auto-create failed for ${order.id}:`, err.message);
                 });
               }
+              await autoCreateNonTurboShipmentsForOrder(getSharedPrismaClient(), order.id, companyId, { stage: targetStage }).catch(() => {});
             }
           } catch (prepTurboErr) {
             console.warn('[SIMPLE-STATUS-PREP] Turbo auto-create require failed:', prepTurboErr.message);
