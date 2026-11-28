@@ -264,7 +264,7 @@ const getConversations = async (req, res) => {
                     channel: where.channel,
                     search: search.trim(),
                     days: parseInt(searchDays, 10) || 180,
-                    limit: SEARCH_MAX_CONVERSATIONS,
+                    limit: 5000,
                 });
             } catch (contentSearchErr) {
                 // A failed content search must never look like "no results".
