@@ -206,6 +206,7 @@ export function useOrdersFetchOperations({
         if (filters.endDate) queryParams.endDate = filters.endDate;
         if (filters.onlyUnseen) queryParams.onlyUnseen = "true";
         if (filters.onlyPostPurchaseOffer) queryParams.onlyPostPurchaseOffer = "true";
+        if (filters.needsAddressDetails) queryParams.needsAddressDetails = "true";
 
         const response = await apiClient.get("/orders-new/simple", {
           params: queryParams,

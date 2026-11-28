@@ -463,4 +463,43 @@ describe('turboAiAreaResolver', () => {
     expect(result.resolved).toBe(false);
     expect(result.reason).toBe('AI_AREA_NOT_IN_TURBO_MAP');
   });
+
+  test('passes customer GPS location hint into AI prompt when coordinates/label exist on order metadata', async () => {
+    const turboService = createMockTurboService({
+      governments: [{ id: '3', name: 'الإسكندرية' }],
+      areasByGov: { '3': [{ id: '301', name: 'كفر عبده' }] },
+    });
+    const prisma = createMockPrisma();
+    callChatCompletion.mockResolvedValueOnce(
+      JSON.stringify({
+        area: 'كفر عبده',
+        governorate: 'الإسكندرية',
+        confidence: 0.92,
+        reason: 'Resolved using GPS hint',
+      })
+    );
+
+    const result = await resolveTurboLocation({
+      prisma,
+      turboService,
+      companyId: 'comp_1',
+      order: {
+        governorate: 'الإسكندرية',
+        city: 'Alexandria',
+        metadata: JSON.stringify({
+          customerLocation: { lat: 31.225, lng: 29.955, label: 'كفر عبده، الإسكندرية' },
+        }),
+      },
+      orderData: {
+        governorate: 'الإسكندرية',
+        city: 'Alexandria',
+        shippingAddress: 'شارع رقم 5',
+      },
+    });
+
+    expect(result.resolved).toBe(true);
+    expect(result.area).toBe('كفر عبده');
+    const promptArg = callChatCompletion.mock.calls[0][0].user;
+    expect(promptArg).toContain('كفر عبده، الإسكندرية');
+  });
 });

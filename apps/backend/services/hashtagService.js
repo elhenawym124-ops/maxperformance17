@@ -13,27 +13,51 @@ const {
   cleanShippingNotes,
   detectGovernorateFromText,
 } = require('../utils/shippingSanitizer');
+const {
+  decryptHashtagSettings,
+} = require('./hashtag/hashtagCredentials');
+const { mapHashtagStatus } = require('./hashtag/hashtagStatusMap');
+
+const DEFAULT_API_URL = 'https://hashtag-express.com/app';
+const DEFAULT_CREATE_PATH = '/orders.php';
+const DEFAULT_TRACK_PATH = '/track.php';
+const DEFAULT_TEST_PATH = '/orders.php';
+
+const trimSlash = (value) => String(value || '').replace(/\/+$/, '');
+
+const buildLogSuffix = (settings) =>
+  String(settings?.apiName || settings?.username || settings?.apiKey || '').trim().slice(0, 6) || 'unknown';
 
 class HashtagService {
   constructor(options = {}, companyId = null) {
     if (typeof options === 'string') {
       this.apiName = options;
       this.apiPassword = '';
-      this.apiUrl = 'https://hashtag-express.com/app';
+      this.apiUrl = trimSlash(process.env.HASHTAG_API_URL || DEFAULT_API_URL);
+      this.createPath = DEFAULT_CREATE_PATH;
+      this.trackPath = DEFAULT_TRACK_PATH;
+      this.testPath = DEFAULT_TEST_PATH;
     } else {
-      this.apiName = options.apiName || options.apiKey || options.username || '';
-      this.apiPassword = options.apiPassword || options.password || '';
-      this.apiUrl = (options.apiUrl || process.env.HASHTAG_API_URL || 'https://hashtag-express.com/app').replace(/\/+$/, '');
+      const opts = options || {};
+      this.apiName = opts.apiName || opts.apiKey || opts.username || '';
+      this.apiPassword = opts.apiPassword || opts.password || '';
+      this.apiUrl = trimSlash(opts.apiUrl || process.env.HASHTAG_API_URL || DEFAULT_API_URL);
+      this.createPath = opts.createPath || DEFAULT_CREATE_PATH;
+      this.trackPath = opts.trackPath || DEFAULT_TRACK_PATH;
+      this.testPath = opts.testPath || DEFAULT_TEST_PATH;
     }
     this.companyId = companyId;
     this.timeout = 25000;
+    this.logPrefix = 'unknown';
   }
 
   /**
-   * استرجاع بيانات الاعتماد الخاصة بشركة هاشتاج إكسبريس من قاعدة البيانات
+   * استرجاع بيانات الاعتماد المشفّرة الخاصة بشركة هاشتاج إكسبريس من قاعدة البيانات
+   * وفك تشفيرها في الذاكرة فقط قبل الاستخدام.
    */
   async ensureCredentials() {
     if (this.apiName && this.apiPassword) {
+      this.logPrefix = buildLogSuffix(this);
       return;
     }
 
@@ -46,13 +70,7 @@ class HashtagService {
       prisma.shippingCompany.findFirst({
         where: {
           companyId: this.companyId,
-          OR: [
-            { providerKey: 'HASHTAG' },
-            { slug: 'hashtag' },
-            { slug: 'hashtag-express' },
-            { name: { contains: 'هاشتاج', mode: 'insensitive' } },
-            { name: { contains: 'hashtag', mode: 'insensitive' } },
-          ],
+          providerKey: 'HASHTAG',
           isActive: true,
         },
       })
@@ -62,20 +80,17 @@ class HashtagService {
       throw new Error('لم يتم العثور على شركة شحن هاشتاج مفعلة في إعدادات المتجر.');
     }
 
-    let settings = {};
-    try {
-      settings = carrier.settings
-        ? (typeof carrier.settings === 'string' ? JSON.parse(carrier.settings) : carrier.settings)
-        : {};
-    } catch {
-      settings = {};
-    }
+    const settings = decryptHashtagSettings(carrier.settings);
 
     this.apiName = this.apiName || settings.apiName || settings.username || carrier.apiKey || '';
     this.apiPassword = this.apiPassword || settings.apiPassword || settings.password || '';
     if (carrier.apiUrl) {
-      this.apiUrl = carrier.apiUrl.replace(/\/+$/, '');
+      this.apiUrl = trimSlash(carrier.apiUrl);
     }
+    this.createPath = settings.createPath || this.createPath;
+    this.trackPath = settings.trackPath || this.trackPath;
+    this.testPath = settings.testPath || this.testPath;
+    this.logPrefix = buildLogSuffix(settings);
 
     if (!this.apiName || !this.apiPassword) {
       throw new Error('بيانات الربط (API NAME أو API PASSWORD) الخاصة بهاشتاج إكسبريس غير مكتملة.');
@@ -128,15 +143,46 @@ class HashtagService {
     };
   }
 
+  buildAuthPayload(extra = {}) {
+    return {
+      api_name: this.apiName,
+      api_password: this.apiPassword,
+      ...extra,
+    };
+  }
+
+  extractTrackingNumber(resData, fallback) {
+    if (!resData) return fallback;
+    return String(
+      resData.tracking_number ||
+      resData.trackingNumber ||
+      resData.awb ||
+      resData.barcode ||
+      resData.serial ||
+      resData.order_id ||
+      fallback,
+    );
+  }
+
+  extractProviderStatus(resData) {
+    if (!resData) return null;
+    return (
+      resData.status ||
+      resData.shipment_status ||
+      resData.order_status ||
+      resData.status_name ||
+      resData.state ||
+      null
+    );
+  }
+
   /**
    * إنشاء شحنة وتوليد بوليصة لدى هاشتاج إكسبريس
    */
   async createShipment(orderData) {
     await this.ensureCredentials();
 
-    const payload = {
-      api_name: this.apiName,
-      api_password: this.apiPassword,
+    const payload = this.buildAuthPayload({
       order_id: orderData.orderNumber || String(orderData.orderId),
       customer_name: orderData.recipientName,
       customer_phone: orderData.recipientPhone,
@@ -148,9 +194,10 @@ class HashtagService {
       pieces: orderData.pieces || 1,
       weight: orderData.weight || 1,
       notes: orderData.notes || '',
-    };
+    });
 
-    const targetUrl = `${this.apiUrl}/orders.php`;
+    const targetUrl = `${this.apiUrl}${this.createPath}`;
+    const startedAt = new Date().toISOString();
 
     try {
       const response = await axios.post(targetUrl, payload, {
@@ -164,23 +211,25 @@ class HashtagService {
 
       const resData = response.data;
       if (resData && (resData.success || resData.status === 'success' || resData.tracking_number || resData.order_id)) {
-        const trackingNumber = String(
-          resData.tracking_number ||
-          resData.trackingNumber ||
-          resData.awb ||
-          resData.serial ||
-          resData.order_id ||
-          orderData.orderNumber
-        );
+        const trackingNumber = this.extractTrackingNumber(resData, orderData.orderNumber);
+        const providerStatus = this.extractProviderStatus(resData);
+        const mapped = mapHashtagStatus(providerStatus);
 
         return {
           success: true,
+          providerKey: 'HASHTAG',
           status: 'CREATED',
+          providerStatus,
+          mapToSystem: mapped.mapsToSystem,
           externalShipmentId: String(resData.id || resData.order_id || trackingNumber),
           trackingNumber,
           labelUrl: resData.label_url || resData.pdf || `https://tracking.hashtag-express.com/?trackingNumber=${trackingNumber}`,
           serviceLevel: 'Hashtag Express Standard',
           cost: resData.cost ? Number(resData.cost) : null,
+          deliveredAt: resData.delivered_at || resData.delivery_date || null,
+          courierName: resData.courier_name || resData.delegate_name || resData.driver_name || null,
+          courierPhone: resData.courier_phone || resData.delegate_phone || resData.driver_phone || null,
+          requestedAt: startedAt,
           data: resData,
         };
       }
@@ -194,51 +243,70 @@ class HashtagService {
         ? respBody
         : (respBody?.message || respBody?.error || error.message);
 
-      console.error(`❌ [HASHTAG_EXPRESS] createShipment failed:`, errorText);
+      console.error(`❌ [HASHTAG_EXPRESS] createShipment failed at ${startedAt}:`, errorText);
       throw new Error(`خطأ في ربط هاشتاج إكسبريس: ${errorText}`);
     }
   }
 
   /**
-   * فحص الاتصال وصحة بيانات الاعتماد
+   * فحص الاتصال وصحة بيانات الاعتماد — طلب قراءة فقط (لا ينشئ بوليصة).
+   * كل محاولة تُسجّل بالوقت ورمز الاستجابة في لوج السيرفر.
    */
   async testConnection(customCredentials = {}) {
-    const apiName = customCredentials.apiName || customCredentials.apiKey || this.apiName;
+    const apiName = customCredentials.apiName || customCredentials.apiKey || customCredentials.username || this.apiName;
     const apiPassword = customCredentials.apiPassword || customCredentials.password || this.apiPassword;
-    const apiUrl = (customCredentials.apiUrl || this.apiUrl).replace(/\/+$/, '');
+    const apiUrl = trimSlash(customCredentials.apiUrl || this.apiUrl);
+    const testPath = customCredentials.testPath || this.testPath || DEFAULT_TEST_PATH;
 
     if (!apiName || !apiPassword) {
       throw new Error('يرجى إدخال اسم الـ API (API NAME) وكلمة المرور (API PASSWORD)');
     }
 
-    // Ping the orders endpoint with authentication verification
-    const testPayload = {
-      api_name: apiName,
-      api_password: apiPassword,
-      test: true,
-    };
+    const testedAt = new Date().toISOString();
+    const targetUrl = `${apiUrl}${testPath}`;
 
     try {
-      const response = await axios.post(`${apiUrl}/orders.php`, testPayload, {
+      const response = await axios.get(targetUrl, {
+        params: { api_name: apiName, api_password: apiPassword, test: 1 },
         headers: {
-          'Content-Type': 'application/json',
           Accept: 'application/json, text/plain, */*',
           'User-Agent': 'MaxP-ShippingPlatform/2.0',
         },
         timeout: 15000,
+        validateStatus: (status) => status >= 200 && status < 500,
       });
+
+      const raw = response.data;
+      const text = typeof raw === 'string' ? raw : JSON.stringify(raw);
+      const authFailure =
+        response.status >= 400 ||
+        /invalid|unauthorized|wrong password|خطأ|غير صحيح/i.test(text || '');
+
+      console.log(
+        `[HASHTAG] test-connection at ${testedAt} | url=${targetUrl} | account=${String(apiName).slice(0, 6)}… | http=${response.status} | ${authFailure ? 'AUTH_REJECTED' : 'AUTH_ACCEPTED'} | response=${String(text).slice(0, 300)}`,
+      );
+
+      if (authFailure) {
+        throw new Error(`رفض خادم هاشتاج بيانات الاعتماد (HTTP ${response.status}): ${String(text).slice(0, 200)}`);
+      }
 
       return {
         success: true,
+        status: 'CONNECTED',
+        httpStatus: response.status,
+        testedAt,
         message: 'تم التحقق من بيانات الاتصال بشركة هاشتاج إكسبريس بنجاح',
-        data: response.data,
+        data: raw,
       };
     } catch (error) {
       const errText = error.response?.data?.message || error.response?.data || error.message;
-      // If server responded with 200 or specific PHP notice but host is reachable
-      if (error.response?.status === 200 || error.code === 'ERR_BAD_RESPONSE') {
+      console.error(`[HASHTAG] test-connection FAILED at ${testedAt} | url=${targetUrl} | ${String(errText).slice(0, 300)}`);
+      if (error.response?.status === 200) {
         return {
           success: true,
+          status: 'CONNECTED',
+          httpStatus: 200,
+          testedAt,
           message: 'تم حفظ وتأكيد بيانات اعتماد هاشتاج إكسبريس بنجاح',
         };
       }
@@ -247,19 +315,67 @@ class HashtagService {
   }
 
   /**
-   * تتبع شحنة لدى هاشتاج إكسبريس
+   * استعلام حالة بوليصة من هاشتاج إكسبريس (قراءة فقط).
    */
   async trackShipment(trackingNumber) {
     if (!trackingNumber) {
       throw new Error('رقم التتبع مطلوب');
     }
+    await this.ensureCredentials();
 
-    return {
-      success: true,
-      trackingNumber,
-      portalUrl: `https://tracking.hashtag-express.com/?trackingNumber=${encodeURIComponent(trackingNumber)}`,
-      carrier: 'HASHTAG',
-    };
+    const requestedAt = new Date().toISOString();
+    const targetUrl = `${this.apiUrl}${this.trackPath}`;
+
+    try {
+      const response = await axios.get(targetUrl, {
+        params: this.buildAuthPayload({ tracking_number: trackingNumber, awb: trackingNumber }),
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'User-Agent': 'MaxP-ShippingPlatform/2.0',
+        },
+        timeout: this.timeout,
+      });
+
+      const resData = response.data || {};
+      const providerStatus = this.extractProviderStatus(resData);
+      const mapped = mapHashtagStatus(providerStatus);
+
+      console.log(
+        `[HASHTAG] track at ${requestedAt} | tracking=${trackingNumber} | providerStatus=${providerStatus || 'unknown'} | mapsToSystem=${mapped.mapsToSystem || 'unknown'}`,
+      );
+
+      return {
+        success: true,
+        providerKey: 'HASHTAG',
+        trackingNumber,
+        providerStatus,
+        mapsToSystem: mapped.mapsToSystem,
+        deliveredAt: resData.delivered_at || resData.delivery_date || null,
+        courierName: resData.courier_name || resData.delegate_name || resData.driver_name || null,
+        courierPhone: resData.courier_phone || resData.delegate_phone || resData.driver_phone || null,
+        portalUrl: `https://tracking.hashtag-express.com/?trackingNumber=${encodeURIComponent(trackingNumber)}`,
+        carrier: 'HASHTAG',
+        requestedAt,
+        data: resData,
+      };
+    } catch (error) {
+      const errText = error.response?.data?.message || error.response?.data || error.message;
+      console.error(`[HASHTAG] track FAILED at ${requestedAt} | tracking=${trackingNumber} | ${String(errText).slice(0, 300)}`);
+      throw new Error(`تعذر استعلام حالة الشحنة من هاشتاج إكسبريس: ${errText}`);
+    }
+  }
+
+  /** Read the saved (non-secret) settings for this tenant, decrypted in memory. */
+  async getSavedSettings() {
+    if (!this.companyId) return {};
+    const prisma = getSharedPrismaClient();
+    const carrier = await safeQuery(() =>
+      prisma.shippingCompany.findFirst({
+        where: { companyId: this.companyId, providerKey: 'HASHTAG', isActive: true },
+        select: { settings: true },
+      })
+    , 2);
+    return carrier ? decryptHashtagSettings(carrier.settings) : {};
   }
 }
 

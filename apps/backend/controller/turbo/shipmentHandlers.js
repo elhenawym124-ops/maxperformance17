@@ -224,7 +224,7 @@ const createShipment = async (req, res) => {
 const bulkCreateShipments = async (req, res) => {
   try {
     const { orderIds } = req.body;
-    const companyId = req.user?.companyId || req.companyId || req.headers?.['x-company-id'];
+    const companyId = req.user?.companyId || req.companyId;
     if (!companyId) return res.status(403).json({ success: false, error: 'معرف الشركة مطلوب' });
     if (!orderIds || !Array.isArray(orderIds) || orderIds.length === 0) return res.status(400).json({ success: false, error: 'يرجى تحديد طلب واحد على الأقل لإرساله لتربو' });
     const prisma = getSharedPrismaClient();
@@ -297,23 +297,33 @@ const bulkCreateShipments = async (req, res) => {
     const results = { success: [], failed: [], skipped: [] };
     const processedPhonesInBatch = new Set();
 
-    // 1. Process regular orders
-    for (const order of regularOrders) {
+    const runWithConcurrency = async (items, limit, worker) => {
+      let idx = 0;
+      const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+        while (idx < items.length) {
+          const current = items[idx++];
+          await worker(current);
+        }
+      });
+      await Promise.all(workers);
+    };
+
+    const processRegularOrder = async (order) => {
       try {
         if (order.turboShipmentId) {
           results.skipped.push({ orderNumber: order.orderNumber, reason: 'يوجد شحنة تربو مسجلة بالفعل' });
-          continue;
+          return;
         }
 
         if (invalidShippingStatuses.includes(String(order.status || '').toUpperCase())) {
           results.skipped.push({ orderNumber: order.orderNumber, reason: `حالة الطلب غير مؤهلة للشحن (${order.status})` });
-          continue;
+          return;
         }
 
         const batchOrderMeta = typeof order.metadata === 'string' ? JSON.parse(order.metadata || '{}') : (order.metadata || {});
         if (batchOrderMeta.discountApprovalStatus === 'PENDING_APPROVAL') {
           results.skipped.push({ orderNumber: order.orderNumber, reason: 'الطلب بانتظار اعتماد الخصم من قِبل الإدارة' });
-          continue;
+          return;
         }
 
         const rawPhone = order.customerPhone || order.customer?.phone || '';
@@ -328,7 +338,7 @@ const bulkCreateShipments = async (req, res) => {
               orderNumber: order.orderNumber,
               reason: 'طلب مكرر لنفس العميل داخل نفس دفعة الشحن'
             });
-            continue;
+            return;
           }
 
           const activeExisting = await orderService.checkDuplicateActiveTurboShipment(companyId, order);
@@ -337,7 +347,7 @@ const bulkCreateShipments = async (req, res) => {
               orderNumber: order.orderNumber,
               reason: `يوجد شحنة نشطة سابقة للعميل (بوليصة #${activeExisting.turboShipmentId})`
             });
-            continue;
+            return;
           }
 
           processedPhonesInBatch.add(cleanPhone);
@@ -351,7 +361,7 @@ const bulkCreateShipments = async (req, res) => {
             orderNumber: order.orderNumber,
             reason: `بيانات الطلب غير مكتملة لشحن تربو: ${validation.missingFields.join('، ')}`
           });
-          continue;
+          return;
         }
         if (validation.resolvedGovernorate && (!order.governorate || order.governorate === 'غير محدد')) {
           if (order.orderNumber) {

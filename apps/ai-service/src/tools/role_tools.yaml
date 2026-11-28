@@ -552,6 +552,7 @@ roles:
     - hr_advance_request_create
     - knowledge_search
     - agent_handoff_to
+    - escalate_to_human
 
   AOV_SPECIALIST:
     - product_top_selling

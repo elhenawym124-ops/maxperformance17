@@ -395,7 +395,7 @@ class OrderWorkflowService {
                         where: { companyId, providerKey: 'TURBO', isActive: true },
                         select: { settings: true }
                     });
-                    const { shouldCreateShipmentNow } = require('./shippingProviderService');
+                    const { shouldCreateShipmentNow, autoCreateNonTurboShipmentsForOrder } = require('./shippingProviderService');
                     const targetStage = isReadyWf ? 'ON_READY' : 'ON_CONFIRM';
                     if (shouldCreateShipmentNow(carrier?.settings, targetStage)) {
                         const orderService = require('./orderService');
@@ -403,6 +403,7 @@ class OrderWorkflowService {
                             console.warn(`[WORKFLOW] Turbo auto-create failed for ${order.id}:`, err.message);
                         });
                     }
+                    autoCreateNonTurboShipmentsForOrder(this.prisma, order.id, companyId, { stage: targetStage }).catch(() => {});
                 } catch (turboWfErr) {
                     console.warn('[WORKFLOW] Turbo auto-create require failed:', turboWfErr.message);
                 }

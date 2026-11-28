@@ -3,6 +3,12 @@ const router = express.Router();
 const { getSharedPrismaClient } = require('../services/sharedDatabase');
 const verifyToken = require("../utils/verifyToken");
 const shippingProviderService = require('../services/shippingProviderService');
+const {
+  encryptHashtagSettings,
+  decryptHashtagSettings,
+  redactHashtagCompany,
+  parseSettings: parseHashtagSettings,
+} = require('../services/hashtag/hashtagCredentials');
 
 const buildSlug = (value) =>
   String(value || '')
@@ -271,7 +277,7 @@ router.get('/active-carriers', verifyToken.authenticateToken, async (req, res) =
       orderBy: { createdAt: 'desc' },
     });
 
-    res.json({ success: true, data: deduplicateShippingCompanies(companies) });
+    res.json({ success: true, data: deduplicateShippingCompanies(companies).map(redactHashtagCompany) });
   } catch (error) {
     console.error('Error fetching active shipping companies:', error);
     res.status(500).json({ success: false, error: error.message });
@@ -315,7 +321,7 @@ router.get('/', verifyToken.authenticateToken, async (req, res) => {
         where,
         orderBy: { createdAt: 'desc' },
       });
-      return res.json({ success: true, data: deduplicateShippingCompanies(companies) });
+      return res.json({ success: true, data: deduplicateShippingCompanies(companies).map(redactHashtagCompany) });
     }
 
     const pageNum = Math.max(1, parseInt(page, 10) || 1);
@@ -332,7 +338,7 @@ router.get('/', verifyToken.authenticateToken, async (req, res) => {
       }),
     ]);
 
-    const dedupedCompanies = deduplicateShippingCompanies(companies);
+    const dedupedCompanies = deduplicateShippingCompanies(companies).map(redactHashtagCompany);
     const totalPages = Math.ceil(total / take) || 1;
 
     res.json({
@@ -497,7 +503,7 @@ router.get('/:idOrSlug', verifyToken.authenticateToken, async (req, res) => {
       return res.status(404).json({ success: false, error: 'لم يتم العثور على الشركة' });
     }
 
-    res.json({ success: true, data: company });
+    res.json({ success: true, data: redactHashtagCompany(company) });
   } catch (error) {
     console.error('Error fetching shipping company:', error);
     res.status(500).json({ success: false, error: error.message });
@@ -581,6 +587,14 @@ router.post('/', verifyToken.authenticateToken, async (req, res) => {
       }
     }
 
+    if (providerFields.providerKey === 'HASHTAG' && !finalApiUrl) {
+      finalApiUrl = 'https://hashtag-express.com/app';
+    }
+
+    if (providerFields.providerKey === 'HASHTAG') {
+      providerFields.settings = encryptHashtagSettings(providerFields.settings, null);
+    }
+
     const company = await prisma.shippingCompany.create({
       data: {
         name,
@@ -588,7 +602,7 @@ router.post('/', verifyToken.authenticateToken, async (req, res) => {
         phone,
         email,
         website,
-        apiKey,
+        apiKey: providerFields.providerKey === 'HASHTAG' ? null : apiKey,
         apiUrl: finalApiUrl,
         ...providerFields,
         isActive: isActive !== undefined ? isActive : true,
@@ -624,7 +638,7 @@ router.post('/', verifyToken.authenticateToken, async (req, res) => {
       }).catch(err => console.warn('Non-blocking turbo sync error:', err.message));
     }
 
-    res.json({ success: true, data: company });
+    res.json({ success: true, data: redactHashtagCompany(company) });
   } catch (error) {
     console.error('Error creating shipping company:', error);
     res.status(500).json({ success: false, error: error.message });
@@ -720,6 +734,14 @@ router.put('/:id', verifyToken.authenticateToken, async (req, res) => {
       }
     }
 
+    if (providerFields.providerKey === 'HASHTAG' && !finalApiUrl) {
+      finalApiUrl = 'https://hashtag-express.com/app';
+    }
+
+    if (providerFields.providerKey === 'HASHTAG') {
+      providerFields.settings = encryptHashtagSettings(providerFields.settings, existing.settings);
+    }
+
     const updated = await prisma.shippingCompany.update({
       where: { id },
       data: {
@@ -728,7 +750,7 @@ router.put('/:id', verifyToken.authenticateToken, async (req, res) => {
         phone: phone !== undefined ? phone : existing.phone,
         email: email !== undefined ? email : existing.email,
         website: website !== undefined ? website : existing.website,
-        apiKey: apiKey !== undefined ? apiKey : existing.apiKey,
+        apiKey: providerFields.providerKey === 'HASHTAG' ? null : (apiKey !== undefined ? apiKey : existing.apiKey),
         apiUrl: finalApiUrl,
         ...providerFields,
         isActive: isActive !== undefined ? isActive : existing.isActive,
@@ -771,7 +793,7 @@ router.put('/:id', verifyToken.authenticateToken, async (req, res) => {
       }).catch(err => console.warn('Non-blocking turbo sync error:', err.message));
     }
 
-    res.json({ success: true, data: updated, message: 'تم تحديث إعدادات الشركة بنجاح' });
+    res.json({ success: true, data: redactHashtagCompany(updated), message: 'تم تحديث إعدادات الشركة بنجاح' });
   } catch (error) {
     console.error('Error updating shipping company:', error);
     res.status(500).json({ success: false, error: error.message });
@@ -817,7 +839,7 @@ router.patch('/:id/toggle', verifyToken.authenticateToken, async (req, res) => {
 
     res.json({
       success: true,
-      data: updated,
+      data: redactHashtagCompany(updated),
       message: newStatus ? 'تم تفعيل العمل مع الشركة بنجاح' : 'تم إيقاف العمل مع الشركة مؤقتاً',
     });
   } catch (error) {
@@ -1009,7 +1031,7 @@ router.post('/:id/test-connection', verifyToken.authenticateToken, async (req, r
     }
 
     if (providerKey === 'HASHTAG') {
-      const settings = shippingProviderService.safeJsonParse(company.settings, {});
+      const settings = decryptHashtagSettings(company.settings);
       const apiName = req.body?.apiName || req.body?.username || settings.apiName || settings.username || company.apiKey;
       const apiPassword = req.body?.apiPassword || req.body?.password || settings.apiPassword || settings.password;
 
@@ -1026,15 +1048,36 @@ router.post('/:id/test-connection', verifyToken.authenticateToken, async (req, r
           apiName,
           apiPassword,
           apiUrl: req.body?.apiUrl || company.apiUrl,
+          createPath: settings.createPath,
+          trackPath: settings.trackPath,
+          testPath: settings.testPath,
         }, companyId);
 
         const result = await hashtag.testConnection({ apiName, apiPassword });
+
+        // Durable audit trail of the real provider ping (time + HTTP status), while
+        // keeping the encrypted credentials untouched.
+        const storedSettings = parseHashtagSettings(company.settings);
+        await prisma.shippingCompany.update({
+          where: { id: company.id },
+          data: {
+            settings: JSON.stringify({
+              ...storedSettings,
+              lastConnectionTestAt: result.testedAt || new Date().toISOString(),
+              lastConnectionTestOk: true,
+              lastConnectionTestHttpStatus: result.httpStatus || null,
+            }),
+          },
+        }).catch((e) => console.warn('Non-blocking hashtag test-log save error:', e.message));
+
         return res.json({
           success: true,
           status: 'CONNECTED',
           message: result.message || 'تم التحقق من بيانات الاتصال بشركة هاشتاج بنجاح',
           data: {
             apiName,
+            testedAt: result.testedAt,
+            httpStatus: result.httpStatus,
           },
         });
       } catch (err) {

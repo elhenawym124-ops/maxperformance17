@@ -203,4 +203,94 @@ describe("useOrdersFetchOperations", () => {
     expect(mockSetOrdersLoadError).toHaveBeenCalledWith("orders.networkError");
     expect(mockSetLoading).toHaveBeenCalledWith(false);
   });
+
+  it("ignores stale out-of-order responses and uses effectiveFilters.search", async () => {
+    (queryClient.getQueryData as jest.Mock).mockReturnValue(null);
+
+    let resolveFirst!: (val: unknown) => void;
+    let resolveSecond!: (val: unknown) => void;
+    (apiClient.get as jest.Mock)
+      .mockImplementationOnce(
+        () =>
+          new Promise((res) => {
+            resolveFirst = res;
+          }),
+      )
+      .mockImplementationOnce(
+        () =>
+          new Promise((res) => {
+            resolveSecond = res;
+          }),
+      );
+
+    const { result, rerender } = renderHook(
+      (props) => useOrdersFetchOperations(props),
+      {
+        initialProps: {
+          ...defaultProps,
+          filters: { ...DEFAULT_ORDERS_FILTERS, search: "01006" },
+          effectiveFilters: { ...DEFAULT_ORDERS_FILTERS, search: "0" },
+        },
+      },
+    );
+
+    mockSetOrders.mockClear();
+
+    rerender({
+      ...defaultProps,
+      filters: { ...DEFAULT_ORDERS_FILTERS, search: "01006" },
+      effectiveFilters: { ...DEFAULT_ORDERS_FILTERS, search: "01006" },
+    });
+
+    expect(apiClient.get).toHaveBeenLastCalledWith(
+      "/orders-new/simple",
+      expect.objectContaining({
+        params: expect.objectContaining({ search: "01006" }),
+        signal: expect.any(AbortSignal),
+      }),
+    );
+
+    await act(async () => {
+      resolveSecond({
+        data: {
+          success: true,
+          data: [{ id: "ord-new", orderNumber: "ORD-NEW", totalAmount: 200 }],
+          pagination: { pages: 1, total: 1 },
+        },
+      });
+    });
+
+    await act(async () => {
+      resolveFirst({
+        data: {
+          success: true,
+          data: [{ id: "ord-stale", orderNumber: "ORD-STALE", totalAmount: 100 }],
+          pagination: { pages: 1, total: 999 },
+        },
+      });
+    });
+
+    expect(mockSetTotalOrders).toHaveBeenCalledWith(1);
+    expect(mockSetTotalOrders).not.toHaveBeenCalledWith(999);
+    expect(result.current.fetchOrders).toBeDefined();
+  });
+
+  it("silently ignores aborted requests without setting ordersLoadError", async () => {
+    (queryClient.getQueryData as jest.Mock).mockReturnValue(null);
+    const canceledError = Object.assign(new Error("canceled"), {
+      name: "CanceledError",
+      code: "ERR_CANCELED",
+    });
+    (apiClient.get as jest.Mock).mockRejectedValue(canceledError);
+
+    const { result } = renderHook(() => useOrdersFetchOperations(defaultProps));
+    mockSetOrdersLoadError.mockClear();
+
+    await act(async () => {
+      await result.current.fetchOrders();
+    });
+
+    expect(mockSetOrdersLoadError).toHaveBeenCalledTimes(1);
+    expect(mockSetOrdersLoadError).toHaveBeenCalledWith(null);
+  });
 });

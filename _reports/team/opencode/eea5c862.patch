@@ -1,0 +1,1027 @@
+diff --git a/apps/backend/__tests__/conversationSearchWhere.test.js b/apps/backend/__tests__/conversationSearchWhere.test.js
+index b4695f9d9..0e7f7d978 100644
+--- a/apps/backend/__tests__/conversationSearchWhere.test.js
++++ b/apps/backend/__tests__/conversationSearchWhere.test.js
+@@ -130,14 +130,17 @@ describe('conversationSearchWhere', () => {
+       expect(result).toEqual(['conv-1', 'conv-2']);
+       expect(mockPrisma.$queryRawUnsafe).toHaveBeenCalledTimes(1);
+ 
+-      const [queryStr, pattern, cutoffDate, companyId, channel, limit] = mockPrisma.$queryRawUnsafe.mock.calls[0];
++      const [queryStr, pattern, cutoffDate, companyId, channel] = mockPrisma.$queryRawUnsafe.mock.calls[0];
+       expect(queryStr).toContain('WITH matched_messages AS');
+       expect(queryStr).toContain('m.content ILIKE');
+       expect(pattern).toBe('%سناء%');
+       expect(cutoffDate).toBeInstanceOf(Date);
+       expect(companyId).toBe('comp1');
+       expect(channel).toBe('FACEBOOK');
+-      expect(limit).toBe(200);
++      // LIMIT is inlined as a validated integer (a bound LIMIT creates a
++      // parameter-type failure on some Prisma/Postgres paths).
++      expect(queryStr).toContain('LIMIT 200');
++      expect(mockPrisma.$queryRawUnsafe.mock.calls[0][5]).toBeUndefined();
+     });
+ 
+     it('applies the tenant filter INSIDE the CTE, before the 1000-row cap', async () => {
+@@ -159,12 +162,11 @@ describe('conversationSearchWhere', () => {
+       expect(cte).toContain('ORDER BY m."createdAt" DESC');
+     });
+ 
+-    it('sets a server-side statement_timeout in a pipelined (array-form) transaction', async () => {
+-      const exec = jest.fn().mockResolvedValue(1);
++    it('runs the raw query WITHOUT $transaction (the shared Prisma client is a deferred proxy)', async () => {
+       const query = jest.fn().mockResolvedValue([{ id: 'conv-9' }]);
+-      const tx = jest.fn().mockResolvedValue([1, [{ id: 'conv-9' }]]);
++      const tx = jest.fn();
+       const mockPrisma = {
+-        $executeRawUnsafe: exec,
++        $executeRawUnsafe: jest.fn(),
+         $queryRawUnsafe: query,
+         $transaction: tx,
+       };
+@@ -172,16 +174,38 @@ describe('conversationSearchWhere', () => {
+       const ids = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'سناء' });
+ 
+       expect(ids).toEqual(['conv-9']);
+-      // Array form only: a callback transaction would hold a pooled connection
+-      // (PgBouncer hardening removed interactive transactions).
+-      expect(Array.isArray(tx.mock.calls[0][0])).toBe(true);
+-      expect(tx.mock.calls[0][0]).toHaveLength(2);
+-      expect(exec).toHaveBeenCalledTimes(1);
+-      expect(String(exec.mock.calls[0][0])).toContain('SET LOCAL statement_timeout = 5000');
++      // Passing proxy-returned plain Promises to $transaction throws a
++      // validation error with no `code` → instant 422 in production.
++      expect(tx).not.toHaveBeenCalled();
++      expect(mockPrisma.$executeRawUnsafe).not.toHaveBeenCalled();
+       expect(query).toHaveBeenCalledTimes(1);
+       expect(query.mock.calls[0][0]).toContain('WITH matched_messages AS');
+     });
+ 
++    it('runs the raw query without a transaction wrapper', async () => {
++      const plain = jest.fn().mockResolvedValue([{ id: 'conv-fallback' }]);
++      const mockPrisma = {
++        $executeRawUnsafe: jest.fn(),
++        $queryRawUnsafe: plain,
++        $transaction: jest.fn(),
++      };
++
++      const ids = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'سناء' });
++
++      expect(ids).toEqual(['conv-fallback']);
++      expect(mockPrisma.$transaction).not.toHaveBeenCalled();
++      expect(plain).toHaveBeenCalledTimes(1);
++      expect(plain.mock.calls[0][0]).toContain('WITH matched_messages AS');
++    });
++
++    it('enforces a client-side deadline instead of waiting for the browser timeout', async () => {
++      const { runWithStatementTimeout } = require('../controller/conversation/conversationSearchWhere');
++      const never = new Promise(() => {});
++      await expect(
++        runWithStatementTimeout({ $queryRawUnsafe: () => never }, 'SELECT 1', [], 25)
++      ).rejects.toThrow(/statement timeout/);
++    });
++
+     it('keeps the server deadline at or below the 5s acceptance target', () => {
+       expect(SEARCH_STATEMENT_TIMEOUT_MS).toBeLessThanOrEqual(5000);
+     });
+diff --git a/apps/backend/controller/conversation/conversationCrudController.js b/apps/backend/controller/conversation/conversationCrudController.js
+index 0542feff8..661ab5824 100644
+--- a/apps/backend/controller/conversation/conversationCrudController.js
++++ b/apps/backend/controller/conversation/conversationCrudController.js
+@@ -162,6 +162,48 @@ const deleteConverstation = async (req, res) => {
+     }
+ };
+ 
++/**
++ * Batch-resolves the last inbound (customer) message timestamp per conversation.
++ * Replaces the previous N+1 findFirst loop (one query per conversation) with a
++ * single DISTINCT ON query backed by messages(conversationId, isFromCustomer, createdAt).
++ *
++ * @param {object} prisma
++ * @param {Array<{id: string, messages?: Array<{isFromCustomer?: boolean}>}>} conversations
++ * @returns {Promise<Map<string, Date>>}
++ */
++const fetchLastInboundMap = async (prisma, conversations) => {
++    const result = new Map();
++    if (!Array.isArray(conversations) || conversations.length === 0) {
++        return result;
++    }
++
++    const ids = conversations
++        .filter((conv) => !(conv.messages && conv.messages[0] && conv.messages[0].isFromCustomer))
++        .map((conv) => conv.id)
++        .filter(Boolean);
++
++    if (ids.length === 0 || typeof prisma?.$queryRawUnsafe !== 'function') {
++        return result;
++    }
++
++    try {
++        const rows = await prisma.$queryRawUnsafe(
++            `SELECT DISTINCT ON ("conversationId") "conversationId", "createdAt"
++             FROM messages
++             WHERE "conversationId" = ANY($1::text[]) AND "isFromCustomer" = true
++             ORDER BY "conversationId", "createdAt" DESC`,
++            ids
++        );
++        for (const row of rows) {
++            result.set(row.conversationId, row.createdAt);
++        }
++    } catch (err) {
++        console.warn('⚠️ [GET-CONV] last-inbound batch lookup failed:', err.message);
++    }
++
++    return result;
++};
++
+ // 🆕 Get all conversations with pagination and filtering
+ const getConversations = async (req, res) => {
+     try {
+@@ -247,6 +289,7 @@ const getConversations = async (req, res) => {
+         // Split promise for better error isolation
+         let conversations, total;
+ 
++        const requestStartedAt = Date.now();
+         const searchActive = Boolean(search && search.trim());
+         const wantsMessageSearch = searchActive && (
+             searchScope === 'messages' ||
+@@ -256,7 +299,11 @@ const getConversations = async (req, res) => {
+         );
+ 
+         let contentIds = [];
++        let contentSearchMs = 0;
++        let contentSearchFailed = false;
++        let contentSearchTimedOut = false;
+         if (wantsMessageSearch) {
++            const contentStartedAt = Date.now();
+             try {
+                 contentIds = await searchMessageConversationIds(prisma, {
+                     companyId,
+@@ -266,19 +313,34 @@ const getConversations = async (req, res) => {
+                     limit: 200,
+                 });
+             } catch (contentSearchErr) {
++                const timedOut = /statement time|timeout|timed out|canceling statement|exceeded/i.test(contentSearchErr.message || '');
++                contentSearchFailed = true;
++                contentSearchTimedOut = timedOut;
+                 // A failed content search must never look like "no results".
+                 // 422 (not 503): the SPA retries 503 six times (apiClient.ts retry
+                 // paths) and silences its toast, so the user would wait ~10s and see
+                 // a generic axios message instead of the Arabic one below.
+-                const timedOut = /statement timeout|timeout|canceling statement/i.test(contentSearchErr.message || '');
+-                console.error('❌ [GET-CONV] message content search failed:', contentSearchErr.code || 'SEARCH_ERROR');
+-                return res.status(422).json({
+-                    success: false,
+-                    code: timedOut ? 'MESSAGE_SEARCH_TIMEOUT' : 'MESSAGE_SEARCH_UNAVAILABLE',
+-                    message: timedOut
+-                        ? 'البحث في نص الرسايل خد وقت أطول من المسموح — جرّب كلمة أقصر أو ابحث بالاسم أو رقم التليفون'
+-                        : 'البحث في نص الرسايل مش متاح دلوقتي — جرّب تاني بعد شوية، أو ابحث بالاسم أو رقم التليفون',
+-                });
++                console.error(
++                    '❌ [GET-CONV] message content search failed:',
++                    contentSearchErr.code || contentSearchErr.name || 'SEARCH_ERROR',
++                    String(contentSearchErr.message || '').slice(0, 300)
++                );
++                // An explicit "search in messages only" cannot silently degrade:
++                // the user asked for message matches, so surface the reason.
++                if (searchScope === 'messages') {
++                    return res.status(422).json({
++                        success: false,
++                        code: timedOut ? 'MESSAGE_SEARCH_TIMEOUT' : 'MESSAGE_SEARCH_UNAVAILABLE',
++                        message: timedOut
++                            ? 'البحث في نص الرسايل خد وقت أطول من المسموح — جرّب كلمة أقصر أو ابحث بالاسم أو رقم التليفون'
++                            : 'البحث في نص الرسايل مش متاح دلوقتي — جرّب تاني بعد شوية، أو ابحث بالاسم أو رقم التليفون',
++                    });
++                }
++                // "all" scope: keep the fast name/phone/preview matches instead of
++                // failing the whole inbox; searchMeta reports the degradation.
++                contentIds = [];
++            } finally {
++                contentSearchMs = Date.now() - contentStartedAt;
+             }
+             if (process.env.DEBUG_CONV_SEARCH === 'true') {
+                 console.log(`🔍 [GET-CONV] Message search returned ${contentIds.length} conversations`);
+@@ -362,103 +424,92 @@ const getConversations = async (req, res) => {
+             queryWhere = tabWhere;
+         }
+ 
++        // 🆕 Badge counts are channel-level stats: they must NOT carry the
++        // search predicate (searching for one name must not zero the badges)
++        // and they must not cost 3 extra sequential round trips on every search.
++        const badgeWhere = { ...where };
++        let unrepliedCount = 0;
++        let priorityCount = 0;
++
+         try {
+-            // 🔧 FIX: Use executeWithRetry to handle connection errors
+-            conversations = await executeWithRetry(async () => {
+-                return await prisma.conversation.findMany({
+-                    where: queryWhere,
+-                    include: {
+-                        customer: {
+-                            select: {
+-                                id: true,
+-                                firstName: true,
+-                                lastName: true,
+-                                email: true,
+-                                facebookId: true,
+-                                phone: true,
+-                                avatar: true,
+-                                metadata: true
++            // 🔧 FIX: Use executeWithRetry to handle connection errors, in parallel
++            const [conversationsResult, totalResult, unrepliedResult, priorityResult] = await Promise.all([
++                executeWithRetry(async () => {
++                    return await prisma.conversation.findMany({
++                        where: queryWhere,
++                        include: {
++                            customer: {
++                                select: {
++                                    id: true,
++                                    firstName: true,
++                                    lastName: true,
++                                    email: true,
++                                    facebookId: true,
++                                    phone: true,
++                                    avatar: true,
++                                    metadata: true
++                                }
++                            },
++                            user: {
++                                select: {
++                                    id: true,
++                                    firstName: true,
++                                    lastName: true,
++                                    email: true,
++                                    avatar: true
++                                }
++                            },
++                            // 🆕 Include last message to check if from customer and delivery status
++                            messages: {
++                                orderBy: { createdAt: 'desc' },
++                                take: 1,
++                                select: {
++                                    id: true,
++                                    isFromCustomer: true,
++                                    isRead: true,
++                                    content: true,
++                                    type: true,
++                                    deliveryStatus: true,
++                                    failureReason: true,
++                                    createdAt: true
++                                }
+                             }
+                         },
+-                        user: {
+-                            select: {
+-                                id: true,
+-                                firstName: true,
+-                                lastName: true,
+-                                email: true,
+-                                avatar: true
+-                            }
++                        orderBy: {
++                            lastMessageAt: 'desc'
+                         },
+-                        // 🆕 Include last message to check if from customer and delivery status
+-                        messages: {
+-                            orderBy: { createdAt: 'desc' },
+-                            take: 1,
+-                            select: {
+-                                id: true,
+-                                isFromCustomer: true,
+-                                isRead: true,
+-                                content: true,
+-                                type: true,
+-                                deliveryStatus: true,
+-                                failureReason: true,
+-                                createdAt: true
+-                            }
++                        skip: skip,
++                        take: take
++                    });
++                }, 3),
++                executeWithRetry(async () => {
++                    return await prisma.conversation.count({ where: queryWhere });
++                }, 3),
++                executeWithRetry(async () => {
++                    return await prisma.conversation.count({
++                        where: {
++                            ...badgeWhere,
++                            status: { in: ['ACTIVE', 'PENDING'] },
++                            lastMessageIsFromCustomer: true
+                         }
+-                    },
+-                    orderBy: {
+-                        lastMessageAt: 'desc'
+-                    },
+-                    skip: skip,
+-                    take: take
+-                });
+-            }, 3);
+-            console.log(`✅ [GET-CONV] findMany success. Got ${conversations.length} records.`);
++                    });
++                }, 3),
++                executeWithRetry(async () => {
++                    return await prisma.conversation.count({
++                        where: { ...badgeWhere, priority: { gt: 1 } }
++                    });
++                }, 3),
++            ]);
++            conversations = conversationsResult;
++            total = totalResult;
++            unrepliedCount = unrepliedResult;
++            priorityCount = priorityResult;
++            console.log(`✅ [GET-CONV] findMany + counts success in ${Date.now() - requestStartedAt}ms. Got ${conversations.length} records. Total: ${total}, Unreplied: ${unrepliedCount}, Priority: ${priorityCount}`);
+         } catch (dbErr) {
+-            console.error('❌ [GET-CONV] findMany FAILED:', dbErr);
++            console.error('❌ [GET-CONV] findMany/count FAILED:', dbErr);
+             throw dbErr;
+         }
+ 
+-        // 🆕 Count for unreplied & priority should use the same filter
+-        let unrepliedCount = 0;
+-        let priorityCount = 0;
+-        try {
+-            // 🔧 FIX: Use executeWithRetry to handle connection errors
+-            total = await executeWithRetry(async () => {
+-                return await prisma.conversation.count({ where: queryWhere });
+-            }, 3);
+-
+-            // Also get total unreplied count for stats
+-            // ✅ FIX: استخدام نفس where clause مع channel filter
+-            const unrepliedWhere = {
+-                ...(searchActive ? queryWhere : where),
+-                status: { in: ['ACTIVE', 'PENDING'] },
+-                lastMessageIsFromCustomer: true
+-            };
+-
+-            unrepliedCount = await executeWithRetry(async () => {
+-                return await prisma.conversation.count({
+-                    where: unrepliedWhere
+-                });
+-            }, 3);
+-
+-            // Also get total priority count for stats badge across whole channel
+-            const priorityWhere = {
+-                ...(searchActive ? queryWhere : where),
+-                priority: { gt: 1 }
+-            };
+-
+-            priorityCount = await executeWithRetry(async () => {
+-                return await prisma.conversation.count({
+-                    where: priorityWhere
+-                });
+-            }, 3);
+-
+-            console.log(`✅ [GET-CONV] count success. Total: ${total}, Unreplied: ${unrepliedCount}, Priority: ${priorityCount}`);
+-        } catch (cntErr) {
+-            console.error('❌ [GET-CONV] count FAILED:', cntErr);
+-            throw cntErr;
+-        }
+-
+         // Format response
+         console.log('🔄 [GET-CONV] Formatting response...');
+         let masterAiSetting = null;
+@@ -473,6 +524,8 @@ const getConversations = async (req, res) => {
+             hasActiveAiKey = true;
+         }
+ 
++        const lastInboundByConversation = await fetchLastInboundMap(prisma, conversations);
++
+         const formattedConversations = await Promise.all(conversations.map(async (conv, index) => {
+             // Extract pageName and pageId
+             let pageName = null;
+@@ -536,15 +589,8 @@ const getConversations = async (req, res) => {
+             let lastInboundAt = null;
+             if (conv.messages && conv.messages.length > 0 && conv.messages[0].isFromCustomer) {
+                 lastInboundAt = conv.messages[0].createdAt || null;
+-            } else if (prisma?.message?.findFirst) {
+-                try {
+-                    const lastInboundMsg = await prisma.message.findFirst({
+-                        where: { conversationId: conv.id, isFromCustomer: true },
+-                        orderBy: { createdAt: 'desc' },
+-                        select: { createdAt: true }
+-                    });
+-                    lastInboundAt = lastInboundMsg?.createdAt || null;
+-                } catch (e) { }
++            } else {
++                lastInboundAt = lastInboundByConversation.get(conv.id) || null;
+             }
+ 
+             // Fallback: If conv.lastMessageIsFromCustomer is true, use conv.lastMessageAt
+@@ -637,7 +683,17 @@ const getConversations = async (req, res) => {
+                 total: total,
+                 unreplied: unrepliedCount, // 🆕 From database count
+                 priority: priorityCount
+-            }
++            },
++            // 🆕 Search telemetry so latency can be measured from the client
++            // without DB/SSH access (no result data leaked).
++            searchMeta: searchActive ? {
++                scope: searchScope === 'messages' ? 'messages' : (wantsMessageSearch ? 'all' : 'fields'),
++                contentMatchCount: contentIds.length,
++                contentSearchMs,
++                contentSearchFailed,
++                contentSearchTimedOut,
++                totalMs: Date.now() - requestStartedAt
++            } : null
+         });
+ 
+     } catch (error) {
+diff --git a/apps/backend/controller/conversation/conversationSearchWhere.js b/apps/backend/controller/conversation/conversationSearchWhere.js
+index 5c7e537c7..d68733e31 100644
+--- a/apps/backend/controller/conversation/conversationSearchWhere.js
++++ b/apps/backend/controller/conversation/conversationSearchWhere.js
+@@ -109,9 +109,9 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
+         cteChannelClause = `AND c2.channel = $${channelParamIdx}`;
+     }
+ 
+-    params.push(maxLimit);
+-    const limitParamIdx = params.length;
+-
++    // LIMIT is inlined as a clamped integer on purpose: it is validated above,
++    // and a literal lets the planner fold it instead of treating the cap as an
++    // opaque parameter.
+     const query = `
+         WITH matched_messages AS (
+             SELECT m."conversationId"
+@@ -129,7 +129,7 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
+         JOIN matched_messages mm ON c.id = mm."conversationId"
+         WHERE c."companyId" = $${companyParamIdx}
+           ${channelClause}
+-        LIMIT $${limitParamIdx};
++        LIMIT ${maxLimit};
+     `;
+ 
+     const rows = await runWithStatementTimeout(prisma, query, params);
+@@ -137,30 +137,46 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
+ }
+ 
+ /**
+- * Runs the raw search with a hard server-side deadline instead of relying on the
++ * Runs the raw search with a client-side deadline instead of relying on the
+  * pooler/role default (the SPA gives up at 30s).
+  *
+- * Uses a single pipelined (array-form) transaction: BEGIN + SET LOCAL + query are
+- * sent as one batch to the pooler, so the pooled server connection is held only for
+- * that round trip. The callback form (`$transaction(async tx => ...)`) is avoided on
+- * purpose: this repo's PgBouncer hardening removed interactive transactions because
+- * they held pool connections and produced 30s `query_wait_timeout` errors.
+- * Simple/mock clients without `$transaction` fall back to a plain call.
++ * IMPORTANT: this deliberately does NOT use `prisma.$transaction`. The shared
++ * client returned by getSharedPrismaClient() is a deferred Proxy whose
++ * `$`-methods return plain Promises; Prisma rejects plain promises passed to
++ * `$transaction` with a client-side validation error that carries no `code`,
++ * which surfaced in production as an instant 422 MESSAGE_SEARCH_UNAVAILABLE on
++ * every content search. A plain `$queryRawUnsafe` works through the proxy.
++ *
++ * The deadline is enforced client-side; the server keeps running the indexed,
++ * LIMITed query, and the DB role/pooler still applies its own statement_timeout.
++ * Simple/mock clients without `$transaction` behave identically.
+  */
+ async function runWithStatementTimeout(prisma, query, params, timeoutMs = SEARCH_STATEMENT_TIMEOUT_MS) {
+-    if (typeof prisma.$transaction === 'function' && typeof prisma.$executeRawUnsafe === 'function') {
+-        const [, rows] = await prisma.$transaction([
+-            prisma.$executeRawUnsafe(`SET LOCAL statement_timeout = ${Number(timeoutMs)}`),
+-            prisma.$queryRawUnsafe(query, ...params),
+-        ], { timeout: timeoutMs + 2000 });
+-        return rows;
++    const queryPromise = prisma.$queryRawUnsafe(query, ...params);
++    let timer;
++    try {
++        return await Promise.race([
++            queryPromise,
++            new Promise((_, reject) => {
++                timer = setTimeout(
++                    () => reject(new Error(`statement timeout: message content search exceeded ${timeoutMs}ms`)),
++                    timeoutMs
++                );
++                if (typeof timer.unref === 'function') timer.unref();
++            }),
++        ]);
++    } finally {
++        if (timer) clearTimeout(timer);
++        // If the deadline won, the DB query may still settle later; swallow its
++        // rejection so a late error never becomes an unhandled rejection.
++        Promise.resolve(queryPromise).catch(() => {});
+     }
+-    return prisma.$queryRawUnsafe(query, ...params);
+ }
+ 
+ module.exports = {
+     extractContentTokens,
+     buildConversationSearchWhere,
+     searchMessageConversationIds,
++    runWithStatementTimeout,
+     SEARCH_STATEMENT_TIMEOUT_MS,
+ };
+diff --git a/apps/backend/scripts/benchmark-inbox-search.js b/apps/backend/scripts/benchmark-inbox-search.js
+new file mode 100644
+index 000000000..47d7f0a0d
+--- /dev/null
++++ b/apps/backend/scripts/benchmark-inbox-search.js
+@@ -0,0 +1,402 @@
++#!/usr/bin/env node
++/**
++ * benchmark-inbox-search.js
++ * ---------------------------------------------------------------------------
++ * Proof harness for the inbox search fix (task eea5c862).
++ *
++ * Read-only: SELECT / EXPLAIN only. No writes, no DDL.
++ *
++ * It runs the query shapes used by
++ * `controller/conversation/conversationCrudController.js`:
++ *
++ *   1. pg_trgm index presence + validity + size (idx_messages_content_trgm, ...)
++ *   2. dataset sizes for the acceptance company (conversations / messages)
++ *   3. name path : findMany (EXISTS on customers + lastMessagePreview ILIKE)
++ *                   + the count(*) that runs beside it (parallel ⇒ max, not sum)
++ *   4. content path: the same statement as searchMessageConversationIds()
++ *                   (tenant filter inside the CTE, newest-first, LIMIT 1000)
++ *   5. "no index" comparison for the content path (enable_indexscan /
++ *                   enable_bitmapscan = off) — what the query costs without
++ *                   idx_messages_content_trgm, measured on the same data
++ *   6. EXPLAIN (ANALYZE, BUFFERS) for each statement + p50/p95 over N runs
++ *
++ * The content SQL is mirrored here because the controller builds it inline; a
++ * drift guard compares the mirrored SQL with the shipped module source and
++ * fails loudly if they ever diverge.
++ *
++ * Usage (on the server, from /var/www/backend2):
++ *   node scripts/benchmark-inbox-search.js --company "سوان"
++ *   node scripts/benchmark-inbox-search.js --company-id <cuid> --term "سناء" --runs 10
++ *   node scripts/benchmark-inbox-search.js --company "سوان" --out /tmp/inbox-search-evidence.md
++ *
++ * Options:
++ *   --company <name>      resolve company by name (ILIKE)
++ *   --company-id <cuid>   skip name resolution
++ *   --channel <CHANNEL>   default FACEBOOK
++ *   --term <text>         repeatable; default: سناء + المقاسات + zzzqqqxxx
++ *   --days <n>            content search recency window (default 180)
++ *   --runs <n>            timing runs per query (default 5)
++ *   --out <file>          also write the report as markdown
++ */
++
++const fs = require('fs');
++const path = require('path');
++
++const CONTENT_INNER_CAP = 1000;
++const CONTENT_LIMIT = 200;
++const CONTENT_DEFAULT_DAYS = 180;
++
++function readEnvValue(key) {
++    if (process.env[key]) return process.env[key];
++    const candidates = [
++        path.join(process.cwd(), '.env'),
++        path.join(__dirname, '..', '.env'),
++        '/var/www/backend2/.env',
++    ];
++    for (const file of candidates) {
++        try {
++            if (!fs.existsSync(file)) continue;
++            const line = fs
++                .readFileSync(file, 'utf8')
++                .split(/\r?\n/)
++                .find((l) => l.trim().startsWith(`${key}=`));
++            if (!line) continue;
++            const raw = line.slice(line.indexOf('=') + 1).trim();
++            return raw.replace(/^["']|["']$/g, '');
++        } catch (_) {
++            /* ignore */
++        }
++    }
++    return '';
++}
++
++function resolveDatabaseUrl() {
++    const url = readEnvValue('DATABASE_URL') || readEnvValue('POSTGRES_URL') || readEnvValue('DIRECT_URL');
++    if (!url) {
++        console.error('❌ No DATABASE_URL / POSTGRES_URL / DIRECT_URL found.');
++        process.exit(2);
++    }
++    return url;
++}
++
++function parseArgs(argv) {
++    const out = { terms: [], channel: 'FACEBOOK', days: CONTENT_DEFAULT_DAYS, runs: 5, out: null };
++    for (let i = 2; i < argv.length; i += 1) {
++        const key = argv[i];
++        const val = argv[i + 1];
++        if (key === '--company') { out.company = val; i += 1; }
++        else if (key === '--company-id') { out.companyId = val; i += 1; }
++        else if (key === '--channel') { out.channel = val; i += 1; }
++        else if (key === '--days') { out.days = parseInt(val, 10) || CONTENT_DEFAULT_DAYS; i += 1; }
++        else if (key === '--runs') { out.runs = parseInt(val, 10) || 5; i += 1; }
++        else if (key === '--term') { out.terms.push(val); i += 1; }
++        else if (key === '--out') { out.out = val; i += 1; }
++    }
++    if (!out.terms.length) out.terms = ['سناء', 'المقاسات', 'zzzqqqxxx'];
++    return out;
++}
++
++/**
++ * Mirrors searchMessageConversationIds() from
++ * controller/conversation/conversationSearchWhere.js (keep in sync; the drift
++ * guard below fails the run if the shipped source changes).
++ */
++function contentSql(tokens, days = CONTENT_DEFAULT_DAYS) {
++    const conditions = tokens.map((_, i) => `m.content ILIKE $${i + 1}`).join(' AND ');
++    const cutoffIdx = tokens.length + 1;
++    const companyIdx = tokens.length + 2;
++    const channelIdx = tokens.length + 3;
++    return {
++        sql: `
++        WITH matched_messages AS (
++            SELECT m."conversationId"
++            FROM messages m
++            JOIN conversations c2 ON c2.id = m."conversationId"
++            WHERE ${conditions}
++              AND m."createdAt" >= $${cutoffIdx}
++              AND c2."companyId" = $${companyIdx}
++              AND c2.channel = $${channelIdx}
++            ORDER BY m."createdAt" DESC
++            LIMIT ${CONTENT_INNER_CAP}
++        )
++        SELECT DISTINCT c.id
++        FROM conversations c
++        JOIN matched_messages mm ON c.id = mm."conversationId"
++        WHERE c."companyId" = $${companyIdx}
++          AND c.channel = $${channelIdx}
++        LIMIT ${CONTENT_LIMIT};
++    `,
++        params: [
++            ...tokens.map((t) => `%${t.replace(/([%_\\])/g, '\\$&')}%`),
++            new Date(Date.now() - days * 86400000),
++            null, // companyId placeholder, filled by the caller
++            null, // channel placeholder
++        ],
++    };
++}
++
++// Mirrors what Prisma emits for buildConversationSearchWhere('term'):
++// one AND group per token, each group an OR over preview / firstName / lastName / phone.
++const NAME_SQL = `
++SELECT c.id
++FROM conversations c
++WHERE c."companyId" = $1
++  AND c.channel = $2
++  AND (
++        c."lastMessagePreview" ILIKE $3
++     OR EXISTS (SELECT 1 FROM customers cu WHERE cu.id = c."customerId" AND cu."firstName" ILIKE $3)
++     OR EXISTS (SELECT 1 FROM customers cu WHERE cu.id = c."customerId" AND cu."lastName" ILIKE $3)
++     OR EXISTS (SELECT 1 FROM customers cu WHERE cu.id = c."customerId" AND cu.phone LIKE $4)
++  )
++ORDER BY c."lastMessageAt" DESC NULLS LAST
++LIMIT 20`;
++
++// The count(*) that runs in parallel with the findMany above.
++const NAME_COUNT_SQL = `
++SELECT count(*)::int AS total
++FROM conversations c
++WHERE c."companyId" = $1
++  AND c.channel = $2
++  AND (
++        c."lastMessagePreview" ILIKE $3
++     OR EXISTS (SELECT 1 FROM customers cu WHERE cu.id = c."customerId" AND cu."firstName" ILIKE $3)
++     OR EXISTS (SELECT 1 FROM customers cu WHERE cu.id = c."customerId" AND cu."lastName" ILIKE $3)
++     OR EXISTS (SELECT 1 FROM customers cu WHERE cu.id = c."customerId" AND cu.phone LIKE $4)
++  )`;
++
++const INDEX_NAMES = [
++    'idx_messages_content_trgm',
++    'idx_customers_first_name_trgm',
++    'idx_customers_last_name_trgm',
++    'idx_customers_phone_trgm',
++    'idx_conversations_last_message_preview_trgm',
++];
++
++/** Fails the run when the shipped module no longer matches the mirrored SQL. */
++function assertContentSqlInSync() {
++    const modulePath = path.join(__dirname, '..', 'controller', 'conversation', 'conversationSearchWhere.js');
++    const src = fs.readFileSync(modulePath, 'utf8');
++    const markers = [
++        'WITH matched_messages AS',
++        'JOIN conversations c2 ON c2.id = m."conversationId"',
++        'AND c2."companyId" =',
++        'ORDER BY m."createdAt" DESC',
++        `LIMIT ${CONTENT_INNER_CAP}`,
++        'SELECT DISTINCT c.id',
++    ];
++    const missing = markers.filter((m) => !src.includes(m));
++    if (missing.length) {
++        throw new Error(`content SQL drift: conversationSearchWhere.js no longer contains ${JSON.stringify(missing)}`);
++    }
++}
++
++const percentile = (values, p) => {
++    if (!values.length) return 0;
++    const sorted = [...values].sort((a, b) => a - b);
++    const idx = Math.min(sorted.length - 1, Math.ceil((p / 100) * sorted.length) - 1);
++    return sorted[Math.max(0, idx)];
++};
++
++const extractPlanLines = (rows) => rows.map((r) => r['QUERY PLAN']).filter(Boolean);
++
++async function timed(pool, sql, params, runs, { sessionGucs = [] } = {}) {
++    const timings = [];
++    for (let i = 0; i < runs; i += 1) {
++        const client = await pool.connect();
++        try {
++            for (const guc of sessionGucs) await client.query(guc);
++            const t0 = process.hrtime.bigint();
++            await client.query(sql, params);
++            timings.push(Number(process.hrtime.bigint() - t0) / 1e6);
++        } finally {
++            client.release();
++        }
++    }
++    return timings;
++}
++
++async function explain(pool, sql, params, { sessionGucs = [] } = {}) {
++    const client = await pool.connect();
++    try {
++        await client.query('BEGIN');
++        for (const guc of sessionGucs) await client.query(guc);
++        const res = await client.query(`EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT) ${sql}`, params);
++        return extractPlanLines(res.rows);
++    } finally {
++        await client.query('ROLLBACK').catch(() => {});
++        client.release();
++    }
++}
++
++(async () => {
++    assertContentSqlInSync();
++
++    const args = parseArgs(process.argv);
++    const databaseUrl = resolveDatabaseUrl();
++    const { Pool } = require('pg');
++    const pool = new Pool({ connectionString: databaseUrl, max: 4, statement_timeout: 60000 });
++
++    const md = [];
++    const say = (line = '') => {
++        console.log(line);
++        md.push(line);
++    };
++
++    try {
++        say(`# Inbox search evidence — ${new Date().toISOString()}`);
++        say('');
++        say(`channel=\`${args.channel}\` · content window=\`${args.days}d\` · runs=\`${args.runs}\``);
++        say('');
++
++        let companyId = args.companyId;
++        if (!companyId) {
++            if (!args.company) {
++                throw new Error('Pass --company "<name>" or --company-id <cuid>');
++            }
++            const { rows } = await pool.query(
++                'SELECT id, name FROM companies WHERE name ILIKE $1 ORDER BY id LIMIT 5',
++                [`%${args.company}%`]
++            );
++            if (!rows.length) throw new Error(`Company not found: ${args.company}`);
++            companyId = rows[0].id;
++            say(`🏢 Company: ${rows[0].name} (${rows[0].id})`);
++        } else {
++            say(`🏢 Company id: ${companyId}`);
++        }
++
++        // ---- dataset sizes ----
++        const counts = await pool.query(
++            `SELECT
++                (SELECT count(*)::int FROM conversations WHERE "companyId" = $1 AND channel = $2) AS conversations,
++                (SELECT count(*)::int FROM messages m JOIN conversations c ON c.id = m."conversationId"
++                  WHERE c."companyId" = $1 AND c.channel = $2) AS messages`,
++            [companyId, args.channel]
++        );
++        say(`📊 conversations=${counts.rows[0].conversations} · messages=${counts.rows[0].messages}`);
++        say('');
++
++        // ---- index status ----
++        say('## 1) pg_trgm index status');
++        say('```');
++        const indexRows = await pool.query(
++            `SELECT i.relname AS index_name, t.relname AS table_name, ix.indisvalid AS is_valid, pg_size_pretty(pg_relation_size(i.oid)) AS size
++             FROM pg_class i
++             JOIN pg_index ix ON ix.indexrelid = i.oid
++             JOIN pg_class t ON t.oid = ix.indrelid
++             WHERE i.relname = ANY($1::text[])
++             ORDER BY i.relname`,
++            [INDEX_NAMES]
++        );
++        const found = new Set(indexRows.rows.map((r) => r.index_name));
++        for (const r of indexRows.rows) {
++            say(`  ${r.is_valid ? '✅' : '❌ INVALID'} ${r.index_name} on ${r.table_name} (${r.size})`);
++        }
++        for (const name of INDEX_NAMES) {
++            if (!found.has(name)) say(`  ⛔ MISSING ${name}`);
++        }
++        say('```');
++        say('');
++
++        const escapeLike = (term) => `%${term.replace(/[%_\\]/g, '\\$&')}%`;
++
++        for (const term of args.terms) {
++            const pattern = escapeLike(term);
++            say(`## 2) TERM: ${term}`);
++            say('');
++
++            // ---------- name / phone / preview path ----------
++            const nameParams = [companyId, args.channel, pattern, pattern];
++
++            const nameStarted = Date.now();
++            const nameRows = await pool.query(NAME_SQL, nameParams);
++            say('### name/phone/preview path');
++            say('```');
++            say(`rows=${nameRows.rowCount} firstRun=${Date.now() - nameStarted}ms`);
++            say(`target cmwfeltfp04cojuzz1iu2nac9 present: ${nameRows.rows.some((r) => r.id === 'cmwfeltfp04cojuzz1iu2nac9') ? 'YES' : 'no'}`);
++            say('```');
++
++            const countStarted = Date.now();
++            const totalRow = await pool.query(NAME_COUNT_SQL, nameParams);
++            say(`count(*) for pagination.total: ${totalRow.rows[0].total} in ${Date.now() - countStarted}ms`);
++            say('');
++
++            say('<details><summary>EXPLAIN (ANALYZE, BUFFERS) — name path</summary>');
++            say('');
++            say('```');
++            for (const line of await explain(pool, NAME_SQL, nameParams)) say(line);
++            say('```');
++            say('</details>');
++            say('');
++
++            const nameTimings = await timed(pool, NAME_SQL, nameParams, args.runs);
++            const countTimings = await timed(pool, NAME_COUNT_SQL, nameParams, args.runs);
++            say(`- findMany  : p50=${percentile(nameTimings, 50).toFixed(0)}ms p95=${percentile(nameTimings, 95).toFixed(0)}ms (n=${args.runs})`);
++            say(`- count(*)  : p50=${percentile(countTimings, 50).toFixed(0)}ms p95=${percentile(countTimings, 95).toFixed(0)}ms (n=${args.runs})`);
++            say(`- parallel wall clock (what the API pays, max of the two) p95≈${Math.max(percentile(nameTimings, 95), percentile(countTimings, 95)).toFixed(0)}ms`);
++            say('');
++
++            // ---------- message content path ----------
++            // pg_trgm needs >= 3 chars; the controller then skips the DB entirely.
++            const tokens = term.split(/\s+/).filter((t) => t.length >= 3).slice(0, 5);
++            if (!tokens.length) {
++                say('### message-content path');
++                say('skipped: no token with length >= 3 (pg_trgm needs >= 3 chars) — zero results, no DB work.');
++                say('');
++                continue;
++            }
++
++            const built = contentSql(tokens, args.days);
++            built.params[built.params.length - 2] = companyId;
++            built.params[built.params.length - 1] = args.channel;
++            const contentParams = built.params;
++            const contentSqlText = built.sql;
++
++            const contentStarted = Date.now();
++            const contentRows = await pool.query(contentSqlText, contentParams);
++            say('### message-content path (same SQL as searchMessageConversationIds)');
++            say('```');
++            say(`conversation ids=${contentRows.rowCount} firstRun=${Date.now() - contentStarted}ms (outer limit ${CONTENT_LIMIT}, inner cap ${CONTENT_INNER_CAP})`);
++            say('```');
++
++            const contentPlan = await explain(pool, contentSqlText, contentParams);
++            say('<details><summary>EXPLAIN (ANALYZE, BUFFERS) — content path</summary>');
++            say('');
++            say('```');
++            for (const line of contentPlan) say(line);
++            say('```');
++            say('</details>');
++            say('');
++            const usesTrgm = contentPlan.join('\n').includes('idx_messages_content_trgm');
++            say(`- ${usesTrgm ? '✅' : '⛔'} idx_messages_content_trgm ${usesTrgm ? 'used by the planner' : 'NOT used (planner prefers the createdAt/newest-first path for this term)'}`);
++
++            const contentTimings = await timed(pool, contentSqlText, contentParams, args.runs);
++            say(`- content p50=${percentile(contentTimings, 50).toFixed(0)}ms p95=${percentile(contentTimings, 95).toFixed(0)}ms (n=${args.runs})`);
++
++            // Before-the-index comparison: same SQL, index scans disabled.
++            const noIndexGucs = ['SET LOCAL enable_indexscan = off', 'SET LOCAL enable_bitmapscan = off'];
++            const noIndexPlan = await explain(pool, contentSqlText, contentParams, { sessionGucs: noIndexGucs });
++            const noIndexTimings = await timed(pool, contentSqlText, contentParams, Math.min(args.runs, 3), { sessionGucs: noIndexGucs });
++            const noIndexNode = noIndexPlan.find((l) => /Seq Scan on messages/.test(l));
++            say(`- without index scans (pre-idx_messages_content_trgm cost on the same data): p50=${percentile(noIndexTimings, 50).toFixed(0)}ms`);
++            if (noIndexNode) say(`  plan node: ${noIndexNode.trim()}`);
++            say('');
++        }
++
++        say('---');
++        say('');
++        say('Acceptance mapping:');
++        say('- «سناء» must contain cmwfeltfp04cojuzz1iu2nac9 and stay under 3000ms (~= parallel wall clock above).');
++        say('- «المقاسات» must return conversation ids under 5000ms.');
++        say('- «zzzqqqxxx» must return 0 rows fast.');
++
++        if (args.out) {
++            fs.writeFileSync(args.out, `${md.join('\n')}\n`, 'utf8');
++            console.log(`\n📝 markdown evidence written to ${args.out}`);
++        }
++    } finally {
++        await pool.end();
++    }
++})().catch((err) => {
++    console.error('❌ benchmark failed:', err.message);
++    process.exit(1);
++});
+diff --git a/apps/backend/tests/controller/conversationCrudController.getConversations.test.js b/apps/backend/tests/controller/conversationCrudController.getConversations.test.js
+index 0e50ca0b6..f5180ac03 100644
+--- a/apps/backend/tests/controller/conversationCrudController.getConversations.test.js
++++ b/apps/backend/tests/controller/conversationCrudController.getConversations.test.js
+@@ -324,4 +324,98 @@ describe('conversationCrudController.getConversations', () => {
+       })
+     );
+   });
++
++  // --- latency regressions (task eea5c862) -------------------------------
++
++  test('does not run the message-content search unless searchInMessages/searchScope=all is requested', async () => {
++    const prisma = createPrismaMock({ conversations: [], totalCount: 0 });
++    prisma.$queryRawUnsafe = jest.fn().mockResolvedValue([]);
++    getSharedPrismaClient.mockReturnValue(prisma);
++
++    const req = { query: { search: 'سناء' }, user: { companyId: 'company_1' } };
++    const res = createResponse();
++
++    await getConversations(req, res);
++
++    // name search must stay on the fast path: no messages-table content scan at all
++    const contentSearches = prisma.$queryRawUnsafe.mock.calls
++      .map((c) => String(c[0]))
++      .filter((sql) => sql.includes('m.content ILIKE'));
++    expect(contentSearches).toHaveLength(0);
++    expect(res.json).toHaveBeenCalledWith(
++      expect.objectContaining({
++        searchMeta: expect.objectContaining({ scope: 'fields', contentMatchCount: 0 })
++      })
++    );
++  });
++
++  test('badge counts do not carry the search predicate (searching a name must not zero the badges)', async () => {
++    const prisma = createPrismaMock({ conversations: [], totalCount: 0 });
++    prisma.conversation.count = jest.fn()
++      .mockResolvedValueOnce(4)   // total (search filtered)
++      .mockResolvedValueOnce(7)   // unreplied badge
++      .mockResolvedValueOnce(2);  // priority badge
++    getSharedPrismaClient.mockReturnValue(prisma);
++
++    const req = { query: { search: 'سناء' }, user: { companyId: 'company_1' } };
++    const res = createResponse();
++
++    await getConversations(req, res);
++
++    const wheres = prisma.conversation.count.mock.calls.map((c) => c[0].where);
++    expect(wheres).toHaveLength(3);
++    expect(wheres[0].AND).toBeDefined();          // total keeps the search
++    expect(wheres[1].AND).toBeUndefined();        // unreplied badge = channel stats
++    expect(wheres[2].AND).toBeUndefined();        // priority badge = channel stats
++    expect(wheres[1].lastMessageIsFromCustomer).toBe(true);
++    expect(wheres[2].priority).toEqual({ gt: 1 });
++
++    expect(res.json).toHaveBeenCalledWith(
++      expect.objectContaining({
++        counts: expect.objectContaining({ unreplied: 7, priority: 2 })
++      })
++    );
++  });
++
++  test('resolves last-inbound timestamps with one batched DISTINCT ON query, not one query per conversation', async () => {
++    const conversations = [1, 2, 3].map((n) => ({
++      id: `conv_${n}`,
++      customerId: `cust_${n}`,
++      channel: 'FACEBOOK',
++      status: 'ACTIVE',
++      lastMessagePreview: 'رسالة',
++      lastMessageAt: new Date(),
++      updatedAt: new Date(),
++      unreadCount: 0,
++      assignedUserId: null,
++      priority: 1,
++      metadata: null,
++      customer: { id: `cust_${n}`, firstName: 'عميل', lastName: `${n}` },
++      user: null,
++      messages: [{ isFromCustomer: false, isRead: true, content: 'رد', type: 'TEXT', createdAt: new Date() }]
++    }));
++
++    const prisma = createPrismaMock({ conversations, totalCount: 3 });
++    const lastInbound = new Date(Date.now() - 3600000);
++    prisma.$queryRawUnsafe = jest.fn().mockResolvedValue([
++      { conversationId: 'conv_1', createdAt: lastInbound }
++    ]);
++    getSharedPrismaClient.mockReturnValue(prisma);
++
++    const req = { query: { limit: '20' }, user: { companyId: 'company_1' } };
++    const res = createResponse();
++
++    await getConversations(req, res);
++
++    expect(prisma.$queryRawUnsafe.mock.calls
++      .filter((c) => String(c[0]).includes('DISTINCT ON ("conversationId")'))).toHaveLength(1);
++    const lastInboundCall = prisma.$queryRawUnsafe.mock.calls
++      .find((c) => String(c[0]).includes('DISTINCT ON ("conversationId")'));
++    expect(lastInboundCall[0]).toContain('"isFromCustomer" = true');
++    expect(lastInboundCall[1]).toEqual(['conv_1', 'conv_2', 'conv_3']);
++    expect(prisma.message.findFirst).not.toHaveBeenCalled();
++
++    const payload = res.json.mock.calls[0][0];
++    expect(payload.data.find((c) => c.id === 'conv_1').lastInboundAt).toBe(lastInbound.toISOString());
++  });
+ });

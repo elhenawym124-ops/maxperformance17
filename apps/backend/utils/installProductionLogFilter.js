@@ -34,6 +34,15 @@ const NOISY_PRODUCTION_PATTERNS = [
   /\[WA-EVENT:/,
   /\[WA-SOCKET:/,
   /\[HISTORY-BATCH\]/,
+  /\[WHATSAPP-DEBUG(-sendNotification)?\]/,
+  /\[META-SEND\]/,
+  /\[META-CLOUD\]/,
+  /\[FACEBOOK-SEND\]/,
+  /\[INSTANT-SAVE\]/,
+  /\[SOCKET\] Message emitted/,
+  /\[CREATE CAMPAIGN\]/,
+  /\[GET CAMPAIGNS\]/,
+  /\[BROADCAST CONTROLLER\]/,
 ];
 
 function shouldSuppress(args) {

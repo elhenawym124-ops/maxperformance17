@@ -114,8 +114,11 @@ export const useShippingCompaniesData = () => {
     return result;
   }, [companies]);
 
-  const copyWebhookUrl = () => {
-    const webhookUrl = `${envConfig.backendUrl}/api/v1/shipments/webhook`;
+  const copyWebhookUrl = (providerKey?: string) => {
+    const path = String(providerKey || '').toUpperCase() === 'TURBO'
+      ? '/api/v1/turbo-webhook/webhook'
+      : '/api/v1/shipments/webhook';
+    const webhookUrl = `${envConfig.backendUrl}${path}`;
     navigator.clipboard.writeText(webhookUrl);
     toast.success('تم نسخ رابط الـ Webhook');
   };

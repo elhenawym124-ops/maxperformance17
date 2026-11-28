@@ -8,6 +8,7 @@ import {
   PaperAirplaneIcon,
   TicketIcon,
 } from "@heroicons/react/24/outline";
+import tokenManager from "../../../../utils/tokenManager";
 
 export interface ShippingTrackingActionsProps {
   order: any;
@@ -146,11 +147,14 @@ export const ShippingTrackingActions: React.FC<
       {isTurbo &&
         (order?.turboTrackingNumber ||
           order?.turboShipmentId ||
-          shipment?.trackingNumber) && (
+          shipment?.trackingNumber) && (() => {
+          const authToken = tokenManager.getAccessToken();
+          const waybillHref = `/api/v1/turbo/orders/${encodeURIComponent(
+            order.orderNumber || order.id
+          )}/waybill${authToken ? `?token=${encodeURIComponent(authToken)}` : ""}`;
+          return (
           <a
-            href={`/api/v1/turbo/orders/${
-              order.orderNumber || order.id
-            }/waybill`}
+            href={waybillHref}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary/10 dark:bg-primary/50 text-primary dark:text-primary border border-primary dark:border-primary hover:bg-primary transition shadow-xs active:scale-97"
@@ -159,7 +163,8 @@ export const ShippingTrackingActions: React.FC<
             <PrinterIcon className="h-3.5 w-3.5 text-primary dark:text-primary" />
             <span>طباعة بوليصة تربو AWB</span>
           </a>
-        )}
+          );
+        })()}
 
       <button
         type="button"

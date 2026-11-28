@@ -326,7 +326,10 @@ if [ -f "$DEPLOY_STAGING/ai-service.tar.gz" ]; then
     "$UV_BIN" run alembic upgrade head 2>&1 || echo "⚠️ Migration failed (non-fatal)"
 
     echo "🌱 Seeding agent templates..."
-    "$UV_BIN" run python -m scripts.seed_agent_templates 2>&1 || echo "⚠️ Seeding failed (non-fatal)"
+    "$UV_BIN" run python -m scripts.seed_agent_templates 2>&1 || {
+      echo "❌ [FATAL] AI agent template seeding failed — aborting deployment (seed fail-closed)"
+      exit 1
+    }
 
     echo "📋 Migrating custom_instructions to PERSONA.md..."
     "$UV_BIN" run python -m scripts.migrate_custom_instructions_to_persona 2>&1 || echo "⚠️ Migration skipped (non-fatal)"
@@ -834,9 +837,15 @@ if [ "$NEED_DB_PUSH" = "true" ]; then
   }
 
   echo "🌱 Running automated seeding..."
-  timeout 600 "$PRISMA_BIN" db seed --schema=prisma/schema || echo "⚠️ Seeding failed, continuing deployment..."
+  timeout 600 "$PRISMA_BIN" db seed --schema=prisma/schema || {
+    echo "❌ [FATAL] Prisma db seed failed — aborting deployment (seed fail-closed)"
+    exit 1
+  }
   echo "🔐 Seeding permissions..."
-  timeout 600 npm run seed:permissions || echo "⚠️ Permissions seeding failed, continuing deployment..."
+  timeout 600 npm run seed:permissions || {
+    echo "❌ [FATAL] Permissions seeding failed — aborting deployment (seed fail-closed)"
+    exit 1
+  }
 
   echo "👑 Creating/verifying super admin user..."
   SUPER_ADMIN_EMAIL="${SUPER_ADMIN_EMAIL:-}" SUPER_ADMIN_PASSWORD="${SUPER_ADMIN_PASSWORD:-}" timeout 600 npm run setup:superadmin || echo "⚠️ Super admin setup failed, continuing deployment..."
@@ -931,16 +940,28 @@ if [ "${CATALOG_CHANGED:-true}" = "true" ]; then
   }
 
   echo "🧩 Syncing POS app (pos-pro) active state and route..."
-  NODE_ENV=production timeout 60 node scripts/catalog/sync_pos_pro_app.js || echo "⚠️ sync_pos_pro_app skipped, continuing..."
+  NODE_ENV=production timeout 60 node scripts/catalog/sync_pos_pro_app.js || {
+    echo "❌ [FATAL] sync_pos_pro_app.js failed — aborting deployment (seed fail-closed)"
+    exit 1
+  }
 
   echo "🧩 Syncing Ad Budget Planner app (ad-budget-planner) active state and route..."
-  NODE_ENV=production timeout 60 node scripts/catalog/sync_ad_budget_planner_app.js || echo "⚠️ sync_ad_budget_planner_app skipped, continuing..."
+  NODE_ENV=production timeout 60 node scripts/catalog/sync_ad_budget_planner_app.js || {
+    echo "❌ [FATAL] sync_ad_budget_planner_app.js failed — aborting deployment (seed fail-closed)"
+    exit 1
+  }
 
   echo "🧩 Syncing Marketplace Hub (marketplace-hub) brand name..."
-  NODE_ENV=production timeout 60 node scripts/catalog/sync_marketplace_hub_app.js || echo "⚠️ sync_marketplace_hub_app skipped, continuing..."
+  NODE_ENV=production timeout 60 node scripts/catalog/sync_marketplace_hub_app.js || {
+    echo "❌ [FATAL] sync_marketplace_hub_app.js failed — aborting deployment (seed fail-closed)"
+    exit 1
+  }
 
   echo "🧩 Syncing Financial Tools apps active state and routes..."
-  NODE_ENV=production timeout 60 node scripts/catalog/sync_financial_tools_apps.js || echo "⚠️ sync_financial_tools_apps skipped, continuing..."
+  NODE_ENV=production timeout 60 node scripts/catalog/sync_financial_tools_apps.js || {
+    echo "❌ [FATAL] sync_financial_tools_apps.js failed — aborting deployment (seed fail-closed)"
+    exit 1
+  }
 
   echo "🔍 Verifying marketplace catalog drift gate (zero changed entries required)..."
   NODE_ENV=production timeout 600 npm run catalog:diff -- --fail-on-changed || {
@@ -949,23 +970,31 @@ if [ "${CATALOG_CHANGED:-true}" = "true" ]; then
   }
 
   echo "🧹 Removing deprecated duplicate store-pro app..."
-  NODE_ENV=production timeout 600 node scripts/catalog/remove_store_pro_app.js || echo "⚠️ store-pro cleanup skipped, continuing..."
+  NODE_ENV=production timeout 600 node scripts/catalog/remove_store_pro_app.js || {
+    echo "❌ [FATAL] remove_store_pro_app.js failed — aborting deployment (seed fail-closed)"
+    exit 1
+  }
 
   echo "🧹 Repairing stale required-app references in marketplace apps..."
   NODE_ENV=production timeout 600 node scripts/repair_stale_marketplace_required_apps.js || {
-      echo "⚠️ Required-app reference repair had issues, continuing..."
+    echo "❌ [FATAL] repair_stale_marketplace_required_apps.js failed — aborting deployment (seed fail-closed)"
+    exit 1
   }
 
   echo "🧹 Deactivating deprecated marketplace apps..."
   NODE_ENV=production timeout 600 node scripts/deactivate_old_marketplace_apps.js || {
-      echo "⚠️ Deprecated app deactivation had issues, continuing..."
+    echo "❌ [FATAL] deactivate_old_marketplace_apps.js failed — aborting deployment (seed fail-closed)"
+    exit 1
   }
 else
   echo "ℹ️ Skipping marketplace catalog sync (no catalog files changed)"
 fi
 
 echo "🧩 Ensuring POS app (pos-pro) is active and public..."
-NODE_ENV=production timeout 60 node scripts/catalog/sync_pos_pro_app.js || echo "⚠️ sync_pos_pro_app skipped, continuing..."
+NODE_ENV=production timeout 60 node scripts/catalog/sync_pos_pro_app.js || {
+  echo "❌ [FATAL] sync_pos_pro_app.js failed — aborting deployment (seed fail-closed)"
+  exit 1
+}
 
 # Restart services
 echo "🔄 Restarting services..."
@@ -1000,7 +1029,10 @@ if [ -n "$PM2_BIN" ]; then
   cd /var/www/backend2
   if [ -f "scripts/seed-swan-test-course.js" ]; then
     echo "🎓 Seeding Swan Academy Test Course & Demo Student..."
-    NODE_ENV=production timeout 60 node scripts/seed-swan-test-course.js || echo "⚠️ seed-swan-test-course skipped, continuing..."
+    NODE_ENV=production timeout 60 node scripts/seed-swan-test-course.js || {
+      echo "❌ [FATAL] seed-swan-test-course.js failed — aborting deployment (seed fail-closed)"
+      exit 1
+    }
   fi
   if [ -f "scripts/update-course1-thumbnail.js" ]; then
     echo "🖼️ Updating Course 1 Thumbnail (1080x1080)..."
@@ -1012,11 +1044,17 @@ if [ -n "$PM2_BIN" ]; then
   fi
   if [ -f "scripts/seed_hashtag_all_companies.js" ]; then
     echo "📦 Seeding Hashtag Express shipping company for all accounts..."
-    NODE_ENV=production timeout 60 node scripts/seed_hashtag_all_companies.js || echo "⚠️ seed_hashtag_all_companies skipped, continuing..."
+    NODE_ENV=production timeout 60 node scripts/seed_hashtag_all_companies.js || {
+      echo "❌ [FATAL] seed_hashtag_all_companies.js failed — aborting deployment (seed fail-closed)"
+      exit 1
+    }
   fi
   if [ -f "scripts/seed_lg_all_companies.js" ]; then
     echo "📦 Seeding LG Express shipping company for all accounts..."
-    NODE_ENV=production timeout 60 node scripts/seed_lg_all_companies.js || echo "⚠️ seed_lg_all_companies skipped, continuing..."
+    NODE_ENV=production timeout 60 node scripts/seed_lg_all_companies.js || {
+      echo "❌ [FATAL] seed_lg_all_companies.js failed — aborting deployment (seed fail-closed)"
+      exit 1
+    }
   fi
 
   # Capture baseline restart count for maxp-backend

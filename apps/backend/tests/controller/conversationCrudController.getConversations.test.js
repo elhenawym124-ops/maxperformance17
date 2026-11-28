@@ -324,4 +324,98 @@ describe('conversationCrudController.getConversations', () => {
       })
     );
   });
+
+  // --- latency regressions (task eea5c862) -------------------------------
+
+  test('does not run the message-content search unless searchInMessages/searchScope=all is requested', async () => {
+    const prisma = createPrismaMock({ conversations: [], totalCount: 0 });
+    prisma.$queryRawUnsafe = jest.fn().mockResolvedValue([]);
+    getSharedPrismaClient.mockReturnValue(prisma);
+
+    const req = { query: { search: 'سناء' }, user: { companyId: 'company_1' } };
+    const res = createResponse();
+
+    await getConversations(req, res);
+
+    // name search must stay on the fast path: no messages-table content scan at all
+    const contentSearches = prisma.$queryRawUnsafe.mock.calls
+      .map((c) => String(c[0]))
+      .filter((sql) => sql.includes('m.content ILIKE'));
+    expect(contentSearches).toHaveLength(0);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        searchMeta: expect.objectContaining({ scope: 'fields', contentMatchCount: 0 })
+      })
+    );
+  });
+
+  test('badge counts do not carry the search predicate (searching a name must not zero the badges)', async () => {
+    const prisma = createPrismaMock({ conversations: [], totalCount: 0 });
+    prisma.conversation.count = jest.fn()
+      .mockResolvedValueOnce(4)   // total (search filtered)
+      .mockResolvedValueOnce(7)   // unreplied badge
+      .mockResolvedValueOnce(2);  // priority badge
+    getSharedPrismaClient.mockReturnValue(prisma);
+
+    const req = { query: { search: 'سناء' }, user: { companyId: 'company_1' } };
+    const res = createResponse();
+
+    await getConversations(req, res);
+
+    const wheres = prisma.conversation.count.mock.calls.map((c) => c[0].where);
+    expect(wheres).toHaveLength(3);
+    expect(wheres[0].AND).toBeDefined();          // total keeps the search
+    expect(wheres[1].AND).toBeUndefined();        // unreplied badge = channel stats
+    expect(wheres[2].AND).toBeUndefined();        // priority badge = channel stats
+    expect(wheres[1].lastMessageIsFromCustomer).toBe(true);
+    expect(wheres[2].priority).toEqual({ gt: 1 });
+
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        counts: expect.objectContaining({ unreplied: 7, priority: 2 })
+      })
+    );
+  });
+
+  test('resolves last-inbound timestamps with one batched DISTINCT ON query, not one query per conversation', async () => {
+    const conversations = [1, 2, 3].map((n) => ({
+      id: `conv_${n}`,
+      customerId: `cust_${n}`,
+      channel: 'FACEBOOK',
+      status: 'ACTIVE',
+      lastMessagePreview: 'رسالة',
+      lastMessageAt: new Date(),
+      updatedAt: new Date(),
+      unreadCount: 0,
+      assignedUserId: null,
+      priority: 1,
+      metadata: null,
+      customer: { id: `cust_${n}`, firstName: 'عميل', lastName: `${n}` },
+      user: null,
+      messages: [{ isFromCustomer: false, isRead: true, content: 'رد', type: 'TEXT', createdAt: new Date() }]
+    }));
+
+    const prisma = createPrismaMock({ conversations, totalCount: 3 });
+    const lastInbound = new Date(Date.now() - 3600000);
+    prisma.$queryRawUnsafe = jest.fn().mockResolvedValue([
+      { conversationId: 'conv_1', createdAt: lastInbound }
+    ]);
+    getSharedPrismaClient.mockReturnValue(prisma);
+
+    const req = { query: { limit: '20' }, user: { companyId: 'company_1' } };
+    const res = createResponse();
+
+    await getConversations(req, res);
+
+    expect(prisma.$queryRawUnsafe.mock.calls
+      .filter((c) => String(c[0]).includes('DISTINCT ON ("conversationId")'))).toHaveLength(1);
+    const lastInboundCall = prisma.$queryRawUnsafe.mock.calls
+      .find((c) => String(c[0]).includes('DISTINCT ON ("conversationId")'));
+    expect(lastInboundCall[0]).toContain('"isFromCustomer" = true');
+    expect(lastInboundCall[1]).toEqual(['conv_1', 'conv_2', 'conv_3']);
+    expect(prisma.message.findFirst).not.toHaveBeenCalled();
+
+    const payload = res.json.mock.calls[0][0];
+    expect(payload.data.find((c) => c.id === 'conv_1').lastInboundAt).toBe(lastInbound.toISOString());
+  });
 });

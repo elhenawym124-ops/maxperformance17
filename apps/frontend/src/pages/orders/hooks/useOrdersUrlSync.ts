@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { SetURLSearchParams } from "react-router-dom";
 import {
   ORDERS_LIST_STORAGE_KEY,
@@ -28,8 +28,18 @@ export function useOrdersUrlSync({
   searchParams,
   setSearchParams,
 }: UseOrdersUrlSyncParams): void {
-  // Sync URL search parameters back to local filters state
+  const searchParamsRef = useRef(searchParams);
+  searchParamsRef.current = searchParams;
+  const pendingWrittenQueriesRef = useRef<Set<string>>(new Set());
+
+  // Sync URL search parameters back to local filters state (external navigation only)
   useEffect(() => {
+    const incomingQuery = searchParams.toString();
+    if (pendingWrittenQueriesRef.current.has(incomingQuery)) {
+      pendingWrittenQueriesRef.current.delete(incomingQuery);
+      return;
+    }
+
     const newFilters = getFiltersFromSearchParams(searchParams);
     setFilters((prev) => {
       const isDifferent = Object.keys(newFilters).some(
@@ -79,13 +89,22 @@ export function useOrdersUrlSync({
       }
     });
 
-    const currentLayout = searchParams.get("layout");
+    const currentLayout = searchParamsRef.current.get("layout");
     if (currentLayout) {
       params.layout = currentLayout;
     }
 
+    const nextQuery = new URLSearchParams(params).toString();
+    if (nextQuery === searchParamsRef.current.toString()) {
+      return;
+    }
+
+    if (pendingWrittenQueriesRef.current.size > 20) {
+      pendingWrittenQueriesRef.current.clear();
+    }
+    pendingWrittenQueriesRef.current.add(nextQuery);
     setSearchParams(params, { replace: true });
-  }, [filters, page, limit, searchParams, setSearchParams]);
+  }, [filters, page, limit, setSearchParams]);
 
   // Persist current filters, page, and limit state in localStorage
   useEffect(() => {

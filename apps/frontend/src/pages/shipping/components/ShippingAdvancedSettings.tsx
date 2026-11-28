@@ -122,12 +122,16 @@ export const ShippingAdvancedSettings: React.FC<ShippingAdvancedSettingsProps> =
               <input
                 type="text"
                 readOnly
-                value={`${envConfig.backendUrl}/api/v1/shipments/webhook`}
+                value={`${envConfig.backendUrl}${
+                  formData.providerKey === 'TURBO'
+                    ? '/api/v1/turbo-webhook/webhook'
+                    : '/api/v1/shipments/webhook'
+                }`}
                 className="flex-1 px-2 py-1 text-[11px] bg-card border border-border rounded font-mono text-muted-foreground"
               />
               <button
                 type="button"
-                onClick={copyWebhookUrl}
+                onClick={() => copyWebhookUrl(formData.providerKey)}
                 className="p-1.5 bg-muted hover:bg-muted rounded text-foreground"
                 title="نسخ"
               >

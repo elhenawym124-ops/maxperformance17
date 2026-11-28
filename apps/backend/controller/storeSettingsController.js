@@ -584,6 +584,58 @@ exports.updateTurboSettings = async (req, res) => {
       });
     }, 3);
 
+    // 🔄 مزامنة شاملة مع سجل TURBO في ShippingCompany حتى تتطابق شاشتا الإعدادات وشركات الشحن
+    if (prisma.shippingCompany?.findFirst) {
+      try {
+        const existingCarrier = await prisma.shippingCompany.findFirst({
+          where: { companyId, providerKey: 'TURBO' }
+        });
+        if (existingCarrier) {
+          let cs = {};
+          try {
+            cs = existingCarrier.settings
+              ? (typeof existingCarrier.settings === 'string' ? JSON.parse(existingCarrier.settings) : existingCarrier.settings)
+              : {};
+          } catch {}
+          if (turboAutoCreate !== undefined) {
+            cs.autoCreateShipments = Boolean(turboAutoCreate);
+            if (cs.autoCreateShipments && !cs.shipmentCreateTrigger) {
+              cs.shipmentCreateTrigger = 'ON_CONFIRM';
+            }
+          }
+          if (turboMainClientCode !== undefined) {
+            cs.mainClientCode = updateData.turboMainClientCode || null;
+          }
+          if (turboSenderNumber !== undefined) {
+            cs.senderNumber = updateData.turboSenderNumber || null;
+          }
+          if (turboWebhookUrl !== undefined) {
+            cs.webhookUrl = updateData.turboWebhookUrl || null;
+          }
+          if (turboWebhookToken !== undefined) {
+            cs.webhookToken = updateData.turboWebhookToken || null;
+          }
+          if (turboApiKey !== undefined && updateData.turboApiKey) {
+            cs.apiKey = updateData.turboApiKey;
+          }
+          const carrierPatch = {
+            settings: JSON.stringify(cs),
+            ...(turboApiKey !== undefined ? { apiKey: updateData.turboApiKey } : {}),
+            ...(turboEnabled !== undefined ? { isActive: Boolean(turboEnabled) } : {}),
+          };
+          if (existingCarrier.integrationMode !== 'LIVE' && (updateData.turboApiKey || existingCarrier.apiKey)) {
+            carrierPatch.integrationMode = 'LIVE';
+          }
+          await prisma.shippingCompany.update({
+            where: { id: existingCarrier.id },
+            data: carrierPatch
+          }).catch(() => {});
+        }
+      } catch (carrierSyncErr) {
+        console.warn('⚠️ [TURBO] Failed syncing settings to ShippingCompany:', carrierSyncErr.message);
+      }
+    }
+
     // تلقائياً أنشئ/حدث حالات الشحن المخصصة لتربو في إعدادات حالات الطلب للشركة
     try {
       if (orderStatusController && typeof orderStatusController.initializeDefaultStatuses === 'function') {

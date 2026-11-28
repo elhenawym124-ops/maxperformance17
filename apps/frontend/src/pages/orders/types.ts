@@ -192,6 +192,20 @@ export interface OrderDetailsType {
   // Unified Shipping Fields
   trackingNumber?: string | null;
   carrierType?: string | null;
+  shippingCompanyId?: string | null;
+  courierId?: string | null;
+  providerKey?: string | null;
+  deliveredAt?: string | null;
+  shippingCompany?: {
+    id: string;
+    name: string;
+    providerKey?: string | null;
+  } | null;
+  courier?: {
+    id: string;
+    name: string;
+    phone?: string | null;
+  } | null;
 
   // Turbo Shipping Fields
   turboShipmentId?: string;

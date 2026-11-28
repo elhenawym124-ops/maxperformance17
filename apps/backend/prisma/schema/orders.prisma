@@ -393,6 +393,13 @@ model Order {
   createdBy               String?
   createdByName           String?
   userRelId               String?
+  /// Hashtag Express delivery proof — kept on the order itself so reports and
+  /// settlements can answer "who delivered?" without a new status.
+  shippingCompanyId       String?
+  courierId               String?
+  providerKey             String?
+  trackingNumber          String?
+  deliveredAt             DateTime?
   statusHistory           OrderStatusHistory[]
   statusChangeRequests    OrderStatusChangeRequest[]
   workflowAuditLogs       OrderWorkflowAuditLog[]
@@ -412,6 +419,8 @@ model Order {
   conversation            Conversation?             @relation(fields: [conversationId], references: [id])
   createdByUser           User?                     @relation("OrderCreatedBy", fields: [createdBy], references: [id])
   customer                Customer                  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  shippingCompany         ShippingCompany?          @relation("OrderShippingCompany", fields: [shippingCompanyId], references: [id], onDelete: SetNull)
+  courier                 Courier?                  @relation("OrderCourier", fields: [courierId], references: [id], onDelete: SetNull)
   wholesaleCustomer       WholesaleCustomer?        @relation(fields: [wholesaleCustomerId], references: [id])
   userRel                 User?                     @relation(fields: [userRelId], references: [id])
   returnRequests          ReturnRequest[]
@@ -438,6 +447,10 @@ model Order {
   @@index([wholesaleCustomerId])
   @@index([scheduledDeliveryDate])
   @@index([turboTrackingNumber])
+  @@index([shippingCompanyId])
+  @@index([courierId])
+  @@index([providerKey])
+  @@index([trackingNumber])
   @@index([wooCommerceId])
   @@index([companyId, customStatusCode])
   @@index([storeId])
@@ -594,6 +607,9 @@ model OrderStatusHistory {
   changedBy    String?
   userName     String?
   reason       String?
+  /// Shipping provider that triggered this history row (e.g. HASHTAG) — a
+  /// delivery row must say who delivered.
+  providerKey  String?
   createdAt    DateTime    @default(now())
   guestOrderId String?
   guestOrder   GuestOrder? @relation(fields: [guestOrderId], references: [id], onDelete: Cascade)

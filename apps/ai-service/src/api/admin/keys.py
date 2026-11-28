@@ -590,6 +590,7 @@ _DEFAULT_TEST_MODELS: dict[str, str] = {
     "NVIDIA": "openai/gpt-oss-120b",
     "HUGGINGFACE": "mistralai/Mistral-7B-Instruct-v0.3",
     "GITHUB": "gpt-4o",
+    "OPENCODE": "deepseek-v4.1-flash",
 }
 
 

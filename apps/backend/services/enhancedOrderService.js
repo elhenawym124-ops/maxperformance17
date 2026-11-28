@@ -509,24 +509,33 @@ class EnhancedOrderService {
         syncQueueService.enqueue(order.id, data.companyId);
       }
 
-      // 🚚 Turbo Integration: إنشاء شحنة تلقائياً إذا كان الطلب CONFIRMED و Turbo مفعّل
-      // 🚚 Turbo Integration: إنشاء شحنة تلقائياً إذا كان الطلب CONFIRMED و Turbo مفعّل
-      // 🚚 Turbo Integration: إنشاء شحنة تلقائياً وفق توقيت الإعدادات (ON_ORDER)
-      try {
-        const { shouldCreateShipmentNow } = require('./shippingProviderService');
-        const turboCarrier = await this.prisma.shippingCompany.findFirst({
-          where: { companyId: data.companyId, providerKey: 'TURBO', isActive: true },
-          select: { settings: true, providerKey: true, integrationMode: true }
-        });
+      // 🚚 Shipping Auto-Create: يدعم ON_ORDER وكذلك ON_CONFIRM للطلبات المنشأة مباشرة بحالة CONFIRMED (مثل المحادثات والطلبات اليدوية)
+      if (!isDuplicate) {
+        setImmediate(async () => {
+          try {
+            const { shouldCreateShipmentNow, autoCreateNonTurboShipmentsForOrder } = require('./shippingProviderService');
+            const orderStatusUpper = String(order.status || '').trim().toUpperCase();
+            const candidateStages = orderStatusUpper === 'CONFIRMED' ? ['ON_ORDER', 'ON_CONFIRM'] : ['ON_ORDER'];
+            const turboCarrier = await this.prisma.shippingCompany.findFirst({
+              where: { companyId: data.companyId, providerKey: 'TURBO', isActive: true },
+              select: { settings: true, providerKey: true, integrationMode: true }
+            });
 
-        if (shouldCreateShipmentNow(turboCarrier?.settings, 'ON_ORDER')) {
-          const orderService = require('./orderService');
-          await orderService.autoCreateTurboShipmentForOrder(order, data.companyId, { stage: 'ON_ORDER' });
-        } else {
-          console.log(`ℹ️ [TURBO-AUTO] Shipment postponed on order creation for ${order.orderNumber} (trigger: not ON_ORDER)`);
-        }
-      } catch (turboError) {
-        console.error(`❌ [TURBO-AUTO] Failed to check/create shipment in enhancedOrderService for order ${order.orderNumber}:`, turboError.message);
+            const matchedTurboStage = candidateStages.find((st) => shouldCreateShipmentNow(turboCarrier?.settings, st));
+            if (matchedTurboStage) {
+              const orderService = require('./orderService');
+              await orderService.autoCreateTurboShipmentForOrder(order.id, data.companyId, { stage: matchedTurboStage });
+            } else {
+              console.log(`ℹ️ [TURBO-AUTO] Shipment postponed on order creation for ${order.orderNumber} (status=${orderStatusUpper}, trigger not matched)`);
+            }
+
+            for (const st of candidateStages) {
+              await autoCreateNonTurboShipmentsForOrder(this.prisma, order.id, data.companyId, { stage: st }).catch(() => {});
+            }
+          } catch (turboError) {
+            console.error(`❌ [TURBO-AUTO] Failed to check/create shipment in enhancedOrderService for order ${order.orderNumber}:`, turboError.message);
+          }
+        });
       }
 
       // Trigger auto-distribution immediately

@@ -48,8 +48,11 @@
     {
       "name": "formal_grievance_escalation",
       "input": "أنا بتعرض لمعاملة سيئة جداً من مديري وعايز ارفع شكوى رسمية ومش راضي عن التقييم",
-      "expected_tool": "agent_handoff_to",
-      "expected_behavior": "التعاطف مع الموظف وتصعيد الشكوى لمسؤول الموارد البشرية البشري"
+      "expected_tool": "escalate_to_human",
+      "expected_arguments": {
+        "target_role": "human_hr_manager"
+      },
+      "expected_behavior": "التعاطف مع الموظف وتصعيد الشكوى لمسؤول الموارد البشرية البشري عبر target_role الصحيح"
     }
   ]
 }

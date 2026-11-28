@@ -1,6 +1,7 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const { PrismaClient } = require('../generated/postgresql_v2');
+const { validatePermissionDomains } = require('./validatePermissionDomains');
 const prisma = new PrismaClient();
 
 const PERMISSIONS = [
@@ -483,69 +484,91 @@ const BUILT_IN_ROLES = {
 };
 
 async function seed() {
+  // Fail-closed pre-flight: no DB connection, no insert if a domain is invalid.
+  validatePermissionDomains(PERMISSIONS);
   console.log('🌱 Seeding permissions and roles...');
 
-  // Upsert all permissions
-  const permissionMap = {};
-  for (const perm of PERMISSIONS) {
-    const created = await prisma.permission.upsert({
-      where: { key: perm.key },
-      create: perm,
-      update: { name: perm.name, domain: perm.domain },
+  const stats = { created: 0, updated: 0, failed: 0 };
+  try {
+    const existing = await prisma.permission.findMany({
+      where: { key: { in: PERMISSIONS.map(p => p.key) } },
+      select: { key: true },
     });
-    permissionMap[perm.key] = created.id;
-  }
-  console.log(`✅ ${PERMISSIONS.length} permissions seeded`);
+    const existingKeys = new Set(existing.map(p => p.key));
 
-  // Upsert built-in roles (no companyId = global)
-  for (const [key, role] of Object.entries(BUILT_IN_ROLES)) {
-    let dbRole = await prisma.role.findFirst({
-      where: { key, OR: [{ companyId: '__system__' }, { companyId: null }] },
-    });
-
-    if (dbRole) {
-      dbRole = await prisma.role.update({
-        where: { id: dbRole.id },
-        data: {
-          name: role.name,
-          description: role.description,
-          priority: role.priority,
-        },
+    // Upsert all permissions
+    const permissionMap = {};
+    for (const perm of PERMISSIONS) {
+      const created = await prisma.permission.upsert({
+        where: { key: perm.key },
+        create: perm,
+        update: { name: perm.name, domain: perm.domain },
       });
-      if (dbRole.companyId === null) {
-        await prisma.role.update({
+      permissionMap[perm.key] = created.id;
+      if (existingKeys.has(perm.key)) stats.updated += 1;
+      else stats.created += 1;
+    }
+    console.log(`✅ ${PERMISSIONS.length} permissions seeded`);
+
+    // Upsert built-in roles (no companyId = global)
+    for (const [key, role] of Object.entries(BUILT_IN_ROLES)) {
+      let dbRole = await prisma.role.findFirst({
+        where: { key, OR: [{ companyId: '__system__' }, { companyId: null }] },
+      });
+
+      if (dbRole) {
+        dbRole = await prisma.role.update({
           where: { id: dbRole.id },
-          data: { companyId: '__system__' },
+          data: {
+            name: role.name,
+            description: role.description,
+            priority: role.priority,
+          },
+        });
+        if (dbRole.companyId === null) {
+          await prisma.role.update({
+            where: { id: dbRole.id },
+            data: { companyId: '__system__' },
+          });
+        }
+      } else {
+        dbRole = await prisma.role.create({
+          data: {
+            key,
+            name: role.name,
+            description: role.description,
+            priority: role.priority,
+            isBuiltIn: true,
+            isSystem: role.isSystem,
+            companyId: '__system__',
+          },
         });
       }
-    } else {
-      dbRole = await prisma.role.create({
-        data: {
-          key,
-          name: role.name,
-          description: role.description,
-          priority: role.priority,
-          isBuiltIn: true,
-          isSystem: role.isSystem,
-          companyId: '__system__',
-        },
+
+      // Set permissions for this role
+      const permIds = role.permissions.map(pk => permissionMap[pk]).filter(Boolean);
+      await prisma.rolePermission.deleteMany({ where: { roleId: dbRole.id } });
+      await prisma.rolePermission.createMany({
+        data: permIds.map(permId => ({ roleId: dbRole.id, permissionId: permId })),
       });
+
+      console.log(`✅ Role "${key}" seeded with ${permIds.length} permissions`);
     }
 
-    // Set permissions for this role
-    const permIds = role.permissions.map(pk => permissionMap[pk]).filter(Boolean);
-    await prisma.rolePermission.deleteMany({ where: { roleId: dbRole.id } });
-    await prisma.rolePermission.createMany({
-      data: permIds.map(permId => ({ roleId: dbRole.id, permissionId: permId })),
-    });
-
-    console.log(`✅ Role "${key}" seeded with ${permIds.length} permissions`);
+    console.log('🎉 Seed complete!');
+  } catch (error) {
+    stats.failed = Math.max(stats.failed, 1);
+    console.error('❌ Permissions seeding failed:', error && error.message ? error.message : error);
+    throw error;
+  } finally {
+    console.log(
+      `📊 [SEED STATS] permissions: created=${stats.created} updated=${stats.updated} ` +
+      `failed=${stats.failed} total=${PERMISSIONS.length}`
+    );
   }
-
-  console.log('🎉 Seed complete!');
 }
 
-module.exports = { PERMISSIONS, BUILT_IN_ROLES };
+module.exports = { PERMISSIONS, BUILT_IN_ROLES, seed, validatePermissionDomains };
 
 if (require.main === module) {
   seed()

@@ -185,13 +185,29 @@ def _format_hr_leave_balance(res: dict[str, Any]) -> str:
     if res.get("error"):
         return f"تنبيه: {res['error']}"
 
-    annual_bal = res.get("annual_balance", res.get("annual_remaining", 0))
-    sick_bal = res.get("sick_balance", res.get("sick_remaining", 0))
+    annual_total = int(res.get("annual_total", 0) or 0)
+    annual_taken = int(res.get("annual_taken", 0) or 0)
+    annual_bal = res.get("annual_balance", res.get("annual_remaining"))
+    if annual_bal is None:
+        annual_bal = max(0, annual_total - annual_taken)
+
+    sick_total = int(res.get("sick_total", 0) or 0)
+    sick_taken = int(res.get("sick_taken", 0) or 0)
+    sick_bal = res.get("sick_balance", res.get("sick_remaining"))
+    if sick_bal is None:
+        sick_bal = max(0, sick_total - sick_taken)
+
+    emergency_total = int(res.get("emergency_total", 0) or 0)
+    emergency_taken = int(res.get("emergency_taken", 0) or 0)
+    emergency_bal = res.get("emergency_balance", res.get("emergency_remaining"))
+    if emergency_bal is None:
+        emergency_bal = max(0, emergency_total - emergency_taken)
+
     return (
         f"أرصدة إجازات الزميل/ة {res.get('employee_name', '')}:\n"
-        f"- الإجازات السنوية: متبقي {annual_bal} يوم من إجمالي {res.get('annual_total', 0)} يوم (مستهلك: {res.get('annual_taken', 0)} يوم).\n"
-        f"- الإجازات المرضية: متبقي {sick_bal} يوم من إجمالي {res.get('sick_total', 0)} يوم.\n"
-        f"- الإجازات العارضة المستهلكة: {res.get('emergency_taken', 0)} يوم."
+        f"- الإجازات السنوية: إجمالي {annual_total} يوم | مستهلك {annual_taken} يوم | متبقي {annual_bal} يوم.\n"
+        f"- الإجازات المرضية: إجمالي {sick_total} يوم | مستهلك {sick_taken} يوم | متبقي {sick_bal} يوم.\n"
+        f"- الإجازات العارضة: إجمالي {emergency_total} يوم | مستهلك {emergency_taken} يوم | متبقي {emergency_bal} يوم."
     )
 
 

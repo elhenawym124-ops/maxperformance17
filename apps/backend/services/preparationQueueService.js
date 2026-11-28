@@ -296,13 +296,14 @@ const updatePreparationOrderStatus = async ({
             where: { companyId, providerKey: 'TURBO', isActive: true },
             select: { settings: true }
           }) : null;
-          const { shouldCreateShipmentNow } = require('./shippingProviderService');
+          const { shouldCreateShipmentNow, autoCreateNonTurboShipmentsForOrder } = require('./shippingProviderService');
           if (!carrier || shouldCreateShipmentNow(carrier?.settings, targetStage)) {
             const orderService = require('./orderService');
             orderService.autoCreateTurboShipmentForOrder(updatedOrder.id, companyId, { stage: targetStage }).catch(err => {
               console.warn(`[PREPARATION-QUEUE] Turbo auto-create failed for ${updatedOrder.id}:`, err.message);
             });
           }
+          await autoCreateNonTurboShipmentsForOrder(prisma, updatedOrder.id, companyId, { stage: targetStage }).catch(() => {});
         } catch (prepTurboErr) {
           console.warn('[PREPARATION-QUEUE] Turbo auto-create require failed:', prepTurboErr.message);
         }

@@ -2,7 +2,13 @@ const axios = require('axios');
 const { FALLBACK_GOVERNMENTS, CACHE_TTL } = require('../../utils/turbo/constants');
 const { findGovernmentByCity } = require('../../utils/turbo/governorateMapper');
 
-const cache = { governments: { data: null, timestamp: 0 }, areas: {} };
+const cache = { governmentsByScope: {}, areasByScope: {} };
+
+function getLocationCacheScope(client) {
+  const companyPart = client?.companyId || 'default';
+  const keyPart = client?.apiKey ? String(client.apiKey).slice(-6) : 'default';
+  return `${companyPart}:${keyPart}`;
+}
 
 class LocationService {
   constructor(apiClient) {
@@ -12,8 +18,10 @@ class LocationService {
   async getGovernments() {
     try {
       const now = Date.now();
-      if (cache.governments.data && (now - cache.governments.timestamp < CACHE_TTL)) {
-        return { success: true, governments: cache.governments.data, count: cache.governments.data.length, fromCache: true };
+      const scope = getLocationCacheScope(this._client);
+      const cachedGovs = cache.governmentsByScope[scope];
+      if (cachedGovs?.data && (now - cachedGovs.timestamp < CACHE_TTL)) {
+        return { success: true, governments: cachedGovs.data, count: cachedGovs.data.length, fromCache: true };
       }
 
       let apiKey = null;
@@ -23,6 +31,7 @@ class LocationService {
 
       const headers = await this._client.getHeaders();
       const mainClientCode = await this._client.getMainClientCode();
+      const resolvedScope = `${this._client?.companyId || 'default'}:${mainClientCode || String(apiKey).slice(-6)}`;
 
       const response = await axios.get(`${this._client.baseUrl}/get-government?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`, { headers, timeout: this._client.timeout });
       const responseData = response.data;
@@ -43,7 +52,11 @@ class LocationService {
         return { name: String(gov), id: String(gov) };
       });
 
-      if (cleanedGovernments.length > 0) cache.governments = { data: cleanedGovernments, timestamp: now };
+      if (cleanedGovernments.length > 0) {
+        const entry = { data: cleanedGovernments, timestamp: now };
+        cache.governmentsByScope[scope] = entry;
+        cache.governmentsByScope[resolvedScope] = entry;
+      }
       return { success: true, governments: cleanedGovernments, count: cleanedGovernments.length };
     } catch (error) {
       return { success: true, governments: FALLBACK_GOVERNMENTS, count: FALLBACK_GOVERNMENTS.length, isFallback: true, error: error.message };
@@ -55,14 +68,17 @@ class LocationService {
       if (!governmentId) throw new Error('Government ID is required');
       const govId = String(governmentId);
       const now = Date.now();
+      const scope = getLocationCacheScope(this._client);
+      const scopedAreas = cache.areasByScope[scope] || (cache.areasByScope[scope] = {});
 
-      if (cache.areas[govId]?.data && (now - cache.areas[govId].timestamp < CACHE_TTL)) {
-        return { success: true, areas: cache.areas[govId].data, count: cache.areas[govId].data.length, fromCache: true };
+      if (scopedAreas[govId]?.data && (now - scopedAreas[govId].timestamp < CACHE_TTL)) {
+        return { success: true, areas: scopedAreas[govId].data, count: scopedAreas[govId].data.length, fromCache: true };
       }
 
       const headers = await this._client.getHeaders();
       const apiKey = await this._client.getApiKey();
       const mainClientCode = await this._client.getMainClientCode();
+      const resolvedScope = `${this._client?.companyId || 'default'}:${mainClientCode || String(apiKey).slice(-6)}`;
 
       const response = await axios.get(`${this._client.baseUrl}/get-area/${governmentId}?main_client_code=${mainClientCode || 37321}&authentication_key=${encodeURIComponent(apiKey)}`, { headers, timeout: this._client.timeout });
       const responseData = response.data;
@@ -79,7 +95,10 @@ class LocationService {
         return { name: String(area), id: String(area) };
       });
 
-      cache.areas[govId] = { data: cleanedAreas, timestamp: now };
+      const entry = { data: cleanedAreas, timestamp: now };
+      scopedAreas[govId] = entry;
+      const resolvedAreas = cache.areasByScope[resolvedScope] || (cache.areasByScope[resolvedScope] = {});
+      resolvedAreas[govId] = entry;
       return { success: true, areas: cleanedAreas, count: cleanedAreas.length };
     } catch (error) {
       return { success: true, areas: [], count: 0, error: error.message };

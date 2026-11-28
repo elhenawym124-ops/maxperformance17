@@ -23,6 +23,7 @@ import { EmptyState } from "@/components/hr/EmptyState";
 import { EnhancedPagination } from "@/components/hr/EnhancedPagination";
 import { Department, Employee, PaginationState } from "./employees/types";
 import { EmployeeTableRow } from "./employees/EmployeeTableRow";
+import { EmployeeMobileCard } from "./employees/EmployeeMobileCard";
 
 export interface PolarisEmployeesViewProps {
   loading: boolean;
@@ -243,7 +244,7 @@ export const PolarisEmployeesView: React.FC<PolarisEmployeesViewProps> = ({
         </div>
 
         {/* Employees Table */}
-        <div className="overflow-x-auto">
+        <div>
           {loading ? (
             <div className="p-4">
               <EmployeeTableSkeleton />
@@ -261,35 +262,10 @@ export const PolarisEmployeesView: React.FC<PolarisEmployeesViewProps> = ({
               />
             </div>
           ) : (
-            <Table>
-              <TableHeader className="bg-muted/30 border-b border-border/70">
-                <TableRow className="hover:bg-transparent">
-                  <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.employee", "الموظف")}
-                  </TableHead>
-                  <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.department", "القسم")}
-                  </TableHead>
-                  <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.position", "المسمى الوظيفي")}
-                  </TableHead>
-                  <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.contact", "بيانات الاتصال")}
-                  </TableHead>
-                  <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.contract", "نوع العقد")}
-                  </TableHead>
-                  <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.status", "الحالة")}
-                  </TableHead>
-                  <TableHead className="text-center text-xs font-semibold text-muted-foreground py-2.5">
-                    {t("employees.actions", "الإجراءات")}
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody className="divide-y divide-border/40">
+            <>
+              <div className="md:hidden divide-y divide-border/60">
                 {employees.map((employee) => (
-                  <EmployeeTableRow
+                  <EmployeeMobileCard
                     key={employee.id}
                     employee={employee}
                     onOpenAssets={onOpenAssets}
@@ -299,8 +275,51 @@ export const PolarisEmployeesView: React.FC<PolarisEmployeesViewProps> = ({
                     onTerminate={onTerminate}
                   />
                 ))}
-              </TableBody>
-            </Table>
+              </div>
+
+              <div className="hidden md:block overflow-x-auto">
+                <Table>
+                  <TableHeader className="bg-muted/30 border-b border-border/70">
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
+                        {t("employees.employee", "الموظف")}
+                      </TableHead>
+                      <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
+                        {t("employees.department", "القسم")}
+                      </TableHead>
+                      <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
+                        {t("employees.position", "المسمى الوظيفي")}
+                      </TableHead>
+                      <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
+                        {t("employees.contact", "بيانات الاتصال")}
+                      </TableHead>
+                      <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
+                        {t("employees.contract", "نوع العقد")}
+                      </TableHead>
+                      <TableHead className="text-start text-xs font-semibold text-muted-foreground py-2.5">
+                        {t("employees.status", "الحالة")}
+                      </TableHead>
+                      <TableHead className="text-center text-xs font-semibold text-muted-foreground py-2.5">
+                        {t("employees.actions", "الإجراءات")}
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody className="divide-y divide-border/40">
+                    {employees.map((employee) => (
+                      <EmployeeTableRow
+                        key={employee.id}
+                        employee={employee}
+                        onOpenAssets={onOpenAssets}
+                        onDelete={onDelete}
+                        onResetPassword={onResetPassword}
+                        onToggleStatus={onToggleStatus}
+                        onTerminate={onTerminate}
+                      />
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
           )}
         </div>
 

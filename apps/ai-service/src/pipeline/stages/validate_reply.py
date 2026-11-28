@@ -37,11 +37,21 @@ _STATE_CHANGING_TOOLS = {
     "order_create_confirmed",
     "booking_reserve",
     "booking_reserve_skill",
+    # Sensitive HR tools (leave / permission / advance requests)
+    "hr_leave_request_create",
+    "hr_permission_request_create",
+    "hr_advance_request_create",
+    # Human escalation must also be backed by a real tool execution
+    "escalate_to_human",
+    "agent_handoff_to",
 }
 
 _HALLUCINATION_PHRASES = [
     # Explicit order state-changing claims without an actual order tool execution
     "تم تأكيد الطلب", "تم تأكيد الأوردر", "اتأكد الطلب", "اتأكد الأوردر", "تم تأكيد حجزك",
+    "تم تسجيل طلبك", "تم تسجيل الطلب", "تم تسجيل الأوردر", "تم تسجيل الاوردر",
+    "اتسجل الطلب", "اتسجل الأوردر", "اتسجل الاوردر", "اتعمل الطلب", "تم إنشاء الطلب",
+    "order placed successfully", "your order has been placed",
     "اتلغى الطلب", "اتلغي الطلب", "تم إلغاء الطلب", "تم الغاء الطلب", "تم إلغاء الأوردر",
     "اتشحن الطلب", "تم شحن الطلب", "اتنقل للشحن", "راح للشحن", "خرج للشحن",
     "اترد للعميل", "اترجع المبلغ", "تم استرجاع المبلغ", "تم استرداد المبلغ",
@@ -52,6 +62,17 @@ _HALLUCINATION_PHRASES = [
     "order confirmed", "order has been confirmed", "order is confirmed",
     "order cancelled", "order canceled", "order has been cancelled",
     "order shipped", "order has been shipped",
+    # Sensitive HR actions without an actual HR tool execution
+    "تم تسجيل طلب الإجازة", "تم تسجيل الإجازة", "تم تسجيل إجازتك", "تم رفع طلب الإجازة",
+    "تم تقديم طلب الإجازة", "تم اعتماد إجازتك", "تمت الموافقة على إجازتك",
+    "تمت الموافقة على طلب الإجازة", "اتوافق على إجازتك",
+    "تم تسجيل طلب الإذن", "تم تسجيل الإذن", "تم رفع طلب الإذن", "تم تسجيل الاستئذان",
+    "تم تسجيل طلب السلفة", "تم رفع طلب السلفة", "تم تسجيل السلفة", "تم صرف السلفة",
+    "leave request submitted", "leave request approved", "permission request submitted",
+    "advance request submitted", "advance request approved",
+    # Human escalation claims without an actual escalate/handoff tool execution
+    "تم تحويلك", "تم تحويل المحادثة", "تم تحويل حالتك", "تم التصعيد",
+    "escalated to a human", "transferred to a human", "handed off to a human",
 ]
 
 _HALLUCINATION_FALLBACK = (
@@ -297,6 +318,21 @@ def _build_hallucination_correction(
     tool's success before responding.
     """
     evidence_text = _summarize_evidence(ctx.tool_evidence)
+    agent_role = str(
+        getattr(ctx.agent, "role", "")
+        or getattr(ctx.agent, "template_slug", "")
+        or ""
+    ).upper()
+    if agent_role.startswith("HR"):
+        tool_hint = (
+            "hr_leave_request_create / hr_permission_request_create / "
+            "hr_advance_request_create / escalate_to_human"
+        )
+    else:
+        tool_hint = (
+            "order_confirm / order_update_details / order_cancel / "
+            "order_refund / booking_reserve"
+        )
     return [
         {
             "role": "user",
@@ -309,8 +345,7 @@ def _build_hallucination_correction(
                 f"الأدوات اللي اتنادت في الـ turn ده: "
                 f"{[item.get('tool', '') for item in (ctx.executed_tools or []) if isinstance(item, dict)]}\n"
                 f"نتائج الأدوات (tool evidence): {evidence_text or '(لا توجد)'}\n\n"
-                "اعمل call للأداة الصح (order_confirm / order_update_details / "
-                "order_cancel / order_refund / booking_reserve) دلوقتي، استنى نتيجتها، وبعدين اتكلم "
+                f"اعمل call للأداة الصح ({tool_hint}) دلوقتي، استنى نتيجتها، وبعدين اتكلم "
                 "مع العميل بناءً على النتيجة الفعلية. لو الأداة رجعت success → قول "
                 "للعميل. لو رجعت error → قول الحقيقة واطلب توضيح أو بيانات تانية."
             ),
