@@ -166,6 +166,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const { t, i18n } = useTranslation();
   const [showRichTools, setShowRichTools] = useState(false);
 
+  const activeChannelSession = React.useMemo(
+    () =>
+      selectedContact?.sessionId
+        ? sessions.find((s) => s.id === selectedContact.sessionId) || null
+        : null,
+    [sessions, selectedContact?.sessionId],
+  );
+
   useEffect(() => {
     setShowRichTools(false);
   }, [selectedContact]);
@@ -195,10 +203,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
   const replyPreview = replyingTo?.content || replyingTo?.mediaType || t("whatsapp.window.message");
 
-  const activeChannelSession = React.useMemo(
-    () => sessions.find((s) => s.id === selectedContact.sessionId) || null,
-    [sessions, selectedContact.sessionId],
-  );
   const isChannelOutboundDisabled = activeChannelSession?.outboundEnabled === false;
   const isChannelInboundDisabled = activeChannelSession?.inboundEnabled === false;
 
