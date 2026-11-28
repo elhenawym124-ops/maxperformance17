@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -16,6 +16,7 @@ import {
   ChevronLeftIcon,
 } from "@heroicons/react/24/outline";
 import { DefaultPageSelector } from "../../../components/settings/DefaultPageSelector";
+import { UserApiKeysPanel } from "../../../components/api-keys/UserApiKeysPanel";
 import { ProfileFormData, MerchantUserExtras } from "./types";
 import { getInitials } from "./helpers";
 import { ProfileSecurityTab } from "./ProfileSecurityTab";
@@ -180,6 +181,7 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
                     <button
                       type="button"
                       onClick={onSave}
+                      data-testid="profile-save"
                       disabled={saving}
                       className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-persimmon px-3 py-2 text-xs font-semibold text-white transition hover:bg-persimmon-hover active:scale-[0.97] disabled:opacity-60"
                     >
@@ -193,6 +195,7 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
                     <button
                       type="button"
                       onClick={() => setIsEditing(false)}
+                      data-testid="profile-cancel"
                       disabled={saving}
                       className="inline-flex items-center justify-center gap-1.5 rounded-lg ring-1 ring-inset ring-on-petrol/30 px-3 py-2 text-xs font-semibold text-on-petrol transition hover:bg-on-petrol/10 active:scale-[0.97] disabled:opacity-60"
                     >
@@ -283,10 +286,30 @@ export const MerchantProfileView: React.FC<MerchantProfileViewProps> = ({
 
           <section className="border-t border-border/70 px-4 py-4 sm:px-6">
             <DefaultPageSelector value={defaultPage} onChange={onDefaultPageChange} disabled={settingsLoading} />
+
+            <div className="mt-4 border-t border-border/70 pt-4">
+              <p className="mb-1 text-xs text-muted-foreground">{t("settings.timezone", "المنطقة الزمنية")}</p>
+              {isEditing ? (
+                <select
+                  value={formData.timezone || "Africa/Cairo"}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, timezone: e.target.value }))}
+                  className="w-full rounded-lg border border-border/70 bg-card px-3 py-2 text-sm text-foreground outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/15 sm:w-64"
+                >
+                  <option value="Africa/Cairo">القاهرة (Africa/Cairo)</option>
+                  <option value="Asia/Riyadh">الرياض (Asia/Riyadh)</option>
+                  <option value="Asia/Dubai">دبي (Asia/Dubai)</option>
+                </select>
+              ) : (
+                <p className="text-sm font-medium text-foreground">{formData.timezone || "—"}</p>
+              )}
+            </div>
           </section>
 
           <section className="border-t border-border/70 px-4 py-4 sm:px-6">
             <ProfileSecurityTab />
+            <div className="mt-5 border-t border-border/70 pt-5">
+              <UserApiKeysPanel mode="self" />
+            </div>
           </section>
         </div>
       </div>

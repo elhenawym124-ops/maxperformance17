@@ -2,12 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import {
   ChartBarIcon,
   IdentificationIcon,
-  WalletIcon,
-  ComputerDesktopIcon,
-  DocumentTextIcon,
-  BellAlertIcon,
-  CakeIcon,
-  KeyIcon,
+  BriefcaseIcon,
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 import { UserApiKeysPanel } from "../../components/api-keys/UserApiKeysPanel";
@@ -67,13 +62,8 @@ export const Profile: React.FC = () => {
     () => [
       { value: "overview", label: t("employee.common.overview"), icon: ChartBarIcon },
       { value: "personal", label: t("employee.common.personalInfo"), icon: IdentificationIcon },
-      { value: "job", label: t("employee.common.jobAndSalary"), icon: WalletIcon, requiresHr: true },
-      { value: "custody", label: t("employee.common.myCustody"), icon: ComputerDesktopIcon, requiresHr: true },
-      { value: "documents", label: t("employee.common.documents"), icon: DocumentTextIcon, requiresHr: true },
-      { value: "warnings", label: t("employee.common.warnings"), icon: BellAlertIcon, requiresHr: true },
-      { value: "events", label: t("employee.common.occasions"), icon: CakeIcon, requiresHr: true },
+      { value: "work", label: t("profile.workTab", "العمل"), icon: BriefcaseIcon, requiresHr: true },
       { value: "security", label: t("settings.securityTab", "الأمان"), icon: ShieldCheckIcon },
-      { value: "api-keys", label: t("profile.apiKeys", "مفاتيح API"), icon: KeyIcon },
     ],
     [t]
   );
@@ -156,7 +146,7 @@ export const Profile: React.FC = () => {
                   <TabsTrigger key={tab.value} value={tab.value} className={tabTriggerClass}>
                     <tab.icon className="w-3.5 h-3.5" />
                     {tab.label}
-                    {tab.value === "warnings" && warnings.length > 0 && (
+                    {tab.value === "work" && warnings.length > 0 && (
                       <span className="ms-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-semibold tabular-nums text-destructive-foreground">
                         {warnings.length}
                       </span>
@@ -190,32 +180,19 @@ export const Profile: React.FC = () => {
                 />
               </TabsContent>
 
-              <TabsContent value="job" className="mt-0 focus-visible:outline-none">
+              <TabsContent value="work" className="mt-0 space-y-5 focus-visible:outline-none">
                 <ProfileJobTab employee={employee} />
-              </TabsContent>
-
-              <TabsContent value="custody" className="mt-0 focus-visible:outline-none">
                 <ProfileCustodyTab myCustody={myCustody} />
-              </TabsContent>
-
-              <TabsContent value="documents" className="mt-0 focus-visible:outline-none">
                 <ProfileDocumentsTab employee={employee} />
-              </TabsContent>
-
-              <TabsContent value="warnings" className="mt-0 focus-visible:outline-none">
                 <ProfileWarningsTab warnings={warnings} onAcknowledgeSuccess={fetchMyWarnings} />
-              </TabsContent>
-
-              <TabsContent value="events" className="mt-0 focus-visible:outline-none">
                 <ProfileEventsTab employee={employee} />
               </TabsContent>
 
-              <TabsContent value="security" className="mt-0 focus-visible:outline-none">
+              <TabsContent value="security" className="mt-0 space-y-5 focus-visible:outline-none">
                 <ProfileSecurityTab />
-              </TabsContent>
-
-              <TabsContent value="api-keys" className="mt-0 focus-visible:outline-none">
-                <UserApiKeysPanel mode="self" />
+                <div className="border-t border-border/70 pt-5">
+                  <UserApiKeysPanel mode="self" />
+                </div>
               </TabsContent>
             </div>
           </Tabs>

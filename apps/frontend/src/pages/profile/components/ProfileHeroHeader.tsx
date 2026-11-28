@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import {
   CameraIcon,
@@ -121,6 +121,7 @@ export const ProfileHeroHeader: React.FC<ProfileHeroHeaderProps> = ({
                 <button
                   type="button"
                   onClick={onSave}
+                  data-testid="profile-save"
                   disabled={saving}
                   className="inline-flex items-center gap-1.5 rounded-lg bg-persimmon px-3 py-2 text-xs font-semibold text-white transition hover:bg-persimmon-hover active:scale-[0.97] disabled:opacity-60"
                 >
@@ -134,6 +135,7 @@ export const ProfileHeroHeader: React.FC<ProfileHeroHeaderProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
+                  data-testid="profile-cancel"
                   disabled={saving}
                   className="inline-flex items-center gap-1.5 rounded-lg ring-1 ring-inset ring-on-petrol/30 px-3 py-2 text-xs font-semibold text-on-petrol transition hover:bg-on-petrol/10 active:scale-[0.97] disabled:opacity-60"
                 >

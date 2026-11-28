@@ -51,6 +51,10 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MemoryRouter initialEntries={["/profile"]}>{children}</MemoryRouter>
 );
 
+const wrapperWithTab = (tab: string) => ({ children }: { children: React.ReactNode }) => (
+  <MemoryRouter initialEntries={[`/profile?tab=${tab}`]}>{children}</MemoryRouter>
+);
+
 describe("useProfileData self-service account save", () => {
   beforeEach(() => {
     mocks.apiGet.mockReset();
@@ -81,11 +85,14 @@ describe("useProfileData self-service account save", () => {
       await result.current.handleSave();
     });
 
-    expect(mocks.apiPut).toHaveBeenCalledWith("/auth/me", {
-      firstName: "Mona",
-      lastName: "Adel",
-      phone: "01000000001",
-    });
+    expect(mocks.apiPut).toHaveBeenCalledWith(
+      "/auth/me",
+      expect.objectContaining({
+        firstName: "Mona",
+        lastName: "Adel",
+        phone: "01000000001",
+      })
+    );
     expect(mocks.apiPut).not.toHaveBeenCalledWith("/hr/employees/me", expect.anything());
     expect(mocks.refreshUser).toHaveBeenCalled();
     expect(result.current.isEditing).toBe(false);
@@ -133,6 +140,25 @@ describe("useProfileData self-service account save", () => {
     });
     expect(result.current.formData.firstName).toBe("Mona");
     expect(result.current.isEditing).toBe(false);
+  });
+
+  it("maps legacy tab ids onto the merged tabs", async () => {
+    const { result } = renderHook(() => useProfileData(), { wrapper: wrapperWithTab("job") });
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.activeTab).toBe("work");
+
+    act(() => {
+      result.current.setActiveTab("api-keys");
+    });
+    expect(result.current.activeTab).toBe("security");
+  });
+
+  it("keeps the four merged tabs untouched", async () => {
+    const { result } = renderHook(() => useProfileData(), { wrapper: wrapperWithTab("personal") });
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.activeTab).toBe("personal");
   });
 
   it("persists an uploaded avatar on the user account when there is no employee record", async () => {    const { result } = renderHook(() => useProfileData(), { wrapper });

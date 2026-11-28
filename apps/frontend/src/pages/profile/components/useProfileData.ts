@@ -30,6 +30,21 @@ const initialFormData: ProfileFormData = {
   emergencyContactName: "",
   emergencyContactRelation: "",
   emergencyContactPhone: "",
+  timezone: "",
+};
+
+// Legacy tab ids stay valid: old links and bookmarks land on the merged tab.
+const TAB_ALIASES: Record<string, string> = {
+  job: "work",
+  custody: "work",
+  documents: "work",
+  warnings: "work",
+  events: "work",
+  "api-keys": "security",
+};
+const normalizeTab = (tab?: string | null) => {
+  const value = (tab || "overview").trim();
+  return TAB_ALIASES[value] || value;
 };
 
 export const useProfileData = () => {
@@ -42,7 +57,7 @@ export const useProfileData = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "overview");
+  const [activeTab, setActiveTab] = useState(normalizeTab(searchParams.get("tab")));
   const [myCustody, setMyCustody] = useState<CustodyAsset[]>([]);
   const [warnings, setWarnings] = useState<WarningRecord[]>([]);
   const [defaultPage, setDefaultPage] = useState("/apps");
@@ -96,17 +111,18 @@ export const useProfileData = () => {
 
   useEffect(() => {
     const tab = searchParams.get("tab");
-    if (tab) setActiveTab(tab);
+    if (tab) setActiveTab(normalizeTab(tab));
   }, [searchParams]);
 
   // Keep the active tab in the URL so refreshes and shared links land on the same tab.
   const changeTab = useCallback(
     (next: string) => {
-      setActiveTab(next);
+      const tab = normalizeTab(next);
+      setActiveTab(tab);
       setSearchParams(
         (prev) => {
           const params = new URLSearchParams(prev);
-          params.set("tab", next);
+          params.set("tab", tab);
           return params;
         },
         { replace: true }
@@ -145,6 +161,7 @@ export const useProfileData = () => {
           lastName: user.lastName || "",
           email: user.email || "",
           phone: merchantUser?.phone || "",
+          timezone: (user as any)?.timezone || "Africa/Cairo",
         }));
         return;
       }
@@ -168,6 +185,7 @@ export const useProfileData = () => {
           emergencyContactName: empData.emergencyContactName || "",
           emergencyContactRelation: empData.emergencyContactRelation || "",
           emergencyContactPhone: empData.emergencyContactPhone || "",
+          timezone: (user as any)?.timezone || "Africa/Cairo",
         });
         if (empData.id) {
           fetchMyCustody(empData.id);
@@ -231,6 +249,7 @@ export const useProfileData = () => {
           firstName: formData.firstName,
           lastName: formData.lastName,
           phone: formData.phone,
+          timezone: formData.timezone || undefined,
         });
         if ((response.data as any)?.success) {
           toast.success(t("employee.profile.saveSuccess"));
@@ -240,8 +259,16 @@ export const useProfileData = () => {
         }
         return;
       }
-      const response = await api.put("/hr/employees/me", formData);
+
+      // `timezone` lives on the User row (not the HR employee record), so it is
+      // stripped from the employee payload and saved through the account endpoint.
+      const { timezone, ...employeePayload } = formData;
+      const response = await api.put("/hr/employees/me", employeePayload);
       if ((response.data as any)?.success) {
+        if (timezone && timezone !== ((user as any)?.timezone || "")) {
+          await api.put("/auth/me", { timezone });
+          await refreshUser();
+        }
         toast.success(t("employee.profile.saveSuccess"));
         editSnapshotRef.current = null;
         setIsEditing(false);

@@ -1,11 +1,18 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { UserIcon, MapPinIcon, HeartIcon } from "@heroicons/react/24/outline";
+import { UserIcon, MapPinIcon, HeartIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 import { useDateFormat } from "../../../hooks/useDateFormat";
+import { LanguageSwitcher } from "../../../components/common/LanguageSwitcher";
 import { Employee, ProfileFormData } from "./types";
 import { calculateAge, getMaritalLabels } from "./helpers";
 import { SectionCard, InfoField, SensitiveValue } from "./ProfileWidgets";
 import { DateInput } from '../../../components/ui/DateInput';
+
+const TIMEZONE_OPTIONS = [
+  { value: "Africa/Cairo", label: "القاهرة (Africa/Cairo)" },
+  { value: "Asia/Riyadh", label: "الرياض (Asia/Riyadh)" },
+  { value: "Asia/Dubai", label: "دبي (Asia/Dubai)" },
+];
 
 interface ProfilePersonalTabProps {
   employee: Employee | null;
@@ -124,6 +131,36 @@ export const ProfilePersonalTab: React.FC<ProfilePersonalTabProps> = ({
           <InfoField label={t("employee.profile.emergencyContactName")} editing={isEditing} {...field("emergencyContactName")} />
           <InfoField label={t("employee.profile.emergencyContactRelation")} editing={isEditing} {...field("emergencyContactRelation")} />
           <InfoField label={t("employee.profile.emergencyContactPhone")} editing={isEditing} {...field("emergencyContactPhone")} />
+        </div>
+      </SectionCard>
+
+      <SectionCard icon={GlobeAltIcon} title={t("profile.preferences", "التفضيلات")}>
+        <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
+          <div>
+            <p className="mb-1 text-xs text-muted-foreground">{t("settings.timezone", "المنطقة الزمنية")}</p>
+            {isEditing ? (
+              <select
+                value={formData.timezone || "Africa/Cairo"}
+                onChange={(e) => setFormData((p) => ({ ...p, timezone: e.target.value }))}
+                className="w-full rounded-lg border border-border/70 bg-card px-3 py-2 text-sm text-foreground outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
+              >
+                {TIMEZONE_OPTIONS.map((zone) => (
+                  <option key={zone.value} value={zone.value}>
+                    {zone.label}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <p className="text-sm font-medium text-foreground">
+                {TIMEZONE_OPTIONS.find((zone) => zone.value === formData.timezone)?.label || formData.timezone || "—"}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <p className="mb-1 text-xs text-muted-foreground">{t("settings.language", "اللغة")}</p>
+            <LanguageSwitcher />
+          </div>
         </div>
       </SectionCard>
     </div>

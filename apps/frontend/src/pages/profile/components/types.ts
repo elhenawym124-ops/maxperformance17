@@ -80,6 +80,7 @@ export interface ProfileFormData {
   emergencyContactName: string;
   emergencyContactRelation: string;
   emergencyContactPhone: string;
+  timezone: string;
 }
 
 export type ProfileIcon = React.ElementType<{ className?: string }>;

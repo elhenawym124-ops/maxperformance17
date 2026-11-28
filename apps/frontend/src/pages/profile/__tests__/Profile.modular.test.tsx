@@ -1,4 +1,4 @@
-// @vitest-environment jsdom
+﻿// @vitest-environment jsdom
 import React from "react";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import "@testing-library/jest-dom/vitest";
@@ -39,6 +39,7 @@ const mockT = (key: string, opts?: any) => {
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
     t: mockT,
+    i18n: { language: "ar", changeLanguage: vi.fn() },
   }),
 }));
 
@@ -48,7 +49,7 @@ vi.mock("../../../hooks/useTheme", () => ({
 
 vi.mock("../../../hooks/useDateFormat", () => ({
   useDateFormat: () => ({
-    formatDate: (d: string) => (d ? `formatted-${d}` : "—"),
+    formatDate: (d: string) => (d ? `formatted-${d}` : "â€”"),
   }),
 }));
 
@@ -135,6 +136,7 @@ describe("MerchantProfileView", () => {
     emergencyContactName: "Father",
     emergencyContactRelation: "Parent",
     emergencyContactPhone: "01123456789",
+    timezone: "Africa/Cairo",
   };
 
   it("renders merchant view with company info and portal link", () => {
@@ -247,6 +249,7 @@ describe("Profile Subcomponents", () => {
     emergencyContactName: "Nour",
     emergencyContactRelation: "Wife",
     emergencyContactPhone: "01111111111",
+    timezone: "Africa/Cairo",
     department: { name: "Engineering" },
     position: { title: "Senior Developer" },
     manager: { firstName: "Tamer", lastName: "Hassan" },
@@ -268,6 +271,7 @@ describe("Profile Subcomponents", () => {
     emergencyContactName: "Nour",
     emergencyContactRelation: "Wife",
     emergencyContactPhone: "01111111111",
+    timezone: "Africa/Cairo",
   };
 
   it("renders ProfileHeroHeader with employee details", () => {
@@ -337,7 +341,7 @@ describe("Profile Subcomponents", () => {
     );
 
     expect(screen.queryByText("29206150100000")).not.toBeInTheDocument();
-    expect(screen.getByText(/••••••••••0000/)).toBeInTheDocument();
+    expect(screen.getByText(/â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢0000/)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /common\.show/i }));
     expect(screen.getByText("29206150100000")).toBeInTheDocument();
