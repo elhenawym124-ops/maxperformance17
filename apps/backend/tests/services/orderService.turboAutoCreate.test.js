@@ -22,9 +22,12 @@ const mockCreateShipment = jest.fn().mockResolvedValue({
   data: { code: 'TURBO-SHP-001', bar_code: 'TRK-998877' }
 });
 
+const mockFindShipmentByInvoiceNumber = jest.fn().mockResolvedValue(null);
+
 const mockTurboInstance = {
   createShipment: mockCreateShipment,
   formatOrderForTurbo: mockFormatOrderForTurbo,
+  findShipmentByInvoiceNumber: mockFindShipmentByInvoiceNumber,
   translateTurboErrorToArabic: jest.fn(msg => msg)
 };
 
@@ -58,13 +61,20 @@ describe('OrderService - Turbo Auto-Shipment Creation & Idempotency', () => {
     mockPrisma = {
       order: {
         findFirst: jest.fn(),
+        findUnique: jest.fn(),
         update: jest.fn().mockImplementation(({ data }) => Promise.resolve({ id: 'ord_1', ...data })),
         updateMany: jest.fn().mockResolvedValue({ count: 1 })
       },
       guestOrder: {
         findFirst: jest.fn(),
+        findUnique: jest.fn(),
         update: jest.fn().mockImplementation(({ data }) => Promise.resolve({ id: 'guest_1', ...data })),
         updateMany: jest.fn().mockResolvedValue({ count: 1 })
+      },
+      shipment: {
+        findFirst: jest.fn().mockResolvedValue(null),
+        create: jest.fn().mockResolvedValue({ id: 'shp_mock_1' }),
+        update: jest.fn().mockResolvedValue({ id: 'shp_mock_1' })
       },
       shippingCompany: {
         findFirst: jest.fn().mockResolvedValue(null)
@@ -644,6 +654,137 @@ describe('OrderService - Turbo Auto-Shipment Creation & Idempotency', () => {
 
       expect(result.success).toBe(true);
       expect(result.shipmentId).toBe('TURBO-SHP-001');
+    });
+  });
+
+  describe('Red-Line Concurrency & Timeout Idempotency', () => {
+    test('20. Concurrency Red-Line: Two simultaneous calls for the same order create EXACTLY ONE shipment at Turbo and in DB', async () => {
+      const order = {
+        id: 'ord_concurrent_1',
+        orderNumber: 'ORD-CONC-001',
+        companyId: 'comp_1',
+        customer: { firstName: 'سعيد', lastName: 'محمود' },
+        customerPhone: '01011223344',
+        governorate: 'القاهرة',
+        city: 'المعادي',
+        shippingAddress: 'شارع النصر المعادي',
+        total: 600,
+        shipping: 50,
+        orderItems: [{ product: { name: 'قميص' }, quantity: 1, price: 550 }],
+        company: { id: 'comp_1', turboEnabled: true, turboAutoCreate: true, turboApiKey: 'turbo_key_123' },
+        turboShipmentId: null,
+        turboTrackingNumber: null
+      };
+
+      // Mock createShipment to have a realistic async delay
+      mockCreateShipment.mockImplementationOnce(async () => {
+        await new Promise(r => setTimeout(r, 60));
+        return {
+          success: true,
+          shipmentId: 'TURBO-SHP-CONC',
+          trackingNumber: 'TRK-CONC',
+          status: 'turbo_sent',
+          data: { code: 'TURBO-SHP-CONC' }
+        };
+      });
+
+      // Fire two simultaneous calls at the exact same millisecond
+      const [res1, res2] = await Promise.all([
+        orderService.autoCreateTurboShipmentForOrder(order, 'comp_1', { force: true }),
+        orderService.autoCreateTurboShipmentForOrder(order, 'comp_1', { force: true })
+      ]);
+
+      // Exactly ONE must succeed and create shipment
+      const successful = [res1, res2].filter(r => r.success === true);
+      const skipped = [res1, res2].filter(r => r.skipped === true);
+
+      expect(successful.length).toBe(1);
+      expect(skipped.length).toBe(1);
+      expect(skipped[0].reason).toMatch(/IN_FLIGHT|ALREADY_HAS_SHIPMENT/);
+
+      // Verify Turbo API was called EXACTLY ONCE
+      expect(mockCreateShipment).toHaveBeenCalledTimes(1);
+    });
+
+    test('21. Timeout Idempotency: When createShipment throws timeout exception, inquires Turbo and adopts remote shipment without retry', async () => {
+      const order = {
+        id: 'ord_timeout_1',
+        orderNumber: 'ORD-TIMEOUT-001',
+        companyId: 'comp_1',
+        customer: { firstName: 'وائل', lastName: 'حسن' },
+        customerPhone: '01055667788',
+        governorate: 'الجيزة',
+        city: 'الدقي',
+        shippingAddress: 'شارع مصدق',
+        total: 400,
+        shipping: 40,
+        orderItems: [{ product: { name: 'بنطلون' }, quantity: 1, price: 360 }],
+        company: { id: 'comp_1', turboEnabled: true, turboAutoCreate: true, turboApiKey: 'turbo_key_123' },
+        turboShipmentId: null,
+        turboTrackingNumber: null
+      };
+
+      // First call to createShipment times out (e.g. Turbo took request but response timed out)
+      const timeoutError = new Error('connect ETIMEDOUT');
+      timeoutError.code = 'ETIMEDOUT';
+      mockCreateShipment.mockRejectedValueOnce(timeoutError);
+
+      // Turbo search-order inquiry finds that Turbo actually created the shipment!
+      mockFindShipmentByInvoiceNumber.mockResolvedValueOnce({
+        success: true,
+        shipmentId: '39185999',
+        trackingNumber: '39185999',
+        status: 'قيد الإنتظار',
+        data: { code: '39185999', invoice_number: 'ORD-TIMEOUT-001' }
+      });
+
+      const result = await orderService.autoCreateTurboShipmentForOrder(order, 'comp_1', { force: true });
+
+      expect(result.success).toBe(true);
+      expect(result.shipmentId).toBe('39185999');
+      // Must NOT retry createShipment again!
+      expect(mockCreateShipment).toHaveBeenCalledTimes(1);
+      expect(mockPrisma.order.update).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 'ord_timeout_1' },
+          data: expect.objectContaining({
+            turboShipmentId: '39185999',
+            turboTrackingNumber: '39185999'
+          })
+        })
+      );
+    });
+
+    test('22. Pre-Check Idempotency: Skips when active shipment exists in shipments table', async () => {
+      const order = {
+        id: 'ord_existing_shp',
+        orderNumber: 'ORD-EXIST-SHP',
+        companyId: 'comp_1',
+        customer: { firstName: 'عمرو', lastName: 'خالد' },
+        customerPhone: '01011223399',
+        governorate: 'القاهرة',
+        total: 300,
+        shipping: 50,
+        orderItems: [{ product: { name: 'كاب' }, quantity: 1, price: 250 }],
+        company: { id: 'comp_1', turboEnabled: true, turboAutoCreate: true, turboApiKey: 'turbo_key_123' },
+        turboShipmentId: null,
+        turboTrackingNumber: null
+      };
+
+      mockPrisma.shipment.findFirst.mockResolvedValueOnce({
+        id: 'shp_row_existing',
+        orderId: 'ord_existing_shp',
+        externalShipmentId: '39185858',
+        trackingNumber: '39185858',
+        status: 'turbo_sent'
+      });
+
+      const result = await orderService.autoCreateTurboShipmentForOrder(order, 'comp_1', { force: true });
+
+      expect(result.skipped).toBe(true);
+      expect(result.reason).toBe('ALREADY_HAS_SHIPMENT');
+      expect(result.shipmentId).toBe('39185858');
+      expect(mockCreateShipment).not.toHaveBeenCalled();
     });
   });
 });

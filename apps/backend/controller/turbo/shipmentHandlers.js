@@ -86,7 +86,20 @@ const createShipment = async (req, res) => {
       order.governorate = validation.resolvedGovernorate;
       orderData.governorate = validation.resolvedGovernorate;
     }
-    const result = await turboService.createShipment(orderData);
+    const result = await (order.tableType === 'GuestOrder'
+      ? orderService.autoCreateTurboShipmentForGuestOrder(order, companyId, { force: true, replaceExisting })
+      : orderService.autoCreateTurboShipmentForOrder(order, companyId, { force: true, replaceExisting }));
+
+    if (!result || !result.success) {
+      if (result?.skipped && result?.reason === 'ALREADY_HAS_SHIPMENT') {
+        return res.status(400).json({ success: false, error: 'Shipment already exists for this order', shipmentId: result.shipmentId, trackingNumber: result.trackingNumber });
+      }
+      if (result?.skipped && result?.reason === 'IN_FLIGHT') {
+        return res.status(409).json({ success: false, error: 'Shipment creation already in flight for this order' });
+      }
+      return res.status(400).json({ success: false, error: result?.error || 'Failed to create shipment' });
+    }
+
     const baseTurboMetadata = result.data && typeof result.data === 'object' ? { ...result.data } : (result.data ? { result: result.data } : {});
     if (previousTurboShipment) { baseTurboMetadata.previousTurboShipment = previousTurboShipment; baseTurboMetadata.replacedExistingTurboShipment = true; }
     const updateData = { turboShipmentId: String(result.shipmentId || ''), turboTrackingNumber: String(result.trackingNumber || ''), turboShipmentStatus: result.status, turboLabelUrl: result.labelUrl, turboMetadata: Object.keys(baseTurboMetadata).length > 0 ? serializeTurboMetadata(order.turboMetadata, baseTurboMetadata) : serializeTurboMetadata(order.turboMetadata, {}) };
@@ -357,7 +370,15 @@ const bulkCreateShipments = async (req, res) => {
           order.governorate = validation.resolvedGovernorate;
           orderData.governorate = validation.resolvedGovernorate;
         }
-        const result = await turboService.createShipment(orderData);
+        const result = await orderService.autoCreateTurboShipmentForOrder(order, companyId, { force: true });
+        if (!result || !result.success) {
+          if (result?.skipped) {
+            results.skipped.push({ orderNumber: order.orderNumber, reason: result.reason || 'تم تخطي الشحن' });
+          } else {
+            results.failed.push({ orderNumber: order.orderNumber, error: result?.error || 'فشل في إنشاء الشحنة' });
+          }
+          continue;
+        }
         const updateData = {
           turboShipmentId: String(result.shipmentId || ''),
           turboTrackingNumber: String(result.trackingNumber || ''),
@@ -563,7 +584,15 @@ const bulkCreateShipments = async (req, res) => {
           });
           continue;
         }
-        const result = await turboService.createShipment(guestOrderData);
+        const result = await orderService.autoCreateTurboShipmentForGuestOrder(guest, companyId, { force: true });
+        if (!result || !result.success) {
+          if (result?.skipped) {
+            results.skipped.push({ orderNumber: guest.orderNumber, reason: result.reason || 'تم تخطي الشحن', isGuest: true });
+          } else {
+            results.failed.push({ orderNumber: guest.orderNumber, error: result?.error || 'فشل في إنشاء الشحنة', isGuest: true });
+          }
+          continue;
+        }
         const updateData = {
           turboShipmentId: String(result.shipmentId || ''),
           turboTrackingNumber: String(result.trackingNumber || ''),

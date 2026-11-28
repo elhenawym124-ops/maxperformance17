@@ -208,6 +208,82 @@ class RedisCacheService {
             return false;
         }
     }
+
+    /**
+     * Acquire a distributed lock with automatic expiration (TTL)
+     * Supports multi-process cluster mode via Redis with safe local fallback
+     * @param {string} key Lock key (e.g. "lock:turbo:comp123:order456")
+     * @param {number} ttlSeconds Expiration in seconds (default 60s)
+     * @returns {Promise<{ acquired: boolean, token: string|null, key: string, isRedis: boolean }>}
+     */
+    async acquireLock(key, ttlSeconds = 60) {
+        if (!key) return { acquired: false, token: null, key: '', isRedis: false };
+        const token = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+
+        if (this.isConnected && this.client) {
+            try {
+                const res = await this.client.set(key, token, 'EX', ttlSeconds, 'NX');
+                if (res === 'OK') {
+                    return { acquired: true, token, key, isRedis: true };
+                }
+                return { acquired: false, token: null, key, isRedis: true };
+            } catch (err) {
+                console.warn(`⚠️ [REDIS] acquireLock failed for ${key}, falling back to memory:`, err.message);
+            }
+        }
+
+        // Local in-memory lock fallback
+        const now = Date.now();
+        const existing = this.localCache.get(key);
+        if (existing && existing.expiry > now) {
+            return { acquired: false, token: null, key, isRedis: false };
+        }
+        this.localCache.set(key, { data: token, expiry: now + (ttlSeconds * 1000) });
+        return { acquired: true, token, key, isRedis: false };
+    }
+
+    /**
+     * Release a distributed lock safely using token verification
+     * @param {{ key: string, token: string, isRedis?: boolean }} lockHandle
+     * @returns {Promise<boolean>}
+     */
+    async releaseLock(lockHandle) {
+        if (!lockHandle || !lockHandle.key) return false;
+        const { key, token, isRedis } = lockHandle;
+        let released = false;
+
+        if (isRedis && this.isConnected && this.client) {
+            try {
+                const luaScript = `
+                    if redis.call("get", KEYS[1]) == ARGV[1] then
+                        return redis.call("del", KEYS[1])
+                    else
+                        return 0
+                    end
+                `;
+                const res = await this.client.eval(luaScript, 1, key, token);
+                released = (res === 1);
+            } catch (err) {
+                console.warn(`⚠️ [REDIS] releaseLock evaluation failed for ${key}:`, err.message);
+                try {
+                    const currentVal = await this.client.get(key);
+                    if (currentVal === token) {
+                        await this.client.del(key);
+                        released = true;
+                    }
+                } catch (_) {}
+            }
+        }
+
+        // Also clean local cache
+        const local = this.localCache.get(key);
+        if (local && (!token || local.data === token)) {
+            this.localCache.delete(key);
+            released = true;
+        }
+
+        return released;
+    }
 }
 
 // Singleton instance

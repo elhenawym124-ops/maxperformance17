@@ -70,6 +70,7 @@ class TurboService {
   async trackShipment(t) { return this._tracking.trackShipment(t); }
   async getShipmentStatus(i) { return this._tracking.getShipmentStatus(i); }
   async fetchAllStatuses(f, t) { return this._tracking.fetchAllStatuses(f, t); }
+  async findShipmentByInvoiceNumber(i) { return this._tracking.findShipmentByInvoiceNumber(i); }
 
   // ── Locations ──────────────────────────────────────────
   async getGovernments() { return this._location.getGovernments(); }

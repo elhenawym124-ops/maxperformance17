@@ -9,6 +9,90 @@ class TrackingService {
     this.companyId = companyId;
   }
 
+  async findShipmentByInvoiceNumber(invoiceNumber) {
+    if (!invoiceNumber) return null;
+    const invStr = String(invoiceNumber).trim();
+    try {
+      const apiKey = await this._client.getApiKey();
+      const headers = await this._client.getHeaders();
+      const mainClientCode = await this._client.getMainClientCode();
+
+      // 1. Try search-order
+      try {
+        const searchResponse = await axios.post(
+          `${this._client.baseUrl}/search-order`,
+          {
+            authentication_key: apiKey,
+            api_key: apiKey,
+            main_client_code: mainClientCode || 37321,
+            search_key: invStr,
+            code: invStr
+          },
+          { headers, timeout: Math.min(this._client.timeout || 15000, 15000) }
+        );
+        const searchData = searchResponse.data;
+        const searchItems = searchData?.result || searchData?.data;
+        if (searchData && (searchData.success === 1 || searchData.success === true) && Array.isArray(searchItems) && searchItems.length > 0) {
+          const match = searchItems.find(s => String(s.invoice_number || '').trim() === invStr) || searchItems[0];
+          if (match && (match.code || match.bar_code)) {
+            const shipmentCode = String(match.code || match.bar_code);
+            return {
+              success: true,
+              shipmentId: shipmentCode,
+              trackingNumber: shipmentCode,
+              status: match.status_text || match.status || 'created',
+              statusCode: match.status_code || null,
+              expectedBranch: match.expected_branch || null,
+              labelUrl: match.label_url || null,
+              data: match
+            };
+          }
+        }
+      } catch (searchErr) {
+        console.warn(`⚠️ [TURBO-INQUIRE] search-order failed for invoice ${invStr}:`, searchErr.response?.status, searchErr.message);
+      }
+
+      // 2. Fallback to get-status for last 30 days
+      const today = new Date().toISOString().split('T')[0];
+      const from30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      try {
+        const statusResp = await axios.post(
+          `${this._client.baseUrl}/get-status`,
+          {
+            authentication_key: apiKey,
+            api_key: apiKey,
+            main_client_code: mainClientCode || 37321,
+            from: from30,
+            to: today
+          },
+          { headers, timeout: Math.min(this._client.timeout || 15000, 15000) }
+        );
+        const list = statusResp.data?.data || [];
+        const match = list.find(s => String(s.invoice_number || '').trim() === invStr);
+        if (match && (match.code || match.bar_code)) {
+          const shipmentCode = String(match.code || match.bar_code);
+          return {
+            success: true,
+            shipmentId: shipmentCode,
+            trackingNumber: shipmentCode,
+            status: match.status_text || match.status || 'created',
+            statusCode: match.status_code || null,
+            expectedBranch: match.expected_branch || null,
+            labelUrl: match.label_url || null,
+            data: match
+          };
+        }
+      } catch (statusErr) {
+        console.warn(`⚠️ [TURBO-INQUIRE] get-status fallback failed for invoice ${invStr}:`, statusErr.response?.status, statusErr.message);
+      }
+
+      return null;
+    } catch (err) {
+      console.warn(`⚠️ [TURBO-INQUIRE] Exception inquiring invoice ${invStr}:`, err.message);
+      return null;
+    }
+  }
+
   async trackShipment(trackingNumber) {
     try {
       const apiKey = await this._client.getApiKey();

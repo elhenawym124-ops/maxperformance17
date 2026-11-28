@@ -26,19 +26,19 @@ jobs:
           port: ${{ env.SERVER_SSH_PORT }}
           key: ${{ secrets.SERVER_SSH_KEY }}
 
-      - name: Upload diagnostic script to server
+      - name: Upload fix files to server temp
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ env.SERVER_SSH_PORT }}
-          source: apps/backend/scripts/diagnose_turbo_duplicate.js
-          target: /var/www/backend2/scripts/
-          strip_components: 3
+          source: "apps/backend/services/redisCacheService.js,apps/backend/services/turbo/trackingService.js,apps/backend/services/turboService.js,apps/backend/services/orderService.js,apps/backend/controller/turbo/shipmentHandlers.js,apps/backend/scripts/reconcile_turbo_shipments.js,apps/backend/tests/services/orderService.turboAutoCreate.test.js"
+          target: /tmp/turbo_fix/
+          strip_components: 0
           overwrite: true
 
-      - name: Run Diagnostics on Server
+      - name: Run Tests and Reconciliation on Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -48,7 +48,38 @@ jobs:
           command_timeout: 10m
           script: |
             set -euo pipefail
-            cd /var/www/backend2
-            echo "🚀 Running diagnose_turbo_duplicate.js..."
-            node scripts/diagnose_turbo_duplicate.js
-            echo "✅ Finished!"
+            echo "🚀 Setting up isolated test sandbox at /tmp/backend-turbo-test..."
+            rm -rf /tmp/backend-turbo-test
+            mkdir -p /tmp/backend-turbo-test
+            cp -r /var/www/backend2/node_modules /tmp/backend-turbo-test/
+            cp -r /var/www/backend2/package.json /tmp/backend-turbo-test/
+            cp -r /var/www/backend2/prisma /tmp/backend-turbo-test/
+            cp -r /var/www/backend2/.env /tmp/backend-turbo-test/ || true
+            cp -r /var/www/backend2/config /tmp/backend-turbo-test/
+            cp -r /var/www/backend2/utils /tmp/backend-turbo-test/
+            cp -r /var/www/backend2/services /tmp/backend-turbo-test/
+            cp -r /var/www/backend2/controller /tmp/backend-turbo-test/
+            cp -r /var/www/backend2/routes /tmp/backend-turbo-test/
+            cp -r /var/www/backend2/tests /tmp/backend-turbo-test/
+            mkdir -p /tmp/backend-turbo-test/scripts
+
+            echo "📦 Applying Turbo Deduplication & Distributed Lock Fix to Sandbox..."
+            cp /tmp/turbo_fix/apps/backend/services/redisCacheService.js /tmp/backend-turbo-test/services/
+            cp /tmp/turbo_fix/apps/backend/services/turbo/trackingService.js /tmp/backend-turbo-test/services/turbo/
+            cp /tmp/turbo_fix/apps/backend/services/turboService.js /tmp/backend-turbo-test/services/
+            cp /tmp/turbo_fix/apps/backend/services/orderService.js /tmp/backend-turbo-test/services/
+            cp /tmp/turbo_fix/apps/backend/controller/turbo/shipmentHandlers.js /tmp/backend-turbo-test/controller/turbo/
+            cp /tmp/turbo_fix/apps/backend/tests/services/orderService.turboAutoCreate.test.js /tmp/backend-turbo-test/tests/services/
+            cp /tmp/turbo_fix/apps/backend/scripts/reconcile_turbo_shipments.js /tmp/backend-turbo-test/scripts/
+
+            cd /tmp/backend-turbo-test
+
+            echo "🧪 RUNNING JEST UNIT & CONCURRENCY RED-LINE TESTS..."
+            npx jest tests/services/orderService.turboAutoCreate.test.js --runInBand --detectOpenHandles --verbose
+
+            echo "📊 RUNNING 30-DAY RECONCILIATION REPORT (READ-ONLY)..."
+            node scripts/reconcile_turbo_shipments.js cmleybpf70028juo2wwpmp8rt 30
+
+            echo "🧹 Cleaning up test sandbox..."
+            rm -rf /tmp/backend-turbo-test /tmp/turbo_fix
+            echo "✅ ALL VERIFICATIONS COMPLETED SUCCESSFULLY!"
