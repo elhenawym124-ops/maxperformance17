@@ -60,8 +60,9 @@ jobs:
             cp -r /var/www/backend2/services /tmp/backend-turbo-test/
             cp -r /var/www/backend2/controller /tmp/backend-turbo-test/
             cp -r /var/www/backend2/routes /tmp/backend-turbo-test/
-            cp -r /var/www/backend2/tests /tmp/backend-turbo-test/
+            mkdir -p /tmp/backend-turbo-test/tests/services
             mkdir -p /tmp/backend-turbo-test/scripts
+            cp -r /var/www/backend2/tests /tmp/backend-turbo-test/ || true
 
             echo "📦 Applying Turbo Deduplication & Distributed Lock Fix to Sandbox..."
             cp /tmp/turbo_fix/apps/backend/services/redisCacheService.js /tmp/backend-turbo-test/services/
