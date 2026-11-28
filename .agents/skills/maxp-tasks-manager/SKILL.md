@@ -16,7 +16,7 @@ This skill enables Antigravity and workspace agents to interact seamlessly with 
   - `tasks:write` (Create tasks, update fields, advance progress)
   - `tasks:update` (Update task status)
 - **Local Helper Tool:** `.agents/skills/maxp-tasks-manager/scripts/tasks_client.cjs`
-- **Key Storage:** `.agents/skills/maxp-tasks-manager/.key.json` (gitignored, tenant-isolated)
+- **Key Storage:** `.agents/skills/maxp-tasks-manager/.key.json` (gitignored via SEC-TASKS-KEY-1 — never commit; tenant-isolated)
 
 ---
 

@@ -519,6 +519,8 @@ apps/frontend/public/**/*.blockmap
 apps/ai-service/.env.production
 **/.env.production
 apps/backend/login.json
+# SEC-TASKS-KEY-1 — .key.json الحيّ لا يُتتبَّع أبدًا (الريبو عام)
+.agents/skills/**/.key.json
 
 # OBS-1 — build metadata runtime artifact
 apps/backend/build-info.json
