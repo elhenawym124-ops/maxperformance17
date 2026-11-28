@@ -9,13 +9,13 @@ import AuthorizedDevicesTab from './AuthorizedDevicesTab';
 import OvertimeManagementTab from './OvertimeManagementTab';
 import DeveloperHubPage from './developer/DeveloperHubPage';
 import {
-  ProfileSettings,
+  ProfileSettingsRedirect,
   SecuritySettings,
   StoreSettingsRedirect,
   type SettingsTab,
 } from './settings-hub';
 
-const DEFAULT_TAB = 'profile';
+const DEFAULT_TAB = 'security';
 
 const Settings: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Settings: React.FC = () => {
   const { t, i18n } = useTranslation();
 
   const tabs: SettingsTab[] = [
-    { id: 'profile', name: t('settings.tabProfile', 'الملف الشخصي'), component: ProfileSettings },
+    { id: 'profile', name: t('settings.tabProfile', 'الملف الشخصي'), component: ProfileSettingsRedirect },
     { id: 'custom-domain', name: t('settings.tabCustomDomain', 'النطاق المخصص'), component: CustomDomainPage },
     { id: 'store', name: t('settings.tabStore', 'إعدادات المتجر'), component: StoreSettingsRedirect },
     { id: 'security', name: t('settings.tabSecurity', 'الأمان'), component: SecuritySettings },

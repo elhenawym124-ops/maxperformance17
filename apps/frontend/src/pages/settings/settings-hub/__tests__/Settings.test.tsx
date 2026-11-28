@@ -85,7 +85,7 @@ describe('Settings Component (Batch 442)', () => {
     cleanup();
   });
 
-  it('renders page header and default ProfileSettings tab', async () => {
+  it('renders the settings shell and forwards the profile tab to the canonical profile page', async () => {
     render(
       <MemoryRouter initialEntries={['/settings/profile']}>
         <Routes>
@@ -100,10 +100,7 @@ describe('Settings Component (Batch 442)', () => {
     expect(screen.queryByTestId('app-version-card')).not.toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByDisplayValue('أحمد')).toBeInTheDocument();
-      expect(screen.getByDisplayValue('علي')).toBeInTheDocument();
-      expect(screen.getByDisplayValue('ahmed@example.com')).toBeInTheDocument();
-      expect(screen.getByDisplayValue('01099998888')).toBeInTheDocument();
+      expect(mockNavigate).toHaveBeenCalledWith('/profile?tab=personal', { replace: true });
     });
   });
 
@@ -155,7 +152,7 @@ describe('Settings Component (Batch 442)', () => {
     expect(mockNavigate).toHaveBeenCalledWith('/marketplace', { replace: true });
   });
 
-  it('redirects to /settings/profile when tab is invalid', () => {
+  it('redirects to the default security tab when the tab is invalid', () => {
     mockParams = { tab: 'unknown-tab-xyz' };
 
     render(
@@ -166,6 +163,6 @@ describe('Settings Component (Batch 442)', () => {
       </MemoryRouter>,
     );
 
-    expect(mockNavigate).toHaveBeenCalledWith('/settings/profile', { replace: true });
+    expect(mockNavigate).toHaveBeenCalledWith('/settings/security', { replace: true });
   });
 });
