@@ -267,7 +267,7 @@ class ShipmentService {
         cleanGovernorate = findGovernmentByCity(rawCity, governments, fullAddressContext);
       }
       if (!cleanGovernorate) {
-        cleanGovernorate = 'القاهرة';
+        throw new Error('المحافظة غير محددة أو غير مطابقة لقائمة المحافظات المعتمدة في تربو.');
       }
 
       let matchedGovId = null;
@@ -509,7 +509,7 @@ class ShipmentService {
         cleanGovernorate = findGovernmentByCity(updateRawCity, governments, updateFullAddressContext);
       }
       if (!cleanGovernorate) {
-        cleanGovernorate = 'القاهرة';
+        throw new Error('المحافظة غير محددة أو غير مطابقة لقائمة المحافظات المعتمدة في تربو.');
       }
 
       let matchedGovId = null;

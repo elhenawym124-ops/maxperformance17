@@ -22,7 +22,7 @@
     "formality": "casual"
   },
   "guardrails": {
-    "requireDraftOrders": false,
+    "requireDraftOrders": true,
     "singleQuestionPerTurn": true,
     "requireExplicitConfirmation": true
   },

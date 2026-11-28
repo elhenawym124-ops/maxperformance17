@@ -159,6 +159,42 @@ function matchAreaInList(areas, candidateArea, fullAddressText = '', govName = '
       );
     });
     if (bareMatch) return bareMatch;
+
+    // 1b. Reverse inclusion / token overlap for composite Turbo area names
+    // (e.g. candidate "مدينة نصر" or "الحي العاشر" vs Turbo area "مدينة نصر - الحي العاشر")
+    const bareCandidate = nCandidate.startsWith('ال') ? nCandidate.slice(2) : nCandidate;
+    if (bareCandidate.length >= 4 && !GENERIC_LOCATION_TOKENS.has(bareCandidate)) {
+      const candidateTokens = nCandidate
+        .split(/\s+/)
+        .map((t) => (t.startsWith('ال') && t.length > 4 ? t.slice(2) : t))
+        .filter((t) => t.length >= 3 && !GENERIC_LOCATION_TOKENS.has(t));
+
+      let bestReverse = null;
+      let bestScore = 0;
+      for (const area of sorted) {
+        const na = normalizeArabic(area.name);
+        if (!na || na === nGov || GENERIC_LOCATION_TOKENS.has(na) || isStreetLikeName(na)) continue;
+        const areaTokens = na
+          .split(/\s+/)
+          .map((t) => (t.startsWith('ال') && t.length > 4 ? t.slice(2) : t))
+          .filter((t) => t.length >= 3);
+        if (areaTokens.length === 0) continue;
+
+        const exactPhraseInArea = na.includes(nCandidate) || na.includes(bareCandidate);
+        const sharedCount = candidateTokens.filter((ct) => areaTokens.includes(ct)).length;
+        const allCandidateTokensInArea = candidateTokens.length >= 2 && sharedCount === candidateTokens.length;
+
+        if (exactPhraseInArea || allCandidateTokensInArea) {
+          // Prefer higher token coverage and shorter (more direct) area names
+          const score = (allCandidateTokensInArea ? 10 : 0) + sharedCount * 2 + (exactPhraseInArea ? 3 : 0) - areaTokens.length * 0.1;
+          if (score > bestScore) {
+            bestScore = score;
+            bestReverse = area;
+          }
+        }
+      }
+      if (bestReverse) return bestReverse;
+    }
   }
 
   // 2. Scan street address text for an explicit canonical Turbo area name
@@ -171,6 +207,26 @@ function matchAreaInList(areas, candidateArea, fullAddressText = '', govName = '
 
       const bare = na.startsWith('ال') ? na.slice(2) : na;
       if (bare.length >= 3 && bare !== nGov && !GENERIC_LOCATION_TOKENS.has(bare) && nAddress.includes(bare)) {
+        return area;
+      }
+    }
+
+    // 2b. Composite multi-token Turbo area match in address text
+    // (e.g. Turbo area "مدينة نصر - الحي العاشر" matching "مدينة نصر الحي العاشر المشروع السويسري")
+    const addressWords = new Set(
+      nAddress
+        .split(/\s+/)
+        .flatMap((w) => (w.startsWith('ال') && w.length > 4 ? [w, w.slice(2)] : [w]))
+        .filter((w) => w.length >= 2)
+    );
+    for (const area of sorted) {
+      const na = normalizeArabic(area.name);
+      if (!na || na === nGov || GENERIC_LOCATION_TOKENS.has(na) || isStreetLikeName(na)) continue;
+      const tokens = na
+        .split(/\s+/)
+        .map((t) => (t.startsWith('ال') && t.length > 4 ? t.slice(2) : t))
+        .filter((t) => t.length >= 2 && !GENERIC_LOCATION_TOKENS.has(t));
+      if (tokens.length >= 2 && tokens.every((t) => addressWords.has(t))) {
         return area;
       }
     }
@@ -271,6 +327,59 @@ async function loadTurboAiResolverConfig(prisma, companyId) {
   return { ...defaults, aiEnabled, aiOnCreateEnabled };
 }
 
+function extractCustomerLocationCoords(order = {}) {
+  const candidates = [];
+  try {
+    const meta = typeof order.metadata === 'string' ? JSON.parse(order.metadata || '{}') : order.metadata;
+    if (meta?.customerLocation) candidates.push(meta.customerLocation);
+  } catch {}
+  try {
+    const sa = typeof order.shippingAddress === 'string' && order.shippingAddress.trim().startsWith('{')
+      ? JSON.parse(order.shippingAddress)
+      : order.shippingAddress;
+    if (sa && typeof sa === 'object' && sa.location) candidates.push(sa.location);
+  } catch {}
+
+  for (const loc of candidates) {
+    if (!loc || typeof loc !== 'object') continue;
+    const lat = Number(loc.lat ?? loc.latitude);
+    const lng = Number(loc.lng ?? loc.longitude);
+    if (Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180) {
+      return { lat, lng, label: loc.label ? String(loc.label).trim() : null };
+    }
+  }
+  return null;
+}
+
+async function reverseGeocodeCoords(lat, lng) {
+  try {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}&accept-language=ar`;
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'MaxP-TurboAreaResolver/1.0' },
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const addr = data?.address || {};
+    const parts = [
+      addr.neighbourhood,
+      addr.suburb,
+      addr.city_district,
+      addr.quarter,
+      addr.village,
+      addr.town,
+      addr.city,
+      addr.state,
+    ]
+      .map((p) => (p ? String(p).trim() : ''))
+      .filter(Boolean);
+    const unique = [...new Set(parts)];
+    return unique.length > 0 ? unique.join('، ') : null;
+  } catch {
+    return null;
+  }
+}
+
 function buildOrderAddressContext(order = {}, orderData = {}) {
   const fields = getBestShippingAddressFields(
     orderData.shippingAddress || order.shippingAddress,
@@ -345,7 +454,7 @@ async function resolveTurboLocation({ prisma, turboService, companyId, order = {
 
   const aiCandidates = await resolveAiCandidates(prisma, companyId);
   if (aiCandidates.length === 0) {
-    return { resolved: false, reason: 'NO_ACTIVE_AI_KEY' };
+    return { skipped: true, resolved: false, transientAiFailure: true, reason: 'NO_ACTIVE_AI_KEY' };
   }
 
 const GREATER_CAIRO_GOVS = new Set(['القاهرة', 'الجيزة', 'أطراف القاهرة والجيزة']);
@@ -388,6 +497,16 @@ function isAllowedGovForExplicit(govObj, explicitGov) {
     }
   }
 
+  const coords = extractCustomerLocationCoords(order);
+  let gpsHint = coords?.label || null;
+  if (coords && !gpsHint && process.env.NODE_ENV !== 'test') {
+    gpsHint = await reverseGeocodeCoords(coords.lat, coords.lng);
+  }
+  if (gpsHint && !explicitGovInStreet) {
+    const gpsGov = detectExplicitGovInText(gpsHint, governments);
+    if (gpsGov) addCandidateGov(gpsGov);
+  }
+
   const candidateSections = [];
   for (const g of Array.from(candidateGovsMap.values()).slice(0, 4)) {
     const areas = await getAreasForGov(g);
@@ -415,6 +534,7 @@ function isAllowedGovForExplicit(govObj, explicitGov) {
     `- العنوان: ${streetText || 'غير متوفر'}`,
     `- المحافظة المكتوبة: ${rawGov || 'غير محدد'}`,
     `- المدينة/المنطقة المكتوبة: ${rawCity || rawArea || 'غير محدد'}`,
+    ...(gpsHint ? [`- إشارة من إحداثيات اللوكيشن (GPS): ${gpsHint} (استخدمها كدليل مرجّح إذا كان العنوان النصي غامضاً)`] : []),
     '',
     `المحافظات الرسمية في تربو: ${govNamesList}`,
     '',
@@ -443,7 +563,7 @@ function isAllowedGovForExplicit(govObj, explicitGov) {
     }
   }
   if (!aiRawText) {
-    return { resolved: false, reason: 'AI_CALL_FAILED', error: lastAiError?.message || 'AI lookup failed' };
+    return { skipped: true, resolved: false, transientAiFailure: true, reason: 'AI_CALL_FAILED', error: lastAiError?.message || 'AI lookup failed' };
   }
 
   const parsed = parseJsonResponse(aiRawText);
@@ -658,8 +778,10 @@ async function resolveAndApplyTurboLocation({ prisma, turboService, companyId, o
             action: ORDER_EVENT_ACTIONS.ORDER_UPDATED,
             userId: 'AI',
             actorId: 'AI',
-            userName: 'الذكاء الاصطناعي (Turbo Area Resolver)',
-            description: `تعديل منطقة/محافظة الطلب ${order.orderNumber || ''} تلقائياً عبر الذكاء الاصطناعي (${prevCity || 'غير محدد'} ← ${resolution.area})`,
+            userName: resolution.source === 'direct_map' ? 'خريطة تربو (Turbo Area Resolver)' : 'الذكاء الاصطناعي (Turbo Area Resolver)',
+            description: resolution.source === 'direct_map'
+              ? `تحديد منطقة/محافظة الطلب ${order.orderNumber || ''} تلقائياً من خريطة تربو (${prevCity || 'غير محدد'} ← ${resolution.area})`
+              : `تعديل منطقة/محافظة الطلب ${order.orderNumber || ''} تلقائياً عبر الذكاء الاصطناعي (${prevCity || 'غير محدد'} ← ${resolution.area})`,
             before: { governorate: prevGovernorate, city: prevCity },
             after: { governorate: resolution.governorate, city: resolution.area },
             metadata: {

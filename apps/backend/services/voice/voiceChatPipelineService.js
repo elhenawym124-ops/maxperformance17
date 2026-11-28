@@ -14,6 +14,8 @@ const aiSdkClient = require('../aiSdkClient');
 const socketService = require('../socketService');
 const { sanitizeAiReply } = require('../../utils/aiReplySanitizer');
 
+const STT_FAILURE_REPLY = 'معلش، مقدرتش أسمع الفويس نوت. ممكن تبعت رسالتك كتابة؟';
+
 /**
  * Handles an incoming voice note from a customer across any channel.
  *
@@ -67,13 +69,36 @@ async function processInboundVoiceMessage(params) {
     });
   } catch (sttError) {
     console.error('❌ [VOICE-PIPELINE] STT transcription failed:', sttError.message);
-    throw sttError;
+    // Never leave the customer in silence: ask for text instead.
+    await fallbackSendTextReply({
+      channel,
+      sessionId,
+      remoteJid,
+      senderId,
+      pageId,
+      accessToken,
+      replyText: STT_FAILURE_REPLY,
+      conversationId,
+      companyId,
+    });
+    return { success: false, reason: 'STT_FAILED', fallbackText: true, error: sttError.message };
   }
 
   const transcribedText = sttResult?.text?.trim();
   if (!transcribedText) {
-    console.warn('⚠️ [VOICE-PIPELINE] Transcribed text is empty. Skipping AI reply.');
-    return { success: false, reason: 'EMPTY_TRANSCRIPT' };
+    console.warn('⚠️ [VOICE-PIPELINE] Transcribed text is empty. Sending text fallback.');
+    await fallbackSendTextReply({
+      channel,
+      sessionId,
+      remoteJid,
+      senderId,
+      pageId,
+      accessToken,
+      replyText: STT_FAILURE_REPLY,
+      conversationId,
+      companyId,
+    });
+    return { success: false, reason: 'EMPTY_TRANSCRIPT', fallbackText: true };
   }
 
   console.log(`📝 [VOICE-PIPELINE] Customer transcribed audio: "${transcribedText}" (${sttResult.provider})`);
@@ -195,10 +220,18 @@ async function processInboundVoiceMessage(params) {
     const WhatsAppMessageHandler = require('../whatsapp/WhatsAppMessageHandler');
     try {
       // Send as authentic WhatsApp Voice Note (PTT = true)
+      // sendAudio expects an object source: { buffer } for Baileys/Meta upload,
+      // { filePath } | { url } as fallback — never a bare string.
       await WhatsAppMessageHandler.sendAudio(
         sessionId,
         remoteJid,
-        ttsResult.filePath || ttsResult.publicUrl || ttsResult.audioBuffer,
+        {
+          buffer: ttsResult.audioBuffer,
+          filePath: ttsResult.filePath,
+          url: ttsResult.publicUrl,
+          mimetype: ttsResult.mimeType || 'audio/ogg',
+          fileName: ttsResult.fileName,
+        },
         {
           ptt: true,
           isAIResponse: true,
@@ -270,7 +303,7 @@ async function processInboundVoiceMessage(params) {
   } else if (channel === 'TELEGRAM' && conversationId) {
     try {
       const TelegramBotService = require('../TelegramBotService');
-      await TelegramBotService.sendMessage(conversationId, replyText, {
+      await TelegramBotService.sendReply(conversationId, '', {
         type: 'voice',
         fileUrl: ttsResult.publicUrl || ttsResult.filePath,
       });
@@ -318,6 +351,9 @@ async function fallbackSendTextReply(opts) {
     } else if (channel === 'FACEBOOK' && senderId && pageId && accessToken) {
       const { sendProductionFacebookMessage } = require('../../utils/production-facebook-fix');
       await sendProductionFacebookMessage(senderId, replyText, 'TEXT', pageId, accessToken);
+    } else if (channel === 'TELEGRAM' && conversationId) {
+      const TelegramBotService = require('../TelegramBotService');
+      await TelegramBotService.sendReply(conversationId, replyText);
     }
 
     if (conversationId) {

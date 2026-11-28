@@ -3,7 +3,6 @@ const {
   buildConversationSearchWhere,
   searchMessageConversationIds,
   SEARCH_STATEMENT_TIMEOUT_MS,
-  SEARCH_MAX_CONVERSATIONS,
 } = require('../controller/conversation/conversationSearchWhere');
 
 describe('conversationSearchWhere', () => {
@@ -131,17 +130,20 @@ describe('conversationSearchWhere', () => {
       expect(result).toEqual(['conv-1', 'conv-2']);
       expect(mockPrisma.$queryRawUnsafe).toHaveBeenCalledTimes(1);
 
-      const [queryStr, pattern, cutoffDate, companyId, channel, limit] = mockPrisma.$queryRawUnsafe.mock.calls[0];
+      const [queryStr, pattern, cutoffDate, companyId, channel] = mockPrisma.$queryRawUnsafe.mock.calls[0];
       expect(queryStr).toContain('WITH matched_messages AS');
       expect(queryStr).toContain('m.content ILIKE');
       expect(pattern).toBe('%سناء%');
       expect(cutoffDate).toBeInstanceOf(Date);
       expect(companyId).toBe('comp1');
       expect(channel).toBe('FACEBOOK');
-      expect(limit).toBe(200);
+      // LIMIT is inlined as a validated integer (a bound LIMIT creates a
+      // parameter-type failure on some Prisma/Postgres paths).
+      expect(queryStr).toContain('LIMIT 200');
+      expect(mockPrisma.$queryRawUnsafe.mock.calls[0][5]).toBeUndefined();
     });
 
-    it('applies the tenant filter INSIDE the CTE and aggregates one row per conversation (no 1000-row message cap)', async () => {
+    it('applies the tenant filter INSIDE the CTE, before the 1000-row cap', async () => {
       const mockPrisma = { $queryRawUnsafe: jest.fn().mockResolvedValue([]) };
 
       await searchMessageConversationIds(mockPrisma, {
@@ -151,54 +153,20 @@ describe('conversationSearchWhere', () => {
       });
 
       const [queryStr] = mockPrisma.$queryRawUnsafe.mock.calls[0];
-      // NOTE: don't split on the first ')' — MAX(m."createdAt") contains one.
-      const cte = queryStr.split('WITH matched_messages AS (')[1].split('SELECT c.id')[0];
+      const cte = queryStr.split('WITH matched_messages AS (')[1].split(')')[0];
       expect(cte).toContain('JOIN conversations c2');
       expect(cte).toContain('c2."companyId" = $');
       expect(cte).toContain('c2.channel = $');
-      // one row per conversation, most recent hit first — not 1000 raw message rows
-      expect(cte).toContain('GROUP BY m."conversationId"');
-      expect(cte).toContain('MAX(m."createdAt")');
-      expect(cte).toContain('ORDER BY "lastHitAt" DESC');
-      expect(queryStr).not.toContain('LIMIT 1000');
-      expect(queryStr).not.toContain('SELECT DISTINCT c.id');
+      // companyId placeholder must appear before the LIMIT 1000 inside the CTE
+      expect(cte.indexOf('companyId')).toBeLessThan(cte.indexOf('LIMIT 1000'));
+      expect(cte).toContain('ORDER BY m."createdAt" DESC');
     });
 
-    it('returns every matching conversation (300) instead of capping at 200', async () => {
-      const rows = Array.from({ length: 300 }, (_, i) => ({ id: 'conv-' + i }));
-      const mockPrisma = { $queryRawUnsafe: jest.fn().mockResolvedValue(rows) };
-
-      const ids = await searchMessageConversationIds(mockPrisma, {
-        companyId: 'comp1',
-        channel: 'FACEBOOK',
-        search: 'المقاسات',
-      });
-
-      expect(ids).toHaveLength(300);
-      const params = mockPrisma.$queryRawUnsafe.mock.calls[0];
-      expect(params[params.length - 1]).toBe(SEARCH_MAX_CONVERSATIONS);
-      expect(SEARCH_MAX_CONVERSATIONS).toBe(5000);
-    });
-
-    it('clamps an oversized limit to SEARCH_MAX_CONVERSATIONS', async () => {
-      const mockPrisma = { $queryRawUnsafe: jest.fn().mockResolvedValue([]) };
-
-      await searchMessageConversationIds(mockPrisma, {
-        companyId: 'comp1',
-        search: 'المقاسات',
-        limit: 99999,
-      });
-
-      const params = mockPrisma.$queryRawUnsafe.mock.calls[0];
-      expect(params[params.length - 1]).toBe(SEARCH_MAX_CONVERSATIONS);
-    });
-
-    it('sets a server-side statement_timeout in a pipelined (array-form) transaction', async () => {
-      const exec = jest.fn().mockResolvedValue(1);
+    it('runs the raw query WITHOUT $transaction (the shared Prisma client is a deferred proxy)', async () => {
       const query = jest.fn().mockResolvedValue([{ id: 'conv-9' }]);
-      const tx = jest.fn().mockResolvedValue([1, [{ id: 'conv-9' }]]);
+      const tx = jest.fn();
       const mockPrisma = {
-        $executeRawUnsafe: exec,
+        $executeRawUnsafe: jest.fn(),
         $queryRawUnsafe: query,
         $transaction: tx,
       };
@@ -206,69 +174,36 @@ describe('conversationSearchWhere', () => {
       const ids = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'سناء' });
 
       expect(ids).toEqual(['conv-9']);
-      // Array form only: a callback transaction would hold a pooled connection
-      // (PgBouncer hardening removed interactive transactions).
-      expect(Array.isArray(tx.mock.calls[0][0])).toBe(true);
-      expect(tx.mock.calls[0][0]).toHaveLength(2);
-      expect(exec).toHaveBeenCalledTimes(1);
-      expect(String(exec.mock.calls[0][0])).toContain('SET LOCAL statement_timeout = 5000');
+      // Passing proxy-returned plain Promises to $transaction throws a
+      // validation error with no `code` → instant 422 in production.
+      expect(tx).not.toHaveBeenCalled();
+      expect(mockPrisma.$executeRawUnsafe).not.toHaveBeenCalled();
       expect(query).toHaveBeenCalledTimes(1);
       expect(query.mock.calls[0][0]).toContain('WITH matched_messages AS');
     });
 
-    it('falls back to a plain query when the pipelined transaction is rejected (PgBouncer)', async () => {
-      const tx = jest.fn().mockImplementation(() => Promise.reject(new Error('Transaction API error: transaction already closed')));
-      const query = jest.fn().mockResolvedValue([{ id: 'conv-fb' }]);
+    it('runs the raw query without a transaction wrapper', async () => {
+      const plain = jest.fn().mockResolvedValue([{ id: 'conv-fallback' }]);
       const mockPrisma = {
-        $executeRawUnsafe: jest.fn().mockResolvedValue(1),
-        $queryRawUnsafe: query,
-        $transaction: tx,
+        $executeRawUnsafe: jest.fn(),
+        $queryRawUnsafe: plain,
+        $transaction: jest.fn(),
       };
 
-      const ids = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'المقاسات' });
+      const ids = await searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'سناء' });
 
-      expect(ids).toEqual(['conv-fb']);
-      expect(tx).toHaveBeenCalledTimes(1);
-      // once to build the array-form transaction, once as the plain fallback
-      expect(query).toHaveBeenCalledTimes(2);
+      expect(ids).toEqual(['conv-fallback']);
+      expect(mockPrisma.$transaction).not.toHaveBeenCalled();
+      expect(plain).toHaveBeenCalledTimes(1);
+      expect(plain.mock.calls[0][0]).toContain('WITH matched_messages AS');
     });
 
-    it('does NOT retry when the transaction failed because of a deadline/cancel error', async () => {
-      const tx = jest.fn().mockImplementation(() => Promise.reject(
-        Object.assign(new Error('canceling statement due to statement timeout'), { code: 'P2034' })));
-      const query = jest.fn().mockResolvedValue([{ id: 'conv-should-not-run' }]);
-      const mockPrisma = {
-        $executeRawUnsafe: jest.fn().mockResolvedValue(1),
-        $queryRawUnsafe: query,
-        $transaction: tx,
-      };
-
-      await expect(searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'المقاسات' }))
-        .rejects.toThrow('statement timeout');
-      // the only $queryRawUnsafe call is the one that built the array transaction
-      expect(query).toHaveBeenCalledTimes(1);
-    });
-
-    it('does NOT retry an unrelated database error (no masking of real failures)', async () => {
-      const tx = jest.fn().mockImplementation(() => Promise.reject(new Error('syntax error at or near "FROM"')));
-      const query = jest.fn().mockResolvedValue([{ id: 'conv-nope' }]);
-      const mockPrisma = {
-        $executeRawUnsafe: jest.fn().mockResolvedValue(1),
-        $queryRawUnsafe: query,
-        $transaction: tx,
-      };
-
-      await expect(searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'المقاسات' }))
-        .rejects.toThrow('syntax error');
-      expect(query).toHaveBeenCalledTimes(1);
-    });
-
-    it('still throws when the query itself fails (no silent empty result)', async () => {
-      const query = jest.fn().mockImplementation(() => Promise.reject(new Error('DB connection failed')));
-      const mockPrisma = { $queryRawUnsafe: query };
-
-      await expect(searchMessageConversationIds(mockPrisma, { companyId: 'comp1', search: 'المقاسات' }))
-        .rejects.toThrow('DB connection failed');
+    it('enforces a client-side deadline instead of waiting for the browser timeout', async () => {
+      const { runWithStatementTimeout } = require('../controller/conversation/conversationSearchWhere');
+      const never = new Promise(() => {});
+      await expect(
+        runWithStatementTimeout({ $queryRawUnsafe: () => never }, 'SELECT 1', [], 25)
+      ).rejects.toThrow(/statement timeout/);
     });
 
     it('keeps the server deadline at or below the 5s acceptance target', () => {

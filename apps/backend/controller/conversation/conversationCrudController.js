@@ -15,7 +15,6 @@ const {
     extractContentTokens,
     buildConversationSearchWhere,
     searchMessageConversationIds,
-    SEARCH_MAX_CONVERSATIONS,
 } = require('./conversationSearchWhere');
 const { computeFacebookWindow, resolveFacebookLastInboundAt } = require('../../utils/facebookWindow');
 const {
@@ -163,6 +162,48 @@ const deleteConverstation = async (req, res) => {
     }
 };
 
+/**
+ * Batch-resolves the last inbound (customer) message timestamp per conversation.
+ * Replaces the previous N+1 findFirst loop (one query per conversation) with a
+ * single DISTINCT ON query backed by messages(conversationId, isFromCustomer, createdAt).
+ *
+ * @param {object} prisma
+ * @param {Array<{id: string, messages?: Array<{isFromCustomer?: boolean}>}>} conversations
+ * @returns {Promise<Map<string, Date>>}
+ */
+const fetchLastInboundMap = async (prisma, conversations) => {
+    const result = new Map();
+    if (!Array.isArray(conversations) || conversations.length === 0) {
+        return result;
+    }
+
+    const ids = conversations
+        .filter((conv) => !(conv.messages && conv.messages[0] && conv.messages[0].isFromCustomer))
+        .map((conv) => conv.id)
+        .filter(Boolean);
+
+    if (ids.length === 0 || typeof prisma?.$queryRawUnsafe !== 'function') {
+        return result;
+    }
+
+    try {
+        const rows = await prisma.$queryRawUnsafe(
+            `SELECT DISTINCT ON ("conversationId") "conversationId", "createdAt"
+             FROM messages
+             WHERE "conversationId" = ANY($1::text[]) AND "isFromCustomer" = true
+             ORDER BY "conversationId", "createdAt" DESC`,
+            ids
+        );
+        for (const row of rows) {
+            result.set(row.conversationId, row.createdAt);
+        }
+    } catch (err) {
+        console.warn('⚠️ [GET-CONV] last-inbound batch lookup failed:', err.message);
+    }
+
+    return result;
+};
+
 // 🆕 Get all conversations with pagination and filtering
 const getConversations = async (req, res) => {
     try {
@@ -248,6 +289,7 @@ const getConversations = async (req, res) => {
         // Split promise for better error isolation
         let conversations, total;
 
+        const requestStartedAt = Date.now();
         const searchActive = Boolean(search && search.trim());
         const wantsMessageSearch = searchActive && (
             searchScope === 'messages' ||
@@ -257,7 +299,11 @@ const getConversations = async (req, res) => {
         );
 
         let contentIds = [];
+        let contentSearchMs = 0;
+        let contentSearchFailed = false;
+        let contentSearchTimedOut = false;
         if (wantsMessageSearch) {
+            const contentStartedAt = Date.now();
             try {
                 contentIds = await searchMessageConversationIds(prisma, {
                     companyId,
@@ -267,19 +313,34 @@ const getConversations = async (req, res) => {
                     limit: 5000,
                 });
             } catch (contentSearchErr) {
+                const timedOut = /statement time|timeout|timed out|canceling statement|exceeded/i.test(contentSearchErr.message || '');
+                contentSearchFailed = true;
+                contentSearchTimedOut = timedOut;
                 // A failed content search must never look like "no results".
                 // 422 (not 503): the SPA retries 503 six times (apiClient.ts retry
                 // paths) and silences its toast, so the user would wait ~10s and see
                 // a generic axios message instead of the Arabic one below.
-                const timedOut = /statement timeout|timeout|canceling statement/i.test(contentSearchErr.message || '');
-                console.error('❌ [GET-CONV] message content search failed:', contentSearchErr.code || 'SEARCH_ERROR');
-                return res.status(422).json({
-                    success: false,
-                    code: timedOut ? 'MESSAGE_SEARCH_TIMEOUT' : 'MESSAGE_SEARCH_UNAVAILABLE',
-                    message: timedOut
-                        ? 'البحث في نص الرسايل خد وقت أطول من المسموح — جرّب كلمة أقصر أو ابحث بالاسم أو رقم التليفون'
-                        : 'البحث في نص الرسايل مش متاح دلوقتي — جرّب تاني بعد شوية، أو ابحث بالاسم أو رقم التليفون',
-                });
+                console.error(
+                    '❌ [GET-CONV] message content search failed:',
+                    contentSearchErr.code || contentSearchErr.name || 'SEARCH_ERROR',
+                    String(contentSearchErr.message || '').slice(0, 300)
+                );
+                // An explicit "search in messages only" cannot silently degrade:
+                // the user asked for message matches, so surface the reason.
+                if (searchScope === 'messages') {
+                    return res.status(422).json({
+                        success: false,
+                        code: timedOut ? 'MESSAGE_SEARCH_TIMEOUT' : 'MESSAGE_SEARCH_UNAVAILABLE',
+                        message: timedOut
+                            ? 'البحث في نص الرسايل خد وقت أطول من المسموح — جرّب كلمة أقصر أو ابحث بالاسم أو رقم التليفون'
+                            : 'البحث في نص الرسايل مش متاح دلوقتي — جرّب تاني بعد شوية، أو ابحث بالاسم أو رقم التليفون',
+                    });
+                }
+                // "all" scope: keep the fast name/phone/preview matches instead of
+                // failing the whole inbox; searchMeta reports the degradation.
+                contentIds = [];
+            } finally {
+                contentSearchMs = Date.now() - contentStartedAt;
             }
             if (process.env.DEBUG_CONV_SEARCH === 'true') {
                 console.log(`🔍 [GET-CONV] Message search returned ${contentIds.length} conversations`);
@@ -363,101 +424,90 @@ const getConversations = async (req, res) => {
             queryWhere = tabWhere;
         }
 
-        try {
-            // 🔧 FIX: Use executeWithRetry to handle connection errors
-            conversations = await executeWithRetry(async () => {
-                return await prisma.conversation.findMany({
-                    where: queryWhere,
-                    include: {
-                        customer: {
-                            select: {
-                                id: true,
-                                firstName: true,
-                                lastName: true,
-                                email: true,
-                                facebookId: true,
-                                phone: true,
-                                avatar: true,
-                                metadata: true
-                            }
-                        },
-                        user: {
-                            select: {
-                                id: true,
-                                firstName: true,
-                                lastName: true,
-                                email: true,
-                                avatar: true
-                            }
-                        },
-                        // 🆕 Include last message to check if from customer and delivery status
-                        messages: {
-                            orderBy: { createdAt: 'desc' },
-                            take: 1,
-                            select: {
-                                id: true,
-                                isFromCustomer: true,
-                                isRead: true,
-                                content: true,
-                                type: true,
-                                deliveryStatus: true,
-                                failureReason: true,
-                                createdAt: true
-                            }
-                        }
-                    },
-                    orderBy: {
-                        lastMessageAt: 'desc'
-                    },
-                    skip: skip,
-                    take: take
-                });
-            }, 3);
-            console.log(`✅ [GET-CONV] findMany success. Got ${conversations.length} records.`);
-        } catch (dbErr) {
-            console.error('❌ [GET-CONV] findMany FAILED:', dbErr);
-            throw dbErr;
-        }
-
-        // 🆕 Count for unreplied & priority should use the same filter
+        // 🆕 Badge counts are channel-level stats: they must NOT carry the
+        // search predicate (searching for one name must not zero the badges)
+        // and they must not cost 3 extra sequential round trips on every search.
+        const badgeWhere = { ...where };
         let unrepliedCount = 0;
         let priorityCount = 0;
+
         try {
-            // 🔧 FIX: Use executeWithRetry to handle connection errors
-            total = await executeWithRetry(async () => {
-                return await prisma.conversation.count({ where: queryWhere });
-            }, 3);
-
-            // Also get total unreplied count for stats
-            // ✅ FIX: استخدام نفس where clause مع channel filter
-            const unrepliedWhere = {
-                ...(searchActive ? queryWhere : where),
-                status: { in: ['ACTIVE', 'PENDING'] },
-                lastMessageIsFromCustomer: true
-            };
-
-            unrepliedCount = await executeWithRetry(async () => {
-                return await prisma.conversation.count({
-                    where: unrepliedWhere
-                });
-            }, 3);
-
-            // Also get total priority count for stats badge across whole channel
-            const priorityWhere = {
-                ...(searchActive ? queryWhere : where),
-                priority: { gt: 1 }
-            };
-
-            priorityCount = await executeWithRetry(async () => {
-                return await prisma.conversation.count({
-                    where: priorityWhere
-                });
-            }, 3);
-
-            console.log(`✅ [GET-CONV] count success. Total: ${total}, Unreplied: ${unrepliedCount}, Priority: ${priorityCount}`);
-        } catch (cntErr) {
-            console.error('❌ [GET-CONV] count FAILED:', cntErr);
-            throw cntErr;
+            // 🔧 FIX: Use executeWithRetry to handle connection errors, in parallel
+            const [conversationsResult, totalResult, unrepliedResult, priorityResult] = await Promise.all([
+                executeWithRetry(async () => {
+                    return await prisma.conversation.findMany({
+                        where: queryWhere,
+                        include: {
+                            customer: {
+                                select: {
+                                    id: true,
+                                    firstName: true,
+                                    lastName: true,
+                                    email: true,
+                                    facebookId: true,
+                                    phone: true,
+                                    avatar: true,
+                                    metadata: true
+                                }
+                            },
+                            user: {
+                                select: {
+                                    id: true,
+                                    firstName: true,
+                                    lastName: true,
+                                    email: true,
+                                    avatar: true
+                                }
+                            },
+                            // 🆕 Include last message to check if from customer and delivery status
+                            messages: {
+                                orderBy: { createdAt: 'desc' },
+                                take: 1,
+                                select: {
+                                    id: true,
+                                    isFromCustomer: true,
+                                    isRead: true,
+                                    content: true,
+                                    type: true,
+                                    deliveryStatus: true,
+                                    failureReason: true,
+                                    createdAt: true
+                                }
+                            }
+                        },
+                        orderBy: {
+                            lastMessageAt: 'desc'
+                        },
+                        skip: skip,
+                        take: take
+                    });
+                }, 3),
+                executeWithRetry(async () => {
+                    return await prisma.conversation.count({ where: queryWhere });
+                }, 3),
+                executeWithRetry(async () => {
+                    return await prisma.conversation.count({
+                        where: {
+                            ...badgeWhere,
+                            status: { in: ['ACTIVE', 'PENDING'] },
+                            lastMessageIsFromCustomer: true
+                        }
+                    });
+                }, 3),
+                executeWithRetry(async () => {
+                    return await prisma.conversation.count({
+                        where: { ...badgeWhere, priority: { gt: 1 } }
+                    });
+                }, 3),
+            ]);
+            conversations = conversationsResult;
+            total = totalResult;
+            unrepliedCount = unrepliedResult;
+            priorityCount = priorityResult;
+            console.log(`✅ [GET-CONV] findMany + counts success in ${Date.now() - requestStartedAt}ms. Got ${conversations.length} records. Total: ${total}, Unreplied: ${unrepliedCount}, Priority: ${priorityCount}`);
+        } catch (dbErr) {
+            console.error('❌ [GET-CONV] findMany/count FAILED:', dbErr);
+            throw dbErr;
         }
 
         // Format response
@@ -473,6 +523,8 @@ const getConversations = async (req, res) => {
             masterAiSetting = { autoReplyEnabled: false };
             hasActiveAiKey = true;
         }
+
+        const lastInboundByConversation = await fetchLastInboundMap(prisma, conversations);
 
         const formattedConversations = await Promise.all(conversations.map(async (conv, index) => {
             // Extract pageName and pageId
@@ -537,15 +589,8 @@ const getConversations = async (req, res) => {
             let lastInboundAt = null;
             if (conv.messages && conv.messages.length > 0 && conv.messages[0].isFromCustomer) {
                 lastInboundAt = conv.messages[0].createdAt || null;
-            } else if (prisma?.message?.findFirst) {
-                try {
-                    const lastInboundMsg = await prisma.message.findFirst({
-                        where: { conversationId: conv.id, isFromCustomer: true },
-                        orderBy: { createdAt: 'desc' },
-                        select: { createdAt: true }
-                    });
-                    lastInboundAt = lastInboundMsg?.createdAt || null;
-                } catch (e) { }
+            } else {
+                lastInboundAt = lastInboundByConversation.get(conv.id) || null;
             }
 
             // Fallback: If conv.lastMessageIsFromCustomer is true, use conv.lastMessageAt
@@ -638,7 +683,17 @@ const getConversations = async (req, res) => {
                 total: total,
                 unreplied: unrepliedCount, // 🆕 From database count
                 priority: priorityCount
-            }
+            },
+            // 🆕 Search telemetry so latency can be measured from the client
+            // without DB/SSH access (no result data leaked).
+            searchMeta: searchActive ? {
+                scope: searchScope === 'messages' ? 'messages' : (wantsMessageSearch ? 'all' : 'fields'),
+                contentMatchCount: contentIds.length,
+                contentSearchMs,
+                contentSearchFailed,
+                contentSearchTimedOut,
+                totalMs: Date.now() - requestStartedAt
+            } : null
         });
 
     } catch (error) {

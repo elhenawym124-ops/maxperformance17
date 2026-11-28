@@ -12,15 +12,6 @@
 const SEARCH_STATEMENT_TIMEOUT_MS = 5000;
 
 /**
- * Hard ceiling on how many distinct conversations a message-content search may
- * feed back into the conversation query. It is a memory/parameter guard only
- * (Postgres allows 65535 bind params) — NOT a result cap: a merchant whose term
- * matches fewer conversations always gets every match. The old 1000-message-row
- * cap inside the CTE silently dropped ~90% of a busy merchant's matches.
- */
-const SEARCH_MAX_CONVERSATIONS = 5000;
-
-/**
  * Extracts tokens eligible for trigram-indexed message content search (length >= 3).
  * @param {string|unknown} rawTerm
  * @returns {string[]}
@@ -68,10 +59,8 @@ function buildConversationSearchWhere(rawTerm) {
  * Searches messages for matching content tokens using the PostgreSQL GIN trigram
  * index `idx_messages_content_trgm` (created by scripts/ensure_trgm_indexes.sql).
  * The tenant filter (`companyId`, and `channel` when given) is applied INSIDE the
- * CTE, and the CTE aggregates one row per conversation instead of capping raw
- * message rows — so another tenant's messages can never crowd out the caller's
- * matches and a conversation whose only hit is old is not dropped.
- * Conversations are ordered by their most recent matching message.
+ * CTE, before the 1000-row cap, so another tenant's messages can never crowd out
+ * the caller's matches. Rows are capped to the most recent 1000 hits.
  *
  * Database failures are propagated to the caller (no silent empty result): the
  * controller turns them into HTTP 422 (`MESSAGE_SEARCH_TIMEOUT`/`MESSAGE_SEARCH_UNAVAILABLE`)
@@ -83,12 +72,11 @@ function buildConversationSearchWhere(rawTerm) {
  * @param {string} [params.channel]
  * @param {string} params.search - raw search term
  * @param {number|string} [params.days=180] - time limit in days (default: 180 days)
- * @param {number|string} [params.limit] - maximum distinct conversation IDs
- *        (default and ceiling: SEARCH_MAX_CONVERSATIONS)
+ * @param {number|string} [params.limit=200] - maximum distinct conversation IDs (default: 200)
  * @returns {Promise<string[]>} array of conversation IDs
  * @throws {Error} when the underlying query fails (timeout, missing index, connection)
  */
-async function searchMessageConversationIds(prisma, { companyId, channel, search, days = 180, limit = SEARCH_MAX_CONVERSATIONS }) {
+async function searchMessageConversationIds(prisma, { companyId, channel, search, days = 180, limit = 200 }) {
     if (!prisma || !search || !companyId) {
         return [];
     }
@@ -100,7 +88,7 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
 
     const cutoffDays = Math.max(1, Math.min(parseInt(days, 10) || 180, 730));
     const cutoffDate = new Date(Date.now() - cutoffDays * 86400000);
-    const maxLimit = Math.max(1, Math.min(parseInt(limit, 10) || SEARCH_MAX_CONVERSATIONS, SEARCH_MAX_CONVERSATIONS));
+    const maxLimit = Math.max(1, Math.min(parseInt(limit, 10) || 200, 500));
 
     // Build parameterized CTE query with escaped wildcards
     const conditions = contentTokens.map((_, i) => `m.content ILIKE $${i + 1}`).join(' AND ');
@@ -121,29 +109,27 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
         cteChannelClause = `AND c2.channel = $${channelParamIdx}`;
     }
 
-    params.push(maxLimit);
-    const limitParamIdx = params.length;
-
+    // LIMIT is inlined as a clamped integer on purpose: it is validated above,
+    // and a literal lets the planner fold it instead of treating the cap as an
+    // opaque parameter.
     const query = `
         WITH matched_messages AS (
-            SELECT m."conversationId" AS "conversationId", MAX(m."createdAt") AS "lastHitAt"
+            SELECT m."conversationId"
             FROM messages m
             JOIN conversations c2 ON c2.id = m."conversationId"
             WHERE ${conditions}
               AND m."createdAt" >= $${dateParamIdx}
               AND c2."companyId" = $${companyParamIdx}
               ${cteChannelClause}
-            GROUP BY m."conversationId"
-            ORDER BY "lastHitAt" DESC
-            LIMIT $${limitParamIdx}
+            ORDER BY m."createdAt" DESC
+            LIMIT 1000
         )
-        SELECT c.id
+        SELECT DISTINCT c.id
         FROM conversations c
         JOIN matched_messages mm ON c.id = mm."conversationId"
         WHERE c."companyId" = $${companyParamIdx}
           ${channelClause}
-        ORDER BY mm."lastHitAt" DESC
-        LIMIT $${limitParamIdx};
+        LIMIT ${maxLimit};
     `;
 
     const rows = await runWithStatementTimeout(prisma, query, params);
@@ -151,88 +137,46 @@ async function searchMessageConversationIds(prisma, { companyId, channel, search
 }
 
 /**
- * Errors that mean "this pooler refuses the transaction wrapper", not "the query
- * itself failed". Only those are retried on the plain path; a deadline/cancel
- * error must never be retried (gate-4 BLOCKER, 2026-11-25).
- */
-const TX_WRAPPER_ERROR = /transaction|pooler|pool|prepared statement|connection|closed|P2024|P2028/i;
-/** Cancel/timeout errors: the query already burned its budget — surface them. */
-const DEADLINE_ERROR = /timeout|timed out|cancel|P2034/i;
-
-/**
- * Runs the raw search with a hard deadline instead of relying on the pooler/role
- * default (the SPA gives up at 30s).
+ * Runs the raw search with a client-side deadline instead of relying on the
+ * pooler/role default (the SPA gives up at 30s).
  *
- * Preferred path: a single pipelined (array-form) transaction — BEGIN + SET LOCAL +
- * query are sent as one batch to the pooler, so the pooled server connection is
- * held only for that round trip. The callback form (`$transaction(async tx => ...)`)
- * is avoided on purpose: this repo's PgBouncer hardening removed interactive
- * transactions because they held pool connections and produced 30s
- * `query_wait_timeout` errors.
+ * IMPORTANT: this deliberately does NOT use `prisma.$transaction`. The shared
+ * client returned by getSharedPrismaClient() is a deferred Proxy whose
+ * `$`-methods return plain Promises; Prisma rejects plain promises passed to
+ * `$transaction` with a client-side validation error that carries no `code`,
+ * which surfaced in production as an instant 422 MESSAGE_SEARCH_UNAVAILABLE on
+ * every content search. A plain `$queryRawUnsafe` works through the proxy.
  *
- * Production fallback (2026-11-25): on a transaction-pooling PgBouncer the array
- * transaction is rejected outright (every content search answered 422
- * MESSAGE_SEARCH_UNAVAILABLE in <1s after 9d7bfd922 shipped, while the plain path
- * worked before it). A rejected *wrapper* is retried as a plain `$queryRawUnsafe`
- * that keeps the same hard deadline through a client-side race, so a slow query
- * still fails as MESSAGE_SEARCH_TIMEOUT at ~5s instead of hanging to the SPA's 30s.
- * Timeout/cancel errors are never retried, and a broken query still throws.
- * Simple/mock clients without `$transaction` use the plain call directly.
+ * The deadline is enforced client-side; the server keeps running the indexed,
+ * LIMITed query, and the DB role/pooler still applies its own statement_timeout.
+ * Simple/mock clients without `$transaction` behave identically.
  */
 async function runWithStatementTimeout(prisma, query, params, timeoutMs = SEARCH_STATEMENT_TIMEOUT_MS) {
-    if (typeof prisma.$transaction === 'function' && typeof prisma.$executeRawUnsafe === 'function') {
-        try {
-            const [, rows] = await prisma.$transaction([
-                prisma.$executeRawUnsafe(`SET LOCAL statement_timeout = ${Number(timeoutMs)}`),
-                prisma.$queryRawUnsafe(query, ...params),
-            ], { timeout: timeoutMs + 2000 });
-            return rows;
-        } catch (txErr) {
-            const fingerprint = `${(txErr && txErr.message) || ''} ${(txErr && txErr.code) || ''}`;
-            if (DEADLINE_ERROR.test(fingerprint) || !TX_WRAPPER_ERROR.test(fingerprint)) {
-                throw txErr;
-            }
-            // Log the driver error CODE only — never raw driver text (PII/statement fragments).
-            if (typeof process !== 'undefined' && process.env.DEBUG_CONV_SEARCH === 'true') {
-                console.warn('⚠️ [CONV-SEARCH] transaction wrapper rejected (code=%s); retrying with a client deadline',
-                    (txErr && txErr.code) || 'unknown');
-            }
-            return runWithClientDeadline(prisma, query, params, timeoutMs);
-        }
-    }
-    return prisma.$queryRawUnsafe(query, ...params);
-}
-
-/**
- * Plain `$queryRawUnsafe` bounded by a client-side deadline. The server query is
- * not cancellable from here, so a late rejection is swallowed to avoid an
- * unhandled-rejection crash; the caller receives a timeout error at `timeoutMs`.
- */
-function runWithClientDeadline(prisma, query, params, timeoutMs = SEARCH_STATEMENT_TIMEOUT_MS) {
-    const pending = prisma.$queryRawUnsafe(query, ...params);
-    if (!pending || typeof pending.then !== 'function') {
-        return pending;
-    }
+    const queryPromise = prisma.$queryRawUnsafe(query, ...params);
     let timer;
-    const deadline = new Promise((_, reject) => {
-        timer = setTimeout(() => {
-            const err = new Error('statement timeout: message content search exceeded its deadline');
-            err.code = 'MESSAGE_SEARCH_TIMEOUT';
-            reject(err);
-        }, Number(timeoutMs));
-        if (timer && typeof timer.unref === 'function') {
-            timer.unref();
-        }
-    });
-    // Keep the late outcome of the server query from becoming an unhandled rejection.
-    pending.catch(() => {});
-    return Promise.race([pending, deadline]).finally(() => clearTimeout(timer));
+    try {
+        return await Promise.race([
+            queryPromise,
+            new Promise((_, reject) => {
+                timer = setTimeout(
+                    () => reject(new Error(`statement timeout: message content search exceeded ${timeoutMs}ms`)),
+                    timeoutMs
+                );
+                if (typeof timer.unref === 'function') timer.unref();
+            }),
+        ]);
+    } finally {
+        if (timer) clearTimeout(timer);
+        // If the deadline won, the DB query may still settle later; swallow its
+        // rejection so a late error never becomes an unhandled rejection.
+        Promise.resolve(queryPromise).catch(() => {});
+    }
 }
 
 module.exports = {
     extractContentTokens,
     buildConversationSearchWhere,
     searchMessageConversationIds,
+    runWithStatementTimeout,
     SEARCH_STATEMENT_TIMEOUT_MS,
-    SEARCH_MAX_CONVERSATIONS,
 };
