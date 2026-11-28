@@ -148,7 +148,7 @@ export const PermissionMobileCard: React.FC<PermissionMobileCardProps> = ({
           <Button
             size="sm"
             variant="ghost"
-            className="h-9 w-9 min-h-[38px] min-w-[38px] p-0 hover:bg-destructive/10 dark:hover:bg-destructive/20 text-destructive rounded-lg cursor-pointer"
+            className="h-10 w-10 min-h-[40px] min-w-[40px] p-0 hover:bg-destructive/10 dark:hover:bg-destructive/20 text-destructive rounded-lg cursor-pointer"
             onClick={() => onDeleteClick(request)}
             title={t("employee.permissions.delete")}
           >
