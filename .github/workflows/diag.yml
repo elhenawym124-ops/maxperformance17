@@ -48,13 +48,13 @@ jobs:
           command_timeout: 10m
           script: |
             set -euo pipefail
-            echo "🚀 Setting up isolated test sandbox at /tmp/backend-turbo-test..."
+            echo "🚀 Setting up fast isolated test sandbox at /tmp/backend-turbo-test..."
             rm -rf /tmp/backend-turbo-test
             mkdir -p /tmp/backend-turbo-test
-            cp -r /var/www/backend2/node_modules /tmp/backend-turbo-test/
-            cp -r /var/www/backend2/package.json /tmp/backend-turbo-test/
+            ln -s /var/www/backend2/node_modules /tmp/backend-turbo-test/node_modules
+            cp /var/www/backend2/package.json /tmp/backend-turbo-test/
             cp -r /var/www/backend2/prisma /tmp/backend-turbo-test/
-            cp -r /var/www/backend2/.env /tmp/backend-turbo-test/ || true
+            cp /var/www/backend2/.env /tmp/backend-turbo-test/ || true
             cp -r /var/www/backend2/config /tmp/backend-turbo-test/
             cp -r /var/www/backend2/utils /tmp/backend-turbo-test/
             cp -r /var/www/backend2/services /tmp/backend-turbo-test/
@@ -76,7 +76,7 @@ jobs:
             cd /tmp/backend-turbo-test
 
             echo "🧪 RUNNING JEST UNIT & CONCURRENCY RED-LINE TESTS..."
-            npx jest tests/services/orderService.turboAutoCreate.test.js --runInBand --detectOpenHandles --verbose
+            npx jest tests/services/orderService.turboAutoCreate.test.js --runInBand --detectOpenHandles --verbose --forceExit
 
             echo "📊 RUNNING 30-DAY RECONCILIATION REPORT (READ-ONLY)..."
             node scripts/reconcile_turbo_shipments.js cmleybpf70028juo2wwpmp8rt 30

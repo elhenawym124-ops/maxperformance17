@@ -729,14 +729,17 @@ describe('OrderService - Turbo Auto-Shipment Creation & Idempotency', () => {
       timeoutError.code = 'ETIMEDOUT';
       mockCreateShipment.mockRejectedValueOnce(timeoutError);
 
-      // Turbo search-order inquiry finds that Turbo actually created the shipment!
-      mockFindShipmentByInvoiceNumber.mockResolvedValueOnce({
-        success: true,
-        shipmentId: '39185999',
-        trackingNumber: '39185999',
-        status: 'قيد الإنتظار',
-        data: { code: '39185999', invoice_number: 'ORD-TIMEOUT-001' }
-      });
+      // Pre-shipment inquiry returns null (shipment not yet created)
+      // Then post-exception inquiry discovers Turbo actually created the shipment!
+      mockFindShipmentByInvoiceNumber
+        .mockResolvedValueOnce(null)
+        .mockResolvedValueOnce({
+          success: true,
+          shipmentId: '39185999',
+          trackingNumber: '39185999',
+          status: 'قيد الإنتظار',
+          data: { code: '39185999', invoice_number: 'ORD-TIMEOUT-001' }
+        });
 
       const result = await orderService.autoCreateTurboShipmentForOrder(order, 'comp_1', { force: true });
 
