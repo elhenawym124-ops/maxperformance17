@@ -10,6 +10,8 @@ type RouteAuditConfig = {
   buildPath: (themeId: string, productSlug?: string) => string | null;
 };
 
+type CenteringBasis = "parent" | "viewport";
+
 type RouteContainerMetric = {
   index: number;
   className: string;
@@ -19,6 +21,9 @@ type RouteContainerMetric = {
   gapDelta: number;
   fullWidth: boolean;
   centered: boolean;
+  parentWidth: number;
+  basis: CenteringBasis;
+  fallbackReason: string | undefined;
 };
 
 type RouteAuditResult = {
@@ -138,7 +143,11 @@ const resolveProductSlug = (themeId: string): string | null => {
 const formatMetric = (metric: RouteContainerMetric): string =>
   `#${metric.index} delta=${metric.gapDelta.toFixed(2)} left=${metric.leftGap.toFixed(
     2,
-  )} right=${metric.rightGap.toFixed(2)} width=${metric.width.toFixed(2)} class="${metric.className}"`;
+  )} right=${metric.rightGap.toFixed(2)} width=${metric.width.toFixed(
+    2,
+  )} parent=${metric.parentWidth.toFixed(2)} basis=${metric.basis}${
+    metric.fallbackReason ? ` fallback="${metric.fallbackReason}"` : ""
+  } class="${metric.className}"`;
 
 const main = async () => {
   const baseUrl =
@@ -188,11 +197,6 @@ const main = async () => {
 
                 return allContainers
                   .map((container, index) => {
-                    const parentContainer = container.parentElement?.closest(".container");
-                    if (parentContainer) {
-                      return null;
-                    }
-
                     const rect = container.getBoundingClientRect();
                     const className = container.className.replace(/\s+/g, " ").trim();
                     const isVisible =
@@ -205,11 +209,32 @@ const main = async () => {
                       return null;
                     }
 
-                    const leftGap = rect.left;
-                    const rightGap = viewportWidth - rect.right;
+                    const parent = container.parentElement;
+                    const parentRect = parent?.getBoundingClientRect() ?? null;
+                    const parentStyle = parent ? window.getComputedStyle(parent) : null;
+                    const parentWidth = parentRect?.width ?? 0;
+                    const fallbackReason =
+                      !parentRect || !parentStyle || parentWidth <= 0
+                        ? "parent width <= 0"
+                        : undefined;
+                    const basis = fallbackReason ? ("viewport" as const) : ("parent" as const);
+                    const contentLeft =
+                      parentRect && parentStyle && !fallbackReason
+                        ? parentRect.left + Number.parseFloat(parentStyle.paddingLeft || "0")
+                        : 0;
+                    const contentRight =
+                      parentRect && parentStyle && !fallbackReason
+                        ? parentRect.right - Number.parseFloat(parentStyle.paddingRight || "0")
+                        : 0;
+                    const basisWidth = basis === "parent" ? parentWidth : viewportWidth;
+                    const leftGap = basis === "parent" ? rect.left - contentLeft : rect.left;
+                    const rightGap =
+                      basis === "parent"
+                        ? contentRight - rect.left - rect.width
+                        : viewportWidth - rect.right;
                     const gapDelta = Math.abs(leftGap - rightGap);
                     const centered = gapDelta <= tolerance;
-                    const fullWidth = rect.width >= viewportWidth - tolerance * 2;
+                    const fullWidth = rect.width >= basisWidth - tolerance * 2;
 
                     return {
                       index,
@@ -220,6 +245,9 @@ const main = async () => {
                       gapDelta,
                       fullWidth,
                       centered,
+                      parentWidth,
+                      basis,
+                      fallbackReason,
                     };
                   })
                   .filter((metric): metric is RouteContainerMetric => metric !== null);
