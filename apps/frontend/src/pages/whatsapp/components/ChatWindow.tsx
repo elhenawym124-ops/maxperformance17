@@ -294,12 +294,12 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       onTouchEnd={onTouchEnd}
     >
       <div className="wa-glass-header flex items-center justify-between gap-space-2 border-b border-[color:color-mix(in_srgb,var(--color-border)_72%,transparent)] px-space-3 py-space-1 shrink-0">
-        <div className="flex min-w-0 items-center gap-space-2">
+        <div className="flex min-w-0 flex-1 items-center gap-space-2 overflow-hidden">
           {onBackToList ? (
             <Button
               variant="ghost"
               size="icon-sm"
-              className="size-8 rounded-full hover:bg-[var(--whatsapp-surface-hover)] lg:hidden"
+              className="size-8 shrink-0 rounded-full hover:bg-[var(--whatsapp-surface-hover)] lg:hidden"
               onClick={onBackToList}
               title={t("whatsapp.sidebar.all") as string}
             >
@@ -309,7 +309,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               <span className="sr-only">{t("whatsapp.sidebar.all")}</span>
             </Button>
           ) : null}
-          <Avatar className="size-8">
+          <Avatar className="size-8 shrink-0">
             <AvatarImage src={getInboxExternalImageUrl(selectedContact.profilePicUrl) || undefined} />
             <AvatarFallback className="bg-primary/10 text-xs text-[color:var(--color-primary)]">
               {getContactName(selectedContact).slice(0, 2).toUpperCase()}
@@ -323,7 +323,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               {selectedContact.isGroup ? (
                 <Badge
                   variant="outline"
-                  className="border-border/70 bg-[var(--whatsapp-surface-overlay)] text-[9px] text-muted-foreground px-1 py-0"
+                  className="shrink-0 border-border/70 bg-[var(--whatsapp-surface-overlay)] px-1 py-0 text-[9px] text-muted-foreground"
                 >
                   {t("whatsapp.window.group")}
                 </Badge>
@@ -331,33 +331,37 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               {selectedContact.isNewsletter ? (
                 <Badge
                   variant="outline"
-                  className="border-border/70 bg-[var(--whatsapp-surface-overlay)] text-[9px] text-muted-foreground px-1 py-0"
+                  className="shrink-0 border-border/70 bg-[var(--whatsapp-surface-overlay)] px-1 py-0 text-[9px] text-muted-foreground"
                 >
                   {t("whatsapp.window.channel")}
                 </Badge>
               ) : null}
               {selectedContact.unreadCount > 0 ? (
-                <Badge className="bg-[color:var(--color-primary)] text-white text-[10px] h-4 min-w-4 px-1">
+                <Badge className="h-4 min-w-4 shrink-0 bg-[color:var(--color-primary)] px-1 text-[10px] text-white">
                   {selectedContact.unreadCount}
                 </Badge>
               ) : null}
+              {selectedContact.isMuted ? (
+                <span className="shrink-0 text-[10px] text-muted-foreground">مكتوم</span>
+              ) : null}
+            </div>
+            <div className="flex min-w-0 items-center gap-1.5">
               <span
-                className="hidden shrink-0 whitespace-nowrap text-[11px] text-muted-foreground sm:inline"
+                className="truncate whitespace-nowrap text-[11px] text-muted-foreground"
                 dir="ltr"
               >
-                · {getContactDisplayPhone(selectedContact)}
+                {getContactDisplayPhone(selectedContact)}
               </span>
               {selectedContact.session?.provider || selectedContact.session?.name ? (
                 <Badge
                   variant="outline"
-                  className="border-border/70 bg-[var(--whatsapp-surface-overlay)] px-1.5 py-0 text-[9px] font-medium text-muted-foreground shrink-0"
+                  className="shrink-0 border-border/70 bg-[var(--whatsapp-surface-overlay)] px-1.5 py-0 text-[9px] font-medium text-muted-foreground"
                   title={selectedContact.session?.name || selectedContact.session?.provider || undefined}
                 >
                   {selectedContact.session?.provider === "META_CLOUD" ? "API" : "QR"}
                   {selectedContact.session?.name ? ` · ${selectedContact.session.name}` : ""}
                 </Badge>
               ) : null}
-              {selectedContact.isMuted ? <span className="text-[10px] text-muted-foreground">مكتوم</span> : null}
             </div>
           </div>
         </div>
