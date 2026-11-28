@@ -201,7 +201,7 @@ async function main() {
 }
 
 if (require.main === module) {
-  main().catch(async (err) => {
+  main().then(() => process.exit(0)).catch(async (err) => {
     console.error('❌ [seed-swan-course] Error seeding:', err);
     try {
       const { closeSharedDatabase } = require('../services/sharedDatabase');
