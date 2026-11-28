@@ -406,6 +406,21 @@ router.post('/checkout-draft', async (req, res) => {
       req.body?.subtotal,
     );
 
+    let previousCheckoutData = null;
+    if (existingCart?.checkoutData) {
+      try {
+        previousCheckoutData = typeof existingCart.checkoutData === 'string'
+          ? JSON.parse(existingCart.checkoutData)
+          : existingCart.checkoutData;
+      } catch (_) {
+        previousCheckoutData = null;
+      }
+    }
+    const previousPhone = normalizeCheckoutDraftText(
+      previousCheckoutData?.phone || previousCheckoutData?.customerPhone || previousCheckoutData?.guestPhone,
+      32,
+    );
+
     const savedCart = existingCart
       ? await prisma.guestCart.update({
           where: { cartId: resolvedCartId },
@@ -431,14 +446,20 @@ router.post('/checkout-draft', async (req, res) => {
           },
         });
 
-    if (!existingCart && savedCart) {
+    const shouldTriggerFirstAppearance = Boolean(
+      savedCart && checkoutData.phone && (!existingCart || !previousPhone)
+    );
+
+    if (shouldTriggerFirstAppearance) {
       try {
         const { handleCartCreated } = require('../services/orders/incompleteCartMessagingService');
         handleCartCreated(savedCart);
       } catch (triggerError) {
         console.warn('⚠️ [PUBLIC-ORDERS] Incomplete cart messaging trigger failed:', triggerError.message);
       }
+    }
 
+    if (!existingCart && savedCart) {
       // 📡 بث إيفنت لحظي لتنبيه إدارة المتجر بطلب غير مكتمل جديد (يعمل صوت + إشعار)
       try {
         if (socketService && socketService.getIO()) {

@@ -558,6 +558,10 @@ function getModuleSettingKey(eventType) {
     return 'productNotificationsEnabled';
   }
 
+  if (eventType.startsWith('CART_ABANDONED')) {
+    return 'abandonedCartEnabled';
+  }
+
   if (
     eventType.startsWith('CART_') ||
     eventType === 'PROMOTIONAL' ||
@@ -5053,6 +5057,8 @@ module.exports = {
   isQuietHours,
   resolveDeliveryCompanyId,
   getPersistedNotificationEventType,
+  getModuleSettingKey,
+  isEventEnabledForSettings,
   isDuplicateNotification,
 
   // الإرسال
