@@ -131,4 +131,49 @@ describe("useOrdersUrlSync", () => {
     expect(warnSpy).toHaveBeenCalled();
     warnSpy.mockRestore();
   });
+
+  it("does not overwrite newer search input when an echoed searchParams update arrives", () => {
+    const initialSearchParams = new URLSearchParams("page=1&limit=20");
+    const { rerender } = renderHook(
+      ({
+        filters,
+        searchParams,
+      }: {
+        filters: OrdersFilters;
+        searchParams: URLSearchParams;
+      }) =>
+        useOrdersUrlSync({
+          filters,
+          setFilters: mockSetFilters,
+          page: 1,
+          setPage: mockSetPage,
+          limit: 20,
+          setLimit: mockSetLimit,
+          searchParams,
+          setSearchParams: mockSetSearchParams,
+        }),
+      {
+        initialProps: {
+          filters: DEFAULT_ORDERS_FILTERS,
+          searchParams: initialSearchParams,
+        },
+      },
+    );
+
+    mockSetFilters.mockClear();
+
+    // User types "0" -> hook writes page=1&limit=20&search=0
+    rerender({
+      filters: { ...DEFAULT_ORDERS_FILTERS, search: "0" },
+      searchParams: initialSearchParams,
+    });
+
+    // User types "1" before URL commits, then URL commits "search=0"
+    rerender({
+      filters: { ...DEFAULT_ORDERS_FILTERS, search: "01" },
+      searchParams: new URLSearchParams("page=1&limit=20&search=0"),
+    });
+
+    expect(mockSetFilters).not.toHaveBeenCalled();
+  });
 });

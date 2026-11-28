@@ -171,6 +171,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
 
   // Active quick tab determination
   const activeTab = useMemo(() => {
+    if (filters.needsAddressDetails) return "needsAddressDetails";
     const st = filters.status || [];
     const pay = filters.paymentStatus || [];
     if (pay.length > 0 && st.length === 0 && (pay.includes("PENDING") || pay.includes("UNPAID"))) {
@@ -183,24 +184,27 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
     }
     if (st.length === 0 && pay.length === 0) return "all";
     return "custom";
-  }, [filters.status, filters.paymentStatus]);
+  }, [filters.status, filters.paymentStatus, filters.needsAddressDetails]);
 
   const handleTabClick = (tabKey: string) => {
     switch (tabKey) {
       case "all":
-        onApplyFilters({ status: [], paymentStatus: [] });
+        onApplyFilters({ status: [], paymentStatus: [], needsAddressDetails: false });
         break;
       case "unpaid":
-        onApplyFilters({ status: [], paymentStatus: ["PENDING"] });
+        onApplyFilters({ status: [], paymentStatus: ["PENDING"], needsAddressDetails: false });
         break;
       case "unfulfilled":
-        onApplyFilters({ status: ["CONFIRMED", "PROCESSING"], paymentStatus: [] });
+        onApplyFilters({ status: ["CONFIRMED", "PROCESSING"], paymentStatus: [], needsAddressDetails: false });
         break;
       case "completed":
-        onApplyFilters({ status: ["DELIVERED"], paymentStatus: [] });
+        onApplyFilters({ status: ["DELIVERED"], paymentStatus: [], needsAddressDetails: false });
         break;
       case "cancelled":
-        onApplyFilters({ status: ["CANCELLED"], paymentStatus: [] });
+        onApplyFilters({ status: ["CANCELLED"], paymentStatus: [], needsAddressDetails: false });
+        break;
+      case "needsAddressDetails":
+        onApplyFilters({ status: [], paymentStatus: [], needsAddressDetails: true });
         break;
       default:
         break;
@@ -332,6 +336,7 @@ export const PolarisOrdersView: React.FC<PolarisOrdersViewProps> = ({
               { key: "unfulfilled", label: "قيد التجهيز" },
               { key: "completed", label: "مكتمل" },
               { key: "cancelled", label: "ملغي" },
+              { key: "needsAddressDetails", label: "عناوين تحتاج توضيح" },
             ].map((tab) => {
               const isActive = activeTab === tab.key;
               const rawCount =
