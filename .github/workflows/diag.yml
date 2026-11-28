@@ -26,45 +26,29 @@ jobs:
           port: ${{ env.SERVER_SSH_PORT }}
           key: ${{ secrets.SERVER_SSH_KEY }}
 
-      - name: Run Diagnostics & Database Fix on Server
+      - name: Upload diagnostic script to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ env.SERVER_SSH_PORT }}
+          source: apps/backend/scripts/diagnose_turbo_duplicate.js
+          target: /var/www/backend2/scripts/
+          strip_components: 3
+          overwrite: true
+
+      - name: Run Diagnostics on Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ env.SERVER_SSH_PORT }}
-          debug: true
+          command_timeout: 10m
           script: |
-            echo "=== 🔍 Inspecting Product mlabs-nsaeyh-1788425645 in DB ==="
+            set -euo pipefail
             cd /var/www/backend2
-            node -e "
-            const { getSharedPrismaClientAsync } = require('./services/sharedDatabase');
-            async function main() {
-              const prisma = await getSharedPrismaClientAsync();
-              const product = await prisma.product.findFirst({
-                where: {
-                  OR: [
-                    { slug: 'mlabs-nsaeyh-1788425645' },
-                    { id: 'mlabs-nsaeyh-1788425645' },
-                    { handle: 'mlabs-nsaeyh-1788425645' }
-                  ]
-                }
-              });
-              console.log('PRODUCT RECORD:', JSON.stringify(product, null, 2));
-              if (product && product.sizeGuide) {
-                console.log('Product sizeGuide content length:', product.sizeGuide.length);
-                console.log('Product sizeGuide RAW:', JSON.stringify(product.sizeGuide));
-              }
-            }
-            main().catch(console.error).finally(() => process.exit(0));
-            "
-            echo "=== 🧹 Purging Redis & Backend HTML Cache ==="
-            redis-cli --scan --pattern 'storefront_*' 2>/dev/null | xargs -r redis-cli del 2>/dev/null || true
-            redis-cli --scan --pattern 'page_*' 2>/dev/null | xargs -r redis-cli del 2>/dev/null || true
-            PURGE_SECRET="$(grep '^DEPLOY_SECRET=' /var/www/backend2/.env 2>/dev/null | cut -d= -f2-)"
-            if [ -n "$PURGE_SECRET" ]; then
-              curl -sS -X POST -H "x-deploy-secret: $PURGE_SECRET" "http://127.0.0.1:3007/api/v1/internal/purge-cache" || true
-              curl -sS -X POST -H "x-deploy-secret: $PURGE_SECRET" "http://127.0.0.1:3008/api/v1/internal/purge-cache" || true
-            fi
-            echo "=== ✅ Storefront Size Guide Cleanup Completed ==="
-
+            echo "🚀 Running diagnose_turbo_duplicate.js..."
+            node scripts/diagnose_turbo_duplicate.js
+            echo "✅ Finished!"
