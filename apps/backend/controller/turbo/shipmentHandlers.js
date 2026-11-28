@@ -312,18 +312,18 @@ const bulkCreateShipments = async (req, res) => {
       try {
         if (order.turboShipmentId) {
           results.skipped.push({ orderNumber: order.orderNumber, reason: 'يوجد شحنة تربو مسجلة بالفعل' });
-          continue;
+          return;
         }
 
         if (invalidShippingStatuses.includes(String(order.status || '').toUpperCase())) {
           results.skipped.push({ orderNumber: order.orderNumber, reason: `حالة الطلب غير مؤهلة للشحن (${order.status})` });
-          continue;
+          return;
         }
 
         const batchOrderMeta = typeof order.metadata === 'string' ? JSON.parse(order.metadata || '{}') : (order.metadata || {});
         if (batchOrderMeta.discountApprovalStatus === 'PENDING_APPROVAL') {
           results.skipped.push({ orderNumber: order.orderNumber, reason: 'الطلب بانتظار اعتماد الخصم من قِبل الإدارة' });
-          continue;
+          return;
         }
 
         const rawPhone = order.customerPhone || order.customer?.phone || '';
@@ -338,7 +338,7 @@ const bulkCreateShipments = async (req, res) => {
               orderNumber: order.orderNumber,
               reason: 'طلب مكرر لنفس العميل داخل نفس دفعة الشحن'
             });
-            continue;
+            return;
           }
 
           const activeExisting = await orderService.checkDuplicateActiveTurboShipment(companyId, order);
@@ -347,7 +347,7 @@ const bulkCreateShipments = async (req, res) => {
               orderNumber: order.orderNumber,
               reason: `يوجد شحنة نشطة سابقة للعميل (بوليصة #${activeExisting.turboShipmentId})`
             });
-            continue;
+            return;
           }
 
           processedPhonesInBatch.add(cleanPhone);
@@ -361,7 +361,7 @@ const bulkCreateShipments = async (req, res) => {
             orderNumber: order.orderNumber,
             reason: `بيانات الطلب غير مكتملة لشحن تربو: ${validation.missingFields.join('، ')}`
           });
-          continue;
+          return;
         }
         if (validation.resolvedGovernorate && (!order.governorate || order.governorate === 'غير محدد')) {
           if (order.orderNumber) {
