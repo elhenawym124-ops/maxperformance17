@@ -44,13 +44,14 @@ export const WhatsAppSettingsNav: React.FC<WhatsAppSettingsNavProps> = ({
     };
   }, [tabs.length]);
 
+  const hasFade = edges.start || edges.end;
   const fadeStart = edges.start ? "transparent 0px, black 28px" : "black 0px";
   const fadeEnd = edges.end
     ? "black calc(100% - 28px), transparent 100%"
     : "black 100%";
-  const maskImage = `linear-gradient(to ${
-    direction === "rtl" ? "left" : "right"
-  }, ${fadeStart}, ${fadeEnd})`;
+  const maskImage = hasFade
+    ? `linear-gradient(to ${direction === "rtl" ? "left" : "right"}, ${fadeStart}, ${fadeEnd})`
+    : undefined;
 
   // Roving focus: ArrowLeft/ArrowRight walk the tabs (direction aware),
   // Home/End jump to the ends — the behaviour a tablist is expected to have.
@@ -87,8 +88,8 @@ export const WhatsAppSettingsNav: React.FC<WhatsAppSettingsNavProps> = ({
         role="tablist"
         aria-orientation="horizontal"
         onKeyDown={handleKeyDown}
-        className="flex w-full flex-nowrap items-center gap-2 overflow-x-auto pb-1 scrollbar-none touch-pan-x px-0.5"
-        style={{ maskImage, WebkitMaskImage: maskImage }}
+        className="flex w-full flex-nowrap items-center gap-2 overflow-x-auto pb-1 scrollbar-none touch-pan-x px-0.5 lg:flex-wrap lg:overflow-visible"
+        style={maskImage ? { maskImage, WebkitMaskImage: maskImage } : undefined}
       >
         {tabs.map((tab) => {
           const selected = activeTab === tab.id;

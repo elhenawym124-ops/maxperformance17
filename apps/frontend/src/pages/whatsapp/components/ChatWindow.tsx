@@ -315,9 +315,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               {getContactName(selectedContact).slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
-              <p className="truncate text-sm font-semibold text-foreground">
+          <div className="min-w-0 flex-1">
+            <div className="flex min-w-0 items-center gap-1.5">
+              <p className="min-w-0 truncate text-sm font-semibold text-foreground">
                 {getContactName(selectedContact)}
               </p>
               {selectedContact.isGroup ? (
@@ -341,7 +341,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                   {selectedContact.unreadCount}
                 </Badge>
               ) : null}
-              <span className="hidden text-[11px] text-muted-foreground sm:inline" dir="ltr">
+              <span
+                className="hidden shrink-0 whitespace-nowrap text-[11px] text-muted-foreground sm:inline"
+                dir="ltr"
+              >
                 · {getContactDisplayPhone(selectedContact)}
               </span>
               {selectedContact.session?.provider || selectedContact.session?.name ? (

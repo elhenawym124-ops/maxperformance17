@@ -59,28 +59,30 @@ const NumberSidebar: React.FC<NumberSidebarProps> = ({
         </span>
       </div>
 
-      <div className="mt-2 flex items-center gap-2">
-        <div className="relative flex-1">
-          <Search className="pointer-events-none absolute top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground ltr:left-2 rtl:right-2" />
+      <div className="mt-2 flex flex-col gap-2">
+        <div className="relative w-full">
+          <Search className="pointer-events-none absolute top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground start-2" />
           <input
             ref={searchRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t('whatsappInbox.searchNumbers') as string}
-            className="w-full rounded-md border border-border bg-transparent py-1.5 pr-7 text-xs text-foreground outline-none transition-colors focus:border-ring ltr:pl-7 rtl:pr-7"
+            aria-label={t('whatsappInbox.searchNumbers') as string}
+            className="w-full rounded-md border border-border bg-transparent py-1.5 ps-7 pe-7 text-xs text-foreground outline-none transition-colors focus:border-ring"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="absolute top-1/2 -translate-y-1/2 rounded p-0.5 text-muted-foreground transition-colors hover:text-foreground ltr:right-1 rtl:left-1"
+              aria-label={t('common.clear', 'مسح') as string}
+              className="absolute top-1/2 -translate-y-1/2 rounded p-0.5 text-muted-foreground transition-colors hover:text-foreground end-1"
             >
               <X className="size-3" />
             </button>
           )}
         </div>
-        <div className="flex">
+        <div className="flex flex-wrap gap-1">
           {(['ALL', 'CONNECTED', 'DISCONNECTED'] as const).map((f) => (
             <button
               key={f}

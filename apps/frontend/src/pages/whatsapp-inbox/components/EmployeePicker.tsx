@@ -94,21 +94,23 @@ const EmployeePicker: React.FC<EmployeePickerProps> = ({
                 : t('whatsappInbox.workspaceEmployeesRoundRobinHint')}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="relative">
-            <Search className="pointer-events-none absolute top-1/2 size-3 -translate-y-1/2 text-muted-foreground ltr:left-2 rtl:right-2" />
+            <Search className="pointer-events-none absolute top-1/2 size-3 -translate-y-1/2 text-muted-foreground start-2" />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t('whatsappInbox.searchEmployees') as string}
-              className="w-32 rounded-md border border-border bg-transparent py-1 pr-6 text-xs text-foreground outline-none transition-colors focus:border-ring ltr:pl-6 rtl:pr-6"
+              aria-label={t('whatsappInbox.searchEmployees') as string}
+              className="w-44 sm:w-52 rounded-md border border-border bg-transparent py-1 ps-6 pe-6 text-xs text-foreground outline-none transition-colors focus:border-ring"
             />
             {query && (
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="absolute top-1/2 -translate-y-1/2 rounded p-0.5 text-muted-foreground hover:text-foreground ltr:right-1 rtl:left-1"
+                aria-label={t('common.clear', 'مسح') as string}
+                className="absolute top-1/2 -translate-y-1/2 rounded p-0.5 text-muted-foreground hover:text-foreground end-1"
               >
                 <X className="size-2.5" />
               </button>

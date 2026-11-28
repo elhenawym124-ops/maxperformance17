@@ -110,7 +110,7 @@ export const ChatSidebarFilterBar: React.FC<ChatSidebarFilterBarProps> = ({
         )}
       </div>
 
-      <div className="wa-filter-strip flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
+      <div className="wa-filter-strip flex items-center gap-1.5 overflow-x-auto px-0.5 pb-0.5 scrollbar-none">
         <FilterPill
           active={filterType === 'all' && !showArchived}
           label={translate('whatsapp.sidebar.all')}

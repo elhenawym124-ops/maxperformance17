@@ -79,7 +79,7 @@ const MessageInput: React.FC<MessageInputProps> = (props) => {
       {/* Main Single-Line Composer Form */}
       <form
         onSubmit={handleSend}
-        className="business-chat-composer-form flex items-end gap-1.5 sm:gap-2 p-2 sm:p-2.5"
+        className="business-chat-composer-form flex flex-wrap items-end gap-1.5 sm:gap-2 p-2 sm:p-2.5"
       >
         {/* Hidden File Input */}
         <input
@@ -141,22 +141,24 @@ const MessageInput: React.FC<MessageInputProps> = (props) => {
               props={props}
             />
 
-            <MessageComposerBox
-              message={message}
-              messageInputRef={messageInputRef}
-              disabled={disabled}
-              disabledReason={disabledReason}
-              isCompactMobile={isCompactMobile}
-              isBusy={isBusy}
-              uploadingFile={Boolean(props.uploadingFile)}
-              showQuickReplies={showQuickReplies}
-              showEmojiPicker={showEmojiPicker}
-              setShowEmojiPicker={setShowEmojiPicker}
-              hasSendFile={Boolean(onSendFile)}
-              onInputChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-              onStartVoiceRecording={handleStartVoiceRecording}
-            />
+            <div className="flex min-w-[200px] flex-1 items-end gap-1.5 sm:gap-2">
+              <MessageComposerBox
+                message={message}
+                messageInputRef={messageInputRef}
+                disabled={disabled}
+                disabledReason={disabledReason}
+                isCompactMobile={isCompactMobile}
+                isBusy={isBusy}
+                uploadingFile={Boolean(props.uploadingFile)}
+                showQuickReplies={showQuickReplies}
+                showEmojiPicker={showEmojiPicker}
+                setShowEmojiPicker={setShowEmojiPicker}
+                hasSendFile={Boolean(onSendFile)}
+                onInputChange={handleInputChange}
+                onKeyPress={handleKeyPress}
+                onStartVoiceRecording={handleStartVoiceRecording}
+              />
+            </div>
           </>
         )}
       </form>

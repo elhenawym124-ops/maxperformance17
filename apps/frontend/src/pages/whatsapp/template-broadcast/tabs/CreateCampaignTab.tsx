@@ -505,9 +505,9 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                 <Repeat className="size-3.5 text-primary" />
                 <Label className="text-xs font-semibold">التكرار</Label>
               </div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                 <Select value={recurrence} onValueChange={(v: string | null) => setRecurrence((v || 'none') as Recurrence)}>
-                  <SelectTrigger className="h-8 rounded-lg text-xs">
+                  <SelectTrigger className="h-8 w-full rounded-lg text-xs">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -519,8 +519,8 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                   </SelectContent>
                 </Select>
 
-                <div className="flex items-center gap-1">
-                  <span className="text-[11px] text-muted-foreground">كل</span>
+                <div className="flex items-center gap-2 sm:gap-1">
+                  <span className="shrink-0 text-[11px] text-muted-foreground">كل</span>
                   <Input
                     type="number"
                     min={1}
@@ -528,7 +528,7 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                     value={recurrenceInterval}
                     disabled={recurrence === 'none'}
                     onChange={(e) => setRecurrenceInterval(Math.max(1, Math.min(12, Number(e.target.value) || 1)))}
-                    className="h-8 w-14 rounded-lg text-center text-xs"
+                    className="h-8 w-full rounded-lg text-center text-xs sm:w-14"
                   />
                 </div>
 
@@ -537,7 +537,7 @@ export const CreateCampaignTab: React.FC<CreateCampaignTabProps> = ({
                   onValueChange={(v: string | null) => setSendHour(Number(v ?? '10'))}
                   disabled={recurrence === 'none'}
                 >
-                  <SelectTrigger className="h-8 rounded-lg text-xs">
+                  <SelectTrigger className="h-8 w-full rounded-lg text-xs">
                     <SelectValue placeholder="الساعة" />
                   </SelectTrigger>
                   <SelectContent>

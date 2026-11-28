@@ -106,9 +106,15 @@ export const TemplateSettingsTab: React.FC<TemplateSettingsTabProps> = ({
                 const blockedTags: string[] = [];
                 if (s.outboundEnabled === false) blockedTags.push("إرسال موقوف");
                 else if (s.notificationsEnabled === false) blockedTags.push("إشعارات موقوفة");
+                const sessionLabel = [
+                  s.name,
+                  s.phoneNumber ? `(${s.phoneNumber})` : null,
+                ]
+                  .filter(Boolean)
+                  .join(" ");
                 return (
                   <option key={s.id} value={s.id}>
-                    {s.name} {s.phoneNumber ? `(${s.phoneNumber})` : ""} - {s.status === "CONNECTED" ? "متصل" : "غير متصل"}
+                    {sessionLabel} - {s.status === "CONNECTED" ? "متصل" : "غير متصل"}
                     {blockedTags.length > 0 ? ` [${blockedTags.join("، ")}]` : ""}
                   </option>
                 );

@@ -136,7 +136,7 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
 
             <UiButton
               variant="outline"
-              className="h-11 w-full justify-between rounded-[18px] border-destructive bg-destructive/75 text-destructive hover:bg-destructive/80 hover:text-destructive dark:border-destructive/40 dark:bg-destructive/[0.08] dark:text-destructive dark:hover:bg-destructive/[0.12] dark:hover:text-destructive"
+              className="h-11 w-full justify-between rounded-[18px] border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/15 hover:text-destructive dark:border-destructive/40 dark:bg-destructive/[0.08] dark:text-destructive dark:hover:bg-destructive/[0.12] dark:hover:text-destructive"
               onClick={() => {
                 onDeleteChat(contact);
                 onOpenChange(false);
@@ -158,7 +158,7 @@ export const ContactInfoSheet: React.FC<ContactInfoSheetProps> = ({
             ) : (
               <UiButton
                 variant="outline"
-                className="h-11 w-full justify-between rounded-[18px] border-destructive bg-destructive/75 text-destructive hover:bg-destructive/80 hover:text-destructive dark:border-destructive/40 dark:bg-destructive/[0.08] dark:text-destructive dark:hover:bg-destructive/[0.12] dark:hover:text-destructive"
+                className="h-11 w-full justify-between rounded-[18px] border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/15 hover:text-destructive dark:border-destructive/40 dark:bg-destructive/[0.08] dark:text-destructive dark:hover:bg-destructive/[0.12] dark:hover:text-destructive"
                 onClick={() => onBlockContact(contact)}
               >
                 <span>حظر {contactName}</span>

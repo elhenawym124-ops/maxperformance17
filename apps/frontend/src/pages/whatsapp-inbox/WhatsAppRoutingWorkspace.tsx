@@ -102,6 +102,8 @@ const WhatsAppRoutingWorkspace: React.FC = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setSettingsOpen(true)}
+            aria-label={t('whatsappInbox.openSettings')}
+            title={t('whatsappInbox.openSettings')}
             className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
           >
             <SettingsIcon className="size-3.5" />
@@ -109,6 +111,8 @@ const WhatsAppRoutingWorkspace: React.FC = () => {
           </button>
           <button
             onClick={() => void loadWorkspace(selectedSessionId)}
+            aria-label={t('whatsappInbox.refreshWorkspace')}
+            title={t('whatsappInbox.refreshWorkspace')}
             className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <RefreshCw className="size-3.5" />

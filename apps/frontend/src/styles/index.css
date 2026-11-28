@@ -187,6 +187,9 @@ html *::after {
   --color-warning-foreground: oklch(0.25 0.045 70);
   --color-success: oklch(0.52 0.13 160);
   --color-success-foreground: oklch(1.000 0.000 0.0);
+  --business-success: var(--color-success);
+  --business-warning: var(--color-warning);
+  --business-danger: var(--color-destructive);
   --color-card: oklch(1.000 0.000 0.0);
   --color-card-foreground: oklch(0.221 0.039 258.3);
   --color-popover: oklch(1.000 0.000 0.0);
@@ -1866,7 +1869,7 @@ select {
     var(--color-muted-foreground) 26%,
     transparent
   );
-  --business-success: oklch(0.650 0.142 161.4);
+  --business-success: var(--color-success);
   --business-warning: oklch(0.666 0.157 58.3);
   --business-danger: oklch(0.577 0.215 27.3);
   --business-chart-primary: var(--color-primary);
