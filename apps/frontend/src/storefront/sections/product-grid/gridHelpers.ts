@@ -228,25 +228,15 @@ export const resolveCardVariant = (
 
 export const resolveCardImageLoading = (
   index: number,
-  mode: CardImagePriorityMode = 'default',
+  _mode: CardImagePriorityMode = 'default',
 ): React.ComponentProps<typeof ProductCard>['imageLoading'] =>
-  mode === 'mobile-first' ? (index < 2 ? 'eager' : 'lazy') : index < 4 ? 'eager' : 'lazy';
+  index < 4 ? 'eager' : 'lazy';
 
 export const resolveCardImageFetchPriority = (
   index: number,
-  mode: CardImagePriorityMode = 'default',
+  _mode: CardImagePriorityMode = 'default',
 ): React.ComponentProps<typeof ProductCard>['imageFetchPriority'] =>
-  mode === 'mobile-first'
-    ? index === 0
-      ? 'high'
-      : index === 1
-        ? 'auto'
-        : 'low'
-    : index < 2
-      ? 'high'
-      : index < 4
-        ? 'auto'
-        : 'low';
+  index < 4 ? 'high' : 'low';
 
 export const getVisiblePageNumbers = (current: number, total: number) => {
   if (total <= 7) {

@@ -325,6 +325,19 @@ const resolvePublicSettingsCacheKey = (companyId?: string): string => {
   return "host:default";
 };
 
+let activeStorefrontFetchPromise: Promise<any> | null = null;
+
+export const registerStorefrontFetchPromise = (promise: Promise<any> | null) => {
+  activeStorefrontFetchPromise = promise;
+  if (promise) {
+    promise.finally(() => {
+      if (activeStorefrontFetchPromise === promise) {
+        activeStorefrontFetchPromise = null;
+      }
+    });
+  }
+};
+
 export const storefrontSettingsService = {
   getSettings: async (
     companyId?: string,
@@ -462,6 +475,7 @@ export const storefrontSettingsService = {
     if (hostKey) {
       cachedPublicStorefrontSettings.set(hostKey, { value: result, expiresAt });
     }
+    cachedPublicStorefrontSettings.set("default", { value: result, expiresAt });
   },
 
   getPublicSettings: async (
@@ -482,14 +496,35 @@ export const storefrontSettingsService = {
         return cached.value;
       }
 
-      if (trimmedCompanyId && hostKey) {
+      if (hostKey) {
         const hostCached = cachedPublicStorefrontSettings.get(hostKey);
         if (
           hostCached &&
           hostCached.expiresAt > now &&
-          hostCached.value.data?.companyId === trimmedCompanyId
+          (!trimmedCompanyId || hostCached.value.data?.companyId === trimmedCompanyId)
         ) {
           return hostCached.value;
+        }
+      }
+
+      if (trimmedCompanyId) {
+        const companyCached = cachedPublicStorefrontSettings.get(`company:${trimmedCompanyId}`);
+        if (companyCached && companyCached.expiresAt > now) {
+          return companyCached.value;
+        }
+      }
+
+      if (activeStorefrontFetchPromise) {
+        try {
+          const sfResult = await activeStorefrontFetchPromise;
+          if (sfResult?.success && sfResult.data?.storefrontSettings) {
+            return {
+              success: true,
+              data: sfResult.data.storefrontSettings,
+            };
+          }
+        } catch {
+          // Fall through
         }
       }
 
@@ -498,11 +533,11 @@ export const storefrontSettingsService = {
         return existingInflight;
       }
 
-      if (trimmedCompanyId && hostKey) {
+      if (hostKey) {
         const hostInflight = inflightPublicStorefrontPromises.get(hostKey);
         if (hostInflight) {
           const hostResult = await hostInflight;
-          if (hostResult?.success && hostResult.data?.companyId === trimmedCompanyId) {
+          if (hostResult?.success && (!trimmedCompanyId || hostResult.data?.companyId === trimmedCompanyId)) {
             return hostResult;
           }
         }

@@ -84,6 +84,8 @@ export const ProductGridCards: React.FC<ProductGridCardsProps> = ({ controller }
               styleOverrides={shopProductCardStyleOverrides}
               quickViewLabel={settings?.['quickViewLabel'] as string}
               addToWishlistLabel={settings?.['addToWishlistLabel'] as string}
+              imageLoading={resolveGridCardImageLoading(0)}
+              imageFetchPriority={resolveGridCardImageFetchPriority(0)}
             />
           </div>
         ) : null}

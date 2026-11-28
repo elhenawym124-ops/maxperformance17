@@ -164,8 +164,8 @@ const GracefulSmartCard: React.FC<GracefulSmartCardProps> = ({
           <StorefrontProductImage
             candidates={currentImage ? [currentImage] : imageCandidates}
             alt={name}
-            loading={index === 0 ? 'eager' : 'lazy'}
-            fetchpriority={index === 0 ? 'high' : undefined}
+            loading={index < 4 ? 'eager' : 'lazy'}
+            fetchpriority={index < 4 ? 'high' : undefined}
             width="440"
             height="550"
             className="h-full w-full object-cover"

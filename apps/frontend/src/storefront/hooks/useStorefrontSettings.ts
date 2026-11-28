@@ -1,6 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { getStorefrontScope, storefrontFetch } from '../../utils/storefrontApi';
-import { storefrontSettingsService, type StorefrontSettings as PublicStorefrontSettings } from '../../services/storefrontSettingsService';
+import {
+  registerStorefrontFetchPromise,
+  storefrontSettingsService,
+  type StorefrontSettings as PublicStorefrontSettings,
+} from '../../services/storefrontSettingsService';
 import {
   resolvePreviewSource,
   resolvePreviewThemeId,
@@ -196,11 +200,14 @@ export const fetchStorefrontSettings = async (
   }
 
   try {
-    const storefrontRes = await storefrontFetch('/storefront/settings').catch((err) => ({
+    const fetchPromise = storefrontFetch('/storefront/settings').catch((err) => ({
       success: false,
       error: err,
       message: err?.message,
     }));
+    registerStorefrontFetchPromise(fetchPromise);
+
+    const storefrontRes = await fetchPromise;
 
     if (storefrontRes && storefrontRes.success) {
       const data = storefrontRes.data;
@@ -211,58 +218,6 @@ export const fetchStorefrontSettings = async (
         } catch {
           // Ignore storage failures in restricted browser contexts.
         }
-      }
-
-      // Only query /storefront-settings/public if /storefront/settings did not include storefrontSettings.
-      const publicSettingsRes = data?.storefrontSettings
-        ? null
-        : await storefrontSettingsService.getPublicSettings().catch(() => null);
-
-      // Merge public designTokens (global, pages, pageStyles, i18n, etc.) from public config (HF-1.1)
-      if (publicSettingsRes?.success && publicSettingsRes.data?.designTokens) {
-        const pubTokens = publicSettingsRes.data.designTokens;
-        const prevSfGlobal = (data.storefront?.designTokens as any)?.global || {};
-        const prevSettingsGlobal = (data.storefrontSettings?.designTokens as any)?.global || {};
-        const pubGlobal = pubTokens.global || {};
-
-        data.storefront = {
-          ...data.storefront,
-          designTokens: {
-            ...(data.storefront?.designTokens || {}),
-            ...pubTokens,
-            global: {
-              ...prevSfGlobal,
-              ...pubGlobal,
-              header: {
-                ...(prevSfGlobal.header || {}),
-                ...(pubGlobal.header || {}),
-              },
-              footer: {
-                ...(prevSfGlobal.footer || {}),
-                ...(pubGlobal.footer || {}),
-              },
-            },
-          },
-        };
-        data.storefrontSettings = {
-          ...(data.storefrontSettings || {}),
-          designTokens: {
-            ...(data.storefrontSettings?.designTokens || {}),
-            ...pubTokens,
-            global: {
-              ...prevSettingsGlobal,
-              ...pubGlobal,
-              header: {
-                ...(prevSettingsGlobal.header || {}),
-                ...(pubGlobal.header || {}),
-              },
-              footer: {
-                ...(prevSettingsGlobal.footer || {}),
-                ...(pubGlobal.footer || {}),
-              },
-            },
-          },
-        };
       }
 
       if (data?.storefrontSettings) {

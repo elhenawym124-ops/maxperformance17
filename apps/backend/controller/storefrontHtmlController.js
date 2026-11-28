@@ -277,12 +277,16 @@ exports.handleStorefrontShell = async (req, res, next) => {
 
     res.set("Content-Type", "text/html; charset=utf-8");
     res.set("X-HTML-Cache", "HIT");
-    res.set(
-      "Cache-Control",
-      "no-cache, no-store, must-revalidate",
-    );
-    res.set("Pragma", "no-cache");
-    res.set("Expires", "0");
+    if (previewKey || req.query?.preview) {
+      res.set("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.set("Pragma", "no-cache");
+      res.set("Expires", "0");
+    } else {
+      res.set(
+        "Cache-Control",
+        "public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=86400",
+      );
+    }
     return res.status(200).send(cached.html);
   }
 
@@ -905,12 +909,16 @@ exports.handleStorefrontShell = async (req, res, next) => {
     });
 
     res.set("X-HTML-Cache", "MISS");
-    res.set(
-      "Cache-Control",
-      "no-cache, no-store, must-revalidate",
-    );
-    res.set("Pragma", "no-cache");
-    res.set("Expires", "0");
+    if (previewKey || req.query?.preview) {
+      res.set("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.set("Pragma", "no-cache");
+      res.set("Expires", "0");
+    } else {
+      res.set(
+        "Cache-Control",
+        "public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=86400",
+      );
+    }
     return res.status(200).send(html);
   } catch (error) {
     console.error("❌ [STOREFRONT-HTML] Failed to render storefront shell:", error);

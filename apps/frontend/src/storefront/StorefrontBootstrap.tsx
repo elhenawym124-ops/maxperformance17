@@ -214,7 +214,7 @@ const primeCatalogImagePreload = (imageUrl: string): void => {
   const responsiveImage = buildResponsiveStorefrontImage(imageUrl, {
     widths: [240, 320, 420, 520],
     fallbackWidth: 420,
-    quality: 72,
+    quality: 75,
     sizes: "(max-width: 767px) 68vw, (max-width: 1279px) 28vw, 20vw",
   });
 
@@ -370,11 +370,12 @@ export const prefetchStorefrontBootstrapData = async (): Promise<void> => {
 
     const productsResponse =
       queryClient.getQueryData<ProductsResponse>(productsQueryKey);
-    const primaryCatalogImage = getPrimaryProductImage(
-      productsResponse?.data?.[0],
-    );
-    if (primaryCatalogImage) {
-      primeCatalogImagePreload(primaryCatalogImage);
+    const catalogProducts = productsResponse?.data?.slice(0, 4) || [];
+    for (const product of catalogProducts) {
+      const primaryCatalogImage = getPrimaryProductImage(product);
+      if (primaryCatalogImage) {
+        primeCatalogImagePreload(primaryCatalogImage);
+      }
     }
   }
 };

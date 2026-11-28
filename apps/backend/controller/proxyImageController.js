@@ -448,11 +448,11 @@ const sendLocalFileResponse = async (req, res, filePath, transformOptions) => {
         const variantContentType = resolvedVariant.contentType || "image/webp";
         res.setHeader("Content-Type", variantContentType);
         if (hasExplicitTransform) {
-          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+          res.setHeader("Cache-Control", "public, max-age=31536000, s-maxage=31536000, immutable");
         } else {
           res.setHeader(
             "Cache-Control",
-            "public, max-age=604800, stale-while-revalidate=2592000",
+            "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=2592000",
           );
           res.setHeader("Vary", "Accept");
         }
@@ -488,8 +488,8 @@ const sendLocalFileResponse = async (req, res, filePath, transformOptions) => {
   res.setHeader(
     "Cache-Control",
     shouldTransform
-      ? "public, max-age=604800, stale-while-revalidate=2592000"
-      : "public, max-age=3600, stale-while-revalidate=86400",
+      ? "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=2592000"
+      : "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400",
   );
 
   if ((req.method || "").toUpperCase() === "HEAD") {
@@ -751,7 +751,7 @@ const sendCachedRemoteTransformResponse = (req, res, cachedBuffer, transformOpti
   res.setHeader("Content-Type", transformedContentType);
   res.setHeader(
     "Cache-Control",
-    "public, max-age=604800, stale-while-revalidate=2592000",
+    "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=2592000",
   );
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
@@ -817,7 +817,7 @@ const sendRemoteResponse = async (
     if (headShouldTransform) {
       res.setHeader(
         "Cache-Control",
-        "public, max-age=604800, stale-while-revalidate=2592000",
+        "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=2592000",
       );
       res.setHeader("Content-Type", `image/${transformOptions.format}`);
     } else {
@@ -915,7 +915,7 @@ const sendRemoteResponse = async (
     );
     res.setHeader(
       "Cache-Control",
-      "public, max-age=604800, stale-while-revalidate=2592000",
+      "public, max-age=604800, s-maxage=31536000, stale-while-revalidate=2592000",
     );
     if (rawSourceUrl) {
       await writeRemoteProxyCache(rawSourceUrl, transformOptions, transformedBuffer);
